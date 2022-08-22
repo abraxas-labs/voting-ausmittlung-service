@@ -1,0 +1,11 @@
+{
+  "ShortDescription": "short desc",
+  "Description": "test",
+  "Position": 1,
+  "AllCandidateCountsOk": false,
+  "MajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+  "MajorityElection": null,
+  "Entries": [],
+  "BallotGroupResults": [],
+  "Id": "7930a5eb-da4e-4689-ac78-82fc84c55a26"
+}

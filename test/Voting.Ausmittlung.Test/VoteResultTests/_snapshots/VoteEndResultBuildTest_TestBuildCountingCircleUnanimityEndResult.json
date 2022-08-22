@@ -1,0 +1,934 @@
+{
+  "init": {
+    "Contest": {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft de",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "State": 1,
+      "EVotingResultsImported": false
+    },
+    "Vote": {
+      "Id": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+      "PoliticalBusinessNumber": "201",
+      "OfficialDescription": "Abstimmung St. Gallen de",
+      "ShortDescription": "Abst SG de",
+      "InternalDescription": "Abstimmung St. Gallen auf Urnengang Bund",
+      "SwissAbroadVotingRight": 3,
+      "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Active": true,
+      "Title": "201: Abst SG de",
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "ResultAlgorithm": 2,
+      "Contest": {
+        "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+        "Date": {
+          "Seconds": 1865548800,
+          "Nanos": 0
+        },
+        "Description": "Nationalratswahlen in der Zukunft de",
+        "EndOfTestingPhase": {
+          "Seconds": 1860883200,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "EVoting": false,
+        "EVotingFrom": null,
+        "EVotingTo": null,
+        "State": 1,
+        "EVotingResultsImported": false
+      },
+      "BallotBundleSampleSizePercent": 0,
+      "AutomaticBallotBundleNumberGeneration": false,
+      "ResultEntry": 0,
+      "EnforceResultEntryForCountingCircles": false
+    },
+    "DomainOfInfluenceDetails": {
+      "CountOfVotersInformation": {
+        "TotalCountOfVoters": 34810,
+        "SubTotalInfo": [
+          {
+            "Sex": 1,
+            "VoterType": 1,
+            "CountOfVoters": 17600
+          },
+          {
+            "Sex": 1,
+            "VoterType": 2,
+            "CountOfVoters": 1100
+          },
+          {
+            "Sex": 2,
+            "VoterType": 1,
+            "CountOfVoters": 15400
+          },
+          {
+            "Sex": 2,
+            "VoterType": 2,
+            "CountOfVoters": 710
+          }
+        ]
+      },
+      "VotingCards": [
+        {
+          "CountOfReceivedVotingCards": 4000,
+          "Valid": true,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 300,
+          "Valid": true,
+          "Channel": 4,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 4400,
+          "Valid": true,
+          "Channel": 1,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 270,
+          "Valid": true,
+          "Channel": 3,
+          "DomainOfInfluenceType": 2
+        }
+      ]
+    },
+    "BallotEndResults": [
+      {
+        "Ballot": {
+          "Id": "970048ea-0eba-465e-ae29-049e388098f6",
+          "Position": 1,
+          "BallotType": 1,
+          "Description": "Bundesgesetz über TEST de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 0,
+          "ConventionalInvalidBallots": 0,
+          "ConventionalBlankBallots": 0,
+          "ConventionalAccountedBallots": 0,
+          "TotalReceivedBallots": 0,
+          "TotalAccountedBallots": 0,
+          "TotalUnaccountedBallots": 0
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": []
+      },
+      {
+        "Ballot": {
+          "Id": "490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b",
+          "Position": 2,
+          "BallotType": 2,
+          "Description": "Dies ist die zweite Vorlage de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 0,
+          "ConventionalInvalidBallots": 0,
+          "ConventionalBlankBallots": 0,
+          "ConventionalAccountedBallots": 0,
+          "TotalReceivedBallots": 0,
+          "TotalAccountedBallots": 0,
+          "TotalUnaccountedBallots": 0
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "Frage 2 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de",
+              "Question1Number": 1,
+              "Question2Number": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          }
+        ]
+      },
+      {
+        "Ballot": {
+          "Id": "95ded86a-a31a-40bf-b32a-bbc80ad8ea11",
+          "Position": 3,
+          "BallotType": 2,
+          "Description": "Dies ist die dritte Vorlage de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 0,
+          "ConventionalInvalidBallots": 0,
+          "ConventionalBlankBallots": 0,
+          "ConventionalAccountedBallots": 0,
+          "TotalReceivedBallots": 0,
+          "TotalAccountedBallots": 0,
+          "TotalUnaccountedBallots": 0
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "Frage 2 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 3,
+              "Question": "Frage 3 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "1 vor 2? de",
+              "Question1Number": 1,
+              "Question2Number": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "1 vor 3? de",
+              "Question1Number": 1,
+              "Question2Number": 3
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 3,
+              "Question": "2 vor 3? de",
+              "Question1Number": 2,
+              "Question2Number": 3
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          }
+        ]
+      }
+    ],
+    "TotalCountOfVoters": 0,
+    "CountOfDoneCountingCircles": 0,
+    "TotalCountOfCountingCircles": 6,
+    "AllCountingCirclesDone": false,
+    "Finalized": false
+  },
+  "afterAudited": {
+    "Contest": {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft de",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "State": 1,
+      "EVotingResultsImported": false
+    },
+    "Vote": {
+      "Id": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+      "PoliticalBusinessNumber": "201",
+      "OfficialDescription": "Abstimmung St. Gallen de",
+      "ShortDescription": "Abst SG de",
+      "InternalDescription": "Abstimmung St. Gallen auf Urnengang Bund",
+      "SwissAbroadVotingRight": 3,
+      "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Active": true,
+      "Title": "201: Abst SG de",
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "ResultAlgorithm": 2,
+      "Contest": {
+        "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+        "Date": {
+          "Seconds": 1865548800,
+          "Nanos": 0
+        },
+        "Description": "Nationalratswahlen in der Zukunft de",
+        "EndOfTestingPhase": {
+          "Seconds": 1860883200,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "EVoting": false,
+        "EVotingFrom": null,
+        "EVotingTo": null,
+        "State": 1,
+        "EVotingResultsImported": false
+      },
+      "BallotBundleSampleSizePercent": 0,
+      "AutomaticBallotBundleNumberGeneration": false,
+      "ResultEntry": 0,
+      "EnforceResultEntryForCountingCircles": false
+    },
+    "DomainOfInfluenceDetails": {
+      "CountOfVotersInformation": {
+        "TotalCountOfVoters": 34810,
+        "SubTotalInfo": [
+          {
+            "Sex": 1,
+            "VoterType": 1,
+            "CountOfVoters": 17600
+          },
+          {
+            "Sex": 1,
+            "VoterType": 2,
+            "CountOfVoters": 1100
+          },
+          {
+            "Sex": 2,
+            "VoterType": 1,
+            "CountOfVoters": 15400
+          },
+          {
+            "Sex": 2,
+            "VoterType": 2,
+            "CountOfVoters": 710
+          }
+        ]
+      },
+      "VotingCards": [
+        {
+          "CountOfReceivedVotingCards": 4000,
+          "Valid": true,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 300,
+          "Valid": true,
+          "Channel": 4,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 4400,
+          "Valid": true,
+          "Channel": 1,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 270,
+          "Valid": true,
+          "Channel": 3,
+          "DomainOfInfluenceType": 2
+        }
+      ]
+    },
+    "BallotEndResults": [
+      {
+        "Ballot": {
+          "Id": "970048ea-0eba-465e-ae29-049e388098f6",
+          "Position": 1,
+          "BallotType": 1,
+          "Description": "Bundesgesetz über TEST de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 1800,
+          "ConventionalInvalidBallots": 300,
+          "ConventionalBlankBallots": 300,
+          "ConventionalAccountedBallots": 1200,
+          "TotalReceivedBallots": 1800,
+          "TotalAccountedBallots": 1200,
+          "TotalUnaccountedBallots": 600
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 100,
+              "TotalCountOfAnswerNo": 80,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 100,
+            "TotalCountOfAnswerNo": 80,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 5,
+            "CountOfCountingCircleNo": 1,
+            "HasCountingCircleMajority": true,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": []
+      },
+      {
+        "Ballot": {
+          "Id": "490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b",
+          "Position": 2,
+          "BallotType": 2,
+          "Description": "Dies ist die zweite Vorlage de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 1800,
+          "ConventionalInvalidBallots": 300,
+          "ConventionalBlankBallots": 300,
+          "ConventionalAccountedBallots": 1200,
+          "TotalReceivedBallots": 1800,
+          "TotalAccountedBallots": 1200,
+          "TotalUnaccountedBallots": 600
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 90,
+              "TotalCountOfAnswerNo": 60,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 90,
+            "TotalCountOfAnswerNo": 60,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 6,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": true,
+            "HasCountingCircleUnanimity": true,
+            "Accepted": true
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "Frage 2 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 85,
+              "TotalCountOfAnswerNo": 65,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 85,
+            "TotalCountOfAnswerNo": 65,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 5,
+            "CountOfCountingCircleNo": 1,
+            "HasCountingCircleMajority": true,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de",
+              "Question1Number": 1,
+              "Question2Number": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 150,
+              "TotalCountOfAnswerQ2": 90,
+              "TotalCountOfAnswerUnspecified": 60
+            },
+            "TotalCountOfAnswerQ1": 150,
+            "TotalCountOfAnswerQ2": 90,
+            "TotalCountOfAnswerUnspecified": 60,
+            "CountOfCountingCircleQ1": 6,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": true,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": true
+          }
+        ]
+      },
+      {
+        "Ballot": {
+          "Id": "95ded86a-a31a-40bf-b32a-bbc80ad8ea11",
+          "Position": 3,
+          "BallotType": 2,
+          "Description": "Dies ist die dritte Vorlage de",
+          "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 0.0,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 0,
+          "ConventionalInvalidBallots": 0,
+          "ConventionalBlankBallots": 0,
+          "ConventionalAccountedBallots": 0,
+          "TotalReceivedBallots": 0,
+          "TotalAccountedBallots": 0,
+          "TotalUnaccountedBallots": 0
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 6,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "Frage 2 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 6,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 3,
+              "Question": "Frage 3 de"
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 6,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "1 vor 2? de",
+              "Question1Number": 1,
+              "Question2Number": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "1 vor 3? de",
+              "Question1Number": 1,
+              "Question2Number": 3
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          },
+          {
+            "Question": {
+              "Number": 3,
+              "Question": "2 vor 3? de",
+              "Question1Number": 2,
+              "Question2Number": 3
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 0,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": false,
+            "Q1Accepted": false
+          }
+        ]
+      }
+    ],
+    "TotalCountOfVoters": 0,
+    "CountOfDoneCountingCircles": 6,
+    "TotalCountOfCountingCircles": 6,
+    "AllCountingCirclesDone": true,
+    "Finalized": false
+  }
+}

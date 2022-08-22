@@ -1,0 +1,80 @@
+{
+  "ShortDescription": "BG1",
+  "Description": "BG1 long description",
+  "Position": 1,
+  "AllCandidateCountsOk": true,
+  "MajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+  "MajorityElection": null,
+  "Entries": [
+    {
+      "BlankRowCount": 2,
+      "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
+      "PrimaryMajorityElectionId": null,
+      "PrimaryMajorityElection": null,
+      "SecondaryMajorityElectionId": "f4ae2b39-45b5-427a-96e4-24d645ddb080",
+      "SecondaryMajorityElection": null,
+      "Candidates": [],
+      "IndividualCandidatesVoteCount": 0,
+      "Election": null,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "BlankRowCount": 2,
+      "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
+      "PrimaryMajorityElectionId": null,
+      "PrimaryMajorityElection": null,
+      "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+      "SecondaryMajorityElection": null,
+      "Candidates": [
+        {
+          "PrimaryElectionCandidateId": null,
+          "PrimaryElectionCandidate": null,
+          "SecondaryElectionCandidateId": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+          "SecondaryElectionCandidate": null,
+          "BallotGroupEntryId": "b0a01fbd-ea47-4228-91d4-8f3054d5fe93",
+          "Candidate": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "IndividualCandidatesVoteCount": 0,
+      "Election": null,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "BlankRowCount": 0,
+      "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
+      "PrimaryMajorityElectionId": null,
+      "PrimaryMajorityElection": null,
+      "SecondaryMajorityElectionId": "292a5a89-e030-44db-a204-90e00540ba84",
+      "SecondaryMajorityElection": null,
+      "Candidates": [],
+      "IndividualCandidatesVoteCount": 1,
+      "Election": null,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "BlankRowCount": 0,
+      "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
+      "PrimaryMajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+      "PrimaryMajorityElection": null,
+      "SecondaryMajorityElectionId": null,
+      "SecondaryMajorityElection": null,
+      "Candidates": [
+        {
+          "PrimaryElectionCandidateId": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
+          "PrimaryElectionCandidate": null,
+          "SecondaryElectionCandidateId": null,
+          "SecondaryElectionCandidate": null,
+          "BallotGroupEntryId": "513f5663-13f1-463b-b24d-4b3a7e2f7446",
+          "Candidate": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "IndividualCandidatesVoteCount": 0,
+      "Election": null,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "BallotGroupResults": [],
+  "Id": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949"
+}

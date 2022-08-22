@@ -1,0 +1,84 @@
+{
+  "List": null,
+  "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
+  "Ballots": [],
+  "ElectionResult": {
+    "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+    "ProportionalElection": null,
+    "EntryParams": {
+      "BallotBundleSize": 10,
+      "BallotBundleSampleSize": 2,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 2,
+      "AutomaticEmptyVoteCounting": false
+    },
+    "UnmodifiedListResults": [],
+    "ListResults": [],
+    "Bundles": [],
+    "PoliticalBusiness": null,
+    "PoliticalBusinessId": "fa69e964-0a02-4d16-b417-247e8987021a",
+    "EVotingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
+    "ConventionalSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
+    "TotalCountOfUnmodifiedLists": 0,
+    "TotalCountOfModifiedLists": 0,
+    "TotalCountOfListsWithoutParty": 0,
+    "TotalCountOfBallots": 0,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+    "TotalCountOfListsWithParty": 0,
+    "TotalCountOfLists": 0,
+    "CountOfVoters": {
+      "VoterParticipation": 0.0,
+      "EVotingReceivedBallots": 0,
+      "ConventionalReceivedBallots": null,
+      "ConventionalInvalidBallots": null,
+      "ConventionalBlankBallots": null,
+      "ConventionalAccountedBallots": null,
+      "TotalReceivedBallots": 0,
+      "TotalAccountedBallots": 0,
+      "TotalUnaccountedBallots": 0
+    },
+    "CountOfBundlesNotReviewedOrDeleted": 2,
+    "AllBundlesReviewedOrDeleted": false,
+    "CountingCircleId": "00000000-0000-0000-0000-000000000000",
+    "CountingCircle": null,
+    "State": 2,
+    "SubmissionDoneTimestamp": null,
+    "AuditedTentativelyTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932"
+  },
+  "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+  "Number": 1,
+  "State": 2,
+  "CreatedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "Hans",
+    "LastName": "Muster",
+    "FullName": "Hans Muster"
+  },
+  "ReviewedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "default user firstname",
+    "LastName": "default user lastname",
+    "FullName": "default user firstname default user lastname"
+  },
+  "CountOfBallots": 0,
+  "BallotNumbersToReview": [],
+  "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186"
+}

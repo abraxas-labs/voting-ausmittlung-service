@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Project Ruleset" Description="Default ruleset for dotnet core projects" ToolsVersion="15.0">
+    <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+
+        <Rule Id="SA1633" Action="None"/> <!-- file header -->
+
+        <Rule Id="SA1101" Action="None"/> <!-- prefix local calls with this -->
+
+        <Rule Id="SA0001" Action="None"/> <!-- documentation -->
+        <Rule Id="SA1600" Action="None"/> <!-- documentation of public members -->
+        <Rule Id="SA1601" Action="None"/> <!-- documentation of public partial items -->
+        <Rule Id="SA1602" Action="None"/> <!-- documentation of public enumeration items -->
+        <Rule Id="CS1591" Action="None"/> <!-- documentation of public members -->
+
+        <Rule Id="SA1008" Action="None"/> <!-- closing parenthesis must be spaced correctly -->
+        <Rule Id="SA1009" Action="None"/> <!-- closing parenthesis must be spaced correctly -->
+
+        <Rule Id="SA1309" Action="None"/> <!-- field names must not begin with an underscore -->
+        <Rule Id="SX1309" Action="Warning"/> <!-- field names must begin with an underscore -->
+
+        <Rule Id="SA1313" Action="Warning"/> <!-- parameter must begin with lower case letter -->
+
+        <Rule Id="SA1501" Action="None"/> <!-- StatementMustNotBeOnSingleLine -->
+        <Rule Id="SA1503" Action="None"/> <!-- CurlyBracketsMustNotBeOmitted -->
+
+        <Rule Id="CA1062" Action="None"/> <!-- Validate arguments of public methods -->
+
+        <Rule Id="CA1822" Action="None"/> <!-- Mark members as static -->
+
+        <Rule Id="CA2007" Action="None"/> <!-- configure await -->
+
+        <Rule Id="CA1720" Action="None"/> <!-- Identifiers should not contain type names -->
+
+        <Rule Id="CA2227" Action="None"/> <!-- Collection properties should be read only -->
+
+        <Rule Id="CA1303" Action="None"/> <!-- Do not pass literals as localized parameters -->
+
+        <Rule Id="SA1402" Action="None"/> <!-- Only one type per file-->
+
+        <Rule Id="CA1716" Action="None" /> <!-- keyword naming -->
+
+        <Rule Id="CA1031" Action="None"/> <!-- Do not catch general exception types -->
+        <Rule Id="CA1032" Action="None"/> <!-- implement exception constructors -->
+
+        <Rule Id="CA1308" Action="None"/> <!-- Normalize strings to uppercase -->
+
+        <Rule Id="IDE0005" Action="Warning"/> <!-- Using directive is unnecessary -->
+        <Rule Id="CS8019" Action="Warning"/> <!-- Unnecessary using directive -->
+
+        <Rule Id="IDE0073" Action="Warning"/> <!-- Require file header -->
+
+        <Rule Id="CA2000" Action="None"/> <!-- Dispose objects before losing scope: todo currently a false positive wait for bugfix https://github.com/dotnet/roslyn-analyzers/issues/3042 -->
+
+        <Rule Id="CA1068" Action="Warning"/> <!-- Cancellation token last -->
+        <Rule Id="CA1725" Action="Warning"/> <!-- Paremeter names should match base declaration -->
+        <Rule Id="CA2237" Action="Warning"/> <!-- Mark ISerializable types with SerializableAttribute -->
+        <Rule Id="CA2229" Action="Warning"/> <!-- Implement serialization constructors -->
+        <Rule Id="CA2235" Action="Warning"/> <!-- Mark all non-serializable fields -->
+        <Rule Id="CA2208" Action="Warning"/> <!-- Instantiate argument exceptions correctly -->
+        <Rule Id="CA1823" Action="Warning"/> <!-- Avoid unused private fields -->
+        <Rule Id="CA1012" Action="Warning"/> <!-- Abstract types should not have public constructors -->
+
+        <Rule Id="CA1001" Action="Warning"/> <!-- Types that own disposable fields should be disposable -->
+        <Rule Id="CA2213" Action="Warning"/> <!-- Disposable fields should be disposed -->
+        <Rule Id="CA2215" Action="Warning"/> <!-- Dispose methods should call base class dispose -->
+        <Rule Id="CA1816" Action="Warning"/> <!-- Call GC.SuppressFinalize correctly -->
+        <Rule Id="CA1063" Action="Warning"/> <!-- Implement IDisposable correctly -->
+    </Rules>
+    <Rules AnalyzerId="Roslynator.CSharp.Analyzers" RuleNamespace="Roslynator.CSharp.Analyzers">
+        <Rule Id="RCS1090" Action="None"/> <!-- configure await -->
+        <Rule Id="RCS1194" Action="None"/> <!-- implement exception constructors -->
+    </Rules>
+</RuleSet>

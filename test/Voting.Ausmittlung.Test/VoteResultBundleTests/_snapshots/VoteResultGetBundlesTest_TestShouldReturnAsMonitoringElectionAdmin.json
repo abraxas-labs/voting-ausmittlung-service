@@ -1,0 +1,167 @@
+{
+  "BallotResult": {
+    "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+    "Ballot": null,
+    "CountOfVoters": {
+      "VoterParticipation": 0.75,
+      "EVotingReceivedBallots": 0,
+      "ConventionalReceivedBallots": 20000,
+      "ConventionalInvalidBallots": 3000,
+      "ConventionalBlankBallots": 2000,
+      "ConventionalAccountedBallots": 12000,
+      "TotalReceivedBallots": 20000,
+      "TotalAccountedBallots": 12000,
+      "TotalUnaccountedBallots": 5000
+    },
+    "QuestionResults": [],
+    "TieBreakQuestionResults": [],
+    "AllBundlesReviewedOrDeleted": false,
+    "ConventionalCountOfDetailedEnteredBallots": 0
+  },
+  "VoteResult": {
+    "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+    "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "Vote": {
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+      "PoliticalBusinessNumber": "321",
+      "OfficialDescription": "Abstimmung Gossau de",
+      "ShortDescription": "Abst Gossau de",
+      "InternalDescription": "Abstimmung Gossau auf Urnengang St.Gallen",
+      "SwissAbroadVotingRight": 1,
+      "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Active": true,
+      "Title": "321: Abst Gossau de",
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "ResultAlgorithm": 1,
+      "Contest": {
+        "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Date": {
+          "Seconds": 1598832000,
+          "Nanos": 0
+        },
+        "Description": "Kantonsurnengang de",
+        "EndOfTestingPhase": {
+          "Seconds": 1545264000,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+        "EVoting": true,
+        "EVotingFrom": {
+          "Seconds": 1582156800,
+          "Nanos": 0
+        },
+        "EVotingTo": {
+          "Seconds": 1583020800,
+          "Nanos": 0
+        },
+        "State": 1,
+        "EVotingResultsImported": false
+      },
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "ResultEntry": 2,
+      "EnforceResultEntryForCountingCircles": false
+    },
+    "Entry": 2,
+    "State": 1,
+    "SubmissionDoneTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "Results": [
+      {
+        "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+        "Ballot": null,
+        "CountOfVoters": {
+          "VoterParticipation": 0.75,
+          "EVotingReceivedBallots": 0,
+          "ConventionalReceivedBallots": 20000,
+          "ConventionalInvalidBallots": 3000,
+          "ConventionalBlankBallots": 2000,
+          "ConventionalAccountedBallots": 12000,
+          "TotalReceivedBallots": 20000,
+          "TotalAccountedBallots": 12000,
+          "TotalUnaccountedBallots": 5000
+        },
+        "QuestionResults": [],
+        "TieBreakQuestionResults": [],
+        "AllBundlesReviewedOrDeleted": false,
+        "ConventionalCountOfDetailedEnteredBallots": 0
+      }
+    ],
+    "EntryParams": {
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": false
+    },
+    "CountingCircle": {
+      "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+      "Name": "Gossau",
+      "Bfs": "3443",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": null
+    }
+  },
+  "Bundles": [
+    {
+      "Id": "",
+      "Number": 1,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    },
+    {
+      "Id": "",
+      "Number": 2,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    }
+  ]
+}

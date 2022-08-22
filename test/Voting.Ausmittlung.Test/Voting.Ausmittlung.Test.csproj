@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="Voting.Lib.Eventing.Testing" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Messaging.Testing" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Cryptography.Testing" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Cryptography.Mocks" Version="$(VotingLibVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Voting.Ausmittlung\Voting.Ausmittlung.csproj" />
+  </ItemGroup>
+  
+</Project>

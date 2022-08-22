@@ -1,0 +1,48 @@
+{
+  "MandateAlgorithm": 3,
+  "CandidateCheckDigit": false,
+  "BallotBundleSize": 50,
+  "BallotBundleSampleSize": 1,
+  "AutomaticBallotBundleNumberGeneration": true,
+  "BallotNumberGeneration": 2,
+  "AutomaticEmptyVoteCounting": false,
+  "EnforceEmptyVoteCountingForCountingCircles": true,
+  "BusinessType": 3,
+  "ProportionalElectionLists": [],
+  "ProportionalElectionListUnions": [],
+  "Results": [],
+  "ProportionalElectionUnionEntries": [],
+  "EndResult": null,
+  "Translations": [
+    {
+      "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+      "ShortDescription": "Update Proporzwahl de",
+      "OfficialDescription": "Update Proporzwahl de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "NumberOfMandates": 5,
+  "PoliticalBusinessNumber": "6000",
+  "InternalDescription": "Update internal description",
+  "Active": true,
+  "SwissAbroadVotingRight": 0,
+  "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+  "DomainOfInfluence": null,
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "Contest": null,
+  "CountingCircleResults": [],
+  "PoliticalBusinessTranslations": [
+    {
+      "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+      "ShortDescription": "Update Proporzwahl de",
+      "OfficialDescription": "Update Proporzwahl de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ShortDescription": "Update Proporzwahl de",
+  "OfficialDescription": "Update Proporzwahl de",
+  "Title": "6000: Update Proporzwahl de",
+  "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+}

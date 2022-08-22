@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+      <UserSecretsId>4d637139-94e9-44aa-9be9-30ae41ff6a32</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Grpc.AspNetCore" Version="$(GrpcAspNetCoreVersion)" />
+      <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="$(GrpcAspNetCoreVersion)" />
+      <PackageReference Include="Grpc.AspNetCore.Web" Version="$(GrpcAspNetCoreVersion)" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MsExtensionsVersion)" />
+      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.2" />
+      <PackageReference Include="prometheus-net.AspNetCore" Version="6.0.0" />
+      <PackageReference Include="prometheus-net.AspNetCore.Grpc" Version="6.0.0" />
+      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="6.0.0" />
+      <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+      <PackageReference Include="Voting.Lib.Rest" Version="$(VotingLibVersion)" />
+      <PackageReference Include="Voting.Lib.Grpc" Version="$(VotingLibVersion)" />
+      <PackageReference Include="Voting.Lib.Prometheus" Version="$(VotingLibVersion)" />
+      <PackageReference Include="Voting.Ausmittlung.Service.Proto" Version="$(VotingAusmittlungProtoVersion)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Voting.Ausmittlung.Core\Voting.Ausmittlung.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Strings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Strings.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Strings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\pkcs11\**">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+</Project>

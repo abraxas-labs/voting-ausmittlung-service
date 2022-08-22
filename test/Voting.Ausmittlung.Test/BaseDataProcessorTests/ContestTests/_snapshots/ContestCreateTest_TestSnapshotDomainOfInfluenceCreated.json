@@ -1,0 +1,231 @@
+{
+  "Date": "2020-08-23T00:00:00Z",
+  "EndOfTestingPhase": "2019-01-01T00:00:00Z",
+  "State": 1,
+  "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+  "DomainOfInfluence": {
+    "Name": "Gossau",
+    "ShortName": "Gossau",
+    "Bfs": "",
+    "Code": "",
+    "SortNumber": 0,
+    "SecureConnectId": "300",
+    "AuthorityName": "",
+    "Type": 5,
+    "Canton": 1,
+    "ParentId": null,
+    "Parent": null,
+    "Children": [],
+    "BasisDomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+    "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+    "SnapshotContest": null,
+    "IsSnapshot": true,
+    "CountingCircles": [],
+    "Contests": null,
+    "Votes": [],
+    "ProportionalElections": [],
+    "MajorityElections": [],
+    "SimplePoliticalBusinesses": [],
+    "ExportConfigurations": null,
+    "ResultExportConfigurations": null,
+    "ContactPerson": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "CantonDefaults": {
+      "ProportionalElectionMandateAlgorithms": [
+        1
+      ],
+      "MajorityElectionAbsoluteMajorityAlgorithm": 1,
+      "MajorityElectionInvalidVotes": false,
+      "SwissAbroadVotingRight": 1,
+      "EnabledVotingCardChannels": [
+        {
+          "VotingChannel": 2,
+          "Valid": true,
+          "Channel": 2,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "VotingChannel": 2,
+          "Valid": false,
+          "Channel": 2,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "VotingChannel": 4,
+          "Valid": true,
+          "Channel": 4,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "VotingChannel": 1,
+          "Valid": true,
+          "Channel": 1,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ]
+    },
+    "PlausibilisationConfiguration": null,
+    "Parties": [],
+    "Details": null,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "EVotingResultsImported": false,
+  "EVoting": false,
+  "EVotingFrom": null,
+  "EVotingTo": null,
+  "Translations": [
+    {
+      "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Contest": null,
+      "Description": "test fr",
+      "Language": "fr",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "Details": null,
+  "Votes": [],
+  "ProportionalElections": [],
+  "MajorityElections": [],
+  "ProportionalElectionUnions": [],
+  "MajorityElectionUnions": [],
+  "CountingCircleDetails": [],
+  "DomainOfInfluenceDetails": [],
+  "SimplePoliticalBusinesses": [],
+  "ResultImports": [],
+  "ResultExportConfigurations": [],
+  "PreviousContestId": null,
+  "PreviousContest": null,
+  "PreviousContestOwners": [],
+  "DomainOfInfluenceParties": [
+    {
+      "BaseDomainOfInfluencePartyId": "dc80249c-9c63-4169-b2a8-c5bb1f0f458b",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "107ad610-5fa3-5274-82fb-84834abbf730",
+          "Name": "Sozialdemokratische Partei der Schweiz fr",
+          "ShortDescription": "SP fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "Sozialdemokratische Partei der Schweiz fr",
+      "ShortDescription": "SP fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "107ad610-5fa3-5274-82fb-84834abbf730"
+    },
+    {
+      "BaseDomainOfInfluencePartyId": "0e46965b-d04b-48a4-87dd-cda8f3d04de2",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "8bc548b1-6e6d-5cbd-897a-8106df8f6afa",
+          "Name": "FDP.Die Lieberalen fr",
+          "ShortDescription": "FDP fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "FDP.Die Lieberalen fr",
+      "ShortDescription": "FDP fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "8bc548b1-6e6d-5cbd-897a-8106df8f6afa"
+    },
+    {
+      "BaseDomainOfInfluencePartyId": "1fcc8aee-497e-4598-b725-da04bad771db",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "8e989805-f3ca-58b7-9a09-fbe45c879646",
+          "Name": "Freie Liste Gossau fr",
+          "ShortDescription": "FLiG fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "Freie Liste Gossau fr",
+      "ShortDescription": "FLiG fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "8e989805-f3ca-58b7-9a09-fbe45c879646"
+    },
+    {
+      "BaseDomainOfInfluencePartyId": "f124e0ed-118d-4cfd-9663-c6b12a3b94bd",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "d2875530-190f-5080-9201-a0f7c87fbe89",
+          "Name": "Schweizerische Volkspartei fr",
+          "ShortDescription": "SVP fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "Schweizerische Volkspartei fr",
+      "ShortDescription": "SVP fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "d2875530-190f-5080-9201-a0f7c87fbe89"
+    },
+    {
+      "BaseDomainOfInfluencePartyId": "c952f414-a81a-4cb0-acd6-2b5c2c422009",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "e9d397fd-97a4-5db5-bae5-998e0189b2a8",
+          "Name": "Andere fr",
+          "ShortDescription": "AN fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "Andere fr",
+      "ShortDescription": "AN fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "e9d397fd-97a4-5db5-bae5-998e0189b2a8"
+    },
+    {
+      "BaseDomainOfInfluencePartyId": "9ec80205-08f6-4468-9055-19b1e7266df1",
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ProportionalElectionCandidates": [],
+      "Deleted": false,
+      "Translations": [
+        {
+          "DomainOfInfluencePartyId": "f145cd49-6fe5-5876-a5d6-4f18a894f73a",
+          "Name": "Christliche Volkspartei fr",
+          "ShortDescription": "CVP fr",
+          "Language": "fr",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "Name": "Christliche Volkspartei fr",
+      "ShortDescription": "CVP fr",
+      "SnapshotContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+      "Id": "f145cd49-6fe5-5876-a5d6-4f18a894f73a"
+    }
+  ],
+  "PoliticalBusinesses": [],
+  "PoliticalBusinessUnions": [],
+  "TestingPhaseEnded": false,
+  "Description": "test fr",
+  "Id": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a"
+}

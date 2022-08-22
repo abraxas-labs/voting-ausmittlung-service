@@ -1,0 +1,44 @@
+{
+  "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+  "Vote": null,
+  "Results": [
+    {
+      "Ballot": null,
+      "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+      "VoteResult": null,
+      "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+      "CountOfVoters": {
+        "VoterParticipation": 0.6666666666666666666666666667,
+        "EVotingReceivedBallots": 0,
+        "ConventionalReceivedBallots": 10000,
+        "ConventionalInvalidBallots": 500,
+        "ConventionalBlankBallots": 1000,
+        "ConventionalAccountedBallots": 2000,
+        "TotalReceivedBallots": 10000,
+        "TotalAccountedBallots": 2000,
+        "TotalUnaccountedBallots": 1500
+      },
+      "QuestionResults": [],
+      "TieBreakQuestionResults": [],
+      "CountOfBundlesNotReviewedOrDeleted": 0,
+      "AllBundlesReviewedOrDeleted": true,
+      "Bundles": [],
+      "ConventionalCountOfDetailedEnteredBallots": 0,
+      "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1"
+    }
+  ],
+  "PoliticalBusiness": null,
+  "PoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+  "Entry": 2,
+  "EntryParams": {
+    "BallotBundleSampleSizePercent": 30,
+    "AutomaticBallotBundleNumberGeneration": false
+  },
+  "CountingCircleId": "00000000-0000-0000-0000-000000000000",
+  "CountingCircle": null,
+  "State": 2,
+  "SubmissionDoneTimestamp": null,
+  "AuditedTentativelyTimestamp": null,
+  "TotalCountOfVoters": 15000,
+  "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
+}

@@ -1,0 +1,45 @@
+{
+  "BallotResult": {
+    "Ballot": null,
+    "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+    "VoteResult": null,
+    "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+    "CountOfVoters": {
+      "VoterParticipation": 0.75,
+      "EVotingReceivedBallots": 0,
+      "ConventionalReceivedBallots": 20000,
+      "ConventionalInvalidBallots": 3000,
+      "ConventionalBlankBallots": 2000,
+      "ConventionalAccountedBallots": 12000,
+      "TotalReceivedBallots": 20000,
+      "TotalAccountedBallots": 12000,
+      "TotalUnaccountedBallots": 5000
+    },
+    "QuestionResults": [],
+    "TieBreakQuestionResults": [],
+    "CountOfBundlesNotReviewedOrDeleted": 1,
+    "AllBundlesReviewedOrDeleted": false,
+    "Bundles": [],
+    "ConventionalCountOfDetailedEnteredBallots": 0,
+    "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1"
+  },
+  "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+  "Ballots": [],
+  "Number": 1,
+  "State": 4,
+  "CreatedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "Hans",
+    "LastName": "Muster",
+    "FullName": "Hans Muster"
+  },
+  "ReviewedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "default user firstname",
+    "LastName": "default user lastname",
+    "FullName": "default user firstname default user lastname"
+  },
+  "CountOfBallots": 0,
+  "BallotNumbersToReview": [],
+  "Id": "cc757c66-e78c-4f56-907b-6afb27d723d5"
+}

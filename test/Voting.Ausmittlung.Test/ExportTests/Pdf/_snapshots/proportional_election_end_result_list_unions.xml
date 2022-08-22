@@ -1,0 +1,679 @@
+<Voting>
+  <TemplateKey>proportional_election_end_result_list_unions</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <ContestDetails>
+      <TotalCountOfVoters>317969</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>153395</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>164574</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+    </ContestDetails>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <InternalDescription>Nationalratswahl</InternalDescription>
+    <NumberOfMandates>12</NumberOfMandates>
+    <ProportionalElectionEndResult>
+      <TotalCountOfVoters>317969</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>1</CountOfDoneCountingCircles>
+      <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
+      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <CountOfVoters>
+        <VoterParticipation>0.4646647943667464438357198343</VoterParticipation>
+        <TotalReceivedBallots>147749</TotalReceivedBallots>
+        <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>145631</CountOfAccountedBallots>
+        <CountOfInvalidBallots>1998</CountOfInvalidBallots>
+        <CountOfBlankBallots>120</CountOfBlankBallots>
+      </CountOfVoters>
+      <ProportionalElectionListUnionEndResult>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListUnion 1 de</ShortDescription>
+          <Description>ListUnion 1 de</Description>
+          <AllListNumbers>01,03,04,06,14</AllListNumbers>
+          <VoteCount>380067</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>3</NumberOfMandates>
+          <NumberOfMandatesPlusOne>4</NumberOfMandatesPlusOne>
+          <Quotient>95016.75</Quotient>
+          <DistributionNumber>95017</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListUnion 2 de</ShortDescription>
+          <Description>ListUnion 2 de</Description>
+          <AllListNumbers>02,07,13</AllListNumbers>
+          <VoteCount>247629</VoteCount>
+          <InitialNumberOfMandates>1</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>82543</Quotient>
+          <DistributionNumber>82543</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListUnion 3 de</ShortDescription>
+          <Description>ListUnion 3 de</Description>
+          <AllListNumbers>08,19</AllListNumbers>
+          <VoteCount>636317</VoteCount>
+          <InitialNumberOfMandates>4</InitialNumberOfMandates>
+          <NumberOfMandates>5</NumberOfMandates>
+          <NumberOfMandatesPlusOne>6</NumberOfMandatesPlusOne>
+          <Quotient>106052.83333333333333333333333</Quotient>
+          <DistributionNumber>106053</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListUnion 4 de</ShortDescription>
+          <Description>ListUnion 4 de</Description>
+          <AllListNumbers>09,10,11,12</AllListNumbers>
+          <VoteCount>345205</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>115068.33333333333333333333333</Quotient>
+          <DistributionNumber>115069</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListUnion 5 de</ShortDescription>
+          <Description>ListUnion 5 de</Description>
+          <AllListNumbers>16,17,21</AllListNumbers>
+          <VoteCount>91597</VoteCount>
+          <InitialNumberOfMandates>0</InitialNumberOfMandates>
+          <NumberOfMandates>0</NumberOfMandates>
+          <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
+          <Quotient>91597</Quotient>
+          <DistributionNumber>91597</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>01</OrderNumber>
+            <ShortDescription>JCVP de</ShortDescription>
+          </List>
+          <VoteCount>26843</VoteCount>
+          <GroupVoteCount>26843</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>02</OrderNumber>
+            <ShortDescription>JFSG de</ShortDescription>
+          </List>
+          <VoteCount>18024</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>18024</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>03</OrderNumber>
+            <ShortDescription>CVP de</ShortDescription>
+          </List>
+          <VoteCount>259922</VoteCount>
+          <GroupVoteCount>259922</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>04</OrderNumber>
+            <ShortDescription>EVP de</ShortDescription>
+          </List>
+          <VoteCount>30333</VoteCount>
+          <GroupVoteCount>30333</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>05</OrderNumber>
+            <ShortDescription>PFSG de</ShortDescription>
+          </List>
+          <VoteCount>8519</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>06</OrderNumber>
+            <ShortDescription>BDP SG de</ShortDescription>
+          </List>
+          <VoteCount>57133</VoteCount>
+          <GroupVoteCount>57133</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>07</OrderNumber>
+            <ShortDescription>FDP de</ShortDescription>
+          </List>
+          <VoteCount>214205</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>214205</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>08</OrderNumber>
+            <ShortDescription>SVP de</ShortDescription>
+          </List>
+          <VoteCount>620183</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>620183</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>09</OrderNumber>
+            <ShortDescription>SP de</ShortDescription>
+          </List>
+          <VoteCount>231302</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>231302</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>10</OrderNumber>
+            <ShortDescription>JUSO de</ShortDescription>
+          </List>
+          <VoteCount>14356</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>14356</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>11</OrderNumber>
+            <ShortDescription>GRÜNE de</ShortDescription>
+          </List>
+          <VoteCount>76606</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>76606</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>12</OrderNumber>
+            <ShortDescription>JUGRÜ de</ShortDescription>
+          </List>
+          <VoteCount>22941</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>22941</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>13</OrderNumber>
+            <ShortDescription>UFS de</ShortDescription>
+          </List>
+          <VoteCount>15400</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>15400</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>14</OrderNumber>
+            <ShortDescription>JBDP SG de</ShortDescription>
+          </List>
+          <VoteCount>5836</VoteCount>
+          <GroupVoteCount>5836</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>15</OrderNumber>
+            <ShortDescription>IP de</ShortDescription>
+          </List>
+          <VoteCount>8533</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>16</OrderNumber>
+            <ShortDescription>glp de</ShortDescription>
+          </List>
+          <VoteCount>70633</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>70633</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>17</OrderNumber>
+            <ShortDescription>jglp de</ShortDescription>
+          </List>
+          <VoteCount>14040</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>14040</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>18</OrderNumber>
+            <ShortDescription>SBösch de</ShortDescription>
+          </List>
+          <VoteCount>4547</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>19</OrderNumber>
+            <ShortDescription>EDU de</ShortDescription>
+          </List>
+          <VoteCount>16134</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>16134</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>20</OrderNumber>
+            <ShortDescription>DPS de</ShortDescription>
+          </List>
+          <VoteCount>2329</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>21</OrderNumber>
+            <ShortDescription>PP de</ShortDescription>
+          </List>
+          <VoteCount>6924</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>6924</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>22</OrderNumber>
+            <ShortDescription>SD de</ShortDescription>
+          </List>
+          <VoteCount>4808</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>23</OrderNumber>
+            <ShortDescription>MGiger de</ShortDescription>
+          </List>
+          <VoteCount>2905</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+      </ProportionalElectionListUnionEndResult>
+      <ProportionalElectionSubListUnionEndResult>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListSubUnion 1 de</ShortDescription>
+          <Description>ListSubUnion 1 de</Description>
+          <AllListNumbers>01,03</AllListNumbers>
+          <VoteCount>286765</VoteCount>
+          <InitialNumberOfMandates>3</InitialNumberOfMandates>
+          <NumberOfMandates>3</NumberOfMandates>
+          <NumberOfMandatesPlusOne>4</NumberOfMandatesPlusOne>
+          <Quotient>71691.25</Quotient>
+          <DistributionNumber>71692</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListSubUnion 3 de</ShortDescription>
+          <Description>ListSubUnion 3 de</Description>
+          <AllListNumbers>09,10</AllListNumbers>
+          <VoteCount>245658</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>81886</Quotient>
+          <DistributionNumber>81886</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <HagenbachBischoffGroup>
+          <ShortDescription>ListSubUnion 5 de</ShortDescription>
+          <Description>ListSubUnion 5 de</Description>
+          <AllListNumbers>16,17</AllListNumbers>
+          <VoteCount>84673</VoteCount>
+          <InitialNumberOfMandates>0</InitialNumberOfMandates>
+          <NumberOfMandates>0</NumberOfMandates>
+          <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
+          <Quotient>84673</Quotient>
+          <DistributionNumber>84673</DistributionNumber>
+        </HagenbachBischoffGroup>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>01</OrderNumber>
+            <ShortDescription>JCVP de</ShortDescription>
+          </List>
+          <VoteCount>26843</VoteCount>
+          <GroupVoteCount>26843</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>02</OrderNumber>
+            <ShortDescription>JFSG de</ShortDescription>
+          </List>
+          <VoteCount>18024</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>03</OrderNumber>
+            <ShortDescription>CVP de</ShortDescription>
+          </List>
+          <VoteCount>259922</VoteCount>
+          <GroupVoteCount>259922</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>04</OrderNumber>
+            <ShortDescription>EVP de</ShortDescription>
+          </List>
+          <VoteCount>30333</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>05</OrderNumber>
+            <ShortDescription>PFSG de</ShortDescription>
+          </List>
+          <VoteCount>8519</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>06</OrderNumber>
+            <ShortDescription>BDP SG de</ShortDescription>
+          </List>
+          <VoteCount>57133</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>07</OrderNumber>
+            <ShortDescription>FDP de</ShortDescription>
+          </List>
+          <VoteCount>214205</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>08</OrderNumber>
+            <ShortDescription>SVP de</ShortDescription>
+          </List>
+          <VoteCount>620183</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>09</OrderNumber>
+            <ShortDescription>SP de</ShortDescription>
+          </List>
+          <VoteCount>231302</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>231302</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>10</OrderNumber>
+            <ShortDescription>JUSO de</ShortDescription>
+          </List>
+          <VoteCount>14356</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>14356</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>11</OrderNumber>
+            <ShortDescription>GRÜNE de</ShortDescription>
+          </List>
+          <VoteCount>76606</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>12</OrderNumber>
+            <ShortDescription>JUGRÜ de</ShortDescription>
+          </List>
+          <VoteCount>22941</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>13</OrderNumber>
+            <ShortDescription>UFS de</ShortDescription>
+          </List>
+          <VoteCount>15400</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>14</OrderNumber>
+            <ShortDescription>JBDP SG de</ShortDescription>
+          </List>
+          <VoteCount>5836</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>15</OrderNumber>
+            <ShortDescription>IP de</ShortDescription>
+          </List>
+          <VoteCount>8533</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>16</OrderNumber>
+            <ShortDescription>glp de</ShortDescription>
+          </List>
+          <VoteCount>70633</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>70633</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>17</OrderNumber>
+            <ShortDescription>jglp de</ShortDescription>
+          </List>
+          <VoteCount>14040</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>14040</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>18</OrderNumber>
+            <ShortDescription>SBösch de</ShortDescription>
+          </List>
+          <VoteCount>4547</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>19</OrderNumber>
+            <ShortDescription>EDU de</ShortDescription>
+          </List>
+          <VoteCount>16134</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>20</OrderNumber>
+            <ShortDescription>DPS de</ShortDescription>
+          </List>
+          <VoteCount>2329</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>21</OrderNumber>
+            <ShortDescription>PP de</ShortDescription>
+          </List>
+          <VoteCount>6924</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>22</OrderNumber>
+            <ShortDescription>SD de</ShortDescription>
+          </List>
+          <VoteCount>4808</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+        <ProportionalElectionListUnionEndResult>
+          <List>
+            <OrderNumber>23</OrderNumber>
+            <ShortDescription>MGiger de</ShortDescription>
+          </List>
+          <VoteCount>2905</VoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+          <GroupVoteCount>0</GroupVoteCount>
+        </ProportionalElectionListUnionEndResult>
+      </ProportionalElectionSubListUnionEndResult>
+      <Calculation>
+        <HagenbachBischoffRootGroup>
+          <AllListNumbers>01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23</AllListNumbers>
+          <VoteCount>1732456</VoteCount>
+          <InitialNumberOfMandates>9</InitialNumberOfMandates>
+          <NumberOfMandates>12</NumberOfMandates>
+          <NumberOfMandatesPlusOne>13</NumberOfMandatesPlusOne>
+          <Quotient>133265.84615384615384615384615</Quotient>
+          <DistributionNumber>133266</DistributionNumber>
+        </HagenbachBischoffRootGroup>
+      </Calculation>
+      <TotalCountOfUnmodifiedLists>28613</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>114479</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>1258</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>115737</TotalCountOfBallots>
+      <TotalCountOfBlankRowsOnListsWithoutParty>15116</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfListsWithParty>143092</TotalCountOfListsWithParty>
+      <TotalCountOfLists>144350</TotalCountOfLists>
+    </ProportionalElectionEndResult>
+  </ProportionalElection>
+  <DomainOfInfluence>
+    <Name>St. Gallen</Name>
+    <ShortName>St. Gallen</ShortName>
+    <AuthorityName />
+    <Code>0002-SG</Code>
+    <Bfs>0002</Bfs>
+    <Type>Ct</Type>
+    <Canton>Sg</Canton>
+  </DomainOfInfluence>
+</Voting>

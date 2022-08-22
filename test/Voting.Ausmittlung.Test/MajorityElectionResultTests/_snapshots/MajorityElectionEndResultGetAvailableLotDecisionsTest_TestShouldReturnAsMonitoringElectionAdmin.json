@@ -1,0 +1,204 @@
+{
+  "MajorityElection": {
+    "Id": "7a7f337e-78c8-44f4-83eb-507d383fc8bf",
+    "PoliticalBusinessNumber": "201",
+    "OfficialDescription": "Majorzwahl de",
+    "ShortDescription": "Majorzw de",
+    "InternalDescription": "Majorzwahl",
+    "NumberOfMandates": 3,
+    "MandateAlgorithm": 2,
+    "IndividualEmptyBallotsAllowed": true,
+    "CandidateCheckDigit": false,
+    "BallotBundleSize": 25,
+    "BallotBundleSampleSize": 3,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": false,
+    "EnforceEmptyVoteCountingForCountingCircles": false,
+    "ResultEntry": 2,
+    "EnforceResultEntryForCountingCircles": false,
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Active": true,
+    "Title": "201: Majorzw de",
+    "CountOfSecondaryElections": 0,
+    "DomainOfInfluence": {
+      "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "Name": "St. Gallen",
+      "ShortName": "St. Gallen",
+      "AuthorityName": "",
+      "SecureConnectId": "200",
+      "Type": 2,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 12",
+        "MobilePhone": "079 123 12 12",
+        "Email": "hans@sg.ch"
+      }
+    },
+    "InvalidVotes": false,
+    "Contest": null
+  },
+  "LotDecisions": [
+    {
+      "Candidate": {
+        "Id": "b5e78bac-1f72-4699-bcb5-e132fe25f94e",
+        "Number": "number3",
+        "PoliticalFirstName": "3pol firstName",
+        "PoliticalLastName": "3pol last name",
+        "FirstName": "3firstName",
+        "LastName": "3lastName",
+        "Party": "Test de",
+        "Position": 3,
+        "Description": "number3 3pol last name 3pol firstName"
+      },
+      "SelectedRank": null,
+      "VoteCount": 600,
+      "LotDecisionRequired": true,
+      "SelectableRanks": [
+        3,
+        4
+      ],
+      "OriginalRank": 3
+    },
+    {
+      "Candidate": {
+        "Id": "bf683ec2-27c1-44b9-b56b-6e4c82e4dd60",
+        "Number": "number4",
+        "PoliticalFirstName": "4pol firstName",
+        "PoliticalLastName": "4pol last name",
+        "FirstName": "4firstName",
+        "LastName": "4lastName",
+        "Party": "Test de",
+        "Position": 4,
+        "Description": "number4 4pol last name 4pol firstName"
+      },
+      "SelectedRank": null,
+      "VoteCount": 600,
+      "LotDecisionRequired": true,
+      "SelectableRanks": [
+        3,
+        4
+      ],
+      "OriginalRank": 3
+    },
+    {
+      "Candidate": {
+        "Id": "9457a86d-d004-49f2-95e6-a9f3b8182d8f",
+        "Number": "number7",
+        "PoliticalFirstName": "7pol firstName",
+        "PoliticalLastName": "7pol last name",
+        "FirstName": "7firstName",
+        "LastName": "7lastName",
+        "Party": "Test de",
+        "Position": 7,
+        "Description": "number7 7pol last name 7pol firstName"
+      },
+      "SelectedRank": null,
+      "VoteCount": 360,
+      "LotDecisionRequired": false,
+      "SelectableRanks": [
+        7,
+        8
+      ],
+      "OriginalRank": 7
+    },
+    {
+      "Candidate": {
+        "Id": "cd354462-45fe-44b5-b0e5-c68ba98d4b97",
+        "Number": "number8",
+        "PoliticalFirstName": "8pol firstName",
+        "PoliticalLastName": "8pol last name",
+        "FirstName": "8firstName",
+        "LastName": "8lastName",
+        "Party": "Test de",
+        "Position": 8,
+        "Description": "number8 8pol last name 8pol firstName"
+      },
+      "SelectedRank": null,
+      "VoteCount": 360,
+      "LotDecisionRequired": false,
+      "SelectableRanks": [
+        7,
+        8
+      ],
+      "OriginalRank": 7
+    }
+  ],
+  "SecondaryLotDecisions": [
+    {
+      "SecondaryMajorityElection": {
+        "Id": "8cfaec6d-6e37-472e-b63e-073f6fd980fe",
+        "PoliticalBusinessNumber": "n1",
+        "OfficialDescription": "official de",
+        "ShortDescription": "short de",
+        "InternalDescription": "internal",
+        "NumberOfMandates": 2,
+        "Active": false,
+        "Title": "n1: short de"
+      },
+      "LotDecisions": [
+        {
+          "Candidate": {
+            "Id": "bb79e109-3b25-41d2-af1d-c7e4468c24e8",
+            "Number": "number2",
+            "PoliticalFirstName": "2pol firstName",
+            "PoliticalLastName": "2pol last name",
+            "FirstName": "2firstName",
+            "LastName": "2lastName",
+            "Party": "Test2 de",
+            "Position": 2,
+            "Description": "number2 2pol last name 2pol firstName"
+          },
+          "SelectedRank": null,
+          "VoteCount": 600,
+          "LotDecisionRequired": true,
+          "SelectableRanks": [
+            2,
+            3
+          ],
+          "OriginalRank": 2
+        },
+        {
+          "Candidate": {
+            "Id": "5ee6f477-660a-4832-9bd0-d4f6c5cd91ee",
+            "Number": "number3",
+            "PoliticalFirstName": "3pol firstName",
+            "PoliticalLastName": "3pol last name",
+            "FirstName": "3firstName",
+            "LastName": "3lastName",
+            "Party": "Test3 de",
+            "Position": 3,
+            "Description": "number3 3pol last name 3pol firstName"
+          },
+          "SelectedRank": null,
+          "VoteCount": 600,
+          "LotDecisionRequired": true,
+          "SelectableRanks": [
+            2,
+            3
+          ],
+          "OriginalRank": 2
+        }
+      ]
+    },
+    {
+      "SecondaryMajorityElection": {
+        "Id": "f78a229e-0790-4e69-b212-7c5fd960cd98",
+        "PoliticalBusinessNumber": "n2",
+        "OfficialDescription": "official2 de",
+        "ShortDescription": "short2 de",
+        "InternalDescription": "internal2",
+        "NumberOfMandates": 1,
+        "Active": true,
+        "Title": "n2: short2 de"
+      },
+      "LotDecisions": []
+    }
+  ]
+}

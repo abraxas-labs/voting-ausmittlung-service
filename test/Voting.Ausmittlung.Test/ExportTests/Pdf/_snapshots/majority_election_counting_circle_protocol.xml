@@ -1,0 +1,126 @@
+<Voting>
+  <TemplateKey>majority_election_counting_circle_protocol</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>TestingPhase</State>
+  </Contest>
+  <MajorityElection>
+    <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
+    <OfficialDescription>Majorzwahl St. Gallen de</OfficialDescription>
+    <ShortDescription>Mw SG de</ShortDescription>
+    <InternalDescription>Majorzwahl St. Gallen auf Urnengang Bund</InternalDescription>
+    <DomainOfInfluence>
+      <Name>St. Gallen</Name>
+      <ShortName>St. Gallen</ShortName>
+      <AuthorityName />
+      <Code>0002-SG</Code>
+      <Bfs>0002</Bfs>
+      <Type>Ct</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <NumberOfMandates>1</NumberOfMandates>
+    <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
+    <MajorityElectionResult>
+      <IndividualVoteCount>5</IndividualVoteCount>
+      <EmptyVoteCount>6</EmptyVoteCount>
+      <InvalidVoteCount>7</InvalidVoteCount>
+      <TotalCandidateVoteCountExclIndividual>50</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountInclIndividual>55</TotalCandidateVoteCountInclIndividual>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 pol last name pol first name</Description>
+          <Number>number5</Number>
+          <FirstName>firstName2</FirstName>
+          <LastName>lastName2</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title2 de</OccupationTitle>
+          <Occupation>occupation2 de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 pol last name pol first name</Description>
+          <Number>number1</Number>
+          <FirstName>firstName</FirstName>
+          <LastName>lastName</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>50</VoteCount>
+      </MajorityElectionCandidateResult>
+      <CountOfVoters>
+        <VoterParticipation>0.8</VoterParticipation>
+        <TotalReceivedBallots>100</TotalReceivedBallots>
+        <TotalUnaccountedBallots>20</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>80</CountOfAccountedBallots>
+        <CountOfInvalidBallots>10</CountOfInvalidBallots>
+        <CountOfBlankBallots>10</CountOfBlankBallots>
+      </CountOfVoters>
+    </MajorityElectionResult>
+  </MajorityElection>
+  <CountingCircle>
+    <Name>St. Gallen</Name>
+    <Bfs>5500</Bfs>
+    <Code />
+    <ResponsibleAuthority>
+      <SecureConnectId>200</SecureConnectId>
+      <Name>St. Gallen</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>sg@abraxas.ch</Email>
+      <Street>WerkstrasseX</Street>
+      <Zip>9000</Zip>
+      <City>MyCityX</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans-sg</FirstName>
+      <FamilyName>Muster-sg</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph-sg</FirstName>
+      <FamilyName>Wichtig-sg</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>3000</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+</Voting>

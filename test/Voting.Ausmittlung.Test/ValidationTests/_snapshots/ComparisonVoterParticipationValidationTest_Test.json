@@ -1,0 +1,81 @@
+{
+  "result-1": {
+    "Subject": []
+  },
+  "result-2": {
+    "Subject": [
+      {
+        "Validation": 1150,
+        "IsValid": true,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 1,
+          "DeviationPercent": 20.0
+        }
+      }
+    ]
+  },
+  "result-3": {
+    "Subject": [
+      {
+        "Validation": 1150,
+        "IsValid": false,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 1,
+          "DeviationPercent": 40.0
+        }
+      }
+    ]
+  },
+  "result-4": {
+    "Subject": [
+      {
+        "Validation": 1150,
+        "IsValid": true,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 2,
+          "DeviationPercent": 14.285714285714285
+        }
+      },
+      {
+        "Validation": 1150,
+        "IsValid": true,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 1,
+          "DeviationPercent": 20.0
+        }
+      }
+    ]
+  },
+  "result-5": {
+    "Subject": [
+      {
+        "Validation": 1150,
+        "IsValid": true,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 2,
+          "DeviationPercent": 16.666666666666668
+        }
+      },
+      {
+        "Validation": 1150,
+        "IsValid": false,
+        "IsOptional": true,
+        "Data": {
+          "ThresholdPercent": 30.0,
+          "DomainOfInfluenceType": 1,
+          "DeviationPercent": 40.0
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+  "PoliticalBusinessId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+  "SecondaryMajorityElection": null,
+  "Translations": [
+    {
+      "SecondaryMajorityElectionCandidateId": "2e2d586f-dc6d-45ce-a0b8-39a70d9cf46a",
+      "Occupation": "occupation2 de",
+      "OccupationTitle": "occupation title2 de",
+      "Party": "Test de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferenceId": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
+  "CandidateReference": null,
+  "BallotGroupEntries": [],
+  "BallotCandidatures": [],
+  "CandidateResults": [],
+  "EndResult": null,
+  "Party": "Test de",
+  "Occupation": "occupation2 de",
+  "OccupationTitle": "occupation title2 de",
+  "Description": "number5 pol last name pol first name",
+  "Number": "number5",
+  "FirstName": "firstName2",
+  "LastName": "lastName2",
+  "PoliticalFirstName": "pol first name",
+  "PoliticalLastName": "pol last name",
+  "DateOfBirth": "1960-01-13T00:00:00Z",
+  "Sex": 1,
+  "Title": "title",
+  "Incumbent": false,
+  "ZipCode": "zip code",
+  "Locality": "locality",
+  "Position": 3,
+  "Id": "2e2d586f-dc6d-45ce-a0b8-39a70d9cf46a"
+}

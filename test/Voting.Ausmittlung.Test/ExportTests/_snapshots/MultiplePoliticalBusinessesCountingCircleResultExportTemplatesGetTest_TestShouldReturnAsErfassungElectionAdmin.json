@@ -1,0 +1,17 @@
+{
+  "Templates": [
+    {
+      "Key": "vote_result",
+      "Description": "Protokoll (SK)",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 2,
+      "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 5,
+      "PoliticalBusinessUnionId": ""
+    }
+  ]
+}

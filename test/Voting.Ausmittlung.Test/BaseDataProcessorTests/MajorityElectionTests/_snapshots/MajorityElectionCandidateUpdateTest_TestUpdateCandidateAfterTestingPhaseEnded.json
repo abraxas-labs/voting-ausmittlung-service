@@ -1,0 +1,37 @@
+{
+  "MajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+  "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+  "MajorityElection": null,
+  "Translations": [
+    {
+      "MajorityElectionCandidateId": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc",
+      "Occupation": "new occupation de",
+      "OccupationTitle": "new occupation title de",
+      "Party": "SVP de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferences": [],
+  "BallotGroupEntries": [],
+  "CandidateResults": [],
+  "BallotCandidatures": [],
+  "EndResult": null,
+  "Party": "SVP de",
+  "Occupation": "new occupation de",
+  "OccupationTitle": "new occupation title de",
+  "Description": "number1 new pol last name new pol first name",
+  "Number": "number1",
+  "FirstName": "new first name",
+  "LastName": "new last name",
+  "PoliticalFirstName": "new pol first name",
+  "PoliticalLastName": "new pol last name",
+  "DateOfBirth": "1961-02-26T00:00:00Z",
+  "Sex": 1,
+  "Title": "new title",
+  "Incumbent": false,
+  "ZipCode": "new zip code",
+  "Locality": "locality",
+  "Position": 1,
+  "Id": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc"
+}

@@ -1,0 +1,141 @@
+{
+  "full": {
+    "AllowedCandidates": 2,
+    "PrimaryMajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+    "PrimaryMajorityElection": {
+      "MandateAlgorithm": 2,
+      "IndividualEmptyBallotsAllowed": true,
+      "CandidateCheckDigit": false,
+      "InvalidVotes": false,
+      "BallotBundleSize": 25,
+      "BallotBundleSampleSize": 3,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 1,
+      "AutomaticEmptyVoteCounting": false,
+      "EnforceEmptyVoteCountingForCountingCircles": false,
+      "ResultEntry": 2,
+      "EnforceResultEntryForCountingCircles": false,
+      "ReportDomainOfInfluenceLevel": 0,
+      "BusinessType": 2,
+      "MajorityElectionCandidates": [],
+      "SecondaryMajorityElections": [],
+      "ElectionGroup": null,
+      "BallotGroups": [],
+      "BallotGroupEntries": [],
+      "Results": [],
+      "MajorityElectionUnionEntries": [],
+      "EndResult": null,
+      "Translations": [
+        {
+          "MajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+          "ShortDescription": "Mw SG de",
+          "OfficialDescription": "Majorzwahl St. Gallen de",
+          "Language": "de",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "NumberOfMandates": 1,
+      "PoliticalBusinessNumber": "201",
+      "InternalDescription": "Majorzwahl St. Gallen auf Urnengang Bund",
+      "Active": true,
+      "SwissAbroadVotingRight": 0,
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "DomainOfInfluence": null,
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Contest": null,
+      "CountingCircleResults": [],
+      "PoliticalBusinessTranslations": [
+        {
+          "MajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+          "ShortDescription": "Mw SG de",
+          "OfficialDescription": "Majorzwahl St. Gallen de",
+          "Language": "de",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "ShortDescription": "Mw SG de",
+      "OfficialDescription": "Majorzwahl St. Gallen de",
+      "Title": "201: Mw SG de",
+      "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b"
+    },
+    "BusinessType": 4,
+    "ElectionGroupId": "63bf2387-08e0-45ed-96e6-263f85500e28",
+    "ElectionGroup": null,
+    "Candidates": [],
+    "BallotGroupEntries": [],
+    "Results": [],
+    "EndResult": null,
+    "Translations": [
+      {
+        "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "ShortDescription": "Update Nebenwahl de",
+        "OfficialDescription": "Update Nebenwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "InvalidVotes": false,
+    "SwissAbroadVotingRight": 0,
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "DomainOfInfluence": null,
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountingCircleResults": [],
+    "NumberOfMandates": 2,
+    "PoliticalBusinessNumber": "10546",
+    "InternalDescription": "test",
+    "Active": true,
+    "PoliticalBusinessTranslations": [
+      {
+        "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "ShortDescription": "Update Nebenwahl de",
+        "OfficialDescription": "Update Nebenwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ShortDescription": "Update Nebenwahl de",
+    "OfficialDescription": "Update Nebenwahl de",
+    "Title": "10546: Update Nebenwahl de",
+    "Id": "0741da26-add2-4c4c-960d-7e251b82e91b"
+  },
+  "simple": {
+    "BusinessType": 4,
+    "PoliticalBusinessType": 4,
+    "SimpleResults": [],
+    "NumberOfMandates": 2,
+    "CountOfSecondaryBusinesses": 0,
+    "CountingCircleResults": [],
+    "Translations": [
+      {
+        "SimplePoliticalBusinessId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "ShortDescription": "Update Nebenwahl de",
+        "OfficialDescription": "Update Nebenwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ResultExportConfigurations": [],
+    "PoliticalBusinessNumber": "10546",
+    "InternalDescription": "test",
+    "Active": true,
+    "SwissAbroadVotingRight": 0,
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "DomainOfInfluence": null,
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "PoliticalBusinessTranslations": [
+      {
+        "SimplePoliticalBusinessId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "ShortDescription": "Update Nebenwahl de",
+        "OfficialDescription": "Update Nebenwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ShortDescription": "Update Nebenwahl de",
+    "OfficialDescription": "Update Nebenwahl de",
+    "Title": "10546: Update Nebenwahl de",
+    "Id": "0741da26-add2-4c4c-960d-7e251b82e91b"
+  }
+}

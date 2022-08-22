@@ -1,0 +1,250 @@
+{
+  "Contest": {
+    "Id": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+    "Date": {
+      "Seconds": 1583107200,
+      "Nanos": 0
+    },
+    "Description": "Urnengang in Uzwi de",
+    "EndOfTestingPhase": {
+      "Seconds": 1579478400,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": {
+    "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+    "Name": "Uzwil",
+    "Bfs": "1234",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "100",
+      "Name": "Uzwil",
+      "Street": "Werkstrasse",
+      "Zip": "9595",
+      "City": "MyCity",
+      "Phone": "071 123 12 20",
+      "Email": "uzwil-test@abraxas.ch"
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "Hans",
+      "FamilyName": "Muster",
+      "Phone": "071 123 12 21",
+      "MobilePhone": "071 123 12 31",
+      "Email": "uzwil-test@abraxas.ch"
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": {
+      "FirstName": "Rudolph",
+      "FamilyName": "Wichtig",
+      "Phone": "071 123 12 22",
+      "MobilePhone": "071 123 12 33",
+      "Email": "uzwil-test2@abraxas.ch"
+    }
+  },
+  "Details": {
+    "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+    "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 3210,
+      "SubTotalInfo": [
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 1600
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 100
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 1400
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 110
+        }
+      ]
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "CountOfReceivedVotingCards": 400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "CountOfReceivedVotingCards": 150,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 4
+      }
+    ],
+    "EVoting": true
+  },
+  "Results": [
+    {
+      "Id": "b27d9c57-7861-59d6-bd54-da77af3c46e3",
+      "PoliticalBusiness": {
+        "Id": "76d1c7ed-85ec-4e62-a540-ca0a83149d32",
+        "BusinessType": 3,
+        "Title": "412: Pw Uzwil de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "412",
+        "ShortDescription": "Pw Uzwil de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    },
+    {
+      "Id": "b945f15b-38b9-5c88-807b-9977488504ad",
+      "PoliticalBusiness": {
+        "Id": "7de846be-9e60-45c7-81e3-51441ff37592",
+        "BusinessType": 1,
+        "Title": "412: Abst Uzwil de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": null,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "412",
+        "ShortDescription": "Abst Uzwil de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    },
+    {
+      "Id": "e9108db7-b67f-5338-a170-c2efe570f1fd",
+      "PoliticalBusiness": {
+        "Id": "4aebd757-9f88-4a76-90b4-497dc64adb6f",
+        "BusinessType": 2,
+        "Title": "412: Mw Uzwil de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "412",
+        "ShortDescription": "Mw Uzwil de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    }
+  ],
+  "CurrentTenantIsResponsible": true,
+  "State": 2,
+  "SwissAbroadHaveVotingRightsOnAnyBusiness": false,
+  "ContestCountingCircleContactPersonId": "",
+  "MustUpdateContactPersons": false,
+  "HasUnmappedEVotingWriteIns": false,
+  "EnabledVotingCardChannels": [
+    {
+      "Valid": true,
+      "VotingChannel": 2
+    },
+    {
+      "Valid": false,
+      "VotingChannel": 2
+    },
+    {
+      "Valid": true,
+      "VotingChannel": 4
+    },
+    {
+      "Valid": true,
+      "VotingChannel": 1
+    },
+    {
+      "Valid": true,
+      "VotingChannel": 3
+    }
+  ]
+}

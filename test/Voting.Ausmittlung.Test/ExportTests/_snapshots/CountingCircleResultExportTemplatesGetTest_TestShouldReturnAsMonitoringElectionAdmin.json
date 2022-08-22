@@ -1,0 +1,17 @@
+{
+  "Templates": [
+    {
+      "Key": "majority_election_counting_circle_protocol",
+      "Description": "Gemeindeprotokoll",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 2,
+      "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    }
+  ]
+}

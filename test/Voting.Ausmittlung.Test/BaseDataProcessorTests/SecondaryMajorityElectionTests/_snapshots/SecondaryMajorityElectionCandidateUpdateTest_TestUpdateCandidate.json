@@ -1,0 +1,38 @@
+{
+  "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+  "PoliticalBusinessId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+  "SecondaryMajorityElection": null,
+  "Translations": [
+    {
+      "SecondaryMajorityElectionCandidateId": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+      "Occupation": "new occupation de",
+      "OccupationTitle": "new occupation title de",
+      "Party": "NEW de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferenceId": null,
+  "CandidateReference": null,
+  "BallotGroupEntries": [],
+  "BallotCandidatures": [],
+  "CandidateResults": [],
+  "EndResult": null,
+  "Party": "NEW de",
+  "Occupation": "new occupation de",
+  "OccupationTitle": "new occupation title de",
+  "Description": "numberNew new pol last name new pol first name",
+  "Number": "numberNew",
+  "FirstName": "new first name",
+  "LastName": "new last name",
+  "PoliticalFirstName": "new pol first name",
+  "PoliticalLastName": "new pol last name",
+  "DateOfBirth": "1961-08-06T00:00:00Z",
+  "Sex": 1,
+  "Title": "new title",
+  "Incumbent": false,
+  "ZipCode": "new zip code",
+  "Locality": "locality",
+  "Position": 1,
+  "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
+}

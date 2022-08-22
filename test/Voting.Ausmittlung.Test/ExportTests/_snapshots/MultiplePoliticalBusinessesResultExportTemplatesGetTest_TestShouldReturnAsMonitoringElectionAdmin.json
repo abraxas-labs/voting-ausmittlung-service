@@ -1,0 +1,277 @@
+{
+  "Templates": [
+    {
+      "Key": "SG_Gemeinden",
+      "Description": "SG_Gemeinden",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "SG_Geschäfte",
+      "Description": "SG_Geschäfte",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "SG_PlausiGemeinden",
+      "Description": "SG_PlausiGemeinden",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "SGStatic_Gemeinden",
+      "Description": "SGStatic_Gemeinden",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "SGStatic_Geschäfte",
+      "Description": "SGStatic_Geschäfte",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "vote_overall_result",
+      "Description": "Gesamtergebnis aller Sachgeschäfte (SK)",
+      "PoliticalBusinessIds": [
+        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
+      ],
+      "EntityType": 2,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 5,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WM_Gemeinden",
+      "Description": "WM_Gemeinden",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WM_Kandidaten",
+      "Description": "WM_Kandidaten",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WM_KandidatenGde",
+      "Description": "WM_KandidatenGde",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WM_PlausiGemeinden",
+      "Description": "WM_PlausiGemeinden",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WM_Wahl",
+      "Description": "WM_Wahl",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WMStatic_Gemeinden",
+      "Description": "WMStatic_Gemeinden",
+      "PoliticalBusinessIds": [
+        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
+      ],
+      "EntityType": 3,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "401",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_Gemeinden",
+      "Description": "WP_Gemeinden",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_Kandidaten",
+      "Description": "WP_Kandidaten",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_KandidatenGde",
+      "Description": "WP_KandidatenGde",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_Listen",
+      "Description": "WP_Listen",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_ListenGde",
+      "Description": "WP_ListenGde",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_PlausiGemeinden",
+      "Description": "WP_PlausiGemeinden",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WP_Wahl",
+      "Description": "WP_Wahl",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WPStatic_Gemeinden",
+      "Description": "WPStatic_Gemeinden",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "WPStatic_Kandidaten",
+      "Description": "WPStatic_Kandidaten",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    }
+  ]
+}

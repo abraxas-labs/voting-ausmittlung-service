@@ -1,0 +1,36 @@
+{
+  "Imports": [
+    {
+      "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+      "StartedBy": {
+        "SecureConnectId": "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
+        "FirstName": "Hans",
+        "LastName": "Meier",
+        "FullName": "Hans Meier"
+      },
+      "Started": {
+        "Seconds": 1578489130,
+        "Nanos": 200000000
+      },
+      "Completed": false,
+      "Deleted": false,
+      "FileName": "import_uzwil_2.xml"
+    },
+    {
+      "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+      "StartedBy": {
+        "SecureConnectId": "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
+        "FirstName": "Hans",
+        "LastName": "Meier",
+        "FullName": "Hans Meier"
+      },
+      "Started": {
+        "Seconds": 1577797930,
+        "Nanos": 200000000
+      },
+      "Completed": true,
+      "Deleted": false,
+      "FileName": "import_uzwil_1.xml"
+    }
+  ]
+}

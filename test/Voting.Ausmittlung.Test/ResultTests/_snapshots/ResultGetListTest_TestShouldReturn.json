@@ -1,0 +1,161 @@
+{
+  "Contest": {
+    "Id": "4b1513ce-89fd-4ce8-bf71-7b55a50b8943",
+    "Date": {
+      "Seconds": 1574553600,
+      "Nanos": 0
+    },
+    "Description": "Nationalratswahlen in der Verangenheit de",
+    "EndOfTestingPhase": {
+      "Seconds": 1571788800,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": true,
+    "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 3,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": {
+    "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "Name": "Gossau",
+    "Bfs": "3443",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "300",
+      "Name": "",
+      "Street": "",
+      "Zip": "",
+      "City": "",
+      "Phone": "",
+      "Email": ""
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    }
+  },
+  "Details": {
+    "ContestId": "4b1513ce-89fd-4ce8-bf71-7b55a50b8943",
+    "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 12000,
+      "SubTotalInfo": [
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 4000
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 1000
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 6000
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 1000
+        }
+      ]
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 10000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 10000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      }
+    ],
+    "EVoting": false
+  },
+  "Results": [
+    {
+      "Id": "6a4cfe1b-9aeb-5f76-b676-ad1e7973b4bf",
+      "PoliticalBusiness": {
+        "Id": "3237ad60-b8da-4977-93c2-fa3219bf22f3",
+        "BusinessType": 1,
+        "Title": "200: Abst Bund de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+          "Name": "Bund",
+          "ShortName": "Bund",
+          "AuthorityName": "",
+          "SecureConnectId": "999",
+          "Type": 1,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": null,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "200",
+        "ShortDescription": "Abst Bund de"
+      },
+      "State": 1,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    }
+  ],
+  "CurrentTenantIsResponsible": true,
+  "State": 1,
+  "SwissAbroadHaveVotingRightsOnAnyBusiness": false,
+  "ContestCountingCircleContactPersonId": "",
+  "MustUpdateContactPersons": false,
+  "HasUnmappedEVotingWriteIns": false,
+  "EnabledVotingCardChannels": []
+}

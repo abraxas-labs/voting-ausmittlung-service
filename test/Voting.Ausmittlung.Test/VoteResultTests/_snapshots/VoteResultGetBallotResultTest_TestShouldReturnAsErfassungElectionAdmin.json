@@ -1,0 +1,107 @@
+{
+  "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+  "Ballot": {
+    "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+    "Position": 1,
+    "BallotType": 2,
+    "Description": "",
+    "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+    "BallotQuestions": [
+      {
+        "Number": 1,
+        "Question": "Frage 1 Gossau de"
+      },
+      {
+        "Number": 2,
+        "Question": "Frage 2 Gossau de"
+      }
+    ],
+    "TieBreakQuestions": [
+      {
+        "Number": 1,
+        "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
+        "Question1Number": 1,
+        "Question2Number": 2
+      }
+    ]
+  },
+  "CountOfVoters": {
+    "VoterParticipation": 0.75,
+    "EVotingReceivedBallots": 0,
+    "ConventionalReceivedBallots": 20000,
+    "ConventionalInvalidBallots": 3000,
+    "ConventionalBlankBallots": 2000,
+    "ConventionalAccountedBallots": 12000,
+    "TotalReceivedBallots": 20000,
+    "TotalAccountedBallots": 12000,
+    "TotalUnaccountedBallots": 5000
+  },
+  "QuestionResults": [
+    {
+      "Id": "2058ba46-58de-4dab-ab04-b6a203e7d621",
+      "Question": {
+        "Number": 1,
+        "Question": "Frage 1 Gossau de"
+      },
+      "EVotingSubTotal": {
+        "TotalCountOfAnswerYes": 0,
+        "TotalCountOfAnswerNo": 0,
+        "TotalCountOfAnswerUnspecified": 0
+      },
+      "ConventionalSubTotal": {
+        "TotalCountOfAnswerYes": 5500,
+        "TotalCountOfAnswerNo": 4490,
+        "TotalCountOfAnswerUnspecified": 10
+      },
+      "TotalCountOfAnswerYes": 5500,
+      "TotalCountOfAnswerNo": 4490,
+      "TotalCountOfAnswerUnspecified": 10
+    },
+    {
+      "Id": "092033c1-d3b3-4c12-9c0b-35b1d35f555e",
+      "Question": {
+        "Number": 2,
+        "Question": "Frage 2 Gossau de"
+      },
+      "EVotingSubTotal": {
+        "TotalCountOfAnswerYes": 0,
+        "TotalCountOfAnswerNo": 0,
+        "TotalCountOfAnswerUnspecified": 0
+      },
+      "ConventionalSubTotal": {
+        "TotalCountOfAnswerYes": 4500,
+        "TotalCountOfAnswerNo": 6500,
+        "TotalCountOfAnswerUnspecified": null
+      },
+      "TotalCountOfAnswerYes": 4500,
+      "TotalCountOfAnswerNo": 6500,
+      "TotalCountOfAnswerUnspecified": 0
+    }
+  ],
+  "TieBreakQuestionResults": [
+    {
+      "Id": "0ee2274e-3a63-4e08-9fe1-2c68146d2e80",
+      "Question": {
+        "Number": 1,
+        "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
+        "Question1Number": 1,
+        "Question2Number": 2
+      },
+      "EVotingSubTotal": {
+        "TotalCountOfAnswerQ1": 0,
+        "TotalCountOfAnswerQ2": 0,
+        "TotalCountOfAnswerUnspecified": 0
+      },
+      "ConventionalSubTotal": {
+        "TotalCountOfAnswerQ1": 4500,
+        "TotalCountOfAnswerQ2": 6400,
+        "TotalCountOfAnswerUnspecified": 100
+      },
+      "TotalCountOfAnswerQ1": 4500,
+      "TotalCountOfAnswerQ2": 6400,
+      "TotalCountOfAnswerUnspecified": 100
+    }
+  ],
+  "AllBundlesReviewedOrDeleted": true,
+  "ConventionalCountOfDetailedEnteredBallots": 0
+}

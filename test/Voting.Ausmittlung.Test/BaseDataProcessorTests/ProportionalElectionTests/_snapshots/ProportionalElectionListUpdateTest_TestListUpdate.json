@@ -1,0 +1,32 @@
+{
+  "OrderNumber": "o2",
+  "BlankRowCount": 2,
+  "Position": 1,
+  "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+  "ProportionalElection": null,
+  "Translations": [
+    {
+      "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
+      "ShortDescription": "Updated list de",
+      "Description": "",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ProportionalElectionCandidates": [],
+  "ProportionalElectionListUnionEntries": [],
+  "ProportionalElectionMainListUnions": [],
+  "ProportionalElectionUnionListEntries": [],
+  "UnmodifiedListResults": [],
+  "Results": [],
+  "Bundles": [],
+  "CandidateEndResultVoteSources": [],
+  "CandidateResultVoteSources": [],
+  "HagenbachBischoffGroup": null,
+  "EndResult": null,
+  "ProportionalElectionListUnion": null,
+  "ProportionalElectionSubListUnion": null,
+  "Description": "",
+  "ShortDescription": "Updated list de",
+  "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
+}

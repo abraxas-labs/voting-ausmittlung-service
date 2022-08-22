@@ -1,0 +1,117 @@
+﻿// (c) Copyright 2022 by Abraxas Informatik AG
+// For license information see LICENSE file
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Voting.Ausmittlung.Core.Domain;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
+using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Services.Read;
+using Voting.Ausmittlung.Data;
+using Voting.Lib.Database.Repositories;
+using Voting.Lib.Eventing.Domain;
+using Voting.Lib.Eventing.Persistence;
+using DataModels = Voting.Ausmittlung.Data.Models;
+
+namespace Voting.Ausmittlung.Core.Services.Write;
+
+public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
+    ProportionalElectionEndResultAvailableLotDecision,
+    DataModels.ProportionalElectionCandidate,
+    ProportionalElectionEndResultAggregate,
+    DataModels.ProportionalElectionEndResult>
+{
+    private readonly ProportionalElectionEndResultReader _endResultReader;
+    private readonly PermissionService _permissionService;
+    private readonly IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> _endResultRepo;
+
+    public ProportionalElectionEndResultWriter(
+        ILogger<ProportionalElectionEndResultWriter> logger,
+        IAggregateFactory aggregateFactory,
+        IAggregateRepository aggregateRepository,
+        ProportionalElectionEndResultReader endResultReader,
+        ContestService contestService,
+        PermissionService permissionService,
+        IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> endResultRepo,
+        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
+    {
+        _endResultReader = endResultReader;
+        _permissionService = permissionService;
+        _endResultRepo = endResultRepo;
+    }
+
+    public async Task UpdateEndResultLotDecisions(
+        Guid proportionalElectionListId,
+        IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions)
+    {
+        _permissionService.EnsureMonitoringElectionAdmin();
+        var availableLotDecisions = await _endResultReader.GetEndResultAvailableLotDecisions(proportionalElectionListId);
+        var proportionalElectionEndResultId = availableLotDecisions.ProportionalElectionEndResultId;
+
+        var contest = await _endResultRepo.Query()
+                          .Where(x => x.Id == proportionalElectionEndResultId)
+                          .Select(x => x.ProportionalElection.Contest)
+                          .FirstOrDefaultAsync()
+                      ?? throw new EntityNotFoundException(proportionalElectionEndResultId);
+        ContestService.EnsureNotLocked(contest);
+
+        ValidateLotDecisions(lotDecisions, availableLotDecisions);
+
+        var endResultAggregate = await AggregateRepository.GetOrCreateById<ProportionalElectionEndResultAggregate>(proportionalElectionEndResultId);
+        endResultAggregate.UpdateLotDecisions(
+            availableLotDecisions.ProportionalElectionList.ProportionalElectionId,
+            availableLotDecisions.ProportionalElectionList.Id,
+            lotDecisions,
+            contest.Id,
+            contest.TestingPhaseEnded);
+
+        await AggregateRepository.Save(endResultAggregate);
+        Logger.LogError(
+            "Updated lot decisions for proportional election end result {ProportionalElectionEndResultId}",
+            proportionalElectionEndResultId);
+    }
+
+    protected override Task<DataModels.ProportionalElectionEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId)
+    {
+        return _endResultRepo.Query()
+            .FirstOrDefaultAsync(x =>
+                x.ProportionalElectionId == politicalBusinessId &&
+                x.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId);
+    }
+
+    protected override async Task ValidateFinalize(DataModels.ProportionalElectionEndResult endResult)
+    {
+        await base.ValidateFinalize(endResult);
+
+        var hasOpenLotDecisions = await _endResultRepo
+            .Query()
+            .Where(x => x.Id == endResult.Id)
+            .AnyAsync(x => x.ListEndResults.Any(lr => lr.HasOpenRequiredLotDecisions));
+
+        if (hasOpenLotDecisions)
+        {
+            throw new ValidationException("finalization is only possible after all required lot decisions are saved");
+        }
+    }
+
+    private void ValidateLotDecisions(
+        IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions,
+        ProportionalElectionListEndResultAvailableLotDecisions availableLotDecisions)
+    {
+        EnsureValidCandidates(
+            lotDecisions,
+            availableLotDecisions.LotDecisions);
+
+        EnsureValidRanksInLotDecisions(
+            lotDecisions,
+            availableLotDecisions.LotDecisions);
+    }
+}

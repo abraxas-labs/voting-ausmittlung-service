@@ -1,0 +1,57 @@
+{
+  "ProportionalElectionListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+  "LotDecisions": [
+    {
+      "Candidate": {
+        "Id": "7792ecfc-51ee-47e2-bc83-1eef92b6925a",
+        "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+        "ListNumber": "L1",
+        "Number": "numberL1.C2",
+        "PoliticalFirstName": "L1.C2pol firstName",
+        "PoliticalLastName": "L1.C2pol last name",
+        "Description": "L1.numberL1.C2 L1.C2pol last name L1.C2pol firstName",
+        "Position": 2,
+        "Accumulated": false,
+        "AccumulatedPosition": 0,
+        "NumberIncludingList": "L1.numberL1.C2",
+        "ListDescription": "",
+        "ListShortDescription": "Liste 1 de",
+        "ListPosition": 1
+      },
+      "SelectedRank": null,
+      "VoteCount": 6000,
+      "LotDecisionRequired": true,
+      "SelectableRanks": [
+        2,
+        3
+      ],
+      "OriginalRank": 2
+    },
+    {
+      "Candidate": {
+        "Id": "170c718a-4433-4aa7-9583-2b79a5c3a550",
+        "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+        "ListNumber": "L1",
+        "Number": "numberL1.C3",
+        "PoliticalFirstName": "L1.C3pol firstName",
+        "PoliticalLastName": "L1.C3pol last name",
+        "Description": "L1.numberL1.C3 L1.C3pol last name L1.C3pol firstName",
+        "Position": 3,
+        "Accumulated": false,
+        "AccumulatedPosition": 0,
+        "NumberIncludingList": "L1.numberL1.C3",
+        "ListDescription": "",
+        "ListShortDescription": "Liste 1 de",
+        "ListPosition": 1
+      },
+      "SelectedRank": null,
+      "VoteCount": 6000,
+      "LotDecisionRequired": true,
+      "SelectableRanks": [
+        2,
+        3
+      ],
+      "OriginalRank": 2
+    }
+  ]
+}

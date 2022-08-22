@@ -1,0 +1,30 @@
+{
+  "EaiMessageType": "001",
+  "FileModel": {
+    "Filename": "Kandidatenstimmen Gesamttotal je Liste - unveränderte und veränderte Wahlzettel.csv",
+    "Format": 1,
+    "RenderContext": {
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Template": {
+        "Key": "proportional_election_candidate_results_with_vote_sources",
+        "Filename": "Kandidatenstimmen Gesamttotal je Liste - unveränderte und veränderte Wahlzettel",
+        "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
+        "Format": 1,
+        "EntityType": 4,
+        "ResultType": 1,
+        "GeneratedBy": 2,
+        "DomainOfInfluenceType": null,
+        "PerDomainOfInfluenceType": false
+      },
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "BasisCountingCircleId": null,
+      "PoliticalBusinessUnionId": null,
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+    },
+    "EchMessageId": null
+  },
+  "FileContent": "﻿Geschaeft;Einheit_Code;Einheit_Name;Einheit_Bfs;Kand_Nachname;Kand_Vorname;Kand_Ort;Kand_ID;List_KandID;Liste_ID;Liste_Code;Liste_Bez;Liste_WZUnveraendert;Liste_WZVeraendert;Kand_StimmenPanaschiert;Kand_StimmenUnveraendert;Kand_StimmenVeraendert;Kand_StimmenTotal;Liste_Zusatzstimmen;Liste_Parteistimmen;1a.Liste 1 de;99.WoP;SperrungVerantwortlich;SperrungVonOben;Zeitpunkt;LfNr_Geschaefte;LfNr_EinheitenPara\r\nPw SG de;;St. Gallen;5500;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;1e2e062e-288d-4347-9f22-224e69b95bed\r\nPw SG de;;St. Gallen Auslandschweizer;5500-3;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;35c7f490-abf1-4d6e-a9b1-4ae4de5248ab\r\nPw SG de;;St. Gallen Haggen;5500-2;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;46adab98-9114-4503-9000-b02842640650\r\nPw SG de;1234-UZWIL;Uzwil;1234;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e\r\nPw SG de;3443-GOSSAU;Gossau;3443;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;0bb8d89c-d387-40d0-83cf-84e118a8d524\r\nPw SG de;C5500-1;St. Gallen St. Fiden;5500-1;lastName;firstName;locality;number1;1a.number1;1a;Liste 1 de;;0;0;0;0;0;0;0;0;;;;;10.01.2020 14:12;8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f;44a75721-f192-461c-816f-9f46a00d274a\r\n"
+}

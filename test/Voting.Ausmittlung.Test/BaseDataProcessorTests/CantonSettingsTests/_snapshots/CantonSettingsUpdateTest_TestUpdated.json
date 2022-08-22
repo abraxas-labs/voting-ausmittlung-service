@@ -1,0 +1,20 @@
+{
+  "cantonSettings": {
+    "Canton": 1,
+    "SecureConnectId": "200",
+    "AuthorityName": "St.Gallen Update",
+    "ProportionalElectionMandateAlgorithms": [
+      1,
+      3
+    ],
+    "MajorityElectionAbsoluteMajorityAlgorithm": 1,
+    "MajorityElectionInvalidVotes": false,
+    "SwissAbroadVotingRight": 2,
+    "SwissAbroadVotingRightDomainOfInfluenceTypes": [
+      1,
+      7
+    ],
+    "EnabledVotingCardChannels": [],
+    "Id": "d33e6070-4c4f-4c22-8b35-50d7a87afffe"
+  }
+}

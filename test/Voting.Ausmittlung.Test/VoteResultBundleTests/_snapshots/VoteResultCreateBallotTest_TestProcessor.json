@@ -1,0 +1,30 @@
+{
+  "Number": 1,
+  "QuestionAnswers": [
+    {
+      "Question": {
+        "Number": 1,
+        "Question": "Frage 1 Gossau de"
+      },
+      "Answer": 1
+    },
+    {
+      "Question": {
+        "Number": 2,
+        "Question": "Frage 2 Gossau de"
+      },
+      "Answer": 1
+    }
+  ],
+  "TieBreakQuestionAnswers": [
+    {
+      "Question": {
+        "Number": 1,
+        "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
+        "Question1Number": 1,
+        "Question2Number": 2
+      },
+      "Answer": 1
+    }
+  ]
+}

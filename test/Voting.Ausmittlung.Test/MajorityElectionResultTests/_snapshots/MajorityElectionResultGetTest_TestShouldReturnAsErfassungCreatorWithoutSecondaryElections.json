@@ -1,0 +1,137 @@
+{
+  "Id": "",
+  "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+  "Election": {
+    "Id": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+    "PoliticalBusinessNumber": "500",
+    "OfficialDescription": "Majorzwahl St. Gallen 2 de",
+    "ShortDescription": "Mw SG2 de",
+    "InternalDescription": "Majorzwahl St.Gallen auf Urnengang St.Gallen ohne Listen",
+    "NumberOfMandates": 5,
+    "MandateAlgorithm": 1,
+    "IndividualEmptyBallotsAllowed": true,
+    "CandidateCheckDigit": true,
+    "BallotBundleSize": 25,
+    "BallotBundleSampleSize": 0,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": true,
+    "EnforceEmptyVoteCountingForCountingCircles": true,
+    "ResultEntry": 2,
+    "EnforceResultEntryForCountingCircles": true,
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Active": false,
+    "Title": "500: Mw SG2 de",
+    "CountOfSecondaryElections": 0,
+    "DomainOfInfluence": {
+      "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "Name": "St. Gallen",
+      "ShortName": "St. Gallen",
+      "AuthorityName": "",
+      "SecureConnectId": "200",
+      "Type": 2,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 12",
+        "MobilePhone": "079 123 12 12",
+        "Email": "hans@sg.ch"
+      }
+    },
+    "InvalidVotes": false,
+    "Contest": {
+      "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Date": {
+        "Seconds": 1598832000,
+        "Nanos": 0
+      },
+      "Description": "Kantonsurnengang de",
+      "EndOfTestingPhase": {
+        "Seconds": 1545264000,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+      "EVoting": true,
+      "EVotingFrom": {
+        "Seconds": 1582156800,
+        "Nanos": 0
+      },
+      "EVotingTo": {
+        "Seconds": 1583020800,
+        "Nanos": 0
+      },
+      "State": 1,
+      "EVotingResultsImported": false
+    }
+  },
+  "SecondaryMajorityElectionResults": [],
+  "Entry": 0,
+  "EntryParams": null,
+  "State": 1,
+  "SubmissionDoneTimestamp": null,
+  "TotalCountOfVoters": 0,
+  "CountOfVoters": {
+    "VoterParticipation": 0.0,
+    "EVotingReceivedBallots": 0,
+    "ConventionalReceivedBallots": null,
+    "ConventionalInvalidBallots": null,
+    "ConventionalBlankBallots": null,
+    "ConventionalAccountedBallots": null,
+    "TotalReceivedBallots": 0,
+    "TotalAccountedBallots": 0,
+    "TotalUnaccountedBallots": 0
+  },
+  "AllBundlesReviewedOrDeleted": true,
+  "CandidateResults": [],
+  "ConventionalCountOfBallotGroupVotes": 0,
+  "ConventionalCountOfDetailedEnteredBallots": 0,
+  "EVotingSubTotal": {
+    "IndividualVoteCount": 0,
+    "EmptyVoteCount": 0,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0
+  },
+  "ConventionalSubTotal": {
+    "IndividualVoteCount": null,
+    "EmptyVoteCount": null,
+    "InvalidVoteCount": null,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0
+  },
+  "IndividualVoteCount": 0,
+  "EmptyVoteCount": 0,
+  "InvalidVoteCount": 0,
+  "TotalCandidateVoteCountExclIndividual": 0,
+  "TotalCandidateVoteCountInclIndividual": 0,
+  "CountingCircle": {
+    "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+    "Name": "St. Gallen",
+    "Bfs": "5500",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "",
+      "Name": "",
+      "Street": "",
+      "Zip": "",
+      "City": "",
+      "Phone": "",
+      "Email": ""
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": null
+  },
+  "HasUnmappedWriteIns": false
+}

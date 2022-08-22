@@ -1,0 +1,236 @@
+{
+  "Contest": {
+    "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+    "Date": {
+      "Seconds": 1582934400,
+      "Nanos": 0
+    },
+    "Description": "Gossau Urnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1580428800,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": {
+    "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "Name": "Gossau",
+    "Bfs": "3443",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "300",
+      "Name": "",
+      "Street": "",
+      "Zip": "",
+      "City": "",
+      "Phone": "",
+      "Email": ""
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    }
+  },
+  "Details": {
+    "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+    "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 15000,
+      "SubTotalInfo": [
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 8000
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 7000
+        }
+      ]
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      }
+    ],
+    "EVoting": false
+  },
+  "Results": [
+    {
+      "Id": "01b4a8ef-19d2-5a35-ade8-b48fb3a04bb1",
+      "PoliticalBusiness": {
+        "Id": "81880186-febc-4fd7-bb82-62c446430027",
+        "BusinessType": 3,
+        "Title": "324: Pw Gossau de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+          "Name": "Gossau",
+          "ShortName": "Gossau",
+          "AuthorityName": "",
+          "SecureConnectId": "300",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "324",
+        "ShortDescription": "Pw Gossau de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    },
+    {
+      "Id": "66bf071b-7c70-5f73-80e9-bd8eefb9be30",
+      "PoliticalBusiness": {
+        "Id": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
+        "BusinessType": 1,
+        "Title": "324: Abst Gossau de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+          "Name": "Gossau",
+          "ShortName": "Gossau",
+          "AuthorityName": "",
+          "SecureConnectId": "300",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": null,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "324",
+        "ShortDescription": "Abst Gossau de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    },
+    {
+      "Id": "3e638c8e-954c-5b2f-976e-f029d1d2c173",
+      "PoliticalBusiness": {
+        "Id": "e39a4d1c-6db4-44a7-a707-05cf2005dd4a",
+        "BusinessType": 2,
+        "Title": "401: Mw Gossau de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+          "Name": "Gossau",
+          "ShortName": "Gossau",
+          "AuthorityName": "",
+          "SecureConnectId": "300",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "401",
+        "ShortDescription": "Mw Gossau de"
+      },
+      "State": 2,
+      "SubmissionDoneTimestamp": null,
+      "HasComments": false
+    }
+  ],
+  "CurrentTenantIsResponsible": true,
+  "State": 2,
+  "SwissAbroadHaveVotingRightsOnAnyBusiness": false,
+  "ContestCountingCircleContactPersonId": "",
+  "MustUpdateContactPersons": false,
+  "HasUnmappedEVotingWriteIns": false,
+  "EnabledVotingCardChannels": [
+    {
+      "Valid": true,
+      "VotingChannel": 2
+    },
+    {
+      "Valid": false,
+      "VotingChannel": 2
+    },
+    {
+      "Valid": true,
+      "VotingChannel": 4
+    },
+    {
+      "Valid": true,
+      "VotingChannel": 1
+    }
+  ]
+}

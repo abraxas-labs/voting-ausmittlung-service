@@ -1,0 +1,169 @@
+{
+  "ElectionResult": {
+    "Id": "081746e5-1814-538d-aba5-775a8104e838",
+    "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+    "Election": {
+      "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+      "PoliticalBusinessNumber": "201",
+      "OfficialDescription": "Majorzwahl St. Gallen de",
+      "ShortDescription": "Mw SG de",
+      "InternalDescription": "Majorzwahl St. Gallen auf Urnengang Bund",
+      "NumberOfMandates": 1,
+      "MandateAlgorithm": 2,
+      "IndividualEmptyBallotsAllowed": true,
+      "CandidateCheckDigit": false,
+      "BallotBundleSize": 25,
+      "BallotBundleSampleSize": 3,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 1,
+      "AutomaticEmptyVoteCounting": false,
+      "EnforceEmptyVoteCountingForCountingCircles": false,
+      "ResultEntry": 2,
+      "EnforceResultEntryForCountingCircles": false,
+      "SwissAbroadVotingRight": 3,
+      "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Active": true,
+      "Title": "201: Mw SG de",
+      "CountOfSecondaryElections": 0,
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "InvalidVotes": false,
+      "Contest": {
+        "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+        "Date": {
+          "Seconds": 1865548800,
+          "Nanos": 0
+        },
+        "Description": "Nationalratswahlen in der Zukunft de",
+        "EndOfTestingPhase": {
+          "Seconds": 1860883200,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+        "EVoting": false,
+        "EVotingFrom": null,
+        "EVotingTo": null,
+        "State": 1,
+        "EVotingResultsImported": false
+      }
+    },
+    "SecondaryMajorityElectionResults": [],
+    "Entry": 2,
+    "EntryParams": {
+      "BallotBundleSize": 10,
+      "BallotBundleSampleSize": 2,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 2,
+      "AutomaticEmptyVoteCounting": false
+    },
+    "State": 1,
+    "SubmissionDoneTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "CountOfVoters": {
+      "VoterParticipation": 0.6,
+      "EVotingReceivedBallots": 0,
+      "ConventionalReceivedBallots": 9000,
+      "ConventionalInvalidBallots": 500,
+      "ConventionalBlankBallots": 500,
+      "ConventionalAccountedBallots": 8000,
+      "TotalReceivedBallots": 9000,
+      "TotalAccountedBallots": 8000,
+      "TotalUnaccountedBallots": 1000
+    },
+    "AllBundlesReviewedOrDeleted": false,
+    "CandidateResults": [],
+    "ConventionalCountOfBallotGroupVotes": 0,
+    "ConventionalCountOfDetailedEnteredBallots": 0,
+    "EVotingSubTotal": {
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    "ConventionalSubTotal": {
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    "IndividualVoteCount": 0,
+    "EmptyVoteCount": 0,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0,
+    "CountingCircle": {
+      "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "Name": "St. Gallen",
+      "Bfs": "5500",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": null
+    },
+    "HasUnmappedWriteIns": false
+  },
+  "Bundles": [
+    {
+      "Id": "",
+      "Number": 1,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    },
+    {
+      "Id": "",
+      "Number": 2,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    }
+  ]
+}

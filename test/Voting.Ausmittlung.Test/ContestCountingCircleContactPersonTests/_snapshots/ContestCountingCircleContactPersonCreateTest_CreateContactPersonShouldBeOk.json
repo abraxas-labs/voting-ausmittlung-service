@@ -1,0 +1,36 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "ContestCountingCircleContactPersonId": "",
+  "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+  "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+  "ContactPersonDuringEvent": {
+    "FirstName": "first name",
+    "FamilyName": "family name",
+    "Phone": "+41795214623",
+    "MobilePhone": "",
+    "Email": "test@example.com"
+  },
+  "ContactPersonSameDuringEventAsAfter": false,
+  "ContactPersonAfterEvent": {
+    "FirstName": "after first name",
+    "FamilyName": "after family name",
+    "Phone": "+41795212222",
+    "MobilePhone": "",
+    "Email": "after-test@example.com"
+  }
+}

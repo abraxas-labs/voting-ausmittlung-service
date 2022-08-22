@@ -1,0 +1,77 @@
+{
+  "results": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+    "IndividualVoteCount": 1,
+    "CandidateResults": [
+      {
+        "CandidateId": "81a11b8e-51b8-40c5-aa94-b7a854e2c726",
+        "VoteCount": 10
+      },
+      {
+        "CandidateId": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
+        "VoteCount": 15
+      }
+    ],
+    "SecondaryElectionCandidateResults": [
+      {
+        "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "IndividualVoteCount": 35,
+        "CandidateResults": [
+          {
+            "CandidateId": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+            "VoteCount": 11
+          },
+          {
+            "CandidateId": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+            "VoteCount": 7
+          }
+        ],
+        "EmptyVoteCount": 13,
+        "InvalidVoteCount": 12
+      }
+    ],
+    "EmptyVoteCount": 5,
+    "InvalidVoteCount": 8
+  },
+  "count-of-voters": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+    "CountOfVoters": {
+      "ConventionalReceivedBallots": 1,
+      "ConventionalInvalidBallots": null,
+      "ConventionalBlankBallots": null,
+      "ConventionalAccountedBallots": 300
+    }
+  }
+}

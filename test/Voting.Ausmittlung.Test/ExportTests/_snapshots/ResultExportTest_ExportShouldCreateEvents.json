@@ -1,0 +1,58 @@
+{
+  "Subject": [
+    {
+      "EventInfo": {
+        "User": {
+          "Id": "default-user-id",
+          "Username": "default username",
+          "FirstName": "default user firstname",
+          "LastName": "default user lastname"
+        },
+        "Tenant": {
+          "Id": "999",
+          "Name": "Bund"
+        },
+        "Timestamp": {
+          "Seconds": 1578661930,
+          "Nanos": 200000000
+        }
+      },
+      "RequestId": "",
+      "Key": "vote_overall_result",
+      "PoliticalBusinessIds": [
+        "7550e7c2-27e3-4602-a928-6f9c2afd2289"
+      ],
+      "CountingCircleId": "",
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "EchMessageId": "",
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "EventInfo": {
+        "User": {
+          "Id": "default-user-id",
+          "Username": "default username",
+          "FirstName": "default user firstname",
+          "LastName": "default user lastname"
+        },
+        "Tenant": {
+          "Id": "999",
+          "Name": "Bund"
+        },
+        "Timestamp": {
+          "Seconds": 1578661930,
+          "Nanos": 200000000
+        }
+      },
+      "RequestId": "",
+      "Key": "proportional_election_candidates_numerical",
+      "PoliticalBusinessIds": [
+        "053d1197-ddb2-4906-8c90-b9baa45a40fb"
+      ],
+      "CountingCircleId": "",
+      "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "EchMessageId": "",
+      "DomainOfInfluenceType": 0
+    }
+  ]
+}

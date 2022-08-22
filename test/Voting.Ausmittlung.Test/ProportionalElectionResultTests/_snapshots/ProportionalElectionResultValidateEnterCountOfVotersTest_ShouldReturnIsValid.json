@@ -1,0 +1,176 @@
+{
+  "ValidationResults": [
+    {
+      "Validation": 1,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 0
+    },
+    {
+      "Validation": 2,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 0
+    },
+    {
+      "Validation": 3,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 0
+    },
+    {
+      "Validation": 51,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 0
+    },
+    {
+      "Validation": 14,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": {
+        "PoliticalBusinessType": 3
+      },
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 4
+    },
+    {
+      "Validation": 15,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": {
+        "PoliticalBusinessType": 3
+      },
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 4
+    },
+    {
+      "Validation": 16,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": {
+        "PoliticalBusinessType": 3
+      },
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 4
+    },
+    {
+      "Validation": 17,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": {
+        "PoliticalBusinessType": 3
+      },
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 4
+    },
+    {
+      "Validation": 1153,
+      "IsValid": false,
+      "IsOptional": true,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": {
+        "ThresholdPercent": 5.0,
+        "DeviationPercent": 91.66666666666666,
+        "PoliticalBusinessType": 3
+      },
+      "DataCase": 11
+    },
+    {
+      "Validation": 43,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": {
+        "TotalAccountedBallots": 500,
+        "TotalCountOfBallots": 300,
+        "TotalCountOfUnmodifiedLists": 200,
+        "SumBallotsAndUnmodifiedLists": 500
+      },
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 7
+    },
+    {
+      "Validation": 50,
+      "IsValid": true,
+      "IsOptional": false,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "DataCase": 0
+    }
+  ],
+  "IsValid": true
+}

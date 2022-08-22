@@ -1,0 +1,24 @@
+{
+  "Position": 1,
+  "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+  "ProportionalElection": null,
+  "Translations": [
+    {
+      "ProportionalElectionListUnionId": "49715fbf-5399-4981-bee5-01705469ec8c",
+      "Description": "Unterlistenverbindung 2.1 de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959",
+  "ProportionalElectionRootListUnion": null,
+  "ProportionalElectionMainListId": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
+  "ProportionalElectionMainList": null,
+  "ProportionalElectionSubListUnions": [],
+  "ProportionalElectionListUnionEntries": [],
+  "IsSubListUnion": true,
+  "AllListNumbers": "",
+  "HagenbachBischoffGroup": null,
+  "Description": "Unterlistenverbindung 2.1 de",
+  "Id": "49715fbf-5399-4981-bee5-01705469ec8c"
+}

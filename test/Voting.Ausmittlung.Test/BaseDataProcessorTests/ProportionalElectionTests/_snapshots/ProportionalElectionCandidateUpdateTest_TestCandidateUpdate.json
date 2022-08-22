@@ -1,0 +1,88 @@
+{
+  "Accumulated": false,
+  "AccumulatedPosition": 0,
+  "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
+  "ProportionalElectionList": {
+    "OrderNumber": "1a",
+    "BlankRowCount": 1,
+    "Position": 1,
+    "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+    "ProportionalElection": null,
+    "Translations": [
+      {
+        "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
+        "ShortDescription": "Liste 1 de",
+        "Description": "",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ProportionalElectionCandidates": [],
+    "ProportionalElectionListUnionEntries": [],
+    "ProportionalElectionMainListUnions": [],
+    "ProportionalElectionUnionListEntries": [],
+    "UnmodifiedListResults": [],
+    "Results": [],
+    "Bundles": [],
+    "CandidateEndResultVoteSources": [],
+    "CandidateResultVoteSources": [],
+    "HagenbachBischoffGroup": null,
+    "EndResult": null,
+    "ProportionalElectionListUnion": null,
+    "ProportionalElectionSubListUnion": null,
+    "Description": "",
+    "ShortDescription": "Liste 1 de",
+    "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
+  },
+  "Translations": [
+    {
+      "ProportionalElectionCandidateId": "9e131f21-4483-4375-b014-484c272615ee",
+      "Occupation": "new occupation de",
+      "OccupationTitle": "new occupation title de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "BallotCandidatures": [],
+  "Results": [],
+  "EndResult": null,
+  "PartyId": "214b73d0-7379-5864-8813-cea2d9a98815",
+  "Party": {
+    "BaseDomainOfInfluencePartyId": "c952f414-a81a-4cb0-acd6-2b5c2c422009",
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "DomainOfInfluence": null,
+    "ProportionalElectionCandidates": [],
+    "Deleted": false,
+    "Translations": [
+      {
+        "DomainOfInfluencePartyId": "214b73d0-7379-5864-8813-cea2d9a98815",
+        "Name": "Andere de",
+        "ShortDescription": "AN de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "Name": "Andere de",
+    "ShortDescription": "AN de",
+    "SnapshotContest": null,
+    "SnapshotContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Id": "214b73d0-7379-5864-8813-cea2d9a98815"
+  },
+  "NumberIncludingList": "1a.numberNew",
+  "Description": "1a.numberNew new pol last name new pol first name",
+  "Occupation": "new occupation de",
+  "OccupationTitle": "new occupation title de",
+  "Number": "numberNew",
+  "FirstName": "new first name",
+  "LastName": "new last name",
+  "PoliticalFirstName": "new pol first name",
+  "PoliticalLastName": "new pol last name",
+  "DateOfBirth": "1961-02-26T00:00:00Z",
+  "Sex": 1,
+  "Title": "new title",
+  "Incumbent": false,
+  "ZipCode": "new zip code",
+  "Locality": "locality",
+  "Position": 1,
+  "Id": "9e131f21-4483-4375-b014-484c272615ee"
+}

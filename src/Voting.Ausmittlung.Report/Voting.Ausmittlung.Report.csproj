@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="CsvHelper" Version="27.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(MsExtensionsVersion)" />
+    <PackageReference Include="Voting.Lib.Eventing" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.VotingExports" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.DmDoc" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Ausmittlung.Eventing.Proto" Version="$(VotingAusmittlungProtoVersion)" />
+    <PackageReference Include="Voting.Basis.Eventing.Proto" Version="$(VotingBasisProtoVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
+    <ProjectReference Include="..\Voting.Ausmittlung.Ech\Voting.Ausmittlung.Ech.csproj" />
+    <ProjectReference Include="..\Voting.Ausmittlung.EventSignature\Voting.Ausmittlung.EventSignature.csproj" />
+  </ItemGroup>
+  
+</Project>

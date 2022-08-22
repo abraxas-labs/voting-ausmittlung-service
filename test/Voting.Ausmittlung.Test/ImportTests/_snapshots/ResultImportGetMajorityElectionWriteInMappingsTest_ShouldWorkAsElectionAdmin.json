@@ -1,0 +1,72 @@
+{
+  "ImportId": "",
+  "ElectionWriteInMappings": [
+    {
+      "Election": {
+        "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "BusinessType": 2,
+        "Title": "166: Mw Uzwil de",
+        "Active": true,
+        "DomainOfInfluence": null,
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "166",
+        "ShortDescription": "Mw Uzwil de"
+      },
+      "InvalidVotes": false,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Mueller",
+          "VoteCount": 2,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "vereinzelt",
+          "VoteCount": 2,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "hans müller",
+          "VoteCount": 1,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Muster",
+          "VoteCount": 1,
+          "Target": 0,
+          "CandidateId": ""
+        }
+      ]
+    },
+    {
+      "Election": {
+        "Id": "5ec8cf85-229a-4dc7-a601-1bb6980fee78",
+        "BusinessType": 4,
+        "Title": "n1: short de",
+        "Active": true,
+        "DomainOfInfluence": null,
+        "NumberOfMandates": 2,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "n1",
+        "ShortDescription": "short de"
+      },
+      "InvalidVotes": false,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans-Peter",
+          "VoteCount": 3,
+          "Target": 0,
+          "CandidateId": ""
+        }
+      ]
+    }
+  ]
+}

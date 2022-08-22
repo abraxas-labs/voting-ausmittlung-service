@@ -1,0 +1,68 @@
+{
+  "Accumulated": true,
+  "AccumulatedPosition": 2,
+  "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
+  "ProportionalElectionList": {
+    "OrderNumber": "1a",
+    "BlankRowCount": 1,
+    "Position": 1,
+    "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+    "ProportionalElection": null,
+    "Translations": [
+      {
+        "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
+        "ShortDescription": "Liste 1 it",
+        "Description": "",
+        "Language": "it",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ProportionalElectionCandidates": [],
+    "ProportionalElectionListUnionEntries": [],
+    "ProportionalElectionMainListUnions": [],
+    "ProportionalElectionUnionListEntries": [],
+    "UnmodifiedListResults": [],
+    "Results": [],
+    "Bundles": [],
+    "CandidateEndResultVoteSources": [],
+    "CandidateResultVoteSources": [],
+    "HagenbachBischoffGroup": null,
+    "EndResult": null,
+    "ProportionalElectionListUnion": null,
+    "ProportionalElectionSubListUnion": null,
+    "Description": "",
+    "ShortDescription": "Liste 1 it",
+    "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
+  },
+  "Translations": [
+    {
+      "ProportionalElectionCandidateId": "9e131f21-4483-4375-b014-484c272615ee",
+      "Occupation": "new occupation it",
+      "OccupationTitle": "new occupation title it",
+      "Language": "it",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "BallotCandidatures": [],
+  "Results": [],
+  "EndResult": null,
+  "PartyId": null,
+  "Party": null,
+  "NumberIncludingList": "1a.number1",
+  "Description": "1a.number1 new pol last name new pol first name",
+  "Occupation": "new occupation it",
+  "OccupationTitle": "new occupation title it",
+  "Number": "number1",
+  "FirstName": "new first name",
+  "LastName": "new last name",
+  "PoliticalFirstName": "new pol first name",
+  "PoliticalLastName": "new pol last name",
+  "DateOfBirth": "1961-02-26T00:00:00Z",
+  "Sex": 1,
+  "Title": "new title",
+  "Incumbent": false,
+  "ZipCode": "new zip code",
+  "Locality": "locality",
+  "Position": 1,
+  "Id": "9e131f21-4483-4375-b014-484c272615ee"
+}

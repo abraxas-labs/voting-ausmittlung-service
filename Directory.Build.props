@@ -1,0 +1,6 @@
+<Project>
+    <ImportGroup Condition=" '$(MSBuildProjectExtension)' == '.csproj' ">
+        <Import Project="config\Common.props" />
+        <Import Project="config\CodeAnalysis.props" />
+    </ImportGroup>
+</Project>

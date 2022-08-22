@@ -1,0 +1,133 @@
+{
+  "Position": 1,
+  "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+  "ProportionalElection": null,
+  "Translations": [
+    {
+      "ProportionalElectionListUnionId": "16892ba3-9b8c-42c7-914e-4b4692d170f4",
+      "Description": "Listenverbindung 1 de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ProportionalElectionRootListUnionId": null,
+  "ProportionalElectionRootListUnion": null,
+  "ProportionalElectionMainListId": null,
+  "ProportionalElectionMainList": null,
+  "ProportionalElectionSubListUnions": [],
+  "ProportionalElectionListUnionEntries": [
+    {
+      "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
+      "ProportionalElectionList": {
+        "OrderNumber": "1a",
+        "BlankRowCount": 0,
+        "Position": 1,
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "ProportionalElection": null,
+        "Translations": [
+          {
+            "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
+            "ShortDescription": "Liste 1 de",
+            "Description": "",
+            "Language": "de",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "ProportionalElectionCandidates": [],
+        "ProportionalElectionListUnionEntries": [],
+        "ProportionalElectionMainListUnions": [],
+        "ProportionalElectionUnionListEntries": [],
+        "UnmodifiedListResults": [],
+        "Results": [],
+        "Bundles": [],
+        "CandidateEndResultVoteSources": [],
+        "CandidateResultVoteSources": [],
+        "HagenbachBischoffGroup": null,
+        "EndResult": null,
+        "ProportionalElectionSubListUnion": null,
+        "Description": "",
+        "ShortDescription": "Liste 1 de",
+        "Id": "9091a3b6-3785-4adc-a486-f486e686503e"
+      },
+      "ProportionalElectionListUnionId": "16892ba3-9b8c-42c7-914e-4b4692d170f4",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "ProportionalElectionListId": "afebb285-599d-415f-89ac-04ebcbc4eaeb",
+      "ProportionalElectionList": {
+        "OrderNumber": "3a",
+        "BlankRowCount": 3,
+        "Position": 3,
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "ProportionalElection": null,
+        "Translations": [
+          {
+            "ProportionalElectionListId": "afebb285-599d-415f-89ac-04ebcbc4eaeb",
+            "ShortDescription": "Liste 3 de",
+            "Description": "",
+            "Language": "de",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "ProportionalElectionCandidates": [],
+        "ProportionalElectionListUnionEntries": [],
+        "ProportionalElectionMainListUnions": [],
+        "ProportionalElectionUnionListEntries": [],
+        "UnmodifiedListResults": [],
+        "Results": [],
+        "Bundles": [],
+        "CandidateEndResultVoteSources": [],
+        "CandidateResultVoteSources": [],
+        "HagenbachBischoffGroup": null,
+        "EndResult": null,
+        "ProportionalElectionSubListUnion": null,
+        "Description": "",
+        "ShortDescription": "Liste 3 de",
+        "Id": "afebb285-599d-415f-89ac-04ebcbc4eaeb"
+      },
+      "ProportionalElectionListUnionId": "16892ba3-9b8c-42c7-914e-4b4692d170f4",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "ProportionalElectionListId": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
+      "ProportionalElectionList": {
+        "OrderNumber": "2",
+        "BlankRowCount": 0,
+        "Position": 2,
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "ProportionalElection": null,
+        "Translations": [
+          {
+            "ProportionalElectionListId": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
+            "ShortDescription": "Liste 2 de",
+            "Description": "",
+            "Language": "de",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "ProportionalElectionCandidates": [],
+        "ProportionalElectionListUnionEntries": [],
+        "ProportionalElectionMainListUnions": [],
+        "ProportionalElectionUnionListEntries": [],
+        "UnmodifiedListResults": [],
+        "Results": [],
+        "Bundles": [],
+        "CandidateEndResultVoteSources": [],
+        "CandidateResultVoteSources": [],
+        "HagenbachBischoffGroup": null,
+        "EndResult": null,
+        "ProportionalElectionSubListUnion": null,
+        "Description": "",
+        "ShortDescription": "Liste 2 de",
+        "Id": "bfe54c2a-6bdf-41a3-bf11-321203c380d3"
+      },
+      "ProportionalElectionListUnionId": "16892ba3-9b8c-42c7-914e-4b4692d170f4",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "IsSubListUnion": false,
+  "AllListNumbers": "1a,3a,2",
+  "HagenbachBischoffGroup": null,
+  "Description": "Listenverbindung 1 de",
+  "Id": "16892ba3-9b8c-42c7-914e-4b4692d170f4"
+}

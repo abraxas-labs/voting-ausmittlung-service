@@ -1,0 +1,21 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "my-user-99",
+      "Username": "",
+      "FirstName": "",
+      "LastName": ""
+    },
+    "Tenant": {
+      "Id": "200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "6c73b736-cc42-4325-a8be-7e5233f3d54e",
+  "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+  "BallotNumber": 2
+}

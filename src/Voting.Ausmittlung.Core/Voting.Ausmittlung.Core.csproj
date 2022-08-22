@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.EnumMapping" Version="1.1.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.4" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+    <PackageReference Include="Voting.Lib.Scheduler" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Messaging" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Voting.Ausmittlung.Report\Voting.Ausmittlung.Report.csproj" />
+    <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
+    <ProjectReference Include="..\Voting.Ausmittlung.EventSignature\Voting.Ausmittlung.EventSignature.csproj" />
+    <ProjectReference Include="..\Voting.Ausmittlung.TemporaryData\Voting.Ausmittlung.TemporaryData.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "run": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "run: minimal logs": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Serilog__MinimumLevel__Default": "Warning",
+        "Serilog__MinimumLevel__Override__System": "Warning",
+        "Serilog__MinimumLevel__Override__Grpc": "Warning",
+        "Serilog__MinimumLevel__Override__Microsoft": "Warning",
+        "Serilog__MinimumLevel__Override__Microsoft_DOT_Hosting_DOT_Lifetime": "Warning"
+      }
+    },
+    "watch": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "workingDirectory": "$(ProjectDir)",
+      "hotReloadEnabled": true,
+      "hotReloadProfile" : "aspnetcore",
+      "commandLineArgs": "watch run",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "watch: minimal logs": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "workingDirectory": "$(ProjectDir)",
+      "hotReloadEnabled": true,
+      "hotReloadProfile" : "aspnetcore",
+      "commandLineArgs": "watch run",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Serilog__MinimumLevel__Default": "Warning",
+        "Serilog__MinimumLevel__Override__System": "Warning",
+        "Serilog__MinimumLevel__Override__Grpc": "Warning",
+        "Serilog__MinimumLevel__Override__Microsoft": "Warning",
+        "Serilog__MinimumLevel__Override__Microsoft_DOT_Hosting_DOT_Lifetime": "Warning"
+      }
+    }
+  }
+}

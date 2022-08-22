@@ -1,0 +1,37 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "",
+  "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+  "BallotNumber": 1,
+  "QuestionAnswers": [
+    {
+      "QuestionNumber": 1,
+      "Answer": 2
+    },
+    {
+      "QuestionNumber": 2,
+      "Answer": 0
+    }
+  ],
+  "TieBreakQuestionAnswers": [
+    {
+      "QuestionNumber": 1,
+      "Answer": 0
+    }
+  ]
+}

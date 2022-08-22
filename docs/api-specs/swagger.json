@@ -1,0 +1,201 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "VOTING Ausmittlung vv1",
+    "contact": {
+      "name": "Abraxas Informatik AG",
+      "url": "https://www.abraxas.ch/",
+      "email": "voting@abraxas.ch"
+    },
+    "license": {
+      "name": ""
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/result_export": {
+      "post": {
+        "tags": [
+          "ResultExport"
+        ],
+        "parameters": [
+          {
+            "name": "x-app",
+            "in": "header",
+            "description": "The application context identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "x-tenant",
+            "in": "header",
+            "description": "The tenant context identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateResultExportsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateResultExportsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateResultExportsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/result_import/{contestId}": {
+      "post": {
+        "tags": [
+          "ResultImport"
+        ],
+        "parameters": [
+          {
+            "name": "contestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "x-app",
+            "in": "header",
+            "description": "The application context identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "x-tenant",
+            "in": "header",
+            "description": "The tenant context identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DomainOfInfluenceType": {
+        "enum": [
+          "Unknown",
+          "Ch",
+          "Ct",
+          "Bz",
+          "Mu",
+          "Sk",
+          "Sc",
+          "Ki",
+          "Og",
+          "Ko",
+          "An"
+        ],
+        "type": "string"
+      },
+      "GenerateResultExportRequest": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "politicalBusinessIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "countingCircleId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "politicalBusinessUnionId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "domainOfInfluenceType": {
+            "$ref": "#/components/schemas/DomainOfInfluenceType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenerateResultExportsRequest": {
+        "type": "object",
+        "properties": {
+          "contestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resultExportRequests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenerateResultExportRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

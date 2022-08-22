@@ -1,0 +1,22 @@
+{
+  "Subject": [
+    {
+      "Validation": 1153,
+      "IsValid": false,
+      "IsOptional": true,
+      "PoliticalBusinessData": null,
+      "VoteAccountedBallotsEqualQnData": null,
+      "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
+      "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
+      "ComparisonVoterParticipationsData": null,
+      "ComparisonCountOfVotersData": null,
+      "ComparisonVotingChannelsData": null,
+      "ComparisonValidVotingCardsWithAccountedBallotsData": {
+        "ThresholdPercent": 5.0,
+        "DeviationPercent": 97.0,
+        "PoliticalBusinessType": 1
+      },
+      "DataCase": 11
+    }
+  ]
+}

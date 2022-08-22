@@ -1,0 +1,61 @@
+{
+  "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+  "ProportionalElection": null,
+  "EntryParams": {
+    "BallotBundleSize": 10,
+    "BallotBundleSampleSize": 2,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 2,
+    "AutomaticEmptyVoteCounting": false
+  },
+  "UnmodifiedListResults": [],
+  "ListResults": [],
+  "Bundles": [],
+  "PoliticalBusiness": null,
+  "PoliticalBusinessId": "fa69e964-0a02-4d16-b417-247e8987021a",
+  "EVotingSubTotal": {
+    "TotalCountOfUnmodifiedLists": 0,
+    "TotalCountOfModifiedLists": 0,
+    "TotalCountOfListsWithoutParty": 0,
+    "TotalCountOfBallots": 0,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+    "TotalCountOfListsWithParty": 0,
+    "TotalCountOfLists": 0
+  },
+  "ConventionalSubTotal": {
+    "TotalCountOfUnmodifiedLists": 0,
+    "TotalCountOfModifiedLists": 0,
+    "TotalCountOfListsWithoutParty": 0,
+    "TotalCountOfBallots": 0,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+    "TotalCountOfListsWithParty": 0,
+    "TotalCountOfLists": 0
+  },
+  "TotalCountOfUnmodifiedLists": 0,
+  "TotalCountOfModifiedLists": 0,
+  "TotalCountOfListsWithoutParty": 0,
+  "TotalCountOfBallots": 0,
+  "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+  "TotalCountOfListsWithParty": 0,
+  "TotalCountOfLists": 0,
+  "CountOfVoters": {
+    "VoterParticipation": 0.6666666666666666666666666667,
+    "EVotingReceivedBallots": 0,
+    "ConventionalReceivedBallots": 10000,
+    "ConventionalInvalidBallots": 500,
+    "ConventionalBlankBallots": 1000,
+    "ConventionalAccountedBallots": 2000,
+    "TotalReceivedBallots": 10000,
+    "TotalAccountedBallots": 2000,
+    "TotalUnaccountedBallots": 1500
+  },
+  "CountOfBundlesNotReviewedOrDeleted": 0,
+  "AllBundlesReviewedOrDeleted": true,
+  "CountingCircleId": "00000000-0000-0000-0000-000000000000",
+  "CountingCircle": null,
+  "State": 2,
+  "SubmissionDoneTimestamp": null,
+  "AuditedTentativelyTimestamp": null,
+  "TotalCountOfVoters": 15000,
+  "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932"
+}

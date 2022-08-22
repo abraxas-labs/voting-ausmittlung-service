@@ -1,0 +1,60 @@
+{
+  "ContestSummaries_": [
+    {
+      "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Date": {
+        "Seconds": 1598832000,
+        "Nanos": 0
+      },
+      "Description": "Kantonsurnengang de",
+      "EndOfTestingPhase": {
+        "Seconds": 1545264000,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "EVoting": true,
+      "EVotingFrom": {
+        "Seconds": 1582156800,
+        "Nanos": 0
+      },
+      "EVotingTo": {
+        "Seconds": 1583020800,
+        "Nanos": 0
+      },
+      "ContestEntriesDetails": [
+        {
+          "DomainOfInfluenceType": 5,
+          "ContestEntriesCount": 3
+        }
+      ],
+      "State": 1,
+      "EVotingResultsImported": false
+    },
+    {
+      "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+      "Date": {
+        "Seconds": 1582934400,
+        "Nanos": 0
+      },
+      "Description": "Gossau Urnengang de",
+      "EndOfTestingPhase": {
+        "Seconds": 1580428800,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "ContestEntriesDetails": [
+        {
+          "DomainOfInfluenceType": 5,
+          "ContestEntriesCount": 3
+        }
+      ],
+      "State": 1,
+      "EVotingResultsImported": false
+    }
+  ]
+}

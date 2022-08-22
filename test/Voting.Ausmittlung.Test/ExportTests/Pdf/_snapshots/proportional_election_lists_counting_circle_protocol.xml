@@ -1,0 +1,570 @@
+<Voting>
+  <TemplateKey>proportional_election_lists_counting_circle_protocol</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <InternalDescription>Nationalratswahl</InternalDescription>
+    <DomainOfInfluence>
+      <Name>St. Gallen</Name>
+      <ShortName>St. Gallen</ShortName>
+      <AuthorityName />
+      <Code>0002-SG</Code>
+      <Bfs>0002</Bfs>
+      <Type>Ct</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <NumberOfMandates>12</NumberOfMandates>
+    <ProportionalElectionResult>
+      <CountOfVoters>
+        <VoterParticipation>0.4647</VoterParticipation>
+        <TotalReceivedBallots>147749</TotalReceivedBallots>
+        <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>145631</CountOfAccountedBallots>
+        <CountOfInvalidBallots>1998</CountOfInvalidBallots>
+        <CountOfBlankBallots>120</CountOfBlankBallots>
+      </CountOfVoters>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>01</OrderNumber>
+          <ShortDescription>JCVP de</ShortDescription>
+          <Description>Liste 01 (JCVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>402</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>4832</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>1342</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>1610</ModifiedListsCount>
+        <ModifiedListVotesCount>19327</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>1342</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>6174</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>20669</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>24159</ListVotesCount>
+        <ListCount>2012</ListCount>
+        <BlankRowsCount>2684</BlankRowsCount>
+        <TotalVoteCount>26843</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>02</OrderNumber>
+          <ShortDescription>JFSG de</ShortDescription>
+          <Description>Liste 02 (JFSG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>270</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>3245</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>901</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>1081</ModifiedListsCount>
+        <ModifiedListVotesCount>12977</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>901</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>4146</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>13878</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>16222</ListVotesCount>
+        <ListCount>1351</ListCount>
+        <BlankRowsCount>1802</BlankRowsCount>
+        <TotalVoteCount>18024</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>03</OrderNumber>
+          <ShortDescription>CVP de</ShortDescription>
+          <Description>Liste 03 (CVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>4154</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>49859</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>5315</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>16619</ModifiedListsCount>
+        <ModifiedListVotesCount>199433</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>5315</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>55174</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>204748</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>249292</ListVotesCount>
+        <ListCount>20773</ListCount>
+        <BlankRowsCount>10630</BlankRowsCount>
+        <TotalVoteCount>259922</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>04</OrderNumber>
+          <ShortDescription>EVP de</ShortDescription>
+          <Description>Liste 04 (EVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>505</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>6067</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>2022</ModifiedListsCount>
+        <ModifiedListVotesCount>24266</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>6067</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>24266</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>30333</ListVotesCount>
+        <ListCount>2527</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>30333</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>05</OrderNumber>
+          <ShortDescription>PFSG de</ShortDescription>
+          <Description>Liste 05 (PFSG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>142</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>1704</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>567</ModifiedListsCount>
+        <ModifiedListVotesCount>6815</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>1704</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>6815</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>8519</ListVotesCount>
+        <ListCount>709</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>8519</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>06</OrderNumber>
+          <ShortDescription>BDP SG de</ShortDescription>
+          <Description>Liste 06 (BDP SG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>952</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>11427</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>3808</ModifiedListsCount>
+        <ModifiedListVotesCount>45706</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>11427</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>45706</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>57133</ListVotesCount>
+        <ListCount>4760</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>57133</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>07</OrderNumber>
+          <ShortDescription>FDP de</ShortDescription>
+          <Description>Liste 07 (FDP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>3570</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>42841</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>14280</ModifiedListsCount>
+        <ModifiedListVotesCount>171364</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>42841</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>171364</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>214205</ListVotesCount>
+        <ListCount>17850</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>214205</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>08</OrderNumber>
+          <ShortDescription>SVP de</ShortDescription>
+          <Description>Liste 08 (SVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>10336</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>124037</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>41345</ModifiedListsCount>
+        <ModifiedListVotesCount>496146</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>124037</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>496146</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>620183</ListVotesCount>
+        <ListCount>51681</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>620183</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>09</OrderNumber>
+          <ShortDescription>SP de</ShortDescription>
+          <Description>Liste 09 (SP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>3855</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>46261</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>15420</ModifiedListsCount>
+        <ModifiedListVotesCount>185041</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>46261</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>185041</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>231302</ListVotesCount>
+        <ListCount>19275</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>231302</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>10</OrderNumber>
+          <ShortDescription>JUSO de</ShortDescription>
+          <Description>Liste 10 (JUSO) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>239</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>2872</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>957</ModifiedListsCount>
+        <ModifiedListVotesCount>11484</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>2872</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>11484</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>14356</ListVotesCount>
+        <ListCount>1196</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>14356</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>11</OrderNumber>
+          <ShortDescription>GRÜNE de</ShortDescription>
+          <Description>Liste 11 (GRÜNE) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>1276</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>15322</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>5107</ModifiedListsCount>
+        <ModifiedListVotesCount>61284</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>15322</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>61284</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>76606</ListVotesCount>
+        <ListCount>6383</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>76606</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>12</OrderNumber>
+          <ShortDescription>JUGRÜ de</ShortDescription>
+          <Description>Liste 12 (JUGRÜ) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>382</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>4589</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>1529</ModifiedListsCount>
+        <ModifiedListVotesCount>18352</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>4589</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>18352</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>22941</ListVotesCount>
+        <ListCount>1911</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>22941</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>13</OrderNumber>
+          <ShortDescription>UFS de</ShortDescription>
+          <Description>Liste 13 (UFS) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>256</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>3080</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>1026</ModifiedListsCount>
+        <ModifiedListVotesCount>12320</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>3080</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>12320</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>15400</ListVotesCount>
+        <ListCount>1282</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>15400</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>14</OrderNumber>
+          <ShortDescription>JBDP SG de</ShortDescription>
+          <Description>Liste 14 (JBDP SG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>97</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>1168</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>389</ModifiedListsCount>
+        <ModifiedListVotesCount>4668</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>1168</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>4668</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>5836</ListVotesCount>
+        <ListCount>486</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>5836</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>15</OrderNumber>
+          <ShortDescription>IP de</ShortDescription>
+          <Description>Liste 15 (IP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>142</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>1707</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>568</ModifiedListsCount>
+        <ModifiedListVotesCount>6826</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>1707</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>6826</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>8533</ListVotesCount>
+        <ListCount>710</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>8533</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>16</OrderNumber>
+          <ShortDescription>glp de</ShortDescription>
+          <Description>Liste 16 (glp) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>1177</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>14127</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>4708</ModifiedListsCount>
+        <ModifiedListVotesCount>56506</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>14127</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>56506</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>70633</ListVotesCount>
+        <ListCount>5885</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>70633</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>17</OrderNumber>
+          <ShortDescription>jglp de</ShortDescription>
+          <Description>Liste 17 (jglp) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>234</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>2808</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>936</ModifiedListsCount>
+        <ModifiedListVotesCount>11232</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>2808</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>11232</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>14040</ListVotesCount>
+        <ListCount>1170</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>14040</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>18</OrderNumber>
+          <ShortDescription>SBösch de</ShortDescription>
+          <Description>Liste 18 (SBösch) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>75</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>910</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>303</ModifiedListsCount>
+        <ModifiedListVotesCount>3637</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>910</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>3637</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>4547</ListVotesCount>
+        <ListCount>378</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>4547</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>19</OrderNumber>
+          <ShortDescription>EDU de</ShortDescription>
+          <Description>Liste 19 (EDU) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>268</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>3227</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>1075</ModifiedListsCount>
+        <ModifiedListVotesCount>12907</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>3227</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>12907</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>16134</ListVotesCount>
+        <ListCount>1343</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>16134</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>20</OrderNumber>
+          <ShortDescription>DPS de</ShortDescription>
+          <Description>Liste 20 (DPS) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>38</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>466</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>155</ModifiedListsCount>
+        <ModifiedListVotesCount>1863</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>466</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>1863</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>2329</ListVotesCount>
+        <ListCount>193</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>2329</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>21</OrderNumber>
+          <ShortDescription>PP de</ShortDescription>
+          <Description>Liste 21 (PP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>115</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>1385</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>461</ModifiedListsCount>
+        <ModifiedListVotesCount>5539</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>1385</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>5539</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>6924</ListVotesCount>
+        <ListCount>576</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>6924</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>22</OrderNumber>
+          <ShortDescription>SD de</ShortDescription>
+          <Description>Liste 22 (SD) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>80</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>962</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>320</ModifiedListsCount>
+        <ModifiedListVotesCount>3846</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>962</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>3846</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>4808</ListVotesCount>
+        <ListCount>400</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>4808</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>23</OrderNumber>
+          <ShortDescription>MGiger de</ShortDescription>
+          <Description>Liste 23 (MGiger) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>48</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>581</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>193</ModifiedListsCount>
+        <ModifiedListVotesCount>2324</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>581</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>2324</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>2905</ListVotesCount>
+        <ListCount>241</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>2905</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionTotalListResult>
+        <UnmodifiedListsCount>28613</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>343477</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>7558</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>114479</ModifiedListsCount>
+        <ModifiedListVotesCount>1373863</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>7558</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>351035</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>1381421</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>1717340</ListVotesCount>
+        <ListCount>143092</ListCount>
+        <BlankRowsCount>15116</BlankRowsCount>
+        <TotalVoteCount>1732456</TotalVoteCount>
+      </ProportionalElectionTotalListResult>
+      <ProportionalElectionTotalListResultInclWithoutParty>
+        <UnmodifiedListsCount>28613</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>343477</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>7558</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>115737</ModifiedListsCount>
+        <ModifiedListVotesCount>1373863</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>22674</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>351035</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>1381421</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>1717340</ListVotesCount>
+        <ListCount>144350</ListCount>
+        <BlankRowsCount>30232</BlankRowsCount>
+        <TotalVoteCount>1747572</TotalVoteCount>
+      </ProportionalElectionTotalListResultInclWithoutParty>
+      <TotalCountOfUnmodifiedLists>28613</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>114479</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>1258</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>115737</TotalCountOfBallots>
+      <TotalCountOfBlankRowsOnListsWithoutParty>15116</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfListsWithParty>143092</TotalCountOfListsWithParty>
+      <TotalCountOfLists>144350</TotalCountOfLists>
+    </ProportionalElectionResult>
+  </ProportionalElection>
+  <CountingCircle>
+    <Name>St. Gallen</Name>
+    <Bfs>5500</Bfs>
+    <Code />
+    <ResponsibleAuthority>
+      <SecureConnectId>200</SecureConnectId>
+      <Name>St. Gallen</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>sg@abraxas.ch</Email>
+      <Street>WerkstrasseX</Street>
+      <Zip>9000</Zip>
+      <City>MyCityX</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans-sg</FirstName>
+      <FamilyName>Muster-sg</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph-sg</FirstName>
+      <FamilyName>Wichtig-sg</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>3000</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>8000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>500</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>7000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>300</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+</Voting>

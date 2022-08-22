@@ -1,0 +1,184 @@
+{
+  "ElectionResult": {
+    "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+    "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+    "Election": {
+      "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
+      "PoliticalBusinessNumber": "321",
+      "OfficialDescription": "Proporzwahl Gossau de",
+      "ShortDescription": "Pw Gossau de",
+      "InternalDescription": "Proporzwahl Gossau auf Urnengang St.Gallen",
+      "NumberOfMandates": 3,
+      "MandateAlgorithm": 2,
+      "CandidateCheckDigit": true,
+      "BallotBundleSize": 10,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 1,
+      "AutomaticEmptyVoteCounting": true,
+      "EnforceEmptyVoteCountingForCountingCircles": true,
+      "SwissAbroadVotingRight": 1,
+      "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Active": true,
+      "BallotBundleSampleSize": 1,
+      "Title": "321: Pw Gossau de",
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "Contest": {
+        "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Date": {
+          "Seconds": 1598832000,
+          "Nanos": 0
+        },
+        "Description": "Kantonsurnengang de",
+        "EndOfTestingPhase": {
+          "Seconds": 1545264000,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+        "EVoting": true,
+        "EVotingFrom": {
+          "Seconds": 1582156800,
+          "Nanos": 0
+        },
+        "EVotingTo": {
+          "Seconds": 1583020800,
+          "Nanos": 0
+        },
+        "State": 1,
+        "EVotingResultsImported": false
+      }
+    },
+    "EntryParams": {
+      "BallotBundleSize": 10,
+      "BallotBundleSampleSize": 2,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 2,
+      "AutomaticEmptyVoteCounting": false
+    },
+    "State": 1,
+    "SubmissionDoneTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "CountOfVoters": {
+      "VoterParticipation": 0.0,
+      "EVotingReceivedBallots": 0,
+      "ConventionalReceivedBallots": null,
+      "ConventionalInvalidBallots": null,
+      "ConventionalBlankBallots": null,
+      "ConventionalAccountedBallots": null,
+      "TotalReceivedBallots": 0,
+      "TotalAccountedBallots": 0,
+      "TotalUnaccountedBallots": 0
+    },
+    "AllBundlesReviewedOrDeleted": true,
+    "CountingCircle": {
+      "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+      "Name": "Gossau",
+      "Bfs": "3443",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": null
+    },
+    "EVotingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
+    "ConventionalSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
+    "TotalCountOfUnmodifiedLists": 0,
+    "TotalCountOfModifiedLists": 0,
+    "TotalCountOfListsWithoutParty": 0,
+    "TotalCountOfBallots": 0,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+    "TotalCountOfListsWithParty": 0,
+    "TotalCountOfLists": 0
+  },
+  "UnmodifiedListResults": [
+    {
+      "List": {
+        "Id": "9091a3b6-3785-4adc-a486-f486e686503e",
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "OrderNumber": "1a",
+        "ShortDescription": "Liste 1 de",
+        "BlankRowCount": 0,
+        "Position": 1,
+        "Description": ""
+      },
+      "ConventionalVoteCount": 0,
+      "EVotingVoteCount": 0,
+      "TotalVoteCount": 0
+    },
+    {
+      "List": {
+        "Id": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "OrderNumber": "2",
+        "ShortDescription": "Liste 2 de",
+        "BlankRowCount": 0,
+        "Position": 2,
+        "Description": ""
+      },
+      "ConventionalVoteCount": 0,
+      "EVotingVoteCount": 0,
+      "TotalVoteCount": 0
+    },
+    {
+      "List": {
+        "Id": "afebb285-599d-415f-89ac-04ebcbc4eaeb",
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "OrderNumber": "3a",
+        "ShortDescription": "Liste 3 de",
+        "BlankRowCount": 3,
+        "Position": 3,
+        "Description": ""
+      },
+      "ConventionalVoteCount": 0,
+      "EVotingVoteCount": 0,
+      "TotalVoteCount": 0
+    }
+  ]
+}

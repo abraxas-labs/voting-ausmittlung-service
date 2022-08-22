@@ -1,0 +1,142 @@
+﻿// (c) Copyright 2022 by Abraxas Informatik AG
+// For license information see LICENSE file
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
+
+namespace Voting.Ausmittlung.Test.MockedData;
+
+public static class ContestDomainOfInfluenceDetailsMockedData
+{
+    public const string IdBundUrnengangBundContestDomainOfInfluenceDetails = "fc270a18-a4ab-458a-aede-aaa15caccb54";
+    public const string IdBundUrnengangStGallenContestDomainOfInfluenceDetails = "909e039a-7abc-4384-a383-234be35f764d";
+    public const string IdBundUrnengangGossauContestDomainOfInfluenceDetails = "56ba1642-abbb-4e9b-9845-9fe2e29f9af3";
+    public const string IdBundUrnengangUzwilContestDomainOfInfluenceDetails = "574c98c8-8610-4929-9a22-3e89672625ca";
+
+    public static ContestDomainOfInfluenceDetails BundUrnengangBundContestDomainOfInfluenceDetails
+        => new()
+        {
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
+            TotalCountOfVoters = 15800 + 15800 + 3210,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+        };
+
+    public static ContestDomainOfInfluenceDetails BundUrnengangStGallenContestDomainOfInfluenceDetails
+        => new()
+        {
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            TotalCountOfVoters = 15800 + 15800 + 3210,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+        };
+
+    public static ContestDomainOfInfluenceDetails BundUrnengangGossauContestDomainOfInfluenceDetails
+        => new()
+        {
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
+            TotalCountOfVoters = 15800,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangBund),
+        };
+
+    public static ContestDomainOfInfluenceDetails BundUrnengangUzwilContestDomainOfInfluenceDetails
+        => new()
+        {
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
+            TotalCountOfVoters = 3210,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.UzwilUrnengangBund),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.UzwilUrnengangBund),
+        };
+
+    public static IEnumerable<ContestDomainOfInfluenceDetails> All
+    {
+        get
+        {
+            yield return BundUrnengangBundContestDomainOfInfluenceDetails;
+            yield return BundUrnengangStGallenContestDomainOfInfluenceDetails;
+            yield return BundUrnengangGossauContestDomainOfInfluenceDetails;
+            yield return BundUrnengangUzwilContestDomainOfInfluenceDetails;
+        }
+    }
+
+    public static async Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
+    {
+        await runScoped(async sp =>
+        {
+            var db = sp.GetRequiredService<DataContext>();
+            var doiDetails = All.ToList();
+
+            foreach (var doiDetail in doiDetails)
+            {
+                doiDetail.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(doiDetail.ContestId, doiDetail.DomainOfInfluenceId);
+            }
+
+            db.ContestDomainOfInfluenceDetails.AddRange(doiDetails);
+            await db.SaveChangesAsync();
+        });
+    }
+
+    internal static HashSet<DomainOfInfluenceVotingCardResultDetail> BuildVotingCards(params ContestCountingCircleDetails[] details)
+    {
+        var votingCardByChannelValidAndDoiType = new Dictionary<(VotingChannel, bool, DomainOfInfluenceType), DomainOfInfluenceVotingCardResultDetail>();
+
+        foreach (var detail in details)
+        {
+            foreach (var votingCard in detail.VotingCards)
+            {
+                var votingCardKey = (votingCard.Channel, votingCard.Valid, votingCard.DomainOfInfluenceType);
+                if (!votingCardByChannelValidAndDoiType.TryGetValue(votingCardKey, out var doiVotingCard))
+                {
+                    doiVotingCard = new()
+                    {
+                        Channel = votingCard.Channel,
+                        Valid = votingCard.Valid,
+                        DomainOfInfluenceType = votingCard.DomainOfInfluenceType,
+                    };
+                    votingCardByChannelValidAndDoiType.Add(votingCardKey, doiVotingCard);
+                }
+
+                doiVotingCard.CountOfReceivedVotingCards += votingCard.CountOfReceivedVotingCards.GetValueOrDefault();
+            }
+        }
+
+        return votingCardByChannelValidAndDoiType.Values.ToHashSet();
+    }
+
+    internal static HashSet<DomainOfInfluenceCountOfVotersInformationSubTotal> BuildCountOfVotersInformationSubTotals(params ContestCountingCircleDetails[] details)
+    {
+        var subTotalBySexAndVoterType = new Dictionary<(SexType, VoterType), DomainOfInfluenceCountOfVotersInformationSubTotal>();
+
+        foreach (var detail in details)
+        {
+            foreach (var subTotal in detail.CountOfVotersInformationSubTotals)
+            {
+                var subTotalKey = (subTotal.Sex, subTotal.VoterType);
+                if (!subTotalBySexAndVoterType.TryGetValue(subTotalKey, out var doiSubTotal))
+                {
+                    doiSubTotal = new()
+                    {
+                        Sex = subTotal.Sex,
+                        VoterType = subTotal.VoterType,
+                    };
+                    subTotalBySexAndVoterType.Add(subTotalKey, doiSubTotal);
+                }
+
+                doiSubTotal.CountOfVoters += subTotal.CountOfVoters.GetValueOrDefault();
+            }
+        }
+
+        return subTotalBySexAndVoterType.Values.ToHashSet();
+    }
+}

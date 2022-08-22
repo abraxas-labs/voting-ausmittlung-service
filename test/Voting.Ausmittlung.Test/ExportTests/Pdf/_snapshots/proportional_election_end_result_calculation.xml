@@ -1,0 +1,871 @@
+<Voting>
+  <TemplateKey>proportional_election_end_result_calculation</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <ContestDetails>
+      <TotalCountOfVoters>317969</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+    </ContestDetails>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <InternalDescription>Nationalratswahl</InternalDescription>
+    <NumberOfMandates>12</NumberOfMandates>
+    <ProportionalElectionEndResult>
+      <TotalCountOfVoters>317969</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>1</CountOfDoneCountingCircles>
+      <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
+      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <CountOfVoters>
+        <VoterParticipation>0.4646647943667464438357198343</VoterParticipation>
+        <TotalReceivedBallots>147749</TotalReceivedBallots>
+        <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>145631</CountOfAccountedBallots>
+        <CountOfInvalidBallots>1998</CountOfInvalidBallots>
+        <CountOfBlankBallots>120</CountOfBlankBallots>
+      </CountOfVoters>
+      <Calculation>
+        <HagenbachBischoffRootGroup>
+          <AllListNumbers>01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23</AllListNumbers>
+          <VoteCount>1732456</VoteCount>
+          <InitialNumberOfMandates>9</InitialNumberOfMandates>
+          <NumberOfMandates>12</NumberOfMandates>
+          <NumberOfMandatesPlusOne>13</NumberOfMandatesPlusOne>
+          <Quotient>133265.84615384615384615384615</Quotient>
+          <DistributionNumber>133266</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListUnion 1 de</ShortDescription>
+            <Description>ListUnion 1 de</Description>
+            <AllListNumbers>01,03,04,06,14</AllListNumbers>
+            <VoteCount>380067</VoteCount>
+            <NumberOfMandates>2</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListUnion 2 de</ShortDescription>
+            <Description>ListUnion 2 de</Description>
+            <AllListNumbers>02,07,13</AllListNumbers>
+            <VoteCount>247629</VoteCount>
+            <NumberOfMandates>1</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListUnion 3 de</ShortDescription>
+            <Description>ListUnion 3 de</Description>
+            <AllListNumbers>08,19</AllListNumbers>
+            <VoteCount>636317</VoteCount>
+            <NumberOfMandates>4</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListUnion 4 de</ShortDescription>
+            <Description>ListUnion 4 de</Description>
+            <AllListNumbers>09,10,11,12</AllListNumbers>
+            <VoteCount>345205</VoteCount>
+            <NumberOfMandates>2</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListUnion 5 de</ShortDescription>
+            <Description>ListUnion 5 de</Description>
+            <AllListNumbers>16,17,21</AllListNumbers>
+            <VoteCount>91597</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>PFSG de</ShortDescription>
+            <Description>Liste 05 (PFSG) de</Description>
+            <AllListNumbers>05</AllListNumbers>
+            <VoteCount>8519</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>IP de</ShortDescription>
+            <Description>Liste 15 (IP) de</Description>
+            <AllListNumbers>15</AllListNumbers>
+            <VoteCount>8533</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>SBösch de</ShortDescription>
+            <Description>Liste 18 (SBösch) de</Description>
+            <AllListNumbers>18</AllListNumbers>
+            <VoteCount>4547</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>DPS de</ShortDescription>
+            <Description>Liste 20 (DPS) de</Description>
+            <AllListNumbers>20</AllListNumbers>
+            <VoteCount>2329</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>SD de</ShortDescription>
+            <Description>Liste 22 (SD) de</Description>
+            <AllListNumbers>22</AllListNumbers>
+            <VoteCount>4808</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>MGiger de</ShortDescription>
+            <Description>Liste 23 (MGiger) de</Description>
+            <AllListNumbers>23</AllListNumbers>
+            <VoteCount>2905</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffCalculationRound>
+            <WinnerReason>Quotient</WinnerReason>
+            <Winner>
+              <ShortDescription>ListUnion 3 de</ShortDescription>
+              <Description>ListUnion 3 de</Description>
+              <AllListNumbers>08,19</AllListNumbers>
+              <VoteCount>636317</VoteCount>
+              <PreviousNumberOfMandates>4</PreviousNumberOfMandates>
+              <NumberOfMandatesAfterWin>5</NumberOfMandatesAfterWin>
+            </Winner>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 1 de</ShortDescription>
+                <Description>ListUnion 1 de</Description>
+                <AllListNumbers>01,03,04,06,14</AllListNumbers>
+                <VoteCount>380067</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>126689</NextQuotient>
+              <PreviousQuotient>126689</PreviousQuotient>
+              <NumberOfMandates>2</NumberOfMandates>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>3</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 2 de</ShortDescription>
+                <Description>ListUnion 2 de</Description>
+                <AllListNumbers>02,07,13</AllListNumbers>
+                <VoteCount>247629</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>123814.5</NextQuotient>
+              <PreviousQuotient>123814.5</PreviousQuotient>
+              <NumberOfMandates>1</NumberOfMandates>
+              <PreviousNumberOfMandates>1</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>2</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 3 de</ShortDescription>
+                <Description>ListUnion 3 de</Description>
+                <AllListNumbers>08,19</AllListNumbers>
+                <VoteCount>636317</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>106052.83333333333333333333333</NextQuotient>
+              <PreviousQuotient>127263.4</PreviousQuotient>
+              <NumberOfMandates>5</NumberOfMandates>
+              <PreviousNumberOfMandates>4</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>5</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>true</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 4 de</ShortDescription>
+                <Description>ListUnion 4 de</Description>
+                <AllListNumbers>09,10,11,12</AllListNumbers>
+                <VoteCount>345205</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>115068.33333333333333333333333</NextQuotient>
+              <PreviousQuotient>115068.33333333333333333333333</PreviousQuotient>
+              <NumberOfMandates>2</NumberOfMandates>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>3</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 5 de</ShortDescription>
+                <Description>ListUnion 5 de</Description>
+                <AllListNumbers>16,17,21</AllListNumbers>
+                <VoteCount>91597</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>91597</NextQuotient>
+              <PreviousQuotient>91597</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>PFSG de</ShortDescription>
+                <Description>Liste 05 (PFSG) de</Description>
+                <AllListNumbers>05</AllListNumbers>
+                <VoteCount>8519</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8519</NextQuotient>
+              <PreviousQuotient>8519</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>IP de</ShortDescription>
+                <Description>Liste 15 (IP) de</Description>
+                <AllListNumbers>15</AllListNumbers>
+                <VoteCount>8533</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8533</NextQuotient>
+              <PreviousQuotient>8533</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SBösch de</ShortDescription>
+                <Description>Liste 18 (SBösch) de</Description>
+                <AllListNumbers>18</AllListNumbers>
+                <VoteCount>4547</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4547</NextQuotient>
+              <PreviousQuotient>4547</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>DPS de</ShortDescription>
+                <Description>Liste 20 (DPS) de</Description>
+                <AllListNumbers>20</AllListNumbers>
+                <VoteCount>2329</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2329</NextQuotient>
+              <PreviousQuotient>2329</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SD de</ShortDescription>
+                <Description>Liste 22 (SD) de</Description>
+                <AllListNumbers>22</AllListNumbers>
+                <VoteCount>4808</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4808</NextQuotient>
+              <PreviousQuotient>4808</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>MGiger de</ShortDescription>
+                <Description>Liste 23 (MGiger) de</Description>
+                <AllListNumbers>23</AllListNumbers>
+                <VoteCount>2905</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2905</NextQuotient>
+              <PreviousQuotient>2905</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+          </HagenbachBischoffCalculationRound>
+          <HagenbachBischoffCalculationRound>
+            <WinnerReason>Quotient</WinnerReason>
+            <Winner>
+              <ShortDescription>ListUnion 1 de</ShortDescription>
+              <Description>ListUnion 1 de</Description>
+              <AllListNumbers>01,03,04,06,14</AllListNumbers>
+              <VoteCount>380067</VoteCount>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <NumberOfMandatesAfterWin>3</NumberOfMandatesAfterWin>
+            </Winner>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 1 de</ShortDescription>
+                <Description>ListUnion 1 de</Description>
+                <AllListNumbers>01,03,04,06,14</AllListNumbers>
+                <VoteCount>380067</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>95016.75</NextQuotient>
+              <PreviousQuotient>126689</PreviousQuotient>
+              <NumberOfMandates>3</NumberOfMandates>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>3</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>true</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 2 de</ShortDescription>
+                <Description>ListUnion 2 de</Description>
+                <AllListNumbers>02,07,13</AllListNumbers>
+                <VoteCount>247629</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>123814.5</NextQuotient>
+              <PreviousQuotient>123814.5</PreviousQuotient>
+              <NumberOfMandates>1</NumberOfMandates>
+              <PreviousNumberOfMandates>1</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>2</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 3 de</ShortDescription>
+                <Description>ListUnion 3 de</Description>
+                <AllListNumbers>08,19</AllListNumbers>
+                <VoteCount>636317</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>106052.83333333333333333333333</NextQuotient>
+              <PreviousQuotient>106052.83333333333333333333333</PreviousQuotient>
+              <NumberOfMandates>5</NumberOfMandates>
+              <PreviousNumberOfMandates>5</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>6</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 4 de</ShortDescription>
+                <Description>ListUnion 4 de</Description>
+                <AllListNumbers>09,10,11,12</AllListNumbers>
+                <VoteCount>345205</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>115068.33333333333333333333333</NextQuotient>
+              <PreviousQuotient>115068.33333333333333333333333</PreviousQuotient>
+              <NumberOfMandates>2</NumberOfMandates>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>3</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 5 de</ShortDescription>
+                <Description>ListUnion 5 de</Description>
+                <AllListNumbers>16,17,21</AllListNumbers>
+                <VoteCount>91597</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>91597</NextQuotient>
+              <PreviousQuotient>91597</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>PFSG de</ShortDescription>
+                <Description>Liste 05 (PFSG) de</Description>
+                <AllListNumbers>05</AllListNumbers>
+                <VoteCount>8519</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8519</NextQuotient>
+              <PreviousQuotient>8519</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>IP de</ShortDescription>
+                <Description>Liste 15 (IP) de</Description>
+                <AllListNumbers>15</AllListNumbers>
+                <VoteCount>8533</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8533</NextQuotient>
+              <PreviousQuotient>8533</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SBösch de</ShortDescription>
+                <Description>Liste 18 (SBösch) de</Description>
+                <AllListNumbers>18</AllListNumbers>
+                <VoteCount>4547</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4547</NextQuotient>
+              <PreviousQuotient>4547</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>DPS de</ShortDescription>
+                <Description>Liste 20 (DPS) de</Description>
+                <AllListNumbers>20</AllListNumbers>
+                <VoteCount>2329</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2329</NextQuotient>
+              <PreviousQuotient>2329</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SD de</ShortDescription>
+                <Description>Liste 22 (SD) de</Description>
+                <AllListNumbers>22</AllListNumbers>
+                <VoteCount>4808</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4808</NextQuotient>
+              <PreviousQuotient>4808</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>MGiger de</ShortDescription>
+                <Description>Liste 23 (MGiger) de</Description>
+                <AllListNumbers>23</AllListNumbers>
+                <VoteCount>2905</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2905</NextQuotient>
+              <PreviousQuotient>2905</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+          </HagenbachBischoffCalculationRound>
+          <HagenbachBischoffCalculationRound>
+            <WinnerReason>Quotient</WinnerReason>
+            <Winner>
+              <ShortDescription>ListUnion 2 de</ShortDescription>
+              <Description>ListUnion 2 de</Description>
+              <AllListNumbers>02,07,13</AllListNumbers>
+              <VoteCount>247629</VoteCount>
+              <PreviousNumberOfMandates>1</PreviousNumberOfMandates>
+              <NumberOfMandatesAfterWin>2</NumberOfMandatesAfterWin>
+            </Winner>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 1 de</ShortDescription>
+                <Description>ListUnion 1 de</Description>
+                <AllListNumbers>01,03,04,06,14</AllListNumbers>
+                <VoteCount>380067</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>95016.75</NextQuotient>
+              <PreviousQuotient>95016.75</PreviousQuotient>
+              <NumberOfMandates>3</NumberOfMandates>
+              <PreviousNumberOfMandates>3</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>4</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 2 de</ShortDescription>
+                <Description>ListUnion 2 de</Description>
+                <AllListNumbers>02,07,13</AllListNumbers>
+                <VoteCount>247629</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>82543</NextQuotient>
+              <PreviousQuotient>123814.5</PreviousQuotient>
+              <NumberOfMandates>2</NumberOfMandates>
+              <PreviousNumberOfMandates>1</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>2</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>true</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 3 de</ShortDescription>
+                <Description>ListUnion 3 de</Description>
+                <AllListNumbers>08,19</AllListNumbers>
+                <VoteCount>636317</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>106052.83333333333333333333333</NextQuotient>
+              <PreviousQuotient>106052.83333333333333333333333</PreviousQuotient>
+              <NumberOfMandates>5</NumberOfMandates>
+              <PreviousNumberOfMandates>5</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>6</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 4 de</ShortDescription>
+                <Description>ListUnion 4 de</Description>
+                <AllListNumbers>09,10,11,12</AllListNumbers>
+                <VoteCount>345205</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>115068.33333333333333333333333</NextQuotient>
+              <PreviousQuotient>115068.33333333333333333333333</PreviousQuotient>
+              <NumberOfMandates>2</NumberOfMandates>
+              <PreviousNumberOfMandates>2</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>3</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>ListUnion 5 de</ShortDescription>
+                <Description>ListUnion 5 de</Description>
+                <AllListNumbers>16,17,21</AllListNumbers>
+                <VoteCount>91597</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>91597</NextQuotient>
+              <PreviousQuotient>91597</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>PFSG de</ShortDescription>
+                <Description>Liste 05 (PFSG) de</Description>
+                <AllListNumbers>05</AllListNumbers>
+                <VoteCount>8519</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8519</NextQuotient>
+              <PreviousQuotient>8519</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>IP de</ShortDescription>
+                <Description>Liste 15 (IP) de</Description>
+                <AllListNumbers>15</AllListNumbers>
+                <VoteCount>8533</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>8533</NextQuotient>
+              <PreviousQuotient>8533</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SBösch de</ShortDescription>
+                <Description>Liste 18 (SBösch) de</Description>
+                <AllListNumbers>18</AllListNumbers>
+                <VoteCount>4547</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4547</NextQuotient>
+              <PreviousQuotient>4547</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>DPS de</ShortDescription>
+                <Description>Liste 20 (DPS) de</Description>
+                <AllListNumbers>20</AllListNumbers>
+                <VoteCount>2329</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2329</NextQuotient>
+              <PreviousQuotient>2329</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>SD de</ShortDescription>
+                <Description>Liste 22 (SD) de</Description>
+                <AllListNumbers>22</AllListNumbers>
+                <VoteCount>4808</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>4808</NextQuotient>
+              <PreviousQuotient>4808</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+            <HagenbachBischoffGroupDetail>
+              <HagenbachBischoffGroup>
+                <ShortDescription>MGiger de</ShortDescription>
+                <Description>Liste 23 (MGiger) de</Description>
+                <AllListNumbers>23</AllListNumbers>
+                <VoteCount>2905</VoteCount>
+              </HagenbachBischoffGroup>
+              <NextQuotient>2905</NextQuotient>
+              <PreviousQuotient>2905</PreviousQuotient>
+              <NumberOfMandates>0</NumberOfMandates>
+              <PreviousNumberOfMandates>0</PreviousNumberOfMandates>
+              <PreviousNumberOfMandatesPlusOne>1</PreviousNumberOfMandatesPlusOne>
+              <IsWinner>false</IsWinner>
+            </HagenbachBischoffGroupDetail>
+          </HagenbachBischoffCalculationRound>
+        </HagenbachBischoffRootGroup>
+        <HagenbachBischoffListUnionGroup>
+          <ShortDescription>ListUnion 1 de</ShortDescription>
+          <Description>ListUnion 1 de</Description>
+          <AllListNumbers>01,03,04,06,14</AllListNumbers>
+          <VoteCount>380067</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>3</NumberOfMandates>
+          <NumberOfMandatesPlusOne>4</NumberOfMandatesPlusOne>
+          <Quotient>95016.75</Quotient>
+          <DistributionNumber>95017</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListSubUnion 1 de</ShortDescription>
+            <Description>ListSubUnion 1 de</Description>
+            <AllListNumbers>01,03</AllListNumbers>
+            <VoteCount>286765</VoteCount>
+            <NumberOfMandates>3</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>EVP de</ShortDescription>
+            <Description>Liste 04 (EVP) de</Description>
+            <AllListNumbers>04</AllListNumbers>
+            <VoteCount>30333</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>BDP SG de</ShortDescription>
+            <Description>Liste 06 (BDP SG) de</Description>
+            <AllListNumbers>06</AllListNumbers>
+            <VoteCount>57133</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>JBDP SG de</ShortDescription>
+            <Description>Liste 14 (JBDP SG) de</Description>
+            <AllListNumbers>14</AllListNumbers>
+            <VoteCount>5836</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffListUnionGroup>
+        <HagenbachBischoffListUnionGroup>
+          <ShortDescription>ListUnion 2 de</ShortDescription>
+          <Description>ListUnion 2 de</Description>
+          <AllListNumbers>02,07,13</AllListNumbers>
+          <VoteCount>247629</VoteCount>
+          <InitialNumberOfMandates>1</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>82543</Quotient>
+          <DistributionNumber>82543</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>JFSG de</ShortDescription>
+            <Description>Liste 02 (JFSG) de</Description>
+            <AllListNumbers>02</AllListNumbers>
+            <VoteCount>18024</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>FDP de</ShortDescription>
+            <Description>Liste 07 (FDP) de</Description>
+            <AllListNumbers>07</AllListNumbers>
+            <VoteCount>214205</VoteCount>
+            <NumberOfMandates>2</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>UFS de</ShortDescription>
+            <Description>Liste 13 (UFS) de</Description>
+            <AllListNumbers>13</AllListNumbers>
+            <VoteCount>15400</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffListUnionGroup>
+        <HagenbachBischoffListUnionGroup>
+          <ShortDescription>ListUnion 3 de</ShortDescription>
+          <Description>ListUnion 3 de</Description>
+          <AllListNumbers>08,19</AllListNumbers>
+          <VoteCount>636317</VoteCount>
+          <InitialNumberOfMandates>4</InitialNumberOfMandates>
+          <NumberOfMandates>5</NumberOfMandates>
+          <NumberOfMandatesPlusOne>6</NumberOfMandatesPlusOne>
+          <Quotient>106052.83333333333333333333333</Quotient>
+          <DistributionNumber>106053</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>SVP de</ShortDescription>
+            <Description>Liste 08 (SVP) de</Description>
+            <AllListNumbers>08</AllListNumbers>
+            <VoteCount>620183</VoteCount>
+            <NumberOfMandates>5</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>EDU de</ShortDescription>
+            <Description>Liste 19 (EDU) de</Description>
+            <AllListNumbers>19</AllListNumbers>
+            <VoteCount>16134</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffListUnionGroup>
+        <HagenbachBischoffListUnionGroup>
+          <ShortDescription>ListUnion 4 de</ShortDescription>
+          <Description>ListUnion 4 de</Description>
+          <AllListNumbers>09,10,11,12</AllListNumbers>
+          <VoteCount>345205</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>115068.33333333333333333333333</Quotient>
+          <DistributionNumber>115069</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListSubUnion 3 de</ShortDescription>
+            <Description>ListSubUnion 3 de</Description>
+            <AllListNumbers>09,10</AllListNumbers>
+            <VoteCount>245658</VoteCount>
+            <NumberOfMandates>2</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>GRÜNE de</ShortDescription>
+            <Description>Liste 11 (GRÜNE) de</Description>
+            <AllListNumbers>11</AllListNumbers>
+            <VoteCount>76606</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>JUGRÜ de</ShortDescription>
+            <Description>Liste 12 (JUGRÜ) de</Description>
+            <AllListNumbers>12</AllListNumbers>
+            <VoteCount>22941</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffListUnionGroup>
+        <HagenbachBischoffListUnionGroup>
+          <ShortDescription>ListUnion 5 de</ShortDescription>
+          <Description>ListUnion 5 de</Description>
+          <AllListNumbers>16,17,21</AllListNumbers>
+          <VoteCount>91597</VoteCount>
+          <InitialNumberOfMandates>0</InitialNumberOfMandates>
+          <NumberOfMandates>0</NumberOfMandates>
+          <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
+          <Quotient>91597</Quotient>
+          <DistributionNumber>91597</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>ListSubUnion 5 de</ShortDescription>
+            <Description>ListSubUnion 5 de</Description>
+            <AllListNumbers>16,17</AllListNumbers>
+            <VoteCount>84673</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>PP de</ShortDescription>
+            <Description>Liste 21 (PP) de</Description>
+            <AllListNumbers>21</AllListNumbers>
+            <VoteCount>6924</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffListUnionGroup>
+        <HagenbachBischoffSubListUnionGroup>
+          <ShortDescription>ListSubUnion 1 de</ShortDescription>
+          <Description>ListSubUnion 1 de</Description>
+          <AllListNumbers>01,03</AllListNumbers>
+          <VoteCount>286765</VoteCount>
+          <InitialNumberOfMandates>3</InitialNumberOfMandates>
+          <NumberOfMandates>3</NumberOfMandates>
+          <NumberOfMandatesPlusOne>4</NumberOfMandatesPlusOne>
+          <Quotient>71691.25</Quotient>
+          <DistributionNumber>71692</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>JCVP de</ShortDescription>
+            <Description>Liste 01 (JCVP) de</Description>
+            <AllListNumbers>01</AllListNumbers>
+            <VoteCount>26843</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>CVP de</ShortDescription>
+            <Description>Liste 03 (CVP) de</Description>
+            <AllListNumbers>03</AllListNumbers>
+            <VoteCount>259922</VoteCount>
+            <NumberOfMandates>3</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffSubListUnionGroup>
+        <HagenbachBischoffSubListUnionGroup>
+          <ShortDescription>ListSubUnion 3 de</ShortDescription>
+          <Description>ListSubUnion 3 de</Description>
+          <AllListNumbers>09,10</AllListNumbers>
+          <VoteCount>245658</VoteCount>
+          <InitialNumberOfMandates>2</InitialNumberOfMandates>
+          <NumberOfMandates>2</NumberOfMandates>
+          <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
+          <Quotient>81886</Quotient>
+          <DistributionNumber>81886</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>SP de</ShortDescription>
+            <Description>Liste 09 (SP) de</Description>
+            <AllListNumbers>09</AllListNumbers>
+            <VoteCount>231302</VoteCount>
+            <NumberOfMandates>2</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>JUSO de</ShortDescription>
+            <Description>Liste 10 (JUSO) de</Description>
+            <AllListNumbers>10</AllListNumbers>
+            <VoteCount>14356</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffSubListUnionGroup>
+        <HagenbachBischoffSubListUnionGroup>
+          <ShortDescription>ListSubUnion 5 de</ShortDescription>
+          <Description>ListSubUnion 5 de</Description>
+          <AllListNumbers>16,17</AllListNumbers>
+          <VoteCount>84673</VoteCount>
+          <InitialNumberOfMandates>0</InitialNumberOfMandates>
+          <NumberOfMandates>0</NumberOfMandates>
+          <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
+          <Quotient>84673</Quotient>
+          <DistributionNumber>84673</DistributionNumber>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>glp de</ShortDescription>
+            <Description>Liste 16 (glp) de</Description>
+            <AllListNumbers>16</AllListNumbers>
+            <VoteCount>70633</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+          <HagenbachBischoffInitialDistribution>
+            <ShortDescription>jglp de</ShortDescription>
+            <Description>Liste 17 (jglp) de</Description>
+            <AllListNumbers>17</AllListNumbers>
+            <VoteCount>14040</VoteCount>
+            <NumberOfMandates>0</NumberOfMandates>
+          </HagenbachBischoffInitialDistribution>
+        </HagenbachBischoffSubListUnionGroup>
+      </Calculation>
+      <TotalCountOfUnmodifiedLists>28613</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>114479</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>1258</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>115737</TotalCountOfBallots>
+      <TotalCountOfBlankRowsOnListsWithoutParty>15116</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfListsWithParty>143092</TotalCountOfListsWithParty>
+      <TotalCountOfLists>144350</TotalCountOfLists>
+    </ProportionalElectionEndResult>
+  </ProportionalElection>
+  <DomainOfInfluence>
+    <Name>St. Gallen</Name>
+    <ShortName>St. Gallen</ShortName>
+    <AuthorityName />
+    <Code>0002-SG</Code>
+    <Bfs>0002</Bfs>
+    <Type>Ct</Type>
+    <Canton>Sg</Canton>
+  </DomainOfInfluence>
+</Voting>

@@ -1,0 +1,62 @@
+{
+  "CountingCircles_": [
+    {
+      "Id": "46adab98-9114-4503-9000-b02842640650",
+      "Name": "St. Gallen Haggen",
+      "Bfs": "5500-2",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    {
+      "Id": "44a75721-f192-461c-816f-9f46a00d274a",
+      "Name": "St. Gallen St. Fiden",
+      "Bfs": "5500-1",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    }
+  ]
+}

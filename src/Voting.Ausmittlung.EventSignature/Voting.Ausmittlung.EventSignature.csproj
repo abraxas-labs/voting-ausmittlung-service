@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nito.AsyncEx.Coordination" Version="5.1.2" />
+    <PackageReference Include="Voting.Lib.Cryptography" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Cryptography.Mocks" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Ausmittlung.Eventing.Proto" Version="$(VotingAusmittlungProtoVersion)" />
+    <PackageReference Include="Voting.Basis.Eventing.Proto" Version="$(VotingBasisProtoVersion)" />
+  </ItemGroup>
+</Project>

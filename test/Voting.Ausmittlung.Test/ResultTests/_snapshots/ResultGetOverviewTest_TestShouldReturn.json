@@ -1,0 +1,163 @@
+{
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "PoliticalBusinesses": [
+    {
+      "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+      "BusinessType": 2,
+      "Title": "166: Mw Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 1,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Mw Uzwil de"
+    },
+    {
+      "Id": "da091f50-9f11-4deb-9621-948fbfbdc322",
+      "BusinessType": 3,
+      "Title": "166: Pw Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Pw Uzwil de"
+    },
+    {
+      "Id": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+      "BusinessType": 1,
+      "Title": "166: Abst Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Abst Uzwil de"
+    }
+  ],
+  "CountingCircleResults": [
+    {
+      "CountingCircle": {
+        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "Name": "Uzwil",
+        "Bfs": "1234",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "da091f50-9f11-4deb-9621-948fbfbdc322",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null
+        }
+      ]
+    }
+  ]
+}

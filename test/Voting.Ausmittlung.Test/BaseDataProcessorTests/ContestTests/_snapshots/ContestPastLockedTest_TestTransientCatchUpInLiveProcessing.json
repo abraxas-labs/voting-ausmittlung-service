@@ -1,0 +1,30 @@
+{
+  "cache-entry": {
+    "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+    "State": 3,
+    "Date": "2020-02-29T00:00:00Z",
+    "PastLockedPer": "2020-02-29T23:00:00Z",
+    "KeyData": null
+  },
+  "event": {
+    "EventInfo": {
+      "User": {
+        "Id": "386096224861726139",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "380590188826699143",
+        "Name": ""
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+    "HostId": "Test-Machine",
+    "KeyId": ""
+  }
+}

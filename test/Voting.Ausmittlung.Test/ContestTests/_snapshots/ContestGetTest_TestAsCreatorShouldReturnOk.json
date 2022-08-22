@@ -1,0 +1,25 @@
+{
+  "Id": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+  "Date": {
+    "Seconds": 1583107200,
+    "Nanos": 0
+  },
+  "Description": "Urnengang in Uzwi de",
+  "EndOfTestingPhase": {
+    "Seconds": 1579478400,
+    "Nanos": 0
+  },
+  "TestingPhaseEnded": false,
+  "DomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+  "EVoting": true,
+  "EVotingFrom": {
+    "Seconds": 1582156800,
+    "Nanos": 0
+  },
+  "EVotingTo": {
+    "Seconds": 1583020800,
+    "Nanos": 0
+  },
+  "State": 1,
+  "EVotingResultsImported": false
+}

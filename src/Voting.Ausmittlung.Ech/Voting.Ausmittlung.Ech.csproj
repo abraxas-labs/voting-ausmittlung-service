@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="eCH-0110-4-0" Version="2.0.2" />
+    <PackageReference Include="eCH-0222-1-0" Version="2.0.3" />
+    <PackageReference Include="Voting.Lib.Ech" Version="$(VotingLibVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
+  </ItemGroup>
+  
+</Project>

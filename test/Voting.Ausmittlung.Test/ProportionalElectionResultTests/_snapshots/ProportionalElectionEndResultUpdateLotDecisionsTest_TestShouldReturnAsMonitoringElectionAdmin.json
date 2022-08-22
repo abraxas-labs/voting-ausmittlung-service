@@ -1,0 +1,33 @@
+{
+  "event": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ProportionalElectionId": "ee6ee245-4cde-4474-bc2b-c3e6ee164c62",
+    "ProportionalElectionEndResultId": "",
+    "ProportionalElectionListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+    "LotDecisions": [
+      {
+        "CandidateId": "7792ecfc-51ee-47e2-bc83-1eef92b6925a",
+        "Rank": 2
+      },
+      {
+        "CandidateId": "170c718a-4433-4aa7-9583-2b79a5c3a550",
+        "Rank": 3
+      }
+    ]
+  }
+}

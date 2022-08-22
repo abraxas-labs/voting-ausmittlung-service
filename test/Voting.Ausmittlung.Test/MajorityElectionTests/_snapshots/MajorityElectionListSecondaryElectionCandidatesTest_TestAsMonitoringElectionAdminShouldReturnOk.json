@@ -1,0 +1,49 @@
+{
+  "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",
+  "Candidates": [
+    {
+      "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+      "Number": "number1",
+      "PoliticalFirstName": "pol first name",
+      "PoliticalLastName": "pol last name",
+      "FirstName": "firstName",
+      "LastName": "lastName",
+      "Party": "Test de",
+      "Position": 1,
+      "Description": "number1 pol last name pol first name"
+    },
+    {
+      "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+      "Number": "number2",
+      "PoliticalFirstName": "Pete",
+      "PoliticalLastName": "L",
+      "FirstName": "Peter",
+      "LastName": "Lustig",
+      "Party": "CVP de",
+      "Position": 2,
+      "Description": "number2 L Pete"
+    },
+    {
+      "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
+      "Number": "number3",
+      "PoliticalFirstName": "Hansi",
+      "PoliticalLastName": "Proll",
+      "FirstName": "Hansruedi",
+      "LastName": "Proll",
+      "Party": "SVP de",
+      "Position": 3,
+      "Description": "number3 Proll Hansi"
+    },
+    {
+      "Id": "340c482b-c064-427e-a906-2696fab2ab35",
+      "Number": "number4",
+      "PoliticalFirstName": "Susi",
+      "PoliticalLastName": "Meierhans",
+      "FirstName": "Susanne",
+      "LastName": "Meierhans",
+      "Party": "CVP de",
+      "Position": 4,
+      "Description": "number4 Meierhans Susi"
+    }
+  ]
+}

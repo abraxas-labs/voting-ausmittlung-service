@@ -1,0 +1,33 @@
+{
+  "CountingCircles_": [
+    {
+      "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Name": "Uzwil",
+      "Bfs": "1234",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "100",
+        "Name": "Uzwil",
+        "Street": "Werkstrasse",
+        "Zip": "9595",
+        "City": "MyCity",
+        "Phone": "071 123 12 20",
+        "Email": "uzwil-test@abraxas.ch"
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 21",
+        "MobilePhone": "071 123 12 31",
+        "Email": "uzwil-test@abraxas.ch"
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "Rudolph",
+        "FamilyName": "Wichtig",
+        "Phone": "071 123 12 22",
+        "MobilePhone": "071 123 12 33",
+        "Email": "uzwil-test2@abraxas.ch"
+      }
+    }
+  ]
+}

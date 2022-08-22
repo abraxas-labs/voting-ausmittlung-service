@@ -1,0 +1,39 @@
+{
+  "Unions": [
+    {
+      "Id": "91f62cc8-fbae-446d-a4b9-0e594594cb92",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Description": "Bund Union Past",
+      "SecureConnectId": "default-tenant-id",
+      "Type": 1
+    },
+    {
+      "Id": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Description": "St. Gallen 1",
+      "SecureConnectId": "default-tenant-id",
+      "Type": 1
+    },
+    {
+      "Id": "e73fa1c9-3532-4076-b3fc-8b7bd2a915ac",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Description": "St. Gallen 1",
+      "SecureConnectId": "default-tenant-id",
+      "Type": 2
+    },
+    {
+      "Id": "6dceaae8-ce5f-4609-8b63-b97b8c323376",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Description": "St. Gallen 2",
+      "SecureConnectId": "default-tenant-id",
+      "Type": 1
+    },
+    {
+      "Id": "d9196504-8c61-4568-94f4-9b8aec9124fe",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Description": "St. Gallen 2",
+      "SecureConnectId": "default-tenant-id",
+      "Type": 2
+    }
+  ]
+}

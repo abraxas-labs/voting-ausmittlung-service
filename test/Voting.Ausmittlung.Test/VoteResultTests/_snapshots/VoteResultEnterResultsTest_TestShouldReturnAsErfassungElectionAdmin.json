@@ -1,0 +1,46 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+  "Results": [
+    {
+      "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+      "QuestionResults": [
+        {
+          "QuestionNumber": 1,
+          "ReceivedCountYes": 1000,
+          "ReceivedCountNo": 590,
+          "ReceivedCountUnspecified": null
+        },
+        {
+          "QuestionNumber": 2,
+          "ReceivedCountYes": 666,
+          "ReceivedCountNo": 123,
+          "ReceivedCountUnspecified": null
+        }
+      ],
+      "TieBreakQuestionResults": [
+        {
+          "QuestionNumber": 1,
+          "ReceivedCountQ1": 300,
+          "ReceivedCountQ2": 200,
+          "ReceivedCountUnspecified": null
+        }
+      ]
+    }
+  ]
+}

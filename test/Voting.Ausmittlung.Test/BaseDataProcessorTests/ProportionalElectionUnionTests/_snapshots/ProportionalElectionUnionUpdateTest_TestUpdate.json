@@ -1,0 +1,79 @@
+{
+  "ProportionalElectionUnionEntries": [
+    {
+      "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+      "ProportionalElection": null,
+      "Id": "2a8d2a36-147c-4078-92fa-bf451d78fc58"
+    },
+    {
+      "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+      "ProportionalElection": null,
+      "Id": "d443959e-2311-4e10-a38b-76e64405d4b4"
+    }
+  ],
+  "ProportionalElectionUnionLists": [
+    {
+      "OrderNumber": "1a",
+      "Translations": [
+        {
+          "ShortDescription": "Liste 1 de",
+          "ProportionalElectionUnionListId": "2399ba4e-9bfd-4cf9-80fe-402c0e3a55d2",
+          "Language": "de",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ProportionalElectionUnionListEntries": [],
+      "ListCount": 0,
+      "PoliticalBusinessNumbers": "",
+      "ShortDescription": "Liste 1 de",
+      "Id": "2399ba4e-9bfd-4cf9-80fe-402c0e3a55d2"
+    },
+    {
+      "OrderNumber": "3a",
+      "Translations": [
+        {
+          "ShortDescription": "Liste 3 de",
+          "ProportionalElectionUnionListId": "6e7227d6-9b32-4eab-a1d1-85ef4521f93d",
+          "Language": "de",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ProportionalElectionUnionListEntries": [],
+      "ListCount": 0,
+      "PoliticalBusinessNumbers": "",
+      "ShortDescription": "Liste 3 de",
+      "Id": "6e7227d6-9b32-4eab-a1d1-85ef4521f93d"
+    },
+    {
+      "OrderNumber": "2",
+      "Translations": [
+        {
+          "ShortDescription": "Liste 2 de",
+          "ProportionalElectionUnionListId": "8ce79d7d-57fe-4e56-9d57-10696ff3d243",
+          "Language": "de",
+          "Id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
+      "ProportionalElectionUnionListEntries": [],
+      "ListCount": 0,
+      "PoliticalBusinessNumbers": "",
+      "ShortDescription": "Liste 2 de",
+      "Id": "8ce79d7d-57fe-4e56-9d57-10696ff3d243"
+    }
+  ],
+  "Type": 1,
+  "PoliticalBusinesses": [
+    null,
+    null
+  ],
+  "Description": "edited description",
+  "SecureConnectId": "",
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "Contest": null,
+  "Id": "cfdc428a-2a75-4f41-972f-28cfa8a923d5"
+}

@@ -1,0 +1,52 @@
+{
+  "MajorityElectionId": "7a7f337e-78c8-44f4-83eb-507d383fc8bf",
+  "PoliticalBusinessId": "7a7f337e-78c8-44f4-83eb-507d383fc8bf",
+  "MajorityElection": null,
+  "Translations": [
+    {
+      "MajorityElectionCandidateId": "8e492d58-4cc3-4aff-928e-b813f26ddc12",
+      "MajorityElectionCandidate": null,
+      "Occupation": "occupation de",
+      "OccupationTitle": "occupation title de",
+      "Party": "CVP de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferences": [],
+  "BallotGroupEntries": [],
+  "CandidateResults": [],
+  "BallotCandidatures": [],
+  "EndResult": {
+    "MajorityElectionEndResultId": "00000000-0000-0000-0000-000000000000",
+    "MajorityElectionEndResult": null,
+    "Candidate": null,
+    "State": 1,
+    "ConventionalVoteCount": 0,
+    "EVotingVoteCount": 0,
+    "VoteCount": 0,
+    "CandidateId": "8e492d58-4cc3-4aff-928e-b813f26ddc12",
+    "Rank": 10,
+    "LotDecision": false,
+    "LotDecisionEnabled": false,
+    "LotDecisionRequired": false,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "Party": "CVP de",
+  "Occupation": "occupation de",
+  "OccupationTitle": "occupation title de",
+  "Description": "number1 pol last name pol first name",
+  "Number": "number1",
+  "FirstName": "late first name",
+  "LastName": "late last name",
+  "PoliticalFirstName": "pol first name",
+  "PoliticalLastName": "pol last name",
+  "DateOfBirth": "1965-01-13T00:00:00Z",
+  "Sex": 2,
+  "Title": "title",
+  "Incumbent": true,
+  "ZipCode": "zip code",
+  "Locality": "locality",
+  "Position": 11,
+  "Id": "8e492d58-4cc3-4aff-928e-b813f26ddc12"
+}

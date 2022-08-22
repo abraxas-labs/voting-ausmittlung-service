@@ -1,0 +1,10 @@
+{
+  "Validation": 1153,
+  "IsValid": true,
+  "IsOptional": true,
+  "Data": {
+    "ThresholdPercent": 20.0,
+    "DeviationPercent": 10.0,
+    "PoliticalBusinessType": 3
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "SecondaryMajorityElectionId": "8cfaec6d-6e37-472e-b63e-073f6fd980fe",
+  "PoliticalBusinessId": "8cfaec6d-6e37-472e-b63e-073f6fd980fe",
+  "SecondaryMajorityElection": null,
+  "Translations": [
+    {
+      "SecondaryMajorityElectionCandidateId": "94f728b7-a0f1-4df3-8300-cd0f18155a1c",
+      "SecondaryMajorityElectionCandidate": null,
+      "Occupation": "occupation de",
+      "OccupationTitle": "occupation title de",
+      "Party": "SP de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferenceId": null,
+  "CandidateReference": null,
+  "BallotGroupEntries": [],
+  "BallotCandidatures": [],
+  "CandidateResults": [],
+  "EndResult": {
+    "Candidate": null,
+    "SecondaryMajorityElectionEndResultId": "00000000-0000-0000-0000-000000000000",
+    "SecondaryMajorityElectionEndResult": null,
+    "State": 1,
+    "ConventionalVoteCount": 0,
+    "EVotingVoteCount": 0,
+    "VoteCount": 0,
+    "CandidateId": "94f728b7-a0f1-4df3-8300-cd0f18155a1c",
+    "Rank": 5,
+    "LotDecision": false,
+    "LotDecisionEnabled": false,
+    "LotDecisionRequired": false,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "Party": "SP de",
+  "Occupation": "occupation de",
+  "OccupationTitle": "occupation title de",
+  "Description": "number1 pol last name pol first name",
+  "Number": "number1",
+  "FirstName": "late firstName",
+  "LastName": "late lastName",
+  "PoliticalFirstName": "pol first name",
+  "PoliticalLastName": "pol last name",
+  "DateOfBirth": "1965-01-13T00:00:00Z",
+  "Sex": 2,
+  "Title": "title",
+  "Incumbent": true,
+  "ZipCode": "zip code",
+  "Locality": "locality",
+  "Position": 5,
+  "Id": "94f728b7-a0f1-4df3-8300-cd0f18155a1c"
+}

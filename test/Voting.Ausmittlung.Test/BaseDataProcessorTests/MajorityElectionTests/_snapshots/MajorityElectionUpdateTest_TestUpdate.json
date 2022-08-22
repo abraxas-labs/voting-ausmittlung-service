@@ -1,0 +1,97 @@
+{
+  "full": {
+    "MandateAlgorithm": 2,
+    "IndividualEmptyBallotsAllowed": false,
+    "CandidateCheckDigit": false,
+    "InvalidVotes": false,
+    "BallotBundleSize": 25,
+    "BallotBundleSampleSize": 8,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": false,
+    "EnforceEmptyVoteCountingForCountingCircles": true,
+    "ResultEntry": 1,
+    "EnforceResultEntryForCountingCircles": false,
+    "ReportDomainOfInfluenceLevel": 0,
+    "BusinessType": 2,
+    "MajorityElectionCandidates": [],
+    "SecondaryMajorityElections": [],
+    "ElectionGroup": null,
+    "BallotGroups": [],
+    "BallotGroupEntries": [],
+    "Results": [],
+    "MajorityElectionUnionEntries": [],
+    "EndResult": null,
+    "Translations": [
+      {
+        "MajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "ShortDescription": "Update Majorzwahl de",
+        "OfficialDescription": "Update Majorzwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "NumberOfMandates": 2,
+    "PoliticalBusinessNumber": "8164",
+    "InternalDescription": "",
+    "Active": false,
+    "SwissAbroadVotingRight": 0,
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "DomainOfInfluence": null,
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Contest": null,
+    "CountingCircleResults": [],
+    "PoliticalBusinessTranslations": [
+      {
+        "MajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "ShortDescription": "Update Majorzwahl de",
+        "OfficialDescription": "Update Majorzwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ShortDescription": "Update Majorzwahl de",
+    "OfficialDescription": "Update Majorzwahl de",
+    "Title": "8164: Update Majorzwahl de",
+    "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+  },
+  "simple": {
+    "BusinessType": 2,
+    "PoliticalBusinessType": 2,
+    "SimpleResults": [],
+    "NumberOfMandates": 2,
+    "CountOfSecondaryBusinesses": 0,
+    "CountingCircleResults": [],
+    "Translations": [
+      {
+        "SimplePoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "ShortDescription": "Update Majorzwahl de",
+        "OfficialDescription": "Update Majorzwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ResultExportConfigurations": [],
+    "PoliticalBusinessNumber": "8164",
+    "InternalDescription": "",
+    "Active": false,
+    "SwissAbroadVotingRight": 0,
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "DomainOfInfluence": null,
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Contest": null,
+    "PoliticalBusinessTranslations": [
+      {
+        "SimplePoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "ShortDescription": "Update Majorzwahl de",
+        "OfficialDescription": "Update Majorzwahl de",
+        "Language": "de",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "ShortDescription": "Update Majorzwahl de",
+    "OfficialDescription": "Update Majorzwahl de",
+    "Title": "8164: Update Majorzwahl de",
+    "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+  }
+}

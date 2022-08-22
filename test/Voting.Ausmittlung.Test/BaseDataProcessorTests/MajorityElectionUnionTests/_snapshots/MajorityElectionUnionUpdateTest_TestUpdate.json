@@ -1,0 +1,28 @@
+{
+  "MajorityElectionUnionEntries": [
+    {
+      "MajorityElectionUnionId": "e73fa1c9-3532-4076-b3fc-8b7bd2a915ac",
+      "MajorityElectionUnion": null,
+      "MajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+      "MajorityElection": null,
+      "Id": "6b8722b8-91ac-44e6-8db4-e2b6345a1f46"
+    },
+    {
+      "MajorityElectionUnionId": "e73fa1c9-3532-4076-b3fc-8b7bd2a915ac",
+      "MajorityElectionUnion": null,
+      "MajorityElectionId": "50415df8-6ee9-4eb4-9e31-68c0d3021e76",
+      "MajorityElection": null,
+      "Id": "deef10e6-c8b5-4baa-891a-48711d8117d2"
+    }
+  ],
+  "Type": 2,
+  "PoliticalBusinesses": [
+    null,
+    null
+  ],
+  "Description": "edited description",
+  "SecureConnectId": "",
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "Contest": null,
+  "Id": "e73fa1c9-3532-4076-b3fc-8b7bd2a915ac"
+}

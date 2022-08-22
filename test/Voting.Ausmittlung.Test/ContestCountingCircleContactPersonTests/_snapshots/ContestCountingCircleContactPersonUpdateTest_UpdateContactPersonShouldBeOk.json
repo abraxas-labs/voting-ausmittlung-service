@@ -1,0 +1,34 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "ContestCountingCircleContactPersonId": "",
+  "ContactPersonDuringEvent": {
+    "FirstName": "updated first name",
+    "FamilyName": "updated family name",
+    "Phone": "+41795212222",
+    "MobilePhone": "",
+    "Email": "test-updated@example.com"
+  },
+  "ContactPersonSameDuringEventAsAfter": false,
+  "ContactPersonAfterEvent": {
+    "FirstName": "after updated first name",
+    "FamilyName": "after updated family name",
+    "Phone": "+41795212999",
+    "MobilePhone": "",
+    "Email": "after-test-updated@example.com"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "ContestSummaries_": [
+    {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "ContestEntriesDetails": [
+        {
+          "DomainOfInfluenceType": 1,
+          "ContestEntriesCount": 3
+        },
+        {
+          "DomainOfInfluenceType": 2,
+          "ContestEntriesCount": 3
+        }
+      ]
+    },
+    {
+      "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Date": {
+        "Seconds": 1598832000,
+        "Nanos": 0
+      },
+      "Description": "Kantonsurnengang",
+      "EndOfTestingPhase": {
+        "Seconds": 1545264000,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "EVoting": true,
+      "EVotingFrom": {
+        "Seconds": 1582156800,
+        "Nanos": 0
+      },
+      "EVotingTo": {
+        "Seconds": 1583020800,
+        "Nanos": 0
+      },
+      "ContestEntriesDetails": [
+        {
+          "DomainOfInfluenceType": 1,
+          "ContestEntriesCount": 3
+        },
+        {
+          "DomainOfInfluenceType": 2,
+          "ContestEntriesCount": 3
+        },
+        {
+          "DomainOfInfluenceType": 5,
+          "ContestEntriesCount": 3
+        }
+      ]
+    }
+  ]
+}
