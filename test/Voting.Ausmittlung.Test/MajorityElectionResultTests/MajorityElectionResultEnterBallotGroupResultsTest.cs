@@ -109,16 +109,6 @@ public class MajorityElectionResultEnterBallotGroupResultsTest : MajorityElectio
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCount()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterBallotGroupResultsAsync(
-                NewValidRequest(r => r.Results[0].VoteCount = -1)),
-            StatusCode.InvalidArgument,
-            "all results must not be negative");
-    }
-
-    [Fact]
     public async Task TestShouldThrowIfFinalResultsEntry()
     {
         await ErfassungElectionAdminClient.DefineEntryAsync(new DefineMajorityElectionResultEntryRequest

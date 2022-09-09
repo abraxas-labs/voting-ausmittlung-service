@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
@@ -26,11 +25,10 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
 
     public MajorityElectionResultAggregate(
         EventInfoProvider eventInfoProvider,
-        IValidator<PoliticalBusinessCountOfVoters> countOfVotersValidator,
         IValidator<ElectionResultEntryParams> resultEntryParamsValidator,
         IMapper mapper,
         EventSignatureService eventSignatureService)
-        : base(countOfVotersValidator, eventSignatureService, mapper)
+        : base(eventSignatureService, mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _resultEntryParamsValidator = resultEntryParamsValidator;
@@ -100,7 +98,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
     public void EnterCountOfVoters(PoliticalBusinessCountOfVoters countOfVoters, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
-        ValidateCountOfVoters(countOfVoters);
 
         RaiseEvent(
             new MajorityElectionResultCountOfVotersEntered
@@ -126,12 +123,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             throw new ValidationException("candidate results can only be entered if result entry is set to final results");
         }
 
-        if (candidateResults.Any(x => x.VoteCount < 0)
-            || secondaryCandidateResults.Any(x => x.CandidateResults.Any(y => y.VoteCount < 0)))
-        {
-            throw new ValidationException("candidate results can't be negative");
-        }
-
         var ev = new MajorityElectionCandidateResultsEntered
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
@@ -149,10 +140,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
         EnsureDetailedResultEntry();
-        if (results.Any(r => r.VoteCount < 0))
-        {
-            throw new ValidationException("all results must not be negative");
-        }
 
         var ev = new MajorityElectionBallotGroupResultsEntered
         {

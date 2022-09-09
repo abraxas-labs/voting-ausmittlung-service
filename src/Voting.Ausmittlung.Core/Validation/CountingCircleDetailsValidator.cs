@@ -9,17 +9,9 @@ namespace Voting.Ausmittlung.Core.Validation;
 public class CountingCircleDetailsValidator : AbstractValidator<ContestCountingCircleDetails>
 {
     public CountingCircleDetailsValidator(
-        IValidator<VotingCardResultDetail> vcResultDetailValidator,
-        IValidator<CountOfVotersInformationSubTotal> countOfVotersInformationSubTotalValidator)
+        IValidator<VotingCardResultDetail> vcResultDetailValidator)
     {
         RuleForEach(v => v.VotingCards)
             .SetValidator(vcResultDetailValidator);
-        RuleForEach(v => v.CountOfVotersInformation.SubTotalInfo)
-            .SetValidator(countOfVotersInformationSubTotalValidator);
-
-        RuleFor(v => v.CountOfVotersInformation.TotalCountOfVoters).GreaterThanOrEqualTo(0);
-
-        RuleFor(v => v.CountingCircleId).NotEmpty();
-        RuleFor(v => v.ContestId).NotEmpty();
     }
 }

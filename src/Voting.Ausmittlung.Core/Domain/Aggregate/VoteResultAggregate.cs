@@ -22,23 +22,17 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 {
     private readonly EventInfoProvider _eventInfoProvider;
     private readonly IValidator<VoteBallotResults> _ballotResultsValidator;
-    private readonly IValidator<VoteBallotResultsCountOfVoters> _ballotResultsCountOfVotersValidator;
-    private readonly IValidator<VoteResultEntryParams> _resultEntryParamsValidator;
     private readonly IMapper _mapper;
 
     public VoteResultAggregate(
         EventInfoProvider eventInfoProvider,
         IValidator<VoteBallotResults> ballotResultsValidator,
-        IValidator<VoteBallotResultsCountOfVoters> ballotResultsCountOfVotersValidator,
-        IValidator<VoteResultEntryParams> resultEntryParamsValidator,
         IMapper mapper,
         EventSignatureService eventSignatureService)
         : base(eventSignatureService, mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _ballotResultsValidator = ballotResultsValidator;
-        _ballotResultsCountOfVotersValidator = ballotResultsCountOfVotersValidator;
-        _resultEntryParamsValidator = resultEntryParamsValidator;
         _mapper = mapper;
     }
 
@@ -87,11 +81,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             throw new ValidationException("details are required if result entry is set to detailed");
         }
 
-        if (hasParams)
-        {
-            _resultEntryParamsValidator.ValidateAndThrow(resultEntryParams!);
-        }
-
         RaiseEvent(
             new VoteResultEntryDefined
             {
@@ -106,7 +95,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
     public void EnterCountOfVoters(IReadOnlyCollection<VoteBallotResultsCountOfVoters> resultsCountOfVoters, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
-        ValidateCountOfVoters(resultsCountOfVoters);
 
         var ev = new VoteResultCountOfVotersEntered
         {
@@ -415,14 +403,6 @@ public class VoteResultAggregate : CountingCircleResultAggregate
         foreach (var result in results)
         {
             _ballotResultsValidator.ValidateAndThrow(result);
-        }
-    }
-
-    private void ValidateCountOfVoters(IEnumerable<VoteBallotResultsCountOfVoters> resultsCountOfVoters)
-    {
-        foreach (var result in resultsCountOfVoters)
-        {
-            _ballotResultsCountOfVotersValidator.ValidateAndThrow(result);
         }
     }
 

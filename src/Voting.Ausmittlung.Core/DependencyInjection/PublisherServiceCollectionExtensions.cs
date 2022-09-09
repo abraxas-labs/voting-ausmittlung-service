@@ -50,7 +50,7 @@ internal static class PublisherServiceCollection
     {
         return services
             .AddValidation()
-            .AddValidatorsFromAssemblyContaining<EnterPoliticalBusinessCountOfVotersValidator>()
+            .AddValidatorsFromAssemblyContaining<VotingCardResultDetailValidator>()
             .AddScoped<EventInfoProvider>()
             .AddSingleton<IDokConnector, DokConnectorMock>()
             .AddSingleton<IActionIdComparer, ActionIdComparer>()

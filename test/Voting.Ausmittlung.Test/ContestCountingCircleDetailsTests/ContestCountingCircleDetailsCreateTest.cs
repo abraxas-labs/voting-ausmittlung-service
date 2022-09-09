@@ -131,37 +131,12 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     [Fact]
     public async Task CreateDetailsNegativeVotingCardCountValueShouldThrow()
     {
+        // tests whether the integration of the proto validators work.
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
                 NewValidRequest(x => x.VotingCards[0].CountOfReceivedVotingCards = -1)),
             StatusCode.InvalidArgument,
-            "'Count Of Received Voting Cards' must be greater");
-    }
-
-    [Fact]
-    public async Task CreateDetailsNegativeCountOfVotersValueShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
-                NewValidRequest(x => x.CountOfVoters[0].CountOfVoters = -1)),
-            StatusCode.InvalidArgument,
-            "'Count Of Voters' must be greater");
-    }
-
-    [Fact]
-    public async Task CreateDetailsShouldThrowIfUnknownVotingChannel()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.VotingCards.Add(new UpdateVotingCardResultDetailRequest
-                {
-                    Channel = SharedProto.VotingChannel.Unspecified,
-                    Valid = true,
-                    CountOfReceivedVotingCards = 1,
-                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
-                }))),
-            StatusCode.InvalidArgument,
-            "Voting card channel Unspecified/True is not enabled");
+            "CountOfReceivedVotingCards' is smaller than the MinValue 0");
     }
 
     [Fact]
@@ -180,21 +155,6 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
         })),
         StatusCode.InvalidArgument,
         "swiss abroads not allowed");
-    }
-
-    [Fact]
-    public async Task CreateDetailsShouldThrowIfUnknownVoterType()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
-                {
-                    Sex = SharedProto.SexType.Female,
-                    VoterType = SharedProto.VoterType.Unspecified,
-                    CountOfVoters = 1,
-                }))),
-            StatusCode.InvalidArgument,
-            "'Voter Type' must not be equal to 'Unspecified'");
     }
 
     [Fact]

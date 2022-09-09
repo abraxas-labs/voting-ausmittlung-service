@@ -136,46 +136,6 @@ public class ContestCountingCircleContactPersonUpdateTest
     }
 
     [Fact]
-    public async Task UpdateContactPersonDuringInvalidEmailShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateAsync(
-                NewValidRequest(x => x.ContactPersonDuringEvent.Email = "invalid")),
-            StatusCode.InvalidArgument,
-            "'Email'");
-    }
-
-    [Fact]
-    public async Task UpdateContactPersonAfterInvalidEmailShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateAsync(
-                NewValidRequest(x => x.ContactPersonAfterEvent.Email = "invalid")),
-            StatusCode.InvalidArgument,
-            "'Email'");
-    }
-
-    [Fact]
-    public async Task UpdateContactPersonDuringWithoutPhoneShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateAsync(
-                NewValidRequest(x => x.ContactPersonDuringEvent.Phone = string.Empty)),
-            StatusCode.InvalidArgument,
-            "'Phone'");
-    }
-
-    [Fact]
-    public async Task UpdateContactPersonAfterWithoutPhoneShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateAsync(
-                NewValidRequest(x => x.ContactPersonAfterEvent.Phone = string.Empty)),
-            StatusCode.InvalidArgument,
-            "'Phone'");
-    }
-
-    [Fact]
     public async Task UpdateContactPersonNotFoundShouldThrow()
     {
         await AssertStatus(

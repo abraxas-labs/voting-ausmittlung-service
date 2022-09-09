@@ -60,7 +60,7 @@ public class ProportionalElectionHagenbachBischoffStrategyTest
         var rootGroup = endResult.HagenbachBischoffRootGroup!;
         rootGroup.SortCalculationRounds();
         rootGroup.Quotient.Should().Be(10_000);
-        rootGroup.DistributionNumber.Should().Be(10_000);
+        rootGroup.DistributionNumber.Should().Be(10_001);
 
         var groups = rootGroup.Children.ToList();
 

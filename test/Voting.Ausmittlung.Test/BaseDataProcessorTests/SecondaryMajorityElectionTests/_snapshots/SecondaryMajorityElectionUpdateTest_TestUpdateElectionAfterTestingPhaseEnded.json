@@ -81,7 +81,7 @@
   "Contest": null,
   "CountingCircleResults": [],
   "NumberOfMandates": 3,
-  "PoliticalBusinessNumber": "n1",
+  "PoliticalBusinessNumber": "n1 UPDATED",
   "InternalDescription": "test",
   "Active": false,
   "PoliticalBusinessTranslations": [
@@ -95,6 +95,6 @@
   ],
   "ShortDescription": "Update Nebenwahl fr",
   "OfficialDescription": "Update Nebenwahl fr",
-  "Title": "n1: Update Nebenwahl fr",
+  "Title": "n1 UPDATED: Update Nebenwahl fr",
   "Id": "0741da26-add2-4c4c-960d-7e251b82e91b"
 }

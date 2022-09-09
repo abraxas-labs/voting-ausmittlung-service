@@ -92,46 +92,6 @@ public class ContestCountingCircleContactPersonCreateTest
     }
 
     [Fact]
-    public async Task CreateContactPersonDuringInvalidEmailShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CreateAsync(
-                NewValidRequest(x => x.ContactPersonDuringEvent.Email = "invalid")),
-            StatusCode.InvalidArgument,
-            "'Email'");
-    }
-
-    [Fact]
-    public async Task CreateContactPersonAfterInvalidEmailShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CreateAsync(
-                NewValidRequest(x => x.ContactPersonAfterEvent.Email = "invalid")),
-            StatusCode.InvalidArgument,
-            "'Email'");
-    }
-
-    [Fact]
-    public async Task CreateContactPersonDuringWithoutPhoneShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CreateAsync(
-                NewValidRequest(x => x.ContactPersonDuringEvent.Phone = string.Empty)),
-            StatusCode.InvalidArgument,
-            "'Phone'");
-    }
-
-    [Fact]
-    public async Task CreateContactPersonAfterWithoutPhoneShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CreateAsync(
-                NewValidRequest(x => x.ContactPersonAfterEvent.Phone = string.Empty)),
-            StatusCode.InvalidArgument,
-            "'Phone'");
-    }
-
-    [Fact]
     public async Task CreateContactPersonInLockedContestShouldThrow()
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);

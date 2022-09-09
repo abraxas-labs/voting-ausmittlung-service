@@ -12,10 +12,5 @@ public class VotingCardResultDetailValidator : AbstractValidator<VotingCardResul
     public VotingCardResultDetailValidator()
     {
         RuleFor(x => x.Valid).Must(x => x).Unless(x => x.Channel == VotingChannel.ByMail);
-        RuleFor(x => x.Channel)
-            .IsInEnum()
-            .NotEqual(VotingChannel.Unspecified);
-        RuleFor(x => x.DomainOfInfluenceType).IsInEnum().NotEqual(DomainOfInfluenceType.Unspecified);
-        RuleFor(x => x.CountOfReceivedVotingCards).GreaterThanOrEqualTo(0);
     }
 }

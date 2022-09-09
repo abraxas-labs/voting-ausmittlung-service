@@ -112,16 +112,6 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCount()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.CandidateResults[0].VoteCount = -1)),
-            StatusCode.InvalidArgument,
-            "candidate results can't be negative");
-    }
-
-    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
@@ -129,16 +119,6 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
             async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowSecondaryNegativeCount()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.SecondaryElectionCandidateResults[0].CandidateResults[0].VoteCount = -1)),
-            StatusCode.InvalidArgument,
-            "candidate results can't be negative");
     }
 
     [Fact]

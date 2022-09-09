@@ -69,36 +69,6 @@ public class MajorityElectionResultEnterCountOfVotersTest : MajorityElectionResu
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCountOfInvalidBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalInvalidBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Invalid Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfBlankBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalBlankBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Blank Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeTotalReceivedBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalReceivedBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Received Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(

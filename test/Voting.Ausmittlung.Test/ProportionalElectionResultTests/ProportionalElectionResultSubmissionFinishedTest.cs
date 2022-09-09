@@ -174,7 +174,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
 
-        const string invalidExternalId = "external-id";
+        const string invalidExternalId = "a11c61aa-af52-431b-9c0e-f86d24d8a72b";
         await RunScoped<TemporaryDataContext>(async db =>
         {
             var item = await db.SecondFactorTransactions

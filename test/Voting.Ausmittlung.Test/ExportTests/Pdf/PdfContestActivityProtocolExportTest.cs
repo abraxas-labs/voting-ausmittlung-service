@@ -1314,6 +1314,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         {
             Id = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
             ShortDescription = { LanguageUtil.MockAllLanguages("SME ShortDescription UPDATE") },
+            PoliticalBusinessNumber = "n1 UPDATE",
             PrimaryMajorityElectionId = electionId,
             InternalDescription = "SME Internal UPDATE",
             OfficialDescription = { LanguageUtil.MockAllLanguages("SME Official Update") },

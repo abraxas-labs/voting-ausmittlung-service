@@ -148,20 +148,6 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
     }
 
     [Fact]
-    public async Task TestShouldThrowIfNotSet()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(
-                new DefineMajorityElectionResultEntryRequest
-                {
-                    ResultEntry = SharedProto.MajorityElectionResultEntry.Unspecified,
-                    ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                }),
-            StatusCode.InvalidArgument,
-            "invalid result entry");
-    }
-
-    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
@@ -216,43 +202,6 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
             async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
                 x.ElectionResultId = MajorityElectionResultMockedData.IdUzwilElectionResultInContestUzwil)),
             StatusCode.PermissionDenied);
-    }
-
-    [Fact]
-    public async Task TestNegativeBallotBundleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSize = -1)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Size' must be greater than '0'");
-    }
-
-    [Fact]
-    public async Task TestZeroBallotBundleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSize = 0)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Size' must be greater than '0'");
-    }
-
-    [Fact]
-    public async Task TestNegativeBallotBundleSampleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSampleSize = -1)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Sample Size' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestZeroBallotBundleSampleSizeShouldReturn()
-    {
-        await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-            x.ResultEntryParams.BallotBundleSampleSize = 0));
     }
 
     [Fact]

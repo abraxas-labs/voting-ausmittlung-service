@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="CsvHelper" Version="27.1.0" />
+    <PackageReference Include="CsvHelper" Version="28.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(MsExtensionsVersion)" />
     <PackageReference Include="Voting.Lib.Eventing" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.VotingExports" Version="$(VotingLibVersion)" />
@@ -16,5 +16,5 @@
     <ProjectReference Include="..\Voting.Ausmittlung.Ech\Voting.Ausmittlung.Ech.csproj" />
     <ProjectReference Include="..\Voting.Ausmittlung.EventSignature\Voting.Ausmittlung.EventSignature.csproj" />
   </ItemGroup>
-  
+
 </Project>

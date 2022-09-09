@@ -73,16 +73,6 @@ public class ProportionalElectionResultEnterUnmodifiedListResultsTest : Proporti
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeValues()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterUnmodifiedListResultsAsync(
-                NewValidRequest(r => r.Results[1].VoteCount = -1)),
-            StatusCode.InvalidArgument,
-            "negative results are not allowed");
-    }
-
-    [Fact]
     public async Task TestShouldThrowBadId()
     {
         await AssertStatus(
@@ -118,16 +108,6 @@ public class ProportionalElectionResultEnterUnmodifiedListResultsTest : Proporti
                     r.Results[0].ListId = ProportionalElectionMockedData.ListIdBundProportionalElectionInContestBund)),
             StatusCode.InvalidArgument,
             "lists provided which don't exist");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCount()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterUnmodifiedListResultsAsync(
-                NewValidRequest(r => r.Results[0].VoteCount = -1)),
-            StatusCode.InvalidArgument,
-            "negative results are not allowed");
     }
 
     [Fact]

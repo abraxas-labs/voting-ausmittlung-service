@@ -59,15 +59,6 @@ public class ProportionalElectionResultEnterCountOfVotersTest : ProportionalElec
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCountOfInvalidBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalInvalidBallots = -1)),
-            StatusCode.InvalidArgument);
-    }
-
-    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
@@ -75,33 +66,6 @@ public class ProportionalElectionResultEnterCountOfVotersTest : ProportionalElec
             async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfAccountedBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalAccountedBallots = -1)),
-            StatusCode.InvalidArgument);
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfBlankBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalBlankBallots = -1)),
-            StatusCode.InvalidArgument);
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeTotalReceivedBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.CountOfVoters.ConventionalReceivedBallots = -1)),
-            StatusCode.InvalidArgument);
     }
 
     [Fact]

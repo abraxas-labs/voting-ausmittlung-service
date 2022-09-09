@@ -79,6 +79,7 @@ public class SecondaryMajorityElectionUpdateTest : BaseDataProcessorTest
             OfficialDescription = { LanguageUtil.MockAllLanguages("Update Nebenwahl") },
             ShortDescription = { LanguageUtil.MockAllLanguages("Update Nebenwahl") },
             InternalDescription = "test",
+            PoliticalBusinessNumber = "n1 UPDATED",
         });
 
         var election = await RunOnDb(

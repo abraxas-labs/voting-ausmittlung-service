@@ -1,12 +1,12 @@
 <Project>
   <!-- import parent: https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build -->
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-    
+
   <PropertyGroup>
     <Configurations>Debug;Release;DebugUpdateSnapshots</Configurations>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-    
+
   <PropertyGroup Condition="'$(Configuration)'=='DebugUpdateSnapshots'">
     <DefineConstants>UPDATE_SNAPSHOTS</DefineConstants>
   </PropertyGroup>
@@ -17,18 +17,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MsExtensionsVersion)" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0"/>
-    <PackageReference Include="xunit" Version="2.4.1"/>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0"/>
+    <PackageReference Include="xunit" Version="2.4.2"/>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="3.1.0" />
-    <PackageReference Include="JunitXml.TestLogger" Version="3.0.98" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.2" />
+    <PackageReference Include="JunitXml.TestLogger" Version="3.0.114" />
     <PackageReference Include="Voting.Lib.Testing" Version="$(VotingLibVersion)" />
   </ItemGroup>
 

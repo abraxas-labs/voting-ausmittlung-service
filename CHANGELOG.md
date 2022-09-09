@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.36.4`)
+# ✨ Changelog (`v1.39.1`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.36.4
-Previous version ---- v1.29.14
+This version -------- v1.39.1
+Previous version ---- v1.36.4
 Initial version ----- v1.29.14
-Total commits ------- 37
+Total commits ------- 13
 ```
+
+## [v1.39.1] - 2022-09-08
+
+### 🔒 Security
+
+- Update proto validation dependencies
+
+## [v1.39.0] - 2022-09-06
+
+### 🆕 Added
+
+- add Serilog.Expressions to exclude status endpoints from serilog request logging on success only
+
+## [v1.38.0] - 2022-09-05
+
+### 🆕 Added
+
+- add application builder extension which is adding the serilog request logging middleware enriching the log context with tracability properties
+
+## [v1.37.5] - 2022-09-05
+
+### 🔄 Changed
+
+- exchanged custom health check with ef core default one
+
+## [v1.37.4] - 2022-09-01
+
+### 🔄 Changed
+
+- Set correct hagenbach bischoff distribution number
+
+## [v1.37.3] - 2022-08-31
+
+### 🔄 Changed
+
+- Process political business number modification event of secondary majority election after testing phase has ended
+
+## [v1.37.2] - 2022-08-29
+
+### 🔄 Changed
+
+- Updated proto validation dependencies
+
+## [v1.37.1] - 2022-08-29
+
+### 🔄 Changed
+
+- Updated dependencies
+
+## [v1.37.0] - 2022-08-26
+
+### 🆕 Added
+
+- Added proto validators at the requests.
+
+## [v1.36.5] - 2022-08-25
+
+### 🔄 Changed
+
+- exchanged ef core default health check with custom one
 
 ## [v1.36.4] - 2022-08-22
 
@@ -206,9 +266,7 @@ Total commits ------- 37
 
 ## [v1.29.15] - 2022-05-23
 
-### 🔄 Changed
-
-- code quality issues
+The readmodel needs to be recreated after this commit
 
 ## [v1.29.14] - 2022-05-19
 

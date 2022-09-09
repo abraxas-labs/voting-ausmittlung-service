@@ -10,8 +10,6 @@ public class ElectionResultEntryParamsValidator : AbstractValidator<ElectionResu
 {
     public ElectionResultEntryParamsValidator()
     {
-        RuleFor(x => x.BallotBundleSize).GreaterThan(0);
-        RuleFor(x => x.BallotBundleSampleSize).GreaterThanOrEqualTo(0);
         RuleFor(x => x.BallotBundleSampleSize).LessThanOrEqualTo(x => x.BallotBundleSize);
     }
 }

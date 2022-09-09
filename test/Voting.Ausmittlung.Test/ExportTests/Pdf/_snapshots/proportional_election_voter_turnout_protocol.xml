@@ -16,7 +16,7 @@
         <CountOfInvalidBallots>300</CountOfInvalidBallots>
         <CountOfBlankBallots>120</CountOfBlankBallots>
       </CountOfVoters>
-      <NumberOfMandates>6</NumberOfMandates>
+      <NumberOfMandates>5</NumberOfMandates>
       <ListVotesCount>1787</ListVotesCount>
       <BlankRowsCount>45</BlankRowsCount>
       <TotalVoteCount>1832</TotalVoteCount>
@@ -25,7 +25,7 @@
           <OrderNumber>1a</OrderNumber>
           <ShortDescription>Liste 1a de</ShortDescription>
         </UnionList>
-        <NumberOfMandates>3</NumberOfMandates>
+        <NumberOfMandates>2</NumberOfMandates>
         <ListVotesCount>720</ListVotesCount>
         <BlankRowsCount>27</BlankRowsCount>
         <TotalVoteCount>747</TotalVoteCount>

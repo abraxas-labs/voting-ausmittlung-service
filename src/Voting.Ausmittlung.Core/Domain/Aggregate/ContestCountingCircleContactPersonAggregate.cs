@@ -16,18 +16,15 @@ namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAggregate
 {
     private readonly EventInfoProvider _eventInfoProvider;
-    private readonly IValidator<ContactPerson> _validator;
     private readonly IMapper _mapper;
 
     public ContestCountingCircleContactPersonAggregate(
         EventInfoProvider eventInfoProvider,
-        IValidator<ContactPerson> validator,
         IMapper mapper,
         EventSignatureService eventSignatureService)
         : base(eventSignatureService, mapper)
     {
         _eventInfoProvider = eventInfoProvider;
-        _validator = validator;
         _mapper = mapper;
     }
 
@@ -50,7 +47,7 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
         bool contactPersonSameDuringEventAsAfter,
         ContactPerson? contactPersonAfterEvent)
     {
-        ValidateContactPersons(contactPersonDuringEvent, contactPersonSameDuringEventAsAfter, contactPersonAfterEvent);
+        ValidateContactPersons(contactPersonSameDuringEventAsAfter, contactPersonAfterEvent);
 
         if (Id == Guid.Empty)
         {
@@ -72,7 +69,7 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
 
     public void Update(ContactPerson contactPersonDuringEvent, bool contactPersonSameDuringEventAsAfter, ContactPerson? contactPersonAfterEvent)
     {
-        ValidateContactPersons(contactPersonDuringEvent, contactPersonSameDuringEventAsAfter, contactPersonAfterEvent);
+        ValidateContactPersons(contactPersonSameDuringEventAsAfter, contactPersonAfterEvent);
 
         var ev = new ContestCountingCircleContactPersonUpdated
         {
@@ -99,18 +96,11 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
         }
     }
 
-    private void ValidateContactPersons(ContactPerson contactPersonDuringEvent, bool contactPersonSameDuringEventAsAfter, ContactPerson? contactPersonAfterEvent)
+    private void ValidateContactPersons(bool contactPersonSameDuringEventAsAfter, ContactPerson? contactPersonAfterEvent)
     {
-        _validator.ValidateAndThrow(contactPersonDuringEvent);
-
-        if (!contactPersonSameDuringEventAsAfter)
+        if (!contactPersonSameDuringEventAsAfter && contactPersonAfterEvent == null)
         {
-            if (contactPersonAfterEvent == null)
-            {
-                throw new ValidationException("ContactPersonAfterEvent cannot be null if ContactPersonSameDuringEventAsAfter is false.");
-            }
-
-            _validator.ValidateAndThrow(contactPersonAfterEvent);
+            throw new ValidationException("ContactPersonAfterEvent cannot be null if ContactPersonSameDuringEventAsAfter is false.");
         }
     }
 

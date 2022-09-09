@@ -1151,6 +1151,10 @@
       <AttributeName>primary_majority_election_id</AttributeName>
       <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
     </EventAttribute>
+    <EventAttribute>
+      <AttributeName>political_business_number</AttributeName>
+      <AttributeValue>n1 UPDATE</AttributeValue>
+    </EventAttribute>
     <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionAfterTestingPhaseUpdated</EventName>
     <Tenant>
       <TenantName>Gossau</TenantName>
@@ -1161,7 +1165,7 @@
       <Lastname>default user lastname</Lastname>
     </User>
     <PoliticalBusiness>
-      <Number>201</Number>
+      <Number>n1 UPDATE</Number>
       <Description>SME ShortDescription UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>

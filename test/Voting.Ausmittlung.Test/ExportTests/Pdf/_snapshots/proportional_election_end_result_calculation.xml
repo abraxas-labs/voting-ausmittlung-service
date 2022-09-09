@@ -669,7 +669,7 @@
           <NumberOfMandates>2</NumberOfMandates>
           <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
           <Quotient>82543</Quotient>
-          <DistributionNumber>82543</DistributionNumber>
+          <DistributionNumber>82544</DistributionNumber>
           <HagenbachBischoffInitialDistribution>
             <ShortDescription>JFSG de</ShortDescription>
             <Description>Liste 02 (JFSG) de</Description>
@@ -758,7 +758,7 @@
           <NumberOfMandates>0</NumberOfMandates>
           <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
           <Quotient>91597</Quotient>
-          <DistributionNumber>91597</DistributionNumber>
+          <DistributionNumber>91598</DistributionNumber>
           <HagenbachBischoffInitialDistribution>
             <ShortDescription>ListSubUnion 5 de</ShortDescription>
             <Description>ListSubUnion 5 de</Description>
@@ -808,7 +808,7 @@
           <NumberOfMandates>2</NumberOfMandates>
           <NumberOfMandatesPlusOne>3</NumberOfMandatesPlusOne>
           <Quotient>81886</Quotient>
-          <DistributionNumber>81886</DistributionNumber>
+          <DistributionNumber>81887</DistributionNumber>
           <HagenbachBischoffInitialDistribution>
             <ShortDescription>SP de</ShortDescription>
             <Description>Liste 09 (SP) de</Description>
@@ -833,7 +833,7 @@
           <NumberOfMandates>0</NumberOfMandates>
           <NumberOfMandatesPlusOne>1</NumberOfMandatesPlusOne>
           <Quotient>84673</Quotient>
-          <DistributionNumber>84673</DistributionNumber>
+          <DistributionNumber>84674</DistributionNumber>
           <HagenbachBischoffInitialDistribution>
             <ShortDescription>glp de</ShortDescription>
             <Description>Liste 16 (glp) de</Description>

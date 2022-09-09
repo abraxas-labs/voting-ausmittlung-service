@@ -348,22 +348,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task UpdateDetailsShouldThrowIfUnknownVotingChannel()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.VotingCards.Add(new UpdateVotingCardResultDetailRequest
-                {
-                    Channel = SharedProto.VotingChannel.Unspecified,
-                    Valid = true,
-                    CountOfReceivedVotingCards = 1,
-                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
-                }))),
-            StatusCode.InvalidArgument,
-            "Voting card channel Unspecified/True is not enabled");
-    }
-
-    [Fact]
     public async Task UpdateDetailsShouldThrowIfSwissAbroadVoterType()
     {
         await AssertStatus(
@@ -376,21 +360,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 }))),
             StatusCode.InvalidArgument,
             "swiss abroads not allowed");
-    }
-
-    [Fact]
-    public async Task UpdateDetailsShouldThrowIfUnknownVoterType()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
-                {
-                    Sex = SharedProto.SexType.Female,
-                    VoterType = SharedProto.VoterType.Unspecified,
-                    CountOfVoters = 1,
-                }))),
-            StatusCode.InvalidArgument,
-            "'Voter Type' must not be equal to 'Unspecified'");
     }
 
     [Fact]

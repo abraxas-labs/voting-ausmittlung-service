@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
@@ -27,10 +26,9 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
     public ProportionalElectionResultAggregate(
         EventInfoProvider eventInfoProvider,
         IValidator<ElectionResultEntryParams> resultEntryValidatorParamsValidator,
-        IValidator<PoliticalBusinessCountOfVoters> countOfVotersValidator,
         IMapper mapper,
         EventSignatureService eventSignatureService)
-        : base(countOfVotersValidator, eventSignatureService, mapper)
+        : base(eventSignatureService, mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _resultEntryParamsValidator = resultEntryValidatorParamsValidator;
@@ -75,7 +73,6 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
     public void EnterCountOfVoters(PoliticalBusinessCountOfVoters countOfVoters, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
-        ValidateCountOfVoters(countOfVoters);
 
         RaiseEvent(
             new ProportionalElectionResultCountOfVotersEntered
@@ -90,11 +87,6 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
     public void EnterUnmodifiedListResults(IReadOnlyCollection<ProportionalElectionUnmodifiedListResult> results, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
-
-        if (results.Any(x => x.VoteCount < 0))
-        {
-            throw new ValidationException("negative results are not allowed");
-        }
 
         var ev = new ProportionalElectionUnmodifiedListResultsEntered
         {

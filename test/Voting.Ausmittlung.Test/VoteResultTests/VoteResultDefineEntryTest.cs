@@ -166,16 +166,6 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestNotSetShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntry = SharedProto.VoteResultEntry.Unspecified)),
-            StatusCode.InvalidArgument,
-            "invalid result entry value");
-    }
-
-    [Fact]
     public async Task TestShouldThrowInvalidResultEntry()
     {
         await AssertStatus(

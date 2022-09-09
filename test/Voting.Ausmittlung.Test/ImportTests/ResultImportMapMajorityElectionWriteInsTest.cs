@@ -194,22 +194,6 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     }
 
     [Fact]
-    public async Task ShouldThrowWithUnspecifiedMapping()
-    {
-        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
-
-        await AssertStatus(
-            async () => await MapMappings(importId, primaryMappings, (_, m) => m.Target = SharedProto.MajorityElectionWriteInMappingTarget.Unspecified),
-            StatusCode.InvalidArgument,
-            "Unspecified write in mapping target is not allowed");
-
-        await AssertStatus(
-            async () => await MapMappings(importId, secondaryMappings, (_, m) => m.Target = SharedProto.MajorityElectionWriteInMappingTarget.Unspecified),
-            StatusCode.InvalidArgument,
-            "Unspecified write in mapping target is not allowed");
-    }
-
-    [Fact]
     public async Task ShouldThrowWithNonMajorityPoliticalBusinessType()
     {
         var (importId, primaryMappings, _) = await FetchMappings();
@@ -268,6 +252,7 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
                 ElectionId = "eebc9095-8ba3-4dbb-b2ae-99e0a5e1b965",
                 ImportId = "5649dc51-9558-4aef-9c1b-41f37868809e",
                 CountingCircleId = "ae636acd-6467-42af-9e41-6c8e79cde95d",
+                PoliticalBusinessType = ProtoModels.PoliticalBusinessType.MajorityElection,
             });
     }
 

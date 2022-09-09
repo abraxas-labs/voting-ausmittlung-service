@@ -50,6 +50,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
             ResultEntryParams = new DefineProportionalElectionResultEntryParamsRequest
             {
                 BallotBundleSize = 10,
+                BallotBundleSampleSize = 2,
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
@@ -134,6 +135,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
         var req = new UpdateProportionalElectionResultBallotRequest
         {
             BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle2,
+            BallotNumber = 1,
             EmptyVoteCount = 3,
         };
         await AssertStatus(
@@ -149,6 +151,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
         {
             BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
             EmptyVoteCount = 0,
+            BallotNumber = 1,
             Candidates =
                 {
                     new CreateUpdateProportionalElectionResultBallotCandidateRequest

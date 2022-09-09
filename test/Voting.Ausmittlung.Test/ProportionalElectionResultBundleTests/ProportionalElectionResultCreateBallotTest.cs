@@ -44,6 +44,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
             ResultEntryParams = new DefineProportionalElectionResultEntryParamsRequest
             {
                 BallotBundleSize = 10,
+                BallotBundleSampleSize = 1,
                 AutomaticEmptyVoteCounting = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
             },
@@ -71,6 +72,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
             ResultEntryParams = new DefineProportionalElectionResultEntryParamsRequest
             {
                 BallotBundleSize = 10,
+                BallotBundleSampleSize = 2,
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,

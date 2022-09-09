@@ -59,9 +59,11 @@ public class HagenbachBischoffGroup : BaseEntity
     public decimal Quotient => (decimal)VoteCount / (NumberOfMandates + 1);
 
     /// <summary>
-    /// Gets the quotient rounded to the next integer.
+    /// Gets the next higher integer of the quotient.
     /// </summary>
-    public int DistributionNumber => (int)Math.Ceiling(Quotient);
+    public int DistributionNumber => Quotient % 1 == 0
+        ? (int)Quotient + 1
+        : (int)Math.Ceiling(Quotient);
 
     public ICollection<HagenbachBischoffGroup> Children { get; set; }
         = new HashSet<HagenbachBischoffGroup>();

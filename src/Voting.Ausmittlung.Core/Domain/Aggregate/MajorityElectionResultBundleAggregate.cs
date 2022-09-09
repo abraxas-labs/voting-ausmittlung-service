@@ -80,21 +80,6 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             throw new ValidationException("bundle size already reached");
         }
 
-        if (individualVoteCount < 0)
-        {
-            throw new ValidationException($"{nameof(individualVoteCount)} can't be negative");
-        }
-
-        if (emptyVoteCount < 0)
-        {
-            throw new ValidationException($"{nameof(emptyVoteCount)} can't be negative");
-        }
-
-        if (invalidVoteCount < 0)
-        {
-            throw new ValidationException($"{nameof(invalidVoteCount)} can't be negative");
-        }
-
         var ev = new MajorityElectionResultBallotCreated
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),

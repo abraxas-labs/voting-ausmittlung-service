@@ -24,10 +24,12 @@ using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models.Mapping
 using Voting.Ausmittlung.Services;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Lib.Common.DependencyInjection;
+using Voting.Lib.Grpc.Interceptors;
 using Voting.Lib.Messaging;
 using Voting.Lib.Rest.Middleware;
 using Voting.Lib.Rest.Swagger.DependencyInjection;
 using ExceptionHandler = Voting.Ausmittlung.Middlewares.ExceptionHandler;
+using ExceptionInterceptor = Voting.Ausmittlung.Interceptors.ExceptionInterceptor;
 
 namespace Voting.Ausmittlung;
 
@@ -126,6 +128,7 @@ public class Startup
         app.UseAuthorization();
 
         app.UseMiddleware<IamLoggingHandler>();
+        app.UseSerilogRequestLoggingWithTraceabilityModifiers();
         app.UseSwaggerGenerator();
     }
 
@@ -195,6 +198,7 @@ public class Startup
             o.EnableDetailedErrors = _appConfig.Publisher.EnableDetailedErrors;
             o.Interceptors.Add<ExceptionInterceptor>();
             o.Interceptors.Add<LanguageInterceptor>();
+            o.Interceptors.Add<RequestProtoValidatorInterceptor>();
         });
 
         if (_appConfig.Publisher.EnableGrpcWeb)
@@ -203,6 +207,7 @@ public class Startup
         }
 
         services.AddGrpcReflection();
+        services.AddProtoValidators();
 
         services.AddReport(_appConfig.Publisher.Documatrix);
         services.AddEch(_appConfig.Publisher.Ech);

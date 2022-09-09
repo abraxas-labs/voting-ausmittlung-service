@@ -124,16 +124,6 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
     }
 
     [Fact]
-    public async Task TestNegativeBallotBundleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSize = -1)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Size' must be greater than '0'");
-    }
-
-    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
@@ -141,33 +131,6 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
             async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
-    }
-
-    [Fact]
-    public async Task TestZeroBallotBundleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSize = 0)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Size' must be greater than '0'");
-    }
-
-    [Fact]
-    public async Task TestNegativeBallotBundleSampleSizeShouldThrow()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-                x.ResultEntryParams.BallotBundleSampleSize = -1)),
-            StatusCode.InvalidArgument,
-            "'Ballot Bundle Sample Size' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestZeroBallotBundleSampleSizeShouldReturn()
-    {
-        await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
-            x.ResultEntryParams.BallotBundleSampleSize = 0));
     }
 
     [Fact]

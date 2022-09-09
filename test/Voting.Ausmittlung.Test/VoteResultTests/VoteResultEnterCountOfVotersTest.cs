@@ -81,46 +81,6 @@ public class VoteResultEnterCountOfVotersTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCountOfInvalidBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.ResultsCountOfVoters[0].CountOfVoters.ConventionalInvalidBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Invalid Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfAccountedBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.ResultsCountOfVoters[0].CountOfVoters.ConventionalAccountedBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Accounted Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfBlankBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.ResultsCountOfVoters[0].CountOfVoters.ConventionalBlankBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Blank Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeTotalReceivedBallots()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCountOfVotersAsync(
-                NewValidRequest(r => r.ResultsCountOfVoters[0].CountOfVoters.ConventionalReceivedBallots = -1)),
-            StatusCode.InvalidArgument,
-            "'Conventional Received Ballots' must be greater than or equal to '0'");
-    }
-
-    [Fact]
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(

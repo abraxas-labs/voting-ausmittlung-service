@@ -160,66 +160,6 @@ public class VoteResultEnterCorrectionResultsTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowNegativeCountOfYes()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].QuestionResults[0].ReceivedCountYes = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count Yes' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfNo()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].QuestionResults[0].ReceivedCountNo = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count No' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfUnspecified()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].QuestionResults[0].ReceivedCountUnspecified = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count Unspecified' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfTieBreakQ1()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].TieBreakQuestionResults[0].ReceivedCountQ1 = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count Q1' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfTieBreakQ2()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].TieBreakQuestionResults[0].ReceivedCountQ2 = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count Q2' must be greater than or equal to '0'");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowNegativeCountOfTieBreakUnspecified()
-    {
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCorrectionResultsAsync(
-                NewValidRequest(r => r.Results[0].TieBreakQuestionResults[0].ReceivedCountUnspecified = -1)),
-            StatusCode.InvalidArgument,
-            "'Received Count Unspecified' must be greater than or equal to '0'");
-    }
-
-    [Fact]
     public async Task TestProcessor()
     {
         await TestEventPublisher.Publish(

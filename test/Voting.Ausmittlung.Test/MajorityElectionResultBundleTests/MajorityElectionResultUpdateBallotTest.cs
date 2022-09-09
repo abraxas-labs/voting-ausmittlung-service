@@ -44,6 +44,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             ResultEntryParams = new DefineMajorityElectionResultEntryParamsRequest
             {
                 BallotBundleSize = 10,
+                BallotBundleSampleSize = 1,
                 AutomaticEmptyVoteCounting = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
             },
@@ -77,7 +78,9 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             {
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSize = 1,
+                BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
+                BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();
@@ -147,32 +150,6 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             x.SelectedCandidateIds.Clear();
         }));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
-    }
-
-    [Fact]
-    public async Task TestShouldThrowInvalidEmptyVoteCount()
-    {
-        await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
-            {
-                x.EmptyVoteCount = -1;
-                x.IndividualVoteCount = 1;
-            })),
-            StatusCode.InvalidArgument,
-            "too many candidates provided");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowInvalidIndividualVoteCount()
-    {
-        await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
-            {
-                x.IndividualVoteCount = -1;
-                x.EmptyVoteCount = 1;
-            })),
-            StatusCode.InvalidArgument,
-            "individualVoteCount can't be negative");
     }
 
     [Fact]

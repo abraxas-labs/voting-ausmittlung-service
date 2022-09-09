@@ -53,6 +53,7 @@ public class MajorityElectionAggregate : BasePoliticalBusinessAggregate
         var smeId = Guid.Parse(ev.Id);
         var sme = SecondaryMajorityElections[smeId];
         sme.ShortDescription = MapShortDescriptionTranslations(ev.ShortDescription);
+        sme.PoliticalBusinessNumber = ev.PoliticalBusinessNumber;
     }
 
     public void Apply(SecondaryMajorityElectionDeleted ev)

@@ -124,6 +124,13 @@ public class SecondaryMajorityElectionProcessor :
         var id = GuidParser.Parse(eventData.Id);
         var sme = await _repo.GetByKey(id)
             ?? throw new EntityNotFoundException(id);
+
+        // For backwards compability, we treat a missing political business number as no change to the field
+        if (eventData.PoliticalBusinessNumber == string.Empty)
+        {
+            eventData.PoliticalBusinessNumber = sme.PoliticalBusinessNumber;
+        }
+
         _mapper.Map(eventData, sme);
 
         await _translationRepo.DeleteRelatedTranslations(id);
