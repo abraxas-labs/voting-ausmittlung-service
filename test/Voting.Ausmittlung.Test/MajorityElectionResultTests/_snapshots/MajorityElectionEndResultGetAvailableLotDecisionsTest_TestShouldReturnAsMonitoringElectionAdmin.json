@@ -42,7 +42,9 @@
       }
     },
     "InvalidVotes": false,
-    "Contest": null
+    "Contest": null,
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true
   },
   "LotDecisions": [
     {

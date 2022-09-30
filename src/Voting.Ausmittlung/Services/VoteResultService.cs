@@ -90,10 +90,10 @@ public class VoteResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareSubmissionFinished(VoteResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(VoteResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(VoteResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -108,10 +108,10 @@ public class VoteResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareCorrectionFinished(VoteResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(VoteResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(VoteResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -150,10 +150,10 @@ public class VoteResultService : ServiceBase
         return _mapper.Map<ProtoModels.VoteEndResult>(result);
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareFinalizeEndResult(PrepareFinalizeVoteEndResultRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeVoteEndResultRequest request, ServerCallContext context)
     {
-        var externalId = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> FinalizeEndResult(FinalizeVoteEndResultRequest request, ServerCallContext context)

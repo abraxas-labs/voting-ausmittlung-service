@@ -59,7 +59,9 @@
     "BallotBundleSampleSizePercent": 30,
     "AutomaticBallotBundleNumberGeneration": true,
     "ResultEntry": 2,
-    "EnforceResultEntryForCountingCircles": false
+    "EnforceResultEntryForCountingCircles": false,
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": false
   },
   "Entry": 2,
   "State": 1,
@@ -160,7 +162,8 @@
   ],
   "EntryParams": {
     "BallotBundleSampleSizePercent": 30,
-    "AutomaticBallotBundleNumberGeneration": false
+    "AutomaticBallotBundleNumberGeneration": false,
+    "ReviewProcedure": 1
   },
   "CountingCircle": {
     "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",

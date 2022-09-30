@@ -11,7 +11,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionCountingCircleResultExportTest : PdfExportBaseTest
+public class PdfProportionalElectionCountingCircleResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
 {
     public PdfProportionalElectionCountingCircleResultExportTest(TestApplicationFactory factory)
         : base(factory)

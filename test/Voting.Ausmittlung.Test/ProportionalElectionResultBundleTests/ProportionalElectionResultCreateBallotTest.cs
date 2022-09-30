@@ -47,6 +47,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
                 BallotBundleSampleSize = 1,
                 AutomaticEmptyVoteCounting = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<ProportionalElectionResultEntryDefined>();
@@ -76,6 +77,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<ProportionalElectionResultEntryDefined>();

@@ -72,6 +72,7 @@ public static class VoteResultMockedData
             {
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotBundleSampleSizePercent = 15,
+                ReviewProcedure = VoteReviewProcedure.Electronically,
             },
             Results =
             {
@@ -272,6 +273,7 @@ public static class VoteResultMockedData
             {
                 AutomaticBallotBundleNumberGeneration = false,
                 BallotBundleSampleSizePercent = 30,
+                ReviewProcedure = VoteReviewProcedure.Electronically,
             },
             Results =
             {
@@ -341,6 +343,7 @@ public static class VoteResultMockedData
             {
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotBundleSampleSizePercent = 50,
+                ReviewProcedure = VoteReviewProcedure.Electronically,
             },
             Results =
             {

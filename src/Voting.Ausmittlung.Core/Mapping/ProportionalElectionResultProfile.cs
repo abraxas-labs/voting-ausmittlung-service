@@ -11,6 +11,6 @@ public class ProportionalElectionResultProfile : Profile
 {
     public ProportionalElectionResultProfile()
     {
-        CreateMap<ProportionalElectionResultEntryParamsEventData, ElectionResultEntryParams>();
+        CreateMap<ProportionalElectionResultEntryParamsEventData, ProportionalElectionResultEntryParams>();
     }
 }

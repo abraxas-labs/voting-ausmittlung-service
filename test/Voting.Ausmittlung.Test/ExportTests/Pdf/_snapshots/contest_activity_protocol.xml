@@ -264,6 +264,10 @@
         <AttributeName>automatic_empty_vote_counting</AttributeName>
         <AttributeValue>True</AttributeValue>
       </EventAttribute>
+      <EventAttribute>
+        <AttributeName>review_procedure</AttributeName>
+        <AttributeValue>Electronically</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultEntryDefined</EventName>
     <Tenant>
@@ -566,6 +570,10 @@
       <EventAttribute>
         <AttributeName>automatic_empty_vote_counting</AttributeName>
         <AttributeValue>True</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>review_procedure</AttributeName>
+        <AttributeValue>Electronically</AttributeValue>
       </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultBundleCreated</EventName>
@@ -1436,6 +1444,10 @@
         <AttributeName>automatic_empty_vote_counting</AttributeName>
         <AttributeValue>True</AttributeValue>
       </EventAttribute>
+      <EventAttribute>
+        <AttributeName>review_procedure</AttributeName>
+        <AttributeValue>Electronically</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionResultEntryDefined</EventName>
     <Tenant>
@@ -1597,6 +1609,10 @@
       <EventAttribute>
         <AttributeName>automatic_empty_vote_counting</AttributeName>
         <AttributeValue>True</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>review_procedure</AttributeName>
+        <AttributeValue>Electronically</AttributeValue>
       </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionResultBundleCreated</EventName>
@@ -2637,6 +2653,10 @@
       <EventAttribute>
         <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
         <AttributeValue>True</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>review_procedure</AttributeName>
+        <AttributeValue>Electronically</AttributeValue>
       </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleCreated</EventName>

@@ -20,7 +20,7 @@ public class MajorityElectionResultProfile : Profile
             .ForMember(dst => dst.Election, opts => opts.MapFrom(src => src.MajorityElection))
             .ForMember(dst => dst.CountingCircleId, opts => opts.MapFrom(src => src.CountingCircle.BasisCountingCircleId));
         CreateMap<DataModels.SecondaryMajorityElectionResult, ProtoModels.SecondaryMajorityElectionResult>();
-        CreateMap<DataModels.ElectionResultEntryParams, ProtoModels.MajorityElectionResultEntryParams>();
+        CreateMap<DataModels.MajorityElectionResultEntryParams, ProtoModels.MajorityElectionResultEntryParams>();
 
         CreateMap<DataModels.MajorityElectionResult, ProtoModels.MajorityElectionResultBundles>()
             .ForMember(dst => dst.ElectionResult, opts => opts.MapFrom(src => src));
@@ -61,7 +61,7 @@ public class MajorityElectionResultProfile : Profile
         CreateMap<DataModels.MajorityElectionEndResultCalculation, ProtoModels.MajorityElectionEndResultCalculation>();
 
         // write
-        CreateMap<DefineMajorityElectionResultEntryParamsRequest, DomainModels.ElectionResultEntryParams>();
+        CreateMap<DefineMajorityElectionResultEntryParamsRequest, DomainModels.MajorityElectionResultEntryParams>();
         CreateMap<CreateUpdateSecondaryMajorityElectionResultBallotRequest, DomainModels.SecondaryMajorityElectionResultBallot>();
         CreateMap<EnterMajorityElectionCandidateResultRequest, DomainModels.MajorityElectionCandidateResult>();
         CreateMap<EnterSecondaryMajorityElectionCandidateResultsRequest, DomainModels.SecondaryMajorityElectionCandidateResults>();

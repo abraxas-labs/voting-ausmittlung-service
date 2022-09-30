@@ -56,6 +56,7 @@ public class ResultRenderServiceAdapter
             BasisCountingCircleId = request.CountingCircleId,
             DomainOfInfluenceType = request.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
             PoliticalBusinessUnionId = request.PoliticalBusinessUnionId,
+            PoliticalBusinessResultBundleId = request.PoliticalBusinessResultBundleId,
         };
         return renderer.Render(ctx, ct);
     }
@@ -241,7 +242,7 @@ public class ResultRenderServiceAdapter
     private void ValidateRequestData(ResultExportRequest request, TemplateModel template)
     {
         if (request.PoliticalBusinessIds.Count == 0
-            && template.ResultType is not ResultType.Contest and not ResultType.PoliticalBusinessUnionResult)
+            && template.ResultType is not ResultType.Contest and not ResultType.PoliticalBusinessUnionResult and not ResultType.PoliticalBusinessResultBundleReview)
         {
             throw new ValidationException("Cannot render without any political business ids provided");
         }
@@ -261,6 +262,12 @@ public class ResultRenderServiceAdapter
         if ((template.PerDomainOfInfluenceType || template.DomainOfInfluenceType.HasValue) && !request.DomainOfInfluenceType.HasValue)
         {
             throw new ValidationException("Cannot render a domain of influence type report without specifying the domain of influence type");
+        }
+
+        if (!request.PoliticalBusinessResultBundleId.HasValue
+            && template.ResultType is ResultType.PoliticalBusinessResultBundleReview)
+        {
+            throw new ValidationException("Cannot render a political business result bundle review report without a bundle id");
         }
     }
 }

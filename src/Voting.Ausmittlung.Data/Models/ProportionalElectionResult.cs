@@ -15,7 +15,7 @@ public class ProportionalElectionResult : ElectionResult,
 
     public ProportionalElection ProportionalElection { get; set; } = null!;
 
-    public ElectionResultEntryParams EntryParams { get; set; } = new();
+    public ProportionalElectionResultEntryParams EntryParams { get; set; } = new();
 
     public ICollection<ProportionalElectionUnmodifiedListResult> UnmodifiedListResults { get; set; } =
         new HashSet<ProportionalElectionUnmodifiedListResult>();

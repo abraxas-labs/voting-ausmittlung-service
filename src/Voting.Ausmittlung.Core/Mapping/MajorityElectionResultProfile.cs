@@ -11,6 +11,6 @@ public class MajorityElectionResultProfile : Profile
 {
     public MajorityElectionResultProfile()
     {
-        CreateMap<MajorityElectionResultEntryParamsEventData, ElectionResultEntryParams>();
+        CreateMap<MajorityElectionResultEntryParamsEventData, MajorityElectionResultEntryParams>();
     }
 }

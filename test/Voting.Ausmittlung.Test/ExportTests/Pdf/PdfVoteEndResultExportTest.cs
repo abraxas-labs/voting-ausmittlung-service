@@ -13,7 +13,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfVoteEndResultExportTest : PdfExportBaseTest
+public class PdfVoteEndResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
 {
     public PdfVoteEndResultExportTest(TestApplicationFactory factory)
         : base(factory)

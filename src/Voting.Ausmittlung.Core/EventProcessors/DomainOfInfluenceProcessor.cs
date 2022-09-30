@@ -325,10 +325,10 @@ public class DomainOfInfluenceProcessor :
     private async Task UpdateCountingCircles(Guid domainOfInfluenceId, IReadOnlyCollection<Guid> countingCircleIds)
     {
         var existing = await _repo.Query()
-                           .AsSplitQuery()
-                           .Include(x => x.CountingCircles)
-                           .FirstOrDefaultAsync(x => x.Id == domainOfInfluenceId)
-                       ?? throw new EntityNotFoundException(domainOfInfluenceId);
+           .AsSplitQuery()
+           .Include(x => x.CountingCircles)
+           .FirstOrDefaultAsync(x => x.Id == domainOfInfluenceId)
+            ?? throw new EntityNotFoundException(domainOfInfluenceId);
 
         var nonInheritedCountingCircleIds = existing.CountingCircles
             .Where(x => !x.Inherited)

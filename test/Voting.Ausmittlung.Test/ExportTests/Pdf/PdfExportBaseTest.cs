@@ -1,6 +1,7 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,9 +16,9 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public abstract class PdfExportBaseTest : BaseRestTest
+public abstract class PdfExportBaseTest<T> : BaseRestTest
 {
-    private const string ResultExportEndpoint = "/api/result_export";
+    protected const string ResultExportEndpoint = "/api/result_export";
     private const string PdfExtension = ".pdf";
 
     protected PdfExportBaseTest(TestApplicationFactory factory)
@@ -26,6 +27,8 @@ public abstract class PdfExportBaseTest : BaseRestTest
     }
 
     public virtual HttpClient TestClient => MonitoringElectionAdminClient;
+
+    public virtual string ExportEndpoint => ResultExportEndpoint;
 
     protected abstract string NewRequestExpectedFileName { get; }
 
@@ -43,7 +46,7 @@ public abstract class PdfExportBaseTest : BaseRestTest
     {
         var request = NewRequest();
         var response = await AssertStatus(
-            () => TestClient.PostAsJsonAsync(ResultExportEndpoint, request),
+            () => TestClient.PostAsJsonAsync(ExportEndpoint, request),
             HttpStatusCode.OK);
         response.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Pdf);
 
@@ -58,15 +61,22 @@ public abstract class PdfExportBaseTest : BaseRestTest
         formattedXml.MatchRawSnapshot("ExportTests", "Pdf", "_snapshots", SnapshotName(request) + ".xml");
     }
 
-    protected virtual string SnapshotName(GenerateResultExportsRequest request)
-        => request.ResultExportRequests[0].Key;
+    protected virtual string SnapshotName(T request)
+    {
+        return request switch
+        {
+            GenerateResultExportsRequest exportsRequest => exportsRequest.ResultExportRequests[0].Key,
+            GenerateResultBundleReviewExportRequest bundleReviewExportRequest => bundleReviewExportRequest.TemplateKey,
+            _ => throw new InvalidOperationException("cannot create snapshot name from request"),
+        };
+    }
 
     protected abstract Task SeedData();
 
-    protected abstract GenerateResultExportsRequest NewRequest();
+    protected abstract T NewRequest();
 
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {
-        return httpClient.PostAsJsonAsync(ResultExportEndpoint, NewRequest());
+        return httpClient.PostAsJsonAsync(ExportEndpoint, NewRequest());
     }
 }

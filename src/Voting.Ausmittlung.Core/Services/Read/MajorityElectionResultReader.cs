@@ -100,6 +100,10 @@ public class MajorityElectionResultReader
             return null;
         }
 
+        result.SecondaryMajorityElectionResults = result.SecondaryMajorityElectionResults
+            .OrderBy(x => x.SecondaryMajorityElection.PoliticalBusinessNumber)
+            .ToList();
+
         await _permissionService.EnsureCanReadCountingCircle(result.CountingCircleId, result.MajorityElection.ContestId);
 
         if (result.Entry == MajorityElectionResultEntry.FinalResults)

@@ -155,6 +155,7 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
         await AssertStatus(

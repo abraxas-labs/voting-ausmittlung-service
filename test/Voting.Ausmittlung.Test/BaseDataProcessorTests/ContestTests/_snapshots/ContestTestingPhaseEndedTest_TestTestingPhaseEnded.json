@@ -103,7 +103,8 @@
           "BallotBundleSampleSize": 0,
           "AutomaticBallotBundleNumberGeneration": false,
           "BallotNumberGeneration": 0,
-          "AutomaticEmptyVoteCounting": false
+          "AutomaticEmptyVoteCounting": false,
+          "ReviewProcedure": 0
         },
         "UnmodifiedListResults": [
           {

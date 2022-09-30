@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
@@ -23,5 +25,32 @@ public static class RandomUtil
         return elements
             .OrderBy(x => Guid.NewGuid())
             .Take(samples);
+    }
+
+    /// <summary>
+    /// Returns a random string.
+    /// Copied from https://stackoverflow.com/a/1344255.
+    /// </summary>
+    /// <param name="size">The size of the generated string.</param>
+    /// <param name="chars">The possible chars of the generated string.</param>
+    /// <returns>A random string.</returns>
+    public static string GetRandomString(int size, char[] chars)
+    {
+        var data = new byte[sizeof(int) * size];
+        using (var crypto = RandomNumberGenerator.Create())
+        {
+            crypto.GetBytes(data);
+        }
+
+        var result = new StringBuilder(size);
+        for (var i = 0; i < size; i++)
+        {
+            var rnd = BitConverter.ToUInt32(data, i * sizeof(int));
+            var idx = rnd % chars.Length;
+
+            result.Append(chars[idx]);
+        }
+
+        return result.ToString();
     }
 }

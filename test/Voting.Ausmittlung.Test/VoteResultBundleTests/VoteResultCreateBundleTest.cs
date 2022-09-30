@@ -44,6 +44,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 30,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
     }
@@ -178,6 +179,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 100,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
 
@@ -205,6 +207,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 100,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
 
@@ -226,6 +229,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 100,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
 
@@ -255,6 +259,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 100,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
 
@@ -282,6 +287,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             {
                 BallotBundleSampleSizePercent = 100,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         });
 

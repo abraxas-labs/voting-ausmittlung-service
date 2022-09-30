@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class ElectionResultEntryParams
+public abstract class ElectionResultEntryParams
 {
     public int BallotBundleSize { get; set; }
 

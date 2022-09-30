@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -51,7 +52,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         _permissionService.EnsureErfassungElectionAdmin();
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
-        EnsureResultEntryRespectSettings(voteResult.Vote, resultEntry);
+        EnsureResultEntryRespectSettings(voteResult.Vote, resultEntry, resultEntryParams);
         var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -127,13 +128,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         _logger.LogInformation("Entered correction results for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<string> PrepareSubmissionFinished(Guid voteResultId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareSubmissionFinished(Guid voteResultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(voteResultId, true);
 
         var actionId = await PrepareSubmissionFinishedActionId(voteResultId);
-        var secondFactorTransaction = await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
-        return secondFactorTransaction.ExternalIdentifier;
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
     public async Task SubmissionFinished(Guid voteResultId, string secondFactorTransactionExternalId, CancellationToken ct)
@@ -150,13 +150,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         _logger.LogInformation("Submission finished for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<string> PrepareCorrectionFinished(Guid voteResultId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareCorrectionFinished(Guid voteResultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(voteResultId, true);
 
         var actionId = await PrepareCorrectionFinishedActionId(voteResultId);
-        var secondFactorTransaction = await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
-        return secondFactorTransaction.ExternalIdentifier;
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
     public async Task CorrectionFinished(Guid voteResultId, string comment, string secondFactorTransactionExternalId, CancellationToken ct)
@@ -298,12 +297,20 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     private void EnsureResultEntryRespectSettings(
         DataModels.Vote vote,
-        DataModels.VoteResultEntry resultEntry)
+        DataModels.VoteResultEntry resultEntry,
+        VoteResultEntryParams? resultEntryParams)
     {
         if (vote.EnforceResultEntryForCountingCircles
             && vote.ResultEntry != resultEntry)
         {
             throw new ValidationException("enforced result entry setting not respected");
+        }
+
+        if (resultEntryParams != null
+            && vote.EnforceReviewProcedureForCountingCircles
+            && vote.ReviewProcedure != resultEntryParams.ReviewProcedure)
+        {
+            throw new ValidationException($"enforced {nameof(vote.ReviewProcedure)} setting not respected");
         }
     }
 

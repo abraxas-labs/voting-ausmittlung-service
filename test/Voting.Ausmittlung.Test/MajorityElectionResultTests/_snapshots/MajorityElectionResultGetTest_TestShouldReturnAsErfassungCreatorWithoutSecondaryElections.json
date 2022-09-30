@@ -68,7 +68,9 @@
       },
       "State": 1,
       "EVotingResultsImported": false
-    }
+    },
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true
   },
   "SecondaryMajorityElectionResults": [],
   "Entry": 0,

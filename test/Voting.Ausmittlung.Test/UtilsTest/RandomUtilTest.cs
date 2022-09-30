@@ -44,4 +44,30 @@ public class RandomUtilTest
             testSamples.SequenceEqual(samplesGenerator).Should().BeFalse();
         }
     }
+
+    [Fact]
+    public void ShouldReturnCorrectSize()
+    {
+        RandomUtil.GetRandomString(4, "ABCDEF".ToCharArray()).Length.Should().Be(4);
+    }
+
+    [Fact]
+    public void ShouldReturnOnlyWithDesiredChars()
+    {
+        var chars = "ABC".ToCharArray();
+        var randomString = RandomUtil.GetRandomString(4, chars);
+        foreach (var c in randomString)
+        {
+            chars.Should().Contain(c);
+        }
+    }
+
+    [Fact]
+    public void ShouldReturnRandomString()
+    {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        var random1 = RandomUtil.GetRandomString(6, chars);
+        var random2 = RandomUtil.GetRandomString(6, chars);
+        random1.Equals(random2).Should().BeFalse();
+    }
 }

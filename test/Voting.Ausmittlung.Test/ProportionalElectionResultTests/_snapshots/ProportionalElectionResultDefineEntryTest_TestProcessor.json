@@ -6,7 +6,8 @@
     "BallotBundleSampleSize": 5,
     "AutomaticBallotBundleNumberGeneration": true,
     "BallotNumberGeneration": 2,
-    "AutomaticEmptyVoteCounting": true
+    "AutomaticEmptyVoteCounting": true,
+    "ReviewProcedure": 1
   },
   "UnmodifiedListResults": [],
   "ListResults": [],

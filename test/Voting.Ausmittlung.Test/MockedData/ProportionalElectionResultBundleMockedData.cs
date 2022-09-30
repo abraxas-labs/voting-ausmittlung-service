@@ -123,7 +123,7 @@ public static class ProportionalElectionResultBundleMockedData
             var mapper = sp.GetRequiredService<TestMapper>();
             var resultEntriesByResultId = db.ProportionalElectionResults
                 .AsEnumerable()
-                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.ElectionResultEntryParams>(x.EntryParams));
+                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.ProportionalElectionResultEntryParams>(x.EntryParams));
 
             var bundles = await db.ProportionalElectionBundles
                 .Include(x => x.ElectionResult.CountingCircle)

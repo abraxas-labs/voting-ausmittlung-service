@@ -65,4 +65,8 @@ public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBus
         get => Translations;
         set => Translations = value.Cast<MajorityElectionTranslation>().ToList();
     }
+
+    public MajorityElectionReviewProcedure ReviewProcedure { get; set; }
+
+    public bool EnforceReviewProcedureForCountingCircles { get; set; }
 }

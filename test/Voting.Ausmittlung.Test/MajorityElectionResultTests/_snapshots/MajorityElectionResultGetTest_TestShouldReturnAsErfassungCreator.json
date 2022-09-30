@@ -62,139 +62,11 @@
       "EVotingTo": null,
       "State": 1,
       "EVotingResultsImported": false
-    }
+    },
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true
   },
   "SecondaryMajorityElectionResults": [
-    {
-      "SecondaryMajorityElection": {
-        "Id": "f4ae2b39-45b5-427a-96e4-24d645ddb080",
-        "PoliticalBusinessNumber": "n3",
-        "OfficialDescription": "official3 de",
-        "ShortDescription": "short3 de",
-        "InternalDescription": "internal",
-        "NumberOfMandates": 2,
-        "Active": false,
-        "Title": "n3: short3 de"
-      },
-      "CandidateResults": [
-        {
-          "Candidate": {
-            "Id": "f136f4d7-7f4c-4674-a9c5-391dbed43985",
-            "Number": "number1",
-            "PoliticalFirstName": "pol first name",
-            "PoliticalLastName": "pol last name",
-            "FirstName": "firstName",
-            "LastName": "lastName",
-            "Party": "Test de",
-            "Position": 1,
-            "Description": "number1 pol last name pol first name"
-          },
-          "EVotingVoteCount": 0,
-          "ConventionalVoteCount": null,
-          "VoteCount": 0
-        },
-        {
-          "Candidate": {
-            "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3",
-            "Number": "number2",
-            "PoliticalFirstName": "Pete2",
-            "PoliticalLastName": "L",
-            "FirstName": "Peter2",
-            "LastName": "Lustig2",
-            "Party": "CVP de",
-            "Position": 2,
-            "Description": "number2 L Pete2"
-          },
-          "EVotingVoteCount": 0,
-          "ConventionalVoteCount": null,
-          "VoteCount": 0
-        }
-      ],
-      "EVotingSubTotal": {
-        "IndividualVoteCount": 0,
-        "EmptyVoteCount": 0,
-        "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
-      },
-      "ConventionalSubTotal": {
-        "IndividualVoteCount": null,
-        "EmptyVoteCount": null,
-        "InvalidVoteCount": null,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
-      },
-      "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
-      "InvalidVoteCount": 0,
-      "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0
-    },
-    {
-      "SecondaryMajorityElection": {
-        "Id": "292a5a89-e030-44db-a204-90e00540ba84",
-        "PoliticalBusinessNumber": "n2",
-        "OfficialDescription": "official2 de",
-        "ShortDescription": "short2 de",
-        "InternalDescription": "internal2",
-        "NumberOfMandates": 1,
-        "Active": false,
-        "Title": "n2: short2 de"
-      },
-      "CandidateResults": [
-        {
-          "Candidate": {
-            "Id": "4076daaa-b791-4923-94dc-498ad171d062",
-            "Number": "number1",
-            "PoliticalFirstName": "pol first name",
-            "PoliticalLastName": "pol last name",
-            "FirstName": "firstName",
-            "LastName": "lastName",
-            "Party": "Test de",
-            "Position": 1,
-            "Description": "number1 pol last name pol first name"
-          },
-          "EVotingVoteCount": 0,
-          "ConventionalVoteCount": null,
-          "VoteCount": 0
-        },
-        {
-          "Candidate": {
-            "Id": "910181c5-c003-4775-976b-1f33a19f2a1b",
-            "Number": "number2",
-            "PoliticalFirstName": "Pete2",
-            "PoliticalLastName": "L",
-            "FirstName": "Peter2",
-            "LastName": "Lustig2",
-            "Party": "CVP de",
-            "Position": 2,
-            "Description": "number2 L Pete2"
-          },
-          "EVotingVoteCount": 0,
-          "ConventionalVoteCount": null,
-          "VoteCount": 0
-        }
-      ],
-      "EVotingSubTotal": {
-        "IndividualVoteCount": 0,
-        "EmptyVoteCount": 0,
-        "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
-      },
-      "ConventionalSubTotal": {
-        "IndividualVoteCount": null,
-        "EmptyVoteCount": null,
-        "InvalidVoteCount": null,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
-      },
-      "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
-      "InvalidVoteCount": 0,
-      "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0
-    },
     {
       "SecondaryMajorityElection": {
         "Id": "0741da26-add2-4c4c-960d-7e251b82e91b",
@@ -291,6 +163,136 @@
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 18,
       "TotalCandidateVoteCountInclIndividual": 18
+    },
+    {
+      "SecondaryMajorityElection": {
+        "Id": "292a5a89-e030-44db-a204-90e00540ba84",
+        "PoliticalBusinessNumber": "n2",
+        "OfficialDescription": "official2 de",
+        "ShortDescription": "short2 de",
+        "InternalDescription": "internal2",
+        "NumberOfMandates": 1,
+        "Active": false,
+        "Title": "n2: short2 de"
+      },
+      "CandidateResults": [
+        {
+          "Candidate": {
+            "Id": "4076daaa-b791-4923-94dc-498ad171d062",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name"
+          },
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        },
+        {
+          "Candidate": {
+            "Id": "910181c5-c003-4775-976b-1f33a19f2a1b",
+            "Number": "number2",
+            "PoliticalFirstName": "Pete2",
+            "PoliticalLastName": "L",
+            "FirstName": "Peter2",
+            "LastName": "Lustig2",
+            "Party": "CVP de",
+            "Position": 2,
+            "Description": "number2 L Pete2"
+          },
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        }
+      ],
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCount": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": null,
+        "EmptyVoteCount": null,
+        "InvalidVoteCount": null,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    {
+      "SecondaryMajorityElection": {
+        "Id": "f4ae2b39-45b5-427a-96e4-24d645ddb080",
+        "PoliticalBusinessNumber": "n3",
+        "OfficialDescription": "official3 de",
+        "ShortDescription": "short3 de",
+        "InternalDescription": "internal",
+        "NumberOfMandates": 2,
+        "Active": false,
+        "Title": "n3: short3 de"
+      },
+      "CandidateResults": [
+        {
+          "Candidate": {
+            "Id": "f136f4d7-7f4c-4674-a9c5-391dbed43985",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name"
+          },
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        },
+        {
+          "Candidate": {
+            "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3",
+            "Number": "number2",
+            "PoliticalFirstName": "Pete2",
+            "PoliticalLastName": "L",
+            "FirstName": "Peter2",
+            "LastName": "Lustig2",
+            "Party": "CVP de",
+            "Position": 2,
+            "Description": "number2 L Pete2"
+          },
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": null,
+          "VoteCount": 0
+        }
+      ],
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCount": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": null,
+        "EmptyVoteCount": null,
+        "InvalidVoteCount": null,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
     }
   ],
   "Entry": 1,

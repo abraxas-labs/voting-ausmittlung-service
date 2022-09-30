@@ -70,7 +70,7 @@ public class MajorityElectionResultService : ServiceBase
         await _majorityElectionResultWriter.DefineEntry(
             GuidParser.Parse(request.ElectionResultId),
             _mapper.Map<DataModels.MajorityElectionResultEntry>(request.ResultEntry),
-            _mapper.Map<ElectionResultEntryParams>(request.ResultEntryParams));
+            _mapper.Map<MajorityElectionResultEntryParams>(request.ResultEntryParams));
         return ProtobufEmpty.Instance;
     }
 
@@ -111,10 +111,10 @@ public class MajorityElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareSubmissionFinished(MajorityElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(MajorityElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _majorityElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_SubmissionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _majorityElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_SubmissionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(MajorityElectionResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -129,10 +129,10 @@ public class MajorityElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareCorrectionFinished(MajorityElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(MajorityElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _majorityElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_CorrectionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _majorityElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_CorrectionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(MajorityElectionResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -185,10 +185,10 @@ public class MajorityElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareFinalizeEndResult(PrepareFinalizeMajorityElectionEndResultRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeMajorityElectionEndResultRequest request, ServerCallContext context)
     {
-        var externalId = await _majorityElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.MajorityElectionId), Strings.MajorityElectionResult_FinalizeEndResult);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _majorityElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.MajorityElectionId), Strings.MajorityElectionResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> FinalizeEndResult(FinalizeMajorityElectionEndResultRequest request, ServerCallContext context)

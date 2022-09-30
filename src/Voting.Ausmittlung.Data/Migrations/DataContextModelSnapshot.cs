@@ -18,7 +18,7 @@ namespace Voting.Ausmittlung.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -1217,6 +1217,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceResultEntryForCountingCircles")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("EnforceReviewProcedureForCountingCircles")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IndividualEmptyBallotsAllowed")
                         .HasColumnType("boolean");
 
@@ -1241,6 +1244,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("ResultEntry")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReviewProcedure")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -1862,6 +1868,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceEmptyVoteCountingForCountingCircles")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("EnforceReviewProcedureForCountingCircles")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("InternalDescription")
                         .IsRequired()
                         .HasColumnType("text");
@@ -1875,6 +1884,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<string>("PoliticalBusinessNumber")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("ReviewProcedure")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -3318,6 +3330,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceResultEntryForCountingCircles")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("EnforceReviewProcedureForCountingCircles")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("InternalDescription")
                         .IsRequired()
                         .HasColumnType("text");
@@ -3333,6 +3348,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("ResultEntry")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReviewProcedure")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -4779,7 +4797,7 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasForeignKey("MajorityElectionResultId");
                         });
 
-                    b.OwnsOne("Voting.Ausmittlung.Data.Models.ElectionResultEntryParams", "EntryParams", b1 =>
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionResultEntryParams", "EntryParams", b1 =>
                         {
                             b1.Property<Guid>("MajorityElectionResultId")
                                 .HasColumnType("uuid");
@@ -4797,6 +4815,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<int>("BallotNumberGeneration")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("ReviewProcedure")
                                 .HasColumnType("integer");
 
                             b1.HasKey("MajorityElectionResultId");
@@ -5705,7 +5726,7 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasForeignKey("ProportionalElectionResultId");
                         });
 
-                    b.OwnsOne("Voting.Ausmittlung.Data.Models.ElectionResultEntryParams", "EntryParams", b1 =>
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.ProportionalElectionResultEntryParams", "EntryParams", b1 =>
                         {
                             b1.Property<Guid>("ProportionalElectionResultId")
                                 .HasColumnType("uuid");
@@ -5723,6 +5744,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<int>("BallotNumberGeneration")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("ReviewProcedure")
                                 .HasColumnType("integer");
 
                             b1.HasKey("ProportionalElectionResultId");
@@ -6603,6 +6627,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasColumnType("boolean");
 
                             b1.Property<int>("BallotBundleSampleSizePercent")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("ReviewProcedure")
                                 .HasColumnType("integer");
 
                             b1.HasKey("VoteResultId");

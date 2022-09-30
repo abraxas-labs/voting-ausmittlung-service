@@ -22,7 +22,8 @@
       "BasisCountingCircleId": null,
       "PoliticalBusinessUnionId": null,
       "DomainOfInfluenceType": 0,
-      "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+      "PoliticalBusinessResultBundleId": null
     },
     "EchMessageId": null
   },

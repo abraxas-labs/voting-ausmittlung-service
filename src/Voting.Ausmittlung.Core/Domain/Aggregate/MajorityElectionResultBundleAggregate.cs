@@ -30,7 +30,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
 
     public override string AggregateName => "voting-majorityElectionResultBundle";
 
-    public ElectionResultEntryParams ResultEntryParams { get; private set; } = new();
+    public MajorityElectionResultEntryParams ResultEntryParams { get; private set; } = new();
 
     protected override int BallotBundleSampleSize => ResultEntryParams.BallotBundleSampleSize;
 
@@ -39,7 +39,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
         Guid electionResultId,
         int bundleNumber,
         MajorityElectionResultEntry resultEntry,
-        ElectionResultEntryParams? resultEntryParams,
+        MajorityElectionResultEntryParams? resultEntryParams,
         Guid contestId)
     {
         if (resultEntry != MajorityElectionResultEntry.Detailed || resultEntryParams == null)
@@ -269,11 +269,17 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
 
     private void Apply(MajorityElectionResultBundleCreated ev)
     {
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (ev.ResultEntryParams.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionReviewProcedure.Unspecified)
+        {
+            ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionReviewProcedure.Electronically;
+        }
+
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.ElectionResultId);
         CreatedBy = ev.EventInfo.User.Id;
         BundleNumber = ev.BundleNumber;
-        ResultEntryParams = _mapper.Map<ElectionResultEntryParams>(ev.ResultEntryParams);
+        ResultEntryParams = _mapper.Map<MajorityElectionResultEntryParams>(ev.ResultEntryParams);
         CurrentBallotNumber = ResultEntryParams.BallotNumberGeneration == BallotNumberGeneration.RestartForEachBundle
             ? 0
             : (BundleNumber - 1) * ResultEntryParams.BallotBundleSize;

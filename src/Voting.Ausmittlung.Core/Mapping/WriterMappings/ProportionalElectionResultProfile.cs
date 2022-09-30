@@ -13,7 +13,7 @@ public class ProportionalElectionResultProfile : Profile
     {
         CreateMap<ProportionalElectionUnmodifiedListResult, ProportionalElectionUnmodifiedListResultEventData>().ReverseMap();
         CreateMap<ProportionalElectionResultBallotCandidate, ProportionalElectionResultBallotUpdatedCandidateEventData>().ReverseMap();
-        CreateMap<ElectionResultEntryParams, ProportionalElectionResultEntryParamsEventData>().ReverseMap();
+        CreateMap<ProportionalElectionResultEntryParams, ProportionalElectionResultEntryParamsEventData>().ReverseMap();
         CreateMap<ElectionEndResultLotDecision, ProportionalElectionEndResultLotDecisionEventData>().ReverseMap();
     }
 }

@@ -49,6 +49,8 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                 EnforceEmptyVoteCountingForCountingCircles = true,
                 MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
                 NumberOfMandates = 2,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Physically,
+                EnforceReviewProcedureForCountingCircles = false,
             },
         });
 

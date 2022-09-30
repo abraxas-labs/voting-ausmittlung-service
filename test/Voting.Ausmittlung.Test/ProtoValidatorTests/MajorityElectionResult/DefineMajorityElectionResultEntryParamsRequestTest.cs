@@ -20,6 +20,7 @@ public class DefineMajorityElectionResultEntryParamsRequestTest : ProtoValidator
             AutomaticBallotBundleNumberGeneration = true,
             AutomaticEmptyVoteCounting = true,
             BallotBundleSize = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
         };
 
         action?.Invoke(request);
@@ -45,5 +46,7 @@ public class DefineMajorityElectionResultEntryParamsRequestTest : ProtoValidator
         yield return NewValidRequest(x => x.BallotBundleSampleSize = 501);
         yield return NewValidRequest(x => x.BallotNumberGeneration = BallotNumberGeneration.Unspecified);
         yield return NewValidRequest(x => x.BallotNumberGeneration = (BallotNumberGeneration)12);
+        yield return NewValidRequest(x => x.ReviewProcedure = MajorityElectionReviewProcedure.Unspecified);
+        yield return NewValidRequest(x => x.ReviewProcedure = (MajorityElectionReviewProcedure)12);
     }
 }

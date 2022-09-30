@@ -388,6 +388,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 BallotBundleSampleSize = 3,
                 BallotBundleSize = 25,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         };
         PublishAusmittlungEvent(entryDefinedEvent, resultId, Host1, KeyHost1);
@@ -594,6 +595,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         };
         PublishAusmittlungEvent(bundleCreated, resultId, Host2, KeyHost2);
@@ -736,6 +738,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         };
         PublishAusmittlungEvent(entryDefinedEvent, resultId);
@@ -877,6 +880,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         };
         PublishAusmittlungEvent(bundleCreated, bundleId);
@@ -1205,6 +1209,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             {
                 BallotBundleSampleSizePercent = 20,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
             },
         };
         PublishAusmittlungEvent(bundleCreated, bundleId, Host1, KeyHost1AfterReboot);

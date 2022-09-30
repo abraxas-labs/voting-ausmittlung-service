@@ -118,45 +118,37 @@ public class CountingCircleProcessor :
             DomainOfInfluenceId = doiCc.DomainOfInfluenceId,
         }).ToList();
 
-        // Domain of influence IDs with changed domain of influence counting circles to initialize political business counting circle results.
-        // Political businesses have only snapshot domain of influence IDs.
-        var updatedDoiIds = new List<Guid>();
-
         // Update basis (non-snapshot) counting circles
         countingCircle.DomainOfInfluences = copyFromDoiCcs;
         await _repo.Create(countingCircle);
         await _repo.DeleteRangeByKey(ccIdsToDelete);
 
-        // Add snapshot counting circles for each snapshotted contest (if it contains the new counting circle)
-        var basisDoiIds = copyFromDoiCcs.ConvertAll(doiCc => doiCc.DomainOfInfluenceId);
-        var snapshotDoisInTestingPhase = await _doiRepo.Query()
-            .Where(doi => basisDoiIds.Contains(doi.BasisDomainOfInfluenceId))
+        // Get the snapshotted counting circles including DOI assignment, which we have to copy
+        var snapshotCopyFromCcs = await _repo.Query()
+            .AsSplitQuery()
+            .Include(cc => cc.DomainOfInfluences)
+            .Where(cc => cc.BasisCountingCircleId == copyFromCcId)
             .WhereContestIsInTestingPhase()
-            .Include(doi => doi.SnapshotContest)
             .ToListAsync();
 
-        var snapshotDoisByContestId = snapshotDoisInTestingPhase
-            .GroupBy(doi => doi.SnapshotContest!.Id)
-            .ToDictionary(x => x.Key, x => x.ToList());
-
+        // Update the snapshotted counting circles.
         var countingCircleSnapshotsToCreate = new List<CountingCircle>();
-        foreach (var (contestId, snapshotDois) in snapshotDoisByContestId)
+        foreach (var snapshotCopyFromCc in snapshotCopyFromCcs)
         {
             var snapshotCountingCircle = _mapper.Map<CountingCircle>(eventData.Merger.NewCountingCircle);
-            var snapshotDoiIdByBasisDoiId = snapshotDois.ToDictionary(doi => doi.BasisDomainOfInfluenceId, doi => doi.Id);
-            snapshotCountingCircle.DomainOfInfluences = copyFromDoiCcs.Select(doiCc => new DomainOfInfluenceCountingCircle
+
+            // copy the assigned domain of influences
+            snapshotCountingCircle.DomainOfInfluences = snapshotCopyFromCc.DomainOfInfluences.Select(doiCc => new DomainOfInfluenceCountingCircle
             {
                 Inherited = doiCc.Inherited,
-                DomainOfInfluenceId = snapshotDoiIdByBasisDoiId[doiCc.DomainOfInfluenceId],
+                DomainOfInfluenceId = doiCc.DomainOfInfluenceId,
             }).ToList();
 
-            updatedDoiIds.AddRange(snapshotCountingCircle.DomainOfInfluences.Select(doiCc => doiCc.DomainOfInfluenceId));
-            snapshotCountingCircle.SnapshotForContest(contestId);
+            snapshotCountingCircle.SnapshotForContest(snapshotCopyFromCc.SnapshotContestId!.Value);
             countingCircleSnapshotsToCreate.Add(snapshotCountingCircle);
         }
 
         await _repo.CreateRange(countingCircleSnapshotsToCreate);
-        await _ccResultsInitializer.InitializeResults(updatedDoiIds);
 
         // Remove old snapshotted counting circles
         var snapshotCcIdsToDelete = await _repo.Query()
@@ -165,6 +157,14 @@ public class CountingCircleProcessor :
             .Select(cc => cc.Id)
             .ToListAsync();
         await _repo.DeleteRangeByKey(snapshotCcIdsToDelete);
+
+        // Domain of influence IDs with changed domain of influence counting circles to initialize political business counting circle results.
+        var updatedDoiIds = snapshotCopyFromCcs
+            .SelectMany(cc => cc.DomainOfInfluences)
+            .Select(doiCc => doiCc.DomainOfInfluenceId)
+            .Distinct()
+            .ToList();
+        await _ccResultsInitializer.InitializeResults(updatedDoiIds);
 
         await _permissionBuilder.RebuildPermissionTree();
     }

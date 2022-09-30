@@ -53,6 +53,8 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
                 ResultEntry = SharedProto.MajorityElectionResultEntry.FinalResults,
                 EnforceResultEntryForCountingCircles = false,
                 NumberOfMandates = 2,
+                EnforceReviewProcedureForCountingCircles = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Physically,
             },
         });
 

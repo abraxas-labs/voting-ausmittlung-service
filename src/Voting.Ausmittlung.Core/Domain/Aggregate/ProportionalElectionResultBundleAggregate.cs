@@ -31,7 +31,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
 
     public Guid? ListId { get; private set; }
 
-    public ElectionResultEntryParams ResultEntryParams { get; private set; } = new();
+    public ProportionalElectionResultEntryParams ResultEntryParams { get; private set; } = new();
 
     protected override int BallotBundleSampleSize => ResultEntryParams.BallotBundleSampleSize;
 
@@ -40,7 +40,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
         Guid electionResultId,
         Guid? listId,
         int bundleNumber,
-        ElectionResultEntryParams resultEntry,
+        ProportionalElectionResultEntryParams resultEntry,
         Guid contestId)
     {
         if (bundleNumber < 1)
@@ -232,12 +232,18 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
 
     private void Apply(ProportionalElectionResultBundleCreated ev)
     {
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (ev.ResultEntryParams.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Unspecified)
+        {
+            ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Electronically;
+        }
+
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.ElectionResultId);
         CreatedBy = ev.EventInfo.User.Id;
         ListId = GuidParser.ParseNullable(ev.ListId);
         BundleNumber = ev.BundleNumber;
-        ResultEntryParams = _mapper.Map<ElectionResultEntryParams>(ev.ResultEntryParams);
+        ResultEntryParams = _mapper.Map<ProportionalElectionResultEntryParams>(ev.ResultEntryParams);
         CurrentBallotNumber = ResultEntryParams.BallotNumberGeneration == BallotNumberGeneration.RestartForEachBundle
             ? 0
             : (BundleNumber - 1) * ResultEntryParams.BallotBundleSize;

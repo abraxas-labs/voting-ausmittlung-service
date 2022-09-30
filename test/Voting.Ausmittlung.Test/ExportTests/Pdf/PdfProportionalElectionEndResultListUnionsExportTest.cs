@@ -12,7 +12,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBaseTest
+public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
 {
     public PdfProportionalElectionEndResultListUnionsExportTest(TestApplicationFactory factory)
         : base(factory)

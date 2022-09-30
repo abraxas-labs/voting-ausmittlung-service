@@ -47,7 +47,9 @@
         "ShortDescription": "Neue Proporzwahl 1 de",
         "OfficialDescription": "Neue Proporzwahl 1 de",
         "Title": "6000: Neue Proporzwahl 1 de",
-        "Id": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0"
+        "Id": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       },
       {
         "MandateAlgorithm": 2,
@@ -95,7 +97,9 @@
         "ShortDescription": "Neue Proporzwahl 2 de",
         "OfficialDescription": "Neue Proporzwahl 2 de",
         "Title": "6001: Neue Proporzwahl 2 de",
-        "Id": "350fb432-9083-44f0-ade9-f9f7f99dabe8"
+        "Id": "350fb432-9083-44f0-ade9-f9f7f99dabe8",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       }
     ]
   },

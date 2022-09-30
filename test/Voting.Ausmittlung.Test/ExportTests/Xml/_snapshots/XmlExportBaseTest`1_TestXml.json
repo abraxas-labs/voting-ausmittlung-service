@@ -3,7 +3,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",
@@ -619,7 +619,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",
@@ -2927,7 +2927,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",
@@ -3053,7 +3053,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",
@@ -3081,6 +3081,24 @@
                   {
                     "ElectionIdentification": "0741da26-add2-4c4c-960d-7e251b82e91b",
                     "BallotRawData": [
+                      {
+                        "ListRawData": null,
+                        "BallotPosition": [
+                          {
+                            "Item": {
+                              "Items": [
+                                "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+                                "number1"
+                              ],
+                              "ItemsElementName": [
+                                0,
+                                1
+                              ]
+                            }
+                          }
+                        ],
+                        "IsUnchangedBallotSpecified": false
+                      },
                       {
                         "ListRawData": null,
                         "BallotPosition": [
@@ -3295,7 +3313,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",
@@ -3608,7 +3626,7 @@
     "DeliveryHeader": {
       "senderId": "ABX-VOTING",
       "messageId": "mock-id",
-      "messageType": null,
+      "messageType": "1710967",
       "sendingApplication": {
         "manufacturer": "Abraxas Informatik AG",
         "product": "Voting.Ausmittlung",

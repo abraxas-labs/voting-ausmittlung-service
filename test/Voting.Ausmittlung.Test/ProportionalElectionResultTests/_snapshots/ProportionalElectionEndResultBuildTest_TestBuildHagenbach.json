@@ -75,7 +75,9 @@
         "EVotingTo": null,
         "State": 1,
         "EVotingResultsImported": false
-      }
+      },
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": true
     },
     "DomainOfInfluenceDetails": {
       "CountOfVotersInformation": {
@@ -919,7 +921,9 @@
         "EVotingTo": null,
         "State": 1,
         "EVotingResultsImported": false
-      }
+      },
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": true
     },
     "DomainOfInfluenceDetails": {
       "CountOfVotersInformation": {
@@ -1763,7 +1767,9 @@
         "EVotingTo": null,
         "State": 1,
         "EVotingResultsImported": false
-      }
+      },
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": true
     },
     "DomainOfInfluenceDetails": {
       "CountOfVotersInformation": {

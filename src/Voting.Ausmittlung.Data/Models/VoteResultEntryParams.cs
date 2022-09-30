@@ -8,4 +8,6 @@ public class VoteResultEntryParams
     public int BallotBundleSampleSizePercent { get; set; }
 
     public bool AutomaticBallotBundleNumberGeneration { get; set; }
+
+    public VoteReviewProcedure ReviewProcedure { get; set; }
 }

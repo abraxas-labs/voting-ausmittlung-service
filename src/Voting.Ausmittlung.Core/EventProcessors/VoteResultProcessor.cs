@@ -77,6 +77,12 @@ public class VoteResultProcessor :
         {
             voteResult.EntryParams = new VoteResultEntryParams();
             _mapper.Map(resultEntryParams, voteResult.EntryParams);
+
+            // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+            if (voteResult.EntryParams.ReviewProcedure == VoteReviewProcedure.Unspecified)
+            {
+                voteResult.EntryParams.ReviewProcedure = VoteReviewProcedure.Electronically;
+            }
         }
 
         foreach (var ballotResult in voteResult.Results)

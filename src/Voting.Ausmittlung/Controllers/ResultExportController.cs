@@ -55,4 +55,11 @@ public class ResultExportController : ControllerBase
 
         return SingleFileResult.Create(file, ct);
     }
+
+    [HttpPost("bundle_review")]
+    public async Task<FileResult> DownloadResultBundleReviewExport(GenerateResultBundleReviewExportRequest request, CancellationToken ct)
+    {
+        var fileModel = await _resultExportService.GenerateResultBundleReviewExport(request.ContestId, _mapper.Map<ResultExportRequest>(request), ct);
+        return SingleFileResult.Create(new FileModelWrapper(fileModel), ct);
+    }
 }

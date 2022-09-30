@@ -20,6 +20,7 @@ public class DefineProportionalElectionResultEntryParamsRequestTest : ProtoValid
             AutomaticBallotBundleNumberGeneration = true,
             AutomaticEmptyVoteCounting = true,
             BallotBundleSize = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
         };
 
         action?.Invoke(request);
@@ -45,5 +46,7 @@ public class DefineProportionalElectionResultEntryParamsRequestTest : ProtoValid
         yield return NewValidRequest(x => x.BallotBundleSampleSize = 501);
         yield return NewValidRequest(x => x.BallotNumberGeneration = BallotNumberGeneration.Unspecified);
         yield return NewValidRequest(x => x.BallotNumberGeneration = (BallotNumberGeneration)12);
+        yield return NewValidRequest(x => x.ReviewProcedure = ProportionalElectionReviewProcedure.Unspecified);
+        yield return NewValidRequest(x => x.ReviewProcedure = (ProportionalElectionReviewProcedure)12);
     }
 }

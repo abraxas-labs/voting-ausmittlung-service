@@ -84,6 +84,12 @@ public class MajorityElectionProcessor :
 
         majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
 
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (majorityElection.ReviewProcedure == MajorityElectionReviewProcedure.Unspecified)
+        {
+            majorityElection.ReviewProcedure = MajorityElectionReviewProcedure.Electronically;
+        }
+
         await _repo.Create(majorityElection);
         await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false);
         await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
@@ -95,6 +101,12 @@ public class MajorityElectionProcessor :
         var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
         majorityElection.DomainOfInfluenceId =
             AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (majorityElection.ReviewProcedure == MajorityElectionReviewProcedure.Unspecified)
+        {
+            majorityElection.ReviewProcedure = MajorityElectionReviewProcedure.Electronically;
+        }
 
         var existingMajorityElection = await _repo.GetByKey(majorityElection.Id)
             ?? throw new EntityNotFoundException(majorityElection.Id);

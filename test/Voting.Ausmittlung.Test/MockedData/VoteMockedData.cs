@@ -79,6 +79,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -120,6 +122,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -161,6 +165,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -202,6 +208,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = true,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -310,6 +318,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -351,6 +361,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.FinalResults,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -392,6 +404,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = true,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -433,6 +447,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -474,6 +490,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -537,6 +555,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.FinalResults,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
         };
 
     public static Vote GossauVoteInContestGossau
@@ -558,6 +578,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -599,6 +621,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -640,6 +664,8 @@ public static class VoteMockedData
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
         };
 
     public static Vote GenfVoteInContestBundWithoutChilds
@@ -661,6 +687,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = false,
         };
 
     public static Vote KircheVoteInContestKircheWithoutChilds
@@ -682,6 +710,8 @@ public static class VoteMockedData
             ResultEntry = VoteResultEntry.Detailed,
             ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
             EnforceResultEntryForCountingCircles = false,
+            ReviewProcedure = VoteReviewProcedure.Physically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static IEnumerable<Vote> All

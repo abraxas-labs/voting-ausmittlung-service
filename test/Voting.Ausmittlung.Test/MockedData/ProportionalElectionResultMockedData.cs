@@ -47,13 +47,14 @@ public static class ProportionalElectionResultMockedData
             ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             TotalCountOfVoters = 15000,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new ProportionalElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             },
         };
 
@@ -64,13 +65,14 @@ public static class ProportionalElectionResultMockedData
             ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             TotalCountOfVoters = 15000,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new ProportionalElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             },
         };
 
@@ -92,13 +94,14 @@ public static class ProportionalElectionResultMockedData
             ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestGossau),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             TotalCountOfVoters = 6000,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new ProportionalElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {

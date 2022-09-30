@@ -15,7 +15,7 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
 
     public MajorityElectionResultEntry Entry { get; set; }
 
-    public ElectionResultEntryParams? EntryParams { get; set; }
+    public MajorityElectionResultEntryParams? EntryParams { get; set; }
 
     public ICollection<MajorityElectionCandidateResult> CandidateResults { get; set; } =
         new HashSet<MajorityElectionCandidateResult>();

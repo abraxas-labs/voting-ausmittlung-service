@@ -32,4 +32,6 @@ public record ReportRenderContext
     public DomainOfInfluenceType DomainOfInfluenceType { get; init; }
 
     public Guid PoliticalBusinessId => _singlePoliticalBusinessId ??= PoliticalBusinessIds.Single(); // count is already validated
+
+    public Guid? PoliticalBusinessResultBundleId { get; init; }
 }

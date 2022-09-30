@@ -98,6 +98,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -167,6 +169,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = false,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -251,6 +255,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -358,6 +364,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.HagenbachBischoff,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -433,6 +441,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = false,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -497,6 +507,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 3,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -775,6 +787,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static ProportionalElection GossauProportionalElectionInContestGossau
@@ -800,6 +814,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -878,6 +894,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -1042,6 +1060,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static ProportionalElection GenfProportionalElectionInContestBundWithoutChilds
@@ -1066,6 +1086,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static ProportionalElection KircheProportionalElectionInContestKirche
@@ -1091,6 +1113,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -1165,6 +1189,8 @@ public static class ProportionalElectionMockedData
             CandidateCheckDigit = true,
             MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
             NumberOfMandates = 5,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static IEnumerable<ProportionalElection> All

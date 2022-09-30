@@ -32,6 +32,7 @@ public class ProportionalElectionEndResultPrepareFinalizeTest : ProportionalElec
     {
         var response = await MonitoringElectionAdminClient.PrepareFinalizeEndResultAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

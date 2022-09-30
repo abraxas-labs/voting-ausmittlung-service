@@ -150,6 +150,8 @@ public static class MajorityElectionEndResultMockedData
             MandateAlgorithm = mandateAlgorithm,
             NumberOfMandates = primaryElectionNumberOfMandates,
             ReportDomainOfInfluenceLevel = 1,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
                 {
                     BuildCandidate(CandidateId1, 1),

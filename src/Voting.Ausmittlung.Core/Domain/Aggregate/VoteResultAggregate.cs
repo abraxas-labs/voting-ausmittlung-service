@@ -373,6 +373,12 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
     private void Apply(VoteResultEntryDefined ev)
     {
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (ev.ResultEntryParams?.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Unspecified)
+        {
+            ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Electronically;
+        }
+
         ResultEntry = _mapper.Map<VoteResultEntry>(ev.ResultEntry);
         ResultEntryParams = _mapper.Map<VoteResultEntryParams>(ev.ResultEntryParams) ?? new VoteResultEntryParams();
         ResetBundleNumbers();

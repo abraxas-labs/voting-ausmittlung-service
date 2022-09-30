@@ -124,8 +124,14 @@ public class MajorityElectionResultBuilder
         }
         else
         {
-            electionResult.EntryParams = new ElectionResultEntryParams();
+            electionResult.EntryParams = new MajorityElectionResultEntryParams();
             _mapper.Map(resultEntryParams, electionResult.EntryParams);
+
+            // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+            if (electionResult.EntryParams.ReviewProcedure == MajorityElectionReviewProcedure.Unspecified)
+            {
+                electionResult.EntryParams.ReviewProcedure = MajorityElectionReviewProcedure.Electronically;
+            }
         }
 
         electionResult.ConventionalCountOfDetailedEnteredBallots = 0;

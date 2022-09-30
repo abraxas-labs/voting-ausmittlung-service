@@ -1,0 +1,113 @@
+<Voting>
+  <TemplateKey>vote_result_bundle_review</TemplateKey>
+  <CountingCircle>
+    <Name>Gossau</Name>
+    <Bfs>3443</Bfs>
+    <Code>3443-GOSSAU</Code>
+    <ResponsibleAuthority>
+      <SecureConnectId>300</SecureConnectId>
+      <Name />
+      <Phone />
+      <Email />
+      <Street />
+      <Zip />
+      <City />
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName />
+      <FamilyName />
+      <Phone />
+      <MobilePhone />
+      <Email />
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName />
+      <FamilyName />
+      <Phone />
+      <MobilePhone />
+      <Email />
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>8000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>500</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>7000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>300</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+  <VoteResultBundle>
+    <Number>1</Number>
+    <VoteResultBallot>
+      <Number>1</Number>
+      <QuestionAnswer>
+        <Question>
+          <Number>1</Number>
+          <Question>Frage 1 Gossau de</Question>
+        </Question>
+        <Answer>Yes</Answer>
+      </QuestionAnswer>
+      <QuestionAnswer>
+        <Question>
+          <Number>2</Number>
+          <Question>Frage 2 Gossau de</Question>
+        </Question>
+        <Answer>No</Answer>
+      </QuestionAnswer>
+      <TieBreakQuestionAnswer>
+        <Question>
+          <Number>1</Number>
+          <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
+          <Question1Number>1</Question1Number>
+          <Question2Number>2</Question2Number>
+        </Question>
+        <Answer>Q1</Answer>
+      </TieBreakQuestionAnswer>
+    </VoteResultBallot>
+    <VoteResultBallot>
+      <Number>2</Number>
+      <QuestionAnswer>
+        <Question>
+          <Number>1</Number>
+          <Question>Frage 1 Gossau de</Question>
+        </Question>
+        <Answer>Unspecified</Answer>
+      </QuestionAnswer>
+      <QuestionAnswer>
+        <Question>
+          <Number>2</Number>
+          <Question>Frage 2 Gossau de</Question>
+        </Question>
+        <Answer>Yes</Answer>
+      </QuestionAnswer>
+      <TieBreakQuestionAnswer>
+        <Question>
+          <Number>1</Number>
+          <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
+          <Question1Number>1</Question1Number>
+          <Question2Number>2</Question2Number>
+        </Question>
+        <Answer>Q2</Answer>
+      </TieBreakQuestionAnswer>
+    </VoteResultBallot>
+  </VoteResultBundle>
+</Voting>

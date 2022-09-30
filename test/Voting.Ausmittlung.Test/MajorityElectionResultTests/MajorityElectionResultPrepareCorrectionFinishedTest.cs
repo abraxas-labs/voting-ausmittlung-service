@@ -31,6 +31,7 @@ public class MajorityElectionResultPrepareCorrectionFinishedTest : MajorityElect
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await ErfassungElectionAdminClient.PrepareCorrectionFinishedAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
     }
 
     [Fact]

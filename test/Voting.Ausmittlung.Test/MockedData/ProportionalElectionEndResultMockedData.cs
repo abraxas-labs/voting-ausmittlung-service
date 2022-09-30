@@ -103,6 +103,8 @@ public static class ProportionalElectionEndResultMockedData
             CandidateCheckDigit = false,
             MandateAlgorithm = mandateAlgorithm,
             NumberOfMandates = numberOfMandates,
+            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
                 {
                     BuildList(

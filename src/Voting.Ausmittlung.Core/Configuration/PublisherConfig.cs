@@ -26,11 +26,7 @@ public class PublisherConfig
 
     public ResultExportJobConfig AutomaticExports { get; set; } = new();
 
-    public EchConfig Ech { get; set; } = new(typeof(AppConfig).Assembly)
-    {
-        SenderId = "ABX-VOTING",
-        Product = "Voting.Ausmittlung",
-    };
+    public EchConfig Ech { get; set; } = new(typeof(AppConfig).Assembly);
 
     public JobConfig CleanSecondFactorTransactionsJob { get; set; } = new() { Interval = TimeSpan.FromHours(1) };
 

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Abraxas.Voting.Ausmittlung.Shared.V1;
 using Voting.Lib.Testing.Validation;
 
 namespace Voting.Ausmittlung.Test.ProtoValidatorTests.VoteResult;
@@ -16,6 +17,7 @@ public class DefineVoteResultEntryParamsRequestTest : ProtoValidatorBaseTest<Def
         {
             BallotBundleSampleSizePercent = 20,
             AutomaticBallotBundleNumberGeneration = true,
+            ReviewProcedure = VoteReviewProcedure.Electronically,
         };
 
         action?.Invoke(request);
@@ -34,5 +36,7 @@ public class DefineVoteResultEntryParamsRequestTest : ProtoValidatorBaseTest<Def
     {
         yield return NewValidRequest(x => x.BallotBundleSampleSizePercent = 0);
         yield return NewValidRequest(x => x.BallotBundleSampleSizePercent = 101);
+        yield return NewValidRequest(x => x.ReviewProcedure = VoteReviewProcedure.Unspecified);
+        yield return NewValidRequest(x => x.ReviewProcedure = (VoteReviewProcedure)12);
     }
 }

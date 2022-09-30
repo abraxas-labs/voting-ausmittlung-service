@@ -31,6 +31,7 @@ public class VoteResultPrepareSubmissionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
     }
 
     [Fact]

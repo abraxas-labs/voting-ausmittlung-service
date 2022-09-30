@@ -85,6 +85,12 @@ public class VoteProcessor :
         var vote = _mapper.Map<Vote>(eventData.Vote);
         vote.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(vote.ContestId, vote.DomainOfInfluenceId);
 
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (vote.ReviewProcedure == VoteReviewProcedure.Unspecified)
+        {
+            vote.ReviewProcedure = VoteReviewProcedure.Electronically;
+        }
+
         await _repo.Create(vote);
         await _voteResultsRepo.Rebuild(vote.Id, vote.DomainOfInfluenceId, false);
         await _voteEndResultInitializer.RebuildForVote(vote.Id, false);
@@ -95,6 +101,12 @@ public class VoteProcessor :
     {
         var vote = _mapper.Map<Vote>(eventData.Vote);
         vote.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(vote.ContestId, vote.DomainOfInfluenceId);
+
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (vote.ReviewProcedure == VoteReviewProcedure.Unspecified)
+        {
+            vote.ReviewProcedure = VoteReviewProcedure.Electronically;
+        }
 
         var existingVote = await _repo.GetByKey(vote.Id)
                             ?? throw new EntityNotFoundException(vote.Id);

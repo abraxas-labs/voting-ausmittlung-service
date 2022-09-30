@@ -18,6 +18,9 @@ public static class MajorityElectionResultBallotMockedData
 
     public const string IdStGallenBallotCandidate1 = "3001bec0-e077-470b-b250-312f31802658";
 
+    public const string IdStGallenSecondaryBallot1 = "4ef7d3fc-d639-408f-a768-2ac3eee21b6f";
+    public const string IdStGallenSecondaryBallotCandidate1 = "2605c287-f6a7-4e43-a85f-492b82f195af";
+
     public static MajorityElectionResultBallot StGallenBallot1
         => new MajorityElectionResultBallot
         {
@@ -32,6 +35,25 @@ public static class MajorityElectionResultBallotMockedData
                         BallotId = Guid.Parse(IdStGallenBallot1),
                         Selected = true,
                     },
+            },
+            SecondaryMajorityElectionBallots = new List<SecondaryMajorityElectionResultBallot>
+            {
+                new SecondaryMajorityElectionResultBallot
+                {
+                    Id = Guid.Parse(IdStGallenSecondaryBallot1),
+                    PrimaryBallotId = Guid.Parse(IdStGallenBallot1),
+                    SecondaryMajorityElectionResultId = MajorityElectionResultMockedData.GuidStGallenElectionSecondaryResultInContestBund,
+                    BallotCandidates = new List<SecondaryMajorityElectionResultBallotCandidate>
+                    {
+                        new SecondaryMajorityElectionResultBallotCandidate
+                        {
+                            Id = Guid.Parse(IdStGallenSecondaryBallotCandidate1),
+                            CandidateId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
+                            BallotId = Guid.Parse(IdStGallenSecondaryBallot1),
+                            Selected = true,
+                        },
+                    },
+                },
             },
             BundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),
         };

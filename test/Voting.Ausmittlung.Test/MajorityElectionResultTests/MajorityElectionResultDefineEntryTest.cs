@@ -252,6 +252,25 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
             "enforced AutomaticEmptyVoteCounting setting not respected");
     }
 
+    [Fact]
+    public async Task TestNoRespectForEnforcedReviewProcedureSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var election = await db.MajorityElections
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund));
+            election.EnforceReviewProcedureForCountingCircles = true;
+            election.ReviewProcedure = MajorityElectionReviewProcedure.Physically;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "enforced ReviewProcedure setting not respected");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
@@ -277,6 +296,7 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         };

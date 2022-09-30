@@ -162,6 +162,25 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
             "enforced AutomaticEmptyVoteCounting setting not respected");
     }
 
+    [Fact]
+    public async Task TestNoRespectForEnforcedReviewProcedureSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var election = await db.ProportionalElections
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen));
+            election.EnforceReviewProcedureForCountingCircles = true;
+            election.ReviewProcedure = ProportionalElectionReviewProcedure.Physically;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "enforced ReviewProcedure setting not respected");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
@@ -195,6 +214,7 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
         };

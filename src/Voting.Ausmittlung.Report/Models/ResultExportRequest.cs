@@ -19,4 +19,6 @@ public class ResultExportRequest
     public DomainOfInfluenceType? DomainOfInfluenceType { get; set; }
 
     public TemplateModel Template { get; set; } = null!;
+
+    public Guid? PoliticalBusinessResultBundleId { get; set; }
 }

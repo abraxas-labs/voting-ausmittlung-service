@@ -46,10 +46,12 @@ public class SecondFactorTransactionWriter
         _actionIdComparer = actionIdComparer;
     }
 
-    public async Task<SecondFactorTransaction> CreateSecondFactorTransaction(ActionId actionId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> CreateSecondFactorTransaction(ActionId actionId, string message)
     {
         var actionIdHash = actionId.ComputeHash();
         var userId = _permissionService.UserId;
+        var code = RandomUtil.GetRandomString(4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
+        message = $"({code}) {message}";
         var secondFactorAuthId = await _userService.RequestSecondFactor(
             userId,
             nameof(V1SecondFactorProvider.NEVIS),
@@ -73,7 +75,7 @@ public class SecondFactorTransactionWriter
             "Created second factor transaction {SecondFactorExternalId} for action {ActionId}",
             secondFactorTransaction.ExternalIdentifier,
             actionId);
-        return secondFactorTransaction;
+        return (secondFactorTransaction, code);
     }
 
     public async Task EnsureVerified(string externalId, Func<Task<ActionId>> action, CancellationToken ct)

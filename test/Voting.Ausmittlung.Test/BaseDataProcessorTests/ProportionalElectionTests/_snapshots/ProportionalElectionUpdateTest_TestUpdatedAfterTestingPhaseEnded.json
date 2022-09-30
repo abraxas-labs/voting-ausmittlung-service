@@ -44,5 +44,7 @@
   "ShortDescription": "Update Proporzwahl de",
   "OfficialDescription": "Update Proporzwahl de",
   "Title": "6000: Update Proporzwahl de",
-  "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+  "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+  "ReviewProcedure": 1,
+  "EnforceReviewProcedureForCountingCircles": true
 }

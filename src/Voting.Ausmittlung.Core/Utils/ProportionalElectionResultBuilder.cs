@@ -142,6 +142,12 @@ public class ProportionalElectionResultBuilder
 
         _mapper.Map(resultEntryParams, electionResult.EntryParams);
 
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (electionResult.EntryParams.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
+        {
+            electionResult.EntryParams.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
+        }
+
         electionResult.ResetAllSubTotals(VotingDataSource.Conventional);
         electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
         electionResult.Bundles.Clear();

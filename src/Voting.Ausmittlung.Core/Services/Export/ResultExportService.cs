@@ -54,6 +54,7 @@ public class ResultExportService
     private readonly EventSignatureService _eventSignatureService;
     private readonly PublisherConfig _publisherConfig;
     private readonly IMapper _mapper;
+    private readonly ContestService _contestService;
 
     public ResultExportService(
         ExportService exportService,
@@ -68,7 +69,8 @@ public class ResultExportService
         IServiceProvider serviceProvider,
         EventSignatureService eventSignatureService,
         PublisherConfig publisherConfig,
-        IMapper mapper)
+        IMapper mapper,
+        ContestService contestService)
     {
         _exportService = exportService;
         _contestReader = contestReader;
@@ -83,6 +85,7 @@ public class ResultExportService
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
         _dokConnector = dokConnector;
         _mapper = mapper;
+        _contestService = contestService;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
@@ -172,6 +175,15 @@ public class ResultExportService
             .ToList();
 
         _ = GenerateExportsFromConfigurationInNewScope(export, ResultExportTriggerMode.Manual);
+    }
+
+    public async Task<FileModel> GenerateResultBundleReviewExport(Guid contestId, ResultExportRequest request, CancellationToken ct = default)
+    {
+        request.Template = TemplateRepository.GetByKey(request.Template.Key);
+        await EnsureExportBundleReviewPermissions(request.CountingCircleId!.Value, contestId);
+        var file = await _exportService.GenerateResultExport(contestId, request, ct);
+        await PublishEventForBundleReviewExport(contestId, file);
+        return file;
     }
 
     internal async Task GenerateAutomaticExportsFromConfiguration(Guid id, CancellationToken ct)
@@ -351,6 +363,20 @@ public class ResultExportService
         return PublishEvent(contestId, eventData);
     }
 
+    private Task PublishEventForBundleReviewExport(Guid contestId, FileModel exportFile)
+    {
+        var eventData = new BundleReviewExportGenerated
+        {
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+            Key = exportFile.RenderContext.Template.Key,
+            ContestId = contestId.ToString(),
+            CountingCircleId = exportFile.RenderContext.BasisCountingCircleId.ToString(),
+            PoliticalBusinessId = exportFile.RenderContext.PoliticalBusinessId.ToString(),
+            PoliticalBusinessResultBundleId = exportFile.RenderContext.PoliticalBusinessResultBundleId.ToString(),
+        };
+        return PublishEvent(contestId, eventData);
+    }
+
     private Task PublishEvent(Guid contestId, IMessage eventData)
     {
         // We don't need idempotency here, since we just "log" the export events
@@ -362,5 +388,12 @@ public class ResultExportService
             eventData,
             _mapper.Map<EventSignatureMetadata>(eventMetadata),
             eventId));
+    }
+
+    private async Task EnsureExportBundleReviewPermissions(Guid countingCircleId, Guid contestId)
+    {
+        _permissionService.EnsureErfassungElectionAdminOrCreator();
+        await _permissionService.EnsureHasPermissionsOnCountingCircle(countingCircleId);
+        await _contestService.EnsureNotLocked(contestId);
     }
 }

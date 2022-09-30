@@ -95,6 +95,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -149,6 +151,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 1,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -530,6 +534,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = false,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -607,6 +613,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -756,6 +764,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -809,6 +819,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = false,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 3,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -884,6 +896,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static MajorityElection GossauMajorityElectionInContestGossau
@@ -912,6 +926,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -966,6 +982,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -1020,6 +1038,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static MajorityElection GenfMajorityElectionInContestBundWithoutChilds
@@ -1048,6 +1068,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
         };
 
     public static MajorityElection KircheMajorityElectionInContestKirche
@@ -1075,6 +1097,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+            EnforceReviewProcedureForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -1220,6 +1244,8 @@ public static class MajorityElectionMockedData
             IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
+            ReviewProcedure = MajorityElectionReviewProcedure.Physically,
+            EnforceReviewProcedureForCountingCircles = false,
         };
 
     public static IEnumerable<MajorityElection> All

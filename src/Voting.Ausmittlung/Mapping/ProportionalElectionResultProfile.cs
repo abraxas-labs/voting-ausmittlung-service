@@ -20,7 +20,7 @@ public class ProportionalElectionResultProfile : Profile
             .ForMember(dst => dst.Election, opts => opts.MapFrom(src => src.ProportionalElection))
             .ForMember(dst => dst.CountingCircleId, opts => opts.MapFrom(src => src.CountingCircle.BasisCountingCircleId));
         CreateMap<DataModels.ProportionalElectionResultSubTotal, ProtoModels.ProportionalElectionResultSubTotal>();
-        CreateMap<DataModels.ElectionResultEntryParams, ProtoModels.ProportionalElectionResultEntryParams>();
+        CreateMap<DataModels.ProportionalElectionResultEntryParams, ProtoModels.ProportionalElectionResultEntryParams>();
         CreateMap<DataModels.ProportionalElectionResult, ProtoModels.ProportionalElectionUnmodifiedListResults>()
             .ForMember(dst => dst.ElectionResult, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.ProportionalElectionUnmodifiedListResult, ProtoModels.ProportionalElectionUnmodifiedListResult>();
@@ -55,7 +55,7 @@ public class ProportionalElectionResultProfile : Profile
             .ForMember(dst => dst.ListShortDescription, opts => opts.MapFrom(src => src.Candidate.ProportionalElectionList.ShortDescription));
 
         // write
-        CreateMap<DefineProportionalElectionResultEntryParamsRequest, ElectionResultEntryParams>();
+        CreateMap<DefineProportionalElectionResultEntryParamsRequest, ProportionalElectionResultEntryParams>();
         CreateMap<CreateUpdateProportionalElectionResultBallotCandidateRequest, ProportionalElectionResultBallotCandidate>();
         CreateMap<EnterProportionalElectionUnmodifiedListResultRequest, ProportionalElectionUnmodifiedListResult>();
     }

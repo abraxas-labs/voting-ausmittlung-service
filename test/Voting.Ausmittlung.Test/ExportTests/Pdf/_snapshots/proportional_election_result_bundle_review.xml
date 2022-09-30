@@ -1,0 +1,237 @@
+<Voting>
+  <TemplateKey>proportional_election_result_bundle_review</TemplateKey>
+  <CountingCircle>
+    <Name>Uzwil</Name>
+    <Bfs>1234</Bfs>
+    <Code>1234-UZWIL</Code>
+    <ResponsibleAuthority>
+      <SecureConnectId>100</SecureConnectId>
+      <Name>Uzwil</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>uzwil-test@abraxas.ch</Email>
+      <Street>Werkstrasse</Street>
+      <Zip>9595</Zip>
+      <City>MyCity</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans</FirstName>
+      <FamilyName>Muster</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>uzwil-test@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph</FirstName>
+      <FamilyName>Wichtig</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>uzwil-test2@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>3210</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>1600</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>100</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>1400</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>110</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+  <ProportionalElectionResultBundle>
+    <Number>2</Number>
+    <List>
+      <OrderNumber>1a</OrderNumber>
+      <ShortDescription>Liste 1 de</ShortDescription>
+    </List>
+    <ProportionalElectionResultBallot>
+      <Number>1</Number>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>1a.1a.1 pol last name pol first name</Description>
+          <Number>1a.1</Number>
+          <FirstName>firstName</FirstName>
+          <LastName>lastName</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Accumulated>true</Accumulated>
+          <AccumulatedPosition>2</AccumulatedPosition>
+          <NumberIncludingList>1a.1a.1</NumberIncludingList>
+        </Candidate>
+        <Position>1</Position>
+        <RemovedFromList>false</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>2a.2a.2 pol last name12 pol first name12</Description>
+          <Number>2a.2</Number>
+          <FirstName>firstName12</FirstName>
+          <LastName>lastName12</LastName>
+          <PoliticalFirstName>pol first name12</PoliticalFirstName>
+          <PoliticalLastName>pol last name12</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Accumulated>true</Accumulated>
+          <AccumulatedPosition>4</AccumulatedPosition>
+          <NumberIncludingList>2a.2a.2</NumberIncludingList>
+        </Candidate>
+        <Position>2</Position>
+        <RemovedFromList>false</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>1a.1a.1 pol last name pol first name</Description>
+          <Number>1a.1</Number>
+          <FirstName>firstName</FirstName>
+          <LastName>lastName</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Accumulated>true</Accumulated>
+          <AccumulatedPosition>2</AccumulatedPosition>
+          <NumberIncludingList>1a.1a.1</NumberIncludingList>
+        </Candidate>
+        <Position>2</Position>
+        <RemovedFromList>true</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>2a.2a.2 pol last name12 pol first name12</Description>
+          <Number>2a.2</Number>
+          <FirstName>firstName12</FirstName>
+          <LastName>lastName12</LastName>
+          <PoliticalFirstName>pol first name12</PoliticalFirstName>
+          <PoliticalLastName>pol last name12</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Accumulated>true</Accumulated>
+          <AccumulatedPosition>4</AccumulatedPosition>
+          <NumberIncludingList>2a.2a.2</NumberIncludingList>
+        </Candidate>
+        <Position>3</Position>
+        <RemovedFromList>false</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>1a.1a.2 pol last name2 pol first name2</Description>
+          <Number>1a.2</Number>
+          <FirstName>firstName2</FirstName>
+          <LastName>lastName2</LastName>
+          <PoliticalFirstName>pol first name2</PoliticalFirstName>
+          <PoliticalLastName>pol last name2</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation />
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Accumulated>false</Accumulated>
+          <AccumulatedPosition>0</AccumulatedPosition>
+          <NumberIncludingList>1a.1a.2</NumberIncludingList>
+        </Candidate>
+        <Position>3</Position>
+        <RemovedFromList>true</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>1a.1a.3 pol last name3 pol first name3</Description>
+          <Number>1a.3</Number>
+          <FirstName>firstName3</FirstName>
+          <LastName>lastName3</LastName>
+          <PoliticalFirstName>pol first name3</PoliticalFirstName>
+          <PoliticalLastName>pol last name3</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Accumulated>false</Accumulated>
+          <AccumulatedPosition>0</AccumulatedPosition>
+          <NumberIncludingList>1a.1a.3</NumberIncludingList>
+        </Candidate>
+        <Position>4</Position>
+        <RemovedFromList>false</RemovedFromList>
+      </ProportionalElectionCandidate>
+      <ProportionalElectionCandidate>
+        <Candidate>
+          <Description>2a.2a.1 pol last name11 pol first name11</Description>
+          <Number>2a.1</Number>
+          <FirstName>firstName11</FirstName>
+          <LastName>lastName11</LastName>
+          <PoliticalFirstName>pol first name11</PoliticalFirstName>
+          <PoliticalLastName>pol last name11</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Accumulated>true</Accumulated>
+          <AccumulatedPosition>2</AccumulatedPosition>
+          <NumberIncludingList>2a.2a.1</NumberIncludingList>
+        </Candidate>
+        <Position>5</Position>
+        <RemovedFromList>false</RemovedFromList>
+      </ProportionalElectionCandidate>
+    </ProportionalElectionResultBallot>
+  </ProportionalElectionResultBundle>
+</Voting>

@@ -71,7 +71,7 @@ public class ProportionalElectionResultService : ServiceBase
     {
         await _proportionalElectionResultWriter.DefineEntry(
             GuidParser.Parse(request.ElectionResultId),
-            _mapper.Map<ElectionResultEntryParams>(request.ResultEntryParams));
+            _mapper.Map<ProportionalElectionResultEntryParams>(request.ResultEntryParams));
         return ProtobufEmpty.Instance;
     }
 
@@ -93,10 +93,10 @@ public class ProportionalElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareSubmissionFinished(ProportionalElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(ProportionalElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _proportionalElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_SubmissionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_SubmissionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(ProportionalElectionResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -111,10 +111,10 @@ public class ProportionalElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareCorrectionFinished(ProportionalElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(ProportionalElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var externalId = await _proportionalElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_CorrectionFinished);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_CorrectionFinished);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(ProportionalElectionResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -171,10 +171,10 @@ public class ProportionalElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.IdValue> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionEndResultRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionEndResultRequest request, ServerCallContext context)
     {
-        var externalId = await _proportionalElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionId), Strings.ProportionalElectionResult_FinalizeEndResult);
-        return new ProtoModels.IdValue { Id = externalId };
+        var (secondFactorTransaction, code) = await _proportionalElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionId), Strings.ProportionalElectionResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> FinalizeEndResult(FinalizeProportionalElectionEndResultRequest request, ServerCallContext context)

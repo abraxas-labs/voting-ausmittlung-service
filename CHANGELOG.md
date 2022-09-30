@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.39.1`)
+# ✨ Changelog (`v1.42.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.39.1
-Previous version ---- v1.36.4
+This version -------- v1.42.0
+Previous version ---- v1.39.1
 Initial version ----- v1.29.14
-Total commits ------- 13
+Total commits ------- 4
 ```
+
+## [v1.42.0] - 2022-09-28
+
+### 🆕 Added
+
+- second factor transaction code
+
+## [v1.41.0] - 2022-09-26
+
+### 🆕 Added
+
+- review procedure for vote, majority election and proportional election
+
+## [v1.40.0] - 2022-09-23
+
+### 🆕 Added
+
+- Add eCH message type to eCH-exports
+
+## [v1.39.2] - 2022-09-22
+
+### 🔄 Changed
+
+- Correctly handle CountingCirclesMergerActivated events, which previously may not have created all necessary counting circles
 
 ## [v1.39.1] - 2022-09-08
 
@@ -246,6 +270,8 @@ Total commits ------- 13
 
 - extend evoting date with time
 
+The readmodel needs to be recreated after this commit
+
 ## [v1.29.18] - 2022-05-24
 
 ### 🔄 Changed
@@ -266,7 +292,9 @@ Total commits ------- 13
 
 ## [v1.29.15] - 2022-05-23
 
-The readmodel needs to be recreated after this commit
+### 🔄 Changed
+
+- code quality issues
 
 ## [v1.29.14] - 2022-05-19
 

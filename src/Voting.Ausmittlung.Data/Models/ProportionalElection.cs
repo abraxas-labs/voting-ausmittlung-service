@@ -49,4 +49,8 @@ public class ProportionalElection : Election, IHasResults, IPoliticalBusinessHas
         get => Translations;
         set => Translations = value.Cast<ProportionalElectionTranslation>().ToList();
     }
+
+    public ProportionalElectionReviewProcedure ReviewProcedure { get; set; }
+
+    public bool EnforceReviewProcedureForCountingCircles { get; set; }
 }

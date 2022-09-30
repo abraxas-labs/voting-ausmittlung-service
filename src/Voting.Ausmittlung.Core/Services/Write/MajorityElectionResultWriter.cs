@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -50,7 +51,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     public async Task DefineEntry(
         Guid resultId,
         DataModels.MajorityElectionResultEntry resultEntry,
-        ElectionResultEntryParams? resultEntryParams)
+        MajorityElectionResultEntryParams? resultEntryParams)
     {
         _permissionService.EnsureErfassungElectionAdmin();
         var result = await LoadPoliticalBusinessResult(resultId);
@@ -130,13 +131,12 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Entered ballot group results for majority election result {MajorityElectionResultId}", electionResult.Id);
     }
 
-    public async Task<string> PrepareSubmissionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareSubmissionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
         var actionId = await PrepareSubmissionFinishedActionId(resultId);
-        var secondFactorTransaction = await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
-        return secondFactorTransaction.ExternalIdentifier;
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
     public async Task SubmissionFinished(Guid resultId, string secondFactorTransactionExternalId, CancellationToken ct)
@@ -153,13 +153,12 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Submission finished for majority election result {MajorityElectionResultId}", result.Id);
     }
 
-    public async Task<string> PrepareCorrectionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareCorrectionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
         var actionId = await PrepareCorrectionFinishedActionId(resultId);
-        var secondFactorTransaction = await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
-        return secondFactorTransaction.ExternalIdentifier;
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
     public async Task CorrectionFinished(Guid resultId, string comment, string secondFactorTransactionExternalId, CancellationToken ct)
@@ -243,7 +242,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     private void EnsureResultEntryRespectSettings(
         DataModels.MajorityElection election,
         DataModels.MajorityElectionResultEntry resultEntry,
-        ElectionResultEntryParams? resultEntryParams)
+        MajorityElectionResultEntryParams? resultEntryParams)
     {
         if (election.EnforceResultEntryForCountingCircles
             && election.ResultEntry != resultEntry)
@@ -257,6 +256,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         {
             throw new ValidationException(
                 $"enforced {nameof(election.AutomaticEmptyVoteCounting)} setting not respected");
+        }
+
+        if (resultEntryParams != null
+            && election.EnforceReviewProcedureForCountingCircles
+            && election.ReviewProcedure != resultEntryParams.ReviewProcedure)
+        {
+            throw new ValidationException($"enforced {nameof(election.ReviewProcedure)} setting not respected");
         }
     }
 

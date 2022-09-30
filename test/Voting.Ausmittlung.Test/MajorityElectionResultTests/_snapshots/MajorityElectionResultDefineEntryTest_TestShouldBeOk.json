@@ -22,6 +22,7 @@
     "BallotBundleSampleSize": 5,
     "AutomaticBallotBundleNumberGeneration": true,
     "BallotNumberGeneration": 2,
-    "AutomaticEmptyVoteCounting": false
+    "AutomaticEmptyVoteCounting": false,
+    "ReviewProcedure": 1
   }
 }

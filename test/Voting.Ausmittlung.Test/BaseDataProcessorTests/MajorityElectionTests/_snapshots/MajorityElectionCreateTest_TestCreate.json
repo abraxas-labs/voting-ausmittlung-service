@@ -55,7 +55,9 @@
         "ShortDescription": "Neue Majorzwahl 1 de",
         "OfficialDescription": "Neue Majorzwahl 1 de",
         "Title": "8000: Neue Majorzwahl 1 de",
-        "Id": "4a258e1d-ba12-4564-a8eb-6bf89262dece"
+        "Id": "4a258e1d-ba12-4564-a8eb-6bf89262dece",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       },
       {
         "MandateAlgorithm": 2,
@@ -111,7 +113,9 @@
         "ShortDescription": "Neue Majorzwahl 2 de",
         "OfficialDescription": "Neue Majorzwahl 2 de",
         "Title": "8001: Neue Majorzwahl 2 de",
-        "Id": "764f30b9-3510-41a5-b7be-64173551d292"
+        "Id": "764f30b9-3510-41a5-b7be-64173551d292",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       }
     ]
   },

@@ -63,7 +63,9 @@
         "EVotingTo": null,
         "State": 1,
         "EVotingResultsImported": false
-      }
+      },
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": true
     },
     "SecondaryMajorityElectionResults": [
       {
@@ -100,38 +102,6 @@
       },
       {
         "SecondaryMajorityElection": {
-          "Id": "292a5a89-e030-44db-a204-90e00540ba84",
-          "PoliticalBusinessNumber": "n2",
-          "OfficialDescription": "official2 de",
-          "ShortDescription": "short2 de",
-          "InternalDescription": "internal2",
-          "NumberOfMandates": 1,
-          "Active": false,
-          "Title": "n2: short2 de"
-        },
-        "CandidateResults": [],
-        "EVotingSubTotal": {
-          "IndividualVoteCount": 0,
-          "EmptyVoteCount": 0,
-          "InvalidVoteCount": 0,
-          "TotalCandidateVoteCountExclIndividual": 0,
-          "TotalCandidateVoteCountInclIndividual": 0
-        },
-        "ConventionalSubTotal": {
-          "IndividualVoteCount": 2,
-          "EmptyVoteCount": 1,
-          "InvalidVoteCount": 3,
-          "TotalCandidateVoteCountExclIndividual": 0,
-          "TotalCandidateVoteCountInclIndividual": 2
-        },
-        "IndividualVoteCount": 2,
-        "EmptyVoteCount": 1,
-        "InvalidVoteCount": 3,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 2
-      },
-      {
-        "SecondaryMajorityElection": {
           "Id": "0741da26-add2-4c4c-960d-7e251b82e91b",
           "PoliticalBusinessNumber": "n1",
           "OfficialDescription": "official de",
@@ -161,6 +131,38 @@
         "InvalidVoteCount": 2,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 7
+      },
+      {
+        "SecondaryMajorityElection": {
+          "Id": "292a5a89-e030-44db-a204-90e00540ba84",
+          "PoliticalBusinessNumber": "n2",
+          "OfficialDescription": "official2 de",
+          "ShortDescription": "short2 de",
+          "InternalDescription": "internal2",
+          "NumberOfMandates": 1,
+          "Active": false,
+          "Title": "n2: short2 de"
+        },
+        "CandidateResults": [],
+        "EVotingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCount": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
+        "ConventionalSubTotal": {
+          "IndividualVoteCount": 2,
+          "EmptyVoteCount": 1,
+          "InvalidVoteCount": 3,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 2
+        },
+        "IndividualVoteCount": 2,
+        "EmptyVoteCount": 1,
+        "InvalidVoteCount": 3,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 2
       }
     ],
     "Entry": 2,
@@ -169,7 +171,8 @@
       "BallotBundleSampleSize": 2,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
-      "AutomaticEmptyVoteCounting": false
+      "AutomaticEmptyVoteCounting": false,
+      "ReviewProcedure": 1
     },
     "State": 1,
     "SubmissionDoneTimestamp": null,

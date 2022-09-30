@@ -54,6 +54,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<ProportionalElectionResultEntryDefined>();

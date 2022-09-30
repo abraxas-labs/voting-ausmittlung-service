@@ -5,7 +5,7 @@ using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Domain;
 
-public class ElectionResultEntryParams
+public abstract class ElectionResultEntryParams
 {
     /// <summary>
     /// Gets or sets the ballot bundle size. When entering results, multiple ballots are put together in a bundle (to identify them better etc.).

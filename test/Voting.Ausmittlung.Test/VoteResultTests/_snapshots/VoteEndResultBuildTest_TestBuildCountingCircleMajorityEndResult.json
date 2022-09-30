@@ -71,7 +71,9 @@
       "BallotBundleSampleSizePercent": 0,
       "AutomaticBallotBundleNumberGeneration": false,
       "ResultEntry": 0,
-      "EnforceResultEntryForCountingCircles": false
+      "EnforceResultEntryForCountingCircles": false,
+      "ReviewProcedure": 0,
+      "EnforceReviewProcedureForCountingCircles": false
     },
     "DomainOfInfluenceDetails": {
       "CountOfVotersInformation": {
@@ -537,7 +539,9 @@
       "BallotBundleSampleSizePercent": 0,
       "AutomaticBallotBundleNumberGeneration": false,
       "ResultEntry": 0,
-      "EnforceResultEntryForCountingCircles": false
+      "EnforceResultEntryForCountingCircles": false,
+      "ReviewProcedure": 0,
+      "EnforceReviewProcedureForCountingCircles": false
     },
     "DomainOfInfluenceDetails": {
       "CountOfVotersInformation": {

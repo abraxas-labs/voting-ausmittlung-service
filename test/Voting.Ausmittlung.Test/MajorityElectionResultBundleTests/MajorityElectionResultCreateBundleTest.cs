@@ -47,6 +47,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
                 AutomaticEmptyVoteCounting = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
     }
@@ -181,6 +182,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
 
@@ -211,6 +213,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
 
@@ -235,6 +238,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
 
@@ -266,6 +270,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
 
@@ -294,6 +299,7 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         });

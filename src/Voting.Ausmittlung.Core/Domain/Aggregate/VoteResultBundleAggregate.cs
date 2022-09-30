@@ -238,6 +238,12 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
 
     private void Apply(VoteResultBundleCreated ev)
     {
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (ev.ResultEntryParams.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Unspecified)
+        {
+            ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.VoteReviewProcedure.Electronically;
+        }
+
         Id = GuidParser.Parse(ev.BundleId);
         PoliticalBusinessResultId = GuidParser.Parse(ev.VoteResultId);
         BallotResultId = GuidParser.Parse(ev.BallotResultId);

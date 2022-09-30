@@ -42,7 +42,8 @@
     "BundleNumber": 10,
     "ResultEntryParams": {
       "BallotBundleSampleSizePercent": 100,
-      "AutomaticBallotBundleNumberGeneration": false
+      "AutomaticBallotBundleNumberGeneration": false,
+      "ReviewProcedure": 1
     }
   }
 }

@@ -111,6 +111,13 @@ public class ProportionalElectionProcessor :
         var proportionalElection = _mapper.Map<ProportionalElection>(eventData.ProportionalElection);
         proportionalElection.DomainOfInfluenceId =
             AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
+
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (proportionalElection.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
+        {
+            proportionalElection.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
+        }
+
         await _repo.Create(proportionalElection);
 
         await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false);
@@ -122,6 +129,12 @@ public class ProportionalElectionProcessor :
     {
         var proportionalElection = _mapper.Map<ProportionalElection>(eventData.ProportionalElection);
         proportionalElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
+
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (proportionalElection.ReviewProcedure == ProportionalElectionReviewProcedure.Unspecified)
+        {
+            proportionalElection.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
+        }
 
         var existingModel = await _repo.GetByKey(proportionalElection.Id)
             ?? throw new EntityNotFoundException(proportionalElection.Id);

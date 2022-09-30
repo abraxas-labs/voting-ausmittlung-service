@@ -35,8 +35,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
         _mapper = mapper;
     }
 
-    public ElectionResultEntryParams ResultEntry { get; private set; } =
-        new ElectionResultEntryParams();
+    public ProportionalElectionResultEntryParams ResultEntry { get; private set; } = new();
 
     public override string AggregateName => "voting-proportionalElectionResult";
 
@@ -55,7 +54,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
             new EventSignatureDomainData(contestId));
     }
 
-    public void DefineEntry(ElectionResultEntryParams resultEntry, Guid contestId)
+    public void DefineEntry(ProportionalElectionResultEntryParams resultEntry, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing);
         _resultEntryParamsValidator.ValidateAndThrow(resultEntry);
@@ -308,7 +307,13 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
 
     private void Apply(ProportionalElectionResultEntryDefined ev)
     {
-        ResultEntry = _mapper.Map<ElectionResultEntryParams>(ev.ResultEntryParams) ?? new ElectionResultEntryParams();
+        // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+        if (ev.ResultEntryParams?.ReviewProcedure == Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Unspecified)
+        {
+            ev.ResultEntryParams.ReviewProcedure = Abraxas.Voting.Ausmittlung.Shared.V1.ProportionalElectionReviewProcedure.Electronically;
+        }
+
+        ResultEntry = _mapper.Map<ProportionalElectionResultEntryParams>(ev.ResultEntryParams) ?? new ProportionalElectionResultEntryParams();
         ResetBundleNumbers();
     }
 

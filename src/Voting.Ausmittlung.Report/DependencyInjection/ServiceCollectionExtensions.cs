@@ -101,7 +101,8 @@ public static class ServiceCollectionExtensions
             .AddRendererService<PdfVoteDomainOfInfluenceResultRenderService>(
                 AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol,
                 AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol)
-            .AddRendererService<PdfVoteResultRenderService>(AusmittlungPdfVoteTemplates.ResultProtocol);
+            .AddRendererService<PdfVoteResultRenderService>(AusmittlungPdfVoteTemplates.ResultProtocol)
+            .AddRendererService<PdfVoteResultBundleReviewRenderService>(AusmittlungPdfVoteTemplates.ResultBundleReview);
     }
 
     private static IReportingServiceCollection AddPdfMajorityElectionResultRenderServices(this IReportingServiceCollection services)
@@ -112,7 +113,8 @@ public static class ServiceCollectionExtensions
             .AddRendererService<PdfMajorityElectionEndResultRenderService>(
                 AusmittlungPdfMajorityElectionTemplates.EndResultProtocol)
             .AddRendererService<PdfMajorityElectionEndResultDetailRenderService>(
-                AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol);
+                AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol)
+            .AddRendererService<PdfMajorityElectionResultBundleReviewRenderService>(AusmittlungPdfMajorityElectionTemplates.ResultBundleReview);
     }
 
     private static IReportingServiceCollection AddPdfContestRenderServices(this IReportingServiceCollection services)
@@ -144,7 +146,9 @@ public static class ServiceCollectionExtensions
             .AddRendererService<PdfProportionalElectionEndResultCalculationRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.EndResultCalculation)
             .AddRendererService<PdfProportionalElectionEndResultListUnionsRenderService>(
-                AusmittlungPdfProportionalElectionTemplates.EndResultListUnions);
+                AusmittlungPdfProportionalElectionTemplates.EndResultListUnions)
+            .AddRendererService<PdfProportionalElectionResultBundleReviewRenderService>(
+                AusmittlungPdfProportionalElectionTemplates.ResultBundleReview);
     }
 
     private static IReportingServiceCollection AddXmlRenderServices(this IReportingServiceCollection services)

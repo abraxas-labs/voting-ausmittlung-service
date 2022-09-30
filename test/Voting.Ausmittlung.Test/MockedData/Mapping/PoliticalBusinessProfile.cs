@@ -11,6 +11,7 @@ public class PoliticalBusinessProfile : Profile
 {
     public PoliticalBusinessProfile()
     {
-        CreateMap<ElectionResultEntryParams, DomainModels.ElectionResultEntryParams>();
+        CreateMap<MajorityElectionResultEntryParams, DomainModels.MajorityElectionResultEntryParams>();
+        CreateMap<ProportionalElectionResultEntryParams, DomainModels.ProportionalElectionResultEntryParams>();
     }
 }

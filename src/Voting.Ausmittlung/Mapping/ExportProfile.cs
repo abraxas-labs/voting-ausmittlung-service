@@ -1,6 +1,7 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -31,5 +32,8 @@ public class ExportProfile : Profile
         CreateMap<UpdateResultExportConfigurationRequest, ResultExportConfiguration>();
         CreateMap<GenerateResultExportRequest, ResultExportRequest>()
             .ForPath(dst => dst.Template.Key, opts => opts.MapFrom(x => x.Key));
+        CreateMap<GenerateResultBundleReviewExportRequest, ResultExportRequest>()
+            .ForPath(dst => dst.Template.Key, opts => opts.MapFrom(x => x.TemplateKey))
+            .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(x => new List<Guid> { x.PoliticalBusinessId }));
     }
 }

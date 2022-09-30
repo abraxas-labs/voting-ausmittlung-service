@@ -51,6 +51,11 @@ public static class MajorityElectionResultMockedData
         CountingCircleMockedData.GuidUzwil,
         false);
 
+    public static readonly Guid GuidStGallenElectionSecondaryResultInContestBund = AusmittlungUuidV5.BuildPoliticalBusinessResult(
+        Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+        CountingCircleMockedData.GuidStGallen,
+        false);
+
     public static readonly string IdStGallenElectionResultInContestBund = GuidStGallenElectionResultInContestBund.ToString();
     public static readonly string IdUzwilElectionResultInContestUzwil = GuidUzwilElectionResultInContestUzwil.ToString();
     public static readonly string IdKircheElectionResultInContestKirche = GuidKircheElectionResultInContestKirche.ToString();
@@ -64,13 +69,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
             TotalCountOfVoters = 15000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -84,7 +90,7 @@ public static class MajorityElectionResultMockedData
             {
                     new SecondaryMajorityElectionResult
                     {
-                        Id = Guid.Parse("be37d631-58d5-4bed-bf86-8ce557c973b3"),
+                        Id = GuidStGallenElectionSecondaryResultInContestBund,
                         ConventionalSubTotal =
                         {
                             EmptyVoteCount = 5,
@@ -126,13 +132,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
             TotalCountOfVoters = 9000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -162,13 +169,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidUzwilKirche,
             TotalCountOfVoters = 50000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
         };
 
@@ -180,13 +188,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             TotalCountOfVoters = 9000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -206,13 +215,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             TotalCountOfVoters = 8000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -232,13 +242,14 @@ public static class MajorityElectionResultMockedData
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
             TotalCountOfVoters = 8000,
             Entry = MajorityElectionResultEntry.Detailed,
-            EntryParams = new ElectionResultEntryParams
+            EntryParams = new MajorityElectionResultEntryParams
             {
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {

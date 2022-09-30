@@ -117,7 +117,9 @@
       "ShortDescription": "Abst Gossau de",
       "OfficialDescription": "Abstimmung Gossau de",
       "Title": "321: Abst Gossau de",
-      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": false
     }
   ]
 }

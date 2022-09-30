@@ -46,6 +46,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
                 AutomaticEmptyVoteCounting = true,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
     }
@@ -149,6 +150,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
         });
@@ -225,6 +227,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
 
@@ -254,6 +257,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
 
@@ -277,6 +281,7 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
                 AutomaticEmptyVoteCounting = true,
                 BallotBundleSampleSize = 10,
                 AutomaticBallotBundleNumberGeneration = false,
+                ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
             },
         });
 

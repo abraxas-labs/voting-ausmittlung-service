@@ -33,7 +33,7 @@ using ProtoBasisEvents = Abraxas.Voting.Basis.Events.V1.Data;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTest
+public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTest<GenerateResultExportsRequest>
 {
     protected const string Host1 = "Host1";
     protected const string Host2 = "Host2";

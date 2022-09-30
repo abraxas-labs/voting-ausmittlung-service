@@ -48,6 +48,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 2,
                 AutomaticEmptyVoteCounting = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();
@@ -77,6 +78,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
                 BallotBundleSampleSize = 1,
                 AutomaticBallotBundleNumberGeneration = true,
                 BallotNumberGeneration = SharedProto.BallotNumberGeneration.ContinuousForAllBundles,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();

@@ -63,7 +63,9 @@
         "EVotingTo": null,
         "State": 1,
         "EVotingResultsImported": false
-      }
+      },
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": true
     },
     "SecondaryMajorityElectionResults": [],
     "Entry": 2,
@@ -72,7 +74,8 @@
       "BallotBundleSampleSize": 2,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
-      "AutomaticEmptyVoteCounting": false
+      "AutomaticEmptyVoteCounting": false,
+      "ReviewProcedure": 1
     },
     "State": 2,
     "SubmissionDoneTimestamp": null,
@@ -185,7 +188,9 @@
               "CountOfSecondaryElections": 0,
               "DomainOfInfluence": null,
               "InvalidVotes": false,
-              "Contest": null
+              "Contest": null,
+              "ReviewProcedure": 1,
+              "EnforceReviewProcedureForCountingCircles": true
             },
             "SecondaryElection": null,
             "HasIndividualCandidate": false,

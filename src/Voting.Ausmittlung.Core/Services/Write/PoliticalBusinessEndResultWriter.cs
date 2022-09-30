@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using DataModels = Voting.Ausmittlung.Data.Models;
@@ -82,7 +83,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
             typeof(TEndResult).Name);
     }
 
-    public async Task<string> PrepareFinalize(Guid politicalBusinessId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareFinalize(Guid politicalBusinessId, string message)
     {
         _permissionService.EnsureMonitoringElectionAdmin();
         await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
@@ -93,8 +94,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
         var (_, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
         var actionId = await PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded);
-        var secondFactorTransaction = await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
-        return secondFactorTransaction.ExternalIdentifier;
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
     protected abstract Task<TEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId);

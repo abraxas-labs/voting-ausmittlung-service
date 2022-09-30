@@ -42,7 +42,9 @@
         "ShortDescription": "Neue Abstimmung 1 de",
         "OfficialDescription": "Neue Abstimmung 1 de",
         "Title": "2000: Neue Abstimmung 1 de",
-        "Id": "5483076b-e596-44d3-b34e-6e9220eed84c"
+        "Id": "5483076b-e596-44d3-b34e-6e9220eed84c",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       },
       {
         "Results": [],
@@ -85,7 +87,9 @@
         "ShortDescription": "Neue Abstimmung 2 de",
         "OfficialDescription": "Neue Abstimmung 2 de",
         "Title": "2001: Neue Abstimmung 2 de",
-        "Id": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e"
+        "Id": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false
       }
     ]
   },

@@ -49,6 +49,7 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
                 {
                     AutomaticBallotBundleNumberGeneration = false,
                     BallotBundleSampleSizePercent = 50,
+                    ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
                 },
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestGossauResult,
                 EventInfo = GetMockedEventInfo(),
@@ -60,6 +61,7 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
                 {
                     AutomaticBallotBundleNumberGeneration = true,
                     BallotBundleSampleSizePercent = 20,
+                    ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
                 },
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 EventInfo = GetMockedEventInfo(),
@@ -92,6 +94,7 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
                 {
                     AutomaticBallotBundleNumberGeneration = false,
                     BallotBundleSampleSizePercent = 50,
+                    ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
                 },
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestGossauResult,
                 EventInfo = GetMockedEventInfo(),
@@ -103,6 +106,7 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
                 {
                     AutomaticBallotBundleNumberGeneration = true,
                     BallotBundleSampleSizePercent = 20,
+                    ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
                 },
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 EventInfo = GetMockedEventInfo(),
@@ -173,6 +177,34 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
                 x.ResultEntry = (SharedProto.VoteResultEntry)100)),
             StatusCode.InvalidArgument,
             "ResultEntry");
+    }
+
+    [Fact]
+    public async Task TestNoRespectForEnforcedReviewProcedureSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var vote = await db.Votes
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen));
+            vote.EnforceReviewProcedureForCountingCircles = true;
+            vote.ReviewProcedure = VoteReviewProcedure.Physically;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest(x =>
+            {
+                x.ResultEntry = SharedProto.VoteResultEntry.Detailed;
+                x.ResultEntryParams = new DefineVoteResultEntryParamsRequest
+                {
+                    AutomaticBallotBundleNumberGeneration = true,
+                    BallotBundleSampleSizePercent = 10,
+                    ReviewProcedure = SharedProto.VoteReviewProcedure.Electronically,
+                };
+            })),
+            StatusCode.InvalidArgument,
+            "enforced ReviewProcedure setting not respected");
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

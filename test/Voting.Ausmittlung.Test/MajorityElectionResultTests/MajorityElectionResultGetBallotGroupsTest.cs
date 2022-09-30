@@ -44,6 +44,7 @@ public class MajorityElectionResultGetBallotGroupsTest : MajorityElectionResultB
                 AutomaticEmptyVoteCounting = false,
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
             },
         });
         await RunEvents<MajorityElectionResultEntryDefined>();

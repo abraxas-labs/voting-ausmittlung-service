@@ -105,7 +105,7 @@ public static class MajorityElectionResultBundleMockedData
             var mapper = sp.GetRequiredService<TestMapper>();
             var resultEntryParamsByResultId = db.MajorityElectionResults
                 .AsEnumerable()
-                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.ElectionResultEntryParams>(x.EntryParams));
+                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.MajorityElectionResultEntryParams>(x.EntryParams));
 
             var bundles = await db.MajorityElectionResultBundles
                 .Include(x => x.ElectionResult.CountingCircle)

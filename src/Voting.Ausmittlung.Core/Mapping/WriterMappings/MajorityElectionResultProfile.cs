@@ -15,7 +15,7 @@ public class MajorityElectionResultProfile : Profile
         CreateMap<SecondaryMajorityElectionResultBallot, SecondaryMajorityElectionResultBallotEventData>().ReverseMap();
         CreateMap<MajorityElectionCandidateResult, MajorityElectionCandidateResultCountEventData>().ReverseMap();
         CreateMap<SecondaryMajorityElectionCandidateResults, SecondaryMajorityElectionCandidateResultsEventData>().ReverseMap();
-        CreateMap<ElectionResultEntryParams, MajorityElectionResultEntryParamsEventData>().ReverseMap();
+        CreateMap<MajorityElectionResultEntryParams, MajorityElectionResultEntryParamsEventData>().ReverseMap();
         CreateMap<ElectionEndResultLotDecision, MajorityElectionEndResultLotDecisionEventData>().ReverseMap();
     }
 }

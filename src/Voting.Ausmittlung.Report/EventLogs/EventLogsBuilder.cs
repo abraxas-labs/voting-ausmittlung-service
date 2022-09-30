@@ -155,7 +155,8 @@ public class EventLogsBuilder
             is ResultExportGenerated
             or ResultExportTriggered
             or ResultExportCompleted
-            or ExportGenerated;
+            or ExportGenerated
+            or BundleReviewExportGenerated;
     }
 
     // political business aggregates are eager loaded after testing phase to simplify the aggregate resolving.
