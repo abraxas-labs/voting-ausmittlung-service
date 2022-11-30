@@ -15,7 +15,8 @@ internal static class AggregateNames
     public const string ProportionalElection = "voting-proportionalElections";
     public const string MajorityElection = "voting-majorityElections";
 
-    public const string ContestEventSignature = "voting-contestEventSignature";
+    public const string ContestEventSignatureBasis = "voting-contestEventSignatureBasis";
+    public const string ContestEventSignatureAusmittlung = "voting-contestEventSignatureAusmittlung";
 
     public static string Build(string aggregateName, Guid id) => $"{aggregateName}-{id}";
 }

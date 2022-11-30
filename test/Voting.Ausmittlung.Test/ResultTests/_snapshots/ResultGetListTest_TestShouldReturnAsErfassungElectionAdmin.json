@@ -23,7 +23,7 @@
     "Name": "Gossau",
     "Bfs": "3443",
     "ResponsibleAuthority": {
-      "SecureConnectId": "300",
+      "SecureConnectId": "300300300300300300",
       "Name": "",
       "Street": "",
       "Zip": "",
@@ -128,17 +128,17 @@
           "Name": "Bund",
           "ShortName": "Bund",
           "AuthorityName": "",
-          "SecureConnectId": "999",
+          "SecureConnectId": "999999999999999999",
           "Type": 1,
           "ParentId": "",
           "Children": [],
           "Canton": 1,
           "ContactPerson": {
-            "FirstName": "",
-            "FamilyName": "",
-            "Phone": "",
+            "FirstName": "Firstname contact",
+            "FamilyName": "Lastname contact",
+            "Phone": "0799999999",
             "MobilePhone": "",
-            "Email": ""
+            "Email": "email@example.com"
           }
         },
         "NumberOfMandates": null,

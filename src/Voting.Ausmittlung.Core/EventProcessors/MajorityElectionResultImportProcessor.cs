@@ -22,15 +22,18 @@ public class MajorityElectionResultImportProcessor :
     IEventProcessor<MajorityElectionWriteInsMapped>
 {
     private readonly IDbRepository<DataContext, MajorityElectionResult> _majorityElectionResultRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
 
     public MajorityElectionResultImportProcessor(
         IDbRepository<DataContext, MajorityElectionResult> majorityElectionResultRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext,
         IMapper mapper)
     {
         _majorityElectionResultRepo = majorityElectionResultRepo;
+        _simpleResultRepo = simpleResultRepo;
         _dataContext = dataContext;
         _mapper = mapper;
     }
@@ -52,10 +55,12 @@ public class MajorityElectionResultImportProcessor :
         result.EVotingSubTotal.EmptyVoteCount = eventData.EmptyVoteCount;
         result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = eventData.TotalCandidateVoteCountExclIndividual;
         result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
+        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters;
 
         if (eventData.WriteIns.Count > 0)
         {
             result.CountOfElectionsWithUnmappedWriteIns++;
+            await UpdateSimpleResult(result);
         }
 
         result.UpdateVoterParticipation();
@@ -85,6 +90,7 @@ public class MajorityElectionResultImportProcessor :
         if (result.WriteInMappings.HasUnspecifiedMappings())
         {
             result.CountOfElectionsWithUnmappedWriteIns--;
+            await UpdateSimpleResult(result);
         }
 
         var candidateResultsByCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
@@ -115,12 +121,20 @@ public class MajorityElectionResultImportProcessor :
                 resultMapping.CandidateResult = null;
             }
 
+            // In elections with a single mandate the mapping target "invalid" is mapped to the invalid ballot count, since invalid votes are not possible.
+            if (result.MajorityElection.NumberOfMandates == 1 && resultMapping.Target == MajorityElectionWriteInMappingTarget.Invalid)
+            {
+                result.CountOfVoters.EVotingInvalidBallots += resultMapping.VoteCount;
+                result.CountOfVoters.EVotingAccountedBallots -= resultMapping.VoteCount;
+            }
+
             AdjustWriteInMappingVoteCount(result, resultMapping, 1);
         }
 
         if (result.WriteInMappings.HasUnspecifiedMappings())
         {
             result.CountOfElectionsWithUnmappedWriteIns++;
+            await UpdateSimpleResult(result);
         }
 
         await _majorityElectionResultRepo.Update(result);
@@ -180,5 +194,14 @@ public class MajorityElectionResultImportProcessor :
         {
             byCandidateId[GuidParser.Parse(importCandidateResult.CandidateId)].EVotingVoteCount = importCandidateResult.VoteCount;
         }
+    }
+
+    private async Task UpdateSimpleResult(MajorityElectionResult result)
+    {
+        var simpleResult = await _simpleResultRepo.GetByKey(result.Id)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), result.Id);
+
+        simpleResult.CountOfElectionsWithUnmappedWriteIns = result.CountOfElectionsWithUnmappedWriteIns;
+        await _simpleResultRepo.Update(simpleResult);
     }
 }

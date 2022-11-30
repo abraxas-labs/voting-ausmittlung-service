@@ -3,35 +3,41 @@
   "MajorityElection": null,
   "Entry": 2,
   "EntryParams": {
+    "ReviewProcedure": 1,
     "BallotBundleSize": 10,
     "BallotBundleSampleSize": 2,
     "AutomaticBallotBundleNumberGeneration": true,
     "BallotNumberGeneration": 2,
-    "AutomaticEmptyVoteCounting": false,
-    "ReviewProcedure": 1
+    "AutomaticEmptyVoteCounting": false
   },
   "CandidateResults": [],
   "EVotingSubTotal": {
     "IndividualVoteCount": 0,
     "EmptyVoteCount": 0,
     "InvalidVoteCount": 0,
+    "TotalEmptyAndInvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 0,
-    "TotalCandidateVoteCountInclIndividual": 0
+    "TotalCandidateVoteCountInclIndividual": 0,
+    "TotalVoteCount": 0
   },
   "ConventionalSubTotal": {
     "IndividualVoteCount": 0,
     "EmptyVoteCount": 0,
     "InvalidVoteCount": 0,
+    "TotalEmptyAndInvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 0,
-    "TotalCandidateVoteCountInclIndividual": 0
+    "TotalCandidateVoteCountInclIndividual": 0,
+    "TotalVoteCount": 0
   },
   "ConventionalCountOfBallotGroupVotes": 0,
   "ConventionalCountOfDetailedEnteredBallots": 0,
   "IndividualVoteCount": 0,
   "EmptyVoteCount": 0,
   "InvalidVoteCount": 0,
+  "TotalEmptyAndInvalidVoteCount": 0,
   "TotalCandidateVoteCountExclIndividual": 0,
   "TotalCandidateVoteCountInclIndividual": 0,
+  "TotalVoteCount": 0,
   "SecondaryMajorityElectionResults": [],
   "BallotGroupResults": [],
   "Bundles": [],
@@ -43,13 +49,16 @@
   "CountOfVoters": {
     "VoterParticipation": 0.6666666666666666666666666667,
     "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingAccountedBallots": 0,
     "ConventionalReceivedBallots": 10000,
     "ConventionalInvalidBallots": 500,
     "ConventionalBlankBallots": 1000,
     "ConventionalAccountedBallots": 2000,
     "TotalReceivedBallots": 10000,
     "TotalAccountedBallots": 2000,
-    "TotalUnaccountedBallots": 1500
+    "TotalUnaccountedBallots": 1500,
+    "TotalInvalidBallots": 500
   },
   "CountOfBundlesNotReviewedOrDeleted": 0,
   "AllBundlesReviewedOrDeleted": true,

@@ -1,0 +1,244 @@
+{
+  "ccDetailsBefore": {
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountingCircleId": "bd46adc1-b193-5fa7-b8e6-f5eca5d90af8",
+    "CountingCircle": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "Sex": 1,
+        "CountOfVoters": 8000,
+        "VoterType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": 500,
+        "VoterType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": 7000,
+        "VoterType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": 300,
+        "VoterType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 250,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 100,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 250,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 100,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "EVoting": false,
+    "TotalCountOfVoters": 15800,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "ccDetailsAfter": {
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountingCircleId": "bd46adc1-b193-5fa7-b8e6-f5eca5d90af8",
+    "CountingCircle": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "Sex": 1,
+        "CountOfVoters": null,
+        "VoterType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": null,
+        "VoterType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": null,
+        "VoterType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": null,
+        "VoterType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": null,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "EVoting": false,
+    "TotalCountOfVoters": 0,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  }
+}

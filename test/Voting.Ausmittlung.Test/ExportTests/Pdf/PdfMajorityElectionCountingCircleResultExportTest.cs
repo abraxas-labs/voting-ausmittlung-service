@@ -22,6 +22,8 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
 
     protected override string NewRequestExpectedFileName => "Gemeindeprotokoll - Mw SG de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
@@ -32,19 +34,19 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
+            {
+                new GenerateResultExportRequest
                 {
-                    new GenerateResultExportRequest
+                    Key = AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key,
+                    PoliticalBusinessIds =
                     {
-                        Key = AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
-                        },
-                        CountingCircleId = CountingCircleMockedData.GuidStGallen,
+                        Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
                     },
+                    CountingCircleId = CountingCircleMockedData.GuidStGallen,
                 },
+            },
         };
     }
 

@@ -8,7 +8,6 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Eventing.Domain;
@@ -22,9 +21,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
 
     public ProportionalElectionEndResultAggregate(
         EventInfoProvider eventInfoProvider,
-        IMapper mapper,
-        EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+        IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _mapper = mapper;
@@ -51,7 +48,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
                 ProportionalElectionId = politicalBusinessId.ToString(),
                 ProportionalElectionEndResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void RevertFinalization(Guid contestId)
@@ -64,7 +61,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
                 ProportionalElectionId = ProportionalElectionId.ToString(),
                 ProportionalElectionEndResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void UpdateLotDecisions(
@@ -83,7 +80,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
             LotDecisions = { _mapper.Map<IEnumerable<ProportionalElectionEndResultLotDecisionEventData>>(lotDecisions) },
             EventInfo = _eventInfoProvider.NewEventInfo(),
         };
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)

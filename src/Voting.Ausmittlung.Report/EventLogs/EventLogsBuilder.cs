@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates;
 using Voting.Lib.Eventing.Read;
+using BasisEventSignatureBusinessMetadata = Abraxas.Voting.Basis.Events.V1.Metadata.EventSignatureBusinessMetadata;
 
 namespace Voting.Ausmittlung.Report.EventLogs;
 
@@ -51,7 +52,7 @@ public class EventLogsBuilder
             .ReadEventsFromAll(
                 startPosition,
                 ev => (ev.Data as ContestArchived)?.ContestId == contest.Id.ToString(),
-                EventSignatureMetadata.Descriptor)
+                data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
             .Where(ev => IsInContestOrRelevated(ev, contest.Id.ToString()));
 
         using var context = new EventLogBuilderContext(
@@ -95,8 +96,8 @@ public class EventLogsBuilder
                 Position.Start,
                 new[] { typeof(ContestCreated), typeof(ContestTestingPhaseEnded) },
                 r => (r.Data as ContestTestingPhaseEnded)?.ContestId == protoContestId,
-                EventSignatureMetadata.Descriptor)
-            .Where(r => (r.Metadata as EventSignatureMetadata)?.ContestId == protoContestId)
+                data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
+            .Where(r => (r.Metadata as BasisEventSignatureBusinessMetadata)?.ContestId == protoContestId)
             .ToListAsync();
 
         // the significant event is the ContestTestingPhaseEnded if present, the ContestCreated otherwise (if in testing phase).
@@ -113,13 +114,33 @@ public class EventLogsBuilder
         var aggregate = new ContestEventSignatureAggregate();
         try
         {
-            var publicKeySignatureEvents = _eventReader
-                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignature, contestId))
-                .Select(ev => ev.Data);
+            // loads to simplify the public keys of basis and ausmittlung into the same report aggregate, although they are from different streams.
+            var publicKeySignatureBasisEvents = _eventReader
+                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureBasis, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
+                .Select(ev => new { ev.Data, ev.Metadata });
 
-            await foreach (var publicKeySignatureEvent in publicKeySignatureEvents)
+            var publicKeySignatureAusmittlungEvents = _eventReader
+                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureAusmittlung, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
+                .Select(ev => new { ev.Data, ev.Metadata });
+
+            await foreach (var publicKeySignatureEvent in publicKeySignatureBasisEvents)
             {
-                aggregate.Apply(publicKeySignatureEvent);
+                if (publicKeySignatureEvent.Metadata == null)
+                {
+                    throw new InvalidOperationException($"Public key signature on basis event metadata is not set.");
+                }
+
+                aggregate.Apply(publicKeySignatureEvent.Data, publicKeySignatureEvent.Metadata);
+            }
+
+            await foreach (var publicKeySignatureEvent in publicKeySignatureAusmittlungEvents)
+            {
+                if (publicKeySignatureEvent.Metadata == null)
+                {
+                    throw new InvalidOperationException($"Public key signature on ausmittlung event metadata is not set.");
+                }
+
+                aggregate.Apply(publicKeySignatureEvent.Data, publicKeySignatureEvent.Metadata);
             }
 
             return aggregate;
@@ -138,7 +159,8 @@ public class EventLogsBuilder
             return false;
         }
 
-        return (ev.Metadata as EventSignatureMetadata)?.ContestId == contestId
+        return (ev.Metadata as BasisEventSignatureBusinessMetadata)?.ContestId == contestId
+            || (ev.Metadata as EventSignatureBusinessMetadata)?.ContestId == contestId
             || ev.Data
                 is CountingCircleCreated
                 or CountingCircleUpdated

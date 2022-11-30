@@ -1,47 +1,18 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
-
 namespace Voting.Ausmittlung.Report.EventLogs.Aggregates;
 
 public class EventSignaturePublicKeyAggregateData
 {
-    public EventSignaturePublicKeyAggregateData(
-        string keyId,
-        int signatureVersion,
-        Guid contestId,
-        string hostId,
-        byte[] hsmSignature,
-        byte[] publicKey,
-        DateTime validFrom,
-        DateTime validTo)
+    public EventSignaturePublicKeyAggregateData(EventSignaturePublicKeyAggregateCreateData createData)
     {
-        KeyId = keyId;
-        SignatureVersion = signatureVersion;
-        ContestId = contestId;
-        HostId = hostId;
-        HsmSignature = hsmSignature;
-        PublicKey = publicKey;
-        ValidFrom = validFrom;
-        ValidTo = validTo;
+        CreateData = createData;
     }
 
-    public string KeyId { get; }
+    public string KeyId => CreateData.KeyId;
 
-    public int SignatureVersion { get; }
+    public EventSignaturePublicKeyAggregateCreateData CreateData { get; }
 
-    public Guid ContestId { get; }
-
-    public string HostId { get; }
-
-    public byte[] HsmSignature { get; }
-
-    public byte[] PublicKey { get; }
-
-    public DateTime ValidFrom { get; }
-
-    public DateTime ValidTo { get; }
-
-    public DateTime? Deleted { get; set; }
+    public EventSignaturePublicKeyAggregateDeleteData? DeleteData { get; set; }
 }

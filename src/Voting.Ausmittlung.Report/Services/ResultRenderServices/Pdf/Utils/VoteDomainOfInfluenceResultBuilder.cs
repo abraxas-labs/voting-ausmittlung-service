@@ -22,12 +22,13 @@ public class VoteDomainOfInfluenceResultBuilder
     {
     }
 
-    public async Task<(IEnumerable<IGrouping<Ballot, VoteDomainOfInfluenceBallotResult>> Results, VoteDomainOfInfluenceResult NotAssignableResult)> BuildResultsGroupedByBallot(
+    public async Task<(IEnumerable<IGrouping<Ballot, VoteDomainOfInfluenceBallotResult>> Results, VoteDomainOfInfluenceResult NotAssignableResult, VoteDomainOfInfluenceResult AggregatedResult)> BuildResultsGroupedByBallot(
         Vote vote,
         List<ContestCountingCircleDetails> ccDetails)
     {
-        var (results, notAssignableResult) = await BuildResults(vote, ccDetails);
+        var (results, notAssignableResult, aggregatedResult) = await BuildResults(vote, ccDetails);
         MapContestDetails(notAssignableResult);
+        MapContestDetails(aggregatedResult);
         foreach (var result in results)
         {
             MapContestDetails(result);
@@ -37,7 +38,7 @@ public class VoteDomainOfInfluenceResultBuilder
             .SelectMany(x => x.BallotResults)
             .GroupBy(x => x.Ballot, x => x, BallotComparer)
             .OrderBy(x => x.Key.Position);
-        return (groupedResults, notAssignableResult);
+        return (groupedResults, notAssignableResult, aggregatedResult);
     }
 
     protected override IEnumerable<VoteResult> GetResults(Vote politicalBusiness) => politicalBusiness.Results;
@@ -77,6 +78,14 @@ public class VoteDomainOfInfluenceResultBuilder
 
             doiBallotResult.AddResult(result);
         }
+    }
+
+    protected override void ResetCountingCircleResult(VoteResult ccResult)
+    {
+        ccResult.TotalCountOfVoters = 0;
+
+        ccResult.ResetAllSubTotals(VotingDataSource.Conventional, true);
+        ccResult.ResetAllSubTotals(VotingDataSource.EVoting, true);
     }
 
     private void ApplyQuestionResult(BallotQuestionDomainOfInfluenceResult doiResult, BallotQuestionResult ccResult)

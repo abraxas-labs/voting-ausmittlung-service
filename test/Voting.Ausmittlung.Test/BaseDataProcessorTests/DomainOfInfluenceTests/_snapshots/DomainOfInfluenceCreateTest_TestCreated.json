@@ -6,7 +6,8 @@
       "Bfs": "1234",
       "Code": "C1234",
       "SortNumber": 3,
-      "SecureConnectId": "100",
+      "NameForProtocol": "Bezirk Uzwil",
+      "SecureConnectId": "100100100100100100",
       "AuthorityName": "",
       "Type": 3,
       "Canton": 3,
@@ -40,6 +41,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": true,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {

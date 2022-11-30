@@ -1,13 +1,12 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System.Collections.Generic;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using AutoMapper;
 using Google.Protobuf;
-using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Eventing.Domain;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -16,7 +15,6 @@ public class ContestEventSignatureAggregate : BaseEventSourcingAggregate
 {
     private readonly IMapper _mapper;
     private readonly EventInfoProvider _eventInfoProvider;
-    private readonly Dictionary<string, EventSignaturePublicKeySignature> _signatureByKeyId = new();
 
     public ContestEventSignatureAggregate(IMapper mapper, EventInfoProvider eventInfoProvider)
     {
@@ -24,51 +22,31 @@ public class ContestEventSignatureAggregate : BaseEventSourcingAggregate
         _eventInfoProvider = eventInfoProvider;
     }
 
-    public override string AggregateName => "voting-contestEventSignature";
+    public override string AggregateName => "voting-contestEventSignatureAusmittlung";
 
-    public void CreatePublicKey(EventSignaturePublicKeySignature data)
+    public void CreatePublicKey(EventSignaturePublicKeyCreate data)
     {
-        var ev = _mapper.Map<EventSignaturePublicKeySigned>(data);
+        var ev = _mapper.Map<EventSignaturePublicKeyCreated>(data);
+        var metadata = _mapper.Map<EventSignaturePublicKeyMetadata>(data);
         ev.EventInfo = _eventInfoProvider.NewEventInfo();
-        RaiseEvent(ev, new EventSignatureMetadata { ContestId = ev.ContestId });
+        RaiseEvent(ev, metadata);
     }
 
-    public void DeletePublicKey(string keyId, string hostId)
+    public void DeletePublicKey(EventSignaturePublicKeyDelete data)
     {
-        var ev = new EventSignaturePublicKeyDeleted
-        {
-            EventInfo = _eventInfoProvider.NewEventInfo(),
-            ContestId = Id.ToString(),
-            KeyId = keyId,
-            HostId = hostId,
-        };
-
-        RaiseEvent(ev, new EventSignatureMetadata { ContestId = ev.ContestId });
+        var ev = _mapper.Map<EventSignaturePublicKeyDeleted>(data);
+        var metadata = _mapper.Map<EventSignaturePublicKeyMetadata>(data);
+        ev.EventInfo = _eventInfoProvider.NewEventInfo();
+        RaiseEvent(ev, metadata);
     }
 
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
         {
-            case EventSignaturePublicKeySigned e:
-                Apply(e);
+            case EventSignaturePublicKeyCreated data:
+                Id = GuidParser.Parse(data.ContestId);
                 break;
-            case EventSignaturePublicKeyDeleted e:
-                Apply(e);
-                break;
-            default: throw new EventNotAppliedException(eventData?.GetType());
         }
-    }
-
-    private void Apply(EventSignaturePublicKeySigned ev)
-    {
-        var signature = _mapper.Map<EventSignaturePublicKeySignature>(ev);
-        _signatureByKeyId.Add(signature.KeyId, signature);
-        Id = signature.ContestId;
-    }
-
-    private void Apply(EventSignaturePublicKeyDeleted ev)
-    {
-        _signatureByKeyId.Remove(ev.KeyId);
     }
 }

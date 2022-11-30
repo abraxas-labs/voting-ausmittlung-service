@@ -61,6 +61,8 @@ public class CantonSettingsCreateTest : BaseDataProcessorTest
                             SharedProto.DomainOfInfluenceType.Ch,
                             SharedProto.DomainOfInfluenceType.An,
                     },
+                    ProtocolCountingCircleSortType = SharedProto.ProtocolCountingCircleSortType.Alphabetical,
+                    ProtocolDomainOfInfluenceSortType = SharedProto.ProtocolDomainOfInfluenceSortType.Alphabetical,
                 },
             });
 

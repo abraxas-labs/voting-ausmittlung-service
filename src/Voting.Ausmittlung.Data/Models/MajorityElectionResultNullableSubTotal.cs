@@ -15,10 +15,16 @@ public class MajorityElectionResultNullableSubTotal : IMajorityElectionResultSub
     public int? InvalidVoteCount { get; set; }
 
     /// <inheritdoc />
+    public int TotalEmptyAndInvalidVoteCount => EmptyVoteCount.GetValueOrDefault() + InvalidVoteCount.GetValueOrDefault();
+
+    /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual { get; set; }
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount.GetValueOrDefault();
+
+    /// <inheritdoc />
+    public int TotalVoteCount => TotalCandidateVoteCountInclIndividual + TotalEmptyAndInvalidVoteCount;
 
     public MajorityElectionResultSubTotal MapToNonNullableSubTotal()
     {

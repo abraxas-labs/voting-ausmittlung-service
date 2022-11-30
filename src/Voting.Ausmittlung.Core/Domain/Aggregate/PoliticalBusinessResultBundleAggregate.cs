@@ -4,9 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using FluentValidation;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 
@@ -14,11 +12,6 @@ namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
 public abstract class PoliticalBusinessResultBundleAggregate : BaseEventSignatureAggregate
 {
-    protected PoliticalBusinessResultBundleAggregate(EventSignatureService eventSignatureService, IMapper mapper)
-        : base(eventSignatureService, mapper)
-    {
-    }
-
     public int CurrentBallotNumber { get; protected set; }
 
     public List<int> BallotNumbers { get; } = new();

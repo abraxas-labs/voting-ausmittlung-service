@@ -43,6 +43,7 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
         result.EVotingSubTotal.TotalCountOfListsWithoutParty = eventData.CountOfListsWithoutParty;
         result.EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = eventData.CountOfBlankRowsOnListsWithoutParty;
         result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
+        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters;
         result.UpdateVoterParticipation();
 
         ProcessCandidates(result, eventData.CandidateResults);

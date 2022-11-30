@@ -8,7 +8,6 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -26,32 +25,34 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
     public ProportionalElectionResultAggregate(
         EventInfoProvider eventInfoProvider,
         IValidator<ElectionResultEntryParams> resultEntryValidatorParamsValidator,
-        IMapper mapper,
-        EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+        IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _resultEntryParamsValidator = resultEntryValidatorParamsValidator;
         _mapper = mapper;
     }
 
+    public override Guid PoliticalBusinessId => ProportionalElectionId;
+
+    public Guid ProportionalElectionId { get; private set; }
+
     public ProportionalElectionResultEntryParams ResultEntry { get; private set; } = new();
 
     public override string AggregateName => "voting-proportionalElectionResult";
 
-    public void StartSubmission(Guid countingCircleId, Guid electionId, Guid contestId, bool testingPhaseEnded)
+    public override void StartSubmission(Guid countingCircleId, Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)
     {
         EnsureInState(CountingCircleResultState.Initial);
-        Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(electionId, countingCircleId, testingPhaseEnded);
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(politicalBusinessId, countingCircleId, testingPhaseEnded);
         RaiseEvent(
             new ProportionalElectionResultSubmissionStarted
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
-                ElectionId = electionId.ToString(),
+                ElectionId = politicalBusinessId.ToString(),
                 CountingCircleId = countingCircleId.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void DefineEntry(ProportionalElectionResultEntryParams resultEntry, Guid contestId)
@@ -66,7 +67,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 ResultEntryParams = _mapper.Map<ProportionalElectionResultEntryParamsEventData>(resultEntry),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterCountOfVoters(PoliticalBusinessCountOfVoters countOfVoters, Guid contestId)
@@ -80,7 +81,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 CountOfVoters = _mapper.Map<PoliticalBusinessCountOfVotersEventData>(countOfVoters),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterUnmodifiedListResults(IReadOnlyCollection<ProportionalElectionUnmodifiedListResult> results, Guid contestId)
@@ -93,7 +94,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
             ElectionResultId = Id.ToString(),
         };
         _mapper.Map(results, ev.Results);
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public int GenerateBundleNumber(Guid contestId)
@@ -112,7 +113,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
         return bundleNumber;
     }
 
@@ -136,7 +137,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void FreeBundleNumber(int bundleNumber, Guid contestId)
@@ -154,7 +155,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public ActionId PrepareSubmissionFinished()
@@ -162,7 +163,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
         return BuildActionId(nameof(SubmissionFinished));
     }
 
-    public void SubmissionFinished(Guid contestId)
+    public override void SubmissionFinished(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing);
 
@@ -172,7 +173,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public ActionId PrepareCorrectionFinished()
@@ -180,7 +181,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
         return BuildActionId(nameof(CorrectionFinished));
     }
 
-    public void CorrectionFinished(string comment, Guid contestId)
+    public override void CorrectionFinished(string comment, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.ReadyForCorrection);
 
@@ -191,10 +192,10 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 Comment = comment,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void ResetToSubmissionFinished(Guid contestId)
+    public override void ResetToSubmissionFinished(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.AuditedTentatively);
         RaiseEvent(
@@ -203,7 +204,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public override void FlagForCorrection(Guid contestId, string comment = "")
@@ -216,10 +217,29 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
                 Comment = comment,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void AuditedTentatively(Guid contestId)
+    public override void Reset(Guid contestId)
+    {
+        EnsureInState(
+            CountingCircleResultState.SubmissionOngoing,
+            CountingCircleResultState.ReadyForCorrection,
+            CountingCircleResultState.SubmissionDone,
+            CountingCircleResultState.CorrectionDone);
+
+        EnsureInTestingPhase();
+
+        RaiseEvent(
+            new ProportionalElectionResultResetted
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public override void AuditedTentatively(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionDone, CountingCircleResultState.CorrectionDone);
         RaiseEvent(
@@ -228,10 +248,10 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void Plausibilise(Guid contestId)
+    public override void Plausibilise(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.AuditedTentatively);
         RaiseEvent(
@@ -240,10 +260,10 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void ResetToAuditedTentatively(Guid contestId)
+    public override void ResetToAuditedTentatively(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.Plausibilised);
         RaiseEvent(
@@ -252,7 +272,7 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 ElectionResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)
@@ -296,12 +316,17 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
             case ProportionalElectionResultResettedToSubmissionFinished _:
                 State = CountingCircleResultState.SubmissionDone;
                 break;
+            case ProportionalElectionResultResetted _:
+                State = CountingCircleResultState.SubmissionOngoing;
+                break;
         }
     }
 
     private void Apply(ProportionalElectionResultSubmissionStarted ev)
     {
         Id = GuidParser.Parse(ev.ElectionResultId);
+        CountingCircleId = GuidParser.Parse(ev.CountingCircleId);
+        ProportionalElectionId = GuidParser.Parse(ev.ElectionId);
         State = CountingCircleResultState.SubmissionOngoing;
     }
 

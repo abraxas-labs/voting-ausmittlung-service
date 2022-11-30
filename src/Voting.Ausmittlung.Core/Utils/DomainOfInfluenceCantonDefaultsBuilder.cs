@@ -79,6 +79,8 @@ public class DomainOfInfluenceCantonDefaultsBuilder
             ProportionalElectionMandateAlgorithms = cantonSettings.ProportionalElectionMandateAlgorithms,
             MajorityElectionAbsoluteMajorityAlgorithm = cantonSettings.MajorityElectionAbsoluteMajorityAlgorithm,
             MajorityElectionInvalidVotes = cantonSettings.MajorityElectionInvalidVotes,
+            ProtocolCountingCircleSortType = cantonSettings.ProtocolCountingCircleSortType,
+            ProtocolDomainOfInfluenceSortType = cantonSettings.ProtocolDomainOfInfluenceSortType,
             SwissAbroadVotingRight = GetSwissAbroadVotingRight(cantonSettings, domainOfInfluence.Type),
             EnabledVotingCardChannels = cantonSettings.EnabledVotingCardChannels
                 .ConvertAll(x => new DomainOfInfluenceCantonDefaultsVotingCardChannel { Valid = x.Valid, VotingChannel = x.VotingChannel }),

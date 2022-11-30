@@ -15,7 +15,7 @@
     },
     "ResultDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "999",
+        "ReportingBodyIdentification": "999999999999999999",
         "DomainOfInfluence": null,
         "creationDateTime": "2020-01-10T13:12:10.2Z"
       },
@@ -631,7 +631,7 @@
     },
     "ResultDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "999",
+        "ReportingBodyIdentification": "999999999999999999",
         "DomainOfInfluence": null,
         "creationDateTime": "2020-01-10T13:12:10.2Z"
       },
@@ -2939,7 +2939,7 @@
     },
     "RawDataDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "200",
+        "ReportingBodyIdentification": "200200200200200200",
         "CreationDateTime": "2020-01-10T13:12:10.2Z"
       },
       "RawData": {
@@ -3065,7 +3065,7 @@
     },
     "RawDataDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "999",
+        "ReportingBodyIdentification": "999999999999999999",
         "CreationDateTime": "2020-01-10T13:12:10.2Z"
       },
       "RawData": {
@@ -3325,7 +3325,7 @@
     },
     "RawDataDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "100",
+        "ReportingBodyIdentification": "100100100100100100",
         "CreationDateTime": "2020-01-10T13:12:10.2Z"
       },
       "RawData": {
@@ -3638,7 +3638,7 @@
     },
     "ResultDelivery": {
       "ReportingBody": {
-        "ReportingBodyIdentification": "999",
+        "ReportingBodyIdentification": "999999999999999999",
         "DomainOfInfluence": null,
         "creationDateTime": "2020-01-10T13:12:10.2Z"
       },

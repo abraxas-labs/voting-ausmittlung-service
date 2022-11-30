@@ -48,6 +48,7 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
                 DomainOfInfluenceShortName = x.Vote.DomainOfInfluence.ShortName,
                 DomainOfInfluenceBfs = x.Vote.DomainOfInfluence.Bfs,
                 DomainOfInfluenceCode = x.Vote.DomainOfInfluence.Code,
+                DomainOfInfluenceContact = x.Vote.DomainOfInfluence.ContactPerson,
                 PoliticalBusinessNumber = x.Vote.PoliticalBusinessNumber,
                 VoteTranslations = x.Vote.Translations,
                 BallotType = x.BallotType,
@@ -91,6 +92,13 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
 
         [Name("BfsNrWKreis")]
         public string DomainOfInfluenceBfs { get; set; } = string.Empty;
+
+        [Ignore]
+        public ContactPerson? DomainOfInfluenceContact { get; set; }
+
+        [Name("KontaktOberbehoerde")]
+        public string DomainOfInfluenceContactPersonDescription
+            => $"{DomainOfInfluenceContact?.FamilyName}, {DomainOfInfluenceContact?.FirstName}, {DomainOfInfluenceContact?.Email}";
 
         [Ignore]
         public BallotType BallotType { get; set; }

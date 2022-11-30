@@ -4,8 +4,10 @@
       "Name": "St. Gallen",
       "Bfs": "5500",
       "Code": "C5500",
+      "SortNumber": 0,
+      "NameForProtocol": "Stadt St. Gallen",
       "ResponsibleAuthority": {
-        "SecureConnectId": "200",
+        "SecureConnectId": "200200200200200200",
         "Name": "St. Gallen",
         "Phone": "071 123 12 20",
         "Email": "sg@abraxas.ch",
@@ -59,8 +61,10 @@
       "Name": "Uzwil",
       "Bfs": "1234",
       "Code": "",
+      "SortNumber": 5000,
+      "NameForProtocol": "Stadt Uzwil",
       "ResponsibleAuthority": {
-        "SecureConnectId": "100",
+        "SecureConnectId": "100100100100100100",
         "Name": "Uzwil",
         "Phone": "071 123 12 20",
         "Email": "uzwil-test@abraxas.ch",

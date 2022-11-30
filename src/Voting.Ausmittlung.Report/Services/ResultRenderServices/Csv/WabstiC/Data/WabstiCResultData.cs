@@ -16,45 +16,54 @@ internal abstract class WabstiCResultData : WabstiCPoliticalBusinessData, IWabst
     [Ignore]
     public Guid CountingCircleId { get; set; }
 
-    [Name("BfsNrGemeinde")]
+    [Name("SortGemeinde")]
     [Index(StartIndex)]
+    public int SortNumber { get; set; }
+
+    [Name("BfsNrGemeinde")]
+    [Index(StartIndex + 1)]
     public string CountingCircleBfs { get; set; } = string.Empty;
 
     [Name("EinheitCode")]
-    [Index(StartIndex + 1)]
+    [Index(StartIndex + 2)]
     public string CountingCircleCode { get; set; } = string.Empty;
 
     [Name("Stimmberechtigte")]
-    [Index(StartIndex + 2)]
+    [Index(StartIndex + 3)]
     public int CountOfVotersTotal { get; set; }
 
     [Name("StimmberechtigteAusl")]
-    [Index(StartIndex + 3)]
+    [Index(StartIndex + 4)]
     public int CountOfVotersTotalSwissAbroad { get; set; }
 
     [Name("Stimmbeteiligung")]
     [TypeConverter(typeof(WabstiCPercentageConverter))]
-    [Index(StartIndex + 4)]
+    [Index(StartIndex + 5)]
     public decimal VoterParticipation { get; set; }
 
     [Name("StmAbgegeben")]
-    [Index(StartIndex + 5)]
+    [Index(StartIndex + 6)]
     public int TotalReceivedBallots { get; set; }
 
     [Name("StmUngueltig")]
-    [Index(StartIndex + 6)]
+    [Index(StartIndex + 7)]
     public int CountOfInvalidBallots { get; set; }
 
     [Name("StmLeer")]
-    [Index(StartIndex + 7)]
+    [Index(StartIndex + 8)]
     public int CountOfBlankBallots { get; set; }
 
     [Name("StmGueltig")]
-    [Index(StartIndex + 8)]
+    [Index(StartIndex + 9)]
     public int CountOfAccountedBallots { get; set; }
 
     [Name("FreigabeGde")]
     [TypeConverter(typeof(WabstiCTimeConverter))]
-    [Index(EndIndex)]
+    [Index(EndIndex - 1)]
     public DateTime? SubmissionDoneTimestamp { get; set; }
+
+    [Name("Sperrung")]
+    [TypeConverter(typeof(WabstiCTimeConverter))]
+    [Index(EndIndex)]
+    public DateTime? AuditedTentativelyTimestamp { get; set; }
 }

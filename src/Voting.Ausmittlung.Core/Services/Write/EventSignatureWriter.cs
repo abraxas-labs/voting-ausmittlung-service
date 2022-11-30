@@ -36,26 +36,26 @@ public class EventSignatureWriter
         _config = config;
     }
 
-    internal Task CreatePublicKey(EventSignaturePublicKeySignature signature)
+    internal Task CreatePublicKey(EventSignaturePublicKeyCreate data)
     {
         _permissionService.SetAbraxasAuthIfNotAuthenticated();
         return RetryOnVersionMismatchException(async () =>
         {
-            var aggregate = await _aggregateRepository.TryGetById<ContestEventSignatureAggregate>(signature.ContestId)
+            var aggregate = await _aggregateRepository.TryGetById<ContestEventSignatureAggregate>(data.ContestId)
                 ?? _aggregateFactory.New<ContestEventSignatureAggregate>();
 
-            aggregate.CreatePublicKey(signature);
+            aggregate.CreatePublicKey(data);
             await _aggregateRepository.Save(aggregate);
         });
     }
 
-    internal Task DeletePublicKey(Guid contestId, string keyId, string hostId)
+    internal Task DeletePublicKey(EventSignaturePublicKeyDelete data)
     {
         _permissionService.SetAbraxasAuthIfNotAuthenticated();
         return RetryOnVersionMismatchException(async () =>
         {
-            var aggregate = await _aggregateRepository.GetById<ContestEventSignatureAggregate>(contestId);
-            aggregate.DeletePublicKey(keyId, hostId);
+            var aggregate = await _aggregateRepository.GetById<ContestEventSignatureAggregate>(data.ContestId);
+            aggregate.DeletePublicKey(data);
             await _aggregateRepository.Save(aggregate);
         });
     }

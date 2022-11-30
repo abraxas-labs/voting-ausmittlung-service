@@ -17,7 +17,7 @@
       "Name": "Gossau",
       "ShortName": "Gossau",
       "AuthorityName": "",
-      "SecureConnectId": "300",
+      "SecureConnectId": "300300300300300300",
       "Type": 5,
       "ParentId": "",
       "Children": [],
@@ -91,7 +91,10 @@
         "ConventionalAccountedBallots": 12000,
         "TotalReceivedBallots": 20000,
         "TotalAccountedBallots": 12000,
-        "TotalUnaccountedBallots": 5000
+        "TotalUnaccountedBallots": 5000,
+        "EVotingInvalidBallots": 0,
+        "EVotingAccountedBallots": 0,
+        "TotalInvalidBallots": 3000
       },
       "QuestionResults": [
         {

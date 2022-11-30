@@ -8,7 +8,7 @@
         "LastName": "default user lastname"
       },
       "Tenant": {
-        "Id": "300",
+        "Id": "300300300300300300",
         "Name": "Gossau"
       },
       "Timestamp": {
@@ -48,7 +48,7 @@
         "Name": "Gossau",
         "ShortName": "Gossau",
         "AuthorityName": "",
-        "SecureConnectId": "300",
+        "SecureConnectId": "300300300300300300",
         "Type": 5,
         "ParentId": "",
         "Children": [],
@@ -119,7 +119,10 @@
           "ConventionalAccountedBallots": 12000,
           "TotalReceivedBallots": 14000,
           "TotalAccountedBallots": 12000,
-          "TotalUnaccountedBallots": 1500
+          "TotalUnaccountedBallots": 1500,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 0,
+          "TotalInvalidBallots": 500
         },
         "QuestionResults": [
           {

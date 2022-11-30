@@ -3,7 +3,7 @@
 
 using AutoMapper;
 using Voting.Ausmittlung.Data.Models;
-using ContestDomainOfInfluenceDetails = Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils.Models.ContestDomainOfInfluenceDetails;
+using UtilContestDomainOfInfluenceDetails = Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils.Models.ContestDomainOfInfluenceDetails;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models.Mapping;
 
@@ -15,6 +15,7 @@ public class PdfContestProfile : Profile
 
         CreateMap<ContestDetails, PdfContestDetails>();
         CreateMap<ContestDomainOfInfluenceDetails, PdfContestDomainOfInfluenceDetails>();
+        CreateMap<UtilContestDomainOfInfluenceDetails, PdfContestDomainOfInfluenceDetails>();
         CreateMap<ContestCountingCircleDetails, PdfContestCountingCircleDetails>();
 
         CreateMap<ContestVotingCardResultDetail, PdfVotingCardResultDetail>();

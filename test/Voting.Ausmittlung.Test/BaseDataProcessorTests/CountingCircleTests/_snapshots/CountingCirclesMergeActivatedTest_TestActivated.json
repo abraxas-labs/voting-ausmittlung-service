@@ -2,8 +2,10 @@
   "Name": "StGallen Aussen",
   "Bfs": "1234",
   "Code": "",
+  "SortNumber": 8999,
+  "NameForProtocol": "Stadt StGallen Aussen",
   "ResponsibleAuthority": {
-    "SecureConnectId": "100",
+    "SecureConnectId": "100100100100100100",
     "Name": "StGallen Aussen",
     "Phone": "071 123 12 20",
     "Email": "stgallen@abraxas.ch",

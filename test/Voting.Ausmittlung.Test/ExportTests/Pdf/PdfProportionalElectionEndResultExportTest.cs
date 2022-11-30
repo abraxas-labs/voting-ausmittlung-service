@@ -26,6 +26,8 @@ public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest<Gene
 
     protected override string NewRequestExpectedFileName => "Listenergbenisse - Nationalratswahl de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override Task SeedData()
     {
         return ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
@@ -35,15 +37,15 @@ public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest<Gene
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
-                       {
-                           new GenerateResultExportRequest
-                           {
-                               Key = AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults.Key,
-                               PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
-                           },
-                       },
+            {
+                new GenerateResultExportRequest
+                {
+                    Key = AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults.Key,
+                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
+                },
+            },
         };
     }
 

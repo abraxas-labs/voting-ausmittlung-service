@@ -22,6 +22,9 @@ public abstract class CountingCircleResult : BaseEntity
 
     public DateTime? AuditedTentativelyTimestamp { get; set; }
 
+    /// <summary>
+    /// Gets or sets the total count of voters which is calculated from <see cref="ContestCountingCircleDetails"/>.
+    /// </summary>
     public int TotalCountOfVoters { get; set; }
 
     public bool SubmissionDone()

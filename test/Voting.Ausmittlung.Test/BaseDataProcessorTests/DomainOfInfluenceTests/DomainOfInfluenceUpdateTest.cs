@@ -43,6 +43,7 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
                 {
                     Id = DomainOfInfluenceMockedData.IdStGallen,
                     Name = "St. Gallen Neu",
+                    NameForProtocol = "Kanton StGallen Neu",
                     ShortName = "Sankt1",
                     Bfs = "1234",
                     Code = "C1234",
@@ -69,6 +70,7 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
                 {
                     Id = DomainOfInfluenceMockedData.IdStGallen,
                     Name = "St. Gallen Neu",
+                    NameForProtocol = "Kanton StGallen Neu",
                     ShortName = "Sankt1",
                     Bfs = "1234",
                     Code = "C1234",

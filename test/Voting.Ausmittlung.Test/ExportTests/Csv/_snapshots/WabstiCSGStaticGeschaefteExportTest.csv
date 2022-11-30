@@ -1,4 +1,4 @@
-Art;SortWahlkreis;SortGeschaeft;Geschaeft;Wahlkreis;WahlkreisKuerzel;Wahlkreis-Code;BfsNrWKreis;Typ;Sonntag;GeBezOffiziell;GeBezOffiziellGV;GeBezOffiziellSF;GeBezOffiziellSF2;GeBezOffiziellSF3;GeLfNr
-CH;1;200;Abst Bund de;Bund;Bund;0001-BUND;0001;SG;12.02.2029;Abstimmung Bund de;Frage 1 Bund de;;;;b7ba9fef-27f9-46c4-8046-955e874561a7
-CH;1;202;Abst2 Bund de;Bund;Bund;0001-BUND;0001;SGGVSF;12.02.2029;Abstimmung2 Bund de;Frage 1 Bund de, Frage 2 Bund de, Frage 3 Bund de;Frage 1 vor Frage 2? de;Frage 1 vor Frage 3? de;Frage 2 vor Frage 3? de;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2
-CH;1;202;Abst2 Bund de;Bund;Bund;0001-BUND;0001;SG;12.02.2029;Abstimmung2 Bund de;Frage 2.1 Bund de;;;;f27ceb14-c255-44be-84ce-0b82047f230d
+Art;SortWahlkreis;SortGeschaeft;Geschaeft;Wahlkreis;WahlkreisKuerzel;Wahlkreis-Code;BfsNrWKreis;KontaktOberbehoerde;Typ;Sonntag;GeBezOffiziell;GeBezOffiziellGV;GeBezOffiziellSF;GeBezOffiziellSF2;GeBezOffiziellSF3;GeLfNr
+CH;99999;200;Abst Bund de;Bund;Bund;0001-BUND;0001;Lastname contact, Firstname contact, email@example.com;SG;12.02.2029;Abstimmung Bund de;Frage 1 Bund de;;;;b7ba9fef-27f9-46c4-8046-955e874561a7
+CH;99999;202;Abst2 Bund de;Bund;Bund;0001-BUND;0001;Lastname contact, Firstname contact, email@example.com;SGGVSF;12.02.2029;Abstimmung2 Bund de;Frage 1 Bund de, Frage 2 Bund de, Frage 3 Bund de;Frage 1 vor Frage 2? de;Frage 1 vor Frage 3? de;Frage 2 vor Frage 3? de;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2
+CH;99999;202;Abst2 Bund de;Bund;Bund;0001-BUND;0001;Lastname contact, Firstname contact, email@example.com;SG;12.02.2029;Abstimmung2 Bund de;Frage 2.1 Bund de;;;;f27ceb14-c255-44be-84ce-0b82047f230d

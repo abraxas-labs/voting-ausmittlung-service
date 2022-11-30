@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -12,6 +13,7 @@ using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 using Voting.Lib.Database.Repositories;
+using IndexAttribute = CsvHelper.Configuration.Attributes.IndexAttribute;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 
@@ -38,12 +40,12 @@ public class WabstiCSGGemeindenRenderService : IRendererService
             .AsSplitQuery()
             .Where(x => x.ContestId == ctx.ContestId && ctx.PoliticalBusinessIds.Contains(x.Id))
             .SelectMany(x => x.Results)
-            .SelectMany(r => r.Results)
+            .SelectMany(x => x.Results)
             .OrderBy(x => x.Ballot.Vote.PoliticalBusinessNumber)
             .ThenBy(x => x.VoteResult.CountingCircle.Code)
             .ThenBy(x => x.VoteResult.CountingCircle.Name)
             .ThenBy(x => x.Ballot.Position)
-            .Select(x => new WabstiCVoteResultData
+            .Select(x => new Data
             {
                 DomainOfInfluenceType = x.VoteResult.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.VoteResult.Vote.DomainOfInfluence.SortNumber,
@@ -52,8 +54,10 @@ public class WabstiCSGGemeindenRenderService : IRendererService
                 VoterParticipation = x.CountOfVoters.VoterParticipation,
                 CountingCircleBfs = x.VoteResult.CountingCircle.Bfs,
                 CountingCircleCode = x.VoteResult.CountingCircle.Code,
+                SortNumber = x.VoteResult.CountingCircle.SortNumber,
                 CountingCircleId = x.VoteResult.CountingCircleId,
                 SubmissionDoneTimestamp = x.VoteResult.SubmissionDoneTimestamp,
+                AuditedTentativelyTimestamp = x.VoteResult.AuditedTentativelyTimestamp,
                 TotalReceivedBallots = x.CountOfVoters.TotalReceivedBallots,
                 CountOfInvalidBallots = x.CountOfVoters.ConventionalInvalidBallots.GetValueOrDefault(),
                 CountOfAccountedBallots = x.CountOfVoters.TotalAccountedBallots,
@@ -64,10 +68,35 @@ public class WabstiCSGGemeindenRenderService : IRendererService
             })
             .ToListAsync(ct);
 
-        await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, results, ct);
+        await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, results, ct);
 
         return _templateService.RenderToCsv(
             ctx,
             results);
+    }
+
+    private class Data : WabstiCVoteResultData, IWabstiCContestDetails
+    {
+        private new const int StartIndex = WabstiCVoteResultData.StartIndex - 100;
+
+        [Name("StiAusweiseUrne")]
+        [Index(StartIndex)]
+        public int VotingCardsBallotBox { get; set; }
+
+        [Name("StiAusweiseVorzeitig")]
+        [Index(StartIndex + 2)]
+        public int VotingCardsPaper { get; set; }
+
+        [Name("StiAusweiseBriefGueltig")]
+        [Index(StartIndex + 3)]
+        public int VotingCardsByMail { get; set; }
+
+        [Name("StiAusweiseBriefNiUz")]
+        [Index(StartIndex + 4)]
+        public int VotingCardsByMailNotValid { get; set; }
+
+        [Name("StiAusweiseEVoting")]
+        [Index(StartIndex + 5)]
+        public int VotingCardsEVoting { get; set; }
     }
 }

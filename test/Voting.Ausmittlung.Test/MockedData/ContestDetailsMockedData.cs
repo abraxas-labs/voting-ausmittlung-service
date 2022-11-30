@@ -15,6 +15,7 @@ public static class ContestDetailsMockedData
 {
     public const string IdUrnengangBundContestDetails = "0e92524a-e3e9-4b14-a0ff-cb73184bdfed";
     public const string IdUrnengangGossauContestDetails = "a5e2596c-80be-43dd-b26c-1b0666bda07e";
+    public const string IdUrnengangStGallenContestDetails = "312512e9-ce57-497f-9d2d-fdc5af860d31";
 
     public static ContestDetails UrnengangBundContestDetails
         => new ContestDetails
@@ -36,12 +37,23 @@ public static class ContestDetailsMockedData
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangGossau),
         };
 
+    public static ContestDetails UrnengangStGallenDetails
+        => new ContestDetails
+        {
+            Id = Guid.Parse(IdUrnengangStGallenContestDetails),
+            ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            TotalCountOfVoters = 15800,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
+        };
+
     public static IEnumerable<ContestDetails> All
     {
         get
         {
             yield return UrnengangBundContestDetails;
             yield return UrnengangGossauContestDetails;
+            yield return UrnengangStGallenDetails;
         }
     }
 

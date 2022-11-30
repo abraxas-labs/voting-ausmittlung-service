@@ -2,10 +2,12 @@
   <TemplateKey>majority_election_result_bundle_review</TemplateKey>
   <CountingCircle>
     <Name>St. Gallen</Name>
+    <NameForProtocol>Stadt St. Gallen</NameForProtocol>
     <Bfs>5500</Bfs>
     <Code />
+    <SortNumber>2000</SortNumber>
     <ResponsibleAuthority>
-      <SecureConnectId>200</SecureConnectId>
+      <SecureConnectId>200200200200200200</SecureConnectId>
       <Name>St. Gallen</Name>
       <Phone>071 123 12 20</Phone>
       <Email>sg@abraxas.ch</Email>

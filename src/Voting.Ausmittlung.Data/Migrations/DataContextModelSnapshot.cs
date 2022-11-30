@@ -301,6 +301,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("integer[]");
 
+                    b.Property<int>("ProtocolCountingCircleSortType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProtocolDomainOfInfluenceSortType")
+                        .HasColumnType("integer");
+
                     b.Property<string>("SecureConnectId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -642,8 +648,15 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("NameForProtocol")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid?>("SnapshotContestId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("SortNumber")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -772,6 +785,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameForProtocol")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -3103,6 +3120,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("CountOfElectionsWithUnmappedWriteIns")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("CountingCircleId")
                         .HasColumnType("uuid");
 
@@ -3636,10 +3656,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")
@@ -3858,10 +3887,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int?>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")
@@ -4180,6 +4218,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<List<int>>("ProportionalElectionMandateAlgorithms")
                                 .IsRequired()
                                 .HasColumnType("integer[]");
+
+                            b1.Property<int>("ProtocolCountingCircleSortType")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("ProtocolDomainOfInfluenceSortType")
+                                .HasColumnType("integer");
 
                             b1.Property<int>("SwissAbroadVotingRight")
                                 .HasColumnType("integer");
@@ -4614,10 +4658,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")
@@ -4668,6 +4721,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasColumnType("uuid");
 
                             b1.Property<int?>("AbsoluteMajority")
+                                .HasColumnType("integer");
+
+                            b1.Property<decimal?>("AbsoluteMajorityThreshold")
+                                .HasColumnType("numeric");
+
+                            b1.Property<int?>("DecisiveVoteCount")
                                 .HasColumnType("integer");
 
                             b1.HasKey("MajorityElectionEndResultId");
@@ -4749,10 +4808,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int?>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")
@@ -5298,10 +5366,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")
@@ -5678,10 +5755,19 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<int?>("ConventionalReceivedBallots")
                                 .HasColumnType("integer");
 
+                            b1.Property<int>("EVotingAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EVotingInvalidBallots")
+                                .HasColumnType("integer");
+
                             b1.Property<int>("EVotingReceivedBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalAccountedBallots")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("TotalInvalidBallots")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalReceivedBallots")

@@ -101,6 +101,23 @@ public class MajorityElectionResultBuilder
         await RebuildForElection(electionId, domainOfInfluenceId, true);
     }
 
+    internal async Task ResetConventionalResultInTestingPhase(Guid resultId)
+    {
+        var result = await _resultRepo
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.BallotGroupResults)
+            .Include(x => x.Bundles)
+            .Include(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(resultId);
+
+        ResetConventionalResult(result, true);
+        await _dataContext.SaveChangesAsync();
+    }
+
     internal async Task UpdateResultEntryAndResetConventionalResult(
         Guid resultId,
         SharedProto.MajorityElectionResultEntry resultEntry,
@@ -134,18 +151,7 @@ public class MajorityElectionResultBuilder
             }
         }
 
-        electionResult.ConventionalCountOfDetailedEnteredBallots = 0;
-        electionResult.ConventionalCountOfBallotGroupVotes = 0;
-        electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
-        electionResult.Bundles.Clear();
-        electionResult.ResetAllSubTotals(VotingDataSource.Conventional);
-        electionResult.UpdateVoterParticipation();
-
-        foreach (var ballotGroupResult in electionResult.BallotGroupResults)
-        {
-            ballotGroupResult.VoteCount = 0;
-        }
-
+        ResetConventionalResult(electionResult, false);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -281,6 +287,21 @@ public class MajorityElectionResultBuilder
             _candidateResultBuilder.SetConventionalVoteCountValues(
                 result.CandidateResults,
                 updatedResult.CandidateResults.ToDictionary(x => Guid.Parse(x.CandidateId), x => x.VoteCount));
+        }
+    }
+
+    private void ResetConventionalResult(MajorityElectionResult electionResult, bool includeCountOfVoters)
+    {
+        electionResult.ConventionalCountOfDetailedEnteredBallots = 0;
+        electionResult.ConventionalCountOfBallotGroupVotes = 0;
+        electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
+        electionResult.Bundles.Clear();
+        electionResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
+        electionResult.UpdateVoterParticipation();
+
+        foreach (var ballotGroupResult in electionResult.BallotGroupResults)
+        {
+            ballotGroupResult.VoteCount = 0;
         }
     }
 

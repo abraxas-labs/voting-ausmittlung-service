@@ -1,7 +1,7 @@
 {
   "cantonSettings": {
     "Canton": 1,
-    "SecureConnectId": "200",
+    "SecureConnectId": "200200200200200200",
     "AuthorityName": "St.Gallen Update",
     "ProportionalElectionMandateAlgorithms": [
       1,
@@ -9,6 +9,8 @@
     ],
     "MajorityElectionAbsoluteMajorityAlgorithm": 1,
     "MajorityElectionInvalidVotes": false,
+    "ProtocolDomainOfInfluenceSortType": 2,
+    "ProtocolCountingCircleSortType": 1,
     "SwissAbroadVotingRight": 2,
     "SwissAbroadVotingRightDomainOfInfluenceTypes": [
       1,

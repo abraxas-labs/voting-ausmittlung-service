@@ -8,8 +8,7 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public class VoteResultImport : PoliticalBusinessResultImport
 {
-    private readonly Dictionary<Guid, VoteBallotResultImport> _ballotResults =
-        new Dictionary<Guid, VoteBallotResultImport>();
+    private readonly Dictionary<Guid, VoteBallotResultImport> _ballotResults = new();
 
     public VoteResultImport(Guid voteId, Guid basisCountingCircleId)
         : base(voteId, basisCountingCircleId)

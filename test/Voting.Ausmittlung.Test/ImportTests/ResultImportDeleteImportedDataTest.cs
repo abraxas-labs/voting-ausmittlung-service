@@ -164,7 +164,7 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
 
     protected override GrpcChannel CreateGrpcChannel(
         bool authorize = true,
-        string? tenant = "default-tenant-id",
+        string? tenant = "000000000000000000",
         string? userId = "default-user-id",
         params string[] roles)
         => base.CreateGrpcChannel(authorize, SecureConnectTestDefaults.MockedTenantUzwil.Id, userId, roles);

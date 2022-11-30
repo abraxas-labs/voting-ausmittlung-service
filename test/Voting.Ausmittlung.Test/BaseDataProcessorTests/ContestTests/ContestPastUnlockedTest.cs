@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
 using Google.Protobuf;
@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using EventSignaturePublicKeyCreated = Abraxas.Voting.Ausmittlung.Events.V1.EventSignaturePublicKeyCreated;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests.ContestTests;
 
@@ -54,7 +55,7 @@ public class ContestPastUnlockedTest : ContestProcessorBaseTest
         entry.KeyData.Should().BeNull();
         entry.MatchSnapshot();
 
-        EventPublisherMock.GetPublishedEvents<EventSignaturePublicKeySigned>().Should().HaveCount(0);
+        EventPublisherMock.GetPublishedEvents<EventSignaturePublicKeyCreated>().Should().HaveCount(0);
     }
 
     [Fact]
@@ -81,11 +82,14 @@ public class ContestPastUnlockedTest : ContestProcessorBaseTest
         entry.KeyData = null;
         entry.MatchSnapshot("cache-entry");
 
-        var ev = EventPublisherMock.GetSinglePublishedEvent<EventSignaturePublicKeySigned>();
-        ev.HsmSignature.Should().NotBeEmpty();
-        ev.KeyId.Should().NotBeNullOrWhiteSpace();
-        ev.HsmSignature = ByteString.Empty;
-        ev.KeyId = string.Empty;
+        var ev = EventPublisherMock.GetSinglePublishedEvent<EventSignaturePublicKeyCreated, EventSignaturePublicKeyMetadata>();
+        ev.Data.KeyId.Should().NotBeEmpty();
+        ev.Data.AuthenticationTag.Should().NotBeEmpty();
+        ev.Metadata!.HsmSignature.Should().NotBeEmpty();
+
+        ev.Data.KeyId = string.Empty;
+        ev.Data.AuthenticationTag = ByteString.Empty;
+        ev.Metadata.HsmSignature = ByteString.Empty;
         ev.MatchSnapshot("event");
     }
 }

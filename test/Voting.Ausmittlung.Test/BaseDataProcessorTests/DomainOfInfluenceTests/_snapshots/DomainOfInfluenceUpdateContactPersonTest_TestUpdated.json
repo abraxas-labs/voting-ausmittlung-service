@@ -6,7 +6,8 @@
       "Bfs": "",
       "Code": "",
       "SortNumber": 0,
-      "SecureConnectId": "300",
+      "NameForProtocol": "Stadt Gossau",
+      "SecureConnectId": "300300300300300300",
       "AuthorityName": "",
       "Type": 5,
       "Canton": 1,
@@ -45,6 +46,8 @@
         "ProportionalElectionMandateAlgorithms": [],
         "MajorityElectionAbsoluteMajorityAlgorithm": 0,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 0,
+        "ProtocolCountingCircleSortType": 0,
         "SwissAbroadVotingRight": 0,
         "EnabledVotingCardChannels": []
       },

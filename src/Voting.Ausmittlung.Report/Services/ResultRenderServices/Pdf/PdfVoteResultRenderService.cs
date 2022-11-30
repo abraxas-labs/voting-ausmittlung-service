@@ -88,14 +88,17 @@ public class PdfVoteResultRenderService : IRendererService
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+
+        var pdfVotes = _mapper.Map<List<PdfVote>>(votes);
+        PdfVoteUtil.SetLabels(pdfVotes);
 
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
             Contest = _mapper.Map<PdfContest>(contest),
             CountingCircle = pdfCountingCircle,
-            Votes = _mapper.Map<List<PdfVote>>(votes),
+            Votes = pdfVotes,
             DomainOfInfluenceType = ctx.DomainOfInfluenceType,
         };
 

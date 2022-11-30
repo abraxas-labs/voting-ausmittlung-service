@@ -3,10 +3,8 @@
 
 using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using AutoMapper;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Lib.Common;
 
@@ -16,8 +14,7 @@ public class ContestResultImportsAggregate : BaseEventSignatureAggregate
 {
     private readonly EventInfoProvider _eventInfoProvider;
 
-    public ContestResultImportsAggregate(EventInfoProvider eventInfoProvider, EventSignatureService eventSignatureService, IMapper mapper)
-        : base(eventSignatureService, mapper)
+    public ContestResultImportsAggregate(EventInfoProvider eventInfoProvider)
     {
         _eventInfoProvider = eventInfoProvider;
     }
@@ -36,7 +33,7 @@ public class ContestResultImportsAggregate : BaseEventSignatureAggregate
                 ContestId = Id.ToString(),
                 ImportId = importId.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)

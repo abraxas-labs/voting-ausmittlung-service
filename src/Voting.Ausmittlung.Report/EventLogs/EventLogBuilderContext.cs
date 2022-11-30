@@ -104,22 +104,32 @@ public class EventLogBuilderContext : IDisposable
             return null;
         }
 
-        var publicKey = _asymmetricAlgorithmAdapter.CreatePublicKey(publicKeyAggregateData.PublicKey, keyId);
+        var publicKey = _asymmetricAlgorithmAdapter.CreatePublicKey(publicKeyAggregateData.CreateData.PublicKey, keyId);
 
         var publicKeyData = new PublicKeyData(
             publicKey,
-            publicKeyAggregateData.ValidFrom,
-            publicKeyAggregateData.ValidTo,
-            publicKeyAggregateData.Deleted);
+            publicKeyAggregateData.CreateData.ValidFrom,
+            publicKeyAggregateData.CreateData.ValidTo,
+            publicKeyAggregateData.DeleteData?.DeletedAt);
 
-        var signatureData = new PublicKeySignatureData(
+        var signatureCreateData = new PublicKeySignatureCreateData(
             publicKey.Id,
-            publicKeyAggregateData.SignatureVersion,
-            publicKeyAggregateData.ContestId,
-            publicKeyAggregateData.HostId,
-            publicKeyAggregateData.HsmSignature);
+            publicKeyAggregateData.CreateData.SignatureVersion,
+            publicKeyAggregateData.CreateData.ContestId,
+            publicKeyAggregateData.CreateData.HostId,
+            publicKeyAggregateData.CreateData.AuthenticationTag,
+            publicKeyAggregateData.CreateData.HsmSignature);
 
-        var validationResult = _publicKeySignatureVerifier.VerifySignature(signatureData, publicKeyData);
+        var signatureDeleteData = publicKeyAggregateData.DeleteData == null ? null : new PublicKeySignatureDeleteData(
+            publicKey.Id,
+            publicKeyAggregateData.DeleteData.SignatureVersion,
+            publicKeyAggregateData.DeleteData.ContestId,
+            publicKeyAggregateData.DeleteData.HostId,
+            publicKeyAggregateData.DeleteData.SignedEventCount,
+            publicKeyAggregateData.DeleteData.AuthenticationTag,
+            publicKeyAggregateData.DeleteData.HsmSignature);
+
+        var validationResult = _publicKeySignatureVerifier.VerifySignature(signatureCreateData, signatureDeleteData, publicKeyData);
 
         _publicKeySignatureValidationResultsByKeyId.Add(publicKey.Id, validationResult);
         return validationResult;

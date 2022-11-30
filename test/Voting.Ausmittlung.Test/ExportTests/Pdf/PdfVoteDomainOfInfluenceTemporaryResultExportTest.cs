@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
@@ -23,28 +24,32 @@ public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTe
 
     protected override string NewRequestExpectedFileName => "Prov. Ergebnisse aller Auszählungskreise - Abst SG de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await VoteMockedData.Seed(RunScoped);
         await VoteEndResultMockedData.Seed(RunScoped);
+
+        await ModifyDbEntities<VoteResult>(_ => true, x => x.State = CountingCircleResultState.AuditedTentatively);
     }
 
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
+            {
+                new GenerateResultExportRequest
                 {
-                    new GenerateResultExportRequest
+                    Key = AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key,
+                    PoliticalBusinessIds =
                     {
-                        Key = AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteEndResultMockedData.VoteId),
-                        },
+                        Guid.Parse(VoteEndResultMockedData.VoteId),
                     },
                 },
+            },
         };
     }
 

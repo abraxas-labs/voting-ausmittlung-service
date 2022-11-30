@@ -3,18 +3,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Voting.Ausmittlung.Core.Services;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
 public abstract class ElectionResultAggregate : CountingCircleResultAggregate
 {
-    protected ElectionResultAggregate(EventSignatureService eventSignatureService, IMapper mapper)
-        : base(eventSignatureService, mapper)
-    {
-    }
-
     public PoliticalBusinessCountOfVoters CountOfVoters { get; protected set; } = new();
 
     /// <summary>

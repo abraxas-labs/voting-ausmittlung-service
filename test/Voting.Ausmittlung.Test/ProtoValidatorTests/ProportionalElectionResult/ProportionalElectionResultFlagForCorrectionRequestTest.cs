@@ -14,6 +14,7 @@ public class ProportionalElectionResultFlagForCorrectionRequestTest : ProtoValid
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Comment = string.Empty);
+        yield return NewValidRequest(x => x.Comment = new string('A', 500));
     }
 
     protected override IEnumerable<ProportionalElectionResultFlagForCorrectionRequest> NotOkMessages()
@@ -21,6 +22,7 @@ public class ProportionalElectionResultFlagForCorrectionRequestTest : ProtoValid
         yield return NewValidRequest(x => x.ElectionResultId = "invalid-guid");
         yield return NewValidRequest(x => x.ElectionResultId = string.Empty);
         yield return NewValidRequest(x => x.Comment = "Wahlzettt\bel 1 falsch");
+        yield return NewValidRequest(x => x.Comment = new string('A', 501));
     }
 
     private ProportionalElectionResultFlagForCorrectionRequest NewValidRequest(Action<ProportionalElectionResultFlagForCorrectionRequest>? action = null)

@@ -44,6 +44,7 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         });
         await RunEvents<MajorityElectionResultEntryDefined>();
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 2);
     }
 
     [Fact]
@@ -192,6 +193,50 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
                 NewValidRequest(r => r.SecondaryElectionCandidateResults[0].CandidateResults.Add(r.SecondaryElectionCandidateResults[0].CandidateResults[0]))),
             StatusCode.InvalidArgument,
             "duplicated candidate provided");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandate()
+    {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 1);
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
+                NewValidRequest(r => r.InvalidVoteCount = null)),
+            StatusCode.InvalidArgument,
+            "empty vote count provided with single mandate");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowInvalidVoteCountProvideWithSingleMandate()
+    {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 1);
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
+                NewValidRequest(r => r.EmptyVoteCount = null)),
+            StatusCode.InvalidArgument,
+            "invalid vote count provided with single mandate");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowSecondaryEmptyVoteCountProvideWithSingleMandate()
+    {
+        await OverwriteSecondaryMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund), 1);
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
+                NewValidRequest(r => r.SecondaryElectionCandidateResults[0].IndividualVoteCount = null)),
+            StatusCode.InvalidArgument,
+            "empty vote count provided with single mandate");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowSecondaryInvalidVoteCountProvideWithSingleMandate()
+    {
+        await OverwriteSecondaryMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund), 1);
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
+                NewValidRequest(r => r.SecondaryElectionCandidateResults[0].EmptyVoteCount = null)),
+            StatusCode.InvalidArgument,
+            "invalid vote count provided with single mandate");
     }
 
     [Theory]
@@ -353,5 +398,19 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
         };
         customizer?.Invoke(r);
         return r;
+    }
+
+    private async Task OverwriteMajorityElectionNumberOfMandates(Guid majorityElectionId, int numberOfMandates)
+    {
+        await ModifyDbEntities<MajorityElection>(
+            me => me.Id == majorityElectionId,
+            me => me.NumberOfMandates = numberOfMandates);
+    }
+
+    private async Task OverwriteSecondaryMajorityElectionNumberOfMandates(Guid secondaryMajorityElectionId, int numberOfMandates)
+    {
+        await ModifyDbEntities<SecondaryMajorityElection>(
+            me => me.Id == secondaryMajorityElectionId,
+            me => me.NumberOfMandates = numberOfMandates);
     }
 }

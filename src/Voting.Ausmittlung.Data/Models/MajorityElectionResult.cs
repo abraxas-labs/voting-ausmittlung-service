@@ -48,10 +48,15 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
+    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
+
+    /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
+
+    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
     public ICollection<SecondaryMajorityElectionResult> SecondaryMajorityElectionResults { get; set; } =
         new HashSet<SecondaryMajorityElectionResult>();
@@ -73,6 +78,7 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     /// <summary>
     /// Gets or sets the count of elections with unmapped write ins.
     /// This includes the primary and all secondary elections.
+    /// When this property is updated also update the same property in <see cref="SimpleCountingCircleResult"/>.
     /// </summary>
     public int CountOfElectionsWithUnmappedWriteIns { get; set; }
 

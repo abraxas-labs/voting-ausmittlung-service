@@ -53,7 +53,7 @@ internal static class VoteResultMapping
             CountOfReceivedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalReceivedBallots),
             CountOfUnaccountedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalUnaccountedBallots),
             CountOfUnaccountedBlankBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault()),
-            CountOfUnaccountedInvalidBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.ConventionalInvalidBallots.GetValueOrDefault()),
+            CountOfUnaccountedInvalidBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalInvalidBallots),
             Item = ballot.BallotType == BallotType.StandardBallot
                 ? (object)ballotResult.QuestionResults.First().ToEchStandardBallotResult()
                 : ballotResult.ToEchVariantBallotResult(),

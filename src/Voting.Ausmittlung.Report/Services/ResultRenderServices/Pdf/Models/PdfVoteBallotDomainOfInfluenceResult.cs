@@ -15,4 +15,7 @@ public class PdfVoteBallotDomainOfInfluenceResult
 
     [XmlElement("VoteResult")]
     public PdfVoteDomainOfInfluenceBallotResult? NotAssignableResult { get; set; }
+
+    [XmlElement("VoteAggregatedResult")]
+    public PdfVoteDomainOfInfluenceBallotResult? AggregatedResult { get; set; }
 }

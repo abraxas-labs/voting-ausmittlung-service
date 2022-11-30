@@ -7,24 +7,36 @@
     "KeyData": null
   },
   "event": {
-    "EventInfo": {
-      "User": {
-        "Id": "386096224861726139",
-        "Username": "",
-        "FirstName": "",
-        "LastName": ""
+    "Item1": {
+      "EventInfo": {
+        "User": {
+          "Id": "386096224861726139",
+          "Username": "",
+          "FirstName": "",
+          "LastName": ""
+        },
+        "Tenant": {
+          "Id": "380590188826699143",
+          "Name": ""
+        },
+        "Timestamp": {
+          "Seconds": 1578661930,
+          "Nanos": 200000000
+        }
       },
-      "Tenant": {
-        "Id": "380590188826699143",
-        "Name": ""
-      },
-      "Timestamp": {
+      "SignatureVersion": 1,
+      "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
+      "HostId": "Test-Machine",
+      "KeyId": "",
+      "SignedEventCount": 0,
+      "DeletedAt": {
         "Seconds": 1578661930,
         "Nanos": 200000000
-      }
+      },
+      "AuthenticationTag": []
     },
-    "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
-    "HostId": "Test-Machine",
-    "KeyId": ""
+    "Item2": {
+      "HsmSignature": []
+    }
   }
 }

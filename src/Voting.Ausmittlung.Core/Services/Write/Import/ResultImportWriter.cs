@@ -145,13 +145,13 @@ public class ResultImportWriter
     internal async Task Import(EVotingImport importData, ResultImportMeta importMeta)
     {
         var contest = await _contestRepo.Query()
-                          .AsSplitQuery()
-                          .Include(x => x.DomainOfInfluence)
-                          .Include(x => x.SimplePoliticalBusinesses)
-                          .Include(x => x.CountingCircleDetails)
-                          .ThenInclude(x => x.CountingCircle)
-                          .FirstOrDefaultAsync(x => x.Id == importData.ContestId)
-                      ?? throw new EntityNotFoundException(nameof(Contest), importMeta.ContestId);
+            .AsSplitQuery()
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.SimplePoliticalBusinesses)
+            .Include(x => x.CountingCircleDetails)
+            .ThenInclude(x => x.CountingCircle)
+            .FirstOrDefaultAsync(x => x.Id == importData.ContestId)
+            ?? throw new EntityNotFoundException(nameof(Contest), importMeta.ContestId);
 
         _permissionService.EnsureIsContestManager(contest);
         _contestService.EnsureNotLocked(contest);
@@ -224,14 +224,11 @@ public class ResultImportWriter
         var resultsByBusinessType = new Dictionary<PoliticalBusinessType, List<EVotingPoliticalBusinessResult>>();
         foreach (var (politicalBusinessId, results) in resultsByPoliticalBusinessId)
         {
-            if (!simplePoliticalBusinessesById.TryGetValue(politicalBusinessId, out var simplePoliticalBusiness))
-            {
-                throw new EntityNotFoundException(nameof(PoliticalBusiness), politicalBusinessId);
-            }
+            var politicalBusinessType = GetPoliticalBusinessType(simplePoliticalBusinessesById, politicalBusinessId, results);
 
-            if (!resultsByBusinessType.TryGetValue(simplePoliticalBusiness.PoliticalBusinessType, out var businessResults))
+            if (!resultsByBusinessType.TryGetValue(politicalBusinessType, out var businessResults))
             {
-                resultsByBusinessType[simplePoliticalBusiness.PoliticalBusinessType] = results;
+                resultsByBusinessType[politicalBusinessType] = results;
             }
             else
             {
@@ -240,6 +237,26 @@ public class ResultImportWriter
         }
 
         return resultsByBusinessType;
+    }
+
+    private PoliticalBusinessType GetPoliticalBusinessType(
+        Dictionary<Guid, SimplePoliticalBusiness> simplePoliticalBusinessesById,
+        Guid politicalBusinessId,
+        List<EVotingPoliticalBusinessResult> results)
+    {
+        // Special case for votes, as we are always 100% sure that they are votes (there are no subtypes as for elections)
+        // Cannot resolve the votes by their political business ID, as the IDs may not match to an existing vote (only the ballot IDs match)
+        if (results.All(r => r.PoliticalBusinessType == PoliticalBusinessType.Vote))
+        {
+            return PoliticalBusinessType.Vote;
+        }
+
+        if (!simplePoliticalBusinessesById.TryGetValue(politicalBusinessId, out var simplePoliticalBusiness))
+        {
+            throw new EntityNotFoundException(nameof(PoliticalBusiness), politicalBusinessId);
+        }
+
+        return simplePoliticalBusiness.PoliticalBusinessType;
     }
 
     private void ValidateAllCountingCirclesHaveEVoting(

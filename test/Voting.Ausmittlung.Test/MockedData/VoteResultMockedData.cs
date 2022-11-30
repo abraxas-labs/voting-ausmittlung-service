@@ -377,6 +377,15 @@ public static class VoteResultMockedData
             },
         };
 
+    public static VoteResult UzwilVoteInContestUzwilResult
+        => new VoteResult
+        {
+            Id = GuidUzwilVoteInContestUzwilResult,
+            VoteId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestUzwilWithoutChilds),
+            CountingCircleId = CountingCircleMockedData.GuidUzwil,
+            TotalCountOfVoters = 5000,
+        };
+
     public static IEnumerable<VoteResult> All
     {
         get
@@ -385,6 +394,7 @@ public static class VoteResultMockedData
             yield return GossauVoteInContestGossauResult;
             yield return GossauVoteInContestStGallenResult;
             yield return UzwilVoteInContestStGallenResult;
+            yield return UzwilVoteInContestUzwilResult;
         }
     }
 

@@ -56,9 +56,9 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
             TemplateKey = ctx.Template.Key,
             Contest = _mapper.Map<PdfContest>(data.ProportionalElection.Contest),
             ProportionalElections = new List<PdfProportionalElection>
-                {
-                    proportionalElection,
-                },
+            {
+                proportionalElection,
+            },
             DomainOfInfluence = domainOfInfluence,
         };
 

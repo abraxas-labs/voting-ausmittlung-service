@@ -50,7 +50,27 @@ public class VoteDeleteTest : VoteProcessorBaseTest
             .FirstOrDefaultAsync(c =>
                 c.Id == ContestCountingCircleDetailsMockData.UzwilUrnengangBund.Id));
 
+        var contestDetails = await RunOnDb(db => db.ContestDetails
+            .Include(x => x.VotingCards)
+            .SingleAsync(c => c.Id == ContestDetailsMockedData.UrnengangBundContestDetails.Id));
+        contestDetails.OrderVotingCardsAndSubTotals();
+        var contestRelatedCountOfReceivedVotingCards = contestDetails.VotingCards
+            .Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct)
+            .Select(x => x.CountOfReceivedVotingCards)
+            .ToList();
+
+        var doiDetails = await RunOnDb(db => db.ContestDomainOfInfluenceDetails
+            .Include(x => x.VotingCards)
+            .SingleAsync(c => c.Id == ContestDomainOfInfluenceDetailsMockedData.BundUrnengangUzwilContestDomainOfInfluenceDetails.Id));
+        doiDetails.OrderVotingCardsAndSubTotals();
+        var doiRelatedCountOfReceivedVotingCards = doiDetails.VotingCards
+            .Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct)
+            .Select(x => x.CountOfReceivedVotingCards)
+            .ToList();
+
         details!.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).Should().NotBeEmpty();
+        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 4000, 3400, 300, 4400, 270 }).Should().BeTrue();
+        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 2000, 150, 200, 400, 150 }).Should().BeTrue();
 
         await TestEventPublisher.Publish(1, new VoteDeleted
         {
@@ -62,6 +82,28 @@ public class VoteDeleteTest : VoteProcessorBaseTest
             .FirstOrDefaultAsync(c =>
                 c.Id == ContestCountingCircleDetailsMockData.UzwilUrnengangBund.Id));
 
+        contestDetails = await RunOnDb(db => db.ContestDetails
+            .Include(x => x.VotingCards)
+            .SingleAsync(c => c.Id == ContestDetailsMockedData.UrnengangBundContestDetails.Id));
+        contestDetails.OrderVotingCardsAndSubTotals();
+        contestRelatedCountOfReceivedVotingCards = contestDetails.VotingCards
+            .Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct)
+            .Select(x => x.CountOfReceivedVotingCards)
+            .ToList();
+
+        doiDetails = await RunOnDb(db => db.ContestDomainOfInfluenceDetails
+            .Include(x => x.VotingCards)
+            .SingleAsync(c => c.Id == ContestDomainOfInfluenceDetailsMockedData.BundUrnengangUzwilContestDomainOfInfluenceDetails.Id));
+        doiDetails.OrderVotingCardsAndSubTotals();
+        doiRelatedCountOfReceivedVotingCards = doiDetails.VotingCards
+            .Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct)
+            .Select(x => x.CountOfReceivedVotingCards)
+            .ToList();
+
         details!.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).Should().BeEmpty();
+        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 0, 0, 0, 0, 0 }).Should().BeTrue();
+        contestDetails.VotingCards.Any(x => x.CountOfReceivedVotingCards != 0).Should().BeTrue();
+        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 0, 0, 0, 0, 0 }).Should().BeTrue();
+        doiDetails.VotingCards.Any(x => x.CountOfReceivedVotingCards != 0).Should().BeTrue();
     }
 }

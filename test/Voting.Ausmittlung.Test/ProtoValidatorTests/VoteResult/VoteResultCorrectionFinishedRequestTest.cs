@@ -15,6 +15,7 @@ public class VoteResultCorrectionFinishedRequestTest : ProtoValidatorBaseTest<Vo
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Comment = string.Empty);
+        yield return NewValidRequest(x => x.Comment = new string('A', 500));
     }
 
     protected override IEnumerable<VoteResultCorrectionFinishedRequest> NotOkMessages()
@@ -23,6 +24,7 @@ public class VoteResultCorrectionFinishedRequestTest : ProtoValidatorBaseTest<Vo
         yield return NewValidRequest(x => x.VoteResultId = string.Empty);
         yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
         yield return NewValidRequest(x => x.Comment = "Wahlzettt\bel 1 falsch");
+        yield return NewValidRequest(x => x.Comment = new string('A', 501));
     }
 
     private VoteResultCorrectionFinishedRequest NewValidRequest(Action<VoteResultCorrectionFinishedRequest>? action = null)

@@ -5,9 +5,11 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
@@ -57,9 +59,11 @@
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
+      <NameForProtocol>Kanton St. Gallen</NameForProtocol>
       <ShortName>St. Gallen</ShortName>
       <AuthorityName />
       <Code>0002-SG</Code>
+      <SortNumber>2</SortNumber>
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
@@ -85,6 +89,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -113,6 +118,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -126,6 +132,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -139,6 +146,7 @@
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -169,6 +177,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -182,6 +191,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -195,6 +205,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -208,6 +219,7 @@
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -223,6 +235,7 @@
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -238,6 +251,7 @@
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.EventProcessors;
@@ -32,6 +33,8 @@ public abstract class PdfExportBaseTest<T> : BaseRestTest
 
     protected abstract string NewRequestExpectedFileName { get; }
 
+    protected abstract string ContestId { get; }
+
     public override async Task InitializeAsync()
     {
         await base.InitializeAsync();
@@ -44,21 +47,20 @@ public abstract class PdfExportBaseTest<T> : BaseRestTest
     [Fact]
     public async Task TestPdf()
     {
-        var request = NewRequest();
-        var response = await AssertStatus(
-            () => TestClient.PostAsJsonAsync(ExportEndpoint, request),
-            HttpStatusCode.OK);
-        response.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Pdf);
+        await TestPdfReport(string.Empty);
+    }
 
-        var contentDisposition = response.Content.Headers.ContentDisposition;
-        contentDisposition!.FileNameStar.Should().EndWith(PdfExtension);
-        contentDisposition.FileNameStar.Should().Be(NewRequestExpectedFileName);
-        contentDisposition.DispositionType.Should().Be("attachment");
+    [Fact]
+    public virtual async Task TestPdfAfterTestingPhaseEnded()
+    {
+        // When the testing phase ends, most of the data that was created during the testing phase gets deleted.
+        // We need to test this case, as it lead to bugs (ex. VOTING-2403).
+        // Most of the time, data was missing that exists most of the time, but not immediately after the testing phase has ended
+        // and when no results etc. were entered.
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestId });
+        await RunEvents<ContestTestingPhaseEnded>();
 
-        // demo mock just returns the xml
-        var xml = await response.Content.ReadAsStringAsync();
-        var formattedXml = XmlUtil.FormatTestXml(xml);
-        formattedXml.MatchRawSnapshot("ExportTests", "Pdf", "_snapshots", SnapshotName(request) + ".xml");
+        await TestPdfReport("_tp_ended");
     }
 
     protected virtual string SnapshotName(T request)
@@ -78,5 +80,24 @@ public abstract class PdfExportBaseTest<T> : BaseRestTest
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {
         return httpClient.PostAsJsonAsync(ExportEndpoint, NewRequest());
+    }
+
+    private async Task TestPdfReport(string snapshotSuffix)
+    {
+        var request = NewRequest();
+        var response = await AssertStatus(
+            () => TestClient.PostAsJsonAsync(ExportEndpoint, request),
+            HttpStatusCode.OK);
+        response.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Pdf);
+
+        var contentDisposition = response.Content.Headers.ContentDisposition;
+        contentDisposition!.FileNameStar.Should().EndWith(PdfExtension);
+        contentDisposition.FileNameStar.Should().Be(NewRequestExpectedFileName);
+        contentDisposition.DispositionType.Should().Be("attachment");
+
+        // demo mock just returns the xml
+        var xml = await response.Content.ReadAsStringAsync();
+        var formattedXml = XmlUtil.FormatTestXml(xml);
+        formattedXml.MatchRawSnapshot("ExportTests", "Pdf", "_snapshots", $"{SnapshotName(request)}{snapshotSuffix}.xml");
     }
 }

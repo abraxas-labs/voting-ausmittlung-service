@@ -35,8 +35,10 @@ public class CountingCircleUpdateTest : CountingCircleProcessorBaseTest
                 {
                     Id = CountingCircleMockedData.IdUzwil,
                     Name = "Uzwil-2",
+                    NameForProtocol = "Stadt Uzwil-2",
                     Bfs = "1234-2",
                     Code = "C1234-2",
+                    SortNumber = 9999,
                     ResponsibleAuthority = new AuthorityEventData
                     {
                         Name = "Uzwil-2",
@@ -121,8 +123,10 @@ public class CountingCircleUpdateTest : CountingCircleProcessorBaseTest
                 {
                     Id = CountingCircleMockedData.IdUzwil,
                     Name = "Uzwil-2",
+                    NameForProtocol = "Stadt Uzwil-2",
                     Bfs = "1234-2",
                     Code = "C1234-2",
+                    SortNumber = 9999,
                     ResponsibleAuthority = new AuthorityEventData
                     {
                         Name = "Uzwil-2",

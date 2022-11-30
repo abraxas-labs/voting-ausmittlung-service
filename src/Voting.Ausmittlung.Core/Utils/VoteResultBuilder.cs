@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
+using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
@@ -86,6 +87,44 @@ public class VoteResultBuilder
         await RebuildForVote(voteId, domainOfInfluenceId, true);
     }
 
+    internal async Task UpdateResultEntryAndResetConventionalResults(
+        Guid voteResultId,
+        SharedProto.VoteResultEntry resultEntry,
+        VoteResultEntryParamsEventData resultEntryParams)
+    {
+        var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
+            ?? throw new EntityNotFoundException(voteResultId);
+
+        voteResult.Entry = _mapper.Map<VoteResultEntry>(resultEntry);
+        if (resultEntryParams == null)
+        {
+            voteResult.EntryParams = null;
+        }
+        else
+        {
+            voteResult.EntryParams = new VoteResultEntryParams();
+            _mapper.Map(resultEntryParams, voteResult.EntryParams);
+
+            // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
+            if (voteResult.EntryParams.ReviewProcedure == VoteReviewProcedure.Unspecified)
+            {
+                voteResult.EntryParams.ReviewProcedure = VoteReviewProcedure.Electronically;
+            }
+        }
+
+        ResetConventionalResult(voteResult, false);
+        await _dataContext.SaveChangesAsync();
+    }
+
+    internal async Task ResetConventionalResultInTestingPhase(Guid voteResultId)
+    {
+        var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
+                 ?? throw new EntityNotFoundException(voteResultId);
+
+        ResetConventionalResult(voteResult, true);
+        await _dataContext.SaveChangesAsync();
+    }
+
     internal async Task UpdateResults(
         string resultId,
         IEnumerable<VoteBallotResultsEventData> results)
@@ -149,9 +188,9 @@ public class VoteResultBuilder
 
     internal void ResetConventionalBallotResult(BallotResult ballotResult)
     {
+        ballotResult.CountOfBundlesNotReviewedOrDeleted = 0;
         ballotResult.ConventionalCountOfDetailedEnteredBallots = 0;
         ballotResult.Bundles.Clear();
-        ballotResult.ResetAllSubTotals(VotingDataSource.Conventional);
     }
 
     private void AddMissingResultsToBallot(Ballot ballot, IEnumerable<VoteResult> voteResults)
@@ -217,6 +256,15 @@ public class VoteResultBuilder
             // otherwise ef decides this based on the value of the primary key.
             _dataContext.Entry(newBallotResult).State = EntityState.Added;
             _dataContext.Entry(newBallotResult).Reference(x => x.CountOfVoters).TargetEntry!.State = EntityState.Added;
+        }
+    }
+
+    private void ResetConventionalResult(VoteResult voteResult, bool includeCountOfVoters)
+    {
+        voteResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
+        foreach (var ballotResult in voteResult.Results)
+        {
+            ResetConventionalBallotResult(ballotResult);
         }
     }
 

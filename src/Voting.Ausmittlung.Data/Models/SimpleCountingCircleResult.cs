@@ -24,4 +24,8 @@ public class SimpleCountingCircleResult : BaseEntity
     public bool HasComments { get; set; }
 
     public ICollection<CountingCircleResultComment>? Comments { get; set; }
+
+    public bool HasUnmappedWriteIns => CountOfElectionsWithUnmappedWriteIns > 0;
+
+    public int CountOfElectionsWithUnmappedWriteIns { get; set; }
 }

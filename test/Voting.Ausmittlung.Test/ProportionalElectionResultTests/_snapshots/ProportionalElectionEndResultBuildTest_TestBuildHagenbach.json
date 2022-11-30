@@ -44,7 +44,7 @@
         "Name": "St. Gallen",
         "ShortName": "St. Gallen",
         "AuthorityName": "",
-        "SecureConnectId": "200",
+        "SecureConnectId": "200200200200200200",
         "Type": 2,
         "ParentId": "",
         "Children": [],
@@ -151,7 +151,10 @@
       "ConventionalAccountedBallots": 0,
       "TotalReceivedBallots": 0,
       "TotalAccountedBallots": 0,
-      "TotalUnaccountedBallots": 0
+      "TotalUnaccountedBallots": 0,
+      "EVotingInvalidBallots": 0,
+      "EVotingAccountedBallots": 0,
+      "TotalInvalidBallots": 0
     },
     "ListEndResults": [
       {
@@ -890,7 +893,7 @@
         "Name": "St. Gallen",
         "ShortName": "St. Gallen",
         "AuthorityName": "",
-        "SecureConnectId": "200",
+        "SecureConnectId": "200200200200200200",
         "Type": 2,
         "ParentId": "",
         "Children": [],
@@ -997,7 +1000,10 @@
       "ConventionalAccountedBallots": 900,
       "TotalReceivedBallots": 1000,
       "TotalAccountedBallots": 900,
-      "TotalUnaccountedBallots": 100
+      "TotalUnaccountedBallots": 100,
+      "EVotingInvalidBallots": 0,
+      "EVotingAccountedBallots": 0,
+      "TotalInvalidBallots": 50
     },
     "ListEndResults": [
       {
@@ -1736,7 +1742,7 @@
         "Name": "St. Gallen",
         "ShortName": "St. Gallen",
         "AuthorityName": "",
-        "SecureConnectId": "200",
+        "SecureConnectId": "200200200200200200",
         "Type": 2,
         "ParentId": "",
         "Children": [],
@@ -1843,7 +1849,10 @@
       "ConventionalAccountedBallots": 5400,
       "TotalReceivedBallots": 6000,
       "TotalAccountedBallots": 5400,
-      "TotalUnaccountedBallots": 600
+      "TotalUnaccountedBallots": 600,
+      "EVotingInvalidBallots": 0,
+      "EVotingAccountedBallots": 0,
+      "TotalInvalidBallots": 300
     },
     "ListEndResults": [
       {

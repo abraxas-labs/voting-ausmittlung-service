@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Google.Protobuf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,8 @@ namespace Voting.Ausmittlung.Test;
 
 public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFactory, TestStartup>
 {
+    private int _currentEventNumber;
+
     protected BaseRestTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -172,9 +175,23 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         });
     }
 
+    protected async Task RunEvents<TEvent>(bool clear = true)
+        where TEvent : IMessage<TEvent>
+    {
+        var events = EventPublisherMock.GetPublishedEvents<TEvent>().ToArray();
+        await TestEventPublisher.Publish(
+            _currentEventNumber,
+            events);
+        _currentEventNumber += events.Length;
+        if (clear)
+        {
+            EventPublisherMock.Clear();
+        }
+    }
+
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)
     {
-        var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureMetadata;
+        var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
         eventSignatureMetadata.Should().NotBeNull();
 
         eventSignatureMetadata!.ContestId.Should().Be(contestId);

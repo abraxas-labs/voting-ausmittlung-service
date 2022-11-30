@@ -93,7 +93,7 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
 
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {

@@ -5,9 +5,11 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
@@ -21,9 +23,11 @@
     <InternalDescription>Majorzwahl St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
+      <NameForProtocol>Kanton St. Gallen</NameForProtocol>
       <ShortName>St. Gallen</ShortName>
       <AuthorityName />
       <Code>0002-SG</Code>
+      <SortNumber>2</SortNumber>
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
@@ -31,11 +35,16 @@
     <NumberOfMandates>1</NumberOfMandates>
     <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
     <MajorityElectionResult>
+      <TotalCountOfVoters>15000</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <IndividualVoteCount>5</IndividualVoteCount>
       <EmptyVoteCount>6</EmptyVoteCount>
       <InvalidVoteCount>7</InvalidVoteCount>
+      <TotalEmptyAndInvalidVoteCount>13</TotalEmptyAndInvalidVoteCount>
       <TotalCandidateVoteCountExclIndividual>50</TotalCandidateVoteCountExclIndividual>
       <TotalCandidateVoteCountInclIndividual>55</TotalCandidateVoteCountInclIndividual>
+      <TotalVoteCount>68</TotalVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
           <Description>number5 pol last name pol first name</Description>
@@ -90,10 +99,12 @@
   </MajorityElection>
   <CountingCircle>
     <Name>St. Gallen</Name>
+    <NameForProtocol>Stadt St. Gallen</NameForProtocol>
     <Bfs>5500</Bfs>
     <Code />
+    <SortNumber>2000</SortNumber>
     <ResponsibleAuthority>
-      <SecureConnectId>200</SecureConnectId>
+      <SecureConnectId>200200200200200200</SecureConnectId>
       <Name>St. Gallen</Name>
       <Phone>071 123 12 20</Phone>
       <Email>sg@abraxas.ch</Email>

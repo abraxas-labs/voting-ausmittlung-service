@@ -47,6 +47,9 @@ public abstract class PoliticalBusinessResultProcessor<T>
         simpleResult.State = result.State = newState;
         switch (newState)
         {
+            case CountingCircleResultState.SubmissionOngoing:
+                simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = null;
+                break;
             case CountingCircleResultState.SubmissionDone when !result.SubmissionDoneTimestamp.HasValue:
                 simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;

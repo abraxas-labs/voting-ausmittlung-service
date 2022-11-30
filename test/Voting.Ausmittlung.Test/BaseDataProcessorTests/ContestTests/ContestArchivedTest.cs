@@ -4,12 +4,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Xunit;
+using EventSignaturePublicKeyDeleted = Abraxas.Voting.Ausmittlung.Events.V1.EventSignaturePublicKeyDeleted;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests.ContestTests;
 

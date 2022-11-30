@@ -27,19 +27,6 @@
       "PoliticalBusinessUnionId": ""
     },
     {
-      "Key": "SG_PlausiGemeinden",
-      "Description": "SG_PlausiGemeinden",
-      "PoliticalBusinessIds": [
-        "8fbba43a-cd73-407a-b490-df13c41cc5ee"
-      ],
-      "EntityType": 2,
-      "Format": 1,
-      "CountingCircleId": "",
-      "PoliticalBusinessNumbers": "324",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
-    },
-    {
       "Key": "SGStatic_Gemeinden",
       "Description": "SGStatic_Gemeinden",
       "PoliticalBusinessIds": [
@@ -107,19 +94,6 @@
     {
       "Key": "WM_KandidatenGde",
       "Description": "WM_KandidatenGde",
-      "PoliticalBusinessIds": [
-        "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
-      ],
-      "EntityType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "PoliticalBusinessNumbers": "401",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
-    },
-    {
-      "Key": "WM_PlausiGemeinden",
-      "Description": "WM_PlausiGemeinden",
       "PoliticalBusinessIds": [
         "e39a4d1c-6db4-44a7-a707-05cf2005dd4a"
       ],
@@ -211,19 +185,6 @@
     {
       "Key": "WP_ListenGde",
       "Description": "WP_ListenGde",
-      "PoliticalBusinessIds": [
-        "81880186-febc-4fd7-bb82-62c446430027"
-      ],
-      "EntityType": 4,
-      "Format": 1,
-      "CountingCircleId": "",
-      "PoliticalBusinessNumbers": "324",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
-    },
-    {
-      "Key": "WP_PlausiGemeinden",
-      "Description": "WP_PlausiGemeinden",
       "PoliticalBusinessIds": [
         "81880186-febc-4fd7-bb82-62c446430027"
       ],

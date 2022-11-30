@@ -71,7 +71,7 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         var countingCircle = majorityElection.Results![0].CountingCircle!;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(countingCircle.ContestCountingCircleDetails, majorityElection.DomainOfInfluence!.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(countingCircle.ContestCountingCircleDetails, majorityElection.DomainOfInfluence!.Type);
 
         // we don't need this data in the xml
         countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();

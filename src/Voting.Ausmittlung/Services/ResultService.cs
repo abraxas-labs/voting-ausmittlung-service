@@ -4,11 +4,13 @@
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Common;
+using Voting.Lib.Grpc;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ResultService.ResultServiceBase;
 
@@ -74,5 +76,14 @@ public class ResultService : ServiceBase
                 NewState = _mapper.Map<ProtoModels.CountingCircleResultState>(e.NewState),
             }),
             context.CancellationToken);
+    }
+
+    public override async Task<Empty> ResetCountingCircleResults(ResetCountingCircleResultsRequest request, ServerCallContext context)
+    {
+        await _resultWriter.ResetResults(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId));
+
+        return ProtobufEmpty.Instance;
     }
 }

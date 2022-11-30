@@ -22,22 +22,24 @@ public class PdfProportionalElectionCountingCircleResultExportTest : PdfExportBa
 
     protected override string NewRequestExpectedFileName => "Gemeindeprotokoll - Nationalratswahl de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override Task SeedData() => ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
 
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
-                       {
-                           new GenerateResultExportRequest
-                           {
-                               Key = AusmittlungPdfProportionalElectionTemplates.ListsCountingCircleProtocol.Key,
-                               CountingCircleId = CountingCircleMockedData.GuidStGallen,
-                               PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
-                           },
-                       },
+            {
+                new GenerateResultExportRequest
+                {
+                    Key = AusmittlungPdfProportionalElectionTemplates.ListsCountingCircleProtocol.Key,
+                    CountingCircleId = CountingCircleMockedData.GuidStGallen,
+                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
+                },
+            },
         };
     }
 

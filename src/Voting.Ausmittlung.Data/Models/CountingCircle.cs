@@ -15,6 +15,10 @@ public class CountingCircle : BaseEntity, IHasSnapshotContest
 
     public string Code { get; set; } = string.Empty;
 
+    public int SortNumber { get; set; }
+
+    public string NameForProtocol { get; set; } = string.Empty;
+
     public Authority ResponsibleAuthority { get; set; } = new();
 
     public CountingCircleContactPerson ContactPersonDuringEvent { get; set; } = new();

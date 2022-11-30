@@ -5,19 +5,15 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
     </DomainOfInfluence>
-    <ContestDetails>
-      <TotalCountOfVoters>34810</TotalCountOfVoters>
-      <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
-      <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
-      <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
-    </ContestDetails>
     <State>TestingPhase</State>
   </Contest>
   <Vote>
@@ -46,6 +42,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -74,6 +71,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -87,6 +85,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -100,6 +99,7 @@
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -130,6 +130,7 @@
         </CountOfVoters>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -143,6 +144,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -156,6 +158,7 @@
         </BallotQuestionEndResult>
         <BallotQuestionEndResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -169,6 +172,7 @@
         </BallotQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -184,6 +188,7 @@
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -199,6 +204,7 @@
         </BallotTieBreakQuestionEndResult>
         <BallotTieBreakQuestionEndResult>
           <BallotTieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -220,6 +226,7 @@
         <Description>Bundesgesetz über TEST de</Description>
         <BallotType>StandardBallot</BallotType>
         <BallotQuestion>
+          <Label>QuestionCount1Q1</Label>
           <Number>1</Number>
           <Question>Frage 1 de</Question>
         </BallotQuestion>
@@ -227,9 +234,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Gossau</Name>
+          <NameForProtocol>Stadt Gossau</NameForProtocol>
           <ShortName>Gossau</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -251,8 +260,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Gossau</Name>
+            <NameForProtocol>Stadt Gossau</NameForProtocol>
             <Bfs>3443</Bfs>
             <Code>3443-GOSSAU</Code>
+            <SortNumber>9800</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3220</TotalCountOfValidVotingCards>
@@ -260,6 +271,9 @@
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -270,6 +284,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -283,6 +298,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -297,9 +313,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>St. Gallen (Stadt)</Name>
+          <NameForProtocol>Stadt St. Gallen</NameForProtocol>
           <ShortName>St. Gallen  (Stadt)</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
@@ -321,8 +339,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
             <Bfs>5500-2</Bfs>
             <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -330,6 +350,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -340,6 +363,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -354,8 +378,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
             <Bfs>5500-1</Bfs>
             <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -363,6 +389,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -373,6 +402,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -386,6 +416,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -400,9 +431,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Uzwil</Name>
+          <NameForProtocol>Stadt Uzwil</NameForProtocol>
           <ShortName>Uzwil</ShortName>
           <AuthorityName />
           <Code>C3443</Code>
+          <SortNumber>3</SortNumber>
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -424,8 +457,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Uzwil</Name>
+            <NameForProtocol>Stadt Uzwil</NameForProtocol>
             <Bfs>1234</Bfs>
             <Code>1234-UZWIL</Code>
+            <SortNumber>2005</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>3210</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
@@ -433,6 +468,9 @@
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -443,6 +481,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -456,6 +495,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -485,8 +525,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen</Name>
+            <NameForProtocol>Stadt St. Gallen</NameForProtocol>
             <Bfs>5500</Bfs>
             <Code />
+            <SortNumber>2000</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3000</TotalCountOfValidVotingCards>
@@ -494,6 +536,9 @@
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -504,6 +549,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -518,8 +564,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Auslandschweizer</Name>
+            <NameForProtocol />
             <Bfs>5500-3</Bfs>
             <Code />
+            <SortNumber>2003</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -527,6 +575,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>500</TotalReceivedBallots>
@@ -537,6 +588,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount1Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -550,6 +602,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -561,6 +614,35 @@
           <PercentageNo>0.3333333333333333333333333333</PercentageNo>
         </BallotQuestionResult>
       </VoteResult>
+      <VoteAggregatedResult>
+        <CountOfVoters>
+          <VoterParticipation>0.0861821315713875323182993393</VoterParticipation>
+          <TotalReceivedBallots>3000</TotalReceivedBallots>
+          <TotalUnaccountedBallots>1680</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>1320</CountOfAccountedBallots>
+          <CountOfInvalidBallots>1200</CountOfInvalidBallots>
+          <CountOfBlankBallots>480</CountOfBlankBallots>
+        </CountOfVoters>
+        <ContestDomainOfInfluenceDetails>
+          <TotalCountOfVoters>34810</TotalCountOfVoters>
+          <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+          <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+          <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+        </ContestDomainOfInfluenceDetails>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>1</Number>
+            <Question>Frage 1 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>1200</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>600</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>120</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>1920</CountOfAnswerTotal>
+          <PercentageYes>0.6666666666666666666666666667</PercentageYes>
+          <PercentageNo>0.3333333333333333333333333333</PercentageNo>
+        </BallotQuestionResult>
+      </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
@@ -568,14 +650,17 @@
         <Description>Dies ist die zweite Vorlage de</Description>
         <BallotType>VariantsBallot</BallotType>
         <BallotQuestion>
+          <Label>QuestionCount2Q1</Label>
           <Number>2</Number>
           <Question>Frage 2 de</Question>
         </BallotQuestion>
         <BallotQuestion>
+          <Label>QuestionCount2Q2</Label>
           <Number>1</Number>
           <Question>Frage 1 de</Question>
         </BallotQuestion>
         <TieBreakQuestion>
+          <Label>QuestionCount2TBQ1</Label>
           <Number>1</Number>
           <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
           <Question1Number>1</Question1Number>
@@ -585,9 +670,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Gossau</Name>
+          <NameForProtocol>Stadt Gossau</NameForProtocol>
           <ShortName>Gossau</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -609,8 +696,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Gossau</Name>
+            <NameForProtocol>Stadt Gossau</NameForProtocol>
             <Bfs>3443</Bfs>
             <Code>3443-GOSSAU</Code>
+            <SortNumber>9800</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3220</TotalCountOfValidVotingCards>
@@ -618,6 +707,9 @@
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -628,6 +720,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -640,6 +733,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -652,6 +746,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -667,6 +762,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -679,6 +775,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -691,6 +788,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -707,9 +805,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>St. Gallen (Stadt)</Name>
+          <NameForProtocol>Stadt St. Gallen</NameForProtocol>
           <ShortName>St. Gallen  (Stadt)</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
@@ -731,8 +831,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
             <Bfs>5500-2</Bfs>
             <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -740,6 +842,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -750,6 +855,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -762,6 +868,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -774,6 +881,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -790,8 +898,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
             <Bfs>5500-1</Bfs>
             <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -799,6 +909,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -809,6 +922,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -821,6 +935,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -833,6 +948,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -848,6 +964,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -860,6 +977,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -872,6 +990,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -888,9 +1007,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Uzwil</Name>
+          <NameForProtocol>Stadt Uzwil</NameForProtocol>
           <ShortName>Uzwil</ShortName>
           <AuthorityName />
           <Code>C3443</Code>
+          <SortNumber>3</SortNumber>
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -912,8 +1033,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Uzwil</Name>
+            <NameForProtocol>Stadt Uzwil</NameForProtocol>
             <Bfs>1234</Bfs>
             <Code>1234-UZWIL</Code>
+            <SortNumber>2005</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>3210</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
@@ -921,6 +1044,9 @@
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -931,6 +1057,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -943,6 +1070,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -955,6 +1083,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -970,6 +1099,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -982,6 +1112,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -994,6 +1125,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -1025,8 +1157,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen</Name>
+            <NameForProtocol>Stadt St. Gallen</NameForProtocol>
             <Bfs>5500</Bfs>
             <Code />
+            <SortNumber>2000</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3000</TotalCountOfValidVotingCards>
@@ -1034,6 +1168,9 @@
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -1044,6 +1181,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1056,6 +1194,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1068,6 +1207,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -1084,8 +1224,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Auslandschweizer</Name>
+            <NameForProtocol />
             <Bfs>5500-3</Bfs>
             <Code />
+            <SortNumber>2003</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1093,6 +1235,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.5</VoterParticipation>
             <TotalReceivedBallots>450</TotalReceivedBallots>
@@ -1103,6 +1248,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1115,6 +1261,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount2Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1127,6 +1274,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount2TBQ1</Label>
               <Number>1</Number>
               <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
               <Question1Number>1</Question1Number>
@@ -1142,6 +1290,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -1154,6 +1303,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount2Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -1166,6 +1316,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount2TBQ1</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -1179,6 +1330,63 @@
           <PercentageQ2>0.6</PercentageQ2>
         </TieBreakQuestionResult>
       </VoteResult>
+      <VoteAggregatedResult>
+        <CountOfVoters>
+          <VoterParticipation>0.0775639184142487790864694053</VoterParticipation>
+          <TotalReceivedBallots>2700</TotalReceivedBallots>
+          <TotalUnaccountedBallots>1560</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>1200</CountOfAccountedBallots>
+          <CountOfInvalidBallots>1080</CountOfInvalidBallots>
+          <CountOfBlankBallots>480</CountOfBlankBallots>
+        </CountOfVoters>
+        <ContestDomainOfInfluenceDetails>
+          <TotalCountOfVoters>34810</TotalCountOfVoters>
+          <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+          <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+          <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+        </ContestDomainOfInfluenceDetails>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>1</Number>
+            <Question>Frage 1 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>240</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>600</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>138</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>978</CountOfAnswerTotal>
+          <PercentageYes>0.2857142857142857142857142857</PercentageYes>
+          <PercentageNo>0.7142857142857142857142857143</PercentageNo>
+        </BallotQuestionResult>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>2</Number>
+            <Question>Frage 2 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>600</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>300</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>78</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>978</CountOfAnswerTotal>
+          <PercentageYes>0.6666666666666666666666666667</PercentageYes>
+          <PercentageNo>0.3333333333333333333333333333</PercentageNo>
+        </BallotQuestionResult>
+        <TieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>Unspecified</Label>
+            <Number>1</Number>
+            <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>2</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>120</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>180</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>678</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>978</CountOfAnswerTotal>
+          <PercentageQ1>0.4</PercentageQ1>
+          <PercentageQ2>0.6</PercentageQ2>
+        </TieBreakQuestionResult>
+      </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
@@ -1186,30 +1394,36 @@
         <Description>Dies ist die dritte Vorlage de</Description>
         <BallotType>VariantsBallot</BallotType>
         <BallotQuestion>
+          <Label>QuestionCount3Q1</Label>
           <Number>3</Number>
           <Question>Frage 3 de</Question>
         </BallotQuestion>
         <BallotQuestion>
+          <Label>QuestionCount3Q2</Label>
           <Number>1</Number>
           <Question>Frage 1 de</Question>
         </BallotQuestion>
         <BallotQuestion>
+          <Label>QuestionCount3Q3</Label>
           <Number>2</Number>
           <Question>Frage 2 de</Question>
         </BallotQuestion>
         <TieBreakQuestion>
+          <Label>QuestionCount3TBQ1</Label>
           <Number>2</Number>
           <Question>1 vor 3? de</Question>
           <Question1Number>1</Question1Number>
           <Question2Number>3</Question2Number>
         </TieBreakQuestion>
         <TieBreakQuestion>
+          <Label>QuestionCount3TBQ2</Label>
           <Number>1</Number>
           <Question>1 vor 2? de</Question>
           <Question1Number>1</Question1Number>
           <Question2Number>2</Question2Number>
         </TieBreakQuestion>
         <TieBreakQuestion>
+          <Label>QuestionCount3TBQ3</Label>
           <Number>3</Number>
           <Question>2 vor 3? de</Question>
           <Question1Number>2</Question1Number>
@@ -1219,9 +1433,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Gossau</Name>
+          <NameForProtocol>Stadt Gossau</NameForProtocol>
           <ShortName>Gossau</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -1243,8 +1459,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Gossau</Name>
+            <NameForProtocol>Stadt Gossau</NameForProtocol>
             <Bfs>3443</Bfs>
             <Code>3443-GOSSAU</Code>
+            <SortNumber>9800</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3220</TotalCountOfValidVotingCards>
@@ -1252,6 +1470,9 @@
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -1262,6 +1483,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1274,6 +1496,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1286,6 +1509,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -1298,6 +1522,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -1312,6 +1537,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -1326,6 +1552,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -1341,6 +1568,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -1353,6 +1581,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -1365,6 +1594,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -1377,6 +1607,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -1391,6 +1622,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -1405,6 +1637,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -1421,9 +1654,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>St. Gallen (Stadt)</Name>
+          <NameForProtocol>Stadt St. Gallen</NameForProtocol>
           <ShortName>St. Gallen  (Stadt)</ShortName>
           <AuthorityName />
           <Code />
+          <SortNumber>0</SortNumber>
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
@@ -1445,8 +1680,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
             <Bfs>5500-2</Bfs>
             <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1454,6 +1691,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -1464,6 +1704,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1476,6 +1717,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1488,6 +1730,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -1500,6 +1743,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -1514,6 +1758,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -1528,6 +1773,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -1544,8 +1790,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
             <Bfs>5500-1</Bfs>
             <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1553,6 +1801,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -1563,6 +1814,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1575,6 +1827,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1587,6 +1840,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -1599,6 +1853,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -1613,6 +1868,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -1627,6 +1883,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -1642,6 +1899,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -1654,6 +1912,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -1666,6 +1925,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -1678,6 +1938,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -1692,6 +1953,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -1706,6 +1968,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -1722,9 +1985,11 @@
       <VoteDomainOfInfluenceResult>
         <DomainOfInfluence>
           <Name>Uzwil</Name>
+          <NameForProtocol>Stadt Uzwil</NameForProtocol>
           <ShortName>Uzwil</ShortName>
           <AuthorityName />
           <Code>C3443</Code>
+          <SortNumber>3</SortNumber>
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
@@ -1746,8 +2011,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>Uzwil</Name>
+            <NameForProtocol>Stadt Uzwil</NameForProtocol>
             <Bfs>1234</Bfs>
             <Code>1234-UZWIL</Code>
+            <SortNumber>2005</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>3210</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
@@ -1755,6 +2022,9 @@
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -1765,6 +2035,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1777,6 +2048,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1789,6 +2061,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -1801,6 +2074,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -1815,6 +2089,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -1829,6 +2104,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -1844,6 +2120,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -1856,6 +2133,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -1868,6 +2146,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -1880,6 +2159,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -1894,6 +2174,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -1908,6 +2189,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -1939,8 +2221,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen</Name>
+            <NameForProtocol>Stadt St. Gallen</NameForProtocol>
             <Bfs>5500</Bfs>
             <Code />
+            <SortNumber>2000</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>15800</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>3000</TotalCountOfValidVotingCards>
@@ -1948,6 +2232,9 @@
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -1958,6 +2245,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -1970,6 +2258,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -1982,6 +2271,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -1994,6 +2284,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -2008,6 +2299,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -2022,6 +2314,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -2038,8 +2331,10 @@
         <VoteCountingCircleResult>
           <CountingCircle>
             <Name>St. Gallen Auslandschweizer</Name>
+            <NameForProtocol />
             <Bfs>5500-3</Bfs>
             <Code />
+            <SortNumber>2003</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -2047,6 +2342,9 @@
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             </ContestCountingCircleDetails>
           </CountingCircle>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <State>Unspecified</State>
+          <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
             <VoterParticipation>0.45</VoterParticipation>
             <TotalReceivedBallots>400</TotalReceivedBallots>
@@ -2057,6 +2355,7 @@
           </CountOfVoters>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q1</Label>
               <Number>1</Number>
               <Question>Frage 1 de</Question>
             </BallotQuestion>
@@ -2069,6 +2368,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q2</Label>
               <Number>2</Number>
               <Question>Frage 2 de</Question>
             </BallotQuestion>
@@ -2081,6 +2381,7 @@
           </BallotQuestionResult>
           <BallotQuestionResult>
             <BallotQuestion>
+              <Label>QuestionCount3Q3</Label>
               <Number>3</Number>
               <Question>Frage 3 de</Question>
             </BallotQuestion>
@@ -2093,6 +2394,7 @@
           </BallotQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ1</Label>
               <Number>1</Number>
               <Question>1 vor 2? de</Question>
               <Question1Number>1</Question1Number>
@@ -2107,6 +2409,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ2</Label>
               <Number>2</Number>
               <Question>1 vor 3? de</Question>
               <Question1Number>1</Question1Number>
@@ -2121,6 +2424,7 @@
           </TieBreakQuestionResult>
           <TieBreakQuestionResult>
             <TieBreakQuestion>
+              <Label>QuestionCount3TBQ3</Label>
               <Number>3</Number>
               <Question>2 vor 3? de</Question>
               <Question1Number>2</Question1Number>
@@ -2136,6 +2440,7 @@
         </VoteCountingCircleResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
           </BallotQuestion>
@@ -2148,6 +2453,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
           </BallotQuestion>
@@ -2160,6 +2466,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
           </BallotQuestion>
@@ -2172,6 +2479,7 @@
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -2186,6 +2494,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -2200,6 +2509,7 @@
         </TieBreakQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -2213,15 +2523,123 @@
           <PercentageQ2>0.7241379310344827586206896552</PercentageQ2>
         </TieBreakQuestionResult>
       </VoteResult>
+      <VoteAggregatedResult>
+        <CountOfVoters>
+          <VoterParticipation>0.0689457052571100258546394714</VoterParticipation>
+          <TotalReceivedBallots>2400</TotalReceivedBallots>
+          <TotalUnaccountedBallots>180</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>2220</CountOfAccountedBallots>
+          <CountOfInvalidBallots>120</CountOfInvalidBallots>
+          <CountOfBlankBallots>60</CountOfBlankBallots>
+        </CountOfVoters>
+        <ContestDomainOfInfluenceDetails>
+          <TotalCountOfVoters>34810</TotalCountOfVoters>
+          <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+          <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+          <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+        </ContestDomainOfInfluenceDetails>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>1</Number>
+            <Question>Frage 1 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>60</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>1200</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>1020</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2280</CountOfAnswerTotal>
+          <PercentageYes>0.0476190476190476190476190476</PercentageYes>
+          <PercentageNo>0.9523809523809523809523809524</PercentageNo>
+        </BallotQuestionResult>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>2</Number>
+            <Question>Frage 2 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>120</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>1260</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>900</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2280</CountOfAnswerTotal>
+          <PercentageYes>0.0869565217391304347826086957</PercentageYes>
+          <PercentageNo>0.9130434782608695652173913043</PercentageNo>
+        </BallotQuestionResult>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>Unspecified</Label>
+            <Number>3</Number>
+            <Question>Frage 3 de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>480</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>540</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>1200</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2220</CountOfAnswerTotal>
+          <PercentageYes>0.4705882352941176470588235294</PercentageYes>
+          <PercentageNo>0.5294117647058823529411764706</PercentageNo>
+        </BallotQuestionResult>
+        <TieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>Unspecified</Label>
+            <Number>1</Number>
+            <Question>1 vor 2? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>2</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>600</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>900</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>720</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2220</CountOfAnswerTotal>
+          <PercentageQ1>0.4</PercentageQ1>
+          <PercentageQ2>0.6</PercentageQ2>
+        </TieBreakQuestionResult>
+        <TieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>Unspecified</Label>
+            <Number>2</Number>
+            <Question>1 vor 3? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>3</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>960</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>600</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>660</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2220</CountOfAnswerTotal>
+          <PercentageQ1>0.6153846153846153846153846154</PercentageQ1>
+          <PercentageQ2>0.3846153846153846153846153846</PercentageQ2>
+        </TieBreakQuestionResult>
+        <TieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>Unspecified</Label>
+            <Number>3</Number>
+            <Question>2 vor 3? de</Question>
+            <Question1Number>2</Question1Number>
+            <Question2Number>3</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>480</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>1260</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>540</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>2280</CountOfAnswerTotal>
+          <PercentageQ1>0.2758620689655172413793103448</PercentageQ1>
+          <PercentageQ2>0.7241379310344827586206896552</PercentageQ2>
+        </TieBreakQuestionResult>
+      </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
   </Vote>
   <DomainOfInfluence>
     <Name>St. Gallen</Name>
+    <NameForProtocol>Kanton St. Gallen</NameForProtocol>
     <ShortName>St. Gallen</ShortName>
     <AuthorityName />
     <Code>0002-SG</Code>
+    <SortNumber>2</SortNumber>
     <Bfs>0002</Bfs>
     <Type>Ct</Type>
     <Canton>Sg</Canton>
+    <ContestDomainOfInfluenceDetails>
+      <TotalCountOfVoters>34810</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+    </ContestDomainOfInfluenceDetails>
   </DomainOfInfluence>
 </Voting>

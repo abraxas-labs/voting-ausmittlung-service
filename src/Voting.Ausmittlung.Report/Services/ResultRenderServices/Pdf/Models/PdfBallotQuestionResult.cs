@@ -8,7 +8,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 public class PdfBallotQuestionResult
 {
     [XmlElement("BallotQuestion")]
-    public PdfBallotQuestion Question { get; set; } = null!;
+    public PdfBallotQuestion? Question { get; set; }
 
     [XmlElement("CountOfAnswerTotalYes")]
     public int TotalCountOfAnswerYes { get; set; }

@@ -14,6 +14,7 @@ public class VoteResultFlagForCorrectionRequestTest : ProtoValidatorBaseTest<Vot
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Comment = string.Empty);
+        yield return NewValidRequest(x => x.Comment = new string('A', 500));
     }
 
     protected override IEnumerable<VoteResultFlagForCorrectionRequest> NotOkMessages()
@@ -21,6 +22,7 @@ public class VoteResultFlagForCorrectionRequestTest : ProtoValidatorBaseTest<Vot
         yield return NewValidRequest(x => x.VoteResultId = "invalid-guid");
         yield return NewValidRequest(x => x.VoteResultId = string.Empty);
         yield return NewValidRequest(x => x.Comment = "Wahlzettt\bel 1 falsch");
+        yield return NewValidRequest(x => x.Comment = new string('A', 501));
     }
 
     private VoteResultFlagForCorrectionRequest NewValidRequest(Action<VoteResultFlagForCorrectionRequest>? action = null)

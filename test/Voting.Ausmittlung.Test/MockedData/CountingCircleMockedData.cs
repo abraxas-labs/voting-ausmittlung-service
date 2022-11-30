@@ -39,9 +39,11 @@ public static class CountingCircleMockedData
         => new CountingCircle
         {
             Name = "Bund",
+            NameForProtocol = "Bund",
             Id = Guid.Parse(IdBund),
             BasisCountingCircleId = Guid.Parse(IdBund),
             Bfs = "1",
+            SortNumber = 99999,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantBund.Id,
@@ -55,7 +57,9 @@ public static class CountingCircleMockedData
             Id = Guid.Parse(IdStGallen),
             BasisCountingCircleId = Guid.Parse(IdStGallen),
             Name = "St. Gallen",
+            NameForProtocol = "Stadt St. Gallen",
             Bfs = "5500",
+            SortNumber = 2000,
             ResponsibleAuthority = new Authority
             {
                 Name = "St. Gallen",
@@ -89,10 +93,12 @@ public static class CountingCircleMockedData
         => new CountingCircle
         {
             Name = "St. Gallen St. Fiden",
+            NameForProtocol = "St. Fiden",
             Id = Guid.Parse(IdStGallenStFiden),
             BasisCountingCircleId = Guid.Parse(IdStGallenStFiden),
             Bfs = "5500-1",
             Code = "C5500-1",
+            SortNumber = 2001,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
@@ -107,6 +113,7 @@ public static class CountingCircleMockedData
             Id = Guid.Parse(IdStGallenHaggen),
             BasisCountingCircleId = Guid.Parse(IdStGallenHaggen),
             Bfs = "5500-2",
+            SortNumber = 2002,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
@@ -121,6 +128,7 @@ public static class CountingCircleMockedData
             Id = Guid.Parse(IdStGallenAuslandschweizer),
             BasisCountingCircleId = Guid.Parse(IdStGallenAuslandschweizer),
             Bfs = "5500-3",
+            SortNumber = 2003,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
@@ -132,10 +140,12 @@ public static class CountingCircleMockedData
         => new CountingCircle
         {
             Name = "Gossau",
+            NameForProtocol = "Stadt Gossau",
             Id = Guid.Parse(IdGossau),
             BasisCountingCircleId = Guid.Parse(IdGossau),
             Bfs = "3443",
             Code = "3443-GOSSAU",
+            SortNumber = 9800,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id,
@@ -149,8 +159,10 @@ public static class CountingCircleMockedData
             Id = Guid.Parse(IdUzwil),
             BasisCountingCircleId = Guid.Parse(IdUzwil),
             Name = "Uzwil",
+            NameForProtocol = "Stadt Uzwil",
             Bfs = "1234",
             Code = "1234-UZWIL",
+            SortNumber = 2005,
             ResponsibleAuthority = new Authority
             {
                 Name = "Uzwil",
@@ -186,7 +198,9 @@ public static class CountingCircleMockedData
             Id = Guid.Parse(IdRorschach),
             BasisCountingCircleId = Guid.Parse(IdRorschach),
             Name = "Rorschach",
+            NameForProtocol = "Stadt Rorschach",
             Bfs = "5600",
+            SortNumber = 2006,
             ResponsibleAuthority = new Authority
             {
                 Name = "Rorschach",
@@ -216,6 +230,7 @@ public static class CountingCircleMockedData
             BasisCountingCircleId = Guid.Parse(IdUzwilKirche),
             Bfs = "none",
             Code = "code-k-uz",
+            SortNumber = 2007,
             ResponsibleAuthority = new Authority
             {
                 SecureConnectId = CountingCircleUzwilKircheSecureConnectId,

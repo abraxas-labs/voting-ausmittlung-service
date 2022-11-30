@@ -43,6 +43,7 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
             var ballotResult = ballotResultsByBallotId[ballotId];
 
             ballotResult.CountOfVoters.EVotingReceivedBallots = importedBallotResult.CountOfVoters;
+            ballotResult.CountOfVoters.EVotingAccountedBallots = importedBallotResult.CountOfVoters;
             ballotResult.CountOfVoters.UpdateVoterParticipation(voteResult.TotalCountOfVoters);
 
             ProcessBallotQuestionResults(ballotResult, importedBallotResult.QuestionResults);

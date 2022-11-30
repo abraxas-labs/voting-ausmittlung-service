@@ -42,10 +42,15 @@ public class SecondaryMajorityElectionResult : BaseEntity,
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
+    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
+
+    /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
+
+    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
     public void ResetAllSubTotals(VotingDataSource dataSource, bool setZeroInsteadNull)
     {

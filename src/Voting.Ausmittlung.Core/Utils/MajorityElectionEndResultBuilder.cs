@@ -25,6 +25,7 @@ public class MajorityElectionEndResultBuilder
     private readonly MajorityElectionStrategyFactory _calculationStrategyFactory;
     private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityElectionWriteInsRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityElectionWriteInsRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly DataContext _dbContext;
 
     public MajorityElectionEndResultBuilder(
@@ -34,7 +35,8 @@ public class MajorityElectionEndResultBuilder
         MajorityElectionStrategyFactory calculationStrategyFactory,
         DataContext dbContext,
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityElectionWriteInsRepo,
-        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo)
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo)
     {
         _resultRepo = resultRepo;
         _endResultRepo = endResultRepo;
@@ -43,6 +45,7 @@ public class MajorityElectionEndResultBuilder
         _dbContext = dbContext;
         _majorityElectionWriteInsRepo = majorityElectionWriteInsRepo;
         _secondaryMajorityElectionWriteInsRepo = secondaryMajorityElectionWriteInsRepo;
+        _simpleResultRepo = simpleResultRepo;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -57,6 +60,10 @@ public class MajorityElectionEndResultBuilder
             foreach (var result in endResult.MajorityElection.Results)
             {
                 result.ResetAllSubTotals(dataSource, true);
+                if (dataSource == VotingDataSource.EVoting)
+                {
+                    await ResetSimpleResult(result);
+                }
             }
         }
 
@@ -175,5 +182,14 @@ public class MajorityElectionEndResultBuilder
             result.CandidateResults,
             deltaFactor,
             allCountingCirclesDone);
+    }
+
+    private async Task ResetSimpleResult(MajorityElectionResult result)
+    {
+        var simpleResult = await _simpleResultRepo.GetByKey(result.Id)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), result.Id);
+
+        simpleResult.CountOfElectionsWithUnmappedWriteIns = 0;
+        await _simpleResultRepo.Update(simpleResult);
     }
 }

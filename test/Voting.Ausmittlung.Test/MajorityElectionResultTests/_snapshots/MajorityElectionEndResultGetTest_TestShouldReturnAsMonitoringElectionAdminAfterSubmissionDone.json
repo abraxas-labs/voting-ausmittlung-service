@@ -47,7 +47,7 @@
       "Name": "St. Gallen",
       "ShortName": "St. Gallen",
       "AuthorityName": "",
-      "SecureConnectId": "200",
+      "SecureConnectId": "200200200200200200",
       "Type": 2,
       "ParentId": "",
       "Children": [],
@@ -155,7 +155,10 @@
     "ConventionalAccountedBallots": 0,
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
-    "TotalUnaccountedBallots": 0
+    "TotalUnaccountedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingAccountedBallots": 0,
+    "TotalInvalidBallots": 0
   },
   "CandidateEndResults": [
     {

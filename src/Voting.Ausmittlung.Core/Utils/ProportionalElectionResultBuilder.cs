@@ -126,6 +126,22 @@ public class ProportionalElectionResultBuilder
         await RebuildForElection(electionId, domainOfInfluenceId, true);
     }
 
+    internal async Task ResetConventionalResultInTestingPhase(Guid resultId)
+    {
+        var electionResult = await _resultRepo
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.UnmodifiedListResults)
+            .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.VoteSources)
+            .Include(x => x.Bundles)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(resultId);
+
+        ResetConventionalResult(electionResult, true);
+        await _dataContext.SaveChangesAsync();
+    }
+
     internal async Task UpdateResultEntryAndResetConventionalResults(
         Guid resultId,
         ProportionalElectionResultEntryParamsEventData resultEntryParams)
@@ -148,11 +164,7 @@ public class ProportionalElectionResultBuilder
             electionResult.EntryParams.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
         }
 
-        electionResult.ResetAllSubTotals(VotingDataSource.Conventional);
-        electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
-        electionResult.Bundles.Clear();
-        electionResult.UpdateVoterParticipation();
-
+        ResetConventionalResult(electionResult, false);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -209,6 +221,14 @@ public class ProportionalElectionResultBuilder
         {
             result.ListResults.Add(listResult);
         }
+    }
+
+    private void ResetConventionalResult(ProportionalElectionResult electionResult, bool includeCountOfVoters)
+    {
+        electionResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
+        electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
+        electionResult.Bundles.Clear();
+        electionResult.UpdateVoterParticipation();
     }
 
     private async Task AdjustListResultForBundle(ProportionalElectionResultBundle resultBundle, int deltaFactor)

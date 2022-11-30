@@ -20,12 +20,12 @@
         "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
         "ProportionalElection": null,
         "EntryParams": {
+          "ReviewProcedure": 1,
           "BallotBundleSize": 10,
           "BallotBundleSampleSize": 2,
           "AutomaticBallotBundleNumberGeneration": true,
           "BallotNumberGeneration": 2,
-          "AutomaticEmptyVoteCounting": false,
-          "ReviewProcedure": 1
+          "AutomaticEmptyVoteCounting": false
         },
         "UnmodifiedListResults": [
           {
@@ -376,13 +376,16 @@
         "CountOfVoters": {
           "VoterParticipation": 0.0004,
           "EVotingReceivedBallots": 6,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 6,
           "ConventionalReceivedBallots": null,
           "ConventionalInvalidBallots": null,
           "ConventionalBlankBallots": null,
           "ConventionalAccountedBallots": null,
           "TotalReceivedBallots": 6,
           "TotalAccountedBallots": 6,
-          "TotalUnaccountedBallots": 0
+          "TotalUnaccountedBallots": 0,
+          "TotalInvalidBallots": 0
         },
         "CountOfBundlesNotReviewedOrDeleted": 2,
         "AllBundlesReviewedOrDeleted": false,
@@ -409,13 +412,16 @@
             "CountOfVoters": {
               "VoterParticipation": 1.3335333333333332,
               "EVotingReceivedBallots": 3,
+              "EVotingInvalidBallots": 0,
+              "EVotingAccountedBallots": 3,
               "ConventionalReceivedBallots": 20000,
               "ConventionalInvalidBallots": 3000,
               "ConventionalBlankBallots": 2000,
               "ConventionalAccountedBallots": 12000,
               "TotalReceivedBallots": 20003,
               "TotalAccountedBallots": 12003,
-              "TotalUnaccountedBallots": 5000
+              "TotalUnaccountedBallots": 5000,
+              "TotalInvalidBallots": 3000
             },
             "QuestionResults": [
               {
@@ -526,12 +532,12 @@
         "MajorityElection": null,
         "Entry": 2,
         "EntryParams": {
+          "ReviewProcedure": 1,
           "BallotBundleSize": 10,
           "BallotBundleSampleSize": 3,
           "AutomaticBallotBundleNumberGeneration": true,
           "BallotNumberGeneration": 2,
-          "AutomaticEmptyVoteCounting": true,
-          "ReviewProcedure": 1
+          "AutomaticEmptyVoteCounting": true
         },
         "CandidateResults": [
           {
@@ -585,23 +591,29 @@
           "IndividualVoteCount": 0,
           "EmptyVoteCount": 46,
           "InvalidVoteCount": 0,
+          "TotalEmptyAndInvalidVoteCount": 46,
           "TotalCandidateVoteCountExclIndividual": 3,
-          "TotalCandidateVoteCountInclIndividual": 3
+          "TotalCandidateVoteCountInclIndividual": 3,
+          "TotalVoteCount": 49
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 0,
           "EmptyVoteCount": 0,
           "InvalidVoteCount": 0,
+          "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
-          "TotalCandidateVoteCountInclIndividual": 0
+          "TotalCandidateVoteCountInclIndividual": 0,
+          "TotalVoteCount": 0
         },
         "ConventionalCountOfBallotGroupVotes": 0,
         "ConventionalCountOfDetailedEnteredBallots": 0,
         "IndividualVoteCount": 0,
         "EmptyVoteCount": 46,
         "InvalidVoteCount": 0,
+        "TotalEmptyAndInvalidVoteCount": 46,
         "TotalCandidateVoteCountExclIndividual": 3,
         "TotalCandidateVoteCountInclIndividual": 3,
+        "TotalVoteCount": 49,
         "SecondaryMajorityElectionResults": [],
         "BallotGroupResults": [],
         "Bundles": [],
@@ -613,13 +625,16 @@
         "CountOfVoters": {
           "VoterParticipation": 0.751375,
           "EVotingReceivedBallots": 11,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 11,
           "ConventionalReceivedBallots": 6000,
           "ConventionalInvalidBallots": 500,
           "ConventionalBlankBallots": 500,
           "ConventionalAccountedBallots": 5000,
           "TotalReceivedBallots": 6011,
           "TotalAccountedBallots": 5011,
-          "TotalUnaccountedBallots": 1000
+          "TotalUnaccountedBallots": 1000,
+          "TotalInvalidBallots": 500
         },
         "CountOfBundlesNotReviewedOrDeleted": 0,
         "AllBundlesReviewedOrDeleted": true,

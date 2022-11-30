@@ -4,9 +4,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
+using Google.Protobuf;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -22,6 +23,7 @@ using Voting.Lib.Iam.Store;
 using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using EventSignaturePublicKeyDeleted = Abraxas.Voting.Ausmittlung.Events.V1.EventSignaturePublicKeyDeleted;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests.ContestTests;
 
@@ -67,7 +69,7 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
 
             _key = asymmetricAlgorithmAdapter.CreateRandomPrivateKey();
 
-            var publicKeyPayload = new PublicKeySignaturePayload(
+            var publicKeyCreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
                 EventSignatureVersions.V1,
                 _contestId,
                 "host",
@@ -76,7 +78,13 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
                 MockedClock.UtcNowDate,
                 MockedClock.UtcNowDate);
 
-            aggregate.CreatePublicKey(eventSignatureService.CreatePublicKeySignature(publicKeyPayload));
+            var publicKeyCreateAuthTag = asymmetricAlgorithmAdapter.CreateSignature(publicKeyCreateAuthTagPayload.ConvertToBytesToSign(), _key);
+
+            var publicKeyCreateHsmPayload = new PublicKeySignatureCreateHsmPayload(
+                publicKeyCreateAuthTagPayload,
+                publicKeyCreateAuthTag);
+
+            aggregate.CreatePublicKey(eventSignatureService.BuildPublicKeyCreate(publicKeyCreateHsmPayload));
             await aggregateRepository.Save(aggregate);
         });
     }
@@ -135,9 +143,14 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
         entry.KeyData.Should().BeNull();
         entry.MatchSnapshot("cache-entry");
 
-        var ev = EventPublisherMock.GetSinglePublishedEvent<EventSignaturePublicKeyDeleted>();
-        ev.KeyId.Should().Be(_key!.Id);
-        ev.KeyId = string.Empty;
+        var ev = EventPublisherMock.GetSinglePublishedEvent<EventSignaturePublicKeyDeleted, EventSignaturePublicKeyMetadata>();
+        ev.Data.KeyId.Should().Be(_key!.Id);
+        ev.Data.AuthenticationTag.Should().NotBeEmpty();
+        ev.Metadata!.HsmSignature.Should().NotBeEmpty();
+
+        ev.Data.KeyId = string.Empty;
+        ev.Data.AuthenticationTag = ByteString.Empty;
+        ev.Metadata.HsmSignature = ByteString.Empty;
         ev.MatchSnapshot("event");
     }
 }

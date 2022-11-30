@@ -1,0 +1,65 @@
+<Voting>
+  <TemplateKey>proportional_election_end_result_list_unions</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>Active</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <InternalDescription>Nationalratswahl</InternalDescription>
+    <NumberOfMandates>12</NumberOfMandates>
+    <ProportionalElectionEndResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>0</CountOfDoneCountingCircles>
+      <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
+      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <Calculation />
+      <TotalCountOfUnmodifiedLists>0</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>0</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>0</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>0</TotalCountOfBallots>
+      <TotalCountOfBlankRowsOnListsWithoutParty>0</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfListsWithParty>0</TotalCountOfListsWithParty>
+      <TotalCountOfLists>0</TotalCountOfLists>
+    </ProportionalElectionEndResult>
+  </ProportionalElection>
+  <DomainOfInfluence>
+    <Name>St. Gallen</Name>
+    <NameForProtocol>Kanton St. Gallen</NameForProtocol>
+    <ShortName>St. Gallen</ShortName>
+    <AuthorityName />
+    <Code>0002-SG</Code>
+    <SortNumber>2</SortNumber>
+    <Bfs>0002</Bfs>
+    <Type>Ct</Type>
+    <Canton>Sg</Canton>
+    <ContestDomainOfInfluenceDetails>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+    </ContestDomainOfInfluenceDetails>
+  </DomainOfInfluence>
+</Voting>

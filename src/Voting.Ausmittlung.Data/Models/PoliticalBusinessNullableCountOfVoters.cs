@@ -9,6 +9,10 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int EVotingReceivedBallots { get; set; }
 
+    public int EVotingInvalidBallots { get; set; }
+
+    public int EVotingAccountedBallots { get; set; }
+
     public int? ConventionalReceivedBallots { get; set; }
 
     public int? ConventionalInvalidBallots { get; set; }
@@ -28,7 +32,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalAccountedBallots
     {
-        get => ConventionalAccountedBallots.GetValueOrDefault() + EVotingReceivedBallots;
+        get => ConventionalAccountedBallots.GetValueOrDefault() + EVotingAccountedBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -37,7 +41,16 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalUnaccountedBallots
     {
-        get => ConventionalBlankBallots.GetValueOrDefault() + ConventionalInvalidBallots.GetValueOrDefault();
+        get => ConventionalBlankBallots.GetValueOrDefault() + ConventionalInvalidBallots.GetValueOrDefault() + EVotingInvalidBallots;
+        private set
+        {
+            // empty setter to store the value in the database...
+        }
+    }
+
+    public int TotalInvalidBallots
+    {
+        get => ConventionalInvalidBallots.GetValueOrDefault() + EVotingInvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -68,6 +81,8 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
                 break;
             case VotingDataSource.EVoting:
                 EVotingReceivedBallots = 0;
+                EVotingInvalidBallots = 0;
+                EVotingAccountedBallots = 0;
                 break;
         }
 
@@ -84,6 +99,8 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
             ConventionalInvalidBallots = ConventionalInvalidBallots.GetValueOrDefault(),
             ConventionalReceivedBallots = ConventionalReceivedBallots.GetValueOrDefault(),
             EVotingReceivedBallots = EVotingReceivedBallots,
+            EVotingInvalidBallots = EVotingInvalidBallots,
+            EVotingAccountedBallots = EVotingAccountedBallots,
         };
     }
 

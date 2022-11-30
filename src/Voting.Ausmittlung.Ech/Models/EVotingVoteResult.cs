@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Ech.Models;
 
@@ -12,6 +13,7 @@ public class EVotingVoteResult : EVotingPoliticalBusinessResult
         : base(voteId, basisCountingCircleId)
     {
         BallotResults = ballotResults;
+        PoliticalBusinessType = PoliticalBusinessType.Vote;
     }
 
     public IReadOnlyCollection<EVotingVoteBallotResult> BallotResults { get; internal set; }

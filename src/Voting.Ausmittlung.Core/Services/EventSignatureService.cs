@@ -2,7 +2,9 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Google.Protobuf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +16,9 @@ using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Cryptography.Asymmetric;
+using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using ProtoEventSignatureBusinessMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
 
 namespace Voting.Ausmittlung.Core.Services;
 
@@ -27,33 +31,33 @@ public class EventSignatureService
     private readonly ILogger<EventSignatureService> _logger;
     private readonly IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> _asymmetricAlgorithmAdapter;
     private readonly IPkcs11DeviceAdapter _pkcs11DeviceAdapter;
-    private readonly IContestKeyDataProvider _contestKeyDataProvider;
+    private readonly ContestCache _contestCache;
     private readonly IEventSerializer _eventSerializer;
     private readonly IClock _clock;
     private readonly IServiceProvider _serviceProvider;
-    private readonly EventSignatureConfig _eventSignatureConfig;
     private readonly MachineConfig _machineConfig;
+    private readonly IMapper _mapper;
 
     public EventSignatureService(
         ILogger<EventSignatureService> logger,
         IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> asymmetricAlgorithmAdapter,
         IPkcs11DeviceAdapter pkcs11DeviceAdapter,
-        IContestKeyDataProvider contestKeyDataProvider,
+        ContestCache contestCache,
         IEventSerializer eventSerializer,
         IClock clock,
         IServiceProvider serviceProvider,
-        EventSignatureConfig eventSignatureConfig,
-        MachineConfig machineConfig)
+        MachineConfig machineConfig,
+        IMapper mapper)
     {
         _logger = logger;
         _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
         _pkcs11DeviceAdapter = pkcs11DeviceAdapter;
-        _contestKeyDataProvider = contestKeyDataProvider;
+        _contestCache = contestCache;
         _eventSerializer = eventSerializer;
         _clock = clock;
         _serviceProvider = serviceProvider;
-        _eventSignatureConfig = eventSignatureConfig;
         _machineConfig = machineConfig;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -65,27 +69,22 @@ public class EventSignatureService
     /// <param name="contestId">Contest id.</param>
     /// <param name="eventId">Event id.</param>
     /// <returns>An event signature metadata object.</returns>
-    public EventSignatureMetadata BuildEventSignatureMetadata(string streamName, IMessage eventData, Guid contestId, Guid eventId)
+    public EventSignatureBusinessMetadata BuildBusinessMetadata(string streamName, IMessage eventData, Guid contestId, Guid eventId)
     {
-        if (!_eventSignatureConfig.Enabled)
+        var keyData = _contestCache.Get(contestId).KeyData;
+
+        // the key data could be null, when a contest is not active or past unlocked.
+        if (keyData == null)
         {
-            return new EventSignatureMetadata(contestId);
+            return new EventSignatureBusinessMetadata(contestId);
         }
 
-        return _contestKeyDataProvider.WithKeyData(contestId, keyData =>
-        {
-            if (keyData == null)
-            {
-                return new EventSignatureMetadata(contestId);
-            }
-
-            return CreateEventSignatureMetadata(
-                eventId,
-                eventData,
-                keyData,
-                streamName,
-                contestId);
-        });
+        return CreateBusinessMetadata(
+            eventId,
+            eventData,
+            keyData,
+            streamName,
+            contestId);
     }
 
     /// <summary>
@@ -102,7 +101,7 @@ public class EventSignatureService
         {
             key = _asymmetricAlgorithmAdapter.CreateRandomPrivateKey();
 
-            var hsmPayload = new PublicKeySignaturePayload(
+            var authTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
                 EventSignatureVersions.V1,
                 contestId,
                 _machineConfig.Name,
@@ -111,11 +110,15 @@ public class EventSignatureService
                 _clock.UtcNow,
                 validTo);
 
-            var publicKeySignature = CreatePublicKeySignature(hsmPayload);
+            var hsmPayload = new PublicKeySignatureCreateHsmPayload(
+                authTagPayload,
+                _asymmetricAlgorithmAdapter.CreateSignature(authTagPayload.ConvertToBytesToSign(), key));
+
+            var publicKeyCreate = BuildPublicKeyCreate(hsmPayload);
 
             using var scope = _serviceProvider.CreateScope();
             var writer = scope.ServiceProvider.GetRequiredService<EventSignatureWriter>();
-            await writer.CreatePublicKey(publicKeySignature);
+            await writer.CreatePublicKey(publicKeyCreate);
             var keyData = new ContestCacheEntryKeyData(key, hsmPayload.ValidFrom, hsmPayload.ValidTo);
 
             _logger.LogInformation(
@@ -131,7 +134,7 @@ public class EventSignatureService
         catch (Exception ex)
         {
             key?.Dispose();
-            _logger.LogError(ex, "Start signature for contest {ContestId} failed", contestId);
+            _logger.LogError(SecurityLogging.SecurityEventId, ex, "Start signature for contest {ContestId} failed", contestId);
             throw;
         }
     }
@@ -147,10 +150,29 @@ public class EventSignatureService
     {
         try
         {
+            var keyData = _contestCache.Get(contestId).KeyData;
+            if (keyData == null)
+            {
+                throw new InvalidOperationException("Cannot stop signature, because the key is not set.");
+            }
+
+            var authTagPayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
+                EventSignatureVersions.V1,
+                contestId,
+                _machineConfig.Name,
+                keyData.Key.Id,
+                _clock.UtcNow,
+                keyData.SignedEventCount);
+
+            var hsmPayload = new PublicKeySignatureDeleteHsmPayload(
+                authTagPayload,
+                _asymmetricAlgorithmAdapter.CreateSignature(authTagPayload.ConvertToBytesToSign(), keyData.Key));
+
+            var publicKeyDelete = BuildPublicKeyDelete(hsmPayload);
             using var scope = _serviceProvider.CreateScope();
             var writer = scope.ServiceProvider.GetRequiredService<EventSignatureWriter>();
 
-            await writer.DeletePublicKey(contestId, keyId, _machineConfig.Name);
+            await writer.DeletePublicKey(publicKeyDelete);
             _logger.LogInformation(SecurityLogging.SecurityEventId, "Removed signature key {KeyId} for contest {ContestId}", keyId, contestId);
         }
         catch (Exception ex)
@@ -159,28 +181,84 @@ public class EventSignatureService
         }
     }
 
-    internal EventSignaturePublicKeySignature CreatePublicKeySignature(PublicKeySignaturePayload hsmPayload)
+    internal void FillBusinessMetadata<TAggregate>(TAggregate aggregate)
+        where TAggregate : BaseEventSourcingAggregate
+    {
+        var streamName = aggregate.StreamName;
+
+        foreach (var ev in aggregate.GetUncommittedEvents())
+        {
+            // only contest related events should have their metadata filled, except the public key events.
+            // all contest related events except the public key events are assigned only metadata with the contest id.
+            if (ev.Metadata is ProtoEventSignatureBusinessMetadata businessMetadata)
+            {
+                FillBusinessMetadata(businessMetadata, streamName, ev.Data, ev.Id);
+            }
+        }
+    }
+
+    internal void UpdateSignedEventCount(IReadOnlyCollection<IDomainEvent> publishedEvents)
+    {
+        foreach (var ev in publishedEvents)
+        {
+            // the count should only be incremented for contest related events, except the public key events.
+            if (ev.Metadata is not ProtoEventSignatureBusinessMetadata businessMetadata)
+            {
+                continue;
+            }
+
+            var contestId = GuidParser.Parse(businessMetadata.ContestId);
+            var keyData = _contestCache.Get(contestId).KeyData;
+
+            // the key data could be null, when a contest is not active or past unlocked.
+            if (keyData == null)
+            {
+                continue;
+            }
+
+            keyData.IncrementSignedEventCount();
+        }
+    }
+
+    internal EventSignaturePublicKeyCreate BuildPublicKeyCreate(PublicKeySignatureCreateHsmPayload hsmPayload)
     {
         var hsmSignature = _pkcs11DeviceAdapter.CreateSignature(hsmPayload.ConvertToBytesToSign());
-        return new EventSignaturePublicKeySignature
+        return new EventSignaturePublicKeyCreate
         {
             SignatureVersion = hsmPayload.SignatureVersion,
             ContestId = hsmPayload.ContestId,
             HostId = hsmPayload.HostId,
             KeyId = hsmPayload.KeyId,
             PublicKey = hsmPayload.PublicKey,
-            HsmSignature = hsmSignature,
             ValidFrom = hsmPayload.ValidFrom,
             ValidTo = hsmPayload.ValidTo,
+            AuthenticationTag = hsmPayload.AuthenticationTag,
+            HsmSignature = hsmSignature,
         };
     }
 
-    internal byte[] CreateEventSignature(EventSignaturePayload eventSignaturePayload, EcdsaPrivateKey key)
+    internal EventSignaturePublicKeyDelete BuildPublicKeyDelete(PublicKeySignatureDeleteHsmPayload hsmPayload)
     {
-        return _asymmetricAlgorithmAdapter.CreateSignature(eventSignaturePayload.ConvertToBytesToSign(), key);
+        var hsmSignature = _pkcs11DeviceAdapter.CreateSignature(hsmPayload.ConvertToBytesToSign());
+        return new EventSignaturePublicKeyDelete
+        {
+            SignatureVersion = hsmPayload.SignatureVersion,
+            ContestId = hsmPayload.ContestId,
+            HostId = hsmPayload.HostId,
+            KeyId = hsmPayload.KeyId,
+            DeletedAt = hsmPayload.DeletedAt,
+            SignedEventCount = hsmPayload.SignedEventCount,
+            AuthenticationTag = hsmPayload.AuthenticationTag,
+            HsmSignature = hsmSignature,
+        };
     }
 
-    internal EventSignaturePayload BuildEventSignaturePayload(
+    internal byte[] CreateBusinessSignature(EventSignatureBusinessPayload businessPayload, EcdsaPrivateKey key)
+    {
+        return _asymmetricAlgorithmAdapter.CreateSignature(businessPayload.ConvertToBytesToSign(), key);
+    }
+
+    internal EventSignatureBusinessPayload BuildBusinessPayload(
         Guid eventId,
         int signatureVersion,
         string streamName,
@@ -190,7 +268,7 @@ public class EventSignatureService
         string keyId,
         DateTime timestamp)
     {
-        return new EventSignaturePayload(
+        return new EventSignatureBusinessPayload(
             signatureVersion,
             eventId,
             streamName,
@@ -201,7 +279,7 @@ public class EventSignatureService
             timestamp);
     }
 
-    private EventSignatureMetadata CreateEventSignatureMetadata(
+    private EventSignatureBusinessMetadata CreateBusinessMetadata(
         Guid eventId,
         IMessage eventData,
         ContestCacheEntryKeyData keyData,
@@ -220,7 +298,7 @@ public class EventSignatureService
             throw new ArgumentException($"Cannot create event metadata because the current key {keyData.Key.Id} for contest {contestId} is not valid anymore ({keyData.ValidFrom} - {keyData.ValidTo}).");
         }
 
-        var eventSignaturePayload = BuildEventSignaturePayload(
+        var businessPayload = BuildBusinessPayload(
             eventId,
             EventSignatureVersions.V1,
             streamName,
@@ -230,13 +308,22 @@ public class EventSignatureService
             keyData.Key.Id,
             timestamp);
 
-        var eventSignature = CreateEventSignature(eventSignaturePayload, keyData.Key);
+        var businessSignature = CreateBusinessSignature(businessPayload, keyData.Key);
 
-        return new EventSignatureMetadata(
+        return new EventSignatureBusinessMetadata(
             contestId,
             EventSignatureVersions.V1,
-            eventSignaturePayload.HostId,
+            businessPayload.HostId,
             keyData.Key.Id,
-            eventSignature);
+            businessSignature);
+    }
+
+    private void FillBusinessMetadata(ProtoEventSignatureBusinessMetadata businessMetadata, string streamName, IMessage eventData, Guid eventId)
+    {
+        // If metadata is defined, it will only contain a contest id.
+        var contestId = GuidParser.Parse(businessMetadata.ContestId);
+
+        var domainEventSignatureBusinessMetadata = BuildBusinessMetadata(streamName, eventData, contestId, eventId);
+        _mapper.Map(domainEventSignatureBusinessMetadata, businessMetadata);
     }
 }

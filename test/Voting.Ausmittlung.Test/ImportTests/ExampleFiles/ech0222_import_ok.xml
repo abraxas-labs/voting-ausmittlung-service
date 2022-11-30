@@ -171,7 +171,8 @@
       <countingCircleRawData>
         <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
         <voteRawData>
-          <voteIdentification>8076dee2-f19b-4af9-80b1-69b0c7b1402b</voteIdentification>
+          <!-- this is an unknown vote ID, but the import should work nevertheless. -->
+          <voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</voteIdentification>
           <ballotRawData>
             <ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</ballotIdentification>
             <ballotCasted>

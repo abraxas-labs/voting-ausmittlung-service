@@ -1,0 +1,558 @@
+{
+  "doiDetailsBefore": {
+    "DomainOfInfluenceId": "475ff2a6-ba90-5e5e-92f2-b1025e1ce7a3",
+    "DomainOfInfluence": null,
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 8000,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 500,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 7000,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 300,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 250,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 250,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 100,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 100,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "TotalCountOfVoters": 15800,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "contestDetailsBefore": {
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 17600,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 1100,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 15400,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 710,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3400,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3400,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 300,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 300,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 4400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 4400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 270,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 270,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 150,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "TotalCountOfVoters": 34810,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "doiDetailsAfter": {
+    "DomainOfInfluenceId": "475ff2a6-ba90-5e5e-92f2-b1025e1ce7a3",
+    "DomainOfInfluence": null,
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 0,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 0,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 120,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "TotalCountOfVoters": 0,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
+  "contestDetailsAfter": {
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Contest": null,
+    "CountOfVotersInformationSubTotals": [
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 9600,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 600,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 8400,
+        "VoterType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 410,
+        "VoterType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "VotingCards": [
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 270,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 270,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 150,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "TotalCountOfVoters": 19010,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  }
+}

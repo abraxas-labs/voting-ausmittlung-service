@@ -30,7 +30,8 @@ public class ProportionalElectionResultProcessor :
     IEventProcessor<ProportionalElectionResultAuditedTentatively>,
     IEventProcessor<ProportionalElectionResultPlausibilised>,
     IEventProcessor<ProportionalElectionResultResettedToSubmissionFinished>,
-    IEventProcessor<ProportionalElectionResultResettedToAuditedTentatively>
+    IEventProcessor<ProportionalElectionResultResettedToAuditedTentatively>,
+    IEventProcessor<ProportionalElectionResultResetted>
 {
     private readonly IMapper _mapper;
     private readonly ProportionalElectionResultRepo _electionResultRepo;
@@ -167,5 +168,12 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
+    }
+
+    public async Task Process(ProportionalElectionResultResetted eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
+        await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
     }
 }

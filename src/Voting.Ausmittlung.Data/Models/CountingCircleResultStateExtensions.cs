@@ -5,6 +5,6 @@ namespace Voting.Ausmittlung.Data.Models;
 
 public static class CountingCircleResultStateExtensions
 {
-    public static bool IsResultCollectionDone(this CountingCircleResultState state) =>
-        state >= CountingCircleResultState.SubmissionDone;
+    public static bool IsResultAuditedTentatively(this CountingCircleResultState state) =>
+        state >= CountingCircleResultState.AuditedTentatively;
 }

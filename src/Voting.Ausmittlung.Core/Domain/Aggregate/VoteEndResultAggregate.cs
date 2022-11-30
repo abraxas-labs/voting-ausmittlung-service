@@ -3,10 +3,8 @@
 
 using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using AutoMapper;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Eventing.Domain;
@@ -17,11 +15,7 @@ public class VoteEndResultAggregate : BaseEventSignatureAggregate, IPoliticalBus
 {
     private readonly EventInfoProvider _eventInfoProvider;
 
-    public VoteEndResultAggregate(
-        EventInfoProvider eventInfoProvider,
-        EventSignatureService eventSignatureService,
-        IMapper mapper)
-        : base(eventSignatureService, mapper)
+    public VoteEndResultAggregate(EventInfoProvider eventInfoProvider)
     {
         _eventInfoProvider = eventInfoProvider;
     }
@@ -47,7 +41,7 @@ public class VoteEndResultAggregate : BaseEventSignatureAggregate, IPoliticalBus
                 VoteId = politicalBusinessId.ToString(),
                 VoteEndResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void RevertFinalization(Guid contestId)
@@ -60,7 +54,7 @@ public class VoteEndResultAggregate : BaseEventSignatureAggregate, IPoliticalBus
                 VoteId = VoteId.ToString(),
                 VoteEndResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)

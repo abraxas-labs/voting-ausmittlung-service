@@ -2,12 +2,12 @@
   "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
   "ProportionalElection": null,
   "EntryParams": {
+    "ReviewProcedure": 1,
     "BallotBundleSize": 10,
     "BallotBundleSampleSize": 2,
     "AutomaticBallotBundleNumberGeneration": true,
     "BallotNumberGeneration": 2,
-    "AutomaticEmptyVoteCounting": false,
-    "ReviewProcedure": 1
+    "AutomaticEmptyVoteCounting": false
   },
   "UnmodifiedListResults": [],
   "ListResults": [],
@@ -42,13 +42,16 @@
   "CountOfVoters": {
     "VoterParticipation": 0.6666666666666666666666666667,
     "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingAccountedBallots": 0,
     "ConventionalReceivedBallots": 10000,
     "ConventionalInvalidBallots": 500,
     "ConventionalBlankBallots": 1000,
     "ConventionalAccountedBallots": 2000,
     "TotalReceivedBallots": 10000,
     "TotalAccountedBallots": 2000,
-    "TotalUnaccountedBallots": 1500
+    "TotalUnaccountedBallots": 1500,
+    "TotalInvalidBallots": 500
   },
   "CountOfBundlesNotReviewedOrDeleted": 0,
   "AllBundlesReviewedOrDeleted": true,

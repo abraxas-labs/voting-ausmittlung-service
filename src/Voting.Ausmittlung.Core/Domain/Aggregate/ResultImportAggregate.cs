@@ -11,7 +11,6 @@ using AutoMapper;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models.Import;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
@@ -32,8 +31,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
 
     private bool _hasSuccessor;
 
-    public ResultImportAggregate(EventInfoProvider eventInfoProvider, IMapper mapper, EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+    public ResultImportAggregate(EventInfoProvider eventInfoProvider, IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _mapper = mapper;
@@ -66,7 +64,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 ImportId = Id.ToString(),
                 EchMessageId = echMessageId,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     internal void ImportProportionalElectionResult(ProportionalElectionResultImport data)
@@ -82,7 +80,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         };
 
         _mapper.Map(data, ev);
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void ImportMajorityElectionResult(MajorityElectionResultImport data)
@@ -98,7 +96,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         };
 
         _mapper.Map(data, ev);
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void ImportSecondaryMajorityElectionResult(MajorityElectionResultImport data)
@@ -114,7 +112,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         };
 
         _mapper.Map(data, ev);
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void ImportVoteResult(VoteResultImport data)
@@ -130,7 +128,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         };
 
         _mapper.Map(data, ev);
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void MapMajorityElectionWriteIns(
@@ -181,7 +179,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
             _ => throw new InvalidOperationException(nameof(politicalBusinessType) + " does not support write ins"),
         };
 
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     /// <summary>
@@ -200,7 +198,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 ContestId = contestId.ToString(),
                 EventInfo = _eventInfoProvider.NewEventInfo(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     internal void Complete()
@@ -232,7 +230,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                         _importedVoteIds,
                 },
             },
-            new EventSignatureDomainData(ContestId));
+            new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void SucceedBy(Guid successorImportId)
@@ -247,7 +245,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 ImportId = Id.ToString(),
                 SuccessorImportId = successorImportId.ToString(),
             },
-            new EventSignatureDomainData(ContestId));
+            new EventSignatureBusinessDomainData(ContestId));
     }
 
     protected override void Apply(IMessage eventData)

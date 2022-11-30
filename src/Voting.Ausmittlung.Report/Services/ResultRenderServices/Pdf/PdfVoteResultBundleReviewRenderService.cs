@@ -93,13 +93,22 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+
+        var pdfBundle = _mapper.Map<PdfVoteResultBundle>(bundle);
+        foreach (var pdfBallotResult in pdfBundle.Ballots)
+        {
+            PdfVoteUtil.SetLabels(
+                pdfBallotResult,
+                x => x.QuestionAnswers.Select(a => a.Question!),
+                x => x.TieBreakQuestionAnswers.Select(a => a.Question!));
+        }
 
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
             CountingCircle = pdfCountingCircle,
-            VoteResultBundle = _mapper.Map<PdfVoteResultBundle>(bundle),
+            VoteResultBundle = pdfBundle,
         };
 
         return await _templateService.RenderToPdf(ctx, bundleReview, bundle.Number.ToString());

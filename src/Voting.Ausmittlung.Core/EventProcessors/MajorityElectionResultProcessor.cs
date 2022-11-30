@@ -29,7 +29,8 @@ public class MajorityElectionResultProcessor :
     IEventProcessor<MajorityElectionResultAuditedTentatively>,
     IEventProcessor<MajorityElectionResultPlausibilised>,
     IEventProcessor<MajorityElectionResultResettedToSubmissionFinished>,
-    IEventProcessor<MajorityElectionResultResettedToAuditedTentatively>
+    IEventProcessor<MajorityElectionResultResettedToAuditedTentatively>,
+    IEventProcessor<MajorityElectionResultResetted>
 {
     private readonly IMapper _mapper;
     private readonly MajorityElectionResultRepo _electionResultRepo;
@@ -135,5 +136,12 @@ public class MajorityElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
+    }
+
+    public async Task Process(MajorityElectionResultResetted eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
+        await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
     }
 }

@@ -29,5 +29,6 @@ public class ServiceModeAppStartup : TestStartup
         services.TryAddScoped<VoteEndResultInitializer>();
         services.TryAddScoped<SimplePoliticalBusinessBuilder<Vote>>();
         services.TryAddScoped<DomainOfInfluencePermissionBuilder>();
+        services.TryAddScoped<AggregatedContestCountingCircleDetailsBuilder>();
     }
 }

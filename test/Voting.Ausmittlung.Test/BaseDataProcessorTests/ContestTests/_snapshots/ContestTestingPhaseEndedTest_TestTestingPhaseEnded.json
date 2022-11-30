@@ -66,13 +66,16 @@
             "CountOfVoters": {
               "VoterParticipation": 0.0,
               "EVotingReceivedBallots": 0,
+              "EVotingInvalidBallots": 0,
+              "EVotingAccountedBallots": 0,
               "ConventionalReceivedBallots": null,
               "ConventionalInvalidBallots": null,
               "ConventionalBlankBallots": null,
               "ConventionalAccountedBallots": null,
               "TotalReceivedBallots": 0,
               "TotalAccountedBallots": 0,
-              "TotalUnaccountedBallots": 0
+              "TotalUnaccountedBallots": 0,
+              "TotalInvalidBallots": 0
             },
             "QuestionResults": [],
             "TieBreakQuestionResults": [],
@@ -99,12 +102,12 @@
         "ProportionalElectionId": "81880186-febc-4fd7-bb82-62c446430027",
         "ProportionalElection": null,
         "EntryParams": {
+          "ReviewProcedure": 0,
           "BallotBundleSize": 0,
           "BallotBundleSampleSize": 0,
           "AutomaticBallotBundleNumberGeneration": false,
           "BallotNumberGeneration": 0,
-          "AutomaticEmptyVoteCounting": false,
-          "ReviewProcedure": 0
+          "AutomaticEmptyVoteCounting": false
         },
         "UnmodifiedListResults": [
           {
@@ -149,13 +152,16 @@
         "CountOfVoters": {
           "VoterParticipation": 0.0,
           "EVotingReceivedBallots": 0,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 0,
           "ConventionalReceivedBallots": null,
           "ConventionalInvalidBallots": null,
           "ConventionalBlankBallots": null,
           "ConventionalAccountedBallots": null,
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
-          "TotalUnaccountedBallots": 0
+          "TotalUnaccountedBallots": 0,
+          "TotalInvalidBallots": 0
         },
         "CountOfBundlesNotReviewedOrDeleted": 0,
         "AllBundlesReviewedOrDeleted": true,
@@ -177,23 +183,29 @@
           "IndividualVoteCount": 0,
           "EmptyVoteCount": 0,
           "InvalidVoteCount": 0,
+          "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
-          "TotalCandidateVoteCountInclIndividual": 0
+          "TotalCandidateVoteCountInclIndividual": 0,
+          "TotalVoteCount": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": null,
           "EmptyVoteCount": null,
           "InvalidVoteCount": null,
+          "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
-          "TotalCandidateVoteCountInclIndividual": 0
+          "TotalCandidateVoteCountInclIndividual": 0,
+          "TotalVoteCount": 0
         },
         "ConventionalCountOfBallotGroupVotes": 0,
         "ConventionalCountOfDetailedEnteredBallots": 0,
         "IndividualVoteCount": 0,
         "EmptyVoteCount": 0,
         "InvalidVoteCount": 0,
+        "TotalEmptyAndInvalidVoteCount": 0,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0,
+        "TotalVoteCount": 0,
         "SecondaryMajorityElectionResults": [],
         "BallotGroupResults": [],
         "Bundles": [],
@@ -205,13 +217,16 @@
         "CountOfVoters": {
           "VoterParticipation": 0.0,
           "EVotingReceivedBallots": 0,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 0,
           "ConventionalReceivedBallots": null,
           "ConventionalInvalidBallots": null,
           "ConventionalBlankBallots": null,
           "ConventionalAccountedBallots": null,
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
-          "TotalUnaccountedBallots": 0
+          "TotalUnaccountedBallots": 0,
+          "TotalInvalidBallots": 0
         },
         "CountOfBundlesNotReviewedOrDeleted": 0,
         "AllBundlesReviewedOrDeleted": true,

@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.42.0`)
+# ✨ Changelog (`v1.47.1`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,193 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.42.0
-Previous version ---- v1.39.1
+This version -------- v1.47.1
+Previous version ---- v1.42.0
 Initial version ----- v1.29.14
-Total commits ------- 4
+Total commits ------- 28
 ```
+
+## [v1.47.1] - 2022-11-30
+
+### 🔄 Changed
+
+- update voting lib to add transient subscription health check
+
+## [v1.47.0] - 2022-11-29
+
+### 🔒 Security
+
+- Changed public key signing
+- Validate voting basis event signature in activity protocol
+
+## [v1.46.12] - 2022-11-29
+
+### 🔄 Changed
+
+- adjust input validation
+
+## [v1.46.11] - 2022-11-27
+
+### 🔄 Changed
+
+- correctly export reports after testing phase has ended
+
+## [v1.46.10] - 2022-11-24
+
+### 🔄 Changed
+
+- insert vote aggregated result correctly in protocols
+
+## [v1.46.9] - 2022-11-23
+
+### 🔄 Changed
+
+- filter not needed domain of influence results in protocols
+
+## [v1.46.8] - 2022-11-22
+
+### 🆕 Added
+
+- Added aggregated domain of influence results in protocols
+
+### 🔄 Changed
+
+- Removed contest details on end results and added domain of influence details in protocols
+
+## [v1.46.7] - 2022-11-17
+
+### 🔄 Changed
+
+- ignore export of templates that do not exist (anymore)
+
+## [v1.46.6] - 2022-11-09
+
+### 🆕 Added
+
+- add result export configurations for newly created contests
+
+## [v1.46.5] - 2022-11-08
+
+### 🆕 Added
+
+- added new vote counts to majority election
+
+## [v1.46.4] - 2022-11-07
+
+### 🆕 Added
+
+- add log messages for debugging within the updated voting lib
+
+### 🔄 Changed
+
+- use unique identifier for messaging consumer endpoints so each horizontally scaled instance consumes change notifications
+- ensure no proxy is used for local development so cert pins are matching
+
+### 🆕 Added
+
+- log messages for debugging
+
+## [v1.46.3] - 2022-11-04
+
+### 🆕 Added
+
+- add eVoting write in mapping to invalid ballot
+
+## [v1.46.2] - 2022-11-02
+
+### 🆕 Added
+
+- Added domain of influence and counting circle sort number to the protocols
+
+## [v1.46.1] - 2022-11-02
+
+### 🆕 Added
+
+- add result state change listener for erfassung
+
+## [v1.46.0] - 2022-10-27
+
+### 🆕 Added
+
+- Reset counting circle results in testing phase
+
+## [v1.45.5] - 2022-10-21
+
+### 🔄 Changed
+
+- Changed WabstiC export
+
+## [v1.45.4] - 2022-10-19
+
+### 🔄 Changed
+
+- Correctly register shared SECURE Connect account for DOK Connector
+
+## [v1.45.3] - 2022-10-19
+
+### 🔄 Changed
+
+- WabstiC export changes
+
+## [v1.45.2] - 2022-10-17
+
+### 🔄 Changed
+
+- no empty vote count for evoting import with single mandate
+
+## [v1.45.1] - 2022-10-14
+
+### 🔄 Changed
+
+- Fixed summation of aggregated voting card results
+
+## [v1.45.0] - 2022-10-13
+
+### 🆕 Added
+
+- Added DOK Connect implementation
+
+## [v1.44.2] - 2022-10-13
+
+### 🔄 Changed
+
+- no empty vote count and no invalid vote count for single mandate
+
+## [v1.44.1] - 2022-10-11
+
+### 🆕 Added
+
+- Added majority election calculation fields
+- Added total count of voters on counting circle results in pdf protocols
+
+### 🔄 Changed
+
+- Send enum instead of a translated string as question label in pdf protocols
+
+## [v1.44.0] - 2022-10-11
+
+### 🆕 Added
+
+- Added question labels in pdf protocols
+
+## [v1.43.2] - 2022-10-10
+
+### 🆕 Added
+
+- Added pdf protocol field for counting circle and domain of influence name
+
+## [v1.43.1] - 2022-10-10
+
+### 🔄 Changed
+
+- Deserialize eCH-0222 from eCH ballots, as the eCH votes may not correlate to the "VOTING votes"
+
+## [v1.43.0] - 2022-10-10
+
+### 🆕 Added
+
+- Added name for protocol for domain of influence and counting circle
+- Extended sorting of domain of influences and counting circles in protocols
 
 ## [v1.42.0] - 2022-09-28
 
@@ -98,11 +280,86 @@ Total commits ------- 4
 
 - exchanged ef core default health check with custom one
 
-## [v1.36.4] - 2022-08-22
+## [v1.36.4] - 2022-08-19
 
 ### 🔄 Changed
 
 - Allow contest counting circle details entry when e-voting is enabled
+
+### 🔄 Changed
+
+- Contests merge processing
+
+### 🔄 Changed
+
+- refactoring
+- updated lib version
+
+### 🔄 Changed
+
+- correctly set new proportional election candidate party id on contest merge.
+
+### 🆕 Added
+
+- CORS configuration support
+
+### 🔄 Changed
+
+- refactored event signature
+
+### 🔄 Changed
+
+- refactored event signature and allow exceptions when deleting a public key
+
+### 🔄 Changed
+
+- upgraded underlying dotnet image to sdk 6.0.301 after gituhb issue [#24269](https://github.com/dotnet/sdk/issues/24269) has been fixed
+
+### 🔄 Changed
+
+- added OpenAPI description
+
+### 🔄 Changed
+
+- Fixes some code smells reported by sonar
+
+### 🆕 Added
+
+- add query split behavior where needed
+
+### 🔒 Security
+
+- Added authentication checks (role and correct tenant) to the methods which initialize the 2FA process
+
+### 🆕 Added
+
+- New proportional election union party mandates csv export
+
+### 🔄 Changed
+
+- Correctly map political business union id when returning templates
+
+### 🔒 Security
+
+- Added a check that requested political business union ids in exports have to be owned by the current tenant
+
+### 🔄 Changed
+
+- add cancellation token for verify second factor
+
+### 🔄 Changed
+
+- lot decision always required for proportional election when there are candidates with the same vote count
+
+### 🔄 Changed
+
+- get accessible counting circles only for the domain of influence from the current contest
+
+### 🔄 Changed
+
+- extend evoting date with time
+
+The readmodel needs to be recreated after this commit
 
 ## [v1.36.3] - 2022-08-16
 
@@ -146,7 +403,6 @@ Total commits ------- 4
 ### 🔄 Changed
 
 - political business union party strength and voter participation export add new columns
-- event signature metadata proto dependency
 
 ## [v1.34.0] - 2022-06-27
 
@@ -269,8 +525,6 @@ Total commits ------- 4
 ### 🔄 Changed
 
 - extend evoting date with time
-
-The readmodel needs to be recreated after this commit
 
 ## [v1.29.18] - 2022-05-24
 

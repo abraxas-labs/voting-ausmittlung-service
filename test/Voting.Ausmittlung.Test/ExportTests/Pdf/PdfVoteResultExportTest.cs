@@ -27,6 +27,8 @@ public class PdfVoteResultExportTest : PdfExportBaseTest<GenerateResultExportsRe
 
     protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll CH.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await VoteMockedData.Seed(RunScoped);
@@ -37,21 +39,21 @@ public class PdfVoteResultExportTest : PdfExportBaseTest<GenerateResultExportsRe
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
+            {
+                new GenerateResultExportRequest
                 {
-                    new GenerateResultExportRequest
+                    Key = AusmittlungPdfVoteTemplates.ResultProtocol.Key,
+                    DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    CountingCircleId = CountingCircleMockedData.GuidUzwil,
+                    PoliticalBusinessIds =
                     {
-                        Key = AusmittlungPdfVoteTemplates.ResultProtocol.Key,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
-                        CountingCircleId = CountingCircleMockedData.GuidUzwil,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                            Guid.Parse(VoteMockedData.IdBundVote2InContestBund),
-                        },
+                        Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
+                        Guid.Parse(VoteMockedData.IdBundVote2InContestBund),
                     },
                 },
+            },
         };
     }
 

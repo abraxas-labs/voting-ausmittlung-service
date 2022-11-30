@@ -4,7 +4,6 @@
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
-using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -28,7 +27,8 @@ public class VoteResultProcessor :
     IEventProcessor<VoteResultPlausibilised>,
     IEventProcessor<VoteResultResettedToSubmissionFinished>,
     IEventProcessor<VoteResultResettedToAuditedTentatively>,
-    IEventProcessor<VoteResultCountOfVotersEntered>
+    IEventProcessor<VoteResultCountOfVotersEntered>,
+    IEventProcessor<VoteResultResetted>
 {
     private readonly VoteResultRepo _voteResultRepo;
     private readonly VoteEndResultBuilder _endResultBuilder;
@@ -63,34 +63,7 @@ public class VoteResultProcessor :
     public async Task Process(VoteResultEntryDefined eventData)
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
-        var newEntry = _mapper.Map<VoteResultEntry>(eventData.ResultEntry);
-        var resultEntryParams = eventData.ResultEntryParams;
-        var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
-                         ?? throw new EntityNotFoundException(voteResultId);
-
-        voteResult.Entry = newEntry;
-        if (resultEntryParams == null)
-        {
-            voteResult.EntryParams = null;
-        }
-        else
-        {
-            voteResult.EntryParams = new VoteResultEntryParams();
-            _mapper.Map(resultEntryParams, voteResult.EntryParams);
-
-            // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
-            if (voteResult.EntryParams.ReviewProcedure == VoteReviewProcedure.Unspecified)
-            {
-                voteResult.EntryParams.ReviewProcedure = VoteReviewProcedure.Electronically;
-            }
-        }
-
-        foreach (var ballotResult in voteResult.Results)
-        {
-            _resultBuilder.ResetConventionalBallotResult(ballotResult);
-        }
-
-        await _dataContext.SaveChangesAsync();
+        await _resultBuilder.UpdateResultEntryAndResetConventionalResults(voteResultId, eventData.ResultEntry, eventData.ResultEntryParams);
     }
 
     public async Task Process(VoteResultCountOfVotersEntered eventData)
@@ -152,5 +125,12 @@ public class VoteResultProcessor :
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         await UpdateState(voteResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
+    }
+
+    public async Task Process(VoteResultResetted eventData)
+    {
+        var voteResultId = GuidParser.Parse(eventData.VoteResultId);
+        await UpdateState(voteResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
+        await _resultBuilder.ResetConventionalResultInTestingPhase(voteResultId);
     }
 }

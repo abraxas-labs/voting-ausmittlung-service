@@ -31,7 +31,9 @@ public class CountingCircleCreateTest : CountingCircleProcessorBaseTest
                 CountingCircle = new CountingCircleEventData
                 {
                     Name = "Uzwil",
+                    NameForProtocol = "Stadt Uzwil",
                     Bfs = "1234",
+                    SortNumber = 5000,
                     Id = "eae2cfaf-c787-48b9-a108-c975b0a580da",
                     ResponsibleAuthority = new AuthorityEventData
                     {
@@ -67,6 +69,7 @@ public class CountingCircleCreateTest : CountingCircleProcessorBaseTest
                 CountingCircle = new CountingCircleEventData
                 {
                     Name = "St. Gallen",
+                    NameForProtocol = "Stadt St. Gallen",
                     Bfs = "5500",
                     Code = "C5500",
                     Id = "eae2cfaf-c787-48b9-a108-c975b0a580db",
@@ -119,6 +122,7 @@ public class CountingCircleCreateTest : CountingCircleProcessorBaseTest
                 CountingCircle = new CountingCircleEventData
                 {
                     Name = "Test",
+                    NameForProtocol = "Test",
                     Bfs = "12384",
                     Code = "C12384",
                     Id = countingCircleId.ToString(),

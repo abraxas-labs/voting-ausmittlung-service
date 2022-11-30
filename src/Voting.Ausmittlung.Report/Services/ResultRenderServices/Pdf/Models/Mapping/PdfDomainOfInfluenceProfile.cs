@@ -11,5 +11,8 @@ public class PdfDomainOfInfluenceProfile : Profile
     public PdfDomainOfInfluenceProfile()
     {
         CreateMap<DomainOfInfluence, PdfDomainOfInfluence>();
+
+        CreateMap<DomainOfInfluenceVotingCardResultDetail, PdfVotingCardResultDetail>();
+        CreateMap<DomainOfInfluenceCountOfVotersInformationSubTotal, PdfCountOfVotersInformationSubTotal>();
     }
 }

@@ -22,6 +22,8 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultExpor
 
     protected override string NewRequestExpectedFileName => "Kandidaten- Zusatz- und Parteistimmen - Kantonratswahl de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
@@ -32,16 +34,16 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultExpor
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
-                       {
-                           new GenerateResultExportRequest
-                           {
-                               Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleProtocol.Key,
-                               CountingCircleId = CountingCircleMockedData.GuidUzwil,
-                               PoliticalBusinessIds = { Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId) },
-                           },
-                       },
+            {
+                new GenerateResultExportRequest
+                {
+                    Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleProtocol.Key,
+                    CountingCircleId = CountingCircleMockedData.GuidUzwil,
+                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId) },
+                },
+            },
         };
     }
 

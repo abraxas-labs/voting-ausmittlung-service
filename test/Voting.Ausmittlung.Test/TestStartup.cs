@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Messaging;
 using Voting.Ausmittlung.Core.Messaging.Messages;
-using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Core.Services.Validation.Utils;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Report.Services;
@@ -16,7 +15,6 @@ using Voting.Ausmittlung.Test.Mocks;
 using Voting.Lib.Ech;
 using Voting.Lib.Messaging;
 using Voting.Lib.Testing.Mocks;
-using DokConnectorMock = Voting.Ausmittlung.Test.Mocks.DokConnectorMock;
 
 namespace Voting.Ausmittlung.Test;
 
@@ -33,12 +31,12 @@ public class TestStartup : Startup
         services
             .AddMock<IPdfService, PdfServiceMock>()
             .AddMock<IValidationResultsEnsurerUtils, ValidationResultsEnsurerUtilsMock>()
-            .AddMock<IDokConnector, DokConnectorMock>()
             .AddMock<IEchMessageIdProvider, MockEchMessageIdProvider>()
             .AddMock<IActionIdComparer, ActionIdComparerMock>()
             .AddMockedClock()
             .AddVotingLibEventingMocks()
             .AddVotingLibIamMocks()
+            .AddDokConnectorMock()
             .AddVotingLibCryptographyMocks()
             .AddVotingLibPkcs11Mock()
             .RemoveHostedServices()

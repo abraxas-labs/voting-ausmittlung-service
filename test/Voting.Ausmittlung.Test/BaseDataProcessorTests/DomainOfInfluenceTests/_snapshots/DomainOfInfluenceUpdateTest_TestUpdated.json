@@ -5,8 +5,9 @@
       "ShortName": "Bund",
       "Bfs": "0001",
       "Code": "0001-BUND",
-      "SortNumber": 1,
-      "SecureConnectId": "999",
+      "SortNumber": 99999,
+      "NameForProtocol": "Bund",
+      "SecureConnectId": "999999999999999999",
       "AuthorityName": "",
       "Type": 1,
       "Canton": 1,
@@ -75,11 +76,11 @@
       "ExportConfigurations": null,
       "ResultExportConfigurations": null,
       "ContactPerson": {
-        "FirstName": "",
-        "FamilyName": "",
-        "Phone": "",
+        "FirstName": "Firstname contact",
+        "FamilyName": "Lastname contact",
+        "Phone": "0799999999",
         "MobilePhone": "",
-        "Email": ""
+        "Email": "email@example.com"
       },
       "CantonDefaults": {
         "ProportionalElectionMandateAlgorithms": [
@@ -87,6 +88,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -220,7 +223,8 @@
       "Bfs": "5345",
       "Code": "C5345",
       "SortNumber": 5,
-      "SecureConnectId": "400",
+      "NameForProtocol": "Kanton Genf",
+      "SecureConnectId": "400400400400400400",
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
@@ -252,6 +256,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -291,7 +297,8 @@
       "Bfs": "",
       "Code": "",
       "SortNumber": 0,
-      "SecureConnectId": "300",
+      "NameForProtocol": "Stadt Gossau",
+      "SecureConnectId": "300300300300300300",
       "AuthorityName": "",
       "Type": 5,
       "Canton": 1,
@@ -332,6 +339,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 1,
         "EnabledVotingCardChannels": [
           {
@@ -371,6 +380,7 @@
       "Bfs": "",
       "Code": "",
       "SortNumber": 0,
+      "NameForProtocol": "Kirchgemeinde Oberuzwil",
       "SecureConnectId": "kirche-uzwil-010000",
       "AuthorityName": "",
       "Type": 7,
@@ -410,6 +420,8 @@
         "ProportionalElectionMandateAlgorithms": [],
         "MajorityElectionAbsoluteMajorityAlgorithm": 0,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 0,
+        "ProtocolCountingCircleSortType": 0,
         "SwissAbroadVotingRight": 0,
         "EnabledVotingCardChannels": []
       },
@@ -424,7 +436,8 @@
       "Bfs": "1234",
       "Code": "C1234",
       "SortNumber": 5,
-      "SecureConnectId": "100",
+      "NameForProtocol": "Kanton StGallen Neu",
+      "SecureConnectId": "100100100100100100",
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
@@ -505,6 +518,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -603,7 +618,8 @@
       "Bfs": "",
       "Code": "",
       "SortNumber": 0,
-      "SecureConnectId": "200",
+      "NameForProtocol": "Stadt St. Gallen",
+      "SecureConnectId": "200200200200200200",
       "AuthorityName": "",
       "Type": 4,
       "Canton": 1,
@@ -652,6 +668,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -691,6 +709,7 @@
       "Bfs": "",
       "Code": "",
       "SortNumber": 0,
+      "NameForProtocol": "Kanton Thurgau",
       "SecureConnectId": "random-2",
       "AuthorityName": "",
       "Type": 2,
@@ -723,6 +742,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -762,7 +783,8 @@
       "Bfs": "3443",
       "Code": "C3443",
       "SortNumber": 3,
-      "SecureConnectId": "100",
+      "NameForProtocol": "Stadt Uzwil",
+      "SecureConnectId": "100100100100100100",
       "AuthorityName": "",
       "Type": 5,
       "Canton": 1,
@@ -803,6 +825,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 1,
+        "ProtocolCountingCircleSortType": 1,
         "SwissAbroadVotingRight": 1,
         "EnabledVotingCardChannels": [
           {

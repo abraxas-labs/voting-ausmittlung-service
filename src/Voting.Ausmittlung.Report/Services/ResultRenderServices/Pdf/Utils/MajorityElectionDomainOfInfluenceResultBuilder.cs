@@ -19,14 +19,16 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
     {
     }
 
-    public override async Task<(List<MajorityElectionDomainOfInfluenceResult> Results, MajorityElectionDomainOfInfluenceResult NotAssignableResult)> BuildResults(
+    public override async Task<(List<MajorityElectionDomainOfInfluenceResult> Results, MajorityElectionDomainOfInfluenceResult NotAssignableResult, MajorityElectionDomainOfInfluenceResult AggregatedResult)> BuildResults(
         MajorityElection politicalBusiness,
         List<ContestCountingCircleDetails> ccDetails)
     {
-        var (doiResults, notAssignableResult) = await base.BuildResults(politicalBusiness, ccDetails);
+        var (doiResults, notAssignableResult, aggregatedResult) = await base.BuildResults(politicalBusiness, ccDetails);
         OrderCountingCircleAndCandidateResults(doiResults);
         OrderCountingCircleAndCandidateResult(notAssignableResult);
-        return (doiResults, notAssignableResult);
+        OrderCountingCircleAndCandidateResult(aggregatedResult);
+        var doiIndividualVoteCount = doiResults.Select(d => d.IndividualVoteCount).ToList();
+        return (doiResults, notAssignableResult, aggregatedResult);
     }
 
     protected override IEnumerable<MajorityElectionResult> GetResults(MajorityElection politicalBusiness) => politicalBusiness.Results;
@@ -58,6 +60,18 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
         doiResult.Results.Add(ccResult);
     }
 
+    protected override void ResetCountingCircleResult(MajorityElectionResult ccResult)
+    {
+        ccResult.TotalCountOfVoters = 0;
+
+        ccResult.ResetAllSubTotals(VotingDataSource.EVoting, true);
+        ccResult.ResetAllSubTotals(VotingDataSource.Conventional, true);
+
+        ccResult.ConventionalCountOfDetailedEnteredBallots = 0;
+        ccResult.ConventionalCountOfBallotGroupVotes = 0;
+        ccResult.CountOfBundlesNotReviewedOrDeleted = 0;
+    }
+
     private void OrderCountingCircleAndCandidateResults(IEnumerable<MajorityElectionDomainOfInfluenceResult> doiResults)
     {
         foreach (var doiResult in doiResults)
@@ -68,10 +82,6 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
 
     private void OrderCountingCircleAndCandidateResult(MajorityElectionDomainOfInfluenceResult doiResult)
     {
-        doiResult.Results = doiResult.Results
-            .OrderBy(x => x.CountingCircle.Name)
-            .ToList();
-
         foreach (var ccResult in doiResult.Results)
         {
             ccResult.CandidateResults = ccResult.CandidateResults

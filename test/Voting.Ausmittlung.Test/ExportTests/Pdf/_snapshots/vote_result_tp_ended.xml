@@ -1,0 +1,256 @@
+<Voting>
+  <TemplateKey>vote_result</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>Active</State>
+  </Contest>
+  <Vote>
+    <PoliticalBusinessNumber>200</PoliticalBusinessNumber>
+    <OfficialDescription>Abstimmung Bund de</OfficialDescription>
+    <ShortDescription>Abst Bund de</ShortDescription>
+    <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <VoteResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+      <BallotResult>
+        <Ballot>
+          <Position>1</Position>
+          <Description />
+          <BallotType>StandardBallot</BallotType>
+        </Ballot>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
+            <Number>1</Number>
+            <Question>Frage 1 Bund de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageYes>0</PercentageYes>
+          <PercentageNo>1</PercentageNo>
+        </BallotQuestionResult>
+      </BallotResult>
+    </VoteResult>
+  </Vote>
+  <Vote>
+    <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
+    <OfficialDescription>Abstimmung2 Bund de</OfficialDescription>
+    <ShortDescription>Abst2 Bund de</ShortDescription>
+    <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <VoteResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+      <BallotResult>
+        <Ballot>
+          <Position>1</Position>
+          <Description />
+          <BallotType>VariantsBallot</BallotType>
+        </Ballot>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
+            <Number>1</Number>
+            <Question>Frage 1 Bund de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageYes>0</PercentageYes>
+          <PercentageNo>1</PercentageNo>
+        </BallotQuestionResult>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
+            <Number>2</Number>
+            <Question>Frage 2 Bund de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageYes>0</PercentageYes>
+          <PercentageNo>1</PercentageNo>
+        </BallotQuestionResult>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
+            <Number>3</Number>
+            <Question>Frage 3 Bund de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageYes>0</PercentageYes>
+          <PercentageNo>1</PercentageNo>
+        </BallotQuestionResult>
+        <BallotTieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
+            <Number>1</Number>
+            <Question>Frage 1 vor Frage 2? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>2</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageQ1>0</PercentageQ1>
+          <PercentageQ2>1</PercentageQ2>
+        </BallotTieBreakQuestionResult>
+        <BallotTieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
+            <Number>2</Number>
+            <Question>Frage 1 vor Frage 3? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>3</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageQ1>0</PercentageQ1>
+          <PercentageQ2>1</PercentageQ2>
+        </BallotTieBreakQuestionResult>
+        <BallotTieBreakQuestionResult>
+          <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
+            <Number>3</Number>
+            <Question>Frage 2 vor Frage 3? de</Question>
+            <Question1Number>2</Question1Number>
+            <Question2Number>3</Question2Number>
+          </TieBreakQuestion>
+          <CountOfAnswerTotalQ1>0</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ2>0</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageQ1>0</PercentageQ1>
+          <PercentageQ2>1</PercentageQ2>
+        </BallotTieBreakQuestionResult>
+      </BallotResult>
+      <BallotResult>
+        <Ballot>
+          <Position>2</Position>
+          <Description />
+          <BallotType>StandardBallot</BallotType>
+        </Ballot>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+        <BallotQuestionResult>
+          <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
+            <Number>1</Number>
+            <Question>Frage 2.1 Bund de</Question>
+          </BallotQuestion>
+          <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>0</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>0</CountOfAnswerTotal>
+          <PercentageYes>0</PercentageYes>
+          <PercentageNo>1</PercentageNo>
+        </BallotQuestionResult>
+      </BallotResult>
+    </VoteResult>
+  </Vote>
+  <CountingCircle>
+    <Name>Uzwil</Name>
+    <NameForProtocol>Stadt Uzwil</NameForProtocol>
+    <Bfs>1234</Bfs>
+    <Code>1234-UZWIL</Code>
+    <SortNumber>2005</SortNumber>
+    <ResponsibleAuthority>
+      <SecureConnectId>100100100100100100</SecureConnectId>
+      <Name>Uzwil</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>uzwil-test@abraxas.ch</Email>
+      <Street>Werkstrasse</Street>
+      <Zip>9595</Zip>
+      <City>MyCity</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans</FirstName>
+      <FamilyName>Muster</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>uzwil-test@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph</FirstName>
+      <FamilyName>Wichtig</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>uzwil-test2@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+  <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+</Voting>

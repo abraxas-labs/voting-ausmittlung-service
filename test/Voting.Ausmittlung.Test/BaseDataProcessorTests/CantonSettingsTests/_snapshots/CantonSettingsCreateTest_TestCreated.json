@@ -1,13 +1,15 @@
 {
   "cantonSettings": {
     "Canton": 2,
-    "SecureConnectId": "default-tenant-id",
+    "SecureConnectId": "000000000000000000",
     "AuthorityName": "Staatskanzlei Thurgau",
     "ProportionalElectionMandateAlgorithms": [
       1
     ],
     "MajorityElectionAbsoluteMajorityAlgorithm": 2,
     "MajorityElectionInvalidVotes": true,
+    "ProtocolDomainOfInfluenceSortType": 2,
+    "ProtocolCountingCircleSortType": 2,
     "SwissAbroadVotingRight": 2,
     "SwissAbroadVotingRightDomainOfInfluenceTypes": [
       1,
@@ -24,6 +26,7 @@
         "Bfs": "",
         "Code": "",
         "SortNumber": 0,
+        "NameForProtocol": "",
         "SecureConnectId": "",
         "AuthorityName": "",
         "Type": 0,
@@ -56,6 +59,8 @@
           ],
           "MajorityElectionAbsoluteMajorityAlgorithm": 2,
           "MajorityElectionInvalidVotes": true,
+          "ProtocolDomainOfInfluenceSortType": 2,
+          "ProtocolCountingCircleSortType": 2,
           "SwissAbroadVotingRight": 3,
           "EnabledVotingCardChannels": []
         },

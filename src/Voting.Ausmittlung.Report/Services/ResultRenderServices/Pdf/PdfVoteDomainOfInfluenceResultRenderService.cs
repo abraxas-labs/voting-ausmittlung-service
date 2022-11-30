@@ -64,11 +64,9 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
                 .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
             .Include(x => x.Translations)
-            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.Contest.Translations)
             .Include(x => x.Contest.DomainOfInfluence)
-            .Include(x => x.Contest.Details)
-            .Include(x => x.Contest.Details!.VotingCards)
             .FirstOrDefaultAsync(v => v.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
 
@@ -79,7 +77,8 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             .Where(x => x.ContestId == vote.ContestId)
             .ToListAsync(ct);
 
-        var (doiResults, notAssignableResult) = await _doiResultBuilder.BuildResultsGroupedByBallot(vote, ccDetailsList);
+        var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResultsGroupedByBallot(vote, ccDetailsList);
+        var ballots = vote.EndResult.BallotEndResults.Select(x => x.Ballot).ToList();
 
         // we don't need this data in the xml
         vote.Results = new List<VoteResult>();
@@ -88,7 +87,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
 
         foreach (var details in pdfCcDetails)
         {
-            PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(details, vote.DomainOfInfluence.Type);
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(details, vote.DomainOfInfluence.Type);
 
             // we don't need this data in the xml
             details.VotingCards = new List<PdfVotingCardResultDetail>();
@@ -99,16 +98,27 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
 
         // only show cc results in election which are not included in doi results (ex: reporting level 1 and cc Auslandschweizer)
         var doiResultsByBallotId = pdfVote.DomainOfInfluenceBallotResults.ToDictionary(x => x.Ballot!.Id);
-        foreach (var ballotResult in notAssignableResult.BallotResults)
+        var notAssignableBallotResultsByBallotId = notAssignableResult.BallotResults.ToDictionary(x => x.Ballot.Id);
+
+        foreach (var ballot in ballots)
         {
-            if (!doiResultsByBallotId.TryGetValue(ballotResult.Ballot.Id, out var doiBallotResult))
+            if (!doiResultsByBallotId.TryGetValue(ballot.Id, out var doiBallotResult))
             {
-                doiBallotResult = new PdfVoteBallotDomainOfInfluenceResult { Ballot = _mapper.Map<PdfBallot>(ballotResult.Ballot) };
+                doiBallotResult = new PdfVoteBallotDomainOfInfluenceResult { Ballot = _mapper.Map<PdfBallot>(ballot) };
                 pdfVote.DomainOfInfluenceBallotResults.Add(doiBallotResult);
             }
 
-            doiBallotResult.NotAssignableResult = _mapper.Map<PdfVoteDomainOfInfluenceBallotResult>(ballotResult);
-            doiBallotResult.NotAssignableResult.DomainOfInfluence = null;
+            if (notAssignableBallotResultsByBallotId.TryGetValue(ballot.Id, out var notAssignableBallotResult))
+            {
+                doiBallotResult.NotAssignableResult = _mapper.Map<PdfVoteDomainOfInfluenceBallotResult>(notAssignableBallotResult);
+                doiBallotResult.NotAssignableResult.DomainOfInfluence = null;
+            }
+
+            if (aggregatedResult.ResultsByBallotId.TryGetValue(ballot.Id, out var aggregatedBallotResult))
+            {
+                doiBallotResult.AggregatedResult = _mapper.Map<PdfVoteDomainOfInfluenceBallotResult>(aggregatedBallotResult);
+                doiBallotResult.AggregatedResult.Results = new();
+            }
         }
 
         var pdfCcResults = pdfVote.DomainOfInfluenceBallotResults
@@ -122,14 +132,16 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
 
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = pdfVote.DomainOfInfluence;
+        domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, vote.DomainOfInfluence.Type);
+
+        // we don't need this data in the xml
+        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
         pdfVote.DomainOfInfluence = null;
 
         var contest = _mapper.Map<PdfContest>(vote.Contest);
-        PdfContestDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details, domainOfInfluence!.Type);
 
-        // we don't need this data in the xml
-        contest.Details ??= new();
-        contest.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        PdfVoteUtil.SetLabels(pdfVote);
 
         var templateBag = new PdfTemplateBag
         {

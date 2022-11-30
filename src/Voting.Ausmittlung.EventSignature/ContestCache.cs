@@ -12,16 +12,10 @@ namespace Voting.Ausmittlung.EventSignature;
 /// A contest cache which stores <see cref="ContestCacheEntry"/>.
 /// Thread-safety is in the responsibility of the caller. The caller can acquire a write lock by calling BatchWrite().
 /// </summary>
-public class ContestCache : IDisposable, IContestKeyDataProvider
+public class ContestCache : IDisposable
 {
     private readonly Dictionary<Guid, ContestCacheEntry> _cacheEntries = new();
     private readonly AsyncReaderWriterLock _lock = new AsyncReaderWriterLock();
-
-    public T WithKeyData<T>(Guid contestId, Func<ContestCacheEntryKeyData?, T> f)
-    {
-        using var cacheReader = _lock.ReaderLock();
-        return f(Get(contestId).KeyData);
-    }
 
     /// <summary>
     /// Gets the contest cache entry. The caller should have a write lock per <see cref="BatchWrite"/> to ensure thread-safety.

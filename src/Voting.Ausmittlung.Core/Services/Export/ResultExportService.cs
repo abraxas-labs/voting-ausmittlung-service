@@ -30,6 +30,7 @@ using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.DokConnector.Service;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.VotingExports.Repository;
@@ -237,8 +238,17 @@ public class ResultExportService
         CancellationToken ct = default)
     {
         using var scope = _serviceProvider.CreateScopeCopyAuthAndLanguage();
-        var service = scope.ServiceProvider.GetRequiredService<ResultExportService>();
-        await service.GenerateExportsFromConfiguration(export, triggerMode, ct);
+        try
+        {
+            var service = scope.ServiceProvider.GetRequiredService<ResultExportService>();
+            await service.GenerateExportsFromConfiguration(export, triggerMode, ct);
+        }
+        catch (Exception ex)
+        {
+            // Because this method is not awaited, we need to catch all exceptions and log them here
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<ResultExportService>>();
+            logger.LogError(ex, "Failed to generate export in new scope");
+        }
     }
 
     private async Task GenerateExportsFromConfiguration(ResultExportConfiguration export, ResultExportTriggerMode triggerMode, CancellationToken ct = default)
@@ -253,13 +263,31 @@ public class ResultExportService
         _logger.LogInformation("working on result export {ExportId} ({JobId})", export.ExportConfigurationId, jobId);
         await PublishTriggeredEventForAutomatedExport(export, triggerMode, jobId);
 
-        var exportKeys = export.ExportKeys.Where(key => !_publisherConfig.DisabledExportTemplateKeys.Contains(key));
+        var exportKeys = new List<string>();
+        foreach (var key in export.ExportKeys)
+        {
+            if (_publisherConfig.DisabledExportTemplateKeys.Contains(key))
+            {
+                _logger.LogDebug("Ignoring result export {TemplateKey}, because it is disable via config", key);
+                continue;
+            }
+
+            if (!TemplateRepository.TryGetByKey(key, out _))
+            {
+                // Templates may have been removed (by a developer), but they may still exist in an export configuration
+                _logger.LogWarning("Ignoring result export {TemplateKey}, because the key was not found in the template repository", key);
+                continue;
+            }
+
+            exportKeys.Add(key);
+        }
+
         await foreach (var file in _exportService.GenerateResultExportsIgnoreErrors(exportKeys, export, ct))
         {
             try
             {
-                var fileId = await _dokConnector.Save(export.EaiMessageType, file, ct);
-                await PublishGeneratedEventForAutomatedExport(export, file, jobId, fileId);
+                var response = await _dokConnector.Upload(export.EaiMessageType, file.Filename, file.Write, ct);
+                await PublishGeneratedEventForAutomatedExport(export, file, jobId, response.FileId);
             }
             catch (Exception e)
             {
@@ -383,10 +411,10 @@ public class ResultExportService
         // We don't care about the order of these events or whether other export events have been generated concurrently
         var streamName = ExportsStreamNamePrefix + contestId;
         var eventId = Uuid.NewUuid().ToGuid();
-        var eventMetadata = _eventSignatureService.BuildEventSignatureMetadata(streamName, eventData, contestId, eventId);
+        var eventMetadata = _eventSignatureService.BuildBusinessMetadata(streamName, eventData, contestId, eventId);
         return _eventPublisher.PublishWithoutIdempotencyGuarantee(streamName, new EventWithMetadata(
             eventData,
-            _mapper.Map<EventSignatureMetadata>(eventMetadata),
+            _mapper.Map<EventSignatureBusinessMetadata>(eventMetadata),
             eventId));
     }
 

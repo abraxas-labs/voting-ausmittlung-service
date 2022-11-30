@@ -5,9 +5,11 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
@@ -550,9 +552,11 @@
   </ProportionalElection>
   <DomainOfInfluence>
     <Name>Uzwil</Name>
+    <NameForProtocol>Stadt Uzwil</NameForProtocol>
     <ShortName>Uzwil</ShortName>
     <AuthorityName />
     <Code>C3443</Code>
+    <SortNumber>3</SortNumber>
     <Bfs>3443</Bfs>
     <Type>Sk</Type>
     <Canton>Sg</Canton>

@@ -10,7 +10,6 @@ using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
 
@@ -25,9 +24,7 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
     public ContestCountingCircleDetailsAggregate(
         IMapper mapper,
         EventInfoProvider eventInfoProvider,
-        IValidator<ContestCountingCircleDetails> validator,
-        EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+        IValidator<ContestCountingCircleDetails> validator)
     {
         _mapper = mapper;
         _eventInfoProvider = eventInfoProvider;
@@ -64,7 +61,7 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
 
         _mapper.Map(details.VotingCards, createEv.VotingCards);
 
-        RaiseEvent(createEv, new EventSignatureDomainData(contestId));
+        RaiseEvent(createEv, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void UpdateFrom(ContestCountingCircleDetails details, Guid contestId, Guid ccId)
@@ -95,7 +92,22 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
 
         _mapper.Map(details.VotingCards, ev.VotingCards);
 
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public void Reset()
+    {
+        EnsureInTestingPhase();
+
+        var ev = new ContestCountingCircleDetailsResetted
+        {
+            Id = Id.ToString(),
+            ContestId = ContestId.ToString(),
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+        };
+
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     protected override void Apply(IMessage eventData)
@@ -107,6 +119,9 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
                 break;
             case ContestCountingCircleDetailsUpdated e:
                 Apply(e);
+                break;
+            case ContestCountingCircleDetailsResetted _:
+                ApplyReset();
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
         }
@@ -128,6 +143,21 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
         _mapper.Map(ev, this);
     }
 
+    private void ApplyReset()
+    {
+        foreach (var votingCard in VotingCards.Where(vc => vc.Channel != Data.Models.VotingChannel.EVoting))
+        {
+            votingCard.CountOfReceivedVotingCards = 0;
+        }
+
+        foreach (var subTotal in CountOfVotersInformation.SubTotalInfo)
+        {
+            subTotal.CountOfVoters = 0;
+        }
+
+        CountOfVotersInformation.TotalCountOfVoters = 0;
+    }
+
     private void EnsureUniqueDetails(ContestCountingCircleDetails details)
     {
         if (details.CountOfVotersInformation.SubTotalInfo
@@ -142,6 +172,14 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             .Any(x => x.Count() > 1))
         {
             throw new ValidationException("duplicated voting card details found");
+        }
+    }
+
+    private void EnsureInTestingPhase()
+    {
+        if (Id != AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestId, CountingCircleId, false))
+        {
+            throw new ValidationException($"Contest counting circle details {Id} is not in testing phase");
         }
     }
 }

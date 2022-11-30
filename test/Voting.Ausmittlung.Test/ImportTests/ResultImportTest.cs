@@ -397,6 +397,26 @@ public class ResultImportTest : BaseRestTest
     }
 
     [Fact]
+    public async Task MajorityElectionImportWithEmptyPositionsButSingleMandateShouldThrow()
+    {
+        await ModifyDbEntities(
+            (MajorityElection el) => el.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
+            el => el.NumberOfMandates = 1);
+
+        TrySetFakeAuth();
+        var req = NewSimpleMajorityElectionImportData(new[]
+        {
+            new EVotingElectionBallot(
+                null,
+                false,
+                new[] { EVotingElectionBallotPosition.Empty }),
+        });
+        await AssertException<ValidationException>(
+            () => _importWriter.Import(req, ImportMeta),
+            "empty position provided with single mandate");
+    }
+
+    [Fact]
     public Task ProportionalElectionImportWithTooManyPositionsShouldThrow()
     {
         TrySetFakeAuth();

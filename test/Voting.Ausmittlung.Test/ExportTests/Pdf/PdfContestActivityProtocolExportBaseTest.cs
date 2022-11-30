@@ -7,8 +7,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
-using Abraxas.Voting.Basis.Events.V1.Metadata;
-using AutoMapper;
 using EventStore.Client;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
@@ -21,6 +19,7 @@ using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Ausmittlung.Test.MockedData.Mapping;
 using Voting.Lib.Cryptography.Asymmetric;
 using Voting.Lib.Cryptography.Testing.Mocks;
 using Voting.Lib.Eventing.Persistence;
@@ -28,8 +27,10 @@ using Voting.Lib.Eventing.Testing.Mocks;
 using Voting.Lib.Iam.Models;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
-using EventSignatureMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureMetadata;
-using ProtoBasisEvents = Abraxas.Voting.Basis.Events.V1.Data;
+using EventSignatureBusinessMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
+using EventSignaturePublicKeyMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignaturePublicKeyMetadata;
+using ProtoBasisEventMetadata = Abraxas.Voting.Basis.Events.V1.Metadata;
+using ProtoBasisEvents = Abraxas.Voting.Basis.Events.V1;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -48,9 +49,9 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
 
     ~PdfContestActivityProtocolExportBaseTest()
     {
-        KeyHost1?.Dispose();
-        KeyHost1AfterReboot?.Dispose();
-        KeyHost2?.Dispose();
+        AusmittlungKeyHost1?.Dispose();
+        AusmittlungKeyHost1AfterReboot?.Dispose();
+        AusmittlungKeyHost2?.Dispose();
     }
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
@@ -63,7 +64,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
 
     protected AsymmetricAlgorithmAdapterMock AsymmetricAlgorithmAdapter => GetService<AsymmetricAlgorithmAdapterMock>();
 
-    protected IMapper Mapper => GetService<IMapper>();
+    protected TestMapper Mapper => GetService<TestMapper>();
 
     protected EventSignatureService EventSignatureService => GetService<EventSignatureService>();
 
@@ -71,15 +72,19 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
 
     protected string MonitoringUserId { get; } = "monitoring-admin";
 
-    protected Guid ContestId { get; } = Guid.Parse(ContestMockedData.IdBundesurnengang);
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
+    protected Guid ContestIdGuid { get; } = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
     protected Guid CountingCircleId { get; } = CountingCircleMockedData.GuidGossau;
 
-    protected EcdsaPrivateKey? KeyHost1 { get; private set; }
+    protected EcdsaPrivateKey? AusmittlungKeyHost1 { get; private set; }
 
-    protected EcdsaPrivateKey? KeyHost2 { get; private set; }
+    protected EcdsaPrivateKey? AusmittlungKeyHost2 { get; private set; }
 
-    protected EcdsaPrivateKey? KeyHost1AfterReboot { get; private set; }
+    protected EcdsaPrivateKey? AusmittlungKeyHost1AfterReboot { get; private set; }
+
+    protected EcdsaPrivateKey? BasisKeyHost1 { get; private set; }
 
     public override async Task InitializeAsync()
     {
@@ -87,12 +92,20 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         EventReaderMockStore.Clear();
 
         AsymmetricAlgorithmAdapter.SetNextKeyIndex(0);
-        KeyHost1 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
+        AusmittlungKeyHost1 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
         AsymmetricAlgorithmAdapter.SetNextKeyIndex(1);
-        KeyHost2 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
+        AusmittlungKeyHost2 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
         AsymmetricAlgorithmAdapter.SetNextKeyIndex(2);
-        KeyHost1AfterReboot = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
+        AusmittlungKeyHost1AfterReboot = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
+        AsymmetricAlgorithmAdapter.SetNextKeyIndex(3);
+        BasisKeyHost1 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
         await base.InitializeAsync();
+    }
+
+    public override Task TestPdfAfterTestingPhaseEnded()
+    {
+        // The contest activity protocol is a special case, no need to test it immediately after the testing phase has ended
+        return Task.CompletedTask;
     }
 
     protected override GenerateResultExportsRequest NewRequest()
@@ -117,60 +130,118 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    protected void SeedPublicKeySignatureEvents()
+    protected void SeedAusmittlungPublicKeySignatureEvents()
     {
-        var protoContestId = ContestId.ToString();
-        var aggregateName = AggregateNames.ContestEventSignature;
-
-        var publicKeySignatureHost1 = EventSignatureService.CreatePublicKeySignature(new PublicKeySignaturePayload(
+        // Create public key for "Host1"
+        var publicKeySignatureHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
             EventSignatureVersions.V1,
-            ContestId,
+            ContestIdGuid,
             Host1,
-            KeyHost1!.Id,
-            KeyHost1.PublicKey,
+            AusmittlungKeyHost1!.Id,
+            AusmittlungKeyHost1.PublicKey,
             new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc),
-            new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc)));
-        var publicKeySignedHost1 = Mapper.Map<EventSignaturePublicKeySigned>(publicKeySignatureHost1);
-        publicKeySignedHost1.EventInfo = GetEventInfo(0);
+            new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc));
 
-        PublishAusmittlungEvent(publicKeySignedHost1, protoContestId, Host1, aggregateName: aggregateName);
+        var publicKeyHost1Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+            publicKeySignatureHost1CreateAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeySignatureHost1CreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost1)));
 
-        var publicKeySignatureHost2 = EventSignatureService.CreatePublicKeySignature(new PublicKeySignaturePayload(
+        var publicKeyHost1Created = Mapper.Map<EventSignaturePublicKeyCreated>(publicKeyHost1Create);
+        publicKeyHost1Created.EventInfo = GetEventInfo(0);
+        PublishAusmittlungPublicKeyEvent(publicKeyHost1Created, publicKeyHost1Create.HsmSignature);
+
+        // Create public key for "Host2"
+        var publicKeySignatureHost2CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
             EventSignatureVersions.V1,
-            ContestId,
+            ContestIdGuid,
             Host2,
-            KeyHost2!.Id,
-            KeyHost2.PublicKey,
+            AusmittlungKeyHost2!.Id,
+            AusmittlungKeyHost2.PublicKey,
             new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc),
-            new DateTime(2020, 7, 17, 10, 10, 0, DateTimeKind.Utc)));
-        var publicKeySignedHost2 = Mapper.Map<EventSignaturePublicKeySigned>(publicKeySignatureHost2);
-        publicKeySignedHost2.EventInfo = GetEventInfo(0);
-        PublishAusmittlungEvent(publicKeySignedHost2, protoContestId, Host2, aggregateName: aggregateName);
+            new DateTime(2020, 7, 17, 10, 10, 0, DateTimeKind.Utc));
 
-        var publicKeySignatureHost2Delete = new EventSignaturePublicKeyDeleted
-        {
-            ContestId = ContestId.ToString(),
-            HostId = Host2,
-            KeyId = KeyHost2!.Id,
-            EventInfo = GetEventInfo(40), // 2020-07-17 10:09:00
-        };
-        PublishAusmittlungEvent(publicKeySignatureHost2Delete, protoContestId, Host2, aggregateName: aggregateName);
+        var publicKeyHost2Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+            publicKeySignatureHost2CreateAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeySignatureHost2CreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost2)));
 
-        var publicKeySignatureHost1AfterReboot = EventSignatureService.CreatePublicKeySignature(new PublicKeySignaturePayload(
+        var publicKeyHost2Created = Mapper.Map<EventSignaturePublicKeyCreated>(publicKeyHost2Create);
+        publicKeyHost2Created.EventInfo = GetEventInfo(0);
+        PublishAusmittlungPublicKeyEvent(publicKeyHost2Created, publicKeyHost2Create.HsmSignature);
+
+        var publicKeyHost2DeleteAuthTagPayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
             EventSignatureVersions.V1,
-            ContestId,
-            Host1,
-            KeyHost1AfterReboot!.Id,
-            KeyHost1AfterReboot.PublicKey,
-            new DateTime(2020, 7, 17, 10, 20, 20, DateTimeKind.Utc),
-            new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc)));
-        var publicKeySignedHost1AfterReboot = Mapper.Map<EventSignaturePublicKeySigned>(publicKeySignatureHost1AfterReboot);
-        publicKeySignedHost1AfterReboot.EventInfo = GetEventInfo(0);
+            ContestIdGuid,
+            Host2,
+            AusmittlungKeyHost2.Id,
+            new DateTime(2020, 7, 17, 10, 9, 0, DateTimeKind.Utc),
+            0);
 
-        PublishAusmittlungEvent(publicKeySignedHost1AfterReboot, protoContestId, Host1, aggregateName: aggregateName);
+        var publicKeyHost2Delete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
+            publicKeyHost2DeleteAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost2DeleteAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost2)));
+
+        var publicKeyHost2Deleted = Mapper.Map<EventSignaturePublicKeyDeleted>(publicKeyHost2Delete);
+        publicKeyHost2Deleted.EventInfo = GetEventInfo(40);
+        PublishAusmittlungPublicKeyEvent(publicKeyHost2Deleted, publicKeyHost2Delete.HsmSignature);
+
+        // Create public key for "Host1 After Reboot"
+        var publicKeyHost1AfterRebootCreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
+            EventSignatureVersions.V1,
+            ContestIdGuid,
+            Host1,
+            AusmittlungKeyHost1AfterReboot!.Id,
+            AusmittlungKeyHost1AfterReboot.PublicKey,
+            new DateTime(2020, 7, 17, 10, 20, 20, DateTimeKind.Utc),
+            new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc));
+
+        var publicKeyHost1AfterRebootCreate = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+            publicKeyHost1AfterRebootCreateAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterRebootCreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost1AfterReboot)));
+
+        var publicKeyHost1AfterRebootCreated = Mapper.Map<EventSignaturePublicKeyCreated>(publicKeyHost1AfterRebootCreate);
+        publicKeyHost1AfterRebootCreated.EventInfo = GetEventInfo(0);
+
+        PublishAusmittlungPublicKeyEvent(publicKeyHost1AfterRebootCreated, publicKeyHost1AfterRebootCreate.HsmSignature);
     }
 
-    protected void PublishAusmittlungEvent<TEventData>(
+    protected void SeedBasisPublicKeySignatureEvents()
+    {
+        // Create public key for "Host1".
+        var publicKeyHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
+            EventSignatureVersions.V1,
+            ContestIdGuid,
+            Host1,
+            BasisKeyHost1!.Id,
+            BasisKeyHost1.PublicKey,
+            new DateTime(2020, 7, 17, 10, 0, 0, DateTimeKind.Utc),
+            new DateTime(2020, 7, 17, 23, 0, 0, DateTimeKind.Utc));
+
+        var publicKeyHost1Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+            publicKeyHost1CreateAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1CreateAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1)));
+
+        var publicKeyHost1Created = Mapper.Map<ProtoBasisEvents.EventSignaturePublicKeyCreated>(publicKeyHost1Create);
+        publicKeyHost1Created.EventInfo = GetBasisEventInfo(0);
+        PublishBasisPublicKeyEvent(publicKeyHost1Created, publicKeyHost1Create.HsmSignature);
+
+        var publicKeyHost1DeleteAuthTagPayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
+            EventSignatureVersions.V1,
+            ContestIdGuid,
+            Host1,
+            BasisKeyHost1!.Id,
+            new DateTime(2020, 7, 17, 10, 45, 24, DateTimeKind.Utc),
+            0);
+
+        var publicKeyHost1Delete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
+            publicKeyHost1DeleteAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1DeleteAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1)));
+
+        var publicKeyHost1Deleted = Mapper.Map<ProtoBasisEvents.EventSignaturePublicKeyDeleted>(publicKeyHost1Delete);
+        publicKeyHost1Deleted.EventInfo = GetBasisEventInfo(40);
+        PublishBasisPublicKeyEvent(publicKeyHost1Deleted, publicKeyHost1Delete.HsmSignature);
+    }
+
+    protected void PublishAusmittlungBusinessEvent<TEventData>(
         TEventData eventData,
         string protoAggregateId,
         string host = "",
@@ -184,17 +255,17 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         var streamName = AggregateNames.Build(aggregateName ?? string.Empty, id);
         var eventInfo = EventInfoUtils.GetEventInfo(eventData);
         var timestamp = eventInfo.Timestamp.ToDateTime();
-        contestId ??= ContestId;
+        contestId ??= ContestIdGuid;
 
-        var eventMetadata = new EventSignatureMetadata { ContestId = contestId.Value.ToString() };
+        var eventMetadata = new EventSignatureBusinessMetadata { ContestId = contestId.Value.ToString() };
 
         if (key != null)
         {
             eventMetadata.HostId = host;
             eventMetadata.KeyId = key.Id;
             eventMetadata.SignatureVersion = EventSignatureVersions.V1;
-            eventMetadata.Signature = ByteString.CopyFrom(EventSignatureService.CreateEventSignature(
-                EventSignatureService.BuildEventSignaturePayload(
+            eventMetadata.Signature = ByteString.CopyFrom(EventSignatureService.CreateBusinessSignature(
+                EventSignatureService.BuildBusinessPayload(
                     eventId,
                     eventMetadata.SignatureVersion,
                     streamName,
@@ -218,20 +289,99 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new ReportingDomainEvent(eventId, id, eventData, eventMetadata, position, timestamp));
     }
 
-    protected void PublishBasisEvent<TEventData>(TEventData eventData, string protoAggregateId, Guid? contestId, string? aggregateName = null)
+    protected void PublishAusmittlungPublicKeyEvent<TEventData>(
+        TEventData eventData,
+        byte[] hsmSignature,
+        Guid? contestId = null)
+        where TEventData : IMessage<TEventData>
+    {
+        var id = contestId ?? ContestIdGuid;
+        var eventId = Guid.NewGuid();
+
+        var streamName = AggregateNames.Build(AggregateNames.ContestEventSignatureAusmittlung, id);
+        var eventMetadata = new EventSignaturePublicKeyMetadata { HsmSignature = ByteString.CopyFrom(hsmSignature) };
+
+        var position = GetNextPosition();
+        var number = GetNextNumber();
+        var eventInfo = EventInfoUtils.GetEventInfo(eventData);
+        var timestamp = eventInfo.Timestamp.ToDateTime();
+
+        EventReaderMockStore.AddEvent(
+            streamName,
+            new EventReaderMockStoreData(new EventWithMetadata(eventData, eventMetadata), position, number, timestamp));
+
+        AggregateRepositoryMockStore.AddEvent(
+            id,
+            new ReportingDomainEvent(eventId, id, eventData, eventMetadata, position, timestamp));
+    }
+
+    protected void PublishBasisPublicKeyEvent<TEventData>(
+        TEventData eventData,
+        byte[] hsmSignature,
+        Guid? contestId = null)
+        where TEventData : IMessage<TEventData>
+    {
+        var id = contestId ?? ContestIdGuid;
+        var eventId = Guid.NewGuid();
+
+        var streamName = AggregateNames.Build(AggregateNames.ContestEventSignatureBasis, id);
+        var eventMetadata = new ProtoBasisEventMetadata.EventSignaturePublicKeyMetadata { HsmSignature = ByteString.CopyFrom(hsmSignature) };
+
+        var position = GetNextPosition();
+        var number = GetNextNumber();
+        var eventInfo = EventInfoUtils.GetEventInfo(eventData);
+        var timestamp = eventInfo.Timestamp.ToDateTime();
+
+        EventReaderMockStore.AddEvent(
+            streamName,
+            new EventReaderMockStoreData(new EventWithMetadata(eventData, eventMetadata), position, number, timestamp));
+
+        AggregateRepositoryMockStore.AddEvent(
+            id,
+            new ReportingDomainEvent(eventId, id, eventData, eventMetadata, position, timestamp));
+    }
+
+    protected void PublishBasisBusinessEvent<TEventData>(
+        TEventData eventData,
+        string protoAggregateId,
+        string host = "",
+        EcdsaPrivateKey? key = null,
+        Guid? contestId = null,
+        string? aggregateName = null)
         where TEventData : IMessage<TEventData>
     {
         var eventId = Guid.NewGuid();
         var id = Guid.Parse(protoAggregateId);
+        var streamName = AggregateNames.Build(aggregateName ?? string.Empty, id);
         var eventInfo = EventInfoUtils.GetEventInfo(eventData);
-        var eventMetadata = contestId != null ? new EventMetadata { ContestId = contestId.ToString() } : null;
-        var stream = AggregateNames.Build(aggregateName ?? string.Empty, id);
+        var timestamp = eventInfo.Timestamp.ToDateTime();
+        contestId ??= ContestIdGuid;
+
+        var eventMetadata = new ProtoBasisEventMetadata.EventSignatureBusinessMetadata { ContestId = contestId.Value.ToString() };
+
+        if (key != null)
+        {
+            eventMetadata.HostId = host;
+            eventMetadata.KeyId = key.Id;
+            eventMetadata.SignatureVersion = EventSignatureVersions.V1;
+            eventMetadata.Signature = ByteString.CopyFrom(EventSignatureService.CreateBusinessSignature(
+                EventSignatureService.BuildBusinessPayload(
+                    eventId,
+                    eventMetadata.SignatureVersion,
+                    streamName,
+                    contestId.Value,
+                    eventData,
+                    host,
+                    key.Id,
+                    eventInfo.Timestamp.ToDateTime()),
+                key));
+        }
+
         var position = GetNextPosition();
         var number = GetNextNumber();
-        var timestamp = eventInfo.Timestamp.ToDateTime();
 
         EventReaderMockStore.AddEvent(
-            stream,
+            streamName,
             new EventReaderMockStoreData(new EventWithMetadata(eventData, eventMetadata, eventId), position, number, timestamp));
 
         AggregateRepositoryMockStore.AddEvent(
@@ -252,16 +402,16 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         };
     }
 
-    protected ProtoBasisEvents.EventInfo GetBasisEventInfo(long timestampOffset, bool monitoring = false)
+    protected ProtoBasisEvents.Data.EventInfo GetBasisEventInfo(long timestampOffset, bool monitoring = false)
     {
-        return new ProtoBasisEvents.EventInfo
+        return new ProtoBasisEvents.Data.EventInfo
         {
             Timestamp = new Timestamp
             {
                 Seconds = 1594980500 + timestampOffset,
             },
             Tenant = ToEventInfoTenant(monitoring ? SecureConnectTestDefaults.MockedTenantStGallen : SecureConnectTestDefaults.MockedTenantGossau),
-            User = monitoring ? new ProtoBasisEvents.EventInfoUser { Id = MonitoringUserId } : ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
+            User = monitoring ? new ProtoBasisEvents.Data.EventInfoUser { Id = MonitoringUserId } : ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
         };
     }
 
@@ -275,18 +425,18 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         return new StreamPosition(_eventNumber++);
     }
 
-    private ProtoBasisEvents.EventInfoTenant ToEventInfoTenant(Tenant tenant)
+    private ProtoBasisEvents.Data.EventInfoTenant ToEventInfoTenant(Tenant tenant)
     {
-        return new ProtoBasisEvents.EventInfoTenant
+        return new ProtoBasisEvents.Data.EventInfoTenant
         {
             Id = tenant.Id,
             Name = tenant.Name,
         };
     }
 
-    private ProtoBasisEvents.EventInfoUser ToEventInfoUser(User user)
+    private ProtoBasisEvents.Data.EventInfoUser ToEventInfoUser(User user)
     {
-        return new ProtoBasisEvents.EventInfoUser
+        return new ProtoBasisEvents.Data.EventInfoUser
         {
             Id = user.Loginid,
             FirstName = user.Firstname ?? string.Empty,

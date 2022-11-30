@@ -42,19 +42,16 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
         var data = await _repo.Query()
-                       .AsSplitQuery()
-                       .Include(x => x.EndResult!.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
-                       .Include(x => x.Results).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.Candidate.Translations)
-                       .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
-                       .Include(x => x.DomainOfInfluence)
-                       .Include(x => x.Contest.DomainOfInfluence)
-                       .Include(x => x.Contest.Translations)
-                       .Include(x => x.Contest.Details)
-                       .Include(x => x.Contest.Details!.VotingCards)
-                       .Include(x => x.Translations)
-                       .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessId, ct)
-                   ?? throw new ValidationException(
-                       $"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
+            .AsSplitQuery()
+            .Include(x => x.EndResult!.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.Results).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
+            .Include(x => x.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.Contest.DomainOfInfluence)
+            .Include(x => x.Contest.Translations)
+            .Include(x => x.Translations)
+            .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessId, ct)
+            ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
 
         var ccDetailsList = await _ccDetailsRepo
             .Query()
@@ -62,7 +59,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .Where(x => x.ContestId == data.ContestId)
             .ToListAsync(ct);
 
-        var (doiResults, notAssignableResult) = await _doiResultBuilder.BuildResults(data, ccDetailsList);
+        var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResults(data, ccDetailsList);
 
         // don't map results
         data.Results = new List<MajorityElectionResult>();
@@ -70,7 +67,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         var pdfCcDetails = _mapper.Map<List<PdfContestCountingCircleDetails>>(ccDetailsList);
         foreach (var details in pdfCcDetails)
         {
-            PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(details, data.DomainOfInfluence.Type);
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(details, data.DomainOfInfluence.Type);
 
             // we don't need this data in the xml
             details.VotingCards = new List<PdfVotingCardResultDetail>();
@@ -88,6 +85,9 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .Concat(majorityElection.Results)
             .ToList();
 
+        majorityElection.AggregatedDomainOfInfluenceResult = _mapper.Map<PdfMajorityElectionDomainOfInfluenceResult>(aggregatedResult);
+        majorityElection.AggregatedDomainOfInfluenceResult.Results = null;
+
         PdfCountingCircleResultUtil.MapContestCountingCircleDetailsToResults(pdfCcDetails, doiCcResults);
         PdfCountingCircleResultUtil.RemoveContactPersonDetails(doiCcResults);
 
@@ -95,13 +95,14 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
 
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = majorityElection.DomainOfInfluence;
+        domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+
+        // we don't need this data in the xml
+        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
         majorityElection.DomainOfInfluence = null;
 
         var contest = _mapper.Map<PdfContest>(data.Contest);
-        PdfContestDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details!, domainOfInfluence!.Type);
-
-        // we don't need this data in the xml
-        contest.Details!.VotingCards = new List<PdfVotingCardResultDetail>();
 
         var templateBag = new PdfTemplateBag
         {
@@ -109,9 +110,9 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             Contest = contest,
             DomainOfInfluence = domainOfInfluence,
             MajorityElections = new List<PdfMajorityElection>
-                {
-                    majorityElection,
-                },
+            {
+                majorityElection,
+            },
         };
 
         return await _templateService.RenderToPdf(

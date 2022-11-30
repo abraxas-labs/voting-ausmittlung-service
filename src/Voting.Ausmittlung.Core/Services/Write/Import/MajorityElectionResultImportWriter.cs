@@ -54,6 +54,12 @@ public class MajorityElectionResultImportWriter : MajorityElectionResultImportWr
             .ToListAsync();
     }
 
+    protected override async Task<MajorityElection> GetElection(Guid electionId)
+    {
+        return await _majorityElectionRepo.GetByKey(electionId)
+               ?? throw new EntityNotFoundException(electionId);
+    }
+
     protected override Task<List<Guid>> GetCandidateIds(Guid electionId)
     {
         return _candidateRepo.Query()

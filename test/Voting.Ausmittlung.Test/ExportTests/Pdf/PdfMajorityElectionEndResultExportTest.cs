@@ -23,6 +23,8 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest<Generate
 
     protected override string NewRequestExpectedFileName => "Wahlprotokoll Gesamtergebnis aller Einheiten - Majorzw de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
@@ -33,18 +35,18 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest<Generate
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
+            {
+                new GenerateResultExportRequest
                 {
-                    new GenerateResultExportRequest
+                    Key = AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key,
+                    PoliticalBusinessIds =
                     {
-                        Key = AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                        },
+                        Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
                     },
                 },
+            },
         };
     }
 

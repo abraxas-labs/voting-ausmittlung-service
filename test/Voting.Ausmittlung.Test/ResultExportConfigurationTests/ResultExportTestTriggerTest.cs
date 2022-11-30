@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -11,7 +13,7 @@ using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Ausmittlung.Test.Mocks;
+using Voting.Lib.DokConnector.Testing.Service;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -40,8 +42,15 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     {
         await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
         var connector = GetService<DokConnectorMock>();
-        var save = await connector.WaitForNextSave();
-        save.MatchSnapshot();
+        var save = await connector.NextUpload(CancellationToken.None);
+
+        // This is a CSV export, so we better use the textual representation as snapshot
+        new
+        {
+            save.FileName,
+            save.MessageType,
+            Data = Encoding.UTF8.GetString(save.Data),
+        }.MatchSnapshot();
     }
 
     [Fact]

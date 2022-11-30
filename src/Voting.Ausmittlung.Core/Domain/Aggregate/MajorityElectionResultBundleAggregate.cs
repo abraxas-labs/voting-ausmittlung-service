@@ -9,7 +9,6 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
@@ -21,8 +20,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
     private readonly EventInfoProvider _eventInfoProvider;
     private readonly IMapper _mapper;
 
-    public MajorityElectionResultBundleAggregate(EventInfoProvider eventInfoProvider, IMapper mapper, EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+    public MajorityElectionResultBundleAggregate(EventInfoProvider eventInfoProvider, IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _mapper = mapper;
@@ -63,7 +61,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 ResultEntry = _mapper.Map<Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionResultEntry>(resultEntry),
                 ResultEntryParams = _mapper.Map<MajorityElectionResultEntryParamsEventData>(resultEntryParams),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void CreateBallot(
@@ -95,7 +93,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 },
         };
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void UpdateBallot(
@@ -140,7 +138,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 },
         };
         _mapper.Map(secondaryResultBallots, ev.SecondaryMajorityElectionResults);
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void DeleteBallot(int ballotNumber, Guid contestId)
@@ -159,7 +157,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 ElectionResultId = PoliticalBusinessResultId.ToString(),
                 BallotNumber = ballotNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void SubmissionFinished(Guid contestId)
@@ -177,7 +175,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             ElectionResultId = PoliticalBusinessResultId.ToString(),
         };
         ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void CorrectionFinished(Guid contestId)
@@ -195,7 +193,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
             ElectionResultId = PoliticalBusinessResultId.ToString(),
         };
         ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void RejectReview(Guid contestId)
@@ -207,7 +205,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void SucceedReview(Guid contestId)
@@ -219,7 +217,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void Delete(Guid contestId)
@@ -235,7 +233,7 @@ public class MajorityElectionResultBundleAggregate : PoliticalBusinessResultBund
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)

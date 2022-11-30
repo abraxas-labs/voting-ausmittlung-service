@@ -5,9 +5,11 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
@@ -534,9 +536,11 @@
   </ProportionalElection>
   <DomainOfInfluence>
     <Name>St. Gallen</Name>
+    <NameForProtocol>Kanton St. Gallen</NameForProtocol>
     <ShortName>St. Gallen</ShortName>
     <AuthorityName />
     <Code>0002-SG</Code>
+    <SortNumber>2</SortNumber>
     <Bfs>0002</Bfs>
     <Type>Ct</Type>
     <Canton>Sg</Canton>

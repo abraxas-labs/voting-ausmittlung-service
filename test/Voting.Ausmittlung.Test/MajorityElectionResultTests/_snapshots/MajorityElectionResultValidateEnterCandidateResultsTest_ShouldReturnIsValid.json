@@ -132,12 +132,12 @@
       "VoteAccountedBallotsEqualQnData": null,
       "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": {
         "EmptyVoteCount": 38,
-        "InvalidVoteCount": 2,
+        "InvalidVoteCount": 77,
         "CandidateVotesInclIndividual": 35,
-        "NumberOfMandates": 1,
+        "NumberOfMandates": 2,
         "TotalAccountedBallots": 75,
-        "SumVoteCount": 75,
-        "NumberOfMandatesTimesAccountedBallots": 75
+        "SumVoteCount": 150,
+        "NumberOfMandatesTimesAccountedBallots": 150
       },
       "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
       "ComparisonVoterParticipationsData": null,

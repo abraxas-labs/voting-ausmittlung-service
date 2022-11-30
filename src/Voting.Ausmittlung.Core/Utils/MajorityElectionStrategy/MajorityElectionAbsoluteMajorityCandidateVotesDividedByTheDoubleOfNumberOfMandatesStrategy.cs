@@ -10,7 +10,7 @@ public class MajorityElectionAbsoluteMajorityCandidateVotesDividedByTheDoubleOfN
 {
     public override CantonMajorityElectionAbsoluteMajorityAlgorithm? AbsoluteMajorityAlgorithm => CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates;
 
-    public override int CalculateAbsoluteMajority(MajorityElectionEndResult majorityElectionEndResult)
+    public override void CalculateAbsoluteMajority(MajorityElectionEndResult majorityElectionEndResult)
     {
         var nrOfMandates = majorityElectionEndResult.MajorityElection.NumberOfMandates;
         if (nrOfMandates == 0)
@@ -18,7 +18,8 @@ public class MajorityElectionAbsoluteMajorityCandidateVotesDividedByTheDoubleOfN
             throw new ArgumentException($"{nameof(MajorityElection.NumberOfMandates)} must not be 0");
         }
 
-        var decisiveVoteCount = majorityElectionEndResult.TotalCandidateVoteCountInclIndividual;
-        return (decisiveVoteCount / nrOfMandates / 2) + 1;
+        majorityElectionEndResult.Calculation.DecisiveVoteCount = majorityElectionEndResult.TotalCandidateVoteCountInclIndividual;
+        majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold = (decimal)majorityElectionEndResult.Calculation.DecisiveVoteCount / nrOfMandates / 2;
+        majorityElectionEndResult.Calculation.AbsoluteMajority = (int)Math.Floor(majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold.Value) + 1;
     }
 }

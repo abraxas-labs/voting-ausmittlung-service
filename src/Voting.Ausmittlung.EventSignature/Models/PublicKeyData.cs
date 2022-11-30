@@ -8,12 +8,12 @@ namespace Voting.Ausmittlung.EventSignature.Models;
 
 public class PublicKeyData
 {
-    public PublicKeyData(EcdsaPublicKey key, DateTime validFrom, DateTime validTo, DateTime? deleted)
+    public PublicKeyData(EcdsaPublicKey key, DateTime validFrom, DateTime validTo, DateTime? deletedAt)
     {
         Key = key;
         ValidFrom = validFrom;
         ValidTo = validTo;
-        Deleted = deleted;
+        DeletedAt = deletedAt;
     }
 
     public EcdsaPublicKey Key { get; }
@@ -22,5 +22,5 @@ public class PublicKeyData
 
     public DateTime ValidTo { get; }
 
-    public DateTime? Deleted { get; }
+    public DateTime? DeletedAt { get; }
 }

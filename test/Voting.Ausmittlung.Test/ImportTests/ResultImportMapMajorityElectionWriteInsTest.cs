@@ -152,6 +152,42 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     }
 
     [Fact]
+    public async Task ShouldWorkAsElectionAdminWithSingleMandate()
+    {
+        await ModifyDbEntities(
+            (MajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
+            e => e.NumberOfMandates = 1);
+        await ModifyDbEntities(
+            (SecondaryMajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdUzwilMajorityElectionInContestStGallen),
+            e => e.NumberOfMandates = 1);
+        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
+        var (primaryEvent, secondaryEvent) = await MapMappings(
+            importId,
+            primaryMappings,
+            secondaryMappings,
+            (_, writeIn) => writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Invalid);
+
+        await TestEventPublisher.Publish(primaryEvent);
+        await TestEventPublisher.Publish(1, secondaryEvent);
+
+        ResetIds(primaryEvent.WriteInMappings);
+        ResetIds(secondaryEvent.WriteInMappings);
+
+        primaryEvent.ShouldMatchChildSnapshot("primary");
+        secondaryEvent.ShouldMatchChildSnapshot("secondary");
+
+        var primaryResult = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
+        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
+        primaryResult.HasUnmappedWriteIns.Should().BeFalse();
+        primaryResult.CountOfVoters.EVotingReceivedBallots.Should().Be(11);
+        primaryResult.CountOfVoters.EVotingInvalidBallots.Should().Be(6);
+        primaryResult.CountOfVoters.EVotingAccountedBallots.Should().Be(5);
+    }
+
+    [Fact]
     public async Task ShouldThrowWithInvalidVoteMappingsButNoInvalidVotes()
     {
         await ModifyDbEntities(

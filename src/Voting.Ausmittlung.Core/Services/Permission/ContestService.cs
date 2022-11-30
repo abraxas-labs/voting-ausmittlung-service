@@ -25,6 +25,14 @@ public class ContestService
         _politicalBusinessRepo = politicalBusinessRepo;
     }
 
+    public void EnsureInTestingPhase(Contest contest)
+    {
+        if (contest.State != ContestState.TestingPhase)
+        {
+            throw new ContestTestingPhaseEndedException();
+        }
+    }
+
     public async Task<(Guid ContestId, bool TestingPhaseEnded)> EnsureNotLocked(Guid id)
     {
         var contest = await _contestRepo.Query()

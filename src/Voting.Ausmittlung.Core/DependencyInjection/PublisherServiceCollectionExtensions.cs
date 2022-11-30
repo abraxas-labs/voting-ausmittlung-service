@@ -16,8 +16,11 @@ using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Core.Validation;
+using Voting.Basis.Core.EventSignature;
+using Voting.Lib.DokConnector.Service;
 using Voting.Lib.Eventing;
 using Voting.Lib.Eventing.DependencyInjection;
+using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Scheduler;
 using VotingValidators = Voting.Ausmittlung.Core.Services.Validation.Validators;
 
@@ -41,9 +44,17 @@ internal static class PublisherServiceCollection
 
     internal static IEventingServiceCollection AddPublisher(this IEventingServiceCollection services, AppConfig config)
     {
-        return config.PublisherModeEnabled
-            ? services.AddPublishing<VoteResultAggregate>().AddTransientSubscription<VoteResultAggregate>(WellKnownStreams.All)
-            : services;
+        if (config.PublisherModeEnabled)
+        {
+            services.AddPublishing<VoteResultAggregate>();
+
+            if (config.EventSignature.Enabled)
+            {
+                services.AddTransientSubscription<VoteResultAggregate>(WellKnownStreams.All);
+            }
+        }
+
+        return services;
     }
 
     private static IServiceCollection AddWriterServices(this IServiceCollection services, PublisherConfig config)
@@ -52,9 +63,10 @@ internal static class PublisherServiceCollection
             .AddValidation()
             .AddValidatorsFromAssemblyContaining<VotingCardResultDetailValidator>()
             .AddScoped<EventInfoProvider>()
-            .AddSingleton<IDokConnector, DokConnectorMock>()
+            .AddDokConnector(config)
             .AddSingleton<IActionIdComparer, ActionIdComparer>()
             .AddScheduledJobs(config)
+            .AddScoped<IAggregateRepositoryHandler, EventSignatureAggregateRepositoryHandler>()
             .AddScoped<ResultWriter>()
             .AddScoped<ContestCountingCircleDetailsWriter>()
             .AddScoped<ContestCountingCircleContactPersonWriter>()
@@ -128,5 +140,17 @@ internal static class PublisherServiceCollection
                 .AddClasses(classes => classes.AssignableTo(typeof(VotingValidators.IValidator<>)))
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
+    }
+
+    private static IServiceCollection AddDokConnector(this IServiceCollection services, PublisherConfig config)
+    {
+        if (config.EnableDokConnectorMock)
+        {
+            return services.AddSingleton<IDokConnector, DokConnectorMock>();
+        }
+
+        services.AddEaiDokConnector(config.DokConnector)
+            .AddSecureConnectServiceToken(PublisherConfig.SharedSecureConnectServiceAccountName);
+        return services;
     }
 }

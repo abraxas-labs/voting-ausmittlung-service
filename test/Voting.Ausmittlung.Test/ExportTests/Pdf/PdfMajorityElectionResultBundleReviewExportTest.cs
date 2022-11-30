@@ -30,6 +30,14 @@ public class PdfMajorityElectionResultBundleReviewExportTest : PdfExportBaseTest
 
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
+    public override Task TestPdfAfterTestingPhaseEnded()
+    {
+        // Cannot test this report, as all bundles are deleted after the testing phase ends
+        return Task.CompletedTask;
+    }
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
@@ -59,7 +67,7 @@ public class PdfMajorityElectionResultBundleReviewExportTest : PdfExportBaseTest
     {
         return new GenerateResultBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             TemplateKey = AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key,
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
             PoliticalBusinessResultBundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),

@@ -43,7 +43,11 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         await RunEvents<MajorityElectionResultEntryDefined>();
         await ModifyDbEntities<MajorityElection>(
             me => me.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
-            me => me.InvalidVotes = true);
+            me =>
+            {
+                me.InvalidVotes = true;
+                me.NumberOfMandates = 2;
+            });
     }
 
     [Fact]
@@ -103,6 +107,22 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x => x.Request.InvalidVoteCount = null));
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionInvalidVoteCountNotNull)
             .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsValidWhenEmptyVoteCountAndInvalidVoteCountAreNullWithSingleMandate()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            me => me.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            me => me.NumberOfMandates = 1);
+
+        var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x =>
+        {
+            x.Request.EmptyVoteCount = null;
+            x.Request.InvalidVoteCount = null;
+            x.Request.IndividualVoteCount = 50;
+        }));
+        result.IsValid.Should().BeTrue();
     }
 
     [Fact]
@@ -167,7 +187,7 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
                 ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
                 IndividualVoteCount = 10,
                 EmptyVoteCount = 38,
-                InvalidVoteCount = 2,
+                InvalidVoteCount = 77,
                 CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
                 {
                     ConventionalReceivedBallots = 125,

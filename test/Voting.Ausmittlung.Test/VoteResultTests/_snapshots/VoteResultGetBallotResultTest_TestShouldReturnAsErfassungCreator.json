@@ -34,7 +34,10 @@
     "ConventionalAccountedBallots": 12000,
     "TotalReceivedBallots": 20000,
     "TotalAccountedBallots": 12000,
-    "TotalUnaccountedBallots": 5000
+    "TotalUnaccountedBallots": 5000,
+    "EVotingInvalidBallots": 0,
+    "EVotingAccountedBallots": 0,
+    "TotalInvalidBallots": 3000
   },
   "QuestionResults": [
     {

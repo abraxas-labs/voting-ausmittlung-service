@@ -54,15 +54,21 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         // reset the domain of influence on the result, since this is a single domain of influence report
         var proportionalElection = Mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         var domainOfInfluence = proportionalElection.DomainOfInfluence;
+        domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+
+        // we don't need this data in the xml
+        domainOfInfluence.Details!.VotingCards = new();
         proportionalElection.DomainOfInfluence = null!;
 
         MapAdditionalElectionData(data, proportionalElection);
 
         var contest = Mapper.Map<PdfContest>(data.ProportionalElection.Contest);
-        PdfContestDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details!, domainOfInfluence!.Type);
-
-        // we don't need this data in the xml
-        contest.Details!.VotingCards = new List<PdfVotingCardResultDetail>();
+        if (contest.Details != null)
+        {
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details!, domainOfInfluence!.Type);
+            contest.Details!.VotingCards = new();
+        }
 
         var templateBag = new PdfTemplateBag
         {
@@ -90,10 +96,9 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         var query = _repo.Query()
             .AsSplitQuery()
             .Include(x => x.ProportionalElection.Translations)
-            .Include(x => x.ProportionalElection.DomainOfInfluence)
+            .Include(x => x.ProportionalElection.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.ProportionalElection.Contest.Translations)
-            .Include(x => x.ProportionalElection.Contest.DomainOfInfluence)
-            .Include(x => x.ProportionalElection.Contest.Details!.VotingCards);
+            .Include(x => x.ProportionalElection.Contest.DomainOfInfluence);
         return BuildCalculationIncludes(query);
     }
 

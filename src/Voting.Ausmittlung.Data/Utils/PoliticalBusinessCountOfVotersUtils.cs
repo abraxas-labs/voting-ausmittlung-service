@@ -20,6 +20,8 @@ public static class PoliticalBusinessCountOfVotersUtils
         target.ConventionalBlankBallots += other.ConventionalBlankBallots * deltaFactor;
         target.ConventionalAccountedBallots += other.ConventionalAccountedBallots * deltaFactor;
         target.EVotingReceivedBallots += other.EVotingReceivedBallots * deltaFactor;
+        target.EVotingInvalidBallots += other.EVotingInvalidBallots * deltaFactor;
+        target.EVotingAccountedBallots += other.EVotingAccountedBallots * deltaFactor;
         target.UpdateVoterParticipation(totalCountOfVoters);
     }
 
@@ -43,6 +45,8 @@ public static class PoliticalBusinessCountOfVotersUtils
         var sum = new PoliticalBusinessCountOfVoters
         {
             EVotingReceivedBallots = items.Sum(x => x.EVotingReceivedBallots),
+            EVotingInvalidBallots = items.Sum(x => x.EVotingInvalidBallots),
+            EVotingAccountedBallots = items.Sum(x => x.EVotingAccountedBallots),
             ConventionalReceivedBallots = items.Sum(x => x.ConventionalReceivedBallots),
             ConventionalInvalidBallots = items.Sum(x => x.ConventionalInvalidBallots),
             ConventionalBlankBallots = items.Sum(x => x.ConventionalBlankBallots),

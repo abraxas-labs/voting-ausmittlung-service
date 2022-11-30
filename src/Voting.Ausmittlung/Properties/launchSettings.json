@@ -6,7 +6,9 @@
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HTTP_PROXY": "",
+        "HTTPS_PROXY": ""
       }
     },
     "run: minimal logs": {

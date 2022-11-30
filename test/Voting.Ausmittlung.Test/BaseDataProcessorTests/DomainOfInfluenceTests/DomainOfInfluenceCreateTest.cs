@@ -36,6 +36,7 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
             {
                 Id = "3c3f3ae2-0439-4998-85ff-ae1f7eac94a3",
                 Name = "Bezirk Uzwil",
+                NameForProtocol = "Bezirk Uzwil",
                 ShortName = "BZ Uz",
                 Bfs = "1234",
                 Code = "C1234",
@@ -63,6 +64,7 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
                 {
                     Id = domainOfInfluenceId.ToString(),
                     Name = "Bezirk Uzwil",
+                    NameForProtocol = "Bezirk Uzwil",
                     ShortName = "BZ Uz",
                     Bfs = "1234",
                     Code = "C1234",

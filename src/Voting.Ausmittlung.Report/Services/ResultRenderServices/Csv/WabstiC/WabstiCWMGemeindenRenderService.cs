@@ -52,9 +52,11 @@ public class WabstiCWMGemeindenRenderService : IRendererService
                     {
                         CountingCircleId = y.CountingCircleId,
                         DomainOfInfluenceType = y.MajorityElection.DomainOfInfluence.Type,
-                        Bfs = y.CountingCircle.Bfs,
-                        Code = y.CountingCircle.Code,
-                        TotalCountOfVoters = y.TotalCountOfVoters,
+                        CountingCircleBfs = y.CountingCircle.Bfs,
+                        CountingCircleCode = y.CountingCircle.Code,
+                        PoliticalBusinessNumber = y.MajorityElection.PoliticalBusinessNumber,
+                        SortNumber = y.CountingCircle.SortNumber,
+                        CountOfVotersTotal = y.TotalCountOfVoters,
                         VoterParticipation = y.CountOfVoters.VoterParticipation,
                         TotalReceivedBallots = y.CountOfVoters.TotalReceivedBallots,
                         CountOfInvalidBallots = y.CountOfVoters.ConventionalInvalidBallots.GetValueOrDefault(),
@@ -63,6 +65,7 @@ public class WabstiCWMGemeindenRenderService : IRendererService
                         InvalidVoteCount = y.InvalidVoteCount,
                         EmptyVoteCount = y.EmptyVoteCount,
                         SubmissionDoneTimestamp = y.SubmissionDoneTimestamp,
+                        AuditedTentativelyTimestamp = y.AuditedTentativelyTimestamp,
                         ElectionId = y.MajorityElectionId,
                         ElectionUnionIds = y.MajorityElection.MajorityElectionUnionEntries
                             .Select(z => z.MajorityElectionUnionId)
@@ -95,7 +98,7 @@ public class WabstiCWMGemeindenRenderService : IRendererService
             .SelectMany(x => x.PrimaryResults)
             .ToList();
 
-        await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, majorityElectionResults, ct);
+        await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, majorityElectionResults, ct);
         AttachSecondaryResults(majorityElectionResults, groupedSecondaryResults);
 
         return _templateService.RenderToCsv(
@@ -112,19 +115,19 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         IEnumerable<Data> primaryResults,
         IReadOnlyDictionary<(Guid CountingCircleId, Guid PrimaryElectionId), List<(int InvalidVoteCount, int EmptyVoteCount)>> secondaryResults)
     {
-        foreach (var entry in primaryResults)
+        foreach (var result in primaryResults)
         {
-            if (!secondaryResults.TryGetValue((entry.CountingCircleId, entry.ElectionId), out var secondaryResult))
+            if (!secondaryResults.TryGetValue((result.CountingCircleId, result.ElectionId), out var secondaryResult))
             {
                 continue;
             }
 
-            (entry.InvalidVoteCountSecondary, entry.EmptyVoteCountSecondary) = secondaryResult.ElementAtOrDefault(0);
-            (entry.InvalidVoteCountSecondary2, entry.EmptyVoteCountSecondary2) = secondaryResult.ElementAtOrDefault(1);
+            (result.InvalidVoteCountSecondary, result.EmptyVoteCountSecondary) = secondaryResult.ElementAtOrDefault(0);
+            (result.InvalidVoteCountSecondary2, result.EmptyVoteCountSecondary2) = secondaryResult.ElementAtOrDefault(1);
         }
     }
 
-    private class Data : IWabstiCSwissAbroadCountOfVoters
+    private class Data : IWabstiCContestDetails
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -134,16 +137,37 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
 
         [Name("BfsNrGemeinde")]
-        public string Bfs { get; set; } = string.Empty;
+        public string CountingCircleBfs { get; set; } = string.Empty;
 
         [Name("EinheitCode")]
-        public string Code { get; set; } = string.Empty;
+        public string CountingCircleCode { get; set; } = string.Empty;
+
+        [Name("SortGeschaeft")]
+        public string PoliticalBusinessNumber { get; set; } = string.Empty;
+
+        [Name("SortGemeinde")]
+        public int SortNumber { get; set; }
 
         [Name("Stimmberechtigte")]
-        public int TotalCountOfVoters { get; set; }
+        public int CountOfVotersTotal { get; set; }
 
         [Name("StimmberechtigteAusl")]
         public int CountOfVotersTotalSwissAbroad { get; set; }
+
+        [Name("StiAusweiseUrne")]
+        public int VotingCardsBallotBox { get; set; }
+
+        [Name("StiAusweiseVorzeitig")]
+        public int VotingCardsPaper { get; set; }
+
+        [Name("StiAusweiseBriefGueltig")]
+        public int VotingCardsByMail { get; set; }
+
+        [Name("StiAusweiseBriefNiUz")]
+        public int VotingCardsByMailNotValid { get; set; }
+
+        [Name("StiAusweiseEVoting")]
+        public int VotingCardsEVoting { get; set; }
 
         [Name("Stimmbeteiligung")]
         [TypeConverter(typeof(WabstiCPercentageConverter))]
@@ -164,9 +188,6 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         [Name("StimmenUngueltig")]
         public int InvalidVoteCount { get; set; }
 
-        [Name("StimmenLeer")]
-        public int EmptyVoteCount { get; set; }
-
         [Name("StimmenUngueltigNW")]
         public int InvalidVoteCountSecondary { get; set; }
 
@@ -179,9 +200,16 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         [Name("StimmenLeerNW2")]
         public int EmptyVoteCountSecondary2 { get; set; }
 
+        [Name("StimmenLeer")]
+        public int EmptyVoteCount { get; set; }
+
         [Name("FreigabeGde")]
         [TypeConverter(typeof(WabstiCTimeConverter))]
         public DateTime? SubmissionDoneTimestamp { get; set; }
+
+        [Name("Sperrung")]
+        [TypeConverter(typeof(WabstiCTimeConverter))]
+        public DateTime? AuditedTentativelyTimestamp { get; set; }
 
         [Name("GeLfNr")]
         public Guid ElectionId { get; set; }

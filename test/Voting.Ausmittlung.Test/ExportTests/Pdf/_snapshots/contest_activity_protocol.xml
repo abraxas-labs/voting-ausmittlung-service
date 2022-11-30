@@ -1105,7 +1105,7 @@
       <Number>201 UPDATE</Number>
       <Description>Mw SG UPDATE de</Description>
     </PoliticalBusiness>
-    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
     <Date>2020-07-17T10:12:05Z</Date>
@@ -1176,7 +1176,7 @@
       <Number>n1 UPDATE</Number>
       <Description>SME ShortDescription UPDATE de</Description>
     </PoliticalBusiness>
-    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
     <Date>2020-07-17T10:12:06Z</Date>
@@ -2086,7 +2086,7 @@
       <Number>201 UPDATE</Number>
       <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
-    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
     <Date>2020-07-17T10:28:46Z</Date>
@@ -3054,7 +3054,7 @@
       <Number>201 UPDATE</Number>
       <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
-    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+    <EventSignatureVerification>VerificationFailed</EventSignatureVerification>
   </Event>
   <Event>
     <Date>2020-07-17T10:45:26Z</Date>

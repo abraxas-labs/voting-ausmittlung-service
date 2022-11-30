@@ -50,6 +50,7 @@ internal readonly struct ExceptionMapping
             EntityNotFoundException _ => new ExceptionMapping(StatusCode.NotFound, StatusCodes.Status404NotFound),
             Report.Exceptions.EntityNotFoundException _ => new ExceptionMapping(StatusCode.NotFound, StatusCodes.Status404NotFound),
             ContestLockedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status400BadRequest),
+            ContestTestingPhaseEndedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status400BadRequest),
             AggregateNotFoundException _ => new ExceptionMapping(StatusCode.NotFound, StatusCodes.Status404NotFound),
             VersionMismatchException _ => new ExceptionMapping(StatusCode.Aborted, StatusCodes.Status424FailedDependency),
             AggregateDeletedException _ => new ExceptionMapping(StatusCode.NotFound, StatusCodes.Status404NotFound),

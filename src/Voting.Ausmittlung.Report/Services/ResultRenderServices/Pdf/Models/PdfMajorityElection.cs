@@ -21,4 +21,7 @@ public class PdfMajorityElection : PdfPoliticalBusiness
 
     [XmlElement("MajorityElectionDomainOfInfluenceResult")]
     public List<PdfMajorityElectionDomainOfInfluenceResult>? DomainOfInfluenceResults { get; set; }
+
+    [XmlElement("MajorityElectionAggregatedResult")]
+    public PdfMajorityElectionDomainOfInfluenceResult? AggregatedDomainOfInfluenceResult { get; set; }
 }

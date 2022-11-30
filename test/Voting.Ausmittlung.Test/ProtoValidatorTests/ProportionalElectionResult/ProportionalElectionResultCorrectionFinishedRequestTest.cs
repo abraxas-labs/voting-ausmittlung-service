@@ -15,6 +15,7 @@ public class ProportionalElectionResultCorrectionFinishedRequestTest : ProtoVali
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Comment = string.Empty);
+        yield return NewValidRequest(x => x.Comment = new string('A', 500));
     }
 
     protected override IEnumerable<ProportionalElectionResultCorrectionFinishedRequest> NotOkMessages()
@@ -23,6 +24,7 @@ public class ProportionalElectionResultCorrectionFinishedRequestTest : ProtoVali
         yield return NewValidRequest(x => x.ElectionResultId = string.Empty);
         yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
         yield return NewValidRequest(x => x.Comment = "Wahlzettt\bel 1 falsch");
+        yield return NewValidRequest(x => x.Comment = new string('A', 501));
     }
 
     private ProportionalElectionResultCorrectionFinishedRequest NewValidRequest(Action<ProportionalElectionResultCorrectionFinishedRequest>? action = null)

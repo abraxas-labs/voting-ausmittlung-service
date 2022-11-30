@@ -52,9 +52,12 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
         else
         {
             yield return ValidateCandidateVotesNotNull(data);
-            yield return ValidateEmptyVoteCountNotNull(data);
+            if (data.MajorityElection.NumberOfMandates != 1)
+            {
+                yield return ValidateEmptyVoteCountNotNull(data);
+            }
 
-            if (data.MajorityElection.InvalidVotes)
+            if (data.MajorityElection.InvalidVotes && data.MajorityElection.NumberOfMandates != 1)
             {
                 yield return ValidateInvalidVoteCountNotNull(data);
             }

@@ -19,27 +19,37 @@ namespace Voting.Ausmittlung.Core.Services.Write.Import;
 public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteResultAggregate, VoteResult>
 {
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
+    private readonly IDbRepository<DataContext, Ballot> _ballotRepo;
 
-    public VoteResultImportWriter(IDbRepository<DataContext, Vote> voteRepo, IAggregateRepository aggregateRepository)
+    public VoteResultImportWriter(
+        IDbRepository<DataContext, Vote> voteRepo,
+        IDbRepository<DataContext, Ballot> ballotRepo,
+        IAggregateRepository aggregateRepository)
         : base(aggregateRepository)
     {
         _voteRepo = voteRepo;
+        _ballotRepo = ballotRepo;
     }
 
     internal async IAsyncEnumerable<VoteResultImport> BuildImports(
         Guid contestId,
         IReadOnlyCollection<EVotingVoteResult> results)
     {
-        var voteIds = results.Select(x => x.PoliticalBusinessId).ToHashSet();
-        var votes = await _voteRepo.Query()
+        // The imported votes not correlate to the votes in our system, as the "VOTING votes" are not the same as the eCH votes
+        // Use the ballots instead.
+        var ballotIds = results
+            .SelectMany(x => x.BallotResults.Select(r => r.BallotId))
+            .ToHashSet();
+
+        var ballots = await _ballotRepo.Query()
             .AsSplitQuery()
-            .Where(x => x.ContestId == contestId && voteIds.Contains(x.Id))
-            .Include(x => x.Ballots).ThenInclude(x => x.BallotQuestions)
-            .Include(x => x.Ballots).ThenInclude(x => x.TieBreakQuestions)
+            .Where(x => x.Vote.ContestId == contestId && ballotIds.Contains(x.Id))
+            .Include(x => x.Vote)
+            .Include(x => x.BallotQuestions)
+            .Include(x => x.TieBreakQuestions)
             .ToListAsync();
 
-        var votesById = votes.ToDictionary(x => x.Id);
-        var ballotsById = votesById.Values.SelectMany(x => x.Ballots).ToDictionary(x => x.Id);
+        var ballotsById = ballots.ToDictionary(x => x.Id);
         var ballotQuestionsByNumberByBallotId =
             ballotsById.Values.ToDictionary(b => b.Id, b => b.BallotQuestions.ToDictionary(q => q.Number));
         var tieBreakQuestionsByNumberByBallotId =
@@ -47,12 +57,25 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
         foreach (var result in results)
         {
-            if (!votesById.ContainsKey(result.PoliticalBusinessId))
+            var notFoundBallot = result.BallotResults.FirstOrDefault(x => !ballotsById.ContainsKey(x.BallotId));
+            if (notFoundBallot != null)
             {
-                throw new EntityNotFoundException(nameof(Vote), result.PoliticalBusinessId);
+                throw new EntityNotFoundException(nameof(Ballot), notFoundBallot.BallotId);
             }
 
-            yield return ProcessResult(result, ballotsById, ballotQuestionsByNumberByBallotId, tieBreakQuestionsByNumberByBallotId);
+            // Resolve the ballots to our "VOTING votes"
+            var ballotResultsByVote = result.BallotResults
+                .GroupBy(x => ballotsById[x.BallotId].VoteId);
+
+            foreach (var group in ballotResultsByVote)
+            {
+                var importResult = new VoteResultImport(group.Key, result.BasisCountingCircleId);
+                yield return ProcessResult(
+                    importResult,
+                    group,
+                    ballotQuestionsByNumberByBallotId,
+                    tieBreakQuestionsByNumberByBallotId);
+            }
         }
     }
 
@@ -62,15 +85,14 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
             .SelectMany(x => x.Results);
 
     private VoteResultImport ProcessResult(
-        EVotingVoteResult result,
-        IReadOnlyDictionary<Guid, Ballot> ballotsById,
+        VoteResultImport importResult,
+        IEnumerable<EVotingVoteBallotResult> ballotResults,
         IReadOnlyDictionary<Guid, Dictionary<int, BallotQuestion>> ballotQuestionsByNumberByBallotId,
         IReadOnlyDictionary<Guid, Dictionary<int, TieBreakQuestion>> tieBreakQuestionsByNumberByBallotId)
     {
-        var importResult = new VoteResultImport(result.PoliticalBusinessId, result.BasisCountingCircleId);
-        foreach (var ballotResult in result.BallotResults)
+        foreach (var ballotResult in ballotResults)
         {
-            var importBallotResult = GetBallotResult(importResult, ballotResult, ballotsById);
+            var importBallotResult = importResult.GetOrAddBallotResult(ballotResult.BallotId);
             importBallotResult.CountOfVoters = ballotResult.Ballots.Count;
             ProcessBallotQuestionResult(importBallotResult, ballotResult, ballotQuestionsByNumberByBallotId);
             ProcessTieBreakQuestionResult(importBallotResult, ballotResult, tieBreakQuestionsByNumberByBallotId);
@@ -129,20 +151,6 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
                 UpdateTieBreakQuestionResultAnswerCount(questionResult, questionAnswer.Answer);
             }
         }
-    }
-
-    private VoteBallotResultImport GetBallotResult(
-        VoteResultImport importData,
-        EVotingVoteBallotResult ballotResult,
-        IReadOnlyDictionary<Guid, Ballot> ballotsById)
-    {
-        if (!ballotsById.TryGetValue(ballotResult.BallotId, out var ballot) ||
-            ballot.VoteId != importData.VoteId)
-        {
-            throw new EntityNotFoundException(nameof(Ballot), ballotResult.BallotId);
-        }
-
-        return importData.GetOrAddBallotResult(ballotResult.BallotId);
     }
 
     private void UpdateBallotQuestionResultAnswerCount(BallotQuestionResultImport questionResult, BallotQuestionAnswer answer)

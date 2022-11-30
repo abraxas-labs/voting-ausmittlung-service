@@ -9,7 +9,6 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -27,14 +26,16 @@ public class VoteResultAggregate : CountingCircleResultAggregate
     public VoteResultAggregate(
         EventInfoProvider eventInfoProvider,
         IValidator<VoteBallotResults> ballotResultsValidator,
-        IMapper mapper,
-        EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+        IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _ballotResultsValidator = ballotResultsValidator;
         _mapper = mapper;
     }
+
+    public override Guid PoliticalBusinessId => VoteId;
+
+    public Guid VoteId { get; private set; }
 
     public VoteResultEntry ResultEntry { get; private set; }
 
@@ -46,18 +47,18 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
     public override string AggregateName => "voting-voteResult";
 
-    public void StartSubmission(Guid countingCircleId, Guid voteId, Guid contestId, bool testingPhaseEnded)
+    public override void StartSubmission(Guid countingCircleId, Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)
     {
         EnsureInState(CountingCircleResultState.Initial);
-        Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(voteId, countingCircleId, testingPhaseEnded);
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(politicalBusinessId, countingCircleId, testingPhaseEnded);
         var ev = new VoteResultSubmissionStarted
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             VoteResultId = Id.ToString(),
-            VoteId = voteId.ToString(),
+            VoteId = politicalBusinessId.ToString(),
             CountingCircleId = countingCircleId.ToString(),
         };
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void DefineEntry(VoteResultEntry resultEntry, Guid contestId, VoteResultEntryParams? resultEntryParams = null)
@@ -89,7 +90,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 ResultEntry = _mapper.Map<Abraxas.Voting.Ausmittlung.Shared.V1.VoteResultEntry>(resultEntry),
                 ResultEntryParams = _mapper.Map<VoteResultEntryParamsEventData>(resultEntryParams),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterCountOfVoters(IReadOnlyCollection<VoteBallotResultsCountOfVoters> resultsCountOfVoters, Guid contestId)
@@ -104,7 +105,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
         _mapper.Map(resultsCountOfVoters, ev.ResultsCountOfVoters);
 
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterCountOfVoters(IReadOnlyCollection<VoteBallotResults> results, Guid contestId)
@@ -120,7 +121,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
         _mapper.Map(results, ev.ResultsCountOfVoters);
 
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterResults(IReadOnlyCollection<VoteBallotResults> results, Guid contestId)
@@ -136,7 +137,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
         _mapper.Map(results, ev.Results);
 
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void EnterCorrectionResults(IReadOnlyCollection<VoteBallotResults> results, Guid contestId)
@@ -152,7 +153,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
 
         _mapper.Map(results, ev.Results);
 
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public ActionId PrepareSubmissionFinished()
@@ -160,7 +161,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
         return BuildActionId(nameof(SubmissionFinished));
     }
 
-    public void SubmissionFinished(Guid contestId)
+    public override void SubmissionFinished(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing);
         RaiseEvent(
@@ -169,7 +170,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 VoteResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public ActionId PrepareCorrectionFinished()
@@ -177,7 +178,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
         return BuildActionId(nameof(CorrectionFinished));
     }
 
-    public void CorrectionFinished(string comment, Guid contestId)
+    public override void CorrectionFinished(string comment, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.ReadyForCorrection);
         RaiseEvent(
@@ -187,10 +188,10 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 VoteResultId = Id.ToString(),
                 Comment = comment,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void ResetToSubmissionFinished(Guid contestId)
+    public override void ResetToSubmissionFinished(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.AuditedTentatively);
         RaiseEvent(
@@ -199,7 +200,26 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 VoteResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public override void Reset(Guid contestId)
+    {
+        EnsureInState(
+            CountingCircleResultState.SubmissionOngoing,
+            CountingCircleResultState.ReadyForCorrection,
+            CountingCircleResultState.SubmissionDone,
+            CountingCircleResultState.CorrectionDone);
+
+        EnsureInTestingPhase();
+
+        RaiseEvent(
+            new VoteResultResetted
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                VoteResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public override void FlagForCorrection(Guid contestId, string comment = "")
@@ -212,10 +232,10 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 VoteResultId = Id.ToString(),
                 Comment = comment,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void AuditedTentatively(Guid contestId)
+    public override void AuditedTentatively(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionDone, CountingCircleResultState.CorrectionDone);
         RaiseEvent(
@@ -224,10 +244,10 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 VoteResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void Plausibilise(Guid contestId)
+    public override void Plausibilise(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.AuditedTentatively);
         RaiseEvent(
@@ -236,10 +256,10 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 VoteResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
-    public void ResetToAuditedTentatively(Guid contestId)
+    public override void ResetToAuditedTentatively(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.Plausibilised);
         RaiseEvent(
@@ -248,7 +268,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 VoteResultId = Id.ToString(),
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public int GenerateBundleNumber(Guid ballotResultId, Guid contestId)
@@ -268,7 +288,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 BallotResultId = ballotResultId.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
         return bundleNumber;
     }
 
@@ -298,7 +318,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 BallotResultId = ballotResultId.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     public void FreeBundleNumber(int bundleNumber, Guid ballotResultId, Guid contestId)
@@ -320,7 +340,7 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 BallotResultId = ballotResultId.ToString(),
                 BundleNumber = bundleNumber,
             },
-            new EventSignatureDomainData(contestId));
+            new EventSignatureBusinessDomainData(contestId));
     }
 
     protected override void Apply(IMessage eventData)
@@ -362,12 +382,17 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             case VoteResultResettedToSubmissionFinished _:
                 State = CountingCircleResultState.SubmissionDone;
                 break;
+            case VoteResultResetted _:
+                State = CountingCircleResultState.SubmissionOngoing;
+                break;
         }
     }
 
     private void Apply(VoteResultSubmissionStarted ev)
     {
         Id = GuidParser.Parse(ev.VoteResultId);
+        CountingCircleId = GuidParser.Parse(ev.CountingCircleId);
+        VoteId = GuidParser.Parse(ev.VoteId);
         State = CountingCircleResultState.SubmissionOngoing;
     }
 

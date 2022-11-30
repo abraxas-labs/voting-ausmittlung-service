@@ -1,0 +1,559 @@
+<Voting>
+  <TemplateKey>proportional_election_list_votes_counting_circle_protocol</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>Active</State>
+  </Contest>
+  <ProportionalElection>
+    <PoliticalBusinessNumber>100</PoliticalBusinessNumber>
+    <OfficialDescription>Nationalratswahl de</OfficialDescription>
+    <ShortDescription>Nationalratswahl de</ShortDescription>
+    <InternalDescription>Nationalratswahl</InternalDescription>
+    <DomainOfInfluence>
+      <Name>St. Gallen</Name>
+      <NameForProtocol>Kanton St. Gallen</NameForProtocol>
+      <ShortName>St. Gallen</ShortName>
+      <AuthorityName />
+      <Code>0002-SG</Code>
+      <SortNumber>2</SortNumber>
+      <Bfs>0002</Bfs>
+      <Type>Ct</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <NumberOfMandates>12</NumberOfMandates>
+    <ProportionalElectionResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>01</OrderNumber>
+          <ShortDescription>JCVP de</ShortDescription>
+          <Description>Liste 01 (JCVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>02</OrderNumber>
+          <ShortDescription>JFSG de</ShortDescription>
+          <Description>Liste 02 (JFSG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>03</OrderNumber>
+          <ShortDescription>CVP de</ShortDescription>
+          <Description>Liste 03 (CVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>04</OrderNumber>
+          <ShortDescription>EVP de</ShortDescription>
+          <Description>Liste 04 (EVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>05</OrderNumber>
+          <ShortDescription>PFSG de</ShortDescription>
+          <Description>Liste 05 (PFSG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>06</OrderNumber>
+          <ShortDescription>BDP SG de</ShortDescription>
+          <Description>Liste 06 (BDP SG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>07</OrderNumber>
+          <ShortDescription>FDP de</ShortDescription>
+          <Description>Liste 07 (FDP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>08</OrderNumber>
+          <ShortDescription>SVP de</ShortDescription>
+          <Description>Liste 08 (SVP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>09</OrderNumber>
+          <ShortDescription>SP de</ShortDescription>
+          <Description>Liste 09 (SP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>10</OrderNumber>
+          <ShortDescription>JUSO de</ShortDescription>
+          <Description>Liste 10 (JUSO) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>11</OrderNumber>
+          <ShortDescription>GRÜNE de</ShortDescription>
+          <Description>Liste 11 (GRÜNE) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>12</OrderNumber>
+          <ShortDescription>JUGRÜ de</ShortDescription>
+          <Description>Liste 12 (JUGRÜ) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>13</OrderNumber>
+          <ShortDescription>UFS de</ShortDescription>
+          <Description>Liste 13 (UFS) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>14</OrderNumber>
+          <ShortDescription>JBDP SG de</ShortDescription>
+          <Description>Liste 14 (JBDP SG) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>15</OrderNumber>
+          <ShortDescription>IP de</ShortDescription>
+          <Description>Liste 15 (IP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>16</OrderNumber>
+          <ShortDescription>glp de</ShortDescription>
+          <Description>Liste 16 (glp) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>17</OrderNumber>
+          <ShortDescription>jglp de</ShortDescription>
+          <Description>Liste 17 (jglp) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>18</OrderNumber>
+          <ShortDescription>SBösch de</ShortDescription>
+          <Description>Liste 18 (SBösch) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>19</OrderNumber>
+          <ShortDescription>EDU de</ShortDescription>
+          <Description>Liste 19 (EDU) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>20</OrderNumber>
+          <ShortDescription>DPS de</ShortDescription>
+          <Description>Liste 20 (DPS) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>21</OrderNumber>
+          <ShortDescription>PP de</ShortDescription>
+          <Description>Liste 21 (PP) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>22</OrderNumber>
+          <ShortDescription>SD de</ShortDescription>
+          <Description>Liste 22 (SD) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionListResult>
+        <ProportionalElectionList>
+          <OrderNumber>23</OrderNumber>
+          <ShortDescription>MGiger de</ShortDescription>
+          <Description>Liste 23 (MGiger) de</Description>
+        </ProportionalElectionList>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionListResult>
+      <ProportionalElectionTotalListResult>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionTotalListResult>
+      <ProportionalElectionTotalListResultInclWithoutParty>
+        <UnmodifiedListsCount>0</UnmodifiedListsCount>
+        <UnmodifiedListVotesCount>0</UnmodifiedListVotesCount>
+        <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+        <ModifiedListsCount>0</ModifiedListsCount>
+        <ModifiedListVotesCount>0</ModifiedListVotesCount>
+        <ModifiedListBlankRowsCount>0</ModifiedListBlankRowsCount>
+        <UnmodifiedListVotesCountInclBlankRows>0</UnmodifiedListVotesCountInclBlankRows>
+        <ModifiedListVotesCountInclBlankRows>0</ModifiedListVotesCountInclBlankRows>
+        <ListVotesCount>0</ListVotesCount>
+        <ListCount>0</ListCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionTotalListResultInclWithoutParty>
+      <TotalCountOfUnmodifiedLists>0</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>0</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>0</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>0</TotalCountOfBallots>
+      <TotalCountOfBlankRowsOnListsWithoutParty>0</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfListsWithParty>0</TotalCountOfListsWithParty>
+      <TotalCountOfLists>0</TotalCountOfLists>
+    </ProportionalElectionResult>
+  </ProportionalElection>
+  <CountingCircle>
+    <Name>St. Gallen</Name>
+    <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+    <Bfs>5500</Bfs>
+    <Code />
+    <SortNumber>2000</SortNumber>
+    <ResponsibleAuthority>
+      <SecureConnectId>200200200200200200</SecureConnectId>
+      <Name>St. Gallen</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>sg@abraxas.ch</Email>
+      <Street>WerkstrasseX</Street>
+      <Zip>9000</Zip>
+      <City>MyCityX</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans-sg</FirstName>
+      <FamilyName>Muster-sg</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph-sg</FirstName>
+      <FamilyName>Wichtig-sg</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+</Voting>

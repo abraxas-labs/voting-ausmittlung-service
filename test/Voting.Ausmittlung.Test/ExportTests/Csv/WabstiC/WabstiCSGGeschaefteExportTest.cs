@@ -21,7 +21,7 @@ public class WabstiCSGGeschaefteExportTest : CsvExportBaseTest
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "SG_Geschäfte.csv";
+    protected override string NewRequestExpectedFileName => "SG_Geschaefte.csv";
 
     protected override Task SeedData() => VoteMockedData.Seed(RunScoped);
 

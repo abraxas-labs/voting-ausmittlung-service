@@ -62,6 +62,8 @@ public static class CantonSettingsMockedData
                         VotingChannel = VotingChannel.ByMail,
                     },
             },
+            ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.SortNumber,
+            ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.SortNumber,
         };
 
     public static CantonSettings Zurich
@@ -112,6 +114,8 @@ public static class CantonSettingsMockedData
                         VotingChannel = VotingChannel.ByMail,
                     },
             },
+            ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.SortNumber,
+            ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.SortNumber,
         };
 
     public static IEnumerable<CantonSettings> All

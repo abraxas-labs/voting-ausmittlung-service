@@ -240,7 +240,7 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
 
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)
     {
-        var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureMetadata;
+        var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
         eventSignatureMetadata.Should().NotBeNull();
 
         eventSignatureMetadata!.ContestId.Should().Be(contestId);

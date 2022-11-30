@@ -22,15 +22,18 @@ public class SecondaryMajorityElectionResultImportProcessor :
     IEventProcessor<SecondaryMajorityElectionWriteInsMapped>
 {
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _secondaryMajorityElectionResultRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
 
     public SecondaryMajorityElectionResultImportProcessor(
         IDbRepository<DataContext, SecondaryMajorityElectionResult> secondaryMajorityElectionResultRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext,
         IMapper mapper)
     {
         _secondaryMajorityElectionResultRepo = secondaryMajorityElectionResultRepo;
+        _simpleResultRepo = simpleResultRepo;
         _dataContext = dataContext;
         _mapper = mapper;
     }
@@ -57,6 +60,7 @@ public class SecondaryMajorityElectionResultImportProcessor :
         if (eventData.WriteIns.Count > 0)
         {
             result.PrimaryResult.CountOfElectionsWithUnmappedWriteIns++;
+            await UpdateSimpleResult(result.PrimaryResult);
         }
 
         ProcessCandidates(result, eventData.CandidateResults);
@@ -86,6 +90,7 @@ public class SecondaryMajorityElectionResultImportProcessor :
         if (result.WriteInMappings.HasUnspecifiedMappings())
         {
             result.PrimaryResult.CountOfElectionsWithUnmappedWriteIns--;
+            await UpdateSimpleResult(result.PrimaryResult);
         }
 
         var candidateResultsByCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
@@ -122,6 +127,7 @@ public class SecondaryMajorityElectionResultImportProcessor :
         if (result.WriteInMappings.HasUnspecifiedMappings())
         {
             result.PrimaryResult.CountOfElectionsWithUnmappedWriteIns++;
+            await UpdateSimpleResult(result.PrimaryResult);
         }
 
         await _secondaryMajorityElectionResultRepo.Update(result);
@@ -181,5 +187,14 @@ public class SecondaryMajorityElectionResultImportProcessor :
         {
             byCandidateId[GuidParser.Parse(importCandidateResult.CandidateId)].EVotingVoteCount = importCandidateResult.VoteCount;
         }
+    }
+
+    private async Task UpdateSimpleResult(MajorityElectionResult result)
+    {
+        var simpleResult = await _simpleResultRepo.GetByKey(result.Id)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), result.Id);
+
+        simpleResult.CountOfElectionsWithUnmappedWriteIns = result.CountOfElectionsWithUnmappedWriteIns;
+        await _simpleResultRepo.Update(simpleResult);
     }
 }

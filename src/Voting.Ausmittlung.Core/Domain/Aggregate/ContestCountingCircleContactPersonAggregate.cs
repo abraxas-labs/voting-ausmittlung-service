@@ -8,7 +8,6 @@ using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -20,9 +19,7 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
 
     public ContestCountingCircleContactPersonAggregate(
         EventInfoProvider eventInfoProvider,
-        IMapper mapper,
-        EventSignatureService eventSignatureService)
-        : base(eventSignatureService, mapper)
+        IMapper mapper)
     {
         _eventInfoProvider = eventInfoProvider;
         _mapper = mapper;
@@ -64,7 +61,7 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
             ContactPersonSameDuringEventAsAfter = contactPersonSameDuringEventAsAfter,
             ContactPersonAfterEvent = _mapper.Map<ContactPersonEventData>(contactPersonAfterEvent),
         };
-        RaiseEvent(ev, new EventSignatureDomainData(contestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
     public void Update(ContactPerson contactPersonDuringEvent, bool contactPersonSameDuringEventAsAfter, ContactPerson? contactPersonAfterEvent)
@@ -79,7 +76,7 @@ public class ContestCountingCircleContactPersonAggregate : BaseEventSignatureAgg
             ContactPersonSameDuringEventAsAfter = contactPersonSameDuringEventAsAfter,
             ContactPersonAfterEvent = _mapper.Map<ContactPersonEventData>(contactPersonAfterEvent),
         };
-        RaiseEvent(ev, new EventSignatureDomainData(ContestId));
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     protected override void Apply(IMessage eventData)

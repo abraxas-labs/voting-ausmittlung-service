@@ -5,13 +5,17 @@ using System;
 using System.Collections.Generic;
 using Voting.Ausmittlung.TemporaryData.Configuration;
 using Voting.Lib.DmDoc.Configuration;
+using Voting.Lib.DokConnector.Configuration;
 using Voting.Lib.Ech.Configuration;
+using Voting.Lib.Iam.ServiceTokenHandling;
 using Voting.Lib.Scheduler;
 
 namespace Voting.Ausmittlung.Core.Configuration;
 
 public class PublisherConfig
 {
+    public const string SharedSecureConnectServiceAccountName = "SharedSecureConnect";
+
     public TemporaryDataConfig TemporaryDatabase { get; set; } = new();
 
     /// <summary>
@@ -48,4 +52,13 @@ public class PublisherConfig
     /// Gets or sets a value indicating whether gets or sets whether all exports should be disabled.
     /// </summary>
     public bool DisableAllExports { get; set; }
+
+    public SecureConnectServiceAccountOptions SharedSecureConnect { get; set; } = new();
+
+    public DokConnectorConfig DokConnector { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the DOK connector is mocked (mainly useful for local development).
+    /// </summary>
+    public bool EnableDokConnectorMock { get; set; }
 }

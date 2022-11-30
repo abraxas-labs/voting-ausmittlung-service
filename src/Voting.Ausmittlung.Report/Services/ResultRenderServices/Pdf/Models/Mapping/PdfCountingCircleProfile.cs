@@ -11,7 +11,6 @@ public class PdfCountingCircleProfile : Profile
     public PdfCountingCircleProfile()
     {
         CreateMap<CountingCircle, PdfCountingCircle>();
-
         CreateMap<VotingCardResultDetail, PdfVotingCardResultDetail>();
         CreateMap<CountOfVotersInformationSubTotal, PdfCountOfVotersInformationSubTotal>();
     }

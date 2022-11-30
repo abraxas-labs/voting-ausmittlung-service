@@ -2,10 +2,12 @@
   <TemplateKey>vote_result_bundle_review</TemplateKey>
   <CountingCircle>
     <Name>Gossau</Name>
+    <NameForProtocol>Stadt Gossau</NameForProtocol>
     <Bfs>3443</Bfs>
     <Code>3443-GOSSAU</Code>
+    <SortNumber>9800</SortNumber>
     <ResponsibleAuthority>
-      <SecureConnectId>300</SecureConnectId>
+      <SecureConnectId>300300300300300300</SecureConnectId>
       <Name />
       <Phone />
       <Email />
@@ -61,6 +63,7 @@
       <Number>1</Number>
       <QuestionAnswer>
         <Question>
+          <Label>QuestionCount2Q1</Label>
           <Number>1</Number>
           <Question>Frage 1 Gossau de</Question>
         </Question>
@@ -68,6 +71,7 @@
       </QuestionAnswer>
       <QuestionAnswer>
         <Question>
+          <Label>QuestionCount2Q2</Label>
           <Number>2</Number>
           <Question>Frage 2 Gossau de</Question>
         </Question>
@@ -75,6 +79,7 @@
       </QuestionAnswer>
       <TieBreakQuestionAnswer>
         <Question>
+          <Label>QuestionCount2TBQ1</Label>
           <Number>1</Number>
           <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
           <Question1Number>1</Question1Number>
@@ -87,6 +92,7 @@
       <Number>2</Number>
       <QuestionAnswer>
         <Question>
+          <Label>QuestionCount2Q1</Label>
           <Number>1</Number>
           <Question>Frage 1 Gossau de</Question>
         </Question>
@@ -94,6 +100,7 @@
       </QuestionAnswer>
       <QuestionAnswer>
         <Question>
+          <Label>QuestionCount2Q2</Label>
           <Number>2</Number>
           <Question>Frage 2 Gossau de</Question>
         </Question>
@@ -101,6 +108,7 @@
       </QuestionAnswer>
       <TieBreakQuestionAnswer>
         <Question>
+          <Label>QuestionCount2TBQ1</Label>
           <Number>1</Number>
           <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
           <Question1Number>1</Question1Number>

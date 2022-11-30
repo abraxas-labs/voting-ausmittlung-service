@@ -97,11 +97,14 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             .Include(x => x.CountingCircle)
             .Include(x => x.CandidateResults)
             .Include(x => x.SecondaryMajorityElectionResults)
-            .ThenInclude(x => x.CandidateResults)
+                .ThenInclude(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults)
+                .ThenInclude(x => x.SecondaryMajorityElection)
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
         var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
         EnsureCandidatesExistsAndNoDuplicates(electionResult, candidateResults, secondaryCandidateResults);
+        EnsureNoEmptyVoteCountAndInvalidVoteCountForSingleMandate(electionResult, emptyVoteCount, invalidVoteCount, secondaryCandidateResults);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(electionResult.Id);
 
@@ -335,6 +338,53 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             if (hasUnmatchedSecondaryCandidates)
             {
                 throw new ValidationException("candidates provided which don't exists");
+            }
+        }
+    }
+
+    private void EnsureNoEmptyVoteCountAndInvalidVoteCountForSingleMandate(
+        DataModels.MajorityElectionResult electionResult,
+        int? emptyVoteCount,
+        int? invalidVoteCount,
+        IReadOnlyCollection<SecondaryMajorityElectionCandidateResults> secondaryCandidateResults)
+    {
+        if (electionResult.Entry != DataModels.MajorityElectionResultEntry.FinalResults)
+        {
+            return;
+        }
+
+        if (electionResult.MajorityElection.NumberOfMandates == 1)
+        {
+            if (emptyVoteCount != null)
+            {
+                throw new ValidationException("empty vote count provided with single mandate");
+            }
+
+            if (invalidVoteCount != null)
+            {
+                throw new ValidationException("invalid vote count provided with single mandate");
+            }
+        }
+
+        var secondaryById = electionResult.SecondaryMajorityElectionResults.ToDictionary(x => x.SecondaryMajorityElectionId);
+        foreach (var updatedSecondaryResult in secondaryCandidateResults)
+        {
+            if (!secondaryById.TryGetValue(updatedSecondaryResult.SecondaryMajorityElectionId, out var secondaryElectionResult))
+            {
+                throw new ValidationException("secondary election results provided which don't exist");
+            }
+
+            if (secondaryElectionResult.SecondaryMajorityElection.NumberOfMandates == 1)
+            {
+                if (updatedSecondaryResult.EmptyVoteCount != null)
+                {
+                    throw new ValidationException("empty vote count provided with single mandate");
+                }
+
+                if (updatedSecondaryResult.InvalidVoteCount != null)
+                {
+                    throw new ValidationException("invalid vote count provided with single mandate");
+                }
             }
         }
     }

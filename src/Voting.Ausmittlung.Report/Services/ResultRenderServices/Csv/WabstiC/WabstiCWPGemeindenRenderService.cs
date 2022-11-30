@@ -38,6 +38,7 @@ public class WabstiCWPGemeindenRenderService : IRendererService
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
         var results = await _repo.Query()
+            .AsSplitQuery()
             .Where(x => x.ContestId == ctx.ContestId && ctx.PoliticalBusinessIds.Contains(x.Id))
             .SelectMany(x => x.Results)
             .OrderBy(x => x.ProportionalElection.PoliticalBusinessNumber)
@@ -51,6 +52,7 @@ public class WabstiCWPGemeindenRenderService : IRendererService
                 CountingCircleBfs = x.CountingCircle.Bfs,
                 CountingCircleCode = x.CountingCircle.Code,
                 PoliticalBusinessNumber = x.ProportionalElection.PoliticalBusinessNumber,
+                SortNumber = x.CountingCircle.SortNumber,
                 TotalCountOfVoters = x.TotalCountOfVoters,
                 ElectionUnionIds = x.ProportionalElection.ProportionalElectionUnionEntries
                     .Select(y => y.ProportionalElectionUnionId)
@@ -58,6 +60,7 @@ public class WabstiCWPGemeindenRenderService : IRendererService
                     .ToList(),
                 VoterParticipation = x.CountOfVoters.VoterParticipation,
                 SubmissionDoneTimestamp = x.SubmissionDoneTimestamp,
+                AuditedTentativelyTimestamp = x.AuditedTentativelyTimestamp,
                 TotalReceivedBallots = x.CountOfVoters.TotalReceivedBallots,
                 CountOfAccountedBallots = x.CountOfVoters.TotalAccountedBallots,
                 CountOfBlankBallots = x.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault(),
@@ -69,14 +72,14 @@ public class WabstiCWPGemeindenRenderService : IRendererService
             })
             .ToListAsync(ct);
 
-        await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, results, ct);
+        await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, results, ct);
 
         return _templateService.RenderToCsv(
             ctx,
             results);
     }
 
-    private class Data : IWabstiCSwissAbroadCountOfVoters
+    private class Data : IWabstiCContestDetails
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -94,11 +97,29 @@ public class WabstiCWPGemeindenRenderService : IRendererService
         [Name("SortGeschaeft")]
         public string PoliticalBusinessNumber { get; set; } = string.Empty;
 
+        [Name("SortGemeinde")]
+        public int SortNumber { get; set; }
+
         [Name("Stimmberechtigte")]
         public int TotalCountOfVoters { get; set; }
 
         [Name("StimmberechtigteAusl")]
         public int CountOfVotersTotalSwissAbroad { get; set; }
+
+        [Name("StiAusweiseUrne")]
+        public int VotingCardsBallotBox { get; set; }
+
+        [Name("StiAusweiseVorzeitig")]
+        public int VotingCardsPaper { get; set; }
+
+        [Name("StiAusweiseBriefGueltig")]
+        public int VotingCardsByMail { get; set; }
+
+        [Name("StiAusweiseBriefNiUz")]
+        public int VotingCardsByMailNotValid { get; set; }
+
+        [Name("StiAusweiseEVoting")]
+        public int VotingCardsEVoting { get; set; }
 
         [Name("Stimmbeteiligung")]
         [TypeConverter(typeof(WabstiCPercentageConverter))]
@@ -131,6 +152,10 @@ public class WabstiCWPGemeindenRenderService : IRendererService
         [Name("FreigabeGde")]
         [TypeConverter(typeof(WabstiCTimeConverter))]
         public DateTime? SubmissionDoneTimestamp { get; set; }
+
+        [Name("Sperrung")]
+        [TypeConverter(typeof(WabstiCTimeConverter))]
+        public DateTime? AuditedTentativelyTimestamp { get; set; }
 
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }

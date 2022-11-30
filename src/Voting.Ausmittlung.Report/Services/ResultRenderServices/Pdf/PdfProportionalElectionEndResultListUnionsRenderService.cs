@@ -27,6 +27,7 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
     protected override IQueryable<ProportionalElectionEndResult> BuildQuery()
     {
         return base.BuildQuery()
+            .Include(x => x.ProportionalElection.Contest.Details!.VotingCards)
             .Include(x => x.ProportionalElection.Contest.Details!.CountOfVotersInformationSubTotals);
     }
 

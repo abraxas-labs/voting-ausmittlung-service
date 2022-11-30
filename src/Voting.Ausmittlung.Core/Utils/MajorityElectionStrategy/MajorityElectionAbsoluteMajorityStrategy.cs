@@ -1,6 +1,7 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using Voting.Ausmittlung.Data.Models;
 
@@ -19,8 +20,8 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
             return;
         }
 
-        var absoluteMajority = CalculateAbsoluteMajority(majorityElectionEndResult);
-        majorityElectionEndResult.Calculation.AbsoluteMajority = absoluteMajority;
+        CalculateAbsoluteMajority(majorityElectionEndResult);
+        var absoluteMajority = majorityElectionEndResult.Calculation.AbsoluteMajority!.Value;
 
         SetCandidateEndResultStatesAfterAllSubmissionsDone(
             majorityElectionEndResult.CandidateEndResults,
@@ -36,10 +37,11 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
         }
     }
 
-    public virtual int CalculateAbsoluteMajority(MajorityElectionEndResult majorityElectionEndResult)
+    public virtual void CalculateAbsoluteMajority(MajorityElectionEndResult majorityElectionEndResult)
     {
-        var decisiveSimpleVoteCount = majorityElectionEndResult.CountOfVoters.TotalAccountedBallots;
-        return (decisiveSimpleVoteCount / 2) + 1;
+        majorityElectionEndResult.Calculation.DecisiveVoteCount = majorityElectionEndResult.CountOfVoters.TotalAccountedBallots;
+        majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold = majorityElectionEndResult.Calculation.DecisiveVoteCount / 2M;
+        majorityElectionEndResult.Calculation.AbsoluteMajority = (int)Math.Floor(majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold.Value) + 1;
     }
 
     private void SetCandidateEndResultStatesAfterAllSubmissionsDone<TMajorityElectionCandidateEndResultBase>(

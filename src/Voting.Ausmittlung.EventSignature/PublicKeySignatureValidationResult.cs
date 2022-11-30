@@ -7,16 +7,18 @@ namespace Voting.Ausmittlung.EventSignature;
 
 public class PublicKeySignatureValidationResult
 {
-    public PublicKeySignatureValidationResult(PublicKeySignatureData signatureData, PublicKeyData keyData, bool isValid)
+    public PublicKeySignatureValidationResult(PublicKeySignatureData? signatureData, PublicKeyData keyData, PublicKeySignatureValidationResultType type)
     {
         SignatureData = signatureData;
         KeyData = keyData;
-        IsValid = isValid;
+        Type = type;
     }
 
-    public PublicKeySignatureData SignatureData { get; }
+    public PublicKeySignatureData? SignatureData { get; }
 
     public PublicKeyData KeyData { get; }
 
-    public bool IsValid { get; }
+    public PublicKeySignatureValidationResultType Type { get; }
+
+    public bool IsValid => Type == PublicKeySignatureValidationResultType.Valid;
 }

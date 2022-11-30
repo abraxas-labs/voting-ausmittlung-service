@@ -10,6 +10,10 @@ public class PdfCountingCircleResultProfile : Profile
 {
     public PdfCountingCircleResultProfile()
     {
-        CreateMap<CountingCircleResult, PdfCountingCircleResult>();
+        CreateMap<CountingCircleResult, PdfCountingCircleResult>()
+            .ForMember(
+                dst => dst.IsAuditedTentativelyOrPlausibilised,
+                opts => opts.MapFrom(src => src.State == CountingCircleResultState.AuditedTentatively || src.State == CountingCircleResultState.Plausibilised))
+            .IncludeAllDerived();
     }
 }

@@ -39,6 +39,7 @@ public class CantonSettingsProcessor :
     {
         var model = _mapper.Map<CantonSettings>(eventData.CantonSettings);
         await _repo.Create(model);
+        Migrate(model);
         await _cantonDefaultsBuilder.RebuildForCanton(model);
     }
 
@@ -51,7 +52,23 @@ public class CantonSettingsProcessor :
                 .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(nameof(CantonSettings), id);
         _mapper.Map(eventData.CantonSettings, existing);
+        Migrate(existing);
         await _dbContext.SaveChangesAsync();
         await _cantonDefaultsBuilder.RebuildForCanton(existing);
+    }
+
+    private void Migrate(CantonSettings model)
+    {
+        // Set default sort type value since the old eventData (before introducing the sort type) can contain the unspecified value.
+        if (model.ProtocolCountingCircleSortType == ProtocolCountingCircleSortType.Unspecified)
+        {
+            model.ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.SortNumber;
+        }
+
+        // Set default sort type value since the old eventData (before introducing the sort type) can contain the unspecified value.
+        if (model.ProtocolDomainOfInfluenceSortType == ProtocolDomainOfInfluenceSortType.Unspecified)
+        {
+            model.ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.SortNumber;
+        }
     }
 }

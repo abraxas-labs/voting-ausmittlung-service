@@ -1,8 +1,10 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Text.Json.Serialization;
 using MassTransit.ExtensionsDependencyInjectionIntegration;
+using MassTransit.Registration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -159,10 +161,16 @@ public class Startup
             return;
         }
 
-        cfg.AddConsumer<MessageConsumer<ResultStateChanged>>();
-        cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>();
-        cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>();
-        cfg.AddConsumer<VoteBundleChangedMessageConsumer>();
+        cfg.AddConsumer<MessageConsumer<ResultStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<VoteBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
+    }
+
+    private void ConfigureMessagingConsumerEndpoint(IConsumerEndpointRegistrationConfigurator config)
+    {
+        config.InstanceId = Environment.MachineName;
+        config.Temporary = true;
     }
 
     private void ConfigureHealthChecks(IHealthChecksBuilder checks)
@@ -177,7 +185,11 @@ public class Startup
         if (_appConfig.PublisherModeEnabled)
         {
             checks.AddDbContextCheck<TemporaryDataContext>();
-            checks.AddEventStoreTransientSubscriptionCatchUp();
+
+            if (_appConfig.EventSignature.Enabled)
+            {
+                checks.AddEventStoreTransientSubscriptionCatchUp();
+            }
         }
     }
 
@@ -213,6 +225,10 @@ public class Startup
         services.AddEch(_appConfig.Publisher.Ech);
         services.AddTemporaryData(_appConfig.Publisher.TemporaryDatabase, ConfigureTemporaryDatabase);
         services.AddSwaggerGenerator(_configuration);
+
+        services.AddSecureConnectServiceAccount(
+            PublisherConfig.SharedSecureConnectServiceAccountName,
+            _appConfig.Publisher.SharedSecureConnect);
         return services;
     }
 }

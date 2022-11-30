@@ -8,34 +8,28 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates.Basis;
-using Voting.Lib.Common;
-using Voting.Lib.Cryptography.Asymmetric;
-using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Eventing.Read;
-using EventSignatureMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureMetadata;
+using AusmittlungEventSignatureBusinessMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
+using BasisEventSignatureBusinessMetadata = Abraxas.Voting.Basis.Events.V1.Metadata.EventSignatureBusinessMetadata;
 
 namespace Voting.Ausmittlung.Report.EventLogs;
 
 public class EventLogBuilder
 {
     private readonly EventLogInitializerAdapterRegistry _eventLogInitializerRegistry;
-    private readonly IEventSerializer _eventSerializer;
     private readonly ILogger<EventLogBuilder> _logger;
-    private readonly IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> _asymmetricAlgorithmAdapter;
+    private readonly EventLogEventSignatureVerifier _eventLogEventSignatureVerifier;
 
     public EventLogBuilder(
         EventLogInitializerAdapterRegistry eventLogInitializerRegistry,
-        IEventSerializer eventSerializer,
         ILogger<EventLogBuilder> logger,
-        IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> asymmetricAlgorithmAdapter)
+        EventLogEventSignatureVerifier eventLogEventSignatureVerifier)
     {
         _eventLogInitializerRegistry = eventLogInitializerRegistry;
-        _eventSerializer = eventSerializer;
         _logger = logger;
-        _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
+        _eventLogEventSignatureVerifier = eventLogEventSignatureVerifier;
     }
 
     public async Task<EventLog?> Build(
@@ -49,8 +43,7 @@ public class EventLogBuilder
             ["CommitPosition"] = ev.Position.CommitPosition,
         });
 
-        var metadata = ev.Metadata as EventSignatureMetadata;
-        if (metadata == null)
+        if (ev.Metadata is not AusmittlungEventSignatureBusinessMetadata && ev.Metadata is not BasisEventSignatureBusinessMetadata)
         {
             return null;
         }
@@ -82,77 +75,13 @@ public class EventLogBuilder
         eventLog.EventUser = new() { Firstname = eventUser.FirstName, Lastname = eventUser.LastName, UserId = eventUser.Id, Username = eventUser.Username };
         eventLog.EventTenant = new() { TenantId = eventTenant.Id, TenantName = eventTenant.Name };
 
-        eventLog.EventSignatureVerification = VerifyEventSignature(ev, context);
+        eventLog.EventSignatureVerification = _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
 
         // Since we extract the event info values, we remove the field, so that the XML doesn't get too huge
         eventInfoProp.SetValue(ev.Data, null);
         eventLog.EventContent = ev.Data.ToByteArray();
 
         return eventLog;
-    }
-
-    private EventLogEventSignatureVerification VerifyEventSignature(EventReadResult ev, EventLogBuilderContext context)
-    {
-        var eventId = ev.Id;
-        var streamName = ev.StreamId;
-        var eventInfoProp = EventInfoUtils.GetEventInfoPropertyInfo(ev.Data);
-        var eventTimestamp = EventInfoUtils.MapEventInfo(eventInfoProp.GetValue(ev.Data)).Timestamp.ToDateTime();
-        var eventSignatureMetadata = ev.Metadata as EventSignatureMetadata
-            ?? throw new ArgumentException($"{nameof(ev.Metadata)} may not be null");
-
-        if (string.IsNullOrEmpty(eventSignatureMetadata.KeyId))
-        {
-            return EventLogEventSignatureVerification.NoSignature;
-        }
-
-        var publicKeySignatureValidationResult = context.GetPublicKeySignatureValidationResult(eventSignatureMetadata.KeyId);
-        if (publicKeySignatureValidationResult == null)
-        {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. No matching public key signature found", eventId, streamName);
-            return EventLogEventSignatureVerification.VerificationFailed;
-        }
-
-        if (!publicKeySignatureValidationResult.IsValid)
-        {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key signature is not valid", eventId, streamName);
-            return EventLogEventSignatureVerification.VerificationFailed;
-        }
-
-        if (publicKeySignatureValidationResult.SignatureData.HostId != eventSignatureMetadata.HostId)
-        {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The public key host id does not match with the metadata host id", eventId, streamName);
-            return EventLogEventSignatureVerification.VerificationFailed;
-        }
-
-        if (eventTimestamp < publicKeySignatureValidationResult.KeyData.ValidFrom
-            || eventTimestamp > publicKeySignatureValidationResult.KeyData.ValidTo
-            || (publicKeySignatureValidationResult.KeyData.Deleted.HasValue && eventTimestamp > publicKeySignatureValidationResult.KeyData.Deleted))
-        {
-            _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. The event has a key outside of its lifetime attached", eventId, streamName);
-            return EventLogEventSignatureVerification.VerificationFailed;
-        }
-
-        var eventSignaturePayload = new EventSignaturePayload(
-            eventSignatureMetadata.SignatureVersion,
-            eventId,
-            streamName,
-            _eventSerializer.Serialize(ev.Data).ToArray(),
-            Guid.Parse(eventSignatureMetadata.ContestId),
-            eventSignatureMetadata.HostId,
-            eventSignatureMetadata.KeyId,
-            eventTimestamp);
-
-        if (!_asymmetricAlgorithmAdapter.VerifySignature(eventSignaturePayload.ConvertToBytesToSign(), eventSignatureMetadata.Signature.ToByteArray(), publicKeySignatureValidationResult.KeyData.Key))
-        {
-            _logger.LogCritical(
-                SecurityLogging.SecurityEventId,
-                "Event signature verification for {EventId} in stream {StreamName} failed. The event content does not match the signature",
-                eventId,
-                streamName);
-            return EventLogEventSignatureVerification.VerificationFailed;
-        }
-
-        return EventLogEventSignatureVerification.VerificationSuccess;
     }
 
     private async Task ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)

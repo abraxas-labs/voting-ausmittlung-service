@@ -38,7 +38,9 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
                     NewCountingCircle = new CountingCircleEventData
                     {
                         Name = "StGallen Aussen",
+                        NameForProtocol = "Stadt StGallen Aussen",
                         Bfs = "1234",
+                        SortNumber = 8999,
                         Id = countingCircleId.ToString(),
                         ResponsibleAuthority = new AuthorityEventData
                         {
@@ -111,7 +113,9 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
                     NewCountingCircle = new CountingCircleEventData
                     {
                         Name = "StGallen Aussen",
+                        NameForProtocol = "Stadt StGallen Aussen",
                         Bfs = "1234",
+                        SortNumber = 8999,
                         Id = countingCircleId.ToString(),
                         ResponsibleAuthority = new AuthorityEventData
                         {

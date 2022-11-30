@@ -2,10 +2,12 @@
   <TemplateKey>proportional_election_result_bundle_review</TemplateKey>
   <CountingCircle>
     <Name>Uzwil</Name>
+    <NameForProtocol>Stadt Uzwil</NameForProtocol>
     <Bfs>1234</Bfs>
     <Code>1234-UZWIL</Code>
+    <SortNumber>2005</SortNumber>
     <ResponsibleAuthority>
-      <SecureConnectId>100</SecureConnectId>
+      <SecureConnectId>100100100100100100</SecureConnectId>
       <Name>Uzwil</Name>
       <Phone>071 123 12 20</Phone>
       <Email>uzwil-test@abraxas.ch</Email>

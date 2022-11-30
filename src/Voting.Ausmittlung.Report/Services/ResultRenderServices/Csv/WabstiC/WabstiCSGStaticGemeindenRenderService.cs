@@ -45,6 +45,7 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
             .Select(x => new Data
             {
                 VoteId = x.VoteId,
+                DomainOfInfluenceName = x.Vote.DomainOfInfluence.Name,
                 DomainOfInfluenceType = x.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.Vote.DomainOfInfluence.SortNumber,
                 PoliticalBusinessNumber = x.Vote.PoliticalBusinessNumber,
@@ -71,6 +72,9 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
         [Name("Art")]
         [TypeConverter(typeof(WabstiCUpperSnakeCaseConverter))]
         public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
+
+        [Name("Wahlkreis")]
+        public string DomainOfInfluenceName { get; set; } = string.Empty;
 
         [Name("SortWahlkreis")]
         public int DomainOfInfluenceSortNumber { get; set; }

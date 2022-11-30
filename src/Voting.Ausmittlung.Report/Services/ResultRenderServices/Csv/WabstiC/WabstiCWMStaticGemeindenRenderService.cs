@@ -83,6 +83,9 @@ public class WabstiCWMStaticGemeindenRenderService : IRendererService
         [TypeConverter(typeof(WabstiCUpperSnakeCaseConverter))]
         public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
 
+        [Name("Wahlkreis")]
+        public string DomainOfInfluenceName { get; set; } = string.Empty;
+
         [Name("SortWahlkreis")]
         public int DomainOfInfluenceSortNumber { get; set; }
 
@@ -97,9 +100,6 @@ public class WabstiCWMStaticGemeindenRenderService : IRendererService
 
         [Name("GeLfNr")]
         public Guid ElectionId { get; set; }
-
-        [Name("Wahlkreis")]
-        public string DomainOfInfluenceName { get; set; } = string.Empty;
 
         [Name("Wahlkreis-Code")]
         public string DomainOfInfluenceCode { get; set; } = string.Empty;

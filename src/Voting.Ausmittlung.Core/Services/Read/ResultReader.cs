@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
@@ -28,6 +29,7 @@ public class ResultReader
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly MessageConsumerHub<ResultStateChanged> _resultStateChangeConsumer;
     private readonly PermissionService _permissionService;
+    private readonly ILogger<ResultReader> _logger;
 
     public ResultReader(
         ContestReader contestReader,
@@ -36,13 +38,15 @@ public class ResultReader
         ContestCountingCircleDetailsRepo contestCountingCircleDetailsRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         MessageConsumerHub<ResultStateChanged> resultStateChangeConsumer,
-        PermissionService permissionService)
+        PermissionService permissionService,
+        ILogger<ResultReader> logger)
     {
         _contestReader = contestReader;
         _contestRepo = contestRepo;
         _countingCircleRepo = countingCircleRepo;
         _contestCountingCircleDetailsRepo = contestCountingCircleDetailsRepo;
         _permissionService = permissionService;
+        _logger = logger;
         _simpleResultRepo = simpleResultRepo;
         _resultStateChangeConsumer = resultStateChangeConsumer;
     }
@@ -52,8 +56,13 @@ public class ResultReader
         Func<ResultStateChanged, Task> listener,
         CancellationToken cancellationToken)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-        var ownedPoliticalBusinessIds = await _contestReader.GetOwnedPoliticalBusinessIds(contestId);
+        _logger.LogDebug("Listening to result state changes for contest with id {ContestId}", contestId);
+
+        _permissionService.EnsureAnyRole();
+
+        _logger.LogDebug("Listening permission is assured.");
+
+        var ownedPoliticalBusinessIds = await _contestReader.GetAccessiblePoliticalBusinessIds(contestId);
         if (ownedPoliticalBusinessIds.Count == 0)
         {
             throw new EntityNotFoundException("no political businesses found to watch");

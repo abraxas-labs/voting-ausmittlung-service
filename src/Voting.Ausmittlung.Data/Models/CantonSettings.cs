@@ -20,6 +20,10 @@ public class CantonSettings : BaseEntity
 
     public bool MajorityElectionInvalidVotes { get; set; }
 
+    public ProtocolDomainOfInfluenceSortType ProtocolDomainOfInfluenceSortType { get; set; }
+
+    public ProtocolCountingCircleSortType ProtocolCountingCircleSortType { get; set; }
+
     public SwissAbroadVotingRight SwissAbroadVotingRight { get; set; }
 
     public List<DomainOfInfluenceType> SwissAbroadVotingRightDomainOfInfluenceTypes { get; set; } = new();

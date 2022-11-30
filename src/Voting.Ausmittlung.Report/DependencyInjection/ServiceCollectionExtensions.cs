@@ -75,13 +75,11 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCWMWahlRenderService>(AusmittlungWabstiCTemplates.WMWahl)
             .AddRendererService<WabstiCWMGemeindenRenderService>(AusmittlungWabstiCTemplates.WMGemeinden)
             .AddRendererService<WabstiCWMStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WMStaticGemeinden)
-            .AddRendererService<WabstiCWMPlausiGemeindenRenderService>(AusmittlungWabstiCTemplates.WMPlausiGemeinden)
             .AddRendererService<WabstiCWMKandidatenRenderService>(AusmittlungWabstiCTemplates.WMKandidaten)
             .AddRendererService<WabstiCWMKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WMKandidatenGde)
             .AddRendererService<WabstiCWPWahlRenderService>(AusmittlungWabstiCTemplates.WPWahl)
             .AddRendererService<WabstiCWPGemeindenRenderService>(AusmittlungWabstiCTemplates.WPGemeinden)
             .AddRendererService<WabstiCWPStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WPStaticGemeinden)
-            .AddRendererService<WabstiCWPPlausiGemeindenRenderService>(AusmittlungWabstiCTemplates.WPPlausiGemeinden)
             .AddRendererService<WabstiCWPKandidatenRenderService>(AusmittlungWabstiCTemplates.WPKandidaten)
             .AddRendererService<WabstiCWPStaticKandidatenRenderService>(AusmittlungWabstiCTemplates.WPStaticKandidaten)
             .AddRendererService<WabstiCWPKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WPKandidatenGde)
@@ -90,8 +88,7 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCSGStaticGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGStaticGeschaefte)
             .AddRendererService<WabstiCSGGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGGeschaefte)
             .AddRendererService<WabstiCSGGemeindenRenderService>(AusmittlungWabstiCTemplates.SGGemeinden)
-            .AddRendererService<WabstiCSGStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.SGStaticGemeinden)
-            .AddRendererService<WabstiCSGPlausiGemeindenRenderService>(AusmittlungWabstiCTemplates.SGPlausiGemeinden);
+            .AddRendererService<WabstiCSGStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.SGStaticGemeinden);
     }
 
     private static IReportingServiceCollection AddPdfVoteResultRenderServices(this IReportingServiceCollection services)
@@ -181,6 +178,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<EventLogInitializerAdapterRegistry>()
             .AddScoped<EventLogsBuilder>()
             .AddScoped<EventLogBuilder>()
+            .AddScoped<EventLogEventSignatureVerifier>()
             .AddReportEventProcessors();
     }
 

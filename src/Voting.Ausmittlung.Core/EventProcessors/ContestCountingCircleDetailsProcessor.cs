@@ -23,7 +23,8 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class ContestCountingCircleDetailsProcessor :
     IEventProcessor<ContestCountingCircleDetailsCreated>,
     IEventProcessor<ContestCountingCircleDetailsUpdated>,
-    IEventProcessor<ContestCountingCircleOptionsUpdated>
+    IEventProcessor<ContestCountingCircleOptionsUpdated>,
+    IEventProcessor<ContestCountingCircleDetailsResetted>
 {
     private readonly ILogger<ContestCountingCircleDetailsProcessor> _logger;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _repo;
@@ -84,6 +85,24 @@ public class ContestCountingCircleDetailsProcessor :
         _logger.LogInformation("Updated contest counting circle options for contest {ContestId} from Basis event", contestId);
     }
 
+    public async Task Process(ContestCountingCircleDetailsResetted eventData)
+    {
+        var id = GuidParser.Parse(eventData.Id);
+
+        // only load conventional data to ensure that only conventional data is resetted.
+        var details = await _repo.Query()
+                          .AsSplitQuery()
+                          .Include(x => x.CountOfVotersInformationSubTotals)
+                          .Include(x => x.VotingCards.Where(vc => vc.Channel != VotingChannel.EVoting))
+                          .FirstOrDefaultAsync(x => x.Id == id)
+                      ?? throw new EntityNotFoundException(id);
+
+        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
+        ResetDetails(details);
+        await _repo.Update(details);
+        await UpdateCountOfVotersForCountingCircleResults(details, true);
+    }
+
     private async Task ProcessCreateUpdate<T>(T eventData, string idStr)
         where T : IMessage<T>
     {
@@ -106,13 +125,18 @@ public class ContestCountingCircleDetailsProcessor :
         details.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(details.ContestId, details.CountingCircleId);
 
         await _repo.Update(details);
-        await UpdateCountOfVotersForVoteResults(details);
-        await UpdateCountOfVotersForProportionalElectionResults(details);
-        await UpdateCountOfVotersForMajorityElectionResults(details);
+        await UpdateCountOfVotersForCountingCircleResults(details, false);
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, false);
     }
 
-    private async Task UpdateCountOfVotersForVoteResults(ContestCountingCircleDetails details)
+    private async Task UpdateCountOfVotersForCountingCircleResults(ContestCountingCircleDetails details, bool isReset)
+    {
+        await UpdateCountOfVotersForVoteResults(details, isReset);
+        await UpdateCountOfVotersForProportionalElectionResults(details, isReset);
+        await UpdateCountOfVotersForMajorityElectionResults(details, isReset);
+    }
+
+    private async Task UpdateCountOfVotersForVoteResults(ContestCountingCircleDetails details, bool isReset)
     {
         var voteResults = await _voteResultRepo.Query()
             .AsSplitQuery()
@@ -123,7 +147,7 @@ public class ContestCountingCircleDetailsProcessor :
 
         foreach (var voteResult in voteResults)
         {
-            UpdateCountOfVoters(voteResult, details);
+            UpdateCountOfVoters(voteResult, details, isReset);
             foreach (var ballotResult in voteResult.Results)
             {
                 UpdateVoterParticipation(ballotResult.CountOfVoters, details);
@@ -136,7 +160,7 @@ public class ContestCountingCircleDetailsProcessor :
         await _voteResultRepo.UpdateRange(voteResults);
     }
 
-    private async Task UpdateCountOfVotersForProportionalElectionResults(ContestCountingCircleDetails details)
+    private async Task UpdateCountOfVotersForProportionalElectionResults(ContestCountingCircleDetails details, bool isReset)
     {
         var results = await _proportionalElectionResultRepo.Query()
             .Include(x => x.ProportionalElection.DomainOfInfluence)
@@ -146,7 +170,7 @@ public class ContestCountingCircleDetailsProcessor :
 
         foreach (var result in results)
         {
-            UpdateCountOfVoters(result, details);
+            UpdateCountOfVoters(result, details, isReset);
             UpdateVoterParticipation(result.CountOfVoters, details);
 
             // ensures that the doi is not tracked multiple times.
@@ -156,7 +180,7 @@ public class ContestCountingCircleDetailsProcessor :
         await _proportionalElectionResultRepo.UpdateRange(results);
     }
 
-    private async Task UpdateCountOfVotersForMajorityElectionResults(ContestCountingCircleDetails details)
+    private async Task UpdateCountOfVotersForMajorityElectionResults(ContestCountingCircleDetails details, bool isReset)
     {
         var results = await _majorityElectionResultRepo.Query()
             .Include(x => x.MajorityElection.DomainOfInfluence)
@@ -166,7 +190,7 @@ public class ContestCountingCircleDetailsProcessor :
 
         foreach (var result in results)
         {
-            UpdateCountOfVoters(result, details);
+            UpdateCountOfVoters(result, details, isReset);
             UpdateVoterParticipation(result.CountOfVoters, details);
 
             // ensures that the doi is not tracked multiple times.
@@ -176,11 +200,12 @@ public class ContestCountingCircleDetailsProcessor :
         await _majorityElectionResultRepo.UpdateRange(results);
     }
 
-    private void UpdateCountOfVoters(CountingCircleResult result, ContestCountingCircleDetails details)
+    private void UpdateCountOfVoters(CountingCircleResult result, ContestCountingCircleDetails details, bool isReset)
     {
         if (result.State != CountingCircleResultState.Initial
             && result.State != CountingCircleResultState.SubmissionOngoing
-            && result.State != CountingCircleResultState.ReadyForCorrection)
+            && result.State != CountingCircleResultState.ReadyForCorrection
+            && !isReset)
         {
             // There may be rare race conditions, where an election admin updates the count of voters
             // while another finishes the submission of a political business.
@@ -201,4 +226,19 @@ public class ContestCountingCircleDetailsProcessor :
 
     private void UpdateVoterParticipation(PoliticalBusinessNullableCountOfVoters countOfVoters, ContestCountingCircleDetails details)
         => countOfVoters.UpdateVoterParticipation(details.TotalCountOfVoters);
+
+    private void ResetDetails(ContestCountingCircleDetails details)
+    {
+        details.TotalCountOfVoters = 0;
+
+        foreach (var votingCard in details.VotingCards)
+        {
+            votingCard.CountOfReceivedVotingCards = null;
+        }
+
+        foreach (var subTotal in details.CountOfVotersInformationSubTotals)
+        {
+            subTotal.CountOfVoters = null;
+        }
+    }
 }

@@ -44,6 +44,7 @@ internal static class EventProcessorServiceCollection
             .AddScoped<ContestSnapshotBuilder>()
             .AddScoped(typeof(SimplePoliticalBusinessBuilder<>))
             .AddScoped(typeof(PoliticalBusinessToNewContestMover<,>))
+            .AddScoped<ResultExportConfigurationBuilder>()
             .AddSingleton<MajorityElectionStrategyFactory>()
             .AddSingleton<IMajorityElectionMandateAlgorithmStrategy, MajorityElectionAbsoluteMajorityStrategy>()
             .AddSingleton<IMajorityElectionMandateAlgorithmStrategy, MajorityElectionAbsoluteMajorityCandidateVotesDividedByTheDoubleOfNumberOfMandatesStrategy>()

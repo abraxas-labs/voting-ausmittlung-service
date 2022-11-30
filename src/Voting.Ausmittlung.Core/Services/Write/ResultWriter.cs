@@ -3,11 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
@@ -23,19 +25,25 @@ public class ResultWriter
     private readonly IDbRepository<DataContext, Vote> _voteRepository;
     private readonly IDbRepository<DataContext, MajorityElection> _majorityElectionRepository;
     private readonly PermissionService _permissionService;
+    private readonly ContestService _contestService;
+    private readonly ResultReader _resultReader;
 
     public ResultWriter(
         IAggregateFactory aggregateFactory,
         IAggregateRepository aggregateRepository,
         PermissionService permissionService,
         IDbRepository<DataContext, Vote> voteRepository,
-        IDbRepository<DataContext, MajorityElection> majorityElectionRepository)
+        IDbRepository<DataContext, MajorityElection> majorityElectionRepository,
+        ContestService contestService,
+        ResultReader resultReader)
     {
         _aggregateFactory = aggregateFactory;
         _aggregateRepository = aggregateRepository;
         _permissionService = permissionService;
         _voteRepository = voteRepository;
         _majorityElectionRepository = majorityElectionRepository;
+        _contestService = contestService;
+        _resultReader = resultReader;
     }
 
     public async Task StartSubmission(ResultList data)
@@ -66,6 +74,39 @@ public class ResultWriter
                     await StartMajorityElectionSubmission(data.CountingCircle, groupedResults.ToList(), data.Contest.TestingPhaseEnded);
                     break;
             }
+        }
+    }
+
+    public async Task ResetResults(Guid contestId, Guid countingCircleId)
+    {
+        var data = await _resultReader.GetList(contestId, countingCircleId);
+
+        if (data.Details == null)
+        {
+            throw new ValidationException("Counting circle details is not initialized yet");
+        }
+
+        _permissionService.EnsureErfassungElectionAdmin();
+        _contestService.EnsureInTestingPhase(data.Contest);
+        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
+
+        var ccDetailsAggregate = await _aggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(data.Details.Id)
+            ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
+        var resultAggregates = await GetResultAggregates(data);
+
+        // Apply the action on the aggregates first to ensure that the aggregate state is valid.
+        ccDetailsAggregate.Reset();
+
+        foreach (var resultAggregate in resultAggregates)
+        {
+            resultAggregate.Reset(contestId);
+        }
+
+        await _aggregateRepository.Save(ccDetailsAggregate);
+
+        foreach (var resultAggregate in resultAggregates)
+        {
+            await _aggregateRepository.Save(resultAggregate);
         }
     }
 
@@ -134,5 +175,46 @@ public class ResultWriter
 
             await _aggregateRepository.Save(aggregate);
         }
+    }
+
+    private async Task<IReadOnlyCollection<CountingCircleResultAggregate>> GetResultAggregates(ResultList data)
+    {
+        if (data.Results.Any(r => r.State <= CountingCircleResultState.Initial))
+        {
+            throw new ValidationException("Cannot reset results when there are any initial results");
+        }
+
+        if (data.Results.Any(r => r.State > CountingCircleResultState.CorrectionDone))
+        {
+            throw new ValidationException("Cannot reset results when there are any audited or plausibilised results");
+        }
+
+        var results = data.Results
+            .GroupBy(x => x.PoliticalBusiness!.BusinessType)
+            .ToDictionary(x => x.Key, x => x.Select(y => y.Id).ToList());
+
+        var aggregates = new List<CountingCircleResultAggregate>();
+        aggregates.AddRange((await GetAggregates<VoteResultAggregate>(results.GetValueOrDefault(PoliticalBusinessType.Vote) ?? new())).ToList());
+        aggregates.AddRange((await GetAggregates<ProportionalElectionResultAggregate>(results.GetValueOrDefault(PoliticalBusinessType.ProportionalElection) ?? new())).ToList());
+        aggregates.AddRange((await GetAggregates<MajorityElectionResultAggregate>(results.GetValueOrDefault(PoliticalBusinessType.MajorityElection) ?? new())).ToList());
+        return aggregates;
+    }
+
+    private async Task<IReadOnlyCollection<TAggregate>> GetAggregates<TAggregate>(IReadOnlyCollection<Guid> ids)
+        where TAggregate : BaseEventSourcingAggregate
+    {
+        if (ids.Distinct().Count() != ids.Count)
+        {
+            throw new ValidationException("duplicate ids present");
+        }
+
+        var aggregates = new List<TAggregate>();
+        foreach (var id in ids)
+        {
+            var aggregate = await _aggregateRepository.GetById<TAggregate>(id);
+            aggregates.Add(aggregate);
+        }
+
+        return aggregates;
     }
 }

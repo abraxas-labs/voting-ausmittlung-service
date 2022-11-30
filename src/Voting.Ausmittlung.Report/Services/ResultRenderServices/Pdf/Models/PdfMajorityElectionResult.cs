@@ -14,9 +14,13 @@ public class PdfMajorityElectionResult : PdfCountingCircleResult
 
     public int InvalidVoteCount { get; set; }
 
+    public int TotalEmptyAndInvalidVoteCount { get; set; }
+
     public int TotalCandidateVoteCountExclIndividual { get; set; }
 
     public int TotalCandidateVoteCountInclIndividual { get; set; }
+
+    public int TotalVoteCount { get; set; }
 
     [XmlElement("MajorityElectionCandidateResult")]
     public List<PdfMajorityElectionCandidateResult>? CandidateResults { get; set; }

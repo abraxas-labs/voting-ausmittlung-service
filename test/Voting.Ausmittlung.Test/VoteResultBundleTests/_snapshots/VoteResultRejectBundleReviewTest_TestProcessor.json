@@ -7,13 +7,16 @@
     "CountOfVoters": {
       "VoterParticipation": 0.75,
       "EVotingReceivedBallots": 0,
+      "EVotingInvalidBallots": 0,
+      "EVotingAccountedBallots": 0,
       "ConventionalReceivedBallots": 20000,
       "ConventionalInvalidBallots": 3000,
       "ConventionalBlankBallots": 2000,
       "ConventionalAccountedBallots": 12000,
       "TotalReceivedBallots": 20000,
       "TotalAccountedBallots": 12000,
-      "TotalUnaccountedBallots": 5000
+      "TotalUnaccountedBallots": 5000,
+      "TotalInvalidBallots": 3000
     },
     "QuestionResults": [],
     "TieBreakQuestionResults": [],

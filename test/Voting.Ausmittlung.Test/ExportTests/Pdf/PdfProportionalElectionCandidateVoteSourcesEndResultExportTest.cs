@@ -26,6 +26,8 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : Pd
 
     protected override string NewRequestExpectedFileName => "Stimmenherkunft inkl. Kumulierungen und Panaschierungen - Kantonratswahl de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
@@ -36,15 +38,15 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : Pd
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
-                       {
-                           new GenerateResultExportRequest
-                           {
-                               Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults.Key,
-                               PoliticalBusinessIds = { Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId) },
-                           },
-                       },
+            {
+                new GenerateResultExportRequest
+                {
+                    Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults.Key,
+                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId) },
+                },
+            },
         };
     }
 

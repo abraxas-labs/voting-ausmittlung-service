@@ -30,6 +30,8 @@ public class PdfVoteResultBundleReviewExportTest : PdfExportBaseTest<GenerateRes
 
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await VoteMockedData.Seed(RunScoped);
@@ -59,7 +61,7 @@ public class PdfVoteResultBundleReviewExportTest : PdfExportBaseTest<GenerateRes
     {
         return new GenerateResultBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             TemplateKey = AusmittlungPdfVoteTemplates.ResultBundleReview.Key,
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             PoliticalBusinessResultBundleId = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1),

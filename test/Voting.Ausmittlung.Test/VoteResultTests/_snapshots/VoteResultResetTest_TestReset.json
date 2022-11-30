@@ -1,0 +1,246 @@
+{
+  "resultBefore": {
+    "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+    "Vote": null,
+    "Results": [
+      {
+        "Ballot": null,
+        "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+        "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "CountOfVoters": {
+          "VoterParticipation": 0.75,
+          "EVotingReceivedBallots": 5,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 5,
+          "ConventionalReceivedBallots": 20000,
+          "ConventionalInvalidBallots": 3000,
+          "ConventionalBlankBallots": 2000,
+          "ConventionalAccountedBallots": 12000,
+          "TotalReceivedBallots": 20005,
+          "TotalAccountedBallots": 12005,
+          "TotalUnaccountedBallots": 5000,
+          "TotalInvalidBallots": 3000
+        },
+        "QuestionResults": [
+          {
+            "Question": null,
+            "QuestionId": "0516dfaf-4414-4f71-b062-d39dc4bb0277",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 4,
+              "TotalCountOfAnswerNo": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 5500,
+              "TotalCountOfAnswerNo": 4490,
+              "TotalCountOfAnswerUnspecified": 10,
+              "CountOfAnswerTotal": 10000
+            },
+            "TotalCountOfAnswerYes": 5504,
+            "TotalCountOfAnswerNo": 4491,
+            "TotalCountOfAnswerUnspecified": 11,
+            "HasMajority": true,
+            "PercentageYes": 0.5506753376688344,
+            "PercentageNo": 0.4493246623311656,
+            "CountOfAnswerTotal": 10006,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Question": null,
+            "QuestionId": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 4,
+              "TotalCountOfAnswerNo": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 4500,
+              "TotalCountOfAnswerNo": 6500,
+              "TotalCountOfAnswerUnspecified": null,
+              "CountOfAnswerTotal": 11000
+            },
+            "TotalCountOfAnswerYes": 4504,
+            "TotalCountOfAnswerNo": 6501,
+            "TotalCountOfAnswerUnspecified": 1,
+            "HasMajority": false,
+            "PercentageYes": 0.4092685143116765,
+            "PercentageNo": 0.5907314856883235,
+            "CountOfAnswerTotal": 11006,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "TieBreakQuestionResults": [
+          {
+            "Question": null,
+            "QuestionId": "7c2e10f6-1262-45d9-a705-b480aa035d0e",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 4,
+              "TotalCountOfAnswerQ2": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 4500,
+              "TotalCountOfAnswerQ2": 6400,
+              "TotalCountOfAnswerUnspecified": 100,
+              "CountOfAnswerTotal": 11000
+            },
+            "TotalCountOfAnswerQ1": 4504,
+            "TotalCountOfAnswerQ2": 6401,
+            "TotalCountOfAnswerUnspecified": 101,
+            "HasQ1Majority": false,
+            "HasQ2Majority": true,
+            "PercentageQ1": 0.4130215497478221,
+            "PercentageQ2": 0.5869784502521779,
+            "CountOfAnswerTotal": 11006,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "CountOfBundlesNotReviewedOrDeleted": 1,
+        "AllBundlesReviewedOrDeleted": false,
+        "Bundles": null,
+        "ConventionalCountOfDetailedEnteredBallots": 2,
+        "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1"
+      }
+    ],
+    "PoliticalBusiness": null,
+    "PoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+    "Entry": 2,
+    "EntryParams": {
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": false,
+      "ReviewProcedure": 1
+    },
+    "CountingCircleId": "b38bd3dc-278d-5a33-bef2-b27f5e36d019",
+    "CountingCircle": null,
+    "State": 5,
+    "SubmissionDoneTimestamp": null,
+    "AuditedTentativelyTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
+  },
+  "resultAfter": {
+    "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+    "Vote": null,
+    "Results": [
+      {
+        "Ballot": null,
+        "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+        "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "CountOfVoters": {
+          "VoterParticipation": 0.0003333333333333333333333333,
+          "EVotingReceivedBallots": 5,
+          "EVotingInvalidBallots": 0,
+          "EVotingAccountedBallots": 5,
+          "ConventionalReceivedBallots": 0,
+          "ConventionalInvalidBallots": 0,
+          "ConventionalBlankBallots": 0,
+          "ConventionalAccountedBallots": 0,
+          "TotalReceivedBallots": 5,
+          "TotalAccountedBallots": 5,
+          "TotalUnaccountedBallots": 0,
+          "TotalInvalidBallots": 0
+        },
+        "QuestionResults": [
+          {
+            "Question": null,
+            "QuestionId": "0516dfaf-4414-4f71-b062-d39dc4bb0277",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 4,
+              "TotalCountOfAnswerNo": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0,
+              "CountOfAnswerTotal": 0
+            },
+            "TotalCountOfAnswerYes": 4,
+            "TotalCountOfAnswerNo": 1,
+            "TotalCountOfAnswerUnspecified": 1,
+            "HasMajority": true,
+            "PercentageYes": 0.8,
+            "PercentageNo": 0.2,
+            "CountOfAnswerTotal": 6,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Question": null,
+            "QuestionId": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 4,
+              "TotalCountOfAnswerNo": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0,
+              "CountOfAnswerTotal": 0
+            },
+            "TotalCountOfAnswerYes": 4,
+            "TotalCountOfAnswerNo": 1,
+            "TotalCountOfAnswerUnspecified": 1,
+            "HasMajority": true,
+            "PercentageYes": 0.8,
+            "PercentageNo": 0.2,
+            "CountOfAnswerTotal": 6,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "TieBreakQuestionResults": [
+          {
+            "Question": null,
+            "QuestionId": "7c2e10f6-1262-45d9-a705-b480aa035d0e",
+            "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 4,
+              "TotalCountOfAnswerQ2": 1,
+              "TotalCountOfAnswerUnspecified": 1
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0,
+              "CountOfAnswerTotal": 0
+            },
+            "TotalCountOfAnswerQ1": 4,
+            "TotalCountOfAnswerQ2": 1,
+            "TotalCountOfAnswerUnspecified": 1,
+            "HasQ1Majority": true,
+            "HasQ2Majority": false,
+            "PercentageQ1": 0.8,
+            "PercentageQ2": 0.2,
+            "CountOfAnswerTotal": 6,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "CountOfBundlesNotReviewedOrDeleted": 0,
+        "AllBundlesReviewedOrDeleted": true,
+        "Bundles": null,
+        "ConventionalCountOfDetailedEnteredBallots": 0,
+        "Id": "082c7c7a-8f1d-555f-be18-54f5673412e1"
+      }
+    ],
+    "PoliticalBusiness": null,
+    "PoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+    "Entry": 2,
+    "EntryParams": {
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": false,
+      "ReviewProcedure": 1
+    },
+    "CountingCircleId": "b38bd3dc-278d-5a33-bef2-b27f5e36d019",
+    "CountingCircle": null,
+    "State": 2,
+    "SubmissionDoneTimestamp": null,
+    "AuditedTentativelyTimestamp": null,
+    "TotalCountOfVoters": 15000,
+    "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
+  }
+}

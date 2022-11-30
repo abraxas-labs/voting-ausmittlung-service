@@ -6,7 +6,8 @@
       "Bfs": "0002",
       "Code": "0002-SG",
       "SortNumber": 2,
-      "SecureConnectId": "200",
+      "NameForProtocol": "Kanton St. Gallen",
+      "SecureConnectId": "200200200200200200",
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
@@ -85,6 +86,8 @@
         "ProportionalElectionMandateAlgorithms": [],
         "MajorityElectionAbsoluteMajorityAlgorithm": 0,
         "MajorityElectionInvalidVotes": false,
+        "ProtocolDomainOfInfluenceSortType": 0,
+        "ProtocolCountingCircleSortType": 0,
         "SwissAbroadVotingRight": 0,
         "EnabledVotingCardChannels": []
       },

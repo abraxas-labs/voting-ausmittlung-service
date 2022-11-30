@@ -64,9 +64,11 @@ public class PdfVoteEndResultRenderService : IRendererService
             .ToListAsync(ct);
 
         var pdfVotes = _mapper.Map<List<PdfVote>>(votes);
+        PdfVoteUtil.SetLabels(pdfVotes);
 
         var pdfContest = _mapper.Map<PdfContest>(contest);
-        PdfContestDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details!, ctx.DomainOfInfluenceType);
+        pdfContest.Details ??= new PdfContestDetails();
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details, ctx.DomainOfInfluenceType);
 
         var templateBag = new PdfTemplateBag
         {

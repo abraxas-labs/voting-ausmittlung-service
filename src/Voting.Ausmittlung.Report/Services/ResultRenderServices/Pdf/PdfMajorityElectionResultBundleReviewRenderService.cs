@@ -45,20 +45,20 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         }
 
         var bundle = await _majorityElectionResultBundleRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-                         .ThenInclude(x => x.BallotCandidates)
-                         .ThenInclude(x => x.Candidate)
-                         .ThenInclude(x => x.Translations)
-                         .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-                         .ThenInclude(x => x.SecondaryMajorityElectionBallots)
-                         .ThenInclude(x => x.BallotCandidates)
-                         .ThenInclude(x => x.Candidate)
-                         .ThenInclude(x => x.Translations)
-                         .Include(x => x.ElectionResult)
-                         .ThenInclude(x => x.MajorityElection)
-                         .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessResultBundleId, ct)
-                     ?? throw new EntityNotFoundException(nameof(MajorityElectionResultBundle), ctx.PoliticalBusinessResultBundleId);
+            .AsSplitQuery()
+            .Include(x => x.Ballots.Where(b => b.MarkedForReview))
+            .ThenInclude(x => x.BallotCandidates)
+            .ThenInclude(x => x.Candidate)
+            .ThenInclude(x => x.Translations)
+            .Include(x => x.Ballots.Where(b => b.MarkedForReview))
+            .ThenInclude(x => x.SecondaryMajorityElectionBallots)
+            .ThenInclude(x => x.BallotCandidates)
+            .ThenInclude(x => x.Candidate)
+            .ThenInclude(x => x.Translations)
+            .Include(x => x.ElectionResult)
+            .ThenInclude(x => x.MajorityElection)
+            .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessResultBundleId, ct)
+            ?? throw new EntityNotFoundException(nameof(MajorityElectionResultBundle), ctx.PoliticalBusinessResultBundleId);
 
         if (bundle.ElectionResult.MajorityElectionId != ctx.PoliticalBusinessId)
         {
@@ -73,22 +73,22 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         bundle.Ballots = bundle.Ballots.OrderBy(x => x.Number).ToList();
 
         var countingCircle = await _countingCircleRepo.Query()
-                                 .AsSplitQuery()
-                                 .Include(x => x.ResponsibleAuthority)
-                                 .Include(x => x.ContactPersonDuringEvent)
-                                 .Include(x => x.ContactPersonAfterEvent)
-                                 .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
-                                 .ThenInclude(x => x.VotingCards)
-                                 .Include(x => x.ContestDetails)
-                                 .ThenInclude(x => x.CountOfVotersInformationSubTotals)
-                                 .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
-                             ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
+            .AsSplitQuery()
+            .Include(x => x.ResponsibleAuthority)
+            .Include(x => x.ContactPersonDuringEvent)
+            .Include(x => x.ContactPersonAfterEvent)
+            .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
+            .ThenInclude(x => x.VotingCards)
+            .Include(x => x.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
+            ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
         var ccDetails = countingCircle.ContestDetails.FirstOrDefault();
         ccDetails?.OrderVotingCardsAndSubTotals();
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfContestCountingCircleDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
 
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {

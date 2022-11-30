@@ -3,8 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using Abraxas.Voting.Ausmittlung.Events.V1;
 using Google.Protobuf;
+using AusmittlungEvents = Abraxas.Voting.Ausmittlung.Events.V1;
+using BasisEvents = Abraxas.Voting.Basis.Events.V1;
 
 namespace Voting.Ausmittlung.Report.EventLogs.Aggregates;
 
@@ -15,39 +16,90 @@ public class ContestEventSignatureAggregate
     public EventSignaturePublicKeyAggregateData? GetPublicKeyAggregateData(string keyId)
         => _publicKeyAggregateDataByKeyId.GetValueOrDefault(keyId);
 
-    public void Apply(IMessage eventData)
+    public void Apply(IMessage eventData, IMessage eventMetadata)
     {
-        switch (eventData)
+        switch ((eventData, eventMetadata))
         {
-            case EventSignaturePublicKeySigned e:
-                Apply(e);
+            case (AusmittlungEvents.EventSignaturePublicKeyCreated data, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata metadata):
+                Apply(data, metadata);
                 break;
-            case EventSignaturePublicKeyDeleted e:
-                Apply(e);
+            case (AusmittlungEvents.EventSignaturePublicKeyDeleted data, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata metadata):
+                Apply(data, metadata);
+                break;
+            case (BasisEvents.EventSignaturePublicKeyCreated data, BasisEvents.Metadata.EventSignaturePublicKeyMetadata metadata):
+                Apply(data, metadata);
+                break;
+            case (BasisEvents.EventSignaturePublicKeyDeleted data, BasisEvents.Metadata.EventSignaturePublicKeyMetadata metadata):
+                Apply(data, metadata);
                 break;
         }
     }
 
-    private void Apply(EventSignaturePublicKeySigned ev)
+    private void Apply(AusmittlungEvents.EventSignaturePublicKeyCreated evData, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
-        var signature = new EventSignaturePublicKeyAggregateData(
-            ev.KeyId,
-            ev.SignatureVersion,
-            Guid.Parse(ev.ContestId),
-            ev.HostId,
-            ev.HsmSignature.ToByteArray(),
-            ev.PublicKey.ToByteArray(),
-            ev.ValidFrom.ToDateTime(),
-            ev.ValidTo.ToDateTime());
+        var createData = new EventSignaturePublicKeyAggregateCreateData(
+            evData.KeyId,
+            evData.SignatureVersion,
+            Guid.Parse(evData.ContestId),
+            evData.HostId,
+            evData.AuthenticationTag.ToByteArray(),
+            evData.PublicKey.ToByteArray(),
+            evData.ValidFrom.ToDateTime(),
+            evData.ValidTo.ToDateTime(),
+            evMetadata.HsmSignature.ToByteArray());
 
-        _publicKeyAggregateDataByKeyId.Add(ev.KeyId, signature);
+        _publicKeyAggregateDataByKeyId.Add(evData.KeyId, new EventSignaturePublicKeyAggregateData(createData));
     }
 
-    private void Apply(EventSignaturePublicKeyDeleted ev)
+    private void Apply(AusmittlungEvents.EventSignaturePublicKeyDeleted evData, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
-        var signature = _publicKeyAggregateDataByKeyId.GetValueOrDefault(ev.KeyId)
-            ?? throw new ArgumentException($"Cannot process {nameof(EventSignaturePublicKeyDeleted)} for contest {ev.ContestId} because there is no {nameof(EventSignaturePublicKeySigned)} event yet.");
+        var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
+            evData.KeyId,
+            evData.SignatureVersion,
+            Guid.Parse(evData.ContestId),
+            evData.HostId,
+            evData.AuthenticationTag.ToByteArray(),
+            evData.SignedEventCount,
+            evData.DeletedAt.ToDateTime(),
+            evMetadata.HsmSignature.ToByteArray());
 
-        signature.Deleted = ev.EventInfo.Timestamp.ToDateTime();
+        var data = _publicKeyAggregateDataByKeyId.GetValueOrDefault(evData.KeyId)
+            ?? throw new ArgumentException($"Cannot process {nameof(AusmittlungEvents.EventSignaturePublicKeyDeleted)} for contest {evData.ContestId} because there is no {nameof(AusmittlungEvents.EventSignaturePublicKeyCreated)} event yet.");
+
+        data.DeleteData = deleteData;
+    }
+
+    private void Apply(BasisEvents.EventSignaturePublicKeyCreated evData, BasisEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
+    {
+        var createData = new EventSignaturePublicKeyAggregateCreateData(
+            evData.KeyId,
+            evData.SignatureVersion,
+            Guid.Parse(evData.ContestId),
+            evData.HostId,
+            evData.AuthenticationTag.ToByteArray(),
+            evData.PublicKey.ToByteArray(),
+            evData.ValidFrom.ToDateTime(),
+            evData.ValidTo.ToDateTime(),
+            evMetadata.HsmSignature.ToByteArray());
+
+        _publicKeyAggregateDataByKeyId.Add(evData.KeyId, new EventSignaturePublicKeyAggregateData(createData));
+    }
+
+    private void Apply(BasisEvents.EventSignaturePublicKeyDeleted evData, BasisEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
+    {
+        var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
+            evData.KeyId,
+            evData.SignatureVersion,
+            Guid.Parse(evData.ContestId),
+            evData.HostId,
+            evData.AuthenticationTag.ToByteArray(),
+            evData.SignedEventCount,
+            evData.DeletedAt.ToDateTime(),
+            evMetadata.HsmSignature.ToByteArray());
+
+        var data = _publicKeyAggregateDataByKeyId.GetValueOrDefault(evData.KeyId)
+            ?? throw new ArgumentException($"Cannot process {nameof(AusmittlungEvents.EventSignaturePublicKeyDeleted)} for contest {evData.ContestId} because there is no {nameof(AusmittlungEvents.EventSignaturePublicKeyCreated)} event yet.");
+
+        data.DeleteData = deleteData;
     }
 }

@@ -11,6 +11,7 @@ public class EventSignatureProfile : Profile
 {
     public EventSignatureProfile()
     {
-        CreateMap<EventSignaturePublicKeySignature, EventSignaturePublicKeySigned>().ReverseMap();
+        CreateMap<EventSignaturePublicKeyCreate, EventSignaturePublicKeyCreated>();
+        CreateMap<EventSignaturePublicKeyDelete, EventSignaturePublicKeyDeleted>();
     }
 }

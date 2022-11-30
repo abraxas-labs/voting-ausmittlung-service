@@ -38,10 +38,15 @@ public class MajorityElectionEndResult : PoliticalBusinessEndResult, IHasSubTota
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount;
 
     /// <inheritdoc />
+    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
+
+    /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
+
+    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
     [NotMapped]
     public IEnumerable<MajorityElectionCandidateEndResultBase> PrimaryAndSecondaryCandidateEndResults =>

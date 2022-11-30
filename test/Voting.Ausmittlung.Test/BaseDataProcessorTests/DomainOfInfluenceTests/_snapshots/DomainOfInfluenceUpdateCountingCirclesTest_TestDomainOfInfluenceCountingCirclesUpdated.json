@@ -8,6 +8,8 @@
         "Name": "Gossau",
         "Bfs": "3443",
         "Code": "3443-GOSSAU",
+        "SortNumber": 9800,
+        "NameForProtocol": "Stadt Gossau",
         "ResponsibleAuthority": {
           "SecureConnectId": "",
           "Name": "",
@@ -60,6 +62,8 @@
         "Name": "St. Gallen",
         "Bfs": "5500",
         "Code": "",
+        "SortNumber": 2000,
+        "NameForProtocol": "Stadt St. Gallen",
         "ResponsibleAuthority": {
           "SecureConnectId": "",
           "Name": "",
@@ -112,6 +116,8 @@
         "Name": "St. Gallen St. Fiden",
         "Bfs": "5500-1",
         "Code": "C5500-1",
+        "SortNumber": 2001,
+        "NameForProtocol": "St. Fiden",
         "ResponsibleAuthority": {
           "SecureConnectId": "",
           "Name": "",
@@ -164,6 +170,8 @@
         "Name": "Uzwil",
         "Bfs": "1234",
         "Code": "1234-UZWIL",
+        "SortNumber": 2005,
+        "NameForProtocol": "Stadt Uzwil",
         "ResponsibleAuthority": {
           "SecureConnectId": "",
           "Name": "",
@@ -216,6 +224,8 @@
         "Name": "Kirche Uzwil",
         "Bfs": "none",
         "Code": "code-k-uz",
+        "SortNumber": 2007,
+        "NameForProtocol": "",
         "ResponsibleAuthority": {
           "SecureConnectId": "",
           "Name": "",

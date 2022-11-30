@@ -37,32 +37,28 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         CancellationToken ct = default)
     {
         var data = await _repo.Query()
-                       .AsSplitQuery()
-                       .Include(x => x.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
-                       .Include(x => x.MajorityElection.DomainOfInfluence)
-                       .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
-                       .Include(x => x.MajorityElection.Contest.Details)
-                       .Include(x => x.MajorityElection.Contest.Details!.VotingCards)
-                       .Include(x => x.MajorityElection.Contest.Translations)
-                       .Include(x => x.MajorityElection.Translations)
-                       .FirstOrDefaultAsync(
-                           x => x.MajorityElectionId == ctx.PoliticalBusinessId,
-                           ct)
-                   ?? throw new ValidationException(
-                       $"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
+            .AsSplitQuery()
+            .Include(x => x.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.MajorityElection.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
+            .Include(x => x.MajorityElection.Contest.Translations)
+            .Include(x => x.MajorityElection.Translations)
+            .FirstOrDefaultAsync(x => x.MajorityElectionId == ctx.PoliticalBusinessId, ct)
+            ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);
 
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = majorityElection.DomainOfInfluence;
+        domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+
+        // we don't need this data in the xml
+        domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
         majorityElection.DomainOfInfluence = null;
 
         var contest = _mapper.Map<PdfContest>(data.MajorityElection.Contest);
-        PdfContestDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details!, domainOfInfluence!.Type);
-
-        // we don't need this data in the xml
-        contest.Details!.VotingCards = new List<PdfVotingCardResultDetail>();
 
         var templateBag = new PdfTemplateBag
         {

@@ -2,6 +2,8 @@
 // For license information see LICENSE file
 
 using System;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Jobs;
@@ -9,7 +11,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.BaseDataProcessorTests;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Ausmittlung.Test.Mocks;
+using Voting.Lib.DokConnector.Testing.Service;
 using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
@@ -59,8 +61,15 @@ public class ResultExportsJobTest : BaseDataProcessorTest
         var job = GetService<ResultExportsJob>();
         var jobTask = job.Run(default);
 
-        var savedFile = await connectorMock.WaitForNextSave();
-        savedFile.MatchSnapshot();
+        var savedFile = await connectorMock.NextUpload(CancellationToken.None);
+
+        // This is a CSV export, so we better use the textual representation as snapshot
+        new
+        {
+            savedFile.FileName,
+            savedFile.MessageType,
+            Data = Encoding.UTF8.GetString(savedFile.Data),
+        }.MatchSnapshot();
 
         await jobTask;
     }

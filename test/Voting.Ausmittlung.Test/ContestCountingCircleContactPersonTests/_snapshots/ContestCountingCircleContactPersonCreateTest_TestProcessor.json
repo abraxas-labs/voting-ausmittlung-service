@@ -2,8 +2,10 @@
   "Name": "Gossau",
   "Bfs": "3443",
   "Code": "3443-GOSSAU",
+  "SortNumber": 9800,
+  "NameForProtocol": "Stadt Gossau",
   "ResponsibleAuthority": {
-    "SecureConnectId": "300",
+    "SecureConnectId": "300300300300300300",
     "Name": "",
     "Phone": "",
     "Email": "",

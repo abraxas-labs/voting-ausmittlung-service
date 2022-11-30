@@ -26,6 +26,12 @@ public class ContestCreateTest : ContestProcessorBaseTest
     {
     }
 
+    public override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
+        await ExportConfigurationMockedData.Seed(RunScoped);
+    }
+
     [Fact]
     public async Task TestCreated()
     {
@@ -166,5 +172,34 @@ public class ContestCreateTest : ContestProcessorBaseTest
 
         var entries = ContestCache.GetAll().Where(c => (c.Id == id1 || c.Id == id2) && c.KeyData == null).ToList();
         entries.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestResultExportConfigurationCreated()
+    {
+        var contest = new ContestEventData
+        {
+            Id = "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+            Date = new DateTime(2020, 8, 23, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+            Description = { LanguageUtil.MockAllLanguages("test") },
+            DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+            EndOfTestingPhase = new DateTime(2019, 01, 01, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+            State = SharedProto.ContestState.TestingPhase,
+        };
+
+        await TestEventPublisher.Publish(new ContestCreated { Contest = contest });
+
+        var contestId = Guid.Parse(contest.Id);
+        var resultExportConfigurations = await RunOnDb(
+            db => db.ResultExportConfigurations
+                .Where(x => x.ContestId == contestId)
+                .ToListAsync());
+
+        foreach (var resultConfig in resultExportConfigurations)
+        {
+            resultConfig.DomainOfInfluenceId = Guid.Empty;
+        }
+
+        resultExportConfigurations.ShouldMatchSnapshot();
     }
 }

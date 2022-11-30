@@ -23,21 +23,23 @@ public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBas
 
     protected override string NewRequestExpectedFileName => "Wahlprotokoll - Nationalratswahl de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override Task SeedData() => ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
 
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
-                       {
-                           new GenerateResultExportRequest
-                           {
-                               Key = AusmittlungPdfProportionalElectionTemplates.EndResultListUnions.Key,
-                               PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
-                           },
-                       },
+            {
+                new GenerateResultExportRequest
+                {
+                    Key = AusmittlungPdfProportionalElectionTemplates.EndResultListUnions.Key,
+                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
+                },
+            },
         };
     }
 

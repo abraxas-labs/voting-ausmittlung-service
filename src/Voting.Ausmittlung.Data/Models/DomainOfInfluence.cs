@@ -19,6 +19,8 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
 
     public int SortNumber { get; set; }
 
+    public string NameForProtocol { get; set; } = string.Empty;
+
     public string SecureConnectId { get; set; } = string.Empty;
 
     public string AuthorityName { get; set; } = string.Empty;

@@ -37,6 +37,7 @@ public class ContestProcessor :
     private readonly DomainOfInfluencePermissionBuilder _permissionBuilder;
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
+    private readonly ResultExportConfigurationBuilder _resultExportConfigurationBuilder;
     private readonly IMapper _mapper;
     private readonly ContestResultInitializer _contestResultInitializer;
 
@@ -49,6 +50,7 @@ public class ContestProcessor :
         DomainOfInfluencePermissionBuilder permissionBuilder,
         ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder,
         AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder,
+        ResultExportConfigurationBuilder resultExportConfigurationBuilder,
         IMapper mapper,
         ContestResultInitializer contestResultInitializer)
     {
@@ -62,6 +64,7 @@ public class ContestProcessor :
         _resultExportConfigRepo = resultExportConfigRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
+        _resultExportConfigurationBuilder = resultExportConfigurationBuilder;
     }
 
     public async Task Process(ContestCreated eventData)
@@ -72,6 +75,7 @@ public class ContestProcessor :
         await _contestSnapshotBuilder.CreateSnapshotForContest(contest);
         await _contestCountingCircleDetailsBuilder.SyncAndResetEVoting(contest);
         await _permissionBuilder.RebuildPermissionTree();
+        await _resultExportConfigurationBuilder.CreateResultExportConfigurationForContest(contest);
     }
 
     public async Task Process(ContestUpdated eventData)

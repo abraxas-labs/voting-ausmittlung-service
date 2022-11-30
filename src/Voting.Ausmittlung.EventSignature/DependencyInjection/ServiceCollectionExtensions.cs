@@ -11,6 +11,6 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddSingleton<PublicKeySignatureVerifier>()
-            .AddForwardRefSingleton<IContestKeyDataProvider, ContestCache>();
+            .AddSingleton<ContestCache>();
     }
 }

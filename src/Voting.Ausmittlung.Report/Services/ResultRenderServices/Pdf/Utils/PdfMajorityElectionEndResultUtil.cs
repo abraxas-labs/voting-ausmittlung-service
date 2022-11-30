@@ -24,6 +24,7 @@ public static class PdfMajorityElectionEndResultUtil
             var candidateEndResults = candidateEndResultsByState[state]
                 .OrderByDescending(x => x.VoteCount)
                 .ThenBy(x => x.Rank)
+                .ThenBy(x => x.Candidate!.Position)
                 .ToList();
 
             switch (state)

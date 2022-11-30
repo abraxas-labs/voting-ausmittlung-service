@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
@@ -23,28 +24,32 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest<Ge
 
     protected override string NewRequestExpectedFileName => "Detailergebniss aller einseh. Einheiten - Majorzw de.pdf";
 
+    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
+
+        await ModifyDbEntities<MajorityElectionResult>(_ => true, x => x.State = CountingCircleResultState.AuditedTentatively);
     }
 
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ContestId = Guid.Parse(ContestId),
             ResultExportRequests =
+            {
+                new GenerateResultExportRequest
                 {
-                    new GenerateResultExportRequest
+                    Key = AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol.Key,
+                    PoliticalBusinessIds =
                     {
-                        Key = AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                        },
+                        Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
                     },
                 },
+            },
         };
     }
 

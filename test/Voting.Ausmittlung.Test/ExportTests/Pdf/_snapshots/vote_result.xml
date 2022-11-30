@@ -5,9 +5,11 @@
     <Description>Nationalratswahlen in der Zukunft de</Description>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
@@ -21,14 +23,19 @@
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
@@ -45,6 +52,7 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
           </BallotQuestion>
@@ -65,14 +73,19 @@
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
       <ShortName>Bund</ShortName>
       <AuthorityName />
       <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
@@ -89,6 +102,7 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q1</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
           </BallotQuestion>
@@ -101,6 +115,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q2</Label>
             <Number>2</Number>
             <Question>Frage 2 Bund de</Question>
           </BallotQuestion>
@@ -113,6 +128,7 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount3Q3</Label>
             <Number>3</Number>
             <Question>Frage 3 Bund de</Question>
           </BallotQuestion>
@@ -125,6 +141,7 @@
         </BallotQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ1</Label>
             <Number>1</Number>
             <Question>Frage 1 vor Frage 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -139,6 +156,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ2</Label>
             <Number>2</Number>
             <Question>Frage 1 vor Frage 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -153,6 +171,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
+            <Label>QuestionCount3TBQ3</Label>
             <Number>3</Number>
             <Question>Frage 2 vor Frage 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -182,6 +201,7 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
+            <Label>QuestionCount1Q1</Label>
             <Number>1</Number>
             <Question>Frage 2.1 Bund de</Question>
           </BallotQuestion>
@@ -197,10 +217,12 @@
   </Vote>
   <CountingCircle>
     <Name>Uzwil</Name>
+    <NameForProtocol>Stadt Uzwil</NameForProtocol>
     <Bfs>1234</Bfs>
     <Code>1234-UZWIL</Code>
+    <SortNumber>2005</SortNumber>
     <ResponsibleAuthority>
-      <SecureConnectId>100</SecureConnectId>
+      <SecureConnectId>100100100100100100</SecureConnectId>
       <Name>Uzwil</Name>
       <Phone>071 123 12 20</Phone>
       <Email>uzwil-test@abraxas.ch</Email>

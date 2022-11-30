@@ -15,8 +15,13 @@ public class MajorityElectionResultSubTotal : IMajorityElectionResultSubTotal<in
     public int InvalidVoteCount { get; set; }
 
     /// <inheritdoc />
+    public int TotalEmptyAndInvalidVoteCount => EmptyVoteCount + InvalidVoteCount;
+
+    /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual { get; set; }
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
+
+    public int TotalVoteCount => TotalCandidateVoteCountInclIndividual + TotalEmptyAndInvalidVoteCount;
 }

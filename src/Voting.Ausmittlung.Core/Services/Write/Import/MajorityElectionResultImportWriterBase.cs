@@ -45,7 +45,10 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         }
 
         var hasInvalid = mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Invalid);
-        if (hasInvalid && !await SupportsInvalidVotes(electionId))
+        var election = await GetElection(electionId);
+
+        // In elections with a single mandate the mapping target "invalid" is valid, since a whole ballot can be invalid.
+        if (hasInvalid && election.NumberOfMandates > 1 && !await SupportsInvalidVotes(electionId))
         {
             throw new ValidationException("Invalid votes are not enabled on this election");
         }
@@ -88,6 +91,8 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
 
     protected abstract Task<List<TElection>> LoadElections(Guid contestId, IReadOnlyCollection<Guid> electionIds);
 
+    protected abstract Task<TElection> GetElection(Guid electionId);
+
     protected abstract Task<List<Guid>> GetCandidateIds(Guid electionId);
 
     protected abstract IEnumerable<MajorityElectionCandidateBase> GetCandidates(TElection election);
@@ -110,6 +115,11 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
             {
                 throw new ValidationException(
                     $"the number of ballot positions exceeds the number of mandates ({ballot.Positions.Count} vs {election.NumberOfMandates})");
+            }
+
+            if (election.NumberOfMandates == 1 && (ballot.Positions.Count != 1 || ballot.Positions.First().IsEmpty))
+            {
+                throw new ValidationException("empty position provided with single mandate");
             }
 
             var candidatesOnThisBallot = new HashSet<Guid>();

@@ -21,6 +21,11 @@ public interface IMajorityElectionResultSubTotal<out TInt>
     TInt InvalidVoteCount { get; }
 
     /// <summary>
+    /// Gets the total count of empty and invalid votes.
+    /// </summary>
+    int TotalEmptyAndInvalidVoteCount { get; }
+
+    /// <summary>
     /// Gets the total count of candidate votes excl. individual votes.
     /// </summary>
     int TotalCandidateVoteCountExclIndividual { get; }
@@ -29,4 +34,9 @@ public interface IMajorityElectionResultSubTotal<out TInt>
     /// Gets the total count of candidate votes incl. individual votes.
     /// </summary>
     int TotalCandidateVoteCountInclIndividual { get; }
+
+    /// <summary>
+    /// Gets the total count of votes incl. individual, empty and invalid votes.
+    /// </summary>
+    int TotalVoteCount { get; }
 }

@@ -29,7 +29,11 @@ public class EnterContactPersonRequestTest : ProtoValidatorBaseTest<EnterContact
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.FirstName = string.Empty);
+        yield return NewValidRequest(x => x.FirstName = "A");
+        yield return NewValidRequest(x => x.FirstName = new string('A', 50));
         yield return NewValidRequest(x => x.FamilyName = string.Empty);
+        yield return NewValidRequest(x => x.FamilyName = "A");
+        yield return NewValidRequest(x => x.FamilyName = new string('A', 50));
         yield return NewValidRequest(x => x.MobilePhone = string.Empty);
         yield return NewValidRequest(x => x.Email = string.Empty);
     }
@@ -37,7 +41,9 @@ public class EnterContactPersonRequestTest : ProtoValidatorBaseTest<EnterContact
     protected override IEnumerable<EnterContactPersonRequest> NotOkMessages()
     {
         yield return NewValidRequest(x => x.FirstName = "M\nax");
+        yield return NewValidRequest(x => x.FirstName = new string('A', 51));
         yield return NewValidRequest(x => x.FamilyName = "Musz\ntermann");
+        yield return NewValidRequest(x => x.FamilyName = new string('A', 51));
         yield return NewValidRequest(x => x.Phone = string.Empty);
         yield return NewValidRequest(x => x.MobilePhone = "+41 79 123 41 a0");
     }

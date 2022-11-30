@@ -44,7 +44,7 @@ public class ResultList
 
     public bool MustUpdateContactPersons { get; }
 
-    public bool HasUnmappedEVotingWriteIns => Results.OfType<MajorityElectionResult>().Any(x => x.HasUnmappedWriteIns);
+    public bool HasUnmappedEVotingWriteIns => Results.Any(x => x.HasUnmappedWriteIns);
 
     public CountingCircleResultState State =>
         Results.Count == 0
