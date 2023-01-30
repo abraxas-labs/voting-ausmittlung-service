@@ -1,0 +1,2083 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0110/4">
+  <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5">
+    <eCH-0058:senderId>ABX-VOTING</eCH-0058:senderId>
+    <eCH-0058:messageId>mock-id</eCH-0058:messageId>
+    <eCH-0058:messageType>1710967</eCH-0058:messageType>
+    <eCH-0058:sendingApplication>
+      <eCH-0058:manufacturer>Abraxas Informatik AG</eCH-0058:manufacturer>
+      <eCH-0058:product>Voting.Ausmittlung</eCH-0058:product>
+      <eCH-0058:productVersion>0.0.0.1</eCH-0058:productVersion>
+    </eCH-0058:sendingApplication>
+    <eCH-0058:messageDate>2020-01-10T13:12:10.200</eCH-0058:messageDate>
+    <eCH-0058:action>1</eCH-0058:action>
+    <eCH-0058:testDeliveryFlag>true</eCH-0058:testDeliveryFlag>
+  </deliveryHeader>
+  <resultDelivery>
+    <reportingBody>
+      <reportingBodyIdentification>999999999999999999</reportingBodyIdentification>
+      <creationDateTime>2020-01-10T13:12:10.200</creationDateTime>
+    </reportingBody>
+    <contestInformation xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+      <eCH-0155:contestIdentification>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</eCH-0155:contestIdentification>
+      <eCH-0155:contestDate>2029-02-12</eCH-0155:contestDate>
+      <eCH-0155:contestDescription>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>de</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft de</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>fr</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft fr</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>it</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft it</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>rm</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft rm</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+      </eCH-0155:contestDescription>
+    </contestInformation>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Gossau</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>3220</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>1780</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>3000</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>12800</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen Auslandschweizer</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>0</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>46adab98-9114-4503-9000-b02842640650</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen Haggen</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>0</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen St. Fiden</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>0</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Uzwil</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>2750</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>460</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>500</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>220</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>280</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>80</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>200</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          </election>
+          <majoralElection>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                <candidateReference>number1</candidateReference>
+                <familyName>1lastName</familyName>
+                <firstName>1firstName</firstName>
+                <callName>1pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>90</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
+                <candidateReference>number2</candidateReference>
+                <familyName>2lastName</familyName>
+                <firstName>2firstName</firstName>
+                <callName>2pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>150</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
+                <candidateReference>number3</candidateReference>
+                <familyName>3lastName</familyName>
+                <firstName>3firstName</firstName>
+                <callName>3pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>100</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
+                <candidateReference>number4</candidateReference>
+                <familyName>4lastName</familyName>
+                <firstName>4firstName</firstName>
+                <callName>4pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>200</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
+                <candidateReference>number5</candidateReference>
+                <familyName>5lastName</familyName>
+                <firstName>5firstName</firstName>
+                <callName>5pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>80</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
+                <candidateReference>number6</candidateReference>
+                <familyName>6lastName</familyName>
+                <firstName>6firstName</firstName>
+                <callName>6pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>70</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
+                <candidateReference>number7</candidateReference>
+                <familyName>7lastName</familyName>
+                <firstName>7firstName</firstName>
+                <callName>7pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>60</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
+                <candidateReference>number8</candidateReference>
+                <familyName>8lastName</familyName>
+                <firstName>8firstName</firstName>
+                <callName>8pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>55</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
+                <candidateReference>number9</candidateReference>
+                <familyName>9lastName</familyName>
+                <firstName>9firstName</firstName>
+                <callName>9pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>50</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
+                <candidateReference>number10</candidateReference>
+                <familyName>10lastName</familyName>
+                <firstName>10firstName</firstName>
+                <callName>10pol firstName</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+            <countOfInvalidVotesTotal>
+              <total>20</total>
+            </countOfInvalidVotesTotal>
+            <countOfBlankVotesTotal>
+              <total>10</total>
+            </countOfBlankVotesTotal>
+            <countOfIndividualVotesTotal>
+              <total>140</total>
+            </countOfIndividualVotesTotal>
+          </majoralElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+  </resultDelivery>
+</delivery>

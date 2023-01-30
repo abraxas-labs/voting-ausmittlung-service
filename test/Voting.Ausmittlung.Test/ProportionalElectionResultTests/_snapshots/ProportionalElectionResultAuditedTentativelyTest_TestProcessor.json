@@ -29,7 +29,6 @@
     "PoliticalBusinessNumber": "321",
     "OfficialDescription": "Proporzwahl Gossau de",
     "ShortDescription": "Pw Gossau de",
-    "InternalDescription": "Proporzwahl Gossau auf Urnengang St.Gallen",
     "NumberOfMandates": 3,
     "MandateAlgorithm": 2,
     "CandidateCheckDigit": true,
@@ -60,6 +59,9 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
+      },
+      "CantonDefaults": {
+        "MajorityElectionInvalidVotes": false
       }
     },
     "Contest": {
@@ -120,7 +122,7 @@
         "Position": 1,
         "Description": ""
       },
-      "NumberOfMandates": 0,
+      "NumberOfMandates": 1,
       "CandidateEndResults": [
         {
           "Candidate": {
@@ -144,7 +146,7 @@
           "LotDecision": false,
           "LotDecisionEnabled": true,
           "LotDecisionRequired": true,
-          "State": 3,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -182,7 +184,7 @@
           "LotDecision": false,
           "LotDecisionEnabled": true,
           "LotDecisionRequired": true,
-          "State": 3,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -231,32 +233,32 @@
       },
       "ConventionalSubTotal": {
         "UnmodifiedListsCount": 0,
-        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListVotesCount": 500,
         "UnmodifiedListBlankRowsCount": 0,
         "ModifiedListsCount": 0,
         "ModifiedListVotesCount": 0,
         "ModifiedListBlankRowsCount": 0,
         "ListVotesCountOnOtherLists": 0,
-        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 500,
         "ModifiedListVotesCountInclBlankRows": 0,
-        "ListVotesCount": 0,
+        "ListVotesCount": 500,
         "ListCount": 0,
         "BlankRowsCount": 0,
-        "TotalVoteCount": 0
+        "TotalVoteCount": 500
       },
       "UnmodifiedListsCount": 0,
-      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListVotesCount": 500,
       "UnmodifiedListBlankRowsCount": 0,
       "ModifiedListsCount": 0,
       "ModifiedListVotesCount": 0,
       "ListVotesCountOnOtherLists": 0,
       "ModifiedListBlankRowsCount": 0,
-      "UnmodifiedListVotesCountInclBlankRows": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 500,
       "ModifiedListVotesCountInclBlankRows": 0,
-      "ListVotesCount": 0,
+      "ListVotesCount": 500,
       "ListCount": 0,
       "BlankRowsCount": 0,
-      "TotalVoteCount": 0
+      "TotalVoteCount": 500
     },
     {
       "List": {
@@ -268,7 +270,7 @@
         "Position": 2,
         "Description": ""
       },
-      "NumberOfMandates": 0,
+      "NumberOfMandates": 1,
       "CandidateEndResults": [
         {
           "Candidate": {
@@ -292,7 +294,7 @@
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
-          "State": 3,
+          "State": 2,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -341,32 +343,32 @@
       },
       "ConventionalSubTotal": {
         "UnmodifiedListsCount": 0,
-        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListVotesCount": 500,
         "UnmodifiedListBlankRowsCount": 0,
         "ModifiedListsCount": 0,
         "ModifiedListVotesCount": 0,
         "ModifiedListBlankRowsCount": 0,
         "ListVotesCountOnOtherLists": 0,
-        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 500,
         "ModifiedListVotesCountInclBlankRows": 0,
-        "ListVotesCount": 0,
+        "ListVotesCount": 500,
         "ListCount": 0,
         "BlankRowsCount": 0,
-        "TotalVoteCount": 0
+        "TotalVoteCount": 500
       },
       "UnmodifiedListsCount": 0,
-      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListVotesCount": 500,
       "UnmodifiedListBlankRowsCount": 0,
       "ModifiedListsCount": 0,
       "ModifiedListVotesCount": 0,
       "ListVotesCountOnOtherLists": 0,
       "ModifiedListBlankRowsCount": 0,
-      "UnmodifiedListVotesCountInclBlankRows": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 500,
       "ModifiedListVotesCountInclBlankRows": 0,
-      "ListVotesCount": 0,
+      "ListVotesCount": 500,
       "ListCount": 0,
       "BlankRowsCount": 0,
-      "TotalVoteCount": 0
+      "TotalVoteCount": 500
     },
     {
       "List": {
@@ -378,7 +380,7 @@
         "Position": 3,
         "Description": ""
       },
-      "NumberOfMandates": 0,
+      "NumberOfMandates": 1,
       "CandidateEndResults": [],
       "ListUnion": {
         "Id": "6a8913a3-bd03-4cb3-a0f9-317db5de8959",
@@ -412,33 +414,34 @@
       },
       "ConventionalSubTotal": {
         "UnmodifiedListsCount": 0,
-        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListVotesCount": 500,
         "UnmodifiedListBlankRowsCount": 0,
         "ModifiedListsCount": 0,
         "ModifiedListVotesCount": 0,
         "ModifiedListBlankRowsCount": 0,
         "ListVotesCountOnOtherLists": 0,
-        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 500,
         "ModifiedListVotesCountInclBlankRows": 0,
-        "ListVotesCount": 0,
+        "ListVotesCount": 500,
         "ListCount": 0,
         "BlankRowsCount": 0,
-        "TotalVoteCount": 0
+        "TotalVoteCount": 500
       },
       "UnmodifiedListsCount": 0,
-      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListVotesCount": 500,
       "UnmodifiedListBlankRowsCount": 0,
       "ModifiedListsCount": 0,
       "ModifiedListVotesCount": 0,
       "ListVotesCountOnOtherLists": 0,
       "ModifiedListBlankRowsCount": 0,
-      "UnmodifiedListVotesCountInclBlankRows": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 500,
       "ModifiedListVotesCountInclBlankRows": 0,
-      "ListVotesCount": 0,
+      "ListVotesCount": 500,
       "ListCount": 0,
       "BlankRowsCount": 0,
-      "TotalVoteCount": 0
+      "TotalVoteCount": 500
     }
   ],
-  "Finalized": false
+  "Finalized": false,
+  "ManualEndResultRequired": false
 }

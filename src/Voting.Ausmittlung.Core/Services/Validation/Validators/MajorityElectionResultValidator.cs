@@ -57,7 +57,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
                 yield return ValidateEmptyVoteCountNotNull(data);
             }
 
-            if (data.MajorityElection.InvalidVotes && data.MajorityElection.NumberOfMandates != 1)
+            if (data.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes && data.MajorityElection.NumberOfMandates != 1)
             {
                 yield return ValidateInvalidVoteCountNotNull(data);
             }

@@ -50,7 +50,7 @@ public class MajorityElectionAggregate : BasePoliticalBusinessAggregate
 
     public void Apply(SecondaryMajorityElectionAfterTestingPhaseUpdated ev)
     {
-        var smeId = Guid.Parse(ev.Id);
+        var smeId = GuidParser.Parse(ev.Id);
         var sme = SecondaryMajorityElections[smeId];
         sme.ShortDescription = MapShortDescriptionTranslations(ev.ShortDescription);
         sme.PoliticalBusinessNumber = ev.PoliticalBusinessNumber;
@@ -58,14 +58,13 @@ public class MajorityElectionAggregate : BasePoliticalBusinessAggregate
 
     public void Apply(SecondaryMajorityElectionDeleted ev)
     {
-        var smeId = Guid.Parse(ev.SecondaryMajorityElectionId);
+        var smeId = GuidParser.Parse(ev.SecondaryMajorityElectionId);
         SecondaryMajorityElections.Remove(smeId);
     }
 
-    public SecondaryMajorityElection GetSecondaryMajorityElection(Guid smeId)
+    public SecondaryMajorityElection? GetSecondaryMajorityElection(Guid smeId)
     {
-        return SecondaryMajorityElections.GetValueOrDefault(smeId) ??
-            throw new ArgumentException($"Secondary majority election with id {smeId} not found");
+        return SecondaryMajorityElections.GetValueOrDefault(smeId);
     }
 
     protected override void Apply(IMessage eventData)
@@ -105,7 +104,7 @@ public class MajorityElectionAggregate : BasePoliticalBusinessAggregate
 
     private void MapEventData(SecondaryMajorityElectionEventData eventData)
     {
-        var smeId = Guid.Parse(eventData.Id);
+        var smeId = GuidParser.Parse(eventData.Id);
         var sme = SecondaryMajorityElections.GetValueOrDefault(smeId);
 
         if (sme == null)

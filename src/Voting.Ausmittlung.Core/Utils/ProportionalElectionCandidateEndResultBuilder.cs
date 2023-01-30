@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
@@ -101,7 +102,6 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         ProportionalElectionListEndResult listEndResult)
     {
         SetCandidateEndResultStatesAfterAllSubmissionsDone(listEndResult);
-        RecalculateLotDecisionRequired(listEndResult);
     }
 
     internal void UpdateCandidateEndResultRanksByLotDecisions(
@@ -114,6 +114,44 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
             var candidateEndResult = candidateEndResultsByCandidateId[lotDecision.CandidateId];
             candidateEndResult.Rank = lotDecision.Rank;
             candidateEndResult.LotDecision = true;
+        }
+    }
+
+    internal async Task SetCandidateEndResultsManually(Guid listId, Dictionary<Guid, ProportionalElectionCandidateEndResultState> candidateStateById)
+    {
+        var listEndResult = await _dataContext
+            .ProportionalElectionListEndResult
+            .AsTracking()
+            .Include(l => l.ElectionEndResult)
+            .Include(l => l.CandidateEndResults)
+            .FirstOrDefaultAsync(l => l.ListId == listId)
+            ?? throw new EntityNotFoundException(listId);
+
+        foreach (var candidateEndResult in listEndResult.CandidateEndResults)
+        {
+            if (!candidateStateById.TryGetValue(candidateEndResult.CandidateId, out var candidateState))
+            {
+                throw new InvalidOperationException($"Cannot find proportional election manual state for candidate {candidateEndResult.CandidateId}");
+            }
+
+            candidateEndResult.State = candidateState;
+        }
+
+        listEndResult.ElectionEndResult.Finalized = false;
+        listEndResult.NumberOfMandates = listEndResult.CandidateEndResults.Count(x => x.State == ProportionalElectionCandidateEndResultState.Elected);
+        await _dataContext.SaveChangesAsync();
+    }
+
+    internal void RecalculateLotDecisionRequired(ProportionalElectionListEndResult listEndResult)
+    {
+        var enabledCandidateEndResults = listEndResult.CandidateEndResults.Where(x => x.LotDecisionEnabled);
+
+        listEndResult.HasOpenRequiredLotDecisions = false;
+        foreach (var candidateEndResult in enabledCandidateEndResults)
+        {
+            // lot decision is always required when there are candidates with the same vote count
+            candidateEndResult.LotDecisionRequired = true;
+            listEndResult.HasOpenRequiredLotDecisions |= candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision;
         }
     }
 
@@ -149,20 +187,6 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         candidateEndResult.State = candidateEndResult.LotDecisionEnabled && !candidateEndResult.LotDecision
             ? ProportionalElectionCandidateEndResultState.Pending
             : ProportionalElectionCandidateEndResultState.Elected;
-    }
-
-    private void RecalculateLotDecisionRequired(
-        ProportionalElectionListEndResult listEndResult)
-    {
-        var enabledCandidateEndResults = listEndResult.CandidateEndResults.Where(x => x.LotDecisionEnabled);
-
-        listEndResult.HasOpenRequiredLotDecisions = false;
-        foreach (var candidateEndResult in enabledCandidateEndResults)
-        {
-            // lot decision is always required when there are candidates with the same vote count
-            candidateEndResult.LotDecisionRequired = true;
-            listEndResult.HasOpenRequiredLotDecisions |= candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision;
-        }
     }
 
     private void SetCandidateEndResultStatesToPending(IEnumerable<ProportionalElectionCandidateEndResult> candidateEndResults)

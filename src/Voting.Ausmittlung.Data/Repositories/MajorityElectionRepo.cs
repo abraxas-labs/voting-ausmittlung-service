@@ -11,8 +11,8 @@ namespace Voting.Ausmittlung.Data.Repositories;
 
 public class MajorityElectionRepo : PoliticalBusinessRepo<MajorityElection>
 {
-    public MajorityElectionRepo(DataContext context, DomainOfInfluenceRepo domainOfInfluenceRepo, CountingCircleRepo countingCircleRepo)
-        : base(context, domainOfInfluenceRepo, countingCircleRepo)
+    public MajorityElectionRepo(DataContext context)
+        : base(context)
     {
     }
 

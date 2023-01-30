@@ -146,25 +146,23 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
-    public async Task TestShouldThrowOtherTenant()
-    {
-        await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1)),
-            StatusCode.PermissionDenied);
-    }
-
-    [Fact]
-    public async Task TestShouldThrowEmpty()
+    public async Task TestShouldReturnEmpty()
     {
         var req = NewValidRequest(x =>
         {
             x.EmptyVoteCount = 1;
             x.SelectedCandidateIds.Clear();
         });
+        await BundleErfassungCreatorClient.CreateBallotAsync(req);
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotCreated>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowOtherTenant()
+    {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(req),
-            StatusCode.InvalidArgument,
-            "At least one vote has to be on a ballot");
+            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1)),
+            StatusCode.PermissionDenied);
     }
 
     [Fact]

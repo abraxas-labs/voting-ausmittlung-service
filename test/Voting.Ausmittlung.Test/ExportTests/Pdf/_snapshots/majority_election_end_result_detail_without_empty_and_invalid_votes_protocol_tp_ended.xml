@@ -1,0 +1,2832 @@
+<Voting>
+  <TemplateKey>majority_election_end_result_detail_without_empty_and_invalid_votes_protocol</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <State>Active</State>
+  </Contest>
+  <MajorityElection>
+    <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
+    <OfficialDescription>Majorzwahl de</OfficialDescription>
+    <ShortDescription>Majorzw de</ShortDescription>
+    <NumberOfMandates>3</NumberOfMandates>
+    <MandateAlgorithm>AbsoluteMajority</MandateAlgorithm>
+    <MajorityElectionResult>
+      <CountingCircle>
+        <Name>St. Gallen</Name>
+        <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+        <Bfs>5500</Bfs>
+        <Code />
+        <SortNumber>2000</SortNumber>
+        <ContestCountingCircleDetails>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+          <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+          <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+        </ContestCountingCircleDetails>
+      </CountingCircle>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+      <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+      <TotalVoteCount>0</TotalVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+    </MajorityElectionResult>
+    <MajorityElectionResult>
+      <CountingCircle>
+        <Name>St. Gallen Auslandschweizer</Name>
+        <NameForProtocol />
+        <Bfs>5500-3</Bfs>
+        <Code />
+        <SortNumber>2003</SortNumber>
+        <ContestCountingCircleDetails>
+          <TotalCountOfVoters>0</TotalCountOfVoters>
+          <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+          <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+          <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+        </ContestCountingCircleDetails>
+      </CountingCircle>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <State>Initial</State>
+      <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+      <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+      <TotalVoteCount>0</TotalVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+    </MajorityElectionResult>
+    <MajorityElectionEndResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>0</CountOfDoneCountingCircles>
+      <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
+      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+      <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+      <TotalVoteCount>0</TotalVoteCount>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <MajorityElectionCandidateEndResult>
+        <Rank>1</Rank>
+        <VoteCount>0</VoteCount>
+        <LotDecision>false</LotDecision>
+        <LotDecisionRequired>false</LotDecisionRequired>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <State>Pending</State>
+      </MajorityElectionCandidateEndResult>
+      <Calculation />
+    </MajorityElectionEndResult>
+    <MajorityElectionDomainOfInfluenceResult>
+      <DomainOfInfluence>
+        <Name>Gossau</Name>
+        <NameForProtocol>Stadt Gossau</NameForProtocol>
+        <ShortName>Gossau</ShortName>
+        <AuthorityName />
+        <Code />
+        <SortNumber>0</SortNumber>
+        <Bfs />
+        <Type>Sk</Type>
+        <Canton>Sg</Canton>
+      </DomainOfInfluence>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <ContestDomainOfInfluenceDetails>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+        <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+        <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      </ContestDomainOfInfluenceDetails>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionResult>
+        <CountingCircle>
+          <Name>Gossau</Name>
+          <NameForProtocol>Stadt Gossau</NameForProtocol>
+          <Bfs>3443</Bfs>
+          <Code>3443-GOSSAU</Code>
+          <SortNumber>9800</SortNumber>
+          <ContestCountingCircleDetails>
+            <TotalCountOfVoters>0</TotalCountOfVoters>
+            <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+            <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+            <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+          </ContestCountingCircleDetails>
+        </CountingCircle>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <State>Initial</State>
+        <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+        <IndividualVoteCount>0</IndividualVoteCount>
+        <EmptyVoteCount>0</EmptyVoteCount>
+        <InvalidVoteCount>0</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>0</TotalVoteCount>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>1</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number2 2pol last name 2pol firstName</Description>
+            <Number>number2</Number>
+            <FirstName>2firstName</FirstName>
+            <LastName>2lastName</LastName>
+            <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+            <PoliticalLastName>2pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>2</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number3 3pol last name 3pol firstName</Description>
+            <Number>number3</Number>
+            <FirstName>3firstName</FirstName>
+            <LastName>3lastName</LastName>
+            <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+            <PoliticalLastName>3pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>3</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>4</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number5 5pol last name 5pol firstName</Description>
+            <Number>number5</Number>
+            <FirstName>5firstName</FirstName>
+            <LastName>5lastName</LastName>
+            <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+            <PoliticalLastName>5pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>5</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number6 6pol last name 6pol firstName</Description>
+            <Number>number6</Number>
+            <FirstName>6firstName</FirstName>
+            <LastName>6lastName</LastName>
+            <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+            <PoliticalLastName>6pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>6</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number7 7pol last name 7pol firstName</Description>
+            <Number>number7</Number>
+            <FirstName>7firstName</FirstName>
+            <LastName>7lastName</LastName>
+            <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+            <PoliticalLastName>7pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>7</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number8 8pol last name 8pol firstName</Description>
+            <Number>number8</Number>
+            <FirstName>8firstName</FirstName>
+            <LastName>8lastName</LastName>
+            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+            <PoliticalLastName>8pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>8</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number9 9pol last name 9pol firstName</Description>
+            <Number>number9</Number>
+            <FirstName>9firstName</FirstName>
+            <LastName>9lastName</LastName>
+            <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+            <PoliticalLastName>9pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>9</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number10 10pol last name 10pol firstName</Description>
+            <Number>number10</Number>
+            <FirstName>10firstName</FirstName>
+            <LastName>10lastName</LastName>
+            <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+            <PoliticalLastName>10pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>10</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+      </MajorityElectionResult>
+    </MajorityElectionDomainOfInfluenceResult>
+    <MajorityElectionDomainOfInfluenceResult>
+      <DomainOfInfluence>
+        <Name>St. Gallen (Stadt)</Name>
+        <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+        <ShortName>St. Gallen  (Stadt)</ShortName>
+        <AuthorityName />
+        <Code />
+        <SortNumber>0</SortNumber>
+        <Bfs />
+        <Type>Mu</Type>
+        <Canton>Sg</Canton>
+      </DomainOfInfluence>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <ContestDomainOfInfluenceDetails>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+        <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+        <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      </ContestDomainOfInfluenceDetails>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionResult>
+        <CountingCircle>
+          <Name>St. Gallen St. Fiden</Name>
+          <NameForProtocol>St. Fiden</NameForProtocol>
+          <Bfs>5500-1</Bfs>
+          <Code>C5500-1</Code>
+          <SortNumber>2001</SortNumber>
+          <ContestCountingCircleDetails>
+            <TotalCountOfVoters>0</TotalCountOfVoters>
+            <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+            <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+            <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+          </ContestCountingCircleDetails>
+        </CountingCircle>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <State>Initial</State>
+        <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+        <IndividualVoteCount>0</IndividualVoteCount>
+        <EmptyVoteCount>0</EmptyVoteCount>
+        <InvalidVoteCount>0</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>0</TotalVoteCount>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>1</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number2 2pol last name 2pol firstName</Description>
+            <Number>number2</Number>
+            <FirstName>2firstName</FirstName>
+            <LastName>2lastName</LastName>
+            <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+            <PoliticalLastName>2pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>2</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number3 3pol last name 3pol firstName</Description>
+            <Number>number3</Number>
+            <FirstName>3firstName</FirstName>
+            <LastName>3lastName</LastName>
+            <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+            <PoliticalLastName>3pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>3</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>4</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number5 5pol last name 5pol firstName</Description>
+            <Number>number5</Number>
+            <FirstName>5firstName</FirstName>
+            <LastName>5lastName</LastName>
+            <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+            <PoliticalLastName>5pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>5</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number6 6pol last name 6pol firstName</Description>
+            <Number>number6</Number>
+            <FirstName>6firstName</FirstName>
+            <LastName>6lastName</LastName>
+            <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+            <PoliticalLastName>6pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>6</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number7 7pol last name 7pol firstName</Description>
+            <Number>number7</Number>
+            <FirstName>7firstName</FirstName>
+            <LastName>7lastName</LastName>
+            <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+            <PoliticalLastName>7pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>7</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number8 8pol last name 8pol firstName</Description>
+            <Number>number8</Number>
+            <FirstName>8firstName</FirstName>
+            <LastName>8lastName</LastName>
+            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+            <PoliticalLastName>8pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>8</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number9 9pol last name 9pol firstName</Description>
+            <Number>number9</Number>
+            <FirstName>9firstName</FirstName>
+            <LastName>9lastName</LastName>
+            <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+            <PoliticalLastName>9pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>9</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number10 10pol last name 10pol firstName</Description>
+            <Number>number10</Number>
+            <FirstName>10firstName</FirstName>
+            <LastName>10lastName</LastName>
+            <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+            <PoliticalLastName>10pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>10</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+      </MajorityElectionResult>
+      <MajorityElectionResult>
+        <CountingCircle>
+          <Name>St. Gallen Haggen</Name>
+          <NameForProtocol />
+          <Bfs>5500-2</Bfs>
+          <Code />
+          <SortNumber>2002</SortNumber>
+          <ContestCountingCircleDetails>
+            <TotalCountOfVoters>0</TotalCountOfVoters>
+            <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+            <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+            <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+          </ContestCountingCircleDetails>
+        </CountingCircle>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <State>Initial</State>
+        <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+        <IndividualVoteCount>0</IndividualVoteCount>
+        <EmptyVoteCount>0</EmptyVoteCount>
+        <InvalidVoteCount>0</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>0</TotalVoteCount>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>1</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number2 2pol last name 2pol firstName</Description>
+            <Number>number2</Number>
+            <FirstName>2firstName</FirstName>
+            <LastName>2lastName</LastName>
+            <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+            <PoliticalLastName>2pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>2</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number3 3pol last name 3pol firstName</Description>
+            <Number>number3</Number>
+            <FirstName>3firstName</FirstName>
+            <LastName>3lastName</LastName>
+            <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+            <PoliticalLastName>3pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>3</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>4</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number5 5pol last name 5pol firstName</Description>
+            <Number>number5</Number>
+            <FirstName>5firstName</FirstName>
+            <LastName>5lastName</LastName>
+            <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+            <PoliticalLastName>5pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>5</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number6 6pol last name 6pol firstName</Description>
+            <Number>number6</Number>
+            <FirstName>6firstName</FirstName>
+            <LastName>6lastName</LastName>
+            <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+            <PoliticalLastName>6pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>6</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number7 7pol last name 7pol firstName</Description>
+            <Number>number7</Number>
+            <FirstName>7firstName</FirstName>
+            <LastName>7lastName</LastName>
+            <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+            <PoliticalLastName>7pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>7</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number8 8pol last name 8pol firstName</Description>
+            <Number>number8</Number>
+            <FirstName>8firstName</FirstName>
+            <LastName>8lastName</LastName>
+            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+            <PoliticalLastName>8pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>8</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number9 9pol last name 9pol firstName</Description>
+            <Number>number9</Number>
+            <FirstName>9firstName</FirstName>
+            <LastName>9lastName</LastName>
+            <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+            <PoliticalLastName>9pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>9</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number10 10pol last name 10pol firstName</Description>
+            <Number>number10</Number>
+            <FirstName>10firstName</FirstName>
+            <LastName>10lastName</LastName>
+            <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+            <PoliticalLastName>10pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>10</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+      </MajorityElectionResult>
+    </MajorityElectionDomainOfInfluenceResult>
+    <MajorityElectionDomainOfInfluenceResult>
+      <DomainOfInfluence>
+        <Name>Uzwil</Name>
+        <NameForProtocol>Stadt Uzwil</NameForProtocol>
+        <ShortName>Uzwil</ShortName>
+        <AuthorityName />
+        <Code>C3443</Code>
+        <SortNumber>3</SortNumber>
+        <Bfs>3443</Bfs>
+        <Type>Sk</Type>
+        <Canton>Sg</Canton>
+      </DomainOfInfluence>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <ContestDomainOfInfluenceDetails>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+        <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+        <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      </ContestDomainOfInfluenceDetails>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionResult>
+        <CountingCircle>
+          <Name>Uzwil</Name>
+          <NameForProtocol>Stadt Uzwil</NameForProtocol>
+          <Bfs>1234</Bfs>
+          <Code>1234-UZWIL</Code>
+          <SortNumber>2005</SortNumber>
+          <ContestCountingCircleDetails>
+            <TotalCountOfVoters>0</TotalCountOfVoters>
+            <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+            <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+            <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+          </ContestCountingCircleDetails>
+        </CountingCircle>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <State>Initial</State>
+        <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
+        <IndividualVoteCount>0</IndividualVoteCount>
+        <EmptyVoteCount>0</EmptyVoteCount>
+        <InvalidVoteCount>0</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>0</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>0</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>0</TotalVoteCount>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>1</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number2 2pol last name 2pol firstName</Description>
+            <Number>number2</Number>
+            <FirstName>2firstName</FirstName>
+            <LastName>2lastName</LastName>
+            <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+            <PoliticalLastName>2pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>2</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number3 3pol last name 3pol firstName</Description>
+            <Number>number3</Number>
+            <FirstName>3firstName</FirstName>
+            <LastName>3lastName</LastName>
+            <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+            <PoliticalLastName>3pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>3</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>4</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number5 5pol last name 5pol firstName</Description>
+            <Number>number5</Number>
+            <FirstName>5firstName</FirstName>
+            <LastName>5lastName</LastName>
+            <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+            <PoliticalLastName>5pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>5</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number6 6pol last name 6pol firstName</Description>
+            <Number>number6</Number>
+            <FirstName>6firstName</FirstName>
+            <LastName>6lastName</LastName>
+            <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+            <PoliticalLastName>6pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>6</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number7 7pol last name 7pol firstName</Description>
+            <Number>number7</Number>
+            <FirstName>7firstName</FirstName>
+            <LastName>7lastName</LastName>
+            <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+            <PoliticalLastName>7pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>7</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number8 8pol last name 8pol firstName</Description>
+            <Number>number8</Number>
+            <FirstName>8firstName</FirstName>
+            <LastName>8lastName</LastName>
+            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+            <PoliticalLastName>8pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Undefined</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>8</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number9 9pol last name 9pol firstName</Description>
+            <Number>number9</Number>
+            <FirstName>9firstName</FirstName>
+            <LastName>9lastName</LastName>
+            <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+            <PoliticalLastName>9pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Male</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>false</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>9</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <MajorityElectionCandidateResult>
+          <Candidate>
+            <Description>number10 10pol last name 10pol firstName</Description>
+            <Number>number10</Number>
+            <FirstName>10firstName</FirstName>
+            <LastName>10lastName</LastName>
+            <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+            <PoliticalLastName>10pol last name</PoliticalLastName>
+            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+            <Sex>Female</Sex>
+            <Title>title</Title>
+            <OccupationTitle>occupation title de</OccupationTitle>
+            <Occupation>occupation de</Occupation>
+            <Incumbent>true</Incumbent>
+            <ZipCode>zip code</ZipCode>
+            <Locality>locality</Locality>
+            <Position>10</Position>
+            <Origin>origin</Origin>
+            <Party>Test de</Party>
+          </Candidate>
+          <VoteCount>0</VoteCount>
+        </MajorityElectionCandidateResult>
+        <CountOfVoters>
+          <VoterParticipation>0</VoterParticipation>
+          <TotalReceivedBallots>0</TotalReceivedBallots>
+          <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <CountOfAccountedBallots>0</CountOfAccountedBallots>
+          <CountOfInvalidBallots>0</CountOfInvalidBallots>
+          <CountOfBlankBallots>0</CountOfBlankBallots>
+        </CountOfVoters>
+      </MajorityElectionResult>
+    </MajorityElectionDomainOfInfluenceResult>
+    <MajorityElectionAggregatedResult>
+      <CountOfVoters>
+        <VoterParticipation>0</VoterParticipation>
+        <TotalReceivedBallots>0</TotalReceivedBallots>
+        <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+        <CountOfAccountedBallots>0</CountOfAccountedBallots>
+        <CountOfInvalidBallots>0</CountOfInvalidBallots>
+        <CountOfBlankBallots>0</CountOfBlankBallots>
+      </CountOfVoters>
+      <ContestDomainOfInfluenceDetails>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
+        <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+        <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+        <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      </ContestDomainOfInfluenceDetails>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number2 2pol last name 2pol firstName</Description>
+          <Number>number2</Number>
+          <FirstName>2firstName</FirstName>
+          <LastName>2lastName</LastName>
+          <PoliticalFirstName>2pol firstName</PoliticalFirstName>
+          <PoliticalLastName>2pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number3 3pol last name 3pol firstName</Description>
+          <Number>number3</Number>
+          <FirstName>3firstName</FirstName>
+          <LastName>3lastName</LastName>
+          <PoliticalFirstName>3pol firstName</PoliticalFirstName>
+          <PoliticalLastName>3pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>3</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>4</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 5pol last name 5pol firstName</Description>
+          <Number>number5</Number>
+          <FirstName>5firstName</FirstName>
+          <LastName>5lastName</LastName>
+          <PoliticalFirstName>5pol firstName</PoliticalFirstName>
+          <PoliticalLastName>5pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>5</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number6 6pol last name 6pol firstName</Description>
+          <Number>number6</Number>
+          <FirstName>6firstName</FirstName>
+          <LastName>6lastName</LastName>
+          <PoliticalFirstName>6pol firstName</PoliticalFirstName>
+          <PoliticalLastName>6pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>6</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number7 7pol last name 7pol firstName</Description>
+          <Number>number7</Number>
+          <FirstName>7firstName</FirstName>
+          <LastName>7lastName</LastName>
+          <PoliticalFirstName>7pol firstName</PoliticalFirstName>
+          <PoliticalLastName>7pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>7</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number8 8pol last name 8pol firstName</Description>
+          <Number>number8</Number>
+          <FirstName>8firstName</FirstName>
+          <LastName>8lastName</LastName>
+          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
+          <PoliticalLastName>8pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>8</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number9 9pol last name 9pol firstName</Description>
+          <Number>number9</Number>
+          <FirstName>9firstName</FirstName>
+          <LastName>9lastName</LastName>
+          <PoliticalFirstName>9pol firstName</PoliticalFirstName>
+          <PoliticalLastName>9pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>9</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number10 10pol last name 10pol firstName</Description>
+          <Number>number10</Number>
+          <FirstName>10firstName</FirstName>
+          <LastName>10lastName</LastName>
+          <PoliticalFirstName>10pol firstName</PoliticalFirstName>
+          <PoliticalLastName>10pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Female</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>10</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
+      </MajorityElectionCandidateResult>
+    </MajorityElectionAggregatedResult>
+  </MajorityElection>
+  <DomainOfInfluence>
+    <Name>St. Gallen</Name>
+    <NameForProtocol>Kanton St. Gallen</NameForProtocol>
+    <ShortName>St. Gallen</ShortName>
+    <AuthorityName />
+    <Code>0002-SG</Code>
+    <SortNumber>2</SortNumber>
+    <Bfs>0002</Bfs>
+    <Type>Ct</Type>
+    <Canton>Sg</Canton>
+    <ContestDomainOfInfluenceDetails>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+    </ContestDomainOfInfluenceDetails>
+  </DomainOfInfluence>
+</Voting>

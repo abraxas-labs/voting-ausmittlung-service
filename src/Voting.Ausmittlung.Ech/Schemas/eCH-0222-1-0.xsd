@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2012 sp1 (http://www.altova.com) von Martin Stingelin (Stingelin Informatik GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2012 rel. 2 sp1 (http://www.altova.com) by Martin Stingelin (Stingelin Informatik GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" targetNamespace="http://www.ech.ch/xmlns/eCH-0222/1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:annotation>
+		<xs:documentation>Ausgabedatum: 16.07.2018</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0058/5" schemaLocation="http://www.ech.ch/xmlns/eCH-0058/5/eCH-0058-5-0.xsd"/>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0155/4" schemaLocation="http://www.ech.ch/xmlns/eCH-0155/4/eCH-0155-4-0.xsd"/>
+	<xs:attribute name="minorVersion" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>This attribute is used for indicating the minor version of an XML Schema instance in a standardized way. It SHOULD only appear on the document element of XML Schema instances.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:complexType name="reportingBodyType">
+		<xs:sequence>
+			<xs:element name="reportingBodyIdentification" type="eCH-0155:identifierType"/>
+			<xs:element name="creationDateTime" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="castedVoteType">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="isUnchangedBallotType">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:complexType name="voteRawDataType">
+		<xs:sequence>
+			<xs:element name="voteIdentification" type="eCH-0155:voteIdentificationType"/>
+			<xs:element name="ballotRawData" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ballotIdentification" type="eCH-0155:ballotIdentificationType"/>
+						<xs:element name="ballotCasted">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ballotCastedNumber" type="xs:nonNegativeInteger" minOccurs="0"/>
+									<xs:element name="questionRawData" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="questionIdentification" type="eCH-0155:questionIdType"/>
+												<xs:element name="casted" minOccurs="0">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="castedVote" type="eCH-0222:castedVoteType"/>
+															<xs:element name="answerOptionIdentification" type="eCH-0155:answerOptionIdentificationType" minOccurs="0"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="electionRawDataType">
+		<xs:sequence>
+			<xs:element name="electionIdentification" type="eCH-0155:electionIdentificationType"/>
+			<xs:element name="ballotRawData" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="listRawData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>mandatory for proportional elections</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="listIdentification" type="eCH-0155:listIdentificationType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ballotPosition" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="candidate">
+										<xs:complexType>
+											<xs:choice>
+												<xs:sequence>
+													<xs:element name="candidateIdentification" type="eCH-0155:identifierType"/>
+													<xs:element name="candidateReferenceOnPosition" type="eCH-0155:candidateReferenceType"/>
+												</xs:sequence>
+												<xs:element name="writeIn" type="eCH-0155:writeInType"/>
+											</xs:choice>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="isEmpty" type="xs:boolean" default="true"/>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="isUnchangedBallot" type="eCH-0222:isUnchangedBallotType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rawDataType">
+		<xs:sequence>
+			<xs:element name="contestIdentification" type="eCH-0155:contestIdentificationType"/>
+			<xs:element name="countingCircleRawData" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="countingCircleId" type="eCH-0155:countingCircleIdType"/>
+						<xs:element name="voteRawData" type="eCH-0222:voteRawDataType" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="electionGroupBallotRawData" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="electionGroupIdentification" type="eCH-0155:electionIdentificationType" minOccurs="0"/>
+									<xs:element name="electionRawData" type="eCH-0222:electionRawDataType" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eventRawDataDelivery">
+		<xs:sequence>
+			<xs:element name="reportingBody" type="eCH-0222:reportingBodyType"/>
+			<xs:element name="rawData" type="eCH-0222:rawDataType"/>
+			<xs:element name="extension" type="eCH-0155:extensionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="delivery">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="deliveryHeader" type="eCH-0058:headerType"/>
+				<xs:element name="rawDataDelivery" type="eCH-0222:eventRawDataDelivery"/>
+			</xs:sequence>
+			<xs:attribute ref="eCH-0222:minorVersion"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

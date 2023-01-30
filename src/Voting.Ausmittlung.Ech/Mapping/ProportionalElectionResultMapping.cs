@@ -57,11 +57,14 @@ internal static class ProportionalElectionResultMapping
     private static ListResultsType ToEchListResult(this ProportionalElectionListResult listResult)
     {
         var list = listResult.List;
+        var listDescriptions = list.Translations
+            .Select(t => ListDescriptionInfo.Create(t.Language, t.Description, t.ShortDescription))
+            .ToList();
         var listInformation = new ListInformationType
         {
             ListIdentification = list.Id.ToString(),
             ListIndentureNumber = list.OrderNumber,
-            ListDescription = list.Translations.Select(t => ListDescriptionInfo.Create(Languages.German, t.Description, t.ShortDescription)).ToArray(),
+            ListDescription = ListDescriptionInformation.Create(listDescriptions),
         };
 
         return new ListResultsType
@@ -81,7 +84,7 @@ internal static class ProportionalElectionResultMapping
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
         var texts = Languages.All
             .Select(l => CandidateTextInfo.Create(l, candidateText))
-            .ToArray();
+            .ToList();
 
         return new CandidateResultType
         {
@@ -94,7 +97,7 @@ internal static class ProportionalElectionResultMapping
                 FirstName = candidate.FirstName,
                 CallName = candidate.PoliticalFirstName,
                 CandidateReference = candidate.Number,
-                CandidateText = texts,
+                CandidateText = CandidateTextInformation.Create(texts),
             },
             ListResults = new[]
             {

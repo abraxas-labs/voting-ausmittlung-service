@@ -30,7 +30,9 @@ public class ResultExportConfigurationReader
     {
         _permissionService.EnsureMonitoringElectionAdmin();
         return _repo.Query()
+            .AsSplitQuery()
             .Include(x => x.PoliticalBusinesses)
+            .Include(x => x.PoliticalBusinessMetadata)
             .Where(x => x.ContestId == contestId && x.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
             .OrderBy(x => x.Description)
             .ToListAsync();

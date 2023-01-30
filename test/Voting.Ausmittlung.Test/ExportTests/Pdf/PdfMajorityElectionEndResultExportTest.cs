@@ -21,7 +21,7 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest<Generate
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Wahlprotokoll Gesamtergebnis aller Einheiten - Majorzw de.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Wahlprotokoll_Majorzw de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

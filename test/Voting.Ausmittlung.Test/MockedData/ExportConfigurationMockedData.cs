@@ -27,11 +27,12 @@ public static class ExportConfigurationMockedData
         Description = "StGallen Interface 001",
         ExportKeys = new[]
         {
-                AusmittlungXmlVoteTemplates.Ech0110.Key,
-                AusmittlungCsvProportionalElectionTemplates.CandidateCountingCircleResultsWithVoteSources.Key,
+            AusmittlungXmlVoteTemplates.Ech0110.Key,
+            AusmittlungCsvProportionalElectionTemplates.CandidateCountingCircleResultsWithVoteSources.Key,
         },
         DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
         EaiMessageType = "001",
+        Provider = ExportProvider.Seantis,
     };
 
     public static ExportConfiguration StGallenIntf002 => new ExportConfiguration
@@ -40,11 +41,12 @@ public static class ExportConfigurationMockedData
         Description = "StGallen Interface 002",
         ExportKeys = new[]
         {
-                AusmittlungXmlVoteTemplates.Ech0222.Key,
-                AusmittlungCsvProportionalElectionTemplates.CandidatesAlphabetical.Key,
+            AusmittlungXmlVoteTemplates.Ech0222.Key,
+            AusmittlungCsvProportionalElectionTemplates.CandidatesAlphabetical.Key,
         },
         DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
         EaiMessageType = "002",
+        Provider = ExportProvider.Standard,
     };
 
     public static ExportConfiguration GossauIntf100 => new ExportConfiguration
@@ -53,11 +55,12 @@ public static class ExportConfigurationMockedData
         Description = "Gossau Interface 100",
         ExportKeys = new[]
         {
-                AusmittlungXmlVoteTemplates.Ech0222.Key,
-                AusmittlungCsvProportionalElectionTemplates.CandidatesAlphabetical.Key,
+            AusmittlungXmlVoteTemplates.Ech0222.Key,
+            AusmittlungCsvProportionalElectionTemplates.CandidatesAlphabetical.Key,
         },
         DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
         EaiMessageType = "100",
+        Provider = ExportProvider.Standard,
     };
 
     public static ExportConfiguration UzwilIntf100 => new ExportConfiguration
@@ -71,6 +74,7 @@ public static class ExportConfigurationMockedData
         },
         DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
         EaiMessageType = "200",
+        Provider = ExportProvider.Seantis,
     };
 
     public static IEnumerable<ExportConfiguration> All
@@ -108,6 +112,7 @@ public static class ExportConfigurationMockedData
                     ExportKeys = config.ExportKeys,
                     EaiMessageType = config.EaiMessageType,
                     ExportConfigurationId = config.Id,
+                    Provider = config.Provider,
                     DomainOfInfluenceId = doi.Id,
                     IntervalMinutes = 60,
                     PoliticalBusinesses = doi.SimplePoliticalBusinesses

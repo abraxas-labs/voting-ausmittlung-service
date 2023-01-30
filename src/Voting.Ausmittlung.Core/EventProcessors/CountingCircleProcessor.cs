@@ -26,7 +26,6 @@ public class CountingCircleProcessor :
     IEventProcessor<CountingCirclesMergerActivated>
 {
     private readonly IDbRepository<DataContext, CountingCircle> _repo;
-    private readonly DomainOfInfluenceRepo _doiRepo;
     private readonly DomainOfInfluencePermissionBuilder _permissionBuilder;
     private readonly CountingCircleResultsInitializer _ccResultsInitializer;
     private readonly ContestRepo _contestRepo;
@@ -34,14 +33,12 @@ public class CountingCircleProcessor :
 
     public CountingCircleProcessor(
         IDbRepository<DataContext, CountingCircle> repo,
-        DomainOfInfluenceRepo doiRepo,
         CountingCircleResultsInitializer ccResultsInitializer,
         IMapper mapper,
         DomainOfInfluencePermissionBuilder permissionBuilder,
         ContestRepo contestRepo)
     {
         _repo = repo;
-        _doiRepo = doiRepo;
         _ccResultsInitializer = ccResultsInitializer;
         _mapper = mapper;
         _permissionBuilder = permissionBuilder;

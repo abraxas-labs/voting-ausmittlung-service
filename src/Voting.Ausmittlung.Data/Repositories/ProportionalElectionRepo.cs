@@ -11,8 +11,8 @@ namespace Voting.Ausmittlung.Data.Repositories;
 
 public class ProportionalElectionRepo : PoliticalBusinessRepo<ProportionalElection>
 {
-    public ProportionalElectionRepo(DataContext context, DomainOfInfluenceRepo domainOfInfluenceRepo, CountingCircleRepo countingCircleRepo)
-        : base(context, domainOfInfluenceRepo, countingCircleRepo)
+    public ProportionalElectionRepo(DataContext context)
+        : base(context)
     {
     }
 

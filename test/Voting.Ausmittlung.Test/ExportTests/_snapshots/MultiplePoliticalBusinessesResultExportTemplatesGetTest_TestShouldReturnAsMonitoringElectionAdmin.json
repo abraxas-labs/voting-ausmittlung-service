@@ -54,7 +54,7 @@
     },
     {
       "Key": "vote_overall_result",
-      "Description": "Gesamtergebnis aller Sachgeschäfte (SK)",
+      "Description": "Gesamtergebnisse (SK)",
       "PoliticalBusinessIds": [
         "8fbba43a-cd73-407a-b490-df13c41cc5ee"
       ],

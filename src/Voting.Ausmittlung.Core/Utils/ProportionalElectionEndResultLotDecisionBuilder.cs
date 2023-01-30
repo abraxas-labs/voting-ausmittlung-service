@@ -35,8 +35,13 @@ public class ProportionalElectionEndResultLotDecisionBuilder
                             ?? throw new EntityNotFoundException(proportionalElectionListId);
 
         _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(listEndResult, lotDecisions);
-        _candidateEndResultBuilder.RecalculateCandidateEndResultStates(listEndResult);
 
+        if (!listEndResult.ElectionEndResult.ManualEndResultRequired)
+        {
+            _candidateEndResultBuilder.RecalculateCandidateEndResultStates(listEndResult);
+        }
+
+        _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
         listEndResult.ElectionEndResult.Finalized = false;
 
         await _dataContext.SaveChangesAsync();

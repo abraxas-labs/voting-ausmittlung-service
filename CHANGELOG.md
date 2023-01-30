@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.47.1`)
+# ✨ Changelog (`v1.56.4`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,191 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.47.1
-Previous version ---- v1.42.0
+This version -------- v1.56.4
+Previous version ---- v1.47.1
 Initial version ----- v1.29.14
-Total commits ------- 28
+Total commits ------- 31
 ```
+
+## [v1.56.4] - 2023-01-26
+
+### 🆕 Added
+
+- add scoped dmdoc httpclient
+
+## [v1.56.3] - 2023-01-25
+
+### 🔄 Changed
+
+- correctly copy result export configuration provider when creating a contest
+
+## [v1.56.2] - 2023-01-25
+
+### 🔄 Changed
+
+- update library to fix dmdoc accessibility issues
+
+## [v1.56.1] - 2023-01-24
+
+### 🔄 Changed
+
+- update library to use secure dmdoc authentication
+
+## [v1.56.0] - 2023-01-23
+
+### 🔄 Changed
+
+- add basis events before testing phase ended to activity protocol
+
+## [v1.55.2] - 2023-01-20
+
+### 🔒 Security
+
+- Apply relaxed policy in transient catch up processor to handle replay attacks
+
+## [v1.55.1] - 2023-01-19
+
+### 🔄 Changed
+
+- clear audited tentatively timestamp on reset
+
+## [v1.55.0] - 2023-01-18
+
+### 🔄 Changed
+
+- manual proportional election end result
+
+## [v1.54.1] - 2023-01-13
+
+### 🔄 Changed
+
+- group seantis exports by seantis token
+
+## [v1.54.0] - 2023-01-12
+
+### 🔄 Changed
+
+- add individual candidate to WabstiC WM_Kandidaten export
+
+## [v1.53.3] - 2023-01-10
+
+### 🔄 Changed
+
+- order candidate results by vote count
+
+## [v1.53.2] - 2023-01-10
+
+### 🔄 Changed
+
+- rename protocol description and filename
+
+## [v1.53.1] - 2023-01-09
+
+### 🔄 Changed
+
+- sort counting circle results correctly in vote end result report
+
+## [v1.53.0] - 2023-01-09
+
+### 🔄 Changed
+
+- add pdf ballot end result label
+
+## [v1.52.0] - 2023-01-09
+
+### 🔄 Changed
+
+- allow empty ballots
+
+## [v1.51.4] - 2023-01-09
+
+### 🔄 Changed
+
+- test eCH import against schema
+
+## [v1.51.3] - 2023-01-06
+
+### 🆕 Added
+
+- add end result detail without empty and invalid votes protocol
+
+## [v1.51.2] - 2023-01-05
+
+### 🔄 Changed
+
+- change voting card channel priority
+
+## [v1.51.1] - 2023-01-05
+
+### 🔄 Changed
+
+- changed wabsti export column header
+
+## [v1.51.0] - 2023-01-05
+
+### 🔄 Changed
+
+- change eCH-0222 import and test eCH export output
+
+## [v1.50.2] - 2023-01-04
+
+### ❌ Removed
+
+- remove internal description, invalid votes and individual empty ballots allowed from elections
+
+## [v1.50.1] - 2022-12-23
+
+### 🔄 Changed
+
+- hide proportional election end result columns and protocolls before finalized
+
+## [v1.50.0] - 2022-12-23
+
+### 🆕 Added
+
+- Added export configuration political business metadata, needed for Seantis
+
+## [v1.49.5] - 2022-12-20
+
+### 🆕 Added
+
+- add on list for proportional election candidate pdf exports
+
+## [v1.49.4] - 2022-12-19
+
+### 🔄 Changed
+
+- update library to extend complex text input validation rules with dash sign
+
+## [v1.49.3] - 2022-12-16
+
+### 🔄 Changed
+
+- Fixed handling of event signature on exports
+
+## [v1.49.2] - 2022-12-16
+
+### 🆕 Added
+
+- add domain of influence canton
+
+## [v1.49.1] - 2022-12-15
+
+### 🔄 Changed
+
+- Delete inherited domain of influence counting circles correctly on domain of influence delete
+
+## [v1.49.0] - 2022-12-05
+
+### 🆕 Added
+
+- add candidate origin
+
+## [v1.48.0] - 2022-12-02
+
+### 🆕 Added
+
+- add request recorder tooling for load testing playbook
 
 ## [v1.47.1] - 2022-11-30
 
@@ -135,6 +315,183 @@ Total commits ------- 28
 ### 🔄 Changed
 
 - WabstiC export changes
+
+### 🔄 Changed
+
+- no empty vote count for evoting import with single mandate
+
+### 🔄 Changed
+
+- Fixed summation of aggregated voting card results
+
+### 🆕 Added
+
+- Added DOK Connect implementation
+
+### 🔄 Changed
+
+- no empty vote count and no invalid vote count for single mandate
+
+### 🆕 Added
+
+- Added majority election calculation fields
+- Added total count of voters on counting circle results in pdf protocols
+
+### 🔄 Changed
+
+- Send enum instead of a translated string as question label in pdf protocols
+
+### 🆕 Added
+
+- Added question labels in pdf protocols
+
+### 🆕 Added
+
+- Added pdf protocol field for counting circle and domain of influence name
+
+### 🔄 Changed
+
+- Deserialize eCH-0222 from eCH ballots, as the eCH votes may not correlate to the "VOTING votes"
+
+### 🆕 Added
+
+- Added name for protocol for domain of influence and counting circle
+- Extended sorting of domain of influences and counting circles in protocols
+
+### 🆕 Added
+
+- second factor transaction code
+
+### 🆕 Added
+
+- review procedure for vote, majority election and proportional election
+
+### 🆕 Added
+
+- Add eCH message type to eCH-exports
+
+### 🔄 Changed
+
+- Correctly handle CountingCirclesMergerActivated events, which previously may not have created all necessary counting circles
+
+### 🔒 Security
+
+- Update proto validation dependencies
+
+### 🆕 Added
+
+- add Serilog.Expressions to exclude status endpoints from serilog request logging on success only
+
+### 🆕 Added
+
+- add application builder extension which is adding the serilog request logging middleware enriching the log context with tracability properties
+
+### 🔄 Changed
+
+- exchanged custom health check with ef core default one
+
+### 🔄 Changed
+
+- Set correct hagenbach bischoff distribution number
+
+### 🔄 Changed
+
+- Process political business number modification event of secondary majority election after testing phase has ended
+
+### 🔄 Changed
+
+- Updated proto validation dependencies
+
+### 🔄 Changed
+
+- Updated dependencies
+
+### 🆕 Added
+
+- Added proto validators at the requests.
+
+### 🔄 Changed
+
+- exchanged ef core default health check with custom one
+
+### 🔄 Changed
+
+- Allow contest counting circle details entry when e-voting is enabled
+
+### 🔄 Changed
+
+- Contests merge processing
+
+### 🔄 Changed
+
+- refactoring
+- updated lib version
+
+### 🔄 Changed
+
+- correctly set new proportional election candidate party id on contest merge.
+
+### 🆕 Added
+
+- CORS configuration support
+
+### 🔄 Changed
+
+- refactored event signature
+
+### 🔄 Changed
+
+- refactored event signature and allow exceptions when deleting a public key
+
+### 🔄 Changed
+
+- upgraded underlying dotnet image to sdk 6.0.301 after gituhb issue [#24269](https://github.com/dotnet/sdk/issues/24269) has been fixed
+
+### 🔄 Changed
+
+- added OpenAPI description
+
+### 🔄 Changed
+
+- Fixes some code smells reported by sonar
+
+### 🆕 Added
+
+- add query split behavior where needed
+
+### 🔒 Security
+
+- Added authentication checks (role and correct tenant) to the methods which initialize the 2FA process
+
+### 🆕 Added
+
+- New proportional election union party mandates csv export
+
+### 🔄 Changed
+
+- Correctly map political business union id when returning templates
+
+### 🔒 Security
+
+- Added a check that requested political business union ids in exports have to be owned by the current tenant
+
+### 🔄 Changed
+
+- add cancellation token for verify second factor
+
+### 🔄 Changed
+
+- lot decision always required for proportional election when there are candidates with the same vote count
+
+### 🔄 Changed
+
+- get accessible counting circles only for the domain of influence from the current contest
+
+### 🔄 Changed
+
+- extend evoting date with time
+
+The readmodel needs to be recreated after this commit
 
 ## [v1.45.2] - 2022-10-17
 
@@ -285,81 +642,6 @@ Total commits ------- 28
 ### 🔄 Changed
 
 - Allow contest counting circle details entry when e-voting is enabled
-
-### 🔄 Changed
-
-- Contests merge processing
-
-### 🔄 Changed
-
-- refactoring
-- updated lib version
-
-### 🔄 Changed
-
-- correctly set new proportional election candidate party id on contest merge.
-
-### 🆕 Added
-
-- CORS configuration support
-
-### 🔄 Changed
-
-- refactored event signature
-
-### 🔄 Changed
-
-- refactored event signature and allow exceptions when deleting a public key
-
-### 🔄 Changed
-
-- upgraded underlying dotnet image to sdk 6.0.301 after gituhb issue [#24269](https://github.com/dotnet/sdk/issues/24269) has been fixed
-
-### 🔄 Changed
-
-- added OpenAPI description
-
-### 🔄 Changed
-
-- Fixes some code smells reported by sonar
-
-### 🆕 Added
-
-- add query split behavior where needed
-
-### 🔒 Security
-
-- Added authentication checks (role and correct tenant) to the methods which initialize the 2FA process
-
-### 🆕 Added
-
-- New proportional election union party mandates csv export
-
-### 🔄 Changed
-
-- Correctly map political business union id when returning templates
-
-### 🔒 Security
-
-- Added a check that requested political business union ids in exports have to be owned by the current tenant
-
-### 🔄 Changed
-
-- add cancellation token for verify second factor
-
-### 🔄 Changed
-
-- lot decision always required for proportional election when there are candidates with the same vote count
-
-### 🔄 Changed
-
-- get accessible counting circles only for the domain of influence from the current contest
-
-### 🔄 Changed
-
-- extend evoting date with time
-
-The readmodel needs to be recreated after this commit
 
 ## [v1.36.3] - 2022-08-16
 

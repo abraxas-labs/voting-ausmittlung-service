@@ -110,7 +110,8 @@ public static class ServiceCollectionExtensions
             .AddRendererService<PdfMajorityElectionEndResultRenderService>(
                 AusmittlungPdfMajorityElectionTemplates.EndResultProtocol)
             .AddRendererService<PdfMajorityElectionEndResultDetailRenderService>(
-                AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol)
+                AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol,
+                AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol)
             .AddRendererService<PdfMajorityElectionResultBundleReviewRenderService>(AusmittlungPdfMajorityElectionTemplates.ResultBundleReview);
     }
 

@@ -59,6 +59,9 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "ResultAlgorithm": 1,

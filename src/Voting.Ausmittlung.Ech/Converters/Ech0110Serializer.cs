@@ -104,11 +104,7 @@ public class Ech0110Serializer
 
     private ReportingBodyType GetReportingBody(Contest contest)
     {
-        return new ReportingBodyType
-        {
-            creationDateTime = _clock.UtcNow,
-            ReportingBodyIdentification = contest.DomainOfInfluence.SecureConnectId,
-        };
+        return ReportingBodyType.Create(contest.DomainOfInfluence.SecureConnectId, null, _clock.UtcNow);
     }
 
     private Delivery WrapInDelivery(EventResultDelivery data)

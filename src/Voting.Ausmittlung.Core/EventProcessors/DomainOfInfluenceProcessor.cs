@@ -249,7 +249,7 @@ public class DomainOfInfluenceProcessor :
             throw new EntityNotFoundException(id);
         }
 
-        await UpdateCountingCircles(id, Array.Empty<Guid>());
+        await RemoveAssignedAndInheritedCountingCircles(id);
 
         await _repo.DeleteByKey(id);
 
@@ -261,7 +261,7 @@ public class DomainOfInfluenceProcessor :
 
         foreach (var idToDelete in snapshotIdsToDelete)
         {
-            await UpdateCountingCircles(idToDelete, Array.Empty<Guid>());
+            await RemoveAssignedAndInheritedCountingCircles(idToDelete);
         }
 
         await _repo.DeleteRangeByKey(snapshotIdsToDelete);
@@ -345,9 +345,26 @@ public class DomainOfInfluenceProcessor :
             countingCircleIdsToAdd,
             countingCircleIdsToRemove);
 
-        // When a doi cc is changed, it could also affect parent dois (inheritance), so results on parents must also be initialized.
-        await _ccResultsInitializer.InitializeResults(hierarchicalGreaterOrSelfDoiIds);
-        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluences(hierarchicalGreaterOrSelfDoiIds);
+        await UpdateDomainOfInfluenceCountingCircleDependentEntities(hierarchicalGreaterOrSelfDoiIds);
+    }
+
+    private async Task RemoveAssignedAndInheritedCountingCircles(Guid domainOfInfluenceId)
+    {
+        var assignedAndInheritedCountingCircleIds = await _repo.Query()
+            .Where(x => x.Id == domainOfInfluenceId)
+            .SelectMany(x => x.CountingCircles)
+            .Select(x => x.CountingCircleId)
+            .ToListAsync();
+
+        var hierarchicalGreaterOrSelfDoiIds = await _doiCcInheritanceBuilder.GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(domainOfInfluenceId);
+
+        await _doiCcInheritanceBuilder.BuildInheritanceForCountingCircles(
+            domainOfInfluenceId,
+            hierarchicalGreaterOrSelfDoiIds,
+            new(),
+            assignedAndInheritedCountingCircleIds);
+
+        await UpdateDomainOfInfluenceCountingCircleDependentEntities(hierarchicalGreaterOrSelfDoiIds);
     }
 
     private async Task MapUpdatedPlausibilisationConfiguration(
@@ -423,5 +440,12 @@ public class DomainOfInfluenceProcessor :
             .Include(x => x.PlausibilisationConfiguration!)
                 .ThenInclude(x => x.ComparisonVotingChannelConfigurations)
             .Include(x => x.CountingCircles);
+    }
+
+    private async Task UpdateDomainOfInfluenceCountingCircleDependentEntities(List<Guid> doiIds)
+    {
+        // When a doi cc is changed, it could also affect parent dois (inheritance), so results on parents must also be initialized.
+        await _ccResultsInitializer.InitializeResults(doiIds);
+        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluences(doiIds);
     }
 }

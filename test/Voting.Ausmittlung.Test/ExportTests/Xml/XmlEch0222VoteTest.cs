@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using eCH_0222_1_0.Standard;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -62,16 +64,8 @@ public class XmlEch0222VoteTest : XmlExportBaseTest<Delivery>
         };
     }
 
-    protected override void CleanDataForSnapshot(Delivery data)
-    {
-        // the eai ech lib uses yyyy-MM-ddTHH:mm:ss.fff internally
-        // with our default mocked timestamp of 2020-01-10T13:12:10.200
-        // this sometimes leads to 2020-01-10T13:12:10.2 and sometimes to 2020-01-10T13:12:10.200
-        // and results in flaky tests...
-        // no idea why the format is different (even on the same machine random for each call)
-        // with a fixed 3 digits ms part it should be resolved.
-        data.DeliveryHeader.MessageDate = "2020-01-10T13:12:10.123";
-    }
+    protected override XmlSchemaSet GetSchemaSet()
+        => Ech0222SchemaLoader.LoadEch0222Schemas();
 
     protected override IEnumerable<string> UnauthorizedRoles()
     {

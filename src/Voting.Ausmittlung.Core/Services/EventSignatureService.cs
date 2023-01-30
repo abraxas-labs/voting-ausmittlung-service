@@ -37,6 +37,7 @@ public class EventSignatureService
     private readonly IServiceProvider _serviceProvider;
     private readonly MachineConfig _machineConfig;
     private readonly IMapper _mapper;
+    private readonly EventSignatureConfig _eventSignatureConfig;
 
     public EventSignatureService(
         ILogger<EventSignatureService> logger,
@@ -47,7 +48,8 @@ public class EventSignatureService
         IClock clock,
         IServiceProvider serviceProvider,
         MachineConfig machineConfig,
-        IMapper mapper)
+        IMapper mapper,
+        EventSignatureConfig eventSignatureConfig)
     {
         _logger = logger;
         _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
@@ -58,6 +60,7 @@ public class EventSignatureService
         _serviceProvider = serviceProvider;
         _machineConfig = machineConfig;
         _mapper = mapper;
+        _eventSignatureConfig = eventSignatureConfig;
     }
 
     /// <summary>
@@ -71,6 +74,11 @@ public class EventSignatureService
     /// <returns>An event signature metadata object.</returns>
     public EventSignatureBusinessMetadata BuildBusinessMetadata(string streamName, IMessage eventData, Guid contestId, Guid eventId)
     {
+        if (!_eventSignatureConfig.Enabled)
+        {
+            return new EventSignatureBusinessMetadata(contestId);
+        }
+
         var keyData = _contestCache.Get(contestId).KeyData;
 
         // the key data could be null, when a contest is not active or past unlocked.

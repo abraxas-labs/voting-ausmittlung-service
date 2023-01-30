@@ -48,5 +48,6 @@
   "ZipCode": "zip code",
   "Locality": "locality",
   "Position": 11,
+  "Origin": "origin",
   "Id": "8e492d58-4cc3-4aff-928e-b813f26ddc12"
 }

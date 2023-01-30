@@ -23,6 +23,14 @@
       "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
       "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
     ],
-    "IntervalMinutes": 10
+    "IntervalMinutes": 10,
+    "PoliticalBusinessMetadata": {
+      "cd464c26-24d4-4cfc-95d9-e7c930b1784e": {
+        "Token": "test-token"
+      },
+      "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f": {
+        "Token": "test-token2"
+      }
+    }
   }
 }

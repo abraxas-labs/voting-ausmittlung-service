@@ -83,6 +83,25 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void EnterManualListEndResult(
+        Guid proportionalElectionId,
+        Guid proportioalElectionListId,
+        IEnumerable<ProportionalElectionManualCandidateEndResult> candidateEndResults,
+        Guid contestId,
+        bool testingPhaseEnded)
+    {
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(proportionalElectionId, testingPhaseEnded);
+        var ev = new ProportionalElectionManualListEndResultEntered
+        {
+            ProportionalElectionEndResultId = Id.ToString(),
+            ProportionalElectionId = proportionalElectionId.ToString(),
+            ProportionalElectionListId = proportioalElectionListId.ToString(),
+            CandidateEndResults = { _mapper.Map<IEnumerable<ProportionalElectionManualCandidateEndResultEventData>>(candidateEndResults) },
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+        };
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -90,8 +109,12 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
             case ProportionalElectionEndResultFinalized ev:
                 Apply(ev);
                 break;
-            case ProportionalElectionEndResultFinalizationReverted _: break;
+            case ProportionalElectionEndResultFinalizationReverted _:
+                break;
             case ProportionalElectionListEndResultLotDecisionsUpdated ev:
+                Apply(ev);
+                break;
+            case ProportionalElectionManualListEndResultEntered ev:
                 Apply(ev);
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
@@ -105,6 +128,12 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
     }
 
     private void Apply(ProportionalElectionListEndResultLotDecisionsUpdated ev)
+    {
+        Id = Guid.Parse(ev.ProportionalElectionEndResultId);
+        ProportionalElectionId = Guid.Parse(ev.ProportionalElectionId);
+    }
+
+    private void Apply(ProportionalElectionManualListEndResultEntered ev)
     {
         Id = Guid.Parse(ev.ProportionalElectionEndResultId);
         ProportionalElectionId = Guid.Parse(ev.ProportionalElectionId);

@@ -24,7 +24,7 @@ public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest<Gene
         tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Listenergbenisse - Nationalratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_FormularC_Listenergebnisse_Nationalratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

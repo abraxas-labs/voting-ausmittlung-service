@@ -164,6 +164,32 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
     }
 
     [Fact]
+    public async Task ShouldThrowMissingRequiredManualEndResult()
+    {
+        var electionId = Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId);
+
+        // set all lot decisions as done
+        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
+            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == electionId,
+            x => x.LotDecision = true);
+        await ModifyDbEntities<ProportionalElectionListEndResult>(
+            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
+            x =>
+            {
+                x.NumberOfMandates = 0;
+                x.HasOpenRequiredLotDecisions = false;
+            });
+        await ModifyDbEntities<ProportionalElectionEndResult>(
+            x => x.ProportionalElectionId == electionId,
+            x => x.ManualEndResultRequired = true);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "Manual end result is required and not all number of mandates are distributed");
+    }
+
+    [Fact]
     public Task ShouldThrowOtherTenant()
     {
         return AssertStatus(

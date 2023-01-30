@@ -3,7 +3,6 @@
 
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using AutoMapper;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -30,15 +29,10 @@ public class VoteResultProcessor :
     IEventProcessor<VoteResultCountOfVotersEntered>,
     IEventProcessor<VoteResultResetted>
 {
-    private readonly VoteResultRepo _voteResultRepo;
     private readonly VoteEndResultBuilder _endResultBuilder;
     private readonly VoteResultBuilder _resultBuilder;
-    private readonly DataContext _dataContext;
-    private readonly IMapper _mapper;
 
     public VoteResultProcessor(
-        IMapper mapper,
-        DataContext dataContext,
         VoteResultRepo voteResultRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
@@ -47,11 +41,8 @@ public class VoteResultProcessor :
         MessageProducerBuffer messageProducerBuffer)
         : base(voteResultRepo, simpleResultRepo, commentRepo, messageProducerBuffer)
     {
-        _mapper = mapper;
-        _voteResultRepo = voteResultRepo;
         _resultBuilder = resultBuilder;
         _endResultBuilder = endResultBuilder;
-        _dataContext = dataContext;
     }
 
     public async Task Process(VoteResultSubmissionStarted eventData)

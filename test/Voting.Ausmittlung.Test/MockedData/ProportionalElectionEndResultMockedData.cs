@@ -90,7 +90,6 @@ public static class ProportionalElectionEndResultMockedData
                 "Proporzwahl",
                 (t, s) => t.ShortDescription = s,
                 "Proporzwahl"),
-            InternalDescription = "Proporzwahl",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -259,6 +258,7 @@ public static class ProportionalElectionEndResultMockedData
             Sex = SexType.Female,
             Title = "title",
             ZipCode = "zip code",
+            Origin = "origin",
             Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
                 (t, o) => t.Occupation = o,
                 "occupation",

@@ -10,6 +10,7 @@
     <PackageReference Include="Voting.Lib.Messaging" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DokConnector" Version="$(VotingLibVersion)" />
+    <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
 
   <ItemGroup>

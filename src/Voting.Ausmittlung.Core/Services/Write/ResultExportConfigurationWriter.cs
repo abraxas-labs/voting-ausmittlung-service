@@ -1,7 +1,6 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
@@ -38,26 +37,24 @@ public class ResultExportConfigurationWriter
 
     public async Task Update(ResultExportConfiguration config)
     {
+        _permissionService.EnsureMonitoringElectionAdmin();
         var id = AusmittlungUuidV5.BuildResultExportConfiguration(config.ContestId, config.ExportConfigurationId);
 
-        await CheckAuth(id);
+        var existingConfig = await _repo
+                .Query()
+                .Include(x => x.DomainOfInfluence)
+                .FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), id);
+        _permissionService.EnsureIsDomainOfInfluenceManager(existingConfig.DomainOfInfluence);
 
         await _resultExportService.ValidateExportConfigurationPoliticalBusinesses(config.ContestId, config.PoliticalBusinessIds);
+        _resultExportService.ValidateExportConfigurationPoliticalBusinessMetadata(
+            existingConfig.Provider,
+            config.PoliticalBusinessIds,
+            config.PoliticalBusinessMetadata);
 
         var aggregate = await _aggregateRepository.GetOrCreateById<ResultExportConfigurationAggregate>(id);
         aggregate.UpdateFrom(config, config.ContestId, config.ExportConfigurationId);
         await _aggregateRepository.Save(aggregate);
-    }
-
-    private async Task CheckAuth(Guid id)
-    {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
-        var config = await _repo
-            .Query()
-            .Include(x => x.DomainOfInfluence)
-            .FirstOrDefaultAsync(x => x.Id == id)
-            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), id);
-        _permissionService.EnsureIsDomainOfInfluenceManager(config.DomainOfInfluence);
     }
 }

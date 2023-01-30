@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>01</PoliticalBusinessNumber>
     <OfficialDescription>Kantonratswahl de</OfficialDescription>
     <ShortDescription>Kantonratswahl de</ShortDescription>
-    <InternalDescription>Kantonratswahl</InternalDescription>
     <DomainOfInfluence>
       <Name>Uzwil</Name>
       <NameForProtocol>Stadt Uzwil</NameForProtocol>
@@ -104,6 +103,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1a.01</NumberIncludingList>
@@ -136,6 +136,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1a.02</NumberIncludingList>
@@ -223,6 +224,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1b.01</NumberIncludingList>
@@ -255,6 +257,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1b.02</NumberIncludingList>
@@ -342,6 +345,7 @@
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>2.01</NumberIncludingList>
@@ -374,6 +378,7 @@
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>2.02</NumberIncludingList>
@@ -461,6 +466,7 @@
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>3.01</NumberIncludingList>

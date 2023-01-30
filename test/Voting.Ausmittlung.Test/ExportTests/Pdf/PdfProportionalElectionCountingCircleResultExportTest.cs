@@ -20,7 +20,7 @@ public class PdfProportionalElectionCountingCircleResultExportTest : PdfExportBa
 
     public override HttpClient TestClient => ErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Gemeindeprotokoll - Nationalratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular4_Gemeindeprotokoll_Nationalratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

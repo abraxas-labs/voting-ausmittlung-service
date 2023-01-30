@@ -20,7 +20,7 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
 
     public override HttpClient TestClient => ErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Gemeindeprotokoll - Mw SG de.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Gemeindeprotokoll_Mw SG de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

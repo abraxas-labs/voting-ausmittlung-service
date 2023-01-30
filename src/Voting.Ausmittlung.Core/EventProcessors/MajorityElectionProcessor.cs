@@ -272,6 +272,7 @@ public class MajorityElectionProcessor :
             candidateReference.Sex = candidate.Sex;
             candidateReference.Title = candidate.Title;
             candidateReference.ZipCode = candidate.ZipCode;
+            candidateReference.Origin = candidate.Origin;
             candidate.Translations = candidate.Translations.Select(t => new MajorityElectionCandidateTranslation
             {
                 Language = t.Language,

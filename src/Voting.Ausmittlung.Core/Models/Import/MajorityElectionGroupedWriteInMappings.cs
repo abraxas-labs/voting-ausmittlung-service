@@ -9,14 +9,14 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 public class MajorityElectionGroupedWriteInMappings
 {
     public MajorityElectionGroupedWriteInMappings(
-        MajorityElectionBase election,
+        Election election,
         IReadOnlyCollection<MajorityElectionWriteInMappingBase> writeInMappings)
     {
         Election = election;
         WriteInMappings = writeInMappings;
     }
 
-    public MajorityElectionBase Election { get; }
+    public Election Election { get; }
 
     public IReadOnlyCollection<MajorityElectionWriteInMappingBase> WriteInMappings { get; }
 }

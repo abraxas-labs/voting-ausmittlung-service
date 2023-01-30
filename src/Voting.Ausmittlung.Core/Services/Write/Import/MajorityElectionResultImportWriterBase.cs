@@ -48,7 +48,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         var election = await GetElection(electionId);
 
         // In elections with a single mandate the mapping target "invalid" is valid, since a whole ballot can be invalid.
-        if (hasInvalid && election.NumberOfMandates > 1 && !await SupportsInvalidVotes(electionId))
+        if (hasInvalid && election.NumberOfMandates > 1 && !election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
         {
             throw new ValidationException("Invalid votes are not enabled on this election");
         }
@@ -97,16 +97,12 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
 
     protected abstract IEnumerable<MajorityElectionCandidateBase> GetCandidates(TElection election);
 
-    protected abstract Task<bool> SupportsInvalidVotes(Guid electionId);
-
-    protected abstract bool SupportsInvalidVotes(TElection election);
-
     private MajorityElectionResultImport ProcessResult(
         EVotingElectionResult result,
         TElection election,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById)
     {
-        var supportsInvalidVotes = SupportsInvalidVotes(election);
+        var supportsInvalidVotes = election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
         var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, result.BasisCountingCircleId);
         importResult.CountOfVoters = result.Ballots.Count;
         foreach (var ballot in result.Ballots)

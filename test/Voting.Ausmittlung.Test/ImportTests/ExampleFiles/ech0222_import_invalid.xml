@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns="http://www.ech.ch/xmlns/eCH-0222/1"
+          xsi:schemaLocation="http://www.ech.ch/xmlns/eCH-0222/1 http://www.ech.ch/xmlns/eCH-0222/1/eCH-0222-1-0.xsd">
+  <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.ech.ch/xmlns/eCH-0058/5 http://www.ech.ch/xmlns/eCH-0058/5/eCH-0058-5-0.xsd">
+  </deliveryHeader>
+</delivery>

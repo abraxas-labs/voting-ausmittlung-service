@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Majorzwahl St. Gallen de</OfficialDescription>
     <ShortDescription>Mw SG de</ShortDescription>
-    <InternalDescription>Majorzwahl St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
       <NameForProtocol>Kanton St. Gallen</NameForProtocol>
@@ -47,27 +46,6 @@
       <TotalVoteCount>68</TotalVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number5 pol last name pol first name</Description>
-          <Number>number5</Number>
-          <FirstName>firstName2</FirstName>
-          <LastName>lastName2</LastName>
-          <PoliticalFirstName>pol first name</PoliticalFirstName>
-          <PoliticalLastName>pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Male</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title2 de</OccupationTitle>
-          <Occupation>occupation2 de</Occupation>
-          <Incumbent>false</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>2</Position>
-          <Party>Test de</Party>
-        </Candidate>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
           <Description>number1 pol last name pol first name</Description>
           <Number>number1</Number>
           <FirstName>firstName</FirstName>
@@ -83,9 +61,32 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>50</VoteCount>
+      </MajorityElectionCandidateResult>
+      <MajorityElectionCandidateResult>
+        <Candidate>
+          <Description>number5 pol last name pol first name</Description>
+          <Number>number5</Number>
+          <FirstName>firstName2</FirstName>
+          <LastName>lastName2</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Male</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title2 de</OccupationTitle>
+          <Occupation>occupation2 de</Occupation>
+          <Incumbent>false</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>2</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </Candidate>
+        <VoteCount>0</VoteCount>
       </MajorityElectionCandidateResult>
       <CountOfVoters>
         <VoterParticipation>0.8</VoterParticipation>

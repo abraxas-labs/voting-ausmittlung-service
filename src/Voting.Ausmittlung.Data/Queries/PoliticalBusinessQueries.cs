@@ -23,6 +23,10 @@ public class PoliticalBusinessQueries
     private readonly IDbRepository<DataContext, ProportionalElectionUnion> _proportionalElectionUnionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionUnion> _majorityElectionUnionRepo;
 
+    private readonly IDbRepository<DataContext, VoteEndResult> _voteEndResultRepo;
+    private readonly IDbRepository<DataContext, ProportionalElectionEndResult> _proportionalElectionEndResultRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionEndResult> _majorityElectionEndResultRepo;
+
     public PoliticalBusinessQueries(
         IDbRepository<DataContext, Vote> voteRepo,
         IDbRepository<DataContext, ProportionalElection> proportionalElectionRepo,
@@ -31,7 +35,10 @@ public class PoliticalBusinessQueries
         ProportionalElectionResultRepo proportionalElectionResultRepo,
         MajorityElectionResultRepo majorityElectionResultRepo,
         IDbRepository<DataContext, ProportionalElectionUnion> proportionalElectionUnionRepo,
-        IDbRepository<DataContext, MajorityElectionUnion> majorityElectionUnionRepo)
+        IDbRepository<DataContext, MajorityElectionUnion> majorityElectionUnionRepo,
+        IDbRepository<DataContext, VoteEndResult> voteEndResultRepo,
+        IDbRepository<DataContext, ProportionalElectionEndResult> proportionalElectionEndResultRepo,
+        IDbRepository<DataContext, MajorityElectionEndResult> majorityElectionEndResultRepo)
     {
         _voteRepo = voteRepo;
         _proportionalElectionRepo = proportionalElectionRepo;
@@ -41,6 +48,9 @@ public class PoliticalBusinessQueries
         _majorityElectionResultRepo = majorityElectionResultRepo;
         _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
         _majorityElectionUnionRepo = majorityElectionUnionRepo;
+        _voteEndResultRepo = voteEndResultRepo;
+        _proportionalElectionEndResultRepo = proportionalElectionEndResultRepo;
+        _majorityElectionEndResultRepo = majorityElectionEndResultRepo;
     }
 
     public IQueryable<PoliticalBusiness> PoliticalBusinessQuery(PoliticalBusinessType type)
@@ -93,6 +103,17 @@ public class PoliticalBusinessQueries
                 .Query()
                 .Include(x => x.MajorityElectionUnionEntries)
                 .ThenInclude(x => x.MajorityElection),
+            _ => throw new InvalidOperationException($"invalid political business type {type}"),
+        };
+    }
+
+    public IQueryable<PoliticalBusinessEndResult> PoliticalBusinessEndResultQuery(PoliticalBusinessType type, Guid politicalBusinessId)
+    {
+        return type switch
+        {
+            PoliticalBusinessType.Vote => _voteEndResultRepo.Query().Where(x => x.VoteId == politicalBusinessId),
+            PoliticalBusinessType.ProportionalElection => _proportionalElectionEndResultRepo.Query().Where(x => x.ProportionalElectionId == politicalBusinessId),
+            PoliticalBusinessType.MajorityElection => _majorityElectionEndResultRepo.Query().Where(x => x.MajorityElectionId == politicalBusinessId),
             _ => throw new InvalidOperationException($"invalid political business type {type}"),
         };
     }

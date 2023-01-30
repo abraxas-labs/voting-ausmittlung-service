@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +13,9 @@ namespace Voting.Ausmittlung.Data.Repositories;
 public abstract class PoliticalBusinessRepo<T> : DbRepository<DataContext, T>
     where T : PoliticalBusiness, new()
 {
-    private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
-    private readonly CountingCircleRepo _countingCircleRepo;
-
-    protected PoliticalBusinessRepo(DataContext context, DomainOfInfluenceRepo domainOfInfluenceRepo, CountingCircleRepo countingCircleRepo)
+    protected PoliticalBusinessRepo(DataContext context)
         : base(context)
     {
-        _domainOfInfluenceRepo = domainOfInfluenceRepo;
-        _countingCircleRepo = countingCircleRepo;
     }
 
     public async Task<int> CountOfCountingCircles(Guid politicalBusinessId)
@@ -32,14 +26,4 @@ public abstract class PoliticalBusinessRepo<T> : DbRepository<DataContext, T>
     }
 
     public abstract IQueryable<T> QueryWithResults();
-
-    private Guid MapToNewId(IReadOnlyDictionary<Guid, Guid> basisIdToNewIdMapping, Guid basisId)
-    {
-        if (!basisIdToNewIdMapping.TryGetValue(basisId, out var newId))
-        {
-            throw new InvalidOperationException($"Cannot map {basisId} to a new id");
-        }
-
-        return newId;
-    }
 }

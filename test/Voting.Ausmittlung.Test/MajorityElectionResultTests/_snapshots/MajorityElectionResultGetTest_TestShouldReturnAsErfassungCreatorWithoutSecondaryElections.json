@@ -6,10 +6,8 @@
     "PoliticalBusinessNumber": "500",
     "OfficialDescription": "Majorzwahl St. Gallen 2 de",
     "ShortDescription": "Mw SG2 de",
-    "InternalDescription": "Majorzwahl St.Gallen auf Urnengang St.Gallen ohne Listen",
     "NumberOfMandates": 5,
     "MandateAlgorithm": 1,
-    "IndividualEmptyBallotsAllowed": true,
     "CandidateCheckDigit": true,
     "BallotBundleSize": 25,
     "BallotBundleSampleSize": 0,
@@ -41,9 +39,11 @@
         "Phone": "071 123 12 12",
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
+      },
+      "CantonDefaults": {
+        "MajorityElectionInvalidVotes": false
       }
     },
-    "InvalidVotes": false,
     "Contest": {
       "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
       "Date": {

@@ -9,8 +9,8 @@ namespace Voting.Ausmittlung.Data.Repositories;
 
 public class VoteRepo : PoliticalBusinessRepo<Vote>
 {
-    public VoteRepo(DataContext context, DomainOfInfluenceRepo domainOfInfluenceRepo, CountingCircleRepo countingCircleRepo)
-        : base(context, domainOfInfluenceRepo, countingCircleRepo)
+    public VoteRepo(DataContext context)
+        : base(context)
     {
     }
 

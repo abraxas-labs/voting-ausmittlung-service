@@ -1,9 +1,7 @@
 {
   "full": {
     "MandateAlgorithm": 2,
-    "IndividualEmptyBallotsAllowed": false,
     "CandidateCheckDigit": false,
-    "InvalidVotes": false,
     "BallotBundleSize": 25,
     "BallotBundleSampleSize": 8,
     "AutomaticBallotBundleNumberGeneration": true,
@@ -33,7 +31,6 @@
     ],
     "NumberOfMandates": 2,
     "PoliticalBusinessNumber": "8164",
-    "InternalDescription": "",
     "Active": false,
     "SwissAbroadVotingRight": 0,
     "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -75,7 +72,6 @@
     ],
     "ResultExportConfigurations": [],
     "PoliticalBusinessNumber": "8164",
-    "InternalDescription": "",
     "Active": false,
     "SwissAbroadVotingRight": 0,
     "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",

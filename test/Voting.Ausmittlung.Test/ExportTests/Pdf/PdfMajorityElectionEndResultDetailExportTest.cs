@@ -22,7 +22,7 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest<Ge
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Detailergebniss aller einseh. Einheiten - Majorzw de.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_Majorzw de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

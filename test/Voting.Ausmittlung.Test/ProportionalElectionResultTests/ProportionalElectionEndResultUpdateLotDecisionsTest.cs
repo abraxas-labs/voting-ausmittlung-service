@@ -19,6 +19,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ProportionalElectionResultTests;
 
@@ -43,6 +44,10 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     {
         await SetAllAuditedTentatively();
         var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
+
+        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
+            x => x.Candidate.ProportionalElectionListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1),
+            x => x.State = ProportionalElectionCandidateEndResultState.NotElected);
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -71,7 +76,9 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
         });
-        endResult.ListEndResults.First().MatchSnapshot("response");
+        var listEndResult = endResult.ListEndResults.First();
+        listEndResult.MatchSnapshot("response");
+        listEndResult.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected).Should().BeTrue();
 
         var availableLotDecisions = await MonitoringElectionAdminClient.GetListEndResultAvailableLotDecisionsAsync(
             new GetProportionalElectionListEndResultAvailableLotDecisionsRequest
@@ -79,6 +86,55 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
                 ProportionalElectionListId = ProportionalElectionEndResultMockedData.ListId1,
             });
         availableLotDecisions.MatchSnapshot("availableLotDecisions");
+    }
+
+    [Fact]
+    public async Task TestProcessorWithManualEndResult()
+    {
+        await SetAllAuditedTentatively();
+
+        var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
+
+        await ModifyDbEntities<ProportionalElectionEndResult>(
+            x => x.ProportionalElectionId == ProportionalElectionEndResultMockedData.ElectionGuid,
+            x => x.ManualEndResultRequired = true);
+
+        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
+            x => x.Candidate.ProportionalElectionListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1),
+            x => x.State = ProportionalElectionCandidateEndResultState.NotElected);
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionListEndResultLotDecisionsUpdated
+            {
+                ProportionalElectionEndResultId = endResultId,
+                ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+                ProportionalElectionListId = ProportionalElectionEndResultMockedData.ListId1,
+                LotDecisions =
+                {
+                        new ProportionalElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId2,
+                            Rank = 2,
+                        },
+                        new ProportionalElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId3,
+                            Rank = 3,
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+        });
+        var listEndResult = endResult.ListEndResults.First();
+        listEndResult.MatchSnapshot("response");
+
+        // the candidate end result should not change if it is a manual end result
+        listEndResult.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected).Should().BeFalse();
     }
 
     [Fact]

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Snapper;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -62,9 +63,10 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
     [Fact]
     public async Task ShouldWorkAsElectionAdminWithMappingsAndInvalidVotes()
     {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
         await ModifyDbEntities(
-            (MajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
-            e => e.InvalidVotes = true);
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
 
         var candidateResultId = await RunOnDb(db => db.MajorityElectionCandidateResults
             .Where(x => x.CandidateId == Guid.Parse(MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen))

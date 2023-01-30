@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,19 +25,22 @@ public class PdfVoteResultRenderService : IRendererService
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
+    private readonly IClock _clock;
 
     public PdfVoteResultRenderService(
         IDbRepository<DataContext, Vote> voteRepo,
         IMapper mapper,
         TemplateService templateService,
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
-        IDbRepository<DataContext, Contest> contestRepo)
+        IDbRepository<DataContext, Contest> contestRepo,
+        IClock clock)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
         _contestRepo = contestRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -105,6 +109,7 @@ public class PdfVoteResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            ctx.DomainOfInfluenceType.ToString().ToUpper());
+            ctx.DomainOfInfluenceType.ToString().ToUpper(),
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 }

@@ -35,4 +35,6 @@ public abstract class ElectionCandidate : BaseEntity
     public abstract string Occupation { get; }
 
     public abstract string OccupationTitle { get; }
+
+    public string Origin { get; set; } = string.Empty;
 }

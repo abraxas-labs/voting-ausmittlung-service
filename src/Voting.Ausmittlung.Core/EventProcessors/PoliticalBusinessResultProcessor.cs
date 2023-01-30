@@ -54,8 +54,13 @@ public abstract class PoliticalBusinessResultProcessor<T>
                 simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
             case CountingCircleResultState.AuditedTentatively when !result.AuditedTentativelyTimestamp.HasValue:
-                simpleResult.SubmissionDoneTimestamp = result.AuditedTentativelyTimestamp = eventInfo.Timestamp.ToDateTime();
+                result.AuditedTentativelyTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
+        }
+
+        if (newState < CountingCircleResultState.AuditedTentatively)
+        {
+            result.AuditedTentativelyTimestamp = null;
         }
 
         await _repo.Update(result);

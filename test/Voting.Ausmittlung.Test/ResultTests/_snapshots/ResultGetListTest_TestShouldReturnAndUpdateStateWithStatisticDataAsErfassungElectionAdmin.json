@@ -129,6 +129,9 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
           }
         },
         "NumberOfMandates": 5,
@@ -163,6 +166,9 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
           }
         },
         "NumberOfMandates": null,
@@ -197,6 +203,9 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
           }
         },
         "NumberOfMandates": 5,
@@ -218,11 +227,7 @@
   "EnabledVotingCardChannels": [
     {
       "Valid": true,
-      "VotingChannel": 2
-    },
-    {
-      "Valid": false,
-      "VotingChannel": 2
+      "VotingChannel": 1
     },
     {
       "Valid": true,
@@ -230,7 +235,11 @@
     },
     {
       "Valid": true,
-      "VotingChannel": 1
+      "VotingChannel": 2
+    },
+    {
+      "Valid": false,
+      "VotingChannel": 2
     }
   ]
 }

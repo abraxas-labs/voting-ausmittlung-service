@@ -76,9 +76,9 @@ public class MajorityElectionDeleteTest : BaseDataProcessorTest
             .ToList();
 
         details!.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).Should().NotBeEmpty();
-        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 1000, 3000, 2000 }).Should().BeTrue();
+        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 2000, 1000, 3000 }).Should().BeTrue();
         contestDetails.VotingCards.Any(x => x.CountOfReceivedVotingCards != 0).Should().BeTrue();
-        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 1000, 3000, 2000 }).Should().BeTrue();
+        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 2000, 1000, 3000 }).Should().BeTrue();
         doiDetails.VotingCards.Any(x => x.CountOfReceivedVotingCards != 0).Should().BeTrue();
 
         await TestEventPublisher.Publish(1, new MajorityElectionDeleted

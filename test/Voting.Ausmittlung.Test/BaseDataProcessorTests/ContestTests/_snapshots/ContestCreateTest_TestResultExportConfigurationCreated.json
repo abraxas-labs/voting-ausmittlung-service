@@ -5,6 +5,7 @@
       "Contest": null,
       "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
       "PoliticalBusinesses": null,
+      "PoliticalBusinessMetadata": null,
       "IntervalMinutes": null,
       "NextExecution": null,
       "DomainOfInfluence": null,
@@ -15,6 +16,7 @@
         "vote_ech_0110",
         "proportional_election_candidate_results_with_vote_sources"
       ],
+      "Provider": 2,
       "Id": "3021ba55-c755-5ef9-850d-bcbe5d0d9dbb"
     },
     {
@@ -22,6 +24,7 @@
       "Contest": null,
       "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
       "PoliticalBusinesses": null,
+      "PoliticalBusinessMetadata": null,
       "IntervalMinutes": null,
       "NextExecution": null,
       "DomainOfInfluence": null,
@@ -32,6 +35,7 @@
         "vote_ech_0222",
         "proportional_election_candidates_alphabetical"
       ],
+      "Provider": 2,
       "Id": "93ed301c-9fc0-5885-a794-29e133c02a85"
     },
     {
@@ -39,6 +43,7 @@
       "Contest": null,
       "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
       "PoliticalBusinesses": null,
+      "PoliticalBusinessMetadata": null,
       "IntervalMinutes": null,
       "NextExecution": null,
       "DomainOfInfluence": null,
@@ -49,6 +54,7 @@
         "vote_ech_0222",
         "proportional_election_candidates_alphabetical"
       ],
+      "Provider": 1,
       "Id": "c2b62823-14e4-5cbd-b977-536cb3d9b03d"
     },
     {
@@ -56,6 +62,7 @@
       "Contest": null,
       "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
       "PoliticalBusinesses": null,
+      "PoliticalBusinessMetadata": null,
       "IntervalMinutes": null,
       "NextExecution": null,
       "DomainOfInfluence": null,
@@ -66,6 +73,7 @@
         "vote_ech_0222",
         "proportional_election_candidates_alphabetical"
       ],
+      "Provider": 1,
       "Id": "c3e85e40-7626-53fe-80f7-6623cf1805e5"
     }
   ]

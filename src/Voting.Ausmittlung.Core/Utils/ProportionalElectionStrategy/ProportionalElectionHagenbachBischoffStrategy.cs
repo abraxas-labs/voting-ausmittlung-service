@@ -26,6 +26,13 @@ public static class ProportionalElectionHagenbachBischoffStrategy
             = endResult.HagenbachBischoffRootGroup.Children.Sum(x => x.InitialNumberOfMandates);
 
         UpdateNumberOfMandatesForListEndResults(endResult);
+
+        // if the sum of all list number of mandates does not match the election number of mandates,
+        // then the algorithm run into an edge case and a manual seat assignment is required.
+        if (endResult.AllCountingCirclesDone && endResult.ProportionalElection.NumberOfMandates != endResult.ListEndResults.Sum(l => l.NumberOfMandates))
+        {
+            SetRequiredManualEndResult(endResult);
+        }
     }
 
     /// <summary>
@@ -150,5 +157,20 @@ public static class ProportionalElectionHagenbachBischoffStrategy
                         IsWinner = false,
                     }).ToList(),
         });
+    }
+
+    private static void SetRequiredManualEndResult(ProportionalElectionEndResult endResult)
+    {
+        endResult.ManualEndResultRequired = true;
+
+        foreach (var listEndResult in endResult.ListEndResults)
+        {
+            listEndResult.NumberOfMandates = 0;
+
+            foreach (var candidateEndResult in listEndResult.CandidateEndResults)
+            {
+                candidateEndResult.State = ProportionalElectionCandidateEndResultState.NotElected;
+            }
+        }
     }
 }

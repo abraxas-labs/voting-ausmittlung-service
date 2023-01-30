@@ -19,7 +19,16 @@ public class ResultExportConfiguration : ExportConfigurationBase
 
     public Guid ContestId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the political businesses for which exports should be generated.
+    /// </summary>
     public ICollection<ResultExportConfigurationPoliticalBusiness>? PoliticalBusinesses { get; set; }
+
+    /// <summary>
+    /// Gets or sets the export metadata for the political businesses.
+    /// Note that metadata may exist for political businesses that are not in <see cref="PoliticalBusinesses"/>.
+    /// </summary>
+    public ICollection<ResultExportConfigurationPoliticalBusinessMetadata>? PoliticalBusinessMetadata { get; set; }
 
     public int? IntervalMinutes { get; set; }
 

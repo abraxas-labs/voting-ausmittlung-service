@@ -58,6 +58,7 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
                     Title = "title",
                     ZipCode = "zip code",
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
+                    Origin = "origin",
                 },
             },
             new ProportionalElectionCandidateCreated
@@ -81,6 +82,7 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
+                    Origin = "origin",
                 },
             });
 

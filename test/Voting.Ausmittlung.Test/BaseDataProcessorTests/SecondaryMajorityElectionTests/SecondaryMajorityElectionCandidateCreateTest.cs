@@ -57,6 +57,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    Origin = "origin",
                 },
             },
             new SecondaryMajorityElectionCandidateCreated
@@ -80,6 +81,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
+                    Origin = "origin",
                 },
             });
 
@@ -122,6 +124,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    Origin = "origin",
                 },
             });
 

@@ -51,10 +51,17 @@ public class TransientCatchUpContestProcessor :
         using var cacheWrite = _contestCache.BatchWrite();
 
         var date = eventData.Contest.Date.ToDateTime();
+        var contestId = GuidParser.Parse(eventData.Contest.Id);
+
+        if (_contestCache.ContainsKey(contestId))
+        {
+            LogPossibleReplayAttackDetected("Contest {ContestId} already in the Cache", contestId);
+            return Task.CompletedTask;
+        }
 
         var entry = new ContestCacheEntry
         {
-            Id = GuidParser.Parse(eventData.Contest.Id),
+            Id = contestId,
             Date = date,
             PastLockedPer = date.NextUtcDate(true),
             State = ContestState.TestingPhase,
@@ -70,7 +77,13 @@ public class TransientCatchUpContestProcessor :
         using var cacheWrite = _contestCache.BatchWrite();
 
         var date = eventData.Contest.Date.ToDateTime();
-        var entry = _contestCache.Get(GuidParser.Parse(eventData.Contest.Id));
+        var contestId = GuidParser.Parse(eventData.Contest.Id);
+
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return Task.CompletedTask;
+        }
 
         entry.Date = date;
         entry.PastLockedPer = date.NextUtcDate(true);
@@ -82,10 +95,20 @@ public class TransientCatchUpContestProcessor :
     {
         using var cacheWrite = _contestCache.BatchWrite();
 
-        var entry = _contestCache.Get(GuidParser.Parse(eventData.ContestId));
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return;
+        }
+
         LogContestStateChange(entry, ContestState.Active);
 
-        EnsureContestHasNoActiveSignature(entry);
+        if (!ValidateContestHasNoActiveSignature(entry))
+        {
+            return;
+        }
+
         var keyData = isCatchUp ? null : await _eventSignatureService.StartSignature(entry.Id, entry.PastLockedPer);
         entry.State = ContestState.Active;
         entry.KeyData = keyData;
@@ -95,10 +118,20 @@ public class TransientCatchUpContestProcessor :
     {
         using var cacheWrite = _contestCache.BatchWrite();
 
-        var entry = _contestCache.Get(GuidParser.Parse(eventData.ContestId));
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return;
+        }
+
         LogContestStateChange(entry, ContestState.PastUnlocked);
 
-        EnsureContestHasNoActiveSignature(entry);
+        if (!ValidateContestHasNoActiveSignature(entry))
+        {
+            return;
+        }
+
         var pastLockedPer = eventData.EventInfo.Timestamp.ToDateTime().NextUtcDate(true); // copied from voting basis event processor.
         var keyData = isCatchUp ? null : await _eventSignatureService.StartSignature(entry.Id, pastLockedPer);
         entry.PastLockedPer = pastLockedPer;
@@ -110,12 +143,22 @@ public class TransientCatchUpContestProcessor :
     {
         using var cacheWrite = _contestCache.BatchWrite();
 
-        var entry = _contestCache.Get(GuidParser.Parse(eventData.ContestId));
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return;
+        }
+
         LogContestStateChange(entry, ContestState.PastLocked);
 
         if (!isCatchUp)
         {
-            EnsureContestHasKeyData(entry);
+            if (!ValidateContestHasKeyData(entry))
+            {
+                return;
+            }
+
             await _eventSignatureService.StopSignature(entry.Id, entry.KeyData!.Key.Id);
             entry.KeyData!.Key.Dispose();
             entry.KeyData = null;
@@ -128,13 +171,23 @@ public class TransientCatchUpContestProcessor :
     {
         using var cacheWrite = _contestCache.BatchWrite();
 
-        var entry = _contestCache.Get(GuidParser.Parse(eventData.ContestId));
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return Task.CompletedTask;
+        }
+
         LogContestStateChange(entry, ContestState.Archived);
 
         // A contest which is to be archived should never have an active signature.
         // The state transition to archived is only possible from past locked.
-        EnsureContestHasNoActiveSignature(entry);
-        _contestCache.Remove(GuidParser.Parse(eventData.ContestId));
+        if (!ValidateContestHasNoActiveSignature(entry))
+        {
+            return Task.CompletedTask;
+        }
+
+        _contestCache.Remove(contestId);
         return Task.CompletedTask;
     }
 
@@ -143,11 +196,20 @@ public class TransientCatchUpContestProcessor :
         using var cacheWrite = _contestCache.BatchWrite();
 
         var contestId = GuidParser.Parse(eventData.ContestId);
+        if (!_contestCache.TryGet(contestId, out var entry))
+        {
+            LogContestNotFoundWarning(contestId);
+            return Task.CompletedTask;
+        }
 
         // A contest which is to be deleted should never have an active signature.
         // A delete is only possible if the contest is in testing phase.
-        EnsureContestHasNoActiveSignature(contestId);
-        _contestCache.Remove(GuidParser.Parse(eventData.ContestId));
+        if (!ValidateContestHasNoActiveSignature(entry))
+        {
+            return Task.CompletedTask;
+        }
+
+        _contestCache.Remove(contestId);
         return Task.CompletedTask;
     }
 
@@ -163,7 +225,7 @@ public class TransientCatchUpContestProcessor :
 
             foreach (var entry in entries)
             {
-                EnsureContestNoKeyData(entry);
+                ValidateContestNoKeyData(entry);
                 var keyData = await _eventSignatureService.StartSignature(entry.Id, entry.PastLockedPer);
                 keyDataByContestId.Add(entry.Id, keyData);
             }
@@ -187,40 +249,51 @@ public class TransientCatchUpContestProcessor :
         }
     }
 
-    private void EnsureContestHasNoActiveSignature(Guid contestId)
-    {
-        var contestEntry = _contestCache.Get(contestId);
-        EnsureContestHasNoActiveSignature(contestEntry);
-    }
-
-    private void EnsureContestHasNoActiveSignature(ContestCacheEntry entry)
+    private bool ValidateContestHasNoActiveSignature(ContestCacheEntry entry)
     {
         if (entry.State.IsActiveOrUnlocked())
         {
-            throw new ArgumentException($"Cannot process because contest cache entry {entry.Id} has the state {entry.State} but it should not be active or unlocked");
+            LogPossibleReplayAttackDetected("Cannot process because contest cache entry {ContestId} has the state {ContestState} but it should not be active or unlocked", entry.Id, entry.State);
+            return false;
         }
 
-        EnsureContestNoKeyData(entry);
+        return ValidateContestNoKeyData(entry);
     }
 
-    private void EnsureContestNoKeyData(ContestCacheEntry entry)
+    private bool ValidateContestNoKeyData(ContestCacheEntry entry)
     {
         if (entry.KeyData != null)
         {
-            throw new ArgumentException($"Cannot process because contest cache entry {entry.Id} has key which is not disposed correctly");
+            LogPossibleReplayAttackDetected("Cannot process because contest cache entry {ContestId} has key which is not disposed correctly", entry.Id);
+            return false;
         }
+
+        return true;
     }
 
-    private void EnsureContestHasKeyData(ContestCacheEntry entry)
+    private bool ValidateContestHasKeyData(ContestCacheEntry entry)
     {
         if (entry.KeyData == null)
         {
-            throw new ArgumentException($"No key assigned for contest cache entry {entry.Id}. Cannot stop signature");
+            LogPossibleReplayAttackDetected("No key assigned for contest cache entry {ContestId}. Cannot stop signature", entry.Id);
+            return false;
         }
+
+        return true;
     }
 
     private void LogContestStateChange(ContestCacheEntry entry, ContestState nextState)
     {
         _logger.LogInformation("Transient catch up contest cache entry {ContestId} state changed from {PreviousState} to {NextState}", entry.Id, entry.State, nextState);
+    }
+
+    private void LogContestNotFoundWarning(Guid contestId)
+    {
+        LogPossibleReplayAttackDetected("Contest {ContestId} not found in the Cache", contestId);
+    }
+
+    private void LogPossibleReplayAttackDetected(string message, params object?[] args)
+    {
+        _logger.LogWarning(SecurityLogging.SecurityEventId, message + ". Possible replay attack detected.", args);
     }
 }

@@ -51,12 +51,15 @@ public class SecondaryMajorityElectionResultImportWriter : MajorityElectionResul
             .Include(x => x.Candidates)
             .Include(x => x.Translations)
             .Include(x => x.PrimaryMajorityElection)
+            .Include(x => x.PrimaryMajorityElection.DomainOfInfluence.CantonDefaults)
             .ToListAsync();
     }
 
     protected override async Task<SecondaryMajorityElection> GetElection(Guid electionId)
     {
-        return await _electionRepo.GetByKey(electionId)
+        return await _electionRepo.Query()
+                   .Include(x => x.PrimaryMajorityElection.DomainOfInfluence.CantonDefaults)
+                   .FirstOrDefaultAsync(x => x.Id == electionId)
                ?? throw new EntityNotFoundException(electionId);
     }
 
@@ -70,12 +73,6 @@ public class SecondaryMajorityElectionResultImportWriter : MajorityElectionResul
 
     protected override IEnumerable<MajorityElectionCandidateBase> GetCandidates(SecondaryMajorityElection election)
         => election.Candidates;
-
-    protected override Task<bool> SupportsInvalidVotes(Guid electionId)
-        => _electionRepo.Query().AnyAsync(x => x.Id == electionId && x.PrimaryMajorityElection.InvalidVotes);
-
-    protected override bool SupportsInvalidVotes(SecondaryMajorityElection election)
-        => election.InvalidVotes;
 
     protected override IQueryable<MajorityElectionResult> BuildResultsQuery(Guid contestId)
         => _electionRepo.Query()

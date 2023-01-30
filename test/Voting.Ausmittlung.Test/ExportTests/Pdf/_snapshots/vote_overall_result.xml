@@ -20,15 +20,9 @@
       <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
       <ContestVotingCardDetail>
-        <CountOfReceivedVotingCards>4000</CountOfReceivedVotingCards>
+        <CountOfReceivedVotingCards>4400</CountOfReceivedVotingCards>
         <Valid>true</Valid>
-        <Channel>ByMail</Channel>
-        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
-      </ContestVotingCardDetail>
-      <ContestVotingCardDetail>
-        <CountOfReceivedVotingCards>3400</CountOfReceivedVotingCards>
-        <Valid>false</Valid>
-        <Channel>ByMail</Channel>
+        <Channel>BallotBox</Channel>
         <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </ContestVotingCardDetail>
       <ContestVotingCardDetail>
@@ -38,9 +32,15 @@
         <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </ContestVotingCardDetail>
       <ContestVotingCardDetail>
-        <CountOfReceivedVotingCards>4400</CountOfReceivedVotingCards>
+        <CountOfReceivedVotingCards>4000</CountOfReceivedVotingCards>
         <Valid>true</Valid>
-        <Channel>BallotBox</Channel>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>3400</CountOfReceivedVotingCards>
+        <Valid>false</Valid>
+        <Channel>ByMail</Channel>
         <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </ContestVotingCardDetail>
       <ContestVotingCardDetail>
@@ -56,7 +56,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Abstimmung St. Gallen de</OfficialDescription>
     <ShortDescription>Abst SG de</ShortDescription>
-    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
       <NameForProtocol>Kanton St. Gallen</NameForProtocol>
@@ -101,6 +100,7 @@
           <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           <Accepted>true</Accepted>
         </BallotQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount1Accepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -160,6 +160,7 @@
           <PercentageQ2>0.6</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount2Question2Accepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -265,8 +266,10 @@
           <PercentageQ2>0.7241379310344827586206896552</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount3NoneAccepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
     </VoteEndResult>
+    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
   </Vote>
   <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
 </Voting>

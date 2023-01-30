@@ -11,7 +11,5 @@ public abstract class PdfPoliticalBusiness
 
     public string ShortDescription { get; set; } = string.Empty;
 
-    public string InternalDescription { get; set; } = string.Empty;
-
     public PdfDomainOfInfluence? DomainOfInfluence { get; set; }
 }

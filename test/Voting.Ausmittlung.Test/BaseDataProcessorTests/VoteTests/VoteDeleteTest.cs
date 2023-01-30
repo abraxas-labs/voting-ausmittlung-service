@@ -69,8 +69,8 @@ public class VoteDeleteTest : VoteProcessorBaseTest
             .ToList();
 
         details!.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).Should().NotBeEmpty();
-        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 4000, 3400, 300, 4400, 270 }).Should().BeTrue();
-        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 2000, 150, 200, 400, 150 }).Should().BeTrue();
+        contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 4400, 300, 4000, 3400, 270 }).Should().BeTrue();
+        doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 400, 200, 2000, 150, 150 }).Should().BeTrue();
 
         await TestEventPublisher.Publish(1, new VoteDeleted
         {

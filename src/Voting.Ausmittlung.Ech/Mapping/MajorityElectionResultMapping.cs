@@ -73,7 +73,7 @@ internal static class MajorityElectionResultMapping
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
         var texts = Languages.All
             .Select(l => CandidateTextInfo.Create(l, candidateText))
-            .ToArray();
+            .ToList();
 
         return new CandidateResultType
         {
@@ -86,7 +86,7 @@ internal static class MajorityElectionResultMapping
                 FirstName = candidate.FirstName,
                 CallName = candidate.PoliticalFirstName,
                 CandidateReference = candidate.Number,
-                CandidateText = texts,
+                CandidateText = CandidateTextInformation.Create(texts),
             },
         };
     }

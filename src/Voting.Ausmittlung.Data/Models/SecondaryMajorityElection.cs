@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class SecondaryMajorityElection : MajorityElectionBase, IPoliticalBusinessHasTranslations
+public class SecondaryMajorityElection : Election, IPoliticalBusinessHasTranslations
 {
     public SecondaryMajorityElectionAllowedCandidate AllowedCandidates { get; set; }
 
@@ -33,12 +33,6 @@ public class SecondaryMajorityElection : MajorityElectionBase, IPoliticalBusines
     public SecondaryMajorityElectionEndResult? EndResult { get; set; }
 
     public ICollection<SecondaryMajorityElectionTranslation> Translations { get; set; } = new HashSet<SecondaryMajorityElectionTranslation>();
-
-    public override bool InvalidVotes
-    {
-        get => PrimaryMajorityElection.InvalidVotes;
-        set => throw new InvalidOperationException($"{nameof(InvalidVotes)} is read only.");
-    }
 
     IEnumerable<PoliticalBusinessTranslation> IPoliticalBusinessHasTranslations.Translations
     {

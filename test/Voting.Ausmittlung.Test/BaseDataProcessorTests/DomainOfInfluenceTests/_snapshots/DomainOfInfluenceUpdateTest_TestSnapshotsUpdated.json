@@ -274,15 +274,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -292,9 +286,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -416,15 +416,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -434,9 +428,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -558,15 +558,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -576,9 +570,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -700,15 +700,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -718,9 +712,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -842,15 +842,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -860,9 +854,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -984,15 +984,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -1002,9 +996,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -1126,15 +1126,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -1144,9 +1138,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]
@@ -1268,15 +1268,9 @@
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
-            "VotingChannel": 2,
+            "VotingChannel": 1,
             "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
+            "Channel": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -1286,9 +1280,15 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
-            "VotingChannel": 1,
+            "VotingChannel": 2,
             "Valid": true,
-            "Channel": 1,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ]

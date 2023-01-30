@@ -85,7 +85,8 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
         foreach (var ccResult in doiResult.Results)
         {
             ccResult.CandidateResults = ccResult.CandidateResults
-                .OrderBy(x => x.Candidate.Position)
+                .OrderByDescending(x => x.VoteCount)
+                .ThenBy(x => x.Candidate.Position)
                 .ToList();
         }
     }

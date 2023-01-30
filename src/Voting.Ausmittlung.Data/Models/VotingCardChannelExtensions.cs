@@ -21,9 +21,9 @@ public static class VotingCardChannelExtensions
     private static int GetPriority(this IVotingCardChannel vcChannel)
         => vcChannel.Channel switch
         {
-            VotingChannel.ByMail => 0,
+            VotingChannel.BallotBox => 0,
             VotingChannel.Paper => 1,
-            VotingChannel.BallotBox => 2,
+            VotingChannel.ByMail => 2,
             VotingChannel.EVoting => 3,
             _ => 9,
         };

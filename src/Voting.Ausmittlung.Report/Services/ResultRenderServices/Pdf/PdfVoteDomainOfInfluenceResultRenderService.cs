@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,19 +25,22 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly VoteDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
+    private readonly IClock _clock;
 
     public PdfVoteDomainOfInfluenceResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, Vote> repo,
         IMapper mapper,
         VoteDomainOfInfluenceResultBuilder doiResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -157,6 +161,8 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            vote.ShortDescription);
+            ctx.DomainOfInfluenceType.ToString().ToUpper(),
+            vote.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 }

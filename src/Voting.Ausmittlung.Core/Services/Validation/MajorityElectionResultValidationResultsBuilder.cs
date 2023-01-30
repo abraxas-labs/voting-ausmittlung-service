@@ -96,7 +96,7 @@ public class MajorityElectionResultValidationResultsBuilder : CountingCircleResu
         var electionResult = await _majorityElectionResultRepository.Query()
                 .AsSplitQuery()
                 .Include(x => x.CountingCircle.ResponsibleAuthority)
-                .Include(x => x.MajorityElection.DomainOfInfluence)
+                .Include(x => x.MajorityElection.DomainOfInfluence.CantonDefaults)
                 .Include(x => x.CandidateResults)
                 .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
                 .Include(x => x.BallotGroupResults)

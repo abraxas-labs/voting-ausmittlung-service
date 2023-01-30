@@ -24,10 +24,8 @@
       "PoliticalBusinessNumber": "201",
       "OfficialDescription": "Majorzwahl de",
       "ShortDescription": "Majorzw de",
-      "InternalDescription": "Majorzwahl",
       "NumberOfMandates": 3,
       "MandateAlgorithm": 2,
-      "IndividualEmptyBallotsAllowed": true,
       "CandidateCheckDigit": false,
       "BallotBundleSize": 25,
       "BallotBundleSampleSize": 3,
@@ -59,9 +57,11 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
-      "InvalidVotes": false,
       "Contest": {
         "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Date": {
@@ -112,15 +112,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -130,9 +124,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {
@@ -380,7 +380,6 @@
           "PoliticalBusinessNumber": "n1",
           "OfficialDescription": "official de",
           "ShortDescription": "short de",
-          "InternalDescription": "internal",
           "NumberOfMandates": 2,
           "Active": false,
           "Title": "n1: short de"
@@ -497,7 +496,6 @@
           "PoliticalBusinessNumber": "n2",
           "OfficialDescription": "official2 de",
           "ShortDescription": "short2 de",
-          "InternalDescription": "internal2",
           "NumberOfMandates": 1,
           "Active": true,
           "Title": "n2: short2 de"
@@ -639,10 +637,8 @@
       "PoliticalBusinessNumber": "201",
       "OfficialDescription": "Majorzwahl de",
       "ShortDescription": "Majorzw de",
-      "InternalDescription": "Majorzwahl",
       "NumberOfMandates": 3,
       "MandateAlgorithm": 2,
-      "IndividualEmptyBallotsAllowed": true,
       "CandidateCheckDigit": false,
       "BallotBundleSize": 25,
       "BallotBundleSampleSize": 3,
@@ -674,9 +670,11 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
-      "InvalidVotes": false,
       "Contest": null,
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true
@@ -774,7 +772,6 @@
           "PoliticalBusinessNumber": "n1",
           "OfficialDescription": "official de",
           "ShortDescription": "short de",
-          "InternalDescription": "internal",
           "NumberOfMandates": 2,
           "Active": false,
           "Title": "n1: short de"
@@ -830,7 +827,6 @@
           "PoliticalBusinessNumber": "n2",
           "OfficialDescription": "official2 de",
           "ShortDescription": "short2 de",
-          "InternalDescription": "internal2",
           "NumberOfMandates": 1,
           "Active": true,
           "Title": "n2: short2 de"

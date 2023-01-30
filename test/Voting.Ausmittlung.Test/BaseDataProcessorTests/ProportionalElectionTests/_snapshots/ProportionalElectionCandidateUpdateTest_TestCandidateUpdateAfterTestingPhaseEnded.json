@@ -64,5 +64,6 @@
   "ZipCode": "new zip code",
   "Locality": "locality",
   "Position": 1,
+  "Origin": "origin",
   "Id": "9e131f21-4483-4375-b014-484c272615ee"
 }

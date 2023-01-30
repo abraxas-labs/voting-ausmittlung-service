@@ -305,11 +305,11 @@ public class ProportionalElectionHagenbachBischoffStrategyTest
     }
 
     /// <summary>
-    /// Don't distribute rest mandates because
-    /// Art. 100 e) from <a href="https://www.gesetzessammlung.sg.ch/app/de/texts_of_law/125.3/versions/2500">here</a> is not implemented yet.
+    /// Don't distribute rest mandates and set manual end result required because
+    /// Art. 100 e) from <a href="https://www.gesetzessammlung.sg.ch/app/de/texts_of_law/125.3/versions/2500">here</a> is not implemented.
     /// </summary>
     [Fact]
-    public void TestDistributeRestMandatesEdgeCaseDontDistributeRestMandates()
+    public void TestDistributeRestMandatesEdgeCaseDontDistributeRestMandatesWithoutAllCcsDone()
     {
         var endResult = GetBasicEndResult(
             2,
@@ -317,12 +317,37 @@ public class ProportionalElectionHagenbachBischoffStrategyTest
             new SimplifiedList(ListId2, 5000),
             new SimplifiedList(ListId3, 5000));
 
+        endResult.CountOfDoneCountingCircles = 2;
+        endResult.TotalCountOfCountingCircles = 3;
+
         ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
 
         var listEndResults = endResult.ListEndResults.ToArray();
         listEndResults[0].NumberOfMandates.Should().Be(1);
         listEndResults[1].NumberOfMandates.Should().Be(0);
         listEndResults[2].NumberOfMandates.Should().Be(0);
+        endResult.ManualEndResultRequired.Equals(false).Should().BeTrue();
+    }
+
+    [Fact]
+    public void TestDistributeRestMandatesEdgeCaseDontDistributeRestMandatesWithAllCcsDone()
+    {
+        var endResult = GetBasicEndResult(
+            2,
+            new SimplifiedList(ListId1, 10000),
+            new SimplifiedList(ListId2, 5000),
+            new SimplifiedList(ListId3, 5000));
+
+        endResult.CountOfDoneCountingCircles = 3;
+        endResult.TotalCountOfCountingCircles = 3;
+
+        ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
+
+        var listEndResults = endResult.ListEndResults.ToArray();
+        listEndResults[0].NumberOfMandates.Should().Be(0);
+        listEndResults[1].NumberOfMandates.Should().Be(0);
+        listEndResults[2].NumberOfMandates.Should().Be(0);
+        endResult.ManualEndResultRequired.Equals(true).Should().BeTrue();
     }
 
     private ProportionalElectionEndResult GetBasicEndResult(

@@ -20,7 +20,7 @@ public class PdfProportionalElectionCandidateVoteSourcesCountingCircleResultExpo
 
     public override HttpClient TestClient => ErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Stimmenherkunft inkl. Kumulierungen und Panaschierungen - Kantonratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular3b_Stimmenherkunft_KumPan_Kantonratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

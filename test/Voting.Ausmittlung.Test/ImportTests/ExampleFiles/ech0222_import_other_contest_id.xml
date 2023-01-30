@@ -7,6 +7,7 @@
                   xsi:schemaLocation="http://www.ech.ch/xmlns/eCH-0058/5 http://www.ech.ch/xmlns/eCH-0058/5/eCH-0058-5-0.xsd">
     <eCH-0058:senderId>3-CH-1</eCH-0058:senderId>
     <eCH-0058:messageId>mock-id</eCH-0058:messageId>
+    <eCH-0058:messageType>eCH-0222</eCH-0058:messageType>
     <eCH-0058:sendingApplication>
       <eCH-0058:manufacturer>Abraxas Informatik AG</eCH-0058:manufacturer>
       <eCH-0058:product>VOTING Ausmittlung</eCH-0058:product>

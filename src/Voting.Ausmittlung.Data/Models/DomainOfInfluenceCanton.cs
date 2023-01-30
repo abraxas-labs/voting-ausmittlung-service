@@ -24,4 +24,9 @@ public enum DomainOfInfluenceCanton
     /// Kanton Zürich.
     /// </summary>
     Zh,
+
+    /// <summary>
+    /// Kanton Graubünden.
+    /// </summary>
+    Gr,
 }

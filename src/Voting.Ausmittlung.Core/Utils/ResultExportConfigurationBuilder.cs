@@ -59,6 +59,7 @@ public class ResultExportConfigurationBuilder
                 ExportKeys = config.ExportKeys,
                 EaiMessageType = config.EaiMessageType,
                 ExportConfigurationId = config.Id,
+                Provider = config.Provider,
                 DomainOfInfluenceId = doi.Id,
             });
         });

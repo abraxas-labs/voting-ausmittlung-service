@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using DomainOfInfluenceType = Voting.Lib.VotingExports.Models.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -22,7 +23,7 @@ public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTe
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Prov. Ergebnisse aller Auszählungskreise - Abst SG de.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_CT_provisorischeErgebnisse_Abst SG de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 
@@ -44,6 +45,7 @@ public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTe
                 new GenerateResultExportRequest
                 {
                     Key = AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key,
+                    DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                     PoliticalBusinessIds =
                     {
                         Guid.Parse(VoteEndResultMockedData.VoteId),

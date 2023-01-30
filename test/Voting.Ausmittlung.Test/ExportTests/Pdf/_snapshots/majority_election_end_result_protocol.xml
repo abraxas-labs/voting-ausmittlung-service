@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Majorzwahl de</OfficialDescription>
     <ShortDescription>Majorzw de</ShortDescription>
-    <InternalDescription>Majorzwahl</InternalDescription>
     <NumberOfMandates>3</NumberOfMandates>
     <MandateAlgorithm>AbsoluteMajority</MandateAlgorithm>
     <MajorityElectionEndResult>
@@ -54,21 +53,22 @@
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>AbsoluteMajorityAndElected</State>
@@ -94,6 +94,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>AbsoluteMajorityAndElected</State>
@@ -119,6 +120,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NoAbsoluteMajorityAndNotElectedButRankOk</State>
@@ -129,21 +131,22 @@
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -169,6 +172,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -194,6 +198,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -219,6 +224,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -244,6 +250,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -269,6 +276,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
@@ -294,6 +302,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>

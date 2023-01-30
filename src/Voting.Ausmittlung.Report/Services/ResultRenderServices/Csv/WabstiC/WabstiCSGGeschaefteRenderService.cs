@@ -68,7 +68,7 @@ public class WabstiCSGGeschaefteRenderService : IRendererService
         [Ignore]
         public int CountOfDoneCountingCircles { get; set; }
 
-        [Name("AnzGdePendent")]
+        [Name("AnzPendentGde")]
         [Index(StartIndex + 1)]
         public int CountOfPendingCountingCircles => TotalCountOfCountingCircles - CountOfDoneCountingCircles;
 

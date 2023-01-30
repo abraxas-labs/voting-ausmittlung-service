@@ -1071,6 +1071,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text[]");
 
+                    b.Property<int>("Provider")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DomainOfInfluenceId");
@@ -1235,16 +1238,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IndividualEmptyBallotsAllowed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("InternalDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("InvalidVotes")
                         .HasColumnType("boolean");
 
                     b.Property<int>("MandateAlgorithm")
@@ -1416,6 +1409,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Origin")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -1888,10 +1885,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("InternalDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("MandateAlgorithm")
                         .HasColumnType("integer");
 
@@ -1945,6 +1938,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Origin")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -2145,6 +2142,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("Finalized")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ManualEndResultRequired")
                         .HasColumnType("boolean");
 
                     b.Property<Guid>("ProportionalElectionId")
@@ -2672,6 +2672,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<DateTime?>("NextExecution")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("Provider")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId");
@@ -2701,6 +2704,32 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("ResultExportConfigurationPoliticalBusinesses");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultExportConfigurationPoliticalBusinessMetadata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PoliticalBusinessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResultExportConfigurationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultExportConfigurationId");
+
+                    b.HasIndex("PoliticalBusinessId", "ResultExportConfigurationId")
+                        .IsUnique();
+
+                    b.ToTable("ResultExportConfigurationPoliticalBusinessMetadata");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImport", b =>
@@ -2746,10 +2775,6 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("ElectionGroupId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("InternalDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("NumberOfMandates")
                         .HasColumnType("integer");
@@ -2798,6 +2823,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Origin")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -3164,10 +3193,6 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("DomainOfInfluenceId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("InternalDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int?>("NumberOfMandates")
                         .HasColumnType("integer");
@@ -6104,6 +6129,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("ResultExportConfiguration");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultExportConfigurationPoliticalBusinessMetadata", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.SimplePoliticalBusiness", "PoliticalBusiness")
+                        .WithMany()
+                        .HasForeignKey("PoliticalBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ResultExportConfiguration", "ResultExportConfiguration")
+                        .WithMany("PoliticalBusinessMetadata")
+                        .HasForeignKey("ResultExportConfigurationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PoliticalBusiness");
+
+                    b.Navigation("ResultExportConfiguration");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImport", b =>
                 {
                     b.HasOne("Voting.Ausmittlung.Data.Models.Contest", "Contest")
@@ -7265,6 +7309,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultExportConfiguration", b =>
                 {
+                    b.Navigation("PoliticalBusinessMetadata");
+
                     b.Navigation("PoliticalBusinesses");
                 });
 

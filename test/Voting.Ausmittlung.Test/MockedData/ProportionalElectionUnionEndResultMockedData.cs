@@ -64,7 +64,6 @@ public static class ProportionalElectionUnionEndResultMockedData
                 "Kantonratswahl",
                 (t, s) => t.ShortDescription = s,
                 "Kantonratswahl"),
-            InternalDescription = "Kantonratswahl",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -113,6 +112,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -135,6 +135,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -157,6 +158,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -194,6 +196,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -216,6 +219,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -238,6 +242,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -275,6 +280,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -297,6 +303,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -334,6 +341,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -380,7 +388,6 @@ public static class ProportionalElectionUnionEndResultMockedData
                 "Kantonratswahl",
                 (t, s) => t.ShortDescription = s,
                 "Kantonratswahl"),
-            InternalDescription = "Kantonratswahl",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -429,6 +436,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -451,6 +459,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -488,6 +497,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -510,6 +520,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -545,6 +556,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.Occupation = o,
                                     "Netzwerkadministrator"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -564,6 +576,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     (t, o) => t.Occupation = o,
                                     "Strassenbauer"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
+                                Origin = "origin",
                             },
                         },
                     },
@@ -596,6 +609,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Coiffeuse"),
+                                Origin = "origin",
                             },
                         },
                     },

@@ -1,0 +1,531 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0110/4">
+  <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5">
+    <eCH-0058:senderId>ABX-VOTING</eCH-0058:senderId>
+    <eCH-0058:messageId>mock-id</eCH-0058:messageId>
+    <eCH-0058:messageType>1710967</eCH-0058:messageType>
+    <eCH-0058:sendingApplication>
+      <eCH-0058:manufacturer>Abraxas Informatik AG</eCH-0058:manufacturer>
+      <eCH-0058:product>Voting.Ausmittlung</eCH-0058:product>
+      <eCH-0058:productVersion>0.0.0.1</eCH-0058:productVersion>
+    </eCH-0058:sendingApplication>
+    <eCH-0058:messageDate>2020-01-10T13:12:10.200</eCH-0058:messageDate>
+    <eCH-0058:action>1</eCH-0058:action>
+    <eCH-0058:testDeliveryFlag>true</eCH-0058:testDeliveryFlag>
+  </deliveryHeader>
+  <resultDelivery>
+    <reportingBody>
+      <reportingBodyIdentification>999999999999999999</reportingBodyIdentification>
+      <creationDateTime>2020-01-10T13:12:10.200</creationDateTime>
+    </reportingBody>
+    <contestInformation xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+      <eCH-0155:contestIdentification>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</eCH-0155:contestIdentification>
+      <eCH-0155:contestDate>2029-02-12</eCH-0155:contestDate>
+      <eCH-0155:contestDescription>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>de</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft de</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>fr</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft fr</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>it</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft it</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>rm</eCH-0155:language>
+          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft rm</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+      </eCH-0155:contestDescription>
+    </contestInformation>
+    <countingCircleResults>
+      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+        <eCH-0155:countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Uzwil</eCH-0155:countingCircleName>
+      </countingCircle>
+      <votingCardsInformation>
+        <countOfReceivedValidVotingCardsTotal>2750</countOfReceivedValidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>460</countOfReceivedInvalidVotingCardsTotal>
+      </votingCardsInformation>
+      <electionGroupResults>
+        <domainOfInfluenceIdentification>d9f5e161-37f8-4c76-921d-c0237c54dc5b</domainOfInfluenceIdentification>
+        <countOfVotersInformation>
+          <countOfVotersTotal>1000</countOfVotersTotal>
+        </countOfVotersInformation>
+        <countOfReceivedBallotsTotal>
+          <total>250</total>
+        </countOfReceivedBallotsTotal>
+        <countOfAccountedBallots>
+          <total>110</total>
+        </countOfAccountedBallots>
+        <countOfUnaccountedBallots>
+          <total>140</total>
+        </countOfUnaccountedBallots>
+        <countOfUnaccountedBlankBallots>
+          <total>40</total>
+        </countOfUnaccountedBlankBallots>
+        <countOfUnaccountedInvalidBallots>
+          <total>100</total>
+        </countOfUnaccountedInvalidBallots>
+        <electionResults>
+          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+            <eCH-0155:electionIdentification>be9aee15-c36a-4da6-a9a8-5b5bd206b6e7</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>1</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
+            <eCH-0155:numberOfMandates>2</eCH-0155:numberOfMandates>
+          </election>
+          <proportionalElection>
+            <countOfChangedBallotsWithPartyAffiliation>
+              <total>20</total>
+            </countOfChangedBallotsWithPartyAffiliation>
+            <countOfChangedBallotsWithoutPartyAffiliation>
+              <total>2</total>
+            </countOfChangedBallotsWithoutPartyAffiliation>
+            <countOfEmptyVotesOfChangedBallotsWithoutPartyAffiliation>
+              <total>0</total>
+            </countOfEmptyVotesOfChangedBallotsWithoutPartyAffiliation>
+            <list>
+              <listInformation>
+                <listIdentification>d860db7f-6747-406a-92e9-77914d671131</listIdentification>
+                <listIndentureNumber>1a</listIndentureNumber>
+                <listDescription xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1a de</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1a SP/JUSO Frauen de</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1a fr</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1a SP/JUSO Frauen fr</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1a it</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1a SP/JUSO Frauen it</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1a rm</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1a SP/JUSO Frauen rm</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                </listDescription>
+              </listInformation>
+              <countOfChangedBallots>
+                <total>0</total>
+              </countOfChangedBallots>
+              <countOfUnchangedBallots>
+                <total>2</total>
+              </countOfUnchangedBallots>
+              <countOfCandidateVotes>
+                <total>270</total>
+              </countOfCandidateVotes>
+              <countOfAdditionalVotes>
+                <total>15</total>
+              </countOfAdditionalVotes>
+              <countOfPartyVotes>
+                <total>285</total>
+              </countOfPartyVotes>
+            </list>
+            <list>
+              <listInformation>
+                <listIdentification>43b89613-7598-4633-a3e1-7cb82d834c33</listIdentification>
+                <listIndentureNumber>1b</listIndentureNumber>
+                <listDescription xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1b de</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1b SP/JUSO Männer de</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1b fr</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1b SP/JUSO Männer fr</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1b it</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1b SP/JUSO Männer it</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 1b rm</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 1b SP/JUSO Männer rm</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                </listDescription>
+              </listInformation>
+              <countOfChangedBallots>
+                <total>2</total>
+              </countOfChangedBallots>
+              <countOfUnchangedBallots>
+                <total>0</total>
+              </countOfUnchangedBallots>
+              <countOfCandidateVotes>
+                <total>325</total>
+              </countOfCandidateVotes>
+              <countOfAdditionalVotes>
+                <total>0</total>
+              </countOfAdditionalVotes>
+              <countOfPartyVotes>
+                <total>325</total>
+              </countOfPartyVotes>
+            </list>
+            <list>
+              <listInformation>
+                <listIdentification>1e58741c-6dc8-4628-8d01-2d0a92a70c11</listIdentification>
+                <listIndentureNumber>2</listIndentureNumber>
+                <listDescription xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 2 de</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 2, GLP de</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 2 fr</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 2, GLP fr</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 2 it</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 2, GLP it</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 2 rm</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 2, GLP rm</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                </listDescription>
+              </listInformation>
+              <countOfChangedBallots>
+                <total>0</total>
+              </countOfChangedBallots>
+              <countOfUnchangedBallots>
+                <total>2</total>
+              </countOfUnchangedBallots>
+              <countOfCandidateVotes>
+                <total>32</total>
+              </countOfCandidateVotes>
+              <countOfAdditionalVotes>
+                <total>5</total>
+              </countOfAdditionalVotes>
+              <countOfPartyVotes>
+                <total>37</total>
+              </countOfPartyVotes>
+            </list>
+            <list>
+              <listInformation>
+                <listIdentification>99ee20ab-7e66-4765-a2d7-f60234197999</listIdentification>
+                <listIndentureNumber>3</listIndentureNumber>
+                <listDescription xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 3 de</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 3, die Internetpartei de</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 3 fr</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 3, die Internetpartei fr</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 3 it</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 3, die Internetpartei it</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                  <eCH-0155:listDescriptionInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:listDescriptionShort>Liste 3 rm</eCH-0155:listDescriptionShort>
+                    <eCH-0155:listDescription>Liste 3, die Internetpartei rm</eCH-0155:listDescription>
+                  </eCH-0155:listDescriptionInfo>
+                </listDescription>
+              </listInformation>
+              <countOfChangedBallots>
+                <total>0</total>
+              </countOfChangedBallots>
+              <countOfUnchangedBallots>
+                <total>0</total>
+              </countOfUnchangedBallots>
+              <countOfCandidateVotes>
+                <total>0</total>
+              </countOfCandidateVotes>
+              <countOfAdditionalVotes>
+                <total>0</total>
+              </countOfAdditionalVotes>
+              <countOfPartyVotes>
+                <total>0</total>
+              </countOfPartyVotes>
+            </list>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>85f72dc4-b2ec-494f-972f-5c71d64bfc0c</candidateIdentification>
+                <candidateReference>01</candidateReference>
+                <familyName>Weibel</familyName>
+                <firstName>Lara</firstName>
+                <callName>Lara</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Weibel Lara</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Weibel Lara</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Weibel Lara</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Weibel Lara</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>d860db7f-6747-406a-92e9-77914d671131</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>150</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>100</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>250</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>3179cfc0-fa97-4e7f-9dfd-4a35efcdf906</candidateIdentification>
+                <candidateReference>02</candidateReference>
+                <familyName>Königer</familyName>
+                <firstName>Doris</firstName>
+                <callName>Doris</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Königer Doris</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Königer Doris</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Königer Doris</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Königer Doris</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>d860db7f-6747-406a-92e9-77914d671131</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>5</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>15</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>20</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>01381190-9bb5-4921-b618-fda24ecf5d6c</candidateIdentification>
+                <candidateReference>01</candidateReference>
+                <familyName>Kobler</familyName>
+                <firstName>Florian</firstName>
+                <callName>Florian</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Kobler Florian</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Kobler Florian</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Kobler Florian</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Kobler Florian</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>43b89613-7598-4633-a3e1-7cb82d834c33</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>2</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>298</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>300</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>24cd4ad3-bc34-415d-8d8b-2059fd4a94c7</candidateIdentification>
+                <candidateReference>02</candidateReference>
+                <familyName>Kindler</familyName>
+                <firstName>Tobias</firstName>
+                <callName>Tobias</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Kindler Tobias</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Kindler Tobias</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Kindler Tobias</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Kindler Tobias</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>43b89613-7598-4633-a3e1-7cb82d834c33</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>1</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>24</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>25</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>45d30a1d-812e-4838-ac9b-76529d12df72</candidateIdentification>
+                <candidateReference>01</candidateReference>
+                <familyName>Herz</familyName>
+                <firstName>Martin</firstName>
+                <callName>Martin</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Herz Martin</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Herz Martin</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Herz Martin</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Herz Martin</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>1e58741c-6dc8-4628-8d01-2d0a92a70c11</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>5</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>15</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>20</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>29fa2397-5c32-4f71-abb2-90d00fe785b2</candidateIdentification>
+                <candidateReference>02</candidateReference>
+                <familyName>Ritter</familyName>
+                <firstName>Luca</firstName>
+                <callName>Luca</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Ritter Luca</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Ritter Luca</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Ritter Luca</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Ritter Luca</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>1e58741c-6dc8-4628-8d01-2d0a92a70c11</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>10</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>2</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>12</countOfVotesTotal>
+            </candidate>
+            <candidate>
+              <candidateInformation>
+                <candidateIdentification>489f8a2e-f47d-4928-b9a6-05636f8be0c2</candidateIdentification>
+                <candidateReference>01</candidateReference>
+                <familyName>Gaertner</familyName>
+                <firstName>Stephanie</firstName>
+                <callName>Stephanie</callName>
+                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>de</eCH-0155:language>
+                    <eCH-0155:candidateText>Gaertner Stephanie</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>fr</eCH-0155:language>
+                    <eCH-0155:candidateText>Gaertner Stephanie</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>it</eCH-0155:language>
+                    <eCH-0155:candidateText>Gaertner Stephanie</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>rm</eCH-0155:language>
+                    <eCH-0155:candidateText>Gaertner Stephanie</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </candidateText>
+                <officialCandidateYesNo>true</officialCandidateYesNo>
+              </candidateInformation>
+              <listResults>
+                <listIdentification>99ee20ab-7e66-4765-a2d7-f60234197999</listIdentification>
+                <countOfvotesFromUnchangedBallots>
+                  <total>0</total>
+                </countOfvotesFromUnchangedBallots>
+                <countOfvotesFromChangedBallots>
+                  <total>0</total>
+                </countOfvotesFromChangedBallots>
+              </listResults>
+              <countOfVotesTotal>0</countOfVotesTotal>
+            </candidate>
+          </proportionalElection>
+        </electionResults>
+      </electionGroupResults>
+    </countingCircleResults>
+  </resultDelivery>
+</delivery>

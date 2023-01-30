@@ -9,6 +9,9 @@ namespace Voting.Ausmittlung.Ech.Models;
 
 public class EVotingVoteResult : EVotingPoliticalBusinessResult
 {
+    // An imported eCH vote result may contain ballot results from different VOTING vote results,
+    // because VOTING votes of the same domain of influence get grouped into the same eCH vote.
+    // The voteId may not be correct for all ballot results!
     public EVotingVoteResult(Guid voteId, Guid basisCountingCircleId, IReadOnlyCollection<EVotingVoteBallotResult> ballotResults)
         : base(voteId, basisCountingCircleId)
     {

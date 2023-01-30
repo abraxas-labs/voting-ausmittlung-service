@@ -87,9 +87,16 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
                 IntervalMinutes = 10,
                 Description = "updated",
                 PoliticalBusinessIds =
+                {
+                    ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen,
+                },
+                PoliticalBusinessMetadata =
+                {
+                    [MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen] = new PoliticalBusinessExportMetadataEventData()
                     {
-                        ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen,
+                        Token = "test-token",
                     },
+                },
             },
         });
 
@@ -97,12 +104,19 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Guid.Parse(ExportConfigurationMockedData.IdStGallenIntf001));
         var updated = await RunOnDb(db => db.ResultExportConfigurations
-                .Include(x => x.PoliticalBusinesses)
-                .FirstAsync(x => x.Id == id));
+            .AsSplitQuery()
+            .Include(x => x.PoliticalBusinesses)
+            .Include(x => x.PoliticalBusinessMetadata)
+            .FirstAsync(x => x.Id == id));
 
         foreach (var business in updated.PoliticalBusinesses!)
         {
             business.Id = Guid.Empty;
+        }
+
+        foreach (var metadata in updated.PoliticalBusinessMetadata!)
+        {
+            metadata.Id = Guid.Empty;
         }
 
         updated.DomainOfInfluenceId = Guid.Empty;
@@ -129,10 +143,21 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
             ExportConfigurationId = ExportConfigurationMockedData.IdStGallenIntf001,
             IntervalMinutes = 10,
             PoliticalBusinessIds =
+            {
+                MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
+                ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
+            },
+            PoliticalBusinessMetadata =
+            {
+                [MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen] = new UpdatePoliticalBusinessExportMetadataRequest
                 {
-                    MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
-                    ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
+                    Token = "test-token",
                 },
+                [ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen] = new UpdatePoliticalBusinessExportMetadataRequest
+                {
+                    Token = "test-token2",
+                },
+            },
         };
         customizer?.Invoke(req);
         return req;

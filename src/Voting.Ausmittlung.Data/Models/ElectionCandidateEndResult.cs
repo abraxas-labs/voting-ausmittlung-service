@@ -29,7 +29,7 @@ public abstract class ElectionCandidateEndResult : BaseEntity
     /// For example this is true if two candidates has the same amount of votes
     /// and are in the ranks of the available number of mandates.
     /// It is false if no lot decision is available for this candidate end result or
-    /// it is not required (for example if the candidate's possible ranks are not in the number of mandates anyway).
+    /// it is not required.
     /// </summary>
     public bool LotDecisionRequired { get; set; }
 }

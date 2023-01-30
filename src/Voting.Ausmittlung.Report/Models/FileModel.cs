@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.IO;
 using System.IO.Pipelines;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,13 +46,4 @@ public class FileModel
     public string? EchMessageId { get; }
 
     public Task Write(PipeWriter writer, CancellationToken ct = default) => _writer(writer, ct);
-
-    public async Task<byte[]> ContentAsByteArray(CancellationToken ct = default)
-    {
-        await using var ms = new MemoryStream();
-        var writer = PipeWriter.Create(ms);
-        await Write(writer, ct);
-        await writer.FlushAsync(ct);
-        return ms.ToArray();
-    }
 }

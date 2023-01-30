@@ -106,6 +106,10 @@ public class DataContext : DbContext
 
     public DbSet<ProportionalElectionEndResult> ProportionalElectionEndResult { get; set; } = null!;
 
+    public DbSet<ProportionalElectionListEndResult> ProportionalElectionListEndResult { get; set; } = null!;
+
+    public DbSet<ProportionalElectionCandidateEndResult> ProportionalElectionCandidateEndResult { get; set; } = null!;
+
     public DbSet<ProportionalElectionUnmodifiedListResult> ProportionalElectionUnmodifiedListResults { get; set; } = null!;
 
     public DbSet<ProportionalElectionListResult> ProportionalElectionListResults { get; set; } = null!;
@@ -216,6 +220,8 @@ public class DataContext : DbContext
     public DbSet<ResultExportConfiguration> ResultExportConfigurations { get; set; } = null!;
 
     public DbSet<ResultExportConfigurationPoliticalBusiness> ResultExportConfigurationPoliticalBusinesses { get; set; } = null!;
+
+    public DbSet<ResultExportConfigurationPoliticalBusinessMetadata> ResultExportConfigurationPoliticalBusinessMetadata { get; set; } = null!;
 
     public DbSet<PlausibilisationConfiguration> PlausibilisationConfigurations { get; set; } = null!;
 

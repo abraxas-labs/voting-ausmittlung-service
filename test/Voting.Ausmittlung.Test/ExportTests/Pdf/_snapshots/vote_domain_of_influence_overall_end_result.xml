@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Abstimmung St. Gallen de</OfficialDescription>
     <ShortDescription>Abst SG de</ShortDescription>
-    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <VoteEndResult>
       <TotalCountOfVoters>6000</TotalCountOfVoters>
       <CountOfDoneCountingCircles>6</CountOfDoneCountingCircles>
@@ -54,6 +53,7 @@
           <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           <Accepted>true</Accepted>
         </BallotQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount1Accepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -113,6 +113,7 @@
           <PercentageQ2>0.6</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount2Question2Accepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -218,6 +219,7 @@
           <PercentageQ2>0.7241379310344827586206896552</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount3NoneAccepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
     </VoteEndResult>
     <VoteBallotDomainOfInfluenceResult>
@@ -338,11 +340,11 @@
         </ContestDomainOfInfluenceDetails>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen Haggen</Name>
-            <NameForProtocol />
-            <Bfs>5500-2</Bfs>
-            <Code />
-            <SortNumber>2002</SortNumber>
+            <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
+            <Bfs>5500-1</Bfs>
+            <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -377,11 +379,11 @@
         </VoteCountingCircleResult>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen St. Fiden</Name>
-            <NameForProtocol>St. Fiden</NameForProtocol>
-            <Bfs>5500-1</Bfs>
-            <Code>C5500-1</Code>
-            <SortNumber>2001</SortNumber>
+            <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
+            <Bfs>5500-2</Bfs>
+            <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -830,11 +832,11 @@
         </ContestDomainOfInfluenceDetails>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen Haggen</Name>
-            <NameForProtocol />
-            <Bfs>5500-2</Bfs>
-            <Code />
-            <SortNumber>2002</SortNumber>
+            <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
+            <Bfs>5500-1</Bfs>
+            <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -897,11 +899,11 @@
         </VoteCountingCircleResult>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen St. Fiden</Name>
-            <NameForProtocol>St. Fiden</NameForProtocol>
-            <Bfs>5500-1</Bfs>
-            <Code>C5500-1</Code>
-            <SortNumber>2001</SortNumber>
+            <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
+            <Bfs>5500-2</Bfs>
+            <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1679,11 +1681,11 @@
         </ContestDomainOfInfluenceDetails>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen Haggen</Name>
-            <NameForProtocol />
-            <Bfs>5500-2</Bfs>
-            <Code />
-            <SortNumber>2002</SortNumber>
+            <Name>St. Gallen St. Fiden</Name>
+            <NameForProtocol>St. Fiden</NameForProtocol>
+            <Bfs>5500-1</Bfs>
+            <Code>C5500-1</Code>
+            <SortNumber>2001</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1789,11 +1791,11 @@
         </VoteCountingCircleResult>
         <VoteCountingCircleResult>
           <CountingCircle>
-            <Name>St. Gallen St. Fiden</Name>
-            <NameForProtocol>St. Fiden</NameForProtocol>
-            <Bfs>5500-1</Bfs>
-            <Code>C5500-1</Code>
-            <SortNumber>2001</SortNumber>
+            <Name>St. Gallen Haggen</Name>
+            <NameForProtocol />
+            <Bfs>5500-2</Bfs>
+            <Code />
+            <SortNumber>2002</SortNumber>
             <ContestCountingCircleDetails>
               <TotalCountOfVoters>0</TotalCountOfVoters>
               <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -2624,6 +2626,7 @@
         </TieBreakQuestionResult>
       </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
+    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
   </Vote>
   <DomainOfInfluence>
     <Name>St. Gallen</Name>

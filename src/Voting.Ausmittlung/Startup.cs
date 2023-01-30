@@ -7,6 +7,7 @@ using MassTransit.ExtensionsDependencyInjectionIntegration;
 using MassTransit.Registration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -26,6 +27,7 @@ using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models.Mapping
 using Voting.Ausmittlung.Services;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Lib.Common.DependencyInjection;
+using Voting.Lib.Grpc.DependencyInjection;
 using Voting.Lib.Grpc.Interceptors;
 using Voting.Lib.Messaging;
 using Voting.Lib.Rest.Middleware;
@@ -38,11 +40,13 @@ namespace Voting.Ausmittlung;
 public class Startup
 {
     private readonly IConfiguration _configuration;
+    private readonly IWebHostEnvironment _environment;
     private readonly AppConfig _appConfig;
 
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
         _configuration = configuration;
+        _environment = environment;
         _appConfig = configuration.Get<AppConfig>();
     }
 
@@ -212,6 +216,8 @@ public class Startup
             o.Interceptors.Add<LanguageInterceptor>();
             o.Interceptors.Add<RequestProtoValidatorInterceptor>();
         });
+
+        services.AddGrpcRequestLoggerInterceptor(_environment);
 
         if (_appConfig.Publisher.EnableGrpcWeb)
         {

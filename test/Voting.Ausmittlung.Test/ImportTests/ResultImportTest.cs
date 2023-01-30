@@ -20,6 +20,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Utils;
@@ -35,7 +36,7 @@ namespace Voting.Ausmittlung.Test.ImportTests;
 public class ResultImportTest : BaseRestTest
 {
     private const string TestFileOk = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
-    private const string TestFileOkEmpty = "ImportTests/ExampleFiles/ech0222_import_ok_empty.xml";
+    private const string TestFileInvalid = "ImportTests/ExampleFiles/ech0222_import_invalid.xml";
     private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_import_other_contest_id.xml";
 
     private static readonly ResultImportMeta ImportMeta = new(
@@ -217,18 +218,12 @@ public class ResultImportTest : BaseRestTest
     }
 
     [Fact]
-    public async Task TestAsMonitoringElectionAdminWithEmptyFileShouldWork()
+    public async Task InvalidImportFileShouldThrow()
     {
-        using var resp = await _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOkEmpty);
-        resp.EnsureSuccessStatusCode();
-
-        // should have one started and one completed event but no others
-        EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>().Should().NotBeNull();
-        EventPublisherMock.GetPublishedEvents<VoteResultImported>().Should().BeEmpty();
-        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().Should().BeEmpty();
-        EventPublisherMock.GetPublishedEvents<MajorityElectionResultImported>().Should().BeEmpty();
-        EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().Should().BeEmpty();
-        EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>().Should().NotBeNull();
+        await AssertProblemDetails(
+            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileInvalid),
+            HttpStatusCode.BadRequest,
+            "List of possible elements expected: 'senderId'");
     }
 
     [Fact]
@@ -314,9 +309,10 @@ public class ResultImportTest : BaseRestTest
     [Fact]
     public async Task MajorityElectionShouldMapDuplicatesToInvalidIfInvalidAvailable()
     {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
         await ModifyDbEntities(
-            (MajorityElection el) => el.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
-            el => el.InvalidVotes = true);
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
 
         TrySetFakeAuth();
 

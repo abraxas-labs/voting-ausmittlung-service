@@ -1,6 +1,7 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -13,8 +14,8 @@ namespace Voting.Ausmittlung.Test.ServiceModes;
 
 public class ServiceModeAppStartup : TestStartup
 {
-    public ServiceModeAppStartup(IConfiguration configuration)
-        : base(configuration)
+    public ServiceModeAppStartup(IConfiguration configuration, IWebHostEnvironment environment)
+        : base(configuration, environment)
     {
     }
 

@@ -60,6 +60,12 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResult,
 
     public HagenbachBischoffGroup? HagenbachBischoffRootGroup { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the end result is manual. This happens when the mandate algorithm cannot distribute all mandates.
+    /// When it is set all <see cref="ProportionalElectionCandidateEndResultState"/> have to be set manually.
+    /// </summary>
+    public bool ManualEndResultRequired { get; set; }
+
     public void ResetCalculation()
     {
         foreach (var listEndResult in ListEndResults)

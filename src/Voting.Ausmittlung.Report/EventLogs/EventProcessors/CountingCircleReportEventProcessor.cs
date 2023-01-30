@@ -1,8 +1,8 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using Abraxas.Voting.Basis.Events.V1;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
@@ -19,7 +19,7 @@ public class CountingCircleReportEventProcessor :
             return null;
         }
 
-        var ccId = Guid.Parse(eventData.CountingCircle.Id);
+        var ccId = GuidParser.Parse(eventData.CountingCircle.Id);
         context.CountingCircleAggregateSet.Get(ccId)?.Apply(eventData);
         return null;
     }
@@ -31,7 +31,7 @@ public class CountingCircleReportEventProcessor :
             return null;
         }
 
-        var ccId = Guid.Parse(eventData.Merger.NewCountingCircle.Id);
+        var ccId = GuidParser.Parse(eventData.Merger.NewCountingCircle.Id);
         context.CountingCircleAggregateSet.Get(ccId)?.Apply(eventData);
         return null;
     }

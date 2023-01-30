@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
 
@@ -18,20 +20,24 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class ProportionalElectionEndResultProcessor :
     IEventProcessor<ProportionalElectionListEndResultLotDecisionsUpdated>,
     IEventProcessor<ProportionalElectionEndResultFinalized>,
-    IEventProcessor<ProportionalElectionEndResultFinalizationReverted>
+    IEventProcessor<ProportionalElectionEndResultFinalizationReverted>,
+    IEventProcessor<ProportionalElectionManualListEndResultEntered>
 {
     private readonly ProportionalElectionEndResultLotDecisionBuilder _endResultLotDecisionBuilder;
     private readonly ProportionalElectionEndResultRepo _endResultRepo;
+    private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly IMapper _mapper;
 
     public ProportionalElectionEndResultProcessor(
         ProportionalElectionEndResultLotDecisionBuilder endResultLotDecisionBuilder,
         ProportionalElectionEndResultRepo endResultRepo,
-        IMapper mapper)
+        IMapper mapper,
+        ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder)
     {
         _endResultRepo = endResultRepo;
         _mapper = mapper;
         _endResultLotDecisionBuilder = endResultLotDecisionBuilder;
+        _candidateEndResultBuilder = candidateEndResultBuilder;
     }
 
     public Task Process(ProportionalElectionEndResultFinalized eventData)
@@ -52,6 +58,16 @@ public class ProportionalElectionEndResultProcessor :
         }
 
         await _endResultLotDecisionBuilder.Recalculate(listId, lotDecisions);
+    }
+
+    public async Task Process(ProportionalElectionManualListEndResultEntered eventData)
+    {
+        var listId = GuidParser.Parse(eventData.ProportionalElectionListId);
+        var candidateStateById = eventData.CandidateEndResults.ToDictionary(
+            x => GuidParser.Parse(x.CandidateId),
+            x => _mapper.Map<ProportionalElectionCandidateEndResultState>(x.State));
+
+        await _candidateEndResultBuilder.SetCandidateEndResultsManually(listId, candidateStateById);
     }
 
     private async Task SetFinalized(string politicalBusinessId, bool finalized)

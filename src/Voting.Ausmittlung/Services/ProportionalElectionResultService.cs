@@ -196,4 +196,12 @@ public class ProportionalElectionResultService : ServiceBase
         var result = await _proportionalElectionResultValidationResultsBuilder.BuildEnterCountOfVotersValidationResults(id, countOfVoters);
         return _mapper.Map<ProtoModels.ValidationOverview>(result);
     }
+
+    public override async Task<Empty> EnterManualListEndResult(EnterProportionalElectionManualListEndResultRequest request, ServerCallContext context)
+    {
+        var listId = GuidParser.Parse(request.ProportionalElectionListId);
+        var candidateEndResults = _mapper.Map<List<ProportionalElectionManualCandidateEndResult>>(request.CandidateEndResults);
+        await _proportionalElectionEndResultWriter.EnterManualListEndResult(listId, candidateEndResults);
+        return ProtobufEmpty.Instance;
+    }
 }

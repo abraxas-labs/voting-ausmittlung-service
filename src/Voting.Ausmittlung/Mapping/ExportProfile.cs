@@ -24,12 +24,15 @@ public class ExportProfile : Profile
             .ForMember(dst => dst.Templates, opts => opts.MapFrom(src => src));
 
         CreateMap<DataModels.ResultExportConfiguration, ProtoModels.ResultExportConfiguration>()
-            .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(src => src.PoliticalBusinesses!.Select(x => x.PoliticalBusinessId)));
+            .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(src => src.PoliticalBusinesses!.Select(x => x.PoliticalBusinessId)))
+            .ForMember(dst => dst.PoliticalBusinessMetadata, opts => opts.MapFrom(src => src.PoliticalBusinessMetadata!.ToDictionary(x => x.PoliticalBusinessId)));
+        CreateMap<DataModels.ResultExportConfigurationPoliticalBusinessMetadata, ProtoModels.PoliticalBusinessExportMetadata>();
         CreateMap<IEnumerable<DataModels.ResultExportConfiguration>, ProtoModels.ResultExportConfigurations>()
             .ForMember(dst => dst.Configurations, opts => opts.MapFrom(x => x));
 
         // write
         CreateMap<UpdateResultExportConfigurationRequest, ResultExportConfiguration>();
+        CreateMap<UpdatePoliticalBusinessExportMetadataRequest, ResultExportConfigurationPoliticalBusinessMetadata>();
         CreateMap<GenerateResultExportRequest, ResultExportRequest>()
             .ForPath(dst => dst.Template.Key, opts => opts.MapFrom(x => x.Key));
         CreateMap<GenerateResultBundleReviewExportRequest, ResultExportRequest>()

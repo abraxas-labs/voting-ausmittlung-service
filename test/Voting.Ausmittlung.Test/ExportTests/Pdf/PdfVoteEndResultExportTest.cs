@@ -22,7 +22,7 @@ public class PdfVoteEndResultExportTest : PdfExportBaseTest<GenerateResultExport
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Gesamtergebnis aller Sachgeschäfte CT.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_CT_Gesamtergebnisse_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

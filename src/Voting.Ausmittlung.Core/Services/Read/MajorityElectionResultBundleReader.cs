@@ -85,7 +85,7 @@ public class MajorityElectionResultBundleReader
                                  .Include(x => x.ElectionResult.CountingCircle)
                                  .Include(x => x.ElectionResult.MajorityElection.Translations)
                                  .Include(x => x.ElectionResult.MajorityElection.Contest.Translations)
-                                 .Include(x => x.ElectionResult.MajorityElection.DomainOfInfluence)
+                                 .Include(x => x.ElectionResult.MajorityElection.DomainOfInfluence.CantonDefaults)
                                  .Include(x => x.ElectionResult.MajorityElection.Contest.DomainOfInfluence)
                                  .Include(x => x.ElectionResult.SecondaryMajorityElectionResults).ThenInclude(r => r.SecondaryMajorityElection.Translations)
                                  .FirstOrDefaultAsync(x => x.Id == bundleId)

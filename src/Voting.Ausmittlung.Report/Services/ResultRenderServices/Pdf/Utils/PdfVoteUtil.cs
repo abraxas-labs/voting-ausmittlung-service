@@ -47,6 +47,8 @@ public static class PdfVoteUtil
                 x => x.QuestionResults?.Select(r => r.Question!),
                 x => x.TieBreakQuestionResults?.Select(r => r.Question!));
         }
+
+        SetResultLabel(vote);
     }
 
     public static void SetLabels<T>(
@@ -57,57 +59,78 @@ public static class PdfVoteUtil
         var questions = questionsSelector(data)?.ToList() ?? new List<PdfBallotQuestion>();
         var tieBreakQuestions = tieBreakQuestionsSelector(data)?.ToList() ?? new List<PdfTieBreakQuestion>();
 
-        if (questions.Count == 0)
+        switch (questions.Count)
         {
-            return;
-        }
+            case 1:
+                questions[0].Label = PdfVoteQuestionLabel.QuestionCount1Q1;
+                break;
 
-        if (questions.Count == 1)
-        {
-            questions[0].Label = PdfVoteQuestionLabel.QuestionCount1Q1;
-            return;
-        }
+            case > 1 when tieBreakQuestions.Count == 0:
+                throw new InvalidOperationException("tie break questions must not be empty when the ballot has more than 1 question");
 
-        if (tieBreakQuestions.Count == 0)
-        {
-            throw new InvalidOperationException("tie break questions must not be empty when the ballot has more than 1 question");
-        }
-
-        if (questions.Count == 2)
-        {
-            if (tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith2Questions)
-            {
+            case 2 when tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith2Questions:
                 throw new InvalidOperationException("ballots with 2 questions must have 0 or 1 tie break question");
-            }
 
-            questions[0].Label = PdfVoteQuestionLabel.QuestionCount2Q1;
-            questions[1].Label = PdfVoteQuestionLabel.QuestionCount2Q2;
+            case 2:
+                questions[0].Label = PdfVoteQuestionLabel.QuestionCount2Q1;
+                questions[1].Label = PdfVoteQuestionLabel.QuestionCount2Q2;
 
-            if (tieBreakQuestions.Count == TieBreakQuestionCountWith2Questions)
-            {
-                tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount2TBQ1;
-            }
+                if (tieBreakQuestions.Count == TieBreakQuestionCountWith2Questions)
+                {
+                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount2TBQ1;
+                }
 
+                break;
+
+            case 3 when tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith3Questions:
+                throw new InvalidOperationException("ballots with 3 questions must have 0 or 3 tie break questions");
+
+            case 3:
+                questions[0].Label = PdfVoteQuestionLabel.QuestionCount3Q1;
+                questions[1].Label = PdfVoteQuestionLabel.QuestionCount3Q2;
+                questions[2].Label = PdfVoteQuestionLabel.QuestionCount3Q3;
+
+                if (tieBreakQuestions.Count == TieBreakQuestionCountWith3Questions)
+                {
+                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount3TBQ1;
+                    tieBreakQuestions[1].Label = PdfVoteQuestionLabel.QuestionCount3TBQ2;
+                    tieBreakQuestions[2].Label = PdfVoteQuestionLabel.QuestionCount3TBQ3;
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Sets the <see cref="PdfBallotEndResult.QuestionEndResultLabel"/> on all <see cref="PdfBallotEndResult"/>.
+    /// Initializes the label bitmask with the question count (1 &lt;&lt; Count - 1).
+    /// Then loops through all questions and sets the accepted bits to 1.
+    /// <seealso cref="PdfBallotEndResultLabel"/>.
+    /// </summary>
+    /// <param name="vote">The vote to operate on.</param>
+    internal static void SetResultLabel(PdfVote vote)
+    {
+        var endResults = vote.EndResult?.BallotEndResults;
+        if (endResults == null)
+        {
             return;
         }
 
-        if (questions.Count == 3)
+        foreach (var ballotResult in endResults)
         {
-            if (tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith3Questions)
+            var label = 1 << (ballotResult.QuestionEndResults.Count - 1);
+            var currentQuestionAcceptedBit = (int)PdfBallotEndResultLabel.Question1Accepted;
+            foreach (var questionEndResult in ballotResult.QuestionEndResults)
             {
-                throw new InvalidOperationException("ballots with 3 questions must have 0 or 3 tie break questions");
+                if (questionEndResult.Accepted)
+                {
+                    label |= currentQuestionAcceptedBit;
+                }
+
+                currentQuestionAcceptedBit <<= 1;
             }
 
-            questions[0].Label = PdfVoteQuestionLabel.QuestionCount3Q1;
-            questions[1].Label = PdfVoteQuestionLabel.QuestionCount3Q2;
-            questions[2].Label = PdfVoteQuestionLabel.QuestionCount3Q3;
-
-            if (tieBreakQuestions.Count == TieBreakQuestionCountWith3Questions)
-            {
-                tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount3TBQ1;
-                tieBreakQuestions[1].Label = PdfVoteQuestionLabel.QuestionCount3TBQ2;
-                tieBreakQuestions[2].Label = PdfVoteQuestionLabel.QuestionCount3TBQ3;
-            }
+            ballotResult.QuestionEndResultLabel = (PdfBallotEndResultLabel)label;
         }
     }
 

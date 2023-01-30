@@ -96,7 +96,7 @@ public class EventLogEventSignatureVerifier
             ev.Id,
             ev.StreamId,
             _eventSerializer.Serialize(ev.Data).ToArray(),
-            Guid.Parse(eventSignatureBusinessMetadata.ContestId),
+            GuidParser.Parse(eventSignatureBusinessMetadata.ContestId),
             eventSignatureBusinessMetadata.HostId,
             eventSignatureBusinessMetadata.KeyId,
             eventTimestamp);
@@ -165,7 +165,7 @@ public class EventLogEventSignatureVerifier
             ev.Id,
             ev.StreamId,
             _eventSerializer.Serialize(ev.Data).ToArray(),
-            Guid.Parse(eventSignatureBusinessMetadata.ContestId),
+            GuidParser.Parse(eventSignatureBusinessMetadata.ContestId),
             eventSignatureBusinessMetadata.HostId,
             eventSignatureBusinessMetadata.KeyId,
             eventTimestamp);

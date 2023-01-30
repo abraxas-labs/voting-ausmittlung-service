@@ -139,6 +139,9 @@
             "Phone": "0799999999",
             "MobilePhone": "",
             "Email": "email@example.com"
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
           }
         },
         "NumberOfMandates": null,

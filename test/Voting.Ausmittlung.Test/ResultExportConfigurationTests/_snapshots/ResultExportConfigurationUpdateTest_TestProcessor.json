@@ -10,6 +10,15 @@
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ],
+  "PoliticalBusinessMetadata": [
+    {
+      "PoliticalBusiness": null,
+      "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+      "ResultExportConfigurationId": "b3c56d23-17eb-5d42-b566-2457c8f30183",
+      "Token": "test-token",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
   "IntervalMinutes": 10,
   "NextExecution": "2020-01-10T13:22:10.2Z",
   "DomainOfInfluence": null,
@@ -20,5 +29,6 @@
     "vote_ech_0110",
     "proportional_election_candidate_results_with_vote_sources"
   ],
+  "Provider": 2,
   "Id": "b3c56d23-17eb-5d42-b566-2457c8f30183"
 }

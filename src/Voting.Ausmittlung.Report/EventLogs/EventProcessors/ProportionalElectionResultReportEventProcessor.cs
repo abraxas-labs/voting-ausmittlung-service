@@ -1,9 +1,9 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
@@ -26,59 +26,59 @@ public class ProportionalElectionResultReportEventProcessor :
     public EventLog? Process(ProportionalElectionResultSubmissionStarted eventData, EventLogBuilderContext context)
     {
         return ProcessSubmissionStarted(
-            Guid.Parse(eventData.ElectionResultId),
-            Guid.Parse(eventData.ElectionId),
-            Guid.Parse(eventData.CountingCircleId),
+            GuidParser.Parse(eventData.ElectionResultId),
+            GuidParser.Parse(eventData.ElectionId),
+            GuidParser.Parse(eventData.CountingCircleId),
             context);
     }
 
     public EventLog? Process(ProportionalElectionResultEntryDefined eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultCountOfVotersEntered eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionUnmodifiedListResultsEntered eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultSubmissionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultCorrectionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultFlaggedForCorrection eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultAuditedTentatively eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultPlausibilised eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultResettedToSubmissionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 
     public EventLog? Process(ProportionalElectionResultResettedToAuditedTentatively eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.ElectionResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }
 }

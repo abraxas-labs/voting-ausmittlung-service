@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -23,17 +24,20 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
     private readonly IDbRepository<DataContext, MajorityElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _ccDetailsRepo = ccDetailsRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -58,7 +62,7 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
                    ?? throw new ValidationException(
                        $"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
 
-        data.CandidateResults = data.CandidateResults.OrderBy(c => c.VoteCount)
+        data.CandidateResults = data.CandidateResults.OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidatePosition)
             .ToList();
 
@@ -93,6 +97,7 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            data.MajorityElection.ShortDescription);
+            data.MajorityElection.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 }

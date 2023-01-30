@@ -12,7 +12,7 @@ public class MajorityElectionProfile : Profile
     public MajorityElectionProfile()
     {
         // read
-        CreateMap<DataModels.MajorityElectionBase, ProtoModels.SimplePoliticalBusiness>();
+        CreateMap<DataModels.Election, ProtoModels.SimplePoliticalBusiness>();
         CreateMap<DataModels.MajorityElection, ProtoModels.MajorityElection>()
             .ForMember(dst => dst.DomainOfInfluenceId, opts => opts.MapFrom(src => src.DomainOfInfluence.BasisDomainOfInfluenceId))
             .ForMember(dst => dst.CountOfSecondaryElections, opts => opts.MapFrom(src => src.ElectionGroup == null ? 0 : src.ElectionGroup.CountOfSecondaryElections));

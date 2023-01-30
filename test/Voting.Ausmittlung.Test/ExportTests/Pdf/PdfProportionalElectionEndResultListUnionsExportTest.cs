@@ -21,7 +21,7 @@ public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBas
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Wahlprotokoll - Nationalratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular5_Wahlprotokoll_Nationalratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

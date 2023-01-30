@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
@@ -29,12 +30,15 @@ public class ResultExportConfigurationProcessor : IEventProcessor<ResultExportCo
         var contestId = GuidParser.Parse(eventData.ExportConfiguration.ContestId);
         var configId = GuidParser.Parse(eventData.ExportConfiguration.ExportConfigurationId);
         var existingConfig = await _dbContext.ResultExportConfigurations
-                                 .AsTracking()
-                                 .Include(x => x.PoliticalBusinesses)
-                                 .FirstOrDefaultAsync(x => x.ContestId == contestId && x.ExportConfigurationId == configId)
-                             ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), new { contestId, configId });
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.PoliticalBusinesses)
+            .Include(x => x.PoliticalBusinessMetadata)
+            .FirstOrDefaultAsync(x => x.ContestId == contestId && x.ExportConfigurationId == configId)
+            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), new { contestId, configId });
 
         SyncPoliticalBusinesses(existingConfig.PoliticalBusinesses!, eventData.ExportConfiguration.PoliticalBusinessIds);
+        SyncPoliticalBusinessesMetadata(existingConfig.PoliticalBusinessMetadata!, eventData.ExportConfiguration.PoliticalBusinessMetadata);
 
         existingConfig.IntervalMinutes = eventData.ExportConfiguration.IntervalMinutes;
         existingConfig.UpdateNextExecution(_clock.UtcNow);
@@ -70,6 +74,43 @@ public class ResultExportConfigurationProcessor : IEventProcessor<ResultExportCo
         foreach (var existingPoliticalBusiness in existingPoliticalBusinesses.Values)
         {
             politicalBusinesses.Remove(existingPoliticalBusiness);
+        }
+    }
+
+    /// <summary>
+    /// Synchronizes the list of political business metadata with a map of new metadata.
+    /// Metadata not present <paramref name="newMetadata"/> will be removed.
+    /// Metadata present in <paramref name="newMetadata"/> and <paramref name="politicalBusinessesMetadata"/> will be updated.
+    /// Metadata present in <paramref name="newMetadata"/> but not <paramref name="politicalBusinessesMetadata"/> will be added.
+    /// </summary>
+    /// <param name="politicalBusinessesMetadata">The existing list of political business metadata which will be modified.</param>
+    /// <param name="newMetadata">The new political business metadata map.</param>
+    private void SyncPoliticalBusinessesMetadata(
+        ICollection<ResultExportConfigurationPoliticalBusinessMetadata> politicalBusinessesMetadata,
+        IDictionary<string, PoliticalBusinessExportMetadataEventData> newMetadata)
+    {
+        var existingMetadatas = politicalBusinessesMetadata.ToDictionary(x => x.PoliticalBusinessId);
+
+        foreach (var (pbIdStr, metadata) in newMetadata)
+        {
+            var pbId = GuidParser.Parse(pbIdStr);
+            if (existingMetadatas.Remove(pbId, out var existingMetadata))
+            {
+                existingMetadata.Token = metadata.Token;
+            }
+            else
+            {
+                politicalBusinessesMetadata.Add(new ResultExportConfigurationPoliticalBusinessMetadata
+                {
+                    PoliticalBusinessId = pbId,
+                    Token = metadata.Token,
+                });
+            }
+        }
+
+        foreach (var existingMetadata in existingMetadatas.Values)
+        {
+            politicalBusinessesMetadata.Remove(existingMetadata);
         }
     }
 }

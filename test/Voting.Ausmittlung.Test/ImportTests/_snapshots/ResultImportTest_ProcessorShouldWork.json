@@ -577,6 +577,7 @@
               "ZipCode": "zip code",
               "Locality": "locality",
               "Position": 1,
+              "Origin": "origin",
               "Id": "be81a3f3-5a9e-4a69-8f19-4f0598a32955"
             },
             "CandidatePosition": 1,

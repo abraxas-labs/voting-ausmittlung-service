@@ -43,7 +43,6 @@ public class SecondaryMajorityElectionUpdateTest : BaseDataProcessorTest
                 AllowedCandidates = SharedProto.SecondaryMajorityElectionAllowedCandidates.MayExistInPrimaryElection,
                 PrimaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
                 Active = true,
-                InternalDescription = "test",
             },
         });
 
@@ -78,7 +77,6 @@ public class SecondaryMajorityElectionUpdateTest : BaseDataProcessorTest
             PrimaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
             OfficialDescription = { LanguageUtil.MockAllLanguages("Update Nebenwahl") },
             ShortDescription = { LanguageUtil.MockAllLanguages("Update Nebenwahl") },
-            InternalDescription = "test",
             PoliticalBusinessNumber = "n1 UPDATED",
         });
 

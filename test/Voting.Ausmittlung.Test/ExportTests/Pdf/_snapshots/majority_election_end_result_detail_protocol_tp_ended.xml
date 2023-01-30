@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Majorzwahl de</OfficialDescription>
     <ShortDescription>Majorzw de</ShortDescription>
-    <InternalDescription>Majorzwahl</InternalDescription>
     <NumberOfMandates>3</NumberOfMandates>
     <MandateAlgorithm>AbsoluteMajority</MandateAlgorithm>
     <MajorityElectionResult>
@@ -64,6 +63,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -85,6 +85,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -106,6 +107,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -127,6 +129,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -148,6 +151,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -169,6 +173,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -190,6 +195,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -211,6 +217,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -232,6 +239,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -253,6 +261,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -307,6 +316,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -328,6 +338,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -349,6 +360,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -370,6 +382,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -391,6 +404,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -412,6 +426,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -433,6 +448,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -454,6 +470,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -475,6 +492,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -496,6 +514,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -550,6 +569,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -575,6 +595,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -600,6 +621,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -625,6 +647,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -650,6 +673,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -675,6 +699,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -700,6 +725,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -725,6 +751,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -750,6 +777,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -775,6 +803,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <State>Pending</State>
@@ -827,6 +856,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -848,6 +878,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -869,6 +900,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -890,6 +922,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -911,6 +944,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -932,6 +966,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -953,6 +988,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -974,6 +1010,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -995,6 +1032,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1016,6 +1054,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1061,6 +1100,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1082,6 +1122,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1103,6 +1144,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>3</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1124,6 +1166,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>4</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1145,6 +1188,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>5</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1166,6 +1210,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>6</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1187,6 +1232,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1208,6 +1254,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>8</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1229,6 +1276,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>9</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1250,6 +1298,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>10</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1310,6 +1359,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1331,6 +1381,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1352,6 +1403,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1373,6 +1425,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1394,6 +1447,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1415,6 +1469,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1436,6 +1491,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1457,6 +1513,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1478,6 +1535,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1499,6 +1557,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -1544,6 +1603,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1565,6 +1625,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1586,6 +1647,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>3</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1607,6 +1669,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>4</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1628,6 +1691,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>5</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1649,6 +1713,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>6</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1670,6 +1735,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1691,6 +1757,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>8</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1712,6 +1779,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>9</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1733,6 +1801,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>10</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1787,6 +1856,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1808,6 +1878,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1829,6 +1900,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>3</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1850,6 +1922,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>4</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1871,6 +1944,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>5</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1892,6 +1966,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>6</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1913,6 +1988,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1934,6 +2010,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>8</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1955,6 +2032,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>9</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -1976,6 +2054,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>10</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2036,6 +2115,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2057,6 +2137,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2078,6 +2159,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2099,6 +2181,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2120,6 +2203,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2141,6 +2225,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2162,6 +2247,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2183,6 +2269,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2204,6 +2291,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2225,6 +2313,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2270,6 +2359,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>1</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2291,6 +2381,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>2</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2312,6 +2403,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>3</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2333,6 +2425,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>4</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2354,6 +2447,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>5</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2375,6 +2469,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>6</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2396,6 +2491,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2417,6 +2513,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>8</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2438,6 +2535,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>9</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2459,6 +2557,7 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>10</Position>
+            <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
           <VoteCount>0</VoteCount>
@@ -2508,6 +2607,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2529,6 +2629,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2550,6 +2651,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2571,6 +2673,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2592,6 +2695,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>5</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2613,6 +2717,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>6</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2634,6 +2739,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2655,6 +2761,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>8</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2676,6 +2783,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>9</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -2697,6 +2805,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>10</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>

@@ -44,9 +44,7 @@ public class EventLogsBuilder
     {
         _logger.LogInformation("EventLogs build for contest {ContestId} started", contest.Id);
         var (startPosition, testingPhaseEnded, createdTimestamp) = await GetContestDetails(contest.Id);
-        var contestEventSignatureAggregate = testingPhaseEnded
-            ? await EagerLoadContestEventSignatureAggregate(contest.Id)
-            : new();
+        var contestEventSignatureAggregate = await EagerLoadContestEventSignatureAggregate(contest.Id);
 
         var events = _eventReader
             .ReadEventsFromAll(

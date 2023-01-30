@@ -21,6 +21,22 @@
     "VotingCards": [
       {
         "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
         "CountOfReceivedVotingCards": 1000,
         "Valid": true,
         "Channel": 2,
@@ -48,22 +64,6 @@
         "CountOfReceivedVotingCards": 3000,
         "Valid": false,
         "Channel": 2,
-        "DomainOfInfluenceType": 2,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 2000,
-        "Valid": true,
-        "Channel": 1,
-        "DomainOfInfluenceType": 1,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 2000,
-        "Valid": true,
-        "Channel": 1,
         "DomainOfInfluenceType": 2,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
@@ -97,6 +97,22 @@
         "VotingCards": [
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 1000,
             "Valid": true,
             "Channel": 2,
@@ -124,22 +140,6 @@
             "CountOfReceivedVotingCards": 3000,
             "Valid": false,
             "Channel": 2,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
             "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -171,6 +171,22 @@
         "VotingCards": [
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 1000,
             "Valid": true,
             "Channel": 2,
@@ -198,22 +214,6 @@
             "CountOfReceivedVotingCards": 3000,
             "Valid": false,
             "Channel": 2,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
             "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -245,6 +245,22 @@
         "VotingCards": [
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 2000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 1000,
             "Valid": true,
             "Channel": 2,
@@ -272,22 +288,6 @@
             "CountOfReceivedVotingCards": 3000,
             "Valid": false,
             "Channel": 2,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 2000,
-            "Valid": true,
-            "Channel": 1,
             "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -335,6 +335,38 @@
         "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
         "CountOfReceivedVotingCards": 0,
         "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": false,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "CountOfReceivedVotingCards": 0,
+        "Valid": true,
         "Channel": 2,
         "DomainOfInfluenceType": 1,
         "Id": "00000000-0000-0000-0000-000000000000"
@@ -369,38 +401,6 @@
         "Valid": false,
         "Channel": 2,
         "DomainOfInfluenceType": 2,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 0,
-        "Valid": true,
-        "Channel": 1,
-        "DomainOfInfluenceType": 1,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 0,
-        "Valid": true,
-        "Channel": 1,
-        "DomainOfInfluenceType": 2,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 3000,
-        "Valid": true,
-        "Channel": 1,
-        "DomainOfInfluenceType": 5,
-        "Id": "00000000-0000-0000-0000-000000000000"
-      },
-      {
-        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
-        "CountOfReceivedVotingCards": 4000,
-        "Valid": false,
-        "Channel": 1,
-        "DomainOfInfluenceType": 5,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -449,6 +449,38 @@
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 0,
             "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 3000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 4000,
+            "Valid": false,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
             "Channel": 2,
             "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
@@ -483,38 +515,6 @@
             "Valid": false,
             "Channel": 2,
             "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 3000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 4000,
-            "Valid": false,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -571,6 +571,38 @@
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 0,
             "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 3000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 4000,
+            "Valid": false,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
             "Channel": 2,
             "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
@@ -605,38 +637,6 @@
             "Valid": false,
             "Channel": 2,
             "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 3000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 4000,
-            "Valid": false,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -703,6 +703,38 @@
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "CountOfReceivedVotingCards": 0,
             "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 3000,
+            "Valid": true,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 4000,
+            "Valid": false,
+            "Channel": 1,
+            "DomainOfInfluenceType": 5,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "CountOfReceivedVotingCards": 0,
+            "Valid": true,
             "Channel": 2,
             "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
@@ -737,38 +769,6 @@
             "Valid": false,
             "Channel": 2,
             "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 0,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 3000,
-            "Valid": true,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
-            "CountOfReceivedVotingCards": 4000,
-            "Valid": false,
-            "Channel": 1,
-            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],

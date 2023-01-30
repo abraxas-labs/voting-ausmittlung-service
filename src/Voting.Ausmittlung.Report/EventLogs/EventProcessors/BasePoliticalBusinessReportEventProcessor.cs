@@ -10,20 +10,8 @@ public abstract class BasePoliticalBusinessReportEventProcessor
 {
     public abstract PoliticalBusinessType Type { get; }
 
-    protected EventLog? ProcessAfterTestingPhaseEnded(Guid politicalBusinessId, EventLogBuilderContext context)
+    protected EventLog? Process(Guid politicalBusinessId)
     {
-        return context.TestingPhaseEnded
-            ? Process(politicalBusinessId, context)
-            : null;
-    }
-
-    protected EventLog? Process(Guid politicalBusinessId, EventLogBuilderContext context)
-    {
-        if (!context.IsPoliticalBusinessIncluded(politicalBusinessId))
-        {
-            return null;
-        }
-
         return new() { PoliticalBusinessId = politicalBusinessId, PoliticalBusinessType = Type };
     }
 }

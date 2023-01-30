@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Data.Models;
@@ -26,18 +25,21 @@ public class ExportService
     public Task<FileModel> GenerateResultExport(Guid contestId, ResultExportRequest request, CancellationToken ct)
         => _resultRenderServiceAdapter.Render(contestId, request, ct);
 
-    public async IAsyncEnumerable<FileModel> GenerateResultExportsIgnoreErrors(
-        IEnumerable<string> keys,
-        ResultExportConfiguration export,
-        [EnumeratorCancellation] CancellationToken ct = default)
+    public IReadOnlyList<ReportRenderContext> BuildRenderContexts(IEnumerable<string> keys, ResultExportConfiguration export)
     {
         var politicalBusinesses = export.PoliticalBusinesses!.Select(x => x.PoliticalBusiness!).ToList();
-        foreach (var key in keys)
+        return keys
+            .SelectMany(key => _resultRenderServiceAdapter.BuildRenderContexts(export.Contest!, key, politicalBusinesses))
+            .ToList();
+    }
+
+    public Task<FileModel> GenerateResultExport(ReportRenderContext context, CancellationToken ct = default)
+    {
+        if (context.RendererService == null)
         {
-            await foreach (var file in _resultRenderServiceAdapter.RenderAllIgnoreErrors(export.Contest!, key, politicalBusinesses, ct))
-            {
-                yield return file;
-            }
+            throw new InvalidOperationException($"{nameof(context.RendererService)} must not be null when calling this method");
         }
+
+        return context.RendererService.Render(context, ct);
     }
 }

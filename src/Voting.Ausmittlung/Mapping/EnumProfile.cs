@@ -26,13 +26,14 @@ public class EnumProfile : Profile
         CreateEnumMap<ProtoModels.DomainOfInfluenceCanton, DomainOfInfluenceCanton>();
         CreateEnumMap<ProtoModels.ExportFileFormat, Lib.VotingExports.Models.ExportFileFormat>();
         CreateEnumMap<ProtoModels.ExportEntityType, Lib.VotingExports.Models.EntityType>();
+        CreateEnumMap<ProtoModels.ExportProvider, ExportProvider>();
         CreateEnumMap<SharedProto.VotingChannel, VotingChannel>();
         CreateEnumMap<ProtoModels.MajorityElectionMandateAlgorithm, MajorityElectionMandateAlgorithm>();
         CreateEnumMap<ProtoModels.MajorityElectionCandidateEndResultState, MajorityElectionCandidateEndResultState>();
         CreateEnumMap<ProtoModels.PoliticalBusinessType, PoliticalBusinessType>();
         CreateEnumMap<ProtoModels.PoliticalBusinessUnionType, PoliticalBusinessUnionType>();
         CreateEnumMap<ProtoModels.ProportionalElectionMandateAlgorithm, ProportionalElectionMandateAlgorithm>();
-        CreateEnumMap<ProtoModels.ProportionalElectionCandidateEndResultState, ProportionalElectionCandidateEndResultState>();
+        CreateEnumMap<SharedProto.ProportionalElectionCandidateEndResultState, ProportionalElectionCandidateEndResultState>();
         CreateEnumMap<ProtoModels.SwissAbroadVotingRight, SwissAbroadVotingRight>();
         CreateEnumMap<ProtoModels.BallotType, BallotType>();
         CreateEnumMap<ProtoModels.VoteResultAlgorithm, VoteResultAlgorithm>();

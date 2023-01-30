@@ -21,30 +21,6 @@
       "CountingCircles": [
         {
           "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
-          "CountingCircle": null,
-          "ComparisonCountOfVotersCategory": 1,
-          "Inherited": true,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
-          "CountingCircle": null,
-          "ComparisonCountOfVotersCategory": 0,
-          "Inherited": true,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-          "CountingCircle": null,
-          "ComparisonCountOfVotersCategory": 0,
-          "Inherited": true,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
           "CountingCircleId": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,

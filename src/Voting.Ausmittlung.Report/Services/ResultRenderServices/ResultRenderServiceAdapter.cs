@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -61,18 +60,11 @@ public class ResultRenderServiceAdapter
         return renderer.Render(ctx, ct);
     }
 
-    public IAsyncEnumerable<FileModel> RenderAllIgnoreErrors(
+    public IReadOnlyList<ReportRenderContext> BuildRenderContexts(
         Contest contest,
         string key,
-        IReadOnlyCollection<SimplePoliticalBusiness> politicalBusinesses,
-        CancellationToken ct = default)
+        IReadOnlyCollection<SimplePoliticalBusiness> politicalBusinesses)
     {
-        using var logScope = _logger.BeginScope(new Dictionary<string, object>
-        {
-            ["ExportKey"] = key,
-            ["ContestId"] = contest.Id,
-        });
-
         var template = TemplateRepository.GetByKey(key);
         var renderService = _resultRenderServiceRegistry.GetRenderService(key, _serviceProvider)
             ?? throw new InvalidOperationException($"result render service for template key {key} not found");
@@ -87,7 +79,13 @@ public class ResultRenderServiceAdapter
             _ => throw new InvalidOperationException(),
         };
 
-        return RenderAllIgnoreErrors(renderService, contexts, ct);
+        var contextList = contexts.ToList();
+        foreach (var context in contextList)
+        {
+            context.RendererService = renderService;
+        }
+
+        return contextList;
     }
 
     private IEnumerable<ReportRenderContext> BuildMultiplePoliticalBusinessCountingCircleResultContexts(
@@ -215,28 +213,6 @@ public class ResultRenderServiceAdapter
         {
             PoliticalBusinessIds = politicalBusinesses.Select(x => x.Id).ToList(),
         };
-    }
-
-    private async IAsyncEnumerable<FileModel> RenderAllIgnoreErrors(
-        IRendererService renderer,
-        IEnumerable<ReportRenderContext> contexts,
-        [EnumeratorCancellation] CancellationToken ct = default)
-    {
-        foreach (var ctx in contexts)
-        {
-            FileModel file;
-            try
-            {
-                file = await renderer.Render(ctx, ct);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Error rendering report {@ReportContext}", ctx);
-                continue;
-            }
-
-            yield return file;
-        }
     }
 
     private void ValidateRequestData(ResultExportRequest request, TemplateModel template)

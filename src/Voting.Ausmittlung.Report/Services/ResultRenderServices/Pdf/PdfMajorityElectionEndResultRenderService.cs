@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -21,15 +22,18 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElectionEndResult> _repo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfMajorityElectionEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElectionEndResult> repo,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -74,6 +78,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            data.MajorityElection.ShortDescription);
+            data.MajorityElection.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 }

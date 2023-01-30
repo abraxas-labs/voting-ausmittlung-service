@@ -155,6 +155,18 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestShouldReturnWithEmptyBallot()
+    {
+        var req = NewValidRequest(x =>
+        {
+            x.EmptyVoteCount = 1;
+            x.SelectedCandidateIds.Clear();
+        });
+        await BundleErfassungCreatorClient.UpdateBallotAsync(req);
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreatorInProcess()
     {
         await AssertStatus(
@@ -179,20 +191,6 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         await AssertStatus(
             async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1)),
             StatusCode.PermissionDenied);
-    }
-
-    [Fact]
-    public async Task TestShouldThrowEmpty()
-    {
-        var req = NewValidRequest(x =>
-        {
-            x.EmptyVoteCount = 1;
-            x.SelectedCandidateIds.Clear();
-        });
-        await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(req),
-            StatusCode.InvalidArgument,
-            "At least one candidate has to be on a ballot");
     }
 
     [Fact]

@@ -26,13 +26,23 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
     {
     }
 
+    public override Task TestPdf()
+    {
+        SeedEvents(false);
+        return base.TestPdf();
+    }
+
+    public override Task TestPdfAfterTestingPhaseEnded()
+    {
+        SeedEvents(true);
+        return base.TestPdfAfterTestingPhaseEnded();
+    }
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await ProportionalElectionMockedData.Seed(RunScoped);
         await VoteMockedData.Seed(RunScoped);
-
-        SeedEvents();
     }
 
     protected override IEnumerable<string> UnauthorizedRoles()
@@ -42,7 +52,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private void SeedEvents()
+    private void SeedEvents(bool testingPhaseEnded)
     {
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
@@ -54,7 +64,13 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         SeedProportionalElectionInitEvents();
         SeedMajorityElectionInitEvents();
 
-        SeedContestTestingPhaseEndedEvent();
+        SeedProportionalElectionUnionInitEvents();
+        SeedMajorityElectionUnionInitEvents();
+
+        if (testingPhaseEnded)
+        {
+            SeedContestTestingPhaseEndedEvent();
+        }
 
         SeedContestCountingCircleDetailsEvents();
         SeedMajorityElectionResultEvents();
@@ -172,6 +188,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                     {
                         Id = candidate.Id.ToString(),
                         ProportionalElectionListId = listId,
+                        ProportionalElectionId = electionId,
                     },
                 };
 
@@ -223,8 +240,8 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 {
                     Id = smeId,
                     PrimaryMajorityElectionId = electionId,
-                    PoliticalBusinessNumber = election.PoliticalBusinessNumber,
-                    ShortDescription = { election.Translations.ToDictionary(x => x.Language, x => x.ShortDescription) },
+                    PoliticalBusinessNumber = secondaryMajorityElection.PoliticalBusinessNumber,
+                    ShortDescription = { secondaryMajorityElection.Translations.ToDictionary(x => x.Language, x => x.ShortDescription) },
                 },
             };
 
@@ -258,6 +275,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                             Id = smeCandidateId,
                             CandidateId = smeCandidate.CandidateReferenceId.Value.ToString(),
                             SecondaryMajorityElectionId = smeId,
+                            PrimaryMajorityElectionId = electionId,
                         },
                     };
 
@@ -265,6 +283,68 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 }
             }
         }
+    }
+
+    private void SeedProportionalElectionUnionInitEvents()
+    {
+        var unionId = "5233cf7c-2200-435c-b5d6-8d354794de4c";
+
+        var electionUnionCreated = new ProtoBasis.ProportionalElectionUnionCreated
+        {
+            EventInfo = GetBasisEventInfo(0),
+            ProportionalElectionUnion = new()
+            {
+                ContestId = ContestId,
+                Id = unionId,
+                Description = "Proportional Election Union",
+            },
+        };
+
+        PublishBasisBusinessEvent(electionUnionCreated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+
+        var electionUnionUpdated = new ProtoBasis.ProportionalElectionUnionUpdated
+        {
+            EventInfo = GetBasisEventInfo(0),
+            ProportionalElectionUnion = new()
+            {
+                ContestId = ContestId,
+                Id = unionId,
+                Description = "Proportional Election Union Updated",
+            },
+        };
+
+        PublishBasisBusinessEvent(electionUnionUpdated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+    }
+
+    private void SeedMajorityElectionUnionInitEvents()
+    {
+        var unionId = "5ef889b6-7227-4bc1-8a1c-99011d48bead";
+
+        var electionUnionCreated = new ProtoBasis.MajorityElectionUnionCreated
+        {
+            EventInfo = GetBasisEventInfo(0),
+            MajorityElectionUnion = new()
+            {
+                ContestId = ContestId,
+                Id = unionId,
+                Description = "Majority Election Union",
+            },
+        };
+
+        PublishBasisBusinessEvent(electionUnionCreated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+
+        var electionUnionUpdated = new ProtoBasis.MajorityElectionUnionUpdated
+        {
+            EventInfo = GetBasisEventInfo(0),
+            MajorityElectionUnion = new()
+            {
+                ContestId = ContestId,
+                Id = unionId,
+                Description = "Majority Election Union Updated",
+            },
+        };
+
+        PublishBasisBusinessEvent(electionUnionUpdated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
     }
 
     private void SeedContestTestingPhaseEndedEvent()
@@ -275,7 +355,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             ContestId = ContestId,
         };
 
-        PublishBasisBusinessEvent(contestTestingPhaseEnded, contestTestingPhaseEnded.ContestId, Host1, BasisKeyHost1, ContestIdGuid, AggregateNames.Contest);
+        PublishBasisBusinessEvent(contestTestingPhaseEnded, contestTestingPhaseEnded.ContestId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.Contest);
     }
 
     private void SeedContestCountingCircleDetailsEvents()
@@ -1309,12 +1389,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             OfficialDescription = { LanguageUtil.MockAllLanguages("201 Official UPDATE") },
             EnforceEmptyVoteCountingForCountingCircles = false,
             EnforceResultEntryForCountingCircles = true,
-            InternalDescription = "Internal UPDATE",
             ReportDomainOfInfluenceLevel = 1,
             EventInfo = GetBasisEventInfo(225),
         };
 
-        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1, ContestIdGuid, AggregateNames.MajorityElection);
+        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.MajorityElection);
 
         var secondaryElectionAfterTestingPhaseUpdated = new ProtoBasis.SecondaryMajorityElectionAfterTestingPhaseUpdated
         {
@@ -1322,12 +1401,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             ShortDescription = { LanguageUtil.MockAllLanguages("SME ShortDescription UPDATE") },
             PoliticalBusinessNumber = "n1 UPDATE",
             PrimaryMajorityElectionId = electionId,
-            InternalDescription = "SME Internal UPDATE",
             OfficialDescription = { LanguageUtil.MockAllLanguages("SME Official Update") },
             EventInfo = GetBasisEventInfo(225),
         };
 
-        PublishBasisBusinessEvent(secondaryElectionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1, ContestIdGuid, AggregateNames.MajorityElection);
+        PublishBasisBusinessEvent(secondaryElectionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.MajorityElection);
     }
 
     private void SeedProportionalElectionAfterTestingPhaseEndedEvents()
@@ -1340,11 +1418,10 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             PoliticalBusinessNumber = "201 UPDATE",
             OfficialDescription = { LanguageUtil.MockAllLanguages("Official UPDATE") },
             EnforceEmptyVoteCountingForCountingCircles = false,
-            InternalDescription = "Internal UPDATE",
             EventInfo = GetBasisEventInfo(1225),
         };
 
-        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1, ContestIdGuid, AggregateNames.ProportionalElection);
+        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.ProportionalElection);
     }
 
     private void SeedVoteAfterTestingPhaseEndedEvents()
@@ -1360,7 +1437,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(2225),
         };
 
-        PublishBasisBusinessEvent(voteAfterTestingPhaseUpdated, voteId, Host1, BasisKeyHost1, ContestIdGuid, AggregateNames.Vote);
+        PublishBasisBusinessEvent(voteAfterTestingPhaseUpdated, voteId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.Vote);
     }
 
     private void SeedExportEvents()

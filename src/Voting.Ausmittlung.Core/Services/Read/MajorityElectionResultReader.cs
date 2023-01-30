@@ -89,7 +89,7 @@ public class MajorityElectionResultReader
             .Include(x => x.CountingCircle)
             .Include(x => x.MajorityElection.Translations)
             .Include(x => x.MajorityElection.Contest.Translations)
-            .Include(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.MajorityElection.DomainOfInfluence.CantonDefaults)
             .Include(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)

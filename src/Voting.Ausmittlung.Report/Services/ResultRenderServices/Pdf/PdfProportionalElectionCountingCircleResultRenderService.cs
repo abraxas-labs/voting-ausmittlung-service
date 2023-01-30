@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -23,17 +24,20 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfProportionalElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _ccDetailsRepo = ccDetailsRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -92,7 +96,8 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            data.ProportionalElection.ShortDescription);
+            data.ProportionalElection.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 
     protected virtual void PrepareAndSortData(ProportionalElectionResult data)

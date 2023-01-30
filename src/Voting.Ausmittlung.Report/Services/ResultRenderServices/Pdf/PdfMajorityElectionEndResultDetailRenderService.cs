@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,19 +25,22 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly MajorityElectionDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
+    private readonly IClock _clock;
 
     public PdfMajorityElectionEndResultDetailRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElection> repo,
         IMapper mapper,
         MajorityElectionDomainOfInfluenceResultBuilder doiResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -118,7 +122,8 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            data.ShortDescription);
+            data.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 
     private void OrderCandidateResults(PdfMajorityElection majorityElection)
@@ -126,12 +131,14 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         foreach (var ccResult in majorityElection.Results!)
         {
             ccResult.CandidateResults = ccResult.CandidateResults!
-                .OrderBy(x => x.Candidate!.Position)
+                .OrderByDescending(x => x.VoteCount)
+                .ThenBy(x => x.Candidate!.Position)
                 .ToList();
         }
 
         majorityElection.EndResult!.CandidateEndResults = majorityElection.EndResult.CandidateEndResults!
-            .OrderBy(x => x.Candidate!.Position)
+            .OrderByDescending(x => x.VoteCount)
+            .ThenBy(x => x.Candidate!.Position)
             .ToList();
     }
 }

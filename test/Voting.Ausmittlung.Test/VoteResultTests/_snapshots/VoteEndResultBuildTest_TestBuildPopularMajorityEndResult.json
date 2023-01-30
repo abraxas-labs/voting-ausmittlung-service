@@ -46,6 +46,9 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "ResultAlgorithm": 1,
@@ -103,15 +106,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -121,9 +118,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {
@@ -523,6 +526,9 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "ResultAlgorithm": 1,
@@ -580,15 +586,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -598,9 +598,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {

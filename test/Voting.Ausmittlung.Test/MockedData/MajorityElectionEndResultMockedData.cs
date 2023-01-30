@@ -133,7 +133,6 @@ public static class MajorityElectionEndResultMockedData
                 "Majorzwahl",
                 (t, s) => t.ShortDescription = s,
                 "Majorzw"),
-            InternalDescription = "Majorzwahl",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -146,7 +145,6 @@ public static class MajorityElectionEndResultMockedData
             ResultEntry = resultEntry,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = false,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = mandateAlgorithm,
             NumberOfMandates = primaryElectionNumberOfMandates,
             ReportDomainOfInfluenceLevel = 1,
@@ -170,7 +168,6 @@ public static class MajorityElectionEndResultMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionId),
-                        InternalDescription = "internal",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official",
@@ -192,7 +189,6 @@ public static class MajorityElectionEndResultMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionId2),
-                        InternalDescription = "internal2",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official2",
@@ -282,6 +278,7 @@ public static class MajorityElectionEndResultMockedData
             Sex = (SexType)((position % (Enum.GetValues(typeof(SexType)).Length - 1)) + 1),
             Title = "title",
             ZipCode = "zip code",
+            Origin = "origin",
             Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                 (t, o) => t.Occupation = o,
                 "occupation",
@@ -312,6 +309,7 @@ public static class MajorityElectionEndResultMockedData
             Sex = (SexType)((position % (Enum.GetValues(typeof(SexType)).Length - 1)) + 1),
             Title = "title",
             ZipCode = "zip code",
+            Origin = "origin",
             CandidateReferenceId = string.IsNullOrEmpty(candidateReferenceId)
                 ? null
                 : Guid.Parse(candidateReferenceId),
@@ -352,10 +350,10 @@ public static class MajorityElectionEndResultMockedData
 
         var voteCountByCandidateId = new Dictionary<string, int>
             {
-                { CandidateId1, 200 },
+                { CandidateId1, 90 },
                 { CandidateId2, 150 },
                 { CandidateId3, 100 },
-                { CandidateId4, 90 },
+                { CandidateId4, 200 },
                 { CandidateId5, 80 },
                 { CandidateId6, 70 },
                 { CandidateId7, 60 },
@@ -387,13 +385,13 @@ public static class MajorityElectionEndResultMockedData
 
         var voteCountByCandidateId = new Dictionary<string, int>
             {
-                { SecondaryCandidateId1, 200 },
+                { SecondaryCandidateId1, 60 },
                 { SecondaryCandidateId2, 150 },
                 { SecondaryCandidateId3, 100 },
                 { SecondaryCandidateId4InBallotGroup, 90 },
                 { Secondary2CandidateId1, 80 },
                 { Secondary2CandidateId2, 70 },
-                { Secondary2CandidateId3, 60 },
+                { Secondary2CandidateId3, 200 },
                 { Secondary2CandidateId4, 55 },
             };
 

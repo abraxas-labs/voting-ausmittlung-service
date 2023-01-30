@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -18,8 +19,9 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
     public PdfProportionalElectionEndResultListUnionsRenderService(
         IDbRepository<DataContext, ProportionalElectionEndResult> repo,
         IMapper mapper,
-        TemplateService templateService)
-        : base(repo, mapper, templateService)
+        TemplateService templateService,
+        IClock clock)
+        : base(repo, mapper, templateService, clock)
     {
         IncludeCalculationRounds = false;
     }

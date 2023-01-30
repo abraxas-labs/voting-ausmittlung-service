@@ -15,5 +15,6 @@ public class ProportionalElectionResultProfile : Profile
         CreateMap<ProportionalElectionResultBallotCandidate, ProportionalElectionResultBallotUpdatedCandidateEventData>().ReverseMap();
         CreateMap<ProportionalElectionResultEntryParams, ProportionalElectionResultEntryParamsEventData>().ReverseMap();
         CreateMap<ElectionEndResultLotDecision, ProportionalElectionEndResultLotDecisionEventData>().ReverseMap();
+        CreateMap<ProportionalElectionManualCandidateEndResult, ProportionalElectionManualCandidateEndResultEventData>().ReverseMap();
     }
 }

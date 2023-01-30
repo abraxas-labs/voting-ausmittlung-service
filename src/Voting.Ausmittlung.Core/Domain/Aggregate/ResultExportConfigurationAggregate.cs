@@ -34,16 +34,26 @@ public class ResultExportConfigurationAggregate : BaseEventSourcingAggregate
             throw new ValidationException($"{config.IntervalMinutes} has to be at least 1");
         }
 
+        var eventData = new ResultExportConfigurationEventData
+        {
+            ContestId = contestId.ToString(),
+            IntervalMinutes = config.IntervalMinutes,
+            ExportConfigurationId = configId.ToString(),
+            PoliticalBusinessIds = { config.PoliticalBusinessIds.Select(x => x.ToString()) },
+        };
+
+        foreach (var metadata in config.PoliticalBusinessMetadata)
+        {
+            eventData.PoliticalBusinessMetadata.Add(metadata.Key.ToString(), new PoliticalBusinessExportMetadataEventData
+            {
+                Token = metadata.Value.Token,
+            });
+        }
+
         RaiseEvent(new ResultExportConfigurationUpdated
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
-            ExportConfiguration = new ResultExportConfigurationEventData
-            {
-                ContestId = contestId.ToString(),
-                IntervalMinutes = config.IntervalMinutes,
-                ExportConfigurationId = configId.ToString(),
-                PoliticalBusinessIds = { config.PoliticalBusinessIds.Select(x => x.ToString()) },
-            },
+            ExportConfiguration = eventData,
         });
     }
 

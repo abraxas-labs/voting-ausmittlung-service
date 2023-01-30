@@ -6,15 +6,11 @@ using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBusinessHasTranslations
+public class MajorityElection : Election, IHasResults, IPoliticalBusinessHasTranslations
 {
     public MajorityElectionMandateAlgorithm MandateAlgorithm { get; set; }
 
-    public bool IndividualEmptyBallotsAllowed { get; set; }
-
     public bool CandidateCheckDigit { get; set; }
-
-    public override bool InvalidVotes { get; set; }
 
     public int BallotBundleSize { get; set; }
 

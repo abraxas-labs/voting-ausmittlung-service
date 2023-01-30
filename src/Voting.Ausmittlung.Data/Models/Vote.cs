@@ -45,4 +45,6 @@ public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTransla
     public VoteReviewProcedure ReviewProcedure { get; set; }
 
     public bool EnforceReviewProcedureForCountingCircles { get; set; }
+
+    public string InternalDescription { get; set; } = string.Empty;
 }

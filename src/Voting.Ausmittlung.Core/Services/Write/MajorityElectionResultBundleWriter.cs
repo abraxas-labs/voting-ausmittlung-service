@@ -108,12 +108,6 @@ public class MajorityElectionResultBundleWriter
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
             selectedCandidateIds.Count);
 
-        // invalid vote count and individual vote count cannot be negative, checked by validation rules
-        if (selectedCandidateIds.Count == 0 && invalidVoteCount == 0 && individualVoteCount == 0)
-        {
-            throw new ValidationException("At least one vote has to be on a ballot");
-        }
-
         ValidateSecondaryResults(electionResult, secondaryResults);
 
         aggregate.CreateBallot(emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
@@ -143,12 +137,6 @@ public class MajorityElectionResultBundleWriter
             invalidVoteCount,
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
             selectedCandidateIds.Count);
-
-        // invalid vote count and individual vote count cannot be negative, checked by validation rules
-        if (selectedCandidateIds.Count == 0 && invalidVoteCount == 0 && individualVoteCount == 0)
-        {
-            throw new ValidationException("At least one candidate has to be on a ballot");
-        }
 
         ValidateSecondaryResults(electionResult, secondaryResults);
 

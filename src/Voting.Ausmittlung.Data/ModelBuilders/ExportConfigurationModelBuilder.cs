@@ -10,6 +10,7 @@ namespace Voting.Ausmittlung.Data.ModelBuilders;
 public class ExportConfigurationModelBuilder :
     IEntityTypeConfiguration<ResultExportConfiguration>,
     IEntityTypeConfiguration<ResultExportConfigurationPoliticalBusiness>,
+    IEntityTypeConfiguration<ResultExportConfigurationPoliticalBusinessMetadata>,
     IEntityTypeConfiguration<ExportConfiguration>
 {
     public void Configure(EntityTypeBuilder<ResultExportConfiguration> builder)
@@ -27,6 +28,12 @@ public class ExportConfigurationModelBuilder :
             .IsRequired();
 
         builder
+            .HasMany(x => x.PoliticalBusinessMetadata)
+            .WithOne(x => x.ResultExportConfiguration!)
+            .HasForeignKey(x => x.ResultExportConfigurationId)
+            .IsRequired();
+
+        builder
             .HasOne(x => x.DomainOfInfluence)
             .WithMany(x => x.ResultExportConfigurations)
             .HasForeignKey(x => x.DomainOfInfluenceId)
@@ -34,6 +41,13 @@ public class ExportConfigurationModelBuilder :
     }
 
     public void Configure(EntityTypeBuilder<ResultExportConfigurationPoliticalBusiness> builder)
+    {
+        builder
+            .HasIndex(x => new { x.PoliticalBusinessId, x.ResultExportConfigurationId })
+            .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<ResultExportConfigurationPoliticalBusinessMetadata> builder)
     {
         builder
             .HasIndex(x => new { x.PoliticalBusinessId, x.ResultExportConfigurationId })

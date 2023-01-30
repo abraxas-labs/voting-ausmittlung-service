@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace Voting.Ausmittlung.Controllers;
 [ApiController]
 [Route("api/result_import")]
 [Authorize]
-public class ResultImportController
+public class ResultImportController : ControllerBase
 {
     private readonly ResultImportWriter _resultImportWriter;
 
@@ -30,13 +31,16 @@ public class ResultImportController
     /// <param name="file">The eCH file.</param>
     /// <returns>A task representing the async operation.</returns>
     [HttpPost("{contestId:Guid}")]
-    public async Task Import(
-        Guid contestId,
-        IFormFile file)
+    public async Task Import(Guid contestId, IFormFile file)
     {
+        // The XML deserialization happens synchronously, need to buffer the stream to not perform async IO.
+        using var ms = new MemoryStream();
+        await file.CopyToAsync(ms, HttpContext.RequestAborted);
+        ms.Seek(0, SeekOrigin.Begin);
+
         await _resultImportWriter.Import(new ResultImportMeta(
             contestId,
             file.FileName,
-            file.OpenReadStream()));
+            ms));
     }
 }

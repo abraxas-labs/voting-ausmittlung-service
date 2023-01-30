@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -42,7 +41,7 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     {
         await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
         var connector = GetService<DokConnectorMock>();
-        var save = await connector.NextUpload(CancellationToken.None);
+        var save = await connector.NextUpload(TimeSpan.FromSeconds(10));
 
         // This is a CSV export, so we better use the textual representation as snapshot
         new
@@ -99,12 +98,12 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
         var req = new TriggerResultExportRequest
         {
             ContestId = ContestMockedData.IdStGallenEvoting,
-            ExportConfigurationId = ExportConfigurationMockedData.IdStGallenIntf001,
+            ExportConfigurationId = ExportConfigurationMockedData.IdStGallenIntf002,
             PoliticalBusinessIds =
-                {
-                    MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
-                    ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
-                },
+            {
+                MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
+                ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
+            },
         };
         customizer?.Invoke(req);
         return req;

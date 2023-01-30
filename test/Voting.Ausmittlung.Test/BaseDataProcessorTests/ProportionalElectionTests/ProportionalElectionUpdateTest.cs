@@ -81,7 +81,6 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             PoliticalBusinessNumber = "6000",
             OfficialDescription = { LanguageUtil.MockAllLanguages("Update Proporzwahl") },
             ShortDescription = { LanguageUtil.MockAllLanguages("Update Proporzwahl") },
-            InternalDescription = "Update internal description",
             EnforceEmptyVoteCountingForCountingCircles = true,
         });
 

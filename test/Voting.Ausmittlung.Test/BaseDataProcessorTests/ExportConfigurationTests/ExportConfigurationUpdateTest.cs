@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using Abraxas.Voting.Basis.Shared.V1;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Test.MockedData;
@@ -40,13 +41,14 @@ public class ExportConfigurationUpdateTest : BaseDataProcessorTest
                 Id = id.ToString(),
                 Description = "Intf001-updated",
                 ExportKeys =
-                    {
-                        AusmittlungWabstiCTemplates.SGGemeinden.Key,
-                        AusmittlungWabstiCTemplates.WMWahl.Key,
-                        AusmittlungWabstiCTemplates.WPKandidaten.Key,
-                    },
+                {
+                    AusmittlungWabstiCTemplates.SGGemeinden.Key,
+                    AusmittlungWabstiCTemplates.WMWahl.Key,
+                    AusmittlungWabstiCTemplates.WPKandidaten.Key,
+                },
                 EaiMessageType = "1234-updated",
                 DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                Provider = ExportProvider.Unspecified, // should get converted to Standard
             },
         });
 

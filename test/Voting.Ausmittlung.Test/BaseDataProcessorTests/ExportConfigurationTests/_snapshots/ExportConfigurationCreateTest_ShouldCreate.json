@@ -9,6 +9,7 @@
       "WM_Wahl",
       "WP_Kandidaten"
     ],
+    "Provider": 2,
     "Id": "47d726a6-4a3f-4b84-a9d7-abe8383f89b2"
   },
   "resultConfigs": {
@@ -18,6 +19,7 @@
         "Contest": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -29,6 +31,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "f7a09ee9-749d-563c-995f-4150866f7ebd"
       },
       {
@@ -36,6 +39,7 @@
         "Contest": null,
         "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -47,6 +51,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "1550ae67-54a8-54b1-8f29-82e62a733ed0"
       },
       {
@@ -54,6 +59,7 @@
         "Contest": null,
         "ContestId": "a091a5cc-735b-4bf4-a30d-f4c907c9fc10",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -65,6 +71,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "901f11d0-54d1-584e-8f4a-ccc9a3a5edb3"
       },
       {
@@ -72,6 +79,7 @@
         "Contest": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -83,6 +91,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "d2b09636-f939-5fa3-8334-aae9c1845d69"
       },
       {
@@ -90,6 +99,7 @@
         "Contest": null,
         "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -101,6 +111,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "53cb0af7-dae8-5ce9-a312-6915da127612"
       },
       {
@@ -108,6 +119,7 @@
         "Contest": null,
         "ContestId": "dc0f4940-10c2-4a33-b752-3e5d761c0009",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -119,6 +131,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "e89e0cfd-49ea-5c3a-8a2e-3bf225cea648"
       },
       {
@@ -126,6 +139,7 @@
         "Contest": null,
         "ContestId": "df660313-ab05-4b17-9826-492c34432098",
         "PoliticalBusinesses": null,
+        "PoliticalBusinessMetadata": null,
         "IntervalMinutes": null,
         "NextExecution": null,
         "DomainOfInfluence": null,
@@ -137,6 +151,7 @@
           "WM_Wahl",
           "WP_Kandidaten"
         ],
+        "Provider": 2,
         "Id": "959c7724-80d2-5d67-a09c-27586eaf4f4b"
       }
     ]

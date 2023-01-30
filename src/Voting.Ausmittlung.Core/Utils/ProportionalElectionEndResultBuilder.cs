@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils.ProportionalElectionStrategy;
 using Voting.Ausmittlung.Data;
@@ -21,17 +22,20 @@ public class ProportionalElectionEndResultBuilder
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
     private readonly DataContext _dbContext;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
+    private readonly ILogger<ProportionalElectionEndResultBuilder> _logger;
 
     public ProportionalElectionEndResultBuilder(
         ProportionalElectionEndResultRepo endResultRepo,
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
         DataContext dbContext,
-        ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder)
+        ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
+        ILogger<ProportionalElectionEndResultBuilder> logger)
     {
         _endResultRepo = endResultRepo;
         _resultRepo = resultRepo;
         _dbContext = dbContext;
         _candidateEndResultBuilder = candidateEndResultBuilder;
+        _logger = logger;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -71,6 +75,7 @@ public class ProportionalElectionEndResultBuilder
         endResult.CountOfDoneCountingCircles += deltaFactor;
         endResult.TotalCountOfVoters += result.TotalCountOfVoters * deltaFactor;
         endResult.Finalized = false;
+        endResult.ManualEndResultRequired = false;
 
         PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
             endResult.CountOfVoters,
@@ -84,7 +89,20 @@ public class ProportionalElectionEndResultBuilder
         AdjustListAndCandidateEndResults(endResult, result, deltaFactor, endResult.AllCountingCirclesDone);
 
         ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
-        _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
+
+        foreach (var listEndResult in endResult.ListEndResults)
+        {
+            _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+        }
+
+        if (!endResult.ManualEndResultRequired)
+        {
+            _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
+        }
+        else
+        {
+            _logger.LogWarning("Hagenbach Bischoff could not distribute all number of mandates. Manual end result required for election {ProportionalElectionId}", endResult.ProportionalElectionId);
+        }
 
         await _dbContext.SaveChangesAsync();
     }

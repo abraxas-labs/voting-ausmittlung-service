@@ -18,6 +18,7 @@ using Snapper;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -134,9 +135,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     [Fact]
     public async Task ShouldWorkAsElectionAdminWithInvalidVotes()
     {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
         await ModifyDbEntities(
-            (MajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
-            e => e.InvalidVotes = true);
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
         var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
         var (primaryEvent, secondaryEvent) = await MapMappings(
             importId,
@@ -190,9 +192,9 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     [Fact]
     public async Task ShouldThrowWithInvalidVoteMappingsButNoInvalidVotes()
     {
-        await ModifyDbEntities(
-            (MajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
-            e => e.InvalidVotes = false);
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.Id == Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
 
         var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
 

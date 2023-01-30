@@ -55,6 +55,7 @@ public class ProportionalElectionCandidateUpdateTest : BaseDataProcessorTest
                     Title = "new title",
                     ZipCode = "new zip code",
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
+                    Origin = "origin",
                 },
             });
 
@@ -99,6 +100,7 @@ public class ProportionalElectionCandidateUpdateTest : BaseDataProcessorTest
                 Sex = SharedProto.SexType.Male,
                 Title = "new title",
                 ZipCode = "new zip code",
+                Origin = "origin",
             });
 
         var idGuid = Guid.Parse(ProportionalElectionMockedData.CandidateIdStGallenProportionalElectionInContestStGallen);

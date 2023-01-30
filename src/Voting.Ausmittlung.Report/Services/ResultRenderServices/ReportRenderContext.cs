@@ -34,4 +34,6 @@ public record ReportRenderContext
     public Guid PoliticalBusinessId => _singlePoliticalBusinessId ??= PoliticalBusinessIds.Single(); // count is already validated
 
     public Guid? PoliticalBusinessResultBundleId { get; init; }
+
+    public IRendererService? RendererService { get; set; }
 }

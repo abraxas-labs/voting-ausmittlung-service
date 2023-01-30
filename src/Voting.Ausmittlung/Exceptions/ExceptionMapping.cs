@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Schema;
 using AutoMapper;
 using Grpc.Core;
 using Microsoft.AspNetCore.Http;
@@ -58,6 +59,7 @@ internal readonly struct ExceptionMapping
             AutoMapperMappingException autoMapperException when autoMapperException.InnerException is not null => Map(autoMapperException.InnerException),
             AutoMapperMappingException autoMapperException when string.Equals(autoMapperException.Source, EnumMappingErrorSource) => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
             ValidationException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
+            XmlSchemaValidationException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
             _ => new ExceptionMapping(StatusCode.Internal, StatusCodes.Status500InternalServerError),
         };
 }

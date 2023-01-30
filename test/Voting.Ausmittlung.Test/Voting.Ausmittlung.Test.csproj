@@ -11,5 +11,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Voting.Ausmittlung\Voting.Ausmittlung.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ExportTests\Xml\_snapshots" />
+  </ItemGroup>
   
 </Project>

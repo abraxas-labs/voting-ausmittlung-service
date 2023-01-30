@@ -24,7 +24,7 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : Pd
         tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Stimmenherkunft inkl. Kumulierungen und Panaschierungen - Kantonratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_FormularD_Stimmenherkunft_KumPan_Kantonratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

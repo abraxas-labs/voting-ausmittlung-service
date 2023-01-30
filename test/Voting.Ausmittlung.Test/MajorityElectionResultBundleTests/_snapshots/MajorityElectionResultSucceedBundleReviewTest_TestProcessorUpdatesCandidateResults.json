@@ -40,6 +40,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 1,
+          "Origin": "origin",
           "Id": "81a11b8e-51b8-40c5-aa94-b7a854e2c726"
         },
         "CandidatePosition": 1,
@@ -88,6 +89,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 2,
+          "Origin": "origin",
           "Id": "efdbb5e3-16bf-4a53-95c3-a35ed6371819"
         },
         "CandidatePosition": 2,
@@ -141,6 +143,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 4,
+          "Origin": "origin",
           "Id": "340c482b-c064-427e-a906-2696fab2ab35"
         },
         "CandidatePosition": 4,
@@ -191,6 +194,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 1,
+          "Origin": "origin",
           "Id": "4076daaa-b791-4923-94dc-498ad171d062"
         },
         "CandidatePosition": 1,
@@ -241,6 +245,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 2,
+          "Origin": "origin",
           "Id": "910181c5-c003-4775-976b-1f33a19f2a1b"
         },
         "CandidatePosition": 2,
@@ -291,6 +296,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 1,
+          "Origin": "origin",
           "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf"
         },
         "CandidatePosition": 1,
@@ -341,6 +347,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 2,
+          "Origin": "origin",
           "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3"
         },
         "CandidatePosition": 2,
@@ -391,6 +398,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 1,
+          "Origin": "origin",
           "Id": "f136f4d7-7f4c-4674-a9c5-391dbed43985"
         },
         "CandidatePosition": 1,
@@ -441,6 +449,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 2,
+          "Origin": "origin",
           "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
         },
         "CandidatePosition": 2,
@@ -491,6 +500,7 @@
           "ZipCode": "zip code",
           "Locality": "locality",
           "Position": 3,
+          "Origin": "origin",
           "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb"
         },
         "CandidatePosition": 3,

@@ -10,9 +10,11 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -110,6 +112,72 @@ public class PoliticalBusinessResultExportTemplatesGetTest : BaseTest<ExportServ
             async () => await MonitoringElectionAdminClient.GetPoliticalBusinessResultExportTemplatesAsync(
                 NewValidRequest(x => x.PoliticalBusinessId = PbIdNotFound)),
             StatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithFinalizedExportKeys()
+    {
+        await RunOnDb(async db =>
+        {
+            var item = await db.ProportionalElectionEndResult
+                .AsTracking()
+                .FirstAsync(x => x.ProportionalElectionId == Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestGossau));
+
+            item.Finalized = true;
+
+            await db.SaveChangesAsync();
+        });
+        var response = await MonitoringElectionAdminClient.GetPoliticalBusinessResultExportTemplatesAsync(NewValidRequest());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithoutInvalidVotesExportKeys()
+    {
+        await RunOnDb(async db =>
+        {
+            var item = await db.MajorityElectionEndResults
+                .AsTracking()
+                .FirstAsync(x => x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdGossauMajorityElectionInContestGossau));
+
+            item.Finalized = true;
+
+            await db.SaveChangesAsync();
+        });
+        var response = await MonitoringElectionAdminClient.GetPoliticalBusinessResultExportTemplatesAsync(new()
+        {
+            PoliticalBusinessId = MajorityElectionMockedData.IdGossauMajorityElectionInContestGossau,
+            PoliticalBusinessType = ProtoModels.PoliticalBusinessType.MajorityElection,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithInvalidVotesExportKeys()
+    {
+        await RunOnDb(async db =>
+        {
+            var item = await db.MajorityElectionEndResults
+                .AsTracking()
+                .FirstAsync(x => x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdGossauMajorityElectionInContestGossau));
+
+            item.Finalized = true;
+
+            var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdGossau), Guid.Parse(DomainOfInfluenceMockedData.IdGossau));
+            var doi = await db.DomainOfInfluences
+                .AsTracking()
+                .FirstAsync(x => x.Id == id);
+
+            doi.CantonDefaults.MajorityElectionInvalidVotes = true;
+
+            await db.SaveChangesAsync();
+        });
+        var response = await MonitoringElectionAdminClient.GetPoliticalBusinessResultExportTemplatesAsync(new()
+        {
+            PoliticalBusinessId = MajorityElectionMockedData.IdGossauMajorityElectionInContestGossau,
+            PoliticalBusinessType = ProtoModels.PoliticalBusinessType.MajorityElection,
+        });
+        response.MatchSnapshot();
     }
 
     [Fact]

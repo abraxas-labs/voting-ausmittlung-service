@@ -30,11 +30,11 @@ using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.DokConnector.Service;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.VotingExports.Repository;
 using DomainOfInfluenceType = Abraxas.Voting.Ausmittlung.Shared.V1.DomainOfInfluenceType;
+using ResultExportConfigurationPoliticalBusinessMetadata = Voting.Ausmittlung.Core.Domain.ResultExportConfigurationPoliticalBusinessMetadata;
 
 namespace Voting.Ausmittlung.Core.Services.Export;
 
@@ -48,7 +48,6 @@ public class ResultExportService
     private readonly PermissionService _permissionService;
     private readonly IEventPublisher _eventPublisher;
     private readonly EventInfoProvider _eventInfoProvider;
-    private readonly IDokConnector _dokConnector;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly ILogger<ResultExportService> _logger;
     private readonly IServiceProvider _serviceProvider;
@@ -56,6 +55,7 @@ public class ResultExportService
     private readonly PublisherConfig _publisherConfig;
     private readonly IMapper _mapper;
     private readonly ContestService _contestService;
+    private readonly Dictionary<ExportProvider, IExportProviderUploader> _uploaders;
 
     public ResultExportService(
         ExportService exportService,
@@ -65,13 +65,13 @@ public class ResultExportService
         PermissionService permissionService,
         ResultExportConfigurationRepo resultExportConfigurationRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
-        IDokConnector dokConnector,
         ILogger<ResultExportService> logger,
         IServiceProvider serviceProvider,
         EventSignatureService eventSignatureService,
         PublisherConfig publisherConfig,
         IMapper mapper,
-        ContestService contestService)
+        ContestService contestService,
+        IEnumerable<IExportProviderUploader> uploaders)
     {
         _exportService = exportService;
         _contestReader = contestReader;
@@ -84,9 +84,9 @@ public class ResultExportService
         _eventSignatureService = eventSignatureService;
         _publisherConfig = publisherConfig;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
-        _dokConnector = dokConnector;
         _mapper = mapper;
         _contestService = contestService;
+        _uploaders = uploaders.ToDictionary(x => x.Provider);
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
@@ -147,20 +147,17 @@ public class ResultExportService
     public async Task TriggerExportsFromConfiguration(
         Guid exportConfigurationId,
         Guid contestId,
-        IReadOnlyCollection<Guid> politicalBusinessIds)
+        IReadOnlyCollection<Guid> politicalBusinessIds,
+        Dictionary<Guid, ResultExportConfigurationPoliticalBusinessMetadata> politicalBusinessMetadata)
     {
         _permissionService.EnsureMonitoringElectionAdmin();
 
         var export = await _resultExportConfigurationRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.DomainOfInfluence)
-                         .Include(x => x.Contest)
-                         .Include(x => x.PoliticalBusinesses!)
-                         .ThenInclude(x => x.PoliticalBusiness!.DomainOfInfluence)
-                         .Include(x => x.PoliticalBusinesses!)
-                         .ThenInclude(x => x.PoliticalBusiness!.SimpleResults)
-                         .FirstOrDefaultAsync(x => x.ExportConfigurationId == exportConfigurationId && x.ContestId == contestId)
-                     ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
+            .AsSplitQuery()
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Contest)
+            .FirstOrDefaultAsync(x => x.ExportConfigurationId == exportConfigurationId && x.ContestId == contestId)
+            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
 
         _permissionService.EnsureIsDomainOfInfluenceManager(export.DomainOfInfluence);
 
@@ -174,6 +171,17 @@ public class ResultExportService
                 ResultExportConfigurationId = export.ExportConfigurationId,
             })
             .ToList();
+
+        ValidateExportConfigurationPoliticalBusinessMetadata(export.Provider, politicalBusinessIds, politicalBusinessMetadata);
+        export.PoliticalBusinessMetadata = new List<Data.Models.ResultExportConfigurationPoliticalBusinessMetadata>();
+        foreach (var (pbId, metadata) in politicalBusinessMetadata)
+        {
+            export.PoliticalBusinessMetadata.Add(new Data.Models.ResultExportConfigurationPoliticalBusinessMetadata
+            {
+                PoliticalBusinessId = pbId,
+                Token = metadata.Token,
+            });
+        }
 
         _ = GenerateExportsFromConfigurationInNewScope(export, ResultExportTriggerMode.Manual);
     }
@@ -190,14 +198,16 @@ public class ResultExportService
     internal async Task GenerateAutomaticExportsFromConfiguration(Guid id, CancellationToken ct)
     {
         var export = await _resultExportConfigurationRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Contest)
-                         .Include(x => x.PoliticalBusinesses!)
-                         .ThenInclude(x => x.PoliticalBusiness!.DomainOfInfluence)
-                         .Include(x => x.PoliticalBusinesses!)
-                         .ThenInclude(x => x.PoliticalBusiness!.SimpleResults)
-                         .FirstOrDefaultAsync(x => x.Id == id, ct)
-                     ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
+            .AsSplitQuery()
+            .Include(x => x.Contest)
+            .Include(x => x.PoliticalBusinesses!)
+                .ThenInclude(x => x.PoliticalBusiness!.DomainOfInfluence)
+            .Include(x => x.PoliticalBusinesses!)
+                .ThenInclude(x => x.PoliticalBusiness!.SimpleResults)
+                    .ThenInclude(x => x.CountingCircle)
+            .Include(x => x.PoliticalBusinessMetadata)
+            .FirstOrDefaultAsync(x => x.Id == id, ct)
+            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration));
 
         await GenerateExportsFromConfiguration(export, ResultExportTriggerMode.Automatic, ct);
     }
@@ -219,7 +229,10 @@ public class ResultExportService
 
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(contestId);
         var politicalBusinesses = await _simplePoliticalBusinessRepo.Query()
+            .AsSplitQuery()
             .Include(x => x.DomainOfInfluence)
+            .Include(x => x.SimpleResults)
+            .ThenInclude(x => x.CountingCircle)
             .Where(x => x.Active && x.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId)) && pbIdsSet.Contains(x.Id))
             .ToListAsync();
 
@@ -230,6 +243,26 @@ public class ResultExportService
         }
 
         return politicalBusinesses;
+    }
+
+    internal void ValidateExportConfigurationPoliticalBusinessMetadata(
+        ExportProvider provider,
+        IReadOnlyCollection<Guid> pbIds,
+        Dictionary<Guid, ResultExportConfigurationPoliticalBusinessMetadata> metadata)
+    {
+        if (provider != ExportProvider.Seantis)
+        {
+            return;
+        }
+
+        // For Seantis, all political businesses must have a corresponding metadata entry with a token
+        foreach (var pbId in pbIds)
+        {
+            if (!metadata.TryGetValue(pbId, out var pbMetadata) || string.IsNullOrEmpty(pbMetadata.Token))
+            {
+                throw new ValidationException("Seantis configurations provided without a corresponding token");
+            }
+        }
     }
 
     private async Task GenerateExportsFromConfigurationInNewScope(
@@ -260,7 +293,14 @@ public class ResultExportService
         }
 
         var jobId = Guid.NewGuid();
-        _logger.LogInformation("working on result export {ExportId} ({JobId})", export.ExportConfigurationId, jobId);
+
+        using var logScope = _logger.BeginScope(new Dictionary<string, object>
+        {
+            ["ContestId"] = export.Contest!.Id,
+            ["JobId"] = jobId,
+        });
+
+        _logger.LogInformation("working on result export {ExportId}", export.ExportConfigurationId);
         await PublishTriggeredEventForAutomatedExport(export, triggerMode, jobId);
 
         var exportKeys = new List<string>();
@@ -282,24 +322,17 @@ public class ResultExportService
             exportKeys.Add(key);
         }
 
-        await foreach (var file in _exportService.GenerateResultExportsIgnoreErrors(exportKeys, export, ct))
+        if (!_uploaders.TryGetValue(export.Provider, out var uploader))
         {
-            try
-            {
-                var response = await _dokConnector.Upload(export.EaiMessageType, file.Filename, file.Write, ct);
-                await PublishGeneratedEventForAutomatedExport(export, file, jobId, response.FileId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(
-                    e,
-                    "could not save export {FileName} {TemplateKey} {ExportId} ({JobId})",
-                    file.Filename,
-                    file.RenderContext.Template.Key,
-                    export.ExportConfigurationId,
-                    jobId);
-            }
+            throw new InvalidOperationException($"No export uploader for provider {export.Provider} configured");
         }
+
+        var reportContexts = _exportService.BuildRenderContexts(exportKeys, export);
+        await uploader.RenderAndUpload(
+            export,
+            reportContexts,
+            (file, fileId) => PublishGeneratedEventForAutomatedExport(export, file, jobId, fileId),
+            ct);
 
         await PublishCompletedEventForAutomatedExport(export, triggerMode, jobId);
         _logger.LogInformation("completed result export {ExportId} ({JobId})", export.ExportConfigurationId, jobId);

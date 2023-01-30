@@ -160,7 +160,6 @@ public class MajorityElectionModelBuilder :
 
         builder.Ignore(sme => sme.SwissAbroadVotingRight);
         builder.Ignore(sme => sme.DomainOfInfluenceId);
-        builder.Ignore(sme => sme.InvalidVotes);
         builder.Ignore(sme => sme.DomainOfInfluence);
         builder.Ignore(sme => sme.ContestId);
         builder.Ignore(sme => sme.Contest);

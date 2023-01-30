@@ -1,7 +1,6 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using Abraxas.Voting.Basis.Events.V1;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates.Basis;
@@ -13,9 +12,18 @@ public class MajorityElectionReportEventProcessor :
     BasePoliticalBusinessReportEventProcessor,
     IReportEventProcessor<MajorityElectionCreated>,
     IReportEventProcessor<MajorityElectionUpdated>,
+    IReportEventProcessor<MajorityElectionActiveStateUpdated>,
+    IReportEventProcessor<MajorityElectionDeleted>,
     IReportEventProcessor<MajorityElectionCandidateCreated>,
+    IReportEventProcessor<MajorityElectionCandidateUpdated>,
+    IReportEventProcessor<MajorityElectionCandidatesReordered>,
+    IReportEventProcessor<MajorityElectionCandidateDeleted>,
     IReportEventProcessor<MajorityElectionAfterTestingPhaseUpdated>,
-    IReportEventProcessor<MajorityElectionCandidateAfterTestingPhaseUpdated>
+    IReportEventProcessor<MajorityElectionCandidateAfterTestingPhaseUpdated>,
+    IReportEventProcessor<MajorityElectionBallotGroupCreated>,
+    IReportEventProcessor<MajorityElectionBallotGroupUpdated>,
+    IReportEventProcessor<MajorityElectionBallotGroupDeleted>,
+    IReportEventProcessor<MajorityElectionBallotGroupCandidatesUpdated>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.MajorityElection;
 
@@ -24,32 +32,75 @@ public class MajorityElectionReportEventProcessor :
         var aggregate = new MajorityElectionAggregate();
         aggregate.Apply(eventData);
         context.MajorityElectionAggregateSet.Add(aggregate);
-        return null;
+        return Process(aggregate.Id);
     }
 
     public EventLog? Process(MajorityElectionUpdated eventData, EventLogBuilderContext context)
     {
-        var majorityElectionId = Guid.Parse(eventData.MajorityElection.Id);
+        var majorityElectionId = GuidParser.Parse(eventData.MajorityElection.Id);
         context.MajorityElectionAggregateSet.Get(majorityElectionId)?.Apply(eventData);
-        return null;
+        return Process(majorityElectionId);
+    }
+
+    public EventLog? Process(MajorityElectionActiveStateUpdated eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionDeleted eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
     }
 
     public EventLog? Process(MajorityElectionAfterTestingPhaseUpdated eventData, EventLogBuilderContext context)
     {
         var majorityElectionId = GuidParser.Parse(eventData.Id);
         context.MajorityElectionAggregateSet.Get(majorityElectionId)?.Apply(eventData);
-        return Process(majorityElectionId, context);
+        return Process(majorityElectionId);
     }
 
     public EventLog? Process(MajorityElectionCandidateCreated eventData, EventLogBuilderContext context)
     {
-        var majorityElectionId = GuidParser.Parse(eventData.MajorityElectionCandidate.MajorityElectionId);
-        return ProcessAfterTestingPhaseEnded(majorityElectionId, context);
+        return Process(GuidParser.Parse(eventData.MajorityElectionCandidate.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionCandidateUpdated eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionCandidate.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionCandidatesReordered eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionCandidateDeleted eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
     }
 
     public EventLog? Process(MajorityElectionCandidateAfterTestingPhaseUpdated eventData, EventLogBuilderContext context)
     {
-        var majorityElectionId = Guid.Parse(eventData.MajorityElectionId);
-        return Process(majorityElectionId, context);
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionBallotGroupCreated eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.BallotGroup.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionBallotGroupUpdated eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.BallotGroup.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionBallotGroupDeleted eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.MajorityElectionId));
+    }
+
+    public EventLog? Process(MajorityElectionBallotGroupCandidatesUpdated eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.BallotGroupCandidates.MajorityElectionId));
     }
 }

@@ -4,17 +4,42 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
-using eCH_0222_1_0.Standard;
+using System.Xml.Serialization;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Ausmittlung.Ech.Models;
+using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Lib.Common;
+using Delivery = eCH_0222_1_0.Standard.Delivery;
 
 namespace Voting.Ausmittlung.Ech.Converters;
 
 public static class Ech0222Deserializer
 {
-    public static EVotingImport FromDelivery(Delivery delivery)
+    public static EVotingImport DeserializeXml(Stream stream)
+    {
+        var schemaSet = Ech0222SchemaLoader.LoadEch0222Schemas();
+        using var reader = XmlUtil.CreateReaderWithSchemaValidation(stream, schemaSet);
+        var serializer = new XmlSerializer(typeof(Delivery));
+
+        Delivery delivery;
+        try
+        {
+            delivery = (Delivery?)serializer.Deserialize(reader)
+                ?? throw new ValidationException("Deserialization with returned null");
+        }
+        catch (InvalidOperationException ex) when (ex.InnerException != null)
+        {
+            // The XmlSerializer wraps all exceptions into an InvalidOperationException.
+            // Unwrap it to surface the "correct" exception type.
+            throw ex.InnerException;
+        }
+
+        return EVotingImportFromDelivery(delivery);
+    }
+
+    private static EVotingImport EVotingImportFromDelivery(Delivery delivery)
     {
         if (delivery.RawDataDelivery?.RawData?.ContestIdentification == null)
         {

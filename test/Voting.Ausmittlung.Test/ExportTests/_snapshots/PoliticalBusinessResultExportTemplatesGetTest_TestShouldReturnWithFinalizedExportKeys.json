@@ -1,0 +1,121 @@
+{
+  "Templates": [
+    {
+      "Key": "proportional_election_candidate_results_with_vote_sources",
+      "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 1,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_ech_0110",
+      "Description": "Proporzwahlresultat (eCH-0110)",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 3,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_ech_0222",
+      "Description": "Rohdaten Proporzwahl (eCH-0222)",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 3,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_end_result_calculation",
+      "Description": "5a - Sitzverteilung",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_end_result_list_unions",
+      "Description": "5 - Wahlprotokoll",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_end_results",
+      "Description": "5b - Kandidierenden- und Parteiergebnisse",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_vote_sources_end_results",
+      "Description": "D - Stimmenherkunft inkl. KumPan",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_votes_end_results",
+      "Description": "B - Kandidierendenstimmen",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_votes_end_results",
+      "Description": "C - Listenergebnisse",
+      "PoliticalBusinessIds": [
+        "81880186-febc-4fd7-bb82-62c446430027"
+      ],
+      "EntityType": 4,
+      "Format": 2,
+      "CountingCircleId": "",
+      "PoliticalBusinessNumbers": "324",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    }
+  ]
+}

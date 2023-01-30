@@ -1,9 +1,9 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
@@ -27,64 +27,64 @@ public class VoteResultReportEventProcessor :
     public EventLog? Process(VoteResultSubmissionStarted eventData, EventLogBuilderContext context)
     {
         return ProcessSubmissionStarted(
-            Guid.Parse(eventData.VoteResultId),
-            Guid.Parse(eventData.VoteId),
-            Guid.Parse(eventData.CountingCircleId),
+            GuidParser.Parse(eventData.VoteResultId),
+            GuidParser.Parse(eventData.VoteId),
+            GuidParser.Parse(eventData.CountingCircleId),
             context);
     }
 
     public EventLog? Process(VoteResultEntryDefined eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultEntered eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultCorrectionEntered eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultSubmissionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultCorrectionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultFlaggedForCorrection eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultAuditedTentatively eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultPlausibilised eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultResettedToSubmissionFinished eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultResettedToAuditedTentatively eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 
     public EventLog? Process(VoteResultCountOfVotersEntered eventData, EventLogBuilderContext context)
     {
-        return ProcessResult(Guid.Parse(eventData.VoteResultId), context);
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }
 }

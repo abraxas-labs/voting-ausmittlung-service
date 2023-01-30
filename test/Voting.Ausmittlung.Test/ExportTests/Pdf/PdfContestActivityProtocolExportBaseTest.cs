@@ -52,6 +52,8 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         AusmittlungKeyHost1?.Dispose();
         AusmittlungKeyHost1AfterReboot?.Dispose();
         AusmittlungKeyHost2?.Dispose();
+        BasisKeyHost1?.Dispose();
+        BasisKeyHost1AfterTestingPhaseEnded?.Dispose();
     }
 
     public override HttpClient TestClient => MonitoringElectionAdminClient;
@@ -86,6 +88,8 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
 
     protected EcdsaPrivateKey? BasisKeyHost1 { get; private set; }
 
+    protected EcdsaPrivateKey? BasisKeyHost1AfterTestingPhaseEnded { get; private set; }
+
     public override async Task InitializeAsync()
     {
         AggregateRepositoryMockStore.Clear();
@@ -98,14 +102,10 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         AsymmetricAlgorithmAdapter.SetNextKeyIndex(2);
         AusmittlungKeyHost1AfterReboot = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
         AsymmetricAlgorithmAdapter.SetNextKeyIndex(3);
+        BasisKeyHost1AfterTestingPhaseEnded = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
+        AsymmetricAlgorithmAdapter.SetNextKeyIndex(4);
         BasisKeyHost1 = AsymmetricAlgorithmAdapter.CreateRandomPrivateKey();
         await base.InitializeAsync();
-    }
-
-    public override Task TestPdfAfterTestingPhaseEnded()
-    {
-        // The contest activity protocol is a special case, no need to test it immediately after the testing phase has ended
-        return Task.CompletedTask;
     }
 
     protected override GenerateResultExportsRequest NewRequest()
@@ -214,7 +214,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             BasisKeyHost1!.Id,
             BasisKeyHost1.PublicKey,
             new DateTime(2020, 7, 17, 10, 0, 0, DateTimeKind.Utc),
-            new DateTime(2020, 7, 17, 23, 0, 0, DateTimeKind.Utc));
+            new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc));
 
         var publicKeyHost1Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeyHost1CreateAuthTagPayload,
@@ -224,21 +224,39 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         publicKeyHost1Created.EventInfo = GetBasisEventInfo(0);
         PublishBasisPublicKeyEvent(publicKeyHost1Created, publicKeyHost1Create.HsmSignature);
 
-        var publicKeyHost1DeleteAuthTagPayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
+        // Create public key for "Host1" after the testing phase ended.
+        var publicKeyHost1AfterTestingPhaseEndedCreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
             EventSignatureVersions.V1,
             ContestIdGuid,
             Host1,
-            BasisKeyHost1!.Id,
+            BasisKeyHost1AfterTestingPhaseEnded!.Id,
+            BasisKeyHost1AfterTestingPhaseEnded.PublicKey,
+            new DateTime(2020, 7, 17, 10, 8, 21, DateTimeKind.Utc),
+            new DateTime(2020, 7, 17, 23, 0, 0, DateTimeKind.Utc));
+
+        var publicKeyHost1AfterTestingPhaseEndedCreate = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+            publicKeyHost1AfterTestingPhaseEndedCreateAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterTestingPhaseEndedCreateAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1AfterTestingPhaseEnded)));
+
+        var publicKeyHost1AfterTestingPhaseEndedCreated = Mapper.Map<ProtoBasisEvents.EventSignaturePublicKeyCreated>(publicKeyHost1AfterTestingPhaseEndedCreate);
+        publicKeyHost1AfterTestingPhaseEndedCreated.EventInfo = GetBasisEventInfo(0);
+        PublishBasisPublicKeyEvent(publicKeyHost1AfterTestingPhaseEndedCreated, publicKeyHost1AfterTestingPhaseEndedCreate.HsmSignature);
+
+        var publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
+            EventSignatureVersions.V1,
+            ContestIdGuid,
+            Host1,
+            BasisKeyHost1AfterTestingPhaseEnded!.Id,
             new DateTime(2020, 7, 17, 10, 45, 24, DateTimeKind.Utc),
             0);
 
-        var publicKeyHost1Delete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
-            publicKeyHost1DeleteAuthTagPayload,
-            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1DeleteAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1)));
+        var publicKeyHost1AfterTestingPhaseEndedDelete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
+            publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload,
+            AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1AfterTestingPhaseEnded)));
 
-        var publicKeyHost1Deleted = Mapper.Map<ProtoBasisEvents.EventSignaturePublicKeyDeleted>(publicKeyHost1Delete);
+        var publicKeyHost1Deleted = Mapper.Map<ProtoBasisEvents.EventSignaturePublicKeyDeleted>(publicKeyHost1AfterTestingPhaseEndedDelete);
         publicKeyHost1Deleted.EventInfo = GetBasisEventInfo(40);
-        PublishBasisPublicKeyEvent(publicKeyHost1Deleted, publicKeyHost1Delete.HsmSignature);
+        PublishBasisPublicKeyEvent(publicKeyHost1Deleted, publicKeyHost1AfterTestingPhaseEndedDelete.HsmSignature);
     }
 
     protected void PublishAusmittlungBusinessEvent<TEventData>(

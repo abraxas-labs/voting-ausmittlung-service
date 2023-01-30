@@ -25,7 +25,7 @@ public class PdfVoteResultExportTest : PdfExportBaseTest<GenerateResultExportsRe
         tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll CH.pdf";
+    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_CH_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

@@ -110,6 +110,7 @@ public class ProportionalElectionResultResetToSubmissionFinishedTest : Proportio
         {
             var proportionalElectionEndResult = await db.ProportionalElectionEndResult.AsTracking().FirstAsync(x => x.ProportionalElectionId == Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund));
             proportionalElectionEndResult.Finalized = true;
+            proportionalElectionEndResult.ManualEndResultRequired = true;
             await db.SaveChangesAsync();
         });
 
@@ -128,6 +129,7 @@ public class ProportionalElectionResultResetToSubmissionFinishedTest : Proportio
         });
 
         endResult.Finalized.Should().BeFalse();
+        endResult.ManualEndResultRequired.Should().BeFalse();
         endResult.MatchSnapshot();
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;

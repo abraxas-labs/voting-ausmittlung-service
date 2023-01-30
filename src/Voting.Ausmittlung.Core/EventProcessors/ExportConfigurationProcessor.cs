@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -38,6 +39,7 @@ public class ExportConfigurationProcessor :
 
     public async Task Process(ExportConfigurationCreated eventData)
     {
+        AdjustOldEvents(eventData.Configuration);
         var config = _mapper.Map<ExportConfiguration>(eventData.Configuration);
         await _exportConfigRepo.Create(config);
 
@@ -54,6 +56,7 @@ public class ExportConfigurationProcessor :
             ExportKeys = config.ExportKeys,
             EaiMessageType = config.EaiMessageType,
             ExportConfigurationId = config.Id,
+            Provider = config.Provider,
             DomainOfInfluenceId = doi.Id,
         });
 
@@ -62,6 +65,7 @@ public class ExportConfigurationProcessor :
 
     public async Task Process(ExportConfigurationUpdated eventData)
     {
+        AdjustOldEvents(eventData.Configuration);
         var config = _mapper.Map<ExportConfiguration>(eventData.Configuration);
         await _exportConfigRepo.Update(config);
 
@@ -71,6 +75,7 @@ public class ExportConfigurationProcessor :
             resultConfig.Description = config.Description;
             resultConfig.ExportKeys = config.ExportKeys;
             resultConfig.EaiMessageType = config.EaiMessageType;
+            resultConfig.Provider = config.Provider;
         }
 
         await _resultExportConfigRepo.UpdateRange(existingResultConfigs);
@@ -83,5 +88,14 @@ public class ExportConfigurationProcessor :
 
         var existingResultConfigs = await _resultExportConfigRepo.GetActiveOrTestingPhaseExportConfigurations(id);
         await _resultExportConfigRepo.DeleteRangeByKey(existingResultConfigs.Select(x => x.Id));
+    }
+
+    private void AdjustOldEvents(ExportConfigurationEventData eventData)
+    {
+        // "Old" events that were created before the export provider was implemented need to be adjusted
+        if (eventData.Provider == Abraxas.Voting.Basis.Shared.V1.ExportProvider.Unspecified)
+        {
+            eventData.Provider = Abraxas.Voting.Basis.Shared.V1.ExportProvider.Standard;
+        }
     }
 }

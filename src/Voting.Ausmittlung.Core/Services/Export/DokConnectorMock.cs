@@ -16,6 +16,7 @@ namespace Voting.Ausmittlung.Core.Services.Export;
 public class DokConnectorMock : IDokConnector
 {
     private const string PdfFileExtension = ".pdf";
+    private const string ZipFileExtension = ".zip";
     private readonly ILogger<DokConnectorMock> _logger;
 
     public DokConnectorMock(ILogger<DokConnectorMock> logger)
@@ -45,10 +46,21 @@ public class DokConnectorMock : IDokConnector
 
     private UploadResponse WriteToLog(string messageType, string fileName, byte[] content)
     {
-        // If it is a PDF, the content is an object containing data for templating, not the PDF itself
-        var contentLogArg = fileName.EndsWith(PdfFileExtension, StringComparison.OrdinalIgnoreCase)
-            ? (object)content
-            : Encoding.UTF8.GetString(content);
+        object contentLogArg;
+        if (fileName.EndsWith(PdfFileExtension, StringComparison.OrdinalIgnoreCase))
+        {
+            // If it is a PDF, the content is an object containing data for templating, not the PDF itself
+            contentLogArg = content;
+        }
+        else if (fileName.EndsWith(ZipFileExtension, StringComparison.OrdinalIgnoreCase))
+        {
+            contentLogArg = Convert.ToBase64String(content);
+        }
+        else
+        {
+            contentLogArg = Encoding.UTF8.GetString(content);
+        }
+
         _logger.LogInformation(
             "file saved: {MessageType} {FileName}\n{Content}",
             messageType,

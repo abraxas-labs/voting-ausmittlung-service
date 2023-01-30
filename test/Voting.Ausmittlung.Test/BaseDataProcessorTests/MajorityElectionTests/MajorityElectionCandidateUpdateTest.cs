@@ -54,6 +54,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     Sex = SharedProto.SexType.Male,
                     Title = "new title",
                     ZipCode = "new zip code",
+                    Origin = "origin",
                 },
             });
 
@@ -91,6 +92,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                 Sex = SharedProto.SexType.Male,
                 Title = "new title",
                 ZipCode = "new zip code",
+                Origin = "origin",
             });
 
         var candidate = await RunOnDb(

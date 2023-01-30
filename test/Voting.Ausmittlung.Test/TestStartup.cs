@@ -3,6 +3,7 @@
 
 using MassTransit.ExtensionsDependencyInjectionIntegration;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Messaging;
@@ -20,8 +21,8 @@ namespace Voting.Ausmittlung.Test;
 
 public class TestStartup : Startup
 {
-    public TestStartup(IConfiguration configuration)
-        : base(configuration)
+    public TestStartup(IConfiguration configuration, IWebHostEnvironment environment)
+        : base(configuration, environment)
     {
     }
 

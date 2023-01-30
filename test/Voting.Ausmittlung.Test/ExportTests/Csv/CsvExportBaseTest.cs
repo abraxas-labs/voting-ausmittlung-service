@@ -58,7 +58,7 @@ public abstract class CsvExportBaseTest : BaseRestTest
             name = "_" + name;
         }
 
-        csv.MatchRawSnapshot("ExportTests", "Csv", "_snapshots", GetType().Name + name + ".csv");
+        csv.MatchRawTextSnapshot("ExportTests", "Csv", "_snapshots", GetType().Name + name + ".csv");
     }
 
     protected abstract Task SeedData();

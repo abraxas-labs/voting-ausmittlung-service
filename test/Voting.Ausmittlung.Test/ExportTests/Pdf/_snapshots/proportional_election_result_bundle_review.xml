@@ -83,12 +83,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>1a.1a.1</NumberIncludingList>
         </Candidate>
         <Position>1</Position>
         <RemovedFromList>false</RemovedFromList>
+        <OnList>true</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -107,12 +109,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>4</AccumulatedPosition>
           <NumberIncludingList>2a.2a.2</NumberIncludingList>
         </Candidate>
         <Position>2</Position>
         <RemovedFromList>false</RemovedFromList>
+        <OnList>false</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -131,12 +135,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>1a.1a.1</NumberIncludingList>
         </Candidate>
         <Position>2</Position>
         <RemovedFromList>true</RemovedFromList>
+        <OnList>true</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -155,12 +161,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>4</AccumulatedPosition>
           <NumberIncludingList>2a.2a.2</NumberIncludingList>
         </Candidate>
         <Position>3</Position>
         <RemovedFromList>false</RemovedFromList>
+        <OnList>false</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -179,12 +187,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>3</Position>
+          <Origin>origin</Origin>
           <Accumulated>false</Accumulated>
           <AccumulatedPosition>0</AccumulatedPosition>
           <NumberIncludingList>1a.1a.2</NumberIncludingList>
         </Candidate>
         <Position>3</Position>
         <RemovedFromList>true</RemovedFromList>
+        <OnList>true</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -203,12 +213,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>4</Position>
+          <Origin>origin</Origin>
           <Accumulated>false</Accumulated>
           <AccumulatedPosition>0</AccumulatedPosition>
           <NumberIncludingList>1a.1a.3</NumberIncludingList>
         </Candidate>
         <Position>4</Position>
         <RemovedFromList>false</RemovedFromList>
+        <OnList>true</OnList>
       </ProportionalElectionCandidate>
       <ProportionalElectionCandidate>
         <Candidate>
@@ -227,12 +239,14 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>2a.2a.1</NumberIncludingList>
         </Candidate>
         <Position>5</Position>
         <RemovedFromList>false</RemovedFromList>
+        <OnList>false</OnList>
       </ProportionalElectionCandidate>
     </ProportionalElectionResultBallot>
   </ProportionalElectionResultBundle>

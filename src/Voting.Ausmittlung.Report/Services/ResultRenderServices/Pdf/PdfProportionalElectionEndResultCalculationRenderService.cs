@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -25,14 +26,17 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
 
     private readonly IDbRepository<DataContext, ProportionalElectionEndResult> _repo;
     private readonly TemplateService _templateService;
+    private readonly IClock _clock;
 
     public PdfProportionalElectionEndResultCalculationRenderService(
         IDbRepository<DataContext, ProportionalElectionEndResult> repo,
         IMapper mapper,
-        TemplateService templateService)
+        TemplateService templateService,
+        IClock clock)
     {
         _repo = repo;
         _templateService = templateService;
+        _clock = clock;
         Mapper = mapper;
     }
 
@@ -84,7 +88,8 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            data.ProportionalElection.ShortDescription);
+            data.ProportionalElection.ShortDescription,
+            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 
     protected virtual void MapAdditionalElectionData(ProportionalElectionEndResult endResult, PdfProportionalElection pdfElection)

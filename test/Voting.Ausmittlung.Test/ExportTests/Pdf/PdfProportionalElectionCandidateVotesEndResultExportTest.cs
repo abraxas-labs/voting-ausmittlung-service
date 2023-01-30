@@ -24,7 +24,7 @@ public class PdfProportionalElectionCandidateVotesEndResultExportTest : PdfExpor
         tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Kandidatenstimmen - Kantonratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_FormularB_KandStimmen_Kantonratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

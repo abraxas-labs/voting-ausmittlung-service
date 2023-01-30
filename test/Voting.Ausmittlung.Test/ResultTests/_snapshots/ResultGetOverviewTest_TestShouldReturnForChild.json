@@ -46,6 +46,9 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "NumberOfMandates": 5,
@@ -74,6 +77,9 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "NumberOfMandates": 5,
@@ -102,6 +108,9 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "NumberOfMandates": null,

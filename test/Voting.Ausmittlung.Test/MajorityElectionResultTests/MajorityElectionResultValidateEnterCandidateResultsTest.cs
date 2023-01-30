@@ -13,6 +13,7 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -43,16 +44,19 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         await RunEvents<MajorityElectionResultEntryDefined>();
         await ModifyDbEntities<MajorityElection>(
             me => me.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
-            me =>
-            {
-                me.InvalidVotes = true;
-                me.NumberOfMandates = 2;
-            });
+            me => me.NumberOfMandates = 2);
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.Id == Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
     }
 
     [Fact]
     public async Task ShouldReturnIsValid()
     {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdBundesurnengang), Guid.Parse(DomainOfInfluenceMockedData.IdStGallen));
+        await ModifyDbEntities(
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest());
         result.MatchSnapshot();
         result.IsValid.Should().BeTrue();
@@ -104,6 +108,10 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
     [Fact]
     public async Task ShouldReturnIsNotValidWhenInvalidVoteCountNotNull()
     {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdBundesurnengang), Guid.Parse(DomainOfInfluenceMockedData.IdStGallen));
+        await ModifyDbEntities(
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x => x.Request.InvalidVoteCount = null));
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionInvalidVoteCountNotNull)
             .IsValid.Should().BeFalse();

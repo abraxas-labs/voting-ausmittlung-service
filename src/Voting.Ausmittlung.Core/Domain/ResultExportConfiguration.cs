@@ -16,5 +16,7 @@ public class ResultExportConfiguration
 
     public List<Guid> PoliticalBusinessIds { get; set; } = new();
 
+    public Dictionary<Guid, ResultExportConfigurationPoliticalBusinessMetadata> PoliticalBusinessMetadata { get; set; } = new();
+
     public int? IntervalMinutes { get; set; }
 }

@@ -7,7 +7,6 @@
       "PoliticalBusinessNumber": "321",
       "OfficialDescription": "Proporzwahl Gossau de",
       "ShortDescription": "Pw Gossau de",
-      "InternalDescription": "Proporzwahl Gossau auf Urnengang St.Gallen",
       "NumberOfMandates": 3,
       "MandateAlgorithm": 2,
       "CandidateCheckDigit": true,
@@ -38,6 +37,9 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "Contest": {

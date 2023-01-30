@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Google.Protobuf;
+using Voting.Lib.Common;
 using AusmittlungEvents = Abraxas.Voting.Ausmittlung.Events.V1;
 using BasisEvents = Abraxas.Voting.Basis.Events.V1;
 
@@ -40,7 +41,7 @@ public class ContestEventSignatureAggregate
         var createData = new EventSignaturePublicKeyAggregateCreateData(
             evData.KeyId,
             evData.SignatureVersion,
-            Guid.Parse(evData.ContestId),
+            GuidParser.Parse(evData.ContestId),
             evData.HostId,
             evData.AuthenticationTag.ToByteArray(),
             evData.PublicKey.ToByteArray(),
@@ -56,7 +57,7 @@ public class ContestEventSignatureAggregate
         var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
             evData.KeyId,
             evData.SignatureVersion,
-            Guid.Parse(evData.ContestId),
+            GuidParser.Parse(evData.ContestId),
             evData.HostId,
             evData.AuthenticationTag.ToByteArray(),
             evData.SignedEventCount,
@@ -74,7 +75,7 @@ public class ContestEventSignatureAggregate
         var createData = new EventSignaturePublicKeyAggregateCreateData(
             evData.KeyId,
             evData.SignatureVersion,
-            Guid.Parse(evData.ContestId),
+            GuidParser.Parse(evData.ContestId),
             evData.HostId,
             evData.AuthenticationTag.ToByteArray(),
             evData.PublicKey.ToByteArray(),
@@ -90,7 +91,7 @@ public class ContestEventSignatureAggregate
         var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
             evData.KeyId,
             evData.SignatureVersion,
-            Guid.Parse(evData.ContestId),
+            GuidParser.Parse(evData.ContestId),
             evData.HostId,
             evData.AuthenticationTag.ToByteArray(),
             evData.SignedEventCount,

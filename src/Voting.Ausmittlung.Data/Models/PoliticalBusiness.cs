@@ -13,8 +13,6 @@ public abstract class PoliticalBusiness : BaseEntity
 {
     public string PoliticalBusinessNumber { get; set; } = string.Empty;
 
-    public string InternalDescription { get; set; } = string.Empty;
-
     public bool Active { get; set; }
 
     public virtual SwissAbroadVotingRight SwissAbroadVotingRight =>

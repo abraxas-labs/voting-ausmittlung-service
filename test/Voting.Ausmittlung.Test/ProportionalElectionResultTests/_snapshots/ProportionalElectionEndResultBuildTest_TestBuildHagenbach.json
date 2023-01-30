@@ -24,7 +24,6 @@
       "PoliticalBusinessNumber": "201",
       "OfficialDescription": "Proporzwahl de",
       "ShortDescription": "Proporzwahl de",
-      "InternalDescription": "Proporzwahl",
       "NumberOfMandates": 5,
       "MandateAlgorithm": 1,
       "CandidateCheckDigit": false,
@@ -55,6 +54,9 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "Contest": {
@@ -107,15 +109,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -125,9 +121,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {
@@ -846,7 +848,8 @@
         "TotalVoteCount": 0
       }
     ],
-    "Finalized": false
+    "Finalized": false,
+    "ManualEndResultRequired": false
   },
   "afterOneAuditedEndResult": {
     "Contest": {
@@ -873,7 +876,6 @@
       "PoliticalBusinessNumber": "201",
       "OfficialDescription": "Proporzwahl de",
       "ShortDescription": "Proporzwahl de",
-      "InternalDescription": "Proporzwahl",
       "NumberOfMandates": 5,
       "MandateAlgorithm": 1,
       "CandidateCheckDigit": false,
@@ -904,6 +906,9 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "Contest": {
@@ -956,15 +961,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -974,9 +973,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {
@@ -1695,7 +1700,8 @@
         "TotalVoteCount": 5000
       }
     ],
-    "Finalized": false
+    "Finalized": false,
+    "ManualEndResultRequired": false
   },
   "afterAllAuditedEndResults": {
     "Contest": {
@@ -1722,7 +1728,6 @@
       "PoliticalBusinessNumber": "201",
       "OfficialDescription": "Proporzwahl de",
       "ShortDescription": "Proporzwahl de",
-      "InternalDescription": "Proporzwahl",
       "NumberOfMandates": 5,
       "MandateAlgorithm": 1,
       "CandidateCheckDigit": false,
@@ -1753,6 +1758,9 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
+        },
+        "CantonDefaults": {
+          "MajorityElectionInvalidVotes": false
         }
       },
       "Contest": {
@@ -1805,15 +1813,9 @@
       },
       "VotingCards": [
         {
-          "CountOfReceivedVotingCards": 4000,
+          "CountOfReceivedVotingCards": 4400,
           "Valid": true,
-          "Channel": 2,
-          "DomainOfInfluenceType": 2
-        },
-        {
-          "CountOfReceivedVotingCards": 3400,
-          "Valid": false,
-          "Channel": 2,
+          "Channel": 1,
           "DomainOfInfluenceType": 2
         },
         {
@@ -1823,9 +1825,15 @@
           "DomainOfInfluenceType": 2
         },
         {
-          "CountOfReceivedVotingCards": 4400,
+          "CountOfReceivedVotingCards": 4000,
           "Valid": true,
-          "Channel": 1,
+          "Channel": 2,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "CountOfReceivedVotingCards": 3400,
+          "Valid": false,
+          "Channel": 2,
           "DomainOfInfluenceType": 2
         },
         {
@@ -2544,6 +2552,7 @@
         "TotalVoteCount": 30000
       }
     ],
-    "Finalized": false
+    "Finalized": false,
+    "ManualEndResultRequired": false
   }
 }

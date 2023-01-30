@@ -1,0 +1,39 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300300300300300300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
+  "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+  "BallotNumber": 1,
+  "EmptyVoteCount": 0,
+  "Candidates": [
+    {
+      "CandidateId": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9",
+      "Position": 1,
+      "OnList": true
+    },
+    {
+      "CandidateId": "9efe090f-883b-4e86-89c2-cd132ea84cbd",
+      "Position": 2,
+      "OnList": false
+    },
+    {
+      "CandidateId": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9",
+      "Position": 3,
+      "OnList": false
+    }
+  ]
+}

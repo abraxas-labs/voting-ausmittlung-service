@@ -36,7 +36,7 @@ public abstract class ElectionCandidateEndResultBuilder
             // this method is invoked when a result is added or removed, so there must not be a lot decision yet
             candidateEndResult.LotDecision = false;
 
-            // lot decision required is calculated when the candidate end result states are set
+            // lot decision required is calculated on adjust end result or update lot decisions
             candidateEndResult.LotDecisionRequired = false;
 
             if (!voteCountsWithMultipleCandidateEndResults.Contains(candidateEndResult.VoteCount))

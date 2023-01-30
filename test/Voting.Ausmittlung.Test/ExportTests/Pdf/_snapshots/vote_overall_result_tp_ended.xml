@@ -26,7 +26,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Abstimmung St. Gallen de</OfficialDescription>
     <ShortDescription>Abst SG de</ShortDescription>
-    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
       <NameForProtocol>Kanton St. Gallen</NameForProtocol>
@@ -71,6 +70,7 @@
           <PercentageNo>1</PercentageNo>
           <Accepted>false</Accepted>
         </BallotQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount1NotAccepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -130,6 +130,7 @@
           <PercentageQ2>1</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount2NoneAccepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
       <VoteBallotEndResult>
         <Ballot>
@@ -235,8 +236,10 @@
           <PercentageQ2>1</PercentageQ2>
           <Q1Accepted>false</Q1Accepted>
         </BallotTieBreakQuestionEndResult>
+        <QuestionEndResultLabel>QuestionCount3NoneAccepted</QuestionEndResultLabel>
       </VoteBallotEndResult>
     </VoteEndResult>
+    <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
   </Vote>
   <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
 </Voting>

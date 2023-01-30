@@ -220,26 +220,11 @@ public class ProportionalElectionResultBundleWriter
             .Where(x => x.ProportionalElectionListId == listId)
             .Select(x => new { x.Id, x.Accumulated })
             .ToListAsync();
-        var listCandidateIds = listCandidates
-            .Select(x => x.Id)
-            .Concat(listCandidates.Where(x => x.Accumulated).Select(x => x.Id))
-            .ToList();
         var uniqueListCandidateIds = listCandidates.Select(x => x.Id).ToHashSet();
         var hasUnknownOnListCandidates = uniqueCandidateOnListIds.Except(uniqueListCandidateIds).Any();
         if (hasUnknownOnListCandidates)
         {
             throw new ValidationException("unknown list candidates provided");
-        }
-
-        // validate the ballot has at least one change
-        ValidateBallotChanged(candidateIds, listCandidateIds);
-    }
-
-    private void ValidateBallotChanged(IEnumerable<Guid> candidateIds, IEnumerable<Guid> listCandidateIds)
-    {
-        if (listCandidateIds.OrderBy(x => x).SequenceEqual(candidateIds.OrderBy(x => x)))
-        {
-            throw new ValidationException("The ballot needs to result in at least one different vote than the source list");
         }
     }
 

@@ -79,7 +79,7 @@ public class WabstiCWPWahlRenderService : IRendererService
         [Ignore]
         public int CountOfDoneCountingCircles { get; set; }
 
-        [Name("AnzGdePendent")]
+        [Name("AnzPendentGde")]
         public int CountOfPendingCountingCircles => TotalCountOfCountingCircles - CountOfDoneCountingCircles;
 
         [Ignore]

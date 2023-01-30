@@ -149,13 +149,19 @@ public class WabstiCWMKandidatenRenderService : IRendererService
     /// <param name="secondaryResults">The secondary results.</param>
     /// <returns>The merged results.</returns>
     private IEnumerable<Data> Merge(
-        IEnumerable<Data> primaryResults,
+        IReadOnlyCollection<Data> primaryResults,
         IReadOnlyCollection<Guid> secondaryElectionIds,
-        IEnumerable<Data> secondaryResults)
+        IReadOnlyCollection<Data> secondaryResults)
     {
-        if (secondaryElectionIds.Count == 0)
+        // Without any primary results, we cannot create any meaningful data, even for the individual candidate.
+        if (primaryResults.Count == 0)
         {
             return primaryResults;
+        }
+
+        if (secondaryElectionIds.Count == 0)
+        {
+            return primaryResults.Append(CreateIndividualCandidateData(primaryResults, secondaryResults, Guid.Empty, Guid.Empty));
         }
 
         var secondaryElectionId1 = secondaryElectionIds.ElementAtOrDefault(0);
@@ -167,9 +173,11 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                 x => x.Key,
                 x => x.ToDictionary(y => y.ElectionId));
 
-        // merge secondary into primaries and
-        // add candidates which are not in a primary election separately
+        // merge secondary into primaries
+        // then, add the individual candidate
+        // then, add candidates which are not in a primary election separately
         return MergeIntoPrimary(primaryResults, groupedSecondaryResults, secondaryElectionId1, secondaryElectionId2)
+            .Append(CreateIndividualCandidateData(primaryResults, secondaryResults, secondaryElectionId1, secondaryElectionId2))
             .Concat(MergeSecondary(groupedSecondaryResults.Values, secondaryElectionId1, secondaryElectionId2));
     }
 
@@ -275,6 +283,55 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         entry.IncumbentSecondary2 = result.Incumbent;
         entry.VoteCountSecondary2 = result.VoteCount;
         entry.IndividualVoteCountSecondary2 = result.IndividualVoteCount;
+    }
+
+    private Data CreateIndividualCandidateData(
+        IReadOnlyCollection<Data> primaryResults,
+        IReadOnlyCollection<Data> secondaryResults,
+        Guid secondaryElectionId1,
+        Guid secondaryElectionId2)
+    {
+        var primaryResult = primaryResults.First();
+        var secondaryResult1 = secondaryResults.FirstOrDefault(x => x.ElectionId == secondaryElectionId1);
+        var secondaryResult2 = secondaryResults.FirstOrDefault(x => x.ElectionId == secondaryElectionId2);
+
+        var data = new Data
+        {
+            DomainOfInfluenceType = primaryResult.DomainOfInfluenceType,
+            CandidateNumber = WabstiCConstants.IndividualMajorityCandidateNumber,
+            LastName = WabstiCConstants.IndividualMajorityCandidateLastName,
+            ElectionId = primaryResult.ElectionId,
+            VoteCount = primaryResult.IndividualVoteCount,
+            ElectionUnionIds = primaryResult.ElectionUnionIds,
+            PoliticalBusinessNumber = primaryResult.PoliticalBusinessNumber,
+            Incumbent = false,
+            ParticipationState = CandidateParticipationState.PrimaryElection,
+            Elected = primaryResult.Elected == null ? null : false,
+            AbsoluteMajority = primaryResult.AbsoluteMajority,
+            IndividualVoteCount = primaryResult.IndividualVoteCount,
+            PrimaryElectionId = primaryResult.PrimaryElectionId,
+            YearOfBirth = WabstiCConstants.IndividualMajorityCandidateYearOfBirth,
+        };
+
+        if (secondaryResult1 != null)
+        {
+            data.ParticipationState |= CandidateParticipationState.SecondaryElection;
+            data.ElectedSecondary = secondaryResult1.Elected == null ? null : false;
+            data.IncumbentSecondary = false;
+            data.VoteCountSecondary = secondaryResult1.IndividualVoteCount;
+            data.IndividualVoteCountSecondary = secondaryResult1.IndividualVoteCount;
+        }
+
+        if (secondaryResult2 != null)
+        {
+            data.ParticipationState |= CandidateParticipationState.SecondaryElection2;
+            data.ElectedSecondary2 = secondaryResult2.Elected == null ? null : false;
+            data.IncumbentSecondary2 = false;
+            data.VoteCountSecondary2 = secondaryResult2.IndividualVoteCount;
+            data.IndividualVoteCountSecondary2 = secondaryResult2.IndividualVoteCount;
+        }
+
+        return data;
     }
 
     private class Data

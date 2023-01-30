@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -20,8 +21,9 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultRenderService
     public PdfProportionalElectionCandidateVoteSourcesEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionEndResult> repo,
-        IMapper mapper)
-        : base(templateService, repo, mapper)
+        IMapper mapper,
+        IClock clock)
+        : base(templateService, repo, mapper, clock)
     {
     }
 

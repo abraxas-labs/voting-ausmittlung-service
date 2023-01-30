@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository;
+using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using DomainOfInfluenceType = Voting.Lib.VotingExports.Models.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
@@ -102,6 +103,21 @@ public class ResultExportTemplateReader
             entityType,
             _mapper.Map<DomainOfInfluenceType>(politicalBusiness.DomainOfInfluence.Type));
         var enabledTemplates = FilterDisabledTemplates(templates);
+
+        var isFinalized = await _pbQueries
+            .PoliticalBusinessEndResultQuery(politicalBusinessType, politicalBusinessId)
+            .AnyAsync(x => x.Finalized);
+
+        if (!isFinalized)
+        {
+            enabledTemplates = FilterFinalizedTemplates(enabledTemplates);
+        }
+
+        var hasInvalidVotes = politicalBusiness.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
+        if (!hasInvalidVotes)
+        {
+            enabledTemplates = FilterInvalidVotesTemplates(enabledTemplates);
+        }
 
         var politicalBusinesses = new List<PoliticalBusiness> { politicalBusiness };
 
@@ -245,4 +261,10 @@ public class ResultExportTemplateReader
 
     private IEnumerable<TemplateModel> FilterDisabledTemplates(IEnumerable<TemplateModel> templates)
         => templates.Where(t => !_config.DisabledExportTemplateKeys.Contains(t.Key));
+
+    private IEnumerable<TemplateModel> FilterFinalizedTemplates(IEnumerable<TemplateModel> templates)
+        => templates.Where(t => t.Format != ExportFileFormat.Pdf);
+
+    private IEnumerable<TemplateModel> FilterInvalidVotesTemplates(IEnumerable<TemplateModel> templates)
+        => templates.Where(t => t.Key != AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key);
 }

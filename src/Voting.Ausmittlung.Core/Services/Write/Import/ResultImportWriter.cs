@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using eCH_0222_1_0.Standard;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain;
@@ -132,8 +131,7 @@ public class ResultImportWriter
     {
         _permissionService.EnsureMonitoringElectionAdmin();
 
-        var ech0222 = EchDeserializer.FromXml<Delivery>(importMeta.FileContent);
-        var importData = Ech0222Deserializer.FromDelivery(ech0222);
+        var importData = Ech0222Deserializer.DeserializeXml(importMeta.FileContent);
         if (importMeta.ContestId != importData.ContestId)
         {
             throw new ValidationException("contestIds do not match");

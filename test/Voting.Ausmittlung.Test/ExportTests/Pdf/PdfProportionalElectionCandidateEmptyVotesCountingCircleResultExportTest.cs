@@ -20,7 +20,7 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultExpor
 
     public override HttpClient TestClient => ErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Kandidaten- Zusatz- und Parteistimmen - Kantonratswahl de.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular2_KandParteiStimmen_Kantonratswahl de_20200110.pdf";
 
     protected override string ContestId => ContestMockedData.IdBundesurnengang;
 

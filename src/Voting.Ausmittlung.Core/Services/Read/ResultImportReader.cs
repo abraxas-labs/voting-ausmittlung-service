@@ -60,6 +60,7 @@ public class ResultImportReader
             .Include(x => x.Translations)
             .Include(x => x.SecondaryMajorityElections.Where(y => y.Active).OrderBy(y => y.PoliticalBusinessNumber))
             .ThenInclude(x => x.Translations)
+            .Include(x => x.DomainOfInfluence.CantonDefaults)
             .Where(x => x.ContestId == contestId &&
                         x.Active &&
                         x.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId))
@@ -98,7 +99,7 @@ public class ResultImportReader
             .GroupBy(x => x.Result.SecondaryMajorityElectionId)
             .ToDictionary(x => x.Key, x => x.ToList());
 
-        var politicalBusinesses = elections.SelectMany(e => e.SecondaryMajorityElections.Cast<MajorityElectionBase>().Prepend(e));
+        var politicalBusinesses = elections.SelectMany(e => e.SecondaryMajorityElections.Cast<Election>().Prepend(e));
         var mappingGroups = new List<MajorityElectionGroupedWriteInMappings>();
         foreach (var politicalBusiness in politicalBusinesses)
         {

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2012 sp1 (http://www.altova.com) von Martin Stingelin (Stingelin Informatik GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2012 rel. 2 sp1 (http://www.altova.com) by Martin Stingelin (Stingelin Informatik GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:eCH-0110="http://www.ech.ch/xmlns/eCH-0110/4" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" xmlns:eCH-0044="http://www.ech.ch/xmlns/eCH-0044/4" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1" targetNamespace="http://www.ech.ch/xmlns/eCH-0110/4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.0">
+	<xs:annotation>
+		<xs:documentation>Ausgabedatum: 16.07.2018</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0058/5" schemaLocation="http://www.ech.ch/xmlns/eCH-0058/5/eCH-0058-5-0.xsd"/>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0155/4" schemaLocation="http://www.ech.ch/xmlns/eCH-0155/4/eCH-0155-4-0.xsd"/>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0044/4" schemaLocation="http://www.ech.ch/xmlns/eCH-0044/4/eCH-0044-4-1.xsd"/>
+	<xs:import namespace="http://www.ech.ch/xmlns/eCH-0222/1" schemaLocation="http://www.ech.ch/xmlns/eCH-0222/1/eCH-0222-1-0.xsd"/>
+	<xs:attribute name="minorVersion" type="xs:integer">
+		<xs:annotation>
+			<xs:documentation>This attribute is used for indicating the minor version of an XML Schema instance in a standardized way. It SHOULD only appear on the document element of XML Schema instances.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:simpleType name="countOfType">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	<xs:complexType name="resultDetailType">
+		<xs:sequence>
+			<xs:element name="total" type="eCH-0110:countOfType"/>
+			<xs:element name="subTotalInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subTotal" type="eCH-0110:countOfType"/>
+						<xs:element name="channel" type="eCH-0155:votingChannelType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="votingCardsResultDetailType">
+		<xs:sequence>
+			<xs:element name="countOfReceivedVotingCards" type="eCH-0110:countOfType"/>
+			<xs:element name="voterType" type="eCH-0155:voterTypeType" minOccurs="0"/>
+			<xs:element name="allowsEvoting" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="valid" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="channel" type="eCH-0155:votingChannelType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="countOfVotersInformationType">
+		<xs:sequence>
+			<xs:element name="countOfVotersTotal" type="eCH-0110:countOfType"/>
+			<xs:element name="subtotalInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="countOfVoters" type="eCH-0110:countOfType"/>
+						<xs:element name="voterType" type="eCH-0155:voterTypeType" minOccurs="0"/>
+						<xs:element name="sex" type="eCH-0044:sexType" minOccurs="0"/>
+						<xs:element name="allowsEvoting" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="votingCardsInformationType">
+		<xs:sequence>
+			<xs:element name="receivedValidVotingCards" type="eCH-0155:votingCardType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="receivedInvalidVotingCards" type="eCH-0155:votingCardType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="countOfReceivedValidVotingCardsTotal" type="eCH-0110:countOfType"/>
+			<xs:element name="countOfReceivedInvalidVotingCardsTotal" type="eCH-0110:countOfType"/>
+			<xs:element name="subTotalInfo" type="eCH-0110:votingCardsResultDetailType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="reportingBodyType">
+		<xs:sequence>
+			<xs:element name="reportingBodyIdentification" type="eCH-0155:identifierType"/>
+			<xs:element name="domainOfInfluence" type="eCH-0155:domainOfInfluenceType" minOccurs="0"/>
+			<xs:element name="creationDateTime" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="standardBallotResultType">
+		<xs:sequence>
+			<xs:element name="questionIdentification" type="eCH-0155:questionIdType"/>
+			<xs:element name="answerType" type="eCH-0155:answerInformationType" minOccurs="0"/>
+			<xs:element name="question" type="eCH-0155:ballotQuestionType" minOccurs="0"/>
+			<xs:element name="countOfAnswerYes" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAnswerNo" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAnswerInvalid" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAnswerEmpty" type="eCH-0110:resultDetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="variantBallotResultType">
+		<xs:sequence>
+			<xs:element name="questionInformation" type="eCH-0110:standardBallotResultType" minOccurs="2" maxOccurs="unbounded"/>
+			<xs:element name="tieBreak" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="questionIdentification" type="eCH-0155:questionIdType"/>
+						<xs:element name="answerType" type="eCH-0155:answerInformationType" minOccurs="0"/>
+						<xs:element name="tieBreakQuestion" type="eCH-0155:tieBreakQuestionType" minOccurs="0"/>
+						<xs:element name="countOfAnswerInvalid" type="eCH-0110:resultDetailType"/>
+						<xs:element name="countOfAnswerEmpty" type="eCH-0110:resultDetailType"/>
+						<xs:element name="countInFavourOf" minOccurs="2" maxOccurs="2">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="questionIdentification" type="eCH-0155:questionIdType"/>
+									<xs:element name="countOfValidAnswers" type="eCH-0110:resultDetailType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ballotResultType">
+		<xs:sequence>
+			<xs:element name="ballotIdentification" type="eCH-0155:ballotIdentificationType"/>
+			<xs:element name="ballotGroup" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ballotPosition" type="eCH-0155:ballotPositionType"/>
+			<xs:element name="ballotDescription" type="eCH-0155:ballotDescriptionInformationType" minOccurs="0"/>
+			<xs:element name="countOfReceivedBallotsTotal" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAccountedBallotsTotal" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedBallotsTotal" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedBlankBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedInvalidBallots" type="eCH-0110:resultDetailType"/>
+			<xs:choice>
+				<xs:element name="standardBallot" type="eCH-0110:standardBallotResultType"/>
+				<xs:element name="variantBallot" type="eCH-0110:variantBallotResultType"/>
+			</xs:choice>
+			<xs:element name="extension" type="eCH-0155:extensionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="voteResultType">
+		<xs:sequence>
+			<xs:element name="vote" type="eCH-0155:voteType"/>
+			<xs:element name="countOfVotersInformation" type="eCH-0110:countOfVotersInformationType">
+				<xs:annotation>
+					<xs:documentation>Informationen zu Stimmberechtigten</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ballotResult" type="eCH-0110:ballotResultType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="candidateInformationType">
+		<xs:sequence>
+			<xs:element name="candidateIdentification" type="eCH-0155:identifierType"/>
+			<xs:element name="candidateReference" type="eCH-0155:candidateReferenceType"/>
+			<xs:element name="familyName" type="eCH-0044:baseNameType"/>
+			<xs:element name="firstName" type="eCH-0044:baseNameType" minOccurs="0"/>
+			<xs:element name="callName" type="eCH-0044:baseNameType"/>
+			<xs:element name="candidateText" type="eCH-0155:candidateTextInformationType" minOccurs="0"/>
+			<xs:element name="officialCandidateYesNo" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="candidateListResultType">
+		<xs:sequence>
+			<xs:element name="listIdentification" type="eCH-0155:listIdentificationType"/>
+			<xs:element name="countOfvotesFromUnchangedBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfvotesFromChangedBallots" type="eCH-0110:resultDetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="candidateResultType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="candidateInformation" type="eCH-0110:candidateInformationType"/>
+				<xs:element name="writeIn" type="eCH-0155:writeInType"/>
+			</xs:choice>
+			<xs:element name="listResults" type="eCH-0110:candidateListResultType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="countOfVotesTotal" type="eCH-0110:countOfType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="listInformationType">
+		<xs:sequence>
+			<xs:element name="listIdentification" type="eCH-0155:listIdentificationType"/>
+			<xs:element name="listIndentureNumber" type="eCH-0155:listIndentureNumberType"/>
+			<xs:element name="listDescription" type="eCH-0155:listDescriptionInformationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="listResultsType">
+		<xs:sequence>
+			<xs:element name="listInformation" type="eCH-0110:listInformationType"/>
+			<xs:element name="countOfChangedBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnchangedBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfCandidateVotes" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAdditionalVotes" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfPartyVotes" type="eCH-0110:resultDetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="electionGroupResultsType">
+		<xs:sequence>
+			<xs:element name="electionGroupIdentification" type="eCH-0155:electionIdentificationType" minOccurs="0"/>
+			<xs:element name="domainOfInfluenceIdentification" type="eCH-0155:domainOfInfluenceIdentificationType"/>
+			<xs:element name="electionGroupDescription" type="eCH-0155:electionGroupDescriptionType" minOccurs="0"/>
+			<xs:element name="electionGroupPosition" type="eCH-0155:electionGroupPositionType" minOccurs="0"/>
+			<xs:element name="countOfVotersInformation" type="eCH-0110:countOfVotersInformationType"/>
+			<xs:element name="countOfReceivedBallotsTotal" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfAccountedBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedBlankBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="countOfUnaccountedInvalidBallots" type="eCH-0110:resultDetailType"/>
+			<xs:element name="electionResults" type="eCH-0110:electionResultType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="electionResultType">
+		<xs:sequence>
+			<xs:element name="election" type="eCH-0155:electionType"/>
+			<xs:choice>
+				<xs:element name="majoralElection">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="candidate" type="eCH-0110:candidateResultType" maxOccurs="unbounded"/>
+							<xs:element name="countOfInvalidVotesTotal" type="eCH-0110:resultDetailType" minOccurs="0"/>
+							<xs:element name="countOfBlankVotesTotal" type="eCH-0110:resultDetailType" minOccurs="0"/>
+							<xs:element name="countOfIndividualVotesTotal" type="eCH-0110:resultDetailType" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="proportionalElection">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="countOfChangedBallotsWithPartyAffiliation" type="eCH-0110:resultDetailType"/>
+							<xs:element name="countOfChangedBallotsWithoutPartyAffiliation" type="eCH-0110:resultDetailType"/>
+							<xs:element name="countOfEmptyVotesOfChangedBallotsWithoutPartyAffiliation" type="eCH-0110:resultDetailType"/>
+							<xs:element name="list" type="eCH-0110:listResultsType" maxOccurs="unbounded"/>
+							<xs:element name="candidate" type="eCH-0110:candidateResultType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="electedCandidate" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="candidate" type="eCH-0155:candidateType"/>
+						<xs:element name="writeIn" type="eCH-0155:writeInType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="extension" type="eCH-0155:extensionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="countingCircleResultsType">
+		<xs:sequence>
+			<xs:element name="countingCircle" type="eCH-0155:countingCircleType"/>
+			<xs:element name="votingCardsInformation" type="eCH-0110:votingCardsInformationType">
+				<xs:annotation>
+					<xs:documentation>Informationen zu Stimmrechtsausweisen</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voteResults" type="eCH-0110:voteResultType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="electionGroupResults" type="eCH-0110:electionGroupResultsType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="extension" type="eCH-0155:extensionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eventResultDelivery">
+		<xs:sequence>
+			<xs:element name="reportingBody" type="eCH-0110:reportingBodyType"/>
+			<xs:element name="contestInformation" type="eCH-0155:contestType"/>
+			<xs:element name="countingCircleResults" type="eCH-0110:countingCircleResultsType" maxOccurs="unbounded"/>
+			<xs:element name="rawData" type="eCH-0222:rawDataType" minOccurs="0"/>
+			<xs:element name="extension" type="eCH-0155:extensionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="delivery">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="deliveryHeader" type="eCH-0058:headerType"/>
+				<xs:element name="resultDelivery" type="eCH-0110:eventResultDelivery"/>
+			</xs:sequence>
+			<xs:attribute ref="eCH-0110:minorVersion"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

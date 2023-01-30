@@ -22,4 +22,6 @@ public abstract class ExportConfigurationBase : BaseEntity
         "CA1819:Properties should not return arrays.",
         Justification = "Simplifies the postgres mapping. Also this value is not really used by Voting.Basis.")]
     public string[] ExportKeys { get; set; } = Array.Empty<string>();
+
+    public ExportProvider Provider { get; set; }
 }

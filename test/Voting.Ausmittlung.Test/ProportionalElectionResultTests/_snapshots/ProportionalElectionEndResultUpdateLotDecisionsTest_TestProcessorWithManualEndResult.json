@@ -1,0 +1,176 @@
+{
+  "response": {
+    "List": {
+      "Id": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+      "ProportionalElectionId": "ee6ee245-4cde-4474-bc2b-c3e6ee164c62",
+      "OrderNumber": "L1",
+      "ShortDescription": "Liste 1 de",
+      "BlankRowCount": 2,
+      "Position": 1,
+      "Description": ""
+    },
+    "NumberOfMandates": 1,
+    "CandidateEndResults": [
+      {
+        "Candidate": {
+          "Id": "72680f65-d150-4ff4-90bd-66bb289c400a",
+          "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+          "ListNumber": "L1",
+          "Number": "numberL1.C1",
+          "PoliticalFirstName": "L1.C1pol firstName",
+          "PoliticalLastName": "L1.C1pol last name",
+          "Description": "L1.numberL1.C1 L1.C1pol last name L1.C1pol firstName",
+          "Position": 1,
+          "Accumulated": false,
+          "AccumulatedPosition": 0,
+          "NumberIncludingList": "L1.numberL1.C1",
+          "ListDescription": "",
+          "ListShortDescription": "Liste 1 de",
+          "ListPosition": 1
+        },
+        "VoteCount": 6001,
+        "Rank": 1,
+        "LotDecision": false,
+        "LotDecisionEnabled": false,
+        "LotDecisionRequired": false,
+        "State": 3,
+        "EVotingSubTotal": {
+          "UnmodifiedListVotesCount": 0,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 0
+        },
+        "ConventionalSubTotal": {
+          "UnmodifiedListVotesCount": 6000,
+          "ModifiedListVotesCount": 1,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 6001
+        }
+      },
+      {
+        "Candidate": {
+          "Id": "7792ecfc-51ee-47e2-bc83-1eef92b6925a",
+          "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+          "ListNumber": "L1",
+          "Number": "numberL1.C2",
+          "PoliticalFirstName": "L1.C2pol firstName",
+          "PoliticalLastName": "L1.C2pol last name",
+          "Description": "L1.numberL1.C2 L1.C2pol last name L1.C2pol firstName",
+          "Position": 2,
+          "Accumulated": false,
+          "AccumulatedPosition": 0,
+          "NumberIncludingList": "L1.numberL1.C2",
+          "ListDescription": "",
+          "ListShortDescription": "Liste 1 de",
+          "ListPosition": 1
+        },
+        "VoteCount": 6000,
+        "Rank": 2,
+        "LotDecision": true,
+        "LotDecisionEnabled": true,
+        "LotDecisionRequired": true,
+        "State": 3,
+        "EVotingSubTotal": {
+          "UnmodifiedListVotesCount": 0,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 0
+        },
+        "ConventionalSubTotal": {
+          "UnmodifiedListVotesCount": 6000,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 6000
+        }
+      },
+      {
+        "Candidate": {
+          "Id": "170c718a-4433-4aa7-9583-2b79a5c3a550",
+          "ListId": "d961fdd7-7910-4722-ac3e-8ae3d906741d",
+          "ListNumber": "L1",
+          "Number": "numberL1.C3",
+          "PoliticalFirstName": "L1.C3pol firstName",
+          "PoliticalLastName": "L1.C3pol last name",
+          "Description": "L1.numberL1.C3 L1.C3pol last name L1.C3pol firstName",
+          "Position": 3,
+          "Accumulated": false,
+          "AccumulatedPosition": 0,
+          "NumberIncludingList": "L1.numberL1.C3",
+          "ListDescription": "",
+          "ListShortDescription": "Liste 1 de",
+          "ListPosition": 1
+        },
+        "VoteCount": 6000,
+        "Rank": 3,
+        "LotDecision": true,
+        "LotDecisionEnabled": true,
+        "LotDecisionRequired": true,
+        "State": 3,
+        "EVotingSubTotal": {
+          "UnmodifiedListVotesCount": 0,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 0
+        },
+        "ConventionalSubTotal": {
+          "UnmodifiedListVotesCount": 6000,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 6000
+        }
+      }
+    ],
+    "ListUnion": null,
+    "SubListUnion": null,
+    "HasOpenRequiredLotDecisions": false,
+    "EVotingSubTotal": {
+      "UnmodifiedListsCount": 0,
+      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListBlankRowsCount": 0,
+      "ModifiedListsCount": 0,
+      "ModifiedListVotesCount": 0,
+      "ModifiedListBlankRowsCount": 0,
+      "ListVotesCountOnOtherLists": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 0,
+      "ModifiedListVotesCountInclBlankRows": 0,
+      "ListVotesCount": 0,
+      "ListCount": 0,
+      "BlankRowsCount": 0,
+      "TotalVoteCount": 0
+    },
+    "ConventionalSubTotal": {
+      "UnmodifiedListsCount": 6000,
+      "UnmodifiedListVotesCount": 18000,
+      "UnmodifiedListBlankRowsCount": 12000,
+      "ModifiedListsCount": 1,
+      "ModifiedListVotesCount": 1,
+      "ModifiedListBlankRowsCount": 2,
+      "ListVotesCountOnOtherLists": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 30000,
+      "ModifiedListVotesCountInclBlankRows": 3,
+      "ListVotesCount": 18001,
+      "ListCount": 6001,
+      "BlankRowsCount": 12002,
+      "TotalVoteCount": 30003
+    },
+    "UnmodifiedListsCount": 6000,
+    "UnmodifiedListVotesCount": 18000,
+    "UnmodifiedListBlankRowsCount": 12000,
+    "ModifiedListsCount": 1,
+    "ModifiedListVotesCount": 1,
+    "ListVotesCountOnOtherLists": 0,
+    "ModifiedListBlankRowsCount": 2,
+    "UnmodifiedListVotesCountInclBlankRows": 30000,
+    "ModifiedListVotesCountInclBlankRows": 3,
+    "ListVotesCount": 18001,
+    "ListCount": 6001,
+    "BlankRowsCount": 12002,
+    "TotalVoteCount": 30003
+  }
+}

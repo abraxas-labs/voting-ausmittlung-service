@@ -7,13 +7,13 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Snapper;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.EventProcessors;
-using Voting.Ausmittlung.Ech.Converters;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Testing.Utils;
 using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Xml;
@@ -68,22 +68,25 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
         contentDisposition.FileNameStar.Should().Be(NewRequestExpectedFileName);
         contentDisposition.DispositionType.Should().Be("attachment");
 
-        var xml = await response.Content.ReadAsStringAsync() ?? string.Empty;
-
-        // Order of XML fields isn't deterministic. Deserialize to get a deterministic snapshot
-        var deserialized = EchDeserializer.FromXml<T>(xml);
-        CleanDataForSnapshot(deserialized);
-        deserialized.ShouldMatchChildSnapshot(GetType().Name);
+        var xml = await response.Content.ReadAsStringAsync();
+        XmlUtil.ValidateSchema(xml, GetSchemaSet());
+        MatchXmlSnapshot(xml, GetType().Name);
     }
 
     protected abstract Task SeedData();
 
     protected abstract GenerateResultExportsRequest NewRequest();
 
-    protected abstract void CleanDataForSnapshot(T data);
+    protected abstract XmlSchemaSet GetSchemaSet();
 
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {
         return httpClient.PostAsJsonAsync(ResultExportEndpoint, NewRequest());
+    }
+
+    private void MatchXmlSnapshot(string xml, string fileName)
+    {
+        xml = XmlUtil.FormatTestXml(xml);
+        xml.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", fileName + ".xml");
     }
 }

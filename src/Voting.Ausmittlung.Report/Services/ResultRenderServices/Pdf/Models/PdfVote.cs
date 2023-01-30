@@ -16,4 +16,6 @@ public class PdfVote : PdfPoliticalBusiness
 
     [XmlElement("VoteBallotDomainOfInfluenceResult")]
     public List<PdfVoteBallotDomainOfInfluenceResult>? DomainOfInfluenceBallotResults { get; set; }
+
+    public string InternalDescription { get; set; } = string.Empty;
 }

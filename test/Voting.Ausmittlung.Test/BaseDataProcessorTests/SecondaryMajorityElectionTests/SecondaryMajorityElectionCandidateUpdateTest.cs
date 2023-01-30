@@ -54,6 +54,7 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                     Title = "new title",
                     ZipCode = "new zip code",
                     Party = { LanguageUtil.MockAllLanguages("NEW") },
+                    Origin = "origin",
                 },
             });
 
@@ -88,6 +89,7 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                 Title = "new title",
                 ZipCode = "new zip code",
                 Party = { LanguageUtil.MockAllLanguages("NEW") },
+                Origin = "origin",
             });
 
         var candidate = await RunOnDb(

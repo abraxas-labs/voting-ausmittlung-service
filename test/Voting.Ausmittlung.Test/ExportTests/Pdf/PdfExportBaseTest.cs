@@ -12,7 +12,7 @@ using FluentAssertions;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Ausmittlung.Test.Utils;
+using Voting.Lib.Testing.Utils;
 using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
@@ -45,7 +45,7 @@ public abstract class PdfExportBaseTest<T> : BaseRestTest
     }
 
     [Fact]
-    public async Task TestPdf()
+    public virtual async Task TestPdf()
     {
         await TestPdfReport(string.Empty);
     }
@@ -98,6 +98,6 @@ public abstract class PdfExportBaseTest<T> : BaseRestTest
         // demo mock just returns the xml
         var xml = await response.Content.ReadAsStringAsync();
         var formattedXml = XmlUtil.FormatTestXml(xml);
-        formattedXml.MatchRawSnapshot("ExportTests", "Pdf", "_snapshots", $"{SnapshotName(request)}{snapshotSuffix}.xml");
+        formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{SnapshotName(request)}{snapshotSuffix}.xml");
     }
 }

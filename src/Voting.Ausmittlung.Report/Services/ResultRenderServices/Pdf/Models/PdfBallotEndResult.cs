@@ -17,4 +17,9 @@ public class PdfBallotEndResult
 
     [XmlElement("BallotTieBreakQuestionEndResult")]
     public List<PdfTieBreakQuestionEndResult> TieBreakQuestionEndResults { get; set; } = new List<PdfTieBreakQuestionEndResult>();
+
+    public PdfBallotEndResultLabel QuestionEndResultLabel { get; set; }
+
+    public bool ShouldSerializeQuestionEndResultLabel()
+        => QuestionEndResultLabel != PdfBallotEndResultLabel.Undefined;
 }

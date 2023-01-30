@@ -174,7 +174,6 @@ public static class ProportionalElectionEndResultSgExampleMockedData
                 "Nationalratswahl",
                 (t, s) => t.ShortDescription = s,
                 "Nationalratswahl"),
-            InternalDescription = "Nationalratswahl",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,

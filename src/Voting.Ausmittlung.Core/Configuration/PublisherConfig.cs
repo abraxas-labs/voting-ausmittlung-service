@@ -57,6 +57,8 @@ public class PublisherConfig
 
     public DokConnectorConfig DokConnector { get; set; } = new();
 
+    public SeantisConfig Seantis { get; set; } = new();
+
     /// <summary>
     /// Gets or sets a value indicating whether the DOK connector is mocked (mainly useful for local development).
     /// </summary>

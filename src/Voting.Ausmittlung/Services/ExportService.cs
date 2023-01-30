@@ -1,6 +1,8 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -109,10 +111,12 @@ public class ExportService : ServiceBase
 
     public override async Task<Empty> TriggerResultExport(TriggerResultExportRequest request, ServerCallContext context)
     {
+        var metadata = _mapper.Map<Dictionary<Guid, Core.Domain.ResultExportConfigurationPoliticalBusinessMetadata>>(request.PoliticalBusinessMetadata);
         await _exportService.TriggerExportsFromConfiguration(
             GuidParser.Parse(request.ExportConfigurationId),
             GuidParser.Parse(request.ContestId),
-            request.PoliticalBusinessIds.Select(GuidParser.Parse).ToList());
+            request.PoliticalBusinessIds.Select(GuidParser.Parse).ToList(),
+            metadata);
         return ProtobufEmpty.Instance;
     }
 }

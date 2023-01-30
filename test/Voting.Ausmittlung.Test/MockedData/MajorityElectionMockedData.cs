@@ -79,7 +79,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Bund",
                 (t, s) => t.ShortDescription = s,
                 "Mw Bund"),
-            InternalDescription = "Majorzwahl Bund auf Urnengang Bund",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -92,7 +91,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -114,6 +112,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -135,7 +134,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl St. Gallen",
                 (t, s) => t.ShortDescription = s,
                 "Mw SG"),
-            InternalDescription = "Majorzwahl St. Gallen auf Urnengang Bund",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = true,
@@ -148,7 +146,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = false,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 1,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -170,6 +167,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -193,6 +191,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Male,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation2",
@@ -207,7 +206,6 @@ public static class MajorityElectionMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionIdStGallenMajorityElectionInContestBund),
-                        InternalDescription = "internal",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official",
@@ -235,6 +233,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Undefined,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 CandidateReferenceId = Guid.Parse(CandidateId1StGallenMajorityElectionInContestBund),
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
@@ -259,6 +258,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Beruf",
@@ -282,6 +282,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Beruf3",
@@ -305,6 +306,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Female,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Beruf",
@@ -318,7 +320,6 @@ public static class MajorityElectionMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionIdStGallenMajorityElectionInContestBund2),
-                        InternalDescription = "internal2",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official2",
@@ -346,6 +347,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Female,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 CandidateReferenceId = Guid.Parse(CandidateId1StGallenMajorityElectionInContestBund),
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
@@ -370,6 +372,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Beruf",
@@ -383,7 +386,6 @@ public static class MajorityElectionMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionIdStGallenMajorityElectionInContestBund3),
-                        InternalDescription = "internal",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official3",
@@ -411,6 +413,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Female,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 CandidateReferenceId = Guid.Parse(CandidateId1StGallenMajorityElectionInContestBund),
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
@@ -435,6 +438,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Beruf",
@@ -518,7 +522,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Bund",
                 (t, s) => t.ShortDescription = s,
                 "Mw Bund"),
-            InternalDescription = "Majorzwahl Bund auf Urnengang St.Gallen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Active = true,
@@ -531,7 +534,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = false,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -553,6 +555,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -576,6 +579,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Undefined,
                         Title = "title2",
                         ZipCode = "zip code2",
+                        Origin = "origin 2",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation 2",
@@ -597,7 +601,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Uzwil",
                 (t, s) => t.ShortDescription = s,
                 "Mw Uzwil"),
-            InternalDescription = "Majorzwahl Uzwil auf Urnengang St.Gallen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Active = true,
@@ -610,7 +613,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -632,6 +634,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -646,7 +649,6 @@ public static class MajorityElectionMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionIdUzwilMajorityElectionInContestStGallen),
-                        InternalDescription = "internal",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official",
@@ -674,6 +676,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 CandidateReferenceId = Guid.Parse(CandidateIdUzwilMajorityElectionInContestStGallen),
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
@@ -748,7 +751,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl St. Gallen",
                 (t, s) => t.ShortDescription = s,
                 "Mw SG"),
-            InternalDescription = "Majorzwahl St.Gallen auf Urnengang St.Gallen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Active = true,
@@ -761,7 +763,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = false,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.RelativeMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -783,6 +784,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -804,7 +806,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Gossau",
                 (t, s) => t.ShortDescription = s,
                 "Mw Gossau"),
-            InternalDescription = "Majorzwahl Gossau auf Urnengang St.Gallen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Active = true,
@@ -816,7 +817,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = false,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 3,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -838,6 +838,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -860,6 +861,7 @@ public static class MajorityElectionMockedData
                         Number = "number2",
                         Sex = SexType.Undefined,
                         Title = "title 2",
+                        Origin = "origin 2",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation 2",
@@ -881,7 +883,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl St. Gallen 2",
                 (t, s) => t.ShortDescription = s,
                 "Mw SG2"),
-            InternalDescription = "Majorzwahl St.Gallen auf Urnengang St.Gallen ohne Listen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             Active = false,
@@ -893,7 +894,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -910,7 +910,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Gossau",
                 (t, s) => t.ShortDescription = s,
                 "Mw Gossau"),
-            InternalDescription = "Majorzwahl Gossau auf Urnengang Gossau mit E-Voting",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
             ContestId = Guid.Parse(ContestMockedData.IdGossau),
             Active = true,
@@ -923,7 +922,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -945,6 +943,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -966,7 +965,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Uzwil",
                 (t, s) => t.ShortDescription = s,
                 "Mw Uzwil"),
-            InternalDescription = "Majorzwahl Uzwil auf Urnengang Uzwil",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
             ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
             Active = true,
@@ -979,7 +977,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -1001,6 +998,7 @@ public static class MajorityElectionMockedData
                         Sex = SexType.Female,
                         Title = "title",
                         ZipCode = "zip code",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -1022,7 +1020,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Uzwil",
                 (t, s) => t.ShortDescription = s,
                 "Mw Uzwil"),
-            InternalDescription = "Majorzwahl Uzwil auf Urnengang Bund",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
             Active = false,
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
@@ -1035,7 +1032,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -1052,7 +1048,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Genf",
                 (t, s) => t.ShortDescription = s,
                 "Mw Genf"),
-            InternalDescription = "Majorzwahl Genf auf Urnengang Bund",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGenf),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             Active = false,
@@ -1065,7 +1060,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = true,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -1082,7 +1076,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Kirche",
                 (t, s) => t.ShortDescription = s,
                 "Mw Kirche"),
-            InternalDescription = "Majorzwahl Kirche auf Urnengang Kirche",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdKirchgemeinde),
             ContestId = Guid.Parse(ContestMockedData.IdKirche),
             Active = false,
@@ -1094,7 +1087,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.Detailed,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
@@ -1115,6 +1107,7 @@ public static class MajorityElectionMockedData
                         Number = "number1",
                         Sex = SexType.Male,
                         Title = "title",
+                        Origin = "origin",
                         Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
                             (t, o) => t.Occupation = o,
                             "occupation",
@@ -1129,7 +1122,6 @@ public static class MajorityElectionMockedData
                     new SecondaryMajorityElection
                     {
                         Id = Guid.Parse(SecondaryElectionIdKircheMajorityElectionInContestKirche),
-                        InternalDescription = "internal",
                         Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
                             (t, o) => t.OfficialDescription = o,
                             "official",
@@ -1157,6 +1149,7 @@ public static class MajorityElectionMockedData
                                 Sex = SexType.Male,
                                 Title = "title",
                                 ZipCode = "zip code",
+                                Origin = "origin",
                                 Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "occupation",
@@ -1228,7 +1221,6 @@ public static class MajorityElectionMockedData
                 "Majorzwahl Kirche ohne Listen",
                 (t, s) => t.ShortDescription = s,
                 "Mw Kirche ohne Listen"),
-            InternalDescription = "Majorzwahl Kirche auf Urnengang Kirche ohne Listen",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdKirchgemeinde),
             ContestId = Guid.Parse(ContestMockedData.IdKirche),
             Active = false,
@@ -1241,7 +1233,6 @@ public static class MajorityElectionMockedData
             ResultEntry = MajorityElectionResultEntry.FinalResults,
             EnforceResultEntryForCountingCircles = false,
             CandidateCheckDigit = true,
-            IndividualEmptyBallotsAllowed = true,
             MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Physically,

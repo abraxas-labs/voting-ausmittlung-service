@@ -20,7 +20,6 @@
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
     <OfficialDescription>Majorzwahl St. Gallen de</OfficialDescription>
     <ShortDescription>Mw SG de</ShortDescription>
-    <InternalDescription>Majorzwahl St. Gallen auf Urnengang Bund</InternalDescription>
     <DomainOfInfluence>
       <Name>St. Gallen</Name>
       <NameForProtocol>Kanton St. Gallen</NameForProtocol>
@@ -62,6 +61,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>
@@ -83,6 +83,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>2</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
         <VoteCount>0</VoteCount>

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Nito.AsyncEx;
 using Voting.Ausmittlung.EventSignature.Exceptions;
 
@@ -30,6 +31,17 @@ public class ContestCache : IDisposable
     }
 
     /// <summary>
+    /// Gets the contest cache entry. The caller should have a write lock per <see cref="BatchWrite"/> to ensure thread-safety.
+    /// </summary>
+    /// <param name="contestId">Contest id.</param>
+    /// <param name="entry">The reference of the contest cache entry.</param>
+    /// <returns>true if the cache contains an entry with the specified key; otherwise false.</returns>
+    public bool TryGet(Guid contestId, [NotNullWhen(true)] out ContestCacheEntry? entry)
+    {
+        return _cacheEntries.TryGetValue(contestId, out entry);
+    }
+
+    /// <summary>
     /// Gets all contest cache entries. The caller should have a write lock per <see cref="BatchWrite"/> to ensure thread-safety.
     /// </summary>
     /// <returns>A collection of references of the contest cache entries.</returns>
@@ -49,6 +61,16 @@ public class ContestCache : IDisposable
         {
             throw new ContestMemoryCacheException($"Attempt to add {entry.Id}, but it was already added");
         }
+    }
+
+    /// <summary>
+    /// Determines whether the contest cache contains the key.
+    /// </summary>
+    /// <param name="contestId">Contest id.</param>
+    /// <returns>true if the cache contains an entry with the specified key; otherwise false.</returns>
+    public bool ContainsKey(Guid contestId)
+    {
+        return _cacheEntries.ContainsKey(contestId);
     }
 
     /// <summary>

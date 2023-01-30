@@ -79,6 +79,7 @@
         <ZipCode>zip code</ZipCode>
         <Locality>locality</Locality>
         <Position>1</Position>
+        <Origin>origin</Origin>
         <Party>Test de</Party>
       </MajorityElectionCandidate>
       <SecondaryMajorityElectionResultBallot>
@@ -100,6 +101,7 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>1</Position>
+          <Origin>origin</Origin>
           <Party>Test de</Party>
         </SecondaryMajorityElectionCandidate>
       </SecondaryMajorityElectionResultBallot>

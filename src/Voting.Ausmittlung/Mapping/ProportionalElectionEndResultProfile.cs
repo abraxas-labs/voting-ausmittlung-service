@@ -28,5 +28,6 @@ public class ProportionalElectionEndResultProfile : Profile
 
         // write
         CreateMap<UpdateProportionalElectionEndResultLotDecisionRequest, ElectionEndResultLotDecision>();
+        CreateMap<EnterProportionalElectionManualCandidateEndResultRequest, ProportionalElectionManualCandidateEndResult>();
     }
 }

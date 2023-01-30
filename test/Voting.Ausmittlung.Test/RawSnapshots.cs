@@ -1,30 +1,22 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-#if UPDATE_SNAPSHOTS
-using System;
-#endif
 using System.IO;
-using FluentAssertions;
+using Voting.Lib.Testing.Utils;
 
 namespace Voting.Ausmittlung.Test;
 
 public static class RawSnapshots
 {
-    public static void MatchRawSnapshot(this string content, params string[] pathSegments)
+    public static void MatchRawTextSnapshot(this string content, params string[] pathSegments)
     {
         var path = Path.Join(TestSourcePaths.TestProjectSourceDirectory, Path.Join(pathSegments));
 
 #if UPDATE_SNAPSHOTS
-        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        if (!File.Exists(path) || !File.ReadAllText(path).Equals(content, StringComparison.Ordinal))
-        {
-            File.WriteAllText(path, content);
-        }
+        var updateSnapshot = true;
 #else
-        File.ReadAllText(path)
-            .Should()
-            .Be(content);
+        var updateSnapshot = false;
 #endif
+        content.MatchRawSnapshot(path, updateSnapshot);
     }
 }

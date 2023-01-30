@@ -134,6 +134,37 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
     }
 
     [Fact]
+    public async Task TestShouldReturnWithUnchangedBallot()
+    {
+        var req = new CreateProportionalElectionResultBallotRequest
+        {
+            BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
+            EmptyVoteCount = 0,
+            Candidates =
+            {
+                new CreateUpdateProportionalElectionResultBallotCandidateRequest
+                {
+                    Position = 1,
+                    CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
+                    OnList = true,
+                },
+                new CreateUpdateProportionalElectionResultBallotCandidateRequest
+                {
+                    Position = 2,
+                    CandidateId = ProportionalElectionMockedData.CandidateId2GossauProportionalElectionInContestStGallen,
+                },
+                new CreateUpdateProportionalElectionResultBallotCandidateRequest
+                {
+                    Position = 3,
+                    CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
+                },
+            },
+        };
+        await BundleErfassungCreatorClient.CreateBallotAsync(req);
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotCreated>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldThrowLockedContest()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
@@ -155,39 +186,6 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
             async () => await BundleErfassungCreatorClient.CreateBallotAsync(req),
             StatusCode.InvalidArgument,
             "At least one candidate must be added.");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowSameCandidateReAdded()
-    {
-        var req = new CreateProportionalElectionResultBallotRequest
-        {
-            BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
-            EmptyVoteCount = 0,
-            Candidates =
-                {
-                    new CreateUpdateProportionalElectionResultBallotCandidateRequest
-                    {
-                        Position = 1,
-                        CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
-                        OnList = true,
-                    },
-                    new CreateUpdateProportionalElectionResultBallotCandidateRequest
-                    {
-                        Position = 2,
-                        CandidateId = ProportionalElectionMockedData.CandidateId2GossauProportionalElectionInContestStGallen,
-                    },
-                    new CreateUpdateProportionalElectionResultBallotCandidateRequest
-                    {
-                        Position = 3,
-                        CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
-                    },
-                },
-        };
-        await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(req),
-            StatusCode.InvalidArgument,
-            "The ballot needs to result in at least one different vote than the source list");
     }
 
     [Fact]

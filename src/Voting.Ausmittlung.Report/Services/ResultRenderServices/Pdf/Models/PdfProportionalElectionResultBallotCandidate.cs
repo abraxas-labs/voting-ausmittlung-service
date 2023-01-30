@@ -10,4 +10,6 @@ public class PdfProportionalElectionResultBallotCandidate
     public int Position { get; set; }
 
     public bool RemovedFromList { get; set; }
+
+    public bool OnList { get; set; }
 }

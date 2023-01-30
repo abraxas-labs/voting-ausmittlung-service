@@ -57,6 +57,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
+                    Origin = "origin",
                 },
             },
             new MajorityElectionCandidateCreated
@@ -80,6 +81,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
+                    Origin = "origin",
                 },
             });
 
@@ -123,6 +125,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
+                    Origin = "origin",
                 },
             });
 

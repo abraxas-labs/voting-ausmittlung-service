@@ -9,6 +9,10 @@ internal static class WabstiCConstants
 
     internal const string IndividualMajorityCandidateNumber = "999";
 
+    internal const string IndividualMajorityCandidateLastName = "Vereinzelte";
+
+    internal const int IndividualMajorityCandidateYearOfBirth = 1950;
+
     internal const string IncumbentText = "(bisher)";
 
     internal const string ListWithoutPartyOrderNumber = "99";

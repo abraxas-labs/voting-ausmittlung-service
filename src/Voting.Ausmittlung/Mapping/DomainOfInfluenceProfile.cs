@@ -16,5 +16,6 @@ public class DomainOfInfluenceProfile : Profile
             .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.BasisDomainOfInfluenceId))
             .ForMember(dst => dst.ParentId, opts => opts.MapFrom(src => src.Parent != null ? src.Parent.BasisDomainOfInfluenceId.ToString() : string.Empty))
             .ForMember(dst => dst.Children, opts => opts.Ignore());
+        CreateMap<DataModels.DomainOfInfluenceCantonDefaults, ProtoModels.DomainOfInfluenceCantonDefaults>();
     }
 }

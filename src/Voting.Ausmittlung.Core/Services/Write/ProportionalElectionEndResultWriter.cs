@@ -18,6 +18,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Exceptions;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -31,6 +32,7 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
     private readonly ProportionalElectionEndResultReader _endResultReader;
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> _endResultRepo;
+    private readonly IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> _listEndResultRepo;
 
     public ProportionalElectionEndResultWriter(
         ILogger<ProportionalElectionEndResultWriter> logger,
@@ -40,12 +42,14 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         ContestService contestService,
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> endResultRepo,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        SecondFactorTransactionWriter secondFactorTransactionWriter,
+        IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> listEndResultRepo)
         : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
     {
         _endResultReader = endResultReader;
         _permissionService = permissionService;
         _endResultRepo = endResultRepo;
+        _listEndResultRepo = listEndResultRepo;
     }
 
     public async Task UpdateEndResultLotDecisions(
@@ -79,9 +83,41 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
             proportionalElectionEndResultId);
     }
 
+    public async Task EnterManualListEndResult(Guid listId, IReadOnlyCollection<ProportionalElectionManualCandidateEndResult> candidateEndResults)
+    {
+        _permissionService.EnsureMonitoringElectionAdmin();
+
+        var listEndResult = await _listEndResultRepo.Query()
+            .Include(l => l.CandidateEndResults)
+            .Include(l => l.ElectionEndResult.ProportionalElection.Contest)
+            .FirstOrDefaultAsync(l => l.ListId == listId && l.ElectionEndResult.ProportionalElection.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
+            ?? throw new EntityNotFoundException(listId);
+
+        var contest = listEndResult.ElectionEndResult.ProportionalElection.Contest;
+        ContestService.EnsureNotLocked(contest);
+
+        if (!listEndResult.ElectionEndResult.ManualEndResultRequired)
+        {
+            throw new ForbiddenException($"Cannot enter a manual end result for election {listEndResult.ElectionEndResult.ProportionalElectionId}");
+        }
+
+        ValidateManualCandidateEndResults(listEndResult.CandidateEndResults, candidateEndResults);
+
+        var endResultAggregate = await AggregateRepository.GetOrCreateById<ProportionalElectionEndResultAggregate>(listEndResult.ElectionEndResultId);
+        endResultAggregate.EnterManualListEndResult(
+            listEndResult.ElectionEndResult.ProportionalElectionId,
+            listId,
+            candidateEndResults,
+            contest.Id,
+            contest.TestingPhaseEnded);
+
+        await AggregateRepository.Save(endResultAggregate);
+    }
+
     protected override Task<DataModels.ProportionalElectionEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId)
     {
         return _endResultRepo.Query()
+            .Include(x => x.ProportionalElection)
             .FirstOrDefaultAsync(x =>
                 x.ProportionalElectionId == politicalBusinessId &&
                 x.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId);
@@ -100,6 +136,8 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         {
             throw new ValidationException("finalization is only possible after all required lot decisions are saved");
         }
+
+        await EnsureValidEndResult(endResult);
     }
 
     private void ValidateLotDecisions(
@@ -113,5 +151,58 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         EnsureValidRanksInLotDecisions(
             lotDecisions,
             availableLotDecisions.LotDecisions);
+    }
+
+    private void ValidateManualCandidateEndResults(
+        IEnumerable<DataModels.ProportionalElectionCandidateEndResult> candidateEndResults,
+        IReadOnlyCollection<ProportionalElectionManualCandidateEndResult> manualCandidateEndResults)
+    {
+        if (manualCandidateEndResults.Count != manualCandidateEndResults.DistinctBy(x => x.CandidateId).Count())
+        {
+            throw new ValidationException("No candidate duplicates allowed");
+        }
+
+        if (candidateEndResults.Count() != manualCandidateEndResults.Count)
+        {
+            throw new ValidationException("All candidate end results of a list must be provided");
+        }
+
+        var candidateIds = candidateEndResults.Select(c => c.CandidateId).ToHashSet();
+        var validCandidateEndResultStates = new HashSet<DataModels.ProportionalElectionCandidateEndResultState>
+        {
+            DataModels.ProportionalElectionCandidateEndResultState.Elected,
+            DataModels.ProportionalElectionCandidateEndResultState.NotElected,
+        };
+
+        foreach (var manualCandidateEndResult in manualCandidateEndResults)
+        {
+            if (!candidateIds.Contains(manualCandidateEndResult.CandidateId))
+            {
+                throw new ValidationException("All candidate end results of a list must be provided");
+            }
+
+            if (!validCandidateEndResultStates.Contains(manualCandidateEndResult.State))
+            {
+                throw new ValidationException("Invalid candidate end result state");
+            }
+        }
+    }
+
+    private async Task EnsureValidEndResult(DataModels.ProportionalElectionEndResult endResult)
+    {
+        if (!endResult.ManualEndResultRequired)
+        {
+            return;
+        }
+
+        var listEndResults = await _listEndResultRepo.Query()
+            .Where(l => l.ElectionEndResultId == endResult.Id)
+            .ToListAsync();
+
+        var distributedNumberOfMandates = listEndResults.Sum(l => l.NumberOfMandates);
+        if (endResult.ProportionalElection.NumberOfMandates != distributedNumberOfMandates)
+        {
+            throw new ValidationException($"Manual end result is required and not all number of mandates are distributed, required: {endResult.ProportionalElection.NumberOfMandates}, set: {distributedNumberOfMandates}");
+        }
     }
 }
