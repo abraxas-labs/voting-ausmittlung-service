@@ -5,7 +5,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Configuration;
-using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Data.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -79,7 +78,6 @@ public static class ServiceCollectionExtensions
             .AddScoped<ProportionalElectionUnionListTranslationRepo>()
             .AddScoped<SimplePoliticalBusinessTranslationRepo>()
             .AddScoped<SimpleCountingCircleResultRepo>()
-            .AddScoped<PoliticalBusinessQueries>()
             .AddScoped<CountOfVotersInformationSubTotalRepo>()
             .AddScoped<CantonSettingsRepo>()
             .AddScoped<ResultExportConfigurationRepo>()

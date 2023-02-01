@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using Abraxas.Voting.Basis.Events.V1;
-using EventStore.Client;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Report.EventLogs.Aggregates;
+using Voting.Lib.Common;
 using Voting.Lib.Eventing.Read;
 using BasisEventSignatureBusinessMetadata = Abraxas.Voting.Basis.Events.V1.Metadata.EventSignatureBusinessMetadata;
 
@@ -26,41 +25,27 @@ public class EventLogsBuilder
     private readonly IEventReader _eventReader;
     private readonly ILogger<EventLogsBuilder> _logger;
     private readonly EventLogBuilder _eventLogBuilder;
-    private readonly IServiceProvider _serviceProvider;
 
     public EventLogsBuilder(
         IEventReader eventReader,
         ILogger<EventLogsBuilder> logger,
-        EventLogBuilder eventLogBuilder,
-        IServiceProvider serviceProvider)
+        EventLogBuilder eventLogBuilder)
     {
         _eventReader = eventReader;
         _logger = logger;
         _eventLogBuilder = eventLogBuilder;
-        _serviceProvider = serviceProvider;
     }
 
-    public async IAsyncEnumerable<EventLog> Build(Contest contest, IEnumerable<Guid> politicalBusinessIds)
+    public async IAsyncEnumerable<EventLog> BuildBusinessEventLogs(Contest contest, EventLogBuilderContext context)
     {
         _logger.LogInformation("EventLogs build for contest {ContestId} started", contest.Id);
-        var (startPosition, testingPhaseEnded, createdTimestamp) = await GetContestDetails(contest.Id);
-        var contestEventSignatureAggregate = await EagerLoadContestEventSignatureAggregate(contest.Id);
 
         var events = _eventReader
             .ReadEventsFromAll(
-                startPosition,
+                context.StartPosition,
                 ev => (ev.Data as ContestArchived)?.ContestId == contest.Id.ToString(),
                 data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
-            .Where(ev => IsInContestOrRelevated(ev, contest.Id.ToString()));
-
-        using var context = new EventLogBuilderContext(
-            contest.Id,
-            testingPhaseEnded,
-            politicalBusinessIds,
-            contestEventSignatureAggregate,
-            startPosition,
-            createdTimestamp,
-            _serviceProvider);
+            .Where(ev => IsInContestOrRelated(ev, contest.Id.ToString()));
 
         if (context.TestingPhaseEnded)
         {
@@ -71,7 +56,7 @@ public class EventLogsBuilder
         {
             context.CurrentTimestampInStream = ev.Created;
 
-            var eventLog = await _eventLogBuilder.Build(ev, context);
+            var eventLog = await _eventLogBuilder.BuildBusinessEventLog(ev, context);
 
             if (eventLog == null)
             {
@@ -84,73 +69,54 @@ public class EventLogsBuilder
         _logger.LogInformation("EventLogs build for contest {ContestId} completed", contest.Id);
     }
 
-    private async Task<(Position StartPosition, bool TestingPhaseEnded, DateTime Created)> GetContestDetails(Guid contestId)
+    public IReadOnlyCollection<EventLog> BuildPublicKeySignatureEventLogs(EventLogBuilderContext context)
     {
-        var protoContestId = contestId.ToString();
+        var events = new List<EventLog>();
 
-        // can be simplified by reading from the contest stream with https://jira.abraxas-tools.ch/jira/browse/VOTING-1856.
-        var createdOrTestingPhaseEndedEvents = await _eventReader
-            .ReadEventsFromAll(
-                Position.Start,
-                new[] { typeof(ContestCreated), typeof(ContestTestingPhaseEnded) },
-                r => (r.Data as ContestTestingPhaseEnded)?.ContestId == protoContestId,
-                data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
-            .Where(r => (r.Metadata as BasisEventSignatureBusinessMetadata)?.ContestId == protoContestId)
-            .ToListAsync();
-
-        // the significant event is the ContestTestingPhaseEnded if present, the ContestCreated otherwise (if in testing phase).
-        return createdOrTestingPhaseEndedEvents.Count switch
+        // only add event logs for keys which were used in the activity protocol to verify at least one business event signature.
+        foreach (var publicKeyValidationResult in context.GetPublicKeySignatureValidationResults())
         {
-            1 => (createdOrTestingPhaseEndedEvents[0].Position, false, createdOrTestingPhaseEndedEvents[0].Created),
-            2 => (createdOrTestingPhaseEndedEvents[1].Position, true, createdOrTestingPhaseEndedEvents[1].Created),
-            _ => throw new ArgumentException("Could not determine the event log event read start position"),
-        };
-    }
+            var aggregateData = context.GetPublicKeyAggregateData(publicKeyValidationResult.KeyData.Key.Id)
+                ?? throw new InvalidOperationException("Aggregate data must not be null");
 
-    private async Task<ContestEventSignatureAggregate> EagerLoadContestEventSignatureAggregate(Guid contestId)
-    {
-        var aggregate = new ContestEventSignatureAggregate();
-        try
-        {
-            // loads to simplify the public keys of basis and ausmittlung into the same report aggregate, although they are from different streams.
-            var publicKeySignatureBasisEvents = _eventReader
-                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureBasis, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
-                .Select(ev => new { ev.Data, ev.Metadata });
-
-            var publicKeySignatureAusmittlungEvents = _eventReader
-                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureAusmittlung, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
-                .Select(ev => new { ev.Data, ev.Metadata });
-
-            await foreach (var publicKeySignatureEvent in publicKeySignatureBasisEvents)
+            var createPublicKeySignatureEventLog = _eventLogBuilder.Build(aggregateData.CreateData.EventData);
+            createPublicKeySignatureEventLog.PublicKeyData = new()
             {
-                if (publicKeySignatureEvent.Metadata == null)
-                {
-                    throw new InvalidOperationException($"Public key signature on basis event metadata is not set.");
-                }
+                SignatureValidationResultType = publicKeyValidationResult.CreatePublicKeySignatureValidationResultType,
+            };
 
-                aggregate.Apply(publicKeySignatureEvent.Data, publicKeySignatureEvent.Metadata);
+            events.Add(createPublicKeySignatureEventLog);
+
+            if (aggregateData.DeleteData == null || publicKeyValidationResult.DeletePublicKeySignatureValidationResultType == null)
+            {
+                continue;
             }
 
-            await foreach (var publicKeySignatureEvent in publicKeySignatureAusmittlungEvents)
+            var deletePublicKeySignatureEventLog = _eventLogBuilder.Build(aggregateData.DeleteData.EventData);
+            deletePublicKeySignatureEventLog.PublicKeyData = new()
             {
-                if (publicKeySignatureEvent.Metadata == null)
-                {
-                    throw new InvalidOperationException($"Public key signature on ausmittlung event metadata is not set.");
-                }
+                SignatureValidationResultType = publicKeyValidationResult.DeletePublicKeySignatureValidationResultType.Value,
+                ExpectedSignedEventCount = aggregateData.DeleteData.SignedEventCount,
+                ReadAtGenerationSignedEventCount = context.GetReadAtGenerationSignedEventCount(publicKeyValidationResult.KeyData.Key.Id),
+            };
 
-                aggregate.Apply(publicKeySignatureEvent.Data, publicKeySignatureEvent.Metadata);
+            if (deletePublicKeySignatureEventLog.PublicKeyData.HasMatchingSignedEventCount == false)
+            {
+                _logger.LogWarning(
+                    SecurityLogging.SecurityEventId,
+                    "Key {KeyId} has a mismatch of the signed event count. Read at generation: {ReadAtGenerationSignedEventCount}, expected: {ExpectedSignedEventCount}",
+                    publicKeyValidationResult.KeyData.Key.Id,
+                    deletePublicKeySignatureEventLog.PublicKeyData.ReadAtGenerationSignedEventCount,
+                    deletePublicKeySignatureEventLog.PublicKeyData.ExpectedSignedEventCount);
             }
 
-            return aggregate;
+            events.Add(deletePublicKeySignatureEventLog);
         }
-        catch (StreamNotFoundException e)
-        {
-            _logger.LogWarning(e, "Stream {StreamName} not found, could not read public key signatures", e.Stream);
-            return aggregate;
-        }
+
+        return events.OrderBy(e => e.Timestamp).ToList();
     }
 
-    private bool IsInContestOrRelevated(EventReadResult ev, string contestId)
+    private bool IsInContestOrRelated(EventReadResult ev, string contestId)
     {
         if (IsIgnoredEvent(ev))
         {

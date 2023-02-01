@@ -10,15 +10,19 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
+using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
-public class MajorityElectionEndResultProcessor
-    : IEventProcessor<MajorityElectionEndResultLotDecisionsUpdated>,
-        IEventProcessor<MajorityElectionEndResultFinalized>,
-        IEventProcessor<MajorityElectionEndResultFinalizationReverted>
+public class MajorityElectionEndResultProcessor :
+    PoliticalBusinessEndResultProcessor,
+    IEventProcessor<MajorityElectionEndResultLotDecisionsUpdated>,
+    IEventProcessor<MajorityElectionEndResultFinalized>,
+    IEventProcessor<MajorityElectionEndResultFinalizationReverted>
 {
     private readonly MajorityElectionEndResultBuilder _endResultBuilder;
     private readonly MajorityElectionEndResultRepo _endResultRepo;
@@ -27,7 +31,9 @@ public class MajorityElectionEndResultProcessor
     public MajorityElectionEndResultProcessor(
         MajorityElectionEndResultBuilder endResultBuilder,
         MajorityElectionEndResultRepo endResultRepo,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         IMapper mapper)
+        : base(simplePoliticalBusinessRepo)
     {
         _endResultBuilder = endResultBuilder;
         _endResultRepo = endResultRepo;
@@ -35,10 +41,10 @@ public class MajorityElectionEndResultProcessor
     }
 
     public Task Process(MajorityElectionEndResultFinalized eventData)
-        => SetFinalized(eventData.MajorityElectionId, true);
+        => SetFinalized(GuidParser.Parse(eventData.MajorityElectionId), true);
 
     public Task Process(MajorityElectionEndResultFinalizationReverted eventData)
-        => SetFinalized(eventData.MajorityElectionId, false);
+        => SetFinalized(GuidParser.Parse(eventData.MajorityElectionId), false);
 
     public async Task Process(MajorityElectionEndResultLotDecisionsUpdated eventData)
     {
@@ -53,14 +59,16 @@ public class MajorityElectionEndResultProcessor
         await _endResultBuilder.RecalculateForLotDecisions(majorityElectionId, lotDecisions);
     }
 
-    private async Task SetFinalized(string politicalBusinessId, bool finalized)
+    protected override async Task SetFinalized(Guid politicalBusinessId, bool finalized)
     {
         var endResult = await _endResultRepo.Query()
-            .IgnoreQueryFilters() // do not filter translations
-            .Include(x => x.MajorityElection.Translations)
-            .FirstOrDefaultAsync(x => x.MajorityElectionId == GuidParser.Parse(politicalBusinessId))
+                .IgnoreQueryFilters()// do not filter translations
+                .Include(x => x.MajorityElection.Translations)
+                .FirstOrDefaultAsync(x => x.MajorityElectionId == politicalBusinessId)
             ?? throw new EntityNotFoundException(politicalBusinessId);
         endResult.Finalized = finalized;
         await _endResultRepo.Update(endResult);
+
+        await base.SetFinalized(politicalBusinessId, finalized);
     }
 }

@@ -2,13 +2,24 @@
 // For license information see LICENSE file
 
 using System;
+using Google.Protobuf;
 
 namespace Voting.Ausmittlung.Report.EventLogs.Aggregates;
 
 public class EventSignaturePublicKeyAggregateDeleteData
 {
-    public EventSignaturePublicKeyAggregateDeleteData(string keyId, int signatureVersion, Guid contestId, string hostId, byte[] authenticationTag, long signedEventCount, DateTime deletedAt, byte[] hsmSignature)
+    public EventSignaturePublicKeyAggregateDeleteData(
+        IMessage eventData,
+        string keyId,
+        int signatureVersion,
+        Guid contestId,
+        string hostId,
+        byte[] authenticationTag,
+        long signedEventCount,
+        DateTime deletedAt,
+        byte[] hsmSignature)
     {
+        EventData = eventData;
         KeyId = keyId;
         SignatureVersion = signatureVersion;
         ContestId = contestId;
@@ -18,6 +29,8 @@ public class EventSignaturePublicKeyAggregateDeleteData
         DeletedAt = deletedAt;
         HsmSignature = hsmSignature;
     }
+
+    public IMessage EventData { get; }
 
     public string KeyId { get; }
 

@@ -32,7 +32,7 @@ public class EventLogBuilder
         _eventLogEventSignatureVerifier = eventLogEventSignatureVerifier;
     }
 
-    public async Task<EventLog?> Build(
+    public async Task<EventLog?> BuildBusinessEventLog(
         EventReadResult ev,
         EventLogBuilderContext context)
     {
@@ -48,11 +48,7 @@ public class EventLogBuilder
             return null;
         }
 
-        var eventInfoProp = EventInfoUtils.GetEventInfoPropertyInfo(ev.Data);
-        var eventInfo = EventInfoUtils.MapEventInfo(eventInfoProp.GetValue(ev.Data));
-        var eventUser = eventInfo.User;
-        var eventTenant = eventInfo.Tenant;
-        var eventTimestamp = eventInfo.Timestamp.ToDateTime();
+        IncrementSignedEventCount(ev.Metadata, context);
 
         var initializer = _eventLogInitializerRegistry.GetInitializerAdapter(ev.Data.Descriptor);
         if (initializer == null)
@@ -66,22 +62,54 @@ public class EventLogBuilder
             return null;
         }
 
-        eventLog.Timestamp = eventTimestamp;
-        eventLog.EventFullName = ev.Data.Descriptor.FullName;
-
         await ResolveCountingCircle(eventLog, context);
         ResolvePoliticalBusiness(eventLog, context);
+        eventLog.EventSignatureVerification = _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
+
+        MapEventDataToEventLog(eventLog, ev.Data);
+
+        return eventLog;
+    }
+
+    public EventLog Build(IMessage message)
+    {
+        var eventLog = new EventLog();
+        MapEventDataToEventLog(eventLog, message);
+        return eventLog;
+    }
+
+    private void MapEventDataToEventLog(EventLog eventLog, IMessage eventData)
+    {
+        var eventInfoProp = EventInfoUtils.GetEventInfoPropertyInfo(eventData);
+        var eventInfo = EventInfoUtils.MapEventInfo(eventInfoProp.GetValue(eventData));
+        var eventTimestamp = eventInfo.Timestamp.ToDateTime();
+        var eventUser = eventInfo.User;
+        var eventTenant = eventInfo.Tenant;
+
+        eventLog.Timestamp = eventTimestamp;
+        eventLog.EventFullName = eventData.Descriptor.FullName;
 
         eventLog.EventUser = new() { Firstname = eventUser.FirstName, Lastname = eventUser.LastName, UserId = eventUser.Id, Username = eventUser.Username };
         eventLog.EventTenant = new() { TenantId = eventTenant.Id, TenantName = eventTenant.Name };
 
-        eventLog.EventSignatureVerification = _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
-
         // Since we extract the event info values, we remove the field, so that the XML doesn't get too huge
-        eventInfoProp.SetValue(ev.Data, null);
-        eventLog.EventContent = ev.Data.ToByteArray();
+        eventInfoProp.SetValue(eventData, null);
+        eventLog.EventContent = eventData.ToByteArray();
+    }
 
-        return eventLog;
+    private void IncrementSignedEventCount(IMessage eventMetadata, EventLogBuilderContext context)
+    {
+        var keyId = eventMetadata switch
+        {
+            AusmittlungEventSignatureBusinessMetadata ausmittlungEventMetadata => ausmittlungEventMetadata.KeyId,
+            BasisEventSignatureBusinessMetadata basisEventMetadata => basisEventMetadata.KeyId,
+            _ => throw new InvalidOperationException("Invalid event metadata type"),
+        };
+
+        if (!string.IsNullOrEmpty(keyId))
+        {
+            context.IncrementSignedEventCount(keyId);
+        }
     }
 
     private async Task ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)

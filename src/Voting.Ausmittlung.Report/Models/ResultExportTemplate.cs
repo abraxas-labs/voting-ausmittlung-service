@@ -12,38 +12,40 @@ namespace Voting.Ausmittlung.Report.Models;
 
 public class ResultExportTemplate
 {
-    // only display a certain amount of political business numbers in frontend,
-    // so that the user in the export has an approximate idea of which political businesses are included
-    private const int MaxPoliticalBusinessNumbersCount = 3;
-
     public ResultExportTemplate(
         TemplateModel template,
-        IEnumerable<PoliticalBusiness> politicalBusinesses,
+        IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses = null,
         string? description = null,
         DomainOfInfluenceType? doiType = null,
         Guid? countingCircleId = null,
-        Guid? politicalBusinessUnionId = null)
+        PoliticalBusinessUnion? politicalBusinessUnion = null)
     {
         Key = template.Key;
         Description = description ?? template.Description;
+        EntityDescription = BuildEntityDescription(politicalBusinessUnion, politicalBusinesses) ?? string.Empty;
         Format = template.Format;
-        PoliticalBusinesses = politicalBusinesses;
-        PoliticalBusinessUnionId = politicalBusinessUnionId;
+        PoliticalBusinessUnionId = politicalBusinessUnion?.Id;
         EntityType = template.EntityType;
+        ResultType = template.ResultType;
         DomainOfInfluenceType = doiType ?? (DomainOfInfluenceType?)template.DomainOfInfluenceType;
         CountingCircleId = countingCircleId;
-        PoliticalBusinessIds = PoliticalBusinesses.Select(pb => pb.Id).ToHashSet();
+        PoliticalBusinessIds = politicalBusinesses?.Select(pb => pb.Id).ToHashSet() ?? new HashSet<Guid>();
     }
 
     public string Key { get; }
 
     public string Description { get; }
 
-    public IEnumerable<PoliticalBusiness> PoliticalBusinesses { get; }
+    /// <summary>
+    /// Gets the description of the entity (eg. political business, political business union, ...)
+    /// </summary>
+    public string EntityDescription { get; }
 
     public Guid? PoliticalBusinessUnionId { get; }
 
     public EntityType EntityType { get; }
+
+    public ResultType? ResultType { get; }
 
     public Guid? CountingCircleId { get; }
 
@@ -53,8 +55,18 @@ public class ResultExportTemplate
 
     public IReadOnlySet<Guid> PoliticalBusinessIds { get; }
 
-    public string PoliticalBusinessNumbers =>
-        string.Join(" / ", PoliticalBusinesses
-            .Take(MaxPoliticalBusinessNumbersCount)
-            .Select(pb => pb.PoliticalBusinessNumber));
+    private static string? BuildEntityDescription(PoliticalBusinessUnion? politicalBusinessUnion, IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses)
+    {
+        if (politicalBusinessUnion != null)
+        {
+            return politicalBusinessUnion.Description;
+        }
+
+        if (politicalBusinesses == null)
+        {
+            return null;
+        }
+
+        return string.Join(", ", politicalBusinesses.Select(pb => pb.ShortDescription));
+    }
 }

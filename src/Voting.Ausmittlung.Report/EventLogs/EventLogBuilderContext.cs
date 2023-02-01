@@ -20,6 +20,7 @@ public class EventLogBuilderContext : IDisposable
     private readonly IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> _asymmetricAlgorithmAdapter;
     private readonly Dictionary<string, PublicKeySignatureValidationResult> _publicKeySignatureValidationResultsByKeyId = new();
     private readonly ContestEventSignatureAggregate _contestEventSignatureAggregate;
+    private readonly Dictionary<string, long> _signedEventCountByKeyId = new();
 
     public EventLogBuilderContext(
         Guid contestId,
@@ -91,6 +92,28 @@ public class EventLogBuilderContext : IDisposable
             || MajorityElectionAggregateSet.GetBySecondaryMajorityElectionId(politicalBusinessId) != null;
     }
 
+    public EventSignaturePublicKeyAggregateData? GetPublicKeyAggregateData(string keyId)
+    {
+        return _contestEventSignatureAggregate.GetPublicKeyAggregateData(keyId);
+    }
+
+    public long? GetReadAtGenerationSignedEventCount(string keyId)
+    {
+        var signedEventCount = _signedEventCountByKeyId.GetValueOrDefault(keyId);
+        return signedEventCount != 0 ? signedEventCount : null;
+    }
+
+    public void IncrementSignedEventCount(string keyId)
+    {
+        if (_signedEventCountByKeyId.TryGetValue(keyId, out var signedEventCount))
+        {
+            _signedEventCountByKeyId[keyId] = ++signedEventCount;
+            return;
+        }
+
+        _signedEventCountByKeyId.Add(keyId, 1);
+    }
+
     public PublicKeySignatureValidationResult? GetPublicKeySignatureValidationResult(string keyId)
     {
         if (_publicKeySignatureValidationResultsByKeyId.TryGetValue(keyId, out var publicKeyValidationResult))
@@ -98,7 +121,7 @@ public class EventLogBuilderContext : IDisposable
             return publicKeyValidationResult;
         }
 
-        var publicKeyAggregateData = _contestEventSignatureAggregate.GetPublicKeyAggregateData(keyId);
+        var publicKeyAggregateData = GetPublicKeyAggregateData(keyId);
         if (publicKeyAggregateData == null)
         {
             return null;
@@ -133,6 +156,11 @@ public class EventLogBuilderContext : IDisposable
 
         _publicKeySignatureValidationResultsByKeyId.Add(publicKey.Id, validationResult);
         return validationResult;
+    }
+
+    public IReadOnlyCollection<PublicKeySignatureValidationResult> GetPublicKeySignatureValidationResults()
+    {
+        return _publicKeySignatureValidationResultsByKeyId.Values.ToList();
     }
 
     public void Dispose()

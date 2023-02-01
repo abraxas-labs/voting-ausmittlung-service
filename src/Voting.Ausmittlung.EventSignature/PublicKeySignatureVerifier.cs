@@ -30,13 +30,11 @@ public class PublicKeySignatureVerifier
     /// <returns>The public key signature validation result.</returns>
     public PublicKeySignatureValidationResult VerifySignature(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
     {
-        var signatureData = BuildSignatureData(signatureCreateData, signatureDeleteData);
-
-        var resultType = signatureData != null
-            ? GetResultType(signatureCreateData, signatureDeleteData, keyData)
-            : PublicKeySignatureValidationResultType.CreateDeletePropertiesMismatch;
-
-        return new PublicKeySignatureValidationResult(signatureData, keyData, resultType);
+        return new PublicKeySignatureValidationResult(
+            BuildSignatureData(signatureCreateData, signatureDeleteData),
+            keyData,
+            GetResultType(signatureCreateData, keyData),
+            GetResultType(signatureDeleteData, keyData));
     }
 
     private PublicKeySignatureData? BuildSignatureData(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData)
@@ -84,7 +82,7 @@ public class PublicKeySignatureVerifier
         return _pkcs11DeviceAdapter.VerifySignature(hsmCreatePayload.ConvertToBytesToSign(), hsmSignature);
     }
 
-    private PublicKeySignatureValidationResultType GetResultType(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
+    private PublicKeySignatureValidationResultType GetResultType(PublicKeySignatureCreateData signatureCreateData, PublicKeyData keyData)
     {
         var authTagCreatePayload = new PublicKeySignatureCreateAuthenticationTagPayload(
             signatureCreateData.SignatureVersion,
@@ -97,7 +95,7 @@ public class PublicKeySignatureVerifier
 
         if (!AuthenticationTagCreateIsValid(authTagCreatePayload, signatureCreateData.AuthenticationTag, keyData.Key))
         {
-            return PublicKeySignatureValidationResultType.AuthenticationTagCreateInvalid;
+            return PublicKeySignatureValidationResultType.AuthenticationTagInvalid;
         }
 
         var hsmCreatePayload = new PublicKeySignatureCreateHsmPayload(
@@ -106,12 +104,17 @@ public class PublicKeySignatureVerifier
 
         if (!HsmSignatureCreateIsValid(hsmCreatePayload, signatureCreateData.HsmSignature))
         {
-            return PublicKeySignatureValidationResultType.HsmSignatureCreateInvalid;
+            return PublicKeySignatureValidationResultType.HsmSignatureInvalid;
         }
 
+        return PublicKeySignatureValidationResultType.Valid;
+    }
+
+    private PublicKeySignatureValidationResultType? GetResultType(PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
+    {
         if (signatureDeleteData == null)
         {
-            return PublicKeySignatureValidationResultType.Valid;
+            return null;
         }
 
         var authTagDeletePayload = new PublicKeySignatureDeleteAuthenticationTagPayload(
@@ -124,7 +127,7 @@ public class PublicKeySignatureVerifier
 
         if (!AuthenticationTagDeleteIsValid(authTagDeletePayload, signatureDeleteData.AuthenticationTag, keyData.Key))
         {
-            return PublicKeySignatureValidationResultType.AuthenticationTagDeleteInvalid;
+            return PublicKeySignatureValidationResultType.AuthenticationTagInvalid;
         }
 
         var hsmDeletePayload = new PublicKeySignatureDeleteHsmPayload(
@@ -133,7 +136,7 @@ public class PublicKeySignatureVerifier
 
         if (!HsmSignatureDeleteIsValid(hsmDeletePayload, signatureDeleteData.HsmSignature))
         {
-            return PublicKeySignatureValidationResultType.HsmSignatureDeleteInvalid;
+            return PublicKeySignatureValidationResultType.HsmSignatureInvalid;
         }
 
         return PublicKeySignatureValidationResultType.Valid;

@@ -2,12 +2,14 @@
 // For license information see LICENSE file
 
 using System;
+using Google.Protobuf;
 
 namespace Voting.Ausmittlung.Report.EventLogs.Aggregates;
 
 public class EventSignaturePublicKeyAggregateCreateData
 {
     public EventSignaturePublicKeyAggregateCreateData(
+        IMessage eventData,
         string keyId,
         int signatureVersion,
         Guid contestId,
@@ -18,6 +20,7 @@ public class EventSignaturePublicKeyAggregateCreateData
         DateTime validTo,
         byte[] hsmSignature)
     {
+        EventData = eventData;
         KeyId = keyId;
         SignatureVersion = signatureVersion;
         ContestId = contestId;
@@ -28,6 +31,8 @@ public class EventSignaturePublicKeyAggregateCreateData
         ValidTo = validTo;
         HsmSignature = hsmSignature;
     }
+
+    public IMessage EventData { get; }
 
     public string KeyId { get; }
 

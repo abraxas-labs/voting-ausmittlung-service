@@ -39,6 +39,7 @@ public class ContestEventSignatureAggregate
     private void Apply(AusmittlungEvents.EventSignaturePublicKeyCreated evData, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
         var createData = new EventSignaturePublicKeyAggregateCreateData(
+            evData,
             evData.KeyId,
             evData.SignatureVersion,
             GuidParser.Parse(evData.ContestId),
@@ -55,6 +56,7 @@ public class ContestEventSignatureAggregate
     private void Apply(AusmittlungEvents.EventSignaturePublicKeyDeleted evData, AusmittlungEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
         var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
+            evData,
             evData.KeyId,
             evData.SignatureVersion,
             GuidParser.Parse(evData.ContestId),
@@ -73,6 +75,7 @@ public class ContestEventSignatureAggregate
     private void Apply(BasisEvents.EventSignaturePublicKeyCreated evData, BasisEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
         var createData = new EventSignaturePublicKeyAggregateCreateData(
+            evData,
             evData.KeyId,
             evData.SignatureVersion,
             GuidParser.Parse(evData.ContestId),
@@ -89,6 +92,7 @@ public class ContestEventSignatureAggregate
     private void Apply(BasisEvents.EventSignaturePublicKeyDeleted evData, BasisEvents.Metadata.EventSignaturePublicKeyMetadata evMetadata)
     {
         var deleteData = new EventSignaturePublicKeyAggregateDeleteData(
+            evData,
             evData.KeyId,
             evData.SignatureVersion,
             GuidParser.Parse(evData.ContestId),

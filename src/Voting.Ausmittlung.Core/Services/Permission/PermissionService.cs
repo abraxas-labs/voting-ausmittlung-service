@@ -237,6 +237,7 @@ public class PermissionService
         {
             case ResultType.CountingCircleResult:
             case ResultType.MultiplePoliticalBusinessesCountingCircleResult:
+            case ResultType.PoliticalBusinessResultBundleReview:
                 EnsureAnyRole();
                 break;
             case ResultType.MultiplePoliticalBusinessesResult:
@@ -245,6 +246,8 @@ public class PermissionService
             case ResultType.Contest:
                 EnsureMonitoringElectionAdmin();
                 break;
+            default:
+                throw new ForbiddenException();
         }
     }
 

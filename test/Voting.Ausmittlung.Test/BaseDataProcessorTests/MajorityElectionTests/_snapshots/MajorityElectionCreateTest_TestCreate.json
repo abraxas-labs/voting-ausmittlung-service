@@ -122,6 +122,7 @@
         "NumberOfMandates": 6,
         "CountOfSecondaryBusinesses": 0,
         "CountingCircleResults": [],
+        "EndResultFinalized": false,
         "Translations": [
           {
             "SimplePoliticalBusinessId": "4a258e1d-ba12-4564-a8eb-6bf89262dece",
@@ -160,6 +161,7 @@
         "NumberOfMandates": 3,
         "CountOfSecondaryBusinesses": 0,
         "CountingCircleResults": [],
+        "EndResultFinalized": false,
         "Translations": [
           {
             "SimplePoliticalBusinessId": "764f30b9-3510-41a5-b7be-64173551d292",

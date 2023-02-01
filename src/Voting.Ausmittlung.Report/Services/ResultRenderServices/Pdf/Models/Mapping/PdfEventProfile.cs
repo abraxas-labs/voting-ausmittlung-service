@@ -15,6 +15,7 @@ public class PdfEventProfile : Profile
         CreateMap<EventLogTenant, PdfEventTenant>();
         CreateMap<EventLogUser, PdfEventUser>();
         CreateMap<CountingCircle, PdfEventCountingCircle>();
+        CreateMap<EventLogPublicKeyData, PdfEventPublicKeyData>();
         CreateMap<EventLog, PdfEventPoliticalBusiness>()
             .ForMember(dst => dst.Description, opts => opts.MapFrom(src => src.Translations.Count == 0 ? null : src.Translations.First().PoliticalBusinessDescription))
             .ForMember(dst => dst.Number, opts => opts.MapFrom(src => src.PoliticalBusinessNumber));

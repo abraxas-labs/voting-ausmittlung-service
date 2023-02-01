@@ -33,6 +33,8 @@ public class SimplePoliticalBusiness : PoliticalBusiness, IPoliticalBusinessHasT
         set => throw new InvalidOperationException("not available for simple political businesses");
     }
 
+    public bool EndResultFinalized { get; set; }
+
     public ICollection<SimplePoliticalBusinessTranslation> Translations { get; set; } = new HashSet<SimplePoliticalBusinessTranslation>();
 
     public ICollection<ResultExportConfigurationPoliticalBusiness> ResultExportConfigurations { get; set; } = new HashSet<ResultExportConfigurationPoliticalBusiness>();

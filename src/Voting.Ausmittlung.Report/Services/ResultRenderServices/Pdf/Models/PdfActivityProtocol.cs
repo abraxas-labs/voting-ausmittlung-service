@@ -14,5 +14,8 @@ public class PdfActivityProtocol
     public PdfContest? Contest { get; set; }
 
     [XmlElement("Event")]
-    public List<PdfEvent> Events { get; set; } = new List<PdfEvent>();
+    public List<PdfEvent> Events { get; set; } = new();
+
+    [XmlElement("PublicKeySignatureEvent")]
+    public List<PdfEvent> PublicKeySignatureEvents { get; set; } = new();
 }

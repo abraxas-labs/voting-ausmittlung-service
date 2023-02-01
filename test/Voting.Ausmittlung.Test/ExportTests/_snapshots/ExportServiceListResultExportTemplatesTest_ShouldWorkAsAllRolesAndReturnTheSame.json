@@ -1,0 +1,304 @@
+{
+  "Templates": [
+    {
+      "Key": "vote_result",
+      "Description": "Protokoll (CH)",
+      "EntityDescription": "Abst Bund de",
+      "PoliticalBusinessIds": [
+        "f69b3543-ccee-467d-9cde-56941f6e4bad"
+      ],
+      "EntityType": 2,
+      "ResultType": 4,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 1,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "vote_result",
+      "Description": "Protokoll (CT)",
+      "EntityDescription": "Abst SG de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "EntityType": 2,
+      "ResultType": 4,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 2,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "majority_election_counting_circle_protocol",
+      "Description": "Gemeindeprotokoll",
+      "EntityDescription": "Mw Bund de",
+      "PoliticalBusinessIds": [
+        "0fee4b4e-f16d-46a3-9f7a-2776ee5785db"
+      ],
+      "EntityType": 3,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "majority_election_counting_circle_protocol",
+      "Description": "Gemeindeprotokoll",
+      "EntityDescription": "Mw SG de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "EntityType": 3,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_lists_counting_circle_protocol",
+      "Description": "1 - Wahlzettelrapport",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_empty_votes_counting_circle_protocol",
+      "Description": "2 - Kandidierenden- und Parteistimmen",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_votes_counting_circle_protocol",
+      "Description": "2a - Kandidierendenstimmen",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_vote_sources_counting_circle_protocol",
+      "Description": "3b - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_votes_counting_circle_protocol",
+      "Description": "4 - Gemeindeprotokoll",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_candidates_alphabetical",
+      "Description": "Kandidatinnen und Kandidaten",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 1,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_candidates_numerical",
+      "Description": "Numerisches Kandidierendenverzeichnis",
+      "EntityDescription": "Pw Bund de",
+      "PoliticalBusinessIds": [
+        "30e170ba-ed97-4886-93c9-ee35b106a22e"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 1,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_lists_counting_circle_protocol",
+      "Description": "1 - Wahlzettelrapport",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_empty_votes_counting_circle_protocol",
+      "Description": "2 - Kandidierenden- und Parteistimmen",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_votes_counting_circle_protocol",
+      "Description": "2a - Kandidierendenstimmen",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_candidate_vote_sources_counting_circle_protocol",
+      "Description": "3b - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_list_votes_counting_circle_protocol",
+      "Description": "4 - Gemeindeprotokoll",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 2,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_candidates_alphabetical",
+      "Description": "Kandidatinnen und Kandidaten",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 1,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    },
+    {
+      "Key": "proportional_election_candidates_numerical",
+      "Description": "Numerisches Kandidierendenverzeichnis",
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "EntityType": 4,
+      "ResultType": 1,
+      "Format": 1,
+      "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "DomainOfInfluenceType": 0,
+      "PoliticalBusinessUnionId": ""
+    }
+  ],
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": {
+    "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+    "Name": "St. Gallen",
+    "Bfs": "5500",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "",
+      "Name": "",
+      "Street": "",
+      "Zip": "",
+      "City": "",
+      "Phone": "",
+      "Email": ""
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": null
+  }
+}

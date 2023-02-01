@@ -37,5 +37,7 @@ public class EventLog
 
     public List<EventLogTranslation> Translations { get; set; } = new();
 
-    public EventLogEventSignatureVerification EventSignatureVerification { get; set; }
+    public EventLogEventSignatureVerification? EventSignatureVerification { get; set; }
+
+    public EventLogPublicKeyData? PublicKeyData { get; set; }
 }

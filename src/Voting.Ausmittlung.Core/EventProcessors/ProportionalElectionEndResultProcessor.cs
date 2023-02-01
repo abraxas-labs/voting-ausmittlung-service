@@ -11,13 +11,16 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
+using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class ProportionalElectionEndResultProcessor :
+    PoliticalBusinessEndResultProcessor,
     IEventProcessor<ProportionalElectionListEndResultLotDecisionsUpdated>,
     IEventProcessor<ProportionalElectionEndResultFinalized>,
     IEventProcessor<ProportionalElectionEndResultFinalizationReverted>,
@@ -31,8 +34,10 @@ public class ProportionalElectionEndResultProcessor :
     public ProportionalElectionEndResultProcessor(
         ProportionalElectionEndResultLotDecisionBuilder endResultLotDecisionBuilder,
         ProportionalElectionEndResultRepo endResultRepo,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         IMapper mapper,
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder)
+        : base(simplePoliticalBusinessRepo)
     {
         _endResultRepo = endResultRepo;
         _mapper = mapper;
@@ -41,10 +46,10 @@ public class ProportionalElectionEndResultProcessor :
     }
 
     public Task Process(ProportionalElectionEndResultFinalized eventData)
-        => SetFinalized(eventData.ProportionalElectionId, true);
+        => SetFinalized(GuidParser.Parse(eventData.ProportionalElectionId), true);
 
     public Task Process(ProportionalElectionEndResultFinalizationReverted eventData)
-        => SetFinalized(eventData.ProportionalElectionId, false);
+        => SetFinalized(GuidParser.Parse(eventData.ProportionalElectionId), false);
 
     public async Task Process(ProportionalElectionListEndResultLotDecisionsUpdated eventData)
     {
@@ -70,14 +75,16 @@ public class ProportionalElectionEndResultProcessor :
         await _candidateEndResultBuilder.SetCandidateEndResultsManually(listId, candidateStateById);
     }
 
-    private async Task SetFinalized(string politicalBusinessId, bool finalized)
+    protected override async Task SetFinalized(Guid politicalBusinessId, bool finalized)
     {
         var endResult = await _endResultRepo.Query()
-            .IgnoreQueryFilters() // do not filter translations
-            .Include(x => x.ProportionalElection.Translations)
-            .FirstOrDefaultAsync(x => x.ProportionalElectionId == GuidParser.Parse(politicalBusinessId))
+                .IgnoreQueryFilters()// do not filter translations
+                .Include(x => x.ProportionalElection.Translations)
+                .FirstOrDefaultAsync(x => x.ProportionalElectionId == politicalBusinessId)
             ?? throw new EntityNotFoundException(politicalBusinessId);
         endResult.Finalized = finalized;
         await _endResultRepo.Update(endResult);
+
+        await base.SetFinalized(politicalBusinessId, finalized);
     }
 }

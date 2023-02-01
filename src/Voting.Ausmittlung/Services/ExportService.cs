@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Authorization;
 using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
-using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.VotingExports.Models;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ExportService.ExportServiceBase;
 
@@ -44,54 +44,15 @@ public class ExportService : ServiceBase
         _configReader = configReader;
     }
 
-    public override async Task<ProtoModels.ResultExportTemplates> GetCountingCircleResultExportTemplates(
-        GetCountingCircleResultExportTemplatesRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ResultExportTemplates> ListExportTemplates(
+        ListResultExportTemplatesRequest request,
+        ServerCallContext context)
     {
-        var result = await _templateReader.GetForCountingCircleResult(
-            GuidParser.Parse(request.CountingCircleId),
-            GuidParser.Parse(request.PoliticalBusinessId),
-            _mapper.Map<PoliticalBusinessType>(request.PoliticalBusinessType));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
-    }
-
-    public override async Task<ProtoModels.ResultExportTemplates> GetPoliticalBusinessResultExportTemplates(
-        GetPoliticalBusinessResultExportTemplatesRequest request, ServerCallContext context)
-    {
-        var result = await _templateReader.GetForPoliticalBusinessResult(
-            GuidParser.Parse(request.PoliticalBusinessId),
-            _mapper.Map<PoliticalBusinessType>(request.PoliticalBusinessType));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
-    }
-
-    public override async Task<ProtoModels.ResultExportTemplates> GetMultiplePoliticalBusinessesResultExportTemplates(
-        GetMultiplePoliticalBusinessesResultExportTemplatesRequest request, ServerCallContext context)
-    {
-        var result = await _templateReader.GetForMultiplePoliticalBusinessesResult(GuidParser.Parse(request.ContestId));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
-    }
-
-    public override async Task<ProtoModels.ResultExportTemplates> GetMultiplePoliticalBusinessesCountingCircleResultExportTemplates(
-        GetMultiplePoliticalBusinessesCountingCircleResultExportTemplatesRequest request, ServerCallContext context)
-    {
-        var result = await _templateReader.GetForMultiplePoliticalBusinessesCountingCircleResult(
+        var container = await _templateReader.ListTemplates(
             GuidParser.Parse(request.ContestId),
-            GuidParser.Parse(request.CountingCircleId));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
-    }
-
-    public override async Task<ProtoModels.ResultExportTemplates> GetContestExportTemplates(GetContestExportTemplatesRequest request, ServerCallContext context)
-    {
-        var result = await _templateReader.GetForContest(GuidParser.Parse(request.ContestId));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
-    }
-
-    public override async Task<ProtoModels.ResultExportTemplates> GetPoliticalBusinessUnionResultExportTemplates(
-        GetPoliticalBusinessUnionResultExportTemplatesRequest request, ServerCallContext context)
-    {
-        var result = await _templateReader.GetForPoliticalBusinessUnionResult(
-            GuidParser.Parse(request.PoliticalBusinessUnionId),
-            _mapper.Map<PoliticalBusinessType>(request.PoliticalBusinessType));
-        return _mapper.Map<ProtoModels.ResultExportTemplates>(result);
+            GuidParser.ParseNullable(request.CountingCircleId),
+            request.Formats.Select(x => (ExportFileFormat)x).ToHashSet());
+        return _mapper.Map<ProtoModels.ResultExportTemplates>(container);
     }
 
     public override async Task<ProtoModels.ResultExportConfigurations> ListResultExportConfigurations(

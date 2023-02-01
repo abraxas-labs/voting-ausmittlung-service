@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.56.4`)
+# ✨ Changelog (`v1.58.2`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.56.4
-Previous version ---- v1.47.1
+This version -------- v1.58.2
+Previous version ---- v1.56.4
 Initial version ----- v1.29.14
-Total commits ------- 31
+Total commits ------- 4
 ```
+
+## [v1.58.2] - 2023-01-31
+
+### 🔄 Changed
+
+- expand multiple business counting circle templates correctly
+
+## [v1.58.1] - 2023-01-31
+
+### 🔄 Changed
+
+- remove accumulated proportional election candidate from ballot candidates
+
+## [v1.58.0] - 2023-01-31
+
+### 🔄 Changed
+
+- new export api
+
+## [v1.57.0] - 2023-01-30
+
+### 🔄 Changed
+
+- detect replay attacks per activity protocol
 
 ## [v1.56.4] - 2023-01-26
 
@@ -292,25 +316,17 @@ Total commits ------- 31
 
 - add result state change listener for erfassung
 
-## [v1.46.0] - 2022-10-27
-
 ### 🆕 Added
 
 - Reset counting circle results in testing phase
-
-## [v1.45.5] - 2022-10-21
 
 ### 🔄 Changed
 
 - Changed WabstiC export
 
-## [v1.45.4] - 2022-10-19
-
 ### 🔄 Changed
 
 - Correctly register shared SECURE Connect account for DOK Connector
-
-## [v1.45.3] - 2022-10-19
 
 ### 🔄 Changed
 
@@ -492,6 +508,30 @@ Total commits ------- 31
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.46.0] - 2022-10-27
+
+### 🆕 Added
+
+- Reset counting circle results in testing phase
+
+## [v1.45.5] - 2022-10-21
+
+### 🔄 Changed
+
+- Changed WabstiC export
+
+## [v1.45.4] - 2022-10-19
+
+### 🔄 Changed
+
+- Correctly register shared SECURE Connect account for DOK Connector
+
+## [v1.45.3] - 2022-10-19
+
+### 🔄 Changed
+
+- WabstiC export changes
 
 ## [v1.45.2] - 2022-10-17
 

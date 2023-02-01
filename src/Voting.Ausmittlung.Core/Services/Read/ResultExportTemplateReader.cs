@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Configuration;
-using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Report.Models;
+using Voting.Lib.Database.Repositories;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -22,249 +22,256 @@ namespace Voting.Ausmittlung.Core.Services.Read;
 
 public class ResultExportTemplateReader
 {
-    private readonly PoliticalBusinessQueries _pbQueries;
+    private static readonly IReadOnlySet<string> _templateKeysOnlyWithInvalidVotes = new HashSet<string>
+    {
+        AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key,
+    };
+
     private readonly ContestReader _contestReader;
+    private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepository;
     private readonly PermissionService _permissionService;
     private readonly IMapper _mapper;
     private readonly PublisherConfig _config;
 
     public ResultExportTemplateReader(
-        PoliticalBusinessQueries pbQueries,
         ContestReader contestReader,
         PermissionService permissionService,
+        IDbRepository<DataContext, CountingCircle> countingCircleRepository,
         IMapper mapper,
         PublisherConfig config)
     {
-        _pbQueries = pbQueries;
         _contestReader = contestReader;
         _permissionService = permissionService;
         _mapper = mapper;
         _config = config;
+        _countingCircleRepository = countingCircleRepository;
     }
 
-    public async Task<List<ResultExportTemplate>> GetForCountingCircleResult(
-        Guid basisCountingCircleId,
-        Guid politicalBusinessId,
-        PoliticalBusinessType politicalBusinessType)
+    public async Task<ResultExportTemplateContainer> ListTemplates(
+        Guid contestId,
+        Guid? basisCountingCircleId,
+        IReadOnlySet<ExportFileFormat> formats)
     {
-        _permissionService.EnsureCanExport(ResultType.CountingCircleResult);
-        if (_config.DisableAllExports)
+        var contest = await _contestReader.Get(contestId);
+        CountingCircle? countingCircle = null;
+
+        if (basisCountingCircleId.HasValue)
         {
-            return new List<ResultExportTemplate>();
+            await _permissionService.EnsureCanReadBasisCountingCircle(basisCountingCircleId.Value, contestId);
+            countingCircle = await _countingCircleRepository.Query()
+                .FirstOrDefaultAsync(c => c.BasisCountingCircleId == basisCountingCircleId && c.SnapshotContestId == contestId);
         }
 
-        var entityType = MapPoliticalBusinessTypeToEntityType(politicalBusinessType);
+        var templates = await FetchResultExportTemplates(contestId, basisCountingCircleId, formats);
+        return new ResultExportTemplateContainer(contest, countingCircle, templates);
+    }
 
-        var ccResult = await _pbQueries
-            .CountingCircleResultQueryIncludingPoliticalBusiness(politicalBusinessType, politicalBusinessId, basisCountingCircleId)
-            .FirstOrDefaultAsync()
-        ?? throw new EntityNotFoundException(new { politicalBusinessId, basisCountingCircleId });
+    private async Task<IReadOnlyCollection<ResultExportTemplate>> FetchResultExportTemplates(
+        Guid contestId,
+        Guid? basisCountingCircleId,
+        IReadOnlySet<ExportFileFormat> formats)
+    {
+        if (_config.DisableAllExports)
+        {
+            return Array.Empty<ResultExportTemplate>();
+        }
 
-        await _permissionService.EnsureCanReadBasisCountingCircle(basisCountingCircleId, ccResult.PoliticalBusiness.ContestId);
+        IEnumerable<TemplateModel> templates = TemplateRepository.GetByGenerator(VotingApp.VotingAusmittlung);
+        templates = FilterFormat(templates, formats);
+        templates = FilterDisabledTemplates(templates);
+        if (!templates.Any())
+        {
+            return Array.Empty<ResultExportTemplate>();
+        }
 
-        var templates = TemplateRepository.GetCountingCircleResultTemplates(
-            VotingApp.VotingAusmittlung,
-            entityType,
-            _mapper.Map<DomainOfInfluenceType>(ccResult.PoliticalBusiness.DomainOfInfluence.Type));
-        var enabledTemplates = FilterDisabledTemplates(templates);
+        var data = await (basisCountingCircleId.HasValue
+            ? LoadExportDataForErfassung(contestId, basisCountingCircleId.Value)
+            : LoadExportDataForMonitoring(contestId));
+        var resultTemplates = templates.SelectMany(t => BuildResultExportTemplates(t, data));
 
-        var politicalBusinesses = new List<PoliticalBusiness> { ccResult.PoliticalBusiness };
-
-        return enabledTemplates
-            .Select(t => new ResultExportTemplate(
-                t,
-                politicalBusinesses,
-                countingCircleId: basisCountingCircleId))
+        return resultTemplates
+            .OrderBy(x => x.EntityDescription)
+            .ThenBy(x => x.Description)
             .ToList();
     }
 
-    public async Task<List<ResultExportTemplate>> GetForPoliticalBusinessResult(
-        Guid politicalBusinessId,
-        PoliticalBusinessType politicalBusinessType)
+    private async Task<ExportData> LoadExportDataForErfassung(Guid contestId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureCanExport(ResultType.PoliticalBusinessResult);
-        if (_config.DisableAllExports)
-        {
-            return new List<ResultExportTemplate>();
-        }
-
-        var entityType = MapPoliticalBusinessTypeToEntityType(politicalBusinessType);
-
-        var politicalBusiness = await _pbQueries
-            .PoliticalBusinessQuery(politicalBusinessType)
-            .Include(pb => pb.DomainOfInfluence)
-            .FirstOrDefaultAsync(pb => pb.Id == politicalBusinessId)
-            ?? throw new EntityNotFoundException(politicalBusinessId);
-
-        await _permissionService.EnsureCanReadContest(politicalBusiness.ContestId);
-
-        var templates = TemplateRepository.GetPoliticalBusinessResultTemplates(
-            VotingApp.VotingAusmittlung,
-            entityType,
-            _mapper.Map<DomainOfInfluenceType>(politicalBusiness.DomainOfInfluence.Type));
-        var enabledTemplates = FilterDisabledTemplates(templates);
-
-        var isFinalized = await _pbQueries
-            .PoliticalBusinessEndResultQuery(politicalBusinessType, politicalBusinessId)
-            .AnyAsync(x => x.Finalized);
-
-        if (!isFinalized)
-        {
-            enabledTemplates = FilterFinalizedTemplates(enabledTemplates);
-        }
-
-        var hasInvalidVotes = politicalBusiness.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
-        if (!hasInvalidVotes)
-        {
-            enabledTemplates = FilterInvalidVotesTemplates(enabledTemplates);
-        }
-
-        var politicalBusinesses = new List<PoliticalBusiness> { politicalBusiness };
-
-        return enabledTemplates
-            .Select(t => new ResultExportTemplate(t, politicalBusinesses))
-            .ToList();
-    }
-
-    public async Task<IReadOnlyCollection<ResultExportTemplate>> GetForContest(Guid contestId)
-    {
-        _permissionService.EnsureCanExport(ResultType.Contest);
-        if (_config.DisableAllExports)
-        {
-            return new List<ResultExportTemplate>();
-        }
-
-        await _permissionService.EnsureCanReadContest(contestId);
-
-        var templates = TemplateRepository.GetContestTemplates(VotingApp.VotingAusmittlung);
-        var enabledTemplates = FilterDisabledTemplates(templates);
-        return enabledTemplates.Select(x => new ResultExportTemplate(x, Array.Empty<PoliticalBusiness>())).ToList();
-    }
-
-    public async Task<List<ResultExportTemplate>> GetForMultiplePoliticalBusinessesResult(Guid contestId)
-    {
-        _permissionService.EnsureCanExport(ResultType.MultiplePoliticalBusinessesResult);
-        if (_config.DisableAllExports)
-        {
-            return new List<ResultExportTemplate>();
-        }
-
-        var politicalBusinesses = await _contestReader.GetOwnedPoliticalBusinesses(contestId);
-        if (politicalBusinesses.Count == 0)
-        {
-            throw new EntityNotFoundException("no owned political businesses found");
-        }
-
-        var templates = TemplateRepository.GetMultiplePoliticalBusinessesResultTemplates(VotingApp.VotingAusmittlung);
-        var enabledTemplates = FilterDisabledTemplates(templates);
-        return enabledTemplates
-            .SelectMany(x => CreatePoliticalBusinessesTemplateModels(x, politicalBusinesses))
-            .ToList();
-    }
-
-    public async Task<List<ResultExportTemplate>> GetForMultiplePoliticalBusinessesCountingCircleResult(Guid contestId, Guid basisCountingCircleId)
-    {
-        _permissionService.EnsureCanExport(ResultType.MultiplePoliticalBusinessesCountingCircleResult);
-        if (_config.DisableAllExports)
-        {
-            return new List<ResultExportTemplate>();
-        }
-
+        _permissionService.EnsureAnyRole();
         var politicalBusinesses = await _contestReader.GetAccessiblePoliticalBusinesses(basisCountingCircleId, contestId);
-        if (politicalBusinesses.Count == 0)
-        {
-            throw new EntityNotFoundException("no accessible political businesses found");
-        }
-
-        var templates = TemplateRepository.GetMultiplePoliticalBusinessesCountingCircleResultTemplates(VotingApp.VotingAusmittlung);
-        var enabledTemplates = FilterDisabledTemplates(templates);
-        return enabledTemplates
-            .SelectMany(x => CreatePoliticalBusinessesTemplateModels(x, politicalBusinesses, basisCountingCircleId))
-            .ToList();
+        var politicalBusinessesByType = politicalBusinesses
+            .GroupBy(x => x.BusinessType)
+            .ToDictionary(x => x.Key, x => (IReadOnlyCollection<SimplePoliticalBusiness>)x.ToList());
+        return new ExportData(
+            basisCountingCircleId,
+            politicalBusinessesByType,
+            Array.Empty<PoliticalBusinessUnion>());
     }
 
-    public async Task<List<ResultExportTemplate>> GetForPoliticalBusinessUnionResult(
-        Guid politicalBusinessUnionId,
-        PoliticalBusinessType politicalBusinessType)
+    private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId)
     {
-        _permissionService.EnsureCanExport(ResultType.PoliticalBusinessUnionResult);
-        if (_config.DisableAllExports)
-        {
-            return new List<ResultExportTemplate>();
-        }
-
-        var entityType = MapPoliticalBusinessTypeToEntityType(politicalBusinessType);
-
-        var politicalBusinessUnion = await _pbQueries
-            .PoliticalBusinessUnionQueryIncludingPoliticalBusinesses(politicalBusinessType)
-            .FirstOrDefaultAsync(x => x.Id == politicalBusinessUnionId)
-            ?? throw new EntityNotFoundException(politicalBusinessUnionId);
-
-        await _permissionService.EnsureCanReadContest(politicalBusinessUnion.ContestId);
-
-        var templates = TemplateRepository.GetPoliticalBusinessUnionResultTemplates(VotingApp.VotingAusmittlung, entityType);
-        var enabledTemplates = FilterDisabledTemplates(templates);
-        return enabledTemplates
-            .Select(t => new ResultExportTemplate(
-                t,
-                politicalBusinessUnion.PoliticalBusinesses.ToList(),
-                politicalBusinessUnionId: politicalBusinessUnionId))
-            .ToList();
+        _permissionService.EnsureMonitoringElectionAdmin();
+        var politicalBusinesses = await _contestReader.GetOwnedPoliticalBusinesses(contestId);
+        var politicalBusinessesByType = politicalBusinesses
+            .GroupBy(x => x.BusinessType)
+            .ToDictionary(x => x.Key, x => (IReadOnlyCollection<SimplePoliticalBusiness>)x.ToList());
+        var politicalBusinessUnions = await _contestReader.ListPoliticalBusinessUnions(contestId);
+        return new ExportData(
+            null,
+            politicalBusinessesByType,
+            politicalBusinessUnions.ToList());
     }
 
-    private IEnumerable<ResultExportTemplate> CreatePoliticalBusinessesTemplateModels(
+    private IEnumerable<ResultExportTemplate> BuildResultExportTemplates(
         TemplateModel template,
-        IEnumerable<PoliticalBusiness> politicalBusinesses,
+        ExportData data)
+    {
+        switch (template.ResultType)
+        {
+            // monitoring exports
+            case ResultType.PoliticalBusinessResult:
+            case ResultType.MultiplePoliticalBusinessesResult:
+                return data.BasisCountingCircleId.HasValue
+                    ? Enumerable.Empty<ResultExportTemplate>()
+                    : ExpandPoliticalBusinesses(
+                        template,
+                        data.PoliticalBusinessesByType);
+
+            // counting circle exports
+            case ResultType.CountingCircleResult:
+            case ResultType.MultiplePoliticalBusinessesCountingCircleResult:
+                return !data.BasisCountingCircleId.HasValue
+                    ? Enumerable.Empty<ResultExportTemplate>()
+                    : ExpandPoliticalBusinesses(
+                        template,
+                        data.PoliticalBusinessesByType,
+                        data.BasisCountingCircleId);
+
+            case ResultType.Contest when !data.BasisCountingCircleId.HasValue:
+                return new[] { new ResultExportTemplate(template) };
+
+            case ResultType.PoliticalBusinessUnionResult when !data.BasisCountingCircleId.HasValue:
+                return ExpandPoliticalBusinessUnions(template, data.PoliticalBusinessUnions);
+
+            default:
+                return Enumerable.Empty<ResultExportTemplate>();
+        }
+    }
+
+    private IEnumerable<ResultExportTemplate> ExpandPoliticalBusinessUnions(TemplateModel template, IEnumerable<PoliticalBusinessUnion> unions)
+        => unions.Select(u => new ResultExportTemplate(template, u.PoliticalBusinesses.ToList(), politicalBusinessUnion: u));
+
+    private IEnumerable<ResultExportTemplate> ExpandPoliticalBusinesses(
+        TemplateModel template,
+        IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> politicalBusinessesByType,
         Guid? basisCountingCircleId = null)
     {
-        var filteredPoliticalBusinesses = politicalBusinesses
-            .Where(pb => pb.BusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                && MapPoliticalBusinessTypeToEntityType(pb.BusinessType) == template.EntityType
-                && (!template.DomainOfInfluenceType.HasValue || template.DomainOfInfluenceType == _mapper.Map<DomainOfInfluenceType>(pb.DomainOfInfluence.Type)))
-            .ToList();
-
-        if (filteredPoliticalBusinesses.Count == 0)
+        var pbType = MapEntityTypeToPoliticalBusinessType(template.EntityType);
+        if (!politicalBusinessesByType.TryGetValue(pbType, out var politicalBusinesses))
         {
             return Enumerable.Empty<ResultExportTemplate>();
         }
 
+        var filteredPoliticalBusinesses = FilterPoliticalBusinessesForTemplate(template, politicalBusinesses);
+
+        if (template.ResultType
+            is ResultType.MultiplePoliticalBusinessesResult
+            or ResultType.MultiplePoliticalBusinessesCountingCircleResult)
+        {
+            return ExpandMultiplePoliticalBusinesses(template, filteredPoliticalBusinesses, basisCountingCircleId);
+        }
+
+        // expand templates for each individual political business
+        return filteredPoliticalBusinesses
+            .Select(pb => new ResultExportTemplate(template, new[] { pb }, countingCircleId: basisCountingCircleId));
+    }
+
+    private IEnumerable<ResultExportTemplate> ExpandMultiplePoliticalBusinesses(
+        TemplateModel template,
+        IEnumerable<PoliticalBusiness> politicalBusinesses,
+        Guid? basisCountingCircleId)
+    {
         if (!template.PerDomainOfInfluenceType)
         {
             return new[]
             {
-                new ResultExportTemplate(
-                    template,
-                    filteredPoliticalBusinesses,
-                    countingCircleId: basisCountingCircleId),
+                new ResultExportTemplate(template, politicalBusinesses.ToList(), countingCircleId: basisCountingCircleId),
             };
         }
 
-        return filteredPoliticalBusinesses.GroupBy(pb => pb.DomainOfInfluence.Type)
+        return politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.Type)
             .Select(g => new ResultExportTemplate(
                 template,
-                g,
+                g.ToList(),
                 $"{template.Description} ({g.Key.ToString().ToUpper()})",
                 g.Key,
                 basisCountingCircleId));
     }
 
-    private EntityType MapPoliticalBusinessTypeToEntityType(PoliticalBusinessType politicalBusinessType)
+    private PoliticalBusinessType MapEntityTypeToPoliticalBusinessType(EntityType entityType)
     {
-        return politicalBusinessType switch
+        return entityType switch
         {
-            PoliticalBusinessType.Vote => EntityType.Vote,
-            PoliticalBusinessType.MajorityElection => EntityType.MajorityElection,
-            PoliticalBusinessType.ProportionalElection => EntityType.ProportionalElection,
-            _ => throw new InvalidOperationException($"Cannot map {politicalBusinessType} to an EntityType"),
+            EntityType.Vote => PoliticalBusinessType.Vote,
+            EntityType.MajorityElection => PoliticalBusinessType.MajorityElection,
+            EntityType.ProportionalElection => PoliticalBusinessType.ProportionalElection,
+            _ => PoliticalBusinessType.Unspecified,
         };
+    }
+
+    private IEnumerable<SimplePoliticalBusiness> FilterPoliticalBusinessesForTemplate(
+        TemplateModel template,
+        IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+    {
+        politicalBusinesses = FilterDomainOfInfluenceType(template, politicalBusinesses);
+        politicalBusinesses = FilterFinalized(template, politicalBusinesses);
+        return FilterInvalidVotes(template, politicalBusinesses);
+    }
+
+    private IEnumerable<SimplePoliticalBusiness> FilterDomainOfInfluenceType(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+    {
+        return politicalBusinesses.Where(pb =>
+                !template.DomainOfInfluenceType.HasValue
+                || template.DomainOfInfluenceType == _mapper.Map<DomainOfInfluenceType>(pb.DomainOfInfluence.Type));
+    }
+
+    private IEnumerable<SimplePoliticalBusiness> FilterFinalized(
+        TemplateModel template,
+        IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+    {
+        // pdfs for political business results are only available for finalized results
+        if (template is not { Format: ExportFileFormat.Pdf, ResultType: ResultType.PoliticalBusinessResult })
+        {
+            return politicalBusinesses;
+        }
+
+        return politicalBusinesses.Where(pb => pb.EndResultFinalized);
+    }
+
+    private IEnumerable<TemplateModel> FilterFormat(IEnumerable<TemplateModel> templates, IReadOnlySet<ExportFileFormat> formats)
+    {
+        return formats.Count == 0
+            ? templates
+            : templates.Where(t => formats.Contains(t.Format));
     }
 
     private IEnumerable<TemplateModel> FilterDisabledTemplates(IEnumerable<TemplateModel> templates)
         => templates.Where(t => !_config.DisabledExportTemplateKeys.Contains(t.Key));
 
-    private IEnumerable<TemplateModel> FilterFinalizedTemplates(IEnumerable<TemplateModel> templates)
-        => templates.Where(t => t.Format != ExportFileFormat.Pdf);
+    private IEnumerable<SimplePoliticalBusiness> FilterInvalidVotes(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+    {
+        // some templates are only available for majority elections with enabled invalid votes
+        if (!_templateKeysOnlyWithInvalidVotes.Contains(template.Key))
+        {
+            return politicalBusinesses;
+        }
 
-    private IEnumerable<TemplateModel> FilterInvalidVotesTemplates(IEnumerable<TemplateModel> templates)
-        => templates.Where(t => t.Key != AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key);
+        return politicalBusinesses.Where(pb =>
+            pb.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes);
+    }
+
+    private record ExportData(
+        Guid? BasisCountingCircleId,
+        IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> PoliticalBusinessesByType,
+        IReadOnlyCollection<PoliticalBusinessUnion> PoliticalBusinessUnions);
 }

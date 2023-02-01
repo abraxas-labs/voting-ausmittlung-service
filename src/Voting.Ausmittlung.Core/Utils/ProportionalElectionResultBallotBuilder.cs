@@ -80,43 +80,44 @@ public class ProportionalElectionResultBallotBuilder
         ICollection<ProportionalElectionCandidate> listCandidates,
         ICollection<ProportionalElectionResultBallotUpdatedCandidateEventData> candidates)
     {
-        var listCandidatesById = listCandidates.ToDictionary(x => x.Id);
-        var listAccumulatedCandidatesById = listCandidates.Where(x => x.Accumulated).ToDictionary(x => x.Id);
+        var originalListCandidatesByPositions = listCandidates.ToDictionary(x => x.Position);
+        foreach (var accumulatedListCandidate in listCandidates.Where(x => x.Accumulated))
+        {
+            originalListCandidatesByPositions[accumulatedListCandidate.AccumulatedPosition] = accumulatedListCandidate;
+        }
 
         ballot.BallotCandidates.Clear();
         foreach (var candidate in candidates)
         {
             var cId = GuidParser.Parse(candidate.CandidateId);
-            if (candidate.OnList && !listAccumulatedCandidatesById.Remove(cId))
+            var onList = false;
+
+            // Check whether this position matches the "original list position", meaning that this position was not modified.
+            // Note: if candidate.OnList is false, but the candidate would still match, then the candidate was removed and re-added
+            if (candidate.OnList && originalListCandidatesByPositions.TryGetValue(candidate.Position, out var originalCandidate)
+                                 && cId == originalCandidate.Id)
             {
-                listCandidatesById.Remove(cId);
+                onList = true;
+
+                // Remove it from this dictionary, so that only positions remain that were removed.
+                originalListCandidatesByPositions.Remove(candidate.Position);
             }
 
             ballot.BallotCandidates.Add(new ProportionalElectionResultBallotCandidate
             {
                 CandidateId = cId,
                 Position = candidate.Position,
-                OnList = candidate.OnList,
+                OnList = onList,
             });
         }
 
-        foreach (var removedCandidate in listCandidatesById.Values)
+        // All positions that remain were removed/replaced by the user
+        foreach (var (position, candidate) in originalListCandidatesByPositions)
         {
             ballot.BallotCandidates.Add(new ProportionalElectionResultBallotCandidate
             {
-                CandidateId = removedCandidate.Id,
-                Position = removedCandidate.Position,
-                OnList = true,
-                RemovedFromList = true,
-            });
-        }
-
-        foreach (var removedCandidate in listAccumulatedCandidatesById.Values)
-        {
-            ballot.BallotCandidates.Add(new ProportionalElectionResultBallotCandidate
-            {
-                CandidateId = removedCandidate.Id,
-                Position = removedCandidate.AccumulatedPosition,
+                CandidateId = candidate.Id,
+                Position = position,
                 OnList = true,
                 RemovedFromList = true,
             });

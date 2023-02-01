@@ -20,8 +20,7 @@ public class ExportProfile : Profile
     {
         // read
         CreateMap<ResultExportTemplate, ProtoModels.ResultExportTemplate>();
-        CreateMap<IEnumerable<ResultExportTemplate>, ProtoModels.ResultExportTemplates>()
-            .ForMember(dst => dst.Templates, opts => opts.MapFrom(src => src));
+        CreateMap<ResultExportTemplateContainer, ProtoModels.ResultExportTemplates>();
 
         CreateMap<DataModels.ResultExportConfiguration, ProtoModels.ResultExportConfiguration>()
             .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(src => src.PoliticalBusinesses!.Select(x => x.PoliticalBusinessId)))

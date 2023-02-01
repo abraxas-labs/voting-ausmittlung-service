@@ -30,6 +30,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly ILogger<PdfContestActivityProtocolRenderService> _logger;
     private readonly EventLogsBuilder _eventLogsBuilder;
+    private readonly EventLogBuilderContextBuilder _eventLogBuilderContextBuilder;
 
     public PdfContestActivityProtocolRenderService(
         TemplateService templateService,
@@ -37,7 +38,8 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         IMapper mapper,
         IProtobufTypeRegistry protoRegistry,
         ILogger<PdfContestActivityProtocolRenderService> logger,
-        EventLogsBuilder eventLogsBuilder)
+        EventLogsBuilder eventLogsBuilder,
+        EventLogBuilderContextBuilder eventLogBuilderContextBuilder)
     {
         _templateService = templateService;
         _contestRepo = contestRepo;
@@ -45,6 +47,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         _protoRegistry = protoRegistry;
         _logger = logger;
         _eventLogsBuilder = eventLogsBuilder;
+        _eventLogBuilderContextBuilder = eventLogBuilderContextBuilder;
     }
 
     public async Task<FileModel> Render(
@@ -63,7 +66,9 @@ public class PdfContestActivityProtocolRenderService : IRendererService
             Contest = _mapper.Map<PdfContest>(contest),
         };
 
-        await foreach (var eventLog in _eventLogsBuilder.Build(contest, ctx.PoliticalBusinessIds).WithCancellation(ct))
+        var eventLogBuilderContext = await _eventLogBuilderContextBuilder.BuildContext(contest.Id, ctx.PoliticalBusinessIds);
+
+        await foreach (var eventLog in _eventLogsBuilder.BuildBusinessEventLogs(contest, eventLogBuilderContext).WithCancellation(ct))
         {
             var pdfEvent = new PdfEvent
             {
@@ -76,9 +81,25 @@ public class PdfContestActivityProtocolRenderService : IRendererService
                 PoliticalBusiness = _mapper.Map<PdfEventPoliticalBusiness>(eventLog),
                 BundleBallotNumber = eventLog.BundleBallotNumber,
                 BundleNumber = eventLog.BundleNumber,
-                EventSignatureVerification = (PdfEventSignatureVerification)eventLog.EventSignatureVerification,
+                EventSignatureVerification = (PdfEventSignatureVerification?)eventLog.EventSignatureVerification,
             };
             pdfActivityProtocol.Events.Add(pdfEvent);
+        }
+
+        // build public key signature event logs after the business event logs are built, because it needs to process
+        // all business events first, to have informations such as the signed event count.
+        foreach (var eventLog in _eventLogsBuilder.BuildPublicKeySignatureEventLogs(eventLogBuilderContext))
+        {
+            var pdfPublicKeySignatureEvent = new PdfEvent
+            {
+                Date = eventLog.Timestamp,
+                EventName = eventLog.EventFullName,
+                EventData = GetEventAttributes(eventLog).ToList(),
+                Tenant = _mapper.Map<PdfEventTenant>(eventLog.EventTenant),
+                User = _mapper.Map<PdfEventUser>(eventLog.EventUser),
+                PublicKeyData = _mapper.Map<PdfEventPublicKeyData>(eventLog.PublicKeyData),
+            };
+            pdfActivityProtocol.PublicKeySignatureEvents.Add(pdfPublicKeySignatureEvent);
         }
 
         return await _templateService.RenderToPdf(ctx, pdfActivityProtocol);

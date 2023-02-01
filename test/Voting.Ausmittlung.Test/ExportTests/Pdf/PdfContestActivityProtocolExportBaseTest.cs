@@ -130,7 +130,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    protected void SeedAusmittlungPublicKeySignatureEvents()
+    protected void SeedAusmittlungPublicKeySignatureEvents(long keyHost2SignedEventCount)
     {
         // Create public key for "Host1"
         var publicKeySignatureHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
@@ -174,7 +174,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             Host2,
             AusmittlungKeyHost2.Id,
             new DateTime(2020, 7, 17, 10, 9, 0, DateTimeKind.Utc),
-            0);
+            keyHost2SignedEventCount);
 
         var publicKeyHost2Delete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
             publicKeyHost2DeleteAuthTagPayload,
@@ -204,7 +204,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         PublishAusmittlungPublicKeyEvent(publicKeyHost1AfterRebootCreated, publicKeyHost1AfterRebootCreate.HsmSignature);
     }
 
-    protected void SeedBasisPublicKeySignatureEvents()
+    protected void SeedBasisPublicKeySignatureEvents(long keyHost1AfterTestingPhaseEndedSignedEventCount)
     {
         // Create public key for "Host1".
         var publicKeyHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
@@ -248,7 +248,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             Host1,
             BasisKeyHost1AfterTestingPhaseEnded!.Id,
             new DateTime(2020, 7, 17, 10, 45, 24, DateTimeKind.Utc),
-            0);
+            keyHost1AfterTestingPhaseEndedSignedEventCount);
 
         var publicKeyHost1AfterTestingPhaseEndedDelete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
             publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload,

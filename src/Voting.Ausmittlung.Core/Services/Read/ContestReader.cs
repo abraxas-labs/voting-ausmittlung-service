@@ -182,6 +182,7 @@ public class ContestReader
         }
 
         return await _repo.Query()
+            .AsSingleQuery()
             .Where(x => x.Id == contestId)
             .SelectMany(x => x.SimplePoliticalBusinesses)
             .Where(x => x.Active && x.SimpleResults.Any(cc => cc.CountingCircle!.BasisCountingCircleId == basisCountingCircleId))
@@ -189,12 +190,14 @@ public class ContestReader
             .ThenBy(x => x.DomainOfInfluence.Type)
             .ThenBy(x => x.PoliticalBusinessType)
             .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Translations)
             .ToListAsync();
     }
 
     internal async Task<List<SimplePoliticalBusiness>> GetOwnedPoliticalBusinesses(Guid contestId)
     {
         return await _repo.Query()
+            .AsSingleQuery()
             .Where(x => x.Id == contestId)
             .SelectMany(x => x.SimplePoliticalBusinesses)
             .Where(x => x.Active && x.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
@@ -202,6 +205,7 @@ public class ContestReader
             .ThenBy(x => x.DomainOfInfluence.Type)
             .ThenBy(x => x.PoliticalBusinessType)
             .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Translations)
             .ToListAsync();
     }
 

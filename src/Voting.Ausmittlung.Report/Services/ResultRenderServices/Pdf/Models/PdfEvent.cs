@@ -28,9 +28,15 @@ public class PdfEvent
 
     public int? BundleBallotNumber { get; set; }
 
-    public PdfEventSignatureVerification EventSignatureVerification { get; set; }
+    public PdfEventSignatureVerification? EventSignatureVerification { get; set; }
+
+    public PdfEventPublicKeyData? PublicKeyData { get; set; }
 
     public bool ShouldSerializeBundleNumber() => BundleNumber.HasValue;
 
     public bool ShouldSerializeBundleBallotNumber() => BundleBallotNumber.HasValue;
+
+    public bool ShouldSerializeEventSignatureVerification() => EventSignatureVerification.HasValue;
+
+    public bool ShouldSerializePublicKeyData() => PublicKeyData != null;
 }

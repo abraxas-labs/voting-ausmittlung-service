@@ -2767,156 +2767,6 @@
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
-    <Date>2020-07-17T10:12:05Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>political_business_number</AttributeName>
-      <AttributeValue>201 UPDATE</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>official_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>201 Official UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>201 Official UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>201 Official UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>201 Official UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>short_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>Mw SG UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>Mw SG UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>Mw SG UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>Mw SG UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>internal_description</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>enforce_empty_vote_counting_for_counting_circles</AttributeName>
-      <AttributeValue>False</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>enforce_result_entry_for_counting_circles</AttributeName>
-      <AttributeValue>True</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>report_domain_of_influence_level</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionAfterTestingPhaseUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:12:05Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>official_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>SME Official Update de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>SME Official Update fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>SME Official Update it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>SME Official Update rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>short_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>SME ShortDescription UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>SME ShortDescription UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>SME ShortDescription UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>SME ShortDescription UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>internal_description</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>political_business_number</AttributeName>
-      <AttributeValue>n1 UPDATE</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionAfterTestingPhaseUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1 UPDATE</Number>
-      <Description>SME ShortDescription UPDATE de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
     <Date>2020-07-17T10:12:06Z</Date>
     <EventAttribute>
       <AttributeName>election_result_id</AttributeName>
@@ -2940,8 +2790,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -2969,8 +2819,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -2994,8 +2844,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -3019,8 +2869,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -3044,8 +2894,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -3069,8 +2919,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -3116,8 +2966,8 @@
       <Lastname>Admin</Lastname>
     </User>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Mw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Mw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
@@ -3756,77 +3606,6 @@
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
   <Event>
-    <Date>2020-07-17T10:28:45Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>political_business_number</AttributeName>
-      <AttributeValue>201 UPDATE</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>official_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>Official UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>Official UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>Official UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>Official UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>short_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>Pw SG UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>Pw SG UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>Pw SG UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>Pw SG UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>internal_description</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>enforce_empty_vote_counting_for_counting_circles</AttributeName>
-      <AttributeValue>False</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionAfterTestingPhaseUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
     <Date>2020-07-17T10:28:46Z</Date>
     <EventAttribute>
       <AttributeName>election_result_id</AttributeName>
@@ -3850,8 +3629,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3879,8 +3658,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3904,8 +3683,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3929,8 +3708,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3954,8 +3733,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3979,8 +3758,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4030,8 +3809,8 @@
       <Lastname>Admin</Lastname>
     </User>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Pw SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Pw SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4724,77 +4503,6 @@
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
   <Event>
-    <Date>2020-07-17T10:45:25Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>903a47bf-6b7b-4460-8475-b7bd89ea2ac9</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>political_business_number</AttributeName>
-      <AttributeValue>201 UPDATE</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>official_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>Official UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>Official UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>Official UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>Official UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>short_description</AttributeName>
-      <EventAttribute>
-        <AttributeName>de</AttributeName>
-        <AttributeValue>Abst SG UPDATE de</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>fr</AttributeName>
-        <AttributeValue>Abst SG UPDATE fr</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>it</AttributeName>
-        <AttributeValue>Abst SG UPDATE it</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rm</AttributeName>
-        <AttributeValue>Abst SG UPDATE rm</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>internal_description</AttributeName>
-      <AttributeValue>Internal UPDATE</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>report_domain_of_influence_level</AttributeName>
-      <AttributeValue>0</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.VoteAfterTestingPhaseUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationFailed</EventSignatureVerification>
-  </Event>
-  <Event>
     <Date>2020-07-17T10:45:26Z</Date>
     <EventAttribute>
       <AttributeName>vote_result_id</AttributeName>
@@ -4818,8 +4526,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4847,8 +4555,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4872,8 +4580,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4897,8 +4605,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4922,8 +4630,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4947,9 +4655,270 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201 UPDATE</Number>
-      <Description>Abst SG UPDATE de</Description>
+      <Number>201</Number>
+      <Description>Abst SG de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:08:20Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>BRXwivXbXlWjvjWQPRunrtVe</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_from</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980000</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_to</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980500</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.EventSignaturePublicKeyCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:08:20Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>BJ6bIsxdpJARUdCgNZWDtYis</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_from</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980500</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_to</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1595008800</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.EventSignaturePublicKeyCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:08:20Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host2</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>BKYc4H9RTDVYmmvJbWNYIC3w</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_from</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980500</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_to</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980600</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.EventSignaturePublicKeyCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:08:20Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>BIQLdkl8P27rZTH3b4HhNE1D</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_from</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594981220</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_to</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1595008800</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.EventSignaturePublicKeyCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:09:00Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host2</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>BKYc4H9RTDVYmmvJbWNYIC3w</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>signed_event_count</AttributeName>
+      <AttributeValue>10</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>deleted_at</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980540</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.EventSignaturePublicKeyDeleted</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <ExpectedSignedEventCount>10</ExpectedSignedEventCount>
+      <ReadAtGenerationSignedEventCount>10</ReadAtGenerationSignedEventCount>
+      <HasMatchingSignedEventCount>true</HasMatchingSignedEventCount>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
 </ActivityProtocol>

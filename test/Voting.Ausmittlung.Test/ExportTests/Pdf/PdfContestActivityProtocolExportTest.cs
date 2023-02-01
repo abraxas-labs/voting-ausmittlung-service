@@ -57,8 +57,8 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
 
-        SeedBasisPublicKeySignatureEvents();
-        SeedAusmittlungPublicKeySignatureEvents();
+        SeedBasisPublicKeySignatureEvents(testingPhaseEnded ? 5 : 0);
+        SeedAusmittlungPublicKeySignatureEvents(10);
 
         SeedVoteInitEvents();
         SeedProportionalElectionInitEvents();
@@ -73,9 +73,9 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         }
 
         SeedContestCountingCircleDetailsEvents();
-        SeedMajorityElectionResultEvents();
-        SeedProportionalElectionResultEvents();
-        SeedVoteResultEvents();
+        SeedMajorityElectionResultEvents(testingPhaseEnded);
+        SeedProportionalElectionResultEvents(testingPhaseEnded);
+        SeedVoteResultEvents(testingPhaseEnded);
         SeedExportEvents();
     }
 
@@ -443,7 +443,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(contestCountingCircleDetailsUpdateEvent, contestCountingCircleDetailsUpdateEvent.Id, Host2, AusmittlungKeyHost2);
     }
 
-    private void SeedMajorityElectionResultEvents()
+    private void SeedMajorityElectionResultEvents(bool testingPhaseEnded)
     {
         var resultId = MajorityElectionEndResultMockedData.StGallenResultId;
         var electionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund;
@@ -588,7 +588,10 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId, Host1, AusmittlungKeyHost1);
 
-        SeedMajorityElectionAfterTestingPhaseEndedEvents();
+        if (testingPhaseEnded)
+        {
+            SeedMajorityElectionAfterTestingPhaseEndedEvents();
+        }
 
         var flaggedForCorrection = new MajorityElectionResultFlaggedForCorrection
         {
@@ -794,7 +797,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(bundleDeleted, resultId, Host2, AusmittlungKeyHost2);
     }
 
-    private void SeedProportionalElectionResultEvents()
+    private void SeedProportionalElectionResultEvents(bool testingPhaseEnded)
     {
         var resultId = ProportionalElectionEndResultMockedData.StGallenResultId;
         var electionId = ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund;
@@ -872,7 +875,10 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId);
 
-        SeedProportionalElectionAfterTestingPhaseEndedEvents();
+        if (testingPhaseEnded)
+        {
+            SeedProportionalElectionAfterTestingPhaseEndedEvents();
+        }
 
         var flaggedForCorrection = new ProportionalElectionResultFlaggedForCorrection
         {
@@ -1077,7 +1083,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(bundleDeleted, bundleId);
     }
 
-    private void SeedVoteResultEvents()
+    private void SeedVoteResultEvents(bool testingPhaseEnded)
     {
         var resultId = "d453bc14-b433-4394-95af-4121ffa8674e";
         var voteId = VoteMockedData.IdStGallenVoteInContestBund;
@@ -1225,7 +1231,10 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId);
 
-        SeedVoteAfterTestingPhaseEndedEvents();
+        if (testingPhaseEnded)
+        {
+            SeedVoteAfterTestingPhaseEndedEvents();
+        }
 
         var flaggedForCorrection = new VoteResultFlaggedForCorrection
         {

@@ -6,9 +6,6 @@ namespace Voting.Ausmittlung.EventSignature;
 public enum PublicKeySignatureValidationResultType
 {
     Valid,
-    AuthenticationTagCreateInvalid,
-    HsmSignatureCreateInvalid,
-    AuthenticationTagDeleteInvalid,
-    HsmSignatureDeleteInvalid,
-    CreateDeletePropertiesMismatch,
+    AuthenticationTagInvalid,
+    HsmSignatureInvalid,
 }

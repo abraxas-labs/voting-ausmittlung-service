@@ -177,6 +177,7 @@ public static class ServiceCollectionExtensions
 
         return services
             .AddSingleton<EventLogInitializerAdapterRegistry>()
+            .AddScoped<EventLogBuilderContextBuilder>()
             .AddScoped<EventLogsBuilder>()
             .AddScoped<EventLogBuilder>()
             .AddScoped<EventLogEventSignatureVerifier>()

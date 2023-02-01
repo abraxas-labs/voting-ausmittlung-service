@@ -30,7 +30,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     public void TestValidSignature()
     {
         var result = _verifier.VerifySignature(NewCreateData(), NewDeleteData(), NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.SignatureData.Should().NotBeNull();
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
         result.IsValid.Should().BeTrue();
     }
 
@@ -38,7 +40,10 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     public void TestValidSignatureWithoutDeleteData()
     {
         var result = _verifier.VerifySignature(NewCreateData(), null, NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.SignatureData.Should().NotBeNull();
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.DeletePublicKeySignatureValidationResultType.Should().BeNull();
+        result.IsValid.Should().BeTrue();
     }
 
     [Fact]
@@ -48,7 +53,7 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(x => x.ContestId = Guid.Empty.ToString()),
             NewDeleteData(),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.CreateDeletePropertiesMismatch);
+        result.SignatureData.Should().BeNull();
         result.IsValid.Should().BeFalse();
     }
 
@@ -59,7 +64,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(x => x.KeyId = "Random"),
             NewDeleteData(),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.CreateDeletePropertiesMismatch);
+        result.SignatureData.Should().BeNull();
+        result.IsValid.Should().BeFalse();
     }
 
     [Fact]
@@ -69,7 +75,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(),
             NewDeleteData(x => x.SignatureVersion = 3),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.CreateDeletePropertiesMismatch);
+        result.SignatureData.Should().BeNull();
+        result.IsValid.Should().BeFalse();
     }
 
     [Fact]
@@ -79,7 +86,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(x => x.AuthenticationTag = ConvertBase64StringToByteString("AFCXTVrm9CSvOhSOIT3fRXUaKWv0hpMKnfB4UjBYBHMY0f1/tnQJeSedWQtTeREbosUbJPQs8xLpE1nVTJaQ+FxIAY7EcyVoKJNmXkwqy9ObyZKPJzrYCD4gUD+u3AUbsOBwfPnakVX80QkWxl1HJe+C8IfjkfXOCXdqyqHtaksLFstx")),
             NewDeleteData(),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.AuthenticationTagCreateInvalid);
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.AuthenticationTagInvalid);
+        result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
         result.IsValid.Should().BeFalse();
     }
 
@@ -90,7 +98,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(null, Convert.FromBase64String("AZChPYnXpkawnQWBpuChPUK826lecevTZmvM7CtN0rMXyhjRoJwbXGjJKky2Y7HRVVx7ii+PJpo5893nK3YpQHtaAUGZkttjJ5dOdzMbHyuU75eiddbUW2vQn/eRDgoHXv38T0fSyC7FD6iEkR53XEg0JlDvnDvYxZEkQGNbG9VrzYZV")),
             NewDeleteData(),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.HsmSignatureCreateInvalid);
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.HsmSignatureInvalid);
+        result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
         result.IsValid.Should().BeFalse();
     }
 
@@ -101,7 +110,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(),
             NewDeleteData(x => x.AuthenticationTag = ConvertBase64StringToByteString("AHEFnWNJv1dvQD3GpRNfHgacAiW7bjfS6XCl0j+6PhkwHh2hpobbgj0Hv/dx2qvW953Qr4SMEwEfKiJAGFhPXjA1AcMfHynNsD+T1CgUNipc8PZ8mZMgol0Eq4NBAXMuUnIoIe7cjni8FdRFIPU+NzBVKapr3vpz4iTjz4x9lY/oAyGZ")),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.AuthenticationTagDeleteInvalid);
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.AuthenticationTagInvalid);
         result.IsValid.Should().BeFalse();
     }
 
@@ -112,7 +122,8 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             NewCreateData(),
             NewDeleteData(null, Convert.FromBase64String("AHmdWmclPaF597VdtJRMYFY+KtseA4VljNPkg0IXsMM1B6bF48y1s2xT/RqwqMo9DkphC3v5+meUbcIK9RT4K0MWAEMXs4xshA35mTVf61b2IbHSRzeq4vsAD7VvPnI6j3I4iIusLNzScZUD/VLwroUx9CG+ONflusxcl1rRxWZxrHWn")),
             NewKeyData());
-        result.Type.Should().Be(PublicKeySignatureValidationResultType.HsmSignatureDeleteInvalid);
+        result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
+        result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.HsmSignatureInvalid);
         result.IsValid.Should().BeFalse();
     }
 
