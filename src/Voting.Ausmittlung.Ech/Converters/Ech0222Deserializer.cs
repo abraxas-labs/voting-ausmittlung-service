@@ -50,18 +50,16 @@ public static class Ech0222Deserializer
 
         if (delivery.RawDataDelivery.RawData.CountingCircleRawData == null)
         {
-            return new EVotingImport(delivery.DeliveryHeader.MessageId, contestId, Array.Empty<EVotingPoliticalBusinessResult>());
+            return new EVotingImport(delivery.DeliveryHeader.MessageId, contestId, new List<EVotingPoliticalBusinessResult>());
         }
 
         var results = new List<EVotingPoliticalBusinessResult>();
         foreach (var ccData in delivery.RawDataDelivery.RawData.CountingCircleRawData)
         {
-            var countingCircleBasisId = GuidParser.Parse(ccData.countingCircleId);
-
             if (ccData.VoteRawData != null)
             {
                 var ccVotes = ccData.VoteRawData
-                    .Select(x => x.ToEVotingVote(countingCircleBasisId));
+                    .Select(x => x.ToEVotingVote(ccData.countingCircleId));
                 results.AddRange(ccVotes);
             }
 
@@ -69,16 +67,18 @@ public static class Ech0222Deserializer
             {
                 var ccElections = ccData.electionGroupBallotRawData
                     .SelectMany(g => g.ElectionRawData)
-                    .Select(x => x.ToEVotingElection(countingCircleBasisId))
-                    .Where(x => x != null)
-                    .Select(x => x!);
+                    .GroupBy(x => x.ElectionIdentification)
+                    .Select(x => x.SelectMany(g => g.BallotRawData).ToEVotingElection(x.Key, ccData.countingCircleId))
+                    .Select(x => x);
                 results.AddRange(ccElections);
+            }
+
+            if (ccData.VoteRawData == null && ccData.electionGroupBallotRawData == null)
+            {
+                results.Add(new EVotingEmptyResult(ccData.countingCircleId));
             }
         }
 
-        return new EVotingImport(
-            delivery.DeliveryHeader.MessageId,
-            contestId,
-            results);
+        return new EVotingImport(delivery.DeliveryHeader.MessageId, contestId, results);
     }
 }

@@ -15,7 +15,7 @@ public class FileModel
     private readonly Func<PipeWriter, CancellationToken, Task> _writer;
 
     public FileModel(
-        ReportRenderContext renderContext,
+        ReportRenderContext? renderContext,
         string filename,
         ExportFileFormat format,
         Func<PipeWriter, CancellationToken, Task> writer)
@@ -27,7 +27,7 @@ public class FileModel
     }
 
     public FileModel(
-        ReportRenderContext renderContext,
+        ReportRenderContext? renderContext,
         string filename,
         ExportFileFormat format,
         string echMessageId,
@@ -41,7 +41,7 @@ public class FileModel
 
     public ExportFileFormat Format { get; }
 
-    public ReportRenderContext RenderContext { get; }
+    public ReportRenderContext? RenderContext { get; }
 
     public string? EchMessageId { get; }
 

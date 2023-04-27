@@ -82,17 +82,19 @@
   "TotalCountOfVoters": 15000,
   "CountOfVoters": {
     "VoterParticipation": 0.0,
-    "EVotingReceivedBallots": 0,
     "ConventionalReceivedBallots": null,
     "ConventionalInvalidBallots": null,
     "ConventionalBlankBallots": null,
     "ConventionalAccountedBallots": null,
+    "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingBlankBallots": 0,
+    "EVotingAccountedBallots": 0,
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
     "TotalUnaccountedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingAccountedBallots": 0,
-    "TotalInvalidBallots": 0
+    "TotalInvalidBallots": 0,
+    "TotalBlankBallots": 0
   },
   "AllBundlesReviewedOrDeleted": true,
   "CountingCircle": {

@@ -20,7 +20,7 @@ public abstract class ElectionEndResultWriter<TElectionEndResultAvailableLotDeci
     where TElectionEndResultAvailableLotDecision : ElectionEndResultAvailableLotDecision<TCandidate>
     where TCandidate : DataModels.ElectionCandidate
     where TAggregate : BaseEventSourcingAggregate, IPoliticalBusinessEndResultAggregate
-    where TEndResult : DataModels.PoliticalBusinessEndResult
+    where TEndResult : DataModels.PoliticalBusinessEndResultBase
 {
     protected ElectionEndResultWriter(
         ILogger logger,

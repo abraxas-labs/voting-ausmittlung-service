@@ -160,7 +160,7 @@ public class ResultResetCountigCircleResultsTest : BaseTest<ResultService.Result
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.ResetCountingCircleResultsAsync(NewValidRequest()),
             StatusCode.PermissionDenied,
-            "Invalid counting circle, does not belong to this tenant");
+            "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
     }
 
     [Fact]

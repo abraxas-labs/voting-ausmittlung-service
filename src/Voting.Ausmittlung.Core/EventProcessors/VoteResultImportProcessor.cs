@@ -29,12 +29,11 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
         var voteId = GuidParser.Parse(eventData.VoteId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
         var voteResult = await _voteResultRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Results).ThenInclude(x => x.QuestionResults).ThenInclude(x => x.Question)
-                         .Include(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults).ThenInclude(x => x.Question)
-                         .FirstOrDefaultAsync(x =>
-                             x.CountingCircle.BasisCountingCircleId == countingCircleId && x.VoteId == voteId)
-                     ?? throw new EntityNotFoundException(nameof(VoteResult), new { countingCircleId, voteId });
+            .AsSplitQuery()
+            .Include(x => x.Results).ThenInclude(x => x.QuestionResults).ThenInclude(x => x.Question)
+            .Include(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults).ThenInclude(x => x.Question)
+            .FirstOrDefaultAsync(x => x.CountingCircle.BasisCountingCircleId == countingCircleId && x.VoteId == voteId)
+            ?? throw new EntityNotFoundException(nameof(VoteResult), new { countingCircleId, voteId });
 
         var ballotResultsByBallotId = voteResult.Results.ToDictionary(x => x.BallotId);
         foreach (var importedBallotResult in eventData.BallotResults)
@@ -43,7 +42,8 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
             var ballotResult = ballotResultsByBallotId[ballotId];
 
             ballotResult.CountOfVoters.EVotingReceivedBallots = importedBallotResult.CountOfVoters;
-            ballotResult.CountOfVoters.EVotingAccountedBallots = importedBallotResult.CountOfVoters;
+            ballotResult.CountOfVoters.EVotingBlankBallots = importedBallotResult.BlankBallotCount;
+            ballotResult.CountOfVoters.EVotingAccountedBallots = importedBallotResult.CountOfVoters - importedBallotResult.BlankBallotCount;
             ballotResult.CountOfVoters.UpdateVoterParticipation(voteResult.TotalCountOfVoters);
 
             ProcessBallotQuestionResults(ballotResult, importedBallotResult.QuestionResults);

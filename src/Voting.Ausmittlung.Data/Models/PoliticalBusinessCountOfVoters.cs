@@ -11,6 +11,8 @@ public class PoliticalBusinessCountOfVoters
 
     public int EVotingInvalidBallots { get; set; }
 
+    public int EVotingBlankBallots { get; set; }
+
     public int EVotingAccountedBallots { get; set; }
 
     public int ConventionalReceivedBallots { get; set; }
@@ -41,7 +43,7 @@ public class PoliticalBusinessCountOfVoters
 
     public int TotalUnaccountedBallots
     {
-        get => ConventionalBlankBallots + ConventionalInvalidBallots + EVotingInvalidBallots;
+        get => ConventionalBlankBallots + ConventionalInvalidBallots + EVotingBlankBallots + EVotingInvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -51,6 +53,15 @@ public class PoliticalBusinessCountOfVoters
     public int TotalInvalidBallots
     {
         get => ConventionalInvalidBallots + EVotingInvalidBallots;
+        private set
+        {
+            // empty setter to store the value in the database...
+        }
+    }
+
+    public int TotalBlankBallots
+    {
+        get => ConventionalBlankBallots + EVotingBlankBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -82,6 +93,7 @@ public class PoliticalBusinessCountOfVoters
             case VotingDataSource.EVoting:
                 EVotingReceivedBallots = 0;
                 EVotingInvalidBallots = 0;
+                EVotingBlankBallots = 0;
                 EVotingAccountedBallots = 0;
                 break;
         }

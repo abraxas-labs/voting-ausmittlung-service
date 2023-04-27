@@ -19,17 +19,14 @@ namespace Voting.Ausmittlung.Core.Services.Read;
 public class MajorityElectionEndResultReader
 {
     private readonly IDbRepository<DataContext, MajorityElectionEndResult> _endResultRepo;
-    private readonly IDbRepository<DataContext, ContestDomainOfInfluenceDetails> _contestDomainOfInfluenceDetailsRepo;
     private readonly PermissionService _permissionService;
 
     public MajorityElectionEndResultReader(
         IDbRepository<DataContext, MajorityElectionEndResult> endResultRepo,
-        IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo,
         PermissionService permissionService)
     {
         _endResultRepo = endResultRepo;
         _permissionService = permissionService;
-        _contestDomainOfInfluenceDetailsRepo = contestDomainOfInfluenceDetailsRepo;
     }
 
     public async Task<MajorityElectionEndResult> GetEndResult(Guid majorityElectionId)
@@ -42,6 +39,8 @@ public class MajorityElectionEndResultReader
             .Include(x => x.MajorityElection.DomainOfInfluence)
             .Include(x => x.MajorityElection.Contest.Translations)
             .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards)
             .Include(x => x.CandidateEndResults)
                 .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.SecondaryMajorityElectionEndResults)
@@ -52,14 +51,9 @@ public class MajorityElectionEndResultReader
             .FirstOrDefaultAsync(x => x.MajorityElectionId == majorityElectionId && x.MajorityElection.DomainOfInfluence.SecureConnectId == tenantId)
             ?? throw new EntityNotFoundException(majorityElectionId);
 
+        majorityElectionEndResult.OrderVotingCardsAndSubTotals();
         SortCandidateByRank(majorityElectionEndResult);
 
-        majorityElectionEndResult.MajorityElection.DomainOfInfluence.Details = await _contestDomainOfInfluenceDetailsRepo.Query()
-            .AsSplitQuery()
-            .Include(d => d.CountOfVotersInformationSubTotals)
-            .Include(d => d.VotingCards.Where(x => x.DomainOfInfluenceType == majorityElectionEndResult.MajorityElection.DomainOfInfluence.Type))
-            .FirstOrDefaultAsync(x => x.DomainOfInfluenceId == majorityElectionEndResult.MajorityElection.DomainOfInfluenceId);
-        majorityElectionEndResult.MajorityElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
         return majorityElectionEndResult;
     }
 

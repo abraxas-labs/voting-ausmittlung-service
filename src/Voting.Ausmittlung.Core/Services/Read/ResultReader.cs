@@ -130,8 +130,10 @@ public class ResultReader
                 .FirstOrDefaultAsync(x => x.BasisCountingCircleId == basisCountingCircleId && x.SnapshotContestId == contestId)
             ?? throw new EntityNotFoundException(basisCountingCircleId);
 
-        var details = await _contestCountingCircleDetailsRepo.GetWithRelatedEntities(AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, basisCountingCircleId, contest.TestingPhaseEnded));
-        details?.OrderVotingCardsAndSubTotals();
+        var contestCcDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, basisCountingCircleId, contest.TestingPhaseEnded);
+        var details = await _contestCountingCircleDetailsRepo.GetWithRelatedEntities(contestCcDetailsId)
+            ?? throw new EntityNotFoundException(nameof(ContestCountingCircleDetails), contestCcDetailsId);
+        details.OrderVotingCardsAndSubTotals();
 
         var isPoliticalDoiType = contest.DomainOfInfluence.Type.IsPolitical();
         var results = await _simpleResultRepo.Query()
@@ -146,12 +148,14 @@ public class ResultReader
             .ThenBy(x => x.PoliticalBusiness!.PoliticalBusinessNumber)
             .ToListAsync();
 
+        var currentTenantIsResponsible = countingCircle.ResponsibleAuthority.SecureConnectId == tenantId || (contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded);
+
         return new ResultList(
             contest,
             countingCircle,
             details,
             results,
-            countingCircle.ResponsibleAuthority.SecureConnectId == tenantId,
+            currentTenantIsResponsible,
             countingCircle.ContestCountingCircleContactPersonId,
             countingCircle.MustUpdateContactPersons);
     }

@@ -11,6 +11,7 @@ public class PdfVoteProfile : Profile
     public PdfVoteProfile()
     {
         CreateMap<Vote, PdfVote>();
+        CreateMap<Vote, PdfPoliticalBusiness>();
         CreateMap<Ballot, PdfBallot>();
         CreateMap<BallotQuestion, PdfBallotQuestion>();
         CreateMap<TieBreakQuestion, PdfTieBreakQuestion>();

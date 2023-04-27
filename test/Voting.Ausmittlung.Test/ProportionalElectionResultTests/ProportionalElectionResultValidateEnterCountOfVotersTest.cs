@@ -103,6 +103,23 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
     }
 
     [Fact]
+    public async Task ShouldReturnIsValidAsContestManagerDuringTestingPhase()
+    {
+        var result = await StGallenErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest());
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(

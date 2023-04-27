@@ -7,6 +7,7 @@ using eCH_0110_4_0;
 using eCH_0155_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
+using Voting.Lib.Ech.Utils;
 using Ballot = Voting.Ausmittlung.Data.Models.Ballot;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
@@ -52,19 +53,20 @@ internal static class VoteResultMapping
             CountOfAccountedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalAccountedBallots),
             CountOfReceivedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalReceivedBallots),
             CountOfUnaccountedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalUnaccountedBallots),
-            CountOfUnaccountedBlankBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault()),
+            CountOfUnaccountedBlankBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalBlankBallots),
             CountOfUnaccountedInvalidBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalInvalidBallots),
             Item = ballot.BallotType == BallotType.StandardBallot
-                ? (object)ballotResult.QuestionResults.First().ToEchStandardBallotResult()
+                ? ballotResult.QuestionResults.First().ToEchStandardBallotResult()
                 : ballotResult.ToEchVariantBallotResult(),
         };
     }
 
     private static StandardBallotResultType ToEchStandardBallotResult(this BallotQuestionResult questionResult)
     {
+        var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(questionResult.BallotResult.BallotId, false, questionResult.Question.Number);
         return new StandardBallotResultType
         {
-            QuestionIdentification = questionResult.QuestionId.ToString(),
+            QuestionIdentification = questionId,
             CountOfAnswerEmpty = ResultDetailFromTotal(questionResult.TotalCountOfAnswerUnspecified),
             CountOfAnswerInvalid = ResultDetailFromTotal(0),
             CountOfAnswerYes = ResultDetailFromTotal(questionResult.TotalCountOfAnswerYes),
@@ -86,9 +88,10 @@ internal static class VoteResultMapping
         var countInFavorQ1 = tieBreakQuestionResult.ToEchCountInFavorOf(true, ballot);
         var countInFavorQ2 = tieBreakQuestionResult.ToEchCountInFavorOf(false, ballot);
 
+        var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(ballot.Id, true, tieBreakQuestionResult.Question.Number);
         return new TieBreak
         {
-            QuestionIdentification = tieBreakQuestionResult.QuestionId.ToString(),
+            QuestionIdentification = questionId,
             CountInFavourOf = new[] { countInFavorQ1, countInFavorQ2 },
             CountOfAnswerEmpty = ResultDetailFromTotal(tieBreakQuestionResult.TotalCountOfAnswerUnspecified),
             CountOfAnswerInvalid = ResultDetailFromTotal(0),
@@ -104,10 +107,11 @@ internal static class VoteResultMapping
             ? tieBreakQuestionResult.Question.Question1Number
             : tieBreakQuestionResult.Question.Question2Number;
 
+        var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(ballot.Id, false, questionNumber);
         return new CountInFavourOf
         {
             CountOfValidAnswers = ResultDetailFromTotal(count),
-            QuestionIdentification = ballot.BallotQuestions.First(q => q.Number == questionNumber).Id.ToString(),
+            QuestionIdentification = questionId,
         };
     }
 

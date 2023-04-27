@@ -15,9 +15,13 @@ public class ProportionalElectionEndResultProfile : Profile
     public ProportionalElectionEndResultProfile()
     {
         // read
+        CreateMap<DataModels.ProportionalElectionEndResultVotingCardDetail, ProtoModels.VotingCardResultDetail>();
+        CreateMap<DataModels.ProportionalElectionEndResultCountOfVotersInformationSubTotal, ProtoModels.CountOfVotersInformationSubTotal>();
+        CreateMap<DataModels.ProportionalElectionEndResult, ProtoModels.CountOfVotersInformation>()
+            .ForMember(dst => dst.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
         CreateMap<DataModels.ProportionalElectionEndResult, ProtoModels.ProportionalElectionEndResult>()
             .ForMember(dst => dst.Contest, opts => opts.MapFrom(src => src.ProportionalElection.Contest))
-            .ForMember(dst => dst.DomainOfInfluenceDetails, opts => opts.MapFrom(src => src.ProportionalElection.DomainOfInfluence.Details));
+            .ForMember(dst => dst.CountOfVotersInformation, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.ProportionalElectionListEndResult, ProtoModels.ProportionalElectionListEndResult>()
             .ForMember(dst => dst.ListUnion, opts => opts.MapFrom(src => src.List.ProportionalElectionListUnion))
             .ForMember(dst => dst.SubListUnion, opts => opts.MapFrom(src => src.List.ProportionalElectionSubListUnion));

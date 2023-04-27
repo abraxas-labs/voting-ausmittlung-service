@@ -72,6 +72,24 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);

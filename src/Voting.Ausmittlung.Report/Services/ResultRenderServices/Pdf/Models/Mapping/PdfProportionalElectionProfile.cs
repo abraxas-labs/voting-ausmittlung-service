@@ -11,6 +11,7 @@ public class PdfProportionalElectionProfile : Profile
     public PdfProportionalElectionProfile()
     {
         CreateMap<ProportionalElection, PdfProportionalElection>();
+        CreateMap<ProportionalElection, PdfPoliticalBusiness>();
         CreateMap<ProportionalElectionList, PdfProportionalElectionSimpleList>();
         CreateMap<ProportionalElectionList, PdfProportionalElectionList>();
     }

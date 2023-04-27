@@ -3,21 +3,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using eCH_0222_1_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Common;
+using Voting.Lib.Ech.Utils;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteRawDataMapping
 {
-    private const string TieBreakQuestionIdentifier = "tiebreak-";
-
-    public static EVotingVoteResult ToEVotingVote(this VoteRawDataType voteRawData, Guid basisCountingCircleId)
+    public static EVotingVoteResult ToEVotingVote(this VoteRawDataType voteRawData, string basisCountingCircleId)
     {
         var voteId = GuidParser.Parse(voteRawData.VoteIdentification);
         var ballotResults = voteRawData.BallotRawData
@@ -77,9 +75,10 @@ internal static class VoteRawDataMapping
 
     private static VoteBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotQuestionAnswer questionAnswer)
     {
+        var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(questionAnswer.Question.BallotId, false, questionAnswer.Question.Number);
         return new VoteBallotCastedQuestionRawData
         {
-            QuestionIdentification = questionAnswer.Question.Number.ToString(CultureInfo.InvariantCulture),
+            QuestionIdentification = questionId,
             Casted = new VoteBallotCastedQuestionRawDataCasted
             {
                 CastedVote = ToCastedVote(questionAnswer.Answer),
@@ -89,9 +88,10 @@ internal static class VoteRawDataMapping
 
     private static VoteBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotTieBreakQuestionAnswer questionAnswer)
     {
+        var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(questionAnswer.Question.BallotId, true, questionAnswer.Question.Number);
         return new VoteBallotCastedQuestionRawData
         {
-            QuestionIdentification = TieBreakQuestionIdentifier + questionAnswer.Question.Number.ToString(CultureInfo.InvariantCulture),
+            QuestionIdentification = questionId,
             Casted = new VoteBallotCastedQuestionRawDataCasted
             {
                 CastedVote = ToCastedVote(questionAnswer.Answer),
@@ -152,39 +152,24 @@ internal static class VoteRawDataMapping
 
     private static EVotingVoteBallot ToEVotingVoteBallot(this VoteBallotCasted voteBallotCasted)
     {
+        var questions = voteBallotCasted
+            .QuestionRawData
+            .Select(x => (Parsed: BallotQuestionIdConverter.FromEchBallotQuestionId(x.QuestionIdentification), x.Casted));
+
         var questionAnswers =
-            (IReadOnlyCollection<EVotingVoteBallotQuestionAnswer>?)voteBallotCasted.QuestionRawData
-            ?.Where(x => !IsTieBreakQuestion(x.QuestionIdentification))
-            .Select(x => new EVotingVoteBallotQuestionAnswer(
-                TryParseQuestionIdentification(x.QuestionIdentification),
-                ToBallotQuestionAnswer(x.Casted.CastedVote)))
+            (IReadOnlyCollection<EVotingVoteBallotQuestionAnswer>?)questions
+            .Where(x => !x.Parsed.IsTieBreakQuestion)
+            .Select(x => new EVotingVoteBallotQuestionAnswer(x.Parsed.QuestioNumber, ToBallotQuestionAnswer(x.Casted.CastedVote)))
             .ToList()
             ?? Array.Empty<EVotingVoteBallotQuestionAnswer>();
 
         var tieBreakQuestionAnswers =
-            (IReadOnlyCollection<EVotingVoteBallotTieBreakQuestionAnswer>?)voteBallotCasted.QuestionRawData
-             ?.Where(x => IsTieBreakQuestion(x.QuestionIdentification))
-             .Select(x => new EVotingVoteBallotTieBreakQuestionAnswer(
-                 TryParseQuestionIdentification(x.QuestionIdentification[TieBreakQuestionIdentifier.Length..]),
-                 ToTieBreakQuestionAnswer(x.Casted.CastedVote)))
-             .ToList()
-             ?? Array.Empty<EVotingVoteBallotTieBreakQuestionAnswer>();
+            (IReadOnlyCollection<EVotingVoteBallotTieBreakQuestionAnswer>?)questions
+            .Where(x => x.Parsed.IsTieBreakQuestion)
+            .Select(x => new EVotingVoteBallotTieBreakQuestionAnswer(x.Parsed.QuestioNumber, ToTieBreakQuestionAnswer(x.Casted.CastedVote)))
+            .ToList()
+            ?? Array.Empty<EVotingVoteBallotTieBreakQuestionAnswer>();
 
         return new EVotingVoteBallot(questionAnswers, tieBreakQuestionAnswers);
-    }
-
-    private static bool IsTieBreakQuestion(string questionIdentification)
-    {
-        return questionIdentification.StartsWith(TieBreakQuestionIdentifier, StringComparison.InvariantCulture);
-    }
-
-    private static int TryParseQuestionIdentification(string questionIdentification)
-    {
-        if (!int.TryParse(questionIdentification, out var questionNumber))
-        {
-            throw new ValidationException($"could not parse question identification {questionIdentification} to a question number");
-        }
-
-        return questionNumber;
     }
 }

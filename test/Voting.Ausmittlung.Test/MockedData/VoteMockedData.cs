@@ -21,7 +21,7 @@ public static class VoteMockedData
     public const string IdBundVoteInContestBund = "7550e7c2-27e3-4602-a928-6f9c2afd2289";
     public const string IdBundVote2InContestBund = "0ec1d911-3157-452b-9056-f98b6c481d6f";
     public const string IdStGallenVoteInContestBund = "903a47bf-6b7b-4460-8475-b7bd89ea2ac9";
-    public const string IdUzwilVoteInContestBund = "6b4c7f11-9860-4468-ace9-78baec913a8d";
+    public const string IdUzwilVoteInContestBundWithoutChilds = "6b4c7f11-9860-4468-ace9-78baec913a8d";
     public const string IdBundVoteInContestStGallen = "f69b3543-ccee-467d-9cde-56941f6e4bad";
     public const string IdGossauVoteInContestStGallen = "8076dee2-f19b-4af9-80b1-69b0c7b1402b";
     public const string IdUzwilVoteInContestStGallen = "da65e354-f668-4ae4-b3ef-c1a74764e99d";
@@ -648,7 +648,7 @@ public static class VoteMockedData
     public static Vote UzwilVoteInContestBundWithoutChilds
         => new Vote
         {
-            Id = Guid.Parse(IdUzwilVoteInContestBund),
+            Id = Guid.Parse(IdUzwilVoteInContestBundWithoutChilds),
             PoliticalBusinessNumber = "714",
             Translations = TranslationUtil.CreateTranslations<VoteTranslation>(
                 (t, o) => t.OfficialDescription = o,

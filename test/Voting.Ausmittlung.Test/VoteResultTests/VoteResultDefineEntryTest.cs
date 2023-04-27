@@ -135,6 +135,22 @@ public class VoteResultDefineEntryTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await StGallenErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultEntryDefined>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>

@@ -1,0 +1,178 @@
+{
+  "ProtocolExports_": [
+    {
+      "ExportTemplateId": "869c8445-b899-5b58-b48c-3a27f7cee150",
+      "Description": "Abstimmung eidg: Protokoll",
+      "EntityDescription": "Abst Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "6f8a182f-d5d8-54d6-81f3-cbbd01281d40",
+      "Description": "Abstimmung kantonal: Protokoll",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "5bb8f061-8006-55d1-a0ab-dfdd98e0b5ac",
+      "Description": "Majorz eidg: Gemeindeprotokoll",
+      "EntityDescription": "Mw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "e25c0b23-0b6f-5d4f-9d56-3d7353b46737",
+      "Description": "Majorz kantonal: Gemeindeprotokoll",
+      "EntityDescription": "Mw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "3afe9b75-78cb-5e6f-ac16-4cf68a686cf7",
+      "Description": "Proporz eidg: 1 - Wahlzettelrapport",
+      "EntityDescription": "Pw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "aba605a2-d13e-54b9-863b-fee7a45441b2",
+      "Description": "Proporz eidg: 2 - Kandidierenden- und Parteistimmen",
+      "EntityDescription": "Pw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "c2d53121-6e9e-5325-9336-279166e1c0bb",
+      "Description": "Proporz eidg: 2a - Kandidierendenstimmen",
+      "EntityDescription": "Pw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "a6ed0e32-d86e-547f-9976-c95178d69557",
+      "Description": "Proporz eidg: 3b - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "b5451734-6829-50b0-887f-48f5fc755bac",
+      "Description": "Proporz eidg: 4 - Gemeindeprotokoll",
+      "EntityDescription": "Pw Bund de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "25ddbc28-e82c-5355-bdce-4fe90da6bc12",
+      "Description": "Proporz kantonal: 1 - Wahlzettelrapport",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "9f43022e-dc61-5b22-9b52-c65e4c50c5ea",
+      "Description": "Proporz kantonal: 2 - Kandidierenden- und Parteistimmen",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "b1c3c784-2dd8-51f4-8b5d-44aaf64cceaa",
+      "Description": "Proporz kantonal: 2a - Kandidierendenstimmen",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "d00991e0-b46c-59e4-aaca-9e39e32bba2f",
+      "Description": "Proporz kantonal: 3b - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "5f4023a3-ba12-585c-b93a-be5b2270695f",
+      "Description": "Proporz kantonal: 4 - Gemeindeprotokoll",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    }
+  ],
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": {
+    "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+    "Name": "St. Gallen",
+    "Bfs": "5500",
+    "ResponsibleAuthority": {
+      "SecureConnectId": "",
+      "Name": "",
+      "Street": "",
+      "Zip": "",
+      "City": "",
+      "Phone": "",
+      "Email": ""
+    },
+    "ContactPersonDuringEvent": {
+      "FirstName": "",
+      "FamilyName": "",
+      "Phone": "",
+      "MobilePhone": "",
+      "Email": ""
+    },
+    "ContactPersonSameDuringEventAsAfter": false,
+    "ContactPersonAfterEvent": null
+  }
+}

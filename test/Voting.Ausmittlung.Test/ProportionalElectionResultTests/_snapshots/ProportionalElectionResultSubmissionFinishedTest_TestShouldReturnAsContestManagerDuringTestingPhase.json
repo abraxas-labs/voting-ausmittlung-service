@@ -1,0 +1,19 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "200200200200200200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932"
+}

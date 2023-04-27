@@ -46,7 +46,7 @@ public class ContestCountingCircleContactPersonWriter
         ContactPerson contactPersonAfterEvent)
     {
         _permissionService.EnsureErfassungElectionAdmin();
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
         await _contestService.EnsureNotLocked(contestId);
 
         if (await _countingCircleRepo.Query()
@@ -70,7 +70,7 @@ public class ContestCountingCircleContactPersonWriter
         _permissionService.EnsureErfassungElectionAdmin();
 
         var aggregate = await _aggregateRepository.GetById<ContestCountingCircleContactPersonAggregate>(id);
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(aggregate.CountingCircleId, aggregate.ContestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(aggregate.CountingCircleId, aggregate.ContestId);
         await _contestService.EnsureNotLocked(aggregate.ContestId);
 
         aggregate.Update(contactPersonDuringEvent, contactPersonSameDuringEventAsAfter, contactPersonAfterEvent);

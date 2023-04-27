@@ -1,7 +1,6 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,12 +24,12 @@ public abstract class VoteEndResultBaseTest : BaseTest<
 {
     private readonly IReadOnlyCollection<(string ResultId, string CountingCircleId)> _resultIds = new[]
     {
-            (VoteEndResultMockedData.GossauResultId, CountingCircleMockedData.IdGossau),
-            (VoteEndResultMockedData.StGallenResultId, CountingCircleMockedData.IdStGallen),
-            (VoteEndResultMockedData.StGallenAuslandschweizerResultId, CountingCircleMockedData.IdStGallenAuslandschweizer),
-            (VoteEndResultMockedData.StGallenHaggenResultId, CountingCircleMockedData.IdStGallenHaggen),
-            (VoteEndResultMockedData.StGallenStFidenResultId, CountingCircleMockedData.IdStGallenStFiden),
-            (VoteEndResultMockedData.UzwilResultId, CountingCircleMockedData.IdUzwil),
+        (VoteEndResultMockedData.GossauResultId, CountingCircleMockedData.IdGossau),
+        (VoteEndResultMockedData.StGallenResultId, CountingCircleMockedData.IdStGallen),
+        (VoteEndResultMockedData.StGallenAuslandschweizerResultId, CountingCircleMockedData.IdStGallenAuslandschweizer),
+        (VoteEndResultMockedData.StGallenHaggenResultId, CountingCircleMockedData.IdStGallenHaggen),
+        (VoteEndResultMockedData.StGallenStFidenResultId, CountingCircleMockedData.IdStGallenStFiden),
+        (VoteEndResultMockedData.UzwilResultId, CountingCircleMockedData.IdUzwil),
     };
 
     private readonly PoliticalBusinessCountOfVotersEventData _defaultCountOfVoters = new PoliticalBusinessCountOfVotersEventData
@@ -68,12 +67,12 @@ public abstract class VoteEndResultBaseTest : BaseTest<
         });
 
         await RunScoped((VoteResultBuilder resultBuilder) =>
-            resultBuilder.RebuildForVote(Guid.Parse(VoteEndResultMockedData.VoteId), Guid.Parse(DomainOfInfluenceMockedData.IdStGallen), false));
+            resultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, false));
 
         await RunScoped((SimplePoliticalBusinessBuilder<Vote> builder) => builder.Create(vote));
 
         await RunScoped((VoteEndResultInitializer endResultInitializer) =>
-            endResultInitializer.RebuildForVote(Guid.Parse(VoteEndResultMockedData.VoteId), false));
+            endResultInitializer.RebuildForVote(vote.Id, false));
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

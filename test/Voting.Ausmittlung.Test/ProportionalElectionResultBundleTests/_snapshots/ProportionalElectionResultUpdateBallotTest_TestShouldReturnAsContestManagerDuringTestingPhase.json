@@ -1,0 +1,29 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "my-user-99",
+      "Username": "",
+      "FirstName": "",
+      "LastName": ""
+    },
+    "Tenant": {
+      "Id": "200200200200200200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
+  "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+  "BallotNumber": 1,
+  "EmptyVoteCount": 2,
+  "Candidates": [
+    {
+      "CandidateId": "9efe090f-883b-4e86-89c2-cd132ea84cbd",
+      "Position": 1,
+      "OnList": false
+    }
+  ]
+}

@@ -15,28 +15,18 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionResultBundleReviewExportTest : PdfExportBaseTest<GenerateResultBundleReviewExportRequest>
+public class PdfMajorityElectionResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
 {
     public PdfMajorityElectionResultBundleReviewExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => CreateHttpClient(
+    protected override HttpClient TestClient => CreateHttpClient(
         tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    public override string ExportEndpoint => $"{ResultExportEndpoint}/bundle_review";
-
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
-
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
-
-    public override Task TestPdfAfterTestingPhaseEnded()
-    {
-        // Cannot test this report, as all bundles are deleted after the testing phase ends
-        return Task.CompletedTask;
-    }
 
     protected override async Task SeedData()
     {
@@ -67,7 +57,7 @@ public class PdfMajorityElectionResultBundleReviewExportTest : PdfExportBaseTest
     {
         return new GenerateResultBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestId),
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             TemplateKey = AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key,
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
             PoliticalBusinessResultBundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),

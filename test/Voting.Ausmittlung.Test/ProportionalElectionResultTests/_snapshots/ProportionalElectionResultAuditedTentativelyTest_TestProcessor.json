@@ -92,24 +92,105 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true
   },
-  "DomainOfInfluenceDetails": null,
-  "TotalCountOfVoters": 15000,
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 15800,
+    "SubTotalInfo": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300
+      }
+    ]
+  },
+  "VotingCards": [
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 2500,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 5
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 3500,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 5
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 500,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 5
+    }
+  ],
   "CountOfDoneCountingCircles": 1,
   "TotalCountOfCountingCircles": 1,
   "AllCountingCirclesDone": true,
   "CountOfVoters": {
     "VoterParticipation": 0.0,
-    "EVotingReceivedBallots": 0,
     "ConventionalReceivedBallots": 0,
     "ConventionalInvalidBallots": 0,
     "ConventionalBlankBallots": 0,
     "ConventionalAccountedBallots": 0,
+    "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingBlankBallots": 0,
+    "EVotingAccountedBallots": 0,
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
     "TotalUnaccountedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingAccountedBallots": 0,
-    "TotalInvalidBallots": 0
+    "TotalInvalidBallots": 0,
+    "TotalBlankBallots": 0
   },
   "ListEndResults": [
     {

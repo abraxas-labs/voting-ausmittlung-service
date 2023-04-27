@@ -21,6 +21,18 @@ public class MajorityElectionEndResultModelBuilder :
             .HasForeignKey<MajorityElectionEndResult>(x => x.MajorityElectionId)
             .IsRequired();
 
+        builder
+            .HasMany(x => x.VotingCards)
+            .WithOne()
+            .HasForeignKey(x => x.MajorityElectionEndResultId)
+            .IsRequired();
+
+        builder
+            .HasMany(x => x.CountOfVotersInformationSubTotals)
+            .WithOne()
+            .HasForeignKey(x => x.MajorityElectionEndResultId)
+            .IsRequired();
+
         builder.OwnsOne(x => x.CountOfVoters);
         builder.Navigation(x => x.CountOfVoters).IsRequired();
 

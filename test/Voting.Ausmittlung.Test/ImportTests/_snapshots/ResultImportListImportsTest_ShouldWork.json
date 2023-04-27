@@ -14,7 +14,19 @@
       },
       "Completed": false,
       "Deleted": false,
-      "FileName": "import_uzwil_2.xml"
+      "FileName": "import_uzwil_2.xml",
+      "IgnoredCountingCircles": [
+        {
+          "CountingCircleId": "13297",
+          "CountingCircleDescription": "SU_2_Vilters",
+          "IsTestCountingCircle": true
+        },
+        {
+          "CountingCircleId": "unknown",
+          "CountingCircleDescription": "",
+          "IsTestCountingCircle": false
+        }
+      ]
     },
     {
       "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
@@ -30,7 +42,8 @@
       },
       "Completed": true,
       "Deleted": false,
-      "FileName": "import_uzwil_1.xml"
+      "FileName": "import_uzwil_1.xml",
+      "IgnoredCountingCircles": []
     }
   ]
 }

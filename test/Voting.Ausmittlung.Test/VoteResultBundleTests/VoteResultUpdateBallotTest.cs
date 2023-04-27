@@ -80,6 +80,22 @@ public class VoteResultUpdateBallotTest : VoteResultBundleBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await BundleErfassungElectionAdminClientStGallen.UpdateBallotAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotUpdated>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.UpdateBallotAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreatorInProcess()
     {
         await AssertStatus(

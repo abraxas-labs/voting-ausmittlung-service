@@ -10,5 +10,7 @@ public class GenerateResultExportsRequest
 {
     public Guid ContestId { get; set; }
 
-    public List<GenerateResultExportRequest> ResultExportRequests { get; set; } = new();
+    public Guid? CountingCircleId { get; set; }
+
+    public List<Guid> ExportTemplateIds { get; set; } = new();
 }

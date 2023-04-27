@@ -1,0 +1,57 @@
+{
+  "ProtocolExports_": [
+    {
+      "ExportTemplateId": "4a934d62-8e4f-5c33-86b0-d736b2da8177",
+      "Description": "Aktivitätenprotokoll",
+      "EntityDescription": "",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "fedcbd82-941d-53a6-ab2f-f68732d01a52",
+      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
+      "EntityDescription": "St. Gallen different Tenant",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "349b351b-be3e-5a97-9098-4f43a990afe9",
+      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
+      "EntityDescription": "St. Gallen different Tenant",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    }
+  ],
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": null
+}

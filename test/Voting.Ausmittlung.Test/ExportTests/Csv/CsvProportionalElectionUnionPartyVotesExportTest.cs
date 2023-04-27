@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
@@ -27,13 +28,12 @@ public class CsvProportionalElectionUnionPartyVotesExportTest : CsvExportBaseTes
         => new()
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
+            ExportTemplateIds = new List<Guid>
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungCsvProportionalElectionUnionTemplates.PartyVotes.Key,
-                    PoliticalBusinessUnionId = Guid.Parse(ProportionalElectionUnionEndResultMockedData.UnionId),
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungCsvProportionalElectionUnionTemplates.PartyVotes.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                    politicalBusinessUnionId: Guid.Parse(ProportionalElectionUnionEndResultMockedData.UnionId)),
             },
         };
 

@@ -25,6 +25,18 @@ public class ProportionalElectionResultImport : ElectionResultImport
 
     public IEnumerable<ProportionalElectionListResultImport> ListResults => _listResults.Values;
 
+    /// <summary>
+    /// Gets the count of blank ballots, which only contain empty votes and not list.
+    /// The empty votes of the blank ballot are not counted.
+    /// </summary>
+    public int BlankBallotCount { get; internal set; }
+
+    /// <summary>
+    /// Gets the count of invalid ballots, which only contain empty votes but have a list specified.
+    /// The empty votes of the invalid ballot are not counted.
+    /// </summary>
+    public int InvalidBallotCount { get; internal set; }
+
     public int CountOfUnmodifiedLists { get; internal set; }
 
     public int CountOfModifiedLists { get; internal set; }

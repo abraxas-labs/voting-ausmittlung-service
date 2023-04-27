@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class ProportionalElectionEndResult : PoliticalBusinessEndResult,
+public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
+    IEndResultDetail<ProportionalElectionEndResultCountOfVotersInformationSubTotal, ProportionalElectionEndResultVotingCardDetail>,
     IHasSubTotals<ProportionalElectionResultSubTotal>,
     IProportionalElectionResultTotal
 {
@@ -14,6 +15,16 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResult,
 
     public ProportionalElection ProportionalElection { get; set; } = null!;
 
+    public ICollection<ProportionalElectionEndResultCountOfVotersInformationSubTotal> CountOfVotersInformationSubTotals { get; set; }
+        = new HashSet<ProportionalElectionEndResultCountOfVotersInformationSubTotal>();
+
+    public ICollection<ProportionalElectionEndResultVotingCardDetail> VotingCards { get; set; }
+        = new HashSet<ProportionalElectionEndResultVotingCardDetail>();
+
+    /// <summary>
+    /// Gets or sets the count of voters, meaning the persons who actually voted in this election.
+    /// In German: Wahlzettel.
+    /// </summary>
     public PoliticalBusinessCountOfVoters CountOfVoters { get; set; } = new();
 
     public ICollection<ProportionalElectionListEndResult> ListEndResults { get; set; } =

@@ -189,6 +189,30 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
     }
 
     [Fact]
+    public async Task ShouldReturnIsValidAsContestManagerDuringTestingPhase()
+    {
+        var result = await BundErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest());
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+
+        result.ValidationResults.Any(r => r.Validation
+                is SharedProto.Validation.MajorityElectionCandidateVotesNotNull
+                or SharedProto.Validation.MajorityElectionEmptyVoteCountNotNull
+                or SharedProto.Validation.MajorityElectionInvalidVoteCountNotNull)
+            .Should()
+            .BeFalse();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(

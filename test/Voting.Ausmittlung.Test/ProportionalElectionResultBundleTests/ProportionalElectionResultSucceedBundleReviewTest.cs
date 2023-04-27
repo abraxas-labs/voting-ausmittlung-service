@@ -59,6 +59,25 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleReviewSucceeded>()
+            .MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorSameUserAsBundleCreator()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
@@ -99,7 +118,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
                     BundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle1,
                 }),
             StatusCode.PermissionDenied,
-            "Invalid counting circle, does not belong to this tenant");
+            "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
     }
 
     [Theory]

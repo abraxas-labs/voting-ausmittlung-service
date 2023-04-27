@@ -11,6 +11,7 @@
           "VoterParticipation": 0.75,
           "EVotingReceivedBallots": 5,
           "EVotingInvalidBallots": 0,
+          "EVotingBlankBallots": 0,
           "EVotingAccountedBallots": 5,
           "ConventionalReceivedBallots": 20000,
           "ConventionalInvalidBallots": 3000,
@@ -19,7 +20,8 @@
           "TotalReceivedBallots": 20005,
           "TotalAccountedBallots": 12005,
           "TotalUnaccountedBallots": 5000,
-          "TotalInvalidBallots": 3000
+          "TotalInvalidBallots": 3000,
+          "TotalBlankBallots": 2000
         },
         "QuestionResults": [
           {
@@ -118,6 +120,7 @@
     "State": 5,
     "SubmissionDoneTimestamp": null,
     "AuditedTentativelyTimestamp": null,
+    "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
     "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
   },
@@ -133,6 +136,7 @@
           "VoterParticipation": 0.0003333333333333333333333333,
           "EVotingReceivedBallots": 5,
           "EVotingInvalidBallots": 0,
+          "EVotingBlankBallots": 0,
           "EVotingAccountedBallots": 5,
           "ConventionalReceivedBallots": 0,
           "ConventionalInvalidBallots": 0,
@@ -141,7 +145,8 @@
           "TotalReceivedBallots": 5,
           "TotalAccountedBallots": 5,
           "TotalUnaccountedBallots": 0,
-          "TotalInvalidBallots": 0
+          "TotalInvalidBallots": 0,
+          "TotalBlankBallots": 0
         },
         "QuestionResults": [
           {
@@ -240,6 +245,7 @@
     "State": 2,
     "SubmissionDoneTimestamp": null,
     "AuditedTentativelyTimestamp": null,
+    "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
     "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
   }

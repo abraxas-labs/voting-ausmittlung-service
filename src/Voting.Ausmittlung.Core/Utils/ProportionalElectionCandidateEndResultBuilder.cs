@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
@@ -19,14 +20,17 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
     private const int DefaultRank = 1;
 
     private readonly ProportionalElectionCandidateRepo _candidateRepo;
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly DataContext _dataContext;
 
     public ProportionalElectionCandidateEndResultBuilder(
         ProportionalElectionCandidateRepo candidateRepo,
-        DataContext dataContext)
+        DataContext dataContext,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
     {
         _candidateRepo = candidateRepo;
         _dataContext = dataContext;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     internal async Task Initialize(Guid proportionalElectionCandidateId)
@@ -127,6 +131,11 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
             .FirstOrDefaultAsync(l => l.ListId == listId)
             ?? throw new EntityNotFoundException(listId);
 
+        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+                .AsTracking()
+                .FirstOrDefaultAsync(x => x.Id == listEndResult.ElectionEndResult.ProportionalElectionId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), listEndResult.ElectionEndResult.ProportionalElectionId);
+
         foreach (var candidateEndResult in listEndResult.CandidateEndResults)
         {
             if (!candidateStateById.TryGetValue(candidateEndResult.CandidateId, out var candidateState))
@@ -138,6 +147,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         }
 
         listEndResult.ElectionEndResult.Finalized = false;
+        simpleEndResult.EndResultFinalized = false;
         listEndResult.NumberOfMandates = listEndResult.CandidateEndResults.Count(x => x.State == ProportionalElectionCandidateEndResultState.Elected);
         await _dataContext.SaveChangesAsync();
     }

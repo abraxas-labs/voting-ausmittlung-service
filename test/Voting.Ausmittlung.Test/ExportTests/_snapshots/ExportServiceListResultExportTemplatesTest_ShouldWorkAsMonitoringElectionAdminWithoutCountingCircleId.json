@@ -1,462 +1,159 @@
 {
   "Templates": [
     {
-      "Key": "contest_activity_protocol",
-      "Description": "Aktivitätenprotokoll",
-      "EntityDescription": "",
-      "PoliticalBusinessIds": [],
-      "EntityType": 1,
-      "ResultType": 5,
-      "Format": 2,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
-    },
-    {
-      "Key": "vote_ech_0110",
+      "ExportTemplateId": "fd06d291-fb37-559a-8b95-37beb9c87a80",
       "Description": "Abstimmungsresultat (eCH-0110)",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "vote_overall_result",
-      "Description": "Gesamtergebnisse (CT)",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 3,
-      "Format": 2,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 2,
-      "PoliticalBusinessUnionId": ""
-    },
-    {
-      "Key": "vote_ech_0222",
+      "ExportTemplateId": "559c3610-1a10-5b29-9b48-04c1495c7d44",
       "Description": "Rohdaten Abstimmung (eCH-0222)",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "SG_Gemeinden",
+      "ExportTemplateId": "018acfc2-7348-514f-a03e-56b1d787971a",
       "Description": "SG_Gemeinden",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "SG_Geschäfte",
+      "ExportTemplateId": "89d13931-d678-509a-82f3-9b4db3c5325b",
       "Description": "SG_Geschäfte",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "SGStatic_Gemeinden",
+      "ExportTemplateId": "60cedbd2-451b-5136-8345-acd9371f7b2f",
       "Description": "SGStatic_Gemeinden",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "SGStatic_Geschäfte",
+      "ExportTemplateId": "0d8b0de6-4867-51b7-8580-e5bc9a5e6687",
       "Description": "SGStatic_Geschäfte",
-      "EntityDescription": "Abst SG de",
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "EntityType": 2,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Abst SG de"
     },
     {
-      "Key": "majority_election_ech_0110",
+      "ExportTemplateId": "c040b633-78fe-5780-ba28-14af921f51d5",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "4bbae451-9abf-5e11-883b-cba9aaef6e2c",
       "Description": "Majorzwahlresultat (eCH-0110)",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "majority_election_ech_0222",
+      "ExportTemplateId": "ece95704-9231-517e-b4b5-62fab0669b7b",
       "Description": "Rohdaten Majorzwahl (eCH-0222)",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "WM_Gemeinden",
+      "ExportTemplateId": "5b120eda-86b5-5699-b733-cba31bf6a3ef",
       "Description": "WM_Gemeinden",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "WM_Kandidaten",
+      "ExportTemplateId": "ccfdfd5f-f694-518b-bdae-685e464f6a96",
       "Description": "WM_Kandidaten",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "WM_KandidatenGde",
+      "ExportTemplateId": "9c102d41-1e93-5241-b478-64f1dc95dd12",
       "Description": "WM_KandidatenGde",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "WM_Wahl",
+      "ExportTemplateId": "88803e76-69d3-516b-b137-d0e80fe1a7ba",
       "Description": "WM_Wahl",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "WMStatic_Gemeinden",
+      "ExportTemplateId": "7c5468cc-e49a-5b88-8a32-23473321e509",
       "Description": "WMStatic_Gemeinden",
-      "EntityDescription": "Mw SG de",
-      "PoliticalBusinessIds": [
-        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
-      ],
-      "EntityType": 3,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Mw SG de"
     },
     {
-      "Key": "proportional_election_candidate_results_with_vote_sources",
+      "ExportTemplateId": "aa66d822-7126-5207-bdd6-c46b068917a9",
       "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 2,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "proportional_election_ech_0110",
+      "ExportTemplateId": "b7f9b584-3ea5-517d-90a2-d0d46d6c2d3c",
       "Description": "Proporzwahlresultat (eCH-0110)",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "proportional_election_ech_0222",
+      "ExportTemplateId": "3a6c10d2-e8c4-5ec7-8d56-0576ca8a7ffe",
       "Description": "Rohdaten Proporzwahl (eCH-0222)",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 2,
-      "Format": 3,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_Gemeinden",
+      "ExportTemplateId": "548415f0-5793-5fe4-aa77-c0c780eedc7b",
       "Description": "WP_Gemeinden",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_Kandidaten",
+      "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
       "Description": "WP_Kandidaten",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_KandidatenGde",
+      "ExportTemplateId": "beb90cc1-6f18-598f-8651-85e874451155",
       "Description": "WP_KandidatenGde",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_Listen",
+      "ExportTemplateId": "376a8b91-401e-5c75-9de9-5d25972bbb6e",
       "Description": "WP_Listen",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_ListenGde",
+      "ExportTemplateId": "c1389898-ef80-582a-994c-d07974570566",
       "Description": "WP_ListenGde",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WP_Wahl",
+      "ExportTemplateId": "c17612c5-b8f6-5958-b18b-36703faed41c",
       "Description": "WP_Wahl",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WPStatic_Gemeinden",
+      "ExportTemplateId": "884c707f-6c8e-5383-9e80-e47e0a4fa18e",
       "Description": "WPStatic_Gemeinden",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "WPStatic_Kandidaten",
+      "ExportTemplateId": "cc0fe9fc-ac08-5b8e-b8ea-870e3d8611ae",
       "Description": "WPStatic_Kandidaten",
-      "EntityDescription": "Pw SG de",
-      "PoliticalBusinessIds": [
-        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
-      ],
-      "EntityType": 4,
-      "ResultType": 3,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": ""
+      "EntityDescription": "Pw SG de"
     },
     {
-      "Key": "proportional_election_union_party_votes",
+      "ExportTemplateId": "fb58357c-701e-5568-ac29-c80390ab548f",
       "Description": "Parteistimmen",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "3d8f3164-c094-4c17-b314-b9d41d037515"
+      "EntityDescription": "St. Gallen different Tenant"
     },
     {
-      "Key": "proportional_election_union_party_votes",
+      "ExportTemplateId": "210f1371-ee9d-5a16-bb4b-4b11e4ae351c",
       "Description": "Parteistimmen",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "ae335b68-1977-4459-a854-9718a6d8e276"
+      "EntityDescription": "St. Gallen different Tenant"
     },
     {
-      "Key": "proportional_election_union_party_mandates",
+      "ExportTemplateId": "1a4d30ef-e97d-5c5a-8c4c-4ee61d750f1a",
       "Description": "Sitzverteilung",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "3d8f3164-c094-4c17-b314-b9d41d037515"
+      "EntityDescription": "St. Gallen different Tenant"
     },
     {
-      "Key": "proportional_election_union_party_mandates",
+      "ExportTemplateId": "9974bfca-2683-5d97-a3a7-bc8f2801d4e3",
       "Description": "Sitzverteilung",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "ae335b68-1977-4459-a854-9718a6d8e276"
+      "EntityDescription": "St. Gallen different Tenant"
     },
     {
-      "Key": "proportional_election_union_voter_participation",
+      "ExportTemplateId": "190610a7-357a-55fe-b406-0584b3274c9d",
       "Description": "Wahlbeteiligung",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "3d8f3164-c094-4c17-b314-b9d41d037515"
+      "EntityDescription": "St. Gallen different Tenant"
     },
     {
-      "Key": "proportional_election_union_voter_participation",
+      "ExportTemplateId": "bdbfd7c6-36e6-5d8d-a3a3-606129f08e2c",
       "Description": "Wahlbeteiligung",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 1,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "ae335b68-1977-4459-a854-9718a6d8e276"
-    },
-    {
-      "Key": "proportional_election_voter_turnout_protocol",
-      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 2,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "3d8f3164-c094-4c17-b314-b9d41d037515"
-    },
-    {
-      "Key": "proportional_election_voter_turnout_protocol",
-      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
-      "EntityDescription": "St. Gallen different Tenant",
-      "PoliticalBusinessIds": [],
-      "EntityType": 4,
-      "ResultType": 6,
-      "Format": 2,
-      "CountingCircleId": "",
-      "DomainOfInfluenceType": 0,
-      "PoliticalBusinessUnionId": "ae335b68-1977-4459-a854-9718a6d8e276"
+      "EntityDescription": "St. Gallen different Tenant"
     }
   ],
   "Contest": {

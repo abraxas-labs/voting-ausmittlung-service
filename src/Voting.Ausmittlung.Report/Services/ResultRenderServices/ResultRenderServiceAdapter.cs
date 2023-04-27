@@ -36,28 +36,20 @@ public class ResultRenderServiceAdapter
         _mapper = mapper;
     }
 
-    public Task<FileModel> Render(Guid contestId, ResultExportRequest request, CancellationToken ct = default)
+    public Task<FileModel> Render(Guid contestId, ReportRenderContext renderContext, CancellationToken ct = default)
     {
         using var logScope = _logger.BeginScope(new Dictionary<string, object>
         {
-            ["ExportKey"] = request.Template.Key,
+            ["ExportKey"] = renderContext.Template.Key,
             ["ContestId"] = contestId,
         });
 
-        var renderer = _resultRenderServiceRegistry.GetRenderService(request.Template.Key, _serviceProvider)
-            ?? throw new InvalidOperationException($"result render service for template key {request.Template.Key} not found");
+        var renderer = _resultRenderServiceRegistry.GetRenderService(renderContext.Template.Key, _serviceProvider)
+            ?? throw new InvalidOperationException($"result render service for template key {renderContext.Template.Key} not found");
 
-        ValidateRequestData(request, request.Template);
+        ValidateRequestData(renderContext);
 
-        var ctx = new ReportRenderContext(contestId, request.Template)
-        {
-            PoliticalBusinessIds = request.PoliticalBusinessIds,
-            BasisCountingCircleId = request.CountingCircleId,
-            DomainOfInfluenceType = request.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
-            PoliticalBusinessUnionId = request.PoliticalBusinessUnionId,
-            PoliticalBusinessResultBundleId = request.PoliticalBusinessResultBundleId,
-        };
-        return renderer.Render(ctx, ct);
+        return renderer.Render(renderContext, ct);
     }
 
     public IReadOnlyList<ReportRenderContext> BuildRenderContexts(
@@ -215,33 +207,33 @@ public class ResultRenderServiceAdapter
         };
     }
 
-    private void ValidateRequestData(ResultExportRequest request, TemplateModel template)
+    private void ValidateRequestData(ReportRenderContext renderContext)
     {
-        if (request.PoliticalBusinessIds.Count == 0
-            && template.ResultType is not ResultType.Contest and not ResultType.PoliticalBusinessUnionResult and not ResultType.PoliticalBusinessResultBundleReview)
+        if (renderContext.PoliticalBusinessIds.Count == 0
+            && renderContext.Template.ResultType is not ResultType.Contest and not ResultType.PoliticalBusinessUnionResult and not ResultType.PoliticalBusinessResultBundleReview)
         {
             throw new ValidationException("Cannot render without any political business ids provided");
         }
 
-        if (request.PoliticalBusinessIds.Count != 1
-            && template.ResultType is ResultType.CountingCircleResult or ResultType.PoliticalBusinessResult)
+        if (renderContext.PoliticalBusinessIds.Count != 1
+            && renderContext.Template.ResultType is ResultType.CountingCircleResult or ResultType.PoliticalBusinessResult)
         {
             throw new ValidationException("Cannot render a counting circle result report with multiple political business ids");
         }
 
-        if (!request.PoliticalBusinessUnionId.HasValue
-            && template.ResultType is ResultType.PoliticalBusinessUnionResult)
+        if (!renderContext.PoliticalBusinessUnionId.HasValue
+            && renderContext.Template.ResultType is ResultType.PoliticalBusinessUnionResult)
         {
             throw new ValidationException("Cannot render a political business union result report without a union id");
         }
 
-        if ((template.PerDomainOfInfluenceType || template.DomainOfInfluenceType.HasValue) && !request.DomainOfInfluenceType.HasValue)
+        if (renderContext.Template.PerDomainOfInfluenceType && renderContext.DomainOfInfluenceType == DomainOfInfluenceType.Unspecified)
         {
             throw new ValidationException("Cannot render a domain of influence type report without specifying the domain of influence type");
         }
 
-        if (!request.PoliticalBusinessResultBundleId.HasValue
-            && template.ResultType is ResultType.PoliticalBusinessResultBundleReview)
+        if (!renderContext.PoliticalBusinessResultBundleId.HasValue
+            && renderContext.Template.ResultType is ResultType.PoliticalBusinessResultBundleReview)
         {
             throw new ValidationException("Cannot render a political business result bundle review report without a bundle id");
         }

@@ -56,6 +56,24 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await BundleErfassungElectionAdminClientStGallen.RejectBundleReviewAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewRejected>()
+            .MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.RejectBundleReviewAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorSameUserAsBundleCreator()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
@@ -85,7 +103,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
                     BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
                 }),
             StatusCode.PermissionDenied,
-            "Invalid counting circle, does not belong to this tenant");
+            "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
     }
 
     [Theory]

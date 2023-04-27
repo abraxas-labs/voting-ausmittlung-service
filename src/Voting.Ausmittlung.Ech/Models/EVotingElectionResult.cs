@@ -8,7 +8,7 @@ namespace Voting.Ausmittlung.Ech.Models;
 
 public class EVotingElectionResult : EVotingPoliticalBusinessResult
 {
-    public EVotingElectionResult(Guid electionId, Guid basisCountingCircleId, IReadOnlyCollection<EVotingElectionBallot> ballots)
+    public EVotingElectionResult(Guid electionId, string basisCountingCircleId, IReadOnlyCollection<EVotingElectionBallot> ballots)
         : base(electionId, basisCountingCircleId)
     {
         Ballots = ballots;

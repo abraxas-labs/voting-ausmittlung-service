@@ -89,7 +89,87 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": false
   },
-  "DomainOfInfluenceDetails": null,
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 15800,
+    "SubTotalInfo": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300
+      }
+    ]
+  },
+  "VotingCards": [
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 2500,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 5
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 3500,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 5
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 500,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 5
+    }
+  ],
   "BallotEndResults": [
     {
       "Ballot": {
@@ -102,18 +182,20 @@
         "TieBreakQuestions": []
       },
       "CountOfVoters": {
-        "VoterParticipation": 1.3333333333333335,
-        "EVotingReceivedBallots": 0,
+        "VoterParticipation": 1.2658227848101267,
         "ConventionalReceivedBallots": 20000,
         "ConventionalInvalidBallots": 3000,
         "ConventionalBlankBallots": 2000,
         "ConventionalAccountedBallots": 12000,
+        "EVotingReceivedBallots": 0,
+        "EVotingInvalidBallots": 0,
+        "EVotingBlankBallots": 0,
+        "EVotingAccountedBallots": 0,
         "TotalReceivedBallots": 20000,
         "TotalAccountedBallots": 12000,
         "TotalUnaccountedBallots": 5000,
-        "EVotingInvalidBallots": 0,
-        "EVotingAccountedBallots": 0,
-        "TotalInvalidBallots": 3000
+        "TotalInvalidBallots": 3000,
+        "TotalBlankBallots": 2000
       },
       "QuestionEndResults": [
         {
@@ -195,7 +277,6 @@
       ]
     }
   ],
-  "TotalCountOfVoters": 15000,
   "CountOfDoneCountingCircles": 1,
   "TotalCountOfCountingCircles": 1,
   "AllCountingCirclesDone": true,

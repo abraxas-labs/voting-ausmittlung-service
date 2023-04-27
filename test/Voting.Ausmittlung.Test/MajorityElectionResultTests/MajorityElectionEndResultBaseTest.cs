@@ -25,39 +25,39 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
     MajorityElectionResultService.MajorityElectionResultServiceClient>
 {
     private readonly IReadOnlyCollection<string> _resultIds = new List<string>
-        {
-            MajorityElectionEndResultMockedData.GossauResultId,
-            MajorityElectionEndResultMockedData.StGallenResultId,
-            MajorityElectionEndResultMockedData.StGallenHaggenResultId,
-            MajorityElectionEndResultMockedData.StGallenStFidenResultId,
-            MajorityElectionEndResultMockedData.StGallenAuslandschweizerResultId,
-            MajorityElectionEndResultMockedData.UzwilResultId,
-        };
+    {
+        MajorityElectionEndResultMockedData.GossauResultId,
+        MajorityElectionEndResultMockedData.StGallenResultId,
+        MajorityElectionEndResultMockedData.StGallenHaggenResultId,
+        MajorityElectionEndResultMockedData.StGallenStFidenResultId,
+        MajorityElectionEndResultMockedData.StGallenAuslandschweizerResultId,
+        MajorityElectionEndResultMockedData.UzwilResultId,
+    };
 
     private readonly IEnumerable<(string CandidateId, int Count)> _defaultCountByCandidateIds = new List<(string CandidateId, int Count)>
-        {
-            (MajorityElectionEndResultMockedData.CandidateId1, 200),
-            (MajorityElectionEndResultMockedData.CandidateId2, 150),
-            (MajorityElectionEndResultMockedData.CandidateId3, 100),
-            (MajorityElectionEndResultMockedData.CandidateId4, 100),
-            (MajorityElectionEndResultMockedData.CandidateId5, 80),
-            (MajorityElectionEndResultMockedData.CandidateId6, 70),
-            (MajorityElectionEndResultMockedData.CandidateId7, 60),
-            (MajorityElectionEndResultMockedData.CandidateId8, 60),
-            (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
-        };
+    {
+        (MajorityElectionEndResultMockedData.CandidateId1, 200),
+        (MajorityElectionEndResultMockedData.CandidateId2, 150),
+        (MajorityElectionEndResultMockedData.CandidateId3, 100),
+        (MajorityElectionEndResultMockedData.CandidateId4, 100),
+        (MajorityElectionEndResultMockedData.CandidateId5, 80),
+        (MajorityElectionEndResultMockedData.CandidateId6, 70),
+        (MajorityElectionEndResultMockedData.CandidateId7, 60),
+        (MajorityElectionEndResultMockedData.CandidateId8, 60),
+        (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
+    };
 
     private readonly IEnumerable<(string ElectionId, string CandidateId, int Count)> _defaultCountBySecondaryCandidateIds = new List<(string ElectionId, string CandidateId, int Count)>
-        {
-            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
-            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
-        };
+    {
+        (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
+        (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
+    };
 
     private readonly PoliticalBusinessCountOfVotersEventData _defaultCountOfVoters = new PoliticalBusinessCountOfVotersEventData
     {
@@ -124,10 +124,10 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         await RunScoped((SimplePoliticalBusinessBuilder<MajorityElection> builder) => builder.Create(election));
 
         await RunScoped((MajorityElectionResultBuilder resultBuilder) =>
-            resultBuilder.RebuildForElection(Guid.Parse(MajorityElectionEndResultMockedData.ElectionId), Guid.Parse(DomainOfInfluenceMockedData.IdStGallen), false));
+            resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false));
 
         await RunScoped((MajorityElectionEndResultInitializer endResultBuilder) =>
-            endResultBuilder.RebuildForElection(Guid.Parse(MajorityElectionEndResultMockedData.ElectionId), false));
+            endResultBuilder.RebuildForElection(election.Id, false));
     }
 
     protected async Task StartResultSubmissions()

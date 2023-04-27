@@ -57,6 +57,11 @@
       </CountOfVotersDetail>
     </ContestCountingCircleDetails>
   </CountingCircle>
+  <PoliticalBusiness>
+    <PoliticalBusinessNumber>321</PoliticalBusinessNumber>
+    <OfficialDescription>Abstimmung Gossau de</OfficialDescription>
+    <ShortDescription>Abst Gossau de</ShortDescription>
+  </PoliticalBusiness>
   <VoteResultBundle>
     <Number>1</Number>
     <VoteResultBallot>

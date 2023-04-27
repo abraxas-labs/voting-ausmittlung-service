@@ -3,17 +3,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
+using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using EventStore.Client;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
-using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Services;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.EventSignature;
 using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
@@ -27,14 +28,15 @@ using Voting.Lib.Eventing.Testing.Mocks;
 using Voting.Lib.Iam.Models;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using EventInfoTenant = Abraxas.Voting.Basis.Events.V1.Data.EventInfoTenant;
+using EventInfoUser = Abraxas.Voting.Basis.Events.V1.Data.EventInfoUser;
 using EventSignatureBusinessMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
-using EventSignaturePublicKeyMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignaturePublicKeyMetadata;
 using ProtoBasisEventMetadata = Abraxas.Voting.Basis.Events.V1.Metadata;
 using ProtoBasisEvents = Abraxas.Voting.Basis.Events.V1;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTest
 {
     protected const string Host1 = "Host1";
     protected const string Host2 = "Host2";
@@ -56,13 +58,9 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         BasisKeyHost1AfterTestingPhaseEnded?.Dispose();
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
-
     protected EventReaderMockStore EventReaderMockStore => GetService<EventReaderMockStore>();
 
     protected AggregateRepositoryMockStore AggregateRepositoryMockStore => GetService<AggregateRepositoryMockStore>();
-
-    protected IPkcs11DeviceAdapter Pkcs11DeviceAdapter => GetService<IPkcs11DeviceAdapter>();
 
     protected AsymmetricAlgorithmAdapterMock AsymmetricAlgorithmAdapter => GetService<AsymmetricAlgorithmAdapterMock>();
 
@@ -72,9 +70,9 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
 
     protected override string NewRequestExpectedFileName => "Aktivitätenprotokoll.pdf";
 
-    protected string MonitoringUserId { get; } = "monitoring-admin";
+    protected override string TemplateKey => AusmittlungPdfContestTemplates.ActivityProtocol.Key;
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected string MonitoringUserId { get; } = "monitoring-admin";
 
     protected Guid ContestIdGuid { get; } = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
@@ -108,18 +106,15 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         await base.InitializeAsync();
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfContestTemplates.ActivityProtocol.Key,
-                    },
-                },
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
+            {
+                AusmittlungUuidV5.BuildExportTemplate(TemplateKey, SecureConnectTestDefaults.MockedTenantStGallen.Id).ToString(),
+            },
         };
     }
 
@@ -420,16 +415,16 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         };
     }
 
-    protected ProtoBasisEvents.Data.EventInfo GetBasisEventInfo(long timestampOffset, bool monitoring = false)
+    protected Abraxas.Voting.Basis.Events.V1.Data.EventInfo GetBasisEventInfo(long timestampOffset, bool monitoring = false)
     {
-        return new ProtoBasisEvents.Data.EventInfo
+        return new Abraxas.Voting.Basis.Events.V1.Data.EventInfo
         {
             Timestamp = new Timestamp
             {
                 Seconds = 1594980500 + timestampOffset,
             },
             Tenant = ToEventInfoTenant(monitoring ? SecureConnectTestDefaults.MockedTenantStGallen : SecureConnectTestDefaults.MockedTenantGossau),
-            User = monitoring ? new ProtoBasisEvents.Data.EventInfoUser { Id = MonitoringUserId } : ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
+            User = monitoring ? new EventInfoUser { Id = MonitoringUserId } : ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
         };
     }
 
@@ -443,18 +438,18 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         return new StreamPosition(_eventNumber++);
     }
 
-    private ProtoBasisEvents.Data.EventInfoTenant ToEventInfoTenant(Tenant tenant)
+    private EventInfoTenant ToEventInfoTenant(Tenant tenant)
     {
-        return new ProtoBasisEvents.Data.EventInfoTenant
+        return new EventInfoTenant
         {
             Id = tenant.Id,
             Name = tenant.Name,
         };
     }
 
-    private ProtoBasisEvents.Data.EventInfoUser ToEventInfoUser(User user)
+    private EventInfoUser ToEventInfoUser(User user)
     {
-        return new ProtoBasisEvents.Data.EventInfoUser
+        return new EventInfoUser
         {
             Id = user.Loginid,
             FirstName = user.Firstname ?? string.Empty,

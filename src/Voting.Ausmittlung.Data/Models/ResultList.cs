@@ -15,7 +15,7 @@ public class ResultList
     public ResultList(
         Contest contest,
         CountingCircle countingCircle,
-        ContestCountingCircleDetails? details,
+        ContestCountingCircleDetails details,
         List<SimpleCountingCircleResult> results,
         bool currentTenantIsResponsible,
         Guid? contestCountingCircleContactPersonId,
@@ -34,7 +34,7 @@ public class ResultList
 
     public CountingCircle CountingCircle { get; }
 
-    public ContestCountingCircleDetails? Details { get; }
+    public ContestCountingCircleDetails Details { get; }
 
     public List<SimpleCountingCircleResult> Results { get; }
 
@@ -57,10 +57,10 @@ public class ResultList
 
     /// <summary>
     /// Gets the enabled voting card channels.
-    /// This includes E-Voting, if enabled on the contest.
+    /// This includes E-Voting, if enabled on the counting circle.
     /// </summary>
     public IEnumerable<DomainOfInfluenceCantonDefaultsVotingCardChannel> EnabledVotingCardChannels
-        => Contest.EVoting
+        => Details.EVoting
         ? Contest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.Append(EVotingVotingCardChannel).OrderByPriority()
         : Contest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.OrderByPriority();
 }

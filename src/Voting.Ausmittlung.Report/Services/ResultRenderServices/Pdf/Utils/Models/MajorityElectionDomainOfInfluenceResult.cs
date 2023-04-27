@@ -17,8 +17,7 @@ public class MajorityElectionDomainOfInfluenceResult : DomainOfInfluenceResult
     public int InvalidVoteCount { get; set; }
 
     public IEnumerable<MajorityElectionCandidateDomainOfInfluenceResult> CandidateResults => CandidateResultsByCandidateId.Values
-        .OrderByDescending(x => x.VoteCount)
-        .ThenBy(x => x.Candidate.Position);
+        .OrderBy(x => x.Candidate.Position);
 
     public List<MajorityElectionResult> Results { get; set; } = new List<MajorityElectionResult>();
 

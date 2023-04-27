@@ -15,22 +15,18 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionResultBundleReviewExportTest : PdfExportBaseTest<GenerateResultBundleReviewExportRequest>
+public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
 {
     public PdfProportionalElectionResultBundleReviewExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => CreateHttpClient(
+    protected override HttpClient TestClient => CreateHttpClient(
         tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    public override string ExportEndpoint => $"{ResultExportEndpoint}/bundle_review";
-
     protected override string NewRequestExpectedFileName => "Bundkontrolle 2.pdf";
-
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
 
     protected override async Task SeedData()
     {
@@ -60,7 +56,7 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfExportBase
     {
         return new GenerateResultBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestId),
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             TemplateKey = AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key,
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
             PoliticalBusinessResultBundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdUzwilBundle2),

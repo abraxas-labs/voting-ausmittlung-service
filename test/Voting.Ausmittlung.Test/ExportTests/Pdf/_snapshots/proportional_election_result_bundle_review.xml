@@ -57,6 +57,11 @@
       </CountOfVotersDetail>
     </ContestCountingCircleDetails>
   </CountingCircle>
+  <PoliticalBusiness>
+    <PoliticalBusinessNumber>412</PoliticalBusinessNumber>
+    <OfficialDescription>Proporzwahl Uzwil de</OfficialDescription>
+    <ShortDescription>Pw Uzwil de</ShortDescription>
+  </PoliticalBusiness>
   <ProportionalElectionResultBundle>
     <Number>2</Number>
     <List>

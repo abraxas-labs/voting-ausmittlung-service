@@ -55,6 +55,30 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManager()
+    {
+        var contestId = ContestMockedData.IdStGallenEvoting;
+        var countingCircleId = CountingCircleMockedData.IdGossau;
+        var request = new GetResultListRequest
+        {
+            ContestId = contestId,
+            CountingCircleId = countingCircleId,
+        };
+
+        var response = await StGallenErfassungElectionAdminClient.GetListAsync(request);
+        response.CurrentTenantIsResponsible.Should().BeTrue();
+        response.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);
+        response.Results.Any().Should().BeTrue();
+        response.Results.All(x => x.State == ProtoModels.CountingCircleResultState.SubmissionOngoing).Should().BeTrue();
+
+        // testing phase ended
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId });
+
+        var response2 = await StGallenErfassungElectionAdminClient.GetListAsync(request);
+        response2.CurrentTenantIsResponsible.Should().BeFalse();
+    }
+
+    [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         var response = await ErfassungElectionAdminClient.GetListAsync(new GetResultListRequest

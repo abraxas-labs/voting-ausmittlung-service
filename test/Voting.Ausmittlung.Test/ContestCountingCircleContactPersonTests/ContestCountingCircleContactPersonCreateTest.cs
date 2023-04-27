@@ -23,8 +23,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleContactPersonTests;
 
-public class ContestCountingCircleContactPersonCreateTest
-    : BaseTest<ContestCountingCircleContactPersonService.ContestCountingCircleContactPersonServiceClient>
+public class ContestCountingCircleContactPersonCreateTest : ContestCountingCircleContactPersonBaseTest
 {
     public ContestCountingCircleContactPersonCreateTest(TestApplicationFactory factory)
         : base(factory)
@@ -79,6 +78,25 @@ public class ContestCountingCircleContactPersonCreateTest
             var response = await ErfassungElectionAdminClient.CreateAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ContestCountingCircleContactPersonCreated>();
         });
+    }
+
+    [Fact]
+    public async Task CreateContactPersonShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        var response = await BundErfassungElectionAdminClient.CreateAsync(NewValidRequest());
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleContactPersonCreated>();
+        response.Id.Should().Be(eventData.ContestCountingCircleContactPersonId);
+        eventData.ContestCountingCircleContactPersonId = string.Empty;
+        eventData.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.CreateAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
     }
 
     [Fact]

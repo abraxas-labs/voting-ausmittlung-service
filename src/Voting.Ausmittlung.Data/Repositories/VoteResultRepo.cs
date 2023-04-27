@@ -35,6 +35,10 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
             .AsSplitQuery()
             .Include(b => b.Results).ThenInclude(r => r.QuestionResults)
             .Include(b => b.Results).ThenInclude(r => r.TieBreakQuestionResults)
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.VotingCards)
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(b => b.Id == id);
     }
 

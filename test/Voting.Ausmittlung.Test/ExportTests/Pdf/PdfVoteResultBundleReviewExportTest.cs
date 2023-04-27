@@ -15,22 +15,18 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfVoteResultBundleReviewExportTest : PdfExportBaseTest<GenerateResultBundleReviewExportRequest>
+public class PdfVoteResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
 {
     public PdfVoteResultBundleReviewExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => CreateHttpClient(
+    protected override HttpClient TestClient => CreateHttpClient(
         tenant: SecureConnectTestDefaults.MockedTenantGossau.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    public override string ExportEndpoint => $"{ResultExportEndpoint}/bundle_review";
-
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
-
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
 
     protected override async Task SeedData()
     {
@@ -61,7 +57,7 @@ public class PdfVoteResultBundleReviewExportTest : PdfExportBaseTest<GenerateRes
     {
         return new GenerateResultBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestId),
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             TemplateKey = AusmittlungPdfVoteTemplates.ResultBundleReview.Key,
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             PoliticalBusinessResultBundleId = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1),

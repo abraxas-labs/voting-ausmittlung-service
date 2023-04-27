@@ -245,6 +245,23 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
     }
 
     [Fact]
+    public async Task TestShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await BundleErfassungElectionAdminClientStGallen.CreateBundleAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberEntered>().MatchSnapshot("1");
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleCreated>().MatchSnapshot("2", x => x.BundleId);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.CreateBundleAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowDuplicatedManualBundleNumber()
     {
         await ErfassungElectionAdminClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest

@@ -131,14 +131,12 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         foreach (var ccResult in majorityElection.Results!)
         {
             ccResult.CandidateResults = ccResult.CandidateResults!
-                .OrderByDescending(x => x.VoteCount)
-                .ThenBy(x => x.Candidate!.Position)
+                .OrderBy(x => x.Candidate!.Position)
                 .ToList();
         }
 
         majorityElection.EndResult!.CandidateEndResults = majorityElection.EndResult.CandidateEndResults!
-            .OrderByDescending(x => x.VoteCount)
-            .ThenBy(x => x.Candidate!.Position)
+            .OrderBy(x => x.Candidate!.Position)
             .ToList();
     }
 }

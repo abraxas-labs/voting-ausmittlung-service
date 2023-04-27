@@ -11,6 +11,7 @@ public class PdfMajorityElectionProfile : Profile
     public PdfMajorityElectionProfile()
     {
         CreateMap<MajorityElection, PdfMajorityElection>();
+        CreateMap<MajorityElection, PdfPoliticalBusiness>();
         CreateMap<MajorityElectionCandidateBase, PdfMajorityElectionCandidate>();
     }
 }

@@ -109,7 +109,7 @@ public class PdfVoteResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            ctx.DomainOfInfluenceType.ToString().ToUpper(),
+            PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(ctx.DomainOfInfluenceType),
             PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }
 }

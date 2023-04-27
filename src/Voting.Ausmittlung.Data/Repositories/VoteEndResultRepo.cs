@@ -26,6 +26,8 @@ public class VoteEndResultRepo : DbRepository<DataContext, VoteEndResult>
             .Include(x => x.Vote)
             .Include(b => b.BallotEndResults).ThenInclude(r => r.QuestionEndResults)
             .Include(b => b.BallotEndResults).ThenInclude(r => r.TieBreakQuestionEndResults)
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(b => b.VoteId == voteId);
     }
 

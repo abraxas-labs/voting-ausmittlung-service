@@ -48,25 +48,25 @@
       <TotalVoteCount>1025</TotalVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>200</VoteCount>
+        <VoteCount>90</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -114,25 +114,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>90</VoteCount>
+        <VoteCount>200</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -301,25 +301,25 @@
       <TotalVoteCount>1025</TotalVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>200</VoteCount>
+        <VoteCount>90</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -367,25 +367,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>90</VoteCount>
+        <VoteCount>200</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -529,12 +529,12 @@
       </CountOfVoters>
     </MajorityElectionResult>
     <MajorityElectionEndResult>
-      <TotalCountOfVoters>6000</TotalCountOfVoters>
+      <TotalCountOfVoters>34810</TotalCountOfVoters>
       <CountOfDoneCountingCircles>6</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.5</VoterParticipation>
+        <VoterParticipation>0.0861821315713875323182993393</VoterParticipation>
         <TotalReceivedBallots>3000</TotalReceivedBallots>
         <TotalUnaccountedBallots>1680</TotalUnaccountedBallots>
         <CountOfAccountedBallots>1320</CountOfAccountedBallots>
@@ -549,30 +549,30 @@
       <TotalCandidateVoteCountInclIndividual>5970</TotalCandidateVoteCountInclIndividual>
       <TotalVoteCount>6150</TotalVoteCount>
       <MajorityElectionCandidateEndResult>
-        <Rank>1</Rank>
-        <VoteCount>1200</VoteCount>
+        <Rank>4</Rank>
+        <VoteCount>540</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <State>AbsoluteMajorityAndElected</State>
+        <State>NotElected</State>
       </MajorityElectionCandidateEndResult>
       <MajorityElectionCandidateEndResult>
         <Rank>2</Rank>
@@ -627,30 +627,30 @@
         <State>NoAbsoluteMajorityAndNotElectedButRankOk</State>
       </MajorityElectionCandidateEndResult>
       <MajorityElectionCandidateEndResult>
-        <Rank>4</Rank>
-        <VoteCount>540</VoteCount>
+        <Rank>1</Rank>
+        <VoteCount>1200</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <State>NotElected</State>
+        <State>AbsoluteMajorityAndElected</State>
       </MajorityElectionCandidateEndResult>
       <MajorityElectionCandidateEndResult>
         <Rank>5</Rank>
@@ -845,25 +845,25 @@
       <InvalidVoteCount>20</InvalidVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>200</VoteCount>
+        <VoteCount>90</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -911,25 +911,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>90</VoteCount>
+        <VoteCount>200</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -1089,25 +1089,25 @@
         <TotalVoteCount>1025</TotalVoteCount>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
+            <Incumbent>false</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>4</Position>
+            <Position>1</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>200</VoteCount>
+          <VoteCount>90</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -1155,25 +1155,25 @@
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number1 1pol last name 1pol firstName</Description>
-            <Number>number1</Number>
-            <FirstName>1firstName</FirstName>
-            <LastName>1lastName</LastName>
-            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>false</Incumbent>
+            <Incumbent>true</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>1</Position>
+            <Position>4</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>90</VoteCount>
+          <VoteCount>200</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -1348,25 +1348,25 @@
       <InvalidVoteCount>40</InvalidVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>400</VoteCount>
+        <VoteCount>180</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -1414,25 +1414,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>180</VoteCount>
+        <VoteCount>400</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -1568,11 +1568,11 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionResult>
         <CountingCircle>
-          <Name>St. Gallen St. Fiden</Name>
-          <NameForProtocol>St. Fiden</NameForProtocol>
-          <Bfs>5500-1</Bfs>
-          <Code>C5500-1</Code>
-          <SortNumber>2001</SortNumber>
+          <Name>St. Gallen Haggen</Name>
+          <NameForProtocol />
+          <Bfs>5500-2</Bfs>
+          <Code />
+          <SortNumber>2002</SortNumber>
           <ContestCountingCircleDetails>
             <TotalCountOfVoters>0</TotalCountOfVoters>
             <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1592,25 +1592,25 @@
         <TotalVoteCount>1025</TotalVoteCount>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
+            <Incumbent>false</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>4</Position>
+            <Position>1</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>200</VoteCount>
+          <VoteCount>90</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -1658,25 +1658,25 @@
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number1 1pol last name 1pol firstName</Description>
-            <Number>number1</Number>
-            <FirstName>1firstName</FirstName>
-            <LastName>1lastName</LastName>
-            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>false</Incumbent>
+            <Incumbent>true</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>1</Position>
+            <Position>4</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>90</VoteCount>
+          <VoteCount>200</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -1821,11 +1821,11 @@
       </MajorityElectionResult>
       <MajorityElectionResult>
         <CountingCircle>
-          <Name>St. Gallen Haggen</Name>
-          <NameForProtocol />
-          <Bfs>5500-2</Bfs>
-          <Code />
-          <SortNumber>2002</SortNumber>
+          <Name>St. Gallen St. Fiden</Name>
+          <NameForProtocol>St. Fiden</NameForProtocol>
+          <Bfs>5500-1</Bfs>
+          <Code>C5500-1</Code>
+          <SortNumber>2001</SortNumber>
           <ContestCountingCircleDetails>
             <TotalCountOfVoters>0</TotalCountOfVoters>
             <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
@@ -1845,25 +1845,25 @@
         <TotalVoteCount>1025</TotalVoteCount>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
+            <Incumbent>false</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>4</Position>
+            <Position>1</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>200</VoteCount>
+          <VoteCount>90</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -1911,25 +1911,25 @@
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number1 1pol last name 1pol firstName</Description>
-            <Number>number1</Number>
-            <FirstName>1firstName</FirstName>
-            <LastName>1lastName</LastName>
-            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>false</Incumbent>
+            <Incumbent>true</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>1</Position>
+            <Position>4</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>90</VoteCount>
+          <VoteCount>200</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -2104,25 +2104,25 @@
       <InvalidVoteCount>20</InvalidVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>200</VoteCount>
+        <VoteCount>90</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -2170,25 +2170,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>90</VoteCount>
+        <VoteCount>200</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -2348,25 +2348,25 @@
         <TotalVoteCount>1025</TotalVoteCount>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
+            <Description>number1 1pol last name 1pol firstName</Description>
+            <Number>number1</Number>
+            <FirstName>1firstName</FirstName>
+            <LastName>1lastName</LastName>
+            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+            <PoliticalLastName>1pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
+            <Incumbent>false</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>4</Position>
+            <Position>1</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>200</VoteCount>
+          <VoteCount>90</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -2414,25 +2414,25 @@
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
-            <Description>number1 1pol last name 1pol firstName</Description>
-            <Number>number1</Number>
-            <FirstName>1firstName</FirstName>
-            <LastName>1lastName</LastName>
-            <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-            <PoliticalLastName>1pol last name</PoliticalLastName>
+            <Description>number4 4pol last name 4pol firstName</Description>
+            <Number>number4</Number>
+            <FirstName>4firstName</FirstName>
+            <LastName>4lastName</LastName>
+            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+            <PoliticalLastName>4pol last name</PoliticalLastName>
             <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
             <Sex>Female</Sex>
             <Title>title</Title>
             <OccupationTitle>occupation title de</OccupationTitle>
             <Occupation>occupation de</Occupation>
-            <Incumbent>false</Incumbent>
+            <Incumbent>true</Incumbent>
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
-            <Position>1</Position>
+            <Position>4</Position>
             <Origin>origin</Origin>
             <Party>Test de</Party>
           </Candidate>
-          <VoteCount>90</VoteCount>
+          <VoteCount>200</VoteCount>
         </MajorityElectionCandidateResult>
         <MajorityElectionCandidateResult>
           <Candidate>
@@ -2596,25 +2596,25 @@
       <InvalidVoteCount>120</InvalidVoteCount>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
+          <Description>number1 1pol last name 1pol firstName</Description>
+          <Number>number1</Number>
+          <FirstName>1firstName</FirstName>
+          <LastName>1lastName</LastName>
+          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
+          <PoliticalLastName>1pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
+          <Incumbent>false</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>4</Position>
+          <Position>1</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>1200</VoteCount>
+        <VoteCount>540</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
@@ -2662,25 +2662,25 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number1 1pol last name 1pol firstName</Description>
-          <Number>number1</Number>
-          <FirstName>1firstName</FirstName>
-          <LastName>1lastName</LastName>
-          <PoliticalFirstName>1pol firstName</PoliticalFirstName>
-          <PoliticalLastName>1pol last name</PoliticalLastName>
+          <Description>number4 4pol last name 4pol firstName</Description>
+          <Number>number4</Number>
+          <FirstName>4firstName</FirstName>
+          <LastName>4lastName</LastName>
+          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
+          <PoliticalLastName>4pol last name</PoliticalLastName>
           <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
           <Sex>Female</Sex>
           <Title>title</Title>
           <OccupationTitle>occupation title de</OccupationTitle>
           <Occupation>occupation de</Occupation>
-          <Incumbent>false</Incumbent>
+          <Incumbent>true</Incumbent>
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
-          <Position>1</Position>
+          <Position>4</Position>
           <Origin>origin</Origin>
           <Party>Test de</Party>
         </Candidate>
-        <VoteCount>540</VoteCount>
+        <VoteCount>1200</VoteCount>
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>

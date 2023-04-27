@@ -1,28 +1,29 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTest
 {
     public PdfMajorityElectionCountingCircleResultExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => ErfassungElectionAdminClient;
+    protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
     protected override string NewRequestExpectedFileName => "Majorz_Gemeindeprotokoll_Mw SG de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key;
 
     protected override async Task SeedData()
     {
@@ -30,22 +31,20 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            CountingCircleId = CountingCircleMockedData.GuidStGallen.ToString(),
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key,
-                    PoliticalBusinessIds =
-                    {
-                        Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
-                    },
-                    CountingCircleId = CountingCircleMockedData.GuidStGallen,
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: MajorityElectionMockedData.StGallenMajorityElectionInContestBund.Id,
+                    countingCircleId: CountingCircleMockedData.GuidStGallen)
+                    .ToString(),
             },
         };
     }

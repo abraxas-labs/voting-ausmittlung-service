@@ -51,7 +51,8 @@ public class ResultWriter
         // Only start the submission for the correct states and users
         if (data.Contest.State.IsLocked()
             || !_permissionService.IsErfassungElectionAdmin()
-            || !data.CountingCircle.ResponsibleAuthority.SecureConnectId.Equals(_permissionService.TenantId, StringComparison.Ordinal))
+            || !(data.CountingCircle.ResponsibleAuthority.SecureConnectId.Equals(_permissionService.TenantId, StringComparison.Ordinal)
+                 || (data.Contest.DomainOfInfluence.SecureConnectId.Equals(_permissionService.TenantId, StringComparison.Ordinal) && !data.Contest.TestingPhaseEnded)))
         {
             return;
         }
@@ -88,7 +89,7 @@ public class ResultWriter
 
         _permissionService.EnsureErfassungElectionAdmin();
         _contestService.EnsureInTestingPhase(data.Contest);
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
 
         var ccDetailsAggregate = await _aggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(data.Details.Id)
             ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");

@@ -16,6 +16,6 @@ internal static class TemplateModelExtensions
             return false;
         }
 
-        return !model.DomainOfInfluenceType.HasValue || model.DomainOfInfluenceType == doiType;
+        return model.MatchesDomainOfInfluenceType(doiType);
     }
 }

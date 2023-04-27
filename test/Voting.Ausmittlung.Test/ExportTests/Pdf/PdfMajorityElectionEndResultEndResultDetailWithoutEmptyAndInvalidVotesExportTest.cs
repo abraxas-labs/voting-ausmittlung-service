@@ -3,52 +3,54 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest : PdfExportBaseTest
 {
     public PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
-
     protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_exkl_Majorzw de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key;
 
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
 
-        await ModifyDbEntities<MajorityElectionResult>(_ => true, x => x.State = CountingCircleResultState.AuditedTentatively);
+        var electionId = Guid.Parse(MajorityElectionEndResultMockedData.ElectionId);
+        await ModifyDbEntities<MajorityElectionResult>(
+            x => x.MajorityElectionId == electionId,
+            x => x.State = CountingCircleResultState.AuditedTentatively);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id,
+            x => x.CantonDefaults.MajorityElectionInvalidVotes = true);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key,
-                    PoliticalBusinessIds =
-                    {
-                        Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                    },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(MajorityElectionEndResultMockedData.ElectionId))
+                    .ToString(),
             },
         };
     }

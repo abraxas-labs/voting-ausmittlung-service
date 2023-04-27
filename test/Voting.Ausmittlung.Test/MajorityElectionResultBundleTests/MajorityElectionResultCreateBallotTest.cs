@@ -158,6 +158,22 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await BundleErfassungElectionAdminClientBund.CreateBallotAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotCreated>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientBund.CreateBallotAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(

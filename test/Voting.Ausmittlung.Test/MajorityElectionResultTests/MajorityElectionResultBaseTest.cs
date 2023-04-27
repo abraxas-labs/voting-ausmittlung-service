@@ -27,10 +27,13 @@ public abstract class MajorityElectionResultBaseTest : PoliticalBusinessResultBa
     {
     }
 
+    protected MajorityElectionResultService.MajorityElectionResultServiceClient BundErfassungElectionAdminClient { get; private set; } = null!; // initialized during InitializeAsync
+
     public override async Task InitializeAsync()
     {
         await base.InitializeAsync();
         await ReplaceNullValuesWithZeroOnDetailedResults();
+        BundErfassungElectionAdminClient = new MajorityElectionResultService.MajorityElectionResultServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantBund.Id, TestDefaults.UserId, RolesMockedData.ErfassungElectionAdmin));
     }
 
     protected override Task SeedPoliticalBusinessMockedData()

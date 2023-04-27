@@ -26,14 +26,14 @@ public class VoteDeleteTest : VoteProcessorBaseTest
         await TestEventPublisher.Publish(
             new VoteDeleted
             {
-                VoteId = VoteMockedData.IdUzwilVoteInContestBund,
+                VoteId = VoteMockedData.IdUzwilVoteInContestBundWithoutChilds,
             });
 
-        var data = await GetData(x => x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBund));
+        var data = await GetData(x => x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds));
         data.Count.Should().Be(0);
 
         var simpleResult = await RunOnDb(db => db.SimplePoliticalBusinesses.FirstOrDefaultAsync(c =>
-            c.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBund)));
+            c.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds)));
         simpleResult.Should().BeNull();
     }
 

@@ -9,6 +9,8 @@ using Abraxas.Voting.Ausmittlung.Services.V1;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleDetailsTests;
 
@@ -17,6 +19,14 @@ public abstract class ContestCountingCircleDetailsBaseTest : BaseTest<ContestCou
     protected ContestCountingCircleDetailsBaseTest(TestApplicationFactory factory)
         : base(factory)
     {
+    }
+
+    protected ContestCountingCircleDetailsService.ContestCountingCircleDetailsServiceClient BundErfassungElectionAdminClient { get; private set; } = null!; // initialized during InitializeAsync
+
+    public override async Task InitializeAsync()
+    {
+        BundErfassungElectionAdminClient = new ContestCountingCircleDetailsService.ContestCountingCircleDetailsServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantBund.Id, TestDefaults.UserId, RolesMockedData.ErfassungElectionAdmin));
+        await base.InitializeAsync();
     }
 
     protected override IEnumerable<string> UnauthorizedRoles()

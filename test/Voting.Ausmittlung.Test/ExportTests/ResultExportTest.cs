@@ -17,9 +17,9 @@ using FluentAssertions;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
-using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
 
@@ -40,6 +40,7 @@ public class ResultExportTest : BaseRestTest
         await ContestMockedData.Seed(RunScoped);
         await VoteMockedData.Seed(RunScoped);
         await ProportionalElectionMockedData.Seed(RunScoped);
+        await MajorityElectionMockedData.Seed(RunScoped);
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>
             permissionBuilder.RebuildPermissionTree());
     }
@@ -50,26 +51,15 @@ public class ResultExportTest : BaseRestTest
         var request = new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                        },
-                    },
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungCsvProportionalElectionTemplates.CandidatesNumerical.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestBund),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungWabstiCTemplates.WMKandidaten.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId),
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungWabstiCTemplates.WPWahl.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId),
+            },
         };
 
         var response = await AssertStatus(
@@ -93,7 +83,7 @@ public class ResultExportTest : BaseRestTest
     }
 
     [Fact]
-    public async Task ShouldThrowUnknownKey()
+    public async Task ShouldThrowUnknownExportTemplateId()
     {
         await AssertStatus(
             () => BundMonitoringElectionAdminClient.PostAsJsonAsync(
@@ -101,19 +91,12 @@ public class ResultExportTest : BaseRestTest
                 new GenerateResultExportsRequest
                 {
                     ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                    ResultExportRequests =
+                    ExportTemplateIds = new List<Guid>
                     {
-                        new GenerateResultExportRequest
-                        {
-                            Key = "unknown",
-                            PoliticalBusinessIds =
-                            {
-                                Guid.Parse(VoteMockedData.IdStGallenVoteInContestBund),
-                            },
-                        },
+                        Guid.NewGuid(),
                     },
                 }),
-            HttpStatusCode.NotFound);
+            HttpStatusCode.BadRequest);
     }
 
     [Fact]
@@ -127,17 +110,13 @@ public class ResultExportTest : BaseRestTest
             var request = new GenerateResultExportsRequest
             {
                 ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                ResultExportRequests =
+                ExportTemplateIds = new List<Guid>
                 {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                        },
-                    },
+                    AusmittlungUuidV5.BuildExportTemplate(
+                        AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+                        CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                        politicalBusinessId: Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
+                        domainOfInfluenceType: Data.Models.DomainOfInfluenceType.Ch),
                 },
             };
 
@@ -164,17 +143,13 @@ public class ResultExportTest : BaseRestTest
             var request = new GenerateResultExportsRequest
             {
                 ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                ResultExportRequests =
+                ExportTemplateIds = new List<Guid>
                 {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                        },
-                    },
+                    AusmittlungUuidV5.BuildExportTemplate(
+                        AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+                        CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                        politicalBusinessId: Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
+                        domainOfInfluenceType: Data.Models.DomainOfInfluenceType.Ch),
                 },
             };
 
@@ -199,19 +174,15 @@ public class ResultExportTest : BaseRestTest
                 new GenerateResultExportsRequest
                 {
                     ContestId = Guid.Parse(ContestMockedData.IdKirche),
-                    ResultExportRequests =
+                    ExportTemplateIds = new List<Guid>
                     {
-                            new GenerateResultExportRequest
-                            {
-                                Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                                PoliticalBusinessIds =
-                                {
-                                    Guid.Parse(VoteMockedData.IdKircheVoteInContestKircheWithoutChilds),
-                                },
-                            },
+                        AusmittlungUuidV5.BuildExportTemplate(
+                            AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+                            CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                            politicalBusinessId: Guid.Parse(VoteMockedData.IdKircheVoteInContestKircheWithoutChilds)),
                     },
                 }),
-            HttpStatusCode.Forbidden);
+            HttpStatusCode.BadRequest);
     }
 
     [Fact]
@@ -223,81 +194,12 @@ public class ResultExportTest : BaseRestTest
                 new GenerateResultExportsRequest
                 {
                     ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                    ResultExportRequests =
+                    ExportTemplateIds = new List<Guid>
                     {
-                        new GenerateResultExportRequest
-                        {
-                            Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                            PoliticalBusinessIds =
-                            {
-                                Guid.Parse(VoteMockedData.IdStGallenVoteInContestBund),
-                            },
-                        },
-                    },
-                }),
-            HttpStatusCode.Forbidden);
-    }
-
-    [Fact]
-    public async Task ShouldThrowNoDomainOfInfluence()
-    {
-        await AssertStatus(
-            () => BundMonitoringElectionAdminClient.PostAsJsonAsync(
-                ResultExportEndpoint,
-                new GenerateResultExportsRequest
-                {
-                    ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                    ResultExportRequests =
-                    {
-                        new GenerateResultExportRequest
-                        {
-                            Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        },
-                    },
-                }),
-            HttpStatusCode.BadRequest);
-    }
-
-    [Fact]
-    public async Task ShouldThrowNoUnion()
-    {
-        await AssertStatus(
-            () => BundMonitoringElectionAdminClient.PostAsJsonAsync(
-                ResultExportEndpoint,
-                new GenerateResultExportsRequest
-                {
-                    ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                    ResultExportRequests =
-                    {
-                        new GenerateResultExportRequest
-                        {
-                            Key = AusmittlungPdfProportionalElectionTemplates.VoterTurnoutProtocol.Key,
-                        },
-                    },
-                }),
-            HttpStatusCode.BadRequest);
-    }
-
-    [Fact]
-    public async Task ShouldThrowMultiplePoliticalBusinesses()
-    {
-        await AssertStatus(
-            () => BundMonitoringElectionAdminClient.PostAsJsonAsync(
-                ResultExportEndpoint,
-                new GenerateResultExportsRequest
-                {
-                    ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-                    ResultExportRequests =
-                    {
-                        new GenerateResultExportRequest
-                        {
-                            Key = AusmittlungXmlVoteTemplates.Ech0110.Key,
-                            PoliticalBusinessIds = new()
-                            {
-                                Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                                Guid.Parse(VoteMockedData.IdBundVote2InContestBund),
-                            },
-                        },
+                        AusmittlungUuidV5.BuildExportTemplate(
+                            AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+                            CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                            politicalBusinessId: Guid.Parse(VoteMockedData.IdStGallenVoteInContestBund)),
                     },
                 }),
             HttpStatusCode.BadRequest);
@@ -309,26 +211,15 @@ public class ResultExportTest : BaseRestTest
         var request = new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdBundVoteInContestBund),
-                        },
-                    },
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungCsvProportionalElectionTemplates.CandidatesNumerical.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestBund),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungWabstiCTemplates.WMKandidaten.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId),
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungWabstiCTemplates.WPWahl.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId),
+            },
         };
 
         await AssertStatus(
@@ -352,17 +243,13 @@ public class ResultExportTest : BaseRestTest
         return httpClient.PostAsJsonAsync(ResultExportEndpoint, new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdStGallenVoteInContestBund),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+                    CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
+                    politicalBusinessId: Guid.Parse(VoteMockedData.IdStGallenVoteInContestBund)),
+            },
         });
     }
 

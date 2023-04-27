@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -21,7 +23,7 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 namespace Voting.Ausmittlung.Test.ContestCountingCircleDetailsTests;
 
 public class ContestCountingCircleDetailsValidateUpdateTest
-    : BaseTest<ContestCountingCircleDetailsService.ContestCountingCircleDetailsServiceClient>
+    : ContestCountingCircleDetailsBaseTest
 {
     public ContestCountingCircleDetailsValidateUpdateTest(TestApplicationFactory factory)
         : base(factory)
@@ -98,6 +100,23 @@ public class ContestCountingCircleDetailsValidateUpdateTest
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.ContestCountingCircleDetailsVotingCardsLessOrEqualCountOfVoters)
             .IsValid.Should().BeFalse();
         result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsValidAsContestManagerDuringTestingPhase()
+    {
+        var result = await StGallenErfassungElectionAdminClient.ValidateUpdateDetailsAsync(NewValidRequest(x => x.Request.ContestId = ContestMockedData.IdStGallenEvoting));
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdVergangenerBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.ValidateUpdateDetailsAsync(NewValidRequest(x => x.Request.ContestId = ContestMockedData.IdVergangenerBundesurnengang)),
+            StatusCode.PermissionDenied);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

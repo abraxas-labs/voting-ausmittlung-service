@@ -69,7 +69,7 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
             foreach (var group in ballotResultsByVote)
             {
-                var importResult = new VoteResultImport(group.Key, result.BasisCountingCircleId);
+                var importResult = new VoteResultImport(group.Key, Guid.Parse(result.BasisCountingCircleId));
                 yield return ProcessResult(
                     importResult,
                     group,
@@ -90,67 +90,60 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
         IReadOnlyDictionary<Guid, Dictionary<int, BallotQuestion>> ballotQuestionsByNumberByBallotId,
         IReadOnlyDictionary<Guid, Dictionary<int, TieBreakQuestion>> tieBreakQuestionsByNumberByBallotId)
     {
+        // Enumerate through all vote ballots (="Vorlagen")
         foreach (var ballotResult in ballotResults)
         {
             var importBallotResult = importResult.GetOrAddBallotResult(ballotResult.BallotId);
             importBallotResult.CountOfVoters = ballotResult.Ballots.Count;
-            ProcessBallotQuestionResult(importBallotResult, ballotResult, ballotQuestionsByNumberByBallotId);
-            ProcessTieBreakQuestionResult(importBallotResult, ballotResult, tieBreakQuestionsByNumberByBallotId);
+
+            if (!ballotQuestionsByNumberByBallotId.TryGetValue(importBallotResult.BallotId, out var questionsByNumber))
+            {
+                throw new EntityNotFoundException(nameof(Ballot), importBallotResult.BallotId);
+            }
+
+            if (!tieBreakQuestionsByNumberByBallotId.TryGetValue(importBallotResult.BallotId, out var tieBreakQuestionsByNumber))
+            {
+                throw new EntityNotFoundException(nameof(Ballot), importBallotResult.BallotId);
+            }
+
+            // Enumerate the ballots (="Stimmzettel")
+            foreach (var ballot in ballotResult.Ballots)
+            {
+                // When all questions of the vote ballot have been left empty, treat the whole ballot as empty.
+                if (ballot.QuestionAnswers.All(q => q.Answer == BallotQuestionAnswer.Unspecified)
+                    && ballot.TieBreakQuestionAnswers.All(tq => tq.Answer == TieBreakQuestionAnswer.Unspecified))
+                {
+                    importBallotResult.BlankBallotCount++;
+                    continue;
+                }
+
+                foreach (var questionAnswer in ballot.QuestionAnswers)
+                {
+                    var questionNumber = questionAnswer.QuestionNumber;
+                    if (!questionsByNumber.ContainsKey(questionNumber))
+                    {
+                        throw new EntityNotFoundException(nameof(BallotQuestion), questionNumber);
+                    }
+
+                    var questionResult = importBallotResult.GetOrAddQuestionResult(questionNumber);
+                    UpdateBallotQuestionResultAnswerCount(questionResult, questionAnswer.Answer);
+                }
+
+                foreach (var questionAnswer in ballot.TieBreakQuestionAnswers)
+                {
+                    var questionNumber = questionAnswer.QuestionNumber;
+                    if (!tieBreakQuestionsByNumber.ContainsKey(questionNumber))
+                    {
+                        throw new EntityNotFoundException(nameof(TieBreakQuestion), questionNumber);
+                    }
+
+                    var questionResult = importBallotResult.GetOrAddTieBreakQuestionResult(questionNumber);
+                    UpdateTieBreakQuestionResultAnswerCount(questionResult, questionAnswer.Answer);
+                }
+            }
         }
 
         return importResult;
-    }
-
-    private void ProcessBallotQuestionResult(
-        VoteBallotResultImport importData,
-        EVotingVoteBallotResult ballotResult,
-        IReadOnlyDictionary<Guid, Dictionary<int, BallotQuestion>> ballotQuestionsByNumberByBallotId)
-    {
-        foreach (var ballot in ballotResult.Ballots)
-        {
-            if (!ballotQuestionsByNumberByBallotId.TryGetValue(importData.BallotId, out var questionsByNumber))
-            {
-                throw new EntityNotFoundException(nameof(Ballot), importData.BallotId);
-            }
-
-            foreach (var questionAnswer in ballot.QuestionAnswers)
-            {
-                var questionNumber = questionAnswer.QuestionNumber;
-                if (!questionsByNumber.ContainsKey(questionNumber))
-                {
-                    throw new EntityNotFoundException(nameof(BallotQuestion), questionNumber);
-                }
-
-                var questionResult = importData.GetOrAddQuestionResult(questionNumber);
-                UpdateBallotQuestionResultAnswerCount(questionResult, questionAnswer.Answer);
-            }
-        }
-    }
-
-    private void ProcessTieBreakQuestionResult(
-        VoteBallotResultImport importData,
-        EVotingVoteBallotResult ballotResult,
-        IReadOnlyDictionary<Guid, Dictionary<int, TieBreakQuestion>> tieBreakQuestionsByNumberByBallotId)
-    {
-        foreach (var ballot in ballotResult.Ballots)
-        {
-            if (!tieBreakQuestionsByNumberByBallotId.TryGetValue(importData.BallotId, out var questionsByNumber))
-            {
-                throw new EntityNotFoundException(nameof(Ballot), importData.BallotId);
-            }
-
-            foreach (var questionAnswer in ballot.TieBreakQuestionAnswers)
-            {
-                var questionNumber = questionAnswer.QuestionNumber;
-                if (!questionsByNumber.ContainsKey(questionNumber))
-                {
-                    throw new EntityNotFoundException(nameof(TieBreakQuestion), questionNumber);
-                }
-
-                var questionResult = importData.GetOrAddTieBreakQuestionResult(questionNumber);
-                UpdateTieBreakQuestionResultAnswerCount(questionResult, questionAnswer.Answer);
-            }
-        }
     }
 
     private void UpdateBallotQuestionResultAnswerCount(BallotQuestionResultImport questionResult, BallotQuestionAnswer answer)

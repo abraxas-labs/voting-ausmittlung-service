@@ -1,0 +1,52 @@
+{
+  "1": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+    "BundleNumber": 1
+  },
+  "2": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "BundleId": "",
+    "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+    "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
+    "BundleNumber": 1,
+    "ResultEntryParams": {
+      "BallotBundleSize": 10,
+      "BallotBundleSampleSize": 3,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 2,
+      "AutomaticEmptyVoteCounting": true,
+      "ReviewProcedure": 1
+    }
+  }
+}

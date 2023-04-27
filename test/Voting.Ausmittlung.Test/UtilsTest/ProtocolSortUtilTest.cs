@@ -60,11 +60,11 @@ public class ProtocolSortUtilTest
 
     private class DomainOfInfluenceWrapper
     {
-        public DomainOfInfluenceWrapper(string nameForProtocol, int sortNumber, int data)
+        public DomainOfInfluenceWrapper(string name, int sortNumber, int data)
         {
             DomainOfInfluence = new()
             {
-                NameForProtocol = nameForProtocol,
+                Name = name,
                 SortNumber = sortNumber,
             };
             Data = data;
@@ -77,11 +77,11 @@ public class ProtocolSortUtilTest
 
     private class CountingCircleWrapper
     {
-        public CountingCircleWrapper(string nameForProtocol, int sortNumber, int data)
+        public CountingCircleWrapper(string name, int sortNumber, int data)
         {
             CountingCircle = new()
             {
-                NameForProtocol = nameForProtocol,
+                Name = name,
                 SortNumber = sortNumber,
             };
             Data = data;

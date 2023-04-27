@@ -8,7 +8,7 @@ namespace Voting.Ausmittlung.Ech.Models;
 
 public abstract class EVotingPoliticalBusinessResult
 {
-    protected EVotingPoliticalBusinessResult(Guid politicalBusinessId, Guid basisCountingCircleId)
+    protected EVotingPoliticalBusinessResult(Guid politicalBusinessId, string basisCountingCircleId)
     {
         PoliticalBusinessId = politicalBusinessId;
         BasisCountingCircleId = basisCountingCircleId;
@@ -16,7 +16,7 @@ public abstract class EVotingPoliticalBusinessResult
 
     public Guid PoliticalBusinessId { get; }
 
-    public Guid BasisCountingCircleId { get; }
+    public string BasisCountingCircleId { get; }
 
     public PoliticalBusinessType PoliticalBusinessType { get; set; }
 }

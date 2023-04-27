@@ -1,0 +1,52 @@
+{
+  "1": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "999999999999999999",
+        "Name": "Bund"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+    "BundleNumber": 1
+  },
+  "2": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "999999999999999999",
+        "Name": "Bund"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "BundleId": "",
+    "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+    "BundleNumber": 1,
+    "ResultEntry": 2,
+    "ResultEntryParams": {
+      "BallotBundleSize": 10,
+      "BallotBundleSampleSize": 3,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "BallotNumberGeneration": 2,
+      "AutomaticEmptyVoteCounting": true,
+      "ReviewProcedure": 1
+    }
+  }
+}

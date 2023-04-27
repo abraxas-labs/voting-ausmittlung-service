@@ -18,7 +18,7 @@ public static class MajorityElectionMockedData
 {
     public const string IdBundMajorityElectionInContestBund = "7566c420-3774-4c57-9b31-9702fac37543";
     public const string IdStGallenMajorityElectionInContestBund = "b0da46f8-a721-4e1a-ac36-25284d68f34b";
-    public const string IdUzwilMajorityElectionInContestBund = "7ae77f44-1083-470a-bb66-64f921bc6945";
+    public const string IdUzwilMajorityElectionInContestBundWithoutChilds = "7ae77f44-1083-470a-bb66-64f921bc6945";
     public const string IdBundMajorityElectionInContestStGallen = "0fee4b4e-f16d-46a3-9f7a-2776ee5785db";
     public const string IdGossauMajorityElectionInContestStGallen = "50415df8-6ee9-4eb4-9e31-68c0d3021e76";
     public const string IdUzwilMajorityElectionInContestStGallen = "d66ced3e-a2e4-4178-932b-ac91ee6a9d85";
@@ -1013,7 +1013,7 @@ public static class MajorityElectionMockedData
     public static MajorityElection UzwilMajorityElectionInContestBundWithoutChilds
         => new MajorityElection
         {
-            Id = Guid.Parse(IdUzwilMajorityElectionInContestBund),
+            Id = Guid.Parse(IdUzwilMajorityElectionInContestBundWithoutChilds),
             PoliticalBusinessNumber = "714",
             Translations = TranslationUtil.CreateTranslations<MajorityElectionTranslation>(
                 (t, o) => t.OfficialDescription = o,

@@ -157,6 +157,24 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
         });
     }
 
+    [Fact]
+    public async Task UpdateDetailsShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await StGallenErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x => x.ContestId = ContestMockedData.IdStGallenEvoting));
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsUpdated>();
+
+        eventData.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x => x.ContestId = ContestMockedData.IdStGallenEvoting)),
+            StatusCode.PermissionDenied);
+    }
+
     [Theory]
     [InlineData(CountingCircleResultState.SubmissionDone)]
     [InlineData(CountingCircleResultState.CorrectionDone)]

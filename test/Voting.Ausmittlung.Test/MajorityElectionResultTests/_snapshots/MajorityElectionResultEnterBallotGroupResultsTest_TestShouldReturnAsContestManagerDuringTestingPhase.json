@@ -1,0 +1,25 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "999999999999999999",
+      "Name": "Bund"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+  "Results": [
+    {
+      "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
+      "VoteCount": 103
+    }
+  ]
+}

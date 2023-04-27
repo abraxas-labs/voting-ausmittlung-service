@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Test.MockedData;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
@@ -14,6 +13,9 @@ public class PdfMajorityElectionEndResultTooManyCandidatesAbsoluteMajorityExport
     {
     }
 
+    protected override string SnapshotName
+        => base.SnapshotName + "_absolute_majority_too_many_candidates";
+
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
@@ -21,7 +23,4 @@ public class PdfMajorityElectionEndResultTooManyCandidatesAbsoluteMajorityExport
             RunScoped,
             primaryElectionNumberOfMandates: 1);
     }
-
-    protected override string SnapshotName(GenerateResultExportsRequest request)
-        => base.SnapshotName(request) + "_absolute_majority_too_many_candidates";
 }

@@ -106,6 +106,33 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
     }
 
     [Fact]
+    public async Task ShouldWorkAsContestManagerDuringTestingPhase()
+    {
+        var resp = await StGallenErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(new GetMajorityElectionWriteInMappingsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+        });
+        resp.ElectionWriteInMappings.Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection).InvalidVotes.Should().BeFalse();
+        CleanIds(resp);
+        resp.ShouldMatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(
+                new GetMajorityElectionWriteInMappingsRequest
+                {
+                    ContestId = ContestMockedData.IdStGallenEvoting,
+                    CountingCircleId = CountingCircleMockedData.IdUzwil,
+                }),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public Task ShouldThrowOtherTenant()
     {
         return AssertStatus(

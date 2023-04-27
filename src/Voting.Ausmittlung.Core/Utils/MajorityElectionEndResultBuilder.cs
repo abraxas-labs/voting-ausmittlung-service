@@ -26,6 +26,7 @@ public class MajorityElectionEndResultBuilder
     private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityElectionWriteInsRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityElectionWriteInsRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly DataContext _dbContext;
 
     public MajorityElectionEndResultBuilder(
@@ -36,7 +37,8 @@ public class MajorityElectionEndResultBuilder
         DataContext dbContext,
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityElectionWriteInsRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo,
-        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo)
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
     {
         _resultRepo = resultRepo;
         _endResultRepo = endResultRepo;
@@ -46,6 +48,7 @@ public class MajorityElectionEndResultBuilder
         _majorityElectionWriteInsRepo = majorityElectionWriteInsRepo;
         _secondaryMajorityElectionWriteInsRepo = secondaryMajorityElectionWriteInsRepo;
         _simpleResultRepo = simpleResultRepo;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -92,12 +95,18 @@ public class MajorityElectionEndResultBuilder
         var majorityElectionEndResult = await _endResultRepo.GetByMajorityElectionIdAsTracked(majorityElectionId)
                                         ?? throw new EntityNotFoundException(majorityElectionId);
 
+        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+                .AsTracking()
+                .FirstOrDefaultAsync(x => x.Id == majorityElectionEndResult.MajorityElectionId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), majorityElectionEndResult.MajorityElectionId);
+
         _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, lotDecisions);
         var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
             majorityElectionEndResult.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             majorityElectionEndResult.MajorityElection.MandateAlgorithm);
         strategy.RecalculateCandidateEndResultStates(majorityElectionEndResult);
         majorityElectionEndResult.Finalized = false;
+        simpleEndResult.EndResultFinalized = false;
 
         await _dbContext.SaveChangesAsync();
     }
@@ -107,19 +116,39 @@ public class MajorityElectionEndResultBuilder
         var deltaFactor = removeResults ? -1 : 1;
 
         var result = await _resultRepo
-                         .Query()
-                         .AsSplitQuery()
-                         .Include(x => x.CandidateResults)
-                         .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
-                         .FirstOrDefaultAsync(x => x.Id == resultId)
-                     ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), resultId);
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.VotingCards)
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), resultId);
+
+        var countingCircleDetails = result.CountingCircle.ContestDetails.FirstOrDefault()
+            ?? throw new EntityNotFoundException(nameof(ContestDetails), resultId);
 
         var endResult = await _endResultRepo.GetByMajorityElectionIdAsTracked(result.MajorityElectionId)
-                        ?? throw new EntityNotFoundException(nameof(MajorityElectionEndResult), resultId);
+            ?? throw new EntityNotFoundException(nameof(MajorityElectionEndResult), resultId);
+
+        var simpleResult = await _simplePoliticalBusinessRepo.Query()
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == endResult.MajorityElectionId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.MajorityElectionId);
 
         endResult.CountOfDoneCountingCircles += deltaFactor;
-        endResult.TotalCountOfVoters += result.TotalCountOfVoters * deltaFactor;
         endResult.Finalized = false;
+        simpleResult.EndResultFinalized = false;
+
+        EndResultContestDetailsUtils.AdjustEndResultContestDetails<
+            MajorityElectionEndResult,
+            MajorityElectionEndResultCountOfVotersInformationSubTotal,
+            MajorityElectionEndResultVotingCardDetail>(
+                endResult,
+                countingCircleDetails,
+                deltaFactor);
 
         PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
             endResult.CountOfVoters,

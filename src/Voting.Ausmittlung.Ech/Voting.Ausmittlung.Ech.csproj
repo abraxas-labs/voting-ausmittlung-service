@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="eCH-0110-4-0" Version="2.0.8" />
-    <PackageReference Include="eCH-0222-1-0" Version="2.0.7" />
+    <PackageReference Include="eCH-0110-4-0" Version="2.0.11" />
+    <PackageReference Include="eCH-0222-1-0" Version="2.0.9" />
     <PackageReference Include="Voting.Lib.Ech" Version="$(VotingLibVersion)" />
   </ItemGroup>
 

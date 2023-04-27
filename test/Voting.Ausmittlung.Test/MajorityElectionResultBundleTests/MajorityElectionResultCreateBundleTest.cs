@@ -155,6 +155,23 @@ public class MajorityElectionResultCreateBundleTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await BundleErfassungElectionAdminClientBund.CreateBundleAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleNumberEntered>().MatchSnapshot("1");
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleCreated>().MatchSnapshot("2", x => x.BundleId);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientBund.CreateBundleAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowIfFinalResultsEntry()
     {
         await ErfassungElectionAdminClient.DefineEntryAsync(new DefineMajorityElectionResultEntryRequest

@@ -43,14 +43,13 @@ public class SecondaryMajorityElectionResultImportProcessor :
         var electionId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
         var result = await _secondaryMajorityElectionResultRepo.Query()
-                         .AsTracking()
-                         .AsSplitQuery()
-                         .Include(x => x.PrimaryResult)
-                         .Include(x => x.CandidateResults)
-                         .Include(x => x.WriteInMappings)
-                         .FirstOrDefaultAsync(x =>
-                             x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId && x.SecondaryMajorityElectionId == electionId)
-                     ?? throw new EntityNotFoundException(nameof(SecondaryMajorityElectionResult), new { countingCircleId, electionId });
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.PrimaryResult)
+            .Include(x => x.CandidateResults)
+            .Include(x => x.WriteInMappings)
+            .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId && x.SecondaryMajorityElectionId == electionId)
+            ?? throw new EntityNotFoundException(nameof(SecondaryMajorityElectionResult), new { countingCircleId, electionId });
 
         // no update for the count of voters, since we only know them per election group but not for each election itself.
         result.EVotingSubTotal.InvalidVoteCount = eventData.InvalidVoteCount;
@@ -74,17 +73,14 @@ public class SecondaryMajorityElectionResultImportProcessor :
         var electionId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
         var result = await _secondaryMajorityElectionResultRepo.Query()
-                         .AsSplitQuery()
-                         .IgnoreQueryFilters() // load all translations (for the event log)
-                         .Include(x => x.CandidateResults)
-                         .Include(x => x.WriteInMappings)
-                         .ThenInclude(x => x.CandidateResult)
-                         .Include(x => x.PrimaryResult) // needed for event log
-                         .Include(x => x.SecondaryMajorityElection.PrimaryMajorityElection) // needed for event log
-                         .Include(x => x.SecondaryMajorityElection.Translations) // needed for event log
-                         .FirstOrDefaultAsync(x =>
-                             x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId && x.SecondaryMajorityElectionId == electionId)
-                     ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
+            .AsSplitQuery()
+            .Include(x => x.CandidateResults)
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .Include(x => x.PrimaryResult)
+            .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId
+                    && x.SecondaryMajorityElectionId == electionId)
+            ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
 
         // we remove this election from the count, we may re-add it later, if there are still unspecified write-ins
         if (result.WriteInMappings.HasUnspecifiedMappings())

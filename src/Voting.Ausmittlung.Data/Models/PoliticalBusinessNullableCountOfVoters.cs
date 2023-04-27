@@ -11,6 +11,8 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int EVotingInvalidBallots { get; set; }
 
+    public int EVotingBlankBallots { get; set; }
+
     public int EVotingAccountedBallots { get; set; }
 
     public int? ConventionalReceivedBallots { get; set; }
@@ -41,7 +43,10 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalUnaccountedBallots
     {
-        get => ConventionalBlankBallots.GetValueOrDefault() + ConventionalInvalidBallots.GetValueOrDefault() + EVotingInvalidBallots;
+        get => ConventionalBlankBallots.GetValueOrDefault()
+            + ConventionalInvalidBallots.GetValueOrDefault()
+            + EVotingBlankBallots
+            + EVotingInvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -51,6 +56,15 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
     public int TotalInvalidBallots
     {
         get => ConventionalInvalidBallots.GetValueOrDefault() + EVotingInvalidBallots;
+        private set
+        {
+            // empty setter to store the value in the database...
+        }
+    }
+
+    public int TotalBlankBallots
+    {
+        get => ConventionalBlankBallots.GetValueOrDefault() + EVotingBlankBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -82,6 +96,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
             case VotingDataSource.EVoting:
                 EVotingReceivedBallots = 0;
                 EVotingInvalidBallots = 0;
+                EVotingBlankBallots = 0;
                 EVotingAccountedBallots = 0;
                 break;
         }
@@ -100,6 +115,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
             ConventionalReceivedBallots = ConventionalReceivedBallots.GetValueOrDefault(),
             EVotingReceivedBallots = EVotingReceivedBallots,
             EVotingInvalidBallots = EVotingInvalidBallots,
+            EVotingBlankBallots = EVotingBlankBallots,
             EVotingAccountedBallots = EVotingAccountedBallots,
         };
     }

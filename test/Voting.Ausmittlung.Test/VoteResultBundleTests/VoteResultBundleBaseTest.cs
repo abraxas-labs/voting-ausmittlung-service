@@ -41,6 +41,9 @@ public abstract class VoteResultBundleBaseTest : VoteResultBaseTest
     protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungCreatorClientSecondUser { get; private set; } =
         null!; // initialized during InitializeAsync
 
+    protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungElectionAdminClientStGallen { get; private set; } =
+        null!; // initialized during InitializeAsync
+
     protected int LatestBallotNumber { get; private set; }
 
     public override async Task InitializeAsync()
@@ -50,6 +53,7 @@ public abstract class VoteResultBundleBaseTest : VoteResultBaseTest
         BundleErfassungCreatorClient = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungCreator));
         BundleErfassungElectionAdminClientSecondUser = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         BundleErfassungCreatorClientSecondUser = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungCreator));
+        BundleErfassungElectionAdminClientStGallen = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ResetQuestionResults();

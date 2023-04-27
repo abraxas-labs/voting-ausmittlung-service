@@ -3,26 +3,28 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionCandidatesCountingCircleResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfProportionalElectionCandidatesCountingCircleResultExportTest : PdfExportBaseTest
 {
     public PdfProportionalElectionCandidatesCountingCircleResultExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => ErfassungElectionAdminClient;
+    protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
     protected override string NewRequestExpectedFileName => "Proporz_Formular2a_KandStimmen_Kantonratswahl de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateVotesCountingCircleProtocol.Key;
 
     protected override async Task SeedData()
     {
@@ -30,19 +32,20 @@ public class PdfProportionalElectionCandidatesCountingCircleResultExportTest : P
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            CountingCircleId = CountingCircleMockedData.GuidUzwil.ToString(),
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateVotesCountingCircleProtocol.Key,
-                    CountingCircleId = CountingCircleMockedData.GuidUzwil,
-                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId) },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId),
+                    countingCircleId: CountingCircleMockedData.GuidUzwil)
+                    .ToString(),
             },
         };
     }

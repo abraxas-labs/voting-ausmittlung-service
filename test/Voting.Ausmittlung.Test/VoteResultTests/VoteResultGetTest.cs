@@ -100,7 +100,7 @@ public class VoteResultGetTest : BaseTest<VoteResultService.VoteResultServiceCli
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.GetAsync(new GetVoteResultRequest
             {
-                VoteId = VoteMockedData.IdUzwilVoteInContestBund,
+                VoteId = VoteMockedData.IdUzwilVoteInContestBundWithoutChilds,
                 CountingCircleId = CountingCircleMockedData.IdUzwil,
             }),
             StatusCode.PermissionDenied);

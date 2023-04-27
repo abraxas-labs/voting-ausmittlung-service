@@ -7,12 +7,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
+using Abraxas.Voting.Basis.Events.V1;
 using Google.Protobuf.WellKnownTypes;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 using ProtoBasis = Abraxas.Voting.Basis.Events.V1;
 using ProtoBasisEvents = Abraxas.Voting.Basis.Events.V1.Data;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -26,16 +31,64 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
     {
     }
 
+    public override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
+
+        // ensures that the vote uzwil is visible in the activity protocol (only active pbs are).
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds),
+            x => x.Active = true);
+    }
+
+    [Fact]
     public override Task TestPdf()
     {
         SeedEvents(false);
         return base.TestPdf();
     }
 
-    public override Task TestPdfAfterTestingPhaseEnded()
+    [Fact]
+    public async Task TestPdfAsContestManagerImmediatelyAfterTestingPhaseEnded()
+    {
+        SeedEvents(true, false);
+
+        // When the testing phase ends, most of the data that was created during the testing phase gets deleted.
+        // We need to test this case, as it lead to bugs (ex. VOTING-2403).
+        // Most of the time, data was missing that exists most of the time, but not immediately after the testing phase has ended
+        // and when no results etc. were entered.
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
+        await RunEvents<ContestTestingPhaseEnded>();
+
+        await TestPdfReport("_tp_ended_immediately");
+    }
+
+    [Fact]
+    public async Task TestPdfAsContestManagerAfterTestingPhaseEnded()
     {
         SeedEvents(true);
-        return base.TestPdfAfterTestingPhaseEnded();
+
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
+        await RunEvents<ContestTestingPhaseEnded>();
+        await TestPdfReport("_tp_ended");
+    }
+
+    [Fact]
+    public async Task TestPdfAsMonitoringAdminAndNotContestManagerAfterTestingPhaseEnded()
+    {
+        SeedEvents(true);
+
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
+        await RunEvents<ContestTestingPhaseEnded>();
+
+        var tenantId = SecureConnectTestDefaults.MockedTenantUzwil.Id;
+        var client = CreateServiceWithTenant(tenantId, RolesMockedData.MonitoringElectionAdmin);
+
+        var request = NewRequest();
+        request.ExportTemplateIds.Clear();
+        request.ExportTemplateIds.Add(AusmittlungUuidV5.BuildExportTemplate(TemplateKey, tenantId).ToString());
+
+        await TestPdfReport("_non_contest_manager_tp_ended", client, request);
     }
 
     protected override async Task SeedData()
@@ -52,13 +105,13 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private void SeedEvents(bool testingPhaseEnded)
+    private void SeedEvents(bool testingPhaseEnded, bool eventsAfterTestingPhaseEnded = true)
     {
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
 
         SeedBasisPublicKeySignatureEvents(testingPhaseEnded ? 5 : 0);
-        SeedAusmittlungPublicKeySignatureEvents(10);
+        SeedAusmittlungPublicKeySignatureEvents(11);
 
         SeedVoteInitEvents();
         SeedProportionalElectionInitEvents();
@@ -70,6 +123,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         if (testingPhaseEnded)
         {
             SeedContestTestingPhaseEndedEvent();
+
+            if (!eventsAfterTestingPhaseEnded)
+            {
+                return;
+            }
         }
 
         SeedContestCountingCircleDetailsEvents();
@@ -103,7 +161,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             Contest = new ProtoBasisEvents.ContestEventData
             {
-                Id = ContestId,
+                Id = ContestMockedData.IdBundesurnengang,
                 Date = new DateTime(2020, 8, 23, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 Description = { LanguageUtil.MockAllLanguages("Contest description") },
                 EndOfTestingPhase = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
@@ -115,34 +173,42 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
 
     private void SeedVoteInitEvents()
     {
-        var vote = VoteMockedData.StGallenVoteInContestBund;
-        var voteId = vote.Id.ToString();
-
-        var voteCreated = new ProtoBasis.VoteCreated
+        var votes = new List<Vote>
         {
-            EventInfo = GetBasisEventInfo(0),
-            Vote = new()
-            {
-                Id = voteId,
-                PoliticalBusinessNumber = vote.PoliticalBusinessNumber,
-                ShortDescription = { vote.Translations.ToDictionary(x => x.Language, x => x.ShortDescription) },
-            },
+            VoteMockedData.StGallenVoteInContestBund,
+            VoteMockedData.UzwilVoteInContestBundWithoutChilds,
         };
 
-        PublishBasisBusinessEvent(voteCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
-
-        foreach (var ballot in vote.Ballots)
+        foreach (var vote in votes)
         {
-            var ballotCreated = new ProtoBasis.BallotCreated
+            var voteId = vote.Id.ToString();
+
+            var voteCreated = new ProtoBasis.VoteCreated
             {
                 EventInfo = GetBasisEventInfo(0),
-                Ballot = new()
+                Vote = new()
                 {
-                    Id = ballot.Id.ToString(),
-                    VoteId = voteId,
+                    Id = voteId,
+                    PoliticalBusinessNumber = vote.PoliticalBusinessNumber,
+                    ShortDescription = { vote.Translations.ToDictionary(x => x.Language, x => x.ShortDescription) },
                 },
             };
-            PublishBasisBusinessEvent(ballotCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
+
+            PublishBasisBusinessEvent(voteCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
+
+            foreach (var ballot in vote.Ballots)
+            {
+                var ballotCreated = new ProtoBasis.BallotCreated
+                {
+                    EventInfo = GetBasisEventInfo(0),
+                    Ballot = new()
+                    {
+                        Id = ballot.Id.ToString(),
+                        VoteId = voteId,
+                    },
+                };
+                PublishBasisBusinessEvent(ballotCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
+            }
         }
     }
 
@@ -294,7 +360,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             ProportionalElectionUnion = new()
             {
-                ContestId = ContestId,
+                ContestId = ContestMockedData.IdBundesurnengang,
                 Id = unionId,
                 Description = "Proportional Election Union",
             },
@@ -307,7 +373,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             ProportionalElectionUnion = new()
             {
-                ContestId = ContestId,
+                ContestId = ContestMockedData.IdBundesurnengang,
                 Id = unionId,
                 Description = "Proportional Election Union Updated",
             },
@@ -325,7 +391,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             MajorityElectionUnion = new()
             {
-                ContestId = ContestId,
+                ContestId = ContestMockedData.IdBundesurnengang,
                 Id = unionId,
                 Description = "Majority Election Union",
             },
@@ -338,7 +404,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             MajorityElectionUnion = new()
             {
-                ContestId = ContestId,
+                ContestId = ContestMockedData.IdBundesurnengang,
                 Id = unionId,
                 Description = "Majority Election Union Updated",
             },
@@ -352,7 +418,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         var contestTestingPhaseEnded = new ProtoBasis.ContestTestingPhaseEnded
         {
             EventInfo = GetBasisEventInfo(1),
-            ContestId = ContestId,
+            ContestId = ContestMockedData.IdBundesurnengang,
         };
 
         PublishBasisBusinessEvent(contestTestingPhaseEnded, contestTestingPhaseEnded.ContestId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.Contest);
@@ -360,11 +426,11 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
 
     private void SeedContestCountingCircleDetailsEvents()
     {
-        var contestCountingCircleDetailsEvent = new ContestCountingCircleDetailsCreated
+        var contestCountingCircleDetailsCreateEvent = new ContestCountingCircleDetailsCreated
         {
             Id = "c9679b05-64ab-46ab-9f4e-f62ed89a4968",
             EventInfo = GetEventInfo(1),
-            ContestId = ContestId,
+            ContestId = ContestMockedData.IdBundesurnengang,
             CountingCircleId = CountingCircleId.ToString(),
             CountOfVotersInformation = new CountOfVotersInformationEventData
             {
@@ -399,12 +465,12 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             },
         };
 
-        PublishAusmittlungBusinessEvent(contestCountingCircleDetailsEvent, contestCountingCircleDetailsEvent.Id, Host1, AusmittlungKeyHost1);
+        PublishAusmittlungBusinessEvent(contestCountingCircleDetailsCreateEvent, contestCountingCircleDetailsCreateEvent.Id, Host1, AusmittlungKeyHost1);
 
         var contestCountingCircleDetailsUpdateEvent = new ContestCountingCircleDetailsUpdated
         {
             EventInfo = GetEventInfo(2),
-            ContestId = ContestId,
+            ContestId = ContestMockedData.IdBundesurnengang,
             CountingCircleId = CountingCircleId.ToString(),
             Id = "c9679b05-64ab-46ab-9f4e-f62ed89a4968",
             CountOfVotersInformation = new CountOfVotersInformationEventData
@@ -441,6 +507,47 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
 
         PublishAusmittlungBusinessEvent(contestCountingCircleDetailsUpdateEvent, contestCountingCircleDetailsUpdateEvent.Id, Host2, AusmittlungKeyHost2);
+
+        var contestCountingCircleDetailsUzwilCreateEvent = new ContestCountingCircleDetailsCreated
+        {
+            Id = "324cb494-e55b-4bf5-acd3-c140b0a5d3d2",
+            EventInfo = GetEventInfo(2),
+            ContestId = ContestMockedData.IdBundesurnengang,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+            CountOfVotersInformation = new CountOfVotersInformationEventData
+            {
+                SubTotalInfo =
+                    {
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            CountOfVoters = 200,
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Swiss,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            CountOfVoters = 300,
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Swiss,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            CountOfVoters = 100,
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            CountOfVoters = 50,
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                        },
+                    },
+                TotalCountOfVoters = 650,
+            },
+        };
+
+        PublishAusmittlungBusinessEvent(contestCountingCircleDetailsUzwilCreateEvent, contestCountingCircleDetailsUzwilCreateEvent.Id, Host2, AusmittlungKeyHost2);
     }
 
     private void SeedMajorityElectionResultEvents(bool testingPhaseEnded)
@@ -1455,7 +1562,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         {
             EventInfo = GetEventInfo(30),
             Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults.Key,
-            ContestId = ContestId,
+            ContestId = ContestMockedData.IdBundesurnengang,
             RequestId = "9d74f9c8-90bc-44d2-932a-d67b2046f2d8",
         };
         PublishAusmittlungBusinessEvent(eventData, Guid.NewGuid().ToString(), Host1, AusmittlungKeyHost1);

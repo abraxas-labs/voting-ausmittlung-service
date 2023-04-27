@@ -92,24 +92,29 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true
   },
-  "DomainOfInfluenceDetails": null,
-  "TotalCountOfVoters": 0,
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 0,
+    "SubTotalInfo": []
+  },
+  "VotingCards": [],
   "CountOfDoneCountingCircles": 0,
   "TotalCountOfCountingCircles": 1,
   "AllCountingCirclesDone": false,
   "CountOfVoters": {
     "VoterParticipation": 0.0,
-    "EVotingReceivedBallots": 0,
     "ConventionalReceivedBallots": 0,
     "ConventionalInvalidBallots": 0,
     "ConventionalBlankBallots": 0,
     "ConventionalAccountedBallots": 0,
+    "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingBlankBallots": 0,
+    "EVotingAccountedBallots": 0,
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
     "TotalUnaccountedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingAccountedBallots": 0,
-    "TotalInvalidBallots": 0
+    "TotalInvalidBallots": 0,
+    "TotalBlankBallots": 0
   },
   "ListEndResults": [
     {

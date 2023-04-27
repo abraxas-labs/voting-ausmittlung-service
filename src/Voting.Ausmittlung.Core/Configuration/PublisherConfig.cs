@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.TemporaryData.Configuration;
-using Voting.Lib.DmDoc.Configuration;
 using Voting.Lib.DokConnector.Configuration;
 using Voting.Lib.Ech.Configuration;
 using Voting.Lib.Iam.ServiceTokenHandling;
@@ -26,7 +26,7 @@ public class PublisherConfig
 
     public bool EnableGrpcWeb { get; set; } // this should only be enabled for testing purposes
 
-    public DmDocConfig Documatrix { get; set; } = new() { DataSerializationFormat = DmDocDataSerializationFormat.Xml };
+    public DmDocConfig Documatrix { get; set; } = new() { DataSerializationFormat = Lib.DmDoc.Configuration.DmDocDataSerializationFormat.Xml };
 
     public ResultExportJobConfig AutomaticExports { get; set; } = new();
 
@@ -63,4 +63,9 @@ public class PublisherConfig
     /// Gets or sets a value indicating whether the DOK connector is mocked (mainly useful for local development).
     /// </summary>
     public bool EnableDokConnectorMock { get; set; }
+
+    /// <summary>
+    /// Gets or sets the "test counting circles" (Testurnen), which are ignored during a result import.
+    /// </summary>
+    public Dictionary<DomainOfInfluenceCanton, List<TestCountingCircleConfig>> TestCountingCircles { get; set; } = new();
 }

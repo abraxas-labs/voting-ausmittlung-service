@@ -60,6 +60,25 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await CreateBallot();
+        await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await CreateBallot();
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowLockedContest()
     {
         await CreateBallot();

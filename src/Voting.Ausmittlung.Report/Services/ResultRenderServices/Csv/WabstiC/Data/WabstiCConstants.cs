@@ -11,6 +11,14 @@ internal static class WabstiCConstants
 
     internal const string IndividualMajorityCandidateLastName = "Vereinzelte";
 
+    internal const string EmptyMajorityCandidateNumber = "1000";
+
+    internal const string EmptyMajorityCandidateLastName = "Leere Zeilen";
+
+    internal const string InvalidMajorityCandidateNumber = "1001";
+
+    internal const string InvalidMajorityCandidateLastName = "Ungültige Stimmen";
+
     internal const int IndividualMajorityCandidateYearOfBirth = 1950;
 
     internal const string IncumbentText = "(bisher)";

@@ -54,6 +54,22 @@ public class VoteResultEnterCorrectionResultsTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await StGallenErfassungElectionAdminClient.EnterCorrectionResultsAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultCorrectionEntered>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.EnterCorrectionResultsAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);

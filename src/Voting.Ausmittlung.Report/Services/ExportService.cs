@@ -22,8 +22,33 @@ public class ExportService
         _resultRenderServiceAdapter = resultRenderServiceAdapter;
     }
 
-    public Task<FileModel> GenerateResultExport(Guid contestId, ResultExportRequest request, CancellationToken ct)
-        => _resultRenderServiceAdapter.Render(contestId, request, ct);
+    public Task<FileModel> GenerateResultExport(
+        Guid contestId,
+        ResultExportTemplate exportTemplate,
+        AsyncPdfGenerationInfo? asyncPdfGenerationInfo = null,
+        CancellationToken ct = default)
+    {
+        var renderContext = new ReportRenderContext(contestId, exportTemplate.Template)
+        {
+            PoliticalBusinessIds = exportTemplate.PoliticalBusinessIds,
+            BasisCountingCircleId = exportTemplate.CountingCircleId,
+            DomainOfInfluenceType = exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
+            PoliticalBusinessUnionId = exportTemplate.PoliticalBusinessUnionId,
+            AsyncPdfGenerationInfo = asyncPdfGenerationInfo,
+        };
+        return _resultRenderServiceAdapter.Render(contestId, renderContext, ct);
+    }
+
+    public Task<FileModel> GenerateBundleReviewExport(Guid contestId, BundleReviewExportRequest request, CancellationToken ct = default)
+    {
+        var renderContext = new ReportRenderContext(contestId, request.Template)
+        {
+            PoliticalBusinessIds = new List<Guid> { request.PoliticalBusinessId },
+            BasisCountingCircleId = request.CountingCircleId,
+            PoliticalBusinessResultBundleId = request.PoliticalBusinessResultBundleId,
+        };
+        return _resultRenderServiceAdapter.Render(contestId, renderContext, ct);
+    }
 
     public IReadOnlyList<ReportRenderContext> BuildRenderContexts(IEnumerable<string> keys, ResultExportConfiguration export)
     {

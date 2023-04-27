@@ -103,8 +103,9 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById)
     {
         var supportsInvalidVotes = election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
-        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, result.BasisCountingCircleId);
+        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId));
         importResult.CountOfVoters = result.Ballots.Count;
+
         foreach (var ballot in result.Ballots)
         {
             if (election.NumberOfMandates < ballot.Positions.Count)
@@ -113,9 +114,13 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
                     $"the number of ballot positions exceeds the number of mandates ({ballot.Positions.Count} vs {election.NumberOfMandates})");
             }
 
-            if (election.NumberOfMandates == 1 && (ballot.Positions.Count != 1 || ballot.Positions.First().IsEmpty))
+            // If all positions are empty, treat the whole ballot as blank and ignore the ballot positions
+            // Note: This does not work correctly with secondary majority elections,
+            // as we would need to check whether all positions on the secondary election are also empty
+            if (ballot.Positions.All(p => p.IsEmpty))
             {
-                throw new ValidationException("empty position provided with single mandate");
+                importResult.BlankBallotCount++;
+                continue;
             }
 
             var candidatesOnThisBallot = new HashSet<Guid>();

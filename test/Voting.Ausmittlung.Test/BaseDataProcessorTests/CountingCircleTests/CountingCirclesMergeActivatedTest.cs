@@ -86,7 +86,7 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
             .Include(x => x.DomainOfInfluences)
             .FirstOrDefaultAsync(x => x.Id == countingCircleId));
 
-        data!.DomainOfInfluences.Count.Should().Be(2);
+        data!.DomainOfInfluences.Count.Should().Be(3);
         data.DomainOfInfluences = null!;
 
         data.MatchSnapshot(
@@ -169,7 +169,7 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
         var countOfCountingCircleSnapshots = countOfCountingCircles - 1;
         countOfCountingCircleSnapshots.Should().Be(countOfContestsInTestingPhase);
 
-        countingCircles.All(cc => cc.DomainOfInfluences.Count == 2).Should().BeTrue();
+        countingCircles.All(cc => cc.DomainOfInfluences.Count == 3).Should().BeTrue();
 
         (await RunOnDb(db => db.CountingCircles
             .WhereContestIsInTestingPhase()

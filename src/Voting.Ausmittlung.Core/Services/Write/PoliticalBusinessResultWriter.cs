@@ -68,7 +68,7 @@ public abstract class PoliticalBusinessResultWriter<T>
             _permissionService.EnsureErfassungElectionAdminOrCreator();
         }
 
-        await _permissionService.EnsureHasPermissionsOnCountingCircle(result.CountingCircleId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(result.CountingCircleId, result.PoliticalBusiness.ContestId);
 
         if (!result.PoliticalBusiness.Active)
         {

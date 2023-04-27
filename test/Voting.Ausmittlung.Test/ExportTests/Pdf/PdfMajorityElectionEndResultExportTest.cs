@@ -3,27 +3,26 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest
 {
     public PdfMajorityElectionEndResultExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
-
     protected override string NewRequestExpectedFileName => "Majorz_Wahlprotokoll_Majorzw de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key;
 
     protected override async Task SeedData()
     {
@@ -31,21 +30,18 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest<Generate
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key,
-                    PoliticalBusinessIds =
-                    {
-                        Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-                    },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(MajorityElectionEndResultMockedData.ElectionId))
+                    .ToString(),
             },
         };
     }

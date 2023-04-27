@@ -20,6 +20,12 @@ public class MajorityElectionResultImport : ElectionResultImport
     {
     }
 
+    /// <summary>
+    /// Gets the count of blank ballots, which only contain empty votes.
+    /// The empty votes of the blank ballot are not counted.
+    /// </summary>
+    public int BlankBallotCount { get; internal set; }
+
     public int InvalidVoteCount { get; internal set; }
 
     public int EmptyVoteCount { get; internal set; }

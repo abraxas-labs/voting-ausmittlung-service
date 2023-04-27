@@ -12,6 +12,8 @@ public class PdfPoliticalBusinessResultBundleReview
 
     public PdfCountingCircle? CountingCircle { get; set; }
 
+    public PdfPoliticalBusiness? PoliticalBusiness { get; set; }
+
     public PdfMajorityElectionResultBundle? MajorityElectionResultBundle { get; set; }
 
     public PdfProportionalElectionResultBundle? ProportionalElectionResultBundle { get; set; }

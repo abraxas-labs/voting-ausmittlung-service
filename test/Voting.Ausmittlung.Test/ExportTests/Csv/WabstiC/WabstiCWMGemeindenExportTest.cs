@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Csv.WabstiC;
@@ -46,13 +48,12 @@ public class WabstiCWMGemeindenExportTest : CsvExportBaseTest
         return new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungWabstiCTemplates.WMGemeinden.Key,
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungWabstiCTemplates.WMGemeinden.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id),
+            },
         };
     }
 

@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -91,7 +93,24 @@ public static class MajorityElectionResultBallotMockedData
         await runScoped(async sp =>
         {
             var db = sp.GetRequiredService<DataContext>();
-            db.MajorityElectionResultBallots.AddRange(All);
+
+            var all = All.ToList();
+            db.MajorityElectionResultBallots.AddRange(all);
+            await db.SaveChangesAsync();
+
+            var ballotCountsByBundleId = all
+                .GroupBy(x => x.BundleId)
+                .ToDictionary(x => x.Key, x => x.Count());
+
+            var bundles = await db.MajorityElectionResultBundles
+                .AsTracking()
+                .Where(x => ballotCountsByBundleId.Keys.Contains(x.Id))
+                .ToListAsync();
+
+            foreach (var bundle in bundles)
+            {
+                bundle.CountOfBallots = ballotCountsByBundleId[bundle.Id];
+            }
 
             await db.SaveChangesAsync();
         });

@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -24,4 +25,6 @@ public class ResultImport : BaseEntity
     public User StartedBy { get; set; } = new();
 
     public string FileName { get; set; } = string.Empty;
+
+    public ICollection<IgnoredImportCountingCircle> IgnoredCountingCircles { get; set; } = new HashSet<IgnoredImportCountingCircle>();
 }

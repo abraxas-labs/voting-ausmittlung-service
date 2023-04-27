@@ -7,11 +7,18 @@ using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class VoteEndResult : PoliticalBusinessEndResult
+public class VoteEndResult : PoliticalBusinessEndResultBase,
+    IEndResultDetail<VoteEndResultCountOfVotersInformationSubTotal, VoteEndResultVotingCardDetail>
 {
     public Guid VoteId { get; set; }
 
     public Vote Vote { get; set; } = null!;
+
+    public ICollection<VoteEndResultCountOfVotersInformationSubTotal> CountOfVotersInformationSubTotals { get; set; }
+        = new HashSet<VoteEndResultCountOfVotersInformationSubTotal>();
+
+    public ICollection<VoteEndResultVotingCardDetail> VotingCards { get; set; }
+        = new HashSet<VoteEndResultVotingCardDetail>();
 
     public ICollection<BallotEndResult> BallotEndResults { get; set; } = new HashSet<BallotEndResult>();
 

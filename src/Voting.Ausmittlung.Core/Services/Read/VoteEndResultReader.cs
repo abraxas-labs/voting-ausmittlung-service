@@ -17,16 +17,13 @@ public class VoteEndResultReader
 {
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, VoteEndResult> _repo;
-    private readonly IDbRepository<DataContext, ContestDomainOfInfluenceDetails> _contestDomainOfInfluenceDetailsRepo;
 
     public VoteEndResultReader(
         PermissionService permissionService,
-        IDbRepository<DataContext, VoteEndResult> endResultRepo,
-        IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo)
+        IDbRepository<DataContext, VoteEndResult> endResultRepo)
     {
         _permissionService = permissionService;
         _repo = endResultRepo;
-        _contestDomainOfInfluenceDetailsRepo = contestDomainOfInfluenceDetailsRepo;
     }
 
     public async Task<VoteEndResult> GetEndResult(Guid voteId)
@@ -40,6 +37,8 @@ public class VoteEndResultReader
             .Include(x => x.Vote.DomainOfInfluence)
             .Include(x => x.Vote.Contest.Translations)
             .Include(x => x.Vote.Contest.DomainOfInfluence)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards)
             .Include(x => x.BallotEndResults)
                 .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.BallotEndResults)
@@ -51,6 +50,7 @@ public class VoteEndResultReader
             .FirstOrDefaultAsync(v => v.VoteId == voteId && v.Vote.DomainOfInfluence.SecureConnectId == tenantId)
             ?? throw new EntityNotFoundException(voteId);
 
+        voteEndResult.OrderVotingCardsAndSubTotals();
         voteEndResult.BallotEndResults = voteEndResult.BallotEndResults
             .OrderBy(x => x.Ballot.Position)
             .ToList();
@@ -66,13 +66,6 @@ public class VoteEndResultReader
                 .ToList();
         }
 
-        voteEndResult.Vote.DomainOfInfluence.Details = await _contestDomainOfInfluenceDetailsRepo.Query()
-            .AsSplitQuery()
-            .Include(d => d.CountOfVotersInformationSubTotals)
-            .Include(d => d.VotingCards.Where(x => x.DomainOfInfluenceType == voteEndResult.Vote.DomainOfInfluence.Type))
-            .FirstOrDefaultAsync(x => x.DomainOfInfluenceId == voteEndResult.Vote.DomainOfInfluenceId);
-
-        voteEndResult.Vote.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
         return voteEndResult;
     }
 }

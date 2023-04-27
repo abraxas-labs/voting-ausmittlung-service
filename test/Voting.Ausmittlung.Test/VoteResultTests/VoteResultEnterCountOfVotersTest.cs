@@ -71,6 +71,36 @@ public class VoteResultEnterCountOfVotersTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+        EventPublisherMock
+            .GetSinglePublishedEvent<VoteResultCountOfVotersEntered>()
+            .ShouldMatchChildSnapshot("event");
+
+        await RunEvents<VoteResultCountOfVotersEntered>(false);
+
+        await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+
+        var result = await StGallenErfassungElectionAdminClient.GetAsync(new GetVoteResultRequest
+        {
+            VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
+            CountingCircleId = CountingCircleMockedData.IdGossau,
+            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
+        });
+        result.ShouldMatchChildSnapshot("data");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);

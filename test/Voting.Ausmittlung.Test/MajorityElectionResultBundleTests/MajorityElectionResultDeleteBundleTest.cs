@@ -72,6 +72,24 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await CreateBallot();
+        await BundleErfassungElectionAdminClientBund.DeleteBundleAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleDeleted>().MatchSnapshot("deleted");
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleNumberFreed>().MatchSnapshot("freed");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientBund.DeleteBundleAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherThanBundleCreator()
     {
         await CreateBallot();

@@ -61,7 +61,9 @@ public class ProportionalElectionResultValidationResultsBuilder : CountingCircle
     private async Task<DataModels.ProportionalElectionResult> GetElectionResult(Guid electionId)
     {
         var electionResult = await _proportionalElectionResultRepository.Query()
+            .AsSplitQuery()
             .Include(x => x.ProportionalElection.DomainOfInfluence)
+            .Include(x => x.ProportionalElection.Contest.DomainOfInfluence)
             .Include(x => x.CountingCircle.ResponsibleAuthority)
             .FirstOrDefaultAsync(x => x.Id == electionId)
             ?? throw new EntityNotFoundException(electionId);

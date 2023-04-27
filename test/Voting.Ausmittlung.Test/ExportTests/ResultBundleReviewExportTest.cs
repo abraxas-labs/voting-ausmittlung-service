@@ -109,7 +109,7 @@ public class ResultBundleReviewExportTest : BaseRestTest
                     ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
                     TemplateKey = AusmittlungPdfVoteTemplates.ResultBundleReview.Key,
                     CountingCircleId = CountingCircleMockedData.GuidGossau,
-                    PoliticalBusinessId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestBund),
+                    PoliticalBusinessId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds),
                 }),
             HttpStatusCode.BadRequest);
     }

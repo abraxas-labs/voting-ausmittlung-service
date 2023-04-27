@@ -184,9 +184,73 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
         primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
         primaryResult.HasUnmappedWriteIns.Should().BeFalse();
-        primaryResult.CountOfVoters.EVotingReceivedBallots.Should().Be(11);
+        primaryResult.CountOfVoters.EVotingReceivedBallots.Should().Be(12);
         primaryResult.CountOfVoters.EVotingInvalidBallots.Should().Be(6);
-        primaryResult.CountOfVoters.EVotingAccountedBallots.Should().Be(5);
+        primaryResult.CountOfVoters.EVotingBlankBallots.Should().Be(4);
+        primaryResult.CountOfVoters.EVotingAccountedBallots.Should().Be(2);
+    }
+
+    [Fact]
+    public async Task ShouldWorkAsContestManagerDuringTestingPhase()
+    {
+        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
+        var (primaryEvent, secondaryEvent) = await MapMappings(
+            importId,
+            primaryMappings,
+            secondaryMappings,
+            (mapping, writeIn) =>
+            {
+                switch (mapping.WriteInCandidateName)
+                {
+                    case "Hans Muster":
+                        writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Empty;
+                        break;
+                    case "Hans Mueller":
+                        writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Candidate;
+                        writeIn.CandidateId = MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen;
+                        break;
+                }
+            },
+            StGallenErfassungElectionAdminClient);
+
+        await TestEventPublisher.Publish(primaryEvent);
+        await TestEventPublisher.Publish(1, secondaryEvent);
+
+        ResetIds(primaryEvent.WriteInMappings);
+        ResetIds(secondaryEvent.WriteInMappings);
+
+        primaryEvent.ShouldMatchChildSnapshot("primary");
+        secondaryEvent.ShouldMatchChildSnapshot("secondary");
+
+        var candidateId = Guid.Parse(MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen);
+        var primaryResult = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
+        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
+        primaryResult.HasUnmappedWriteIns.Should().BeFalse();
+        primaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(3);
+        primaryResult.WriteInMappings
+            .Where(x => x.WriteInCandidateName == "Hans Mueller")
+            .All(x => x.Target == MajorityElectionWriteInMappingTarget.Candidate && x.CandidateId == candidateId)
+            .Should()
+            .BeTrue();
+
+        var secondaryResult = await RunOnDb(db => db.SecondaryMajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEvent.SecondaryMajorityElectionId)));
+        secondaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(3);
+        secondaryResult.WriteInMappings.All(x => x.Target == MajorityElectionWriteInMappingTarget.Individual).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        var (importId, primaryMappings, _) = await FetchMappings();
+        await AssertStatus(
+            async () => await MapMappings(importId, primaryMappings, null, StGallenErfassungElectionAdminClient),
+            StatusCode.PermissionDenied);
     }
 
     [Fact]
@@ -322,10 +386,11 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
         string importId,
         ProtoModels.MajorityElectionWriteInMappings primaryMappings,
         ProtoModels.MajorityElectionWriteInMappings secondaryMappings,
-        Action<ProtoModels.MajorityElectionWriteInMapping, MapMajorityElectionWriteInRequest>? customizer = null)
+        Action<ProtoModels.MajorityElectionWriteInMapping, MapMajorityElectionWriteInRequest>? customizer = null,
+        ResultImportService.ResultImportServiceClient? service = null)
     {
-        await MapMappings(importId, primaryMappings, customizer);
-        await MapMappings(importId, secondaryMappings, customizer);
+        await MapMappings(importId, primaryMappings, customizer, service);
+        await MapMappings(importId, secondaryMappings, customizer, service);
         return (
             EventPublisherMock.GetSinglePublishedEvent<MajorityElectionWriteInsMapped>(),
             EventPublisherMock.GetSinglePublishedEvent<SecondaryMajorityElectionWriteInsMapped>());
@@ -334,9 +399,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     private async Task MapMappings(
         string importId,
         ProtoModels.MajorityElectionWriteInMappings mappings,
-        Action<ProtoModels.MajorityElectionWriteInMapping, MapMajorityElectionWriteInRequest>? customizer = null)
+        Action<ProtoModels.MajorityElectionWriteInMapping, MapMajorityElectionWriteInRequest>? customizer = null,
+        ResultImportService.ResultImportServiceClient? service = null)
     {
-        await ErfassungElectionAdminClient.MapMajorityElectionWriteInsAsync(new MapMajorityElectionWriteInsRequest
+        await (service ?? ErfassungElectionAdminClient).MapMajorityElectionWriteInsAsync(new MapMajorityElectionWriteInsRequest
         {
             ImportId = importId,
             ElectionId = mappings.Election.Id,

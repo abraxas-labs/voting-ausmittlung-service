@@ -2,8 +2,10 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
+using AutoMapper;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Utils;
@@ -23,6 +25,7 @@ public class ResultImportProcessor :
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly ProportionalElectionEndResultBuilder _proportionalElectionEndResultBuilder;
     private readonly MajorityElectionEndResultBuilder _majorityElectionEndResultBuilder;
+    private readonly IMapper _mapper;
     private readonly VoteEndResultBuilder _voteEndResultBuilder;
 
     public ResultImportProcessor(
@@ -30,13 +33,15 @@ public class ResultImportProcessor :
         IDbRepository<DataContext, Contest> contestRepo,
         ProportionalElectionEndResultBuilder proportionalElectionEndResultBuilder,
         VoteEndResultBuilder voteEndResultBuilder,
-        MajorityElectionEndResultBuilder majorityElectionEndResultBuilder)
+        MajorityElectionEndResultBuilder majorityElectionEndResultBuilder,
+        IMapper mapper)
     {
         _importsRepo = importsRepo;
         _contestRepo = contestRepo;
         _proportionalElectionEndResultBuilder = proportionalElectionEndResultBuilder;
         _voteEndResultBuilder = voteEndResultBuilder;
         _majorityElectionEndResultBuilder = majorityElectionEndResultBuilder;
+        _mapper = mapper;
     }
 
     public async Task Process(ResultImportStarted eventData)
@@ -48,6 +53,7 @@ public class ResultImportProcessor :
             ContestId = GuidParser.Parse(eventData.ContestId),
             StartedBy = eventData.EventInfo.User.ToDataUser(),
             FileName = eventData.FileName,
+            IgnoredCountingCircles = _mapper.Map<List<IgnoredImportCountingCircle>>(eventData.IgnoredCountingCircles),
         };
 
         await _importsRepo.Create(import);

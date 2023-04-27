@@ -73,6 +73,7 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddRendererService<WabstiCWMWahlRenderService>(AusmittlungWabstiCTemplates.WMWahl)
+            .AddRendererService<WabstiCWMWahlergebnisseRenderService>(AusmittlungWabstiCTemplates.WMWahlergebnisse)
             .AddRendererService<WabstiCWMGemeindenRenderService>(AusmittlungWabstiCTemplates.WMGemeinden)
             .AddRendererService<WabstiCWMStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WMStaticGemeinden)
             .AddRendererService<WabstiCWMKandidatenRenderService>(AusmittlungWabstiCTemplates.WMKandidaten)

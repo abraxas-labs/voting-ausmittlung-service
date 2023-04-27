@@ -9,8 +9,10 @@ using System.Xml.Schema;
 using eCH_0110_4_0;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Xml;
@@ -37,17 +39,13 @@ public class XmlEch0110VoteTest : XmlExportBaseTest<Delivery>
         return new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungXmlVoteTemplates.Ech0110.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteEndResultMockedData.VoteId),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungXmlVoteTemplates.Ech0110.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(VoteEndResultMockedData.VoteId)),
+            },
         };
     }
 

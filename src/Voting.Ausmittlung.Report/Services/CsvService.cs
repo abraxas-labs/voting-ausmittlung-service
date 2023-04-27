@@ -52,25 +52,24 @@ public class CsvService
     /// <returns>A task representing the async operation.</returns>
     public async Task RenderDynamic<TRow>(
         PipeWriter writer,
-        IEnumerable<TRow> records,
+        IAsyncEnumerable<TRow> records,
         CancellationToken ct = default)
     {
-        var recordsList = records.ToList();
+        var recordsEnumerator = records.GetAsyncEnumerator(ct);
+        if (!await recordsEnumerator.MoveNextAsync(ct))
+        {
+            return;
+        }
+
         var csvConfig = NewCsvConfig();
-        csvConfig.HasHeaderRecord = recordsList.Count == 0;
+        csvConfig.HasHeaderRecord = false;
 
         // use utf8 with bom (excel requires bom)
         await using var streamWriter = new StreamWriter(writer.AsStream(), Encoding.UTF8);
         await using var csvWriter = new CsvWriter(streamWriter, csvConfig);
 
-        if (recordsList.Count == 0)
-        {
-            await csvWriter.WriteRecordsAsync(recordsList, ct);
-            return;
-        }
-
-        var firstRecord = recordsList[0];
-        var map = csvWriter.Context.AutoMap(firstRecord!.GetType());
+        var firstRecord = recordsEnumerator.Current!;
+        var map = csvWriter.Context.AutoMap(firstRecord.GetType());
         var members = new MemberMapCollection();
         members.AddMembers(map);
 
@@ -94,7 +93,15 @@ public class CsvService
 
         csvWriter.WriteDynamicHeader(new CsvDynamicHeaderProvider(headers));
         await csvWriter.NextRecordAsync();
-        await csvWriter.WriteRecordsAsync(recordsList, ct);
+        csvWriter.WriteRecord(firstRecord);
+        await csvWriter.NextRecordAsync();
+
+        while (await recordsEnumerator.MoveNextAsync(ct))
+        {
+            csvWriter.WriteRecord(recordsEnumerator.Current!);
+            await csvWriter.NextRecordAsync();
+            ct.ThrowIfCancellationRequested();
+        }
     }
 
     private static CsvConfiguration NewCsvConfig() =>
@@ -117,7 +124,7 @@ public class CsvService
             yield break;
         }
 
-        if (!(value is IDictionary dict))
+        if (value is not IDictionary dict)
         {
             throw new InvalidOperationException("dynamic properties need to be of type IDictionary.");
         }

@@ -1,0 +1,79 @@
+<Voting>
+  <TemplateKey>vote_overall_result</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <DomainOfInfluence>
+      <Name>Bund</Name>
+      <NameForProtocol>Bund</NameForProtocol>
+      <ShortName>Bund</ShortName>
+      <AuthorityName />
+      <Code>0001-BUND</Code>
+      <SortNumber>99999</SortNumber>
+      <Bfs>0001</Bfs>
+      <Type>Ch</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <ContestDetails>
+      <TotalCountOfVoters>3210</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>BallotBox</Channel>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>200</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>Paper</Channel>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+        <Valid>false</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>EVoting</Channel>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+    </ContestDetails>
+    <State>TestingPhase</State>
+  </Contest>
+  <Vote>
+    <PoliticalBusinessNumber>714</PoliticalBusinessNumber>
+    <OfficialDescription>Abstimmung Uzwil de</OfficialDescription>
+    <ShortDescription>Abst Uzwil de</ShortDescription>
+    <DomainOfInfluence>
+      <Name>Uzwil</Name>
+      <NameForProtocol>Stadt Uzwil</NameForProtocol>
+      <ShortName>Uzwil</ShortName>
+      <AuthorityName />
+      <Code>C3443</Code>
+      <SortNumber>3</SortNumber>
+      <Bfs>3443</Bfs>
+      <Type>Sk</Type>
+      <Canton>Sg</Canton>
+    </DomainOfInfluence>
+    <VoteEndResult>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>0</CountOfDoneCountingCircles>
+      <TotalCountOfCountingCircles>1</TotalCountOfCountingCircles>
+      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+    </VoteEndResult>
+    <InternalDescription>Abstimmung Uzwil auf Urnengang Bund</InternalDescription>
+  </Vote>
+  <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
+</Voting>

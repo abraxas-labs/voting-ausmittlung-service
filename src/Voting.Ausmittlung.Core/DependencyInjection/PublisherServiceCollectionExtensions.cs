@@ -111,6 +111,7 @@ internal static class PublisherServiceCollection
             .AddScoped<ResultExportTemplateReader>()
             .AddScoped<ResultExportConfigurationReader>()
             .AddScoped<ResultExportService>()
+            .AddScoped<ProtocolExportService>()
             .AddScoped<IExportProviderUploader, StandardProviderUploader>()
             .AddScoped<IExportProviderUploader, SeantisProviderUploader>()
             .AddSingleton(typeof(LanguageAwareMessageConsumerHub<,>));

@@ -23,12 +23,12 @@
     <NumberOfMandates>3</NumberOfMandates>
     <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
     <MajorityElectionEndResult>
-      <TotalCountOfVoters>6000</TotalCountOfVoters>
+      <TotalCountOfVoters>34810</TotalCountOfVoters>
       <CountOfDoneCountingCircles>6</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.5</VoterParticipation>
+        <VoterParticipation>0.0861821315713875323182993393</VoterParticipation>
         <TotalReceivedBallots>3000</TotalReceivedBallots>
         <TotalUnaccountedBallots>1680</TotalUnaccountedBallots>
         <CountOfAccountedBallots>1320</CountOfAccountedBallots>

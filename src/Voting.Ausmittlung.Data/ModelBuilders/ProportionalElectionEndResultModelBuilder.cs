@@ -24,6 +24,18 @@ public class ProportionalElectionEndResultModelBuilder :
             .HasForeignKey<ProportionalElectionEndResult>(x => x.ProportionalElectionId)
             .IsRequired();
 
+        builder
+            .HasMany(x => x.VotingCards)
+            .WithOne()
+            .HasForeignKey(x => x.ProportionalElectionEndResultId)
+            .IsRequired();
+
+        builder
+            .HasMany(x => x.CountOfVotersInformationSubTotals)
+            .WithOne()
+            .HasForeignKey(x => x.ProportionalElectionEndResultId)
+            .IsRequired();
+
         builder.OwnsOne(x => x.CountOfVoters);
         builder.Navigation(x => x.CountOfVoters).IsRequired();
 

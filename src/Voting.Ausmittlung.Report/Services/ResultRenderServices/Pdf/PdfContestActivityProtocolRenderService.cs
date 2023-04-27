@@ -57,8 +57,15 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         var contest = await _contestRepo.Query()
             .AsSplitQuery()
             .Include(c => c.Translations)
-            .Include(c => c.SimplePoliticalBusinesses)
+            .Include(c => c.SimplePoliticalBusinesses.Where(pb => ctx.PoliticalBusinessIds.Contains(pb.Id)))
+                .ThenInclude(pb => pb.DomainOfInfluence.CountingCircles)
+                    .ThenInclude(doiCc => doiCc.CountingCircle)
+            .AsSplitQuery()
             .FirstAsync(c => c.Id == ctx.ContestId, ct);
+
+        var basisCcIds = contest.SimplePoliticalBusinesses
+            .SelectMany(pb => pb.DomainOfInfluence.CountingCircles.Select(r => r.CountingCircle!.BasisCountingCircleId))
+            .Distinct();
 
         var pdfActivityProtocol = new PdfActivityProtocol
         {
@@ -66,7 +73,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
             Contest = _mapper.Map<PdfContest>(contest),
         };
 
-        var eventLogBuilderContext = await _eventLogBuilderContextBuilder.BuildContext(contest.Id, ctx.PoliticalBusinessIds);
+        var eventLogBuilderContext = await _eventLogBuilderContextBuilder.BuildContext(contest.Id, ctx.PoliticalBusinessIds, basisCcIds);
 
         await foreach (var eventLog in _eventLogsBuilder.BuildBusinessEventLogs(contest, eventLogBuilderContext).WithCancellation(ct))
         {

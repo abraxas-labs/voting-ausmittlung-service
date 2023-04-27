@@ -59,6 +59,26 @@ public class MajorityElectionResultEnterCountOfVotersTest : MajorityElectionResu
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await BundErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCountOfVotersEntered>().MatchSnapshot();
+
+        await RunEvents<MajorityElectionResultCountOfVotersEntered>(false);
+
+        await BundErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);

@@ -29,6 +29,7 @@ public class ContestResultInitializer
     private readonly ProportionalElectionResultBuilder _proportionalElectionResultBuilder;
     private readonly ProportionalElectionEndResultInitializer _proportionalElectionEndResultInitializer;
     private readonly IDbRepository<DataContext, ContestDomainOfInfluenceDetails> _contestDomainOfInfluenceDetailsRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
 
     public ContestResultInitializer(
         ResultImportRepo importRepo,
@@ -45,7 +46,8 @@ public class ContestResultInitializer
         MajorityElectionEndResultInitializer majorityElectionEndResultInitializer,
         ProportionalElectionResultBuilder proportionalElectionResultBuilder,
         ProportionalElectionEndResultInitializer proportionalElectionEndResultInitializer,
-        IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo)
+        IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo)
     {
         _importRepo = importRepo;
         _contestDetailsRepo = contestDetailsRepo;
@@ -62,6 +64,7 @@ public class ContestResultInitializer
         _proportionalElectionResultBuilder = proportionalElectionResultBuilder;
         _proportionalElectionEndResultInitializer = proportionalElectionEndResultInitializer;
         _contestDomainOfInfluenceDetailsRepo = contestDomainOfInfluenceDetailsRepo;
+        _protocolExportRepo = protocolExportRepo;
     }
 
     internal async Task ResetContestResults(Guid contestId, Guid? contestDetailsId)
@@ -81,6 +84,8 @@ public class ContestResultInitializer
         await ResetProportionalElectionResults(contestId);
         await ResetMajorityElectionResults(contestId);
         await _simpleCountingCircleResultRepo.Reset(contestId);
+
+        await DeleteProtocolExports(contestId);
     }
 
     private async Task ResetContestCountingCircleDetails(Guid contestId)
@@ -150,5 +155,15 @@ public class ContestResultInitializer
             .ToListAsync();
 
         await _contestDomainOfInfluenceDetailsRepo.DeleteRangeByKey(idsToDelete);
+    }
+
+    private async Task DeleteProtocolExports(Guid contestId)
+    {
+        var idsToDelete = await _protocolExportRepo.Query()
+            .Where(x => x.ContestId == contestId)
+            .Select(x => x.Id)
+            .ToListAsync();
+
+        await _protocolExportRepo.DeleteRangeByKey(idsToDelete);
     }
 }

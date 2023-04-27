@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.VotingExports.Models;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
@@ -14,25 +15,33 @@ public class ResultExportTemplate
 {
     public ResultExportTemplate(
         TemplateModel template,
-        IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses = null,
+        string tenantId,
+        Guid? politicalBusinessId = null,
         string? description = null,
         DomainOfInfluenceType? doiType = null,
         Guid? countingCircleId = null,
+        IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses = null,
         PoliticalBusinessUnion? politicalBusinessUnion = null)
     {
-        Key = template.Key;
         Description = description ?? template.Description;
         EntityDescription = BuildEntityDescription(politicalBusinessUnion, politicalBusinesses) ?? string.Empty;
-        Format = template.Format;
+        Template = template;
+        PoliticalBusinessId = politicalBusinessId;
         PoliticalBusinessUnionId = politicalBusinessUnion?.Id;
-        EntityType = template.EntityType;
-        ResultType = template.ResultType;
-        DomainOfInfluenceType = doiType ?? (DomainOfInfluenceType?)template.DomainOfInfluenceType;
+        DomainOfInfluenceType = doiType;
         CountingCircleId = countingCircleId;
         PoliticalBusinessIds = politicalBusinesses?.Select(pb => pb.Id).ToHashSet() ?? new HashSet<Guid>();
+
+        ExportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            Template.Key,
+            tenantId,
+            CountingCircleId,
+            PoliticalBusinessId,
+            PoliticalBusinessUnionId,
+            DomainOfInfluenceType ?? Data.Models.DomainOfInfluenceType.Unspecified);
     }
 
-    public string Key { get; }
+    public TemplateModel Template { get; }
 
     public string Description { get; }
 
@@ -41,19 +50,23 @@ public class ResultExportTemplate
     /// </summary>
     public string EntityDescription { get; }
 
+    public Guid? PoliticalBusinessId { get; }
+
     public Guid? PoliticalBusinessUnionId { get; }
-
-    public EntityType EntityType { get; }
-
-    public ResultType? ResultType { get; }
 
     public Guid? CountingCircleId { get; }
 
-    public ExportFileFormat Format { get; }
-
     public DomainOfInfluenceType? DomainOfInfluenceType { get; }
 
-    public IReadOnlySet<Guid> PoliticalBusinessIds { get; }
+    /// <summary>
+    /// Gets or sets the political business IDs. This is transient information and should not be supplied by users.
+    /// </summary>
+    public IReadOnlyCollection<Guid> PoliticalBusinessIds { get; set; }
+
+    /// <summary>
+    /// Gets an ID which uniquely identifies this export template.
+    /// </summary>
+    public Guid ExportTemplateId { get; }
 
     private static string? BuildEntityDescription(PoliticalBusinessUnion? politicalBusinessUnion, IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses)
     {
@@ -67,6 +80,6 @@ public class ResultExportTemplate
             return null;
         }
 
-        return string.Join(", ", politicalBusinesses.Select(pb => pb.ShortDescription));
+        return string.Join(" | ", politicalBusinesses.Select(pb => pb.ShortDescription));
     }
 }

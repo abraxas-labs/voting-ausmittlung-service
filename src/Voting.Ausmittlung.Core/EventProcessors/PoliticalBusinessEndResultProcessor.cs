@@ -23,6 +23,6 @@ public abstract class PoliticalBusinessEndResultProcessor
         var pb = await _simplePoliticalBusinessRepo.GetByKey(politicalBusinessId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), politicalBusinessId);
         pb.EndResultFinalized = finalized;
-        await _simplePoliticalBusinessRepo.UpdateIgnoreRelations(pb);
+        await _simplePoliticalBusinessRepo.Update(pb);
     }
 }

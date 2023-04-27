@@ -37,7 +37,7 @@ public abstract class CountingCircleResultValidationResultsBuilder<T>
     protected void EnsureValidationPermissions(T result)
     {
         _permissionService.EnsureErfassungElectionAdmin();
-        _permissionService.EnsureHasPermissionsOnCountingCircle(result.CountingCircle);
+        _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(result.CountingCircle, result.PoliticalBusiness.Contest);
     }
 
     protected async Task<ValidationContext> BuildValidationContext(

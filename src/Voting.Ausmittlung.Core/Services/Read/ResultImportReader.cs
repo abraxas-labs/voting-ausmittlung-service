@@ -42,6 +42,8 @@ public class ResultImportReader
         _permissionService.EnsureMonitoringElectionAdmin();
         await _permissionService.EnsureIsContestManager(contestId);
         return await _resultImportRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.IgnoredCountingCircles.OrderBy(x => x.CountingCircleId))
             .Where(x => x.ContestId == contestId)
             .OrderByDescending(x => x.Started)
             .ToListAsync();
@@ -50,7 +52,7 @@ public class ResultImportReader
     public async Task<ImportMajorityElectionWriteInMappings> GetMajorityElectionWriteInMappings(Guid contestId, Guid countingCircleBasisId)
     {
         _permissionService.EnsureErfassungElectionAdmin();
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(countingCircleBasisId, contestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleBasisId, contestId);
 
         var importId = await GetLatestResultImportId(contestId)
                        ?? throw new EntityNotFoundException(nameof(ResultImport), new { contestId });

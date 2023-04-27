@@ -62,8 +62,11 @@ public class EventLogBuilder
             return null;
         }
 
-        await ResolveCountingCircle(eventLog, context);
-        ResolvePoliticalBusiness(eventLog, context);
+        if (!await ResolveCountingCircle(eventLog, context) || !ResolvePoliticalBusiness(eventLog, context))
+        {
+            return null;
+        }
+
         eventLog.EventSignatureVerification = _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
 
         MapEventDataToEventLog(eventLog, ev.Data);
@@ -112,28 +115,39 @@ public class EventLogBuilder
         }
     }
 
-    private async Task ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)
+    private async Task<bool> ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)
     {
         if (!eventLog.CountingCircleId.HasValue)
         {
-            return;
+            return true;
+        }
+
+        if (!context.CountingCircleIdsFilter.Contains(eventLog.CountingCircleId.Value))
+        {
+            return false;
         }
 
         var aggregate = await context.CountingCircleAggregateSet.GetOrLoad(eventLog.CountingCircleId.Value, context.CurrentTimestampInStream)
             ?? throw new InvalidOperationException($"Counting circle {eventLog.CountingCircleId} not found");
 
         eventLog.CountingCircle = aggregate.MapToBasisCountingCircle();
+        return true;
     }
 
-    private void ResolvePoliticalBusiness(EventLog eventLog, EventLogBuilderContext context)
+    private bool ResolvePoliticalBusiness(EventLog eventLog, EventLogBuilderContext context)
     {
         if (!eventLog.PoliticalBusinessId.HasValue || !eventLog.PoliticalBusinessType.HasValue)
         {
-            return;
+            return true;
         }
 
         var politicalBusinessId = eventLog.PoliticalBusinessId.Value;
         var politicalBusinessType = eventLog.PoliticalBusinessType.Value;
+
+        if (!context.PoliticalBusinessIdsFilter.Contains(politicalBusinessId) && politicalBusinessType != PoliticalBusinessType.SecondaryMajorityElection)
+        {
+            return false;
+        }
 
         IPoliticalBusiness? pb = politicalBusinessType switch
         {
@@ -151,10 +165,12 @@ public class EventLogBuilder
 
         if (pb == null)
         {
-            throw new InvalidOperationException($"Political business with id {politicalBusinessId} and type {politicalBusinessType} not found");
+            return false;
         }
 
         eventLog.Translations = pb.ShortDescription.ToList();
         eventLog.PoliticalBusinessNumber = pb.PoliticalBusinessNumber;
+
+        return true;
     }
 }

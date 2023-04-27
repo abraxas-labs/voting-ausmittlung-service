@@ -33,12 +33,12 @@ public abstract class ProportionalElectionEndResultBaseTest : BaseTest<
 
     private readonly (string CountingCircleId, string ElectionEndResultId)[] _countingCircleElectionResultIdPairs =
     {
-            (CountingCircleMockedData.IdGossau, ProportionalElectionEndResultMockedData.GossauResultId),
-            (CountingCircleMockedData.IdStGallen, ProportionalElectionEndResultMockedData.StGallenResultId),
-            (CountingCircleMockedData.IdUzwil, ProportionalElectionEndResultMockedData.UzwilResultId),
-            (CountingCircleMockedData.IdStGallenHaggen, ProportionalElectionEndResultMockedData.StGallenHaggenResultId),
-            (CountingCircleMockedData.IdStGallenStFiden, ProportionalElectionEndResultMockedData.StGallenStFidenResultId),
-            (CountingCircleMockedData.IdStGallenAuslandschweizer, ProportionalElectionEndResultMockedData.StGallenAuslandschweizerResultId),
+        (CountingCircleMockedData.IdGossau, ProportionalElectionEndResultMockedData.GossauResultId),
+        (CountingCircleMockedData.IdStGallen, ProportionalElectionEndResultMockedData.StGallenResultId),
+        (CountingCircleMockedData.IdUzwil, ProportionalElectionEndResultMockedData.UzwilResultId),
+        (CountingCircleMockedData.IdStGallenHaggen, ProportionalElectionEndResultMockedData.StGallenHaggenResultId),
+        (CountingCircleMockedData.IdStGallenStFiden, ProportionalElectionEndResultMockedData.StGallenStFidenResultId),
+        (CountingCircleMockedData.IdStGallenAuslandschweizer, ProportionalElectionEndResultMockedData.StGallenAuslandschweizerResultId),
     };
 
     protected ProportionalElectionEndResultBaseTest(TestApplicationFactory factory)

@@ -64,6 +64,24 @@ public class ProportionalElectionResultBundleSubmissionFinishedTest : Proportion
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await CreateBallot();
+        await BundleErfassungElectionAdminClientStGallen.BundleSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await CreateBallot();
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.BundleSubmissionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
     {
         await AssertStatus(

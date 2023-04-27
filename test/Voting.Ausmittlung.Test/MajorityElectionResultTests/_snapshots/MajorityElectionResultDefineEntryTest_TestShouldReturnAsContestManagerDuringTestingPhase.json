@@ -1,0 +1,28 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "999999999999999999",
+      "Name": "Bund"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "ElectionResultId": "081746e5-1814-538d-aba5-775a8104e838",
+  "ResultEntry": 2,
+  "ResultEntryParams": {
+    "BallotBundleSize": 10,
+    "BallotBundleSampleSize": 5,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 2,
+    "AutomaticEmptyVoteCounting": false,
+    "ReviewProcedure": 1
+  }
+}

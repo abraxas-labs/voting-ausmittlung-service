@@ -152,6 +152,27 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
     }
 
     [Fact]
+    public async Task ShouldReturnIsValidAsContestManagerDuringTestingPhase()
+    {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdBundesurnengang), Guid.Parse(DomainOfInfluenceMockedData.IdStGallen));
+        await ModifyDbEntities(
+            (DomainOfInfluence doi) => doi.Id == id,
+            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
+        var result = await BundErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest());
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(

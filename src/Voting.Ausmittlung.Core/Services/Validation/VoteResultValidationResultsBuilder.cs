@@ -81,6 +81,7 @@ public class VoteResultValidationResultsBuilder : CountingCircleResultValidation
             .AsSplitQuery()
             .Include(x => x.Vote.DomainOfInfluence)
             .Include(x => x.CountingCircle.ResponsibleAuthority)
+            .Include(x => x.Vote.Contest.DomainOfInfluence)
             .Include(x => x.Results).ThenInclude(x => x.Ballot)
             .Include(x => x.Results).ThenInclude(x => x.QuestionResults).ThenInclude(x => x.Question)
             .Include(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults).ThenInclude(x => x.Question)

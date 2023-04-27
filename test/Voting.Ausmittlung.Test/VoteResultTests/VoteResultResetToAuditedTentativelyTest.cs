@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
@@ -116,10 +118,20 @@ public class VoteResultResetToAuditedTentativelyTest : VoteResultBaseTest
             });
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
+        {
+            VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
+        });
+
+        endResult.MatchSnapshot();
+
         var id = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
             && x.NewState == CountingCircleResultState.AuditedTentatively);
+
+        var resultEntity = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == id));
+        resultEntity.PlausibilisedTimestamp.Should().BeNull();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

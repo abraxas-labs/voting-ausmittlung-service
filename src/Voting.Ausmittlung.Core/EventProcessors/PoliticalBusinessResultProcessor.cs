@@ -56,11 +56,19 @@ public abstract class PoliticalBusinessResultProcessor<T>
             case CountingCircleResultState.AuditedTentatively when !result.AuditedTentativelyTimestamp.HasValue:
                 result.AuditedTentativelyTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
+            case CountingCircleResultState.Plausibilised when !result.PlausibilisedTimestamp.HasValue:
+                result.PlausibilisedTimestamp = eventInfo.Timestamp.ToDateTime();
+                break;
         }
 
         if (newState < CountingCircleResultState.AuditedTentatively)
         {
             result.AuditedTentativelyTimestamp = null;
+        }
+
+        if (newState < CountingCircleResultState.Plausibilised)
+        {
+            result.PlausibilisedTimestamp = null;
         }
 
         await _repo.Update(result);

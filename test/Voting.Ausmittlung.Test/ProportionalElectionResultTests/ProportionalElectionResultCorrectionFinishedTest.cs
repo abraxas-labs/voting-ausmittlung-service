@@ -72,6 +72,24 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);

@@ -132,6 +132,7 @@
       "VoterParticipation": 0.5,
       "EVotingReceivedBallots": 5,
       "EVotingInvalidBallots": 0,
+      "EVotingBlankBallots": 0,
       "EVotingAccountedBallots": 5,
       "ConventionalReceivedBallots": 500,
       "ConventionalInvalidBallots": 30,
@@ -140,7 +141,8 @@
       "TotalReceivedBallots": 505,
       "TotalAccountedBallots": 205,
       "TotalUnaccountedBallots": 30,
-      "TotalInvalidBallots": 30
+      "TotalInvalidBallots": 30,
+      "TotalBlankBallots": 0
     },
     "CountOfBundlesNotReviewedOrDeleted": 2,
     "AllBundlesReviewedOrDeleted": false,
@@ -149,6 +151,7 @@
     "State": 4,
     "SubmissionDoneTimestamp": null,
     "AuditedTentativelyTimestamp": null,
+    "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   },
@@ -285,6 +288,7 @@
       "VoterParticipation": 0.0005,
       "EVotingReceivedBallots": 5,
       "EVotingInvalidBallots": 0,
+      "EVotingBlankBallots": 0,
       "EVotingAccountedBallots": 5,
       "ConventionalReceivedBallots": 0,
       "ConventionalInvalidBallots": 0,
@@ -293,7 +297,8 @@
       "TotalReceivedBallots": 5,
       "TotalAccountedBallots": 5,
       "TotalUnaccountedBallots": 0,
-      "TotalInvalidBallots": 0
+      "TotalInvalidBallots": 0,
+      "TotalBlankBallots": 0
     },
     "CountOfBundlesNotReviewedOrDeleted": 0,
     "AllBundlesReviewedOrDeleted": true,
@@ -302,6 +307,7 @@
     "State": 2,
     "SubmissionDoneTimestamp": null,
     "AuditedTentativelyTimestamp": null,
+    "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   }

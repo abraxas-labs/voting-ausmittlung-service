@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Voting.Ausmittlung.Report.Models;
 using Voting.Lib.VotingExports.Models;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
@@ -35,5 +36,7 @@ public record ReportRenderContext
 
     public Guid? PoliticalBusinessResultBundleId { get; init; }
 
-    public IRendererService? RendererService { get; set; }
+    public IRendererService? RendererService { get; internal set; }
+
+    public AsyncPdfGenerationInfo? AsyncPdfGenerationInfo { get; init; }
 }

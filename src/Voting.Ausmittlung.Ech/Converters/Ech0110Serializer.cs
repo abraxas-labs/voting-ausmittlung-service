@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Globalization;
 using System.Linq;
 using eCH_0110_4_0;
 using Voting.Ausmittlung.Data.Models;
@@ -92,8 +91,8 @@ public class Ech0110Serializer
 
         return new VotingCardsInformationType
         {
-            CountOfReceivedValidVotingCardsTotal = countOfValidCards.ToString(CultureInfo.InvariantCulture),
-            CountOfReceivedInvalidVotingCardsTotal = (totalCountOfVoters - countOfValidCards).ToString(CultureInfo.InvariantCulture),
+            CountOfReceivedValidVotingCardsTotal = countOfValidCards,
+            CountOfReceivedInvalidVotingCardsTotal = totalCountOfVoters - countOfValidCards,
         };
     }
 

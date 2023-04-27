@@ -22,7 +22,7 @@ internal static class ProportionalElectionResultMapping
             CountOfAccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalAccountedBallots),
             CountOfReceivedBallotsTotal = ResultDetailFromTotal(electionResult.CountOfVoters.TotalReceivedBallots),
             CountOfUnaccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalUnaccountedBallots),
-            CountOfUnaccountedBlankBallots = ResultDetailFromTotal(electionResult.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault()),
+            CountOfUnaccountedBlankBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalBlankBallots),
             CountOfUnaccountedInvalidBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalInvalidBallots),
             CountOfVotersInformation = new CountOfVotersInformationType { CountOfVotersTotal = electionResult.TotalCountOfVoters.ToString(CultureInfo.InvariantCulture) },
         };

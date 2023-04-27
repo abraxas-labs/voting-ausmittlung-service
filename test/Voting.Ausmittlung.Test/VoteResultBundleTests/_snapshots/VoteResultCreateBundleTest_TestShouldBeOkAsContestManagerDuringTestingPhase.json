@@ -1,0 +1,49 @@
+{
+  "1": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+    "BundleNumber": 1
+  },
+  "2": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "BundleId": "",
+    "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+    "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
+    "BundleNumber": 1,
+    "ResultEntryParams": {
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "ReviewProcedure": 1
+    }
+  }
+}

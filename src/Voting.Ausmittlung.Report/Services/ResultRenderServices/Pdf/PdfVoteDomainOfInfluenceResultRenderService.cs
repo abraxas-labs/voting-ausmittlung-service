@@ -153,15 +153,15 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             Contest = contest,
             DomainOfInfluence = domainOfInfluence,
             Votes = new List<PdfVote>
-                {
-                    pdfVote,
-                },
+            {
+                pdfVote,
+            },
         };
 
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            ctx.DomainOfInfluenceType.ToString().ToUpper(),
+            PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(vote.DomainOfInfluence.Type),
             vote.ShortDescription,
             PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
     }

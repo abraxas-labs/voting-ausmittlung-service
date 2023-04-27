@@ -57,6 +57,24 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);

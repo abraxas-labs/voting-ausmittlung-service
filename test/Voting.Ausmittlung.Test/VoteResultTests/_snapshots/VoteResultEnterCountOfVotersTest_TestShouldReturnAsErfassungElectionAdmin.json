@@ -115,17 +115,19 @@
         },
         "CountOfVoters": {
           "VoterParticipation": 0.9333333333333333,
-          "EVotingReceivedBallots": 0,
           "ConventionalReceivedBallots": 14000,
           "ConventionalInvalidBallots": 500,
           "ConventionalBlankBallots": 1000,
           "ConventionalAccountedBallots": 12000,
+          "EVotingReceivedBallots": 0,
+          "EVotingInvalidBallots": 0,
+          "EVotingBlankBallots": 0,
+          "EVotingAccountedBallots": 0,
           "TotalReceivedBallots": 14000,
           "TotalAccountedBallots": 12000,
           "TotalUnaccountedBallots": 1500,
-          "EVotingInvalidBallots": 0,
-          "EVotingAccountedBallots": 0,
-          "TotalInvalidBallots": 500
+          "TotalInvalidBallots": 500,
+          "TotalBlankBallots": 1000
         },
         "QuestionResults": [
           {

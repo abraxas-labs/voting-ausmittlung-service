@@ -1,0 +1,69 @@
+{
+  "event": {
+    "EventInfo": {
+      "User": {
+        "Id": "fake",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": ""
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ImportId": "",
+    "FileName": "test.xml",
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "EchMessageId": "my-mock-ech-message-id",
+    "IgnoredCountingCircles": [
+      {
+        "CountingCircleId": "10007",
+        "CountingCircleDescription": "KU_2_Reserve",
+        "IsTestCountingCircle": true
+      },
+      {
+        "CountingCircleId": "unknown-counting-circle-id",
+        "CountingCircleDescription": "",
+        "IsTestCountingCircle": false
+      }
+    ]
+  },
+  "db": {
+    "Contest": null,
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Started": "2020-01-10T13:12:10.2Z",
+    "Completed": false,
+    "Deleted": false,
+    "StartedBy": {
+      "SecureConnectId": "fake",
+      "FirstName": "",
+      "LastName": "",
+      "FullName": " "
+    },
+    "FileName": "test.xml",
+    "IgnoredCountingCircles": [
+      {
+        "CountingCircleId": "10007",
+        "CountingCircleDescription": "KU_2_Reserve",
+        "IsTestCountingCircle": true,
+        "ResultImportId": "00000000-0000-0000-0000-000000000000",
+        "ResultImport": null,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "CountingCircleId": "unknown-counting-circle-id",
+        "CountingCircleDescription": "",
+        "IsTestCountingCircle": false,
+        "ResultImportId": "00000000-0000-0000-0000-000000000000",
+        "ResultImport": null,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "Id": "00000000-0000-0000-0000-000000000000"
+  }
+}

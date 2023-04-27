@@ -64,6 +64,23 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await CreateBallot();
+        await BundleErfassungElectionAdminClientStGallen.BundleSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.BundleSubmissionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
     {
         await AssertStatus(

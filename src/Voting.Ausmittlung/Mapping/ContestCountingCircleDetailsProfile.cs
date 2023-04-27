@@ -21,13 +21,9 @@ public class ContestCountingCircleDetailsProfile : Profile
         CreateMap<DataModels.ContestCountingCircleDetails, ProtoModels.CountOfVotersInformation>()
             .ForMember(dst => dst.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
 
-        CreateMap<DataModels.ContestDetails, ProtoModels.AggregatedContestCountingCircleDetails>()
-            .ForMember(dst => dst.CountOfVotersInformation, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.ContestDetails, ProtoModels.CountOfVotersInformation>()
             .ForMember(dst => dst.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
 
-        CreateMap<DataModels.ContestDomainOfInfluenceDetails, ProtoModels.AggregatedContestCountingCircleDetails>()
-            .ForMember(dst => dst.CountOfVotersInformation, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.ContestDomainOfInfluenceDetails, ProtoModels.CountOfVotersInformation>()
             .ForMember(dst => dst.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
 

@@ -68,8 +68,9 @@ public class ProportionalElectionResultImportWriter
         IReadOnlyDictionary<Guid, ProportionalElectionList> listsById,
         IReadOnlyDictionary<Guid, ProportionalElectionCandidate> candidatesById)
     {
-        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, result.BasisCountingCircleId);
+        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId));
         importResult.CountOfVoters = result.Ballots.Count;
+
         foreach (var ballot in result.Ballots)
         {
             var (list, listResult) = GetList(importResult, ballot, listsById);
@@ -77,6 +78,22 @@ public class ProportionalElectionResultImportWriter
             if (ballot.Unmodified)
             {
                 ProcessUnmodifiedBallot(importResult, list, listResult);
+                continue;
+            }
+
+            if (ballot.Positions.All(p => p.IsEmpty))
+            {
+                if (list == null)
+                {
+                    // If all positions and the list are empty, treat the whole ballot as blank.
+                    importResult.BlankBallotCount++;
+                }
+                else
+                {
+                    // If all positions are empty but a list is specified, the whole ballot is invalid.
+                    importResult.InvalidBallotCount++;
+                }
+
                 continue;
             }
 

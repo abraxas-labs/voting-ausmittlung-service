@@ -129,6 +129,27 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
+    public async Task CreateDetailsShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await BundErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest());
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsCreated>();
+        eventData.MatchSnapshot("create");
+
+        await BundErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest());
+        var eventDataUpdate = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsUpdated>();
+        eventDataUpdate.MatchSnapshot("update");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task CreateDetailsNegativeVotingCardCountValueShouldThrow()
     {
         // tests whether the integration of the proto validators work.

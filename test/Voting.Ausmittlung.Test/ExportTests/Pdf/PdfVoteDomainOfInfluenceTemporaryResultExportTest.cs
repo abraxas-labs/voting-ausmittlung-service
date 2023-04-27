@@ -3,29 +3,27 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
-using DomainOfInfluenceType = Voting.Lib.VotingExports.Models.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTest
 {
     public PdfVoteDomainOfInfluenceTemporaryResultExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
+    protected override string NewRequestExpectedFileName => "Abst_Kant_provisorischeErgebnisse_Abst SG de_20200110.pdf";
 
-    protected override string NewRequestExpectedFileName => "Abst_CT_provisorischeErgebnisse_Abst SG de_20200110.pdf";
-
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key;
 
     protected override async Task SeedData()
     {
@@ -35,22 +33,18 @@ public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTe
         await ModifyDbEntities<VoteResult>(_ => true, x => x.State = CountingCircleResultState.AuditedTentatively);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key,
-                    DomainOfInfluenceType = DomainOfInfluenceType.Ct,
-                    PoliticalBusinessIds =
-                    {
-                        Guid.Parse(VoteEndResultMockedData.VoteId),
-                    },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(VoteEndResultMockedData.VoteId))
+                    .ToString(),
             },
         };
     }

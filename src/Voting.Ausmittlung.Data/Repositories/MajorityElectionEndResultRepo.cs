@@ -28,6 +28,8 @@ public class MajorityElectionEndResultRepo : DbRepository<DataContext, MajorityE
             .Include(x => x.MajorityElection.SecondaryMajorityElections).ThenInclude(x => x.Candidates)
             .Include(x => x.CandidateEndResults)
             .Include(x => x.SecondaryMajorityElectionEndResults).ThenInclude(x => x.CandidateEndResults)
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(x => x.MajorityElectionId == majorityElectionId);
     }
 

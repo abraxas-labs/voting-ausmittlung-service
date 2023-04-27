@@ -71,6 +71,24 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await CreateBallot();
+        await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await BundleErfassungElectionAdminClientStGallen.DeleteBundleAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherThanBundleCreator()
     {
         await CreateBallot();

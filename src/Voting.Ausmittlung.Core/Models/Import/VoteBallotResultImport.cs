@@ -23,6 +23,11 @@ public class VoteBallotResultImport
 
     public int CountOfVoters { get; internal set; }
 
+    /// <summary>
+    /// Gets the count of blank ballots (= "Stimmzettel"), meaning all questions contained an empty vote.
+    /// </summary>
+    public int BlankBallotCount { get; internal set; }
+
     public IEnumerable<BallotQuestionResultImport> QuestionResults => _questionResults.Values;
 
     public IEnumerable<TieBreakQuestionResultImport> TieBreakQuestionResults => _tieBreakQuestionResults.Values;

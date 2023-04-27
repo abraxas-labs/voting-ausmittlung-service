@@ -23,5 +23,11 @@ public class ResultImportModelBuilder : IEntityTypeConfiguration<ResultImport>
         builder
             .Property(x => x.Started)
             .HasUtcConversion();
+
+        builder
+            .HasMany(x => x.IgnoredCountingCircles)
+            .WithOne(x => x.ResultImport)
+            .HasForeignKey(x => x.ResultImportId)
+            .IsRequired();
     }
 }

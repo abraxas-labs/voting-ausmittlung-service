@@ -57,11 +57,18 @@
       </CountOfVotersDetail>
     </ContestCountingCircleDetails>
   </CountingCircle>
+  <PoliticalBusiness>
+    <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
+    <OfficialDescription>Majorzwahl St. Gallen de</OfficialDescription>
+    <ShortDescription>Mw SG de</ShortDescription>
+  </PoliticalBusiness>
   <MajorityElectionResultBundle>
     <Number>1</Number>
+    <CountOfBallots>3</CountOfBallots>
     <MajorityElectionResultBallot>
       <Number>1</Number>
       <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
       <IndividualVoteCount>0</IndividualVoteCount>
       <MajorityElectionCandidate>
         <Description>number1 pol last name pol first name</Description>
@@ -109,12 +116,19 @@
     <MajorityElectionResultBallot>
       <Number>2</Number>
       <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
       <IndividualVoteCount>1</IndividualVoteCount>
     </MajorityElectionResultBallot>
     <MajorityElectionResultBallot>
       <Number>3</Number>
       <EmptyVoteCount>1</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
       <IndividualVoteCount>0</IndividualVoteCount>
     </MajorityElectionResultBallot>
+    <CreatedBy>
+      <FirstName>Hans</FirstName>
+      <LastName>Muster</LastName>
+      <FullName>Hans Muster</FullName>
+    </CreatedBy>
   </MajorityElectionResultBundle>
 </Voting>

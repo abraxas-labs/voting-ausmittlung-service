@@ -18,6 +18,10 @@ public class BallotEndResult : BaseEntity
 
     public Guid VoteEndResultId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the count of voters, meaning the persons who actually voted in this ballot.
+    /// In German: Stimmzettel.
+    /// </summary>
     public PoliticalBusinessCountOfVoters CountOfVoters { get; set; } = new PoliticalBusinessCountOfVoters();
 
     public ICollection<BallotQuestionEndResult> QuestionEndResults { get; set; } = new HashSet<BallotQuestionEndResult>();

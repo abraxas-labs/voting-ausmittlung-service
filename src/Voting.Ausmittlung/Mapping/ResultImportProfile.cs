@@ -19,6 +19,7 @@ public class ResultImportProfile : Profile
         CreateMap<DataModels.ResultImport, ProtoModels.ResultImport>();
         CreateMap<IEnumerable<DataModels.ResultImport>, ProtoModels.ResultImports>()
             .ForMember(dst => dst.Imports, opts => opts.MapFrom(x => x));
+        CreateMap<DataModels.IgnoredImportCountingCircle, ProtoModels.ResultImportIgnoredCountingCircle>();
 
         CreateMap<ImportModels.ImportMajorityElectionWriteInMappings, ProtoModels.MajorityElectionContestWriteInMappings>();
         CreateMap<ImportModels.MajorityElectionGroupedWriteInMappings, ProtoModels.MajorityElectionWriteInMappings>()

@@ -41,13 +41,15 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
+        var now = _clock.UtcNow;
+
         var lists = await _listRepo.Query()
             .Include(x => x.Translations)
             .Where(c => c.ProportionalElectionId == ctx.PoliticalBusinessId)
             .OrderBy(x => x.Position)
             .ToListAsync(ct);
 
-        var records = await _repo.Query()
+        var records = _repo.Query()
             .AsSplitQuery()
             .Where(c => c.ListResult.Result.ProportionalElectionId == ctx.PoliticalBusinessId)
             .OrderBy(c => c.ListResult.Result.CountingCircle.Code)
@@ -81,43 +83,35 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
                 ElectionId = c.ListResult.Result.ProportionalElectionId,
                 BasisCountingCircleId = c.ListResult.Result.CountingCircle.BasisCountingCircleId,
             })
-            .ToListAsync(ct);
-
-        SetVoteSources(lists, records);
-        SetReportGeneratedTimestamp(_clock.UtcNow, records);
+            .AsAsyncEnumerable()
+            .Select(row =>
+            {
+                SetVoteSources(lists, row);
+                row.ReportGeneratedTimestamp = now;
+                return row;
+            });
 
         return _templateService.RenderToDynamicCsv(
             ctx,
             records);
     }
 
-    private void SetReportGeneratedTimestamp(DateTime reportGeneratedTimestamp, IEnumerable<Data> records)
-    {
-        foreach (var record in records)
-        {
-            record.ReportGeneratedTimestamp = reportGeneratedTimestamp;
-        }
-    }
-
     private void SetVoteSources(
         IReadOnlyCollection<ProportionalElectionList> lists,
-        IEnumerable<Data> records)
+        Data record)
     {
-        foreach (var record in records)
+        var voteSources = new SortedDictionary<string, int?>();
+
+        var voteSourcesVoteCounts = record.VoteSources!
+            .ToDictionary(x => x.ListId ?? Guid.Empty, x => x.VoteCount as int?);
+
+        foreach (var list in lists)
         {
-            var voteSources = new SortedDictionary<string, int?>();
-
-            var voteSourcesVoteCounts = record.VoteSources!
-                .ToDictionary(x => x.ListId ?? Guid.Empty, x => x.VoteCount as int?);
-
-            foreach (var list in lists)
-            {
-                AddVoteSource(voteSources, list, voteSourcesVoteCounts);
-            }
-
-            AddVoteSource(voteSources, null, voteSourcesVoteCounts);
-            record.AllVoteSources = voteSources;
+            AddVoteSource(voteSources, list, voteSourcesVoteCounts);
         }
+
+        AddVoteSource(voteSources, null, voteSourcesVoteCounts);
+        record.AllVoteSources = voteSources;
     }
 
     private void AddVoteSource(

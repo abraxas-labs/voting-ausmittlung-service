@@ -27,7 +27,6 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
         OrderCountingCircleAndCandidateResults(doiResults);
         OrderCountingCircleAndCandidateResult(notAssignableResult);
         OrderCountingCircleAndCandidateResult(aggregatedResult);
-        var doiIndividualVoteCount = doiResults.Select(d => d.IndividualVoteCount).ToList();
         return (doiResults, notAssignableResult, aggregatedResult);
     }
 
@@ -85,8 +84,7 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
         foreach (var ccResult in doiResult.Results)
         {
             ccResult.CandidateResults = ccResult.CandidateResults
-                .OrderByDescending(x => x.VoteCount)
-                .ThenBy(x => x.Candidate.Position)
+                .OrderBy(x => x.Candidate.Position)
                 .ToList();
         }
     }

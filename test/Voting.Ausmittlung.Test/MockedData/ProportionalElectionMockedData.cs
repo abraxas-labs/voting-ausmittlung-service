@@ -19,7 +19,7 @@ public static class ProportionalElectionMockedData
 {
     public const string IdBundProportionalElectionInContestBund = "053d1197-ddb2-4906-8c90-b9baa45a40fb";
     public const string IdStGallenProportionalElectionInContestBund = "3a832f45-34c0-47ce-b1e3-db27b97948ba";
-    public const string IdUzwilProportionalElectionInContestBund = "a73b1bf3-7bbe-44fb-9b65-8f5e1734ad72";
+    public const string IdUzwilProportionalElectionInContestBundWithoutChilds = "a73b1bf3-7bbe-44fb-9b65-8f5e1734ad72";
     public const string IdBundProportionalElectionInContestStGallen = "30e170ba-ed97-4886-93c9-ee35b106a22e";
     public const string IdGossauProportionalElectionInContestStGallen = "fa69e964-0a02-4d16-b417-247e8987021a";
     public const string IdUzwilProportionalElectionInContestStGallen = "da091f50-9f11-4deb-9621-948fbfbdc322";
@@ -1047,7 +1047,7 @@ public static class ProportionalElectionMockedData
     public static ProportionalElection UzwilProportionalElectionInContestBundWithoutChilds
         => new ProportionalElection
         {
-            Id = Guid.Parse(IdUzwilProportionalElectionInContestBund),
+            Id = Guid.Parse(IdUzwilProportionalElectionInContestBundWithoutChilds),
             PoliticalBusinessNumber = "714",
             Translations = TranslationUtil.CreateTranslations<ProportionalElectionTranslation>(
                 (t, o) => t.OfficialDescription = o,

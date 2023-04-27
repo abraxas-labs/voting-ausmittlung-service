@@ -22,8 +22,11 @@ public abstract class CountingCircleResult : BaseEntity
 
     public DateTime? AuditedTentativelyTimestamp { get; set; }
 
+    public DateTime? PlausibilisedTimestamp { get; set; }
+
     /// <summary>
     /// Gets or sets the total count of voters which is calculated from <see cref="ContestCountingCircleDetails"/>.
+    /// In German: Anzahl Stimmberechtigte.
     /// </summary>
     public int TotalCountOfVoters { get; set; }
 

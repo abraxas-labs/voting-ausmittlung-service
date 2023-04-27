@@ -20,6 +20,18 @@ public class VoteEndResultModelBuilder :
             .WithOne(v => v.EndResult!)
             .HasForeignKey<VoteEndResult>(vo => vo.VoteId)
             .IsRequired();
+
+        builder
+            .HasMany(x => x.VotingCards)
+            .WithOne()
+            .HasForeignKey(x => x.VoteEndResultId)
+            .IsRequired();
+
+        builder
+            .HasMany(x => x.CountOfVotersInformationSubTotals)
+            .WithOne()
+            .HasForeignKey(x => x.VoteEndResultId)
+            .IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<BallotEndResult> builder)

@@ -1,0 +1,41 @@
+{
+  "deleted": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186"
+  },
+  "freed": {
+    "EventInfo": {
+      "User": {
+        "Id": "my-user-99",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+    "BundleNumber": 1
+  }
+}

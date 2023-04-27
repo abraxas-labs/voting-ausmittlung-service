@@ -228,14 +228,14 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
             roles);
     }
 
+    protected TService CreateServiceWithTenant(string tenantId, params string[] roles)
+    {
+        return (TService)Activator.CreateInstance(typeof(TService), CreateGrpcChannel(true, tenantId, "default-user-id", roles))!;
+    }
+
     private TService CreateService(params string[] roles)
     {
         return (TService)Activator.CreateInstance(typeof(TService), CreateGrpcChannel(roles))!;
-    }
-
-    private TService CreateServiceWithTenant(string tenantId, params string[] roles)
-    {
-        return (TService)Activator.CreateInstance(typeof(TService), CreateGrpcChannel(true, tenantId, "default-user-id", roles))!;
     }
 
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)

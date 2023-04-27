@@ -7,6 +7,7 @@ using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using Voting.Ausmittlung.Core.Models.Import;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Mapping;
 
@@ -54,5 +55,8 @@ public class ResultImportProfile : Profile
         CreateMap<VoteBallotResultImport, VoteBallotResultImportEventData>();
         CreateMap<BallotQuestionResultImport, BallotQuestionResultImportEventData>();
         CreateMap<TieBreakQuestionResultImport, TieBreakQuestionResultImportEventData>();
+
+        CreateMap<ImportIgnoredCountingCircleEventData, IgnoredImportCountingCircle>()
+            .ReverseMap();
     }
 }

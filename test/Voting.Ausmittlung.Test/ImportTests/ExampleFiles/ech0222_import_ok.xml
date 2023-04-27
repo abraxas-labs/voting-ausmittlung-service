@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
           xmlns="http://www.ech.ch/xmlns/eCH-0222/1"
+          xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4"
           xsi:schemaLocation="http://www.ech.ch/xmlns/eCH-0222/1 http://www.ech.ch/xmlns/eCH-0222/1/eCH-0222-1-0.xsd">
   <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -25,9 +26,17 @@
     <rawData>
       <contestIdentification>95825eb0-0f52-461a-a5f8-23fb35fa69e1</contestIdentification>
       <countingCircleRawData>
+        <!-- A "test counting circle" (Testurne) -->
+        <countingCircleId>10001</countingCircleId>
+      </countingCircleRawData>
+      <countingCircleRawData>
         <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
+        <!-- This test data contains each ballot ("Stimmzettel") in a separate election group.
+             This is how the evoting election data is being received. -->
+
+        <!-- This is the start of the primary majority election. -->
         <electionGroupBallotRawData>
-          <electionGroupIdentification>6eaa4d6b-eb0a-4315-b0b8-a68266303ab1</electionGroupIdentification>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
           <electionRawData>
             <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
@@ -37,6 +46,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -44,6 +59,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -51,6 +72,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -58,6 +85,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -65,16 +98,34 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <isEmpty>true</isEmpty>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <isEmpty>true</isEmpty>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <isEmpty>true</isEmpty>
@@ -92,6 +143,12 @@
                 <isEmpty>true</isEmpty>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -112,6 +169,12 @@
                 <isEmpty>true</isEmpty>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -125,6 +188,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -134,6 +203,35 @@
               </ballotPosition>
             </ballotRawData>
           </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
+            <ballotRawData>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+            </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <!-- This is the start of the secondary election, which is currently not correctly supported (not only by VOTING, but also the E-Voting system).
+             Each secondary election result should actually be grouped with the primary election result (multiple electionGroupBallotRawData entries, each containing both the primary and secondary result).
+           When secondary election results are supported, this should be combined with the primary result data. -->
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionGroupIdentification>
           <electionRawData>
             <electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionIdentification>
             <ballotRawData>
@@ -149,6 +247,12 @@
                 </candidate>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -159,6 +263,12 @@
                 <isEmpty>true</isEmpty>
               </ballotPosition>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionIdentification>
             <ballotRawData>
               <ballotPosition>
                 <candidate>
@@ -179,19 +289,19 @@
             <ballotCasted>
               <ballotCastedNumber>1</ballotCastedNumber>
               <questionRawData>
-                <questionIdentification>1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_1</questionIdentification>
                 <casted>
                   <castedVote>1</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>2</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_2</questionIdentification>
                 <casted>
                   <castedVote>2</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>tiebreak-1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_t_1</questionIdentification>
                 <casted>
                   <castedVote>1</castedVote>
                 </casted>
@@ -203,21 +313,43 @@
             <ballotCasted>
               <ballotCastedNumber>2</ballotCastedNumber>
               <questionRawData>
-                <questionIdentification>1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_1</questionIdentification>
                 <casted>
                   <castedVote>3</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>2</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_2</questionIdentification>
                 <casted>
                   <castedVote>1</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>tiebreak-1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_t_1</questionIdentification>
                 <casted>
                   <castedVote>2</castedVote>
+                  <!-- This is not used by VOTING Ausmittlung, but delivered by the Post
+                       Only here to check whether the application can handle this, as it couldn't in the past -->
+                  <answerOptionIdentification>
+                    <eCH-0155:answerIdentification>48d44266-70c3-32ae-be2d-3ad1c529c76f</eCH-0155:answerIdentification>
+                    <eCH-0155:answerSequenceNumber>2</eCH-0155:answerSequenceNumber>
+                    <eCH-0155:answerTextInformation>
+                      <eCH-0155:language>de</eCH-0155:language>
+                      <eCH-0155:answerText>Ja</eCH-0155:answerText>
+                    </eCH-0155:answerTextInformation>
+                    <eCH-0155:answerTextInformation>
+                      <eCH-0155:language>fr</eCH-0155:language>
+                      <eCH-0155:answerText>Oui</eCH-0155:answerText>
+                    </eCH-0155:answerTextInformation>
+                    <eCH-0155:answerTextInformation>
+                      <eCH-0155:language>it</eCH-0155:language>
+                      <eCH-0155:answerText>Si</eCH-0155:answerText>
+                    </eCH-0155:answerTextInformation>
+                    <eCH-0155:answerTextInformation>
+                      <eCH-0155:language>rm</eCH-0155:language>
+                      <eCH-0155:answerText>Gea</eCH-0155:answerText>
+                    </eCH-0155:answerTextInformation>
+                  </answerOptionIdentification>
                 </casted>
               </questionRawData>
             </ballotCasted>
@@ -227,19 +359,44 @@
             <ballotCasted>
               <ballotCastedNumber>3</ballotCastedNumber>
               <questionRawData>
-                <questionIdentification>1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_1</questionIdentification>
                 <casted>
                   <castedVote>2</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>2</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_2</questionIdentification>
                 <casted>
                   <castedVote>2</castedVote>
                 </casted>
               </questionRawData>
               <questionRawData>
-                <questionIdentification>tiebreak-1</questionIdentification>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_t_1</questionIdentification>
+                <casted>
+                  <castedVote>3</castedVote>
+                </casted>
+              </questionRawData>
+            </ballotCasted>
+          </ballotRawData>
+          <!-- A ballot where all casted votes are empty -->
+          <ballotRawData>
+            <ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</ballotIdentification>
+            <ballotCasted>
+              <ballotCastedNumber>4</ballotCastedNumber>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_1</questionIdentification>
+                <casted>
+                  <castedVote>3</castedVote>
+                </casted>
+              </questionRawData>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_2</questionIdentification>
+                <casted>
+                  <castedVote>3</castedVote>
+                </casted>
+              </questionRawData>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_t_1</questionIdentification>
                 <casted>
                   <castedVote>3</castedVote>
                 </casted>
@@ -247,7 +404,40 @@
             </ballotCasted>
           </ballotRawData>
         </voteRawData>
+        <!-- This test data contains each ballot ("Stimmzettel") in a separate election group.
+             This is how the evoting election data is being received. -->
         <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
+            <ballotRawData>
+              <listRawData>
+                <listIdentification>99</listIdentification>
+              </listRawData>
+              <ballotPosition>
+                <candidate>
+                  <candidateIdentification>8b4837a9-c3ba-4ec5-9e50-536a9b4347a9</candidateIdentification>
+                  <candidateReferenceOnPosition>number1</candidateReferenceOnPosition>
+                </candidate>
+              </ballotPosition>
+              <ballotPosition>
+                <candidate>
+                  <candidateIdentification>9efe090f-883b-4e86-89c2-cd132ea84cbd</candidateIdentification>
+                  <candidateReferenceOnPosition>number2</candidateReferenceOnPosition>
+                </candidate>
+              </ballotPosition>
+              <ballotPosition>
+                <candidate>
+                  <candidateIdentification>4933f558-bb34-4260-862a-fae71c52d619</candidateIdentification>
+                  <candidateReferenceOnPosition>number3</candidateReferenceOnPosition>
+                </candidate>
+              </ballotPosition>
+              <isUnchangedBallot>false</isUnchangedBallot>
+            </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
           <electionRawData>
             <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
@@ -258,27 +448,6 @@
                 </candidate>
               </ballotPosition>
               <ballotPosition>
-                <candidate>
-                  <candidateIdentification>9efe090f-883b-4e86-89c2-cd132ea84cbd</candidateIdentification>
-                  <candidateReferenceOnPosition>number2</candidateReferenceOnPosition>
-                </candidate>
-              </ballotPosition>
-              <ballotPosition>
-                <candidate>
-                  <candidateIdentification>4933f558-bb34-4260-862a-fae71c52d619</candidateIdentification>
-                  <candidateReferenceOnPosition>number3</candidateReferenceOnPosition>
-                </candidate>
-              </ballotPosition>
-              <isUnchangedBallot>false</isUnchangedBallot>
-            </ballotRawData>
-            <ballotRawData>
-              <ballotPosition>
-                <candidate>
-                  <candidateIdentification>8b4837a9-c3ba-4ec5-9e50-536a9b4347a9</candidateIdentification>
-                  <candidateReferenceOnPosition>number1</candidateReferenceOnPosition>
-                </candidate>
-              </ballotPosition>
-              <ballotPosition>
                 <isEmpty>true</isEmpty>
               </ballotPosition>
               <ballotPosition>
@@ -286,6 +455,12 @@
               </ballotPosition>
               <isUnchangedBallot>false</isUnchangedBallot>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
                 <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
@@ -307,6 +482,12 @@
               </ballotPosition>
               <isUnchangedBallot>true</isUnchangedBallot>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
                 <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
@@ -331,6 +512,12 @@
               </ballotPosition>
               <isUnchangedBallot>false</isUnchangedBallot>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
                 <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
@@ -355,6 +542,12 @@
               </ballotPosition>
               <isUnchangedBallot>true</isUnchangedBallot>
             </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
                 <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
@@ -372,6 +565,45 @@
                 </candidate>
               </ballotPosition>
               <isUnchangedBallot>false</isUnchangedBallot>
+            </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <!-- An empty ballot with a list reference, which is invalid: -->
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
+            <ballotRawData>
+              <listRawData>
+                <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
+              </listRawData>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+            </ballotRawData>
+          </electionRawData>
+        </electionGroupBallotRawData>
+        <!-- A completely empty ballot: -->
+        <electionGroupBallotRawData>
+          <electionGroupIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionGroupIdentification>
+          <electionRawData>
+            <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
+            <ballotRawData>
+              <listRawData>
+                <listIdentification>99</listIdentification>
+              </listRawData>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
+              <ballotPosition>
+                <isEmpty>true</isEmpty>
+              </ballotPosition>
             </ballotRawData>
           </electionRawData>
         </electionGroupBallotRawData>

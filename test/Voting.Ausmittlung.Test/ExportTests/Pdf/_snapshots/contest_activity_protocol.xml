@@ -1938,6 +1938,103 @@
     <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
+    <Date>2020-07-17T10:08:22Z</Date>
+    <EventAttribute>
+      <AttributeName>id</AttributeName>
+      <AttributeValue>324cb494-e55b-4bf5-acd3-c140b0a5d3d2</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>counting_circle_id</AttributeName>
+      <AttributeValue>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>count_of_voters_information</AttributeName>
+      <EventAttribute>
+        <AttributeName>total_count_of_voters</AttributeName>
+        <AttributeValue>650</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>sub_total_info</AttributeName>
+        <EventAttribute>
+          <AttributeName>sex</AttributeName>
+          <AttributeValue>Female</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>voter_type</AttributeName>
+          <AttributeValue>Swiss</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>count_of_voters</AttributeName>
+          <AttributeValue>200</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>sub_total_info</AttributeName>
+        <EventAttribute>
+          <AttributeName>sex</AttributeName>
+          <AttributeValue>Male</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>voter_type</AttributeName>
+          <AttributeValue>Swiss</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>count_of_voters</AttributeName>
+          <AttributeValue>300</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>sub_total_info</AttributeName>
+        <EventAttribute>
+          <AttributeName>sex</AttributeName>
+          <AttributeValue>Female</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>voter_type</AttributeName>
+          <AttributeValue>SwissAbroad</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>count_of_voters</AttributeName>
+          <AttributeValue>100</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>sub_total_info</AttributeName>
+        <EventAttribute>
+          <AttributeName>sex</AttributeName>
+          <AttributeValue>Male</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>voter_type</AttributeName>
+          <AttributeValue>SwissAbroad</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>count_of_voters</AttributeName>
+          <AttributeValue>50</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.ContestCountingCircleDetailsCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <CountingCircle>
+      <Name>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</Name>
+      <Bfs />
+    </CountingCircle>
+    <PoliticalBusiness />
+    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
+  </Event>
+  <Event>
     <Date>2020-07-17T10:08:30Z</Date>
     <EventAttribute>
       <AttributeName>election_result_id</AttributeName>
@@ -4892,7 +4989,7 @@
     </EventAttribute>
     <EventAttribute>
       <AttributeName>signed_event_count</AttributeName>
-      <AttributeValue>10</AttributeValue>
+      <AttributeValue>11</AttributeValue>
     </EventAttribute>
     <EventAttribute>
       <AttributeName>deleted_at</AttributeName>
@@ -4915,8 +5012,8 @@
       <Lastname>default user lastname</Lastname>
     </User>
     <PublicKeyData>
-      <ExpectedSignedEventCount>10</ExpectedSignedEventCount>
-      <ReadAtGenerationSignedEventCount>10</ReadAtGenerationSignedEventCount>
+      <ExpectedSignedEventCount>11</ExpectedSignedEventCount>
+      <ReadAtGenerationSignedEventCount>11</ReadAtGenerationSignedEventCount>
       <HasMatchingSignedEventCount>true</HasMatchingSignedEventCount>
       <SignatureValidationResultType>Valid</SignatureValidationResultType>
     </PublicKeyData>

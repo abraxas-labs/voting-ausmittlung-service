@@ -34,6 +34,8 @@ public abstract class ProportionalElectionResultBundleBaseTest : ProportionalEle
 
     protected ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient BundleErfassungCreatorClientSecondUser { get; private set; } = null!; // initialized during InitializeAsync
 
+    protected ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient BundleErfassungElectionAdminClientStGallen { get; private set; } = null!; // initialized during InitializeAsync
+
     protected int LatestBallotNumber { get; private set; }
 
     public override async Task InitializeAsync()
@@ -43,6 +45,7 @@ public abstract class ProportionalElectionResultBundleBaseTest : ProportionalEle
         BundleErfassungCreatorClient = new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungCreator));
         BundleErfassungElectionAdminClientSecondUser = new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         BundleErfassungCreatorClientSecondUser = new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungCreator));
+        BundleErfassungElectionAdminClientStGallen = new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
     }

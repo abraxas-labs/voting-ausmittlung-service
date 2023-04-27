@@ -22,12 +22,12 @@
     <ShortDescription>Kantonratswahl de</ShortDescription>
     <NumberOfMandates>2</NumberOfMandates>
     <ProportionalElectionEndResult>
-      <TotalCountOfVoters>1000</TotalCountOfVoters>
+      <TotalCountOfVoters>3210</TotalCountOfVoters>
       <CountOfDoneCountingCircles>1</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>1</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.25</VoterParticipation>
+        <VoterParticipation>0.0778816199376947040498442368</VoterParticipation>
         <TotalReceivedBallots>250</TotalReceivedBallots>
         <TotalUnaccountedBallots>140</TotalUnaccountedBallots>
         <CountOfAccountedBallots>110</CountOfAccountedBallots>

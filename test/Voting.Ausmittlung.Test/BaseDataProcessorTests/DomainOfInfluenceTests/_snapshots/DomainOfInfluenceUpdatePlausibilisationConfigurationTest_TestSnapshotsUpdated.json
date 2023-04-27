@@ -39,8 +39,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -419,8 +419,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -569,8 +569,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -719,8 +719,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -869,8 +869,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -1019,8 +1019,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -1169,8 +1169,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {
@@ -1319,8 +1319,8 @@
         ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 1,
-        "ProtocolCountingCircleSortType": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
         "SwissAbroadVotingRight": 3,
         "EnabledVotingCardChannels": [
           {

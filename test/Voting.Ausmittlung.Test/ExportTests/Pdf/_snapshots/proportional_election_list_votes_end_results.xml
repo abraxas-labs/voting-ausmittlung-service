@@ -22,12 +22,12 @@
     <ShortDescription>Nationalratswahl de</ShortDescription>
     <NumberOfMandates>12</NumberOfMandates>
     <ProportionalElectionEndResult>
-      <TotalCountOfVoters>317969</TotalCountOfVoters>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
       <CountOfDoneCountingCircles>1</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>false</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.4646647943667464438357198343</VoterParticipation>
+        <VoterParticipation>9.351202531645569620253164557</VoterParticipation>
         <TotalReceivedBallots>147749</TotalReceivedBallots>
         <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
         <CountOfAccountedBallots>145631</CountOfAccountedBallots>

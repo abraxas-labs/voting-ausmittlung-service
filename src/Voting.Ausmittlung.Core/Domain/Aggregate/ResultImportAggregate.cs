@@ -49,7 +49,11 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
 
     public bool Completed { get; private set; }
 
-    internal void Start(string fileName, Guid contestId, string echMessageId)
+    internal void Start(
+        string fileName,
+        Guid contestId,
+        string echMessageId,
+        IEnumerable<IgnoredImportCountingCircle> ignoredImportCountingCircles)
     {
         EnsureNotStarted();
         EnsureHasNoSuccessor();
@@ -63,6 +67,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 FileName = fileName,
                 ImportId = Id.ToString(),
                 EchMessageId = echMessageId,
+                IgnoredCountingCircles = { _mapper.Map<IEnumerable<ImportIgnoredCountingCircleEventData>>(ignoredImportCountingCircles) },
             },
             new EventSignatureBusinessDomainData(contestId));
     }

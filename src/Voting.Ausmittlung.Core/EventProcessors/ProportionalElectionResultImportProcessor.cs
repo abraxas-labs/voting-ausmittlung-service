@@ -30,20 +30,21 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
         var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
         var result = await _proportionalElectionResultRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.ListResults)
-                         .ThenInclude(x => x.CandidateResults)
-                         .ThenInclude(x => x.VoteSources)
-                         .Include(x => x.UnmodifiedListResults)
-                         .FirstOrDefaultAsync(x =>
-                             x.CountingCircle.BasisCountingCircleId == countingCircleId && x.ProportionalElectionId == electionId)
-                     ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), new { countingCircleId, electionId });
+            .AsSplitQuery()
+            .Include(x => x.ListResults)
+            .ThenInclude(x => x.CandidateResults)
+            .ThenInclude(x => x.VoteSources)
+            .Include(x => x.UnmodifiedListResults)
+            .FirstOrDefaultAsync(x => x.CountingCircle.BasisCountingCircleId == countingCircleId && x.ProportionalElectionId == electionId)
+            ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), new { countingCircleId, electionId });
         result.EVotingSubTotal.TotalCountOfUnmodifiedLists = eventData.CountOfUnmodifiedLists;
         result.EVotingSubTotal.TotalCountOfModifiedLists = eventData.CountOfModifiedLists;
         result.EVotingSubTotal.TotalCountOfListsWithoutParty = eventData.CountOfListsWithoutParty;
         result.EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = eventData.CountOfBlankRowsOnListsWithoutParty;
         result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
-        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters;
+        result.CountOfVoters.EVotingBlankBallots = eventData.BlankBallotCount;
+        result.CountOfVoters.EVotingInvalidBallots = eventData.InvalidBallotCount;
+        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount - eventData.InvalidBallotCount;
         result.UpdateVoterParticipation();
 
         ProcessCandidates(result, eventData.CandidateResults);

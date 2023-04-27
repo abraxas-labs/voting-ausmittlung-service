@@ -1,0 +1,19 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "my-user-99",
+      "Username": "",
+      "FirstName": "",
+      "LastName": ""
+    },
+    "Tenant": {
+      "Id": "200200200200200200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186"
+}

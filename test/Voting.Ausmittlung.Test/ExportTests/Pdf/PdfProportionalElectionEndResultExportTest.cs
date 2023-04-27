@@ -3,48 +3,49 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest
 {
     public PdfProportionalElectionEndResultExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => CreateHttpClient(
-        tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
+    protected override ExportService.ExportServiceClient TestClient => CreateService(
+        tenantId: SecureConnectTestDefaults.MockedTenantStGallen.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
     protected override string NewRequestExpectedFileName => "Proporz_FormularC_Listenergebnisse_Nationalratswahl de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults.Key;
 
     protected override Task SeedData()
     {
         return ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
     }
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults.Key,
-                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection))
+                    .ToString(),
             },
         };
     }

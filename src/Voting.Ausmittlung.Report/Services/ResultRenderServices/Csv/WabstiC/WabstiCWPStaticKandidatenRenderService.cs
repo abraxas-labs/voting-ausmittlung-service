@@ -54,8 +54,8 @@ public class WabstiCWPStaticKandidatenRenderService : IRendererService
                 Sex = x.Sex,
                 Title = x.Title,
                 BirthYear = x.DateOfBirth.Year,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
+                FirstName = x.PoliticalFirstName,
+                LastName = x.PoliticalLastName,
                 CandidateTranslations = x.Translations,
                 ListTranslations = x.ProportionalElectionList.Translations,
                 ElectionUnionIds = x.ProportionalElectionList.ProportionalElection.ProportionalElectionUnionEntries

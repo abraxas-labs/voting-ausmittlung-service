@@ -17,4 +17,11 @@
     <ProjectReference Include="..\Voting.Ausmittlung.EventSignature\Voting.Ausmittlung.EventSignature.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

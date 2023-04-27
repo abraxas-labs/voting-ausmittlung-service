@@ -67,6 +67,7 @@
               "VoterParticipation": 0.0,
               "EVotingReceivedBallots": 0,
               "EVotingInvalidBallots": 0,
+              "EVotingBlankBallots": 0,
               "EVotingAccountedBallots": 0,
               "ConventionalReceivedBallots": null,
               "ConventionalInvalidBallots": null,
@@ -75,7 +76,8 @@
               "TotalReceivedBallots": 0,
               "TotalAccountedBallots": 0,
               "TotalUnaccountedBallots": 0,
-              "TotalInvalidBallots": 0
+              "TotalInvalidBallots": 0,
+              "TotalBlankBallots": 0
             },
             "QuestionResults": [],
             "TieBreakQuestionResults": [],
@@ -95,6 +97,7 @@
         "State": 1,
         "SubmissionDoneTimestamp": null,
         "AuditedTentativelyTimestamp": null,
+        "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -153,6 +156,7 @@
           "VoterParticipation": 0.0,
           "EVotingReceivedBallots": 0,
           "EVotingInvalidBallots": 0,
+          "EVotingBlankBallots": 0,
           "EVotingAccountedBallots": 0,
           "ConventionalReceivedBallots": null,
           "ConventionalInvalidBallots": null,
@@ -161,7 +165,8 @@
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
           "TotalUnaccountedBallots": 0,
-          "TotalInvalidBallots": 0
+          "TotalInvalidBallots": 0,
+          "TotalBlankBallots": 0
         },
         "CountOfBundlesNotReviewedOrDeleted": 0,
         "AllBundlesReviewedOrDeleted": true,
@@ -170,6 +175,7 @@
         "State": 1,
         "SubmissionDoneTimestamp": null,
         "AuditedTentativelyTimestamp": null,
+        "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -218,6 +224,7 @@
           "VoterParticipation": 0.0,
           "EVotingReceivedBallots": 0,
           "EVotingInvalidBallots": 0,
+          "EVotingBlankBallots": 0,
           "EVotingAccountedBallots": 0,
           "ConventionalReceivedBallots": null,
           "ConventionalInvalidBallots": null,
@@ -226,7 +233,8 @@
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
           "TotalUnaccountedBallots": 0,
-          "TotalInvalidBallots": 0
+          "TotalInvalidBallots": 0,
+          "TotalBlankBallots": 0
         },
         "CountOfBundlesNotReviewedOrDeleted": 0,
         "AllBundlesReviewedOrDeleted": true,
@@ -235,6 +243,7 @@
         "State": 1,
         "SubmissionDoneTimestamp": null,
         "AuditedTentativelyTimestamp": null,
+        "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       }

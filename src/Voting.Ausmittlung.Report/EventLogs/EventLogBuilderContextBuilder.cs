@@ -27,7 +27,7 @@ public class EventLogBuilderContextBuilder
         _logger = logger;
     }
 
-    public async Task<EventLogBuilderContext> BuildContext(Guid contestId, IEnumerable<Guid> politicalBusinessIds)
+    public async Task<EventLogBuilderContext> BuildContext(Guid contestId, IEnumerable<Guid> politicalBusinessIds, IEnumerable<Guid> countingCircleIds)
     {
         _logger.LogInformation("EventLogs context build for contest {ContestId} started", contestId);
 
@@ -38,6 +38,7 @@ public class EventLogBuilderContextBuilder
             contestId,
             testingPhaseEnded,
             politicalBusinessIds,
+            countingCircleIds,
             contestEventSignatureAggregate,
             startPosition,
             createdTimestamp,

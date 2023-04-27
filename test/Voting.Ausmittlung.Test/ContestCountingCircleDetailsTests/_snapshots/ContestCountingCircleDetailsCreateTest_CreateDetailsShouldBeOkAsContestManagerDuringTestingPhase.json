@@ -1,0 +1,114 @@
+{
+  "create": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "999999999999999999",
+        "Name": "Bund"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "Id": "d2b1595b-4caa-5ba2-8161-4fb40c3f43ec",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 10000,
+      "SubTotalInfo": [
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 6000
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 4000
+        }
+      ]
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 10000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      }
+    ]
+  },
+  "update": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "999999999999999999",
+        "Name": "Bund"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "Id": "d2b1595b-4caa-5ba2-8161-4fb40c3f43ec",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 10000,
+      "SubTotalInfo": [
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 6000
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 4000
+        }
+      ]
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 10000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 4000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      }
+    ]
+  }
+}

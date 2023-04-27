@@ -63,51 +63,67 @@ public class PermissionService
     public string TenantId => _auth.Tenant.Id;
 
     /// <summary>
-    /// Checks if the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
+    /// Checks if the current tenant is the contest manager (meaning the current tenant is the authority of the domain of influence of the contest)
+    /// and contest is in testing phase
+    /// or the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
     /// </summary>
     /// <param name="basisCountingCircleId">The basis counting circle ID (NOT the counting circle ID!).</param>
     /// <param name="contestId">The contest id to check.</param>
-    /// <exception cref="ForbiddenException">Thrown when the counting circle does not belong to the current tenant.</exception>
+    /// <exception cref="ForbiddenException">Thrown when the current tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to the current tenant.</exception>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public async Task EnsureHasPermissionsOnCountingCircleWithBasisId(Guid basisCountingCircleId, Guid contestId)
+    public async Task EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(Guid basisCountingCircleId, Guid contestId)
     {
         var tenantId = _auth.Tenant.Id;
+        var isContestManagerAndInTestingPhase = await _contestRepo.Query()
+            .AnyAsync(x => x.Id == contestId && x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id && x.State == ContestState.TestingPhase);
 
-        if (!await _countingCircleRepo.Query()
-            .AnyAsync(countingCircle => countingCircle.BasisCountingCircleId == basisCountingCircleId
-                && countingCircle.SnapshotContestId == contestId
-                && countingCircle.ResponsibleAuthority.SecureConnectId == tenantId))
+        if (!isContestManagerAndInTestingPhase && !await _countingCircleRepo.Query()
+                .AnyAsync(countingCircle => countingCircle.BasisCountingCircleId == basisCountingCircleId
+                                            && countingCircle.SnapshotContestId == contestId
+                                            && countingCircle.ResponsibleAuthority.SecureConnectId == tenantId))
         {
-            throw new ForbiddenException("Invalid counting circle, does not belong to this tenant");
+            throw new ForbiddenException("This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
         }
     }
 
     /// <summary>
-    /// Checks if the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
+    /// Checks if the current tenant is the contest manager (meaning the current tenant is the authority of the domain of influence of the contest)
+    /// and contest is in testing phase
+    /// or the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
     /// </summary>
     /// <param name="countingCircleId">The ID of the counting circle (ID of the snapshot counting circle).</param>
-    /// <exception cref="ForbiddenException">Thrown when the counting circle does not belong to the current tenant.</exception>
+    /// <param name="contestId">The contest id to check.</param>
+    /// <exception cref="ForbiddenException">Thrown when the current tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to the current tenant.</exception>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public async Task EnsureHasPermissionsOnCountingCircle(Guid countingCircleId)
+    public async Task EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(Guid countingCircleId, Guid contestId)
     {
         var tenantId = _auth.Tenant.Id;
+        var isContestManagerAndInTestingPhase = await _contestRepo.Query()
+            .AnyAsync(x => x.Id == contestId && x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id && x.State == ContestState.TestingPhase);
 
-        if (!await _countingCircleRepo.Query()
-            .AnyAsync(countingCircle => countingCircle.Id == countingCircleId && countingCircle.ResponsibleAuthority.SecureConnectId == tenantId))
+        if (!isContestManagerAndInTestingPhase && !await _countingCircleRepo.Query()
+                .AnyAsync(countingCircle => countingCircle.Id == countingCircleId && countingCircle.ResponsibleAuthority.SecureConnectId == tenantId))
         {
-            throw new ForbiddenException("Invalid counting circle, does not belong to this tenant");
+            throw new ForbiddenException("This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
         }
     }
 
     /// <summary>
-    /// Checks if the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
+    /// Checks if the current tenant is the contest manager (meaning the current tenant is the authority of the domain of influence of the contest)
+    /// and contest is in testing phase
+    /// or the counting circle belongs to the current tenant (meaning the current tenant is the responsible authority of the counting circle).
     /// </summary>
     /// <param name="countingCircle">The counting circle.</param>
-    public void EnsureHasPermissionsOnCountingCircle(CountingCircle countingCircle)
+    /// <param name="contest">The contest.</param>
+    /// <exception cref="ForbiddenException">Thrown when the current tenant is not the contest manager and the counting circle does not belong to the current tenant.</exception>
+    public void EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(CountingCircle countingCircle, Contest contest)
     {
-        if (countingCircle.ResponsibleAuthority.SecureConnectId != _auth.Tenant.Id)
+        var tenantId = _auth.Tenant.Id;
+        var isContestManagerAndInTestingPhase = contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded;
+
+        if (!isContestManagerAndInTestingPhase && countingCircle.ResponsibleAuthority.SecureConnectId != tenantId)
         {
-            throw new ForbiddenException("Invalid counting circle, does not belong to this tenant");
+            throw new ForbiddenException("This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
         }
     }
 

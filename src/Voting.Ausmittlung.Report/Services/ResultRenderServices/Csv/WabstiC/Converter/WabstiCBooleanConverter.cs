@@ -12,8 +12,8 @@ public class WabstiCBooleanConverter : TypeConverter
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
         => value switch
         {
-            bool b when b => "1",
-            bool b when !b => "0",
+            true => "1",
+            false => "0",
             _ => string.Empty,
         };
 }

@@ -166,6 +166,7 @@ public class Startup
         }
 
         cfg.AddConsumer<MessageConsumer<ResultStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<MessageConsumer<ProtocolExportStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<VoteBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);

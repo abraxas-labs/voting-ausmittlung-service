@@ -324,6 +324,13 @@ public static class DomainOfInfluenceMockedData
         };
         yield return new DomainOfInfluenceCountingCircle
         {
+            Id = Guid.Parse("78ca5534-71a8-4fd5-988c-18efb686073b"),
+            DomainOfInfluenceId = Guid.Parse(IdBund),
+            CountingCircleId = CountingCircleMockedData.GuidStGallenHaggen,
+            Inherited = true,
+        };
+        yield return new DomainOfInfluenceCountingCircle
+        {
             Id = Guid.Parse("dbf7dea8-3739-4e15-9e67-37f2f2fd6f1f"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidStGallen,

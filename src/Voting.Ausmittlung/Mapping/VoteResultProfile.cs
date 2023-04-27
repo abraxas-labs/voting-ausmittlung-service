@@ -27,9 +27,13 @@ public class VoteResultProfile : Profile
         CreateMap<DataModels.TieBreakQuestionResultSubTotal, ProtoModels.TieBreakQuestionResultSubTotal>();
         CreateMap<DataModels.TieBreakQuestionResultNullableSubTotal, ProtoModels.TieBreakQuestionResultNullableSubTotal>();
 
+        CreateMap<DataModels.VoteEndResultVotingCardDetail, ProtoModels.VotingCardResultDetail>();
+        CreateMap<DataModels.VoteEndResultCountOfVotersInformationSubTotal, ProtoModels.CountOfVotersInformationSubTotal>();
+        CreateMap<DataModels.VoteEndResult, ProtoModels.CountOfVotersInformation>()
+            .ForMember(dst => dst.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
         CreateMap<DataModels.VoteEndResult, ProtoModels.VoteEndResult>()
             .ForMember(dst => dst.Contest, opts => opts.MapFrom(src => src.Vote.Contest))
-            .ForMember(dst => dst.DomainOfInfluenceDetails, opts => opts.MapFrom(src => src.Vote.DomainOfInfluence.Details));
+            .ForMember(dst => dst.CountOfVotersInformation, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.BallotEndResult, ProtoModels.BallotEndResult>();
         CreateMap<DataModels.BallotQuestionEndResult, ProtoModels.BallotQuestionEndResult>();
         CreateMap<DataModels.TieBreakQuestionEndResult, ProtoModels.TieBreakQuestionEndResult>();

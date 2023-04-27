@@ -28,8 +28,7 @@ using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleContactPersonTests;
 
-public class ContestCountingCircleContactPersonUpdateTest
-    : BaseTest<ContestCountingCircleContactPersonService.ContestCountingCircleContactPersonServiceClient>
+public class ContestCountingCircleContactPersonUpdateTest : ContestCountingCircleContactPersonBaseTest
 {
     private Guid _contactPersonId;
 
@@ -123,6 +122,23 @@ public class ContestCountingCircleContactPersonUpdateTest
             await ErfassungElectionAdminClient.UpdateAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ContestCountingCircleContactPersonUpdated>();
         });
+    }
+
+    [Fact]
+    public async Task UpdateContactPersonShouldBeOkAsContestManagerDuringTestingPhase()
+    {
+        await BundErfassungElectionAdminClient.UpdateAsync(NewValidRequest());
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleContactPersonUpdated>();
+        eventData.MatchSnapshot(x => x.ContestCountingCircleContactPersonId!);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.UpdateAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
     }
 
     [Fact]

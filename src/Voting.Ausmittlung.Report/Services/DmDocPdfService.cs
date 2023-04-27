@@ -1,6 +1,8 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Voting.Lib.DmDoc;
 
@@ -15,6 +17,12 @@ public class DmDocPdfService : IPdfService
         _dmDoc = dmDoc;
     }
 
-    public Task<byte[]> Render<T>(string templateName, T data)
+    public Task<Stream> Render<T>(string templateName, T data)
         => _dmDoc.FinishAsPdf(templateName, data);
+
+    public Task StartPdfGeneration<T>(string templateName, T data, string webhookUrl)
+        => _dmDoc.StartAsyncPdfGeneration(templateName, data, webhookUrl);
+
+    public Task<Stream> GetPdf(int printJobId, CancellationToken ct = default)
+        => _dmDoc.GetPdfForPrintJob(printJobId, ct);
 }

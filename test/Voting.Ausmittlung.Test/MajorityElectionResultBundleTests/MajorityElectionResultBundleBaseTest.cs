@@ -35,6 +35,8 @@ public abstract class MajorityElectionResultBundleBaseTest : MajorityElectionRes
 
     protected MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient BundleErfassungCreatorClientSecondUser { get; private set; } = null!; // initialized during InitializeAsync
 
+    protected MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient BundleErfassungElectionAdminClientBund { get; private set; } = null!; // initialized during InitializeAsync
+
     protected int LatestBallotNumber { get; private set; }
 
     public override async Task InitializeAsync()
@@ -44,6 +46,7 @@ public abstract class MajorityElectionResultBundleBaseTest : MajorityElectionRes
         BundleErfassungCreatorClient = new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungCreator));
         BundleErfassungElectionAdminClientSecondUser = new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         BundleErfassungCreatorClientSecondUser = new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungCreator));
+        BundleErfassungElectionAdminClientBund = new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantBund.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
     }

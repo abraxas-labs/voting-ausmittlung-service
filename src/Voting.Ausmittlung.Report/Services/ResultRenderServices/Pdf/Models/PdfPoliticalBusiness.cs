@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
-public abstract class PdfPoliticalBusiness
+public class PdfPoliticalBusiness
 {
     public string PoliticalBusinessNumber { get; set; } = string.Empty;
 

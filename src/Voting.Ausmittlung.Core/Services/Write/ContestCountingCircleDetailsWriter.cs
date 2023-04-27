@@ -56,7 +56,7 @@ public class ContestCountingCircleDetailsWriter
     public async Task CreateOrUpdate(ContestCountingCircleDetails details)
     {
         _permissionService.EnsureErfassungElectionAdmin();
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(details.CountingCircleId, details.ContestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(details.CountingCircleId, details.ContestId);
         var (_, testingPhaseEnded) = await _contestService.EnsureNotLocked(details.ContestId);
         await ValidateSwissAbroadsDetailsOnlyIfAllowed(details.ContestId, details.CountingCircleId, details);
 

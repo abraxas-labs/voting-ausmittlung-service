@@ -3,42 +3,41 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBaseTest<GenerateResultExportsRequest>
+public class PdfProportionalElectionEndResultListUnionsExportTest : PdfExportBaseTest
 {
     public PdfProportionalElectionEndResultListUnionsExportTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
-
     protected override string NewRequestExpectedFileName => "Proporz_Formular5_Wahlprotokoll_Nationalratswahl de_20200110.pdf";
 
-    protected override string ContestId => ContestMockedData.IdBundesurnengang;
+    protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.EndResultListUnions.Key;
 
     protected override Task SeedData() => ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
 
-    protected override GenerateResultExportsRequest NewRequest()
+    protected override StartProtocolExportsRequest NewRequest()
     {
-        return new GenerateResultExportsRequest
+        return new StartProtocolExportsRequest
         {
-            ContestId = Guid.Parse(ContestId),
-            ResultExportRequests =
+            ContestId = ContestMockedData.IdBundesurnengang,
+            ExportTemplateIds =
             {
-                new GenerateResultExportRequest
-                {
-                    Key = AusmittlungPdfProportionalElectionTemplates.EndResultListUnions.Key,
-                    PoliticalBusinessIds = { Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection) },
-                },
+                AusmittlungUuidV5.BuildExportTemplate(
+                    TemplateKey,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection))
+                    .ToString(),
             },
         };
     }

@@ -35,6 +35,25 @@ public class MajorityElectionResultPrepareSubmissionFinishedTest : MajorityElect
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        var response = await BundErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
+        response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowNotFound()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);

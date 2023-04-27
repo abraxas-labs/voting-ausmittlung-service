@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -50,17 +51,13 @@ public class XmlEch0222VoteTest : XmlExportBaseTest<Delivery>
         return new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungXmlVoteTemplates.Ech0222.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungXmlVoteTemplates.Ech0222.Key,
+                    SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    politicalBusinessId: Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen)),
+            },
         };
     }
 

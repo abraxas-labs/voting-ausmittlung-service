@@ -14,7 +14,7 @@ public class DateTimeConverter : TypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {
-        if (!(value is DateTime dt))
+        if (value is not DateTime dt)
         {
             return string.Empty;
         }

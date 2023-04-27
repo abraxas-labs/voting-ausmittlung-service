@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Csv;
@@ -18,7 +20,7 @@ public class CsvProportionalElectionCandidatesNumericalExportTest : CsvExportBas
     {
     }
 
-    public override HttpClient TestClient => MonitoringElectionAdminClient;
+    public override HttpClient TestClient => ErfassungElectionAdminClient;
 
     protected override string NewRequestExpectedFileName => "Numerisches Kandidierendenverzeichnis.csv";
 
@@ -32,17 +34,15 @@ public class CsvProportionalElectionCandidatesNumericalExportTest : CsvExportBas
         return new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungCsvProportionalElectionTemplates.CandidatesNumerical.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund),
-                        },
-                    },
-                },
+            CountingCircleId = CountingCircleMockedData.GuidStGallen,
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungCsvProportionalElectionTemplates.CandidatesNumerical.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund),
+                    countingCircleId: CountingCircleMockedData.GuidStGallen),
+            },
         };
     }
 

@@ -1,0 +1,19 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "my-user-99",
+      "Username": "",
+      "FirstName": "",
+      "LastName": ""
+    },
+    "Tenant": {
+      "Id": "999999999999999999",
+      "Name": "Bund"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "BundleId": "6c73b736-cc42-4325-a8be-7e5233f3d54e"
+}

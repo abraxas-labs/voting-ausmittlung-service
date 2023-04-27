@@ -211,6 +211,29 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task ShouldReturnIsValidAsContestManagerDuringTestingPhase()
+    {
+        var result = await StGallenErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest());
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+
+        result.ValidationResults.Any(r => r.Validation
+                is SharedProto.Validation.VoteQnCountOfAnswerNotNull
+                or SharedProto.Validation.VoteTieBreakQnCountOfAnswerNotNull)
+            .Should()
+            .BeFalse();
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(

@@ -18,14 +18,14 @@
         }
       },
       "RequestId": "",
-      "Key": "vote_overall_result",
+      "Key": "WM_Kandidaten",
       "PoliticalBusinessIds": [
-        "7550e7c2-27e3-4602-a928-6f9c2afd2289"
+        "7566c420-3774-4c57-9b31-9702fac37543"
       ],
       "CountingCircleId": "",
       "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "EchMessageId": "",
-      "DomainOfInfluenceType": 1
+      "DomainOfInfluenceType": 0
     },
     {
       "EventInfo": {
@@ -45,7 +45,7 @@
         }
       },
       "RequestId": "",
-      "Key": "proportional_election_candidates_numerical",
+      "Key": "WP_Wahl",
       "PoliticalBusinessIds": [
         "053d1197-ddb2-4906-8c90-b9baa45a40fb"
       ],

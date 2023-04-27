@@ -40,28 +40,28 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
         initEndResult.MatchSnapshot("init");
 
         var countByCandidateIds = new List<(string, int)>
-            {
-                (MajorityElectionEndResultMockedData.CandidateId1, 200),
-                (MajorityElectionEndResultMockedData.CandidateId2, 150),
-                (MajorityElectionEndResultMockedData.CandidateId3, 100),
-                (MajorityElectionEndResultMockedData.CandidateId4, 100),
-                (MajorityElectionEndResultMockedData.CandidateId5, 80),
-                (MajorityElectionEndResultMockedData.CandidateId6, 70),
-                (MajorityElectionEndResultMockedData.CandidateId7, 60),
-                (MajorityElectionEndResultMockedData.CandidateId8, 60),
-                (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
-            };
+        {
+            (MajorityElectionEndResultMockedData.CandidateId1, 200),
+            (MajorityElectionEndResultMockedData.CandidateId2, 150),
+            (MajorityElectionEndResultMockedData.CandidateId3, 100),
+            (MajorityElectionEndResultMockedData.CandidateId4, 100),
+            (MajorityElectionEndResultMockedData.CandidateId5, 80),
+            (MajorityElectionEndResultMockedData.CandidateId6, 70),
+            (MajorityElectionEndResultMockedData.CandidateId7, 60),
+            (MajorityElectionEndResultMockedData.CandidateId8, 60),
+            (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
+        };
         var countBySecondaryCandidateIds = new List<(string, string, int)>
-            {
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
-            };
+        {
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
+        };
         var countOfVoters = new PoliticalBusinessCountOfVotersEventData
         {
             ConventionalReceivedBallots = 300,
@@ -97,28 +97,28 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
         initEndResult.MatchSnapshot("init");
 
         var countByCandidateIds = new List<(string, int)>
-            {
-                (MajorityElectionEndResultMockedData.CandidateId1, 200),
-                (MajorityElectionEndResultMockedData.CandidateId2, 150),
-                (MajorityElectionEndResultMockedData.CandidateId3, 100),
-                (MajorityElectionEndResultMockedData.CandidateId4, 100),
-                (MajorityElectionEndResultMockedData.CandidateId5, 80),
-                (MajorityElectionEndResultMockedData.CandidateId6, 70),
-                (MajorityElectionEndResultMockedData.CandidateId7, 60),
-                (MajorityElectionEndResultMockedData.CandidateId8, 60),
-                (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
-            };
+        {
+            (MajorityElectionEndResultMockedData.CandidateId1, 200),
+            (MajorityElectionEndResultMockedData.CandidateId2, 150),
+            (MajorityElectionEndResultMockedData.CandidateId3, 100),
+            (MajorityElectionEndResultMockedData.CandidateId4, 100),
+            (MajorityElectionEndResultMockedData.CandidateId5, 80),
+            (MajorityElectionEndResultMockedData.CandidateId6, 70),
+            (MajorityElectionEndResultMockedData.CandidateId7, 60),
+            (MajorityElectionEndResultMockedData.CandidateId8, 60),
+            (MajorityElectionEndResultMockedData.CandidateId9InBallotGroup, 50),
+        };
         var countBySecondaryCandidateIds = new List<(string, string, int)>
-            {
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
-                (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
-            };
+        {
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId1, 200),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId2, 100),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId3, 100),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId, MajorityElectionEndResultMockedData.SecondaryCandidateId4InBallotGroup, 80),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId1, 80),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId2, 70),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId3, 60),
+            (MajorityElectionEndResultMockedData.SecondaryElectionId2, MajorityElectionEndResultMockedData.Secondary2CandidateId4, 55),
+        };
         var countOfVoters = new PoliticalBusinessCountOfVotersEventData
         {
             ConventionalReceivedBallots = 300,

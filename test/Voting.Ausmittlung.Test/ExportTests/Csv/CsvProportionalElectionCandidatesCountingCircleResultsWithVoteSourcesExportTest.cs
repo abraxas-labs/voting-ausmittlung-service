@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -37,17 +38,13 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
         return new GenerateResultExportsRequest
         {
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            ResultExportRequests =
-                {
-                    new GenerateResultExportRequest
-                    {
-                        Key = AusmittlungCsvProportionalElectionTemplates.CandidateCountingCircleResultsWithVoteSources.Key,
-                        PoliticalBusinessIds =
-                        {
-                            Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId),
-                        },
-                    },
-                },
+            ExportTemplateIds = new List<Guid>
+            {
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungCsvProportionalElectionTemplates.CandidateCountingCircleResultsWithVoteSources.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId)),
+            },
         };
     }
 

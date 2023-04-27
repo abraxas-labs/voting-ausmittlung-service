@@ -52,6 +52,7 @@ public class TestStartup : Startup
         services.AddVotingLibMessagingMocks(cfg =>
         {
             cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ResultStateChanged>>();
+            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ProtocolExportStateChanged>>();
             cfg.AddConsumerAndConsumerTestHarness<MajorityElectionBundleChangedMessageConsumer>();
             cfg.AddConsumerAndConsumerTestHarness<ProportionalElectionBundleChangedMessageConsumer>();
             cfg.AddConsumerAndConsumerTestHarness<VoteBundleChangedMessageConsumer>();

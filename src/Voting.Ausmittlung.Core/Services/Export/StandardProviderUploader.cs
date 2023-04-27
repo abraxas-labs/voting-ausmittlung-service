@@ -59,7 +59,7 @@ public class StandardProviderUploader : IExportProviderUploader
                     e,
                     "could not save export {FileName} {TemplateKey} {ExportId}",
                     file.Filename,
-                    file.RenderContext.Template.Key,
+                    reportContext.Template.Key,
                     export.ExportConfigurationId);
             }
         }

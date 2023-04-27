@@ -8,12 +8,25 @@ using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElectionEndResult : PoliticalBusinessEndResult, IHasSubTotals<MajorityElectionResultSubTotal>, IMajorityElectionResultSubTotal<int>
+public class MajorityElectionEndResult : PoliticalBusinessEndResultBase,
+    IEndResultDetail<MajorityElectionEndResultCountOfVotersInformationSubTotal, MajorityElectionEndResultVotingCardDetail>,
+    IHasSubTotals<MajorityElectionResultSubTotal>,
+    IMajorityElectionResultSubTotal<int>
 {
     public Guid MajorityElectionId { get; set; }
 
     public MajorityElection MajorityElection { get; set; } = null!;
 
+    public ICollection<MajorityElectionEndResultCountOfVotersInformationSubTotal> CountOfVotersInformationSubTotals { get; set; }
+        = new HashSet<MajorityElectionEndResultCountOfVotersInformationSubTotal>();
+
+    public ICollection<MajorityElectionEndResultVotingCardDetail> VotingCards { get; set; }
+        = new HashSet<MajorityElectionEndResultVotingCardDetail>();
+
+    /// <summary>
+    /// Gets or sets the count of voters, meaning the persons who actually voted in this election.
+    /// In German: Wahlzettel.
+    /// </summary>
     public PoliticalBusinessCountOfVoters CountOfVoters { get; set; } = new();
 
     public MajorityElectionEndResultCalculation Calculation { get; set; } = new();

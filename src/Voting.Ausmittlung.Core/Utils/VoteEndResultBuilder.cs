@@ -4,25 +4,33 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
 public class VoteEndResultBuilder
 {
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly VoteEndResultRepo _endResultRepo;
     private readonly VoteResultRepo _resultRepo;
     private readonly DataContext _dbContext;
 
-    public VoteEndResultBuilder(VoteEndResultRepo endResultRepo, VoteResultRepo resultRepo, DataContext dbContext)
+    public VoteEndResultBuilder(
+        VoteEndResultRepo endResultRepo,
+        VoteResultRepo resultRepo,
+        DataContext dbContext,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
     {
         _endResultRepo = endResultRepo;
         _resultRepo = resultRepo;
         _dbContext = dbContext;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -47,14 +55,30 @@ public class VoteEndResultBuilder
         var deltaFactor = removeResults ? -1 : 1;
 
         var voteResult = await _resultRepo.GetVoteResultWithRelations(voteResultId)
-                         ?? throw new EntityNotFoundException(nameof(VoteResult), voteResultId);
+            ?? throw new EntityNotFoundException(nameof(VoteResult), voteResultId);
+
+        var countingCircleDetails = voteResult.CountingCircle.ContestDetails.FirstOrDefault()
+            ?? throw new EntityNotFoundException(nameof(ContestDetails), voteResultId);
 
         var voteEndResult = await _endResultRepo.GetByVoteIdAsTracked(voteResult.VoteId)
-                            ?? throw new EntityNotFoundException(nameof(VoteEndResult), voteResult.VoteId);
+            ?? throw new EntityNotFoundException(nameof(VoteEndResult), voteResult.VoteId);
+
+        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+                .AsTracking()
+                .FirstOrDefaultAsync(x => x.Id == voteResult.VoteId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), voteResult.VoteId);
 
         voteEndResult.CountOfDoneCountingCircles += deltaFactor;
-        voteEndResult.TotalCountOfVoters += voteResult.TotalCountOfVoters * deltaFactor;
         voteEndResult.Finalized = false;
+        simpleEndResult.EndResultFinalized = false;
+
+        EndResultContestDetailsUtils.AdjustEndResultContestDetails<
+            VoteEndResult,
+            VoteEndResultCountOfVotersInformationSubTotal,
+            VoteEndResultVotingCardDetail>(
+                voteEndResult,
+                countingCircleDetails,
+                deltaFactor);
 
         voteEndResult.BallotEndResults.MatchAndExec(
             b => b.BallotId,

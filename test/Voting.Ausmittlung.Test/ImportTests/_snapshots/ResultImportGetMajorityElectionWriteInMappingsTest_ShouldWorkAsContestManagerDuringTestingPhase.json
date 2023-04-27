@@ -1,0 +1,112 @@
+{
+  "ImportId": "",
+  "ElectionWriteInMappings": [
+    {
+      "Election": {
+        "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "BusinessType": 2,
+        "Title": "166: Mw Uzwil de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100100100100100100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "166",
+        "ShortDescription": "Mw Uzwil de"
+      },
+      "InvalidVotes": false,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Mueller",
+          "VoteCount": 2,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "vereinzelt",
+          "VoteCount": 2,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "hans müller",
+          "VoteCount": 1,
+          "Target": 0,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Muster",
+          "VoteCount": 1,
+          "Target": 0,
+          "CandidateId": ""
+        }
+      ]
+    },
+    {
+      "Election": {
+        "Id": "5ec8cf85-229a-4dc7-a601-1bb6980fee78",
+        "BusinessType": 4,
+        "Title": "n1: short de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+          "Name": "Uzwil",
+          "ShortName": "Uzwil",
+          "AuthorityName": "",
+          "SecureConnectId": "100100100100100100",
+          "Type": 5,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "CantonDefaults": {
+            "MajorityElectionInvalidVotes": false
+          }
+        },
+        "NumberOfMandates": 2,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "n1",
+        "ShortDescription": "short de"
+      },
+      "InvalidVotes": false,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans-Peter",
+          "VoteCount": 3,
+          "Target": 0,
+          "CandidateId": ""
+        }
+      ]
+    }
+  ]
+}

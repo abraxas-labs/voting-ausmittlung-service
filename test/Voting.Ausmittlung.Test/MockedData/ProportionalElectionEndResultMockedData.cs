@@ -71,7 +71,7 @@ public static class ProportionalElectionEndResultMockedData
         await runScoped(sp => sp.GetRequiredService<SimplePoliticalBusinessBuilder<ProportionalElection>>().Create(election));
 
         await runScoped(sp =>
-            sp.GetRequiredService<ProportionalElectionResultBuilder>().RebuildForElection(election.Id, Guid.Parse(DomainOfInfluenceMockedData.IdStGallen), false));
+            sp.GetRequiredService<ProportionalElectionResultBuilder>().RebuildForElection(election.Id, election.DomainOfInfluenceId, false));
 
         await runScoped(sp =>
             sp.GetRequiredService<ProportionalElectionEndResultInitializer>().RebuildForElection(election.Id, false));

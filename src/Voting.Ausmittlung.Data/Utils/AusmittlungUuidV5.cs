@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Data.Utils;
@@ -27,6 +28,8 @@ public static class AusmittlungUuidV5
     private static readonly Guid VotingAusmittlungDomainOfInfluenceSnapshotNamespace = Guid.Parse("afbfdc15-97dd-4777-bf83-c62b9cf44e0a");
     private static readonly Guid VotingAusmittlungPoliticalBusinessResultNamespace = Guid.Parse("d9400ff4-1cff-429a-bb9a-99243cdec279");
     private static readonly Guid VotingAusmittlungPoliticalBusinessEndResultNamespace = Guid.Parse("934e92fb-cc6b-4d8d-9d5c-5f0f8e561e46");
+    private static readonly Guid VotingAusmittlungProtocolExportNamespace = Guid.Parse("2995a75c-7795-4c1e-874a-4c133faf636e");
+    private static readonly Guid VotingAusmittlungExportTemplateNamespace = Guid.Parse("3d9fc696-281f-4af7-9320-c4ca129c2f90");
 
     public static Guid BuildContestCountingCircleDetails(Guid contestId, Guid basisCountingCircleId, bool testingPhaseEnded)
         => Create(VotingAusmittlungContestCountingCircleDetailsNamespace, testingPhaseEnded, contestId, basisCountingCircleId);
@@ -52,6 +55,29 @@ public static class AusmittlungUuidV5
     public static Guid BuildPoliticalBusinessEndResult(Guid politicalBusinessId, bool testingPhaseEnded)
         => Create(VotingAusmittlungPoliticalBusinessEndResultNamespace, testingPhaseEnded, politicalBusinessId);
 
+    public static Guid BuildExportTemplate(
+        string exportKey,
+        string tenantId,
+        Guid? countingCircleId = null,
+        Guid? politicalBusinessId = null,
+        Guid? politicalBusinessUnionId = null,
+        DomainOfInfluenceType domainOfInfluenceType = DomainOfInfluenceType.Unspecified)
+    {
+        return UuidV5.Create(
+            VotingAusmittlungExportTemplateNamespace,
+            string.Join(
+                VotingAusmittlungSeparator,
+                exportKey,
+                tenantId,
+                countingCircleId,
+                politicalBusinessId,
+                politicalBusinessUnionId,
+                (int)domainOfInfluenceType));
+    }
+
+    public static Guid BuildProtocolExport(Guid contestId, bool testingPhaseEnded, Guid exportTemplateId)
+        => Create(VotingAusmittlungProtocolExportNamespace, testingPhaseEnded, contestId, exportTemplateId);
+
     private static Guid Create(Guid ns, params Guid[] existingGuids)
     {
         return UuidV5.Create(
@@ -65,6 +91,6 @@ public static class AusmittlungUuidV5
     {
         return UuidV5.Create(
             ns,
-            string.Join(VotingAusmittlungSeparator, existingGuids) + VotingAusmittlungSeparator + testingPhaseEnded.ToString());
+            string.Join(VotingAusmittlungSeparator, existingGuids) + VotingAusmittlungSeparator + testingPhaseEnded);
     }
 }

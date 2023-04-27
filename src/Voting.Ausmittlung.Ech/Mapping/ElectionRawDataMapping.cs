@@ -13,21 +13,27 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class ElectionRawDataMapping
 {
-    public static EVotingElectionResult? ToEVotingElection(this ElectionRawDataType? electionRawData, Guid countingCircleBasisId)
+    public static EVotingElectionResult ToEVotingElection(
+        this IEnumerable<ElectionBallotRawData> ballotRawData,
+        string electionIdentification,
+        string countingCircleBasisId)
     {
-        if (electionRawData?.BallotRawData == null)
-        {
-            return null;
-        }
-
-        var electionId = GuidParser.Parse(electionRawData.ElectionIdentification);
-        var ballots = electionRawData.BallotRawData.Select(x => x.ToEVotingElectionBallot()).ToList();
+        var electionId = GuidParser.Parse(electionIdentification);
+        var ballots = ballotRawData
+            .Select(x => x.ToEVotingElectionBallot())
+            .ToList();
         return new EVotingElectionResult(electionId, countingCircleBasisId, ballots);
     }
 
     private static EVotingElectionBallot ToEVotingElectionBallot(this ElectionBallotRawData ballotRawData)
     {
-        var listId = GuidParser.ParseNullable(ballotRawData.ListRawData?.ListIdentification);
+        // The list ID may be an invalid GUID, such as "99" for the empty list
+        Guid? listId = null;
+        if (Guid.TryParse(ballotRawData.ListRawData?.ListIdentification, out var parsedListId))
+        {
+            listId = parsedListId;
+        }
+
         var unchanged = ballotRawData.IsUnchangedBallotSpecified && ballotRawData.IsUnchangedBallot;
         var positions =
             (IReadOnlyCollection<EVotingElectionBallotPosition>?)ballotRawData.BallotPosition?.Select(b => b.ToEVotingElectionBallotPosition()).ToList()

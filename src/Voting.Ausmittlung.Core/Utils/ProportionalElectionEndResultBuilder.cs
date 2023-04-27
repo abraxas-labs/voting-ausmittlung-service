@@ -20,6 +20,7 @@ public class ProportionalElectionEndResultBuilder
 {
     private readonly ProportionalElectionEndResultRepo _endResultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
+    private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly DataContext _dbContext;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly ILogger<ProportionalElectionEndResultBuilder> _logger;
@@ -29,13 +30,15 @@ public class ProportionalElectionEndResultBuilder
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
         DataContext dbContext,
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
-        ILogger<ProportionalElectionEndResultBuilder> logger)
+        ILogger<ProportionalElectionEndResultBuilder> logger,
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
     {
         _endResultRepo = endResultRepo;
         _resultRepo = resultRepo;
         _dbContext = dbContext;
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _logger = logger;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -61,21 +64,41 @@ public class ProportionalElectionEndResultBuilder
         var deltaFactor = removeResults ? -1 : 1;
 
         var result = await _resultRepo
-                         .Query()
-                         .AsSplitQuery()
-                         .Include(x => x.ListResults)
-                         .ThenInclude(x => x.CandidateResults)
-                         .ThenInclude(x => x.VoteSources)
-                         .FirstOrDefaultAsync(x => x.Id == resultId)
-                     ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), resultId);
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.VotingCards)
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.ListResults)
+            .ThenInclude(x => x.CandidateResults)
+            .ThenInclude(x => x.VoteSources)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), resultId);
+
+        var countingCircleDetails = result.CountingCircle.ContestDetails.FirstOrDefault()
+            ?? throw new EntityNotFoundException(nameof(ContestDetails), resultId);
 
         var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(result.ProportionalElectionId)
-                        ?? throw new EntityNotFoundException(nameof(ProportionalElectionEndResult), resultId);
+            ?? throw new EntityNotFoundException(nameof(ProportionalElectionEndResult), resultId);
+
+        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == endResult.ProportionalElectionId)
+            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.ProportionalElectionId);
 
         endResult.CountOfDoneCountingCircles += deltaFactor;
-        endResult.TotalCountOfVoters += result.TotalCountOfVoters * deltaFactor;
         endResult.Finalized = false;
         endResult.ManualEndResultRequired = false;
+        simpleEndResult.EndResultFinalized = false;
+
+        EndResultContestDetailsUtils.AdjustEndResultContestDetails<
+            ProportionalElectionEndResult,
+            ProportionalElectionEndResultCountOfVotersInformationSubTotal,
+            ProportionalElectionEndResultVotingCardDetail>(
+                endResult,
+                countingCircleDetails,
+                deltaFactor);
 
         PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
             endResult.CountOfVoters,

@@ -11,7 +11,7 @@ public class EVotingImport
     public EVotingImport(
         string echMessageId,
         Guid contestId,
-        IReadOnlyCollection<EVotingPoliticalBusinessResult> results)
+        List<EVotingPoliticalBusinessResult> results)
     {
         EchMessageId = echMessageId;
         ContestId = contestId;
@@ -22,5 +22,5 @@ public class EVotingImport
 
     public Guid ContestId { get; }
 
-    public IReadOnlyCollection<EVotingPoliticalBusinessResult> PoliticalBusinessResults { get; set; }
+    public List<EVotingPoliticalBusinessResult> PoliticalBusinessResults { get; set; }
 }

@@ -20,19 +20,16 @@ public class ProportionalElectionEndResultReader
 {
     private readonly IDbRepository<DataContext, ProportionalElectionEndResult> _endResultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionListEndResult> _listEndResultRepo;
-    private readonly IDbRepository<DataContext, ContestDomainOfInfluenceDetails> _contestDomainOfInfluenceDetailsRepo;
     private readonly PermissionService _permissionService;
 
     public ProportionalElectionEndResultReader(
         IDbRepository<DataContext, ProportionalElectionEndResult> endResultRepo,
         IDbRepository<DataContext, ProportionalElectionListEndResult> listEndResultRepo,
-        IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo,
         PermissionService permissionService)
     {
         _endResultRepo = endResultRepo;
         _listEndResultRepo = listEndResultRepo;
         _permissionService = permissionService;
-        _contestDomainOfInfluenceDetailsRepo = contestDomainOfInfluenceDetailsRepo;
     }
 
     public async Task<ProportionalElectionEndResult> GetEndResult(Guid proportionalElectionId)
@@ -45,6 +42,8 @@ public class ProportionalElectionEndResultReader
             .Include(x => x.ProportionalElection.DomainOfInfluence)
             .Include(x => x.ProportionalElection.Contest.DomainOfInfluence)
             .Include(x => x.ProportionalElection.Contest.Translations)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards)
             .Include(x => x.ListEndResults)
                 .ThenInclude(x => x.CandidateEndResults)
                     .ThenInclude(x => x.Candidate.Translations)
@@ -57,6 +56,7 @@ public class ProportionalElectionEndResultReader
             .FirstOrDefaultAsync(x => x.ProportionalElectionId == proportionalElectionId && x.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId)
             ?? throw new EntityNotFoundException(proportionalElectionId);
 
+        proportionalElectionEndResult.OrderVotingCardsAndSubTotals();
         proportionalElectionEndResult.ListEndResults = proportionalElectionEndResult.ListEndResults
             .OrderBy(x => x.List.Position)
             .ToList();
@@ -76,12 +76,6 @@ public class ProportionalElectionEndResultReader
             }
         }
 
-        proportionalElectionEndResult.ProportionalElection.DomainOfInfluence.Details = await _contestDomainOfInfluenceDetailsRepo.Query()
-            .AsSplitQuery()
-            .Include(d => d.CountOfVotersInformationSubTotals)
-            .Include(d => d.VotingCards.Where(x => x.DomainOfInfluenceType == proportionalElectionEndResult.ProportionalElection.DomainOfInfluence.Type))
-            .FirstOrDefaultAsync(x => x.DomainOfInfluenceId == proportionalElectionEndResult.ProportionalElection.DomainOfInfluenceId);
-        proportionalElectionEndResult.ProportionalElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
         return proportionalElectionEndResult;
     }
 

@@ -19,7 +19,7 @@ namespace Voting.Ausmittlung.Core.Services.Write;
 
 public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
     where TAggregate : BaseEventSourcingAggregate, IPoliticalBusinessEndResultAggregate
-    where TEndResult : DataModels.PoliticalBusinessEndResult
+    where TEndResult : DataModels.PoliticalBusinessEndResultBase
 {
     private readonly PermissionService _permissionService;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;

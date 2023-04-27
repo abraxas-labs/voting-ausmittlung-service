@@ -47,16 +47,13 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         var bundle = await _majorityElectionResultBundleRepo.Query()
             .AsSplitQuery()
             .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-            .ThenInclude(x => x.BallotCandidates)
-            .ThenInclude(x => x.Candidate)
-            .ThenInclude(x => x.Translations)
+            .ThenInclude(x => x.BallotCandidates.Where(c => c.Selected))
+            .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.Ballots.Where(b => b.MarkedForReview))
             .ThenInclude(x => x.SecondaryMajorityElectionBallots)
-            .ThenInclude(x => x.BallotCandidates)
-            .ThenInclude(x => x.Candidate)
-            .ThenInclude(x => x.Translations)
-            .Include(x => x.ElectionResult)
-            .ThenInclude(x => x.MajorityElection)
+            .ThenInclude(x => x.BallotCandidates.Where(c => c.Selected))
+            .ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.ElectionResult.MajorityElection.Translations)
             .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessResultBundleId, ct)
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResultBundle), ctx.PoliticalBusinessResultBundleId);
 
@@ -95,6 +92,7 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
             TemplateKey = ctx.Template.Key,
             CountingCircle = pdfCountingCircle,
             MajorityElectionResultBundle = _mapper.Map<PdfMajorityElectionResultBundle>(bundle),
+            PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.MajorityElection),
         };
 
         return await _templateService.RenderToPdf(ctx, bundleReview, bundle.Number.ToString());

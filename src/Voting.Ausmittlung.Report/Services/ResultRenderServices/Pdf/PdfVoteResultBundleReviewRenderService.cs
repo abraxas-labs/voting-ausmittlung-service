@@ -45,20 +45,16 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
         }
 
         var bundle = await _voteResultBundleRepo.Query()
-                         .AsSplitQuery()
-                         .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-                         .ThenInclude(x => x.QuestionAnswers)
-                         .ThenInclude(x => x.Question)
-                         .ThenInclude(x => x.Translations)
-                         .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-                         .ThenInclude(x => x.TieBreakQuestionAnswers)
-                         .ThenInclude(x => x.Question)
-                         .ThenInclude(x => x.Translations)
-                         .Include(x => x.BallotResult)
-                         .ThenInclude(x => x.VoteResult)
-                         .ThenInclude(x => x.Vote)
-                         .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessResultBundleId, ct)
-                     ?? throw new EntityNotFoundException(nameof(VoteResultBundle), ctx.PoliticalBusinessResultBundleId);
+            .AsSplitQuery()
+            .Include(x => x.Ballots.Where(b => b.MarkedForReview))
+            .ThenInclude(x => x.QuestionAnswers)
+            .ThenInclude(x => x.Question.Translations)
+            .Include(x => x.Ballots.Where(b => b.MarkedForReview))
+            .ThenInclude(x => x.TieBreakQuestionAnswers)
+            .ThenInclude(x => x.Question.Translations)
+            .Include(x => x.BallotResult.VoteResult.Vote.Translations)
+            .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessResultBundleId, ct)
+            ?? throw new EntityNotFoundException(nameof(VoteResultBundle), ctx.PoliticalBusinessResultBundleId);
 
         if (bundle.BallotResult.VoteResult.VoteId != ctx.PoliticalBusinessId)
         {
@@ -78,16 +74,16 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
         }
 
         var countingCircle = await _countingCircleRepo.Query()
-                                 .AsSplitQuery()
-                                 .Include(x => x.ResponsibleAuthority)
-                                 .Include(x => x.ContactPersonDuringEvent)
-                                 .Include(x => x.ContactPersonAfterEvent)
-                                 .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
-                                 .ThenInclude(x => x.VotingCards)
-                                 .Include(x => x.ContestDetails)
-                                 .ThenInclude(x => x.CountOfVotersInformationSubTotals)
-                                 .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
-                             ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
+            .AsSplitQuery()
+            .Include(x => x.ResponsibleAuthority)
+            .Include(x => x.ContactPersonDuringEvent)
+            .Include(x => x.ContactPersonAfterEvent)
+            .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
+            .ThenInclude(x => x.VotingCards)
+            .Include(x => x.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
+            ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
         var ccDetails = countingCircle.ContestDetails.FirstOrDefault();
         ccDetails?.OrderVotingCardsAndSubTotals();
 
@@ -109,6 +105,7 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
             TemplateKey = ctx.Template.Key,
             CountingCircle = pdfCountingCircle,
             VoteResultBundle = pdfBundle,
+            PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.BallotResult.VoteResult.Vote),
         };
 
         return await _templateService.RenderToPdf(ctx, bundleReview, bundle.Number.ToString());

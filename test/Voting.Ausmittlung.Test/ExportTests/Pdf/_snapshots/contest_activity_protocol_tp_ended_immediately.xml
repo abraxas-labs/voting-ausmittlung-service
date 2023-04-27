@@ -1,0 +1,128 @@
+<ActivityProtocol>
+  <TemplateKey>contest_activity_protocol</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <State>Active</State>
+  </Contest>
+  <Event>
+    <Date>2020-07-17T10:08:21Z</Date>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.ContestTestingPhaseEnded</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PoliticalBusiness />
+    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
+  </Event>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:08:20Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>AAJyr4qcghR3Fg46PAYfPAdZ</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_from</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594980501</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>valid_to</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1595026800</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.EventSignaturePublicKeyCreated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:09:00Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>AAJyr4qcghR3Fg46PAYfPAdZ</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>signed_event_count</AttributeName>
+      <AttributeValue>5</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>deleted_at</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594982724</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.EventSignaturePublicKeyDeleted</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <ExpectedSignedEventCount>5</ExpectedSignedEventCount>
+      <ReadAtGenerationSignedEventCount>1</ReadAtGenerationSignedEventCount>
+      <HasMatchingSignedEventCount>false</HasMatchingSignedEventCount>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+</ActivityProtocol>

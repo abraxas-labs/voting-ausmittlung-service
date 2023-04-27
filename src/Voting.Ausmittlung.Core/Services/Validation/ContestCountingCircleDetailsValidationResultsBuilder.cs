@@ -55,7 +55,7 @@ public class ContestCountingCircleDetailsValidationResultsBuilder
 
         _mapper.Map(domainDetails, ccDetails);
 
-        await _permissionService.EnsureHasPermissionsOnCountingCircleWithBasisId(ccDetails.CountingCircleId, ccDetails.ContestId);
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(ccDetails.CountingCircleId, ccDetails.ContestId);
         _permissionService.EnsureErfassungElectionAdmin();
         return await BuildValidationResults(ccDetails);
     }

@@ -17,8 +17,8 @@ internal static class ProtocolSortUtil
     {
         return cantonDefaults.ProtocolDomainOfInfluenceSortType switch
         {
-            ProtocolDomainOfInfluenceSortType.SortNumber => items.OrderBy(i => doiSelector(i).SortNumber).ThenBy(i => doiSelector(i).NameForProtocol),
-            ProtocolDomainOfInfluenceSortType.Alphabetical => items.OrderBy(i => doiSelector(i).NameForProtocol).ThenBy(i => doiSelector(i).SortNumber),
+            ProtocolDomainOfInfluenceSortType.SortNumber => items.OrderBy(i => doiSelector(i).SortNumber).ThenBy(i => doiSelector(i).Name),
+            ProtocolDomainOfInfluenceSortType.Alphabetical => items.OrderBy(i => doiSelector(i).Name).ThenBy(i => doiSelector(i).SortNumber),
             _ => throw new InvalidOperationException($"Cannot sort because invalid {nameof(ProtocolDomainOfInfluenceSortType)}"),
         };
     }
@@ -30,8 +30,8 @@ internal static class ProtocolSortUtil
     {
         return cantonDefaults.ProtocolCountingCircleSortType switch
         {
-            ProtocolCountingCircleSortType.SortNumber => items.OrderBy(i => ccSelector(i).SortNumber).ThenBy(i => ccSelector(i).NameForProtocol),
-            ProtocolCountingCircleSortType.Alphabetical => items.OrderBy(i => ccSelector(i).NameForProtocol).ThenBy(i => ccSelector(i).SortNumber),
+            ProtocolCountingCircleSortType.SortNumber => items.OrderBy(i => ccSelector(i).SortNumber).ThenBy(i => ccSelector(i).Name),
+            ProtocolCountingCircleSortType.Alphabetical => items.OrderBy(i => ccSelector(i).Name).ThenBy(i => ccSelector(i).SortNumber),
             _ => throw new InvalidOperationException($"Cannot sort because invalid {nameof(ProtocolCountingCircleSortType)}"),
         };
     }

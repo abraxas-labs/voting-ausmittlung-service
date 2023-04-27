@@ -59,6 +59,26 @@ public class ProportionalElectionResultEnterCountOfVotersTest : ProportionalElec
     }
 
     [Fact]
+    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    {
+        await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultCountOfVotersEntered>().MatchSnapshot();
+
+        await RunEvents<ProportionalElectionResultCountOfVotersEntered>(false);
+
+        await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest());
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.EnterCountOfVotersAsync(NewValidRequest()),
+            StatusCode.PermissionDenied);
+    }
+
+    [Fact]
     public async Task TestShouldThrowContestLocked()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);

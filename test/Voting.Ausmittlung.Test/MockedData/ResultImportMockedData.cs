@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Testing.Mocks;
 using ResultImport = Voting.Ausmittlung.Data.Models.ResultImport;
 using User = Voting.Ausmittlung.Data.Models.User;
@@ -54,6 +55,19 @@ public static class ResultImportMockedData
             FirstName = "Hans",
             LastName = "Meier",
             SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
+        },
+        IgnoredCountingCircles = new List<IgnoredImportCountingCircle>
+        {
+            new()
+            {
+                CountingCircleId = "13297",
+                CountingCircleDescription = "SU_2_Vilters",
+                IsTestCountingCircle = true,
+            },
+            new()
+            {
+                CountingCircleId = "unknown",
+            },
         },
     };
 

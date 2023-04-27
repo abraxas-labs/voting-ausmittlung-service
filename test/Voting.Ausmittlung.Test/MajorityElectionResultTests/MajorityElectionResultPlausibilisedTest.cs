@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
@@ -123,19 +125,30 @@ public class MajorityElectionResultPlausibilisedTest : MajorityElectionResultBas
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
+        var eventInfo = GetMockedEventInfo();
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new MajorityElectionResultPlausibilised
             {
                 ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                EventInfo = GetMockedEventInfo(),
+                EventInfo = eventInfo,
             });
         await AssertCurrentState(CountingCircleResultState.Plausibilised);
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetMajorityElectionEndResultRequest
+        {
+            MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
+        });
+
+        endResult.MatchSnapshot();
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
             && x.NewState == CountingCircleResultState.Plausibilised);
+
+        var resultEntity = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == id));
+        resultEntity.PlausibilisedTimestamp.Should().Be(eventInfo.Timestamp.ToDateTime());
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

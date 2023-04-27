@@ -203,6 +203,8 @@ public class DataContext : DbContext
 
     public DbSet<ResultImport> ResultImports { get; set; } = null!;
 
+    public DbSet<IgnoredImportCountingCircle> IgnoredImportCountingCircles { get; set; } = null!;
+
     public DbSet<CantonSettings> CantonSettings { get; set; } = null!;
 
     public DbSet<CantonSettingsVotingCardChannel> CantonSettingsVotingCardChannels { get; set; } = null!;
@@ -242,6 +244,8 @@ public class DataContext : DbContext
     public DbSet<DomainOfInfluenceVotingCardResultDetail> DomainOfInfluenceVotingCardResultDetails { get; set; } = null!;
 
     public DbSet<DomainOfInfluenceCountOfVotersInformationSubTotal> DomainOfInfluenceCountOfVotersInformationSubTotals { get; set; } = null!;
+
+    public DbSet<ProtocolExport> ProtocolExports { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
