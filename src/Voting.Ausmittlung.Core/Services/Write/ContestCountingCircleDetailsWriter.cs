@@ -60,10 +60,9 @@ public class ContestCountingCircleDetailsWriter
         var (_, testingPhaseEnded) = await _contestService.EnsureNotLocked(details.ContestId);
         await ValidateSwissAbroadsDetailsOnlyIfAllowed(details.ContestId, details.CountingCircleId, details);
 
-        // The ContestCountingCircleDetails from the request do not contain immutable data such as the eVoting flag -> need to fetch it
-        var existingCcDetails = await GetDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
-        await EnsureValidVotingCards(details.ContestId, details.CountingCircleId, details, existingCcDetails.EVoting);
+        await EnsureValidVotingCards(details.ContestId, details.CountingCircleId, details);
 
+        var existingCcDetails = await GetDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
         await _validationResultsEnsurer.EnsureContestCountingCircleDetailsIsValid(details, existingCcDetails);
 
         var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
@@ -131,18 +130,22 @@ public class ContestCountingCircleDetailsWriter
     private async Task EnsureValidVotingCards(
         Guid contestId,
         Guid basisCountingCircleId,
-        ContestCountingCircleDetails details,
-        bool eVotingEnabled)
+        ContestCountingCircleDetails details)
     {
+        // Remove the e-voting voting cards, as they are immutable (only updated via e-voting import)
+        details.VotingCards = details.VotingCards
+            .Where(x => x.Channel != DataModels.VotingChannel.EVoting)
+            .ToList();
+
         var providedDomainOfInfluenceTypes = details.VotingCards.Select(vc => vc.DomainOfInfluenceType).ToHashSet();
 
         var cc = await _countingCircleRepo
-                     .Query()
-                     .AsSplitQuery()
-                     .Include(x => x.SnapshotContest!.DomainOfInfluence.CantonDefaults)
-                     .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
-                     .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
-                 ?? throw new EntityNotFoundException(new { basisCountingCircleId, contestId });
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.SnapshotContest!.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
+            .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
+            ?? throw new EntityNotFoundException(new { basisCountingCircleId, contestId });
 
         var domainOfInfluenceTypes = cc.SimpleResults.Select(spb => spb.PoliticalBusiness!).Select(pb => pb.DomainOfInfluence.Type).Distinct();
 
@@ -158,13 +161,6 @@ public class ContestCountingCircleDetailsWriter
             .EnabledVotingCardChannels
             .Select(x => (x.Valid, x.Channel))
             .ToHashSet();
-
-        // E-Voting is not explicitely set as an enabled voting channel on the canton defaults, since it can vary between contests
-        // Add it here if it is enabled for this contest
-        if (eVotingEnabled)
-        {
-            enabledChannels.Add((Valid: true, Channel: DataModels.VotingChannel.EVoting));
-        }
 
         var invalidVotingCardChannel = details.VotingCards.Find(x => !enabledChannels.Contains((x.Valid, x.Channel)));
         if (invalidVotingCardChannel != null)

@@ -11,7 +11,7 @@ namespace Voting.Ausmittlung.Data.Models;
 public class MajorityElectionEndResult : PoliticalBusinessEndResultBase,
     IEndResultDetail<MajorityElectionEndResultCountOfVotersInformationSubTotal, MajorityElectionEndResultVotingCardDetail>,
     IHasSubTotals<MajorityElectionResultSubTotal>,
-    IMajorityElectionResultSubTotal<int>
+    IMajorityElectionResultTotal<int>
 {
     public Guid MajorityElectionId { get; set; }
 
@@ -45,7 +45,7 @@ public class MajorityElectionEndResult : PoliticalBusinessEndResultBase,
     public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount;
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCount + ConventionalSubTotal.EmptyVoteCount;
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns;
 
     /// <inheritdoc />
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount;

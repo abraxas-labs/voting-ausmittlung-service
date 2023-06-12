@@ -6,4 +6,6 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 public abstract class PdfPoliticalBusinessBundle
 {
     public int Number { get; set; }
+
+    public PdfUser? CreatedBy { get; set; }
 }

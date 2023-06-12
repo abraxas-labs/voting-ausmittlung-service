@@ -38,10 +38,13 @@ public class ResultImportTest : BaseRestTest
     private const string TestFileOk = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
     private const string TestFileInvalid = "ImportTests/ExampleFiles/ech0222_import_invalid.xml";
     private const string TestFileOtherContestId = "ImportTests/ExampleFiles/ech0222_import_other_contest_id.xml";
+    private const string TestFileEch0110Ok = "ImportTests/ExampleFiles/ech0110_import_ok.xml";
 
     private static readonly ResultImportMeta ImportMeta = new(
         Guid.Parse(ContestMockedData.IdStGallenEvoting),
-        "test.xml",
+        "test-eCH-0222.xml",
+        Stream.Null,
+        "test-eCH-0110.xml",
         Stream.Null);
 
     private readonly HttpClient _monitoringElectionAdminStGallenClient;
@@ -93,7 +96,7 @@ public class ResultImportTest : BaseRestTest
 
         EventPublisherMock.Clear();
 
-        using var resp = await _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk);
+        using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
         resp.EnsureSuccessStatusCode();
 
         var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
@@ -166,6 +169,10 @@ public class ResultImportTest : BaseRestTest
 
         secondaryMajorityElectionImported.MatchSnapshot("secondaryMajorityElectionImported");
 
+        var importedVotingCard = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().First();
+        importedVotingCard.ImportId.Should().Be(importId);
+        importedVotingCard.MatchSnapshot("votingCards", x => x.ImportId);
+
         var completed = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
         completed.ImportId.Should().Be(importId);
         completed.ImportId = string.Empty;
@@ -183,7 +190,7 @@ public class ResultImportTest : BaseRestTest
 
             EventPublisherMock.Clear();
 
-            using var resp = await _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk);
+            using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
             resp.EnsureSuccessStatusCode();
 
             var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
@@ -205,6 +212,7 @@ public class ResultImportTest : BaseRestTest
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<VoteResultImported>());
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<MajorityElectionResultImported>());
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<SecondaryMajorityElectionResultImported>());
+            events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<CountingCircleVotingCardsImported>());
             events.Add(EventPublisherMock.GetSinglePublishedEventWithMetadata<ResultImportCompleted>());
             return events.ToArray();
         });
@@ -214,7 +222,7 @@ public class ResultImportTest : BaseRestTest
     public async Task InvalidImportFileShouldThrow()
     {
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileInvalid),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalid), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "List of possible elements expected: 'senderId'");
     }
@@ -226,7 +234,7 @@ public class ResultImportTest : BaseRestTest
             x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
             x => x.State = ContestState.PastLocked);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "Contest is past locked or archived");
     }
@@ -238,7 +246,7 @@ public class ResultImportTest : BaseRestTest
             x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
             x => x.EVoting = false);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             "eVoting is not active on the Contest with the id 95825eb0-0f52-461a-a5f8-23fb35fa69e1");
     }
@@ -250,7 +258,7 @@ public class ResultImportTest : BaseRestTest
             x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau,
             x => x.EVoting = false);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             $"eVoting is not active on the CountingCircle with the id {CountingCircleMockedData.IdGossau}");
     }
@@ -259,7 +267,7 @@ public class ResultImportTest : BaseRestTest
     public Task OtherTenantShouldThrow()
     {
         return AssertStatus(
-            () => _monitoringElectionAdminUzwilClient.PostFile(BuildUri(), TestFileOk),
+            () => _monitoringElectionAdminUzwilClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.Forbidden);
     }
 
@@ -270,7 +278,7 @@ public class ResultImportTest : BaseRestTest
         await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.AuditedTentatively);
 
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             $"A result is in an invalid state for an eVoting import to be possible ({ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen})");
     }
@@ -279,16 +287,25 @@ public class ResultImportTest : BaseRestTest
     public Task OtherContestIdShouldThrow()
     {
         return AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOtherContestId),
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "contestIds do not match");
+    }
+
+    [Fact]
+    public Task MissingEch0110ShouldThrow()
+    {
+        return AssertProblemDetails(
+            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId)),
+            HttpStatusCode.BadRequest);
     }
 
     [Fact]
     public Task ContestNotFoundShouldThrow()
     {
         var req = NewSimpleProportionalElectionImportData(Guid.NewGuid());
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, ImportMeta));
+        var votingCards = NewSimpleVotingCardImportData();
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, votingCards, ImportMeta));
     }
 
     [Fact]
@@ -314,11 +331,19 @@ public class ResultImportTest : BaseRestTest
                 }),
         };
 
+        var ccVotingCards = new List<EVotingCountingCircleVotingCards>
+        {
+            new("10007", 134),
+            new("unknown-counting-circle-id", 555),
+        };
+
         var import = new EVotingImport(
             "my-mock-ech-message-id",
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
             results);
-        await _importWriter.Import(import, ImportMeta);
+        var votingCards = new EVotingVotingCardImport("mock-eCH-0110-message-id", Guid.Parse(ContestMockedData.IdStGallenEvoting), ccVotingCards);
+
+        await _importWriter.Import(import, votingCards, ImportMeta);
 
         var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
         importStarted.MatchSnapshot("event", x => x.ImportId);
@@ -364,9 +389,10 @@ public class ResultImportTest : BaseRestTest
             "my-mock-ech-message-id",
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
             results);
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
 
         return AssertException<ValidationException>(
-            () => _importWriter.Import(import, ImportMeta),
+            () => _importWriter.Import(import, votingCardReq, ImportMeta),
             "Duplicate counting circle results provided");
     }
 
@@ -395,7 +421,8 @@ public class ResultImportTest : BaseRestTest
                     positions),
         });
 
-        await _importWriter.Import(req, ImportMeta);
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        await _importWriter.Import(req, votingCardReq, ImportMeta);
 
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultImported>();
         ev.EmptyVoteCount.Should().Be(1); // 1 from missing position
@@ -427,7 +454,8 @@ public class ResultImportTest : BaseRestTest
                     positions),
         });
 
-        await _importWriter.Import(req, ImportMeta);
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        await _importWriter.Import(req, votingCardReq, ImportMeta);
 
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultImported>();
         ev.EmptyVoteCount.Should().Be(2); // 1 from duplicate write in + 1 from missing positions
@@ -451,8 +479,9 @@ public class ResultImportTest : BaseRestTest
                     false,
                     ballotPositions),
         });
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, ImportMeta),
+            () => _importWriter.Import(req, votingCardReq, ImportMeta),
             "the number of ballot positions exceeds the number of mandates (10 vs 5)");
     }
 
@@ -472,7 +501,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
             "the number of ballot positions exceeds the number of mandates (10 vs 3)");
     }
 
@@ -496,7 +525,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
             "proportional election ballot position cannot contain write-ins");
     }
 
@@ -508,7 +537,7 @@ public class ResultImportTest : BaseRestTest
         var ballot = req.PoliticalBusinessResults.OfType<EVotingElectionResult>().First().Ballots.First();
         ballot.Unmodified = true;
         ballot.ListId = Guid.Parse("4869ef1b-0497-4e24-8e01-a03013ed79a2");
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
     }
 
     [Fact]
@@ -520,7 +549,7 @@ public class ResultImportTest : BaseRestTest
         ballot.Unmodified = true;
         ballot.ListId = null;
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
             "an unmodified ballot does not have a list assigned");
     }
 
@@ -545,7 +574,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
             "was found more than 2 times on a single ballot");
     }
 
@@ -567,7 +596,7 @@ public class ResultImportTest : BaseRestTest
                 new EVotingVoteBallot(questionAnswers, Array.Empty<EVotingVoteBallotTieBreakQuestionAnswer>()),
         };
 
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
     }
 
     [Fact]
@@ -588,13 +617,13 @@ public class ResultImportTest : BaseRestTest
                 new EVotingVoteBallot(Array.Empty<EVotingVoteBallotQuestionAnswer>(), tieBreakQuestionAnswers),
         };
 
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
     }
 
     [Fact]
     public async Task ProcessorShouldWork()
     {
-        using var resp = await _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk);
+        using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
         resp.EnsureSuccessStatusCode();
 
         var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
@@ -630,12 +659,26 @@ public class ResultImportTest : BaseRestTest
         var majorityElection = await GetMajorityElectionWithResults();
         majorityElection.Results.MatchSnapshot("majorityElectionResults");
 
+        var votingCardEvents = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().ToArray();
+        await TestEventPublisher.Publish(GetNextEventNumber(votingCardEvents.Length), votingCardEvents);
+
+        var countingCircleDetails = await GetCountingCircleDetails();
+        countingCircleDetails.MatchSnapshot("countingCircleDetails");
+
         var importCompleted = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
         await TestEventPublisher.Publish(GetNextEventNumber(), importCompleted);
 
-        import = await RunOnDb(db => db.ResultImports.FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
+        import = await RunOnDb(db => db.ResultImports
+            .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .FirstAsync(x => x.Id == Guid.Parse(importStarted.ImportId)));
         import.Id = Guid.Empty;
         import.Completed.Should().BeTrue();
+        foreach (var importedCc in import.ImportedCountingCircles)
+        {
+            importedCc.ResultImportId = Guid.Empty;
+            importedCc.Id = Guid.Empty;
+        }
+
         import.MatchSnapshot("completed");
 
         contest = await RunOnDb(db =>
@@ -666,7 +709,7 @@ public class ResultImportTest : BaseRestTest
     {
         async Task<string> RunImport()
         {
-            using var resp = await _monitoringElectionAdminStGallenClient.PostFile(BuildUri(), TestFileOk);
+            using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
             resp.EnsureSuccessStatusCode();
 
             var importCreated = EventPublisherMock.GetSinglePublishedEvent<ResultImportCreated>();
@@ -686,6 +729,9 @@ public class ResultImportTest : BaseRestTest
 
             var secondaryMajorityImportEvents = EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToArray();
             await TestEventPublisher.Publish(GetNextEventNumber(secondaryMajorityImportEvents.Length), secondaryMajorityImportEvents);
+
+            var votingCardEvents = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().ToArray();
+            await TestEventPublisher.Publish(GetNextEventNumber(votingCardEvents.Length), votingCardEvents);
 
             var importCompleted = EventPublisherMock.GetSinglePublishedEvent<ResultImportCompleted>();
             await TestEventPublisher.Publish(GetNextEventNumber(), importCompleted);
@@ -729,7 +775,7 @@ public class ResultImportTest : BaseRestTest
     }
 
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
-        => httpClient.PostFile(BuildUri(), TestFileOk);
+        => httpClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
 
     protected override IEnumerable<string> UnauthorizedRoles()
     {
@@ -746,6 +792,7 @@ public class ResultImportTest : BaseRestTest
         }
 
         GetService<IAuthStore>().SetValues(
+            "mock-token",
             "fake",
             SecureConnectTestDefaults.MockedTenantStGallen.Id,
             new[] { RolesMockedData.MonitoringElectionAdmin });
@@ -834,6 +881,21 @@ public class ResultImportTest : BaseRestTest
             results);
     }
 
+    private EVotingVotingCardImport NewSimpleVotingCardImportData(
+        Guid? contestId = null,
+        string? basisCountingCircleId = null)
+    {
+        var votingCards = new List<EVotingCountingCircleVotingCards>
+        {
+            new(basisCountingCircleId ?? CountingCircleMockedData.IdGossau, 123),
+        };
+
+        return new EVotingVotingCardImport(
+            "my-mock-ech-message-id-0110",
+            contestId ?? Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            votingCards);
+    }
+
     private int GetNextEventNumber(int delta = 1)
     {
         var value = _eventNumberCounter;
@@ -891,6 +953,34 @@ public class ResultImportTest : BaseRestTest
             Languages.German);
         SortAndCleanIds(vote);
         return vote;
+    }
+
+    private async Task<List<ContestCountingCircleDetails>> GetCountingCircleDetails()
+    {
+        var ccDetails = await RunOnDb(
+            db => db.ContestCountingCircleDetails
+                .AsSplitQuery()
+                .Include(x => x.VotingCards)
+                .Include(x => x.CountOfVotersInformationSubTotals) // include these to ensure they are not modified
+                .Where(x => x.ContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.VotingCards.Any())
+                .ToListAsync());
+
+        foreach (var ccDetail in ccDetails)
+        {
+            ccDetail.OrderVotingCardsAndSubTotals();
+
+            foreach (var votingCard in ccDetail.VotingCards)
+            {
+                votingCard.Id = Guid.Empty;
+            }
+
+            foreach (var subTotal in ccDetail.CountOfVotersInformationSubTotals)
+            {
+                subTotal.Id = Guid.Empty;
+            }
+        }
+
+        return ccDetails;
     }
 
     private void SortAndCleanIds(ProportionalElection election)

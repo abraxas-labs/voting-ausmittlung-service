@@ -17,7 +17,6 @@ using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -132,7 +131,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         await EnsurePoliticalBusinessPermissions(voteResultId, true);
 
-        var actionId = await PrepareSubmissionFinishedActionId(voteResultId);
+        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        var actionId = await PrepareActionId<VoteResultAggregate>(
+            nameof(SubmissionFinished),
+            voteResultId,
+            voteResult.Vote.ContestId,
+            voteResult.CountingCircle.BasisCountingCircleId,
+            voteResult.Vote.Contest.TestingPhaseEnded);
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -141,7 +146,15 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareSubmissionFinishedActionId(voteResultId), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<VoteResultAggregate>(
+                nameof(SubmissionFinished),
+                voteResultId,
+                voteResult.Vote.ContestId,
+                voteResult.CountingCircle.BasisCountingCircleId,
+                voteResult.Vote.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -154,7 +167,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         await EnsurePoliticalBusinessPermissions(voteResultId, true);
 
-        var actionId = await PrepareCorrectionFinishedActionId(voteResultId);
+        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        var actionId = await PrepareActionId<VoteResultAggregate>(
+            nameof(CorrectionFinished),
+            voteResultId,
+            voteResult.Vote.ContestId,
+            voteResult.CountingCircle.BasisCountingCircleId,
+            voteResult.Vote.Contest.TestingPhaseEnded);
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -163,7 +182,15 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareCorrectionFinishedActionId(voteResultId), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<VoteResultAggregate>(
+            nameof(CorrectionFinished),
+            voteResultId,
+            voteResult.Vote.ContestId,
+            voteResult.CountingCircle.BasisCountingCircleId,
+            voteResult.Vote.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -312,17 +339,5 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         {
             throw new ValidationException($"enforced {nameof(vote.ReviewProcedure)} setting not respected");
         }
-    }
-
-    private async Task<ActionId> PrepareSubmissionFinishedActionId(Guid voteResultId)
-    {
-        var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
-        return aggregate.PrepareSubmissionFinished();
-    }
-
-    private async Task<ActionId> PrepareCorrectionFinishedActionId(Guid voteResultId)
-    {
-        var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
-        return aggregate.PrepareCorrectionFinished();
     }
 }

@@ -34,7 +34,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
     public ActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded)
     {
         Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
-        return BuildActionId(nameof(Finalize));
+        return new ActionId(nameof(Finalize), this);
     }
 
     public void Finalize(Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)

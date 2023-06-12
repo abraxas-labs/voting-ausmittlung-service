@@ -7,5 +7,9 @@ public interface IHasNullableConventionalVoteCounts
 {
     int? ConventionalVoteCount { get; set; }
 
-    int EVotingVoteCount { get; set; }
+    int EVotingExclWriteInsVoteCount { get; set; }
+
+    int EVotingWriteInsVoteCount { get; set; }
+
+    int EVotingInclWriteInsVoteCount { get; }
 }

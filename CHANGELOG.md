@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.70.6`)
+# ✨ Changelog (`v1.76.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,114 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.70.6
-Previous version ---- v1.58.2
+This version -------- v1.76.0
+Previous version ---- 
 Initial version ----- v1.29.14
-Total commits ------- 39
+Total commits ------- 18
 ```
+
+## [v1.76.0] - 2023-06-02
+
+### 🔄 Changed
+
+- add latest execution timestamp to result export configuration
+
+## [v1.75.7] - 2023-05-31
+
+### 🔄 Changed
+
+- do not mark candidate results with optional lot decisions as pending
+
+## [v1.75.6] - 2023-05-31
+
+### 🔄 Changed
+
+- add validation for when majority election has no candidates
+
+## [v1.75.5] - 2023-05-30
+
+### 🔄 Changed
+
+- correctly handle repeated write ins reset
+
+## [v1.75.4] - 2023-05-26
+
+### 🔄 Changed
+
+- Make certain contact person fields required
+
+## [v1.75.3] - 2023-05-24
+
+### 🔄 Changed
+
+- submission finish race condition with updated counting circle details prevented
+
+## [v1.75.2] - 2023-05-24
+
+### 🆕 Added
+
+- add db command timeout configuration
+
+## [v1.75.1] - 2023-05-17
+
+### 🔄 Changed
+
+- Show correct read signed event count in activity protocol
+
+## [v1.75.0] - 2023-05-16
+
+### 🆕 Added
+
+- reset write ins for majority election
+
+## [v1.74.0] - 2023-05-16
+
+### 🆕 Added
+
+- add csv export for vote results
+
+## [v1.73.0] - 2023-05-16
+
+### 🔄 Changed
+
+- moved creator from PdfMajorityElectionResultBundle to base class
+
+## [v1.72.3] - 2023-05-15
+
+### 🔄 Changed
+
+- wabstic export vote id
+
+## [v1.72.2] - 2023-05-15
+
+### 🔄 Changed
+
+- wabstic export vote id
+
+## [v1.72.1] - 2023-05-09
+
+### 🔄 Changed
+
+- do not log update of lot decisions as error
+
+## [v1.72.0] - 2023-05-08
+
+### 🔄 Changed
+
+- show imported counting circles
+
+## [v1.71.1] - 2023-05-02
+
+### 🔄 Changed
+
+- update cd-templates to resolve blocking deploy-trigger
+
+## [v1.71.0] - 2023-05-01
+
+### 🔄 Changed
+
+- correctly check imported voting cards contest ID
+- import e-voting voting cards from eCH
 
 ## [v1.70.6] - 2023-04-25
 
@@ -176,97 +279,21 @@ Total commits ------- 39
 
 - wabstic wmwahlergebnis report
 
-## [v1.60.3] - 2023-02-15
-
-### 🔄 Changed
-
-- wabstic use political names of candidates
-
-## [v1.60.2] - 2023-02-13
-
 ### 🔄 Changed
 
 - Update end result finalized on simple political business
-
-## [v1.60.1] - 2023-02-13
 
 ### 🔄 Changed
 
 - rename export protocols
 
-## [v1.60.0] - 2023-02-10
-
 ### 🔄 Changed
 
 - Some reports should only show up for certain types of domain of influences
 
-## [v1.59.1] - 2023-02-08
-
-### 🔄 Changed
-
-- add more data to bundle review exports
-
-## [v1.59.0] - 2023-02-01
-
-### 🔄 Changed
-
-- add invalid vote count to majority election result bundle review export
-
-## [v1.58.2] - 2023-01-31
-
-### 🔄 Changed
-
-- expand multiple business counting circle templates correctly
-
-## [v1.58.1] - 2023-01-31
-
-### 🔄 Changed
-
-- remove accumulated proportional election candidate from ballot candidates
-
-## [v1.58.0] - 2023-01-31
-
-### 🔄 Changed
-
-- new export api
-
-## [v1.57.0] - 2023-01-30
-
-### 🔄 Changed
-
-- detect replay attacks per activity protocol
-
-## [v1.56.4] - 2023-01-26
-
 ### 🆕 Added
 
 - add scoped dmdoc httpclient
-
-## [v1.56.3] - 2023-01-25
-
-### 🔄 Changed
-
-- correctly copy result export configuration provider when creating a contest
-
-## [v1.56.2] - 2023-01-25
-
-### 🔄 Changed
-
-- update library to fix dmdoc accessibility issues
-
-## [v1.56.1] - 2023-01-24
-
-### 🔄 Changed
-
-- update library to use secure dmdoc authentication
-
-## [v1.56.0] - 2023-01-23
-
-### 🔄 Changed
-
-- add basis events before testing phase ended to activity protocol
-
-## [v1.55.2] - 2023-01-20
 
 ### 🔒 Security
 
@@ -582,6 +609,102 @@ Total commits ------- 39
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.60.3] - 2023-02-15
+
+### 🔄 Changed
+
+- wabstic use political names of candidates
+
+## [v1.60.2] - 2023-02-13
+
+### 🔄 Changed
+
+- Update end result finalized on simple political business
+
+## [v1.60.1] - 2023-02-13
+
+### 🔄 Changed
+
+- rename export protocols
+
+## [v1.60.0] - 2023-02-10
+
+### 🔄 Changed
+
+- Some reports should only show up for certain types of domain of influences
+
+## [v1.59.1] - 2023-02-08
+
+### 🔄 Changed
+
+- add more data to bundle review exports
+
+## [v1.59.0] - 2023-02-01
+
+### 🔄 Changed
+
+- add invalid vote count to majority election result bundle review export
+
+## [v1.58.2] - 2023-01-31
+
+### 🔄 Changed
+
+- expand multiple business counting circle templates correctly
+
+## [v1.58.1] - 2023-01-31
+
+### 🔄 Changed
+
+- remove accumulated proportional election candidate from ballot candidates
+
+## [v1.58.0] - 2023-01-31
+
+### 🔄 Changed
+
+- new export api
+
+## [v1.57.0] - 2023-01-30
+
+### 🔄 Changed
+
+- detect replay attacks per activity protocol
+
+## [v1.56.4] - 2023-01-26
+
+### 🆕 Added
+
+- add scoped dmdoc httpclient
+
+## [v1.56.3] - 2023-01-25
+
+### 🔄 Changed
+
+- correctly copy result export configuration provider when creating a contest
+
+## [v1.56.2] - 2023-01-25
+
+### 🔄 Changed
+
+- update library to fix dmdoc accessibility issues
+
+## [v1.56.1] - 2023-01-24
+
+### 🔄 Changed
+
+- update library to use secure dmdoc authentication
+
+## [v1.56.0] - 2023-01-23
+
+### 🔄 Changed
+
+- add basis events before testing phase ended to activity protocol
+
+## [v1.55.2] - 2023-01-20
+
+### 🔒 Security
+
+- Apply relaxed policy in transient catch up processor to handle replay attacks
 
 ## [v1.55.1] - 2023-01-19
 

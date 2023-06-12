@@ -11,9 +11,19 @@ public interface IMajorityElectionResultSubTotal<out TInt>
     TInt IndividualVoteCount { get; }
 
     /// <summary>
-    /// Gets the empty vote count.
+    /// Gets the empty vote count inclusive write ins.
     /// </summary>
-    TInt EmptyVoteCount { get; }
+    TInt EmptyVoteCountInclWriteIns { get; }
+
+    /// <summary>
+    /// Gets the empty vote count write ins.
+    /// </summary>
+    TInt EmptyVoteCountWriteIns { get; }
+
+    /// <summary>
+    /// Gets the empty vote count exclusive write ins.
+    /// </summary>
+    TInt EmptyVoteCountExclWriteIns { get; }
 
     /// <summary>
     /// Gets the invalid vote count.

@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Common;
 using MajorityElectionWriteInMappingTarget = Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionWriteInMappingTarget;
 
@@ -70,6 +71,29 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 IgnoredCountingCircles = { _mapper.Map<IEnumerable<ImportIgnoredCountingCircleEventData>>(ignoredImportCountingCircles) },
             },
             new EventSignatureBusinessDomainData(contestId));
+    }
+
+    internal void ImportCountingCircleVotingCards(List<EVotingCountingCircleVotingCards> countingCircleVotingCards)
+    {
+        EnsureInProgress();
+        EnsureHasNoSuccessor();
+
+        var ev = new CountingCircleVotingCardsImported
+        {
+            ContestId = ContestId.ToString(),
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+            ImportId = Id.ToString(),
+            CountingCircleVotingCards =
+            {
+                countingCircleVotingCards.Select(x => new CountingCircleVotingCardsImportEventData
+                {
+                    CountingCircleId = x.BasisCountingCircleId,
+                    CountOfReceivedVotingCards = x.CountOfVotingCards,
+                }),
+            },
+        };
+
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
     internal void ImportProportionalElectionResult(ProportionalElectionResultImport data)
@@ -187,6 +211,34 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
     }
 
+    internal void ResetMajorityElectionWriteIns(
+        Guid electionId,
+        Guid basisCountingCircleId,
+        PoliticalBusinessType politicalBusinessType)
+    {
+        EnsureCompleted();
+        EnsureHasNoSuccessor();
+
+        IMessage ev = politicalBusinessType switch
+        {
+            PoliticalBusinessType.MajorityElection => new MajorityElectionWriteInsReset
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                CountingCircleId = basisCountingCircleId.ToString(),
+                MajorityElectionId = electionId.ToString(),
+            },
+            PoliticalBusinessType.SecondaryMajorityElection => new SecondaryMajorityElectionWriteInsReset
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                CountingCircleId = basisCountingCircleId.ToString(),
+                SecondaryMajorityElectionId = electionId.ToString(),
+            },
+            _ => throw new InvalidOperationException(nameof(politicalBusinessType) + " does not support write ins"),
+        };
+
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
+    }
+
     /// <summary>
     /// Deletes all imported data of a contest.
     /// </summary>
@@ -288,8 +340,11 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
             case ResultImportSucceeded:
                 _hasSuccessor = true;
                 break;
+            case CountingCircleVotingCardsImported:
             case MajorityElectionWriteInsMapped:
             case SecondaryMajorityElectionWriteInsMapped:
+            case MajorityElectionWriteInsReset:
+            case SecondaryMajorityElectionWriteInsReset:
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
         }

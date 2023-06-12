@@ -160,6 +160,7 @@ public class ContestCountingCircleContactPersonCreateTest : ContestCountingCircl
                 FamilyName = "family name",
                 Email = "test@example.com",
                 Phone = "+41795214623",
+                MobilePhone = "+41795214624",
             },
             ContactPersonAfterEvent = new EnterContactPersonRequest
             {
@@ -167,6 +168,7 @@ public class ContestCountingCircleContactPersonCreateTest : ContestCountingCircl
                 FamilyName = "after family name",
                 Email = "after-test@example.com",
                 Phone = "+41795212222",
+                MobilePhone = "+41795212223",
             },
         };
 

@@ -17,7 +17,6 @@ using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -138,7 +137,14 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
-        var actionId = await PrepareSubmissionFinishedActionId(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        var actionId = await PrepareActionId<MajorityElectionResultAggregate>(
+            nameof(SubmissionFinished),
+            resultId,
+            result.MajorityElection.ContestId,
+            result.CountingCircle.BasisCountingCircleId,
+            result.MajorityElection.Contest.TestingPhaseEnded);
+
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -147,7 +153,15 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareSubmissionFinishedActionId(result.Id), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<MajorityElectionResultAggregate>(
+                nameof(SubmissionFinished),
+                result.Id,
+                result.MajorityElection.ContestId,
+                result.CountingCircle.BasisCountingCircleId,
+                result.MajorityElection.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -160,7 +174,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
-        var actionId = await PrepareCorrectionFinishedActionId(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        var actionId = await PrepareActionId<MajorityElectionResultAggregate>(
+            nameof(CorrectionFinished),
+            resultId,
+            result.MajorityElection.ContestId,
+            result.CountingCircle.BasisCountingCircleId,
+            result.MajorityElection.Contest.TestingPhaseEnded);
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -169,7 +189,15 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareCorrectionFinishedActionId(result.Id), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<MajorityElectionResultAggregate>(
+                nameof(CorrectionFinished),
+                result.Id,
+                result.MajorityElection.ContestId,
+                result.CountingCircle.BasisCountingCircleId,
+                result.MajorityElection.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -387,17 +415,5 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
                 }
             }
         }
-    }
-
-    private async Task<ActionId> PrepareSubmissionFinishedActionId(Guid resultId)
-    {
-        var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
-        return aggregate.PrepareSubmissionFinished();
-    }
-
-    private async Task<ActionId> PrepareCorrectionFinishedActionId(Guid resultId)
-    {
-        var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
-        return aggregate.PrepareCorrectionFinished();
     }
 }

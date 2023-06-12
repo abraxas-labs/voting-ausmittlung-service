@@ -15,6 +15,7 @@ public class DataConfig
         Password = Pass,
         Database = Name,
         IncludeErrorDetail = EnableDetailedErrors,
+        CommandTimeout = CommandTimeout,
     }.ToString();
 
     public string Host { get; set; } = string.Empty;
@@ -30,4 +31,10 @@ public class DataConfig
     public bool EnableSensitiveDataLogging { get; set; }
 
     public bool EnableDetailedErrors { get; set; }
+
+    /// <summary>
+    /// Gets or sets the command timout for database queries in seconds.
+    /// Framework default is 30 sec.
+    /// </summary>
+    public ushort CommandTimeout { get; set; } = 30;
 }

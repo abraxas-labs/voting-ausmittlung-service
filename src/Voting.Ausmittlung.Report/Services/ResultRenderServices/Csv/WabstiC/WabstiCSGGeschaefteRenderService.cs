@@ -41,7 +41,7 @@ public class WabstiCSGGeschaefteRenderService : IRendererService
             .Select(x => new Data
             {
                 ContestDate = x.Vote.Contest.Date,
-                PoliticalBusinessId = x.Id,
+                PoliticalBusinessId = x.VoteId,
                 DomainOfInfluenceType = x.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.Vote.DomainOfInfluence.SortNumber,
                 DomainOfInfluenceCanton = x.Vote.DomainOfInfluence.Canton,

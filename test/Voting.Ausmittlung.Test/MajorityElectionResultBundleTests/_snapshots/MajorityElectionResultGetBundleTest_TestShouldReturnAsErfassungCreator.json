@@ -81,14 +81,18 @@
         "CandidateResults": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 0,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 100,
-          "EmptyVoteCount": 99,
+          "EmptyVoteCountInclWriteIns": 99,
+          "EmptyVoteCountExclWriteIns": 99,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 101,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 100
@@ -112,14 +116,18 @@
         "CandidateResults": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 0,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 7,
-          "EmptyVoteCount": 5,
+          "EmptyVoteCountInclWriteIns": 5,
+          "EmptyVoteCountExclWriteIns": 5,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 2,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 7
@@ -143,14 +151,18 @@
         "CandidateResults": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 0,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 2,
-          "EmptyVoteCount": 1,
+          "EmptyVoteCountInclWriteIns": 1,
+          "EmptyVoteCountExclWriteIns": 1,
+          "EmptyVoteCountWriteIns": 0,
           "InvalidVoteCount": 3,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 2
@@ -196,14 +208,18 @@
     "ConventionalCountOfDetailedEnteredBallots": 0,
     "EVotingSubTotal": {
       "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0,
+      "EmptyVoteCountWriteIns": 0,
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
       "TotalCandidateVoteCountInclIndividual": 0
     },
     "ConventionalSubTotal": {
       "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0,
+      "EmptyVoteCountWriteIns": 0,
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
       "TotalCandidateVoteCountInclIndividual": 0

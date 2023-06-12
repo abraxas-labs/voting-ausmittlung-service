@@ -93,7 +93,7 @@ public static class MajorityElectionResultMockedData
                         Id = GuidStGallenElectionSecondaryResultInContestBund,
                         ConventionalSubTotal =
                         {
-                            EmptyVoteCount = 5,
+                            EmptyVoteCountExclWriteIns = 5,
                             IndividualVoteCount = 7,
                             InvalidVoteCount = 2,
                         },
@@ -104,7 +104,7 @@ public static class MajorityElectionResultMockedData
                         Id = Guid.Parse("b4948d16-d6d5-49e4-908f-9c8147f02095"),
                         ConventionalSubTotal =
                         {
-                            EmptyVoteCount = 1,
+                            EmptyVoteCountExclWriteIns = 1,
                             IndividualVoteCount = 2,
                             InvalidVoteCount = 3,
                         },
@@ -115,7 +115,7 @@ public static class MajorityElectionResultMockedData
                         Id = Guid.Parse("1c9e37d7-7395-4251-bc00-50638d930e5a"),
                         ConventionalSubTotal =
                         {
-                            EmptyVoteCount = 99,
+                            EmptyVoteCountExclWriteIns = 99,
                             IndividualVoteCount = 100,
                             InvalidVoteCount = 101,
                         },
@@ -346,7 +346,7 @@ public static class MajorityElectionResultMockedData
                 .FirstAsync(x => x.Id == StGallenElectionResultInContestBund.Id);
 
             result.ConventionalSubTotal.IndividualVoteCount = 5;
-            result.ConventionalSubTotal.EmptyVoteCount = 6;
+            result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 6;
             result.ConventionalSubTotal.InvalidVoteCount = 7;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {

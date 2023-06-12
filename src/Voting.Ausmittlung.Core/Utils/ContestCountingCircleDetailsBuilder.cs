@@ -20,15 +20,18 @@ public class ContestCountingCircleDetailsBuilder
     private readonly DomainOfInfluenceCountingCircleRepo _doiCountingCirclesRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
+    private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
 
     public ContestCountingCircleDetailsBuilder(
         DomainOfInfluenceCountingCircleRepo doiCountingCirclesRepo,
         IDbRepository<DataContext, Contest> contestRepo,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
+        AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder)
     {
         _doiCountingCirclesRepo = doiCountingCirclesRepo;
         _contestRepo = contestRepo;
         _ccDetailsRepo = ccDetailsRepo;
+        _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
     }
 
     internal async Task SyncForDomainOfInfluences(IEnumerable<Guid> doiIds)
@@ -56,6 +59,25 @@ public class ContestCountingCircleDetailsBuilder
             .ToListAsync();
 
         return await Sync(contest, countingCircles);
+    }
+
+    internal async Task ResetEVotingVotingCards(Guid contestId)
+    {
+        var ccDetails = await _ccDetailsRepo
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.VotingCards.Where(vc => vc.Channel == VotingChannel.EVoting))
+            .Where(x => x.ContestId == contestId && x.VotingCards.Any(vc => vc.Channel == VotingChannel.EVoting))
+            .ToListAsync();
+
+        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedVotingCards(contestId, ccDetails, true);
+
+        foreach (var votingCard in ccDetails.SelectMany(x => x.VotingCards))
+        {
+            votingCard.CountOfReceivedVotingCards = 0;
+        }
+
+        await _ccDetailsRepo.UpdateRange(ccDetails);
     }
 
     /// <summary>

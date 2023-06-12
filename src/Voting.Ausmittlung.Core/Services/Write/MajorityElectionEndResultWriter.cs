@@ -66,7 +66,7 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
             contestId,
             testingPhaseEnded);
         await AggregateRepository.Save(endResultAggregate);
-        Logger.LogError(
+        Logger.LogInformation(
             "Updated lot decisions for majority election end result {MajorityElectionEndResultId}",
             endResultId);
     }

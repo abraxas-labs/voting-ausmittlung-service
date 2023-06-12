@@ -7,7 +7,7 @@ using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
 
-public class ResultImportModelBuilder : IEntityTypeConfiguration<ResultImport>
+public class ResultImportModelBuilder : IEntityTypeConfiguration<ResultImport>, IEntityTypeConfiguration<ResultImportCountingCircle>
 {
     public void Configure(EntityTypeBuilder<ResultImport> builder)
     {
@@ -23,11 +23,25 @@ public class ResultImportModelBuilder : IEntityTypeConfiguration<ResultImport>
         builder
             .Property(x => x.Started)
             .HasUtcConversion();
-
         builder
             .HasMany(x => x.IgnoredCountingCircles)
             .WithOne(x => x.ResultImport)
             .HasForeignKey(x => x.ResultImportId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ResultImportCountingCircle> builder)
+    {
+        builder
+            .HasOne(x => x.ResultImport)
+            .WithMany(x => x.ImportedCountingCircles)
+            .HasForeignKey(x => x.ResultImportId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.CountingCircle)
+            .WithMany()
+            .HasForeignKey(x => x.CountingCircleId)
             .IsRequired();
     }
 }

@@ -137,6 +137,38 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
     {
         await EVotingMockedData.Seed(RunScoped, CreateHttpClient);
 
+        // Add some voting cards, so we can verify that only the e-voting voting cards will be deleted
+        await RunOnDb(async db =>
+        {
+            var ccDetails = await db.ContestCountingCircleDetails
+                .AsSplitQuery()
+                .AsTracking()
+                .Include(x => x.VotingCards)
+                .Where(x => x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting))
+                .ToListAsync();
+
+            foreach (var ccDetail in ccDetails)
+            {
+                var byMailVotingCards = ccDetail.VotingCards
+                    .Where(x => x.Channel == VotingChannel.ByMail && x.Valid)
+                    .ToList();
+
+                // Add an e-voting voting card for each DOI type
+                foreach (var byMailVotingCard in byMailVotingCards)
+                {
+                    ccDetail.VotingCards.Add(new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.EVoting,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 234,
+                        DomainOfInfluenceType = byMailVotingCard.DomainOfInfluenceType,
+                    });
+                }
+            }
+
+            await db.SaveChangesAsync();
+        });
+
         var id = "3b29fd77-3cb2-4b34-b490-442d248ddd13";
         await TestEventPublisher.Publish(
             0,
@@ -154,6 +186,7 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
         await AssertMajorityElectionEVotingZero();
         await AssertProportionalElectionEVotingZero();
         await AssertVoteEVotingZero();
+        await AssertEVotingVotingCardsZero();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -273,7 +306,7 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
         majorityElection.EndResult!.CountOfVoters.EVotingReceivedBallots.Should().Be(0);
         majorityElection.EndResult!.EVotingSubTotal.TotalCandidateVoteCountInclIndividual.Should().Be(0);
         majorityElection.EndResult!.EVotingSubTotal.InvalidVoteCount.Should().Be(0);
-        majorityElection.EndResult!.EVotingSubTotal.EmptyVoteCount.Should().Be(0);
+        majorityElection.EndResult!.EVotingSubTotal.EmptyVoteCountInclWriteIns.Should().Be(0);
         foreach (var candidateResult in majorityElection.EndResult!.CandidateEndResults)
         {
             candidateResult.EVotingVoteCount.Should().Be(0);
@@ -284,10 +317,10 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
             result.CountOfVoters.EVotingReceivedBallots.Should().Be(0);
             result.EVotingSubTotal.TotalCandidateVoteCountInclIndividual.Should().Be(0);
             result.EVotingSubTotal.InvalidVoteCount.Should().Be(0);
-            result.EVotingSubTotal.EmptyVoteCount.Should().Be(0);
+            result.EVotingSubTotal.EmptyVoteCountInclWriteIns.Should().Be(0);
             foreach (var candidateResult in result.CandidateResults)
             {
-                candidateResult.EVotingVoteCount.Should().Be(0);
+                candidateResult.EVotingInclWriteInsVoteCount.Should().Be(0);
             }
         }
     }
@@ -349,5 +382,23 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
                 }
             }
         }
+    }
+
+    private async Task AssertEVotingVotingCardsZero()
+    {
+        var ccDetails = await RunOnDb(
+            db => db.ContestCountingCircleDetails
+                .AsSplitQuery()
+                .Include(x => x.VotingCards)
+                .Where(x => x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting))
+                .ToListAsync());
+
+        var votingCards = ccDetails.SelectMany(x => x.VotingCards).ToList();
+        votingCards.Count(vc => vc.Channel != VotingChannel.EVoting && vc.CountOfReceivedVotingCards > 0).Should().BeGreaterThan(0);
+        votingCards
+            .Where(vc => vc.Channel == VotingChannel.EVoting)
+            .All(vc => vc.CountOfReceivedVotingCards == 0)
+            .Should()
+            .BeTrue();
     }
 }

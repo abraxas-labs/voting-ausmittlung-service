@@ -74,14 +74,8 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
             return;
         }
 
-        if (!hasAbsoluteMajority)
-        {
-            candidateEndResult.State = MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
-            return;
-        }
-
-        candidateEndResult.State = candidateEndResult.LotDecisionEnabled && !candidateEndResult.LotDecision
-            ? MajorityElectionCandidateEndResultState.Pending
-            : MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected;
+        candidateEndResult.State = hasAbsoluteMajority
+            ? MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected
+            : MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
     }
 }

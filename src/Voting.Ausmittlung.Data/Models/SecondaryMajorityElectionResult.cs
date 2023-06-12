@@ -9,7 +9,7 @@ namespace Voting.Ausmittlung.Data.Models;
 
 public class SecondaryMajorityElectionResult : BaseEntity,
     IHasSubTotals<MajorityElectionResultSubTotal, MajorityElectionResultNullableSubTotal>,
-    IMajorityElectionResultSubTotal<int>
+    IMajorityElectionResultTotal<int>
 {
     public MajorityElectionResult PrimaryResult { get; set; } = null!;
 
@@ -36,7 +36,7 @@ public class SecondaryMajorityElectionResult : BaseEntity,
     public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCount + ConventionalSubTotal.EmptyVoteCount.GetValueOrDefault();
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
 
     /// <inheritdoc />
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();

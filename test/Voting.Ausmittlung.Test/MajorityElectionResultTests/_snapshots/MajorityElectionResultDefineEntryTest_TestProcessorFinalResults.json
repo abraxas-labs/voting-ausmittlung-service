@@ -13,21 +13,25 @@
   "CandidateResults": [],
   "EVotingSubTotal": {
     "IndividualVoteCount": 0,
-    "EmptyVoteCount": 0,
+    "EmptyVoteCountInclWriteIns": 0,
     "InvalidVoteCount": 0,
     "TotalEmptyAndInvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 0,
     "TotalCandidateVoteCountInclIndividual": 0,
-    "TotalVoteCount": 0
+    "TotalVoteCount": 0,
+    "EmptyVoteCountWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": 0
   },
   "ConventionalSubTotal": {
     "IndividualVoteCount": null,
-    "EmptyVoteCount": null,
+    "EmptyVoteCountInclWriteIns": 0,
     "InvalidVoteCount": null,
     "TotalEmptyAndInvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 0,
     "TotalCandidateVoteCountInclIndividual": 0,
-    "TotalVoteCount": 0
+    "TotalVoteCount": 0,
+    "EmptyVoteCountWriteIns": null,
+    "EmptyVoteCountExclWriteIns": null
   },
   "ConventionalCountOfBallotGroupVotes": 0,
   "ConventionalCountOfDetailedEnteredBallots": 0,

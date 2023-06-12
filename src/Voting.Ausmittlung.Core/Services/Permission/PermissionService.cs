@@ -314,7 +314,7 @@ public class PermissionService
         if (!_auth.IsAuthenticated)
         {
             _logger.LogInformation(SecurityLogging.SecurityEventId, "Using Abraxas authentication values, since no user is authenticated");
-            _authStore.SetValues(new() { Loginid = _appConfig.SecureConnect.ServiceUserId }, new() { Id = _appConfig.SecureConnect.AbraxasTenantId }, Enumerable.Empty<string>());
+            _authStore.SetValues(string.Empty, new() { Loginid = _appConfig.SecureConnect.ServiceUserId }, new() { Id = _appConfig.SecureConnect.AbraxasTenantId }, Enumerable.Empty<string>());
         }
     }
 }

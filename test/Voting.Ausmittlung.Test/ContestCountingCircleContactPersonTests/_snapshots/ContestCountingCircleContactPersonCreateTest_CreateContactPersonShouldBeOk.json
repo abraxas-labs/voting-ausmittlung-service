@@ -22,7 +22,7 @@
     "FirstName": "first name",
     "FamilyName": "family name",
     "Phone": "+41795214623",
-    "MobilePhone": "",
+    "MobilePhone": "+41795214624",
     "Email": "test@example.com"
   },
   "ContactPersonSameDuringEventAsAfter": false,
@@ -30,7 +30,7 @@
     "FirstName": "after first name",
     "FamilyName": "after family name",
     "Phone": "+41795212222",
-    "MobilePhone": "",
+    "MobilePhone": "+41795212223",
     "Email": "after-test@example.com"
   }
 }

@@ -33,6 +33,7 @@ public class ResultImportWriter
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IAggregateRepository _aggregateRepository;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
+    private readonly IDbRepository<DataContext, ResultImport> _resultImportRepo;
     private readonly ProportionalElectionResultImportWriter _proportionalElectionResultImportWriter;
     private readonly MajorityElectionResultImportWriter _majorityElectionResultImportWriter;
     private readonly SecondaryMajorityElectionResultImportWriter _secondaryMajorityElectionResultImportWriter;
@@ -46,6 +47,7 @@ public class ResultImportWriter
         IAggregateFactory aggregateFactory,
         IAggregateRepository aggregateRepository,
         IDbRepository<DataContext, Contest> contestRepo,
+        IDbRepository<DataContext, ResultImport> resultImportRepo,
         ProportionalElectionResultImportWriter proportionalElectionResultImportWriter,
         MajorityElectionResultImportWriter majorityElectionResultImportWriter,
         SecondaryMajorityElectionResultImportWriter secondaryMajorityElectionResultImportWriter,
@@ -57,6 +59,7 @@ public class ResultImportWriter
         _aggregateFactory = aggregateFactory;
         _aggregateRepository = aggregateRepository;
         _contestRepo = contestRepo;
+        _resultImportRepo = resultImportRepo;
         _proportionalElectionResultImportWriter = proportionalElectionResultImportWriter;
         _voteResultImportWriter = voteResultImportWriter;
         _appConfig = appConfig;
@@ -130,20 +133,56 @@ public class ResultImportWriter
         await _aggregateRepository.Save(aggregate);
     }
 
+    public async Task ResetMajorityElectionWriteIns(
+        Guid contestId,
+        Guid basisCountingCircleId,
+        Guid electionId,
+        PoliticalBusinessType pbType)
+    {
+        _permissionService.EnsureErfassungElectionAdmin();
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(basisCountingCircleId, contestId);
+        await _contestService.EnsureNotLocked(contestId);
+
+        var importId = await GetLatestResultImportId(contestId)
+                       ?? throw new EntityNotFoundException(nameof(ResultImport), new { contestId });
+
+        switch (pbType)
+        {
+            case PoliticalBusinessType.MajorityElection:
+                await _majorityElectionResultImportWriter.ValidateState(electionId, basisCountingCircleId);
+                break;
+            case PoliticalBusinessType.SecondaryMajorityElection:
+                await _secondaryMajorityElectionResultImportWriter.ValidateState(electionId, basisCountingCircleId);
+                break;
+            default:
+                throw new ValidationException("Write-Ins are only available for majority elections!");
+        }
+
+        var aggregate = await _aggregateRepository.GetById<ResultImportAggregate>(importId);
+        aggregate.ResetMajorityElectionWriteIns(electionId, basisCountingCircleId, pbType);
+        await _aggregateRepository.Save(aggregate);
+    }
+
     public async Task Import(ResultImportMeta importMeta)
     {
         _permissionService.EnsureMonitoringElectionAdmin();
 
-        var importData = Ech0222Deserializer.DeserializeXml(importMeta.FileContent);
+        var importData = Ech0222Deserializer.DeserializeXml(importMeta.Ech0222FileContent);
         if (importMeta.ContestId != importData.ContestId)
         {
             throw new ValidationException("contestIds do not match");
         }
 
-        await Import(importData, importMeta);
+        var importedVotingCards = Ech0110Deserializer.DeserializeXml(importMeta.Ech0110FileContent);
+        if (importMeta.ContestId != importedVotingCards.ContestId)
+        {
+            throw new ValidationException("contestIds do not match");
+        }
+
+        await Import(importData, importedVotingCards, importMeta);
     }
 
-    internal async Task Import(EVotingImport importData, ResultImportMeta importMeta)
+    internal async Task Import(EVotingImport importData, EVotingVotingCardImport importedVotingCards, ResultImportMeta importMeta)
     {
         var contest = await _contestRepo.Query()
             .AsSplitQuery()
@@ -162,13 +201,25 @@ public class ResultImportWriter
             throw new EVotingNotActiveException(nameof(Contest), importMeta.ContestId);
         }
 
-        var ignoredCountingCircles = ValidateAndFilterCountingCircles(contest, importData.PoliticalBusinessResults);
+        var ignoredCountingCircles = ValidateAndFilterCountingCircles(
+            contest,
+            importData.PoliticalBusinessResults,
+            importedVotingCards.CountingCircleVotingCards);
         var resultsByType = GroupByBusinessType(importData.PoliticalBusinessResults, contest.SimplePoliticalBusinesses);
 
+        // The file names and eCH message IDs are currently concatenated. In the future, both the results and voting cards should be provided
+        // in one eCH file. In the past, only a single eCH-0222 file (without eCH-0110) was used.
+        // We do not want to add a new eCH-0110 file name field to the event, as it would be needed only temporarily.
         var aggregate = _aggregateFactory.New<ResultImportAggregate>();
-        aggregate.Start(importMeta.FileName, importData.ContestId, importData.EchMessageId, ignoredCountingCircles);
+        aggregate.Start(
+            $"{importMeta.Ech0222FileName} / {importMeta.Ech0110FileName}",
+            importData.ContestId,
+            $"{importData.EchMessageId} / {importedVotingCards.EchMessageId}",
+            ignoredCountingCircles);
 
         var countingCircleResultAggregatesToSave = await EnsureAllCountingCirclesInSubmissionOrCorrection(contest);
+
+        aggregate.ImportCountingCircleVotingCards(importedVotingCards.CountingCircleVotingCards);
 
         foreach (var (pbType, results) in resultsByType)
         {
@@ -262,7 +313,8 @@ public class ResultImportWriter
 
     private IReadOnlyCollection<IgnoredImportCountingCircle> ValidateAndFilterCountingCircles(
         Contest contest,
-        List<EVotingPoliticalBusinessResult> importedCcResults)
+        List<EVotingPoliticalBusinessResult> importedCcResults,
+        List<EVotingCountingCircleVotingCards> importedVotingCards)
     {
         var testCountingCirclesById = _appConfig.Publisher.TestCountingCircles
             .GetValueOrDefault(contest.DomainOfInfluence.Canton, new List<TestCountingCircleConfig>())
@@ -270,6 +322,7 @@ public class ResultImportWriter
         var ignoredCountingCircles = new List<IgnoredImportCountingCircle>();
 
         var ccDetailsByBasisId = contest.CountingCircleDetails.ToDictionary(x => x.CountingCircle.BasisCountingCircleId);
+        var importedVotingCardCcIds = importedVotingCards.Select(x => x.BasisCountingCircleId).ToHashSet();
         foreach (var ccResult in importedCcResults)
         {
             if (testCountingCirclesById.TryGetValue(ccResult.BasisCountingCircleId, out var testCountingCircle))
@@ -311,17 +364,33 @@ public class ResultImportWriter
             {
                 throw new EVotingNotActiveException(nameof(CountingCircle), basisCountingCircleId);
             }
+
+            if (!importedVotingCardCcIds.Contains(ccResult.BasisCountingCircleId))
+            {
+                throw new ValidationException($"Import does not contain voting cards for counting circle {ccResult.BasisCountingCircleId}");
+            }
         }
 
         importedCcResults.RemoveAll(x => ignoredCountingCircles.Any(ignored => ignored.CountingCircleId == x.BasisCountingCircleId));
+        importedVotingCards.RemoveAll(x => ignoredCountingCircles.Any(ignored => ignored.CountingCircleId == x.BasisCountingCircleId));
 
         if (importedCcResults.Count != importedCcResults.DistinctBy(x => (x.BasisCountingCircleId, x.PoliticalBusinessId)).Count())
         {
             throw new ValidationException("Duplicate counting circle results provided");
         }
 
-        if (contest.TestingPhaseEnded
-            && contest.CountingCircleDetails.Count(x => x.EVoting) != importedCcResults.DistinctBy(x => x.BasisCountingCircleId).Count())
+        if (importedVotingCards.Count != importedVotingCards.DistinctBy(x => x.BasisCountingCircleId).Count())
+        {
+            throw new ValidationException("Duplicate counting circle voting cards provided");
+        }
+
+        var countOfImportedCountingCircles = importedCcResults.DistinctBy(x => x.BasisCountingCircleId).Count();
+        if (countOfImportedCountingCircles != importedVotingCards.Count)
+        {
+            throw new ValidationException("Imported counting circles results do not match with voting cards");
+        }
+
+        if (contest.TestingPhaseEnded && contest.CountingCircleDetails.Count(x => x.EVoting) != countOfImportedCountingCircles)
         {
             throw new ValidationException("Did not provide results for all counting circles");
         }
@@ -393,5 +462,14 @@ public class ResultImportWriter
         var prevImport = await _aggregateRepository.GetById<ResultImportAggregate>(prevImportId.Value);
         prevImport.SucceedBy(import.Id);
         await _aggregateRepository.Save(prevImport);
+    }
+
+    private async Task<Guid?> GetLatestResultImportId(Guid contestId)
+    {
+        return await _resultImportRepo.Query()
+            .Where(x => x.ContestId == contestId)
+            .OrderByDescending(x => x.Started)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
     }
 }

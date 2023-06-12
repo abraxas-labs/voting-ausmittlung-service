@@ -32,7 +32,9 @@ public static class EVotingMockedData
                 "default-user-id",
                 new[] { RolesMockedData.MonitoringElectionAdmin });
 
-            using var resp = await client.PostFile(uri, "ImportTests/ExampleFiles/ech0222_import_ok.xml");
+            var ech0222File = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
+            var ech0110File = "ImportTests/ExampleFiles/ech0110_import_ok.xml";
+            using var resp = await client.PostFiles(uri, ("ech0222File", ech0222File), ("ech0110File", ech0110File));
             resp.EnsureSuccessStatusCode();
 
             var publisherMock = sp.GetRequiredService<EventPublisherMock>();

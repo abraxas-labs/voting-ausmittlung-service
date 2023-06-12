@@ -346,13 +346,13 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
             .Should().BeFalse();
 
         result.ConventionalSubTotal.IndividualVoteCount.Should().Be(defaultValue);
-        result.ConventionalSubTotal.EmptyVoteCount.Should().Be(defaultValue);
+        result.ConventionalSubTotal.EmptyVoteCountExclWriteIns.Should().Be(defaultValue);
         result.ConventionalSubTotal.InvalidVoteCount.Should().Be(defaultValue);
         result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual.Should().Be(0);
 
         result.SecondaryMajorityElectionResults.Any(r =>
                 r.ConventionalSubTotal.IndividualVoteCount != defaultValue ||
-                r.ConventionalSubTotal.EmptyVoteCount != defaultValue ||
+                r.ConventionalSubTotal.EmptyVoteCountExclWriteIns != defaultValue ||
                 r.ConventionalSubTotal.InvalidVoteCount != defaultValue ||
                 r.TotalCandidateVoteCountExclIndividual != 0)
             .Should().BeFalse();

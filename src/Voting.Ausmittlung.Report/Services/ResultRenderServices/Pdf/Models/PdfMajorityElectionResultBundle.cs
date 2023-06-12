@@ -12,6 +12,4 @@ public class PdfMajorityElectionResultBundle : PdfPoliticalBusinessBundle
 
     [XmlElement("MajorityElectionResultBallot")]
     public List<PdfMajorityElectionResultBallot> Ballots { get; set; } = new();
-
-    public PdfUser? CreatedBy { get; set; }
 }

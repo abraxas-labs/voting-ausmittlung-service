@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
 using Google.Protobuf;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Data.Models;
@@ -49,6 +50,11 @@ public class EventLogBuilder
         }
 
         IncrementSignedEventCount(ev.Metadata, context);
+
+        if (IsIgnoredEvent(ev))
+        {
+            return null;
+        }
 
         var initializer = _eventLogInitializerRegistry.GetInitializerAdapter(ev.Data.Descriptor);
         if (initializer == null)
@@ -172,5 +178,16 @@ public class EventLogBuilder
         eventLog.PoliticalBusinessNumber = pb.PoliticalBusinessNumber;
 
         return true;
+    }
+
+    private bool IsIgnoredEvent(EventReadResult ev)
+    {
+        // some events should be ignored (eg. exports).
+        return ev.Data
+            is ResultExportGenerated
+            or ResultExportTriggered
+            or ResultExportCompleted
+            or ExportGenerated
+            or BundleReviewExportGenerated;
     }
 }

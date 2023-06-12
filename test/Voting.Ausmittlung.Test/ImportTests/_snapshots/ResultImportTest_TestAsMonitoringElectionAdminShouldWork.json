@@ -17,9 +17,9 @@
       }
     },
     "ImportId": "",
-    "FileName": "ech0222_import_ok.xml",
+    "FileName": "ech0222_import_ok.xml / ech0110_import_ok.xml",
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
-    "EchMessageId": "mock-id",
+    "EchMessageId": "mock-id / mock-id-0110",
     "IgnoredCountingCircles": [
       {
         "CountingCircleId": "10001",
@@ -311,7 +311,7 @@
       }
     },
     "ImportId": "",
-    "FileName": "ech0222_import_ok.xml",
+    "FileName": "ech0222_import_ok.xml / ech0110_import_ok.xml",
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
     "ImportedProportionalElectionIds": [
       "fa69e964-0a02-4d16-b417-247e8987021a"
@@ -324,6 +324,36 @@
     ],
     "ImportedVoteIds": [
       "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+    ]
+  },
+  "votingCards": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "200200200200200200",
+        "Name": "St. Gallen"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ImportId": "",
+    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "CountingCircleVotingCards": [
+      {
+        "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+        "CountOfReceivedVotingCards": 6
+      },
+      {
+        "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+        "CountOfReceivedVotingCards": 24
+      }
     ]
   }
 }

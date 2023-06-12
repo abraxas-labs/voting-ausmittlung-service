@@ -63,19 +63,26 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
             }
         }
 
-        foreach (var result in ValidateCandidateResults(data, context))
-        {
-            yield return result;
-        }
+        yield return ValidateCandidateResults(data, context);
     }
 
-    private IEnumerable<ValidationResult> ValidateCandidateResults(MajorityElectionResult electionResult, ValidationContext context)
+    private ValidationResult ValidateCandidateResults(MajorityElectionResult electionResult, ValidationContext context)
     {
-        yield return electionResult.CandidateResults
-                        .Cast<MajorityElectionCandidateResultBase>()
-                        .Concat(electionResult.SecondaryMajorityElectionResults.SelectMany(x => x.CandidateResults))
-                        .SelectMany(x => _candidateValidator.Validate(x, context))
-                        .FirstInvalidOrElseFirstValid();
+        // A weird edge case when no candidates have been created at all.
+        // This can happen when no official candidate exists (ex. for an unpopular mandate).
+        // Users first have to analyse the write-ins/individual candidates and then create the most mentioned candidates in VOTING Basis.
+        // Since this is a very rare edge case, we only display this validation in case it fails.
+        if (electionResult.CandidateResults.Count == 0 ||
+            electionResult.SecondaryMajorityElectionResults.Any(x => x.CandidateResults.Count == 0))
+        {
+            return new ValidationResult(SharedProto.Validation.MajorityElectionHasCandidates, false);
+        }
+
+        return electionResult.CandidateResults
+            .Cast<MajorityElectionCandidateResultBase>()
+            .Concat(electionResult.SecondaryMajorityElectionResults.SelectMany(x => x.CandidateResults))
+            .SelectMany(x => _candidateValidator.Validate(x, context))
+            .FirstInvalidOrElseFirstValid();
     }
 
     private ValidationResult ValidateCandidateVotesNotNull(MajorityElectionResult electionResult)
@@ -89,7 +96,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
     {
         return new ValidationResult(
             SharedProto.Validation.MajorityElectionEmptyVoteCountNotNull,
-            electionResult.ConventionalSubTotal.EmptyVoteCount.HasValue);
+            electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns.HasValue);
     }
 
     private ValidationResult ValidateInvalidVoteCountNotNull(MajorityElectionResult electionResult)
@@ -103,7 +110,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
     {
         var totalAccountedBallots = electionResult.CountOfVoters.ConventionalAccountedBallots.GetValueOrDefault();
         var numberOfMandates = electionResult.MajorityElection.NumberOfMandates;
-        var emptyVoteCount = electionResult.ConventionalSubTotal.EmptyVoteCount.GetValueOrDefault();
+        var emptyVoteCount = electionResult.ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
         var invalidVoteCount = electionResult.ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
         var candidateVoteCountInclIndividual = electionResult.ConventionalSubTotal.TotalCandidateVoteCountInclIndividual;
 

@@ -7,7 +7,7 @@ using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<MajorityElectionResultSubTotal>, IMajorityElectionResultSubTotal<int>
+public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<MajorityElectionResultSubTotal>, IMajorityElectionResultTotal<int>
 {
     public Guid SecondaryMajorityElectionId { get; set; }
 
@@ -28,7 +28,7 @@ public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<Majo
     public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount;
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCount + ConventionalSubTotal.EmptyVoteCount;
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns;
 
     /// <inheritdoc />
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount;

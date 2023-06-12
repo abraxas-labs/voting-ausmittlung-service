@@ -41,14 +41,14 @@ public class MajorityElectionResultResetTest : BaseProcessorTest
                 r.CountOfElectionsWithUnmappedWriteIns = 1;
                 r.ConventionalSubTotal = new()
                 {
-                    EmptyVoteCount = null,
+                    EmptyVoteCountExclWriteIns = null,
                     IndividualVoteCount = 4,
                     InvalidVoteCount = 3,
                     TotalCandidateVoteCountExclIndividual = 15,
                 };
                 r.EVotingSubTotal = new()
                 {
-                    EmptyVoteCount = 1,
+                    EmptyVoteCountExclWriteIns = 1,
                     InvalidVoteCount = 2,
                     IndividualVoteCount = 3,
                     TotalCandidateVoteCountExclIndividual = 9,
@@ -81,7 +81,7 @@ public class MajorityElectionResultResetTest : BaseProcessorTest
             r =>
             {
                 r.ConventionalVoteCount = 2;
-                r.EVotingVoteCount = 1;
+                r.EVotingExclWriteInsVoteCount = 1;
             });
 
         await ModifyDbEntities<SecondaryMajorityElectionCandidateResult>(
@@ -89,7 +89,7 @@ public class MajorityElectionResultResetTest : BaseProcessorTest
             r =>
             {
                 r.ConventionalVoteCount = 2;
-                r.EVotingVoteCount = 1;
+                r.EVotingExclWriteInsVoteCount = 1;
             });
 
         await RunOnDb(async db =>

@@ -14,21 +14,25 @@
     "CandidateResults": null,
     "EVotingSubTotal": {
       "IndividualVoteCount": 3,
-      "EmptyVoteCount": 1,
+      "EmptyVoteCountInclWriteIns": 1,
       "InvalidVoteCount": 2,
       "TotalEmptyAndInvalidVoteCount": 3,
       "TotalCandidateVoteCountExclIndividual": 9,
       "TotalCandidateVoteCountInclIndividual": 12,
-      "TotalVoteCount": 15
+      "TotalVoteCount": 15,
+      "EmptyVoteCountWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 1
     },
     "ConventionalSubTotal": {
       "IndividualVoteCount": 4,
-      "EmptyVoteCount": null,
+      "EmptyVoteCountInclWriteIns": 0,
       "InvalidVoteCount": 3,
       "TotalEmptyAndInvalidVoteCount": 3,
       "TotalCandidateVoteCountExclIndividual": 15,
       "TotalCandidateVoteCountInclIndividual": 19,
-      "TotalVoteCount": 22
+      "TotalVoteCount": 22,
+      "EmptyVoteCountWriteIns": null,
+      "EmptyVoteCountExclWriteIns": null
     },
     "ConventionalCountOfBallotGroupVotes": 2,
     "ConventionalCountOfDetailedEnteredBallots": 2,
@@ -49,21 +53,25 @@
         "WriteInMappings": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 1,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 9,
           "TotalCandidateVoteCountInclIndividual": 10,
-          "TotalVoteCount": 10
+          "TotalVoteCount": 10,
+          "EmptyVoteCountWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 2,
-          "EmptyVoteCount": null,
+          "EmptyVoteCountInclWriteIns": 0,
           "InvalidVoteCount": 1,
           "TotalEmptyAndInvalidVoteCount": 1,
           "TotalCandidateVoteCountExclIndividual": 4,
           "TotalCandidateVoteCountInclIndividual": 6,
-          "TotalVoteCount": 7
+          "TotalVoteCount": 7,
+          "EmptyVoteCountWriteIns": null,
+          "EmptyVoteCountExclWriteIns": null
         },
         "IndividualVoteCount": 3,
         "EmptyVoteCount": 0,
@@ -132,21 +140,25 @@
     "CandidateResults": null,
     "EVotingSubTotal": {
       "IndividualVoteCount": 3,
-      "EmptyVoteCount": 1,
+      "EmptyVoteCountInclWriteIns": 1,
       "InvalidVoteCount": 2,
       "TotalEmptyAndInvalidVoteCount": 3,
       "TotalCandidateVoteCountExclIndividual": 9,
       "TotalCandidateVoteCountInclIndividual": 12,
-      "TotalVoteCount": 15
+      "TotalVoteCount": 15,
+      "EmptyVoteCountWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 1
     },
     "ConventionalSubTotal": {
       "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
       "InvalidVoteCount": 0,
       "TotalEmptyAndInvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
       "TotalCandidateVoteCountInclIndividual": 0,
-      "TotalVoteCount": 0
+      "TotalVoteCount": 0,
+      "EmptyVoteCountWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0
     },
     "ConventionalCountOfBallotGroupVotes": 0,
     "ConventionalCountOfDetailedEnteredBallots": 0,
@@ -167,21 +179,25 @@
         "WriteInMappings": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 1,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 9,
           "TotalCandidateVoteCountInclIndividual": 10,
-          "TotalVoteCount": 10
+          "TotalVoteCount": 10,
+          "EmptyVoteCountWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0
         },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 0,
-          "EmptyVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
           "InvalidVoteCount": 0,
           "TotalEmptyAndInvalidVoteCount": 0,
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 0,
-          "TotalVoteCount": 0
+          "TotalVoteCount": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0
         },
         "IndividualVoteCount": 1,
         "EmptyVoteCount": 0,

@@ -26,5 +26,7 @@ public class ResultImport : BaseEntity
 
     public string FileName { get; set; } = string.Empty;
 
+    public ICollection<ResultImportCountingCircle> ImportedCountingCircles { get; set; } = new HashSet<ResultImportCountingCircle>();
+
     public ICollection<IgnoredImportCountingCircle> IgnoredCountingCircles { get; set; } = new HashSet<IgnoredImportCountingCircle>();
 }

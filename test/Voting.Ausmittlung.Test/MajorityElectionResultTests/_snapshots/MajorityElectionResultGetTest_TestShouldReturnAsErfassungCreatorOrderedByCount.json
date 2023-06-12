@@ -90,7 +90,9 @@
             "Position": 1,
             "Description": "number1 pol last name pol first name"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": 11,
           "VoteCount": 11
         },
@@ -106,7 +108,9 @@
             "Position": 2,
             "Description": "number2 L Pete"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": 7,
           "VoteCount": 7
         },
@@ -122,7 +126,9 @@
             "Position": 3,
             "Description": "number3 Proll Hansi"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         },
@@ -138,21 +144,27 @@
             "Position": 4,
             "Description": "number4 Meierhans Susi"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         }
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
         "InvalidVoteCount": 0,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
         "IndividualVoteCount": null,
-        "EmptyVoteCount": null,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": null,
+        "EmptyVoteCountWriteIns": null,
         "InvalidVoteCount": null,
         "TotalCandidateVoteCountExclIndividual": 18,
         "TotalCandidateVoteCountInclIndividual": 18
@@ -186,7 +198,9 @@
             "Position": 1,
             "Description": "number1 pol last name pol first name"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         },
@@ -202,21 +216,27 @@
             "Position": 2,
             "Description": "number2 L Pete2"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         }
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
         "InvalidVoteCount": 0,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
         "IndividualVoteCount": null,
-        "EmptyVoteCount": null,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": null,
+        "EmptyVoteCountWriteIns": null,
         "InvalidVoteCount": null,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0
@@ -250,7 +270,9 @@
             "Position": 1,
             "Description": "number1 pol last name pol first name"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         },
@@ -266,21 +288,27 @@
             "Position": 2,
             "Description": "number2 L Pete2"
           },
-          "EVotingVoteCount": 0,
+          "EVotingWriteInsVoteCount": 0,
+          "EVotingExclWriteInsVoteCount": 0,
+          "EVotingInclWriteInsVoteCount": 0,
           "ConventionalVoteCount": null,
           "VoteCount": 0
         }
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
         "InvalidVoteCount": 0,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
         "IndividualVoteCount": null,
-        "EmptyVoteCount": null,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": null,
+        "EmptyVoteCountWriteIns": null,
         "InvalidVoteCount": null,
         "TotalCandidateVoteCountExclIndividual": 0,
         "TotalCandidateVoteCountInclIndividual": 0
@@ -327,7 +355,9 @@
         "Position": 2,
         "Description": "number5 pol last name pol first name"
       },
-      "EVotingVoteCount": 0,
+      "EVotingWriteInsVoteCount": 0,
+      "EVotingExclWriteInsVoteCount": 0,
+      "EVotingInclWriteInsVoteCount": 0,
       "ConventionalVoteCount": 15,
       "VoteCount": 15
     },
@@ -343,7 +373,9 @@
         "Position": 1,
         "Description": "number1 pol last name pol first name"
       },
-      "EVotingVoteCount": 0,
+      "EVotingWriteInsVoteCount": 0,
+      "EVotingExclWriteInsVoteCount": 0,
+      "EVotingInclWriteInsVoteCount": 0,
       "ConventionalVoteCount": 10,
       "VoteCount": 10
     }
@@ -352,14 +384,18 @@
   "ConventionalCountOfDetailedEnteredBallots": 0,
   "EVotingSubTotal": {
     "IndividualVoteCount": 0,
-    "EmptyVoteCount": 0,
+    "EmptyVoteCountInclWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": 0,
+    "EmptyVoteCountWriteIns": 0,
     "InvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 0,
     "TotalCandidateVoteCountInclIndividual": 0
   },
   "ConventionalSubTotal": {
     "IndividualVoteCount": 1,
-    "EmptyVoteCount": null,
+    "EmptyVoteCountInclWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": null,
+    "EmptyVoteCountWriteIns": null,
     "InvalidVoteCount": null,
     "TotalCandidateVoteCountExclIndividual": 25,
     "TotalCandidateVoteCountInclIndividual": 26

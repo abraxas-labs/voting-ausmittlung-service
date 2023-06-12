@@ -4989,7 +4989,7 @@
     </EventAttribute>
     <EventAttribute>
       <AttributeName>signed_event_count</AttributeName>
-      <AttributeValue>11</AttributeValue>
+      <AttributeValue>12</AttributeValue>
     </EventAttribute>
     <EventAttribute>
       <AttributeName>deleted_at</AttributeName>
@@ -5012,8 +5012,8 @@
       <Lastname>default user lastname</Lastname>
     </User>
     <PublicKeyData>
-      <ExpectedSignedEventCount>11</ExpectedSignedEventCount>
-      <ReadAtGenerationSignedEventCount>11</ReadAtGenerationSignedEventCount>
+      <ExpectedSignedEventCount>12</ExpectedSignedEventCount>
+      <ReadAtGenerationSignedEventCount>12</ReadAtGenerationSignedEventCount>
       <HasMatchingSignedEventCount>true</HasMatchingSignedEventCount>
       <SignatureValidationResultType>Valid</SignatureValidationResultType>
     </PublicKeyData>

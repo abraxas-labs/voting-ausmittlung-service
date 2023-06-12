@@ -64,6 +64,11 @@
   </PoliticalBusiness>
   <MajorityElectionResultBundle>
     <Number>1</Number>
+    <CreatedBy>
+      <FirstName>Hans</FirstName>
+      <LastName>Muster</LastName>
+      <FullName>Hans Muster</FullName>
+    </CreatedBy>
     <CountOfBallots>3</CountOfBallots>
     <MajorityElectionResultBallot>
       <Number>1</Number>
@@ -125,10 +130,5 @@
       <InvalidVoteCount>0</InvalidVoteCount>
       <IndividualVoteCount>0</IndividualVoteCount>
     </MajorityElectionResultBallot>
-    <CreatedBy>
-      <FirstName>Hans</FirstName>
-      <LastName>Muster</LastName>
-      <FullName>Hans Muster</FullName>
-    </CreatedBy>
   </MajorityElectionResultBundle>
 </Voting>

@@ -16,6 +16,7 @@ using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
@@ -67,8 +68,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
                     .Where(z => z.DomainOfInfluenceType == election.DomainOfInfluence.Type && z.Valid)
                     .Sum(z => z.CountOfReceivedVotingCards ?? 0),
                 TotalCountOfVoters = x.Single().TotalCountOfVoters,
-                SwissAbroadCountOfVoters = x
-                    .SelectMany(y => y.CountOfVotersInformationSubTotals)
+                SwissAbroadCountOfVoters = x.Single().CountOfVotersInformationSubTotals
                     .Where(y => y.VoterType == VoterType.SwissAbroad)
                     .Sum(y => y.CountOfVoters.GetValueOrDefault()),
             })
@@ -133,7 +133,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             ctx,
             data,
             election.ShortDescription,
-            election.Contest.Date.ToString("yyyyMMdd"));
+            WabstiCDateUtil.BuildDateForFilename(election.Contest.Date));
     }
 
     private void CleanResultValues(IReadOnlyDictionary<Guid, CountingCircleResultState> statesByCcId, Data data)

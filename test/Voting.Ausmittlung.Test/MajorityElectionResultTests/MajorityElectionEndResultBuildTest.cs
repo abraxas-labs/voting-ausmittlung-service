@@ -166,6 +166,22 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
         endResultAfterSecondLotDecisions.CandidateEndResults.Where(x => x.Rank >= 2 && x.Rank <= 5).MatchSnapshot("after-second-lot-decisions-candidates");
     }
 
+    [Fact]
+    public async Task TestBuildMajorityElectionEndResultWithOptionalLotDecisions()
+    {
+        await SeedElection(
+            MajorityElectionResultEntry.FinalResults,
+            MajorityElectionMandateAlgorithm.RelativeMajority,
+            4,
+            2);
+        await StartResultSubmissions();
+        await FinishResultSubmissions();
+        await SetResultsToAuditedTentatively();
+
+        var endResult = await GetEndResult();
+        endResult.CandidateEndResults.Where(x => x.Rank >= 2 && x.Rank <= 5).MatchSnapshot("after-lot-decisions-candidates");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)

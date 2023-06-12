@@ -43,7 +43,9 @@ public class ResultImportReader
         await _permissionService.EnsureIsContestManager(contestId);
         return await _resultImportRepo.Query()
             .AsSplitQuery()
-            .Include(x => x.IgnoredCountingCircles.OrderBy(x => x.CountingCircleId))
+            .Include(x => x.IgnoredCountingCircles.OrderBy(cc => cc.CountingCircleId))
+            .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
+            .ThenInclude(x => x.CountingCircle)
             .Where(x => x.ContestId == contestId)
             .OrderByDescending(x => x.Started)
             .ToListAsync();

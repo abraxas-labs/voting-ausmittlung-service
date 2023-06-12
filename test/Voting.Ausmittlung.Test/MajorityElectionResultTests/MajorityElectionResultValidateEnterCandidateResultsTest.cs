@@ -11,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -148,6 +149,30 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x =>
             x.Request.CountOfVoters.ConventionalAccountedBallots = 1));
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionAccountedBallotsGreaterOrEqualCandidateVotes)
+            .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsNotValidWhenNoCandidatesExist()
+    {
+        await RunOnDb(async db =>
+        {
+            var majorityElection = await db.MajorityElections
+                .AsTracking()
+                .Include(x => x.MajorityElectionCandidates)
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund));
+            majorityElection.MajorityElectionCandidates.Clear();
+            await db.SaveChangesAsync();
+        });
+
+        var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x =>
+        {
+            x.Request.CandidateResults.Clear();
+            x.Request.SecondaryElectionCandidateResults[0].CandidateResults.Clear();
+        }));
+
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionHasCandidates)
             .IsValid.Should().BeFalse();
     }
 

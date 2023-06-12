@@ -23,7 +23,7 @@ public static class ServiceProviderExtensions
         try
         {
             var authStore = scope.ServiceProvider.GetRequiredService<IAuthStore>();
-            authStore.SetValues(outerAuth.User, outerAuth.Tenant, outerAuth.Roles);
+            authStore.SetValues(outerAuth.AccessToken, outerAuth.User, outerAuth.Tenant, outerAuth.Roles);
 
             var languageService = scope.ServiceProvider.GetRequiredService<LanguageService>();
             languageService.SetLanguage(outerLanguageService.Language);

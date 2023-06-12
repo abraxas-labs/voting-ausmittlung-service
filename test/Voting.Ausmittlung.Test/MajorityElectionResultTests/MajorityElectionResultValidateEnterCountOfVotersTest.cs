@@ -42,7 +42,7 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
         {
             result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = 1895;
             result.ConventionalSubTotal.IndividualVoteCount = 5;
-            result.ConventionalSubTotal.EmptyVoteCount = 70;
+            result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 70;
             result.ConventionalSubTotal.InvalidVoteCount = 30;
 
             result.ConventionalCountOfDetailedEnteredBallots = 1500;

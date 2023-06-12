@@ -44,14 +44,8 @@ public class MajorityElectionRelativeMajorityStrategy : MajorityElectionMandateA
         int numberOfMandates)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
     {
-        if (candidateEndResult.Rank > numberOfMandates)
-        {
-            candidateEndResult.State = MajorityElectionCandidateEndResultState.NotElected;
-            return;
-        }
-
-        candidateEndResult.State = candidateEndResult.LotDecisionEnabled && !candidateEndResult.LotDecision
-            ? MajorityElectionCandidateEndResultState.Pending
+        candidateEndResult.State = candidateEndResult.Rank > numberOfMandates
+            ? MajorityElectionCandidateEndResultState.NotElected
             : MajorityElectionCandidateEndResultState.Elected;
     }
 }

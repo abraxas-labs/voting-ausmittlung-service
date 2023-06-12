@@ -28,6 +28,13 @@ public static class ResultImportMockedData
             LastName = "Meier",
             SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
         },
+        ImportedCountingCircles = new List<ResultImportCountingCircle>
+        {
+            new ResultImportCountingCircle
+            {
+                CountingCircleId = CountingCircleMockedData.Uzwil.Id,
+            },
+        },
     };
 
     public static ResultImport UzwilDeleted => new ResultImport
@@ -82,6 +89,13 @@ public static class ResultImportMockedData
             FirstName = "Hans",
             LastName = "Meier",
             SecureConnectId = "9f53f1aa-dd60-40b8-b028-3c7686799215",
+        },
+        ImportedCountingCircles = new List<ResultImportCountingCircle>
+        {
+            new ResultImportCountingCircle
+            {
+                CountingCircleId = CountingCircleMockedData.Gossau.Id,
+            },
         },
     };
 

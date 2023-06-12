@@ -20,7 +20,7 @@
     "FirstName": "updated first name",
     "FamilyName": "updated family name",
     "Phone": "+41795212222",
-    "MobilePhone": "",
+    "MobilePhone": "+41795212221",
     "Email": "test-updated@example.com"
   },
   "ContactPersonSameDuringEventAsAfter": false,
@@ -28,7 +28,7 @@
     "FirstName": "after updated first name",
     "FamilyName": "after updated family name",
     "Phone": "+41795212999",
-    "MobilePhone": "",
+    "MobilePhone": "+41795212998",
     "Email": "after-test-updated@example.com"
   }
 }

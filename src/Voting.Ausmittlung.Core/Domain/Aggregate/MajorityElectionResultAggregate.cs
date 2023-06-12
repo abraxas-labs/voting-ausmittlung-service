@@ -12,7 +12,6 @@ using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
-using Voting.Lib.Eventing.Domain;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
@@ -213,11 +212,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public ActionId PrepareSubmissionFinished()
-    {
-        return BuildActionId(nameof(SubmissionFinished));
-    }
-
     public override void SubmissionFinished(Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing);
@@ -228,11 +222,6 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
                 ElectionResultId = Id.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
-    }
-
-    public ActionId PrepareCorrectionFinished()
-    {
-        return BuildActionId(nameof(CorrectionFinished));
     }
 
     public override void CorrectionFinished(string comment, Guid contestId)

@@ -13,7 +13,7 @@ public static class VoteCountExtensions
         => counts.SetVoteCountOfDataSource(dataSource, 0);
 
     public static void ResetSubTotal(this IHasNullableConventionalVoteCounts counts, VotingDataSource dataSource, bool setZeroInsteadNull = false)
-        => counts.SetVoteCountOfDataSource(dataSource, setZeroInsteadNull ? 0 : (int?)null);
+        => counts.SetVoteCountOfDataSource(dataSource, setZeroInsteadNull ? 0 : (int?)null, 0);
 
     public static int GetVoteCountOfDataSource(this IHasVoteCounts counts, VotingDataSource dataSource)
     {
@@ -30,7 +30,7 @@ public static class VoteCountExtensions
         return dataSource switch
         {
             VotingDataSource.Conventional => counts.ConventionalVoteCount.GetValueOrDefault(),
-            VotingDataSource.EVoting => counts.EVotingVoteCount,
+            VotingDataSource.EVoting => counts.EVotingInclWriteInsVoteCount,
             _ => throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null),
         };
     }
@@ -50,7 +50,7 @@ public static class VoteCountExtensions
         }
     }
 
-    public static void SetVoteCountOfDataSource(this IHasNullableConventionalVoteCounts counts, VotingDataSource dataSource, int? value)
+    public static void SetVoteCountOfDataSource(this IHasNullableConventionalVoteCounts counts, VotingDataSource dataSource, int? value, int? writeInVoteCount)
     {
         switch (dataSource)
         {
@@ -58,7 +58,8 @@ public static class VoteCountExtensions
                 counts.ConventionalVoteCount = value;
                 return;
             case VotingDataSource.EVoting:
-                counts.EVotingVoteCount = value.GetValueOrDefault();
+                counts.EVotingExclWriteInsVoteCount = value.GetValueOrDefault();
+                counts.EVotingWriteInsVoteCount = writeInVoteCount.GetValueOrDefault();
                 return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null);

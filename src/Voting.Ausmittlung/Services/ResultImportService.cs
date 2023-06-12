@@ -65,4 +65,16 @@ public class ResultImportService : ServiceBase
             mappings);
         return ProtobufEmpty.Instance;
     }
+
+    public override async Task<Empty> ResetMajorityElectionWriteIns(
+        ResetMajorityElectionWriteInMappingsRequest request,
+        ServerCallContext context)
+    {
+        await _resultImportWriter.ResetMajorityElectionWriteIns(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId),
+            GuidParser.Parse(request.ElectionId),
+            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType));
+        return ProtobufEmpty.Instance;
+    }
 }

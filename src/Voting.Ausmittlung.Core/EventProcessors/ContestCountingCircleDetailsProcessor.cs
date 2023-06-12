@@ -1,7 +1,10 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Basis.Events.V1;
@@ -89,13 +92,13 @@ public class ContestCountingCircleDetailsProcessor :
     {
         var id = GuidParser.Parse(eventData.Id);
 
-        // only load conventional data to ensure that only conventional data is resetted.
+        // The counting circle cannot modify e-voting data. Only load conventional data to ensure that only conventional data is reset.
         var details = await _repo.Query()
-                          .AsSplitQuery()
-                          .Include(x => x.CountOfVotersInformationSubTotals)
-                          .Include(x => x.VotingCards.Where(vc => vc.Channel != VotingChannel.EVoting))
-                          .FirstOrDefaultAsync(x => x.Id == id)
-                      ?? throw new EntityNotFoundException(id);
+            .AsSplitQuery()
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards.Where(vc => vc.Channel != VotingChannel.EVoting))
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new EntityNotFoundException(id);
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
         ResetDetails(details);
@@ -107,12 +110,21 @@ public class ContestCountingCircleDetailsProcessor :
         where T : IMessage<T>
     {
         var id = GuidParser.Parse(idStr);
+
+        // The counting circle cannot modify e-voting data. Only load conventional data to ensure that only conventional data is modified.
+        // However, for backwards compatibility, we must still allow it when e-voting data has been set, to support old cases where this happened.
+        var mapped = _mapper.Map<ContestCountingCircleDetails>(eventData);
+        Expression<Func<ContestCountingCircleDetails, IEnumerable<VotingCardResultDetail>>> votingCardExp =
+            mapped.VotingCards.Any(x => x.Channel == VotingChannel.EVoting)
+            ? x => x.VotingCards
+            : x => x.VotingCards.Where(vc => vc.Channel != VotingChannel.EVoting);
+
         var details = await _repo.Query()
-                          .AsSplitQuery()
-                          .Include(x => x.CountOfVotersInformationSubTotals)
-                          .Include(x => x.VotingCards)
-                          .FirstOrDefaultAsync(x => x.Id == id)
-                      ?? throw new EntityNotFoundException(id);
+            .AsSplitQuery()
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(votingCardExp)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new EntityNotFoundException(id);
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
 

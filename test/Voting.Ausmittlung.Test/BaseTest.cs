@@ -223,6 +223,7 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         }
 
         GetService<IAuthStore>().SetValues(
+            "mock-token",
             "fake",
             tenantId,
             roles);

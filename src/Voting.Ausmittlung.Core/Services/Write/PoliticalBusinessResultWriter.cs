@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
@@ -137,6 +139,28 @@ public abstract class PoliticalBusinessResultWriter<T>
         {
             await AggregateRepository.Save(aggregate);
         }
+    }
+
+    /// <summary>
+    /// Gets an action id of the aggregate provided by the type argument and id concat by the ContestCountingCircleDetailsAggregate.
+    /// </summary>
+    /// <param name="action">The action.</param>
+    /// <param name="resultId">The id of the result.</param>
+    /// <param name="contestId">The id of the contest.</param>
+    /// <param name="countingCircleId">The id of the counting circle.</param>
+    /// <param name="testingPhaseEnded">Whether the contest is in testing phase or not.</param>
+    /// <typeparam name="TResultAggregate">The type of the result aggregate.</typeparam>
+    /// <returns>The action id.</returns>
+    protected async Task<ActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
+        where TResultAggregate : BaseEventSignatureAggregate
+    {
+        var resultAggregate = await AggregateRepository.GetById<TResultAggregate>(resultId);
+
+        var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, countingCircleId, testingPhaseEnded);
+        var detailsAggregate = await AggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(id)
+                               ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
+
+        return new ActionId(action, resultAggregate, detailsAggregate);
     }
 
     protected abstract Task<T> LoadPoliticalBusinessResult(Guid resultId);

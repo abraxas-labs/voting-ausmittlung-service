@@ -78,7 +78,7 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
             contest.TestingPhaseEnded);
 
         await AggregateRepository.Save(endResultAggregate);
-        Logger.LogError(
+        Logger.LogInformation(
             "Updated lot decisions for proportional election end result {ProportionalElectionEndResultId}",
             proportionalElectionEndResultId);
     }

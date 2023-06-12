@@ -64,6 +64,11 @@
   </PoliticalBusiness>
   <ProportionalElectionResultBundle>
     <Number>2</Number>
+    <CreatedBy>
+      <FirstName>Hans</FirstName>
+      <LastName>Muster</LastName>
+      <FullName>Hans Muster</FullName>
+    </CreatedBy>
     <List>
       <OrderNumber>1a</OrderNumber>
       <ShortDescription>Liste 1 de</ShortDescription>

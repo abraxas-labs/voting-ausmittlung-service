@@ -1533,7 +1533,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("ConventionalVoteCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EVotingVoteCount")
+                    b.Property<int>("EVotingExclWriteInsVoteCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EVotingWriteInsVoteCount")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("ElectionResultId")
@@ -2936,6 +2939,27 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("ResultImports");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImportCountingCircle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CountingCircleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResultImportId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountingCircleId");
+
+                    b.HasIndex("ResultImportId");
+
+                    b.ToTable("ResultImportCountingCircle");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SecondaryMajorityElection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3100,7 +3124,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("ConventionalVoteCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EVotingVoteCount")
+                    b.Property<int>("EVotingExclWriteInsVoteCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EVotingWriteInsVoteCount")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("ElectionResultId")
@@ -4903,7 +4930,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("MajorityElectionEndResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -4983,7 +5013,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("MajorityElectionEndResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -5077,7 +5110,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("MajorityElectionResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int?>("EmptyVoteCount")
+                            b1.Property<int?>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int?>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int?>("IndividualVoteCount")
@@ -5157,7 +5193,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("MajorityElectionResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -6515,6 +6554,25 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImportCountingCircle", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.CountingCircle", "CountingCircle")
+                        .WithMany()
+                        .HasForeignKey("CountingCircleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ResultImport", "ResultImport")
+                        .WithMany("ImportedCountingCircles")
+                        .HasForeignKey("ResultImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CountingCircle");
+
+                    b.Navigation("ResultImport");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SecondaryMajorityElection", b =>
                 {
                     b.HasOne("Voting.Ausmittlung.Data.Models.ElectionGroup", "ElectionGroup")
@@ -6624,7 +6682,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("SecondaryMajorityElectionEndResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -6649,7 +6710,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("SecondaryMajorityElectionEndResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -6699,7 +6763,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("SecondaryMajorityElectionResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int?>("EmptyVoteCount")
+                            b1.Property<int?>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int?>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int?>("IndividualVoteCount")
@@ -6724,7 +6791,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.Property<Guid>("SecondaryMajorityElectionResultId")
                                 .HasColumnType("uuid");
 
-                            b1.Property<int>("EmptyVoteCount")
+                            b1.Property<int>("EmptyVoteCountExclWriteIns")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("EmptyVoteCountWriteIns")
                                 .HasColumnType("integer");
 
                             b1.Property<int>("IndividualVoteCount")
@@ -7671,6 +7741,8 @@ namespace Voting.Ausmittlung.Data.Migrations
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ResultImport", b =>
                 {
                     b.Navigation("IgnoredCountingCircles");
+
+                    b.Navigation("ImportedCountingCircles");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.SecondaryMajorityElection", b =>

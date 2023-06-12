@@ -9,13 +9,13 @@ public class MajorityElectionResultNullableSubTotal : IMajorityElectionResultSub
     public int? IndividualVoteCount { get; set; }
 
     /// <inheritdoc />
-    public int? EmptyVoteCount { get; set; }
+    public int? EmptyVoteCountInclWriteIns => EmptyVoteCountWriteIns.GetValueOrDefault() + EmptyVoteCountExclWriteIns.GetValueOrDefault();
 
     /// <inheritdoc />
     public int? InvalidVoteCount { get; set; }
 
     /// <inheritdoc />
-    public int TotalEmptyAndInvalidVoteCount => EmptyVoteCount.GetValueOrDefault() + InvalidVoteCount.GetValueOrDefault();
+    public int TotalEmptyAndInvalidVoteCount => EmptyVoteCountInclWriteIns.GetValueOrDefault() + InvalidVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountExclIndividual { get; set; }
@@ -26,12 +26,17 @@ public class MajorityElectionResultNullableSubTotal : IMajorityElectionResultSub
     /// <inheritdoc />
     public int TotalVoteCount => TotalCandidateVoteCountInclIndividual + TotalEmptyAndInvalidVoteCount;
 
+    public int? EmptyVoteCountWriteIns { get; set; }
+
+    public int? EmptyVoteCountExclWriteIns { get; set; }
+
     public MajorityElectionResultSubTotal MapToNonNullableSubTotal()
     {
         return new MajorityElectionResultSubTotal
         {
             IndividualVoteCount = IndividualVoteCount.GetValueOrDefault(),
-            EmptyVoteCount = EmptyVoteCount.GetValueOrDefault(),
+            EmptyVoteCountWriteIns = EmptyVoteCountWriteIns.GetValueOrDefault(),
+            EmptyVoteCountExclWriteIns = EmptyVoteCountExclWriteIns.GetValueOrDefault(),
             InvalidVoteCount = InvalidVoteCount.GetValueOrDefault(),
             TotalCandidateVoteCountExclIndividual = TotalCandidateVoteCountExclIndividual,
         };
@@ -40,7 +45,8 @@ public class MajorityElectionResultNullableSubTotal : IMajorityElectionResultSub
     public void ReplaceNullValuesWithZero()
     {
         IndividualVoteCount ??= 0;
-        EmptyVoteCount ??= 0;
+        EmptyVoteCountWriteIns ??= 0;
+        EmptyVoteCountExclWriteIns ??= 0;
         InvalidVoteCount ??= 0;
     }
 }

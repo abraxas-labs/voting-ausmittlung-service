@@ -58,7 +58,7 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
         {
             // needed to create aggregates, since they access user/tenant information
             var authStore = sp.GetRequiredService<IAuthStore>();
-            authStore.SetValues("test", "test", Enumerable.Empty<string>());
+            authStore.SetValues("mock-token", "test", "test", Enumerable.Empty<string>());
 
             var asymmetricAlgorithmAdapter = sp.GetRequiredService<IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey>>();
             var eventSignatureService = GetService<EventSignatureService>();

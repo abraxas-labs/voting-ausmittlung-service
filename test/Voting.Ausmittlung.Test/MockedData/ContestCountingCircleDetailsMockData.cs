@@ -759,7 +759,7 @@ public static class ContestCountingCircleDetailsMockData
 
             // needed to create aggregates, since they access user/tenant information
             var authStore = sp.GetRequiredService<IAuthStore>();
-            authStore.SetValues("fake", "fake", Enumerable.Empty<string>());
+            authStore.SetValues("mock-token", "fake", "fake", Enumerable.Empty<string>());
 
             var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
             var aggregateFactory = sp.GetRequiredService<IAggregateFactory>();

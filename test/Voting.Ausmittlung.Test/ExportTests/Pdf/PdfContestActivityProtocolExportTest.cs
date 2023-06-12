@@ -111,7 +111,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         SeedContestInitEvents();
 
         SeedBasisPublicKeySignatureEvents(testingPhaseEnded ? 5 : 0);
-        SeedAusmittlungPublicKeySignatureEvents(11);
+        SeedAusmittlungPublicKeySignatureEvents(12);
 
         SeedVoteInitEvents();
         SeedProportionalElectionInitEvents();
@@ -1565,6 +1565,6 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             ContestId = ContestMockedData.IdBundesurnengang,
             RequestId = "9d74f9c8-90bc-44d2-932a-d67b2046f2d8",
         };
-        PublishAusmittlungBusinessEvent(eventData, Guid.NewGuid().ToString(), Host1, AusmittlungKeyHost1);
+        PublishAusmittlungBusinessEvent(eventData, Guid.NewGuid().ToString(), Host1, AusmittlungKeyHost2);
     }
 }

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using Abraxas.Voting.Basis.Events.V1;
 using Microsoft.Extensions.Logging;
@@ -118,11 +117,6 @@ public class EventLogsBuilder
 
     private bool IsInContestOrRelated(EventReadResult ev, string contestId)
     {
-        if (IsIgnoredEvent(ev))
-        {
-            return false;
-        }
-
         return (ev.Metadata as BasisEventSignatureBusinessMetadata)?.ContestId == contestId
             || (ev.Metadata as EventSignatureBusinessMetadata)?.ContestId == contestId
             || ev.Data
@@ -132,17 +126,6 @@ public class EventLogsBuilder
                 or CountingCirclesMergerScheduled
                 or CountingCircleDeleted
                 or CountingCirclesMergerScheduleDeleted;
-    }
-
-    private bool IsIgnoredEvent(EventReadResult ev)
-    {
-        // some events should be ignored (eg. exports).
-        return ev.Data
-            is ResultExportGenerated
-            or ResultExportTriggered
-            or ResultExportCompleted
-            or ExportGenerated
-            or BundleReviewExportGenerated;
     }
 
     // political business aggregates are eager loaded after testing phase to simplify the aggregate resolving.

@@ -30,19 +30,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         Guid basisCountingCircleId,
         IReadOnlyCollection<MajorityElectionWriteIn> mappings)
     {
-        var resultId = await GetPrimaryResultId(electionId, basisCountingCircleId);
-        var aggregate = await GetAggregate(resultId);
-
-        if (aggregate is
-            {
-                State: not (
-                CountingCircleResultState.Initial
-                or CountingCircleResultState.ReadyForCorrection
-                or CountingCircleResultState.SubmissionOngoing)
-            })
-        {
-            throw new ValidationException("WriteIns are only possible if the result is in a mutable state");
-        }
+        await ValidateState(electionId, basisCountingCircleId);
 
         var hasInvalid = mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Invalid);
         var election = await GetElection(electionId);
@@ -63,6 +51,23 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         if (candidateIds.Count > 0)
         {
             throw new ValidationException("Invalid candidates provided");
+        }
+    }
+
+    internal async Task ValidateState(Guid electionId, Guid basisCountingCircleId)
+    {
+        var resultId = await GetPrimaryResultId(electionId, basisCountingCircleId);
+        var aggregate = await GetAggregate(resultId);
+
+        if (aggregate is
+            {
+                State: not (
+                CountingCircleResultState.Initial
+                or CountingCircleResultState.ReadyForCorrection
+                or CountingCircleResultState.SubmissionOngoing)
+            })
+        {
+            throw new ValidationException("WriteIns are only possible if the result is in a mutable state");
         }
     }
 

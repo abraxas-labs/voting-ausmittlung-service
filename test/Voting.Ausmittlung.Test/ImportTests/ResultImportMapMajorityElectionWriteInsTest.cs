@@ -322,7 +322,7 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
 
         // needed to create aggregates, since they access user/tenant information
         var authStore = GetService<IAuthStore>();
-        authStore.SetValues(SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+        authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
 
         var aggFactory = GetService<IAggregateFactory>();
         var aggRepo = GetService<IAggregateRepository>();

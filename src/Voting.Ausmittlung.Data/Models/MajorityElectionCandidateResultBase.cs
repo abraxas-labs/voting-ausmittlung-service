@@ -14,11 +14,15 @@ public abstract class MajorityElectionCandidateResultBase : BaseEntity, IHasNull
 
     public int? ConventionalVoteCount { get; set; }
 
-    public int EVotingVoteCount { get; set; }
+    public int EVotingExclWriteInsVoteCount { get; set; }
+
+    public int EVotingWriteInsVoteCount { get; set; }
+
+    public int EVotingInclWriteInsVoteCount => EVotingExclWriteInsVoteCount + EVotingWriteInsVoteCount;
 
     public int VoteCount
     {
-        get => ConventionalVoteCount.GetValueOrDefault() + EVotingVoteCount;
+        get => ConventionalVoteCount.GetValueOrDefault() + EVotingInclWriteInsVoteCount;
         private set
         {
             // empty setter to store the value in the database...

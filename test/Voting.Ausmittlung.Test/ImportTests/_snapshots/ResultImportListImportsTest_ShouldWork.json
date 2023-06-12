@@ -15,6 +15,7 @@
       "Completed": false,
       "Deleted": false,
       "FileName": "import_uzwil_2.xml",
+      "ImportedCountingCircles": [],
       "IgnoredCountingCircles": [
         {
           "CountingCircleId": "13297",
@@ -43,6 +44,31 @@
       "Completed": true,
       "Deleted": false,
       "FileName": "import_uzwil_1.xml",
+      "ImportedCountingCircles": [
+        {
+          "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "Name": "Uzwil",
+          "Bfs": "1234",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null
+        }
+      ],
       "IgnoredCountingCircles": []
     }
   ]

@@ -64,6 +64,11 @@
   </PoliticalBusiness>
   <VoteResultBundle>
     <Number>1</Number>
+    <CreatedBy>
+      <FirstName>Hans</FirstName>
+      <LastName>Muster</LastName>
+      <FullName>Hans Muster</FullName>
+    </CreatedBy>
     <VoteResultBallot>
       <Number>1</Number>
       <QuestionAnswer>

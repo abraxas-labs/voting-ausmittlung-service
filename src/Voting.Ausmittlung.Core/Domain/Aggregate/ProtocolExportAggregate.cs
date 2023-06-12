@@ -121,6 +121,8 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
 
     private void EnsureCorrectCallbackToken(string callbackToken)
     {
+        // This may happen if the report generation was triggered multiple times.
+        // "Older, outdated" callbacks have a token that does not match anymore.
         if (callbackToken != CallbackToken)
         {
             throw new ValidationException("Callback token does not match");

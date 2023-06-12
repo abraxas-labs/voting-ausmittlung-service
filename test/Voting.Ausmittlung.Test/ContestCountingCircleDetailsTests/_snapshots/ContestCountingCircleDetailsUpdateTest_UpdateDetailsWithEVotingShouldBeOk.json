@@ -51,12 +51,6 @@
       "Valid": false,
       "Channel": 2,
       "DomainOfInfluenceType": 2
-    },
-    {
-      "CountOfReceivedVotingCards": 2000,
-      "Valid": true,
-      "Channel": 3,
-      "DomainOfInfluenceType": 2
     }
   ]
 }

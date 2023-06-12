@@ -48,6 +48,11 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
                 candidateEndResultMinMaxRank.MinRank <= numberOfMandates
                 && candidateEndResultMinMaxRank.MaxRank > numberOfMandates
                 && candidateEndResult.State != MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
+
+            if (candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision)
+            {
+                candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
+            }
         }
     }
 }

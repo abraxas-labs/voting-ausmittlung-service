@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eCH-0110:delivery xmlns:eCH-0110="http://www.ech.ch/xmlns/eCH-0110/4" xmlns:eCH-0008="http://www.ech.ch/xmlns/eCH-0008/3" xmlns:eCH-0010="http://www.ech.ch/xmlns/eCH-0010/6" xmlns:eCH-0044="http://www.ech.ch/xmlns/eCH-0044/4" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1">
+  <eCH-0110:deliveryHeader>
+    <eCH-0058:senderId>CH-1</eCH-0058:senderId>
+    <eCH-0058:messageId>mock-id-0110</eCH-0058:messageId>
+    <eCH-0058:messageType>eCH-0110</eCH-0058:messageType>
+    <eCH-0058:sendingApplication>
+      <eCH-0058:manufacturer>SwissPost</eCH-0058:manufacturer>
+      <eCH-0058:product>E-Voting</eCH-0058:product>
+      <eCH-0058:productVersion>1</eCH-0058:productVersion>
+    </eCH-0058:sendingApplication>
+    <eCH-0058:messageDate>2023-03-20T19:47:10.829450200</eCH-0058:messageDate>
+    <eCH-0058:action>1</eCH-0058:action>
+    <eCH-0058:testDeliveryFlag>false</eCH-0058:testDeliveryFlag>
+  </eCH-0110:deliveryHeader>
+  <eCH-0110:resultDelivery>
+    <eCH-0110:reportingBody>
+      <eCH-0110:reportingBodyIdentification>SwissPost</eCH-0110:reportingBodyIdentification>
+      <eCH-0110:creationDateTime>2023-03-20T19:47:10.836450400</eCH-0110:creationDateTime>
+    </eCH-0110:reportingBody>
+    <eCH-0110:contestInformation>
+      <eCH-0155:contestIdentification>95825eb0-0f52-461a-a5f8-23fb35fa69e1</eCH-0155:contestIdentification>
+      <eCH-0155:contestDate>2023-04-30</eCH-0155:contestDate>
+      <eCH-0155:contestDescription>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>DE</eCH-0155:language>
+          <eCH-0155:contestDescription>eidgenössischer Urnengang vom 30.04.2023</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>FR</eCH-0155:language>
+          <eCH-0155:contestDescription>eidgenössischer Urnengang vom 30.04.2023</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>IT</eCH-0155:language>
+          <eCH-0155:contestDescription>eidgenössischer Urnengang vom 30.04.2023</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>RM</eCH-0155:language>
+          <eCH-0155:contestDescription>eidgenössischer Urnengang vom 30.04.2023</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+      </eCH-0155:contestDescription>
+      <eCH-0155:eVotingPeriod>
+        <eCH-0155:eVotingPeriodFrom>2023-03-01T11:00:00+01:00</eCH-0155:eVotingPeriodFrom>
+        <eCH-0155:eVotingPeriodTill>2023-03-20T17:00:00+01:00</eCH-0155:eVotingPeriodTill>
+      </eCH-0155:eVotingPeriod>
+    </eCH-0110:contestInformation>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>10001</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Test counting circle</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <!-- The vote results are ignored, but we need to be able to parse them correctly anyway -->
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <eCH-0155:voteIdentification>85bb635e-99de-4547-9701-c7a44e337a1b</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>66547f69-9e43-496b-8786-bc2ed23d0ce3</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>20</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>25a28c34-6f02-45d8-b5d2-82dd112a52c5</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>2</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Änderung des Bundesgesetzes über die Stempelabgaben</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Stempelabgaben</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Modification du 18.06.2021 de la loi fédérale sur les droits de timbre (LT)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Stempelabgaben</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Modifica del 18.06.2021 della legge federale sulle tasse di bollo (LTB)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Stempelabgaben</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Midada da la Lescha federala davart las taxas da bul</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Stempelabgaben</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>25a28c34-6f02-45d8-b5d2-82dd112a52c5_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Änderung vom 18. Juni 2021 des Bundesgesetzes über die Stempelabgaben (StG) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Änderung vom 18. Juni 2021 des Bundesgesetzes über die Stempelabgaben (StG) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Änderung vom 18. Juni 2021 des Bundesgesetzes über die Stempelabgaben (StG) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Änderung vom 18. Juni 2021 des Bundesgesetzes über die Stempelabgaben (StG) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>3</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Ausschaffungsinitiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Ausschaffungsinitiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Ausschaffungsinitiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Ausschaffungsinitiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:variantBallot>
+            <eCH-0110:questionInformation>
+              <eCH-0110:questionIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92_n_1</eCH-0110:questionIdentification>
+              <eCH-0110:question>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+              </eCH-0110:question>
+              <eCH-0110:countOfAnswerYes>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerYes>
+              <eCH-0110:countOfAnswerNo>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerNo>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+            </eCH-0110:questionInformation>
+            <eCH-0110:questionInformation>
+              <eCH-0110:questionIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92_n_2</eCH-0110:questionIdentification>
+              <eCH-0110:question>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie den Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie den Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie den Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie den Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung annehmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+              </eCH-0110:question>
+              <eCH-0110:countOfAnswerYes>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerYes>
+              <eCH-0110:countOfAnswerNo>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerNo>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+            </eCH-0110:questionInformation>
+            <eCH-0110:tieBreak>
+              <eCH-0110:questionIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92_t_1</eCH-0110:questionIdentification>
+              <eCH-0110:tieBreakQuestion>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) als auch der Gegenentwurf (Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung) von Volk und Ständen angenommen werden: Soll die Volksinitiative oder der Gegenentwurf in Kraft treten?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) als auch der Gegenentwurf (Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung) von Volk und Ständen angenommen werden: Soll die Volksinitiative oder der Gegenentwurf in Kraft treten?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) als auch der Gegenentwurf (Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung) von Volk und Ständen angenommen werden: Soll die Volksinitiative oder der Gegenentwurf in Kraft treten?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Volksinitiative Für die Ausschaffung krimineller Ausländer (Ausschaffungsinitiative) als auch der Gegenentwurf (Bundesbeschluss vom 10. Juni 2010 über die Aus- und Wegweisung krimineller Ausländerinnen und Ausländer im Rahmen der Bundesverfassung) von Volk und Ständen angenommen werden: Soll die Volksinitiative oder der Gegenentwurf in Kraft treten?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+              </eCH-0110:tieBreakQuestion>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:countInFavourOf>
+                <eCH-0110:questionIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92_n_1</eCH-0110:questionIdentification>
+                <eCH-0110:countOfValidAnswers>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfValidAnswers>
+              </eCH-0110:countInFavourOf>
+              <eCH-0110:countInFavourOf>
+                <eCH-0110:questionIdentification>ff24dd81-39c3-439a-93ae-97f26d1b9a92_n_2</eCH-0110:questionIdentification>
+                <eCH-0110:countOfValidAnswers>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfValidAnswers>
+              </eCH-0110:countInFavourOf>
+            </eCH-0110:tieBreak>
+          </eCH-0110:variantBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Uzwil</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>6</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <!-- The vote results are ignored, but we need to be able to parse them correctly anyway -->
+      <eCH-0110:electionGroupResults>
+        <eCH-0110:domainOfInfluenceIdentification>297ded66-cf45-4c33-bb83-6d4843557d77</eCH-0110:domainOfInfluenceIdentification>
+        <eCH-0110:electionGroupDescription>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>DE</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>FR</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>IT</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>RM</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+        </eCH-0110:electionGroupDescription>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>20</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:total>3</eCH-0110:total>
+        </eCH-0110:countOfReceivedBallotsTotal>
+        <eCH-0110:countOfAccountedBallots>
+          <eCH-0110:total>2</eCH-0110:total>
+        </eCH-0110:countOfAccountedBallots>
+        <eCH-0110:countOfUnaccountedBallots>
+          <eCH-0110:total>1</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBallots>
+        <eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:total>1</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBlankBallots>
+        <eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:total>0</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedInvalidBallots>
+        <eCH-0110:electionResults>
+          <eCH-0110:election>
+            <eCH-0155:electionIdentification>35547f41-bedd-4ef2-a995-548ef5ee053f</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionDescription>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+            </eCH-0155:electionDescription>
+            <eCH-0155:numberOfMandates>1</eCH-0155:numberOfMandates>
+          </eCH-0110:election>
+          <eCH-0110:majoralElection>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>38824b31-b9dd-4e91-b0ee-048ed4b03a47</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>1</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 1</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 1</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 1</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>1c5f0c86-2bfa-4c05-b296-65b3f8ce0361</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>2</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 2</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 2</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 2</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:countOfInvalidVotesTotal>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfInvalidVotesTotal>
+          </eCH-0110:majoralElection>
+        </eCH-0110:electionResults>
+      </eCH-0110:electionGroupResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Gossau</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>24</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+    </eCH-0110:countingCircleResults>
+  </eCH-0110:resultDelivery>
+</eCH-0110:delivery>

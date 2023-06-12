@@ -172,7 +172,7 @@ public class MajorityElectionResultBuilder
     internal void UpdateConventionalResults(MajorityElectionResult electionResult, MajorityElectionCandidateResultsEntered data)
     {
         electionResult.ConventionalSubTotal.IndividualVoteCount = data.IndividualVoteCount;
-        electionResult.ConventionalSubTotal.EmptyVoteCount = data.EmptyVoteCount;
+        electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns = data.EmptyVoteCount;
         electionResult.ConventionalSubTotal.InvalidVoteCount = data.InvalidVoteCount;
         electionResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = data.CandidateResults.Sum(x => x.VoteCount.GetValueOrDefault());
         _candidateResultBuilder.SetConventionalVoteCountValues(
@@ -220,7 +220,7 @@ public class MajorityElectionResultBuilder
         var emptyVoteCountSum = await _ballotRepo.Query()
             .Where(x => x.BundleId == bundleId)
             .SumAsync(x => x.EmptyVoteCount);
-        electionResult.ConventionalSubTotal.EmptyVoteCount += emptyVoteCountSum * factor;
+        electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += emptyVoteCountSum * factor;
 
         var candidateVoteCount = await _ballotRepo.Query()
             .Where(x => x.BundleId == bundleId)
@@ -260,7 +260,7 @@ public class MajorityElectionResultBuilder
             }
 
             electionResult.ConventionalSubTotal.IndividualVoteCount += voteCounts.CountOfIndividualVotes * factor;
-            electionResult.ConventionalSubTotal.EmptyVoteCount += voteCounts.CountOfEmptyVotes * factor;
+            electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += voteCounts.CountOfEmptyVotes * factor;
             electionResult.ConventionalSubTotal.InvalidVoteCount += voteCounts.CountOfInvalidVotes * factor;
             electionResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += voteCounts.CandidateVoteCount * factor;
         }
@@ -281,7 +281,7 @@ public class MajorityElectionResultBuilder
             }
 
             result.ConventionalSubTotal.IndividualVoteCount = updatedResult.IndividualVoteCount;
-            result.ConventionalSubTotal.EmptyVoteCount = updatedResult.EmptyVoteCount;
+            result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = updatedResult.EmptyVoteCount;
             result.ConventionalSubTotal.InvalidVoteCount = updatedResult.InvalidVoteCount;
             result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = updatedResult.CandidateResults.Sum(x => x.VoteCount.GetValueOrDefault());
             _candidateResultBuilder.SetConventionalVoteCountValues(

@@ -43,6 +43,15 @@
         {
           "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
           "ContestCountingCircleDetails": null,
+          "CountOfReceivedVotingCards": 120,
+          "Valid": true,
+          "Channel": 3,
+          "DomainOfInfluenceType": 1,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
           "CountOfReceivedVotingCards": 4000,
           "Valid": false,
           "Channel": 1,
@@ -64,6 +73,15 @@
           "CountOfReceivedVotingCards": 10000,
           "Valid": true,
           "Channel": 2,
+          "DomainOfInfluenceType": 2,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
+          "CountOfReceivedVotingCards": 120,
+          "Valid": true,
+          "Channel": 3,
           "DomainOfInfluenceType": 2,
           "Id": "00000000-0000-0000-0000-000000000000"
         }

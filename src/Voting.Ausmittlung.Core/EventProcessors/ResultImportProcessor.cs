@@ -25,6 +25,7 @@ public class ResultImportProcessor :
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly ProportionalElectionEndResultBuilder _proportionalElectionEndResultBuilder;
     private readonly MajorityElectionEndResultBuilder _majorityElectionEndResultBuilder;
+    private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
     private readonly IMapper _mapper;
     private readonly VoteEndResultBuilder _voteEndResultBuilder;
 
@@ -34,6 +35,7 @@ public class ResultImportProcessor :
         ProportionalElectionEndResultBuilder proportionalElectionEndResultBuilder,
         VoteEndResultBuilder voteEndResultBuilder,
         MajorityElectionEndResultBuilder majorityElectionEndResultBuilder,
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder,
         IMapper mapper)
     {
         _importsRepo = importsRepo;
@@ -41,6 +43,7 @@ public class ResultImportProcessor :
         _proportionalElectionEndResultBuilder = proportionalElectionEndResultBuilder;
         _voteEndResultBuilder = voteEndResultBuilder;
         _majorityElectionEndResultBuilder = majorityElectionEndResultBuilder;
+        _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
         _mapper = mapper;
     }
 
@@ -93,12 +96,13 @@ public class ResultImportProcessor :
         await _proportionalElectionEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
         await _majorityElectionEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
         await _voteEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
+        await _contestCountingCircleDetailsBuilder.ResetEVotingVotingCards(contestId);
     }
 
     private async Task SetContestEVotingImported(Guid contestId, bool imported)
     {
         var contest = await _contestRepo.GetByKey(contestId)
-                      ?? throw new EntityNotFoundException(nameof(Contest), contestId);
+            ?? throw new EntityNotFoundException(nameof(Contest), contestId);
         contest.EVotingResultsImported = imported;
         await _contestRepo.Update(contest);
     }

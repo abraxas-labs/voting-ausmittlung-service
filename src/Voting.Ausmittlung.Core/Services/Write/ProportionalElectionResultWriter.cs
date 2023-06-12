@@ -17,7 +17,6 @@ using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
@@ -98,7 +97,13 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
-        var actionId = await PrepareSubmissionFinishedActionId(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        var actionId = await PrepareActionId<ProportionalElectionResultAggregate>(
+            nameof(SubmissionFinished),
+            resultId,
+            result.ProportionalElection.ContestId,
+            result.CountingCircle.BasisCountingCircleId,
+            result.ProportionalElection.Contest.TestingPhaseEnded);
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -107,7 +112,15 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareSubmissionFinishedActionId(result.Id), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<ProportionalElectionResultAggregate>(
+                nameof(SubmissionFinished),
+                resultId,
+                result.ProportionalElection.ContestId,
+                result.CountingCircle.BasisCountingCircleId,
+                result.ProportionalElection.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
@@ -120,7 +133,13 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
-        var actionId = await PrepareCorrectionFinishedActionId(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        var actionId = await PrepareActionId<ProportionalElectionResultAggregate>(
+            nameof(CorrectionFinished),
+            resultId,
+            result.ProportionalElection.ContestId,
+            result.CountingCircle.BasisCountingCircleId,
+            result.ProportionalElection.Contest.TestingPhaseEnded);
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
@@ -129,7 +148,15 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareCorrectionFinishedActionId(result.Id), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionExternalId,
+            () => PrepareActionId<ProportionalElectionResultAggregate>(
+                nameof(CorrectionFinished),
+                resultId,
+                result.ProportionalElection.ContestId,
+                result.CountingCircle.BasisCountingCircleId,
+                result.ProportionalElection.Contest.TestingPhaseEnded),
+            ct);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
@@ -224,17 +251,5 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         {
             throw new ValidationException("lists provided which don't exist");
         }
-    }
-
-    private async Task<ActionId> PrepareSubmissionFinishedActionId(Guid resultId)
-    {
-        var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
-        return aggregate.PrepareSubmissionFinished();
-    }
-
-    private async Task<ActionId> PrepareCorrectionFinishedActionId(Guid resultId)
-    {
-        var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
-        return aggregate.PrepareCorrectionFinished();
     }
 }

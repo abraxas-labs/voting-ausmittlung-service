@@ -17,9 +17,9 @@
       }
     },
     "ImportId": "",
-    "FileName": "test.xml",
+    "FileName": "test-eCH-0222.xml / test-eCH-0110.xml",
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
-    "EchMessageId": "my-mock-ech-message-id",
+    "EchMessageId": "my-mock-ech-message-id / mock-eCH-0110-message-id",
     "IgnoredCountingCircles": [
       {
         "CountingCircleId": "10007",
@@ -45,7 +45,8 @@
       "LastName": "",
       "FullName": " "
     },
-    "FileName": "test.xml",
+    "FileName": "test-eCH-0222.xml / test-eCH-0110.xml",
+    "ImportedCountingCircles": [],
     "IgnoredCountingCircles": [
       {
         "CountingCircleId": "10007",

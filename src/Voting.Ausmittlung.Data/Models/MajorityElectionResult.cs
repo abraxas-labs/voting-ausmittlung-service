@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElectionResultSubTotal, MajorityElectionResultNullableSubTotal>, IMajorityElectionResultSubTotal<int>
+public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElectionResultSubTotal, MajorityElectionResultNullableSubTotal>, IMajorityElectionResultTotal<int>
 {
     public Guid MajorityElectionId { get; set; }
 
@@ -42,7 +42,7 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCount + ConventionalSubTotal.EmptyVoteCount.GetValueOrDefault();
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
 
     /// <inheritdoc />
     public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();

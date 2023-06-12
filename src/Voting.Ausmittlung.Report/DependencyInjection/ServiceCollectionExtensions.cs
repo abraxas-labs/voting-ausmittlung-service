@@ -89,7 +89,8 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCSGStaticGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGStaticGeschaefte)
             .AddRendererService<WabstiCSGGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGGeschaefte)
             .AddRendererService<WabstiCSGGemeindenRenderService>(AusmittlungWabstiCTemplates.SGGemeinden)
-            .AddRendererService<WabstiCSGStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.SGStaticGemeinden);
+            .AddRendererService<WabstiCSGStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.SGStaticGemeinden)
+            .AddRendererService<WabstiCSGAbstimmungsergebnisseRenderService>(AusmittlungWabstiCTemplates.SGAbstimmungsergebnisse);
     }
 
     private static IReportingServiceCollection AddPdfVoteResultRenderServices(this IReportingServiceCollection services)

@@ -9,11 +9,17 @@ namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
 public class MajorityElectionResultImportEventLogInitializer :
     BaseCountingCircleResultReportEventProcessor,
+    IReportEventProcessor<MajorityElectionWriteInsReset>,
     IReportEventProcessor<MajorityElectionWriteInsMapped>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.MajorityElection;
 
     public EventLog? Process(MajorityElectionWriteInsMapped eventData, EventLogBuilderContext context)
+    {
+        return ProcessResult(GuidParser.Parse(eventData.MajorityElectionId), GuidParser.Parse(eventData.CountingCircleId));
+    }
+
+    public EventLog? Process(MajorityElectionWriteInsReset eventData, EventLogBuilderContext context)
     {
         return ProcessResult(GuidParser.Parse(eventData.MajorityElectionId), GuidParser.Parse(eventData.CountingCircleId));
     }

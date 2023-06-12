@@ -181,7 +181,8 @@ public class MajorityElectionEndResultBuilder
         int deltaFactor)
     {
         endResultSubTotal.IndividualVoteCount += resultSubTotal.IndividualVoteCount * deltaFactor;
-        endResultSubTotal.EmptyVoteCount += resultSubTotal.EmptyVoteCount * deltaFactor;
+        endResultSubTotal.EmptyVoteCountExclWriteIns += resultSubTotal.EmptyVoteCountExclWriteIns * deltaFactor;
+        endResultSubTotal.EmptyVoteCountWriteIns += resultSubTotal.EmptyVoteCountWriteIns * deltaFactor;
         endResultSubTotal.InvalidVoteCount += resultSubTotal.InvalidVoteCount * deltaFactor;
         endResultSubTotal.TotalCandidateVoteCountExclIndividual += resultSubTotal.TotalCandidateVoteCountExclIndividual * deltaFactor;
     }

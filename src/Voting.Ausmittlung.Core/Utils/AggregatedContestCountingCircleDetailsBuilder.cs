@@ -42,13 +42,7 @@ public class AggregatedContestCountingCircleDetailsBuilder
     {
         var deltaFactor = removeResults ? -1 : 1;
 
-        var contestDetails = await _contestDetailsRepo.Query()
-                                 .AsTracking()
-                                 .AsSplitQuery()
-                                 .Include(x => x.VotingCards)
-                                 .Include(x => x.CountOfVotersInformationSubTotals)
-                                 .FirstOrDefaultAsync(x => x.ContestId == contestId)
-                             ?? new ContestDetails { ContestId = contestId };
+        var contestDetails = await GetContestDetails(contestId);
         var doiDetailsByCcId = await GetDomainOfInfluenceDetailsByCountingCircleId(contestId, countingCircleDetails);
 
         foreach (var ccDetail in countingCircleDetails)
@@ -63,6 +57,40 @@ public class AggregatedContestCountingCircleDetailsBuilder
                 AdjustAggregatedDetails<ContestDomainOfInfluenceDetails, DomainOfInfluenceCountOfVotersInformationSubTotal, DomainOfInfluenceVotingCardResultDetail>(
                     doiDetail,
                     ccDetail,
+                    deltaFactor);
+            }
+        }
+
+        if (contestDetails.Id == Guid.Empty)
+        {
+            _dataContext.ContestDetails.Add(contestDetails);
+        }
+
+        await _dataContext.SaveChangesAsync();
+    }
+
+    internal async Task AdjustAggregatedVotingCards(
+        Guid contestId,
+        IReadOnlyCollection<ContestCountingCircleDetails> countingCircleDetails,
+        bool removeResults)
+    {
+        var deltaFactor = removeResults ? -1 : 1;
+
+        var contestDetails = await GetContestDetails(contestId);
+        var doiDetailsByCcId = await GetDomainOfInfluenceDetailsByCountingCircleId(contestId, countingCircleDetails);
+
+        foreach (var ccDetail in countingCircleDetails)
+        {
+            AdjustContestDetailsVotingCards(
+                contestDetails.VotingCards,
+                ccDetail.VotingCards,
+                deltaFactor);
+
+            foreach (var doiDetail in doiDetailsByCcId[ccDetail.CountingCircleId])
+            {
+                AdjustContestDetailsVotingCards(
+                    doiDetail.VotingCards,
+                    ccDetail.VotingCards,
                     deltaFactor);
             }
         }
@@ -144,6 +172,17 @@ public class AggregatedContestCountingCircleDetailsBuilder
 
             matchingVotingCard.CountOfReceivedVotingCards += votingCard.CountOfReceivedVotingCards.GetValueOrDefault() * deltaFactor;
         }
+    }
+
+    private async Task<ContestDetails> GetContestDetails(Guid contestId)
+    {
+        return await _contestDetailsRepo.Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .FirstOrDefaultAsync(x => x.ContestId == contestId)
+            ?? new ContestDetails { ContestId = contestId };
     }
 
     private async Task<Dictionary<Guid, List<ContestDomainOfInfluenceDetails>>> GetDomainOfInfluenceDetailsByCountingCircleId(

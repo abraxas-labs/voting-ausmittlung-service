@@ -209,7 +209,7 @@ public class MajorityElectionBallotGroupResultBuilder
             if (entry.PrimaryMajorityElectionId.HasValue && entry.PrimaryMajorityElectionId != Guid.Empty)
             {
                 electionResult.ConventionalSubTotal.IndividualVoteCount += countDelta * entry.IndividualCandidatesVoteCount;
-                electionResult.ConventionalSubTotal.EmptyVoteCount += countDelta * entry.BlankRowCount;
+                electionResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += countDelta * entry.BlankRowCount;
                 electionResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += countDelta * entry.Candidates.Count;
             }
             else
@@ -220,7 +220,7 @@ public class MajorityElectionBallotGroupResultBuilder
                 }
 
                 secondaryResult.ConventionalSubTotal.IndividualVoteCount += countDelta * entry.IndividualCandidatesVoteCount;
-                secondaryResult.ConventionalSubTotal.EmptyVoteCount += countDelta * entry.BlankRowCount;
+                secondaryResult.ConventionalSubTotal.EmptyVoteCountExclWriteIns += countDelta * entry.BlankRowCount;
                 secondaryResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += countDelta * entry.Candidates.Count;
             }
         }

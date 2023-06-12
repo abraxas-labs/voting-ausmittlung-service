@@ -336,7 +336,7 @@ public static class MajorityElectionEndResultMockedData
         result.State = CountingCircleResultState.SubmissionDone;
         result.TotalCountOfVoters = 1000;
         result.ConventionalSubTotal.IndividualVoteCount = 140;
-        result.ConventionalSubTotal.EmptyVoteCount = 10;
+        result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 10;
         result.ConventionalSubTotal.InvalidVoteCount = 20;
 
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
@@ -380,7 +380,7 @@ public static class MajorityElectionEndResultMockedData
     private static void SetSecondaryResultMockData(SecondaryMajorityElectionResult result, int modifier)
     {
         result.ConventionalSubTotal.IndividualVoteCount = 140 + modifier;
-        result.ConventionalSubTotal.EmptyVoteCount = 10 + modifier;
+        result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 10 + modifier;
         result.ConventionalSubTotal.InvalidVoteCount = 20 + modifier;
 
         var voteCountByCandidateId = new Dictionary<string, int>

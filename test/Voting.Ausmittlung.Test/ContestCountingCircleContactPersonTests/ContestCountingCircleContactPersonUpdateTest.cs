@@ -46,7 +46,7 @@ public class ContestCountingCircleContactPersonUpdateTest : ContestCountingCircl
         {
             // needed to create aggregates, since they access user/tenant information
             var authStore = sp.GetRequiredService<IAuthStore>();
-            authStore.SetValues("test", "test", Enumerable.Empty<string>());
+            authStore.SetValues("mock-token", "test", "test", Enumerable.Empty<string>());
 
             var aggregateFactory = sp.GetRequiredService<IAggregateFactory>();
             var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
@@ -198,6 +198,7 @@ public class ContestCountingCircleContactPersonUpdateTest : ContestCountingCircl
                 FamilyName = "updated family name",
                 Email = "test-updated@example.com",
                 Phone = "+41795212222",
+                MobilePhone = "+41795212221",
             },
             ContactPersonAfterEvent = new EnterContactPersonRequest
             {
@@ -205,6 +206,7 @@ public class ContestCountingCircleContactPersonUpdateTest : ContestCountingCircl
                 FamilyName = "after updated family name",
                 Email = "after-test-updated@example.com",
                 Phone = "+41795212999",
+                MobilePhone = "+41795212998",
             },
         };
 
