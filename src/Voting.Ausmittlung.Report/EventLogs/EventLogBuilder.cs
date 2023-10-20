@@ -68,7 +68,8 @@ public class EventLogBuilder
             return null;
         }
 
-        if (!await ResolveCountingCircle(eventLog, context) || !ResolvePoliticalBusiness(eventLog, context))
+        await ResolveCountingCircle(eventLog, context);
+        if (!ResolvePoliticalBusiness(eventLog, context))
         {
             return null;
         }
@@ -80,7 +81,7 @@ public class EventLogBuilder
         return eventLog;
     }
 
-    public EventLog Build(IMessage message)
+    public virtual EventLog BuildSignatureEventLog(IMessage message)
     {
         var eventLog = new EventLog();
         MapEventDataToEventLog(eventLog, message);
@@ -101,9 +102,9 @@ public class EventLogBuilder
         eventLog.EventUser = new() { Firstname = eventUser.FirstName, Lastname = eventUser.LastName, UserId = eventUser.Id, Username = eventUser.Username };
         eventLog.EventTenant = new() { TenantId = eventTenant.Id, TenantName = eventTenant.Name };
 
-        // Since we extract the event info values, we remove the field, so that the XML doesn't get too huge
+        // Since we extract the event info values, we remove the field, so that the export doesn't get too huge
         eventInfoProp.SetValue(eventData, null);
-        eventLog.EventContent = eventData.ToByteArray();
+        eventLog.EventContent = eventData;
     }
 
     private void IncrementSignedEventCount(IMessage eventMetadata, EventLogBuilderContext context)
@@ -121,23 +122,17 @@ public class EventLogBuilder
         }
     }
 
-    private async Task<bool> ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)
+    private async Task ResolveCountingCircle(EventLog eventLog, EventLogBuilderContext context)
     {
         if (!eventLog.CountingCircleId.HasValue)
         {
-            return true;
-        }
-
-        if (!context.CountingCircleIdsFilter.Contains(eventLog.CountingCircleId.Value))
-        {
-            return false;
+            return;
         }
 
         var aggregate = await context.CountingCircleAggregateSet.GetOrLoad(eventLog.CountingCircleId.Value, context.CurrentTimestampInStream)
             ?? throw new InvalidOperationException($"Counting circle {eventLog.CountingCircleId} not found");
 
         eventLog.CountingCircle = aggregate.MapToBasisCountingCircle();
-        return true;
     }
 
     private bool ResolvePoliticalBusiness(EventLog eventLog, EventLogBuilderContext context)

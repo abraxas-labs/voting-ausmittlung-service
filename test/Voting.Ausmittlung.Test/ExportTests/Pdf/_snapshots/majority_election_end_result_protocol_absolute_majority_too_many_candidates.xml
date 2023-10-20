@@ -28,28 +28,60 @@
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.0861821315713875323182993393</VoterParticipation>
-        <TotalReceivedBallots>3000</TotalReceivedBallots>
-        <TotalUnaccountedBallots>1680</TotalUnaccountedBallots>
-        <CountOfAccountedBallots>1320</CountOfAccountedBallots>
-        <CountOfInvalidBallots>1200</CountOfInvalidBallots>
-        <CountOfBlankBallots>480</CountOfBlankBallots>
+        <VoterParticipation>0.2585463947141625969548980178</VoterParticipation>
+        <TotalReceivedBallots>9000</TotalReceivedBallots>
+        <TotalUnaccountedBallots>5040</TotalUnaccountedBallots>
+        <EVotingReceivedBallots>6000</EVotingReceivedBallots>
+        <EVotingInvalidBallots>2400</EVotingInvalidBallots>
+        <EVotingBlankBallots>960</EVotingBlankBallots>
+        <EVotingAccountedBallots>2640</EVotingAccountedBallots>
+        <EVotingTotalUnaccountedBallots>3360</EVotingTotalUnaccountedBallots>
+        <ConventionalReceivedBallots>3000</ConventionalReceivedBallots>
+        <ConventionalInvalidBallots>1200</ConventionalInvalidBallots>
+        <ConventionalBlankBallots>480</ConventionalBlankBallots>
+        <ConventionalAccountedBallots>1320</ConventionalAccountedBallots>
+        <ConventionalTotalUnaccountedBallots>1680</ConventionalTotalUnaccountedBallots>
+        <CountOfAccountedBallots>3960</CountOfAccountedBallots>
+        <CountOfInvalidBallots>3600</CountOfInvalidBallots>
+        <CountOfBlankBallots>1440</CountOfBlankBallots>
       </CountOfVoters>
-      <IndividualVoteCount>840</IndividualVoteCount>
-      <EmptyVoteCount>60</EmptyVoteCount>
-      <InvalidVoteCount>120</InvalidVoteCount>
-      <TotalEmptyAndInvalidVoteCount>180</TotalEmptyAndInvalidVoteCount>
-      <TotalCandidateVoteCountExclIndividual>5130</TotalCandidateVoteCountExclIndividual>
-      <TotalCandidateVoteCountInclIndividual>5970</TotalCandidateVoteCountInclIndividual>
-      <TotalVoteCount>6150</TotalVoteCount>
+      <IndividualVoteCount>1680</IndividualVoteCount>
+      <EmptyVoteCount>162</EmptyVoteCount>
+      <InvalidVoteCount>240</InvalidVoteCount>
+      <TotalEmptyAndInvalidVoteCount>402</TotalEmptyAndInvalidVoteCount>
+      <TotalCandidateVoteCountExclIndividual>10860</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountInclIndividual>12540</TotalCandidateVoteCountInclIndividual>
+      <TotalVoteCount>12942</TotalVoteCount>
+      <EVotingSubTotal>
+        <IndividualVoteCount>840</IndividualVoteCount>
+        <EmptyVoteCountInclWriteIns>102</EmptyVoteCountInclWriteIns>
+        <InvalidVoteCount>120</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>222</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>0</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>840</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>1062</TotalVoteCount>
+        <EmptyVoteCountWriteIns>42</EmptyVoteCountWriteIns>
+        <EmptyVoteCountExclWriteIns>60</EmptyVoteCountExclWriteIns>
+      </EVotingSubTotal>
+      <ConventionalSubTotal>
+        <IndividualVoteCount>840</IndividualVoteCount>
+        <EmptyVoteCountInclWriteIns>60</EmptyVoteCountInclWriteIns>
+        <InvalidVoteCount>120</InvalidVoteCount>
+        <TotalEmptyAndInvalidVoteCount>180</TotalEmptyAndInvalidVoteCount>
+        <TotalCandidateVoteCountExclIndividual>10860</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountInclIndividual>11700</TotalCandidateVoteCountInclIndividual>
+        <TotalVoteCount>11880</TotalVoteCount>
+        <EmptyVoteCountWriteIns>0</EmptyVoteCountWriteIns>
+        <EmptyVoteCountExclWriteIns>60</EmptyVoteCountExclWriteIns>
+      </ConventionalSubTotal>
       <Calculation>
-        <DecisiveVoteCount>1320</DecisiveVoteCount>
-        <AbsoluteMajorityThreshold>660</AbsoluteMajorityThreshold>
-        <AbsoluteMajority>661</AbsoluteMajority>
+        <DecisiveVoteCount>3960</DecisiveVoteCount>
+        <AbsoluteMajorityThreshold>1980</AbsoluteMajorityThreshold>
+        <AbsoluteMajority>1981</AbsoluteMajority>
       </Calculation>
       <MajorityElectionCandidateEndResultAbsoluteMajorityAndElected>
         <Rank>1</Rank>
-        <VoteCount>1200</VoteCount>
+        <VoteCount>3660</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -72,10 +104,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>AbsoluteMajorityAndElected</State>
+        <ConventionalVoteCount>1200</ConventionalVoteCount>
+        <EVotingVoteCount>2460</EVotingVoteCount>
       </MajorityElectionCandidateEndResultAbsoluteMajorityAndElected>
       <MajorityElectionCandidateEndResultAbsoluteMajorityAndNotElected>
         <Rank>2</Rank>
-        <VoteCount>900</VoteCount>
+        <VoteCount>2760</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -98,10 +132,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>AbsoluteMajorityAndNotElected</State>
+        <ConventionalVoteCount>900</ConventionalVoteCount>
+        <EVotingVoteCount>1860</EVotingVoteCount>
       </MajorityElectionCandidateEndResultAbsoluteMajorityAndNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>3</Rank>
-        <VoteCount>600</VoteCount>
+        <VoteCount>1860</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -124,10 +160,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>600</ConventionalVoteCount>
+        <EVotingVoteCount>1260</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>4</Rank>
-        <VoteCount>540</VoteCount>
+        <VoteCount>1680</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -150,10 +188,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>540</ConventionalVoteCount>
+        <EVotingVoteCount>1140</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>5</Rank>
-        <VoteCount>480</VoteCount>
+        <VoteCount>1500</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -176,10 +216,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>480</ConventionalVoteCount>
+        <EVotingVoteCount>1020</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>6</Rank>
-        <VoteCount>420</VoteCount>
+        <VoteCount>1320</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -202,10 +244,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>420</ConventionalVoteCount>
+        <EVotingVoteCount>900</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>7</Rank>
-        <VoteCount>360</VoteCount>
+        <VoteCount>1140</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -228,10 +272,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>360</ConventionalVoteCount>
+        <EVotingVoteCount>780</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>8</Rank>
-        <VoteCount>330</VoteCount>
+        <VoteCount>1050</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -254,10 +300,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>330</ConventionalVoteCount>
+        <EVotingVoteCount>720</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>9</Rank>
-        <VoteCount>300</VoteCount>
+        <VoteCount>960</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -280,10 +328,12 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>300</ConventionalVoteCount>
+        <EVotingVoteCount>660</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
       <MajorityElectionCandidateEndResultNotElected>
         <Rank>10</Rank>
-        <VoteCount>0</VoteCount>
+        <VoteCount>60</VoteCount>
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
@@ -306,6 +356,8 @@
           <Party>Test de</Party>
         </Candidate>
         <State>NotElected</State>
+        <ConventionalVoteCount>0</ConventionalVoteCount>
+        <EVotingVoteCount>60</EVotingVoteCount>
       </MajorityElectionCandidateEndResultNotElected>
     </MajorityElectionEndResult>
   </MajorityElection>
@@ -324,6 +376,7 @@
       <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>270</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
   </DomainOfInfluence>
 </Voting>

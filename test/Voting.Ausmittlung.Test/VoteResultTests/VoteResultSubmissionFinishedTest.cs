@@ -39,6 +39,14 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
@@ -65,6 +73,15 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -156,7 +173,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -178,7 +195,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 SecondFactorTransactionId = invalidExternalId,
@@ -200,12 +217,14 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
-    private VoteResultSubmissionFinishedRequest NewValidRequest()
+    private VoteResultSubmissionFinishedRequest NewValidRequest(Action<VoteResultSubmissionFinishedRequest>? customizer = null)
     {
-        return new VoteResultSubmissionFinishedRequest
+        var req = new VoteResultSubmissionFinishedRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
         };
+        customizer?.Invoke(req);
+        return req;
     }
 }

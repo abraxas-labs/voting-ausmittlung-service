@@ -50,7 +50,6 @@ public class SeantisProviderUploader : IExportProviderUploader
     public async Task RenderAndUpload(
         ResultExportConfiguration export,
         IEnumerable<ReportRenderContext> reportContexts,
-        Func<FileModel, string, Task> afterUpload,
         CancellationToken ct)
     {
         // For Seantis, we need to group all the report contexts by the Seantis token
@@ -68,15 +67,11 @@ public class SeantisProviderUploader : IExportProviderUploader
                 throw new InvalidOperationException($"No Seantis token configured for political business {pbId}");
             }
 
-            var (files, fileId) = await UploadZip(contexts, token, export.EaiMessageType, ct);
-            foreach (var file in files)
-            {
-                await afterUpload(file, fileId);
-            }
+            await UploadZip(contexts, token, export.EaiMessageType, ct);
         }
     }
 
-    private async Task<(List<FileModel> Files, string FileId)> UploadZip(
+    private async Task UploadZip(
         List<ReportRenderContext> reportContexts,
         string token,
         string eaiMessageType,
@@ -103,14 +98,12 @@ public class SeantisProviderUploader : IExportProviderUploader
         outputStream.Write(Encoding.UTF8.GetBytes(token));
 
         // Render each report context and immediately stream it to the upload task
-        var files = new List<FileModel>();
         foreach (var reportContext in reportContexts)
         {
             FileModel file;
             try
             {
                 file = await _exportService.GenerateResultExport(reportContext, ct);
-                files.Add(file);
             }
             catch (Exception e)
             {
@@ -136,7 +129,6 @@ public class SeantisProviderUploader : IExportProviderUploader
         await outputStream.FinishAsync(ct);
         await zipPipe.Writer.CompleteAsync();
 
-        var response = await uploadTask;
-        return (files, response.FileId);
+        await uploadTask;
     }
 }

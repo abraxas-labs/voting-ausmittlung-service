@@ -13,8 +13,10 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Messaging.Messages;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Database.Repositories;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -374,6 +376,54 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
 
         await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
             x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithNonExistingBundleShouldReturn()
+    {
+        var bundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
+
+        var bundleRepo = GetService<IDbRepository<DataContext, ProportionalElectionResultBundle>>();
+        await bundleRepo.DeleteByKey(bundleId);
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionResultBallotCreated
+            {
+                BundleId = bundleId.ToString(),
+                BallotNumber = 1,
+                Candidates =
+                {
+            new ProportionalElectionResultBallotUpdatedCandidateEventData
+            {
+                Position = 1,
+                CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
+            },
+            new ProportionalElectionResultBallotUpdatedCandidateEventData
+            {
+                Position = 2,
+                CandidateId = ProportionalElectionMockedData.CandidateId1GossauProportionalElectionInContestStGallen,
+            },
+            new ProportionalElectionResultBallotUpdatedCandidateEventData
+            {
+                Position = 3,
+                CandidateId = ProportionalElectionMockedData.CandidateId2GossauProportionalElectionInContestStGallen,
+            },
+                },
+                EmptyVoteCount = 0,
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        await AssertStatus(
+            async () => await BundleErfassungCreatorClient.GetBallotAsync(
+                new GetProportionalElectionResultBallotRequest
+                {
+                    BundleId = bundleId.ToString(),
+                    BallotNumber = 1,
+                }),
+            StatusCode.NotFound);
+
+        (await bundleRepo.GetByKey(bundleId)).Should().BeNull();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

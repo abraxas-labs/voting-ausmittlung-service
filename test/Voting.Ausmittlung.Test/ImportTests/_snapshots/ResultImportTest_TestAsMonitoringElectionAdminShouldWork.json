@@ -56,7 +56,7 @@
             "CandidateId": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9",
             "UnmodifiedListVotesCount": 4,
             "ModifiedListVotesCount": 4,
-            "CountOfVotesOnOtherLists": 2,
+            "CountOfVotesOnOtherLists": 0,
             "CountOfVotesFromAccumulations": 2,
             "VoteSources": [
               {
@@ -73,7 +73,7 @@
             "CandidateId": "9efe090f-883b-4e86-89c2-cd132ea84cbd",
             "UnmodifiedListVotesCount": 2,
             "ModifiedListVotesCount": 3,
-            "CountOfVotesOnOtherLists": 1,
+            "CountOfVotesOnOtherLists": 0,
             "CountOfVotesFromAccumulations": 0,
             "VoteSources": [
               {
@@ -90,7 +90,7 @@
             "CandidateId": "4933f558-bb34-4260-862a-fae71c52d619",
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 2,
-            "CountOfVotesOnOtherLists": 2,
+            "CountOfVotesOnOtherLists": 1,
             "CountOfVotesFromAccumulations": 0,
             "VoteSources": [
               {
@@ -112,7 +112,7 @@
             "UnmodifiedListBlankRowsCount": 0,
             "ModifiedListsCount": 2,
             "ModifiedListVotesCount": 7,
-            "ListVotesCountOnOtherLists": 3,
+            "ListVotesCountOnOtherLists": 0,
             "ModifiedListBlankRowsCount": 1
           },
           {
@@ -122,7 +122,7 @@
             "UnmodifiedListBlankRowsCount": 0,
             "ModifiedListsCount": 0,
             "ModifiedListVotesCount": 2,
-            "ListVotesCountOnOtherLists": 2,
+            "ListVotesCountOnOtherLists": 1,
             "ModifiedListBlankRowsCount": 0
           }
         ],

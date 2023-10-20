@@ -64,14 +64,15 @@ public class PublicKeySignatureDeleteHsmPayload
     {
         // changes here are event breaking and need another signature version.
         using var sha512 = SHA512.Create();
-
-        return ByteConverter.Concat(
-            SignatureVersion,
-            ContestId,
-            HostId,
-            KeyId,
-            DeletedAt,
-            SignedEventCount,
-            sha512.ComputeHash(AuthenticationTag));
+        using var byteConverter = new ByteConverter();
+        return byteConverter
+            .Append(SignatureVersion)
+            .Append(ContestId.ToString())
+            .Append(HostId)
+            .Append(KeyId)
+            .Append(DeletedAt)
+            .Append(SignedEventCount)
+            .Append(sha512.ComputeHash(AuthenticationTag))
+            .GetBytes();
     }
 }

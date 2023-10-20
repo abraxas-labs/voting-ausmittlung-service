@@ -2,6 +2,8 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,27 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
             .Include(x => x.CountingCircle.ContestDetails)
                 .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(b => b.Id == id);
+    }
+
+    public Task<List<VoteResult>> ListWithValidationContextData(Expression<Func<VoteResult, bool>> predicate, bool withCountingCircleAndContestData)
+    {
+        var query = Set
+            .AsSplitQuery()
+            .Include(x => x.Vote.DomainOfInfluence)
+            .Include(x => x.Vote.Translations)
+            .Include(x => x.Results).ThenInclude(x => x.Ballot)
+            .Include(x => x.Results).ThenInclude(x => x.QuestionResults).ThenInclude(x => x.Question)
+            .Include(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults).ThenInclude(x => x.Question)
+            .Where(predicate);
+
+        if (withCountingCircleAndContestData)
+        {
+            query = query
+                .Include(x => x.Vote.Contest.DomainOfInfluence)
+                .Include(x => x.CountingCircle.ResponsibleAuthority);
+        }
+
+        return query.ToListAsync();
     }
 
     protected override Expression<Func<VoteResult, bool>> FilterByPoliticalBusinessId(Guid id) =>

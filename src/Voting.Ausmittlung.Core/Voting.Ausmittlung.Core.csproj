@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
@@ -8,6 +8,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.1" />
     <PackageReference Include="Voting.Lib.Scheduler" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Messaging" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.MalwareScanner" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DokConnector" Version="$(VotingLibVersion)" />
     <PackageReference Include="SharpZipLib" Version="1.4.1" />

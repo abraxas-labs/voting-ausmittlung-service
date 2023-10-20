@@ -15,6 +15,10 @@ public class PdfProportionalElectionCandidateResult : IProportionalElectionCandi
     [XmlElement("VoteSourceVoteCount")]
     public List<PdfProportionalElectionCandidateVoteSourceResult>? VoteSources { get; set; }
 
+    public PdfProportionalElectionCandidateResultSubTotal? ConventionalSubTotal { get; set; }
+
+    public PdfProportionalElectionCandidateResultSubTotal? EVotingSubTotal { get; set; }
+
     /// <inheritdoc />
     public int UnmodifiedListVotesCount { get; set; }
 

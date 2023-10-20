@@ -18,6 +18,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -37,8 +38,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         PermissionService permissionService,
         ContestService contestService,
         ValidationResultsEnsurer validationResultsEnsurer,
-        SecondFactorTransactionWriter secondFactorTransactionWriter)
-        : base(permissionService, contestService, aggregateRepository)
+        SecondFactorTransactionWriter secondFactorTransactionWriter,
+        IAuth auth)
+        : base(permissionService, contestService, auth, aggregateRepository)
     {
         _logger = logger;
         _resultRepo = resultRepo;
@@ -133,11 +135,16 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Entered ballot group results for majority election result {MajorityElectionResultId}", electionResult.Id);
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareSubmissionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
         var result = await LoadPoliticalBusinessResult(resultId);
+        if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
+        {
+            return default;
+        }
+
         var actionId = await PrepareActionId<MajorityElectionResultAggregate>(
             nameof(SubmissionFinished),
             resultId,
@@ -153,15 +160,20 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(
-            secondFactorTransactionExternalId,
-            () => PrepareActionId<MajorityElectionResultAggregate>(
-                nameof(SubmissionFinished),
-                result.Id,
-                result.MajorityElection.ContestId,
-                result.CountingCircle.BasisCountingCircleId,
-                result.MajorityElection.Contest.TestingPhaseEnded),
-            ct);
+
+        if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
+        {
+            await _secondFactorTransactionWriter.EnsureVerified(
+                secondFactorTransactionExternalId,
+                () => PrepareActionId<MajorityElectionResultAggregate>(
+                    nameof(SubmissionFinished),
+                    result.Id,
+                    result.MajorityElection.ContestId,
+                    result.CountingCircle.BasisCountingCircleId,
+                    result.MajorityElection.Contest.TestingPhaseEnded),
+                ct);
+        }
+
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -170,11 +182,16 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Submission finished for majority election result {MajorityElectionResultId}", result.Id);
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareCorrectionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId, true);
 
         var result = await LoadPoliticalBusinessResult(resultId);
+        if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
+        {
+            return default;
+        }
+
         var actionId = await PrepareActionId<MajorityElectionResultAggregate>(
             nameof(CorrectionFinished),
             resultId,
@@ -189,15 +206,20 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         var result = await LoadPoliticalBusinessResult(resultId);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result, true);
-        await _secondFactorTransactionWriter.EnsureVerified(
-            secondFactorTransactionExternalId,
-            () => PrepareActionId<MajorityElectionResultAggregate>(
-                nameof(CorrectionFinished),
-                result.Id,
-                result.MajorityElection.ContestId,
-                result.CountingCircle.BasisCountingCircleId,
-                result.MajorityElection.Contest.TestingPhaseEnded),
-            ct);
+
+        if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
+        {
+            await _secondFactorTransactionWriter.EnsureVerified(
+                secondFactorTransactionExternalId,
+                () => PrepareActionId<MajorityElectionResultAggregate>(
+                    nameof(CorrectionFinished),
+                    result.Id,
+                    result.MajorityElection.ContestId,
+                    result.CountingCircle.BasisCountingCircleId,
+                    result.MajorityElection.Contest.TestingPhaseEnded),
+                ct);
+        }
+
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);

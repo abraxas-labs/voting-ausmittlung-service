@@ -281,7 +281,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         });
 
         var bundleResp = await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
-        await RunEvents<MajorityElectionResultBundleCreated>();
+        await RunEvents<VoteResultBundleCreated>();
 
         await BundleErfassungElectionAdminClient.DeleteBundleAsync(
             new DeleteVoteResultBundleRequest

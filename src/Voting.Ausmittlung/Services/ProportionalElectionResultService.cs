@@ -28,7 +28,7 @@ public class ProportionalElectionResultService : ServiceBase
     private readonly ProportionalElectionResultWriter _proportionalElectionResultWriter;
     private readonly ProportionalElectionEndResultReader _proportionalElectionEndResultReader;
     private readonly ProportionalElectionEndResultWriter _proportionalElectionEndResultWriter;
-    private readonly ProportionalElectionResultValidationResultsBuilder _proportionalElectionResultValidationResultsBuilder;
+    private readonly ProportionalElectionResultValidationSummaryBuilder _proportionalElectionResultValidationSummaryBuilder;
     private readonly IMapper _mapper;
 
     public ProportionalElectionResultService(
@@ -36,14 +36,14 @@ public class ProportionalElectionResultService : ServiceBase
         ProportionalElectionResultWriter proportionalElectionResultWriter,
         ProportionalElectionEndResultReader proportionalElectionEndResultReader,
         ProportionalElectionEndResultWriter proportionalElectionEndResultWriter,
-        ProportionalElectionResultValidationResultsBuilder proportionalElectionResultValidationResultsBuilder,
+        ProportionalElectionResultValidationSummaryBuilder proportionalElectionResultValidationSummaryBuilder,
         IMapper mapper)
     {
         _proportionalElectionResultReader = proportionalElectionResultReader;
         _proportionalElectionResultWriter = proportionalElectionResultWriter;
         _proportionalElectionEndResultReader = proportionalElectionEndResultReader;
         _proportionalElectionEndResultWriter = proportionalElectionEndResultWriter;
-        _proportionalElectionResultValidationResultsBuilder = proportionalElectionResultValidationResultsBuilder;
+        _proportionalElectionResultValidationSummaryBuilder = proportionalElectionResultValidationSummaryBuilder;
         _mapper = mapper;
     }
 
@@ -96,7 +96,7 @@ public class ProportionalElectionResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(ProportionalElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_SubmissionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(ProportionalElectionResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -114,7 +114,7 @@ public class ProportionalElectionResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(ProportionalElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_CorrectionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(ProportionalElectionResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -189,12 +189,12 @@ public class ProportionalElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterCountOfVoters(ValidateEnterProportionalElectionCountOfVotersRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterCountOfVoters(ValidateEnterProportionalElectionCountOfVotersRequest request, ServerCallContext context)
     {
         var id = GuidParser.Parse(request.Request.ElectionResultId);
         var countOfVoters = _mapper.Map<PoliticalBusinessCountOfVoters>(request.Request.CountOfVoters);
-        var result = await _proportionalElectionResultValidationResultsBuilder.BuildEnterCountOfVotersValidationResults(id, countOfVoters);
-        return _mapper.Map<ProtoModels.ValidationOverview>(result);
+        var summary = await _proportionalElectionResultValidationSummaryBuilder.BuildEnterCountOfVotersValidationSummary(id, countOfVoters);
+        return _mapper.Map<ProtoModels.ValidationSummary>(summary);
     }
 
     public override async Task<Empty> EnterManualListEndResult(EnterProportionalElectionManualListEndResultRequest request, ServerCallContext context)

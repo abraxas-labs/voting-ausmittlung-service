@@ -42,13 +42,13 @@
             "UnmodifiedListVotesCount": 200,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
-            "CountOfVotesFromAccumulations": 0,
+            "CountOfVotesFromAccumulations": 100,
             "VoteCount": 200
           },
           "UnmodifiedListVotesCount": 200,
           "ModifiedListVotesCount": 0,
           "CountOfVotesOnOtherLists": 0,
-          "CountOfVotesFromAccumulations": 0,
+          "CountOfVotesFromAccumulations": 100,
           "VoteCount": 200
         },
         {

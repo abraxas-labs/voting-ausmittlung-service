@@ -20,7 +20,8 @@ public class MajorityElectionResultReportEventProcessor :
     IReportEventProcessor<MajorityElectionResultAuditedTentatively>,
     IReportEventProcessor<MajorityElectionResultPlausibilised>,
     IReportEventProcessor<MajorityElectionResultResettedToSubmissionFinished>,
-    IReportEventProcessor<MajorityElectionResultResettedToAuditedTentatively>
+    IReportEventProcessor<MajorityElectionResultResettedToAuditedTentatively>,
+    IReportEventProcessor<MajorityElectionResultResetted>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.MajorityElection;
 
@@ -84,6 +85,11 @@ public class MajorityElectionResultReportEventProcessor :
     }
 
     public EventLog? Process(MajorityElectionResultResettedToAuditedTentatively eventData, EventLogBuilderContext context)
+    {
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
+    }
+
+    public EventLog? Process(MajorityElectionResultResetted eventData, EventLogBuilderContext context)
     {
         return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }

@@ -1,7 +1,9 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
@@ -9,6 +11,7 @@ using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
+using Voting.Ausmittlung.Resources;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
@@ -84,6 +87,37 @@ public class ResultService : ServiceBase
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId));
 
+        return ProtobufEmpty.Instance;
+    }
+
+    public override async Task<ValidationSummaries> ValidateCountingCircleResults(ValidateCountingCircleResultsRequest request, ServerCallContext context)
+    {
+        var pbValidationResults = await _resultReader.GetCountingCircleResultsValidationResults(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId),
+            request.CountingCircleResultIds.Select(GuidParser.Parse).ToList());
+
+        return _mapper.Map<ValidationSummaries>(pbValidationResults);
+    }
+
+    public override async Task<SecondFactorTransaction> PrepareSubmissionFinished(CountingCircleResultsPrepareSubmissionFinishedRequest request, ServerCallContext context)
+    {
+        var (secondFactorTransaction, code) = await _resultWriter.PrepareSubmissionFinished(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId),
+            request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
+            Strings.CountingCircleResults_SubmissionFinished);
+        return secondFactorTransaction == null ? new SecondFactorTransaction() : new SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+    }
+
+    public override async Task<Empty> SubmissionFinished(CountingCircleResultsSubmissionFinishedRequest request, ServerCallContext context)
+    {
+        await _resultWriter.SubmissionFinished(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId),
+            request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
+            request.SecondFactorTransactionId,
+            context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 }

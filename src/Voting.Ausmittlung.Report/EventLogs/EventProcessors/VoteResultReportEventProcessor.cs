@@ -20,7 +20,8 @@ public class VoteResultReportEventProcessor :
     IReportEventProcessor<VoteResultPlausibilised>,
     IReportEventProcessor<VoteResultResettedToSubmissionFinished>,
     IReportEventProcessor<VoteResultResettedToAuditedTentatively>,
-    IReportEventProcessor<VoteResultCountOfVotersEntered>
+    IReportEventProcessor<VoteResultCountOfVotersEntered>,
+    IReportEventProcessor<VoteResultResetted>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.Vote;
 
@@ -84,6 +85,11 @@ public class VoteResultReportEventProcessor :
     }
 
     public EventLog? Process(VoteResultCountOfVotersEntered eventData, EventLogBuilderContext context)
+    {
+        return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
+    }
+
+    public EventLog? Process(VoteResultResetted eventData, EventLogBuilderContext context)
     {
         return ProcessResult(GuidParser.Parse(eventData.VoteResultId), context);
     }

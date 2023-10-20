@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
@@ -16,6 +17,8 @@ public class DomainOfInfluencePermissionRepo : DbRepository<DataContext, DomainO
         : base(context)
     {
     }
+
+    internal string DelimetedTableName => DelimitedSchemaAndTableName;
 
     public async Task Replace(IEnumerable<DomainOfInfluencePermissionEntry> entries)
     {
@@ -32,4 +35,7 @@ public class DomainOfInfluencePermissionRepo : DbRepository<DataContext, DomainO
         await Context.Database.ExecuteSqlRawAsync(
             $"UPDATE {DelimitedSchemaAndTableName} SET {isFinalColName} = TRUE WHERE {contestIdColName} = {{0}}", contestId);
     }
+
+    internal string GetColumnName<TProp>(Expression<Func<DomainOfInfluencePermissionEntry, TProp>> memberAccess)
+        => GetDelimitedColumnName(memberAccess);
 }

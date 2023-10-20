@@ -1,7 +1,6 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -59,9 +58,9 @@ public class WabstiCSGGemeindenRenderService : IRendererService
                 SubmissionDoneTimestamp = x.VoteResult.SubmissionDoneTimestamp,
                 AuditedTentativelyTimestamp = x.VoteResult.AuditedTentativelyTimestamp,
                 TotalReceivedBallots = x.CountOfVoters.TotalReceivedBallots,
-                CountOfInvalidBallots = x.CountOfVoters.ConventionalInvalidBallots.GetValueOrDefault(),
+                CountOfInvalidBallots = x.CountOfVoters.TotalInvalidBallots,
                 CountOfAccountedBallots = x.CountOfVoters.TotalAccountedBallots,
-                CountOfBlankBallots = x.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault(),
+                CountOfBlankBallots = x.CountOfVoters.TotalBlankBallots,
                 CountOfVotersTotal = x.VoteResult.TotalCountOfVoters,
                 QuestionResults = x.QuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 TieBreakQuestionResults = x.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number).ToList(),

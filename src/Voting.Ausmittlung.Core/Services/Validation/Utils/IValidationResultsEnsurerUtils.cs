@@ -14,5 +14,5 @@ public interface IValidationResultsEnsurerUtils
     /// </summary>
     /// <param name="validationResults">The validation results.</param>
     /// <exception cref="FluentValidation.ValidationException">Thrown if there are non-optional invalid validation results.</exception>
-    void EnsureIsValid(List<ValidationResult> validationResults);
+    void EnsureIsValid(IReadOnlyCollection<ValidationResult> validationResults);
 }

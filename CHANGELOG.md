@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.76.0`)
+# ✨ Changelog (`v1.86.4`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,272 +8,360 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.76.0
-Previous version ---- 
+This version -------- v1.86.4
+Previous version ---- v1.75.7
 Initial version ----- v1.29.14
-Total commits ------- 18
+Total commits ------- 582
 ```
 
-## [v1.76.0] - 2023-06-02
+## [v1.86.4] - 2023-10-20
 
 ### 🔄 Changed
 
-- add latest execution timestamp to result export configuration
+- check if bundle exists before performing events on the bundle
 
-## [v1.75.7] - 2023-05-31
+## [v1.86.3] - 2023-10-20
 
-### 🔄 Changed
+### 🆕 Added
 
-- do not mark candidate results with optional lot decisions as pending
+- Add e-voting proportional election list total results
+- Add e-voting list end results to list union report
 
-## [v1.75.6] - 2023-05-31
-
-### 🔄 Changed
-
-- add validation for when majority election has no candidates
-
-## [v1.75.5] - 2023-05-30
+## [v1.86.2] - 2023-10-19
 
 ### 🔄 Changed
 
-- correctly handle repeated write ins reset
+- Add missing evoting fields for protocols
 
-## [v1.75.4] - 2023-05-26
+## [v1.86.1] - 2023-10-19
+
+### 🔄 Changed
+
+- skip majority election ballot created if the bundle is deleted
+
+## [v1.86.0] - 2023-10-18
+
+### 🔄 Changed
+
+- make PDF activity protocol smaller, add more detailed CSV version
+
+## [v1.85.6] - 2023-10-17
+
+### 🔄 Changed
+
+- wabsti cwp list adjust zusatzstimmen
+
+## [v1.85.5] - 2023-10-16
+
+### 🔄 Changed
+
+- wabstic wp gemeinde export total count of lists with party
+
+## [v1.85.4] - 2023-10-13
+
+### 🔄 Changed
+
+- filter counting circle eVoting exports
+
+## [v1.85.3] - 2023-10-11
+
+### 🔄 Changed
+
+- improve performance of ListSummaries
+
+## [v1.85.2] - 2023-10-11
+
+### 🔄 Changed
+
+- Use correct eventing meter event position
+
+## [v1.85.1] - 2023-10-10
+
+### 🔄 Changed
+
+- re-implement counting of pre-accumulated candidates again
+
+## [v1.85.0] - 2023-10-10
+
+### 🆕 Added
+
+- add roles cache to minimize calls to iam
+
+## [v1.84.1] - 2023-10-06
+
+### 🔄 Changed
+
+- Extend pdf proportional election ballot with whether all original candidates are removed from list
+
+## [v1.84.0] - 2023-10-04
+
+### 🔄 Changed
+
+- upgrade voting library version to include event type processing histogram
+
+## [v1.83.3] - 2023-10-03
+
+### 🔄 Changed
+
+- convert percentages in gemeinden export correctly
+
+## [v1.83.2] - 2023-09-28
+
+### 🔄 Changed
+
+- revert counting pre-accumulated candidates in unmodified results
+
+## [v1.83.1] - 2023-09-25
+
+### 🔄 Changed
+
+- Update lib to inject malware scanner config correctly
+
+## [v1.83.0] - 2023-09-25
+
+### 🆕 Added
+
+- Add wp gemeinden bfs export
+
+## [v1.82.0] - 2023-09-25
+
+### 🔄 Changed
+
+- Added eVoting protocols
+
+## [v1.81.5] - 2023-09-15
+
+### 🔄 Changed
+
+- use empty value if absolut majority is not yet calculated in WabstiC WM_Kandidat csv export.
+
+## [v1.81.4] - 2023-09-05
+
+### 🔄 Changed
+
+- handle completely empty proportional election lists correctly
+
+## [v1.81.3] - 2023-09-04
+
+### 🔄 Changed
+
+- enable automatic exports during testing phase
+
+## [v1.81.2] - 2023-08-31
+
+### ❌ Removed
+
+- malwarescanner - unless problem with cert-pinning is solved
+
+## [v1.81.1] - 2023-08-30
+
+### 🔄 Changed
+
+- Skip processing of proportional election ballot create event if the bundle does not exist
+
+## [v1.81.0] - 2023-08-22
+
+### 🔄 Changed
+
+- Update eai and lib dependency to deterministic version
+
+## [v1.80.11] - 2023-08-22
+
+### 🔄 Changed
+
+- better support for large import files
+
+## [v1.80.10] - 2023-08-22
+
+### 🔄 Changed
+
+- revert removal of ResultExportGenerated event
+
+## [v1.80.9] - 2023-08-17
+
+### 🔄 Changed
+
+- increase import file size limit to 250MB
+
+## [v1.80.8] - 2023-08-15
+
+### 🆕 Added
+
+- malwarescanner service
+
+## [v1.80.7] - 2023-08-10
+
+### 🆕 Added
+
+- add sum of initial distribution number of mandates to pdf exports
+
+## [v1.80.6] - 2023-08-04
+
+### 🔄 Changed
+
+- votes of ballots/bundles without a list should not count towards CountOfVotesOnOtherLists
+
+## [v1.80.5] - 2023-07-26
+
+### 🔄 Changed
+
+- remove result export generated event and disable automatic exports during testing phase
+
+## [v1.80.4] - 2023-07-20
+
+### 🔄 Changed
+
+- bundle review list without party
+
+## [v1.80.3] - 2023-07-18
+
+### 🔄 Changed
+
+- rework party votes export
+
+## [v1.80.2] - 2023-07-14
+
+### ❌ Removed
+
+- malwarescanner temporary unless resolved problem
+
+## [v1.80.1] - 2023-07-13
+
+### 🔄 Changed
+
+- activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
+
+## [v1.80.0] - 2023-07-12
+
+### ❌ Removed
+
+- remove second factor transaction for owned political businesses
+
+## [v1.79.0] - 2023-07-10
+
+### 🆕 Added
+
+- malware scanner service
+
+## [v1.78.0] - 2023-06-28
+
+### 🆕 Added
+
+- add import change listener
+
+## [v1.77.2] - 2023-06-23
+
+### 🔄 Changed
+
+- Extend wabsti csg abstimmungsergebnisse export with domain of influence type
+
+## [v1.77.1] - 2023-06-23
+
+### 🔄 Changed
+
+- Sort contests depending on states
+
+## [v1.77.0] - 2023-06-20
+
+### 🆕 Added
+
+- Multiple counting circle results submission finished
+
+## [v1.76.5] - 2023-06-19
+
+### 🔄 Changed
+
+- Add missing events to activity protocol
+
+## [v1.76.4] - 2023-06-19
+
+### 🆕 Added
+
+- Added modified lists count and lists without party count columns to csv proportional election candidates with vote sources export
 
 ### 🔄 Changed
 
 - Make certain contact person fields required
 
-## [v1.75.3] - 2023-05-24
-
 ### 🔄 Changed
 
 - submission finish race condition with updated counting circle details prevented
-
-## [v1.75.2] - 2023-05-24
 
 ### 🆕 Added
 
 - add db command timeout configuration
 
-## [v1.75.1] - 2023-05-17
-
 ### 🔄 Changed
 
 - Show correct read signed event count in activity protocol
-
-## [v1.75.0] - 2023-05-16
 
 ### 🆕 Added
 
 - reset write ins for majority election
 
-## [v1.74.0] - 2023-05-16
-
 ### 🆕 Added
 
 - add csv export for vote results
-
-## [v1.73.0] - 2023-05-16
 
 ### 🔄 Changed
 
 - moved creator from PdfMajorityElectionResultBundle to base class
 
-## [v1.72.3] - 2023-05-15
-
 ### 🔄 Changed
 
 - wabstic export vote id
 
-## [v1.72.2] - 2023-05-15
-
 ### 🔄 Changed
 
 - wabstic export vote id
-
-## [v1.72.1] - 2023-05-09
-
-### 🔄 Changed
-
-- do not log update of lot decisions as error
-
-## [v1.72.0] - 2023-05-08
-
-### 🔄 Changed
-
-- show imported counting circles
-
-## [v1.71.1] - 2023-05-02
 
 ### 🔄 Changed
 
 - update cd-templates to resolve blocking deploy-trigger
 
-## [v1.71.0] - 2023-05-01
-
-### 🔄 Changed
-
-- correctly check imported voting cards contest ID
-- import e-voting voting cards from eCH
-
-## [v1.70.6] - 2023-04-25
-
 ### 🔄 Changed
 
 - clear result values for initial state for wabstic majority election detail results report
-
-## [v1.70.5] - 2023-04-24
 
 ### 🔄 Changed
 
 - doi and cc sorting by name for protocols
 
-## [v1.70.4] - 2023-04-19
-
 ### 🔄 Changed
 
 - changed result export template entity description
-
-## [v1.70.3] - 2023-04-18
 
 ### 🔄 Changed
 
 - clear result values from certain states for wabstic majority election detail results report
 
-## [v1.70.2] - 2023-04-13
-
-### 🔄 Changed
-
-- only report distinct ignored counting circles
-
-## [v1.70.1] - 2023-04-06
-
 ### 🔄 Changed
 
 - Make activity protocol for all monitoring admins available
-
-## [v1.70.0] - 2023-04-05
-
-### 🔄 Changed
-
-- consider blank and invalid e-voting ballots for votes and proportional elections
-
-## [v1.69.0] - 2023-03-31
-
-### 🔄 Changed
-
-- add e-voting blank ballots
-
-## [v1.68.4] - 2023-03-29
-
-### 🔄 Changed
-
-- show correct count of voters information and voting cards on end results
-
-## [v1.68.3] - 2023-03-27
-
-### 🔄 Changed
-
-- handle multiple eCH-0222 election group ballot raw data groups
-
-## [v1.68.2] - 2023-03-24
-
-### 🔄 Changed
-
-- update voting lib to support eCH changes
-
-## [v1.68.1] - 2023-03-17
 
 ### 🔄 Changed
 
 - result start submission as contest manager should be possible
 
-## [v1.68.0] - 2023-03-13
-
 ### 🔄 Changed
 
 - allow enter results as contest manager in testing phase
-
-## [v1.67.4] - 2023-03-12
-
-### 🔄 Changed
-
-- add the tenant ID to the export template ID
-
-## [v1.67.3] - 2023-03-06
-
-### 🔄 Changed
-
-- restrict wabstic majority election detail results report to certain states
-
-## [v1.67.2] - 2023-03-03
-
-### 🔄 Changed
-
-- use correct voting cards in communal voting end result report
-
-## [v1.67.1] - 2023-03-02
-
-### 🔄 Changed
-
-- don't show multiple political businesses results when political business in not finalized
-
-## [v1.67.0] - 2023-03-02
-
-### 🔄 Changed
-
-- protocol export state changes
-
-## [v1.66.0] - 2023-03-01
-
-### 🔄 Changed
-
-- validate counting circles on result import and filter test counting circles
-
-## [v1.65.1] - 2023-02-28
-
-### 🔄 Changed
-
-- fix list protocol exports
-
-## [v1.65.0] - 2023-02-28
 
 ### 🔄 Changed
 
 - WabstiC Majority election results only results with state correction done or submission done.
 
-## [v1.64.0] - 2023-02-28
-
-### 🔄 Changed
-
-- async PDF generation process
-
-## [v1.63.1] - 2023-02-23
-
-### 🔄 Changed
-
-- order candidate results for majority end result detail protocol by position
-
-## [v1.63.0] - 2023-02-23
-
 ### 🔄 Changed
 
 - VOTING-2480: input-validation allow character "«»;&
-
-## [v1.62.0] - 2023-02-23
 
 ### 🔄 Changed
 
 - wabstic wahlergebnisse additional columns
 
-## [v1.61.1] - 2023-02-22
-
 ### 🔄 Changed
 
 - order candidate results for majority end result detail protocol by position
-
-## [v1.61.0] - 2023-02-20
 
 ### 🆕 Added
 
@@ -609,6 +697,289 @@ Total commits ------- 18
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.76.3] - 2023-06-18
+
+### 🔄 Changed
+
+- correct e-voting count of voters in CSV exports
+
+## [v1.76.2] - 2023-06-18
+
+### 🔄 Changed
+
+- show e-voting count of voter values in reports
+
+## [v1.76.1] - 2023-06-18
+
+### 🔄 Changed
+
+- remove filter on result algorithm in vote end result report
+
+## [v1.76.0] - 2023-06-02
+
+### 🔄 Changed
+
+- add latest execution timestamp to result export configuration
+
+## [v1.75.7] - 2023-05-31
+
+### 🔄 Changed
+
+- do not mark candidate results with optional lot decisions as pending
+
+## [v1.75.6] - 2023-05-31
+
+### 🔄 Changed
+
+- add validation for when majority election has no candidates
+
+## [v1.75.5] - 2023-05-30
+
+### 🔄 Changed
+
+- correctly handle repeated write ins reset
+
+## [v1.75.4] - 2023-05-26
+
+### 🔄 Changed
+
+- Make certain contact person fields required
+
+## [v1.75.3] - 2023-05-24
+
+### 🔄 Changed
+
+- submission finish race condition with updated counting circle details prevented
+
+## [v1.75.2] - 2023-05-24
+
+### 🆕 Added
+
+- add db command timeout configuration
+
+## [v1.75.1] - 2023-05-17
+
+### 🔄 Changed
+
+- Show correct read signed event count in activity protocol
+
+## [v1.75.0] - 2023-05-16
+
+### 🆕 Added
+
+- reset write ins for majority election
+
+## [v1.74.0] - 2023-05-16
+
+### 🆕 Added
+
+- add csv export for vote results
+
+## [v1.73.0] - 2023-05-16
+
+### 🔄 Changed
+
+- moved creator from PdfMajorityElectionResultBundle to base class
+
+## [v1.72.3] - 2023-05-15
+
+### 🔄 Changed
+
+- wabstic export vote id
+
+## [v1.72.2] - 2023-05-15
+
+### 🔄 Changed
+
+- wabstic export vote id
+
+## [v1.72.1] - 2023-05-09
+
+### 🔄 Changed
+
+- do not log update of lot decisions as error
+
+## [v1.72.0] - 2023-05-08
+
+### 🔄 Changed
+
+- show imported counting circles
+
+## [v1.71.1] - 2023-05-02
+
+### 🔄 Changed
+
+- update cd-templates to resolve blocking deploy-trigger
+
+## [v1.71.0] - 2023-05-01
+
+### 🔄 Changed
+
+- correctly check imported voting cards contest ID
+- import e-voting voting cards from eCH
+
+## [v1.70.6] - 2023-04-25
+
+### 🔄 Changed
+
+- clear result values for initial state for wabstic majority election detail results report
+
+## [v1.70.5] - 2023-04-24
+
+### 🔄 Changed
+
+- doi and cc sorting by name for protocols
+
+## [v1.70.4] - 2023-04-19
+
+### 🔄 Changed
+
+- changed result export template entity description
+
+## [v1.70.3] - 2023-04-18
+
+### 🔄 Changed
+
+- clear result values from certain states for wabstic majority election detail results report
+
+## [v1.70.2] - 2023-04-13
+
+### 🔄 Changed
+
+- only report distinct ignored counting circles
+
+## [v1.70.1] - 2023-04-06
+
+### 🔄 Changed
+
+- Make activity protocol for all monitoring admins available
+
+## [v1.70.0] - 2023-04-05
+
+### 🔄 Changed
+
+- consider blank and invalid e-voting ballots for votes and proportional elections
+
+## [v1.69.0] - 2023-03-31
+
+### 🔄 Changed
+
+- add e-voting blank ballots
+
+## [v1.68.4] - 2023-03-29
+
+### 🔄 Changed
+
+- show correct count of voters information and voting cards on end results
+
+## [v1.68.3] - 2023-03-27
+
+### 🔄 Changed
+
+- handle multiple eCH-0222 election group ballot raw data groups
+
+## [v1.68.2] - 2023-03-24
+
+### 🔄 Changed
+
+- update voting lib to support eCH changes
+
+## [v1.68.1] - 2023-03-17
+
+### 🔄 Changed
+
+- result start submission as contest manager should be possible
+
+## [v1.68.0] - 2023-03-13
+
+### 🔄 Changed
+
+- allow enter results as contest manager in testing phase
+
+## [v1.67.4] - 2023-03-12
+
+### 🔄 Changed
+
+- add the tenant ID to the export template ID
+
+## [v1.67.3] - 2023-03-06
+
+### 🔄 Changed
+
+- restrict wabstic majority election detail results report to certain states
+
+## [v1.67.2] - 2023-03-03
+
+### 🔄 Changed
+
+- use correct voting cards in communal voting end result report
+
+## [v1.67.1] - 2023-03-02
+
+### 🔄 Changed
+
+- don't show multiple political businesses results when political business in not finalized
+
+## [v1.67.0] - 2023-03-02
+
+### 🔄 Changed
+
+- protocol export state changes
+
+## [v1.66.0] - 2023-03-01
+
+### 🔄 Changed
+
+- validate counting circles on result import and filter test counting circles
+
+## [v1.65.1] - 2023-02-28
+
+### 🔄 Changed
+
+- fix list protocol exports
+
+## [v1.65.0] - 2023-02-28
+
+### 🔄 Changed
+
+- WabstiC Majority election results only results with state correction done or submission done.
+
+## [v1.64.0] - 2023-02-28
+
+### 🔄 Changed
+
+- async PDF generation process
+
+## [v1.63.1] - 2023-02-23
+
+### 🔄 Changed
+
+- order candidate results for majority end result detail protocol by position
+
+## [v1.63.0] - 2023-02-23
+
+### 🔄 Changed
+
+- VOTING-2480: input-validation allow character "«»;&
+
+## [v1.62.0] - 2023-02-23
+
+### 🔄 Changed
+
+- wabstic wahlergebnisse additional columns
+
+## [v1.61.1] - 2023-02-22
+
+### 🔄 Changed
+
+- order candidate results for majority end result detail protocol by position
+
+## [v1.61.0] - 2023-02-20
+
+### 🆕 Added
+
+- wabstic wmwahlergebnis report
 
 ## [v1.60.3] - 2023-02-15
 

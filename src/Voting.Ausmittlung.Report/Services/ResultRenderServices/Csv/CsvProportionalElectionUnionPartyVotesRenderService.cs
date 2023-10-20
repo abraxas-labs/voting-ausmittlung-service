@@ -37,19 +37,6 @@ public class CsvProportionalElectionUnionPartyVotesRenderService : IRendererServ
                 .FirstOrDefaultAsync(ct)
             ?? throw new EntityNotFoundException(nameof(ProportionalElectionUnion), ctx.PoliticalBusinessUnionId!);
 
-        var blankRowsByElectionId = await _electionUnionRepo.Query()
-            .Where(x => x.Id == ctx.PoliticalBusinessUnionId)
-            .SelectMany(x => x.ProportionalElectionUnionEntries)
-            .Select(x => new
-            {
-                x.ProportionalElectionId,
-                x.ProportionalElection.EndResult!.ListEndResults,
-            })
-            .ToDictionaryAsync(
-                x => x.ProportionalElectionId,
-                x => x.ListEndResults.Sum(e => e.BlankRowsCount),
-                ct);
-
         var doiEntries = await _electionUnionRepo.Query()
             .Where(x => x.Id == ctx.PoliticalBusinessUnionId)
             .SelectMany(x => x.ProportionalElectionUnionEntries)
@@ -62,24 +49,26 @@ public class CsvProportionalElectionUnionPartyVotesRenderService : IRendererServ
                     x.ProportionalElection.DomainOfInfluence.Name,
                     y.Key,
                     y.Sum(z => z.VoteCount),
-                    x.ProportionalElection.EndResult.CountOfVoters.TotalAccountedBallots)))
+                    x.ProportionalElection.EndResult.CountOfVoters.TotalAccountedBallots,
+                    x.ProportionalElection.EndResult.CountOfVoters.TotalBlankBallots)))
             .ToListAsync(ct);
 
         var totalFictivePartyVoters = 0M;
-        var totalSubmittedVotes = 0;
         foreach (var politicalBusinessEntries in doiEntries.GroupBy(x => x.PoliticalBusinessId))
         {
-            var emptyVotes = blankRowsByElectionId.GetValueOrDefault(politicalBusinessEntries.Key!.Value);
-            var politicalBusinessSubmittedVotes = politicalBusinessEntries.Sum(x => x.PartyVotes) + emptyVotes;
-            totalSubmittedVotes += politicalBusinessSubmittedVotes;
-
+            var politicalBusinessSubmittedVotes = politicalBusinessEntries.Sum(x => x.PartyVotes);
+            var totalFictivePartyVotersOfPoliticalBusiness = 0M;
             foreach (var politicalBusinessEntry in politicalBusinessEntries)
             {
-                politicalBusinessEntry.EmptyVotes = emptyVotes;
-                politicalBusinessEntry.PoliticalBusinessSubmittedVotes = politicalBusinessSubmittedVotes;
+                politicalBusinessEntry.PoliticalBusinessSubmittedVotes = politicalBusinessSubmittedVotes + politicalBusinessEntry.BlankBallots;
                 politicalBusinessEntry.FictivePartyVoters = politicalBusinessEntry.PartyVotes * (politicalBusinessEntry.AccountedBallots / Math.Max(1, (decimal)politicalBusinessEntry.PoliticalBusinessSubmittedVotes));
-                politicalBusinessEntry.PartyStrength = 100 * politicalBusinessEntry.PartyVotes / Math.Max(1, (decimal)politicalBusinessEntry.PoliticalBusinessSubmittedVotes);
-                totalFictivePartyVoters += politicalBusinessEntry.FictivePartyVoters;
+                totalFictivePartyVotersOfPoliticalBusiness += politicalBusinessEntry.FictivePartyVoters;
+            }
+
+            totalFictivePartyVoters += totalFictivePartyVotersOfPoliticalBusiness;
+            foreach (var politicalBusinessEntry in politicalBusinessEntries)
+            {
+                politicalBusinessEntry.PartyStrength = 100 * politicalBusinessEntry.FictivePartyVoters / totalFictivePartyVotersOfPoliticalBusiness;
             }
         }
 
@@ -92,29 +81,30 @@ public class CsvProportionalElectionUnionPartyVotesRenderService : IRendererServ
                 contestDomainOfInfluenceName,
                 partyEntries.Key,
                 partyEntries.Sum(x => x.PartyVotes),
-                partyEntries.Sum(x => x.AccountedBallots));
-            contestEntry.PoliticalBusinessSubmittedVotes = totalSubmittedVotes;
-            contestEntry.EmptyVotes = blankRowsByElectionId.Values.Sum();
+                partyEntries.Sum(x => x.AccountedBallots),
+                partyEntries.Sum(x => x.BlankBallots));
+            contestEntry.PoliticalBusinessSubmittedVotes = partyEntries.Sum(x => x.PoliticalBusinessSubmittedVotes);
             contestEntry.FictivePartyVoters = partyEntries.Sum(x => x.FictivePartyVoters);
             contestEntry.PartyStrength = 100 * contestEntry.FictivePartyVoters / totalFictivePartyVoters;
             contestEntries.Add(contestEntry);
         }
 
         var allEntries = contestEntries
-            .OrderByDescending(x => x.PartyStrength)
-            .Concat(doiEntries.OrderByDescending(x => x.DomainOfInfluenceName).ThenBy(x => x.PartyStrength));
+            .OrderByDescending(x => x.PartyStrength).ThenBy(x => x.PartyShortDescription)
+            .Concat(doiEntries.OrderBy(x => x.DomainOfInfluenceName).ThenByDescending(x => x.PartyStrength).ThenBy(x => x.PartyShortDescription));
         return await Task.FromResult(_templateService.RenderToCsv(ctx, allEntries));
     }
 
     private class PartyVotesCsvEntry
     {
-        public PartyVotesCsvEntry(Guid? politicalBusinessId, string domainOfInfluenceName, string partyShortDescription, int partyVotes, int accountedBallots)
+        public PartyVotesCsvEntry(Guid? politicalBusinessId, string domainOfInfluenceName, string partyShortDescription, int partyVotes, int accountedBallots, int blankBallots)
         {
             PoliticalBusinessId = politicalBusinessId;
             DomainOfInfluenceName = domainOfInfluenceName;
             PartyShortDescription = partyShortDescription;
             PartyVotes = partyVotes;
             AccountedBallots = accountedBallots;
+            BlankBallots = blankBallots;
         }
 
         [Ignore]
@@ -134,16 +124,16 @@ public class CsvProportionalElectionUnionPartyVotesRenderService : IRendererServ
         [Format("N2")]
         public decimal FictivePartyVoters { get; set; }
 
-        [Name("Gültige Wahlzettel (aller Wahlkreise)")]
+        [Name("Gültige Wahlzettel")]
         public int AccountedBallots { get; }
 
-        [Name("Total abgegebene Stimmen (aller Wahlkreise)")]
+        [Name("Total abgegebene Stimmen")]
         public int PoliticalBusinessSubmittedVotes { get; set; }
 
         [Name("Parteistimmen")]
         public int PartyVotes { get; }
 
         [Name("Leere Stimmen")]
-        public int EmptyVotes { get; set; }
+        public int BlankBallots { get; set; }
     }
 }

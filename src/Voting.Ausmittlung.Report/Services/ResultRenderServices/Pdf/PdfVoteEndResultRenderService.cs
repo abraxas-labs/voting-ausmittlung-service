@@ -59,10 +59,7 @@ public class PdfVoteEndResultRenderService : IRendererService
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
-            .Where(x =>
-                x.ResultAlgorithm == VoteResultAlgorithm.PopularMajority
-                && ctx.PoliticalBusinessIds.Contains(x.Id)
-                && x.DomainOfInfluence.Type == ctx.DomainOfInfluenceType)
+            .Where(x => ctx.PoliticalBusinessIds.Contains(x.Id) && x.DomainOfInfluence.Type == ctx.DomainOfInfluenceType)
             .OrderBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
 

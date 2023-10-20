@@ -10,9 +10,11 @@ public class PdfPoliticalBusinessCountOfVotersProfile : Profile
 {
     public PdfPoliticalBusinessCountOfVotersProfile()
     {
-        CreateMap<PoliticalBusinessCountOfVoters, PdfPoliticalBusinessCountOfVoters>();
+        CreateMap<PoliticalBusinessCountOfVoters, PdfPoliticalBusinessCountOfVoters>()
+            .ForMember(dst => dst.EVotingTotalUnaccountedBallots, opts => opts.MapFrom(src => src.EVotingBlankBallots + src.EVotingInvalidBallots))
+            .ForMember(dst => dst.ConventionalTotalUnaccountedBallots, opts => opts.MapFrom(src => src.ConventionalBlankBallots + src.ConventionalInvalidBallots));
         CreateMap<PoliticalBusinessNullableCountOfVoters, PdfPoliticalBusinessCountOfVoters>()
-            .ForMember(dst => dst.ConventionalBlankBallots, opts => opts.NullSubstitute(0))
-            .ForMember(dst => dst.ConventionalInvalidBallots, opts => opts.NullSubstitute(0));
+            .ForMember(dst => dst.EVotingTotalUnaccountedBallots, opts => opts.MapFrom(src => src.EVotingBlankBallots + src.EVotingInvalidBallots))
+            .ForMember(dst => dst.ConventionalTotalUnaccountedBallots, opts => opts.MapFrom(src => src.ConventionalBlankBallots.GetValueOrDefault() + src.ConventionalInvalidBallots.GetValueOrDefault()));
     }
 }

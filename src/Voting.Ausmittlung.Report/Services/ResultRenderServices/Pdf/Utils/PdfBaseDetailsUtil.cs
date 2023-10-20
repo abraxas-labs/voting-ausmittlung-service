@@ -27,8 +27,11 @@ public static class PdfBaseDetailsUtil
             .Where(v => !v.Valid)
             .Sum(v => v.CountOfReceivedVotingCards);
 
+        var eVotingVotingCard = details.VotingCards.SingleOrDefault(v => v.Channel == PdfVotingChannel.EVoting);
+
         details.TotalCountOfValidVotingCards = countOfValidCards;
         details.TotalCountOfInvalidVotingCards = countOfInvalidCards;
         details.TotalCountOfVotingCards = countOfValidCards + countOfInvalidCards;
+        details.TotalCountOfEVotingVotingCards = eVotingVotingCard?.CountOfReceivedVotingCards ?? 0;
     }
 }

@@ -69,36 +69,6 @@ public class ExportAggregate : BaseEventSignatureAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    internal void AutomatedExportGenerated(
-        Guid contestId,
-        Guid exportConfigurationId,
-        Guid jobId,
-        string exportKey,
-        Guid? countingCircleId,
-        IReadOnlyCollection<Guid> politicalBusinessIds,
-        DomainOfInfluenceType domainOfInfluenceType,
-        string fileName,
-        string? echMessageId,
-        string fileId)
-    {
-        RaiseEvent(
-            new ResultExportGenerated
-            {
-                EventInfo = _eventInfoProvider.NewEventInfo(),
-                ExportConfigurationId = exportConfigurationId.ToString(),
-                ContestId = contestId.ToString(),
-                JobId = jobId.ToString(),
-                Key = exportKey,
-                FileName = fileName,
-                EchMessageId = echMessageId ?? string.Empty,
-                ConnectorFileId = fileId,
-                CountingCircleId = countingCircleId?.ToString() ?? string.Empty,
-                PoliticalBusinessIds = { politicalBusinessIds.Select(pb => pb.ToString()), },
-                DomainOfInfluenceType = (Proto.DomainOfInfluenceType)domainOfInfluenceType,
-            },
-            new EventSignatureBusinessDomainData(contestId));
-    }
-
     internal void AutomatedExportCompleted(
         Guid contestId,
         Guid exportConfigurationId,
@@ -153,6 +123,8 @@ public class ExportAggregate : BaseEventSignatureAggregate
                 Id = Guid.Parse(ev.ContestId);
                 break;
             case ResultExportGenerated:
+                // This event is no longer generated, but we still need to handle it for backward compatibility
+                break;
             case ResultExportCompleted:
                 break;
             default:

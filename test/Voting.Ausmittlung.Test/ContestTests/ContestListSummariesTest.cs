@@ -72,6 +72,40 @@ public class ContestListSummariesTest : BaseTest<ContestService.ContestServiceCl
         response.MatchSnapshot();
     }
 
+    [Fact]
+    public async Task TestShouldOrderAscendingWithUpcomingContests()
+    {
+        var response = await ErfassungElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest
+        {
+            States =
+            {
+                ProtoModels.ContestState.TestingPhase,
+                ProtoModels.ContestState.Active,
+            },
+        });
+
+        var ascendingOrderedContests = response.ContestSummaries_.OrderBy(c => c.Date).ToList();
+        ascendingOrderedContests.Any().Should().BeTrue();
+        ascendingOrderedContests.SequenceEqual(response.ContestSummaries_).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestShouldOrderDescendingWithoutUpcomingContests()
+    {
+        var response = await ErfassungElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest
+        {
+            States =
+            {
+                ProtoModels.ContestState.PastUnlocked,
+                ProtoModels.ContestState.PastLocked,
+                ProtoModels.ContestState.Archived,
+            },
+        });
+        var descendingOrderedContests = response.ContestSummaries_.OrderByDescending(c => c.Date).ToList();
+        descendingOrderedContests.Any().Should().BeTrue();
+        descendingOrderedContests.SequenceEqual(response.ContestSummaries_).Should().BeTrue();
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ContestService.ContestServiceClient(channel)

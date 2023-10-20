@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Google.Protobuf;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.EventLogs;
@@ -11,7 +12,7 @@ public class EventLog
 {
     public string EventFullName { get; set; } = string.Empty;
 
-    public byte[] EventContent { get; set; } = Array.Empty<byte>();
+    public IMessage? EventContent { get; set; }
 
     public DateTime Timestamp { get; set; }
 

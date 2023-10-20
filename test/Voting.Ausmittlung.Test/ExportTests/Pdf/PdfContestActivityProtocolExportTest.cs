@@ -11,10 +11,8 @@ using Abraxas.Voting.Basis.Events.V1;
 using Google.Protobuf.WellKnownTypes;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.EventLogs.Aggregates;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
@@ -42,53 +40,27 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
     }
 
     [Fact]
-    public override Task TestPdf()
+    public override async Task TestPdf()
     {
-        SeedEvents(false);
-        return base.TestPdf();
+        SeedEvents();
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestId.ToString() });
+        await RunEvents<ContestTestingPhaseEnded>();
+        await base.TestPdf();
     }
 
     [Fact]
     public async Task TestPdfAsContestManagerImmediatelyAfterTestingPhaseEnded()
     {
-        SeedEvents(true, false);
+        SeedEvents(false);
 
         // When the testing phase ends, most of the data that was created during the testing phase gets deleted.
         // We need to test this case, as it lead to bugs (ex. VOTING-2403).
         // Most of the time, data was missing that exists most of the time, but not immediately after the testing phase has ended
         // and when no results etc. were entered.
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
+        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         await TestPdfReport("_tp_ended_immediately");
-    }
-
-    [Fact]
-    public async Task TestPdfAsContestManagerAfterTestingPhaseEnded()
-    {
-        SeedEvents(true);
-
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
-        await RunEvents<ContestTestingPhaseEnded>();
-        await TestPdfReport("_tp_ended");
-    }
-
-    [Fact]
-    public async Task TestPdfAsMonitoringAdminAndNotContestManagerAfterTestingPhaseEnded()
-    {
-        SeedEvents(true);
-
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestIdGuid.ToString() });
-        await RunEvents<ContestTestingPhaseEnded>();
-
-        var tenantId = SecureConnectTestDefaults.MockedTenantUzwil.Id;
-        var client = CreateServiceWithTenant(tenantId, RolesMockedData.MonitoringElectionAdmin);
-
-        var request = NewRequest();
-        request.ExportTemplateIds.Clear();
-        request.ExportTemplateIds.Add(AusmittlungUuidV5.BuildExportTemplate(TemplateKey, tenantId).ToString());
-
-        await TestPdfReport("_non_contest_manager_tp_ended", client, request);
     }
 
     protected override async Task SeedData()
@@ -105,12 +77,12 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private void SeedEvents(bool testingPhaseEnded, bool eventsAfterTestingPhaseEnded = true)
+    private void SeedEvents(bool eventsAfterTestingPhaseEnded = true)
     {
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
 
-        SeedBasisPublicKeySignatureEvents(testingPhaseEnded ? 5 : 0);
+        SeedBasisPublicKeySignatureEvents(5);
         SeedAusmittlungPublicKeySignatureEvents(12);
 
         SeedVoteInitEvents();
@@ -119,22 +91,19 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
 
         SeedProportionalElectionUnionInitEvents();
         SeedMajorityElectionUnionInitEvents();
+        SeedContestTestingPhaseEndedEvent();
 
-        if (testingPhaseEnded)
+        if (!eventsAfterTestingPhaseEnded)
         {
-            SeedContestTestingPhaseEndedEvent();
-
-            if (!eventsAfterTestingPhaseEnded)
-            {
-                return;
-            }
+            return;
         }
 
         SeedContestCountingCircleDetailsEvents();
-        SeedMajorityElectionResultEvents(testingPhaseEnded);
-        SeedProportionalElectionResultEvents(testingPhaseEnded);
-        SeedVoteResultEvents(testingPhaseEnded);
+        SeedMajorityElectionResultEvents();
+        SeedProportionalElectionResultEvents();
+        SeedVoteResultEvents();
         SeedExportEvents();
+        SeedImportEvents();
     }
 
     private void SeedCountingCircleInitEvents()
@@ -151,7 +120,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             },
         };
 
-        PublishBasisBusinessEvent(countingCircleCreated, protoCountingCircleId);
+        PublishBasisBusinessEvent(countingCircleCreated, protoCountingCircleId, AggregateNames.CountingCircle);
     }
 
     private void SeedContestInitEvents()
@@ -161,14 +130,14 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             Contest = new ProtoBasisEvents.ContestEventData
             {
-                Id = ContestMockedData.IdBundesurnengang,
+                Id = ContestId.ToString(),
                 Date = new DateTime(2020, 8, 23, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 Description = { LanguageUtil.MockAllLanguages("Contest description") },
                 EndOfTestingPhase = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
             },
         };
 
-        PublishBasisBusinessEvent(contestCreated, contestCreated.Contest.Id, Host1, BasisKeyHost1, ContestIdGuid, aggregateName: AggregateNames.Contest);
+        PublishBasisBusinessEvent(contestCreated, contestCreated.Contest.Id, AggregateNames.Contest, Host1, BasisKeyHost1, ContestId);
     }
 
     private void SeedVoteInitEvents()
@@ -194,7 +163,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 },
             };
 
-            PublishBasisBusinessEvent(voteCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
+            PublishBasisBusinessEvent(voteCreated, voteId, AggregateNames.Vote, Host1, BasisKeyHost1, ContestId);
 
             foreach (var ballot in vote.Ballots)
             {
@@ -207,7 +176,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         VoteId = voteId,
                     },
                 };
-                PublishBasisBusinessEvent(ballotCreated, voteId, Host1, BasisKeyHost1, ContestIdGuid);
+                PublishBasisBusinessEvent(ballotCreated, voteId, AggregateNames.Vote, Host1, BasisKeyHost1, ContestId);
             }
         }
     }
@@ -228,7 +197,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             },
         };
 
-        PublishBasisBusinessEvent(electionCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionCreated, electionId, AggregateNames.ProportionalElection, Host1, BasisKeyHost1, ContestId);
 
         foreach (var list in election.ProportionalElectionLists)
         {
@@ -243,7 +212,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 },
             };
 
-            PublishBasisBusinessEvent(listCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+            PublishBasisBusinessEvent(listCreated, electionId, AggregateNames.ProportionalElection, Host1, BasisKeyHost1, ContestId);
 
             foreach (var candidate in list.ProportionalElectionCandidates)
             {
@@ -258,7 +227,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                     },
                 };
 
-                PublishBasisBusinessEvent(candidateCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+                PublishBasisBusinessEvent(candidateCreated, electionId, AggregateNames.ProportionalElection, Host1, BasisKeyHost1, ContestId);
             }
         }
     }
@@ -279,7 +248,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             },
         };
 
-        PublishBasisBusinessEvent(electionCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionCreated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1, ContestId);
 
         foreach (var candidate in election.MajorityElectionCandidates)
         {
@@ -293,7 +262,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 },
             };
 
-            PublishBasisBusinessEvent(candidateCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+            PublishBasisBusinessEvent(candidateCreated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1, ContestId);
         }
 
         foreach (var secondaryMajorityElection in election.SecondaryMajorityElections)
@@ -311,7 +280,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 },
             };
 
-            PublishBasisBusinessEvent(smeCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+            PublishBasisBusinessEvent(smeCreated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1, ContestId);
 
             foreach (var smeCandidate in secondaryMajorityElection.Candidates)
             {
@@ -329,7 +298,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         },
                     };
 
-                    PublishBasisBusinessEvent(smeCandidateCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+                    PublishBasisBusinessEvent(smeCandidateCreated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1, ContestId);
                 }
                 else
                 {
@@ -345,7 +314,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                         },
                     };
 
-                    PublishBasisBusinessEvent(smeCandidateRefCreated, electionId, Host1, BasisKeyHost1, ContestIdGuid);
+                    PublishBasisBusinessEvent(smeCandidateRefCreated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1, ContestId);
                 }
             }
         }
@@ -360,26 +329,26 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             ProportionalElectionUnion = new()
             {
-                ContestId = ContestMockedData.IdBundesurnengang,
+                ContestId = ContestId.ToString(),
                 Id = unionId,
                 Description = "Proportional Election Union",
             },
         };
 
-        PublishBasisBusinessEvent(electionUnionCreated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionUnionCreated, unionId, AggregateNames.ProportionalElectionUnion, Host1, BasisKeyHost1, ContestId);
 
         var electionUnionUpdated = new ProtoBasis.ProportionalElectionUnionUpdated
         {
             EventInfo = GetBasisEventInfo(0),
             ProportionalElectionUnion = new()
             {
-                ContestId = ContestMockedData.IdBundesurnengang,
+                ContestId = ContestId.ToString(),
                 Id = unionId,
                 Description = "Proportional Election Union Updated",
             },
         };
 
-        PublishBasisBusinessEvent(electionUnionUpdated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionUnionUpdated, unionId, AggregateNames.ProportionalElectionUnion, Host1, BasisKeyHost1, ContestId);
     }
 
     private void SeedMajorityElectionUnionInitEvents()
@@ -391,26 +360,26 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(0),
             MajorityElectionUnion = new()
             {
-                ContestId = ContestMockedData.IdBundesurnengang,
+                ContestId = ContestId.ToString(),
                 Id = unionId,
                 Description = "Majority Election Union",
             },
         };
 
-        PublishBasisBusinessEvent(electionUnionCreated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionUnionCreated, unionId, AggregateNames.MajorityElectionUnion, Host1, BasisKeyHost1, ContestId);
 
         var electionUnionUpdated = new ProtoBasis.MajorityElectionUnionUpdated
         {
             EventInfo = GetBasisEventInfo(0),
             MajorityElectionUnion = new()
             {
-                ContestId = ContestMockedData.IdBundesurnengang,
+                ContestId = ContestId.ToString(),
                 Id = unionId,
                 Description = "Majority Election Union Updated",
             },
         };
 
-        PublishBasisBusinessEvent(electionUnionUpdated, unionId, Host1, BasisKeyHost1, ContestIdGuid);
+        PublishBasisBusinessEvent(electionUnionUpdated, unionId, AggregateNames.MajorityElectionUnion, Host1, BasisKeyHost1, ContestId);
     }
 
     private void SeedContestTestingPhaseEndedEvent()
@@ -418,19 +387,20 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         var contestTestingPhaseEnded = new ProtoBasis.ContestTestingPhaseEnded
         {
             EventInfo = GetBasisEventInfo(1),
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestId.ToString(),
         };
 
-        PublishBasisBusinessEvent(contestTestingPhaseEnded, contestTestingPhaseEnded.ContestId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.Contest);
+        PublishBasisBusinessEvent(contestTestingPhaseEnded, contestTestingPhaseEnded.ContestId, AggregateNames.Contest, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestId);
     }
 
     private void SeedContestCountingCircleDetailsEvents()
     {
+        var contestCountingCircleDetailsId = "c9679b05-64ab-46ab-9f4e-f62ed89a4968";
         var contestCountingCircleDetailsCreateEvent = new ContestCountingCircleDetailsCreated
         {
-            Id = "c9679b05-64ab-46ab-9f4e-f62ed89a4968",
+            Id = contestCountingCircleDetailsId,
             EventInfo = GetEventInfo(1),
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestId.ToString(),
             CountingCircleId = CountingCircleId.ToString(),
             CountOfVotersInformation = new CountOfVotersInformationEventData
             {
@@ -470,9 +440,9 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         var contestCountingCircleDetailsUpdateEvent = new ContestCountingCircleDetailsUpdated
         {
             EventInfo = GetEventInfo(2),
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestId.ToString(),
             CountingCircleId = CountingCircleId.ToString(),
-            Id = "c9679b05-64ab-46ab-9f4e-f62ed89a4968",
+            Id = contestCountingCircleDetailsId,
             CountOfVotersInformation = new CountOfVotersInformationEventData
             {
                 SubTotalInfo =
@@ -512,7 +482,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         {
             Id = "324cb494-e55b-4bf5-acd3-c140b0a5d3d2",
             EventInfo = GetEventInfo(2),
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestId.ToString(),
             CountingCircleId = CountingCircleMockedData.IdUzwil,
             CountOfVotersInformation = new CountOfVotersInformationEventData
             {
@@ -550,7 +520,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(contestCountingCircleDetailsUzwilCreateEvent, contestCountingCircleDetailsUzwilCreateEvent.Id, Host2, AusmittlungKeyHost2);
     }
 
-    private void SeedMajorityElectionResultEvents(bool testingPhaseEnded)
+    private void SeedMajorityElectionResultEvents()
     {
         var resultId = MajorityElectionEndResultMockedData.StGallenResultId;
         var electionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund;
@@ -695,10 +665,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId, Host1, AusmittlungKeyHost1);
 
-        if (testingPhaseEnded)
-        {
-            SeedMajorityElectionAfterTestingPhaseEndedEvents();
-        }
+        SeedMajorityElectionAfterTestingPhaseEndedEvents();
 
         var flaggedForCorrection = new MajorityElectionResultFlaggedForCorrection
         {
@@ -904,7 +871,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(bundleDeleted, resultId, Host2, AusmittlungKeyHost2);
     }
 
-    private void SeedProportionalElectionResultEvents(bool testingPhaseEnded)
+    private void SeedProportionalElectionResultEvents()
     {
         var resultId = ProportionalElectionEndResultMockedData.StGallenResultId;
         var electionId = ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund;
@@ -982,10 +949,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId);
 
-        if (testingPhaseEnded)
-        {
-            SeedProportionalElectionAfterTestingPhaseEndedEvents();
-        }
+        SeedProportionalElectionAfterTestingPhaseEndedEvents();
 
         var flaggedForCorrection = new ProportionalElectionResultFlaggedForCorrection
         {
@@ -1052,6 +1016,23 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
                 },
         };
         PublishAusmittlungBusinessEvent(lotDecisionsUpdated, lotDecisionsUpdated.ProportionalElectionEndResultId);
+
+        var manualListEndResult = new ProportionalElectionManualListEndResultEntered
+        {
+            EventInfo = GetEventInfo(1660, true),
+            ProportionalElectionId = electionId,
+            ProportionalElectionEndResultId = "cbd87126-6df5-4839-ab24-02fe42c9b27f",
+            ProportionalElectionListId = "c322cf7f-9319-4886-9779-bf91c716a28a",
+            CandidateEndResults =
+            {
+                new ProportionalElectionManualCandidateEndResultEventData
+                {
+                    CandidateId = "94c8360d-74b6-47f9-8b8b-926fe285c926",
+                    State = SharedProto.ProportionalElectionCandidateEndResultState.Elected,
+                },
+            },
+        };
+        PublishAusmittlungBusinessEvent(manualListEndResult, manualListEndResult.ProportionalElectionEndResultId);
     }
 
     private void SeedProportionalElectionBundleEvents()
@@ -1190,7 +1171,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         PublishAusmittlungBusinessEvent(bundleDeleted, bundleId);
     }
 
-    private void SeedVoteResultEvents(bool testingPhaseEnded)
+    private void SeedVoteResultEvents()
     {
         var resultId = "d453bc14-b433-4394-95af-4121ffa8674e";
         var voteId = VoteMockedData.IdStGallenVoteInContestBund;
@@ -1338,10 +1319,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         };
         PublishAusmittlungBusinessEvent(submissionFinished, resultId);
 
-        if (testingPhaseEnded)
-        {
-            SeedVoteAfterTestingPhaseEndedEvents();
-        }
+        SeedVoteAfterTestingPhaseEndedEvents();
 
         var flaggedForCorrection = new VoteResultFlaggedForCorrection
         {
@@ -1509,7 +1487,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(225),
         };
 
-        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.MajorityElection);
+        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestId);
 
         var secondaryElectionAfterTestingPhaseUpdated = new ProtoBasis.SecondaryMajorityElectionAfterTestingPhaseUpdated
         {
@@ -1521,7 +1499,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(225),
         };
 
-        PublishBasisBusinessEvent(secondaryElectionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.MajorityElection);
+        PublishBasisBusinessEvent(secondaryElectionAfterTestingPhaseUpdated, electionId, AggregateNames.MajorityElection, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestId);
     }
 
     private void SeedProportionalElectionAfterTestingPhaseEndedEvents()
@@ -1537,7 +1515,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(1225),
         };
 
-        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.ProportionalElection);
+        PublishBasisBusinessEvent(electionAfterTestingPhaseUpdated, electionId, AggregateNames.ProportionalElection, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestId);
     }
 
     private void SeedVoteAfterTestingPhaseEndedEvents()
@@ -1553,7 +1531,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             EventInfo = GetBasisEventInfo(2225),
         };
 
-        PublishBasisBusinessEvent(voteAfterTestingPhaseUpdated, voteId, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestIdGuid, AggregateNames.Vote);
+        PublishBasisBusinessEvent(voteAfterTestingPhaseUpdated, voteId, AggregateNames.Vote, Host1, BasisKeyHost1AfterTestingPhaseEnded, ContestId);
     }
 
     private void SeedExportEvents()
@@ -1562,9 +1540,165 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         {
             EventInfo = GetEventInfo(30),
             Key = AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults.Key,
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestId.ToString(),
             RequestId = "9d74f9c8-90bc-44d2-932a-d67b2046f2d8",
         };
         PublishAusmittlungBusinessEvent(eventData, Guid.NewGuid().ToString(), Host1, AusmittlungKeyHost2);
+    }
+
+    private void SeedImportEvents()
+    {
+        var firstImportId = "6c347757-846a-4e7f-90bd-0d697608a023";
+        var secondImportId = "2414b6d6-3d0e-4476-9210-922040585d04";
+
+        var majorityElection = MajorityElectionMockedData.StGallenMajorityElectionInContestBund;
+
+        var resultImportCreated = new ResultImportCreated
+        {
+            ContestId = ContestId.ToString(),
+            EventInfo = GetEventInfo(30),
+            ImportId = firstImportId,
+        };
+        PublishAusmittlungBusinessEvent(resultImportCreated, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var resultImportStarted = new ResultImportStarted
+        {
+            ContestId = ContestId.ToString(),
+            EventInfo = GetEventInfo(30),
+            ImportId = firstImportId,
+            EchMessageId = "any-id",
+            FileName = "ech.xml",
+            IgnoredCountingCircles =
+            {
+                new ImportIgnoredCountingCircleEventData { CountingCircleId = "48d1482a-58ed-4ad3-be0d-aa5d7e140f37" },
+            },
+        };
+        PublishAusmittlungBusinessEvent(resultImportStarted, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var ccVotingCardsImported = new CountingCircleVotingCardsImported
+        {
+            ContestId = ContestId.ToString(),
+            EventInfo = GetEventInfo(30),
+            ImportId = firstImportId,
+            CountingCircleVotingCards =
+            {
+                new CountingCircleVotingCardsImportEventData
+                {
+                    CountingCircleId = CountingCircleId.ToString(),
+                    CountOfReceivedVotingCards = 5,
+                },
+            },
+        };
+        PublishAusmittlungBusinessEvent(ccVotingCardsImported, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var voteResultImported = new VoteResultImported
+        {
+            ImportId = firstImportId,
+            ContestId = ContestId.ToString(),
+            VoteId = VoteMockedData.IdStGallenVoteInContestBund,
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(voteResultImported, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var peResultImported = new ProportionalElectionResultImported
+        {
+            ImportId = firstImportId,
+            ContestId = ContestId.ToString(),
+            ProportionalElectionId = ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund,
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(peResultImported, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var meResultImported = new MajorityElectionResultImported
+        {
+            ImportId = firstImportId,
+            ContestId = ContestId.ToString(),
+            MajorityElectionId = majorityElection.Id.ToString(),
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(meResultImported, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var meWriteInsMapped = new MajorityElectionWriteInsMapped
+        {
+            MajorityElectionId = majorityElection.Id.ToString(),
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = GetEventInfo(30),
+            WriteInMappings =
+            {
+                new MajorityElectionWriteInMappedEventData
+                {
+                    CandidateId = "56d453bc-6743-4ede-bfe2-382ef4c616bc",
+                    Target = SharedProto.MajorityElectionWriteInMappingTarget.Candidate,
+                    WriteInMappingId = "122acf56-032b-4162-b55f-f5694dcbcd5d",
+                },
+            },
+        };
+        PublishAusmittlungBusinessEvent(meWriteInsMapped, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var meWriteInsReset = new MajorityElectionWriteInsReset
+        {
+            MajorityElectionId = majorityElection.Id.ToString(),
+            CountingCircleId = CountingCircleId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(meWriteInsReset, firstImportId, Host1, AusmittlungKeyHost1);
+
+        foreach (var sme in majorityElection.SecondaryMajorityElections)
+        {
+            var smeResultImported = new SecondaryMajorityElectionResultImported
+            {
+                ImportId = firstImportId,
+                ContestId = ContestId.ToString(),
+                SecondaryMajorityElectionId = sme.Id.ToString(),
+                CountingCircleId = CountingCircleId.ToString(),
+                EventInfo = GetEventInfo(30),
+            };
+            PublishAusmittlungBusinessEvent(smeResultImported, firstImportId, Host1, AusmittlungKeyHost1);
+
+            var smeWriteInsMapped = new SecondaryMajorityElectionWriteInsMapped
+            {
+                SecondaryMajorityElectionId = sme.Id.ToString(),
+                CountingCircleId = CountingCircleId.ToString(),
+                EventInfo = GetEventInfo(30),
+                WriteInMappings =
+                {
+                    new MajorityElectionWriteInMappedEventData
+                    {
+                        CandidateId = "49ae611a-21c5-484e-8191-5c00fe1ed295",
+                        Target = SharedProto.MajorityElectionWriteInMappingTarget.Invalid,
+                        WriteInMappingId = "5689bd28-96f5-4c49-8668-a96a7d85cdb4",
+                    },
+                },
+            };
+            PublishAusmittlungBusinessEvent(smeWriteInsMapped, firstImportId, Host1, AusmittlungKeyHost1);
+
+            var smeWriteInsReset = new SecondaryMajorityElectionWriteInsReset
+            {
+                SecondaryMajorityElectionId = sme.Id.ToString(),
+                CountingCircleId = CountingCircleId.ToString(),
+                EventInfo = GetEventInfo(30),
+            };
+            PublishAusmittlungBusinessEvent(smeWriteInsReset, firstImportId, Host1, AusmittlungKeyHost1);
+        }
+
+        var resultImportDataDeleted = new ResultImportDataDeleted
+        {
+            ImportId = firstImportId,
+            ContestId = ContestId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(resultImportDataDeleted, firstImportId, Host1, AusmittlungKeyHost1);
+
+        var resultImportSucceeded = new ResultImportSucceeded
+        {
+            ImportId = firstImportId,
+            SuccessorImportId = secondImportId,
+            ContestId = ContestId.ToString(),
+            EventInfo = GetEventInfo(30),
+        };
+        PublishAusmittlungBusinessEvent(resultImportSucceeded, secondImportId, Host1, AusmittlungKeyHost1);
     }
 }

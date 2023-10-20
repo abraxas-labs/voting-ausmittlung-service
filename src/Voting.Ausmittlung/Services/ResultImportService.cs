@@ -77,4 +77,19 @@ public class ResultImportService : ServiceBase
             _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType));
         return ProtobufEmpty.Instance;
     }
+
+    public override Task GetImportChanges(
+        GetResultImportChangesRequest request,
+        IServerStreamWriter<ProtoModels.ResultImportChange> responseStream,
+        ServerCallContext context)
+    {
+        return _resultImportReader.ListenToResultImportChanges(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId),
+            e => responseStream.WriteAsync(new ProtoModels.ResultImportChange
+            {
+                HasWriteIns = e.HasWriteIns,
+            }),
+            context.CancellationToken);
+    }
 }

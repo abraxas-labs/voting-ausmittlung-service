@@ -45,7 +45,7 @@ public class WabstiCWPListenRenderService : IRendererService
                 ListTranslations = x.Translations,
                 ListNr = x.OrderNumber,
                 VoteCount = x.EndResult!.TotalVoteCount,
-                VoteCountFromOtherLists = x.EndResult!.ListVotesCountOnOtherLists,
+                BlankRowsCount = x.EndResult!.BlankRowsCount,
                 PoliticalBusinessId = x.ProportionalElection.Id,
                 ListUnionPosition = x.ProportionalElectionListUnionEntries
                     .Select(y => y.ProportionalElectionListUnion)
@@ -95,7 +95,7 @@ public class WabstiCWPListenRenderService : IRendererService
         public int VoteCount { get; set; }
 
         [Name("StimmenZusatz")]
-        public int VoteCountFromOtherLists { get; set; }
+        public int BlankRowsCount { get; set; }
 
         [Name("Sitze")]
         public int? NumberOfMandates { get; set; }

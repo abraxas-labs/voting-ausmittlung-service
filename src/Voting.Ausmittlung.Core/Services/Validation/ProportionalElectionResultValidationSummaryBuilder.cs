@@ -6,28 +6,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Validators;
-using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Repositories;
-using Voting.Lib.Database.Repositories;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Validation;
 
-public class ProportionalElectionResultValidationResultsBuilder : CountingCircleResultValidationResultsBuilder<DataModels.ProportionalElectionResult>
+public class ProportionalElectionResultValidationSummaryBuilder : CountingCircleResultValidationSummaryBuilder<DataModels.ProportionalElectionResult>
 {
-    private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResult> _proportionalElectionResultRepository;
+    private readonly ProportionalElectionResultRepo _proportionalElectionResultRepository;
     private readonly IValidator<DataModels.ProportionalElectionResult> _proportionalElectionResultValidator;
 
-    public ProportionalElectionResultValidationResultsBuilder(
+    public ProportionalElectionResultValidationSummaryBuilder(
         ContestRepo contestRepo,
         ContestCountingCircleDetailsRepo contestCountingCircleDetailsRepo,
-        IDbRepository<DataContext, DataModels.ProportionalElectionResult> proportionalElectionResultRepository,
+        ProportionalElectionResultRepo proportionalElectionResultRepository,
         IMapper mapper,
         PermissionService permissionService,
         IValidator<DataModels.ProportionalElectionResult> proportionalElectionResultValidator)
@@ -37,35 +34,35 @@ public class ProportionalElectionResultValidationResultsBuilder : CountingCircle
         _proportionalElectionResultValidator = proportionalElectionResultValidator;
     }
 
-    public async Task<List<ValidationResult>> BuildEnterCountOfVotersValidationResults(Guid electionResultId, PoliticalBusinessCountOfVoters countOfVoters)
+    public async Task<ValidationSummary> BuildEnterCountOfVotersValidationSummary(Guid electionResultId, PoliticalBusinessCountOfVoters countOfVoters)
     {
         var electionResult = await GetElectionResult(electionResultId);
         Mapper.Map(countOfVoters, electionResult.CountOfVoters);
-        return await BuildValidationResults(electionResult);
+        return new ValidationSummary(await BuildValidationResults(electionResult));
     }
 
     internal async Task<List<ValidationResult>> BuildValidationResults(DataModels.ProportionalElectionResult electionResult)
     {
-        var context = await BuildValidationContext(
-            electionResult.ProportionalElection.ContestId,
-            electionResult.CountingCircle.BasisCountingCircleId,
+        var ccDetails = await GetContestCountingCircleDetails(electionResult.ProportionalElection.ContestId, electionResult.CountingCircle.BasisCountingCircleId);
+        return BuildValidationResults(electionResult, ccDetails);
+    }
+
+    internal List<ValidationResult> BuildValidationResults(DataModels.ProportionalElectionResult electionResult, DataModels.ContestCountingCircleDetails ccDetails)
+    {
+        var context = BuildValidationContext(
+            ccDetails,
             DataModels.PoliticalBusinessType.ProportionalElection,
             true,
             electionResult.ProportionalElection.DomainOfInfluence.Type);
 
         context.CountOfVoters = electionResult.CountOfVoters;
-
         return _proportionalElectionResultValidator.Validate(electionResult, context).ToList();
     }
 
     private async Task<DataModels.ProportionalElectionResult> GetElectionResult(Guid electionId)
     {
-        var electionResult = await _proportionalElectionResultRepository.Query()
-            .AsSplitQuery()
-            .Include(x => x.ProportionalElection.DomainOfInfluence)
-            .Include(x => x.ProportionalElection.Contest.DomainOfInfluence)
-            .Include(x => x.CountingCircle.ResponsibleAuthority)
-            .FirstOrDefaultAsync(x => x.Id == electionId)
+        var electionResult = (await _proportionalElectionResultRepository.ListWithValidationContextData(x => x.Id == electionId, true))
+            .FirstOrDefault()
             ?? throw new EntityNotFoundException(electionId);
 
         EnsureValidationPermissions(electionResult);

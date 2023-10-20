@@ -52,16 +52,16 @@
           },
           "ConventionalSubTotal": {
             "UnmodifiedListVotesCount": 0,
-            "ModifiedListVotesCount": 2,
+            "ModifiedListVotesCount": 5,
             "CountOfVotesOnOtherLists": 0,
             "CountOfVotesFromAccumulations": 0,
-            "VoteCount": 2
+            "VoteCount": 5
           },
           "UnmodifiedListVotesCount": 0,
-          "ModifiedListVotesCount": 2,
+          "ModifiedListVotesCount": 5,
           "CountOfVotesOnOtherLists": 0,
           "CountOfVotesFromAccumulations": 0,
-          "VoteCount": 2,
+          "VoteCount": 5,
           "VoteSources": [
             {
               "CandidateResult": null,
@@ -71,6 +71,16 @@
               "EVotingVoteCount": 0,
               "ConventionalVoteCount": 2,
               "VoteCount": 2,
+              "Id": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "CandidateResult": null,
+              "CandidateResultId": "00000000-0000-0000-0000-000000000000",
+              "List": null,
+              "ListId": null,
+              "EVotingVoteCount": 0,
+              "ConventionalVoteCount": 3,
+              "VoteCount": 3,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -124,29 +134,29 @@
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
         "ModifiedListsCount": 2,
-        "ModifiedListVotesCount": 2,
+        "ModifiedListVotesCount": 5,
         "ListVotesCountOnOtherLists": 0,
         "ModifiedListBlankRowsCount": 2,
         "UnmodifiedListVotesCountInclBlankRows": 0,
-        "ModifiedListVotesCountInclBlankRows": 4,
-        "ListVotesCount": 2,
+        "ModifiedListVotesCountInclBlankRows": 7,
+        "ListVotesCount": 5,
         "ListCount": 2,
         "BlankRowsCount": 2,
-        "TotalVoteCount": 4
+        "TotalVoteCount": 7
       },
       "UnmodifiedListsCount": 0,
       "UnmodifiedListVotesCount": 0,
       "UnmodifiedListBlankRowsCount": 0,
       "ModifiedListsCount": 2,
-      "ModifiedListVotesCount": 2,
+      "ModifiedListVotesCount": 5,
       "ListVotesCountOnOtherLists": 0,
       "ModifiedListBlankRowsCount": 2,
       "UnmodifiedListVotesCountInclBlankRows": 0,
-      "ModifiedListVotesCountInclBlankRows": 4,
-      "ListVotesCount": 2,
+      "ModifiedListVotesCountInclBlankRows": 7,
+      "ListVotesCount": 5,
       "ListCount": 2,
       "BlankRowsCount": 2,
-      "TotalVoteCount": 4,
+      "TotalVoteCount": 7,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -284,16 +294,16 @@
           },
           "ConventionalSubTotal": {
             "UnmodifiedListVotesCount": 0,
-            "ModifiedListVotesCount": 2,
+            "ModifiedListVotesCount": 5,
             "CountOfVotesOnOtherLists": 2,
             "CountOfVotesFromAccumulations": 0,
-            "VoteCount": 2
+            "VoteCount": 5
           },
           "UnmodifiedListVotesCount": 0,
-          "ModifiedListVotesCount": 2,
+          "ModifiedListVotesCount": 5,
           "CountOfVotesOnOtherLists": 2,
           "CountOfVotesFromAccumulations": 0,
-          "VoteCount": 2,
+          "VoteCount": 5,
           "VoteSources": [
             {
               "CandidateResult": null,
@@ -303,6 +313,16 @@
               "EVotingVoteCount": 0,
               "ConventionalVoteCount": 2,
               "VoteCount": 2,
+              "Id": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "CandidateResult": null,
+              "CandidateResultId": "00000000-0000-0000-0000-000000000000",
+              "List": null,
+              "ListId": null,
+              "EVotingVoteCount": 0,
+              "ConventionalVoteCount": 3,
+              "VoteCount": 3,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -329,29 +349,29 @@
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
         "ModifiedListsCount": 0,
-        "ModifiedListVotesCount": 2,
+        "ModifiedListVotesCount": 5,
         "ListVotesCountOnOtherLists": 2,
         "ModifiedListBlankRowsCount": 0,
         "UnmodifiedListVotesCountInclBlankRows": 0,
-        "ModifiedListVotesCountInclBlankRows": 2,
-        "ListVotesCount": 2,
+        "ModifiedListVotesCountInclBlankRows": 5,
+        "ListVotesCount": 5,
         "ListCount": 0,
         "BlankRowsCount": 0,
-        "TotalVoteCount": 2
+        "TotalVoteCount": 5
       },
       "UnmodifiedListsCount": 0,
       "UnmodifiedListVotesCount": 0,
       "UnmodifiedListBlankRowsCount": 0,
       "ModifiedListsCount": 0,
-      "ModifiedListVotesCount": 2,
+      "ModifiedListVotesCount": 5,
       "ListVotesCountOnOtherLists": 2,
       "ModifiedListBlankRowsCount": 0,
       "UnmodifiedListVotesCountInclBlankRows": 0,
-      "ModifiedListVotesCountInclBlankRows": 2,
-      "ListVotesCount": 2,
+      "ModifiedListVotesCountInclBlankRows": 5,
+      "ListVotesCount": 5,
       "ListCount": 0,
       "BlankRowsCount": 0,
-      "TotalVoteCount": 2,
+      "TotalVoteCount": 5,
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ]

@@ -14,13 +14,14 @@ public class VoteResultSubmissionFinishedRequestTest : ProtoValidatorBaseTest<Vo
     protected override IEnumerable<VoteResultSubmissionFinishedRequest> OkMessages()
     {
         yield return NewValidRequest();
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
     }
 
     protected override IEnumerable<VoteResultSubmissionFinishedRequest> NotOkMessages()
     {
         yield return NewValidRequest(x => x.VoteResultId = "invalid-guid");
         yield return NewValidRequest(x => x.VoteResultId = string.Empty);
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = "invalid-guid");
     }
 
     private VoteResultSubmissionFinishedRequest NewValidRequest(Action<VoteResultSubmissionFinishedRequest>? action = null)

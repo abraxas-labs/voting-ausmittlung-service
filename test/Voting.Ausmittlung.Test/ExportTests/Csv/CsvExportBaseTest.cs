@@ -38,7 +38,7 @@ public abstract class CsvExportBaseTest : BaseRestTest
     }
 
     [Fact]
-    public Task TestCsv() => TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName);
+    public virtual Task TestCsv() => TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName);
 
     protected async Task TestCsvSnapshot(GenerateResultExportsRequest request, string expectedFileName, string? name = null)
     {

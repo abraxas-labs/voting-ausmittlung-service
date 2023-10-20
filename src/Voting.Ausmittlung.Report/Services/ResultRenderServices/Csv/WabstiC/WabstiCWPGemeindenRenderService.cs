@@ -63,11 +63,11 @@ public class WabstiCWPGemeindenRenderService : IRendererService
                 AuditedTentativelyTimestamp = x.AuditedTentativelyTimestamp,
                 TotalReceivedBallots = x.CountOfVoters.TotalReceivedBallots,
                 CountOfAccountedBallots = x.CountOfVoters.TotalAccountedBallots,
-                CountOfBlankBallots = x.CountOfVoters.ConventionalBlankBallots.GetValueOrDefault(),
-                CountOfInvalidBallots = x.CountOfVoters.ConventionalInvalidBallots.GetValueOrDefault(),
+                CountOfBlankBallots = x.CountOfVoters.TotalBlankBallots,
+                CountOfInvalidBallots = x.CountOfVoters.TotalInvalidBallots,
                 TotalCountOfModifiedLists = x.TotalCountOfModifiedLists,
                 TotalCountOfUnmodifiedLists = x.TotalCountOfUnmodifiedLists,
-                TotalCountOfBallots = x.TotalCountOfBallots,
+                TotalCountOfListsWithParty = x.TotalCountOfListsWithParty,
                 TotalCountOfListsWithoutParty = x.TotalCountOfListsWithoutParty,
             })
             .ToListAsync(ct);
@@ -138,7 +138,7 @@ public class WabstiCWPGemeindenRenderService : IRendererService
         public int CountOfAccountedBallots { get; set; }
 
         [Name("AnzWZListe")]
-        public int TotalCountOfBallots { get; set; }
+        public int TotalCountOfListsWithParty { get; set; }
 
         [Name("AnzWZAmtlLeer")]
         public int TotalCountOfListsWithoutParty { get; set; }

@@ -19,6 +19,7 @@
       <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
       <ContestVotingCardDetail>
         <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
         <Valid>true</Valid>

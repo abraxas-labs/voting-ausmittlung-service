@@ -21,8 +21,6 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 // we use german names here since the entire wabstiC domain is in german and there are no eCH definitions.
 public class WabstiCWMKandidatenRenderService : IRendererService
 {
-    private const int AbsoluteMajorityNotYetCalculated = -1;
-
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElection> _repo;
 
@@ -76,7 +74,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                             : y.State == MajorityElectionCandidateEndResultState.Elected
                               || y.State == MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected,
                         VoteCount = y.VoteCount,
-                        AbsoluteMajority = y.MajorityElectionEndResult.Calculation.AbsoluteMajority ?? AbsoluteMajorityNotYetCalculated,
+                        AbsoluteMajority = y.MajorityElectionEndResult.Calculation.AbsoluteMajority,
                         ElectionId = y.MajorityElectionEndResult.MajorityElectionId,
                         IndividualVoteCount = y.MajorityElectionEndResult.IndividualVoteCount,
                         ElectionUnionIds = y.MajorityElectionEndResult.MajorityElection.MajorityElectionUnionEntries
@@ -125,7 +123,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                             .Select(z => z.MajorityElectionUnionId)
                             .OrderBy(z => z)
                             .ToList(),
-                        AbsoluteMajority = y.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.Calculation.AbsoluteMajority ?? AbsoluteMajorityNotYetCalculated,
+                        AbsoluteMajority = y.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.Calculation.AbsoluteMajority,
                     })
                     .ToList(),
             })
@@ -252,7 +250,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                 IndividualVoteCountSecondary = result1?.IndividualVoteCount,
                 IndividualVoteCountSecondary2 = result2?.IndividualVoteCount,
                 ElectionUnionIds = result1?.ElectionUnionIds ?? result2!.ElectionUnionIds,
-                AbsoluteMajority = result1?.AbsoluteMajority ?? result2?.AbsoluteMajority ?? AbsoluteMajorityNotYetCalculated,
+                AbsoluteMajority = result1?.AbsoluteMajority ?? result2?.AbsoluteMajority,
             };
         }
     }
@@ -385,7 +383,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         public int? VoteCount { get; set; }
 
         [Name("AbsolutesMehr")]
-        public int AbsoluteMajority { get; set; }
+        public int? AbsoluteMajority { get; set; }
 
         [Name("KandidatHwNw")]
         [TypeConverter(typeof(WabstiCIntEnumConverter))]

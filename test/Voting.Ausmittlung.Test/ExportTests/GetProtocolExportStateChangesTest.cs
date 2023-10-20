@@ -47,6 +47,8 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
         await ModifyDbEntities<SimplePoliticalBusiness>(
             _ => true,
             x => x.EndResultFinalized = true);
+
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
     }
 
     [Fact]
@@ -72,7 +74,7 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
 
         var protocolExportId = AusmittlungUuidV5.BuildProtocolExport(
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            false,
+            true,
             exportTemplateId);
 
         // this should be processed

@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Google.Protobuf;
+using MassTransit.Testing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,6 +62,8 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
             roles: RolesMockedData.ErfassungElectionAdmin);
 
         EventInfoProvider = GetService<EventInfoProvider>();
+
+        MessagingTestHarness = GetService<InMemoryTestHarness>();
     }
 
     protected EventPublisherMock EventPublisherMock { get; }
@@ -78,6 +81,8 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
     protected HttpClient ErfassungElectionAdminClient { get; }
 
     protected EventInfoProvider EventInfoProvider { get; }
+
+    protected InMemoryTestHarness MessagingTestHarness { get; set; }
 
     protected Task RunOnDb(Func<DataContext, Task> action)
         => RunScoped(action);
@@ -187,6 +192,13 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         {
             EventPublisherMock.Clear();
         }
+    }
+
+    protected async Task AssertHasPublishedMessage<T>(Func<T, bool> predicate, bool hasMessage = true)
+        where T : class
+    {
+        var hasOne = await MessagingTestHarness.Published.Any<T>(x => predicate(x.Context.Message));
+        hasOne.Should().Be(hasMessage);
     }
 
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)

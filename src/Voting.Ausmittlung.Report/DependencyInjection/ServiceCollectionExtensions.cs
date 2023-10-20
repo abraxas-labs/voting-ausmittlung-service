@@ -40,14 +40,20 @@ public static class ServiceCollectionExtensions
         services.AddEventLog();
 
         return new ReportingServiceCollection(services)
+            .AddCsvContestRenderServices()
             .AddWabstiCRenderServices()
             .AddCsvProportionalElectionResultRenderServices()
             .AddCsvProportionalElectionUnionResultRenderServices()
+            .AddPdfContestRenderServices()
             .AddPdfVoteResultRenderServices()
             .AddPdfMajorityElectionResultRenderServices()
-            .AddPdfContestRenderServices()
             .AddPdfProportionalElectionResultRenderServices()
             .AddXmlRenderServices();
+    }
+
+    private static IReportingServiceCollection AddCsvContestRenderServices(this IReportingServiceCollection services)
+    {
+        return services.AddRendererService<CsvContestActivityProtocolRenderService>(AusmittlungCsvContestTemplates.ActivityProtocol);
     }
 
     private static IReportingServiceCollection AddCsvProportionalElectionResultRenderServices(this IReportingServiceCollection services)
@@ -80,6 +86,7 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCWMKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WMKandidatenGde)
             .AddRendererService<WabstiCWPWahlRenderService>(AusmittlungWabstiCTemplates.WPWahl)
             .AddRendererService<WabstiCWPGemeindenRenderService>(AusmittlungWabstiCTemplates.WPGemeinden)
+            .AddRendererService<WabstiCWPGemeindenBfsRenderService>(AusmittlungWabstiCTemplates.WPGemeindenBfs)
             .AddRendererService<WabstiCWPStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WPStaticGemeinden)
             .AddRendererService<WabstiCWPKandidatenRenderService>(AusmittlungWabstiCTemplates.WPKandidaten)
             .AddRendererService<WabstiCWPStaticKandidatenRenderService>(AusmittlungWabstiCTemplates.WPStaticKandidaten)
@@ -108,9 +115,11 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddRendererService<PdfMajorityElectionCountingCircleResultRenderService>(
-                AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol)
+                AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol,
+                AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol)
             .AddRendererService<PdfMajorityElectionEndResultRenderService>(
-                AusmittlungPdfMajorityElectionTemplates.EndResultProtocol)
+                AusmittlungPdfMajorityElectionTemplates.EndResultProtocol,
+                AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol)
             .AddRendererService<PdfMajorityElectionEndResultDetailRenderService>(
                 AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol,
                 AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol)
@@ -130,23 +139,27 @@ public static class ServiceCollectionExtensions
                 AusmittlungPdfProportionalElectionTemplates.VoterTurnoutProtocol)
             .AddRendererService<PdfProportionalElectionCountingCircleResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleProtocol,
+                AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol,
                 AusmittlungPdfProportionalElectionTemplates.ListsCountingCircleProtocol)
             .AddRendererService<PdfProportionalElectionCandidatesCountingCircleResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListCandidateVotesCountingCircleProtocol,
-                AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleProtocol)
+                AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleProtocol,
+                AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol)
             .AddRendererService<PdfProportionalElectionCandidateVoteSourcesCountingCircleResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesCountingCircleProtocol)
             .AddRendererService<PdfProportionalElectionEndResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults)
             .AddRendererService<PdfProportionalElectionCandidatesEndResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListCandidateVotesEndResults,
-                AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResults)
+                AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResults,
+                AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting)
             .AddRendererService<PdfProportionalElectionCandidateVoteSourcesEndResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults)
             .AddRendererService<PdfProportionalElectionEndResultCalculationRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.EndResultCalculation)
             .AddRendererService<PdfProportionalElectionEndResultListUnionsRenderService>(
-                AusmittlungPdfProportionalElectionTemplates.EndResultListUnions)
+                AusmittlungPdfProportionalElectionTemplates.EndResultListUnions,
+                AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting)
             .AddRendererService<PdfProportionalElectionResultBundleReviewRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ResultBundleReview);
     }

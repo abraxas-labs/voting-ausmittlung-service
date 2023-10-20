@@ -7,12 +7,18 @@ using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
-public class MajorityElectionResultImportEventLogInitializer :
+public class MajorityElectionResultImportEventLogProcessor :
     BaseCountingCircleResultReportEventProcessor,
+    IReportEventProcessor<MajorityElectionResultImported>,
     IReportEventProcessor<MajorityElectionWriteInsReset>,
     IReportEventProcessor<MajorityElectionWriteInsMapped>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.MajorityElection;
+
+    public EventLog? Process(MajorityElectionResultImported eventData, EventLogBuilderContext context)
+    {
+        return ProcessResult(GuidParser.Parse(eventData.MajorityElectionId), GuidParser.Parse(eventData.CountingCircleId));
+    }
 
     public EventLog? Process(MajorityElectionWriteInsMapped eventData, EventLogBuilderContext context)
     {

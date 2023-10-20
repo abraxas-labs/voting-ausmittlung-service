@@ -77,6 +77,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<ProportionalElectionUnionListRepo>()
             .AddScoped<ProportionalElectionUnionListTranslationRepo>()
             .AddScoped<SimplePoliticalBusinessTranslationRepo>()
+            .AddScoped<SimplePoliticalBusinessRepo>()
             .AddScoped<SimpleCountingCircleResultRepo>()
             .AddScoped<CountOfVotersInformationSubTotalRepo>()
             .AddScoped<CantonSettingsRepo>()

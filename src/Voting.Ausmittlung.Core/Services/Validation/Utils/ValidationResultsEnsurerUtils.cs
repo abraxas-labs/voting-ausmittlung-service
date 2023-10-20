@@ -11,7 +11,7 @@ namespace Voting.Ausmittlung.Core.Services.Validation.Utils;
 public class ValidationResultsEnsurerUtils : IValidationResultsEnsurerUtils
 {
     /// <inheritdoc />
-    public void EnsureIsValid(List<ValidationResult> validationResults)
+    public void EnsureIsValid(IReadOnlyCollection<ValidationResult> validationResults)
     {
         if (validationResults.IsValid())
         {

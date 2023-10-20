@@ -348,6 +348,11 @@ public static class MajorityElectionResultMockedData
             result.ConventionalSubTotal.IndividualVoteCount = 5;
             result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 6;
             result.ConventionalSubTotal.InvalidVoteCount = 7;
+            result.EVotingSubTotal.IndividualVoteCount = 5;
+            result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 6;
+            result.EVotingSubTotal.InvalidVoteCount = 7;
+            result.EVotingSubTotal.EmptyVoteCountWriteIns = 2;
+            result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 3;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
                 ConventionalReceivedBallots = 100,
@@ -360,11 +365,16 @@ public static class MajorityElectionResultMockedData
             var candidateId = Guid.Parse(MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund);
             var candidateResult = result.CandidateResults.Single(x => x.CandidateId == candidateId);
             candidateResult.ConventionalVoteCount = 50;
+            candidateResult.EVotingWriteInsVoteCount = 10;
+            candidateResult.EVotingExclWriteInsVoteCount = 3;
             result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = candidateResult.VoteCount;
 
             foreach (var secondaryResult in result.SecondaryMajorityElectionResults)
             {
                 secondaryResult.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = 30;
+                secondaryResult.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = 7;
+                secondaryResult.EVotingSubTotal.EmptyVoteCountWriteIns = 2;
+                secondaryResult.EVotingSubTotal.EmptyVoteCountExclWriteIns = 1;
             }
 
             var secondaryCandidateId = Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund);
@@ -372,6 +382,8 @@ public static class MajorityElectionResultMockedData
                 .SelectMany(x => x.CandidateResults)
                 .First(x => x.CandidateId == secondaryCandidateId);
             secondaryCandidateResult.ConventionalVoteCount = 30;
+            secondaryCandidateResult.EVotingWriteInsVoteCount = 3;
+            secondaryCandidateResult.EVotingExclWriteInsVoteCount = 5;
 
             await db.SaveChangesAsync();
         });

@@ -168,12 +168,19 @@ public class ProportionalElectionResultBuilder
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task UpdateVotesFromUnmodifiedListResult(ProportionalElectionListResult listResult, int voteCount)
+    internal async Task UpdateVotesFromUnmodifiedListResult(ProportionalElectionListResult listResult, int voteCount, int voteCountDeltaToPrevious)
     {
         foreach (var candidateResult in listResult.CandidateResults)
         {
             var accumulationModifier = candidateResult.Candidate.Accumulated ? 2 : 1;
             candidateResult.ConventionalSubTotal.UnmodifiedListVotesCount = voteCount * accumulationModifier;
+
+            if (candidateResult.Candidate.Accumulated)
+            {
+                // Since accumulations are also possible with modified list results, we cannot simply set this value to the vote count
+                // Instead, we add the delta vote count from the previous "unmodified list result" that was entered
+                candidateResult.ConventionalSubTotal.CountOfVotesFromAccumulations += voteCountDeltaToPrevious;
+            }
         }
 
         listResult.ConventionalSubTotal.UnmodifiedListsCount = voteCount;

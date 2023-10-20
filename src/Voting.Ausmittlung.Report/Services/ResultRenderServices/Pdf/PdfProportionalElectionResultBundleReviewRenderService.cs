@@ -20,6 +20,9 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
 
 public class PdfProportionalElectionResultBundleReviewRenderService : IRendererService
 {
+    private const string ListWithoutPartyOrderNumber = "99";
+    private const string ListWithoutPartyShortDescription = "WoP";
+
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _proportionalElectionResultBundleRepo;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IMapper _mapper;
@@ -91,11 +94,18 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
 
+        var pdfBundle = _mapper.Map<PdfProportionalElectionResultBundle>(bundle);
+        pdfBundle.List ??= new PdfProportionalElectionSimpleList
+        {
+            OrderNumber = ListWithoutPartyOrderNumber,
+            ShortDescription = ListWithoutPartyShortDescription,
+        };
+
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
             CountingCircle = pdfCountingCircle,
-            ProportionalElectionResultBundle = _mapper.Map<PdfProportionalElectionResultBundle>(bundle),
+            ProportionalElectionResultBundle = pdfBundle,
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.ProportionalElection),
         };
 

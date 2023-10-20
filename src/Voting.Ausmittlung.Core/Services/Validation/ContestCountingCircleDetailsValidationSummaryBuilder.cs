@@ -18,7 +18,7 @@ using ValidationContext = Voting.Ausmittlung.Core.Services.Validation.Models.Val
 
 namespace Voting.Ausmittlung.Core.Services.Validation;
 
-public class ContestCountingCircleDetailsValidationResultsBuilder
+public class ContestCountingCircleDetailsValidationSummaryBuilder
 {
     private readonly IMapper _mapper;
     private readonly ContestCountingCircleDetailsRepo _ccDetailsRepository;
@@ -26,7 +26,7 @@ public class ContestCountingCircleDetailsValidationResultsBuilder
     private readonly PermissionService _permissionService;
     private readonly IValidator<ContestCountingCircleDetails> _validator;
 
-    public ContestCountingCircleDetailsValidationResultsBuilder(
+    public ContestCountingCircleDetailsValidationSummaryBuilder(
         IMapper mapper,
         ContestCountingCircleDetailsRepo ccDetailsRepository,
         ContestRepo contestRepo,
@@ -40,10 +40,10 @@ public class ContestCountingCircleDetailsValidationResultsBuilder
         _validator = validator;
     }
 
-    public async Task<List<ValidationResult>> BuildUpdateContestCountingCircleDetailsValidationResults(Domain.ContestCountingCircleDetails domainCcDetails)
+    public async Task<ValidationSummary> BuildUpdateContestCountingCircleDetailsValidationSummary(Domain.ContestCountingCircleDetails domainCcDetails)
     {
         var ccDetails = await GetDetails(domainCcDetails.ContestId, domainCcDetails.CountingCircleId);
-        return await BuildValidationResults(domainCcDetails, ccDetails);
+        return new ValidationSummary(await BuildValidationResults(domainCcDetails, ccDetails));
     }
 
     internal async Task<List<ValidationResult>> BuildValidationResults(

@@ -45,6 +45,14 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
@@ -87,6 +95,15 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         await AssertStatus(
             async () => await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -239,7 +256,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            async () => await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -261,7 +278,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(new MajorityElectionResultCorrectionFinishedRequest
+            async () => await BundErfassungElectionAdminClient.CorrectionFinishedAsync(new MajorityElectionResultCorrectionFinishedRequest
             {
                 ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
                 SecondFactorTransactionId = invalidExternalId,

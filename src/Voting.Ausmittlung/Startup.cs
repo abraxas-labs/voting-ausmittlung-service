@@ -26,12 +26,15 @@ using Voting.Ausmittlung.Middlewares;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models.Mapping;
 using Voting.Ausmittlung.Services;
 using Voting.Ausmittlung.TemporaryData;
+using Voting.Lib.Common;
 using Voting.Lib.Common.DependencyInjection;
 using Voting.Lib.Grpc.DependencyInjection;
 using Voting.Lib.Grpc.Interceptors;
+using Voting.Lib.MalwareScanner.DependencyInjection;
 using Voting.Lib.Messaging;
 using Voting.Lib.Rest.Middleware;
 using Voting.Lib.Rest.Swagger.DependencyInjection;
+using Voting.Lib.Rest.Utils;
 using ExceptionHandler = Voting.Ausmittlung.Middlewares.ExceptionHandler;
 using ExceptionInterceptor = Voting.Ausmittlung.Interceptors.ExceptionInterceptor;
 
@@ -62,8 +65,8 @@ public class Startup
         services.AddCore(_appConfig);
         services.AddData(_appConfig.Database, ConfigureDatabase);
         services.AddVotingLibPrometheusAdapter(new() { Interval = _appConfig.PrometheusAdapterInterval });
-        ConfigureAuthentication(services.AddVotingLibIam(new() { BaseUrl = _appConfig.SecureConnectApi }));
-
+        ConfigureAuthentication(services.AddVotingLibIam(_appConfig.SecureConnectApi));
+        services.AddMalwareScanner(_appConfig.MalwareScanner);
         if (_appConfig.PublisherModeEnabled)
         {
             AddPublisherServices(services);
@@ -166,6 +169,7 @@ public class Startup
         }
 
         cfg.AddConsumer<MessageConsumer<ResultStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<MessageConsumer<ResultImportChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MessageConsumer<ProtocolExportStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
@@ -201,6 +205,8 @@ public class Startup
     private IServiceCollection AddPublisherServices(IServiceCollection services)
     {
         services.AddSingleton(_appConfig.Publisher);
+        services.AddSingleton<MultipartRequestHelper>();
+        services.AddSingleton<AttributeValidator>();
 
         services
             .AddControllers()

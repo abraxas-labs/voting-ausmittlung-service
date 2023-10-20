@@ -95,7 +95,8 @@ public class ProportionalElectionCandidateResultBuilder
             candidateResult.ListResult.ConventionalSubTotal.ModifiedListVotesCount += deltaFactor;
             AdjustConventionalVoteSource(candidateResult, resultBundle, deltaFactor);
 
-            if (candidateResult.ListResult.ListId != resultBundle.ListId)
+            // votes on bundles without a list don't count
+            if (candidateResult.ListResult.ListId != resultBundle.ListId && resultBundle.ListId.HasValue)
             {
                 candidateResult.ConventionalSubTotal.CountOfVotesOnOtherLists += deltaFactor;
                 candidateResult.ListResult.ConventionalSubTotal.ListVotesCountOnOtherLists += deltaFactor;

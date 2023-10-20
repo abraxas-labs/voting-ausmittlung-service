@@ -12,17 +12,17 @@ namespace Voting.Ausmittlung.Core.Services.Validation;
 
 public class ValidationResultsEnsurer
 {
-    private readonly ContestCountingCircleDetailsValidationResultsBuilder _ccDetailsValidationResultsBuilder;
-    private readonly VoteResultValidationResultsBuilder _voteResultValidationResultsBuilder;
-    private readonly ProportionalElectionResultValidationResultsBuilder _proportionalElectionResultValidationResultsBuilder;
-    private readonly MajorityElectionResultValidationResultsBuilder _majorityElectionResultValidationResultsBuilder;
+    private readonly ContestCountingCircleDetailsValidationSummaryBuilder _ccDetailsValidationResultsBuilder;
+    private readonly VoteResultValidationSummaryBuilder _voteResultValidationResultsBuilder;
+    private readonly ProportionalElectionResultValidationSummaryBuilder _proportionalElectionResultValidationResultsBuilder;
+    private readonly MajorityElectionResultValidationSummaryBuilder _majorityElectionResultValidationResultsBuilder;
     private readonly IValidationResultsEnsurerUtils _validationResultsEnsurerUtils;
 
     public ValidationResultsEnsurer(
-        ContestCountingCircleDetailsValidationResultsBuilder ccDetailsValidationResultsBuilder,
-        VoteResultValidationResultsBuilder voteResultValidationResultsBuilder,
-        ProportionalElectionResultValidationResultsBuilder proportionalElectionResultValidationResultsBuilder,
-        MajorityElectionResultValidationResultsBuilder majorityElectionResultValidationResultsBuilder,
+        ContestCountingCircleDetailsValidationSummaryBuilder ccDetailsValidationResultsBuilder,
+        VoteResultValidationSummaryBuilder voteResultValidationResultsBuilder,
+        ProportionalElectionResultValidationSummaryBuilder proportionalElectionResultValidationResultsBuilder,
+        MajorityElectionResultValidationSummaryBuilder majorityElectionResultValidationResultsBuilder,
         IValidationResultsEnsurerUtils validationResultsEnsurerUtils)
     {
         _ccDetailsValidationResultsBuilder = ccDetailsValidationResultsBuilder;
@@ -52,7 +52,7 @@ public class ValidationResultsEnsurer
         EnsureIsValid(await _majorityElectionResultValidationResultsBuilder.BuildValidationResults(electionResult));
     }
 
-    private void EnsureIsValid(List<ValidationResult> validationResults)
+    internal void EnsureIsValid(IReadOnlyCollection<ValidationResult> validationResults)
     {
         _validationResultsEnsurerUtils.EnsureIsValid(validationResults);
     }

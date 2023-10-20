@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -24,20 +25,24 @@ public class ProportionalElectionResultBundleWriter
 {
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResult> _resultRepo;
+    private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionCandidate> _candidatesRepo;
 
     public ProportionalElectionResultBundleWriter(
         IAggregateRepository aggregateRepository,
         IAggregateFactory aggregateFactory,
         IDbRepository<DataContext, DataModels.ProportionalElectionResult> resultRepo,
+        IDbRepository<DataContext, DataModels.ProportionalElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, DataModels.ProportionalElectionCandidate> candidatesRepo,
         PermissionService permissionService,
-        ContestService contestService)
-        : base(permissionService, contestService, aggregateRepository)
+        ContestService contestService,
+        IAuth auth)
+        : base(permissionService, contestService, auth, aggregateRepository)
     {
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;
         _candidatesRepo = candidatesRepo;
+        _bundleRepo = bundleRepo;
     }
 
     public async Task<ProportionalElectionResultBundleAggregate> CreateBundle(
@@ -179,6 +184,9 @@ public class ProportionalElectionResultBundleWriter
                    .FirstOrDefaultAsync(x => x.Id == resultId)
                ?? throw new EntityNotFoundException(resultId);
     }
+
+    protected override Task<bool> DoesBundleExist(Guid id)
+        => _bundleRepo.ExistsByKey(id);
 
     private async Task EnsureValidCandidates(
         IReadOnlyCollection<ProportionalElectionResultBallotCandidate> candidates,

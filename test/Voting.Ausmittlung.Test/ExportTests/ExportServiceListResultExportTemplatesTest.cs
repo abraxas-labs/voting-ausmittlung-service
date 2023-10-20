@@ -9,8 +9,10 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -114,6 +116,46 @@ public class ExportServiceListResultExportTemplatesTest : BaseTest<ExportService
         {
             GetService<PublisherConfig>().DisabledExportTemplateKeys.Clear();
         }
+    }
+
+    [Fact]
+    public async Task ActiveContestInMonitoringShouldIncludeActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, Data.Models.ContestState.Active);
+        var response = await MonitoringElectionAdminClient.ListDataExportTemplatesAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungCsvContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.Templates.Should().Contain(x => x.ExportTemplateId == exportTemplateId);
+    }
+
+    [Fact]
+    public async Task ActiveContestInErfassungShouldFilterActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, Data.Models.ContestState.Active);
+        var response = await ErfassungElectionAdminClient.ListDataExportTemplatesAsync(NewValidRequest());
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungCsvContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.Templates.Should().NotContain(x => x.ExportTemplateId == exportTemplateId);
+    }
+
+    [Fact]
+    public async Task ActiveContestInMonitoringNotContestManagerShouldFilterActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, Data.Models.ContestState.Active);
+        var client = CreateServiceWithTenant(SecureConnectTestDefaults.MockedTenantGossau.Id, RolesMockedData.MonitoringElectionAdmin);
+        var response = await client.ListDataExportTemplatesAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungCsvContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.Templates.Should().NotContain(x => x.ExportTemplateId == exportTemplateId);
     }
 
     [Fact]

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -43,4 +44,12 @@ public class PdfHagenbachBischoffGroup : PdfHagenbachBischoffSimpleGroup
     [XmlElement("HagenbachBischoffCalculationRound")]
     public List<PdfHagenbachBischoffCalculationRound> CalculationRounds { get; set; }
         = new List<PdfHagenbachBischoffCalculationRound>();
+
+    public int SumInitialDistributionNumberOfMandates
+    {
+        get => InitialDistributionValues.Count > 0
+            ? InitialDistributionValues.Sum(x => x.NumberOfMandates)
+            : 0;
+        set => throw new InvalidOperationException("readonly property");
+    }
 }

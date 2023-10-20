@@ -3,2369 +3,8 @@
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
-    <State>TestingPhase</State>
+    <State>Active</State>
   </Contest>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>contest</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>date</AttributeName>
-        <EventAttribute>
-          <AttributeName>seconds</AttributeName>
-          <AttributeValue>1598140800</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>nanos</AttributeName>
-          <AttributeValue>0</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>Contest description de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>Contest description fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>Contest description it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>Contest description rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>end_of_testing_phase</AttributeName>
-        <EventAttribute>
-          <AttributeName>seconds</AttributeName>
-          <AttributeValue>1577836800</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>nanos</AttributeName>
-          <AttributeValue>0</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>domain_of_influence_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>e_voting</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>state</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>previous_contest_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ContestCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>vote</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>903a47bf-6b7b-4460-8475-b7bd89ea2ac9</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>201</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>Abst SG de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>Abst SG fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>Abst SG it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>Abst SG rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>domain_of_influence_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>report_domain_of_influence_level</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>result_algorithm</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>result_entry</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_sample_size_percent</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_result_entry_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>review_procedure</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_review_procedure_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.VoteCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>ballot</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>60dd6c2c-e73a-467e-99e1-902f973a5d8e</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_type</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>vote_id</AttributeName>
-        <AttributeValue>903a47bf-6b7b-4460-8475-b7bd89ea2ac9</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>has_tie_break_questions</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.BallotCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>201</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>Pw SG de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>Pw SG fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>Pw SG it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>Pw SG rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number_of_mandates</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>mandate_algorithm</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_check_digit</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_size</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_number_generation</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_empty_vote_counting</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_empty_vote_counting_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>domain_of_influence_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_sample_size</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>review_procedure</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_review_procedure_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election_list</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>6fa5262f-bf27-4eb9-81d4-23bb1a49d031</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>proportional_election_id</AttributeName>
-        <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>order_number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>blank_row_count</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionListCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>bba39596-a5f6-4729-a56f-e63871b30acc</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>proportional_election_list_id</AttributeName>
-        <AttributeValue>6fa5262f-bf27-4eb9-81d4-23bb1a49d031</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>accumulated</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>accumulated_position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>proportional_election_id</AttributeName>
-        <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election_list</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>05b72caf-23a9-411d-bac3-7d587666b48a</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>proportional_election_id</AttributeName>
-        <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>order_number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>blank_row_count</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionListCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>201</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>Mw SG de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>Mw SG fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>Mw SG it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>Mw SG rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number_of_mandates</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>mandate_algorithm</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>individual_empty_ballots_allowed</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_check_digit</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_size</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_sample_size</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_number_generation</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_empty_vote_counting</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_empty_vote_counting_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>result_entry</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_result_entry_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>domain_of_influence_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>invalid_votes</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>report_domain_of_influence_level</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>review_procedure</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>enforce_review_procedure_for_counting_circles</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>81a11b8e-51b8-40c5-aa94-b7a854e2c726</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>efdbb5e3-16bf-4a53-95c3-a35ed6371819</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>n1</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>short de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>short fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>short it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>short rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number_of_mandates</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>allowed_candidates</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1</Number>
-      <Description>short de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_candidate_reference</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secondary_majority_election_id</AttributeName>
-        <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>81a11b8e-51b8-40c5-aa94-b7a854e2c726</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateReferenceCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1</Number>
-      <Description>short de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>f70ffba1-1cfd-402b-b6ea-f2c9f802886a</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1</Number>
-      <Description>short de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>fdb57357-095d-469e-8f40-fd3d0b8817cb</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1</Number>
-      <Description>short de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>340c482b-c064-427e-a906-2696fab2ab35</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>0741da26-add2-4c4c-960d-7e251b82e91b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n1</Number>
-      <Description>short de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>292a5a89-e030-44db-a204-90e00540ba84</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>n2</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>short2 de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>short2 fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>short2 it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>short2 rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number_of_mandates</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>allowed_candidates</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n2</Number>
-      <Description>short2 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_candidate_reference</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>4076daaa-b791-4923-94dc-498ad171d062</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secondary_majority_election_id</AttributeName>
-        <AttributeValue>292a5a89-e030-44db-a204-90e00540ba84</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>81a11b8e-51b8-40c5-aa94-b7a854e2c726</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateReferenceCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n2</Number>
-      <Description>short2 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>910181c5-c003-4775-976b-1f33a19f2a1b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>292a5a89-e030-44db-a204-90e00540ba84</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n2</Number>
-      <Description>short2 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>f4ae2b39-45b5-427a-96e4-24d645ddb080</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_business_number</AttributeName>
-        <AttributeValue>n3</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>official_description</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>short_description</AttributeName>
-        <EventAttribute>
-          <AttributeName>de</AttributeName>
-          <AttributeValue>short3 de</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>fr</AttributeName>
-          <AttributeValue>short3 fr</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>it</AttributeName>
-          <AttributeValue>short3 it</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>rm</AttributeName>
-          <AttributeValue>short3 rm</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>internal_description</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number_of_mandates</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>allowed_candidates</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>active</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n3</Number>
-      <Description>short3 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_candidate_reference</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>f136f4d7-7f4c-4674-a9c5-391dbed43985</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secondary_majority_election_id</AttributeName>
-        <AttributeValue>f4ae2b39-45b5-427a-96e4-24d645ddb080</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>81a11b8e-51b8-40c5-aa94-b7a854e2c726</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>primary_majority_election_id</AttributeName>
-        <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateReferenceCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n3</Number>
-      <Description>short3 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>secondary_majority_election_candidate</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>majority_election_id</AttributeName>
-        <AttributeValue>f4ae2b39-45b5-427a-96e4-24d645ddb080</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>number</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_first_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>political_last_name</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sex</AttributeName>
-        <AttributeValue>Unspecified</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>title</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>occupation_title</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>party</AttributeName>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>incumbent</AttributeName>
-        <AttributeValue>False</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>zip_code</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>locality</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>position</AttributeName>
-        <AttributeValue>0</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>origin</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>primary_majority_election_id</AttributeName>
-      <AttributeValue />
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.SecondaryMajorityElectionCandidateCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>n3</Number>
-      <Description>short3 de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election_union</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>5233cf7c-2200-435c-b5d6-8d354794de4c</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-        <AttributeValue>Proportional Election Union</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secure_connect_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionUnionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>proportional_election_union</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>5233cf7c-2200-435c-b5d6-8d354794de4c</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-        <AttributeValue>Proportional Election Union Updated</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secure_connect_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.ProportionalElectionUnionUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_union</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>5ef889b6-7227-4bc1-8a1c-99011d48bead</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-        <AttributeValue>Majority Election Union</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secure_connect_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionUnionCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_union</AttributeName>
-      <EventAttribute>
-        <AttributeName>id</AttributeName>
-        <AttributeValue>5ef889b6-7227-4bc1-8a1c-99011d48bead</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>contest_id</AttributeName>
-        <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>description</AttributeName>
-        <AttributeValue>Majority Election Union Updated</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>secure_connect_id</AttributeName>
-        <AttributeValue />
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.basis.events.v1.MajorityElectionUnionUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:21Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>c9679b05-64ab-46ab-9f4e-f62ed89a4968</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>contest_id</AttributeName>
-      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>counting_circle_id</AttributeName>
-      <AttributeValue>0bb8d89c-d387-40d0-83cf-84e118a8d524</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>count_of_voters_information</AttributeName>
-      <EventAttribute>
-        <AttributeName>total_count_of_voters</AttributeName>
-        <AttributeValue>1350</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>700</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>500</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>100</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>50</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.ContestCountingCircleDetailsCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:22Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>c9679b05-64ab-46ab-9f4e-f62ed89a4968</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>contest_id</AttributeName>
-      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>counting_circle_id</AttributeName>
-      <AttributeValue>0bb8d89c-d387-40d0-83cf-84e118a8d524</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>count_of_voters_information</AttributeName>
-      <EventAttribute>
-        <AttributeName>total_count_of_voters</AttributeName>
-        <AttributeValue>1450</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>800</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>500</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>100</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>50</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.ContestCountingCircleDetailsUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:22Z</Date>
-    <EventAttribute>
-      <AttributeName>id</AttributeName>
-      <AttributeValue>324cb494-e55b-4bf5-acd3-c140b0a5d3d2</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>contest_id</AttributeName>
-      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>counting_circle_id</AttributeName>
-      <AttributeValue>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>count_of_voters_information</AttributeName>
-      <EventAttribute>
-        <AttributeName>total_count_of_voters</AttributeName>
-        <AttributeValue>650</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>200</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>Swiss</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>300</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Female</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>100</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>sub_total_info</AttributeName>
-        <EventAttribute>
-          <AttributeName>sex</AttributeName>
-          <AttributeValue>Male</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>voter_type</AttributeName>
-          <AttributeValue>SwissAbroad</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>count_of_voters</AttributeName>
-          <AttributeValue>50</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.ContestCountingCircleDetailsCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</Name>
-      <Bfs />
-    </CountingCircle>
-    <PoliticalBusiness />
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:30Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>election_id</AttributeName>
-      <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>counting_circle_id</AttributeName>
-      <AttributeValue>0bb8d89c-d387-40d0-83cf-84e118a8d524</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultSubmissionStarted</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:32Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>result_entry</AttributeName>
-      <AttributeValue>Detailed</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>result_entry_params</AttributeName>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_size</AttributeName>
-        <AttributeValue>25</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_sample_size</AttributeName>
-        <AttributeValue>3</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
-        <AttributeValue>True</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>ballot_number_generation</AttributeName>
-        <AttributeValue>RestartForEachBundle</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_empty_vote_counting</AttributeName>
-        <AttributeValue>True</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>review_procedure</AttributeName>
-        <AttributeValue>Electronically</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultEntryDefined</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:33Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>count_of_voters</AttributeName>
-      <EventAttribute>
-        <AttributeName>conventional_received_ballots</AttributeName>
-        <AttributeValue>500</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>conventional_invalid_ballots</AttributeName>
-        <AttributeValue>20</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>conventional_blank_ballots</AttributeName>
-        <AttributeValue>10</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>conventional_accounted_ballots</AttributeName>
-        <AttributeValue>470</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultCountOfVotersEntered</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:35Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>individual_vote_count</AttributeName>
-      <AttributeValue>13</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>candidate_results</AttributeName>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>0cfd246d-eb90-412e-b4f8-c5ce26b1b58b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>vote_count</AttributeName>
-        <AttributeValue>17</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>candidate_results</AttributeName>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>163bb2ac-35c0-4ca6-995a-8af1a6529dd9</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>vote_count</AttributeName>
-        <AttributeValue>23</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>secondary_election_candidate_results</AttributeName>
-      <EventAttribute>
-        <AttributeName>secondary_majority_election_id</AttributeName>
-        <AttributeValue>06e4ac05-0e7e-4629-ae81-aef5c648d900</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>individual_vote_count</AttributeName>
-        <AttributeValue>5</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_results</AttributeName>
-        <EventAttribute>
-          <AttributeName>candidate_id</AttributeName>
-          <AttributeValue>c18d1ba5-e059-40ca-9c36-fbfff1ccfdb6</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>vote_count</AttributeName>
-          <AttributeValue>18</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_results</AttributeName>
-        <EventAttribute>
-          <AttributeName>candidate_id</AttributeName>
-          <AttributeValue>bb1cbbf8-09d6-44d0-bb1f-4e2fb8e560c0</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>vote_count</AttributeName>
-          <AttributeValue>12</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>empty_vote_count</AttributeName>
-        <AttributeValue>10</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>invalid_vote_count</AttributeName>
-        <AttributeValue>3</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>secondary_election_candidate_results</AttributeName>
-      <EventAttribute>
-        <AttributeName>secondary_majority_election_id</AttributeName>
-        <AttributeValue>438d4e45-e988-4d73-9620-13c4f6393f6b</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>individual_vote_count</AttributeName>
-        <AttributeValue>7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_results</AttributeName>
-        <EventAttribute>
-          <AttributeName>candidate_id</AttributeName>
-          <AttributeValue>c18d1ba5-e059-40ca-9c36-fbfff1ccfdb6</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>vote_count</AttributeName>
-          <AttributeValue>18</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_results</AttributeName>
-        <EventAttribute>
-          <AttributeName>candidate_id</AttributeName>
-          <AttributeValue>bb1cbbf8-09d6-44d0-bb1f-4e2fb8e560c0</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>vote_count</AttributeName>
-          <AttributeValue>12</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>candidate_results</AttributeName>
-        <EventAttribute>
-          <AttributeName>candidate_id</AttributeName>
-          <AttributeValue>a8773d00-de9b-41b4-8eaa-8b3db7da9dfe</AttributeValue>
-        </EventAttribute>
-        <EventAttribute>
-          <AttributeName>vote_count</AttributeName>
-          <AttributeValue>3</AttributeValue>
-        </EventAttribute>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>empty_vote_count</AttributeName>
-        <AttributeValue>5</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>invalid_vote_count</AttributeName>
-        <AttributeValue>2</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>empty_vote_count</AttributeName>
-      <AttributeValue>5</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>invalid_vote_count</AttributeName>
-      <AttributeValue>3</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionCandidateResultsEntered</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:08:37Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>results</AttributeName>
-      <EventAttribute>
-        <AttributeName>ballot_group_id</AttributeName>
-        <AttributeValue>0b3776b2-0599-445f-8373-a007414c7fc7</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>vote_count</AttributeName>
-        <AttributeValue>8</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>results</AttributeName>
-      <EventAttribute>
-        <AttributeName>ballot_group_id</AttributeName>
-        <AttributeValue>d80b086a-8332-46c4-98b0-b6c209ed87a9</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>vote_count</AttributeName>
-        <AttributeValue>35</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionBallotGroupResultsEntered</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
   <Event>
     <Date>2020-07-17T10:10:00Z</Date>
     <EventAttribute>
@@ -2837,236 +476,6 @@
     </PoliticalBusiness>
     <BundleNumber>1</BundleNumber>
     <EventSignatureVerification>VerificationFailed</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:12:03Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultSubmissionFinished</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:12:06Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>comment</AttributeName>
-      <AttributeValue>Bitte korrigieren</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultFlaggedForCorrection</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:12:10Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>comment</AttributeName>
-      <AttributeValue>Korrigiert</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultCorrectionFinished</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:12:16Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultAuditedTentatively</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:14:00Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultPlausibilised</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:15:40Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultResettedToAuditedTentatively</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:15:45Z</Date>
-    <EventAttribute>
-      <AttributeName>election_result_id</AttributeName>
-      <AttributeValue>cf71c501-6ec0-5075-a6e0-cd2c73ff0ae6</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultResettedToSubmissionFinished</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:19:20Z</Date>
-    <EventAttribute>
-      <AttributeName>majority_election_id</AttributeName>
-      <AttributeValue>b0da46f8-a721-4e1a-ac36-25284d68f34b</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>majority_election_end_result_id</AttributeName>
-      <AttributeValue>c37becfb-4444-480d-986a-89081b0772fc</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>lot_decisions</AttributeName>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>abd84dd7-a31e-4511-a64d-9d60c27de0fe</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rank</AttributeName>
-        <AttributeValue>1</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>lot_decisions</AttributeName>
-      <EventAttribute>
-        <AttributeName>candidate_id</AttributeName>
-        <AttributeValue>b4b3f660-dde3-4e0f-b4bd-02118b798bcd</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>rank</AttributeName>
-        <AttributeValue>2</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionEndResultLotDecisionsUpdated</EventName>
-    <Tenant>
-      <TenantName>St. Gallen</TenantName>
-    </Tenant>
-    <User>
-      <Username>AXADMIN</Username>
-      <Firstname>Monitoring</Firstname>
-      <Lastname>Admin</Lastname>
-    </User>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Mw SG de</Description>
-    </PoliticalBusiness>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
   </Event>
   <Event>
     <Date>2020-07-17T10:25:10Z</Date>
@@ -3726,8 +1135,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3755,8 +1164,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3780,8 +1189,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3805,8 +1214,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3830,8 +1239,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3855,8 +1264,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -3906,8 +1315,48 @@
       <Lastname>Admin</Lastname>
     </User>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Pw SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
+    </PoliticalBusiness>
+    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+  </Event>
+  <Event>
+    <Date>2020-07-17T10:36:00Z</Date>
+    <EventAttribute>
+      <AttributeName>proportional_election_end_result_id</AttributeName>
+      <AttributeValue>cbd87126-6df5-4839-ab24-02fe42c9b27f</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>proportional_election_id</AttributeName>
+      <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>proportional_election_list_id</AttributeName>
+      <AttributeValue>c322cf7f-9319-4886-9779-bf91c716a28a</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>candidate_end_results</AttributeName>
+      <EventAttribute>
+        <AttributeName>candidate_id</AttributeName>
+        <AttributeValue>94c8360d-74b6-47f9-8b8b-926fe285c926</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>state</AttributeName>
+        <AttributeValue>Elected</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionManualListEndResultEntered</EventName>
+    <Tenant>
+      <TenantName>St. Gallen</TenantName>
+    </Tenant>
+    <User>
+      <Username>AXADMIN</Username>
+      <Firstname>Monitoring</Firstname>
+      <Lastname>Admin</Lastname>
+    </User>
+    <PoliticalBusiness>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4241,340 +1690,6 @@
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
   <Event>
-    <Date>2020-07-17T10:43:20Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>vote_result_id</AttributeName>
-      <AttributeValue>d453bc14-b433-4394-95af-4121ffa8674e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>4c976f44-ca66-44d7-9017-a3d353a381b9</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>bundle_number</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>result_entry_params</AttributeName>
-      <EventAttribute>
-        <AttributeName>ballot_bundle_sample_size_percent</AttributeName>
-        <AttributeValue>20</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>automatic_ballot_bundle_number_generation</AttributeName>
-        <AttributeValue>True</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>review_procedure</AttributeName>
-        <AttributeValue>Electronically</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:25Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>d453bc14-b433-4394-95af-4121ffa8674e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_number</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>question_answers</AttributeName>
-      <EventAttribute>
-        <AttributeName>question_number</AttributeName>
-        <AttributeValue>1</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>answer</AttributeName>
-        <AttributeValue>Yes</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBallotCreated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <BundleBallotNumber>1</BundleBallotNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:28Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>4c976f44-ca66-44d7-9017-a3d353a381b9</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_number</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>question_answers</AttributeName>
-      <EventAttribute>
-        <AttributeName>question_number</AttributeName>
-        <AttributeValue>1</AttributeValue>
-      </EventAttribute>
-      <EventAttribute>
-        <AttributeName>answer</AttributeName>
-        <AttributeValue>No</AttributeValue>
-      </EventAttribute>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBallotUpdated</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <BundleBallotNumber>1</BundleBallotNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:32Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>4c976f44-ca66-44d7-9017-a3d353a381b9</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_number</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBallotDeleted</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <BundleBallotNumber>1</BundleBallotNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:36Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>4c976f44-ca66-44d7-9017-a3d353a381b9</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>sample_ballot_numbers</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>sample_ballot_numbers</AttributeName>
-      <AttributeValue>3</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleSubmissionFinished</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:44Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleReviewRejected</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:48Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>ballot_result_id</AttributeName>
-      <AttributeValue>c94087d5-4fd7-4ca9-9c36-178bb3b42e5c</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>sample_ballot_numbers</AttributeName>
-      <AttributeValue>1</AttributeValue>
-    </EventAttribute>
-    <EventAttribute>
-      <AttributeName>sample_ballot_numbers</AttributeName>
-      <AttributeValue>3</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleCorrectionFinished</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:43:52Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleReviewSucceeded</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
-    <Date>2020-07-17T10:44:00Z</Date>
-    <EventAttribute>
-      <AttributeName>bundle_id</AttributeName>
-      <AttributeValue>c4e01944-a47b-48e2-8ada-1f2e3739679e</AttributeValue>
-    </EventAttribute>
-    <EventName>abraxas.voting.ausmittlung.events.v1.VoteResultBundleDeleted</EventName>
-    <Tenant>
-      <TenantName>Gossau</TenantName>
-    </Tenant>
-    <User>
-      <Username>default username</Username>
-      <Firstname>default user firstname</Firstname>
-      <Lastname>default user lastname</Lastname>
-    </User>
-    <CountingCircle>
-      <Name>Gossau</Name>
-      <Bfs>3443</Bfs>
-    </CountingCircle>
-    <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
-    </PoliticalBusiness>
-    <BundleNumber>1</BundleNumber>
-    <EventSignatureVerification>VerificationSuccess</EventSignatureVerification>
-  </Event>
-  <Event>
     <Date>2020-07-17T10:45:23Z</Date>
     <EventAttribute>
       <AttributeName>vote_result_id</AttributeName>
@@ -4600,6 +1715,77 @@
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
   <Event>
+    <Date>2020-07-17T10:45:25Z</Date>
+    <EventAttribute>
+      <AttributeName>id</AttributeName>
+      <AttributeValue>903a47bf-6b7b-4460-8475-b7bd89ea2ac9</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>political_business_number</AttributeName>
+      <AttributeValue>201 UPDATE</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>official_description</AttributeName>
+      <EventAttribute>
+        <AttributeName>de</AttributeName>
+        <AttributeValue>Official UPDATE de</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>fr</AttributeName>
+        <AttributeValue>Official UPDATE fr</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>it</AttributeName>
+        <AttributeValue>Official UPDATE it</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>rm</AttributeName>
+        <AttributeValue>Official UPDATE rm</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>short_description</AttributeName>
+      <EventAttribute>
+        <AttributeName>de</AttributeName>
+        <AttributeValue>Abst SG UPDATE de</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>fr</AttributeName>
+        <AttributeValue>Abst SG UPDATE fr</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>it</AttributeName>
+        <AttributeValue>Abst SG UPDATE it</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>rm</AttributeName>
+        <AttributeValue>Abst SG UPDATE rm</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>internal_description</AttributeName>
+      <AttributeValue>Internal UPDATE</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>report_domain_of_influence_level</AttributeName>
+      <AttributeValue>0</AttributeValue>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.VoteAfterTestingPhaseUpdated</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PoliticalBusiness>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
+    </PoliticalBusiness>
+    <EventSignatureVerification>VerificationFailed</EventSignatureVerification>
+  </Event>
+  <Event>
     <Date>2020-07-17T10:45:26Z</Date>
     <EventAttribute>
       <AttributeName>vote_result_id</AttributeName>
@@ -4623,8 +1809,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4652,8 +1838,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4677,8 +1863,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4702,8 +1888,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4727,8 +1913,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4752,8 +1938,8 @@
       <Bfs>3443</Bfs>
     </CountingCircle>
     <PoliticalBusiness>
-      <Number>201</Number>
-      <Description>Abst SG de</Description>
+      <Number>201 UPDATE</Number>
+      <Description>Abst SG UPDATE de</Description>
     </PoliticalBusiness>
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
@@ -4773,13 +1959,13 @@
     </EventAttribute>
     <EventAttribute>
       <AttributeName>key_id</AttributeName>
-      <AttributeValue>BRXwivXbXlWjvjWQPRunrtVe</AttributeValue>
+      <AttributeValue>AAJyr4qcghR3Fg46PAYfPAdZ</AttributeValue>
     </EventAttribute>
     <EventAttribute>
       <AttributeName>valid_from</AttributeName>
       <EventAttribute>
         <AttributeName>seconds</AttributeName>
-        <AttributeValue>1594980000</AttributeValue>
+        <AttributeValue>1594980501</AttributeValue>
       </EventAttribute>
       <EventAttribute>
         <AttributeName>nanos</AttributeName>
@@ -4790,7 +1976,7 @@
       <AttributeName>valid_to</AttributeName>
       <EventAttribute>
         <AttributeName>seconds</AttributeName>
-        <AttributeValue>1594980500</AttributeValue>
+        <AttributeValue>1595026800</AttributeValue>
       </EventAttribute>
       <EventAttribute>
         <AttributeName>nanos</AttributeName>
@@ -4966,6 +2152,55 @@
       <Lastname>default user lastname</Lastname>
     </User>
     <PublicKeyData>
+      <SignatureValidationResultType>Valid</SignatureValidationResultType>
+    </PublicKeyData>
+  </PublicKeySignatureEvent>
+  <PublicKeySignatureEvent>
+    <Date>2020-07-17T10:09:00Z</Date>
+    <EventAttribute>
+      <AttributeName>signature_version</AttributeName>
+      <AttributeValue>1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>contest_id</AttributeName>
+      <AttributeValue>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>host_id</AttributeName>
+      <AttributeValue>Host1</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>key_id</AttributeName>
+      <AttributeValue>AAJyr4qcghR3Fg46PAYfPAdZ</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>signed_event_count</AttributeName>
+      <AttributeValue>5</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>deleted_at</AttributeName>
+      <EventAttribute>
+        <AttributeName>seconds</AttributeName>
+        <AttributeValue>1594982724</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>nanos</AttributeName>
+        <AttributeValue>0</AttributeValue>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.basis.events.v1.EventSignaturePublicKeyDeleted</EventName>
+    <Tenant>
+      <TenantName>Gossau</TenantName>
+    </Tenant>
+    <User>
+      <Username>default username</Username>
+      <Firstname>default user firstname</Firstname>
+      <Lastname>default user lastname</Lastname>
+    </User>
+    <PublicKeyData>
+      <ExpectedSignedEventCount>5</ExpectedSignedEventCount>
+      <ReadAtGenerationSignedEventCount>5</ReadAtGenerationSignedEventCount>
+      <HasMatchingSignedEventCount>true</HasMatchingSignedEventCount>
       <SignatureValidationResultType>Valid</SignatureValidationResultType>
     </PublicKeyData>
   </PublicKeySignatureEvent>

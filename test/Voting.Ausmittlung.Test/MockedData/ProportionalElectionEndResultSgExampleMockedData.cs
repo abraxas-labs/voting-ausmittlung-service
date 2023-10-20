@@ -135,10 +135,14 @@ public static class ProportionalElectionEndResultSgExampleMockedData
             result.TotalCountOfVoters = TotalCountOfVoters;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 147_749,
-                ConventionalInvalidBallots = 1998,
-                ConventionalBlankBallots = 120,
-                ConventionalAccountedBallots = 145631,
+                ConventionalReceivedBallots = 110_812,
+                ConventionalInvalidBallots = 1498,
+                ConventionalBlankBallots = 80,
+                ConventionalAccountedBallots = 109_224,
+                EVotingReceivedBallots = 36937,
+                EVotingInvalidBallots = 500,
+                EVotingBlankBallots = 40,
+                EVotingAccountedBallots = 36407,
                 VoterParticipation = .4647m,
             };
 
@@ -289,21 +293,47 @@ public static class ProportionalElectionEndResultSgExampleMockedData
         var listResult = result.ListResults.Single(x => x.List.Position == listPosition);
         var candidateResult = listResult.CandidateResults.First();
 
+        var eVotingVoteCount = voteCount / 4;
+        var eVotingBlankRowsCount = blankRowsCount / 4;
+
+        SetSubTotalVoteCounts(
+            result.ConventionalSubTotal,
+            listResult.ConventionalSubTotal,
+            candidateResult.ConventionalSubTotal,
+            voteCount - eVotingVoteCount,
+            blankRowsCount - eVotingBlankRowsCount);
+
+        SetSubTotalVoteCounts(
+            result.EVotingSubTotal,
+            listResult.EVotingSubTotal,
+            candidateResult.EVotingSubTotal,
+            eVotingVoteCount,
+            eVotingBlankRowsCount);
+    }
+
+    private static void SetSubTotalVoteCounts(
+        ProportionalElectionResultSubTotal electionResultSubTotal,
+        ProportionalElectionListResultSubTotal listResultSubTotal,
+        ProportionalElectionCandidateResultSubTotal candidateResultSubTotal,
+        int voteCount,
+        int blankRowsCount)
+    {
         // these numbers may not be exactly correct but they are an approximation which should be enough for these mocks
         voteCount -= blankRowsCount;
-        candidateResult.ConventionalSubTotal.ModifiedListVotesCount = (int)(voteCount * .8);
-        candidateResult.ConventionalSubTotal.UnmodifiedListVotesCount = voteCount - candidateResult.ModifiedListVotesCount;
-        listResult.ConventionalSubTotal.ModifiedListVotesCount = candidateResult.ModifiedListVotesCount;
-        listResult.ConventionalSubTotal.ListVotesCountOnOtherLists = (int)(candidateResult.ModifiedListVotesCount * .2);
-        listResult.ConventionalSubTotal.UnmodifiedListVotesCount = candidateResult.UnmodifiedListVotesCount;
-        listResult.ConventionalSubTotal.ModifiedListBlankRowsCount = blankRowsCount / 2;
-        listResult.ConventionalSubTotal.UnmodifiedListBlankRowsCount = blankRowsCount - listResult.ModifiedListBlankRowsCount;
-        listResult.ConventionalSubTotal.UnmodifiedListsCount = listResult.UnmodifiedListVotesCount / NumberOfMandates;
-        listResult.ConventionalSubTotal.ModifiedListsCount = listResult.ModifiedListVotesCount / NumberOfMandates;
+        candidateResultSubTotal.ModifiedListVotesCount = (int)(voteCount * .8);
+        candidateResultSubTotal.UnmodifiedListVotesCount = voteCount - candidateResultSubTotal.ModifiedListVotesCount;
 
-        result.ConventionalSubTotal.TotalCountOfUnmodifiedLists += listResult.UnmodifiedListVotesCount / NumberOfMandates;
-        result.ConventionalSubTotal.TotalCountOfModifiedLists += listResult.ModifiedListVotesCount / NumberOfMandates;
-        result.ConventionalSubTotal.TotalCountOfListsWithoutParty += blankRowsCount / NumberOfMandates;
-        result.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty += listResult.BlankRowsCount;
+        listResultSubTotal.ModifiedListVotesCount = candidateResultSubTotal.ModifiedListVotesCount;
+        listResultSubTotal.ListVotesCountOnOtherLists = (int)(candidateResultSubTotal.ModifiedListVotesCount * .2);
+        listResultSubTotal.UnmodifiedListVotesCount = candidateResultSubTotal.UnmodifiedListVotesCount;
+        listResultSubTotal.ModifiedListBlankRowsCount = blankRowsCount / 2;
+        listResultSubTotal.UnmodifiedListBlankRowsCount = blankRowsCount - listResultSubTotal.ModifiedListBlankRowsCount;
+        listResultSubTotal.UnmodifiedListsCount = listResultSubTotal.UnmodifiedListVotesCount / NumberOfMandates;
+        listResultSubTotal.ModifiedListsCount = listResultSubTotal.ModifiedListVotesCount / NumberOfMandates;
+
+        electionResultSubTotal.TotalCountOfUnmodifiedLists += listResultSubTotal.UnmodifiedListVotesCount / NumberOfMandates;
+        electionResultSubTotal.TotalCountOfModifiedLists += listResultSubTotal.ModifiedListVotesCount / NumberOfMandates;
+        electionResultSubTotal.TotalCountOfListsWithoutParty += blankRowsCount / NumberOfMandates;
+        electionResultSubTotal.TotalCountOfBlankRowsOnListsWithoutParty += listResultSubTotal.BlankRowsCount;
     }
 }

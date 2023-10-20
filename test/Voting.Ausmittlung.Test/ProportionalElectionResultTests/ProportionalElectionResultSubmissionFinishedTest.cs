@@ -1,6 +1,7 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
@@ -38,6 +39,14 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
@@ -64,6 +73,15 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEndedWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -182,7 +200,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -204,7 +222,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
+            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
             {
                 ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
                 SecondFactorTransactionId = invalidExternalId,
@@ -226,12 +244,14 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
-    private ProportionalElectionResultSubmissionFinishedRequest NewValidRequest()
+    private ProportionalElectionResultSubmissionFinishedRequest NewValidRequest(Action<ProportionalElectionResultSubmissionFinishedRequest>? customizer = null)
     {
-        return new ProportionalElectionResultSubmissionFinishedRequest
+        var req = new ProportionalElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
             SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
         };
+        customizer?.Invoke(req);
+        return req;
     }
 }

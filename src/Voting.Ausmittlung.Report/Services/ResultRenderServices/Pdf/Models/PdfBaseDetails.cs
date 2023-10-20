@@ -16,6 +16,8 @@ public abstract class PdfBaseDetails
 
     public int TotalCountOfVotingCards { get; set; }
 
+    public int TotalCountOfEVotingVotingCards { get; set; }
+
     [XmlElement("ContestVotingCardDetail")]
     public List<PdfVotingCardResultDetail>? VotingCards { get; set; }
 

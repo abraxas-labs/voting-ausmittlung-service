@@ -45,6 +45,14 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminWithoutComment()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
@@ -87,6 +95,15 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEndedWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -225,7 +242,7 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -247,7 +264,7 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(new ProportionalElectionResultCorrectionFinishedRequest
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(new ProportionalElectionResultCorrectionFinishedRequest
             {
                 ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
                 SecondFactorTransactionId = invalidExternalId,

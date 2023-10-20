@@ -3,12 +3,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
@@ -50,6 +53,25 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
             save.MessageType,
             Data = Encoding.UTF8.GetString(save.Data),
         }.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ProcessorShouldWork()
+    {
+        await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
+
+        // await async process
+        var connector = GetService<DokConnectorMock>();
+        await connector.NextUpload(TimeSpan.FromSeconds(10));
+        await Task.Delay(1000);
+
+        var evs = EventPublisherMock.GetPublishedEvents<ResultExportCompleted>();
+        await TestEventPublisher.Publish(evs.First());
+
+        var config = await RunOnDb(db => db.ResultExportConfigurations
+            .FirstAsync(x => x.ExportConfigurationId == Guid.Parse(ExportConfigurationMockedData.IdStGallenIntf002)
+                && x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting)));
+        config.MatchSnapshot(x => x.Id);
     }
 
     [Fact]

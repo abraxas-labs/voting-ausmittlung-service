@@ -31,11 +31,12 @@ public class CsvService
         await csvWriter.WriteRecordsAsync(records, ct);
     }
 
-    public async Task Render<TRow>(PipeWriter writer, IEnumerable<TRow> records, CancellationToken ct = default)
+    public async Task Render<TRow>(PipeWriter writer, IEnumerable<TRow> records, Action<IWriter>? configure = null, CancellationToken ct = default)
     {
         // use utf8 with bom (excel requires bom)
         await using var streamWriter = new StreamWriter(writer.AsStream(), Encoding.UTF8);
         await using var csvWriter = new CsvWriter(streamWriter, CsvConfiguration);
+        configure?.Invoke(csvWriter);
         await csvWriter.WriteRecordsAsync(records, ct);
     }
 

@@ -21,6 +21,7 @@
   ],
   "IntervalMinutes": 10,
   "NextExecution": "2020-01-10T13:22:10.2Z",
+  "LatestExecution": null,
   "DomainOfInfluence": null,
   "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
   "Description": "StGallen Interface 001",

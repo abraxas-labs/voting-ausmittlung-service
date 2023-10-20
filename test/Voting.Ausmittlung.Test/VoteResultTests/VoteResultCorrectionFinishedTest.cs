@@ -45,6 +45,14 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
@@ -79,6 +87,15 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -198,7 +215,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -220,7 +237,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
+            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 SecondFactorTransactionId = invalidExternalId,

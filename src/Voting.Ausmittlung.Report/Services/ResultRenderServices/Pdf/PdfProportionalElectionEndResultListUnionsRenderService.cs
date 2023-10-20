@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -30,7 +31,9 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
     {
         return base.BuildQuery()
             .Include(x => x.ProportionalElection.Contest.Details!.VotingCards)
-            .Include(x => x.ProportionalElection.Contest.Details!.CountOfVotersInformationSubTotals);
+            .Include(x => x.ProportionalElection.Contest.Details!.CountOfVotersInformationSubTotals)
+            .Include(x => x.ListEndResults.OrderBy(y => y.List.OrderNumber)) // required for E-Voting variant, because HB does not support E-Voting vote counts yet.
+            .ThenInclude(x => x.List.Translations);
     }
 
     protected override void SortData(ProportionalElectionEndResult data)
@@ -51,6 +54,8 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
             .Where(x => x.Type == HagenbachBischoffGroupType.List)
             .OrderBy(x => x.List!.Position)
             .ToList();
+
+        PdfProportionalElectionEndResultUtil.SetTotalListResults(pdfElection.EndResult!);
 
         pdfElection.EndResult!.ListUnionEndResult = BuildListUnions(
             endResult.HagenbachBischoffRootGroup,

@@ -1,15 +1,6 @@
 {
   "ProtocolExports_": [
     {
-      "ExportTemplateId": "4a934d62-8e4f-5c33-86b0-d736b2da8177",
-      "Description": "Aktivitätenprotokoll",
-      "EntityDescription": "",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
       "ExportTemplateId": "fedcbd82-941d-53a6-ab2f-f68732d01a52",
       "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
       "EntityDescription": "St. Gallen different Tenant",

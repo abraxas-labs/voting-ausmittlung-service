@@ -26,7 +26,6 @@ public class EventLogBuilderContext : IDisposable
         Guid contestId,
         bool testingPhaseEnded,
         IEnumerable<Guid> politicalBusinessIdsFilter,
-        IEnumerable<Guid> countingCircleIdsFilter,
         ContestEventSignatureAggregate contestEventSignatureAggregate,
         Position basisSnapshotPosition,
         DateTime startTimestampInStream,
@@ -44,7 +43,6 @@ public class EventLogBuilderContext : IDisposable
         ContestId = contestId;
         TestingPhaseEnded = testingPhaseEnded;
         PoliticalBusinessIdsFilter = politicalBusinessIdsFilter.ToList();
-        CountingCircleIdsFilter = countingCircleIdsFilter.ToList();
         StartPosition = basisSnapshotPosition;
 
         StartTimestampInStream = startTimestampInStream;
@@ -70,8 +68,6 @@ public class EventLogBuilderContext : IDisposable
     public DateTime CurrentTimestampInStream { get; internal set; }
 
     public IReadOnlyCollection<Guid> PoliticalBusinessIdsFilter { get; }
-
-    public IReadOnlyCollection<Guid> CountingCircleIdsFilter { get; }
 
     public Dictionary<Guid, (Guid PoliticalBusinessId, Guid CountingCircleId)> PoliticalBusinessIdAndCountingCircleIdByResultId { get; } = new();
 

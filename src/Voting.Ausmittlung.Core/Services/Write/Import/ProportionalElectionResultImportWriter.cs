@@ -75,12 +75,6 @@ public class ProportionalElectionResultImportWriter
         {
             var (list, listResult) = GetList(importResult, ballot, listsById);
 
-            if (ballot.Unmodified)
-            {
-                ProcessUnmodifiedBallot(importResult, list, listResult);
-                continue;
-            }
-
             if (ballot.Positions.All(p => p.IsEmpty))
             {
                 if (list == null)
@@ -94,6 +88,18 @@ public class ProportionalElectionResultImportWriter
                     importResult.InvalidBallotCount++;
                 }
 
+                continue;
+            }
+
+            if (ballot.Unmodified)
+            {
+                // Note that completely empty lists can also be unmodified (the "empty list") and thus need to be handled before this.
+                if (listResult == null || list == null)
+                {
+                    throw new ValidationException("an unmodified ballot does not have a list assigned");
+                }
+
+                ProcessUnmodifiedBallot(importResult, list, listResult);
                 continue;
             }
 
@@ -195,7 +201,8 @@ public class ProportionalElectionResultImportWriter
         candidateResult.ModifiedListVotesCount++;
         candidateResult.AddVoteSourceVote(electionBallot.ListId);
 
-        if (candidate.ProportionalElectionListId != electionBallot.ListId)
+        // votes on ballots without a list don't count
+        if (candidate.ProportionalElectionListId != electionBallot.ListId && electionBallot.ListId.HasValue)
         {
             candidateResult.CountOfVotesOnOtherLists++;
             listResult.ListVotesCountOnOtherLists++;
@@ -214,14 +221,9 @@ public class ProportionalElectionResultImportWriter
 
     private void ProcessUnmodifiedBallot(
         ProportionalElectionResultImport importData,
-        ProportionalElectionList? list,
-        ProportionalElectionListResultImport? listResult)
+        ProportionalElectionList list,
+        ProportionalElectionListResultImport listResult)
     {
-        if (listResult == null || list == null)
-        {
-            throw new ValidationException("an unmodified ballot does not have a list assigned");
-        }
-
         importData.CountOfUnmodifiedLists++;
         listResult.UnmodifiedListsCount++;
         listResult.UnmodifiedListBlankRowsCount += list.BlankRowCount;

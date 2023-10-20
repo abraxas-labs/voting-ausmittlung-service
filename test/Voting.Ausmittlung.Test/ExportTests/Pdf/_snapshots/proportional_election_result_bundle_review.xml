@@ -35,6 +35,7 @@
       <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>1600</CountOfVoters>
@@ -258,6 +259,7 @@
         <RemovedFromList>false</RemovedFromList>
         <OnList>false</OnList>
       </ProportionalElectionCandidate>
+      <AllOriginalCandidatesRemovedFromList>false</AllOriginalCandidatesRemovedFromList>
     </ProportionalElectionResultBallot>
   </ProportionalElectionResultBundle>
 </Voting>

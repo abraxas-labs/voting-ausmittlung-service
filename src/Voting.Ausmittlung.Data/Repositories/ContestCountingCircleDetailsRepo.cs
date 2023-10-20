@@ -44,6 +44,7 @@ public class ContestCountingCircleDetailsRepo : DbRepository<DataContext, Contes
             .Include(x => x.CountingCircle)
                 .ThenInclude(x => x.MajorityElectionResults)
                     .ThenInclude(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.CountingCircle.ResponsibleAuthority)
             .Include(x => x.VotingCards)
             .Include(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(x => x.Id == id);

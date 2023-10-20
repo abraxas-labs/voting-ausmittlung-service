@@ -12,5 +12,7 @@ public class PdfMajorityElectionResultProfile : Profile
     {
         CreateMap<MajorityElectionResult, PdfMajorityElectionResult>();
         CreateMap<MajorityElectionCandidateResult, PdfMajorityElectionCandidateResult>();
+        CreateMap<MajorityElectionResultSubTotal, PdfMajorityElectionResultSubTotal>();
+        CreateMap<MajorityElectionResultNullableSubTotal, PdfMajorityElectionResultSubTotal>();
     }
 }

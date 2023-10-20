@@ -34,9 +34,9 @@
             "ResultId": "00000000-0000-0000-0000-000000000000",
             "List": null,
             "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
-            "EVotingVoteCount": 6,
+            "EVotingVoteCount": 2,
             "ConventionalVoteCount": 0,
-            "VoteCount": 6,
+            "VoteCount": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -71,7 +71,7 @@
                 "EVotingSubTotal": {
                   "UnmodifiedListVotesCount": 4,
                   "ModifiedListVotesCount": 4,
-                  "CountOfVotesOnOtherLists": 2,
+                  "CountOfVotesOnOtherLists": 0,
                   "CountOfVotesFromAccumulations": 2,
                   "VoteCount": 8
                 },
@@ -84,7 +84,7 @@
                 },
                 "UnmodifiedListVotesCount": 4,
                 "ModifiedListVotesCount": 4,
-                "CountOfVotesOnOtherLists": 2,
+                "CountOfVotesOnOtherLists": 0,
                 "CountOfVotesFromAccumulations": 2,
                 "VoteCount": 8,
                 "VoteSources": [
@@ -116,7 +116,7 @@
                 "EVotingSubTotal": {
                   "UnmodifiedListVotesCount": 2,
                   "ModifiedListVotesCount": 3,
-                  "CountOfVotesOnOtherLists": 1,
+                  "CountOfVotesOnOtherLists": 0,
                   "CountOfVotesFromAccumulations": 0,
                   "VoteCount": 5
                 },
@@ -129,7 +129,7 @@
                 },
                 "UnmodifiedListVotesCount": 2,
                 "ModifiedListVotesCount": 3,
-                "CountOfVotesOnOtherLists": 1,
+                "CountOfVotesOnOtherLists": 0,
                 "CountOfVotesFromAccumulations": 0,
                 "VoteCount": 5,
                 "VoteSources": [
@@ -161,7 +161,7 @@
               "UnmodifiedListBlankRowsCount": 0,
               "ModifiedListsCount": 2,
               "ModifiedListVotesCount": 7,
-              "ListVotesCountOnOtherLists": 3,
+              "ListVotesCountOnOtherLists": 0,
               "ModifiedListBlankRowsCount": 1,
               "UnmodifiedListVotesCountInclBlankRows": 6,
               "ModifiedListVotesCountInclBlankRows": 8,
@@ -190,7 +190,7 @@
             "UnmodifiedListBlankRowsCount": 0,
             "ModifiedListsCount": 2,
             "ModifiedListVotesCount": 7,
-            "ListVotesCountOnOtherLists": 3,
+            "ListVotesCountOnOtherLists": 0,
             "ModifiedListBlankRowsCount": 1,
             "UnmodifiedListVotesCountInclBlankRows": 6,
             "ModifiedListVotesCountInclBlankRows": 8,
@@ -262,7 +262,7 @@
                 "EVotingSubTotal": {
                   "UnmodifiedListVotesCount": 0,
                   "ModifiedListVotesCount": 2,
-                  "CountOfVotesOnOtherLists": 2,
+                  "CountOfVotesOnOtherLists": 1,
                   "CountOfVotesFromAccumulations": 0,
                   "VoteCount": 2
                 },
@@ -275,7 +275,7 @@
                 },
                 "UnmodifiedListVotesCount": 0,
                 "ModifiedListVotesCount": 2,
-                "CountOfVotesOnOtherLists": 2,
+                "CountOfVotesOnOtherLists": 1,
                 "CountOfVotesFromAccumulations": 0,
                 "VoteCount": 2,
                 "VoteSources": [
@@ -307,7 +307,7 @@
               "UnmodifiedListBlankRowsCount": 0,
               "ModifiedListsCount": 0,
               "ModifiedListVotesCount": 2,
-              "ListVotesCountOnOtherLists": 2,
+              "ListVotesCountOnOtherLists": 1,
               "ModifiedListBlankRowsCount": 0,
               "UnmodifiedListVotesCountInclBlankRows": 0,
               "ModifiedListVotesCountInclBlankRows": 2,
@@ -336,7 +336,7 @@
             "UnmodifiedListBlankRowsCount": 0,
             "ModifiedListsCount": 0,
             "ModifiedListVotesCount": 2,
-            "ListVotesCountOnOtherLists": 2,
+            "ListVotesCountOnOtherLists": 1,
             "ModifiedListBlankRowsCount": 0,
             "UnmodifiedListVotesCountInclBlankRows": 0,
             "ModifiedListVotesCountInclBlankRows": 2,
@@ -376,7 +376,7 @@
         "TotalCountOfListsWithParty": 6,
         "TotalCountOfLists": 8,
         "CountOfVoters": {
-          "VoterParticipation": 0.0005333333333333334,
+          "VoterParticipation": 0.0005333333333333333333333333,
           "EVotingReceivedBallots": 8,
           "EVotingInvalidBallots": 1,
           "EVotingBlankBallots": 1,

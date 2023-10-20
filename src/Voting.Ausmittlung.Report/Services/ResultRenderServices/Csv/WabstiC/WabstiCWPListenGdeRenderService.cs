@@ -50,7 +50,7 @@ public class WabstiCWPListenGdeRenderService : IRendererService
                 DomainOfInfluenceType = x.Result.ProportionalElection.DomainOfInfluence.Type,
                 VoteCountFromUnmodifiedLists = x.UnmodifiedListVotesCount,
                 VoteCountFromModifiedLists = x.ModifiedListVotesCount,
-                VoteCountFromOtherLists = x.ListVotesCountOnOtherLists,
+                BlankRowsCount = x.BlankRowsCount,
                 ElectionUnionIds = x.Result.ProportionalElection.ProportionalElectionUnionEntries
                     .Select(y => y.ProportionalElectionUnionId)
                     .OrderBy(y => y)
@@ -91,7 +91,7 @@ public class WabstiCWPListenGdeRenderService : IRendererService
         public int VoteCountFromModifiedLists { get; set; }
 
         [Name("StimmenZusatz")]
-        public int VoteCountFromOtherLists { get; set; }
+        public int BlankRowsCount { get; set; }
 
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }

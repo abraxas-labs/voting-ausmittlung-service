@@ -16,7 +16,7 @@ namespace Voting.Ausmittlung.EventSignature;
 public class ContestCache : IDisposable
 {
     private readonly Dictionary<Guid, ContestCacheEntry> _cacheEntries = new();
-    private readonly AsyncReaderWriterLock _lock = new AsyncReaderWriterLock();
+    private readonly AsyncReaderWriterLock _lock = new();
 
     /// <summary>
     /// Gets the contest cache entry. The caller should have a write lock per <see cref="BatchWrite"/> to ensure thread-safety.

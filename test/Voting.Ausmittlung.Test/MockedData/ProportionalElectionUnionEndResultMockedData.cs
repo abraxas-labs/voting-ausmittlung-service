@@ -609,6 +609,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
                                     (t, o) => t.Occupation = o,
                                     "Coiffeuse"),
+                                PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
                                 Origin = "origin",
                             },
                         },
@@ -735,15 +736,22 @@ public static class ProportionalElectionUnionEndResultMockedData
         result.SubmissionDoneTimestamp = MockedClock.GetDate(hoursDelta: -6);
         result.AuditedTentativelyTimestamp = MockedClock.GetDate(hoursDelta: -3);
         result.TotalCountOfVoters = 1000;
-        result.ConventionalSubTotal.TotalCountOfListsWithoutParty = 2;
-        result.ConventionalSubTotal.TotalCountOfModifiedLists = 20;
-        result.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 10;
+        result.ConventionalSubTotal.TotalCountOfListsWithoutParty = 1;
+        result.ConventionalSubTotal.TotalCountOfModifiedLists = 15;
+        result.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 7;
+        result.EVotingSubTotal.TotalCountOfListsWithoutParty = 1;
+        result.EVotingSubTotal.TotalCountOfModifiedLists = 5;
+        result.EVotingSubTotal.TotalCountOfUnmodifiedLists = 3;
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 250,
-            ConventionalInvalidBallots = 100,
-            ConventionalBlankBallots = 40,
-            ConventionalAccountedBallots = 110,
+            ConventionalReceivedBallots = 190,
+            ConventionalInvalidBallots = 80,
+            ConventionalBlankBallots = 30,
+            ConventionalAccountedBallots = 80,
+            EVotingReceivedBallots = 60,
+            EVotingInvalidBallots = 20,
+            EVotingBlankBallots = 10,
+            EVotingAccountedBallots = 30,
             VoterParticipation = .5m,
         };
 
@@ -819,13 +827,24 @@ public static class ProportionalElectionUnionEndResultMockedData
         var listResult = result.ListResults.Single(x => x.ListId == listId);
         var candidateResult = listResult.CandidateResults.Single(x => x.CandidateId == candidateId);
 
-        candidateResult.ConventionalSubTotal.ModifiedListVotesCount = modifiedVoteCount;
-        candidateResult.ConventionalSubTotal.UnmodifiedListVotesCount = unmodifiedVoteCount;
-        candidateResult.ConventionalSubTotal.CountOfVotesOnOtherLists = (int)(modifiedVoteCount * .2);
-        listResult.ConventionalSubTotal.ModifiedListBlankRowsCount += blankRowsCount;
-        listResult.ConventionalSubTotal.ModifiedListVotesCount += modifiedVoteCount;
-        listResult.ConventionalSubTotal.ListVotesCountOnOtherLists += (int)(modifiedVoteCount * .2);
-        listResult.ConventionalSubTotal.UnmodifiedListVotesCount += unmodifiedVoteCount;
+        var eVotingBlankRowsCount = blankRowsCount / 3;
+        var eVotingModifiedVoteCount = modifiedVoteCount / 3;
+        var eVotingUnmodifiedVoteCount = unmodifiedVoteCount / 3;
+
+        SetSubTotalVoteCounts(
+            listResult.ConventionalSubTotal,
+            candidateResult.ConventionalSubTotal,
+            blankRowsCount - eVotingBlankRowsCount,
+            modifiedVoteCount - eVotingModifiedVoteCount,
+            unmodifiedVoteCount - eVotingUnmodifiedVoteCount);
+
+        SetSubTotalVoteCounts(
+            listResult.EVotingSubTotal,
+            candidateResult.EVotingSubTotal,
+            eVotingBlankRowsCount,
+            eVotingModifiedVoteCount,
+            eVotingUnmodifiedVoteCount);
+
         if (listResult.List.Position % 2 == 0)
         {
             listResult.ConventionalSubTotal.ModifiedListsCount++;
@@ -844,5 +863,21 @@ public static class ProportionalElectionUnionEndResultMockedData
                     ConventionalVoteCount = x.Item2,
                 }).ToList();
         }
+    }
+
+    private static void SetSubTotalVoteCounts(
+        ProportionalElectionListResultSubTotal listResultSubTotal,
+        ProportionalElectionCandidateResultSubTotal candidateResultSubTotal,
+        int blankRowsCount,
+        int modifiedVoteCount,
+        int unmodifiedVoteCount)
+    {
+        candidateResultSubTotal.ModifiedListVotesCount = modifiedVoteCount;
+        candidateResultSubTotal.UnmodifiedListVotesCount = unmodifiedVoteCount;
+        candidateResultSubTotal.CountOfVotesOnOtherLists = (int)(modifiedVoteCount * .2);
+        listResultSubTotal.ModifiedListBlankRowsCount += blankRowsCount;
+        listResultSubTotal.ModifiedListVotesCount += modifiedVoteCount;
+        listResultSubTotal.ListVotesCountOnOtherLists += (int)(modifiedVoteCount * .2);
+        listResultSubTotal.UnmodifiedListVotesCount += unmodifiedVoteCount;
     }
 }

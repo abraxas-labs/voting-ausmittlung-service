@@ -15,9 +15,9 @@
       <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="6.0.0" />
       <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
       <PackageReference Include="Serilog.Expressions" Version="3.4.0" />
-      <PackageReference Include="Voting.Lib.Rest" Version="$(VotingLibVersion)" />
       <PackageReference Include="Voting.Lib.Grpc" Version="$(VotingLibVersion)" />
       <PackageReference Include="Voting.Lib.Prometheus" Version="$(VotingLibVersion)" />
+      <PackageReference Include="Voting.Lib.Rest" Version="$(VotingLibVersion)" />
       <PackageReference Include="Voting.Ausmittlung.Service.Proto" Version="$(VotingAusmittlungProtoVersion)" />
     </ItemGroup>
 

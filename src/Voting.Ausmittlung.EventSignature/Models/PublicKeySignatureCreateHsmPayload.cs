@@ -68,14 +68,16 @@ public class PublicKeySignatureCreateHsmPayload
         // changes here are event breaking and need another signature version.
         using var sha512 = SHA512.Create();
 
-        return ByteConverter.Concat(
-            SignatureVersion,
-            ContestId,
-            HostId,
-            KeyId,
-            sha512.ComputeHash(PublicKey),
-            ValidFrom,
-            ValidTo,
-            sha512.ComputeHash(AuthenticationTag));
+        using var byteConverter = new ByteConverter();
+        return byteConverter
+            .Append(SignatureVersion)
+            .Append(ContestId.ToString())
+            .Append(HostId)
+            .Append(KeyId)
+            .Append(sha512.ComputeHash(PublicKey))
+            .Append(ValidFrom)
+            .Append(ValidTo)
+            .Append(sha512.ComputeHash(AuthenticationTag))
+            .GetBytes();
     }
 }

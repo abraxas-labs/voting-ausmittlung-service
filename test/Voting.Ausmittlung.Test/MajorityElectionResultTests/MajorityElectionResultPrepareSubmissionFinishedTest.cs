@@ -30,8 +30,8 @@ public class MajorityElectionResultPrepareSubmissionFinishedTest : MajorityElect
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
-        response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Id.Should().BeEmpty();
+        response.Code.Should().BeEmpty();
     }
 
     [Fact]

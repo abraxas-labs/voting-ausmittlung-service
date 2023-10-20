@@ -102,17 +102,13 @@ public class ProportionalElectionResultProcessor :
                 throw new EntityNotFoundException(listId);
             }
 
-            if (enteredUnmodifiedListResult.VoteCount == unmodifiedListResult.VoteCount)
-            {
-                continue;
-            }
-
             if (!listResultsByListId.TryGetValue(listId, out var listResult))
             {
                 throw new EntityNotFoundException(listId);
             }
 
-            await _resultBuilder.UpdateVotesFromUnmodifiedListResult(listResult, enteredUnmodifiedListResult.VoteCount);
+            var voteCountDelta = enteredUnmodifiedListResult.VoteCount - unmodifiedListResult.ConventionalVoteCount;
+            await _resultBuilder.UpdateVotesFromUnmodifiedListResult(listResult, enteredUnmodifiedListResult.VoteCount, voteCountDelta);
 
             unmodifiedListResult.ConventionalVoteCount = enteredUnmodifiedListResult.VoteCount;
             unmodifiedListResultsToUpdate.Add(unmodifiedListResult);

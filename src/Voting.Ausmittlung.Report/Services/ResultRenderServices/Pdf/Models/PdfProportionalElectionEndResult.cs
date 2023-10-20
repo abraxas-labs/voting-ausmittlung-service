@@ -27,6 +27,10 @@ public class PdfProportionalElectionEndResult : PdfPoliticalBusinessEndResult
 
     public PdfProportionalElectionEndResultCalculation? Calculation { get; set; }
 
+    public PdfProportionalElectionResultSubTotal? ConventionalSubTotal { get; set; }
+
+    public PdfProportionalElectionResultSubTotal? EVotingSubTotal { get; set; }
+
     /// <summary>
     /// Gets or sets the total count of unmodified lists with a party.
     /// </summary>

@@ -9,6 +9,8 @@ using Voting.Lib.Common.Net;
 using Voting.Lib.Cryptography.Configuration;
 using Voting.Lib.Cryptography.HealthChecks;
 using Voting.Lib.Eventing.Configuration;
+using Voting.Lib.Iam.Services;
+using Voting.Lib.MalwareScanner.Configuration;
 using Voting.Lib.Messaging.Configuration;
 
 namespace Voting.Ausmittlung.Core.Configuration;
@@ -25,7 +27,7 @@ public class AppConfig
 
     public SecureConnectConfig SecureConnect { get; set; } = new();
 
-    public Uri? SecureConnectApi { get; set; }
+    public SecureConnectApiOptions SecureConnectApi { get; set; } = new();
 
     public RabbitMqConfig RabbitMq { get; set; } = new();
 
@@ -68,4 +70,6 @@ public class AppConfig
         Pkcs11DeviceHealthCheck.Name, // if the pkcs11 does not work, the system may still work 99% of the time, except if a public key needs to be signed / verified.
         nameof(TemporaryDataContext), // the temporary db only contains the mfa references which only affect a small number of actions.
     };
+
+    public MalwareScannerConfig MalwareScanner { get; set; } = new();
 }

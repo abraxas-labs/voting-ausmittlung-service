@@ -26,4 +26,8 @@ public class PdfMajorityElectionResult : PdfCountingCircleResult
     public List<PdfMajorityElectionCandidateResult>? CandidateResults { get; set; }
 
     public PdfPoliticalBusinessCountOfVoters? CountOfVoters { get; set; }
+
+    public PdfMajorityElectionResultSubTotal? EVotingSubTotal { get; set; }
+
+    public PdfMajorityElectionResultSubTotal? ConventionalSubTotal { get; set; }
 }

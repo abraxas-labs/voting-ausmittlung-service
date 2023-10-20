@@ -12,6 +12,16 @@
         <VoterParticipation>0.0394529195160441872698579695</VoterParticipation>
         <TotalReceivedBallots>750</TotalReceivedBallots>
         <TotalUnaccountedBallots>420</TotalUnaccountedBallots>
+        <EVotingReceivedBallots>60</EVotingReceivedBallots>
+        <EVotingInvalidBallots>20</EVotingInvalidBallots>
+        <EVotingBlankBallots>10</EVotingBlankBallots>
+        <EVotingAccountedBallots>30</EVotingAccountedBallots>
+        <EVotingTotalUnaccountedBallots>30</EVotingTotalUnaccountedBallots>
+        <ConventionalReceivedBallots>690</ConventionalReceivedBallots>
+        <ConventionalInvalidBallots>280</ConventionalInvalidBallots>
+        <ConventionalBlankBallots>110</ConventionalBlankBallots>
+        <ConventionalAccountedBallots>300</ConventionalAccountedBallots>
+        <ConventionalTotalUnaccountedBallots>390</ConventionalTotalUnaccountedBallots>
         <CountOfAccountedBallots>330</CountOfAccountedBallots>
         <CountOfInvalidBallots>300</CountOfInvalidBallots>
         <CountOfBlankBallots>120</CountOfBlankBallots>

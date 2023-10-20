@@ -10,4 +10,8 @@ public class PdfMajorityElectionCandidateEndResult : PdfElectionCandidateEndResu
     public PdfMajorityElectionCandidate? Candidate { get; set; }
 
     public MajorityElectionCandidateEndResultState State { get; set; }
+
+    public int ConventionalVoteCount { get; set; }
+
+    public int EVotingVoteCount { get; set; }
 }

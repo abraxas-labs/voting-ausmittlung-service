@@ -1,8 +1,7 @@
-Wahlkreis;Partei;Parteistärke;Fiktive Wählende (Partei);Gültige Wahlzettel (aller Wahlkreise);Total abgegebene Stimmen (aller Wahlkreise);Parteistimmen;Leere Stimmen
-Bund;SP de;76.36;245.84;330;1832;1377;45
-Bund;SVP de;23.64;76.12;220;1832;410;45
-Bund;;0.00;0.00;110;1832;0;45
-Uzwil;;0.00;0.00;110;647;0;20
-Uzwil;SP de;96.91;106.60;110;647;627;20
-Gossau;SVP de;34.60;76.12;220;1185;410;25
-Gossau;SP de;63.29;139.24;220;1185;750;25
+Wahlkreis;Partei;Parteistärke;Fiktive Wählende (Partei);Gültige Wahlzettel;Total abgegebene Stimmen;Parteistimmen;Leere Stimmen
+Bund;SP de;76.47;236.47;330;1907;1377;120
+Bund;SVP de;23.53;72.74;330;1907;410;120
+Gossau;SP de;64.66;133.06;220;1240;750;80
+Gossau;SVP de;35.34;72.74;220;1240;410;80
+Uzwil;SP de;100.00;103.40;110;667;627;40
+Uzwil;SVP de;0.00;0.00;110;667;0;40

@@ -30,7 +30,7 @@ public class MajorityElectionResultService : ServiceBase
     private readonly MajorityElectionResultWriter _majorityElectionResultWriter;
     private readonly MajorityElectionEndResultReader _majorityElectionEndResultReader;
     private readonly MajorityElectionEndResultWriter _majorityElectionEndResultWriter;
-    private readonly MajorityElectionResultValidationResultsBuilder _majorityElectionResultValidationResultsBuilder;
+    private readonly MajorityElectionResultValidationSummaryBuilder _majorityElectionResultValidationSummaryBuilder;
     private readonly IMapper _mapper;
 
     public MajorityElectionResultService(
@@ -38,14 +38,14 @@ public class MajorityElectionResultService : ServiceBase
         MajorityElectionResultWriter majorityElectionResultWriter,
         MajorityElectionEndResultReader majorityElectionEndResultReader,
         MajorityElectionEndResultWriter majorityElectionEndResultWriter,
-        MajorityElectionResultValidationResultsBuilder majorityElectionResultValidationResultsBuilder,
+        MajorityElectionResultValidationSummaryBuilder majorityElectionResultValidationSummaryBuilder,
         IMapper mapper)
     {
         _majorityElectionResultReader = majorityElectionResultReader;
         _majorityElectionResultWriter = majorityElectionResultWriter;
         _majorityElectionEndResultReader = majorityElectionEndResultReader;
         _majorityElectionEndResultWriter = majorityElectionEndResultWriter;
-        _majorityElectionResultValidationResultsBuilder = majorityElectionResultValidationResultsBuilder;
+        _majorityElectionResultValidationSummaryBuilder = majorityElectionResultValidationSummaryBuilder;
         _mapper = mapper;
     }
 
@@ -114,7 +114,7 @@ public class MajorityElectionResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(MajorityElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _majorityElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_SubmissionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(MajorityElectionResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -132,7 +132,7 @@ public class MajorityElectionResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(MajorityElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _majorityElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.MajorityElectionResult_CorrectionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(MajorityElectionResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -203,23 +203,23 @@ public class MajorityElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterCountOfVoters(ValidateEnterMajorityElectionCountOfVotersRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterCountOfVoters(ValidateEnterMajorityElectionCountOfVotersRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.Request.ElectionResultId);
         var countOfVoters = _mapper.Map<PoliticalBusinessCountOfVoters>(request.Request.CountOfVoters);
-        var results = await _majorityElectionResultValidationResultsBuilder.BuildEnterCountOfVotersValidationResults(
+        var results = await _majorityElectionResultValidationSummaryBuilder.BuildEnterCountOfVotersValidationSummary(
                 electionResultId,
                 countOfVoters);
-        return _mapper.Map<ProtoModels.ValidationOverview>(results);
+        return _mapper.Map<ProtoModels.ValidationSummary>(results);
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterCandidateResults(ValidateEnterMajorityElectionCandidateResultsRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterCandidateResults(ValidateEnterMajorityElectionCandidateResultsRequest request, ServerCallContext context)
     {
         var electionResultId = GuidParser.Parse(request.Request.ElectionResultId);
         var countOfVoters = _mapper.Map<PoliticalBusinessCountOfVoters>(request.Request.CountOfVoters);
         var candidateResults = _mapper.Map<IReadOnlyCollection<MajorityElectionCandidateResult>>(request.Request.CandidateResults);
         var secondaryResults = _mapper.Map<IReadOnlyCollection<SecondaryMajorityElectionCandidateResults>>(request.Request.SecondaryElectionCandidateResults);
-        var results = await _majorityElectionResultValidationResultsBuilder.BuildEnterCandidateResultsValidationResults(
+        var summary = await _majorityElectionResultValidationSummaryBuilder.BuildEnterCandidateResultsValidationSummary(
             electionResultId,
             countOfVoters,
             request.Request.IndividualVoteCount,
@@ -227,6 +227,6 @@ public class MajorityElectionResultService : ServiceBase
             request.Request.InvalidVoteCount,
             candidateResults,
             secondaryResults);
-        return _mapper.Map<ProtoModels.ValidationOverview>(results);
+        return _mapper.Map<ProtoModels.ValidationSummary>(summary);
     }
 }

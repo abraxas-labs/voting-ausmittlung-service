@@ -205,7 +205,8 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
     {
         row.ContestDate = vote.Contest.Date;
         row.PoliticalBusinessNumber = vote.PoliticalBusinessNumber;
-        row.DomainOfInfluenceType = MapDomainOfInfluenceType(vote.DomainOfInfluence.Type);
+        row.DomainOfInfluenceType = vote.DomainOfInfluence.Type.ToString().ToUpperInvariant();
+        row.DomainOfInfluenceTypeNumber = GetDomainOfInfluenceTypeNumber(vote.DomainOfInfluence.Type);
     }
 
     private void AttachBallotResultData(IReadOnlyDictionary<Guid, BallotResult?> ballotResultByCcId, Data data)
@@ -239,7 +240,7 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
         data.TieBreakCountTotal = GetTieBreakQuestionResultValueByNumber(tieBreakQuestionResultByNumber, 1, y => y.CountOfAnswerTotal);
     }
 
-    private int MapDomainOfInfluenceType(DomainOfInfluenceType type) => type switch
+    private int GetDomainOfInfluenceTypeNumber(DomainOfInfluenceType type) => type switch
     {
         DomainOfInfluenceType.Ch => 1,
         DomainOfInfluenceType.Ct or DomainOfInfluenceType.Bz => 2,
@@ -281,6 +282,9 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
 
         [Name("Vorlage-Nr.")]
         public string? PoliticalBusinessNumber { get; set; }
+
+        [Name("GeschäftsEbene")]
+        public string? DomainOfInfluenceType { get; set; }
 
         [Name("Gemeinde")]
         public string? CountingCircleName { get; set; }
@@ -362,7 +366,7 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
         public int? GeSubNr => null;
 
         [Name("GeEbene")]
-        public int DomainOfInfluenceType { get; set; }
+        public int DomainOfInfluenceTypeNumber { get; set; }
 
         [Name("StimmberInlandschweizerM")]
         public int? CountOfVotersSwissMales { get; set; }

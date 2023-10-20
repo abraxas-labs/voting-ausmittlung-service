@@ -14,13 +14,14 @@ public class ProportionalElectionResultSubmissionFinishedRequestTest : ProtoVali
     protected override IEnumerable<ProportionalElectionResultSubmissionFinishedRequest> OkMessages()
     {
         yield return NewValidRequest();
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
     }
 
     protected override IEnumerable<ProportionalElectionResultSubmissionFinishedRequest> NotOkMessages()
     {
         yield return NewValidRequest(x => x.ElectionResultId = "invalid-guid");
         yield return NewValidRequest(x => x.ElectionResultId = string.Empty);
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = "invalid-guid");
     }
 
     private ProportionalElectionResultSubmissionFinishedRequest NewValidRequest(Action<ProportionalElectionResultSubmissionFinishedRequest>? action = null)

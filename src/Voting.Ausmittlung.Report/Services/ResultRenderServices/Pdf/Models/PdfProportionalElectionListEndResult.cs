@@ -19,6 +19,10 @@ public class PdfProportionalElectionListEndResult
 
     public int? NumberOfMandates { get; set; }
 
+    public PdfProportionalElectionListResultSubTotal? ConventionalSubTotal { get; set; }
+
+    public PdfProportionalElectionListResultSubTotal? EVotingSubTotal { get; set; }
+
     /// <summary>
     /// Gets or sets the count of unmodified lists that were handed in for this list.
     /// </summary>

@@ -8,7 +8,8 @@ namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
 public class ContestCountingCircleDetailsReportEventProcessor :
     IReportEventProcessor<ContestCountingCircleDetailsCreated>,
-    IReportEventProcessor<ContestCountingCircleDetailsUpdated>
+    IReportEventProcessor<ContestCountingCircleDetailsUpdated>,
+    IReportEventProcessor<ContestCountingCircleDetailsResetted>
 {
     public EventLog? Process(ContestCountingCircleDetailsUpdated eventData, EventLogBuilderContext context)
     {
@@ -16,6 +17,11 @@ public class ContestCountingCircleDetailsReportEventProcessor :
     }
 
     public EventLog? Process(ContestCountingCircleDetailsCreated eventData, EventLogBuilderContext context)
+    {
+        return new() { CountingCircleId = GuidParser.Parse(eventData.CountingCircleId) };
+    }
+
+    public EventLog? Process(ContestCountingCircleDetailsResetted eventData, EventLogBuilderContext context)
     {
         return new() { CountingCircleId = GuidParser.Parse(eventData.CountingCircleId) };
     }

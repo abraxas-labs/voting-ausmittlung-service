@@ -13,14 +13,14 @@ using ValidationContext = Voting.Ausmittlung.Core.Services.Validation.Models.Val
 
 namespace Voting.Ausmittlung.Core.Services.Validation;
 
-public abstract class CountingCircleResultValidationResultsBuilder<T>
+public abstract class CountingCircleResultValidationSummaryBuilder<T>
     where T : CountingCircleResult
 {
     private readonly ContestRepo _contestRepo;
     private readonly ContestCountingCircleDetailsRepo _contestCountingCircleDetailsRepo;
     private readonly PermissionService _permissionService;
 
-    protected CountingCircleResultValidationResultsBuilder(
+    protected CountingCircleResultValidationSummaryBuilder(
         ContestRepo contestRepo,
         ContestCountingCircleDetailsRepo contestCountingCircleDetailsRepo,
         IMapper mapper,
@@ -34,18 +34,29 @@ public abstract class CountingCircleResultValidationResultsBuilder<T>
 
     protected IMapper Mapper { get; }
 
+    protected ValidationContext BuildValidationContext(
+        ContestCountingCircleDetails ccDetails,
+        PoliticalBusinessType politicalBusinessType,
+        bool isDetailedEntry,
+        DomainOfInfluenceType politicalBusinessDomainOfInfluenceType)
+    {
+        return new ValidationContext(
+            ccDetails.Contest.DomainOfInfluence,
+            ccDetails)
+        {
+            PoliticalBusinessType = politicalBusinessType,
+            IsDetailedEntry = isDetailedEntry,
+            PoliticalBusinessDomainOfInfluenceType = politicalBusinessDomainOfInfluenceType,
+        };
+    }
+
     protected void EnsureValidationPermissions(T result)
     {
         _permissionService.EnsureErfassungElectionAdmin();
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(result.CountingCircle, result.PoliticalBusiness.Contest);
     }
 
-    protected async Task<ValidationContext> BuildValidationContext(
-        Guid contestId,
-        Guid basisCcId,
-        PoliticalBusinessType politicalBusinessType,
-        bool isDetailedEntry,
-        DomainOfInfluenceType politicalBusinessDomainOfInfluenceType)
+    protected async Task<ContestCountingCircleDetails> GetContestCountingCircleDetails(Guid contestId, Guid basisCcId)
     {
         var contest = await _contestRepo.GetWithValidationContextData(contestId)
             ?? throw new EntityNotFoundException(contestId);
@@ -53,14 +64,6 @@ public abstract class CountingCircleResultValidationResultsBuilder<T>
         var ccDetails = await _contestCountingCircleDetailsRepo.GetWithResults(ccDetailsId)
             ?? new ContestCountingCircleDetails();
         ccDetails.Contest = contest;
-
-        return new ValidationContext(
-            contest.DomainOfInfluence,
-            ccDetails)
-        {
-            PoliticalBusinessType = politicalBusinessType,
-            IsDetailedEntry = isDetailedEntry,
-            PoliticalBusinessDomainOfInfluenceType = politicalBusinessDomainOfInfluenceType,
-        };
+        return ccDetails;
     }
 }

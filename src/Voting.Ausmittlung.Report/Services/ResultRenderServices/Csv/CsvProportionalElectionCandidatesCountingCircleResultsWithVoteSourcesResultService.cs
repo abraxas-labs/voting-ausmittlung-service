@@ -77,6 +77,8 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
                 CandidateTotalVoteCount = c.VoteCount,
                 ListBlankRowsCount = c.ListResult.BlankRowsCount,
                 ListTotalVoteCount = c.ListResult.TotalVoteCount,
+                TotalCountOfModifiedLists = c.ListResult.Result.TotalCountOfModifiedLists,
+                TotalCountOfListsWithoutParty = c.ListResult.Result.TotalCountOfListsWithoutParty,
                 VoteSources = c.VoteSources.ToList(),
                 SubmissionDoneTimestamp = c.ListResult.Result.SubmissionDoneTimestamp,
                 AuditedTentativelyTimestamp = c.ListResult.Result.AuditedTentativelyTimestamp,
@@ -199,6 +201,12 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
         public List<ProportionalElectionCandidateVoteSourceResult>? VoteSources { get; set; }
 
         public IDictionary? AllVoteSources { get; set; }
+
+        [Name("TotalWZVeraendert")]
+        public int TotalCountOfModifiedLists { get; set; }
+
+        [Name("TotalWZAmtlLeer")]
+        public int TotalCountOfListsWithoutParty { get; set; }
 
         [Name("SperrungVerantwortlich")]
         [TypeConverter(typeof(DateTimeConverter))]

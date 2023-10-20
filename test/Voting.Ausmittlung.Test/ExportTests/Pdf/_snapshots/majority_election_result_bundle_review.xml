@@ -35,6 +35,7 @@
       <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>8000</CountOfVoters>

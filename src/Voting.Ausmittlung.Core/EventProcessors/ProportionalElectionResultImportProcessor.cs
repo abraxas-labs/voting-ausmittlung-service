@@ -66,7 +66,7 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             var listResult = listResultsById[listId];
             var unmodifiedListResult = unmodifiedListResultsById[listId];
 
-            unmodifiedListResult.EVotingVoteCount = importedListResult.UnmodifiedListVotesCount;
+            unmodifiedListResult.EVotingVoteCount = importedListResult.UnmodifiedListsCount;
             listResult.EVotingSubTotal.UnmodifiedListsCount = importedListResult.UnmodifiedListsCount;
             listResult.EVotingSubTotal.UnmodifiedListVotesCount = importedListResult.UnmodifiedListVotesCount;
             listResult.EVotingSubTotal.UnmodifiedListBlankRowsCount = importedListResult.UnmodifiedListBlankRowsCount;

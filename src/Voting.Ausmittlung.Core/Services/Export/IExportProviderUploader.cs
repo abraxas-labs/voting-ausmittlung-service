@@ -1,12 +1,10 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
 
 namespace Voting.Ausmittlung.Core.Services.Export;
@@ -18,6 +16,5 @@ public interface IExportProviderUploader
     Task RenderAndUpload(
         ResultExportConfiguration export,
         IEnumerable<ReportRenderContext> reportContexts,
-        Func<FileModel, string, Task> afterUpload,
         CancellationToken ct);
 }

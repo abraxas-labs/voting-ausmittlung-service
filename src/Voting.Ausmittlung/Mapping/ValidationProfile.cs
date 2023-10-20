@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using DataModels = Voting.Ausmittlung.Core.Services.Validation.Models;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
@@ -60,8 +61,9 @@ public class ValidationProfile : Profile
         CreateMap<DataModels.ValidationComparisonVotingChannelsData, ProtoModels.ValidationComparisonVotingChannelsData>();
         CreateMap<DataModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData, ProtoModels.ValidationComparisonValidVotingCardsWithAccountedBallotsData>();
 
-        CreateMap<List<DataModels.ValidationResult>, ProtoModels.ValidationOverview>()
-            .ForMember(dst => dst.ValidationResults, opts => opts.MapFrom(src => src))
-            .ForMember(dst => dst.IsValid, opts => opts.MapFrom(src => src.IsValid()));
+        CreateMap<DataModels.ValidationSummary, ProtoModels.ValidationSummary>();
+        CreateMap<List<DataModels.ValidationSummary>, ProtoModels.ValidationSummaries>()
+            .ForMember(dst => dst.Summaries, opts => opts.MapFrom(src => src))
+            .ForMember(dst => dst.IsValid, opts => opts.MapFrom(src => src.All(x => x.ValidationResults.IsValid())));
     }
 }

@@ -140,9 +140,13 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     {
         var resultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
         var bundle1Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
+        var bundle2Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
 
         await CreateBallot();
         await CreateBallot();
+        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
+        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
+        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
 
         await ShouldHaveCandidateResults(false);
         await ShouldHaveListResults(false);
@@ -154,6 +158,32 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
                 BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
                 EventInfo = GetMockedEventInfo(),
             });
+
+        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
+            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+
+        var bundle = await GetBundle();
+        bundle.State.Should().Be(BallotBundleState.Reviewed);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.ElectionResult.TotalCountOfBallots.Should().Be(2);
+        bundle.ElectionResult.TotalCountOfLists.Should().Be(2);
+        bundle.ElectionResult.TotalCountOfModifiedLists.Should().Be(2);
+        bundle.ElectionResult.TotalCountOfUnmodifiedLists.Should().Be(0);
+        bundle.ElectionResult.TotalCountOfVoters.Should().Be(15_000);
+        bundle.ElectionResult.TotalCountOfListsWithoutParty.Should().Be(0);
+        bundle.ElectionResult.TotalCountOfListsWithParty.Should().Be(2);
+        bundle.ElectionResult.TotalCountOfBlankRowsOnListsWithoutParty.Should().Be(0);
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionResultBundleReviewSucceeded
+            {
+                BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle2,
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
+            x => x.Id == bundle2Id && x.ElectionResultId == resultId);
 
         await ShouldHaveCandidateResults(true);
         await ShouldHaveListResults(true);
@@ -191,21 +221,17 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
 
         listResults.MatchSnapshot(x => x.Id);
 
-        var bundle = await GetBundle();
+        bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Reviewed);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
-        bundle.ElectionResult.TotalCountOfBallots.Should().Be(2);
-        bundle.ElectionResult.TotalCountOfLists.Should().Be(2);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(0);
+        bundle.ElectionResult.TotalCountOfBallots.Should().Be(5);
+        bundle.ElectionResult.TotalCountOfLists.Should().Be(5);
         bundle.ElectionResult.TotalCountOfModifiedLists.Should().Be(2);
         bundle.ElectionResult.TotalCountOfUnmodifiedLists.Should().Be(0);
         bundle.ElectionResult.TotalCountOfVoters.Should().Be(15_000);
-        bundle.ElectionResult.TotalCountOfUnmodifiedLists.Should().Be(0);
-        bundle.ElectionResult.TotalCountOfListsWithoutParty.Should().Be(0);
+        bundle.ElectionResult.TotalCountOfListsWithoutParty.Should().Be(3);
         bundle.ElectionResult.TotalCountOfListsWithParty.Should().Be(2);
-        bundle.ElectionResult.TotalCountOfBlankRowsOnListsWithoutParty.Should().Be(0);
-
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        bundle.ElectionResult.TotalCountOfBlankRowsOnListsWithoutParty.Should().Be(3);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

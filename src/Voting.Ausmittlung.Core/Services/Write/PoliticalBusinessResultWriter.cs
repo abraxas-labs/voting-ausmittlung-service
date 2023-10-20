@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
 
@@ -21,14 +22,17 @@ public abstract class PoliticalBusinessResultWriter<T>
 {
     private readonly PermissionService _permissionService;
     private readonly ContestService _contestService;
+    private readonly IAuth _auth;
 
     protected PoliticalBusinessResultWriter(
         PermissionService permissionService,
         ContestService contestService,
+        IAuth auth,
         IAggregateRepository aggregateRepository)
     {
         _permissionService = permissionService;
         _contestService = contestService;
+        _auth = auth;
         AggregateRepository = aggregateRepository;
     }
 
@@ -161,6 +165,11 @@ public abstract class PoliticalBusinessResultWriter<T>
                                ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
 
         return new ActionId(action, resultAggregate, detailsAggregate);
+    }
+
+    protected bool IsSelfOwnedPoliticalBusiness(PoliticalBusiness politicalBusiness)
+    {
+        return politicalBusiness.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id;
     }
 
     protected abstract Task<T> LoadPoliticalBusinessResult(Guid resultId);

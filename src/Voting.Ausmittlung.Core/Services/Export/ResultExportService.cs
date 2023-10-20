@@ -334,22 +334,6 @@ public class ResultExportService
         await uploader.RenderAndUpload(
             export,
             reportContexts,
-            (file, fileId) =>
-            {
-                aggregate.AutomatedExportGenerated(
-                    export.ContestId,
-                    export.ExportConfigurationId,
-                    jobId,
-                    file.RenderContext!.Template.Key,
-                    file.RenderContext.BasisCountingCircleId,
-                    file.RenderContext.PoliticalBusinessIds,
-                    file.RenderContext.DomainOfInfluenceType,
-                    file.Filename,
-                    file.EchMessageId,
-                    fileId);
-
-                return Task.CompletedTask;
-            },
             ct);
 
         aggregate.AutomatedExportCompleted(export.ContestId, export.ExportConfigurationId, jobId, triggerMode);

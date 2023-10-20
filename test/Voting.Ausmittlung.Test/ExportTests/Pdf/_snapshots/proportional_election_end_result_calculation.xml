@@ -30,6 +30,16 @@
         <VoterParticipation>9.351202531645569620253164557</VoterParticipation>
         <TotalReceivedBallots>147749</TotalReceivedBallots>
         <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
+        <EVotingReceivedBallots>36937</EVotingReceivedBallots>
+        <EVotingInvalidBallots>500</EVotingInvalidBallots>
+        <EVotingBlankBallots>40</EVotingBlankBallots>
+        <EVotingAccountedBallots>36407</EVotingAccountedBallots>
+        <EVotingTotalUnaccountedBallots>540</EVotingTotalUnaccountedBallots>
+        <ConventionalReceivedBallots>110812</ConventionalReceivedBallots>
+        <ConventionalInvalidBallots>1498</ConventionalInvalidBallots>
+        <ConventionalBlankBallots>80</ConventionalBlankBallots>
+        <ConventionalAccountedBallots>109224</ConventionalAccountedBallots>
+        <ConventionalTotalUnaccountedBallots>1578</ConventionalTotalUnaccountedBallots>
         <CountOfAccountedBallots>145631</CountOfAccountedBallots>
         <CountOfInvalidBallots>1998</CountOfInvalidBallots>
         <CountOfBlankBallots>120</CountOfBlankBallots>
@@ -615,6 +625,7 @@
               <IsWinner>false</IsWinner>
             </HagenbachBischoffGroupDetail>
           </HagenbachBischoffCalculationRound>
+          <SumInitialDistributionNumberOfMandates>9</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffRootGroup>
         <HagenbachBischoffListUnionGroup>
           <ShortDescription>ListUnion 1 de</ShortDescription>
@@ -654,6 +665,7 @@
             <VoteCount>5836</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>3</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffListUnionGroup>
         <HagenbachBischoffListUnionGroup>
           <ShortDescription>ListUnion 2 de</ShortDescription>
@@ -686,6 +698,7 @@
             <VoteCount>15400</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>2</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffListUnionGroup>
         <HagenbachBischoffListUnionGroup>
           <ShortDescription>ListUnion 3 de</ShortDescription>
@@ -711,6 +724,7 @@
             <VoteCount>16134</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>5</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffListUnionGroup>
         <HagenbachBischoffListUnionGroup>
           <ShortDescription>ListUnion 4 de</ShortDescription>
@@ -743,6 +757,7 @@
             <VoteCount>22941</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>2</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffListUnionGroup>
         <HagenbachBischoffListUnionGroup>
           <ShortDescription>ListUnion 5 de</ShortDescription>
@@ -768,6 +783,7 @@
             <VoteCount>6924</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>0</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffListUnionGroup>
         <HagenbachBischoffSubListUnionGroup>
           <ShortDescription>ListSubUnion 1 de</ShortDescription>
@@ -793,6 +809,7 @@
             <VoteCount>259922</VoteCount>
             <NumberOfMandates>3</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>3</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffSubListUnionGroup>
         <HagenbachBischoffSubListUnionGroup>
           <ShortDescription>ListSubUnion 3 de</ShortDescription>
@@ -818,6 +835,7 @@
             <VoteCount>14356</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>2</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffSubListUnionGroup>
         <HagenbachBischoffSubListUnionGroup>
           <ShortDescription>ListSubUnion 5 de</ShortDescription>
@@ -843,15 +861,34 @@
             <VoteCount>14040</VoteCount>
             <NumberOfMandates>0</NumberOfMandates>
           </HagenbachBischoffInitialDistribution>
+          <SumInitialDistributionNumberOfMandates>0</SumInitialDistributionNumberOfMandates>
         </HagenbachBischoffSubListUnionGroup>
       </Calculation>
-      <TotalCountOfUnmodifiedLists>28613</TotalCountOfUnmodifiedLists>
-      <TotalCountOfModifiedLists>114479</TotalCountOfModifiedLists>
-      <TotalCountOfListsWithoutParty>1258</TotalCountOfListsWithoutParty>
-      <TotalCountOfBallots>115737</TotalCountOfBallots>
+      <ConventionalSubTotal>
+        <TotalCountOfUnmodifiedLists>21457</TotalCountOfUnmodifiedLists>
+        <TotalCountOfModifiedLists>85859</TotalCountOfModifiedLists>
+        <TotalCountOfListsWithoutParty>943</TotalCountOfListsWithoutParty>
+        <TotalCountOfBallots>86802</TotalCountOfBallots>
+        <TotalCountOfBlankRowsOnListsWithoutParty>11338</TotalCountOfBlankRowsOnListsWithoutParty>
+        <TotalCountOfListsWithParty>107316</TotalCountOfListsWithParty>
+        <TotalCountOfLists>108259</TotalCountOfLists>
+      </ConventionalSubTotal>
+      <EVotingSubTotal>
+        <TotalCountOfUnmodifiedLists>7146</TotalCountOfUnmodifiedLists>
+        <TotalCountOfModifiedLists>28612</TotalCountOfModifiedLists>
+        <TotalCountOfListsWithoutParty>313</TotalCountOfListsWithoutParty>
+        <TotalCountOfBallots>28925</TotalCountOfBallots>
+        <TotalCountOfBlankRowsOnListsWithoutParty>3778</TotalCountOfBlankRowsOnListsWithoutParty>
+        <TotalCountOfListsWithParty>35758</TotalCountOfListsWithParty>
+        <TotalCountOfLists>36071</TotalCountOfLists>
+      </EVotingSubTotal>
+      <TotalCountOfUnmodifiedLists>28603</TotalCountOfUnmodifiedLists>
+      <TotalCountOfModifiedLists>114471</TotalCountOfModifiedLists>
+      <TotalCountOfListsWithoutParty>1256</TotalCountOfListsWithoutParty>
+      <TotalCountOfBallots>115727</TotalCountOfBallots>
       <TotalCountOfBlankRowsOnListsWithoutParty>15116</TotalCountOfBlankRowsOnListsWithoutParty>
-      <TotalCountOfListsWithParty>143092</TotalCountOfListsWithParty>
-      <TotalCountOfLists>144350</TotalCountOfLists>
+      <TotalCountOfListsWithParty>143074</TotalCountOfListsWithParty>
+      <TotalCountOfLists>144330</TotalCountOfLists>
     </ProportionalElectionEndResult>
   </ProportionalElection>
   <DomainOfInfluence>
@@ -869,6 +906,7 @@
       <TotalCountOfValidVotingCards>8970</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>270</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
   </DomainOfInfluence>
 </Voting>

@@ -17,6 +17,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Data.Models;
@@ -206,8 +207,10 @@ public class ResultImportTest : BaseRestTest
                 .Should()
                 .HaveCount(0);
 
-            var events = new List<EventWithMetadata>();
-            events.Add(EventPublisherMock.GetSinglePublishedEventWithMetadata<ResultImportStarted>());
+            var events = new List<EventWithMetadata>
+            {
+                EventPublisherMock.GetSinglePublishedEventWithMetadata<ResultImportStarted>(),
+            };
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<ProportionalElectionResultImported>());
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<VoteResultImported>());
             events.AddRange(EventPublisherMock.GetPublishedEventsWithMetadata<MajorityElectionResultImported>());
@@ -541,16 +544,17 @@ public class ResultImportTest : BaseRestTest
     }
 
     [Fact]
-    public Task ProportionalElectionImportWithUnmodifiedBallotNoListShouldThrow()
+    public async Task ProportionalElectionImportWithUnmodifiedBallotNoListShouldWork()
     {
         TrySetFakeAuth();
         var req = NewSimpleProportionalElectionImportData();
         var ballot = req.PoliticalBusinessResults.OfType<EVotingElectionResult>().First().Ballots.First();
         ballot.Unmodified = true;
         ballot.ListId = null;
-        return AssertException<ValidationException>(
-            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
-            "an unmodified ballot does not have a list assigned");
+        await _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta);
+
+        var proportionalElectionImported = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().Single();
+        proportionalElectionImported.BlankBallotCount.Should().Be(1);
     }
 
     [Fact]
@@ -702,6 +706,17 @@ public class ResultImportTest : BaseRestTest
         }
 
         secondaryWriteIns.ShouldMatchChildSnapshot("secondaryWriteIns");
+
+        var contestId = Guid.Parse(ContestMockedData.IdStGallenEvoting);
+        await AssertHasPublishedMessage<ResultImportChanged>(x =>
+            x.ContestId == contestId
+            && x.CountingCircleId == CountingCircleMockedData.GuidUzwil
+            && x.HasWriteIns);
+
+        await AssertHasPublishedMessage<ResultImportChanged>(x =>
+            x.ContestId == contestId
+            && x.CountingCircleId == CountingCircleMockedData.GuidGossau
+            && !x.HasWriteIns);
     }
 
     [Fact]
@@ -799,7 +814,7 @@ public class ResultImportTest : BaseRestTest
     }
 
     private Uri BuildUri(Guid? contestId = null)
-        => new Uri($"api/result_import/{contestId?.ToString() ?? ContestMockedData.IdStGallenEvoting}", UriKind.RelativeOrAbsolute);
+        => new($"api/result_import/{contestId?.ToString() ?? ContestMockedData.IdStGallenEvoting}", UriKind.RelativeOrAbsolute);
 
     private EVotingImport NewSimpleProportionalElectionImportData(
         Guid? contestId = null,
@@ -962,7 +977,7 @@ public class ResultImportTest : BaseRestTest
                 .AsSplitQuery()
                 .Include(x => x.VotingCards)
                 .Include(x => x.CountOfVotersInformationSubTotals) // include these to ensure they are not modified
-                .Where(x => x.ContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.VotingCards.Any())
+                .Where(x => x.ContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.VotingCards.Count > 0)
                 .ToListAsync());
 
         foreach (var ccDetail in ccDetails)

@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -27,6 +28,14 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleRevi
         roles: RolesMockedData.ErfassungElectionAdmin);
 
     protected override string NewRequestExpectedFileName => "Bundkontrolle 2.pdf";
+
+    [Fact]
+    public async Task TestBundleWithoutParty()
+    {
+        var request = NewRequest();
+        request.PoliticalBusinessResultBundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdUzwilBundle1);
+        await TestPdfReport("_without_party", request, "Bundkontrolle 1.pdf");
+    }
 
     protected override async Task SeedData()
     {

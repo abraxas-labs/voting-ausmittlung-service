@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
@@ -24,6 +25,7 @@ public class VoteResultBundleWriter
 {
     private readonly IAggregateFactory _aggregateFactory;
     private readonly IDbRepository<DataContext, DataModels.VoteResult> _resultRepo;
+    private readonly IDbRepository<DataContext, DataModels.VoteResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, DataModels.BallotResult> _ballotResultRepo;
 
     public VoteResultBundleWriter(
@@ -31,13 +33,16 @@ public class VoteResultBundleWriter
         IAggregateFactory aggregateFactory,
         IDbRepository<DataContext, DataModels.VoteResult> resultRepo,
         IDbRepository<DataContext, DataModels.BallotResult> ballotResultRepo,
+        IDbRepository<DataContext, DataModels.VoteResultBundle> bundleRepo,
         PermissionService permissionService,
-        ContestService contestService)
-        : base(permissionService, contestService, aggregateRepository)
+        ContestService contestService,
+        IAuth auth)
+        : base(permissionService, contestService, auth, aggregateRepository)
     {
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;
         _ballotResultRepo = ballotResultRepo;
+        _bundleRepo = bundleRepo;
     }
 
     public async Task<VoteResultBundleAggregate> CreateBundle(
@@ -181,6 +186,9 @@ public class VoteResultBundleWriter
                    .FirstOrDefaultAsync(x => x.Id == resultId)
                ?? throw new EntityNotFoundException(resultId);
     }
+
+    protected override Task<bool> DoesBundleExist(Guid id)
+        => _bundleRepo.ExistsByKey(id);
 
     private async Task<DataModels.BallotResult> LoadBallotResult(Guid ballotResultId)
     {

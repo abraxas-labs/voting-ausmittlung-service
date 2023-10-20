@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
@@ -17,6 +18,8 @@ public class SimpleCountingCircleResultRepo : DbRepository<DataContext, SimpleCo
         : base(context)
     {
     }
+
+    internal string DelimetedTableName => DelimitedSchemaAndTableName;
 
     public async Task Reset(Guid contestId)
     {
@@ -71,4 +74,7 @@ public class SimpleCountingCircleResultRepo : DbRepository<DataContext, SimpleCo
         Set.AddRange(entriesToCreate);
         await Context.SaveChangesAsync();
     }
+
+    internal string GetColumnName<TProp>(Expression<Func<SimpleCountingCircleResult, TProp>> memberAccess)
+        => GetDelimitedColumnName(memberAccess);
 }

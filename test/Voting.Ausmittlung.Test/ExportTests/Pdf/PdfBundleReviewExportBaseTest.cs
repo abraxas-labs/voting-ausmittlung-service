@@ -42,6 +42,11 @@ public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
     public virtual async Task TestPdf()
     {
         var request = NewRequest();
+        await TestPdfReport(string.Empty, request, NewRequestExpectedFileName);
+    }
+
+    protected async Task TestPdfReport(string snapshotSuffix, GenerateResultBundleReviewExportRequest request, string expectedFileName)
+    {
         var response = await AssertStatus(
             () => TestClient.PostAsJsonAsync(ExportEndpoint, request),
             HttpStatusCode.OK);
@@ -49,13 +54,13 @@ public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
 
         var contentDisposition = response.Content.Headers.ContentDisposition;
         contentDisposition!.FileNameStar.Should().EndWith(PdfExtension);
-        contentDisposition.FileNameStar.Should().Be(NewRequestExpectedFileName);
+        contentDisposition.FileNameStar.Should().Be(expectedFileName);
         contentDisposition.DispositionType.Should().Be("attachment");
 
         // demo mock just returns the xml
         var xml = await response.Content.ReadAsStringAsync();
         var formattedXml = XmlUtil.FormatTestXml(xml);
-        formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{request.TemplateKey}.xml");
+        formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{request.TemplateKey}{snapshotSuffix}.xml");
     }
 
     protected abstract Task SeedData();

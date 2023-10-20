@@ -14,4 +14,6 @@ public class PdfProportionalElectionResultBallot
 
     [XmlElement("ProportionalElectionCandidate")]
     public List<PdfProportionalElectionResultBallotCandidate> BallotCandidates { get; set; } = new();
+
+    public bool AllOriginalCandidatesRemovedFromList { get; set; }
 }

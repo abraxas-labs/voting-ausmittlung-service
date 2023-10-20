@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,7 @@ using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.MalwareScanner.Services;
 
 namespace Voting.Ausmittlung.Core.Services.Write.Import;
 
@@ -39,6 +41,7 @@ public class ResultImportWriter
     private readonly SecondaryMajorityElectionResultImportWriter _secondaryMajorityElectionResultImportWriter;
     private readonly VoteResultImportWriter _voteResultImportWriter;
     private readonly AppConfig _appConfig;
+    private readonly IMalwareScannerService _malwareScannerService;
 
     public ResultImportWriter(
         ILogger<ResultImportWriter> logger,
@@ -52,7 +55,8 @@ public class ResultImportWriter
         MajorityElectionResultImportWriter majorityElectionResultImportWriter,
         SecondaryMajorityElectionResultImportWriter secondaryMajorityElectionResultImportWriter,
         VoteResultImportWriter voteResultImportWriter,
-        AppConfig appConfig)
+        AppConfig appConfig,
+        IMalwareScannerService malwareScannerService)
     {
         _logger = logger;
         _contestService = contestService;
@@ -66,6 +70,7 @@ public class ResultImportWriter
         _secondaryMajorityElectionResultImportWriter = secondaryMajorityElectionResultImportWriter;
         _majorityElectionResultImportWriter = majorityElectionResultImportWriter;
         _permissionService = permissionService;
+        _malwareScannerService = malwareScannerService;
     }
 
     public async Task DeleteResults(Guid contestId)
@@ -163,16 +168,21 @@ public class ResultImportWriter
         await _aggregateRepository.Save(aggregate);
     }
 
-    public async Task Import(ResultImportMeta importMeta)
+    public async Task Import(ResultImportMeta importMeta, CancellationToken ct)
     {
         _permissionService.EnsureMonitoringElectionAdmin();
 
+        // VOTING-3558: must be fixed: cert pinning problems with malwarescanner. code commentet for futher reactivation
+        // await _malwareScannerService.EnsureFileIsClean(importMeta.Ech0110FileContent, ct);
+        // await _malwareScannerService.EnsureFileIsClean(importMeta.Ech0222FileContent, ct);
+        // importMeta.Ech0222FileContent.Seek(0, SeekOrigin.Begin);
         var importData = Ech0222Deserializer.DeserializeXml(importMeta.Ech0222FileContent);
         if (importMeta.ContestId != importData.ContestId)
         {
             throw new ValidationException("contestIds do not match");
         }
 
+        // importMeta.Ech0110FileContent.Seek(0, SeekOrigin.Begin);
         var importedVotingCards = Ech0110Deserializer.DeserializeXml(importMeta.Ech0110FileContent);
         if (importMeta.ContestId != importedVotingCards.ContestId)
         {

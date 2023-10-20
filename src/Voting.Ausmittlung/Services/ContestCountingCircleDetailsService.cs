@@ -21,16 +21,16 @@ public class ContestCountingCircleDetailsService : ServiceBase
 {
     private readonly ContestCountingCircleDetailsWriter _writer;
     private readonly IMapper _mapper;
-    private readonly ContestCountingCircleDetailsValidationResultsBuilder _ccDetailsValidationResultsBuilder;
+    private readonly ContestCountingCircleDetailsValidationSummaryBuilder _ccDetailsValidationSummaryBuilder;
 
     public ContestCountingCircleDetailsService(
         ContestCountingCircleDetailsWriter writer,
         IMapper mapper,
-        ContestCountingCircleDetailsValidationResultsBuilder ccDetailsValidationResultsBuilder)
+        ContestCountingCircleDetailsValidationSummaryBuilder ccDetailsValidationSummaryBuilder)
     {
         _writer = writer;
         _mapper = mapper;
-        _ccDetailsValidationResultsBuilder = ccDetailsValidationResultsBuilder;
+        _ccDetailsValidationSummaryBuilder = ccDetailsValidationSummaryBuilder;
     }
 
     public override async Task<Empty> UpdateDetails(
@@ -42,12 +42,12 @@ public class ContestCountingCircleDetailsService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateUpdateDetails(
+    public override async Task<ProtoModels.ValidationSummary> ValidateUpdateDetails(
         ValidateUpdateContestCountingCircleDetailsRequest request,
         ServerCallContext context)
     {
         var ccDetails = _mapper.Map<ContestCountingCircleDetails>(request.Request);
-        var results = await _ccDetailsValidationResultsBuilder.BuildUpdateContestCountingCircleDetailsValidationResults(ccDetails);
-        return _mapper.Map<ProtoModels.ValidationOverview>(results);
+        var summary = await _ccDetailsValidationSummaryBuilder.BuildUpdateContestCountingCircleDetailsValidationSummary(ccDetails);
+        return _mapper.Map<ProtoModels.ValidationSummary>(summary);
     }
 }

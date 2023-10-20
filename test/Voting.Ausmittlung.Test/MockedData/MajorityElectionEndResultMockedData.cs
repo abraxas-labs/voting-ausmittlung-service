@@ -338,6 +338,10 @@ public static class MajorityElectionEndResultMockedData
         result.ConventionalSubTotal.IndividualVoteCount = 140;
         result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 10;
         result.ConventionalSubTotal.InvalidVoteCount = 20;
+        result.EVotingSubTotal.IndividualVoteCount = 140;
+        result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 10;
+        result.EVotingSubTotal.EmptyVoteCountWriteIns = 7;
+        result.EVotingSubTotal.InvalidVoteCount = 20;
 
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
@@ -346,6 +350,10 @@ public static class MajorityElectionEndResultMockedData
             ConventionalBlankBallots = 80,
             ConventionalAccountedBallots = 220,
             VoterParticipation = .5m,
+            EVotingReceivedBallots = 1000,
+            EVotingInvalidBallots = 400,
+            EVotingBlankBallots = 160,
+            EVotingAccountedBallots = 440,
         };
 
         var voteCountByCandidateId = new Dictionary<string, int>
@@ -361,13 +369,17 @@ public static class MajorityElectionEndResultMockedData
                 { CandidateId9InBallotGroup, 50 },
                 { CandidateId10InBallotGroup, 0 },
             };
-        result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Values.Sum();
+
+        // x + 6 for write-ins, x + 4 for non-write-ins
+        result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => (x.Value * 2) + 10);
 
         var candidateResults = result.CandidateResults.ToDictionary(x => x.CandidateId);
         foreach (var (candidateKey, candidateVoteCount) in voteCountByCandidateId)
         {
             var candidateId = Guid.Parse(candidateKey);
             candidateResults[candidateId].ConventionalVoteCount = candidateVoteCount;
+            candidateResults[candidateId].EVotingWriteInsVoteCount = candidateVoteCount + 6;
+            candidateResults[candidateId].EVotingExclWriteInsVoteCount = candidateVoteCount + 4;
         }
 
         var i = 0;
@@ -382,6 +394,10 @@ public static class MajorityElectionEndResultMockedData
         result.ConventionalSubTotal.IndividualVoteCount = 140 + modifier;
         result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 10 + modifier;
         result.ConventionalSubTotal.InvalidVoteCount = 20 + modifier;
+        result.EVotingSubTotal.IndividualVoteCount = 140 + modifier;
+        result.EVotingSubTotal.EmptyVoteCountWriteIns = 12 + modifier;
+        result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 10 + modifier;
+        result.EVotingSubTotal.InvalidVoteCount = 20 + modifier;
 
         var voteCountByCandidateId = new Dictionary<string, int>
             {
@@ -397,6 +413,9 @@ public static class MajorityElectionEndResultMockedData
 
         result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => x.Value);
 
+        // x + 6 for write-ins, x + 4 for non-write-ins
+        result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => (x.Value * 2) + 10);
+
         var candidateResults = result.CandidateResults.ToDictionary(x => x.CandidateId);
         foreach (var (candidateKey, candidateVoteCount) in voteCountByCandidateId)
         {
@@ -406,6 +425,8 @@ public static class MajorityElectionEndResultMockedData
             if (candidateResults.TryGetValue(candidateId, out var candidateResult))
             {
                 candidateResult.ConventionalVoteCount = candidateVoteCount;
+                candidateResult.EVotingWriteInsVoteCount = candidateVoteCount + 6;
+                candidateResult.EVotingExclWriteInsVoteCount = candidateVoteCount + 4;
             }
         }
     }

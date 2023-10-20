@@ -13,6 +13,10 @@ public class PdfProportionalElectionCandidateEndResult : PdfElectionCandidateEnd
 
     public ProportionalElectionCandidateEndResultState State { get; set; }
 
+    public PdfProportionalElectionCandidateResultSubTotal? ConventionalSubTotal { get; set; }
+
+    public PdfProportionalElectionCandidateResultSubTotal? EVotingSubTotal { get; set; }
+
     /// <summary>
     /// Gets or sets the count of votes gained from unmodified lists.
     /// </summary>

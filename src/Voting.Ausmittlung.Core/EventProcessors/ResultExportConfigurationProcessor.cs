@@ -14,7 +14,8 @@ using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
-public class ResultExportConfigurationProcessor : IEventProcessor<ResultExportConfigurationUpdated>
+public class ResultExportConfigurationProcessor : IEventProcessor<ResultExportConfigurationUpdated>,
+    IEventProcessor<ResultExportCompleted>
 {
     private readonly DataContext _dbContext;
     private readonly IClock _clock;
@@ -43,6 +44,19 @@ public class ResultExportConfigurationProcessor : IEventProcessor<ResultExportCo
         existingConfig.IntervalMinutes = eventData.ExportConfiguration.IntervalMinutes;
         existingConfig.UpdateNextExecution(_clock.UtcNow);
 
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task Process(ResultExportCompleted eventData)
+    {
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        var configId = GuidParser.Parse(eventData.ExportConfigurationId);
+        var existingConfig = await _dbContext.ResultExportConfigurations
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.ContestId == contestId && x.ExportConfigurationId == configId)
+            ?? throw new EntityNotFoundException(nameof(ResultExportConfiguration), new { contestId, configId });
+
+        existingConfig.LatestExecution = _clock.UtcNow;
         await _dbContext.SaveChangesAsync();
     }
 

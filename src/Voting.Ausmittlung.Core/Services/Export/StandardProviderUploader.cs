@@ -32,7 +32,6 @@ public class StandardProviderUploader : IExportProviderUploader
     public async Task RenderAndUpload(
         ResultExportConfiguration export,
         IEnumerable<ReportRenderContext> reportContexts,
-        Func<FileModel, string, Task> afterUpload,
         CancellationToken ct)
     {
         foreach (var reportContext in reportContexts)
@@ -50,8 +49,7 @@ public class StandardProviderUploader : IExportProviderUploader
 
             try
             {
-                var response = await _dokConnector.Upload(export.EaiMessageType, file.Filename, file.Write, ct);
-                await afterUpload(file, response.FileId);
+                await _dokConnector.Upload(export.EaiMessageType, file.Filename, file.Write, ct);
             }
             catch (Exception e)
             {

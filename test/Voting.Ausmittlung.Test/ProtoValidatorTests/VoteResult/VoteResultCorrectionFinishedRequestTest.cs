@@ -16,13 +16,14 @@ public class VoteResultCorrectionFinishedRequestTest : ProtoValidatorBaseTest<Vo
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Comment = string.Empty);
         yield return NewValidRequest(x => x.Comment = new string('A', 500));
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
     }
 
     protected override IEnumerable<VoteResultCorrectionFinishedRequest> NotOkMessages()
     {
         yield return NewValidRequest(x => x.VoteResultId = "invalid-guid");
         yield return NewValidRequest(x => x.VoteResultId = string.Empty);
-        yield return NewValidRequest(x => x.SecondFactorTransactionId = string.Empty);
+        yield return NewValidRequest(x => x.SecondFactorTransactionId = "invalid-guid");
         yield return NewValidRequest(x => x.Comment = "Wahlzettt\bel 1 falsch");
         yield return NewValidRequest(x => x.Comment = new string('A', 501));
     }

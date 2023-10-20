@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Services.Validation;
+using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
@@ -30,6 +32,7 @@ public class ResultReader
     private readonly MessageConsumerHub<ResultStateChanged> _resultStateChangeConsumer;
     private readonly PermissionService _permissionService;
     private readonly ILogger<ResultReader> _logger;
+    private readonly CountingCircleResultsValidationSummariesBuilder _countingCircleResultsValidationResultsBuilder;
 
     public ResultReader(
         ContestReader contestReader,
@@ -39,7 +42,8 @@ public class ResultReader
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         MessageConsumerHub<ResultStateChanged> resultStateChangeConsumer,
         PermissionService permissionService,
-        ILogger<ResultReader> logger)
+        ILogger<ResultReader> logger,
+        CountingCircleResultsValidationSummariesBuilder countingCircleResultsValidationResultsBuilder)
     {
         _contestReader = contestReader;
         _contestRepo = contestRepo;
@@ -49,6 +53,7 @@ public class ResultReader
         _logger = logger;
         _simpleResultRepo = simpleResultRepo;
         _resultStateChangeConsumer = resultStateChangeConsumer;
+        _countingCircleResultsValidationResultsBuilder = countingCircleResultsValidationResultsBuilder;
     }
 
     public async Task ListenToResultStateChanges(
@@ -173,5 +178,13 @@ public class ResultReader
 
         await _permissionService.EnsureCanReadCountingCircle(result.CountingCircleId, result.CountingCircle!.SnapshotContestId!.Value);
         return result.Comments!;
+    }
+
+    public async Task<List<ValidationSummary>> GetCountingCircleResultsValidationResults(
+        Guid contestId,
+        Guid basisCountingCircleId,
+        IReadOnlyCollection<Guid> resultIds)
+    {
+        return await _countingCircleResultsValidationResultsBuilder.BuildValidationSummaries(contestId, basisCountingCircleId, resultIds);
     }
 }

@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Database.Repositories;
@@ -22,7 +23,7 @@ public class ContestReader
     private readonly IDbRepository<DataContext, ProportionalElectionUnion> _proportionalElectionUnionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionUnion> _majorityElectionUnionRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluenceCountingCircle> _domainOfInfluenceCountingCircleRepo;
-    private readonly DomainOfInfluencePermissionRepo _permissionRepo;
+    private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
     private readonly PermissionService _permissionService;
 
     public ContestReader(
@@ -30,15 +31,15 @@ public class ContestReader
         IDbRepository<DataContext, ProportionalElectionUnion> proportionalElectionUnionRepo,
         IDbRepository<DataContext, MajorityElectionUnion> majorityElectionUnionRepo,
         IDbRepository<DataContext, DomainOfInfluenceCountingCircle> domainOfInfluenceCountingCircleRepo,
-        DomainOfInfluencePermissionRepo permissionRepo,
+        SimplePoliticalBusinessRepo simplePoliticalBusinessRepo,
         PermissionService permissionService)
     {
         _repo = repo;
-        _permissionRepo = permissionRepo;
         _permissionService = permissionService;
         _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
         _majorityElectionUnionRepo = majorityElectionUnionRepo;
         _domainOfInfluenceCountingCircleRepo = domainOfInfluenceCountingCircleRepo;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     public async Task<Contest> Get(Guid id)
@@ -88,54 +89,56 @@ public class ContestReader
         _permissionService.EnsureAnyRole();
         var tenantId = _permissionService.TenantId;
 
-        var countingCircleIdsQuery = _permissionRepo.Query();
+        // Careful! ListSummaries lists all accessible contests that were ever created.
+        // To find out which contests are accessible, we need to access the counting circles,
+        // which may be a huge number of entities, since they will grow with each created contest (due to snapshotting).
+        // Keep this in mind when refactoring this.
+        var query = _simplePoliticalBusinessRepo.BuildAccessibleQuery(tenantId)
+            .Where(pb => pb.Active && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection);
+
+        if (_permissionService.IsMonitoringElectionAdmin())
+        {
+            query = query.Where(pb => pb.DomainOfInfluence.SecureConnectId == tenantId);
+        }
 
         if (states.Count > 0)
         {
-            countingCircleIdsQuery = countingCircleIdsQuery.Where(x => states.Contains(x.Contest!.State));
+            query = query.Where(pb => states.Contains(pb.Contest.State));
         }
 
-        var countingCircleIdLists = await countingCircleIdsQuery
-            .Where(x => x.TenantId == tenantId)
-            .Select(x => x.CountingCircleIds) // select many does not work due to ef core limitations
+        var contestCounts = await query
+            .GroupBy(x => new { x.ContestId, DoiType = x.DomainOfInfluence.Type })
+            .Select(x => new { x.Key.ContestId, x.Key.DoiType, Count = x.Count() })
             .ToListAsync();
+        var countsByContestId = contestCounts
+            .GroupBy(x => x.ContestId)
+            .ToDictionary(x => x.Key);
 
-        var countingCircleIds = countingCircleIdLists
-            .SelectMany(x => x)
-            .ToHashSet();
-
-        var query = _repo.Query();
-        if (states.Count > 0)
-        {
-            query = query.Where(x => states.Contains(x.State));
-        }
-
-        var isMonitoringAdmin = _permissionService.IsMonitoringElectionAdmin();
-        return await query
+        // This does an IN query with all accessible contest IDs. Should be a manageable amount of IDs,
+        // since only a few contests are created per year.
+        var summaries = await _repo.Query()
             .AsSplitQuery()
             .Include(c => c.DomainOfInfluence)
             .Include(c => c.Translations)
-            .OrderByDescending(x => x.Date)
-            .Select(c => new ContestSummary
-            {
-                Contest = c,
-                ContestEntriesDetails = c.SimplePoliticalBusinesses
-                    .Where(pb =>
-                        pb.Active
-                        && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                        && (!isMonitoringAdmin || pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
-                        && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId)))
-                    .GroupBy(x => x.DomainOfInfluence.Type)
-                    .Select(x => new ContestSummaryEntryDetails
-                    {
-                        DomainOfInfluenceType = x.Key,
-                        ContestEntriesCount = x.Count(),
-                    })
-                    .OrderBy(x => x.DomainOfInfluenceType)
-                    .ToList(),
-            })
-            .Where(c => c.ContestEntriesDetails!.Any(x => x.ContestEntriesCount > 0))
+            .Where(c => countsByContestId.Keys.Contains(c.Id))
+            .Order(states)
+            .Select(c => new ContestSummary { Contest = c })
             .ToListAsync();
+
+        foreach (var summary in summaries)
+        {
+            var counts = countsByContestId[summary.Contest.Id];
+            summary.ContestEntriesDetails = counts
+                .OrderBy(x => x.DoiType)
+                .Select(c => new ContestSummaryEntryDetails
+                {
+                    DomainOfInfluenceType = c.DoiType,
+                    ContestEntriesCount = c.Count,
+                })
+                .ToList();
+        }
+
+        return summaries;
     }
 
     public async Task<IEnumerable<PoliticalBusinessUnion>> ListPoliticalBusinessUnions(Guid contestId)
@@ -218,26 +221,5 @@ public class ContestReader
             .Select(x => x.Id)
             .ToListAsync();
         return ids.ToHashSet();
-    }
-
-    internal async Task<IReadOnlySet<Guid>> GetOwnedPoliticalBusinessUnionIds(Guid contestId)
-    {
-        var proportionalElectionUnionIds = await _repo.Query()
-            .Where(x => x.Id == contestId)
-            .SelectMany(x => x.ProportionalElectionUnions)
-            .Where(x => x.SecureConnectId == _permissionService.TenantId)
-            .Select(x => x.Id)
-            .ToListAsync();
-
-        var majorityElectionUnionIds = await _repo.Query()
-            .Where(x => x.Id == contestId)
-            .SelectMany(x => x.MajorityElectionUnions)
-            .Where(x => x.SecureConnectId == _permissionService.TenantId)
-            .Select(x => x.Id)
-            .ToListAsync();
-
-        return proportionalElectionUnionIds
-            .Concat(majorityElectionUnionIds)
-            .ToHashSet();
     }
 }

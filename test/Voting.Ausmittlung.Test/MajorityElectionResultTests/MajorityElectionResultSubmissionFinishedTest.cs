@@ -1,6 +1,7 @@
 // (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
@@ -34,6 +35,14 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionFinished>().MatchSnapshot();
     }
 
@@ -72,6 +81,15 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         await AssertStatus(
             async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.PermissionDenied);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await AssertStatus(
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -196,7 +214,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -218,7 +236,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         });
 
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
+            async () => await BundErfassungElectionAdminClient.SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
             {
                 ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
                 SecondFactorTransactionId = invalidExternalId,
@@ -240,12 +258,14 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
-    private MajorityElectionResultSubmissionFinishedRequest NewValidRequest()
+    private MajorityElectionResultSubmissionFinishedRequest NewValidRequest(Action<MajorityElectionResultSubmissionFinishedRequest>? customizer = null)
     {
-        return new MajorityElectionResultSubmissionFinishedRequest
+        var req = new MajorityElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
             SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
         };
+        customizer?.Invoke(req);
+        return req;
     }
 }

@@ -45,6 +45,16 @@
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <EVotingReceivedBallots>0</EVotingReceivedBallots>
+          <EVotingInvalidBallots>0</EVotingInvalidBallots>
+          <EVotingBlankBallots>0</EVotingBlankBallots>
+          <EVotingAccountedBallots>0</EVotingAccountedBallots>
+          <EVotingTotalUnaccountedBallots>0</EVotingTotalUnaccountedBallots>
+          <ConventionalReceivedBallots>0</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>0</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>0</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>0</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>0</ConventionalTotalUnaccountedBallots>
           <CountOfAccountedBallots>0</CountOfAccountedBallots>
           <CountOfInvalidBallots>0</CountOfInvalidBallots>
           <CountOfBlankBallots>0</CountOfBlankBallots>
@@ -95,6 +105,16 @@
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <EVotingReceivedBallots>0</EVotingReceivedBallots>
+          <EVotingInvalidBallots>0</EVotingInvalidBallots>
+          <EVotingBlankBallots>0</EVotingBlankBallots>
+          <EVotingAccountedBallots>0</EVotingAccountedBallots>
+          <EVotingTotalUnaccountedBallots>0</EVotingTotalUnaccountedBallots>
+          <ConventionalReceivedBallots>0</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>0</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>0</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>0</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>0</ConventionalTotalUnaccountedBallots>
           <CountOfAccountedBallots>0</CountOfAccountedBallots>
           <CountOfInvalidBallots>0</CountOfInvalidBallots>
           <CountOfBlankBallots>0</CountOfBlankBallots>
@@ -194,6 +214,16 @@
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
+          <EVotingReceivedBallots>0</EVotingReceivedBallots>
+          <EVotingInvalidBallots>0</EVotingInvalidBallots>
+          <EVotingBlankBallots>0</EVotingBlankBallots>
+          <EVotingAccountedBallots>0</EVotingAccountedBallots>
+          <EVotingTotalUnaccountedBallots>0</EVotingTotalUnaccountedBallots>
+          <ConventionalReceivedBallots>0</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>0</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>0</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>0</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>0</ConventionalTotalUnaccountedBallots>
           <CountOfAccountedBallots>0</CountOfAccountedBallots>
           <CountOfInvalidBallots>0</CountOfInvalidBallots>
           <CountOfBlankBallots>0</CountOfBlankBallots>
@@ -250,6 +280,7 @@
       <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
       <ContestVotingCardDetail>
         <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
         <Valid>false</Valid>

@@ -2,12 +2,14 @@
 // For license information see LICENSE file
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Write;
 
@@ -20,8 +22,9 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
     protected PoliticalBusinessResultBundleWriter(
         PermissionService permissionService,
         ContestService contestService,
+        IAuth auth,
         IAggregateRepository aggregateRepository)
-        : base(permissionService, contestService, aggregateRepository)
+        : base(permissionService, contestService, auth, aggregateRepository)
     {
         _permissionService = permissionService;
     }
@@ -35,6 +38,9 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
     protected async Task<Guid> EnsureEditPermissionsForBundle(TResult result, TBundleAggregate bundleAggregate, bool requireElectionAdmin)
     {
         var contestId = await EnsurePoliticalBusinessPermissions(result, requireElectionAdmin);
+
+        await EnsureBundleExists(bundleAggregate.Id);
+
         if (_permissionService.IsErfassungElectionAdmin())
         {
             return contestId;
@@ -73,6 +79,21 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
             throw new ForbiddenException("The creator of a bundle can't review it.");
         }
 
+        await EnsureBundleExists(bundle.Id);
         return contestId;
+    }
+
+    protected abstract Task<bool> DoesBundleExist(Guid id);
+
+    private async Task EnsureBundleExists(Guid id)
+    {
+        // A bundle may not exist in the read model, if someone triggered a "*ResultEntryDefined"
+        // event (which deletes all bundles in the read model, but the aggregates still exist),
+        // between a bundle create and a ballot create event.
+        // That is why we do an additional check whether the bundle still exists here.
+        if (!await DoesBundleExist(id))
+        {
+            throw new ValidationException($"Bundle with id {id} not found, it may have been deleted in the meantime");
+        }
     }
 }

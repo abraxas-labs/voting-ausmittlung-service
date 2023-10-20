@@ -1,0 +1,20 @@
+{
+  "ExportConfigurationId": "506caf2f-1fe2-4266-8323-ad41b215faca",
+  "Contest": null,
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "PoliticalBusinesses": null,
+  "PoliticalBusinessMetadata": null,
+  "IntervalMinutes": 60,
+  "NextExecution": null,
+  "LatestExecution": "2020-01-10T13:12:10.2Z",
+  "DomainOfInfluence": null,
+  "DomainOfInfluenceId": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424",
+  "Description": "StGallen Interface 002",
+  "EaiMessageType": "002",
+  "ExportKeys": [
+    "vote_ech_0222",
+    "proportional_election_candidates_alphabetical"
+  ],
+  "Provider": 1,
+  "Id": "00000000-0000-0000-0000-000000000000"
+}

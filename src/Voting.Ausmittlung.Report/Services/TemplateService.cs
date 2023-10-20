@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CsvHelper;
 using Voting.Ausmittlung.Ech.Converters;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
@@ -36,10 +37,11 @@ public class TemplateService
     public FileModel RenderToCsv<TRow>(
         ReportRenderContext context,
         IEnumerable<TRow> records,
+        Action<IWriter>? configure = null,
         params string[] filenameArgs)
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
-        return new FileModel(context, fileName, ExportFileFormat.Csv, (w, ct) => _csvService.Render(w, records, ct));
+        return new FileModel(context, fileName, ExportFileFormat.Csv, (w, ct) => _csvService.Render(w, records, configure, ct));
     }
 
     public FileModel RenderToDynamicCsv<TRow>(

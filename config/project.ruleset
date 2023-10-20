@@ -5,6 +5,7 @@
         <Rule Id="SA1633" Action="None"/> <!-- file header -->
 
         <Rule Id="SA1101" Action="None"/> <!-- prefix local calls with this -->
+        <Rule Id="SA1124" Action="Info"/> <!-- do not use regions -->
 
         <Rule Id="SA0001" Action="None"/> <!-- documentation -->
         <Rule Id="SA1600" Action="None"/> <!-- documentation of public members -->

@@ -129,10 +129,11 @@ internal static class PublisherServiceCollection
         return services
             .AddScoped<IValidationResultsEnsurerUtils, ValidationResultsEnsurerUtils>()
             .AddScoped<ValidationResultsEnsurer>()
-            .AddScoped<VoteResultValidationResultsBuilder>()
-            .AddScoped<ProportionalElectionResultValidationResultsBuilder>()
-            .AddScoped<MajorityElectionResultValidationResultsBuilder>()
-            .AddScoped<ContestCountingCircleDetailsValidationResultsBuilder>()
+            .AddScoped<VoteResultValidationSummaryBuilder>()
+            .AddScoped<ProportionalElectionResultValidationSummaryBuilder>()
+            .AddScoped<MajorityElectionResultValidationSummaryBuilder>()
+            .AddScoped<ContestCountingCircleDetailsValidationSummaryBuilder>()
+            .AddScoped<CountingCircleResultsValidationSummariesBuilder>()
             .AddValidators();
     }
 

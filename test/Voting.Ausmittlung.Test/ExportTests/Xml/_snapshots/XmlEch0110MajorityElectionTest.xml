@@ -54,19 +54,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -103,7 +103,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -132,7 +132,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -161,7 +161,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -190,7 +190,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -219,7 +219,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -248,7 +248,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -277,7 +277,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -306,7 +306,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -335,7 +335,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -364,16 +364,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>
@@ -394,19 +394,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -443,7 +443,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -472,7 +472,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -501,7 +501,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -530,7 +530,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -559,7 +559,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -588,7 +588,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -617,7 +617,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -646,7 +646,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -675,7 +675,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -704,16 +704,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>
@@ -734,19 +734,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -783,7 +783,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -812,7 +812,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -841,7 +841,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -870,7 +870,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -899,7 +899,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -928,7 +928,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -957,7 +957,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -986,7 +986,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1015,7 +1015,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1044,16 +1044,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>
@@ -1074,19 +1074,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -1123,7 +1123,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1152,7 +1152,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1181,7 +1181,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1210,7 +1210,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1239,7 +1239,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1268,7 +1268,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1297,7 +1297,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1326,7 +1326,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1355,7 +1355,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1384,16 +1384,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>
@@ -1414,19 +1414,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -1463,7 +1463,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1492,7 +1492,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1521,7 +1521,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1550,7 +1550,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1579,7 +1579,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1608,7 +1608,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1637,7 +1637,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1666,7 +1666,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1695,7 +1695,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1724,16 +1724,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>
@@ -1754,19 +1754,19 @@
           <countOfVotersTotal>1000</countOfVotersTotal>
         </countOfVotersInformation>
         <countOfReceivedBallotsTotal>
-          <total>500</total>
+          <total>1500</total>
         </countOfReceivedBallotsTotal>
         <countOfAccountedBallots>
-          <total>220</total>
+          <total>660</total>
         </countOfAccountedBallots>
         <countOfUnaccountedBallots>
-          <total>280</total>
+          <total>840</total>
         </countOfUnaccountedBallots>
         <countOfUnaccountedBlankBallots>
-          <total>80</total>
+          <total>240</total>
         </countOfUnaccountedBlankBallots>
         <countOfUnaccountedInvalidBallots>
-          <total>200</total>
+          <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
           <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
@@ -1803,7 +1803,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>90</countOfVotesTotal>
+              <countOfVotesTotal>280</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1832,7 +1832,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>150</countOfVotesTotal>
+              <countOfVotesTotal>460</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1861,7 +1861,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>100</countOfVotesTotal>
+              <countOfVotesTotal>310</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1890,7 +1890,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>200</countOfVotesTotal>
+              <countOfVotesTotal>610</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1919,7 +1919,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>80</countOfVotesTotal>
+              <countOfVotesTotal>250</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1948,7 +1948,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>70</countOfVotesTotal>
+              <countOfVotesTotal>220</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -1977,7 +1977,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>60</countOfVotesTotal>
+              <countOfVotesTotal>190</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -2006,7 +2006,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>55</countOfVotesTotal>
+              <countOfVotesTotal>175</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -2035,7 +2035,7 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>50</countOfVotesTotal>
+              <countOfVotesTotal>160</countOfVotesTotal>
             </candidate>
             <candidate>
               <candidateInformation>
@@ -2064,16 +2064,16 @@
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
-              <countOfVotesTotal>0</countOfVotesTotal>
+              <countOfVotesTotal>10</countOfVotesTotal>
             </candidate>
             <countOfInvalidVotesTotal>
-              <total>20</total>
+              <total>40</total>
             </countOfInvalidVotesTotal>
             <countOfBlankVotesTotal>
-              <total>10</total>
+              <total>27</total>
             </countOfBlankVotesTotal>
             <countOfIndividualVotesTotal>
-              <total>140</total>
+              <total>280</total>
             </countOfIndividualVotesTotal>
           </majoralElection>
         </electionResults>

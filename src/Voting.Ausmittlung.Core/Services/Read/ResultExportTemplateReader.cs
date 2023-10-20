@@ -10,6 +10,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Configuration;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
@@ -18,6 +19,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Resources;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.Messaging;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository;
@@ -33,24 +35,42 @@ public class ResultExportTemplateReader
         AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key,
     };
 
+    private static readonly IReadOnlySet<string> _templateKeysCountingCircleEVoting = new HashSet<string>
+    {
+        AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
+        AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
+        AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
+    };
+
+    private static readonly IReadOnlySet<string> _templateKeysPoliticalBusinessEVoting = new HashSet<string>
+    {
+        AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key,
+        AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting.Key,
+        AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting.Key,
+    };
+
     private readonly ContestReader _contestReader;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepository;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepository;
+    private readonly IDbRepository<DataContext, Contest> _contestRepository;
     private readonly PermissionService _permissionService;
     private readonly IMapper _mapper;
     private readonly PublisherConfig _config;
     private readonly ILogger<ResultExportTemplateReader> _logger;
     private readonly MessageConsumerHub<ProtocolExportStateChanged> _protocolExportStateChangedConsumer;
+    private readonly IAuth _auth;
 
     public ResultExportTemplateReader(
         ContestReader contestReader,
         PermissionService permissionService,
         IDbRepository<DataContext, CountingCircle> countingCircleRepository,
         IDbRepository<DataContext, ProtocolExport> protocolExportRepository,
+        IDbRepository<DataContext, Contest> contestRepository,
         IMapper mapper,
         PublisherConfig config,
         ILogger<ResultExportTemplateReader> logger,
-        MessageConsumerHub<ProtocolExportStateChanged> protocolExportStateChangedConsumer)
+        MessageConsumerHub<ProtocolExportStateChanged> protocolExportStateChangedConsumer,
+        IAuth auth)
     {
         _contestReader = contestReader;
         _permissionService = permissionService;
@@ -60,6 +80,8 @@ public class ResultExportTemplateReader
         _protocolExportStateChangedConsumer = protocolExportStateChangedConsumer;
         _countingCircleRepository = countingCircleRepository;
         _protocolExportRepository = protocolExportRepository;
+        _contestRepository = contestRepository;
+        _auth = auth;
     }
 
     public async Task<ExportTemplateContainer<ResultExportTemplate>> ListDataExportTemplates(Guid contestId, Guid? basisCountingCircleId)
@@ -135,6 +157,34 @@ public class ResultExportTemplateReader
             templates = templates.Where(t => formatsToFilter.Contains(t.Format));
         }
 
+        var contest = await _contestRepository
+                          .Query()
+                          .Include(x => x.DomainOfInfluence)
+                          .FirstOrDefaultAsync(x => x.Id == contestId)
+                      ?? throw new EntityNotFoundException(contestId);
+
+        // activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
+        if (!_permissionService.IsMonitoringElectionAdmin() || !contest.TestingPhaseEnded || _auth.Tenant.Id != contest.DomainOfInfluence.SecureConnectId)
+        {
+            templates = templates.Where(t =>
+                t.Key != AusmittlungCsvContestTemplates.ActivityProtocol.Key
+                && t.Key != AusmittlungPdfContestTemplates.ActivityProtocol.Key);
+        }
+
+        // counting circle eVoting exports should only be available if eVoting is active for the counting circle
+        var countingCircle = await GetCountingCircle(contestId, basisCountingCircleId);
+        var ccDetails = countingCircle?.ContestDetails.FirstOrDefault();
+        if (ccDetails?.EVoting == false)
+        {
+            templates = templates.Where(t => !_templateKeysCountingCircleEVoting.Contains(t.Key));
+        }
+
+        // political business eVoting exports should only be available if eVoting is active for contest
+        if (!contest.EVoting)
+        {
+            templates = templates.Where(t => !_templateKeysPoliticalBusinessEVoting.Contains(t.Key));
+        }
+
         if (!templates.Any())
         {
             return Array.Empty<ResultExportTemplate>();
@@ -188,6 +238,7 @@ public class ResultExportTemplateReader
 
         await _permissionService.EnsureCanReadBasisCountingCircle(basisCountingCircleId.Value, contestId);
         return await _countingCircleRepository.Query()
+            .Include(x => x.ContestDetails.Where(co => co.ContestId == contestId))
             .FirstOrDefaultAsync(c => c.BasisCountingCircleId == basisCountingCircleId && c.SnapshotContestId == contestId);
     }
 

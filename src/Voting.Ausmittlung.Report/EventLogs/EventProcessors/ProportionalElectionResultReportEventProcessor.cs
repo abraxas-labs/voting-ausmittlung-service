@@ -19,7 +19,8 @@ public class ProportionalElectionResultReportEventProcessor :
     IReportEventProcessor<ProportionalElectionResultAuditedTentatively>,
     IReportEventProcessor<ProportionalElectionResultPlausibilised>,
     IReportEventProcessor<ProportionalElectionResultResettedToSubmissionFinished>,
-    IReportEventProcessor<ProportionalElectionResultResettedToAuditedTentatively>
+    IReportEventProcessor<ProportionalElectionResultResettedToAuditedTentatively>,
+    IReportEventProcessor<ProportionalElectionResultResetted>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.ProportionalElection;
 
@@ -78,6 +79,11 @@ public class ProportionalElectionResultReportEventProcessor :
     }
 
     public EventLog? Process(ProportionalElectionResultResettedToAuditedTentatively eventData, EventLogBuilderContext context)
+    {
+        return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
+    }
+
+    public EventLog? Process(ProportionalElectionResultResetted eventData, EventLogBuilderContext context)
     {
         return ProcessResult(GuidParser.Parse(eventData.ElectionResultId), context);
     }

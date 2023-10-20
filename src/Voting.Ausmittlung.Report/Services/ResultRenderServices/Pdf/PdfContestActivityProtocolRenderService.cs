@@ -11,14 +11,12 @@ using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Google.Protobuf.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.EventLogs;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Eventing.Protobuf;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
 
@@ -26,9 +24,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
-    private readonly IProtobufTypeRegistry _protoRegistry;
     private readonly IMapper _mapper;
-    private readonly ILogger<PdfContestActivityProtocolRenderService> _logger;
     private readonly EventLogsBuilder _eventLogsBuilder;
     private readonly EventLogBuilderContextBuilder _eventLogBuilderContextBuilder;
 
@@ -36,16 +32,12 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         TemplateService templateService,
         IDbRepository<DataContext, Contest> contestRepo,
         IMapper mapper,
-        IProtobufTypeRegistry protoRegistry,
-        ILogger<PdfContestActivityProtocolRenderService> logger,
         EventLogsBuilder eventLogsBuilder,
         EventLogBuilderContextBuilder eventLogBuilderContextBuilder)
     {
         _templateService = templateService;
         _contestRepo = contestRepo;
         _mapper = mapper;
-        _protoRegistry = protoRegistry;
-        _logger = logger;
         _eventLogsBuilder = eventLogsBuilder;
         _eventLogBuilderContextBuilder = eventLogBuilderContextBuilder;
     }
@@ -57,15 +49,11 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         var contest = await _contestRepo.Query()
             .AsSplitQuery()
             .Include(c => c.Translations)
-            .Include(c => c.SimplePoliticalBusinesses.Where(pb => ctx.PoliticalBusinessIds.Contains(pb.Id)))
-                .ThenInclude(pb => pb.DomainOfInfluence.CountingCircles)
-                    .ThenInclude(doiCc => doiCc.CountingCircle)
+            .Include(c => c.SimplePoliticalBusinesses)
             .AsSplitQuery()
             .FirstAsync(c => c.Id == ctx.ContestId, ct);
 
-        var basisCcIds = contest.SimplePoliticalBusinesses
-            .SelectMany(pb => pb.DomainOfInfluence.CountingCircles.Select(r => r.CountingCircle!.BasisCountingCircleId))
-            .Distinct();
+        var pbIds = contest.SimplePoliticalBusinesses.Select(x => x.Id);
 
         var pdfActivityProtocol = new PdfActivityProtocol
         {
@@ -73,15 +61,22 @@ public class PdfContestActivityProtocolRenderService : IRendererService
             Contest = _mapper.Map<PdfContest>(contest),
         };
 
-        var eventLogBuilderContext = await _eventLogBuilderContextBuilder.BuildContext(contest.Id, ctx.PoliticalBusinessIds, basisCcIds);
+        var eventLogBuilderContext = await _eventLogBuilderContextBuilder.BuildContext(contest.Id, pbIds);
 
         await foreach (var eventLog in _eventLogsBuilder.BuildBusinessEventLogs(contest, eventLogBuilderContext).WithCancellation(ct))
         {
+            if (eventLog.EventSignatureVerification == EventLogEventSignatureVerification.VerificationSuccess)
+            {
+                // Skip all events with a verified signature, which should be most of the events
+                // Otherwise, the PDF would get very big and likely couldn't be generated
+                continue;
+            }
+
             var pdfEvent = new PdfEvent
             {
                 Date = eventLog.Timestamp,
                 EventName = eventLog.EventFullName,
-                EventData = GetEventAttributes(eventLog).ToList(),
+                EventData = GetEventAttributes(eventLog.EventContent).ToList(),
                 Tenant = _mapper.Map<PdfEventTenant>(eventLog.EventTenant),
                 User = _mapper.Map<PdfEventUser>(eventLog.EventUser),
                 CountingCircle = _mapper.Map<PdfEventCountingCircle>(eventLog.CountingCircle),
@@ -101,7 +96,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
             {
                 Date = eventLog.Timestamp,
                 EventName = eventLog.EventFullName,
-                EventData = GetEventAttributes(eventLog).ToList(),
+                EventData = GetEventAttributes(eventLog.EventContent).ToList(),
                 Tenant = _mapper.Map<PdfEventTenant>(eventLog.EventTenant),
                 User = _mapper.Map<PdfEventUser>(eventLog.EventUser),
                 PublicKeyData = _mapper.Map<PdfEventPublicKeyData>(eventLog.PublicKeyData),
@@ -110,19 +105,6 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         }
 
         return await _templateService.RenderToPdf(ctx, pdfActivityProtocol);
-    }
-
-    private IEnumerable<PdfEventAttribute> GetEventAttributes(EventLog eventLog)
-    {
-        var descriptor = _protoRegistry.Find(eventLog.EventFullName);
-        if (descriptor == null)
-        {
-            _logger.LogError("could not find proto information for event {EventFullName}, skipping details for audit log", eventLog.EventFullName);
-            return Enumerable.Empty<PdfEventAttribute>();
-        }
-
-        var message = descriptor.Parser.ParseFrom(eventLog.EventContent);
-        return GetEventAttributes(message);
     }
 
     private IEnumerable<PdfEventAttribute> GetEventAttributes(IMessage? message)

@@ -175,6 +175,14 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         return (TService)Activator.CreateInstance(typeof(TService), CreateGrpcChannel(true, tenantId, userId, roles))!;
     }
 
+    protected TCustomService CreateService<TCustomService>(
+        string tenantId = TestDefaults.TenantId,
+        string userId = TestDefaults.UserId,
+        params string[] roles)
+    {
+        return (TCustomService)Activator.CreateInstance(typeof(TCustomService), CreateGrpcChannel(true, tenantId, userId, roles))!;
+    }
+
     protected int GetNextEventNumber()
     {
         return _currentEventNumber++;
@@ -207,6 +215,19 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         }
     }
 
+    protected async Task RunAllEvents(bool clear = true)
+    {
+        var events = EventPublisherMock.AllPublishedEvents.ToArray();
+        await TestEventPublisher.Publish(
+            _currentEventNumber,
+            events.Select(e => e.Data).ToArray());
+        _currentEventNumber += events.Length;
+        if (clear)
+        {
+            EventPublisherMock.Clear();
+        }
+    }
+
     protected void SetDynamicIdToDefaultValue(IEnumerable<BaseEntity> entities)
     {
         foreach (var entity in entities)
@@ -232,6 +253,11 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
     protected TService CreateServiceWithTenant(string tenantId, params string[] roles)
     {
         return (TService)Activator.CreateInstance(typeof(TService), CreateGrpcChannel(true, tenantId, "default-user-id", roles))!;
+    }
+
+    protected TCustomService CreateService<TCustomService>(params string[] roles)
+    {
+        return (TCustomService)Activator.CreateInstance(typeof(TCustomService), CreateGrpcChannel(roles))!;
     }
 
     private TService CreateService(params string[] roles)

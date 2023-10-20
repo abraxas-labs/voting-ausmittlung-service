@@ -7,30 +7,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Validators;
 using Voting.Ausmittlung.Core.Utils;
-using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Repositories;
-using Voting.Lib.Database.Repositories;
 using DataModels = Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Services.Validation;
 
-public class MajorityElectionResultValidationResultsBuilder : CountingCircleResultValidationResultsBuilder<DataModels.MajorityElectionResult>
+public class MajorityElectionResultValidationSummaryBuilder : CountingCircleResultValidationSummaryBuilder<DataModels.MajorityElectionResult>
 {
-    private readonly IDbRepository<DataContext, DataModels.MajorityElectionResult> _majorityElectionResultRepository;
+    private readonly MajorityElectionResultRepo _majorityElectionResultRepository;
     private readonly MajorityElectionResultBuilder _majorityElectionResultBuilder;
     private readonly IValidator<DataModels.MajorityElectionResult> _majorityElectionResultValidator;
 
-    public MajorityElectionResultValidationResultsBuilder(
+    public MajorityElectionResultValidationSummaryBuilder(
         ContestRepo contestRepo,
         ContestCountingCircleDetailsRepo contestCountingCircleDetailsRepo,
-        IDbRepository<DataContext, DataModels.MajorityElectionResult> majorityElectionResultRepository,
+        MajorityElectionResultRepo majorityElectionResultRepository,
         IMapper mapper,
         MajorityElectionResultBuilder majorityElectionResultBuilder,
         PermissionService permissionService,
@@ -42,14 +39,14 @@ public class MajorityElectionResultValidationResultsBuilder : CountingCircleResu
         _majorityElectionResultValidator = majorityElectionResultValidator;
     }
 
-    public async Task<List<ValidationResult>> BuildEnterCountOfVotersValidationResults(Guid electionResultId, PoliticalBusinessCountOfVoters countOfVoters)
+    public async Task<ValidationSummary> BuildEnterCountOfVotersValidationSummary(Guid electionResultId, PoliticalBusinessCountOfVoters countOfVoters)
     {
         var electionResult = await GetElectionResult(electionResultId);
         Mapper.Map(countOfVoters, electionResult.CountOfVoters);
-        return await BuildValidationResults(electionResult);
+        return new ValidationSummary(await BuildValidationResults(electionResult));
     }
 
-    public async Task<List<ValidationResult>> BuildEnterCandidateResultsValidationResults(
+    public async Task<ValidationSummary> BuildEnterCandidateResultsValidationSummary(
         Guid electionResultId,
         PoliticalBusinessCountOfVoters countOfVoters,
         int? individualVoteCount,
@@ -74,34 +71,31 @@ public class MajorityElectionResultValidationResultsBuilder : CountingCircleResu
 
         Mapper.Map(countOfVoters, electionResult.CountOfVoters);
 
-        return await BuildValidationResults(electionResult);
+        return new ValidationSummary(await BuildValidationResults(electionResult));
     }
 
     internal async Task<List<ValidationResult>> BuildValidationResults(DataModels.MajorityElectionResult electionResult)
     {
-        var context = await BuildValidationContext(
-            electionResult.MajorityElection.ContestId,
-            electionResult.CountingCircle.BasisCountingCircleId,
+        var ccDetails = await GetContestCountingCircleDetails(electionResult.MajorityElection.ContestId, electionResult.CountingCircle.BasisCountingCircleId);
+        return BuildValidationResults(electionResult, ccDetails);
+    }
+
+    internal List<ValidationResult> BuildValidationResults(DataModels.MajorityElectionResult electionResult, DataModels.ContestCountingCircleDetails ccDetails)
+    {
+        var context = BuildValidationContext(
+            ccDetails,
             DataModels.PoliticalBusinessType.MajorityElection,
             electionResult.Entry == DataModels.MajorityElectionResultEntry.Detailed,
             electionResult.MajorityElection.DomainOfInfluence.Type);
 
         context.CountOfVoters = electionResult.CountOfVoters;
-
         return _majorityElectionResultValidator.Validate(electionResult, context).ToList();
     }
 
     private async Task<DataModels.MajorityElectionResult> GetElectionResult(Guid electionResultId)
     {
-        var electionResult = await _majorityElectionResultRepository.Query()
-                .AsSplitQuery()
-                .Include(x => x.CountingCircle.ResponsibleAuthority)
-                .Include(x => x.MajorityElection.DomainOfInfluence.CantonDefaults)
-                .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
-                .Include(x => x.CandidateResults)
-                .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
-                .Include(x => x.BallotGroupResults)
-                .FirstOrDefaultAsync(x => x.Id == electionResultId)
+        var electionResult = (await _majorityElectionResultRepository.ListWithValidationContextData(x => x.Id == electionResultId, true))
+            .FirstOrDefault()
             ?? throw new EntityNotFoundException(nameof(DataModels.MajorityElectionResult), electionResultId);
 
         EnsureValidationPermissions(electionResult);

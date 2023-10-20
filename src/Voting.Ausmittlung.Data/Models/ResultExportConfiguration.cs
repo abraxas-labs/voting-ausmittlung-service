@@ -34,6 +34,8 @@ public class ResultExportConfiguration : ExportConfigurationBase
 
     public DateTime? NextExecution { get; set; }
 
+    public DateTime? LatestExecution { get; set; }
+
     public void UpdateNextExecution(DateTime now)
     {
         NextExecution = !IntervalMinutes.HasValue

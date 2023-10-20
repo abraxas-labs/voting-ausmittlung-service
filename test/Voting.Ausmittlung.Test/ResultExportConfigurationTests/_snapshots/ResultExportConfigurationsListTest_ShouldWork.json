@@ -10,7 +10,8 @@
       ],
       "IntervalMinutes": 60,
       "Provider": 2,
-      "PoliticalBusinessMetadata": {}
+      "PoliticalBusinessMetadata": {},
+      "LatestExecution": null
     },
     {
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -22,7 +23,8 @@
       ],
       "IntervalMinutes": 60,
       "Provider": 1,
-      "PoliticalBusinessMetadata": {}
+      "PoliticalBusinessMetadata": {},
+      "LatestExecution": null
     }
   ]
 }

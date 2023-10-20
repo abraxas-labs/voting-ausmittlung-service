@@ -4,14 +4,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
@@ -22,19 +26,25 @@ public class ResultImportReader
     private readonly IDbRepository<DataContext, MajorityElection> _majorityElectionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityWriteInMappingRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _majoritySecondaryWriteInMappingRepo;
+    private readonly ILogger<ResultImportReader> _logger;
+    private readonly MessageConsumerHub<ResultImportChanged> _resultImportChangeConsumer;
 
     public ResultImportReader(
         PermissionService permissionService,
         IDbRepository<DataContext, ResultImport> resultImportRepo,
         IDbRepository<DataContext, MajorityElection> majorityElectionRepo,
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityWriteInMappingRepo,
-        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> majoritySecondaryWriteInMappingRepo)
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> majoritySecondaryWriteInMappingRepo,
+        ILogger<ResultImportReader> logger,
+        MessageConsumerHub<ResultImportChanged> resultImportChangeConsumer)
     {
         _permissionService = permissionService;
         _resultImportRepo = resultImportRepo;
         _majorityElectionRepo = majorityElectionRepo;
         _majorityWriteInMappingRepo = majorityWriteInMappingRepo;
         _majoritySecondaryWriteInMappingRepo = majoritySecondaryWriteInMappingRepo;
+        _logger = logger;
+        _resultImportChangeConsumer = resultImportChangeConsumer;
     }
 
     public async Task<List<ResultImport>> GetResultImports(Guid contestId)
@@ -120,6 +130,25 @@ public class ResultImportReader
         }
 
         return new ImportMajorityElectionWriteInMappings(importId, mappingGroups);
+    }
+
+    public async Task ListenToResultImportChanges(
+        Guid contestId,
+        Guid countingCircleId,
+        Func<ResultImportChanged, Task> listener,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogDebug("Listening to result import changes for counting circle with id {CountingCircleId}", countingCircleId);
+
+        _permissionService.EnsureErfassungElectionAdmin();
+        await _permissionService.EnsureCanReadBasisCountingCircle(countingCircleId, contestId);
+
+        _logger.LogDebug("Listening permission is assured.");
+
+        await _resultImportChangeConsumer.Listen(
+            e => contestId == e.ContestId && countingCircleId == e.CountingCircleId,
+            listener,
+            cancellationToken);
     }
 
     private async Task<Guid?> GetLatestResultImportId(Guid contestId)

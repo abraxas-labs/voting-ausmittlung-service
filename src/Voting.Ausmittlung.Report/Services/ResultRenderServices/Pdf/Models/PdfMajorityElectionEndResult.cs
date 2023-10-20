@@ -25,6 +25,10 @@ public class PdfMajorityElectionEndResult : PdfPoliticalBusinessEndResult
 
     public int TotalVoteCount { get; set; }
 
+    public PdfMajorityElectionResultSubTotal? EVotingSubTotal { get; set; }
+
+    public PdfMajorityElectionResultSubTotal? ConventionalSubTotal { get; set; }
+
     [XmlElement("MajorityElectionCandidateEndResult")]
     public List<PdfMajorityElectionCandidateEndResult>? CandidateEndResults { get; set; }
 

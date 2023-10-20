@@ -10,6 +10,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Data.Models;
@@ -135,6 +136,46 @@ public class ExportServiceListProtocolExportsTest : BaseTest<ExportService.Expor
     }
 
     [Fact]
+    public async Task ActiveContestInMonitoringShouldIncludeActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        var response = await MonitoringElectionAdminClient.ListProtocolExportsAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungPdfContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.ProtocolExports_.Should().Contain(x => x.ExportTemplateId == exportTemplateId);
+    }
+
+    [Fact]
+    public async Task ActiveContestInErfassungShouldFilterActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        var response = await ErfassungElectionAdminClient.ListProtocolExportsAsync(NewValidRequest());
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungPdfContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.ProtocolExports_.Should().NotContain(x => x.ExportTemplateId == exportTemplateId);
+    }
+
+    [Fact]
+    public async Task ActiveContestInMonitoringNotContestManagerShouldFilterActivityProtocol()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+        var client = CreateServiceWithTenant(SecureConnectTestDefaults.MockedTenantGossau.Id, RolesMockedData.MonitoringElectionAdmin);
+        var response = await client.ListProtocolExportsAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungPdfContestTemplates.ActivityProtocol.Key,
+            CountingCircleMockedData.StGallen.ResponsibleAuthority.SecureConnectId).ToString();
+
+        response.ProtocolExports_.Should().NotContain(x => x.ExportTemplateId == exportTemplateId);
+    }
+
+    [Fact]
     public async Task InvalidVotesShouldFilter()
     {
         var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
@@ -155,6 +196,90 @@ public class ExportServiceListProtocolExportsTest : BaseTest<ExportService.Expor
         response = await MonitoringElectionAdminClient.ListProtocolExportsAsync(req);
 
         response.ProtocolExports_.Where(x => x.ExportTemplateId == exportTemplateId).Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task CountingCircleEVotingShouldFilter()
+    {
+        var exportTemplateIds = new List<string>
+        {
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: MajorityElectionMockedData.GossauMajorityElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id)
+                .ToString(),
+        };
+
+        var client = CreateServiceWithTenant(SecureConnectTestDefaults.MockedTenantGossau.Id, RolesMockedData.ErfassungElectionAdmin);
+        var req = NewValidRequest(x => x.CountingCircleId = CountingCircleMockedData.IdGossau);
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.PoliticalBusinessType == PoliticalBusinessType.MajorityElection,
+            pb => pb.EndResultFinalized = true);
+
+        var response = await client.ListProtocolExportsAsync(req);
+
+        response.ProtocolExports_.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().NotBeEmpty();
+
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau && x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            x => x.EVoting = false);
+
+        response = await client.ListProtocolExportsAsync(req);
+
+        response.ProtocolExports_.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task PoliticalBusinessEVotingShouldFilter()
+    {
+        var exportTemplateIds = new List<string>
+        {
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting.Key,
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
+                .ToString(),
+        };
+
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.PoliticalBusinessType == PoliticalBusinessType.MajorityElection || x.PoliticalBusinessType == PoliticalBusinessType.ProportionalElection,
+            pb => pb.EndResultFinalized = true);
+
+        var req = NewValidRequest(x => x.CountingCircleId = string.Empty);
+        var response = await StGallenMonitoringElectionAdminClient.ListProtocolExportsAsync(req);
+
+        response.ProtocolExports_.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().NotBeEmpty();
+
+        await ModifyDbEntities<Contest>(
+            x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            x => x.EVoting = false);
+
+        response = await StGallenMonitoringElectionAdminClient.ListProtocolExportsAsync(req);
+
+        response.ProtocolExports_.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
     }
 
     [Fact]

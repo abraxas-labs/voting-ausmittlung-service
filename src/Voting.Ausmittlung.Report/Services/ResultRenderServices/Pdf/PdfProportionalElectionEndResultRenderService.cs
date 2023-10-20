@@ -49,7 +49,7 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
         var proportionalElection = _mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         if (proportionalElection.EndResult != null)
         {
-            SetTotalListResults(proportionalElection.EndResult);
+            PdfProportionalElectionEndResultUtil.SetTotalListResults(proportionalElection.EndResult);
         }
 
         // reset the domain of influence on the result, since this is a single domain of influence report
@@ -94,36 +94,5 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
             .Include(x => x.ProportionalElection.DomainOfInfluence)
             .Include(x => x.ProportionalElection.Contest.Translations)
             .Include(x => x.ProportionalElection.Contest.DomainOfInfluence);
-    }
-
-    private void SetTotalListResults(PdfProportionalElectionEndResult result)
-    {
-        result.TotalListEndResult = new PdfProportionalElectionListEndResult
-        {
-            NumberOfMandates = result.ListEndResults.Sum(x => x.NumberOfMandates),
-            TotalVoteCount = result.ListEndResults.Sum(x => x.TotalVoteCount),
-            BlankRowsCount = result.ListEndResults.Sum(x => x.BlankRowsCount),
-            ListCount = result.ListEndResults.Sum(x => x.ListCount),
-            ListVotesCount = result.ListEndResults.Sum(x => x.ListVotesCount),
-            ModifiedListsCount = result.ListEndResults.Sum(x => x.ModifiedListsCount),
-            UnmodifiedListsCount = result.ListEndResults.Sum(x => x.UnmodifiedListsCount),
-            ModifiedListVotesCount = result.ListEndResults.Sum(x => x.ModifiedListVotesCount),
-            UnmodifiedListVotesCount = result.ListEndResults.Sum(x => x.UnmodifiedListVotesCount),
-            ModifiedListBlankRowsCount = result.ListEndResults.Sum(x => x.ModifiedListBlankRowsCount),
-            UnmodifiedListBlankRowsCount = result.ListEndResults.Sum(x => x.UnmodifiedListBlankRowsCount),
-        };
-        result.TotalListResultInclWithoutParty = new PdfProportionalElectionListEndResult
-        {
-            TotalVoteCount = result.TotalListEndResult.TotalVoteCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            BlankRowsCount = result.TotalListEndResult.BlankRowsCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            ListCount = result.TotalListEndResult.ListCount + result.TotalCountOfListsWithoutParty,
-            ListVotesCount = result.TotalListEndResult.ListVotesCount,
-            ModifiedListsCount = result.TotalListEndResult.ModifiedListsCount + result.TotalCountOfListsWithoutParty,
-            UnmodifiedListsCount = result.TotalListEndResult.UnmodifiedListsCount,
-            ModifiedListVotesCount = result.TotalListEndResult.ModifiedListVotesCount,
-            UnmodifiedListVotesCount = result.TotalListEndResult.UnmodifiedListVotesCount,
-            ModifiedListBlankRowsCount = result.TotalListEndResult.ModifiedListBlankRowsCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            UnmodifiedListBlankRowsCount = result.TotalListEndResult.UnmodifiedListBlankRowsCount,
-        };
     }
 }

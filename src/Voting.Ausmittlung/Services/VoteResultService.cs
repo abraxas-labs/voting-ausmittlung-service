@@ -32,7 +32,7 @@ public class VoteResultService : ServiceBase
     private readonly VoteResultWriter _voteResultWriter;
     private readonly VoteEndResultWriter _voteEndResultWriter;
     private readonly IMapper _mapper;
-    private readonly VoteResultValidationResultsBuilder _voteResultValidationResultsBuilder;
+    private readonly VoteResultValidationSummaryBuilder _voteResultValidationSummaryBuilder;
 
     public VoteResultService(
         IMapper mapper,
@@ -41,7 +41,7 @@ public class VoteResultService : ServiceBase
         VoteEndResultReader voteEndResultReader,
         VoteResultWriter voteResultWriter,
         VoteEndResultWriter voteEndResultWriter,
-        VoteResultValidationResultsBuilder voteResultValidationResultsBuilder)
+        VoteResultValidationSummaryBuilder voteResultValidationSummaryBuilder)
     {
         _mapper = mapper;
         _voteResultReader = voteResultReader;
@@ -49,7 +49,7 @@ public class VoteResultService : ServiceBase
         _voteEndResultReader = voteEndResultReader;
         _voteResultWriter = voteResultWriter;
         _voteEndResultWriter = voteEndResultWriter;
-        _voteResultValidationResultsBuilder = voteResultValidationResultsBuilder;
+        _voteResultValidationSummaryBuilder = voteResultValidationSummaryBuilder;
     }
 
     public override async Task<ProtoModels.VoteResult> Get(GetVoteResultRequest request, ServerCallContext context)
@@ -93,7 +93,7 @@ public class VoteResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(VoteResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> SubmissionFinished(VoteResultSubmissionFinishedRequest request, ServerCallContext context)
@@ -111,7 +111,7 @@ public class VoteResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(VoteResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
     public override async Task<Empty> CorrectionFinished(VoteResultCorrectionFinishedRequest request, ServerCallContext context)
@@ -174,27 +174,27 @@ public class VoteResultService : ServiceBase
         return _mapper.Map<ProtoModels.BallotResult>(result);
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterCountOfVoters(ValidateEnterVoteResultCountOfVotersRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterCountOfVoters(ValidateEnterVoteResultCountOfVotersRequest request, ServerCallContext context)
     {
         var id = GuidParser.Parse(request.Request.VoteResultId);
         var countOfVoters = _mapper.Map<List<VoteBallotResultsCountOfVoters>>(request.Request.ResultsCountOfVoters);
-        var results = await _voteResultValidationResultsBuilder.BuildEnterCountOfVotersValidationResults(id, countOfVoters);
-        return _mapper.Map<ProtoModels.ValidationOverview>(results);
+        var results = await _voteResultValidationSummaryBuilder.BuildEnterCountOfVotersValidationSummary(id, countOfVoters);
+        return _mapper.Map<ProtoModels.ValidationSummary>(results);
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterResults(ValidateEnterVoteResultsRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterResults(ValidateEnterVoteResultsRequest request, ServerCallContext context)
     {
         var id = GuidParser.Parse(request.Request.VoteResultId);
         var results = _mapper.Map<List<VoteBallotResults>>(request.Request.Results);
-        var validationResults = await _voteResultValidationResultsBuilder.BuildEnterResultsValidationResults(id, results);
-        return _mapper.Map<ProtoModels.ValidationOverview>(validationResults);
+        var validationResults = await _voteResultValidationSummaryBuilder.BuildEnterResultsValidationSummary(id, results);
+        return _mapper.Map<ProtoModels.ValidationSummary>(validationResults);
     }
 
-    public override async Task<ProtoModels.ValidationOverview> ValidateEnterCorrectionResults(ValidateEnterVoteResultCorrectionRequest request, ServerCallContext context)
+    public override async Task<ProtoModels.ValidationSummary> ValidateEnterCorrectionResults(ValidateEnterVoteResultCorrectionRequest request, ServerCallContext context)
     {
         var id = GuidParser.Parse(request.Request.VoteResultId);
         var results = _mapper.Map<List<VoteBallotResults>>(request.Request.Results);
-        var validationResults = await _voteResultValidationResultsBuilder.BuildEnterResultsValidationResults(id, results);
-        return _mapper.Map<ProtoModels.ValidationOverview>(validationResults);
+        var validationResults = await _voteResultValidationSummaryBuilder.BuildEnterResultsValidationSummary(id, results);
+        return _mapper.Map<ProtoModels.ValidationSummary>(validationResults);
     }
 }

@@ -2847,6 +2847,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("IntervalMinutes")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("LatestExecution")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime?>("NextExecution")
                         .HasColumnType("timestamp with time zone");
 

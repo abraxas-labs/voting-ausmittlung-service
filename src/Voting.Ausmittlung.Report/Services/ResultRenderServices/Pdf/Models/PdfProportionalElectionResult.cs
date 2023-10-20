@@ -19,6 +19,10 @@ public class PdfProportionalElectionResult : PdfCountingCircleResult
     [XmlElement("ProportionalElectionTotalListResultInclWithoutParty")]
     public PdfProportionalElectionListResult? TotalListResultInclWithoutParty { get; set; }
 
+    public PdfProportionalElectionResultSubTotal? ConventionalSubTotal { get; set; }
+
+    public PdfProportionalElectionResultSubTotal? EVotingSubTotal { get; set; }
+
     /// <summary>
     /// Gets or sets the total count of unmodified lists with a party.
     /// </summary>

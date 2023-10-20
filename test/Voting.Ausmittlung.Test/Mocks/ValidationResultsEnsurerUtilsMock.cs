@@ -9,7 +9,7 @@ namespace Voting.Ausmittlung.Test.Mocks;
 
 public class ValidationResultsEnsurerUtilsMock : IValidationResultsEnsurerUtils
 {
-    public void EnsureIsValid(List<ValidationResult> validationResults)
+    public void EnsureIsValid(IReadOnlyCollection<ValidationResult> validationResults)
     {
     }
 }

@@ -96,6 +96,11 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "2d230d39-bda6-55a7-a003-de7362b23553",
+      "Description": "WP_Gemeinden_BFS",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
       "Description": "WP_Kandidaten",
       "EntityDescription": "Pw SG de"

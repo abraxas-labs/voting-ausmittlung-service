@@ -14,5 +14,9 @@ public class PdfProportionalElectionResultProfile : Profile
         CreateMap<ProportionalElectionListResult, PdfProportionalElectionListResult>();
         CreateMap<ProportionalElectionCandidateResult, PdfProportionalElectionCandidateResult>();
         CreateMap<ProportionalElectionCandidateVoteSourceResult, PdfProportionalElectionCandidateVoteSourceResult>();
+
+        CreateMap<ProportionalElectionResultSubTotal, PdfProportionalElectionResultSubTotal>();
+        CreateMap<ProportionalElectionListResultSubTotal, PdfProportionalElectionListResultSubTotal>();
+        CreateMap<ProportionalElectionCandidateResultSubTotal, PdfProportionalElectionCandidateResultSubTotal>();
     }
 }

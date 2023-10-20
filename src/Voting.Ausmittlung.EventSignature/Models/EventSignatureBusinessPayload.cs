@@ -47,14 +47,16 @@ public class EventSignatureBusinessPayload
     // changes here are event breaking and need another signature version.
     public byte[] ConvertToBytesToSign()
     {
-        return ByteConverter.Concat(
-            SignatureVersion,
-            EventId,
-            StreamName,
-            EventData,
-            ContestId,
-            HostId,
-            KeyId,
-            Timestamp);
+        using var byteConverter = new ByteConverter();
+        return byteConverter
+            .Append(SignatureVersion)
+            .Append(EventId.ToString())
+            .Append(StreamName)
+            .Append(EventData)
+            .Append(ContestId.ToString())
+            .Append(HostId)
+            .Append(KeyId)
+            .Append(Timestamp)
+            .GetBytes();
     }
 }

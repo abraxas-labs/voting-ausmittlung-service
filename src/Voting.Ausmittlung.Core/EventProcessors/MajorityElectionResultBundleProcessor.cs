@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
@@ -38,6 +39,7 @@ public class MajorityElectionResultBundleProcessor
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
     private readonly MajorityElectionResultBuilder _resultBuilder;
     private readonly MessageProducerBuffer _bundleChangedMessageProducer;
+    private readonly ILogger<MajorityElectionResultBundleProcessor> _logger;
 
     public MajorityElectionResultBundleProcessor(
         IDbRepository<DataContext, MajorityElectionResult> resultRepo,
@@ -46,7 +48,8 @@ public class MajorityElectionResultBundleProcessor
         MajorityElectionResultBallotBuilder ballotBuilder,
         MajorityElectionCandidateResultBuilder candidateResultBuilder,
         MajorityElectionResultBuilder resultBuilder,
-        MessageProducerBuffer bundleChangedMessageProducer)
+        MessageProducerBuffer bundleChangedMessageProducer,
+        ILogger<MajorityElectionResultBundleProcessor> logger)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
@@ -55,6 +58,7 @@ public class MajorityElectionResultBundleProcessor
         _candidateResultBuilder = candidateResultBuilder;
         _resultBuilder = resultBuilder;
         _bundleChangedMessageProducer = bundleChangedMessageProducer;
+        _logger = logger;
     }
 
     public async Task Process(MajorityElectionResultBundleCreated eventData)
@@ -75,6 +79,21 @@ public class MajorityElectionResultBundleProcessor
     public async Task Process(MajorityElectionResultBallotCreated eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
+
+        // A bundle may not exist in the read model, if someone triggered a "MajorityElectionResultEntryDefined"
+        // event (which deletes all bundles in the read model, but the aggregates still exist),
+        // between a bundle create and a ballot create event.
+        // Thats why we just log and skip the processing of this event, if the bundle does not exist.
+        if (!await _bundleRepo.ExistsByKey(bundleId))
+        {
+            _logger.LogWarning(
+                "Could not process {EventName} with ballot number {BallotNumber} because the bundle {BundleId} does not exist. Skip processing",
+                nameof(MajorityElectionResultBallotCreated),
+                eventData.BallotNumber,
+                bundleId);
+            return;
+        }
+
         await _ballotBuilder.CreateBallot(bundleId, eventData);
         await UpdateCountOfBallots(bundleId, 1);
     }

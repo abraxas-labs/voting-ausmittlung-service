@@ -78,7 +78,7 @@ public class EventLogsBuilder
             var aggregateData = context.GetPublicKeyAggregateData(publicKeyValidationResult.KeyData.Key.Id)
                 ?? throw new InvalidOperationException("Aggregate data must not be null");
 
-            var createPublicKeySignatureEventLog = _eventLogBuilder.Build(aggregateData.CreateData.EventData);
+            var createPublicKeySignatureEventLog = _eventLogBuilder.BuildSignatureEventLog(aggregateData.CreateData.EventData);
             createPublicKeySignatureEventLog.PublicKeyData = new()
             {
                 SignatureValidationResultType = publicKeyValidationResult.CreatePublicKeySignatureValidationResultType,
@@ -91,7 +91,7 @@ public class EventLogsBuilder
                 continue;
             }
 
-            var deletePublicKeySignatureEventLog = _eventLogBuilder.Build(aggregateData.DeleteData.EventData);
+            var deletePublicKeySignatureEventLog = _eventLogBuilder.BuildSignatureEventLog(aggregateData.DeleteData.EventData);
             deletePublicKeySignatureEventLog.PublicKeyData = new()
             {
                 SignatureValidationResultType = publicKeyValidationResult.DeletePublicKeySignatureValidationResultType.Value,
