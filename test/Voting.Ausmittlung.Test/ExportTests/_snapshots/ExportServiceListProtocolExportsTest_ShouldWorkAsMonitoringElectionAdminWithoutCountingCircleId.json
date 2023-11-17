@@ -1,6 +1,24 @@
 {
   "ProtocolExports_": [
     {
+      "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
+      "Description": "Protokoll E-Voting Ergebnisse",
+      "EntityDescription": "",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "a4718007-f178-5e2a-b19f-4955bfb57151",
+      "Description": "Protokoll inkl. Details E-Voting",
+      "EntityDescription": "",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
       "ExportTemplateId": "fedcbd82-941d-53a6-ab2f-f68732d01a52",
       "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
       "EntityDescription": "St. Gallen different Tenant",

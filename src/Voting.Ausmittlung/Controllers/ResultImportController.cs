@@ -101,10 +101,10 @@ public class ResultImportController : ControllerBase
     // The temporary files are automatically deleted after the stream is disposed.
     private async Task<Stream> BufferToTemporaryFile(Stream stream)
     {
-        var filePath = Path.GetTempFileName();
+        var filePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         var fs = new FileStream(
             filePath,
-            FileMode.Open,
+            FileMode.CreateNew,
             FileAccess.ReadWrite,
             FileShare.None,
             BufferSize,

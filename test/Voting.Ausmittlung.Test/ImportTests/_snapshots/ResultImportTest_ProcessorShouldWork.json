@@ -92,18 +92,18 @@
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": null,
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 2,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 2,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   },
                   {
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 2,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 2,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   }
                 ],
@@ -137,18 +137,18 @@
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": null,
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 1,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 1,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   },
                   {
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 2,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 2,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   }
                 ],
@@ -283,18 +283,18 @@
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": null,
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 1,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 1,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   },
                   {
                     "CandidateResultId": "00000000-0000-0000-0000-000000000000",
                     "List": null,
                     "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
-                    "EVotingVoteCount": 0,
+                    "EVotingVoteCount": 1,
                     "ConventionalVoteCount": 0,
-                    "VoteCount": 0,
+                    "VoteCount": 1,
                     "Id": "00000000-0000-0000-0000-000000000000"
                   }
                 ],
@@ -352,12 +352,12 @@
         "PoliticalBusinessId": "fa69e964-0a02-4d16-b417-247e8987021a",
         "EVotingSubTotal": {
           "TotalCountOfUnmodifiedLists": 2,
-          "TotalCountOfModifiedLists": 4,
+          "TotalCountOfModifiedLists": 2,
           "TotalCountOfListsWithoutParty": 2,
-          "TotalCountOfBallots": 6,
+          "TotalCountOfBallots": 4,
           "TotalCountOfBlankRowsOnListsWithoutParty": 2,
-          "TotalCountOfListsWithParty": 6,
-          "TotalCountOfLists": 8
+          "TotalCountOfListsWithParty": 4,
+          "TotalCountOfLists": 6
         },
         "ConventionalSubTotal": {
           "TotalCountOfUnmodifiedLists": 0,
@@ -369,12 +369,12 @@
           "TotalCountOfLists": 0
         },
         "TotalCountOfUnmodifiedLists": 2,
-        "TotalCountOfModifiedLists": 4,
+        "TotalCountOfModifiedLists": 2,
         "TotalCountOfListsWithoutParty": 2,
-        "TotalCountOfBallots": 6,
+        "TotalCountOfBallots": 4,
         "TotalCountOfBlankRowsOnListsWithoutParty": 2,
-        "TotalCountOfListsWithParty": 6,
-        "TotalCountOfLists": 8,
+        "TotalCountOfListsWithParty": 4,
+        "TotalCountOfLists": 6,
         "CountOfVoters": {
           "VoterParticipation": 0.0005333333333333333333333333,
           "EVotingReceivedBallots": 8,

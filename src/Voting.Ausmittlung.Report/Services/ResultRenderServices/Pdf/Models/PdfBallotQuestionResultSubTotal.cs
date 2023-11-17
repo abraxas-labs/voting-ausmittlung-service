@@ -5,11 +5,8 @@ using System.Xml.Serialization;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
-public class PdfBallotQuestionResult
+public class PdfBallotQuestionResultSubTotal
 {
-    [XmlElement("BallotQuestion")]
-    public PdfBallotQuestion? Question { get; set; }
-
     [XmlElement("CountOfAnswerTotalYes")]
     public int TotalCountOfAnswerYes { get; set; }
 
@@ -24,8 +21,4 @@ public class PdfBallotQuestionResult
     public decimal PercentageYes { get; set; }
 
     public decimal PercentageNo { get; set; }
-
-    public PdfBallotQuestionResultSubTotal? EVotingSubTotal { get; set; }
-
-    public PdfBallotQuestionResultSubTotal? ConventionalSubTotal { get; set; }
 }

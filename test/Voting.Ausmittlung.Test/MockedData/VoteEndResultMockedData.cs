@@ -306,18 +306,18 @@ public static class VoteEndResultMockedData
             VoterParticipation = .45m,
         };
 
-        var questionAnswerCountsByQuestionId = new Dictionary<string, (int, int, int)>
+        var questionAnswerCountsByQuestionId = new Dictionary<string, (int, int, int, int, int, int)>
             {
-                { Ballot1QuestionId, (200, 100, 20) },
-                { Ballot2QuestionId1, (40, 100, 23) },
-                { Ballot2QuestionId2, (100, 50, 13) },
-                { Ballot2TieBreakQuestionId, (20, 30, 113) },
-                { Ballot3QuestionId1, (10, 200, 170) },
-                { Ballot3QuestionId2, (20, 210, 150) },
-                { Ballot3QuestionId3, (80, 90, 200) },
-                { Ballot3TieBreakQuestionId12, (100, 150, 120) },
-                { Ballot3TieBreakQuestionId13, (160, 100, 110) },
-                { Ballot3TieBreakQuestionId23, (80, 210, 90) },
+                { Ballot1QuestionId, (190, 95, 19, 10, 5, 1) },
+                { Ballot2QuestionId1, (38, 90, 20, 2, 10, 3) },
+                { Ballot2QuestionId2, (75, 50, 13, 25, 0, 0) },
+                { Ballot2TieBreakQuestionId, (20, 27, 113, 0, 3, 0) },
+                { Ballot3QuestionId1, (10, 200, 170, 0, 0, 0) },
+                { Ballot3QuestionId2, (5, 205, 150, 15, 5, 0) },
+                { Ballot3QuestionId3, (80, 90, 190, 0, 0, 10) },
+                { Ballot3TieBreakQuestionId12, (100, 150, 120, 0, 0, 0) },
+                { Ballot3TieBreakQuestionId13, (160, 100, 105, 0, 0, 5) },
+                { Ballot3TieBreakQuestionId23, (67, 210, 90, 13, 0, 0) },
             };
 
         foreach (var questionAnswerCountsKvp in questionAnswerCountsByQuestionId)
@@ -336,6 +336,9 @@ public static class VoteEndResultMockedData
             questionResult.ConventionalSubTotal.TotalCountOfAnswerYes = questionAnswerCountsKvp.Value.Item1;
             questionResult.ConventionalSubTotal.TotalCountOfAnswerNo = questionAnswerCountsKvp.Value.Item2;
             questionResult.ConventionalSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item3;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerYes = questionAnswerCountsKvp.Value.Item4;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerNo = questionAnswerCountsKvp.Value.Item5;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item6;
         }
 
         foreach (var questionAnswerCountsKvp in questionAnswerCountsByQuestionId)
@@ -354,6 +357,9 @@ public static class VoteEndResultMockedData
             questionResult.ConventionalSubTotal.TotalCountOfAnswerQ1 = questionAnswerCountsKvp.Value.Item1;
             questionResult.ConventionalSubTotal.TotalCountOfAnswerQ2 = questionAnswerCountsKvp.Value.Item2;
             questionResult.ConventionalSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item3;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerQ1 = questionAnswerCountsKvp.Value.Item4;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerQ2 = questionAnswerCountsKvp.Value.Item5;
+            questionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item6;
         }
     }
 }

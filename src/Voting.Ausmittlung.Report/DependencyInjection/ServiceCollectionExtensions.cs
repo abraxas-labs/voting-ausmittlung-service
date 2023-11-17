@@ -42,6 +42,7 @@ public static class ServiceCollectionExtensions
         return new ReportingServiceCollection(services)
             .AddCsvContestRenderServices()
             .AddWabstiCRenderServices()
+            .AddCsvVoteResultRenderServices()
             .AddCsvProportionalElectionResultRenderServices()
             .AddCsvProportionalElectionUnionResultRenderServices()
             .AddPdfContestRenderServices()
@@ -73,6 +74,12 @@ public static class ServiceCollectionExtensions
             .AddRendererService<CsvProportionalElectionUnionPartyMandatesRenderService>(AusmittlungCsvProportionalElectionUnionTemplates.PartyMandates)
             .AddRendererService<CsvProportionalElectionUnionPartyVotesRenderService>(AusmittlungCsvProportionalElectionUnionTemplates.PartyVotes)
             .AddRendererService<CsvProportionalElectionUnionVoterParticipationRenderService>(AusmittlungCsvProportionalElectionUnionTemplates.VoterParticipation);
+    }
+
+    private static IReportingServiceCollection AddCsvVoteResultRenderServices(this IReportingServiceCollection services)
+    {
+        return services
+            .AddRendererService<CsvVoteEVotingDetailsResultService>(AusmittlungCsvVoteTemplates.EVotingDetails);
     }
 
     private static IReportingServiceCollection AddWabstiCRenderServices(this IReportingServiceCollection services)
@@ -108,6 +115,9 @@ public static class ServiceCollectionExtensions
                 AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol,
                 AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol)
             .AddRendererService<PdfVoteResultRenderService>(AusmittlungPdfVoteTemplates.ResultProtocol)
+            .AddRendererService<PdfVoteEVotingDetailsResultRenderService>(AusmittlungPdfVoteTemplates.EVotingDetailsResultProtocol)
+            .AddRendererService<PdfVoteCountingCircleEVotingResultRenderService>(AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol)
+            .AddRendererService<PdfVoteEVotingResultRenderService>(AusmittlungPdfVoteTemplates.EVotingResultProtocol)
             .AddRendererService<PdfVoteResultBundleReviewRenderService>(AusmittlungPdfVoteTemplates.ResultBundleReview);
     }
 

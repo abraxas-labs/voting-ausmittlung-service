@@ -3,7 +3,6 @@
 
 using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using FluentValidation;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
@@ -27,6 +26,11 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
     public Guid ContestId { get; set; }
 
     public string CallbackToken { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the protocol export is completed or not.
+    /// </summary>
+    public bool IsCompleted { get; set; }
 
     internal void Start(
         Guid id,
@@ -101,8 +105,11 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
                 Id = Guid.Parse(ev.ProtocolExportId);
                 CallbackToken = ev.CallbackToken;
                 ContestId = GuidParser.Parse(ev.ContestId);
+                IsCompleted = false;
                 break;
             case ProtocolExportCompleted:
+                IsCompleted = true;
+                break;
             case ProtocolExportFailed:
                 break;
             default:
@@ -125,7 +132,7 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
         // "Older, outdated" callbacks have a token that does not match anymore.
         if (callbackToken != CallbackToken)
         {
-            throw new ValidationException("Callback token does not match");
+            throw new InvalidCallbackTokenException();
         }
     }
 }

@@ -1182,6 +1182,36 @@
         <TotalVoteCount>2905</TotalVoteCount>
       </ProportionalElectionListResult>
       <ProportionalElectionTotalListResult>
+        <ConventionalSubTotal>
+          <UnmodifiedListsCount>21457</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>257610</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>5670</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>85859</ModifiedListsCount>
+          <ModifiedListVotesCount>1030401</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>5668</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>263280</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>1036069</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>1288011</ListVotesCount>
+          <ListCount>107316</ListCount>
+          <BlankRowsCount>11338</BlankRowsCount>
+          <TotalVoteCount>1299349</TotalVoteCount>
+        </ConventionalSubTotal>
+        <EVotingSubTotal>
+          <UnmodifiedListsCount>7146</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>85875</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>1890</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>28612</ModifiedListsCount>
+          <ModifiedListVotesCount>343454</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>1888</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>87765</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>345342</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>429329</ListVotesCount>
+          <ListCount>35758</ListCount>
+          <BlankRowsCount>3778</BlankRowsCount>
+          <TotalVoteCount>433107</TotalVoteCount>
+        </EVotingSubTotal>
         <UnmodifiedListsCount>28603</UnmodifiedListsCount>
         <UnmodifiedListVotesCount>343485</UnmodifiedListVotesCount>
         <UnmodifiedListBlankRowsCount>7560</UnmodifiedListBlankRowsCount>
@@ -1196,6 +1226,36 @@
         <TotalVoteCount>1732456</TotalVoteCount>
       </ProportionalElectionTotalListResult>
       <ProportionalElectionTotalListResultInclWithoutParty>
+        <ConventionalSubTotal>
+          <UnmodifiedListsCount>21457</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>257610</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>5670</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>86802</ModifiedListsCount>
+          <ModifiedListVotesCount>1030401</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>17006</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>263280</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>1036069</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>1288011</ListVotesCount>
+          <ListCount>108259</ListCount>
+          <BlankRowsCount>22676</BlankRowsCount>
+          <TotalVoteCount>1310687</TotalVoteCount>
+        </ConventionalSubTotal>
+        <EVotingSubTotal>
+          <UnmodifiedListsCount>7146</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>85875</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>1890</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>28925</ModifiedListsCount>
+          <ModifiedListVotesCount>343454</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>5666</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>87765</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>345342</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>429329</ListVotesCount>
+          <ListCount>36071</ListCount>
+          <BlankRowsCount>7556</BlankRowsCount>
+          <TotalVoteCount>436885</TotalVoteCount>
+        </EVotingSubTotal>
         <UnmodifiedListsCount>28603</UnmodifiedListsCount>
         <UnmodifiedListVotesCount>343485</UnmodifiedListVotesCount>
         <UnmodifiedListBlankRowsCount>7560</UnmodifiedListBlankRowsCount>

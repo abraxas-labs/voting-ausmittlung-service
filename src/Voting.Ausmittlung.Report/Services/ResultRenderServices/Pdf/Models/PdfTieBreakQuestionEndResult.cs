@@ -26,4 +26,8 @@ public class PdfTieBreakQuestionEndResult
     public decimal PercentageQ2 { get; set; }
 
     public bool Q1Accepted { get; set; }
+
+    public PdfTieBreakQuestionResultSubTotal? EVotingSubTotal { get; set; }
+
+    public PdfTieBreakQuestionResultSubTotal? ConventionalSubTotal { get; set; }
 }

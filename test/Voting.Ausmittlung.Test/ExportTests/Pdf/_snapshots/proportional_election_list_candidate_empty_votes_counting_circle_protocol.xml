@@ -545,6 +545,36 @@
         <TotalVoteCount>0</TotalVoteCount>
       </ProportionalElectionListResult>
       <ProportionalElectionTotalListResult>
+        <ConventionalSubTotal>
+          <UnmodifiedListsCount>4</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>118</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>2</ModifiedListsCount>
+          <ModifiedListVotesCount>304</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>15</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>118</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>319</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>422</ListVotesCount>
+          <ListCount>6</ListCount>
+          <BlankRowsCount>15</BlankRowsCount>
+          <TotalVoteCount>437</TotalVoteCount>
+        </ConventionalSubTotal>
+        <EVotingSubTotal>
+          <UnmodifiedListsCount>0</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>55</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>0</ModifiedListsCount>
+          <ModifiedListVotesCount>150</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>5</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>55</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>155</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>205</ListVotesCount>
+          <ListCount>0</ListCount>
+          <BlankRowsCount>5</BlankRowsCount>
+          <TotalVoteCount>210</TotalVoteCount>
+        </EVotingSubTotal>
         <UnmodifiedListsCount>4</UnmodifiedListsCount>
         <UnmodifiedListVotesCount>173</UnmodifiedListVotesCount>
         <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
@@ -559,6 +589,36 @@
         <TotalVoteCount>647</TotalVoteCount>
       </ProportionalElectionTotalListResult>
       <ProportionalElectionTotalListResultInclWithoutParty>
+        <ConventionalSubTotal>
+          <UnmodifiedListsCount>4</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>118</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>3</ModifiedListsCount>
+          <ModifiedListVotesCount>304</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>15</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>118</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>319</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>422</ListVotesCount>
+          <ListCount>7</ListCount>
+          <BlankRowsCount>15</BlankRowsCount>
+          <TotalVoteCount>437</TotalVoteCount>
+        </ConventionalSubTotal>
+        <EVotingSubTotal>
+          <UnmodifiedListsCount>0</UnmodifiedListsCount>
+          <UnmodifiedListVotesCount>55</UnmodifiedListVotesCount>
+          <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
+          <ModifiedListsCount>1</ModifiedListsCount>
+          <ModifiedListVotesCount>150</ModifiedListVotesCount>
+          <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
+          <ModifiedListBlankRowsCount>5</ModifiedListBlankRowsCount>
+          <UnmodifiedListVotesCountInclBlankRows>55</UnmodifiedListVotesCountInclBlankRows>
+          <ModifiedListVotesCountInclBlankRows>155</ModifiedListVotesCountInclBlankRows>
+          <ListVotesCount>205</ListVotesCount>
+          <ListCount>1</ListCount>
+          <BlankRowsCount>5</BlankRowsCount>
+          <TotalVoteCount>210</TotalVoteCount>
+        </EVotingSubTotal>
         <UnmodifiedListsCount>4</UnmodifiedListsCount>
         <UnmodifiedListVotesCount>173</UnmodifiedListVotesCount>
         <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>

@@ -86,6 +86,14 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
         return (doiResults, notAssignableResult, aggregatedResult);
     }
 
+    internal void ApplyContestCountingCircleDetail(TResult result, ContestCountingCircleDetails ccDetail, DomainOfInfluenceType doiType)
+    {
+        var receivedVotingCards = ccDetail.SumVotingCards(doiType);
+        result.ContestDomainOfInfluenceDetails.TotalCountOfVoters += ccDetail.TotalCountOfVoters;
+        result.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards += receivedVotingCards.Valid;
+        result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards += receivedVotingCards.Invalid;
+    }
+
     protected abstract IEnumerable<TCountingCircleResult> GetResults(TPoliticalBusiness politicalBusiness);
 
     protected abstract int GetReportLevel(TPoliticalBusiness politicalBusiness);
@@ -95,14 +103,6 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
     protected abstract void ApplyCountingCircleResult(
         TResult doiResult,
         TCountingCircleResult ccResult);
-
-    private void ApplyContestCountingCircleDetail(TResult result, ContestCountingCircleDetails ccDetail, DomainOfInfluenceType doiType)
-    {
-        var receivedVotingCards = ccDetail.SumVotingCards(doiType);
-        result.ContestDomainOfInfluenceDetails.TotalCountOfVoters += ccDetail.TotalCountOfVoters;
-        result.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards += receivedVotingCards.Valid;
-        result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards += receivedVotingCards.Invalid;
-    }
 
     private void ResetCountingCircleDetail(ContestCountingCircleDetails ccDetails)
     {

@@ -26,4 +26,8 @@ public class PdfBallotQuestionEndResult
     public decimal PercentageNo { get; set; }
 
     public bool Accepted { get; set; }
+
+    public PdfBallotQuestionResultSubTotal? EVotingSubTotal { get; set; }
+
+    public PdfBallotQuestionResultSubTotal? ConventionalSubTotal { get; set; }
 }

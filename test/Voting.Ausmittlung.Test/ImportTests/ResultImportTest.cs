@@ -757,8 +757,8 @@ public class ResultImportTest : BaseRestTest
         {
             var proportionalElection = await GetProportionalElectionWithResults();
             var proportionalElectionResult = proportionalElection.Results.First();
-            proportionalElectionResult.EVotingSubTotal.TotalCountOfBallots.Should().Be(6);
-            proportionalElectionResult.TotalCountOfBallots.Should().Be(6);
+            proportionalElectionResult.EVotingSubTotal.TotalCountOfBallots.Should().Be(4);
+            proportionalElectionResult.TotalCountOfBallots.Should().Be(4);
 
             var majorityElection = await GetMajorityElectionWithResults();
             var majorityElectionResult = majorityElection.Results.First();

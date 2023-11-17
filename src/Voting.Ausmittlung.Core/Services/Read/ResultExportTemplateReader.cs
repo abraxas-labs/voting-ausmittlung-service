@@ -40,6 +40,7 @@ public class ResultExportTemplateReader
         AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
+        AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol.Key,
     };
 
     private static readonly IReadOnlySet<string> _templateKeysPoliticalBusinessEVoting = new HashSet<string>
@@ -47,6 +48,9 @@ public class ResultExportTemplateReader
         AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting.Key,
         AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting.Key,
+        AusmittlungPdfVoteTemplates.EVotingDetailsResultProtocol.Key,
+        AusmittlungPdfVoteTemplates.EVotingResultProtocol.Key,
+        AusmittlungCsvVoteTemplates.EVotingDetails.Key,
     };
 
     private readonly ContestReader _contestReader;
@@ -158,10 +162,10 @@ public class ResultExportTemplateReader
         }
 
         var contest = await _contestRepository
-                          .Query()
-                          .Include(x => x.DomainOfInfluence)
-                          .FirstOrDefaultAsync(x => x.Id == contestId)
-                      ?? throw new EntityNotFoundException(contestId);
+            .Query()
+            .Include(x => x.DomainOfInfluence)
+            .FirstOrDefaultAsync(x => x.Id == contestId)
+            ?? throw new EntityNotFoundException(contestId);
 
         // activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
         if (!_permissionService.IsMonitoringElectionAdmin() || !contest.TestingPhaseEnded || _auth.Tenant.Id != contest.DomainOfInfluence.SecureConnectId)

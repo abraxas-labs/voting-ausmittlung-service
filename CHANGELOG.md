@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.86.4`)
+# ✨ Changelog (`v1.91.2`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,105 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.86.4
-Previous version ---- v1.75.7
+This version -------- v1.91.2
+Previous version ---- v1.86.4
 Initial version ----- v1.29.14
-Total commits ------- 582
+Total commits ------- 15
 ```
+
+## [v1.91.2] - 2023-11-17
+
+### 🔄 Changed
+
+- udpate to latest voting-lib version to fix role cache
+
+## [v1.91.1] - 2023-11-17
+
+### :arrows_counterclockwise: Changed
+
+- add vote end results to e-voting details result export
+
+## [v1.91.0] - 2023-11-15
+
+### :new: Added
+
+- add vote e-voting CSV report
+
+## [v1.90.0] - 2023-11-10
+
+### 🆕 Added
+
+- add dmdoc callback fail policy
+- add dmdoc callback timeout parameter
+
+## [v1.89.0] - 2023-11-10
+
+### :new: Added
+
+- added vote e-voting details result protocols
+
+## [v1.88.0] - 2023-11-09
+
+### 🆕 Added
+
+- added vote result e-voting protocol
+
+## [v1.87.2] - 2023-11-08
+
+### 🔄 Changed
+
+- avoid raising of additional ProtocolExportCompleted events if aggregate state is already completed
+- delegate draft cleanup to background job by enqueuing it to cleanup queue
+- schedule draft content cleanup after successful callback
+- schedule hard draft cleanup for obsolete documents
+
+## [v1.87.1] - 2023-11-03
+
+### 🆕 Added
+
+- Add vote protocol e-voting fields
+
+## [v1.87.0] - 2023-11-02
+
+### 🔄 Changed
+
+- update lib to add dmdoc callback retry
+
+## [v1.86.10] - 2023-10-30
+
+### 🔄 Changed
+
+- clean up outdated draft on webhook callback
+
+## [v1.86.9] - 2023-10-25
+
+### 🔄 Changed
+
+- correctly calculate count of modified lists for e-voting proportional elections
+
+## [v1.86.8] - 2023-10-25
+
+### 🔄 Changed
+
+- correctly track e-voting vote sources
+
+## [v1.86.7] - 2023-10-24
+
+### 🔄 Changed
+
+- use secury temporary file name for evoting uploads
+
+## [v1.86.6] - 2023-10-23
+
+### 🔄 Changed
+
+- use latest lib to use new role token cache
+
+## [v1.86.5] - 2023-10-20
+
+### 🆕 Added
+
+- add logs for webhook callback
 
 ## [v1.86.4] - 2023-10-20
 
@@ -195,85 +289,57 @@ Total commits ------- 582
 
 - add sum of initial distribution number of mandates to pdf exports
 
-## [v1.80.6] - 2023-08-04
-
 ### 🔄 Changed
 
 - votes of ballots/bundles without a list should not count towards CountOfVotesOnOtherLists
-
-## [v1.80.5] - 2023-07-26
 
 ### 🔄 Changed
 
 - remove result export generated event and disable automatic exports during testing phase
 
-## [v1.80.4] - 2023-07-20
-
 ### 🔄 Changed
 
 - bundle review list without party
-
-## [v1.80.3] - 2023-07-18
 
 ### 🔄 Changed
 
 - rework party votes export
 
-## [v1.80.2] - 2023-07-14
-
 ### ❌ Removed
 
 - malwarescanner temporary unless resolved problem
-
-## [v1.80.1] - 2023-07-13
 
 ### 🔄 Changed
 
 - activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
 
-## [v1.80.0] - 2023-07-12
-
 ### ❌ Removed
 
 - remove second factor transaction for owned political businesses
-
-## [v1.79.0] - 2023-07-10
 
 ### 🆕 Added
 
 - malware scanner service
 
-## [v1.78.0] - 2023-06-28
-
 ### 🆕 Added
 
 - add import change listener
-
-## [v1.77.2] - 2023-06-23
 
 ### 🔄 Changed
 
 - Extend wabsti csg abstimmungsergebnisse export with domain of influence type
 
-## [v1.77.1] - 2023-06-23
-
 ### 🔄 Changed
 
 - Sort contests depending on states
-
-## [v1.77.0] - 2023-06-20
 
 ### 🆕 Added
 
 - Multiple counting circle results submission finished
 
-## [v1.76.5] - 2023-06-19
-
 ### 🔄 Changed
 
 - Add missing events to activity protocol
-
-## [v1.76.4] - 2023-06-19
 
 ### 🆕 Added
 
@@ -697,6 +763,90 @@ Total commits ------- 582
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.80.6] - 2023-08-04
+
+### 🔄 Changed
+
+- votes of ballots/bundles without a list should not count towards CountOfVotesOnOtherLists
+
+## [v1.80.5] - 2023-07-26
+
+### 🔄 Changed
+
+- remove result export generated event and disable automatic exports during testing phase
+
+## [v1.80.4] - 2023-07-20
+
+### 🔄 Changed
+
+- bundle review list without party
+
+## [v1.80.3] - 2023-07-18
+
+### 🔄 Changed
+
+- rework party votes export
+
+## [v1.80.2] - 2023-07-14
+
+### ❌ Removed
+
+- malwarescanner temporary unless resolved problem
+
+## [v1.80.1] - 2023-07-13
+
+### 🔄 Changed
+
+- activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
+
+## [v1.80.0] - 2023-07-12
+
+### ❌ Removed
+
+- remove second factor transaction for owned political businesses
+
+## [v1.79.0] - 2023-07-10
+
+### 🆕 Added
+
+- malware scanner service
+
+## [v1.78.0] - 2023-06-28
+
+### 🆕 Added
+
+- add import change listener
+
+## [v1.77.2] - 2023-06-23
+
+### 🔄 Changed
+
+- Extend wabsti csg abstimmungsergebnisse export with domain of influence type
+
+## [v1.77.1] - 2023-06-23
+
+### 🔄 Changed
+
+- Sort contests depending on states
+
+## [v1.77.0] - 2023-06-20
+
+### 🆕 Added
+
+- Multiple counting circle results submission finished
+
+## [v1.76.5] - 2023-06-19
+
+### 🔄 Changed
+
+- Add missing events to activity protocol
+
+## [v1.76.4] - 2023-06-19
+
+### 🆕 Added
+
+- Added modified lists count and lists without party count columns to csv proportional election candidates with vote sources export
 
 ## [v1.76.3] - 2023-06-18
 

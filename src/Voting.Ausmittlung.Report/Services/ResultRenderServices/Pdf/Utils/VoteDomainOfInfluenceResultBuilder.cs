@@ -15,7 +15,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 public class VoteDomainOfInfluenceResultBuilder
     : DomainOfInfluenceResultBuilder<Vote, VoteDomainOfInfluenceResult, VoteResult>
 {
-    private static readonly PropertyEqualityComparer<Ballot, Guid> BallotComparer = new PropertyEqualityComparer<Ballot, Guid>(b => b.Id);
+    internal static readonly PropertyEqualityComparer<Ballot, Guid> BallotComparer = new(b => b.Id);
 
     public VoteDomainOfInfluenceResultBuilder(DomainOfInfluenceRepo doiRepo)
         : base(doiRepo)
@@ -39,6 +39,22 @@ public class VoteDomainOfInfluenceResultBuilder
             .GroupBy(x => x.Ballot, x => x, BallotComparer)
             .OrderBy(x => x.Key.Position);
         return (groupedResults, notAssignableResult, aggregatedResult);
+    }
+
+    internal void ApplyVoteCountingCircleResult(VoteDomainOfInfluenceResult doiResult, VoteResult ccResult)
+        => ApplyCountingCircleResult(doiResult, ccResult);
+
+    internal void MapContestDetails(VoteDomainOfInfluenceResult result)
+    {
+        foreach (var ballotResult in result.BallotResults)
+        {
+            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters =
+                result.ContestDomainOfInfluenceDetails.TotalCountOfVoters;
+            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards =
+                result.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards;
+            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards =
+                result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards;
+        }
     }
 
     protected override IEnumerable<VoteResult> GetResults(Vote politicalBusiness) => politicalBusiness.Results;
@@ -106,18 +122,5 @@ public class VoteDomainOfInfluenceResultBuilder
             doiSubTotal.TotalCountOfAnswerQ2 += ccSubTotal.TotalCountOfAnswerQ2;
             doiSubTotal.TotalCountOfAnswerUnspecified += ccSubTotal.TotalCountOfAnswerUnspecified;
         });
-    }
-
-    private void MapContestDetails(VoteDomainOfInfluenceResult result)
-    {
-        foreach (var ballotResult in result.BallotResults)
-        {
-            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters =
-                result.ContestDomainOfInfluenceDetails.TotalCountOfVoters;
-            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards =
-                result.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards;
-            ballotResult.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards =
-                result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards;
-        }
     }
 }

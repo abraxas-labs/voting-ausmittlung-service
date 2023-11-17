@@ -70,7 +70,7 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
 
         var proportionalElection = _mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         var result = proportionalElection.Results[0];
-        SetTotalListResults(result);
+        PdfProportionalElectionResultUtil.SetTotalListResults(result);
 
         var countingCircle = result.CountingCircle!;
         result.CountingCircle = null;
@@ -121,39 +121,5 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
 
     protected virtual void PreparePdfData(PdfTemplateBag templateBag)
     {
-    }
-
-    private void SetTotalListResults(PdfProportionalElectionResult result)
-    {
-        result.TotalListResult = new PdfProportionalElectionListResult
-        {
-            TotalVoteCount = result.ListResults.Sum(x => x.TotalVoteCount),
-            BlankRowsCount = result.ListResults.Sum(x => x.BlankRowsCount),
-            ListCount = result.ListResults.Sum(x => x.ListCount),
-            ListVotesCount = result.ListResults.Sum(x => x.ListVotesCount),
-            ModifiedListsCount = result.ListResults.Sum(x => x.ModifiedListsCount),
-            UnmodifiedListsCount = result.ListResults.Sum(x => x.UnmodifiedListsCount),
-            ModifiedListVotesCount = result.ListResults.Sum(x => x.ModifiedListVotesCount),
-            UnmodifiedListVotesCount = result.ListResults.Sum(x => x.UnmodifiedListVotesCount),
-            ModifiedListBlankRowsCount = result.ListResults.Sum(x => x.ModifiedListBlankRowsCount),
-            UnmodifiedListBlankRowsCount = result.ListResults.Sum(x => x.UnmodifiedListBlankRowsCount),
-            ModifiedListVotesCountInclBlankRows = result.ListResults.Sum(x => x.ModifiedListVotesCountInclBlankRows),
-            UnmodifiedListVotesCountInclBlankRows = result.ListResults.Sum(x => x.UnmodifiedListVotesCountInclBlankRows),
-        };
-        result.TotalListResultInclWithoutParty = new PdfProportionalElectionListResult
-        {
-            TotalVoteCount = result.TotalListResult.TotalVoteCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            BlankRowsCount = result.TotalListResult.BlankRowsCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            ListCount = result.TotalListResult.ListCount + result.TotalCountOfListsWithoutParty,
-            ListVotesCount = result.TotalListResult.ListVotesCount,
-            ModifiedListsCount = result.TotalListResult.ModifiedListsCount + result.TotalCountOfListsWithoutParty,
-            UnmodifiedListsCount = result.TotalListResult.UnmodifiedListsCount,
-            ModifiedListVotesCount = result.TotalListResult.ModifiedListVotesCount,
-            UnmodifiedListVotesCount = result.TotalListResult.UnmodifiedListVotesCount,
-            ModifiedListBlankRowsCount = result.TotalListResult.ModifiedListBlankRowsCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
-            UnmodifiedListBlankRowsCount = result.TotalListResult.UnmodifiedListBlankRowsCount,
-            ModifiedListVotesCountInclBlankRows = result.TotalListResult.ModifiedListVotesCountInclBlankRows,
-            UnmodifiedListVotesCountInclBlankRows = result.TotalListResult.UnmodifiedListVotesCountInclBlankRows,
-        };
     }
 }

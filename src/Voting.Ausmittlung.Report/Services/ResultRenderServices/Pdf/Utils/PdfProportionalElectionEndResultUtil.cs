@@ -1,7 +1,6 @@
 ﻿// (c) Copyright 2022 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System.Collections.Generic;
 using System.Linq;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
@@ -24,8 +23,10 @@ public static class PdfProportionalElectionEndResultUtil
             UnmodifiedListVotesCount = result.ListEndResults.Sum(x => x.UnmodifiedListVotesCount),
             ModifiedListBlankRowsCount = result.ListEndResults.Sum(x => x.ModifiedListBlankRowsCount),
             UnmodifiedListBlankRowsCount = result.ListEndResults.Sum(x => x.UnmodifiedListBlankRowsCount),
-            ConventionalSubTotal = SetTotalListResultSubTotal(result.ListEndResults.ConvertAll(x => x.ConventionalSubTotal)!),
-            EVotingSubTotal = SetTotalListResultSubTotal(result.ListEndResults.ConvertAll(x => x.EVotingSubTotal)!),
+            ModifiedListVotesCountInclBlankRows = result.ListEndResults.Sum(x => x.ModifiedListVotesCountInclBlankRows),
+            UnmodifiedListVotesCountInclBlankRows = result.ListEndResults.Sum(x => x.UnmodifiedListVotesCountInclBlankRows),
+            ConventionalSubTotal = PdfProportionalElectionResultUtil.SetTotalListResultSubTotal(result.ListEndResults.ConvertAll(x => x.ConventionalSubTotal)!),
+            EVotingSubTotal = PdfProportionalElectionResultUtil.SetTotalListResultSubTotal(result.ListEndResults.ConvertAll(x => x.EVotingSubTotal)!),
         };
         result.TotalListResultInclWithoutParty = new PdfProportionalElectionListEndResult
         {
@@ -39,45 +40,10 @@ public static class PdfProportionalElectionEndResultUtil
             UnmodifiedListVotesCount = result.TotalListEndResult.UnmodifiedListVotesCount,
             ModifiedListBlankRowsCount = result.TotalListEndResult.ModifiedListBlankRowsCount + result.TotalCountOfBlankRowsOnListsWithoutParty,
             UnmodifiedListBlankRowsCount = result.TotalListEndResult.UnmodifiedListBlankRowsCount,
-            ConventionalSubTotal = SetTotalListResultSubTotalInclWithoutParty(result.TotalListEndResult.ConventionalSubTotal, result.ConventionalSubTotal!),
-            EVotingSubTotal = SetTotalListResultSubTotalInclWithoutParty(result.TotalListEndResult.EVotingSubTotal, result.EVotingSubTotal!),
-        };
-    }
-
-    private static PdfProportionalElectionListResultSubTotal SetTotalListResultSubTotal(
-        IReadOnlyCollection<PdfProportionalElectionListResultSubTotal> subTotals)
-    {
-        return new PdfProportionalElectionListResultSubTotal
-        {
-            TotalVoteCount = subTotals.Sum(x => x.TotalVoteCount),
-            BlankRowsCount = subTotals.Sum(x => x.BlankRowsCount),
-            ListCount = subTotals.Sum(x => x.ListCount),
-            ListVotesCount = subTotals.Sum(x => x.ListVotesCount),
-            ModifiedListsCount = subTotals.Sum(x => x.ModifiedListsCount),
-            UnmodifiedListsCount = subTotals.Sum(x => x.UnmodifiedListsCount),
-            ModifiedListVotesCount = subTotals.Sum(x => x.ModifiedListVotesCount),
-            UnmodifiedListVotesCount = subTotals.Sum(x => x.UnmodifiedListVotesCount),
-            ModifiedListBlankRowsCount = subTotals.Sum(x => x.ModifiedListBlankRowsCount),
-            UnmodifiedListBlankRowsCount = subTotals.Sum(x => x.UnmodifiedListBlankRowsCount),
-        };
-    }
-
-    private static PdfProportionalElectionListResultSubTotal SetTotalListResultSubTotalInclWithoutParty(
-        PdfProportionalElectionListResultSubTotal totalResultSubTotal,
-        PdfProportionalElectionResultSubTotal resultSubTotal)
-    {
-        return new PdfProportionalElectionListResultSubTotal
-        {
-            TotalVoteCount = totalResultSubTotal.TotalVoteCount + resultSubTotal.TotalCountOfBlankRowsOnListsWithoutParty,
-            BlankRowsCount = totalResultSubTotal.BlankRowsCount + resultSubTotal.TotalCountOfBlankRowsOnListsWithoutParty,
-            ListCount = totalResultSubTotal.ListCount + resultSubTotal.TotalCountOfListsWithoutParty,
-            ListVotesCount = totalResultSubTotal.ListVotesCount,
-            ModifiedListsCount = totalResultSubTotal.ModifiedListsCount + resultSubTotal.TotalCountOfListsWithoutParty,
-            UnmodifiedListsCount = totalResultSubTotal.UnmodifiedListsCount,
-            ModifiedListVotesCount = totalResultSubTotal.ModifiedListVotesCount,
-            UnmodifiedListVotesCount = totalResultSubTotal.UnmodifiedListVotesCount,
-            ModifiedListBlankRowsCount = totalResultSubTotal.ModifiedListBlankRowsCount + resultSubTotal.TotalCountOfBlankRowsOnListsWithoutParty,
-            UnmodifiedListBlankRowsCount = totalResultSubTotal.UnmodifiedListBlankRowsCount,
+            ModifiedListVotesCountInclBlankRows = result.TotalListEndResult.ModifiedListVotesCountInclBlankRows,
+            UnmodifiedListVotesCountInclBlankRows = result.TotalListEndResult.UnmodifiedListVotesCountInclBlankRows,
+            ConventionalSubTotal = PdfProportionalElectionResultUtil.SetTotalListResultSubTotalInclWithoutParty(result.TotalListEndResult.ConventionalSubTotal, result.ConventionalSubTotal!),
+            EVotingSubTotal = PdfProportionalElectionResultUtil.SetTotalListResultSubTotalInclWithoutParty(result.TotalListEndResult.EVotingSubTotal, result.EVotingSubTotal!),
         };
     }
 }

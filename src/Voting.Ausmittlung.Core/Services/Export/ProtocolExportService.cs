@@ -9,8 +9,10 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -18,6 +20,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.DmDoc;
 using Voting.Lib.DmDoc.Models;
 using Voting.Lib.DmDoc.Serialization.Json;
 using Voting.Lib.Eventing.Persistence;
@@ -36,6 +39,8 @@ public class ProtocolExportService
     private readonly IPdfService _pdfService;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly PublisherConfig _publisherConfig;
+    private readonly IDmDocDraftCleanupQueue _draftCleanupQueue;
+    private readonly ILogger<ProtocolExportService> _logger;
 
     public ProtocolExportService(
         ExportService exportService,
@@ -45,7 +50,9 @@ public class ProtocolExportService
         ResultExportService resultExportService,
         IPdfService pdfService,
         IDbRepository<DataContext, Contest> contestRepo,
-        PublisherConfig publisherConfig)
+        PublisherConfig publisherConfig,
+        IDmDocDraftCleanupQueue draftCleanupQueue,
+        ILogger<ProtocolExportService> logger)
     {
         _exportService = exportService;
         _permissionService = permissionService;
@@ -55,6 +62,8 @@ public class ProtocolExportService
         _pdfService = pdfService;
         _contestRepo = contestRepo;
         _publisherConfig = publisherConfig;
+        _draftCleanupQueue = draftCleanupQueue;
+        _logger = logger;
     }
 
     public async IAsyncEnumerable<FileModel> GetProtocolExports(
@@ -152,13 +161,36 @@ public class ProtocolExportService
         _permissionService.SetAbraxasAuthIfNotAuthenticated();
         var aggregate = await _aggregateRepository.GetById<ProtocolExportAggregate>(protocolExportId);
 
-        if (callbackData.Action == CallbackAction.FinishEditing && callbackData.Data?.PrintJobId is { } printJobId)
+        try
         {
-            aggregate.Complete(callbackToken, printJobId);
+            if (callbackData.Action == CallbackAction.FinishEditing && callbackData.Data?.PrintJobId is { } printJobId)
+            {
+                if (aggregate.IsCompleted)
+                {
+                    _logger.LogDebug("Protocol export is already completed for {ProtocolExportId}", protocolExportId);
+                }
+                else
+                {
+                    aggregate.Complete(callbackToken, printJobId);
+                    _logger.LogDebug("Successfully completed protocol export {ProtocolExportId}", protocolExportId);
+                    _draftCleanupQueue.Enqueue(callbackData.ObjectId, DraftCleanupMode.Content);
+                }
+            }
+            else
+            {
+                aggregate.Fail(callbackToken);
+                _logger.LogWarning(
+                    "Failed protocol export {ProtocolExportId} due to callback: {CallbackData}",
+                    protocolExportId,
+                    serializedCallbackData);
+            }
         }
-        else
+        catch (InvalidCallbackTokenException)
         {
-            aggregate.Fail(callbackToken);
+            _logger.LogInformation("Callback token does not match for protocol export {Id}. Queuing it for cleanup.", protocolExportId);
+
+            // This draft is outdated (there is a newer version), let's clean this up
+            _draftCleanupQueue.Enqueue(callbackData.ObjectId, DraftCleanupMode.Hard);
         }
 
         await _aggregateRepository.Save(aggregate);

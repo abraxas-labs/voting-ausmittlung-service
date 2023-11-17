@@ -38,7 +38,9 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             .FirstOrDefaultAsync(x => x.CountingCircle.BasisCountingCircleId == countingCircleId && x.ProportionalElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), new { countingCircleId, electionId });
         result.EVotingSubTotal.TotalCountOfUnmodifiedLists = eventData.CountOfUnmodifiedLists;
-        result.EVotingSubTotal.TotalCountOfModifiedLists = eventData.CountOfModifiedLists;
+
+        // The event.CountOfModifiedLists also includes lists without a party. But TotalCountOfModifiedLists only counts lists with a party.
+        result.EVotingSubTotal.TotalCountOfModifiedLists = eventData.CountOfModifiedLists - eventData.CountOfListsWithoutParty;
         result.EVotingSubTotal.TotalCountOfListsWithoutParty = eventData.CountOfListsWithoutParty;
         result.EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = eventData.CountOfBlankRowsOnListsWithoutParty;
         result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
@@ -114,6 +116,7 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             {
                 ListId = listId == Guid.Empty ? null : listId,
                 CandidateResultId = candidateResult.Id,
+                EVotingVoteCount = voteSource.VoteCount,
             };
             candidateResult.VoteSources.Add(endResultVoteSource);
         }

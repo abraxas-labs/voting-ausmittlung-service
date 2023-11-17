@@ -157,6 +157,9 @@ public class ProportionalElectionResultImportWriter
             ProcessModifiedBallotPosition(importData, electionBallot, position, candidatesVoteCountOnThisBallot, candidatesById);
         }
 
+        // Note: Only lists with a party should be counted towards CountOfModifiedLists.
+        // This was a misunderstanding in an earlier version and is kept for backwards compatibility.
+        // The correct data is calculated in the event processor.
         importData.CountOfModifiedLists++;
         if (listResult == null)
         {
