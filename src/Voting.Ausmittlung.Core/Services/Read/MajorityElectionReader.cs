@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -67,8 +67,6 @@ public class MajorityElectionReader
 
     private async Task EnsureCanReadElection(Guid electionId, Guid contestId)
     {
-        _permissionService.EnsureAnyRole();
-
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(contestId);
         var hasAccess = await _resultRepo.Query()
             .AnyAsync(x => x.MajorityElectionId == electionId && countingCircleIds.Contains(x.CountingCircleId));

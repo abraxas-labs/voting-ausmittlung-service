@@ -30,7 +30,11 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "ResultAlgorithm": 1,
@@ -68,10 +72,7 @@
   },
   "Entry": 2,
   "State": 3,
-  "SubmissionDoneTimestamp": {
-    "Seconds": 1578661930,
-    "Nanos": 200000000
-  },
+  "SubmissionDoneTimestamp": null,
   "TotalCountOfVoters": 15000,
   "Results": [
     {
@@ -80,7 +81,6 @@
         "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
         "Position": 1,
         "BallotType": 2,
-        "Description": "",
         "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
         "BallotQuestions": [],
         "TieBreakQuestions": []

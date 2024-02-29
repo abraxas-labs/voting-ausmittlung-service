@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -103,7 +103,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
             {
                 BundleId = "a8c45178-eae2-4741-8a08-444704162ffd",
             }),

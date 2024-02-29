@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -91,15 +91,16 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCWMStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WMStaticGemeinden)
             .AddRendererService<WabstiCWMKandidatenRenderService>(AusmittlungWabstiCTemplates.WMKandidaten)
             .AddRendererService<WabstiCWMKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WMKandidatenGde)
-            .AddRendererService<WabstiCWPWahlRenderService>(AusmittlungWabstiCTemplates.WPWahl)
-            .AddRendererService<WabstiCWPGemeindenRenderService>(AusmittlungWabstiCTemplates.WPGemeinden)
-            .AddRendererService<WabstiCWPGemeindenBfsRenderService>(AusmittlungWabstiCTemplates.WPGemeindenBfs)
-            .AddRendererService<WabstiCWPStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WPStaticGemeinden)
-            .AddRendererService<WabstiCWPKandidatenRenderService>(AusmittlungWabstiCTemplates.WPKandidaten)
-            .AddRendererService<WabstiCWPStaticKandidatenRenderService>(AusmittlungWabstiCTemplates.WPStaticKandidaten)
-            .AddRendererService<WabstiCWPKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WPKandidatenGde)
-            .AddRendererService<WabstiCWPListenRenderService>(AusmittlungWabstiCTemplates.WPListen)
-            .AddRendererService<WabstiCWPListenGdeRenderService>(AusmittlungWabstiCTemplates.WPListenGde)
+            .AddRendererService<WabstiCWPWahlRenderService>(AusmittlungWabstiCTemplates.WPWahl, AusmittlungWabstiCTemplates.WPWahlEinzel)
+            .AddRendererService<WabstiCWPGemeindenRenderService>(AusmittlungWabstiCTemplates.WPGemeinden, AusmittlungWabstiCTemplates.WPGemeindenEinzel)
+            .AddRendererService<WabstiCWPGemeindenSkStatRenderService>(AusmittlungWabstiCTemplates.WPGemeindenSkStat, AusmittlungWabstiCTemplates.WPGemeindenSkStatEinzel)
+            .AddRendererService<WabstiCWPGemeindenBfsRenderService>(AusmittlungWabstiCTemplates.WPGemeindenBfs, AusmittlungWabstiCTemplates.WPGemeindenBfsEinzel)
+            .AddRendererService<WabstiCWPStaticGemeindenRenderService>(AusmittlungWabstiCTemplates.WPStaticGemeinden, AusmittlungWabstiCTemplates.WPStaticGemeindenEinzel)
+            .AddRendererService<WabstiCWPKandidatenRenderService>(AusmittlungWabstiCTemplates.WPKandidaten, AusmittlungWabstiCTemplates.WPKandidatenEinzel)
+            .AddRendererService<WabstiCWPStaticKandidatenRenderService>(AusmittlungWabstiCTemplates.WPStaticKandidaten, AusmittlungWabstiCTemplates.WPStaticKandidatenEinzel)
+            .AddRendererService<WabstiCWPKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WPKandidatenGde, AusmittlungWabstiCTemplates.WPKandidatenGdeEinzel)
+            .AddRendererService<WabstiCWPListenRenderService>(AusmittlungWabstiCTemplates.WPListen, AusmittlungWabstiCTemplates.WPListenEinzel)
+            .AddRendererService<WabstiCWPListenGdeRenderService>(AusmittlungWabstiCTemplates.WPListenGde, AusmittlungWabstiCTemplates.WPListenGdeEinzel)
             .AddRendererService<WabstiCSGStaticGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGStaticGeschaefte)
             .AddRendererService<WabstiCSGGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGGeschaefte)
             .AddRendererService<WabstiCSGGemeindenRenderService>(AusmittlungWabstiCTemplates.SGGemeinden)

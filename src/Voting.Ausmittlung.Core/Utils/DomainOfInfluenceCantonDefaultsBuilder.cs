@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -76,7 +76,6 @@ public class DomainOfInfluenceCantonDefaultsBuilder
     {
         domainOfInfluence.CantonDefaults = new DomainOfInfluenceCantonDefaults
         {
-            ProportionalElectionMandateAlgorithms = cantonSettings.ProportionalElectionMandateAlgorithms,
             MajorityElectionAbsoluteMajorityAlgorithm = cantonSettings.MajorityElectionAbsoluteMajorityAlgorithm,
             MajorityElectionInvalidVotes = cantonSettings.MajorityElectionInvalidVotes,
             ProtocolCountingCircleSortType = cantonSettings.ProtocolCountingCircleSortType,
@@ -84,6 +83,10 @@ public class DomainOfInfluenceCantonDefaultsBuilder
             SwissAbroadVotingRight = GetSwissAbroadVotingRight(cantonSettings, domainOfInfluence.Type),
             EnabledVotingCardChannels = cantonSettings.EnabledVotingCardChannels
                 .ConvertAll(x => new DomainOfInfluenceCantonDefaultsVotingCardChannel { Valid = x.Valid, VotingChannel = x.VotingChannel }),
+            CountingMachineEnabled = cantonSettings.CountingMachineEnabled,
+            NewZhFeaturesEnabled = cantonSettings.NewZhFeaturesEnabled,
+            MajorityElectionUseCandidateCheckDigit = cantonSettings.MajorityElectionUseCandidateCheckDigit,
+            ProportionalElectionUseCandidateCheckDigit = cantonSettings.ProportionalElectionUseCandidateCheckDigit,
         };
     }
 

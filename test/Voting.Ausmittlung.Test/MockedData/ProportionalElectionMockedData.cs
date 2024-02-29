@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -95,10 +95,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -140,6 +141,7 @@ public static class ProportionalElectionMockedData
                                 PartyId = AusmittlungUuidV5.BuildDomainOfInfluenceParty(
                                     Guid.Parse(ContestMockedData.IdBundesurnengang),
                                     Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere)),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -166,10 +168,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = false,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -206,6 +209,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -252,10 +256,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = false,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -295,6 +300,7 @@ public static class ProportionalElectionMockedData
                                 PartyId = AusmittlungUuidV5.BuildDomainOfInfluenceParty(
                                     Guid.Parse(ContestMockedData.IdStGallenEvoting),
                                     Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere)),
+                                CheckDigit = 6,
                             },
                             new ProportionalElectionCandidate
                             {
@@ -317,6 +323,7 @@ public static class ProportionalElectionMockedData
                                     "occupation 2",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title 2"),
+                                CheckDigit = 4,
                             },
                         },
                     },
@@ -366,6 +373,7 @@ public static class ProportionalElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -402,6 +410,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -439,10 +448,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
             CandidateCheckDigit = false,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.HagenbachBischoff,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -479,6 +489,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -505,10 +516,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.HagenbachBischoff,
             NumberOfMandates = 3,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -545,6 +557,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                             new ProportionalElectionCandidate
                             {
@@ -567,6 +580,7 @@ public static class ProportionalElectionMockedData
                                     "occupation 2",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title 2"),
+                                CheckDigit = 4,
                             },
                         },
                     },
@@ -602,6 +616,7 @@ public static class ProportionalElectionMockedData
                                     "occupation 3",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title 3"),
+                                CheckDigit = 0,
                             },
                         },
                     },
@@ -787,10 +802,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static ProportionalElection GossauProportionalElectionInContestGossau
@@ -813,10 +829,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -856,6 +873,7 @@ public static class ProportionalElectionMockedData
                                 PartyId = AusmittlungUuidV5.BuildDomainOfInfluenceParty(
                                     Guid.Parse(ContestMockedData.IdGossau),
                                     Guid.Parse(DomainOfInfluenceMockedData.PartyIdGossauFLiG)),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -893,10 +911,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -933,6 +952,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 2,
                             },
                             new ProportionalElectionCandidate
                             {
@@ -954,6 +974,7 @@ public static class ProportionalElectionMockedData
                                 Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 0,
                             },
                             new ProportionalElectionCandidate
                             {
@@ -977,6 +998,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 9,
                             },
                         },
                     },
@@ -1014,6 +1036,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                             new ProportionalElectionCandidate
                             {
@@ -1038,6 +1061,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 4,
                             },
                         },
                     },
@@ -1063,10 +1087,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static ProportionalElection GenfProportionalElectionInContestBundWithoutChilds
@@ -1088,10 +1113,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static ProportionalElection KircheProportionalElectionInContestKirche
@@ -1114,10 +1140,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             ProportionalElectionLists = new List<ProportionalElectionList>
             {
                     new ProportionalElectionList
@@ -1153,6 +1180,7 @@ public static class ProportionalElectionMockedData
                                     "occupation",
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
+                                CheckDigit = 6,
                             },
                         },
                     },
@@ -1190,10 +1218,11 @@ public static class ProportionalElectionMockedData
             AutomaticBallotBundleNumberGeneration = true,
             BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
             CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
             NumberOfMandates = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static IEnumerable<ProportionalElection> All

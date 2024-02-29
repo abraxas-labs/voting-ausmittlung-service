@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Voting.Ausmittlung.Data.Models;
@@ -33,4 +33,9 @@ public abstract class ElectionResultEntryParams
     /// if it must be entered manually by the user (as a kind of "double check").
     /// </summary>
     public bool AutomaticEmptyVoteCounting { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a check digit for candidates is used or not.
+    /// </summary>
+    public bool CandidateCheckDigit { get; set; }
 }

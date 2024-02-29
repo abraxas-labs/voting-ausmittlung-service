@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -183,6 +183,7 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await AssertSubmissionDoneTimestamp(false);
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new ProportionalElectionResultCorrectionFinished
@@ -197,6 +198,7 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
                 },
             });
         await AssertCurrentState(CountingCircleResultState.CorrectionDone);
+        await AssertSubmissionDoneTimestamp(true);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen)
             .ToListAsync());
@@ -298,5 +300,11 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         };
         customizer?.Invoke(req);
         return req;
+    }
+
+    private async Task AssertSubmissionDoneTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.ProportionalElectionResults.SingleAsync(x => x.Id == Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen)));
+        (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
     }
 }

@@ -42,7 +42,11 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -65,7 +69,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": false
     },
     "SecondaryMajorityElectionResults": [],
     "Entry": 2,
@@ -75,7 +80,8 @@
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
-      "ReviewProcedure": 1
+      "ReviewProcedure": 1,
+      "CandidateCheckDigit": false
     },
     "State": 2,
     "SubmissionDoneTimestamp": null,
@@ -168,7 +174,8 @@
                 "LastName": "lastName",
                 "Party": "Test de",
                 "Position": 1,
-                "Description": "number1 pol last name pol first name"
+                "Description": "number1 pol last name pol first name",
+                "CheckDigit": 9
               }
             ],
             "Election": {
@@ -196,7 +203,8 @@
               "DomainOfInfluence": null,
               "Contest": null,
               "ReviewProcedure": 1,
-              "EnforceReviewProcedureForCountingCircles": true
+              "EnforceReviewProcedureForCountingCircles": true,
+              "EnforceCandidateCheckDigitForCountingCircles": false
             },
             "SecondaryElection": null,
             "HasIndividualCandidate": false,
@@ -213,7 +221,8 @@
                 "LastName": "lastName",
                 "Party": "Test de",
                 "Position": 1,
-                "Description": "number1 pol last name pol first name"
+                "Description": "number1 pol last name pol first name",
+                "CheckDigit": 9
               }
             ],
             "Election": null,

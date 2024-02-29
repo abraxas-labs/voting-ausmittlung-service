@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -32,4 +32,10 @@ public enum MajorityElectionWriteInMappingTarget
     /// Map the write in to an invalid vote (in german: Ungültige Stimmabgabe).
     /// </summary>
     Invalid,
+
+    /// <summary>
+    /// Map the whole ballot of the write in as invalid (in german: Ungültiger Wahlzettel).
+    /// This may happen when the write in contains insults or violates the electoral secrecy.
+    /// </summary>
+    InvalidBallot,
 }

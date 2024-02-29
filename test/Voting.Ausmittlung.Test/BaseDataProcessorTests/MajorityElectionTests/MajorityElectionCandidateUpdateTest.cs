@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -55,6 +55,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     Title = "new title",
                     ZipCode = "new zip code",
                     Origin = "origin",
+                    CheckDigit = 0,
                 },
             });
 

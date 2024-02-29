@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,8 +10,8 @@ public class VoteResultImport : PoliticalBusinessResultImport
 {
     private readonly Dictionary<Guid, VoteBallotResultImport> _ballotResults = new();
 
-    public VoteResultImport(Guid voteId, Guid basisCountingCircleId)
-        : base(voteId, basisCountingCircleId)
+    public VoteResultImport(Guid voteId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
+        : base(voteId, basisCountingCircleId, countOfVotersInformationImport)
     {
     }
 

@@ -34,7 +34,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>1</Position>
-        <Description />
         <BallotType>StandardBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount1Q1</Label>
@@ -347,7 +346,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>1</Position>
-        <Description />
         <BallotType>VariantsBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount3Q1</Label>
@@ -1278,7 +1276,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>2</Position>
-        <Description />
         <BallotType>StandardBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount1Q1</Label>

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -134,6 +135,9 @@ public class ProtocolExportService
             };
 
             var file = await _exportService.GenerateResultExport(contestId, exportTemplate, asyncPdfGenerationInfo, ct);
+
+            ProtocolExportMeter.AddExportStarted();
+
             aggregate.Start(
                 protocolExportId,
                 contestId,
@@ -171,7 +175,10 @@ public class ProtocolExportService
                 }
                 else
                 {
+                    var duration = DateTime.Now - aggregate.CreatedDate;
+                    ProtocolExportMeter.AddExportDuration(duration, aggregate.ExportKey);
                     aggregate.Complete(callbackToken, printJobId);
+                    ProtocolExportMeter.AddExportCompleted();
                     _logger.LogDebug("Successfully completed protocol export {ProtocolExportId}", protocolExportId);
                     _draftCleanupQueue.Enqueue(callbackData.ObjectId, DraftCleanupMode.Content);
                 }
@@ -179,6 +186,7 @@ public class ProtocolExportService
             else
             {
                 aggregate.Fail(callbackToken);
+                ProtocolExportMeter.AddExportFailed();
                 _logger.LogWarning(
                     "Failed protocol export {ProtocolExportId} due to callback: {CallbackData}",
                     protocolExportId,

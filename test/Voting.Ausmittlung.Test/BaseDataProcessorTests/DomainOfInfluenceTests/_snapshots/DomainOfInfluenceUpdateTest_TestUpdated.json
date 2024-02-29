@@ -91,9 +91,6 @@
         "Email": "email@example.com"
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -124,7 +121,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": {
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -259,9 +260,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -292,7 +290,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],
@@ -342,9 +344,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -375,7 +374,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],
@@ -425,13 +428,16 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [],
         "MajorityElectionAbsoluteMajorityAlgorithm": 0,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 0,
         "ProtocolCountingCircleSortType": 0,
         "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": []
+        "EnabledVotingCardChannels": [],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],
@@ -521,9 +527,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -554,7 +557,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": {
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -671,9 +678,6 @@
         "Email": "hans@sg.ch"
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -704,7 +708,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],
@@ -745,9 +753,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -778,7 +783,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],
@@ -828,9 +837,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 2,
@@ -861,7 +867,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],

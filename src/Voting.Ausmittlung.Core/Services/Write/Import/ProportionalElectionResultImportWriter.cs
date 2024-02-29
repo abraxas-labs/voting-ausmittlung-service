@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
@@ -68,7 +69,7 @@ public class ProportionalElectionResultImportWriter
         IReadOnlyDictionary<Guid, ProportionalElectionList> listsById,
         IReadOnlyDictionary<Guid, ProportionalElectionCandidate> candidatesById)
     {
-        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId));
+        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
         importResult.CountOfVoters = result.Ballots.Count;
 
         foreach (var ballot in result.Ballots)
@@ -121,7 +122,8 @@ public class ProportionalElectionResultImportWriter
         EVotingElectionBallot electionBallot,
         IReadOnlyDictionary<Guid, ProportionalElectionList> listsById)
     {
-        if (!electionBallot.ListId.HasValue)
+        var emptyListId = AusmittlungUuidV5.BuildProportionalElectionEmptyList(importData.ProportionalElectionId);
+        if (!electionBallot.ListId.HasValue || electionBallot.ListId.Value == emptyListId)
         {
             return (null, null);
         }
@@ -202,10 +204,19 @@ public class ProportionalElectionResultImportWriter
 
         var candidateResult = importData.GetOrAddCandidateResult(candidateId);
         candidateResult.ModifiedListVotesCount++;
-        candidateResult.AddVoteSourceVote(electionBallot.ListId);
+        var voteSourceListId = electionBallot.ListId;
+        var emptyListId = AusmittlungUuidV5.BuildProportionalElectionEmptyList(importData.ProportionalElectionId);
+
+        // vote source list id should be an empty guid for an empty list
+        if (voteSourceListId == emptyListId)
+        {
+            voteSourceListId = Guid.Empty;
+        }
+
+        candidateResult.AddVoteSourceVote(voteSourceListId);
 
         // votes on ballots without a list don't count
-        if (candidate.ProportionalElectionListId != electionBallot.ListId && electionBallot.ListId.HasValue)
+        if (candidate.ProportionalElectionListId != electionBallot.ListId && electionBallot.ListId.HasValue && electionBallot.ListId.Value != emptyListId)
         {
             candidateResult.CountOfVotesOnOtherLists++;
             listResult.ListVotesCountOnOtherLists++;

@@ -1,7 +1,8 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Npgsql;
+using Voting.Lib.Database.Configuration;
 
 namespace Voting.Ausmittlung.Data.Configuration;
 
@@ -37,4 +38,11 @@ public class DataConfig
     /// Framework default is 30 sec.
     /// </summary>
     public ushort CommandTimeout { get; set; } = 30;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the data monitoring is enabled or not. Default is 'false'.
+    /// </summary>
+    public bool EnableMonitoring { get; set; }
+
+    public DataMonitoringConfig Monitoring { get; set; } = new();
 }

@@ -26,7 +26,8 @@
           "NumberIncludingList": "L4.numberL4.C1",
           "ListDescription": "",
           "ListShortDescription": "Liste 4 de",
-          "ListPosition": 4
+          "ListPosition": 4,
+          "CheckDigit": 8
         },
         "VoteCount": 6000,
         "Rank": 1,
@@ -64,7 +65,8 @@
           "NumberIncludingList": "L4.numberL4.C2",
           "ListDescription": "",
           "ListShortDescription": "Liste 4 de",
-          "ListPosition": 4
+          "ListPosition": 4,
+          "CheckDigit": 6
         },
         "VoteCount": 6000,
         "Rank": 1,

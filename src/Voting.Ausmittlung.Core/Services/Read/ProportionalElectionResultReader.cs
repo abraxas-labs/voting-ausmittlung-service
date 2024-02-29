@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -30,21 +30,18 @@ public class ProportionalElectionResultReader
 
     public async Task<ProportionalElectionResult> Get(Guid electionResultId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryElectionResult(x => x.Id == electionResultId)
                ?? throw new EntityNotFoundException(electionResultId);
     }
 
     public async Task<ProportionalElectionResult> Get(Guid electionId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryElectionResult(x => x.ProportionalElectionId == electionId && x.CountingCircle.BasisCountingCircleId == basisCountingCircleId)
                ?? throw new EntityNotFoundException(new { electionId, basisCountingCircleId });
     }
 
     public async Task<ProportionalElectionResult> GetWithUnmodifiedLists(Guid electionResultId)
     {
-        _permissionService.EnsureErfassungElectionAdminOrMonitoringElectionAdmin();
         var electionResult = await _repo.Query()
                                  .AsSplitQuery()
                                  .Include(x => x.CountingCircle)
@@ -66,7 +63,6 @@ public class ProportionalElectionResultReader
 
     public async Task<IEnumerable<ProportionalElectionListResult>> GetListResults(Guid electionResultId)
     {
-        _permissionService.EnsureErfassungElectionAdminOrMonitoringElectionAdmin();
         var electionResult = await _repo.Query()
                                  .AsSplitQuery()
                                  .Include(x => x.ListResults).ThenInclude(x => x.List.Translations)

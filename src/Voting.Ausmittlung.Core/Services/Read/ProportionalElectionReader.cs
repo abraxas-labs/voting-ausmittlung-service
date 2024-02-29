@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -73,8 +73,6 @@ public class ProportionalElectionReader
 
     private async Task EnsureCanReadElection(Guid electionId)
     {
-        _permissionService.EnsureAnyRole();
-
         var contestId = await _electionRepo.Query()
             .Where(e => e.Id == electionId)
             .Select(e => e.ContestId)

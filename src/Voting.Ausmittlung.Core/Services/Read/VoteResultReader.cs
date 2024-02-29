@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -29,14 +29,12 @@ public class VoteResultReader
 
     public async Task<VoteResult> Get(Guid voteResultId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryVoteResult(x => x.Id == voteResultId)
                ?? throw new EntityNotFoundException(voteResultId);
     }
 
     public async Task<VoteResult> Get(Guid voteId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryVoteResult(x => x.VoteId == voteId && x.CountingCircle.BasisCountingCircleId == basisCountingCircleId)
                ?? throw new EntityNotFoundException(new { voteId, basisCountingCircleId });
     }
@@ -49,7 +47,7 @@ public class VoteResultReader
             .Include(x => x.Vote.Contest.Translations)
             .Include(x => x.Vote.DomainOfInfluence)
             .Include(x => x.CountingCircle)
-            .Include(v => v.Results).ThenInclude(r => r.Ballot.Translations)
+            .Include(v => v.Results).ThenInclude(r => r.Ballot)
             .Include(v => v.Results).ThenInclude(r => r.QuestionResults).ThenInclude(qr => qr.Question.Translations)
             .Include(v => v.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(qr => qr.Question.Translations)
             .Where(predicate)

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -24,10 +24,6 @@ public static class CantonSettingsMockedData
             Canton = DomainOfInfluenceCanton.Sg,
             AuthorityName = "St.Gallen",
             SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
-            ProportionalElectionMandateAlgorithms = new List<ProportionalElectionMandateAlgorithm>
-            {
-                    ProportionalElectionMandateAlgorithm.HagenbachBischoff,
-            },
             MajorityElectionAbsoluteMajorityAlgorithm = CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo,
             MajorityElectionInvalidVotes = false,
             SwissAbroadVotingRight = SwissAbroadVotingRight.SeparateCountingCircle,
@@ -73,12 +69,6 @@ public static class CantonSettingsMockedData
             Canton = DomainOfInfluenceCanton.Zh,
             AuthorityName = "Zürich",
             SecureConnectId = SecureConnectTestDefaults.MockedTenantDefault.Id,
-            ProportionalElectionMandateAlgorithms = new List<ProportionalElectionMandateAlgorithm>
-            {
-                    ProportionalElectionMandateAlgorithm.HagenbachBischoff,
-                    ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum,
-                    ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
-            },
             MajorityElectionAbsoluteMajorityAlgorithm = CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo,
             MajorityElectionInvalidVotes = true,
             SwissAbroadVotingRight = SwissAbroadVotingRight.OnEveryCountingCircle,
@@ -116,6 +106,10 @@ public static class CantonSettingsMockedData
             },
             ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.SortNumber,
             ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.SortNumber,
+            CountingMachineEnabled = true,
+            NewZhFeaturesEnabled = true,
+            MajorityElectionUseCandidateCheckDigit = true,
+            ProportionalElectionUseCandidateCheckDigit = true,
         };
 
     public static IEnumerable<CantonSettings> All

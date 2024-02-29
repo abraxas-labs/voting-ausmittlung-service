@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -20,6 +20,11 @@ public class AppConfig
     public ServiceMode ServiceMode { get; set; } = ServiceMode.Hybrid;
 
     public PortConfig Ports { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the port configuration for the metric endpoint.
+    /// </summary>
+    public ushort MetricPort { get; set; } = 9090;
 
     public EventStoreConfig EventStore { get; set; } = new();
 

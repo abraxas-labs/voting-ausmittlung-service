@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -95,6 +95,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -120,6 +121,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "CVP"),
+                        CheckDigit = 9,
                     },
             },
         };
@@ -150,6 +152,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 1,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -175,6 +178,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "Test"),
+                        CheckDigit = 9,
                     },
                     new MajorityElectionCandidate
                     {
@@ -199,6 +203,7 @@ public static class MajorityElectionMockedData
                             "occupation title2",
                             (t, s) => t.Party = s,
                             "Test"),
+                        CheckDigit = 1,
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -242,6 +247,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "Test"),
+                                CheckDigit = 9,
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -266,6 +272,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "CVP"),
+                                CheckDigit = 7,
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -290,6 +297,7 @@ public static class MajorityElectionMockedData
                                     "occupation title 3",
                                     (t, s) => t.Party = s,
                                     "SVP"),
+                                CheckDigit = 5,
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -314,6 +322,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "CVP"),
+                                CheckDigit = 3,
                             },
                         },
                     },
@@ -356,6 +365,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "Test"),
+                                CheckDigit = 9,
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -380,6 +390,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "CVP"),
+                                CheckDigit = 7,
                             },
                         },
                     },
@@ -422,6 +433,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "Test"),
+                                CheckDigit = 9,
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -446,6 +458,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "CVP"),
+                                CheckDigit = 7,
                             },
                         },
                     },
@@ -538,6 +551,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -563,6 +577,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "SP"),
+                        CheckDigit = 9,
                     },
                     new MajorityElectionCandidate
                     {
@@ -587,6 +602,7 @@ public static class MajorityElectionMockedData
                             "occupation title 2",
                             (t, s) => t.Party = s,
                             "SVP"),
+                        CheckDigit = 7,
                     },
             },
         };
@@ -617,6 +633,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -642,6 +659,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "FDP"),
+                        CheckDigit = 9,
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -685,6 +703,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "Test"),
+                                CheckDigit = 9,
                             },
                         },
                     },
@@ -767,6 +786,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -792,6 +812,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "GLP"),
+                        CheckDigit = 9,
                     },
             },
         };
@@ -821,6 +842,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 3,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -846,6 +868,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "CVP"),
+                        CheckDigit = 9,
                     },
                     new MajorityElectionCandidate
                     {
@@ -869,6 +892,7 @@ public static class MajorityElectionMockedData
                             "occupation title 2",
                             (t, s) => t.Party = s,
                             "CVP"),
+                        CheckDigit = 7,
                     },
             },
         };
@@ -898,6 +922,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static MajorityElection GossauMajorityElectionInContestGossau
@@ -926,6 +951,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -951,6 +977,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "Test"),
+                        CheckDigit = 9,
                     },
             },
         };
@@ -981,6 +1008,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -1006,6 +1034,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "None"),
+                        CheckDigit = 9,
                     },
             },
         };
@@ -1036,6 +1065,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static MajorityElection GenfMajorityElectionInContestBundWithoutChilds
@@ -1064,6 +1094,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static MajorityElection KircheMajorityElectionInContestKirche
@@ -1091,6 +1122,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = false,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
             {
                     new MajorityElectionCandidate
@@ -1115,6 +1147,7 @@ public static class MajorityElectionMockedData
                             "occupation title",
                             (t, s) => t.Party = s,
                             "test"),
+                        CheckDigit = 9,
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -1157,6 +1190,7 @@ public static class MajorityElectionMockedData
                                     "occupation title",
                                     (t, s) => t.Party = s,
                                     "Test"),
+                                CheckDigit = 9,
                             },
                         },
                     },
@@ -1237,6 +1271,7 @@ public static class MajorityElectionMockedData
             NumberOfMandates = 5,
             ReviewProcedure = MajorityElectionReviewProcedure.Physically,
             EnforceReviewProcedureForCountingCircles = false,
+            EnforceCandidateCheckDigitForCountingCircles = false,
         };
 
     public static IEnumerable<MajorityElection> All

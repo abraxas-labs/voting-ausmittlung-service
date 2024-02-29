@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -36,6 +36,7 @@ public class ContestCountingCircleDetailsResetTest : BaseProcessorTest
     [Fact]
     public async Task TestReset()
     {
+        var contestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
         var ccId = CountingCircleMockedData.GuidGossau;
         var ccResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestBund;
 
@@ -43,6 +44,26 @@ public class ContestCountingCircleDetailsResetTest : BaseProcessorTest
         await ModifyDbEntities<ProportionalElectionResult>(
             r => r.Id == ccResultId,
             r => r.State = CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.Id == ContestCountingCircleDetailsId,
+            x => x.CountingMachine = CountingMachine.CalibratedScales);
+
+        await RunOnDb(async db =>
+        {
+            var snapshotCountingCircle = await db.CountingCircles
+                .SingleAsync(cc => cc.BasisCountingCircleId == ccId && cc.SnapshotContestId == contestId);
+
+            db.ProtocolExports.Add(new()
+            {
+                CountingCircleId = snapshotCountingCircle.Id,
+                ContestId = contestId,
+                ExportTemplateId = Guid.Parse("f70ae784-2c18-4337-802a-934f04cf1ccb"),
+                Started = new(2020, 1, 15, 20, 0, 0, DateTimeKind.Utc),
+                State = ProtocolExportState.Completed,
+            });
+            await db.SaveChangesAsync();
+        });
 
         var ccDetails = await LoadCountingCircleDetails();
         ccDetails.TotalCountOfVoters.Should().Be(15800);
@@ -64,6 +85,7 @@ public class ContestCountingCircleDetailsResetTest : BaseProcessorTest
 
         ccDetails = await LoadCountingCircleDetails();
         ccDetails.TotalCountOfVoters.Should().Be(0);
+        ccDetails.CountingMachine.Should().Be(CountingMachine.Unspecified);
         ccDetails.MatchSnapshot("ccDetailsAfter");
 
         results = await RunOnDb(db => db.ProportionalElectionResults
@@ -71,6 +93,11 @@ public class ContestCountingCircleDetailsResetTest : BaseProcessorTest
             .ToListAsync());
         results.Any().Should().BeTrue();
         results.All(r => r.TotalCountOfVoters == 0).Should().BeTrue();
+
+        var protocolExports = await RunOnDb(db => db.ProtocolExports
+            .Where(e => e.CountingCircle!.BasisCountingCircleId == ccId && e.ContestId == contestId)
+            .ToListAsync());
+        protocolExports.Should().HaveCount(0);
     }
 
     [Fact]

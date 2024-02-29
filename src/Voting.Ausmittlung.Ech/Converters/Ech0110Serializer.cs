@@ -1,9 +1,10 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using eCH_0110_4_0;
+using Ech0110_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Lib.Common;
@@ -29,7 +30,7 @@ public class Ech0110Serializer
         {
             ReportingBody = GetReportingBody(vote.Contest),
             ContestInformation = vote.Contest.ToEchContest(),
-            CountingCircleResults = vote.Results.OrderBy(r => r.CountingCircle.Name).Select(vr => ToEchCountingCircleResult(vr, vote.Contest)).ToArray(),
+            CountingCircleResults = vote.Results.OrderBy(r => r.CountingCircle.Name).Select(vr => ToEchCountingCircleResult(vr, vote.Contest)).ToList(),
         });
     }
 
@@ -39,7 +40,7 @@ public class Ech0110Serializer
         {
             ReportingBody = GetReportingBody(majorityElection.Contest),
             ContestInformation = majorityElection.Contest.ToEchContest(),
-            CountingCircleResults = majorityElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, majorityElection.Contest)).ToArray(),
+            CountingCircleResults = majorityElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, majorityElection.Contest)).ToList(),
         });
     }
 
@@ -49,7 +50,7 @@ public class Ech0110Serializer
         {
             ReportingBody = GetReportingBody(proportionalElection.Contest),
             ContestInformation = proportionalElection.Contest.ToEchContest(),
-            CountingCircleResults = proportionalElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, proportionalElection.Contest)).ToArray(),
+            CountingCircleResults = proportionalElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, proportionalElection.Contest)).ToList(),
         });
     }
 
@@ -58,7 +59,7 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = electionResult.CountingCircle.ToEchCountingCircle(),
-            ElectionGroupResults = new[] { electionResult.ToEchElectionGroupResult() },
+            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult() },
             VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.MajorityElection.DomainOfInfluence.Type),
         };
     }
@@ -68,7 +69,7 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = electionResult.CountingCircle.ToEchCountingCircle(),
-            ElectionGroupResults = new[] { electionResult.ToEchElectionGroupResult() },
+            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult() },
             VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.ProportionalElection.DomainOfInfluence.Type),
         };
     }
@@ -78,7 +79,7 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = voteResult.CountingCircle.ToEchCountingCircle(),
-            VoteResults = new[] { voteResult.ToEchVoteResult() },
+            VoteResults = new List<VoteResultType> { voteResult.ToEchVoteResult() },
             VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, voteResult.CountingCircleId), voteResult.Vote.DomainOfInfluence.Type),
         };
     }
@@ -91,8 +92,8 @@ public class Ech0110Serializer
 
         return new VotingCardsInformationType
         {
-            CountOfReceivedValidVotingCardsTotal = countOfValidCards,
-            CountOfReceivedInvalidVotingCardsTotal = totalCountOfVoters - countOfValidCards,
+            CountOfReceivedValidVotingCardsTotal = countOfValidCards.ToString(),
+            CountOfReceivedInvalidVotingCardsTotal = (totalCountOfVoters - countOfValidCards).ToString(),
         };
     }
 
@@ -103,7 +104,11 @@ public class Ech0110Serializer
 
     private ReportingBodyType GetReportingBody(Contest contest)
     {
-        return ReportingBodyType.Create(contest.DomainOfInfluence.SecureConnectId, null, _clock.UtcNow);
+        return new ReportingBodyType
+        {
+            ReportingBodyIdentification = contest.DomainOfInfluence.SecureConnectId,
+            CreationDateTime = _clock.UtcNow,
+        };
     }
 
     private Delivery WrapInDelivery(EventResultDelivery data)

@@ -29,7 +29,8 @@
             "NumberIncludingList": "1a.number1",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
-            "ListPosition": 1
+            "ListPosition": 1,
+            "CheckDigit": 6
           },
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -67,7 +68,8 @@
             "NumberIncludingList": "1a.number2",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
-            "ListPosition": 1
+            "ListPosition": 1,
+            "CheckDigit": 4
           },
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -163,7 +165,8 @@
             "NumberIncludingList": "2.number3",
             "ListDescription": "",
             "ListShortDescription": "Liste 2 de",
-            "ListPosition": 2
+            "ListPosition": 2,
+            "CheckDigit": 0
           },
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,8 @@ using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
 
-public class CountingCircleModelBuilder : IEntityTypeConfiguration<CountingCircle>
+public class CountingCircleModelBuilder : IEntityTypeConfiguration<CountingCircle>,
+    IEntityTypeConfiguration<CountingCircleElectorate>
 {
     public void Configure(EntityTypeBuilder<CountingCircle> builder)
     {
@@ -38,5 +39,14 @@ public class CountingCircleModelBuilder : IEntityTypeConfiguration<CountingCircl
 
         builder
             .Ignore(di => di.IsSnapshot);
+    }
+
+    public void Configure(EntityTypeBuilder<CountingCircleElectorate> builder)
+    {
+        builder
+            .HasOne(x => x.CountingCircle)
+            .WithMany(x => x.Electorates)
+            .HasForeignKey(x => x.CountingCircleId)
+            .IsRequired();
     }
 }

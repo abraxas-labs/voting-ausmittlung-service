@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -57,7 +57,6 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
                 .ThenInclude(x => x.TieBreakQuestionEndResults)
                     .ThenInclude(x => x.Question)
                         .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.BallotQuestions)
                 .ThenInclude(x => x.Translations)
             .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.TieBreakQuestions)

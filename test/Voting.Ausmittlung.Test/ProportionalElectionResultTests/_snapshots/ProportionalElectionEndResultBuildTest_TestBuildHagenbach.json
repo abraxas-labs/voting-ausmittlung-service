@@ -56,7 +56,11 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -79,7 +83,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": true
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 0,
@@ -133,7 +138,8 @@
               "NumberIncludingList": "L1.numberL1.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 2
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -171,7 +177,8 @@
               "NumberIncludingList": "L1.numberL1.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 6
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -209,7 +216,8 @@
               "NumberIncludingList": "L1.numberL1.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 4
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -307,7 +315,8 @@
               "NumberIncludingList": "L2.numberL2.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 3
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -345,7 +354,8 @@
               "NumberIncludingList": "L2.numberL2.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 0
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -383,7 +393,8 @@
               "NumberIncludingList": "L2.numberL2.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 1
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -487,7 +498,8 @@
               "NumberIncludingList": "L3.numberL3.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 9
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -525,7 +537,8 @@
               "NumberIncludingList": "L3.numberL3.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 0
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -563,7 +576,8 @@
               "NumberIncludingList": "L3.numberL3.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 7
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -673,7 +687,8 @@
               "NumberIncludingList": "L4.numberL4.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 8
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -711,7 +726,8 @@
               "NumberIncludingList": "L4.numberL4.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 6
             },
             "VoteCount": 0,
             "Rank": 1,
@@ -855,7 +871,11 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -878,7 +898,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": true
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 15800,
@@ -1014,7 +1035,8 @@
               "NumberIncludingList": "L1.numberL1.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 6
             },
             "VoteCount": 1001,
             "Rank": 1,
@@ -1052,7 +1074,8 @@
               "NumberIncludingList": "L1.numberL1.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 2
             },
             "VoteCount": 1000,
             "Rank": 2,
@@ -1090,7 +1113,8 @@
               "NumberIncludingList": "L1.numberL1.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 4
             },
             "VoteCount": 1000,
             "Rank": 2,
@@ -1188,7 +1212,8 @@
               "NumberIncludingList": "L2.numberL2.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 3
             },
             "VoteCount": 1000,
             "Rank": 1,
@@ -1226,7 +1251,8 @@
               "NumberIncludingList": "L2.numberL2.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 0
             },
             "VoteCount": 1000,
             "Rank": 1,
@@ -1264,7 +1290,8 @@
               "NumberIncludingList": "L2.numberL2.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 1
             },
             "VoteCount": 1000,
             "Rank": 1,
@@ -1368,7 +1395,8 @@
               "NumberIncludingList": "L3.numberL3.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 0
             },
             "VoteCount": 1001,
             "Rank": 1,
@@ -1406,7 +1434,8 @@
               "NumberIncludingList": "L3.numberL3.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 9
             },
             "VoteCount": 1000,
             "Rank": 2,
@@ -1444,7 +1473,8 @@
               "NumberIncludingList": "L3.numberL3.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 7
             },
             "VoteCount": 1000,
             "Rank": 2,
@@ -1554,7 +1584,8 @@
               "NumberIncludingList": "L4.numberL4.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 8
             },
             "VoteCount": 1000,
             "Rank": 1,
@@ -1592,7 +1623,8 @@
               "NumberIncludingList": "L4.numberL4.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 6
             },
             "VoteCount": 1000,
             "Rank": 1,
@@ -1736,7 +1768,11 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -1759,7 +1795,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": true
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 34810,
@@ -1925,7 +1962,8 @@
               "NumberIncludingList": "L1.numberL1.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 6
             },
             "VoteCount": 6001,
             "Rank": 1,
@@ -1963,7 +2001,8 @@
               "NumberIncludingList": "L1.numberL1.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 2
             },
             "VoteCount": 6000,
             "Rank": 2,
@@ -2001,7 +2040,8 @@
               "NumberIncludingList": "L1.numberL1.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 1 de",
-              "ListPosition": 1
+              "ListPosition": 1,
+              "CheckDigit": 4
             },
             "VoteCount": 6000,
             "Rank": 2,
@@ -2099,7 +2139,8 @@
               "NumberIncludingList": "L2.numberL2.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 3
             },
             "VoteCount": 6000,
             "Rank": 1,
@@ -2137,7 +2178,8 @@
               "NumberIncludingList": "L2.numberL2.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 0
             },
             "VoteCount": 6000,
             "Rank": 1,
@@ -2175,7 +2217,8 @@
               "NumberIncludingList": "L2.numberL2.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 2 de",
-              "ListPosition": 2
+              "ListPosition": 2,
+              "CheckDigit": 1
             },
             "VoteCount": 6000,
             "Rank": 1,
@@ -2279,7 +2322,8 @@
               "NumberIncludingList": "L3.numberL3.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 0
             },
             "VoteCount": 6001,
             "Rank": 1,
@@ -2317,7 +2361,8 @@
               "NumberIncludingList": "L3.numberL3.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 9
             },
             "VoteCount": 6000,
             "Rank": 2,
@@ -2355,7 +2400,8 @@
               "NumberIncludingList": "L3.numberL3.C3",
               "ListDescription": "",
               "ListShortDescription": "Liste 3 de",
-              "ListPosition": 3
+              "ListPosition": 3,
+              "CheckDigit": 7
             },
             "VoteCount": 6000,
             "Rank": 2,
@@ -2465,7 +2511,8 @@
               "NumberIncludingList": "L4.numberL4.C1",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 8
             },
             "VoteCount": 6000,
             "Rank": 1,
@@ -2503,7 +2550,8 @@
               "NumberIncludingList": "L4.numberL4.C2",
               "ListDescription": "",
               "ListShortDescription": "Liste 4 de",
-              "ListPosition": 4
+              "ListPosition": 4,
+              "CheckDigit": 6
             },
             "VoteCount": 6000,
             "Rank": 1,

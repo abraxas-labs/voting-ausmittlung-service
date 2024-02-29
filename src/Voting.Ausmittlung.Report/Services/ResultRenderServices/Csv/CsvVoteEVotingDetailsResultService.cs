@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -79,6 +79,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 TieBreakQuestionResults = x.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 PoliticalBusinessId = x.VoteResult.VoteId,
                 SubmissionDoneTimestamp = x.VoteResult.SubmissionDoneTimestamp,
+                TotalSentEVotingVotingCards = x.VoteResult.TotalSentEVotingVotingCards,
             })
             .ToListAsync(ct);
 
@@ -371,7 +372,6 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         [Name("StmN22ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedTBQ3 { get; set; }
 
-        // We currently do not have this information, but the customers wants to have this field included in the CSV
         [Name("TotalVersendeteEVotingSRA")]
         public int? TotalSentEVotingVotingCards { get; set; }
 

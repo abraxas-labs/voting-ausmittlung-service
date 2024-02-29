@@ -1,28 +1,37 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using CsvHelper;
-using Voting.Ausmittlung.Ech.Converters;
+using Ech0222_1_0;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
+using Voting.Lib.Ech;
 using Voting.Lib.VotingExports.Models;
 
 namespace Voting.Ausmittlung.Report.Services;
 
 public class TemplateService
 {
+    // Needs to match the order of ElectionRawDataTypeBallotRawDataBallotPosition.IsEmpty
+    private const int PositionIsEmptyXmlAttributeOrder = 1;
+    private const string PositionIsEmptyXmlAttributeName = "isEmpty";
+
     private readonly CsvService _csvService;
     private readonly IPdfService _pdfService;
+    private readonly EchSerializer _echSerializer;
 
     public TemplateService(
         CsvService csvService,
-        IPdfService pdfService)
+        IPdfService pdfService,
+        EchSerializer echSerializer)
     {
         _csvService = csvService;
         _pdfService = pdfService;
+        _echSerializer = echSerializer;
     }
 
     public FileModel RenderToCsv<TRow>(
@@ -84,17 +93,33 @@ public class TemplateService
         });
     }
 
-    public FileModel RenderToXml(
+    public FileModel RenderToXml<T>(
         ReportRenderContext context,
         string messageId,
-        object data,
+        T data,
         params string[] filenameArgs)
+        where T : notnull
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
         return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, (w, _) =>
         {
-            EchSerializer.ToXml(w, data);
+            _echSerializer.WriteXml(w, data, BuildXmlAttributeOverrides());
             return Task.CompletedTask;
         });
+    }
+
+    private XmlAttributeOverrides BuildXmlAttributeOverrides()
+    {
+        var xmlAttributeOverrides = new XmlAttributeOverrides();
+        var attributes = new XmlAttributes();
+
+        var elementAttribute = new XmlElementAttribute(PositionIsEmptyXmlAttributeName) { Order = PositionIsEmptyXmlAttributeOrder };
+        attributes.XmlElements.Add(elementAttribute);
+
+        // ensure that isEmpty element is serialized
+        attributes.XmlDefaultValue = false;
+
+        xmlAttributeOverrides.Add(typeof(ElectionRawDataTypeBallotRawDataBallotPosition), nameof(ElectionRawDataTypeBallotRawDataBallotPosition.IsEmpty), attributes);
+        return xmlAttributeOverrides;
     }
 }

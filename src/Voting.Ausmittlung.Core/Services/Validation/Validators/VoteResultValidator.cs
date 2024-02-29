@@ -1,9 +1,7 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
-using System.Linq;
-using FluentValidation;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Data.Models;
 
@@ -28,16 +26,12 @@ public class VoteResultValidator : CountingCircleResultValidator<VoteResult>
             yield return result;
         }
 
-        if (data.Results.Count > 1)
+        foreach (var ballotResult in data.Results)
         {
-            throw new ValidationException("validation for multiple ballot results is not implemented yet.");
-        }
-
-        var ballotResult = data.Results.Single();
-
-        foreach (var result in _ballotResultValidator.Validate(ballotResult, context))
-        {
-            yield return result;
+            foreach (var result in _ballotResultValidator.Validate(ballotResult, context))
+            {
+                yield return result;
+            }
         }
     }
 }

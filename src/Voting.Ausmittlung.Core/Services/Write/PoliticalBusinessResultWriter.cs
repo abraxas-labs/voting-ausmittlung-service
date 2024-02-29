@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -22,7 +22,6 @@ public abstract class PoliticalBusinessResultWriter<T>
 {
     private readonly PermissionService _permissionService;
     private readonly ContestService _contestService;
-    private readonly IAuth _auth;
 
     protected PoliticalBusinessResultWriter(
         PermissionService permissionService,
@@ -32,24 +31,25 @@ public abstract class PoliticalBusinessResultWriter<T>
     {
         _permissionService = permissionService;
         _contestService = contestService;
-        _auth = auth;
+        Auth = auth;
         AggregateRepository = aggregateRepository;
     }
 
     protected IAggregateRepository AggregateRepository { get; }
 
+    protected IAuth Auth { get; }
+
     /// <summary>
     /// Ensures that the current user has write permissions on the political business result.
     /// </summary>
     /// <param name="resultId">The political business result ID.</param>
-    /// <param name="requireElectionAdmin">Whether the operation requires the election admin role.</param>
     /// <returns>The contest ID of the political business result.</returns>
     /// <exception cref="ValidationException">Thrown if the political business is not yet active.</exception>
     /// <exception cref="Core.Exceptions.ContestLockedException">Thrown if the contest is in a locked state.</exception>
     /// <exception cref="ForbiddenException">Thrown if the current user does not have write permissions on the political business result.</exception>
-    protected async Task<Guid> EnsurePoliticalBusinessPermissions(Guid resultId, bool requireElectionAdmin)
+    protected async Task<Guid> EnsurePoliticalBusinessPermissions(Guid resultId)
     {
-        return await EnsurePoliticalBusinessPermissions(await LoadPoliticalBusinessResult(resultId), requireElectionAdmin);
+        return await EnsurePoliticalBusinessPermissions(await LoadPoliticalBusinessResult(resultId));
     }
 
     /// <summary>
@@ -58,22 +58,12 @@ public abstract class PoliticalBusinessResultWriter<T>
     /// For VOTING Ausmittlung Monitoring, <see cref="EnsurePoliticalBusinessPermissionsForMonitor"/> should be used.
     /// </summary>
     /// <param name="result">The political business result.</param>
-    /// <param name="requireElectionAdmin">Whether the operation requires the election admin role.</param>
     /// <returns>The contest ID of the political business result.</returns>
     /// <exception cref="ValidationException">Thrown if the political business is not yet active.</exception>
     /// <exception cref="Core.Exceptions.ContestLockedException">Thrown if the contest is in a locked state.</exception>
     /// <exception cref="ForbiddenException">Thrown if the current user does not have write permissions on the political business result.</exception>
-    protected async Task<Guid> EnsurePoliticalBusinessPermissions(T result, bool requireElectionAdmin)
+    protected async Task<Guid> EnsurePoliticalBusinessPermissions(T result)
     {
-        if (requireElectionAdmin)
-        {
-            _permissionService.EnsureErfassungElectionAdmin();
-        }
-        else
-        {
-            _permissionService.EnsureErfassungElectionAdminOrCreator();
-        }
-
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(result.CountingCircleId, result.PoliticalBusiness.ContestId);
 
         if (!result.PoliticalBusiness.Active)
@@ -88,7 +78,7 @@ public abstract class PoliticalBusinessResultWriter<T>
     /// <summary>
     /// Ensures that the current user has write permissions on the political business result.
     /// Note that this method is only applicable to VOTING Ausmittlung Monitoring.
-    /// For VOTING Ausmittlung Erfassung, <see cref="EnsurePoliticalBusinessPermissions(System.Guid,bool)"/> should be used.
+    /// For VOTING Ausmittlung Erfassung, <see cref="EnsurePoliticalBusinessPermissions(System.Guid)"/> should be used.
     /// </summary>
     /// <param name="resultId">The political business result ID.</param>
     /// <returns>The contest ID of the political business result.</returns>
@@ -97,7 +87,6 @@ public abstract class PoliticalBusinessResultWriter<T>
     /// <exception cref="ForbiddenException">Thrown if the current user does not have write permissions on the political business result.</exception>
     protected async Task<Guid> EnsurePoliticalBusinessPermissionsForMonitor(Guid resultId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var result = await LoadPoliticalBusinessResult(resultId);
 
         if (result.PoliticalBusiness.DomainOfInfluence.SecureConnectId != _permissionService.TenantId)
@@ -169,7 +158,7 @@ public abstract class PoliticalBusinessResultWriter<T>
 
     protected bool IsSelfOwnedPoliticalBusiness(PoliticalBusiness politicalBusiness)
     {
-        return politicalBusiness.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id;
+        return politicalBusiness.DomainOfInfluence.SecureConnectId == Auth.Tenant.Id;
     }
 
     protected abstract Task<T> LoadPoliticalBusinessResult(Guid resultId);

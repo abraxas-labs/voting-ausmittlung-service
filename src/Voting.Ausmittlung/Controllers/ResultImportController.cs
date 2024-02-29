@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,10 +6,11 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
+using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Rest.Files;
 using Voting.Lib.Rest.Utils;
 
@@ -17,7 +18,6 @@ namespace Voting.Ausmittlung.Controllers;
 
 [ApiController]
 [Route("api/result_import")]
-[Authorize]
 public class ResultImportController : ControllerBase
 {
     private const long MaxImportRequestSize = 250 * 1000 * 1000; // 250MB
@@ -40,6 +40,7 @@ public class ResultImportController : ControllerBase
     /// <param name="contestId">The contestId of the contest to which the results should be imported.</param>
     /// <param name="ct">Cancellation Token.</param>
     /// <returns>A task representing the async operation.</returns>
+    [AuthorizePermission(Permissions.Import.ImportData)]
     [HttpPost("{contestId:Guid}")]
     [RequestSizeLimit(MaxImportRequestSize)]
     [RequestFormLimits(MultipartBodyLengthLimit = MaxImportRequestSize)]

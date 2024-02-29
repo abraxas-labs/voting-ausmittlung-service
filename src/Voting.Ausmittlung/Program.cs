@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -78,5 +78,6 @@ public static class Program
                     var config = server.ApplicationServices.GetRequiredService<AppConfig>();
                     server.ListenAnyIP(config.Ports.Http, o => o.Protocols = HttpProtocols.Http1);
                     server.ListenAnyIP(config.Ports.Http2, o => o.Protocols = HttpProtocols.Http2);
+                    server.ListenAnyIP(config.MetricPort, o => o.Protocols = HttpProtocols.Http1);
                 }));
 }

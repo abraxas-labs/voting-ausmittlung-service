@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -41,9 +41,9 @@ public class CantonSettingsUpdateTest : BaseDataProcessorTest
                     ProportionalElectionMandateAlgorithms =
                     {
                             SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
-                            SharedProto.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum,
+                            SharedProto.ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum,
                     },
-                    MajorityElectionAbsoluteMajorityAlgorithm = SharedProto.CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo,
+                    MajorityElectionAbsoluteMajorityAlgorithm = SharedProto.CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates,
                     MajorityElectionInvalidVotes = false,
                     SwissAbroadVotingRight = SharedProto.SwissAbroadVotingRight.OnEveryCountingCircle,
                     SwissAbroadVotingRightDomainOfInfluenceTypes =
@@ -53,6 +53,7 @@ public class CantonSettingsUpdateTest : BaseDataProcessorTest
                     },
                     ProtocolCountingCircleSortType = SharedProto.ProtocolCountingCircleSortType.SortNumber,
                     ProtocolDomainOfInfluenceSortType = SharedProto.ProtocolDomainOfInfluenceSortType.Alphabetical,
+                    CountingMachineEnabled = true,
                 },
             });
 
@@ -74,8 +75,8 @@ public class CantonSettingsUpdateTest : BaseDataProcessorTest
         baseDois.Any().Should().BeTrue();
 
         // only base dois and dois in testing phase should be affected
-        contestPastDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 2).Should().BeFalse();
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 2).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 2).Should().BeTrue();
+        contestPastDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeFalse();
+        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeTrue();
+        baseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeTrue();
     }
 }

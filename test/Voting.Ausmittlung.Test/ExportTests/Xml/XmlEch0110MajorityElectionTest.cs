@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Schema;
-using eCH_0110_4_0;
+using Ech0110_4_0;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Ech.Ech0110_4_0.Schemas;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
@@ -50,7 +50,7 @@ public class XmlEch0110MajorityElectionTest : XmlExportBaseTest<Delivery>
     }
 
     protected override XmlSchemaSet GetSchemaSet()
-        => Ech0110SchemaLoader.LoadEch0110Schemas();
+        => Ech0110Schemas.LoadEch0110Schemas();
 
     protected override IEnumerable<string> UnauthorizedRoles()
     {

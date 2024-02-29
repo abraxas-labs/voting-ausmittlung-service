@@ -49,6 +49,10 @@
         <AttributeName>review_procedure</AttributeName>
         <AttributeValue>Electronically</AttributeValue>
       </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidate_check_digit</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.MajorityElectionResultBundleCreated</EventName>
     <Tenant>
@@ -542,6 +546,10 @@
         <AttributeName>review_procedure</AttributeName>
         <AttributeValue>Electronically</AttributeValue>
       </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidate_check_digit</AttributeName>
+        <AttributeValue>False</AttributeValue>
+      </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionResultEntryDefined</EventName>
     <Tenant>
@@ -707,6 +715,10 @@
       <EventAttribute>
         <AttributeName>review_procedure</AttributeName>
         <AttributeValue>Electronically</AttributeValue>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>candidate_check_digit</AttributeName>
+        <AttributeValue>False</AttributeValue>
       </EventAttribute>
     </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionResultBundleCreated</EventName>

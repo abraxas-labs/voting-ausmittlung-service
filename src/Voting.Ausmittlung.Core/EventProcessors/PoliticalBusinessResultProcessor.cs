@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -48,9 +48,11 @@ public abstract class PoliticalBusinessResultProcessor<T>
         switch (newState)
         {
             case CountingCircleResultState.SubmissionOngoing:
+            case CountingCircleResultState.ReadyForCorrection:
                 simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = null;
                 break;
             case CountingCircleResultState.SubmissionDone when !result.SubmissionDoneTimestamp.HasValue:
+            case CountingCircleResultState.CorrectionDone when !result.SubmissionDoneTimestamp.HasValue:
                 simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
             case CountingCircleResultState.AuditedTentatively when !result.AuditedTentativelyTimestamp.HasValue:

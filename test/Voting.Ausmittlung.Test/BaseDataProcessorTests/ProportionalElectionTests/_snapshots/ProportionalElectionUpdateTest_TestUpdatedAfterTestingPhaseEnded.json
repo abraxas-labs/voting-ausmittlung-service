@@ -1,5 +1,5 @@
 {
-  "MandateAlgorithm": 3,
+  "MandateAlgorithm": 1,
   "CandidateCheckDigit": false,
   "BallotBundleSize": 50,
   "BallotBundleSampleSize": 1,
@@ -22,6 +22,9 @@
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ],
+  "ReviewProcedure": 1,
+  "EnforceReviewProcedureForCountingCircles": true,
+  "EnforceCandidateCheckDigitForCountingCircles": false,
   "NumberOfMandates": 5,
   "PoliticalBusinessNumber": "6000",
   "Active": true,
@@ -43,7 +46,5 @@
   "ShortDescription": "Update Proporzwahl de",
   "OfficialDescription": "Update Proporzwahl de",
   "Title": "6000: Update Proporzwahl de",
-  "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
-  "ReviewProcedure": 1,
-  "EnforceReviewProcedureForCountingCircles": true
+  "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
 }

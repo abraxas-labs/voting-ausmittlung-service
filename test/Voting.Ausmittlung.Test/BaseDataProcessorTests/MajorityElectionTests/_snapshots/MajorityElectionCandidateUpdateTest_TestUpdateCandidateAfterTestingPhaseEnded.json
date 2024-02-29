@@ -34,5 +34,6 @@
   "Locality": "locality",
   "Position": 1,
   "Origin": "origin",
+  "CheckDigit": 9,
   "Id": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc"
 }

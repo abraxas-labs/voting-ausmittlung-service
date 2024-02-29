@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -9,6 +9,7 @@ using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.MockedData.Mapping;
 using Voting.Lib.Testing;
 using Xunit;
+using BasisSharedProto = Abraxas.Voting.Basis.Shared.V1;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
@@ -38,7 +39,6 @@ public class EnumTest : BaseTest<TestApplicationFactory, TestStartup>
     [InlineData(typeof(MajorityElectionCandidateEndResultState), typeof(ProtoModels.MajorityElectionCandidateEndResultState))]
     [InlineData(typeof(PoliticalBusinessType), typeof(ProtoModels.PoliticalBusinessType))]
     [InlineData(typeof(PoliticalBusinessUnionType), typeof(ProtoModels.PoliticalBusinessUnionType))]
-    [InlineData(typeof(ProportionalElectionMandateAlgorithm), typeof(ProtoModels.ProportionalElectionMandateAlgorithm))]
     [InlineData(typeof(ProportionalElectionCandidateEndResultState), typeof(SharedProto.ProportionalElectionCandidateEndResultState))]
     [InlineData(typeof(SwissAbroadVotingRight), typeof(ProtoModels.SwissAbroadVotingRight))]
     [InlineData(typeof(BallotType), typeof(ProtoModels.BallotType))]
@@ -61,6 +61,62 @@ public class EnumTest : BaseTest<TestApplicationFactory, TestStartup>
     {
         Assert.Throws<AutoMapperMappingException>(() => _mapper.Map<EnumMockedData.TestEnum1>(EnumMockedData.TestEnum2.ValueC));
         Assert.Throws<AutoMapperMappingException>(() => _mapper.Map<EnumMockedData.TestEnum1>(EnumMockedData.TestEnum2.ValueB2));
+    }
+
+    [Theory]
+    [InlineData(typeof(ProtoModels.ProportionalElectionMandateAlgorithm))]
+    [InlineData(typeof(BasisSharedProto.ProportionalElectionMandateAlgorithm))]
+    public void ShouldMapProportionalElectionMandateAlgorithm(Type protoEnumType)
+    {
+        var dataEnumType = typeof(ProportionalElectionMandateAlgorithm);
+        var dataEnumArray = (int[])Enum.GetValues(dataEnumType);
+        var protoEnumArray = (int[])Enum.GetValues(protoEnumType);
+
+        // 2 deprecated proto enum values which aren't used in data anymore.
+        dataEnumArray.Length.Should().Be(protoEnumArray.Length - 2);
+
+        // data enum is a subset of the proto enum.
+        foreach (var value in dataEnumArray)
+        {
+            var dataEnumName = Enum.GetName(dataEnumType, value);
+            var protoEnumName = Enum.GetName(protoEnumType, value);
+            dataEnumName.Should().Be(protoEnumName);
+        }
+
+        var expectedProtoEnumMappingResult = new[]
+        {
+            ProportionalElectionMandateAlgorithm.Unspecified,
+            ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+            ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum, // for deprecated DoppelterPukelsheim5Quorum
+            ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum, // for deprecated DoppelterPukelsheim0Quorum
+            ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
+            ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiQuorum,
+            ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum,
+        };
+
+        for (var i = 0; i < protoEnumArray.Length; i++)
+        {
+            var dataEnum = Enum.ToObject(dataEnumType, expectedProtoEnumMappingResult[i]);
+            var protoEnum = Enum.ToObject(protoEnumType, protoEnumArray[i]);
+
+            var mappedDataValue = _mapper.Map(protoEnum, protoEnumType, dataEnumType);
+            mappedDataValue.Should().Be(dataEnum);
+        }
+
+        var deprecatedCounter = 0; // counter to skip in the proto enum the deprecated values
+        for (var i = 0; i < dataEnumArray.Length; i++)
+        {
+            if (i == 2)
+            {
+                deprecatedCounter += 2;
+            }
+
+            var dataEnum = Enum.ToObject(dataEnumType, dataEnumArray[i]);
+            var protoEnum = Enum.ToObject(protoEnumType, protoEnumArray[i + deprecatedCounter]);
+
+            var mappedProtoValue = _mapper.Map(dataEnum, dataEnumType, protoEnumType);
+            mappedProtoValue.Should().Be(protoEnum);
+        }
     }
 
     private static void CompareEnums(Type dataEnumType, Type protoEnumType)

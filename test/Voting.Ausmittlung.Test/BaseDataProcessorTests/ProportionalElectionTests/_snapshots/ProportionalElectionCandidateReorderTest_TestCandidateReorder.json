@@ -67,6 +67,7 @@
       "Locality": "locality 2",
       "Position": 1,
       "Origin": "origin 2",
+      "CheckDigit": 4,
       "Id": "9efe090f-883b-4e86-89c2-cd132ea84cbd"
     },
     {
@@ -136,6 +137,7 @@
       "Locality": "locality",
       "Position": 2,
       "Origin": "origin",
+      "CheckDigit": 6,
       "Id": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9"
     }
   ]

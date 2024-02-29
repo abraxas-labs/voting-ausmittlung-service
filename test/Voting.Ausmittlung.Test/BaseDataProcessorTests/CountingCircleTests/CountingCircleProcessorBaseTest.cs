@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -24,6 +24,7 @@ public abstract class CountingCircleProcessorBaseTest : BaseDataProcessorTest
             .Include(x => x.ContactPersonAfterEvent)
             .Include(x => x.ContactPersonDuringEvent)
             .Include(x => x.ResponsibleAuthority)
+            .Include(x => x.Electorates.OrderBy(e => e.DomainOfInfluenceTypes[0]))
             .Where(predicate)
             .OrderBy(x => x.Name)
             .ThenBy(x => x.SnapshotContestId)

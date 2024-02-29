@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -75,6 +75,8 @@ public class Startup
 
     public void Configure(IApplicationBuilder app)
     {
+        app.UseMetricServer(_appConfig.MetricPort);
+
         app.UseRouting();
 
         if (_appConfig.PublisherModeEnabled)
@@ -84,8 +86,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            // Metrics and health checks are always exposed, regardless of service mode
-            endpoints.MapMetrics();
+            // Health checks are always exposed, regardless of service mode
             endpoints.MapVotingHealthChecks(_appConfig.LowPriorityHealthCheckNames);
 
             if (_appConfig.PublisherModeEnabled)
@@ -104,6 +105,7 @@ public class Startup
             options.ServiceAccount = _appConfig.SecureConnect.ServiceAccount;
             options.ServiceAccountPassword = _appConfig.SecureConnect.ServiceAccountPassword;
             options.RoleTokenApps = _appConfig.SecureConnect.RoleTokenApps;
+            options.ServiceAccountScopes = _appConfig.SecureConnect.ServiceAccountScopes;
         });
 
     protected void ConfigureDatabase(DbContextOptionsBuilder db)
@@ -159,6 +161,9 @@ public class Startup
         endpoints.MapGrpcService<MajorityElectionResultBundleService>();
         endpoints.MapGrpcService<VoteResultBundleService>();
         endpoints.MapGrpcService<ExportService>();
+        endpoints.MapGrpcService<DomainOfInfluenceService>();
+        endpoints.MapGrpcService<PermissionService>();
+        endpoints.MapGrpcService<ContestCountingCircleElectorateService>();
     }
 
     private void ConfigureMessagingBus(IServiceCollectionBusConfigurator cfg)
@@ -170,6 +175,7 @@ public class Startup
 
         cfg.AddConsumer<MessageConsumer<ResultStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MessageConsumer<ResultImportChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<MessageConsumer<WriteInMappingsChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MessageConsumer<ProtocolExportStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
         cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);

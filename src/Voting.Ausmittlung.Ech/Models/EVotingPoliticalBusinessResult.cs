@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -19,4 +19,6 @@ public abstract class EVotingPoliticalBusinessResult
     public string BasisCountingCircleId { get; }
 
     public PoliticalBusinessType PoliticalBusinessType { get; set; }
+
+    public EVotingCountingCircleResultCountOfVotersInformation? CountOfVotersInformation { get; set; }
 }

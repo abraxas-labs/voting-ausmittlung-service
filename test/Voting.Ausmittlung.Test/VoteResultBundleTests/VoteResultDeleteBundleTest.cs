@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -102,7 +102,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
+            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
             {
                 BundleId = "c9be6337-d25d-4e29-84e6-551ad5752f64",
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,

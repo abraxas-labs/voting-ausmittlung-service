@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -15,7 +15,6 @@ using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.VotingExports.Models;
 using CountingCircle = Voting.Ausmittlung.Data.Models.CountingCircle;
 
 namespace Voting.Ausmittlung.Core.Services.Permission;
@@ -46,17 +45,7 @@ public class PermissionService
         _contestRepo = contestRepo;
         _appConfig = appConfig;
         _authStore = authStore;
-
-        ErfassungCreator = $"{appConfig.SecureConnect.AppShortNameErfassung}::Erfasser";
-        ErfassungElectionAdmin = $"{appConfig.SecureConnect.AppShortNameErfassung}::Wahlverwalter";
-        MonitoringElectionAdmin = $"{appConfig.SecureConnect.AppShortNameMonitoring}::Wahlverwalter";
     }
-
-    public string ErfassungCreator { get; }
-
-    public string ErfassungElectionAdmin { get; }
-
-    public string MonitoringElectionAdmin { get; }
 
     public string UserId => _auth.User.Loginid;
 
@@ -225,74 +214,6 @@ public class PermissionService
     }
 
     /// <summary>
-    /// Checks whether the current tenant has read permissions on the contest. If not, an exception is thrown.
-    /// </summary>
-    /// <param name="contestId">The contest ID to check.</param>
-    /// <exception cref="ForbiddenException">Thrown when the current tenant has no read permissions on the contest.</exception>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public async Task EnsureCanReadContest(Guid contestId)
-    {
-        var canAccessContest = await _permissionRepo
-            .Query()
-            .AnyAsync(p => p.TenantId == _auth.Tenant.Id && p.ContestId == contestId);
-
-        if (!canAccessContest)
-        {
-            throw new ForbiddenException($"you have no read access on contest {contestId}");
-        }
-    }
-
-    /// <summary>
-    /// Checks whether the current user has enough permissions to export a result.
-    /// </summary>
-    /// <param name="type">The type of the result to export..</param>
-    /// <exception cref="ForbiddenException">Thrown when the current user does not have enough permissions to export the result.</exception>
-    public void EnsureCanExport(ResultType type)
-    {
-        switch (type)
-        {
-            case ResultType.CountingCircleResult:
-            case ResultType.MultiplePoliticalBusinessesCountingCircleResult:
-            case ResultType.PoliticalBusinessResultBundleReview:
-                EnsureAnyRole();
-                break;
-            case ResultType.MultiplePoliticalBusinessesResult:
-            case ResultType.PoliticalBusinessResult:
-            case ResultType.PoliticalBusinessUnionResult:
-            case ResultType.Contest:
-                EnsureMonitoringElectionAdmin();
-                break;
-            default:
-                throw new ForbiddenException();
-        }
-    }
-
-    public bool IsErfassungElectionAdmin()
-        => _auth.HasRole(ErfassungElectionAdmin);
-
-    public bool IsMonitoringElectionAdmin()
-        => _auth.HasRole(MonitoringElectionAdmin);
-
-    /// <summary>
-    /// Checks whether the current user has any role at all. Throws if the user does not have a role.
-    /// </summary>
-    /// <exception cref="ForbiddenException">Thrown if the current user does not have a role.</exception>
-    public void EnsureAnyRole()
-        => _auth.EnsureAnyRole(ErfassungCreator, ErfassungElectionAdmin, MonitoringElectionAdmin);
-
-    public void EnsureMonitoringElectionAdmin()
-        => _auth.EnsureRole(MonitoringElectionAdmin);
-
-    public void EnsureErfassungElectionAdmin()
-        => _auth.EnsureRole(ErfassungElectionAdmin);
-
-    public void EnsureErfassungElectionAdminOrMonitoringElectionAdmin()
-        => _auth.EnsureAnyRole(ErfassungElectionAdmin, MonitoringElectionAdmin);
-
-    public void EnsureErfassungElectionAdminOrCreator()
-        => _auth.EnsureAnyRole(ErfassungElectionAdmin, ErfassungCreator);
-
-    /// <summary>
     /// Ensures that the current tenant is the authority of the domain of influence of the contest.
     /// </summary>
     /// <param name="contest">The contest.</param>
@@ -313,7 +234,7 @@ public class PermissionService
     {
         if (!_auth.IsAuthenticated)
         {
-            _logger.LogInformation(SecurityLogging.SecurityEventId, "Using Abraxas authentication values, since no user is authenticated");
+            _logger.LogDebug(SecurityLogging.SecurityEventId, "Using Abraxas authentication values, since no user is authenticated");
             _authStore.SetValues(string.Empty, new() { Loginid = _appConfig.SecureConnect.ServiceUserId }, new() { Id = _appConfig.SecureConnect.AbraxasTenantId }, Enumerable.Empty<string>());
         }
     }

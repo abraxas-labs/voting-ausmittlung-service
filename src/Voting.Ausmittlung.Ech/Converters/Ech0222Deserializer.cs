@@ -1,40 +1,32 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Ausmittlung.Ech.Models;
-using Voting.Ausmittlung.Ech.Schemas;
 using Voting.Lib.Common;
-using Delivery = eCH_0222_1_0.Standard.Delivery;
+using Voting.Lib.Ech;
+using Voting.Lib.Ech.Ech0222_1_0.Schemas;
+using Delivery = Ech0222_1_0.Delivery;
 
 namespace Voting.Ausmittlung.Ech.Converters;
 
-public static class Ech0222Deserializer
+public class Ech0222Deserializer
 {
-    public static EVotingImport DeserializeXml(Stream stream)
-    {
-        var schemaSet = Ech0222SchemaLoader.LoadEch0222Schemas();
-        using var reader = XmlUtil.CreateReaderWithSchemaValidation(stream, schemaSet);
-        var serializer = new XmlSerializer(typeof(Delivery));
+    private readonly EchDeserializer _echDeserializer;
 
-        Delivery delivery;
-        try
-        {
-            delivery = (Delivery?)serializer.Deserialize(reader)
-                ?? throw new ValidationException("Deserialization with returned null");
-        }
-        catch (InvalidOperationException ex) when (ex.InnerException != null)
-        {
-            // The XmlSerializer wraps all exceptions into an InvalidOperationException.
-            // Unwrap it to surface the "correct" exception type.
-            throw ex.InnerException;
-        }
+    public Ech0222Deserializer(EchDeserializer echDeserializer)
+    {
+        _echDeserializer = echDeserializer;
+    }
+
+    public EVotingImport DeserializeXml(Stream stream)
+    {
+        var schemaSet = Ech0222Schemas.LoadEch0222Schemas();
+        var delivery = _echDeserializer.DeserializeXml<Delivery>(stream, schemaSet);
 
         return EVotingImportFromDelivery(delivery);
     }
@@ -56,26 +48,20 @@ public static class Ech0222Deserializer
         var results = new List<EVotingPoliticalBusinessResult>();
         foreach (var ccData in delivery.RawDataDelivery.RawData.CountingCircleRawData)
         {
-            if (ccData.VoteRawData != null)
-            {
-                var ccVotes = ccData.VoteRawData
-                    .Select(x => x.ToEVotingVote(ccData.countingCircleId));
-                results.AddRange(ccVotes);
-            }
+            var ccVotes = ccData.VoteRawData
+                .Select(x => x.ToEVotingVote(ccData.CountingCircleId));
+            results.AddRange(ccVotes);
 
-            if (ccData.electionGroupBallotRawData != null)
-            {
-                var ccElections = ccData.electionGroupBallotRawData
-                    .SelectMany(g => g.ElectionRawData)
-                    .GroupBy(x => x.ElectionIdentification)
-                    .Select(x => x.SelectMany(g => g.BallotRawData).ToEVotingElection(x.Key, ccData.countingCircleId))
-                    .Select(x => x);
-                results.AddRange(ccElections);
-            }
+            var ccElections = ccData.ElectionGroupBallotRawData
+                .SelectMany(g => g.ElectionRawData)
+                .GroupBy(x => x.ElectionIdentification)
+                .Select(x => x.SelectMany(g => g.BallotRawData).ToEVotingElection(x.Key, ccData.CountingCircleId))
+                .Select(x => x);
+            results.AddRange(ccElections);
 
-            if (ccData.VoteRawData == null && ccData.electionGroupBallotRawData == null)
+            if (ccData.VoteRawData.Count == 0 && ccData.ElectionGroupBallotRawData.Count == 0)
             {
-                results.Add(new EVotingEmptyResult(ccData.countingCircleId));
+                results.Add(new EVotingEmptyResult(ccData.CountingCircleId));
             }
         }
 

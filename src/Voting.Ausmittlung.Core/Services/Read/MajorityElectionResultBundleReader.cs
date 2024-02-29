@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
@@ -13,6 +14,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
@@ -24,24 +26,26 @@ public class MajorityElectionResultBundleReader
     private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
     private readonly MessageConsumerHub<MajorityElectionBundleChanged, MajorityElectionResultBundle> _bundleChangeListener;
     private readonly PermissionService _permissionService;
+    private readonly IAuth _auth;
 
     public MajorityElectionResultBundleReader(
         IDbRepository<DataContext, MajorityElectionResult> resultRepo,
         IDbRepository<DataContext, MajorityElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
         PermissionService permissionService,
+        IAuth auth,
         MessageConsumerHub<MajorityElectionBundleChanged, MajorityElectionResultBundle> bundleChangeListener)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
         _permissionService = permissionService;
+        _auth = auth;
         _bundleChangeListener = bundleChangeListener;
     }
 
     public async Task<MajorityElectionResult> GetElectionResultWithBundles(Guid electionResultId)
     {
-        _permissionService.EnsureAnyRole();
         var electionResult = await _resultRepo.Query()
                                  .AsSplitQuery()
                                  .Include(x => x.CountingCircle)
@@ -62,7 +66,6 @@ public class MajorityElectionResultBundleReader
         Func<MajorityElectionResultBundle, Task> listener,
         CancellationToken cancellationToken)
     {
-        _permissionService.EnsureAnyRole();
         var data = await _resultRepo.Query()
                                  .Where(x => x.Id == electionResultId)
                                  .Select(x => new { x.CountingCircleId, x.MajorityElection.ContestId })
@@ -79,7 +82,6 @@ public class MajorityElectionResultBundleReader
 
     public async Task<MajorityElectionResultBundle> GetBundle(Guid bundleId)
     {
-        _permissionService.EnsureAnyRole();
         var bundle = await _bundleRepo.Query()
                                  .AsSplitQuery()
                                  .Include(x => x.ElectionResult.CountingCircle)
@@ -104,7 +106,6 @@ public class MajorityElectionResultBundleReader
 
     public async Task<MajorityElectionResultBallot> GetBallot(Guid bundleId, int ballotNumber)
     {
-        _permissionService.EnsureAnyRole();
         var ballot = await _ballotRepo.Query()
                          .AsSplitQuery()
                          .Include(x => x.Bundle.ElectionResult.MajorityElection)
@@ -141,8 +142,8 @@ public class MajorityElectionResultBundleReader
             ballot.Bundle.ElectionResult.CountingCircleId,
             ballot.Bundle.ElectionResult.MajorityElection.ContestId);
 
-        // These roles are always able to view the result ballot
-        if (_permissionService.IsErfassungElectionAdmin() || _permissionService.IsMonitoringElectionAdmin())
+        // Users with this permission are always able to view the result ballot
+        if (_auth.HasPermission(Permissions.PoliticalBusinessResultBallot.ReadAll))
         {
             return;
         }

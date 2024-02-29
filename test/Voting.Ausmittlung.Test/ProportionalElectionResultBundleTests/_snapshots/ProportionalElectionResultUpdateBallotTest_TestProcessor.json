@@ -16,7 +16,8 @@
       "NumberIncludingList": "1a.number1",
       "ListDescription": "",
       "ListShortDescription": "Liste 1 de",
-      "ListPosition": 1
+      "ListPosition": 1,
+      "CheckDigit": 6
     },
     {
       "Id": "9efe090f-883b-4e86-89c2-cd132ea84cbd",
@@ -32,7 +33,8 @@
       "NumberIncludingList": "1a.number2",
       "ListDescription": "",
       "ListShortDescription": "Liste 1 de",
-      "ListPosition": 1
+      "ListPosition": 1,
+      "CheckDigit": 4
     },
     {
       "Id": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9",
@@ -48,7 +50,8 @@
       "NumberIncludingList": "1a.number1",
       "ListDescription": "",
       "ListShortDescription": "Liste 1 de",
-      "ListPosition": 1
+      "ListPosition": 1,
+      "CheckDigit": 6
     },
     {
       "Id": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9",
@@ -64,7 +67,8 @@
       "NumberIncludingList": "1a.number1",
       "ListDescription": "",
       "ListShortDescription": "Liste 1 de",
-      "ListPosition": 1
+      "ListPosition": 1,
+      "CheckDigit": 6
     },
     {
       "Id": "9efe090f-883b-4e86-89c2-cd132ea84cbd",
@@ -80,7 +84,8 @@
       "NumberIncludingList": "1a.number2",
       "ListDescription": "",
       "ListShortDescription": "Liste 1 de",
-      "ListPosition": 1
+      "ListPosition": 1,
+      "CheckDigit": 4
     }
   ]
 }

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -287,6 +287,25 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
             "enforced ReviewProcedure setting not respected");
     }
 
+    [Fact]
+    public async Task TestNoRespectForEnforcedCandidateCheckDigitSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var election = await db.MajorityElections
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund));
+            election.EnforceCandidateCheckDigitForCountingCircles = true;
+            election.CandidateCheckDigit = false;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "enforced CandidateCheckDigit setting not respected");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
@@ -313,6 +332,7 @@ public class MajorityElectionResultDefineEntryTest : MajorityElectionResultBaseT
                 AutomaticEmptyVoteCounting = false,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = SharedProto.MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
         };

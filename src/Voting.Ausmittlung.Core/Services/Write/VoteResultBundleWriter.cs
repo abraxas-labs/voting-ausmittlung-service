@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -50,7 +50,7 @@ public class VoteResultBundleWriter
         Guid ballotResultId,
         int? bundleNumber)
     {
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResultId, false);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResultId);
 
         var voteResultAggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
 
@@ -84,7 +84,7 @@ public class VoteResultBundleWriter
     public async Task DeleteBundle(Guid bundleId, Guid ballotResultId)
     {
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, true);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.Delete(contestId);
 
         var voteResultAggregate = await AggregateRepository.GetById<VoteResultAggregate>(aggregate.PoliticalBusinessResultId);
@@ -102,7 +102,7 @@ public class VoteResultBundleWriter
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
         var result = await LoadPoliticalBusinessResult(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(result, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(result, aggregate);
 
         var questionBallotNumbers = questionAnswers.Select(x => x.QuestionNumber).ToList();
         var tieBreakQuestionBallotNumbers = tieBreakQuestionAnswers.Select(x => x.QuestionNumber).ToList();
@@ -125,7 +125,7 @@ public class VoteResultBundleWriter
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
         var result = await LoadPoliticalBusinessResult(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(result, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(result, aggregate);
 
         var questionBallotNumbers = questionAnswers.Select(x => x.QuestionNumber).ToList();
         var tieBreakQuestionBallotNumbers = tieBreakQuestionAnswers.Select(x => x.QuestionNumber).ToList();
@@ -141,7 +141,7 @@ public class VoteResultBundleWriter
     public async Task DeleteBallot(Guid bundleId, int ballotNumber)
     {
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.DeleteBallot(ballotNumber, contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -149,7 +149,7 @@ public class VoteResultBundleWriter
     public async Task BundleSubmissionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.SubmissionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -157,7 +157,7 @@ public class VoteResultBundleWriter
     public async Task BundleCorrectionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.CorrectionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }

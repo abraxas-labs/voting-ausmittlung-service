@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -29,14 +29,13 @@ public class CsvProportionalElectionCandidatesAlphabeticalRenderService : IRende
     {
         var candidates = _candidatesRepo.Query()
             .Where(c => c.ProportionalElectionList.ProportionalElectionId == ctx.PoliticalBusinessId)
-            .OrderBy(c => c.LastName)
-            .ThenBy(c => c.FirstName)
+            .OrderBy(c => c.PoliticalLastName)
+            .ThenBy(c => c.PoliticalFirstName)
             .Select(c => new
             {
-                Listennummer = c.ProportionalElectionList.OrderNumber,
-                c.Position,
-                Nachname = c.LastName,
-                Vorname = c.FirstName,
+                KandidatenNr = $"{c.ProportionalElectionList.OrderNumber}.{c.Number}",
+                Nachname = c.PoliticalLastName,
+                Vorname = c.PoliticalFirstName,
                 Wohnort = c.Locality,
                 Jahrgang = c.DateOfBirth.Year,
             })

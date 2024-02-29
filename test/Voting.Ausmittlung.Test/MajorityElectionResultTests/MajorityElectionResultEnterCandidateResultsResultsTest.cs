@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -229,17 +229,6 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
     }
 
     [Fact]
-    public async Task TestShouldThrowInvalidVoteCountProvideWithSingleMandate()
-    {
-        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 1);
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.EmptyVoteCount = null)),
-            StatusCode.InvalidArgument,
-            "invalid vote count provided with single mandate");
-    }
-
-    [Fact]
     public async Task TestShouldThrowSecondaryEmptyVoteCountProvideWithSingleMandate()
     {
         await OverwriteSecondaryMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund), 1);
@@ -248,17 +237,6 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
                 NewValidRequest(r => r.SecondaryElectionCandidateResults[0].IndividualVoteCount = null)),
             StatusCode.InvalidArgument,
             "empty vote count provided with single mandate");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowSecondaryInvalidVoteCountProvideWithSingleMandate()
-    {
-        await OverwriteSecondaryMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund), 1);
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.SecondaryElectionCandidateResults[0].EmptyVoteCount = null)),
-            StatusCode.InvalidArgument,
-            "invalid vote count provided with single mandate");
     }
 
     [Theory]

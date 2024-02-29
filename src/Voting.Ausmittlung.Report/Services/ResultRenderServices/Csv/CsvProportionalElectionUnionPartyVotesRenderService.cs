@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -68,7 +68,7 @@ public class CsvProportionalElectionUnionPartyVotesRenderService : IRendererServ
             totalFictivePartyVoters += totalFictivePartyVotersOfPoliticalBusiness;
             foreach (var politicalBusinessEntry in politicalBusinessEntries)
             {
-                politicalBusinessEntry.PartyStrength = 100 * politicalBusinessEntry.FictivePartyVoters / totalFictivePartyVotersOfPoliticalBusiness;
+                politicalBusinessEntry.PartyStrength = 100 * politicalBusinessEntry.FictivePartyVoters / Math.Max(1, totalFictivePartyVotersOfPoliticalBusiness);
             }
         }
 

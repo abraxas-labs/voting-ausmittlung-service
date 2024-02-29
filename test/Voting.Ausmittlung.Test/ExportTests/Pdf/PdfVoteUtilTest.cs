@@ -1,5 +1,6 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
+
 using System.Linq;
 using FluentAssertions;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;

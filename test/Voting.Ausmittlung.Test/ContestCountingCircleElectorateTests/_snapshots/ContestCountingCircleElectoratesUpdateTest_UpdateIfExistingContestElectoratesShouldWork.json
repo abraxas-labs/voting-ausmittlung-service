@@ -1,0 +1,35 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "300300300300300300",
+      "Name": "Gossau"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "Id": "bd46adc1-b193-5fa7-b8e6-f5eca5d90af8",
+  "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+  "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+  "Electorates": [
+    {
+      "Id": "0debf968-7f25-5255-a3c3-e78766330e0d",
+      "DomainOfInfluenceTypes": [
+        8
+      ]
+    },
+    {
+      "Id": "e243cf2f-beca-50b8-af85-9e798512311b",
+      "DomainOfInfluenceTypes": [
+        2
+      ]
+    }
+  ]
+}

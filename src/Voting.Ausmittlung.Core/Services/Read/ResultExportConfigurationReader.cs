@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -28,7 +28,6 @@ public class ResultExportConfigurationReader
 
     public Task<List<ResultExportConfiguration>> List(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         return _repo.Query()
             .AsSplitQuery()
             .Include(x => x.PoliticalBusinesses)

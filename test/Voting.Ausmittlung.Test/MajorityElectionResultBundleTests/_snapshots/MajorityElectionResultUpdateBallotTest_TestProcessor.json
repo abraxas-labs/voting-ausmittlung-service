@@ -11,7 +11,8 @@
       "Party": "Test de",
       "Description": "number1 pol last name pol first name",
       "Position": 1,
-      "Selected": false
+      "Selected": false,
+      "CheckDigit": 9
     },
     {
       "Id": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
@@ -21,7 +22,8 @@
       "Party": "Test de",
       "Description": "number5 pol last name pol first name",
       "Position": 2,
-      "Selected": true
+      "Selected": true,
+      "CheckDigit": 1
     }
   ],
   "SecondaryMajorityElectionBallots": [
@@ -38,7 +40,8 @@
           "Party": "Test de",
           "Description": "number1 pol last name pol first name",
           "Position": 1,
-          "Selected": true
+          "Selected": true,
+          "CheckDigit": 9
         },
         {
           "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
@@ -48,7 +51,8 @@
           "Party": "CVP de",
           "Description": "number2 L Pete",
           "Position": 2,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 7
         },
         {
           "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
@@ -58,7 +62,8 @@
           "Party": "SVP de",
           "Description": "number3 Proll Hansi",
           "Position": 3,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 5
         },
         {
           "Id": "340c482b-c064-427e-a906-2696fab2ab35",
@@ -68,7 +73,8 @@
           "Party": "CVP de",
           "Description": "number4 Meierhans Susi",
           "Position": 4,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 3
         }
       ],
       "InvalidVoteCount": 1
@@ -86,7 +92,8 @@
           "Party": "Test de",
           "Description": "number1 pol last name pol first name",
           "Position": 1,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 9
         },
         {
           "Id": "910181c5-c003-4775-976b-1f33a19f2a1b",
@@ -96,7 +103,8 @@
           "Party": "CVP de",
           "Description": "number2 L Pete2",
           "Position": 2,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 7
         }
       ],
       "InvalidVoteCount": 0
@@ -114,7 +122,8 @@
           "Party": "Test de",
           "Description": "number1 pol last name pol first name",
           "Position": 1,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 9
         },
         {
           "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3",
@@ -124,7 +133,8 @@
           "Party": "CVP de",
           "Description": "number2 L Pete2",
           "Position": 2,
-          "Selected": false
+          "Selected": false,
+          "CheckDigit": 7
         }
       ],
       "InvalidVoteCount": 0

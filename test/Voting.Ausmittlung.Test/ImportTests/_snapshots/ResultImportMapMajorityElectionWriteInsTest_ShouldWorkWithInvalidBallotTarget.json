@@ -1,0 +1,71 @@
+{
+  "primary": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "100100100100100100",
+        "Name": "Uzwil"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+    "MajorityElectionId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+    "WriteInMappings": [
+      {
+        "WriteInMappingId": "",
+        "Target": 5,
+        "CandidateId": ""
+      },
+      {
+        "WriteInMappingId": "",
+        "Target": 1,
+        "CandidateId": ""
+      },
+      {
+        "WriteInMappingId": "",
+        "Target": 1,
+        "CandidateId": ""
+      },
+      {
+        "WriteInMappingId": "",
+        "Target": 3,
+        "CandidateId": ""
+      }
+    ]
+  },
+  "secondary": {
+    "EventInfo": {
+      "User": {
+        "Id": "default-user-id",
+        "Username": "default username",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname"
+      },
+      "Tenant": {
+        "Id": "100100100100100100",
+        "Name": "Uzwil"
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+    "SecondaryMajorityElectionId": "5ec8cf85-229a-4dc7-a601-1bb6980fee78",
+    "WriteInMappings": [
+      {
+        "WriteInMappingId": "",
+        "Target": 1,
+        "CandidateId": ""
+      }
+    ]
+  }
+}

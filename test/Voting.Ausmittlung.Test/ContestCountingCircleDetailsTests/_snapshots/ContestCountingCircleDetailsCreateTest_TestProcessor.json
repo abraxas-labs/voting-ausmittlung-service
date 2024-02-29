@@ -88,6 +88,7 @@
       ],
       "EVoting": false,
       "TotalCountOfVoters": 12000,
+      "CountingMachine": 2,
       "Id": "452de2e5-6e23-545d-b533-195f3a2435ad"
     }
   ]

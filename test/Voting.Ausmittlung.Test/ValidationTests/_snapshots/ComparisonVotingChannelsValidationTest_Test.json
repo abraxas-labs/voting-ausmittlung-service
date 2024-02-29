@@ -12,7 +12,9 @@
         "PreviousCount": 210,
         "CurrentCount": 190,
         "VotingChannel": 1
-      }
+      },
+      "ValidationGroup": 0,
+      "GroupValue": ""
     },
     {
       "Validation": 1152,
@@ -26,7 +28,9 @@
         "PreviousCount": 836,
         "CurrentCount": 820,
         "VotingChannel": 2
-      }
+      },
+      "ValidationGroup": 0,
+      "GroupValue": ""
     },
     {
       "Validation": 1152,
@@ -40,7 +44,9 @@
         "PreviousCount": 140,
         "CurrentCount": 150,
         "VotingChannel": 3
-      }
+      },
+      "ValidationGroup": 0,
+      "GroupValue": ""
     },
     {
       "Validation": 1152,
@@ -54,7 +60,9 @@
         "PreviousCount": 60,
         "CurrentCount": 60,
         "VotingChannel": 4
-      }
+      },
+      "ValidationGroup": 0,
+      "GroupValue": ""
     }
   ]
 }

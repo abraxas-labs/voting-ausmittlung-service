@@ -1,13 +1,13 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using eCH_0110_4_0;
-using eCH_0155_4_0;
+using Ech0110_4_0;
+using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
-using ProportionalElection = eCH_0110_4_0.ProportionalElection;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -18,7 +18,7 @@ internal static class ProportionalElectionResultMapping
         return new ElectionGroupResultsType
         {
             DomainOfInfluenceIdentification = electionResult.ProportionalElection.DomainOfInfluence.BasisDomainOfInfluenceId.ToString(),
-            ElectionResults = new[] { electionResult.ToEchElectionResult() },
+            ElectionResults = new List<ElectionResultType> { electionResult.ToEchElectionResult() },
             CountOfAccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalAccountedBallots),
             CountOfReceivedBallotsTotal = ResultDetailFromTotal(electionResult.CountOfVoters.TotalReceivedBallots),
             CountOfUnaccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalUnaccountedBallots),
@@ -34,19 +34,24 @@ internal static class ProportionalElectionResultMapping
 
         return new ElectionResultType
         {
-            Election = ElectionType.Create(election.Id.ToString(), TypeOfElectionType.Proporz, election.NumberOfMandates),
-            Item = new ProportionalElection
+            Election = new ElectionType
+            {
+                ElectionIdentification = election.Id.ToString(),
+                TypeOfElection = TypeOfElectionType.Item1,
+                NumberOfMandates = election.NumberOfMandates.ToString(),
+            },
+            ProportionalElection = new ElectionResultTypeProportionalElection
             {
                 Candidate = electionResult.ListResults
                     .SelectMany(l => l.CandidateResults)
                     .OrderBy(r => r.ListResult.List.Position)
                     .ThenBy(r => r.Candidate.Position)
                     .Select(c => c.ToEchCandidateResult())
-                    .ToArray(),
+                    .ToList(),
                 List = electionResult.ListResults
                     .OrderBy(r => r.List.Position)
                     .Select(l => l.ToEchListResult())
-                    .ToArray(),
+                    .ToList(),
                 CountOfEmptyVotesOfChangedBallotsWithoutPartyAffiliation = ResultDetailFromTotal(electionResult.TotalCountOfBlankRowsOnListsWithoutParty),
                 CountOfChangedBallotsWithoutPartyAffiliation = ResultDetailFromTotal(electionResult.TotalCountOfListsWithoutParty),
                 CountOfChangedBallotsWithPartyAffiliation = ResultDetailFromTotal(electionResult.TotalCountOfModifiedLists),
@@ -58,13 +63,18 @@ internal static class ProportionalElectionResultMapping
     {
         var list = listResult.List;
         var listDescriptions = list.Translations
-            .Select(t => ListDescriptionInfo.Create(t.Language, t.Description, t.ShortDescription))
+            .Select(t => new ListDescriptionInformationTypeListDescriptionInfo
+            {
+                Language = t.Language,
+                ListDescription = t.Description,
+                ListDescriptionShort = t.ShortDescription,
+            })
             .ToList();
         var listInformation = new ListInformationType
         {
             ListIdentification = list.Id.ToString(),
             ListIndentureNumber = list.OrderNumber,
-            ListDescription = ListDescriptionInformation.Create(listDescriptions),
+            ListDescription = listDescriptions,
         };
 
         return new ListResultsType
@@ -83,13 +93,17 @@ internal static class ProportionalElectionResultMapping
         var candidate = candidateResult.Candidate;
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
         var texts = Languages.All
-            .Select(l => CandidateTextInfo.Create(l, candidateText))
+            .Select(l => new CandidateTextInformationTypeCandidateTextInfo
+            {
+                Language = l,
+                CandidateText = candidateText,
+            })
             .ToList();
 
         return new CandidateResultType
         {
             CountOfVotesTotal = candidateResult.VoteCount.ToString(CultureInfo.InvariantCulture),
-            Item = new CandidateInformationType
+            CandidateInformation = new CandidateInformationType
             {
                 OfficialCandidateYesNo = true,
                 CandidateIdentification = candidate.Id.ToString(),
@@ -97,11 +111,11 @@ internal static class ProportionalElectionResultMapping
                 FirstName = candidate.FirstName,
                 CallName = candidate.PoliticalFirstName,
                 CandidateReference = candidate.Number,
-                CandidateText = CandidateTextInformation.Create(texts),
+                CandidateText = texts,
             },
-            ListResults = new[]
+            ListResults = new List<CandidateListResultType>
             {
-                    new CandidateListResultType
+                    new()
                     {
                         ListIdentification = candidate.ProportionalElectionListId.ToString(),
                         CountOfvotesFromChangedBallots = ResultDetailFromTotal(candidateResult.ModifiedListVotesCount),

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,12 +27,22 @@ public static class ContestMockedData
     public const string IdKirche = "a091a5cc-735b-4bf4-a30d-f4c907c9fc10";
     public const string IdThurgauNoPoliticalBusinesses = "dc0f4940-10c2-4a33-b752-3e5d761c0009";
 
+    public static readonly Guid GuidArchivedBundesurnengang = Guid.Parse(IdArchivedBundesurnengang);
+    public static readonly Guid GuidVergangenerBundesurnengang = Guid.Parse(IdVergangenerBundesurnengang);
+    public static readonly Guid GuidBundesurnengang = Guid.Parse(IdBundesurnengang);
+    public static readonly Guid GuidStGallenEvoting = Guid.Parse(IdStGallenEvoting);
+    public static readonly Guid GuidStGallenStadt = Guid.Parse(IdStGallenStadt);
+    public static readonly Guid GuidGossau = Guid.Parse(IdGossau);
+    public static readonly Guid GuidUzwilEvoting = Guid.Parse(IdUzwilEvoting);
+    public static readonly Guid GuidKirche = Guid.Parse(IdKirche);
+    public static readonly Guid GuidThurgauNoPoliticalBusinesses = Guid.Parse(IdThurgauNoPoliticalBusinesses);
+
     private static readonly IReadOnlyDictionary<Guid, Contest> _contestById = All.ToDictionary(x => x.Id, x => x);
 
     public static Contest ArchivedBundesurnengang
         => new Contest
         {
-            Id = Guid.Parse(IdArchivedBundesurnengang),
+            Id = GuidArchivedBundesurnengang,
             Date = new DateTime(2019, 11, 24, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -45,7 +55,7 @@ public static class ContestMockedData
     public static Contest VergangenerBundesurnengang
         => new Contest
         {
-            Id = Guid.Parse(IdVergangenerBundesurnengang),
+            Id = GuidVergangenerBundesurnengang,
             Date = new DateTime(2019, 11, 24, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -58,7 +68,7 @@ public static class ContestMockedData
     public static Contest Bundesurnengang
         => new Contest
         {
-            Id = Guid.Parse(IdBundesurnengang),
+            Id = GuidBundesurnengang,
             Date = new DateTime(2029, 2, 12, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -72,7 +82,7 @@ public static class ContestMockedData
     public static Contest StGallenEvotingUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdStGallenEvoting),
+            Id = GuidStGallenEvoting,
             Date = new DateTime(2020, 8, 31, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -88,7 +98,7 @@ public static class ContestMockedData
     public static Contest StGallenStadtUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdStGallenStadt),
+            Id = GuidStGallenStadt,
             Date = new DateTime(2020, 8, 31, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                 (t, o) => t.Description = o,
@@ -101,7 +111,7 @@ public static class ContestMockedData
     public static Contest GossauUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdGossau),
+            Id = GuidGossau,
             Date = new DateTime(2020, 2, 29, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -114,7 +124,7 @@ public static class ContestMockedData
     public static Contest UzwilEvotingUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdUzwilEvoting),
+            Id = GuidUzwilEvoting,
             Date = new DateTime(2020, 3, 2, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -130,7 +140,7 @@ public static class ContestMockedData
     public static Contest KirchenUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdKirche),
+            Id = GuidKirche,
             Date = new DateTime(2020, 2, 29, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -143,7 +153,7 @@ public static class ContestMockedData
     public static Contest ThurgauNoPoliticalBusinessesUrnengang
         => new Contest
         {
-            Id = Guid.Parse(IdThurgauNoPoliticalBusinesses),
+            Id = GuidThurgauNoPoliticalBusinesses,
             Date = new DateTime(2020, 2, 29, 0, 0, 0, DateTimeKind.Utc),
             Translations = TranslationUtil.CreateTranslations<ContestTranslation>(
                                 (t, o) => t.Description = o,
@@ -208,6 +218,7 @@ public static class ContestMockedData
         await ContestCountingCircleDetailsMockData.Seed(runScoped);
         await ContestDetailsMockedData.Seed(runScoped);
         await ContestDomainOfInfluenceDetailsMockedData.Seed(runScoped);
+        await ContestCountingCircleElectorateMockData.Seed(runScoped);
     }
 
     public static bool TestingPhaseEnded(Guid contestId)

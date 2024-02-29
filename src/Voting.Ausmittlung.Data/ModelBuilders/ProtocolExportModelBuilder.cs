@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,12 @@ public class ProtocolExportModelBuilder : IEntityTypeConfiguration<ProtocolExpor
             .HasForeignKey(x => x.ContestId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+
+        builder
+            .HasOne(x => x.CountingCircle!)
+            .WithMany()
+            .HasForeignKey(x => x.CountingCircleId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .Property(x => x.Started)

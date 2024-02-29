@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -151,6 +151,19 @@ public static class CountingCircleMockedData
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id,
             },
             ContactPersonAfterEvent = new CountingCircleContactPerson(),
+            Electorates = new List<CountingCircleElectorate>()
+            {
+                new()
+                {
+                    Id = Guid.Parse("8922095c-7b64-4f0b-aec1-a92c6521abc1"),
+                    DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Ch, DomainOfInfluenceType.Ct },
+                },
+                new()
+                {
+                    Id = Guid.Parse("4078ba98-0db5-40a6-9869-11e5519f7af7"),
+                    DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Bz },
+                },
+            },
         };
 
     public static CountingCircle Uzwil
@@ -189,6 +202,24 @@ public static class CountingCircleMockedData
                 MobilePhone = "071 123 12 33",
                 FamilyName = "Wichtig",
                 FirstName = "Rudolph",
+            },
+            Electorates = new List<CountingCircleElectorate>()
+            {
+                new()
+                {
+                    Id = Guid.Parse("f3a30723-86ce-4d1d-b3c1-28a950f5857e"),
+                    DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Ch },
+                },
+                new()
+                {
+                    Id = Guid.Parse("4909649e-3386-4d37-890c-071851cb647c"),
+                    DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Ct },
+                },
+                new()
+                {
+                    Id = Guid.Parse("86d85a46-a1d9-4e63-af85-60641ca371dd"),
+                    DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Bz },
+                },
             },
         };
 

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;

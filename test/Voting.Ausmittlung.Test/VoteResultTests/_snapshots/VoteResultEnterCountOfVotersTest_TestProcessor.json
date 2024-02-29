@@ -47,5 +47,6 @@
   "AuditedTentativelyTimestamp": null,
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,
+  "TotalSentEVotingVotingCards": null,
   "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
 }

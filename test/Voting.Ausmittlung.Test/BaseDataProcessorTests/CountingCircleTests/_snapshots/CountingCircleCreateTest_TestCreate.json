@@ -49,6 +49,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -106,6 +108,26 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [
+        {
+          "CountingCircleId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+          "CountingCircle": null,
+          "DomainOfInfluenceTypes": [
+            1,
+            2
+          ],
+          "Id": "f6819858-7348-40e3-8254-0885f2e68e1d"
+        },
+        {
+          "CountingCircleId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+          "CountingCircle": null,
+          "DomainOfInfluenceTypes": [
+            7
+          ],
+          "Id": "65315a27-3991-47bd-ab2a-6b5c90e549a0"
+        }
+      ],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],

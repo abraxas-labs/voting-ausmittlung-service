@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -58,6 +58,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
+                    CheckDigit = 9,
                 },
             },
             new SecondaryMajorityElectionCandidateCreated
@@ -82,6 +83,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
                     Origin = "origin",
+                    CheckDigit = 9,
                 },
             });
 
@@ -125,6 +127,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
+                    CheckDigit = 9,
                 },
             });
 

@@ -16,6 +16,8 @@
         "DeviationPercent": 97.0,
         "PoliticalBusinessType": 2
       },
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 11
     }
   ]

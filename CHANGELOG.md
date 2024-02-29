@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.91.2`)
+# ✨ Changelog (`v1.108.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,227 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.91.2
-Previous version ---- v1.86.4
+This version -------- v1.108.0
+Previous version ---- v1.91.2
 Initial version ----- v1.29.14
-Total commits ------- 15
+Total commits ------- 39
 ```
+
+## [v1.108.0] - 2024-02-28
+
+### :new: Added
+
+- write in mapping change listener
+
+## [v1.107.0] - 2024-02-27
+
+### :arrows_counterclockwise: Changed
+
+- adjust write in handling
+
+## [v1.106.0] - 2024-02-23
+
+### 🆕 Added
+
+- add monitoring of asynchronous protocol exports
+
+## [v1.105.0] - 2024-02-20
+
+### 🔄 Changed
+
+- report suffix for business level bz is "kantonal" instead of "bezirk"
+
+## [v1.104.1] - 2024-02-20
+
+### 🔄 Changed
+
+- Enable electorates for non-zh
+
+## [v1.104.0] - 2024-02-19
+
+### 🔄 Changed
+
+- Import ech-0110 count of voters informations
+
+## [v1.103.0] - 2024-02-19
+
+### 🆕 Added
+
+- Add proportional wabsti exports with a single political business
+
+## [v1.102.2] - 2024-02-07
+
+### 🔄 Changed
+
+- Group lists in proportional election unions
+
+## [v1.102.1] - 2024-02-07
+
+### 🆕 Added
+
+- extend domain of influence type mapping with bezirk for report display name
+
+## [v1.102.0] - 2024-02-06
+
+### 🆕 Added
+
+- Double proportional election mandate algorithms
+
+## [v1.101.0] - 2024-02-05
+
+### 🆕 Added
+
+- database query monitoring
+
+## [v1.100.4] - 2024-02-05
+
+### 🔄 Changed
+
+- proportional election union party votes export
+
+## [v1.100.3] - 2024-02-01
+
+### :arrows_counterclockwise: Changed
+
+- exports generated for export configuration should use same state of data
+
+## [v1.100.2] - 2024-02-01
+
+### 🔄 Changed
+
+- Filter out votes with no e-voting results in detail e-voting protocol
+
+## [v1.100.1] - 2024-01-31
+
+### 🔄 Changed
+
+- Label in sk stat csv export
+
+## [v1.100.0] - 2024-01-31
+
+### 🆕 Added
+
+- Add counting circle electorate
+
+## [v1.99.1] - 2024-01-31
+
+### :arrows_counterclockwise: Changed
+
+- correctly check write-ins with their ballot content
+
+## [v1.99.0] - 2024-01-30
+
+### 🆕 Added
+
+- add wp gemeinden sk stat export
+
+## [v1.98.0] - 2024-01-29
+
+### 🆕 Added
+
+- add candidate check digit
+
+## [v1.97.1] - 2024-01-25
+
+### :arrows_counterclockwise: Changed
+
+- adjusted proportional election end result protocols
+
+## [v1.97.0] - 2024-01-16
+
+### 🆕 Added
+
+- add new zh features flag
+
+## [v1.96.0] - 2024-01-11
+
+### :new: Added
+
+- added permission service
+
+## [v1.95.3] - 2024-01-05
+
+### 🔄 Changed
+
+- csv proportional election candidates exports order
+
+## [v1.95.2] - 2024-01-05
+
+### 🔄 Changed
+
+- Timestamp handling with result corrections
+
+## [v1.95.1] - 2024-01-04
+
+### 🔄 Changed
+
+- csv proportional election candidates exports
+
+## [v1.95.0] - 2024-01-04
+
+### :lock: Security
+
+- rework authentication system to use permissions instead of roles
+
+## [v1.94.0] - 2023-12-20
+
+### 🆕 Added
+
+- Add counting machine to counting circle details
+
+## [v1.93.0] - 2023-12-20
+
+### 🆕 Added
+
+- add eCH from voting lib
+
+## [v1.92.0] - 2023-12-19
+
+### 🆕 Added
+
+- add multiple vote ballots
+
+## [v1.91.9] - 2023-12-14
+
+### 🔄 Changed
+
+- adjust log level for abraxas authentication values
+
+## [v1.91.8] - 2023-12-13
+
+### 🔄 Changed
+
+- use proportional election id for empty list identificationcurity
+
+## [v1.91.7] - 2023-12-08
+
+### :arrows_counterclockwise: Changed
+
+- use separate port for metrics endpoint provisioning
+
+## [v1.91.6] - 2023-12-05
+
+### 🔄 Changed
+
+- Delete protocol exports on counting circle reset
+
+## [v1.91.5] - 2023-12-04
+
+### :arrows_counterclockwise: Changed
+
+- add additional oauth client scopes for subsystem access authorization
+
+## [v1.91.4] - 2023-11-24
+
+### :new: Added
+
+- add support for custom oauth scopes.
+
+## [v1.91.3] - 2023-11-23
+
+### 🔄 Changed
+
+- revert empty and invalid vote count for single majority mandate
 
 ## [v1.91.2] - 2023-11-17
 
@@ -84,206 +300,118 @@ Total commits ------- 15
 
 - correctly calculate count of modified lists for e-voting proportional elections
 
-## [v1.86.8] - 2023-10-25
-
 ### 🔄 Changed
 
 - correctly track e-voting vote sources
-
-## [v1.86.7] - 2023-10-24
 
 ### 🔄 Changed
 
 - use secury temporary file name for evoting uploads
 
-## [v1.86.6] - 2023-10-23
-
 ### 🔄 Changed
 
 - use latest lib to use new role token cache
 
-## [v1.86.5] - 2023-10-20
-
 ### 🆕 Added
 
 - add logs for webhook callback
-
-## [v1.86.4] - 2023-10-20
-
-### 🔄 Changed
-
-- check if bundle exists before performing events on the bundle
-
-## [v1.86.3] - 2023-10-20
 
 ### 🆕 Added
 
 - Add e-voting proportional election list total results
 - Add e-voting list end results to list union report
 
-## [v1.86.2] - 2023-10-19
-
 ### 🔄 Changed
 
 - Add missing evoting fields for protocols
-
-## [v1.86.1] - 2023-10-19
 
 ### 🔄 Changed
 
 - skip majority election ballot created if the bundle is deleted
 
-## [v1.86.0] - 2023-10-18
-
 ### 🔄 Changed
 
 - make PDF activity protocol smaller, add more detailed CSV version
-
-## [v1.85.6] - 2023-10-17
 
 ### 🔄 Changed
 
 - wabsti cwp list adjust zusatzstimmen
 
-## [v1.85.5] - 2023-10-16
-
 ### 🔄 Changed
 
 - wabstic wp gemeinde export total count of lists with party
-
-## [v1.85.4] - 2023-10-13
 
 ### 🔄 Changed
 
 - filter counting circle eVoting exports
 
-## [v1.85.3] - 2023-10-11
-
-### 🔄 Changed
-
-- improve performance of ListSummaries
-
-## [v1.85.2] - 2023-10-11
-
 ### 🔄 Changed
 
 - Use correct eventing meter event position
-
-## [v1.85.1] - 2023-10-10
-
-### 🔄 Changed
-
-- re-implement counting of pre-accumulated candidates again
-
-## [v1.85.0] - 2023-10-10
 
 ### 🆕 Added
 
 - add roles cache to minimize calls to iam
 
-## [v1.84.1] - 2023-10-06
-
 ### 🔄 Changed
 
 - Extend pdf proportional election ballot with whether all original candidates are removed from list
-
-## [v1.84.0] - 2023-10-04
 
 ### 🔄 Changed
 
 - upgrade voting library version to include event type processing histogram
 
-## [v1.83.3] - 2023-10-03
-
 ### 🔄 Changed
 
 - convert percentages in gemeinden export correctly
-
-## [v1.83.2] - 2023-09-28
 
 ### 🔄 Changed
 
 - revert counting pre-accumulated candidates in unmodified results
 
-## [v1.83.1] - 2023-09-25
-
 ### 🔄 Changed
 
 - Update lib to inject malware scanner config correctly
-
-## [v1.83.0] - 2023-09-25
 
 ### 🆕 Added
 
 - Add wp gemeinden bfs export
 
-## [v1.82.0] - 2023-09-25
-
 ### 🔄 Changed
 
 - Added eVoting protocols
-
-## [v1.81.5] - 2023-09-15
 
 ### 🔄 Changed
 
 - use empty value if absolut majority is not yet calculated in WabstiC WM_Kandidat csv export.
 
-## [v1.81.4] - 2023-09-05
-
 ### 🔄 Changed
 
 - handle completely empty proportional election lists correctly
-
-## [v1.81.3] - 2023-09-04
 
 ### 🔄 Changed
 
 - enable automatic exports during testing phase
 
-## [v1.81.2] - 2023-08-31
-
 ### ❌ Removed
 
 - malwarescanner - unless problem with cert-pinning is solved
-
-## [v1.81.1] - 2023-08-30
 
 ### 🔄 Changed
 
 - Skip processing of proportional election ballot create event if the bundle does not exist
 
-## [v1.81.0] - 2023-08-22
-
 ### 🔄 Changed
 
 - Update eai and lib dependency to deterministic version
-
-## [v1.80.11] - 2023-08-22
-
-### 🔄 Changed
-
-- better support for large import files
-
-## [v1.80.10] - 2023-08-22
 
 ### 🔄 Changed
 
 - revert removal of ResultExportGenerated event
 
-## [v1.80.9] - 2023-08-17
-
-### 🔄 Changed
-
-- increase import file size limit to 250MB
-
-## [v1.80.8] - 2023-08-15
-
 ### 🆕 Added
 
 - malwarescanner service
-
-## [v1.80.7] - 2023-08-10
 
 ### 🆕 Added
 
@@ -763,6 +891,211 @@ Total commits ------- 15
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.86.8] - 2023-10-25
+
+### 🔄 Changed
+
+- correctly track e-voting vote sources
+
+## [v1.86.7] - 2023-10-24
+
+### 🔄 Changed
+
+- use secury temporary file name for evoting uploads
+
+## [v1.86.6] - 2023-10-23
+
+### 🔄 Changed
+
+- use latest lib to use new role token cache
+
+## [v1.86.5] - 2023-10-20
+
+### 🆕 Added
+
+- add logs for webhook callback
+
+## [v1.86.4] - 2023-10-20
+
+### 🔄 Changed
+
+- check if bundle exists before performing events on the bundle
+
+## [v1.86.3] - 2023-10-20
+
+### 🆕 Added
+
+- Add e-voting proportional election list total results
+- Add e-voting list end results to list union report
+
+## [v1.86.2] - 2023-10-19
+
+### 🔄 Changed
+
+- Add missing evoting fields for protocols
+
+## [v1.86.1] - 2023-10-19
+
+### 🔄 Changed
+
+- skip majority election ballot created if the bundle is deleted
+
+## [v1.86.0] - 2023-10-18
+
+### 🔄 Changed
+
+- make PDF activity protocol smaller, add more detailed CSV version
+
+## [v1.85.6] - 2023-10-17
+
+### 🔄 Changed
+
+- wabsti cwp list adjust zusatzstimmen
+
+## [v1.85.5] - 2023-10-16
+
+### 🔄 Changed
+
+- wabstic wp gemeinde export total count of lists with party
+
+## [v1.85.4] - 2023-10-13
+
+### 🔄 Changed
+
+- filter counting circle eVoting exports
+
+## [v1.85.3] - 2023-10-11
+
+### 🔄 Changed
+
+- improve performance of ListSummaries
+
+## [v1.85.2] - 2023-10-11
+
+### 🔄 Changed
+
+- Use correct eventing meter event position
+
+## [v1.85.1] - 2023-10-10
+
+### 🔄 Changed
+
+- re-implement counting of pre-accumulated candidates again
+
+## [v1.85.0] - 2023-10-10
+
+### 🆕 Added
+
+- add roles cache to minimize calls to iam
+
+## [v1.84.1] - 2023-10-06
+
+### 🔄 Changed
+
+- Extend pdf proportional election ballot with whether all original candidates are removed from list
+
+## [v1.84.0] - 2023-10-04
+
+### 🔄 Changed
+
+- upgrade voting library version to include event type processing histogram
+
+## [v1.83.3] - 2023-10-03
+
+### 🔄 Changed
+
+- convert percentages in gemeinden export correctly
+
+## [v1.83.2] - 2023-09-28
+
+### 🔄 Changed
+
+- revert counting pre-accumulated candidates in unmodified results
+
+## [v1.83.1] - 2023-09-25
+
+### 🔄 Changed
+
+- Update lib to inject malware scanner config correctly
+
+## [v1.83.0] - 2023-09-25
+
+### 🆕 Added
+
+- Add wp gemeinden bfs export
+
+## [v1.82.0] - 2023-09-25
+
+### 🔄 Changed
+
+- Added eVoting protocols
+
+## [v1.81.5] - 2023-09-15
+
+### 🔄 Changed
+
+- use empty value if absolut majority is not yet calculated in WabstiC WM_Kandidat csv export.
+
+## [v1.81.4] - 2023-09-05
+
+### 🔄 Changed
+
+- handle completely empty proportional election lists correctly
+
+## [v1.81.3] - 2023-09-04
+
+### 🔄 Changed
+
+- enable automatic exports during testing phase
+
+## [v1.81.2] - 2023-08-31
+
+### ❌ Removed
+
+- malwarescanner - unless problem with cert-pinning is solved
+
+## [v1.81.1] - 2023-08-30
+
+### 🔄 Changed
+
+- Skip processing of proportional election ballot create event if the bundle does not exist
+
+## [v1.81.0] - 2023-08-22
+
+### 🔄 Changed
+
+- Update eai and lib dependency to deterministic version
+
+## [v1.80.11] - 2023-08-22
+
+### 🔄 Changed
+
+- better support for large import files
+
+## [v1.80.10] - 2023-08-22
+
+### 🔄 Changed
+
+- revert removal of ResultExportGenerated event
+
+## [v1.80.9] - 2023-08-17
+
+### 🔄 Changed
+
+- increase import file size limit to 250MB
+
+## [v1.80.8] - 2023-08-15
+
+### 🆕 Added
+
+- malwarescanner service
+
+## [v1.80.7] - 2023-08-10
+
+### 🆕 Added
+
+- add sum of initial distribution number of mandates to pdf exports
 
 ## [v1.80.6] - 2023-08-04
 

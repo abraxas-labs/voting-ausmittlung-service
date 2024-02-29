@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,6 +27,9 @@ public class SecondaryMajorityElectionResult : BaseEntity,
 
     public ICollection<SecondaryMajorityElectionWriteInMapping> WriteInMappings { get; set; }
         = new HashSet<SecondaryMajorityElectionWriteInMapping>();
+
+    public ICollection<SecondaryMajorityElectionWriteInBallot> WriteInBallots { get; set; }
+        = new HashSet<SecondaryMajorityElectionWriteInBallot>();
 
     public MajorityElectionResultSubTotal EVotingSubTotal { get; set; } = new();
 

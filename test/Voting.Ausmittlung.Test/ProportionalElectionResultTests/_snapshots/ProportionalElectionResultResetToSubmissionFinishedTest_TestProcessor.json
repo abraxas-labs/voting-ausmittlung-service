@@ -30,7 +30,7 @@
     "OfficialDescription": "Proporzwahl Gossau de",
     "ShortDescription": "Pw Gossau de",
     "NumberOfMandates": 3,
-    "MandateAlgorithm": 2,
+    "MandateAlgorithm": 1,
     "CandidateCheckDigit": true,
     "BallotBundleSize": 10,
     "AutomaticBallotBundleNumberGeneration": true,
@@ -61,7 +61,11 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "Contest": {
@@ -90,7 +94,8 @@
       "EVotingResultsImported": false
     },
     "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": true
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false
   },
   "CountOfVotersInformation": {
     "TotalCountOfVoters": 0,
@@ -220,7 +225,8 @@
             "NumberIncludingList": "1a.number1",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
-            "ListPosition": 1
+            "ListPosition": 1,
+            "CheckDigit": 6
           },
           "VoteCount": 0,
           "Rank": 1,
@@ -258,7 +264,8 @@
             "NumberIncludingList": "1a.number2",
             "ListDescription": "",
             "ListShortDescription": "Liste 1 de",
-            "ListPosition": 1
+            "ListPosition": 1,
+            "CheckDigit": 4
           },
           "VoteCount": 0,
           "Rank": 1,
@@ -368,7 +375,8 @@
             "NumberIncludingList": "2.number3",
             "ListDescription": "",
             "ListShortDescription": "Liste 2 de",
-            "ListPosition": 2
+            "ListPosition": 2,
+            "CheckDigit": 0
           },
           "VoteCount": 0,
           "Rank": 1,

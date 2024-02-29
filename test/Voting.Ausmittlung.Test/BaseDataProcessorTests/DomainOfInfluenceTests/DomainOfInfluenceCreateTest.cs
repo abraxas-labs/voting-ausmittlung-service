@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -119,8 +119,8 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
         contestInTestingPhaseDois.Any().Should().BeTrue();
         baseDois.Any().Should().BeTrue();
 
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 1).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 1).Should().BeTrue();
+        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo).Should().BeTrue();
+        baseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo).Should().BeTrue();
 
         contestInTestingPhaseDois.All(doi => doi.CantonDefaults.EnabledVotingCardChannels.Count == 4).Should().BeTrue();
         baseDois.All(doi => doi.CantonDefaults.EnabledVotingCardChannels.Count == 4).Should().BeTrue();

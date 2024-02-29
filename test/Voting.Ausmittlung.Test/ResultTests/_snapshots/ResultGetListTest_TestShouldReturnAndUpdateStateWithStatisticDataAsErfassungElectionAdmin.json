@@ -103,7 +103,8 @@
         "DomainOfInfluenceType": 2
       }
     ],
-    "EVoting": false
+    "EVoting": false,
+    "CountingMachine": 0
   },
   "Results": [
     {
@@ -131,7 +132,11 @@
             "Email": ""
           },
           "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "NewZhFeaturesEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": false,
+            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 5,
@@ -168,7 +173,11 @@
             "Email": ""
           },
           "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "NewZhFeaturesEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": false,
+            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": null,
@@ -205,7 +214,11 @@
             "Email": ""
           },
           "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "NewZhFeaturesEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": false,
+            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 5,
@@ -241,5 +254,15 @@
       "Valid": false,
       "VotingChannel": 2
     }
-  ]
+  ],
+  "ElectorateSummary": {
+    "EffectiveElectorates": [
+      {
+        "DomainOfInfluenceTypes": [
+          5
+        ]
+      }
+    ],
+    "ContestCountingCircleElectorates": []
+  }
 }

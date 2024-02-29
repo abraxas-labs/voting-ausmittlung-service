@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -9,19 +9,19 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ExportService.ExportServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class ExportService : ServiceBase
 {
     private readonly IMapper _mapper;
@@ -47,6 +47,7 @@ public class ExportService : ServiceBase
         _configReader = configReader;
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     public override async Task<ProtoModels.DataExportTemplates> ListDataExportTemplates(
         ListDataExportTemplatesRequest request,
         ServerCallContext context)
@@ -57,6 +58,7 @@ public class ExportService : ServiceBase
         return _mapper.Map<ProtoModels.DataExportTemplates>(container);
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     public override async Task<ProtoModels.ProtocolExports> ListProtocolExports(
         ListProtocolExportsRequest request,
         ServerCallContext context)
@@ -67,6 +69,7 @@ public class ExportService : ServiceBase
         return _mapper.Map<ProtoModels.ProtocolExports>(container);
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     public override Task GetProtocolExportStateChanges(
         GetProtocolExportStateChangesRequest request,
         IServerStreamWriter<ProtoModels.ProtocolExportStateChange> responseStream,
@@ -79,6 +82,7 @@ public class ExportService : ServiceBase
             context.CancellationToken);
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     public override async Task<Empty> StartProtocolExports(
         StartProtocolExportsRequest request,
         ServerCallContext context)
@@ -91,6 +95,7 @@ public class ExportService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.ExportConfiguration.Read)]
     public override async Task<ProtoModels.ResultExportConfigurations> ListResultExportConfigurations(
         ListResultExportConfigurationsRequest request,
         ServerCallContext context)
@@ -99,6 +104,7 @@ public class ExportService : ServiceBase
         return _mapper.Map<ProtoModels.ResultExportConfigurations>(configs);
     }
 
+    [AuthorizePermission(Permissions.ExportConfiguration.Update)]
     public override async Task<Empty> UpdateResultExportConfiguration(UpdateResultExportConfigurationRequest request, ServerCallContext context)
     {
         var resultExportConfig = _mapper.Map<ResultExportConfiguration>(request);
@@ -106,6 +112,7 @@ public class ExportService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.ExportConfiguration.Trigger)]
     public override async Task<Empty> TriggerResultExport(TriggerResultExportRequest request, ServerCallContext context)
     {
         var metadata = _mapper.Map<Dictionary<Guid, ResultExportConfigurationPoliticalBusinessMetadata>>(request.PoliticalBusinessMetadata);

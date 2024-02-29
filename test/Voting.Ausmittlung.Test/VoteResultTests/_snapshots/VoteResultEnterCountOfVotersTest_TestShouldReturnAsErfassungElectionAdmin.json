@@ -61,7 +61,11 @@
           "Email": ""
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "ResultAlgorithm": 1,
@@ -108,7 +112,6 @@
           "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
           "Position": 1,
           "BallotType": 2,
-          "Description": "",
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
           "BallotQuestions": [],
           "TieBreakQuestions": []

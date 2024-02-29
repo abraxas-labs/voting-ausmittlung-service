@@ -1961,6 +1961,56 @@
       <TotalCountOfInvalidVotingCards>3400</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>270</TotalCountOfEVotingVotingCards>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>4400</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>BallotBox</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>300</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>Paper</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>4000</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>3400</CountOfReceivedVotingCards>
+        <Valid>false</Valid>
+        <Channel>ByMail</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <ContestVotingCardDetail>
+        <CountOfReceivedVotingCards>270</CountOfReceivedVotingCards>
+        <Valid>true</Valid>
+        <Channel>EVoting</Channel>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
+      </ContestVotingCardDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>17600</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>1100</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>15400</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>710</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
     </ContestDomainOfInfluenceDetails>
   </DomainOfInfluence>
 </Voting>

@@ -1,2 +1,2 @@
-Listennummer;Position;Nachname;Vorname;Wohnort;Jahrgang
-1a;1;lastName;firstName;locality;1960
+KandidatenNr;Nachname;Vorname;Wohnort;Jahrgang
+1a.number1;pol last name;pol first name;locality;1960

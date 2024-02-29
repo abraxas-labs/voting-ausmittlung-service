@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -56,7 +56,6 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         Guid proportionalElectionListId,
         IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var availableLotDecisions = await _endResultReader.GetEndResultAvailableLotDecisions(proportionalElectionListId);
         var proportionalElectionEndResultId = availableLotDecisions.ProportionalElectionEndResultId;
 
@@ -85,8 +84,6 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
 
     public async Task EnterManualListEndResult(Guid listId, IReadOnlyCollection<ProportionalElectionManualCandidateEndResult> candidateEndResults)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         var listEndResult = await _listEndResultRepo.Query()
             .Include(l => l.CandidateEndResults)
             .Include(l => l.ElectionEndResult.ProportionalElection.Contest)

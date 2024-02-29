@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -153,8 +153,8 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
         baseDois.Any().Should().BeTrue();
 
         // only base dois and dois in testing phase should be affected
-        contestPastDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 3).Should().BeFalse();
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 3).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.ProportionalElectionMandateAlgorithms.Count == 3).Should().BeTrue();
+        contestPastDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeFalse();
+        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeTrue();
+        baseDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeTrue();
     }
 }

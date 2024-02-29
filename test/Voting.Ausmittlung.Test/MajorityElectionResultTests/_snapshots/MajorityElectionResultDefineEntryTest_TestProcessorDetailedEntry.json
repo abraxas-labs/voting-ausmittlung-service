@@ -8,7 +8,8 @@
     "BallotBundleSampleSize": 5,
     "AutomaticBallotBundleNumberGeneration": true,
     "BallotNumberGeneration": 2,
-    "AutomaticEmptyVoteCounting": true
+    "AutomaticEmptyVoteCounting": true,
+    "CandidateCheckDigit": false
   },
   "CandidateResults": [],
   "EVotingSubTotal": {
@@ -46,6 +47,7 @@
   "BallotGroupResults": [],
   "Bundles": [],
   "WriteInMappings": [],
+  "WriteInBallots": [],
   "HasUnmappedWriteIns": false,
   "CountOfElectionsWithUnmappedWriteIns": 0,
   "PoliticalBusiness": null,
@@ -75,5 +77,6 @@
   "AuditedTentativelyTimestamp": null,
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,
+  "TotalSentEVotingVotingCards": null,
   "Id": "081746e5-1814-538d-aba5-775a8104e838"
 }

@@ -28,7 +28,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -84,7 +83,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -202,7 +200,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>3</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -415,7 +412,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>1</Position>
-        <Description>Bundesgesetz über TEST de</Description>
         <BallotType>StandardBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount1Q1</Label>
@@ -1136,7 +1132,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>2</Position>
-        <Description>Dies ist die zweite Vorlage de</Description>
         <BallotType>VariantsBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount2Q1</Label>
@@ -2529,7 +2524,6 @@
     <VoteBallotDomainOfInfluenceResult>
       <Ballot>
         <Position>3</Position>
-        <Description>Dies ist die dritte Vorlage de</Description>
         <BallotType>VariantsBallot</BallotType>
         <BallotQuestion>
           <Label>QuestionCount3Q1</Label>

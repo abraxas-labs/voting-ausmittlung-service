@@ -1,9 +1,10 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Core.Domain;
@@ -35,8 +36,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         var hasInvalid = mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Invalid);
         var election = await GetElection(electionId);
 
-        // In elections with a single mandate the mapping target "invalid" is valid, since a whole ballot can be invalid.
-        if (hasInvalid && election.NumberOfMandates > 1 && !election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
+        if (hasInvalid && !election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
         {
             throw new ValidationException("Invalid votes are not enabled on this election");
         }
@@ -107,78 +107,74 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         TElection election,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById)
     {
-        var supportsInvalidVotes = election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
-        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId));
+        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
         importResult.CountOfVoters = result.Ballots.Count;
+        var supportsInvalidVotes = election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
 
         foreach (var ballot in result.Ballots)
         {
-            if (election.NumberOfMandates < ballot.Positions.Count)
+            var emptyVoteCount = election.NumberOfMandates - ballot.Positions.Count;
+            if (emptyVoteCount < 0)
             {
                 throw new ValidationException(
                     $"the number of ballot positions exceeds the number of mandates ({ballot.Positions.Count} vs {election.NumberOfMandates})");
             }
 
-            // If all positions are empty, treat the whole ballot as blank and ignore the ballot positions
-            // Note: This does not work correctly with secondary majority elections,
-            // as we would need to check whether all positions on the secondary election are also empty
-            if (ballot.Positions.All(p => p.IsEmpty))
+            var processedBallot = ProcessBallot(importResult.PoliticalBusinessId, ballot, candidatesById, emptyVoteCount);
+            if (!supportsInvalidVotes)
             {
-                importResult.BlankBallotCount++;
-                continue;
+                processedBallot.EmptyVoteCount += processedBallot.InvalidVoteCount;
+                processedBallot.InvalidVoteCount = 0;
             }
 
-            var candidatesOnThisBallot = new HashSet<Guid>();
-            var writeInsOnThisBallot = new HashSet<string>(MajorityElectionResultImport.WriteInComparer);
-            foreach (var position in ballot.Positions)
-            {
-                ProcessPosition(
-                    supportsInvalidVotes,
-                    position,
-                    importResult,
-                    candidatesById,
-                    candidatesOnThisBallot,
-                    writeInsOnThisBallot);
-            }
-
-            if (election.NumberOfMandates > ballot.Positions.Count)
-            {
-                importResult.EmptyVoteCount += election.NumberOfMandates - ballot.Positions.Count;
-            }
+            importResult.AddBallot(processedBallot);
         }
 
         return importResult;
     }
 
-    private void ProcessPosition(
-        bool supportsInvalidVotes,
-        EVotingElectionBallotPosition position,
-        MajorityElectionResultImport importResult,
+    private MajorityElectionBallot ProcessBallot(
+        Guid politicalBussinessId,
+        EVotingElectionBallot eVotingBallot,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById,
-        ISet<Guid> candidatesOnThisBallot,
-        ISet<string> writeInsOnThisBallot)
+        int emptyVoteCount)
     {
-        if (position.IsEmpty)
+        var ballot = new MajorityElectionBallot(emptyVoteCount);
+
+        foreach (var position in eVotingBallot.Positions)
         {
-            importResult.EmptyVoteCount++;
-            return;
+            if (position.IsEmpty)
+            {
+                ballot.EmptyVoteCount++;
+                continue;
+            }
+
+            if (position.IsWriteIn)
+            {
+                if (position.WriteInName == null)
+                {
+                    throw new ValidationException("encountered write in ballot position without a write in name");
+                }
+
+                ballot.WriteIns.Add(position.WriteInName);
+                continue;
+            }
+
+            ValidateCandidateId(politicalBussinessId, candidatesById, position.CandidateId);
+            if (!ballot.CandidateIds.Add(position.CandidateId.Value))
+            {
+                // Duplicate candidate, map to invalid vote
+                ballot.InvalidVoteCount++;
+            }
         }
 
-        if (position.IsWriteIn)
-        {
-            HandleWriteIn(supportsInvalidVotes, importResult, writeInsOnThisBallot, position.WriteInName);
-            return;
-        }
-
-        HandleCandidatePosition(supportsInvalidVotes, importResult, candidatesOnThisBallot, candidatesById, position.CandidateId);
+        return ballot;
     }
 
-    private void HandleCandidatePosition(
-        bool supportsInvalidVotes,
-        MajorityElectionResultImport importResult,
-        ISet<Guid> candidatesOnThisBallot,
+    private void ValidateCandidateId(
+        Guid politicalBusinessId,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById,
-        Guid? candidateId)
+        [NotNull] Guid? candidateId)
     {
         if (candidateId == null)
         {
@@ -186,44 +182,9 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         }
 
         if (!candidatesById.TryGetValue(candidateId.Value, out var candidate) ||
-            candidate.PoliticalBusinessId != importResult.PoliticalBusinessId)
+            candidate.PoliticalBusinessId != politicalBusinessId)
         {
             throw new EntityNotFoundException(nameof(MajorityElectionCandidate), candidateId);
         }
-
-        // try to add candidate
-        // if already added it is a duplicate
-        // duplicates count towards invalid vote counts
-        // or empty (if invalid vote counts are disabled for this election)
-        if (candidatesOnThisBallot.Add(candidateId.Value))
-        {
-            importResult.AddCandidateVote(candidateId.Value);
-            return;
-        }
-
-        importResult.AddInvalidOrEmptyVote(supportsInvalidVotes);
-    }
-
-    private void HandleWriteIn(
-        bool supportsInvalidVotes,
-        MajorityElectionResultImport importResult,
-        ISet<string> writeInsOnThisBallot,
-        string? writeInName)
-    {
-        if (writeInName == null)
-        {
-            throw new ValidationException("encountered write in ballot position without a write in name");
-        }
-
-        // if write in is a duplicate,
-        // duplicates count towards invalid vote counts
-        // or empty (if invalid vote counts are disabled for this election)
-        if (writeInsOnThisBallot.Add(writeInName))
-        {
-            importResult.AddMissingWriteIn(writeInName);
-            return;
-        }
-
-        importResult.AddInvalidOrEmptyVote(supportsInvalidVotes);
     }
 }

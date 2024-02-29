@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
@@ -142,19 +143,21 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await AssertSubmissionDoneTimestamp(false);
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
-            new VoteResultCorrectionFinished
+            new VoteResultSubmissionFinished
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 EventInfo = GetMockedEventInfo(),
             });
-        await AssertCurrentState(CountingCircleResultState.CorrectionDone);
+        await AssertCurrentState(CountingCircleResultState.SubmissionDone);
+        await AssertSubmissionDoneTimestamp(true);
 
         var id = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
-            && x.NewState == CountingCircleResultState.CorrectionDone);
+            && x.NewState == CountingCircleResultState.SubmissionDone);
     }
 
     [Fact]
@@ -226,5 +229,11 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         };
         customizer?.Invoke(req);
         return req;
+    }
+
+    private async Task AssertSubmissionDoneTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
+        (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
     }
 }

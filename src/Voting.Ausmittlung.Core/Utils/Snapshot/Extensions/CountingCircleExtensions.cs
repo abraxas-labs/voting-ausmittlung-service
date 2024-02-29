@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -15,7 +15,8 @@ public static class CountingCircleExtensions
     /// <param name="contestId">The contest ID for which the snapshot should be produced.</param>
     public static void SnapshotForContest(this CountingCircle cc, Guid contestId)
     {
-        var id = AusmittlungUuidV5.BuildCountingCircleSnapshot(contestId, cc.Id);
+        var basisCcId = cc.Id;
+        var id = AusmittlungUuidV5.BuildCountingCircleSnapshot(contestId, basisCcId);
 
         // Modify the IDs. When saving this counting circle to the database, this will create new entries.
         cc.Id = id;
@@ -31,6 +32,17 @@ public static class CountingCircleExtensions
         {
             cc.ContactPersonAfterEvent.Id = Guid.NewGuid();
             cc.ContactPersonAfterEvent.CountingCircleAfterEventId = id;
+        }
+
+        if (cc.Electorates == null)
+        {
+            return;
+        }
+
+        foreach (var electorate in cc.Electorates)
+        {
+            electorate.Id = AusmittlungUuidV5.BuildCountingCircleElectorateSnapshot(contestId, basisCcId, electorate.Id);
+            electorate.CountingCircleId = id;
         }
     }
 }

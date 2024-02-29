@@ -333,7 +333,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:isEmpty>true</eCH-0222:isEmpty>
@@ -540,7 +541,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:isEmpty>true</eCH-0222:isEmpty>
@@ -695,7 +697,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:candidate>
@@ -778,7 +781,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:candidate>
@@ -945,7 +949,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:candidate>
@@ -1262,7 +1267,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:isEmpty>true</eCH-0222:isEmpty>
@@ -1309,7 +1315,8 @@
             <eCH-0222:electionIdentification>44ae6898-99ae-4e9d-9329-6eaa39bc687e</eCH-0222:electionIdentification>
             <eCH-0222:ballotRawData>
               <eCH-0222:listRawData>
-                <eCH-0222:listIdentification>99</eCH-0222:listIdentification>
+                <!-- empty list -->
+                <eCH-0222:listIdentification>d929b72e-f0c5-5dd5-ba7f-40a038d12efa</eCH-0222:listIdentification>
               </eCH-0222:listRawData>
               <eCH-0222:ballotPosition>
                 <eCH-0222:candidate>

@@ -8,7 +8,6 @@
           "BallotType": 2,
           "HasTieBreakQuestions": true,
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
-          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -123,7 +122,6 @@
           ],
           "Results": [],
           "EndResult": null,
-          "Description": "",
           "Id": "a2aa6f61-752b-446f-94b4-002a95111c7a"
         }
       ],
@@ -144,8 +142,10 @@
       "AutomaticBallotBundleNumberGeneration": true,
       "EnforceResultEntryForCountingCircles": false,
       "ResultEntry": 2,
-      "PoliticalBusinessNumber": "324",
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": false,
       "InternalDescription": "Abstimmung Gossau auf Urnengang Gossau mit E-Voting",
+      "PoliticalBusinessNumber": "324",
       "Active": true,
       "SwissAbroadVotingRight": 0,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -165,9 +165,7 @@
       "ShortDescription": "Abst Gossau de",
       "OfficialDescription": "Abstimmung Gossau de",
       "Title": "324: Abst Gossau de",
-      "Id": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
-      "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": false
+      "Id": "8fbba43a-cd73-407a-b490-df13c41cc5ee"
     }
   ]
 }

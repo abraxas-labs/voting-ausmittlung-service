@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,8 +7,8 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public class ElectionResultImport : PoliticalBusinessResultImport
 {
-    internal ElectionResultImport(Guid politicalBusinessId, Guid basisCountingCircleId)
-        : base(politicalBusinessId, basisCountingCircleId)
+    internal ElectionResultImport(Guid politicalBusinessId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
+        : base(politicalBusinessId, basisCountingCircleId, countOfVotersInformationImport)
     {
     }
 

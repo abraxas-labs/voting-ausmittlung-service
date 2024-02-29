@@ -55,7 +55,11 @@
           "Email": ""
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "ResultAlgorithm": 1,

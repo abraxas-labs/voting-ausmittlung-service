@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -150,6 +150,43 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
+    public async Task CreateDetailsWithCountingMachineUnspecifiedWithEnabledOnCantonSettingsShouldThrow()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.Unspecified)),
+            StatusCode.InvalidArgument,
+            "Counting machine is required");
+    }
+
+    [Fact]
+    public async Task CreateDetailsWithCountingMachineWithDisabledOnCantonSettingsShouldThrow()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.BanknoteCountingMachine)),
+            StatusCode.InvalidArgument,
+            "Cannot set counting machine if it is not enabled on canton settings");
+    }
+
+    [Fact]
+    public async Task CreateDetailsWithCountingMachineWithEnabledOnCantonSettingsShouldBeOk()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+
+        await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.BanknoteCountingMachine));
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsCreated>();
+        eventData.CountingMachine.Should().Be(SharedProto.CountingMachine.BanknoteCountingMachine);
+    }
+
+    [Fact]
     public async Task CreateDetailsNegativeVotingCardCountValueShouldThrow()
     {
         // tests whether the integration of the proto validators work.
@@ -187,7 +224,7 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                 {
                     Channel = SharedProto.VotingChannel.ByMail,
                     Valid = true,
-                    CountOfReceivedVotingCards = 1,
+                    CountOfReceivedVotingCards = 10000,
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 }))),
             StatusCode.InvalidArgument,
@@ -251,6 +288,22 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "Voting card channel ByMail/False is not enabled");
+    }
+
+    [Fact]
+    public async Task CreateDetailsShouldThrowWithElectorateAndNonUniqueCount()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+                x.VotingCards.Add(new UpdateVotingCardResultDetailRequest
+                {
+                    Channel = SharedProto.VotingChannel.ByMail,
+                    Valid = true,
+                    CountOfReceivedVotingCards = 9999,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                }))),
+            StatusCode.InvalidArgument,
+            "Voting card counts per electorate, channel and valid state must be unique");
     }
 
     [Fact]
@@ -419,6 +472,7 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                     },
                 TotalCountOfVoters = 12000,
             },
+            CountingMachine = SharedProto.CountingMachine.CalibratedScales,
             EventInfo = GetMockedEventInfo(),
         };
     }

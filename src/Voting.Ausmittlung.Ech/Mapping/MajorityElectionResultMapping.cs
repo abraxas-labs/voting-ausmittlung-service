@@ -1,10 +1,10 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Globalization;
 using System.Linq;
-using eCH_0110_4_0;
-using eCH_0155_4_0;
+using Ech0110_4_0;
+using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 
@@ -18,7 +18,7 @@ internal static class MajorityElectionResultMapping
             .Select(secondaryResult => secondaryResult.ToEchElectionResult())
             .Append(electionResult.ToEchElectionResult())
             .OrderBy(r => r.Election.ElectionPosition)
-            .ToArray();
+            .ToList();
 
         return new ElectionGroupResultsType
         {
@@ -37,16 +37,25 @@ internal static class MajorityElectionResultMapping
     private static ElectionResultType ToEchElectionResult(this MajorityElectionResult electionResult)
     {
         var election = electionResult.MajorityElection;
+        var candidates = electionResult.CandidateResults
+            .OrderBy(r => r.Candidate.Position)
+            .Select(c => c.ToEchCandidateResult(c.Candidate))
+            .ToList();
 
         return new ElectionResultType
         {
-            Election = ElectionType.Create(election.Id.ToString(), TypeOfElectionType.Majorz, election.NumberOfMandates),
-            Item = new MajoralElection
+            Election = new ElectionType
+            {
+                ElectionIdentification = election.Id.ToString(),
+                TypeOfElection = TypeOfElectionType.Item2,
+                NumberOfMandates = election.NumberOfMandates.ToString(),
+            },
+            MajoralElection = new ElectionResultTypeMajoralElection
             {
                 CountOfBlankVotesTotal = ResultDetailFromTotal(electionResult.EmptyVoteCount),
                 CountOfIndividualVotesTotal = ResultDetailFromTotal(electionResult.IndividualVoteCount),
                 CountOfInvalidVotesTotal = ResultDetailFromTotal(electionResult.InvalidVoteCount),
-                Candidate = electionResult.CandidateResults.OrderBy(r => r.Candidate.Position).Select(c => c.ToEchCandidateResult(c.Candidate)).ToArray(),
+                Candidate = candidates,
             },
         };
     }
@@ -54,16 +63,25 @@ internal static class MajorityElectionResultMapping
     private static ElectionResultType ToEchElectionResult(this SecondaryMajorityElectionResult electionResult)
     {
         var election = electionResult.SecondaryMajorityElection;
+        var candidates = electionResult.CandidateResults
+            .OrderBy(x => x.Candidate.Position)
+            .Select(c => c.ToEchCandidateResult(c.Candidate))
+            .ToList();
 
         return new ElectionResultType
         {
-            Election = ElectionType.Create(election.Id.ToString(), TypeOfElectionType.Majorz, election.NumberOfMandates),
-            Item = new MajoralElection
+            Election = new ElectionType
+            {
+                ElectionIdentification = election.Id.ToString(),
+                TypeOfElection = TypeOfElectionType.Item2,
+                NumberOfMandates = election.NumberOfMandates.ToString(),
+            },
+            MajoralElection = new ElectionResultTypeMajoralElection
             {
                 CountOfBlankVotesTotal = ResultDetailFromTotal(electionResult.EmptyVoteCount),
                 CountOfIndividualVotesTotal = ResultDetailFromTotal(electionResult.IndividualVoteCount),
                 CountOfInvalidVotesTotal = ResultDetailFromTotal(electionResult.InvalidVoteCount),
-                Candidate = electionResult.CandidateResults.OrderBy(x => x.Candidate.Position).Select(c => c.ToEchCandidateResult(c.Candidate)).ToArray(),
+                Candidate = candidates,
             },
         };
     }
@@ -72,13 +90,17 @@ internal static class MajorityElectionResultMapping
     {
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
         var texts = Languages.All
-            .Select(l => CandidateTextInfo.Create(l, candidateText))
+            .Select(l => new CandidateTextInformationTypeCandidateTextInfo
+            {
+                Language = l,
+                CandidateText = candidateText,
+            })
             .ToList();
 
         return new CandidateResultType
         {
             CountOfVotesTotal = candidateResult.VoteCount.ToString(CultureInfo.InvariantCulture),
-            Item = new CandidateInformationType
+            CandidateInformation = new CandidateInformationType
             {
                 OfficialCandidateYesNo = true,
                 CandidateIdentification = candidate.Id.ToString(),
@@ -86,7 +108,7 @@ internal static class MajorityElectionResultMapping
                 FirstName = candidate.FirstName,
                 CallName = candidate.PoliticalFirstName,
                 CandidateReference = candidate.Number,
-                CandidateText = CandidateTextInformation.Create(texts),
+                CandidateText = texts,
             },
         };
     }

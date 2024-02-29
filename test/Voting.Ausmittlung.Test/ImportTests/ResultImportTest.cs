@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Snapper;
@@ -31,6 +32,7 @@ using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using MajorityElectionWriteInMappingTarget = Abraxas.Voting.Ausmittlung.Shared.V1.MajorityElectionWriteInMappingTarget;
 
 namespace Voting.Ausmittlung.Test.ImportTests;
 
@@ -308,7 +310,8 @@ public class ResultImportTest : BaseRestTest
     {
         var req = NewSimpleProportionalElectionImportData(Guid.NewGuid());
         var votingCards = NewSimpleVotingCardImportData();
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, votingCards, ImportMeta));
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData();
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, votingCards, countOfVotersInformation, ImportMeta));
     }
 
     [Fact]
@@ -345,11 +348,15 @@ public class ResultImportTest : BaseRestTest
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
             results);
         var votingCards = new EVotingVotingCardImport("mock-eCH-0110-message-id", Guid.Parse(ContestMockedData.IdStGallenEvoting), ccVotingCards);
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(basisCountingCircleId: "unknown-counting-circle-id");
 
-        await _importWriter.Import(import, votingCards, ImportMeta);
+        await _importWriter.Import(import, votingCards, countOfVotersInformation, ImportMeta);
 
         var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
         importStarted.MatchSnapshot("event", x => x.ImportId);
+
+        var vcEvent = EventPublisherMock.GetSinglePublishedEvent<CountingCircleVotingCardsImported>();
+        vcEvent.CountingCircleVotingCards.Should().BeEmpty();
 
         await RunEvents<ResultImportStarted>();
         var importInDb = await RunOnDb(db => db.ResultImports
@@ -393,9 +400,10 @@ public class ResultImportTest : BaseRestTest
             Guid.Parse(ContestMockedData.IdStGallenEvoting),
             results);
         var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData();
 
         return AssertException<ValidationException>(
-            () => _importWriter.Import(import, votingCardReq, ImportMeta),
+            () => _importWriter.Import(import, votingCardReq, countOfVotersInformation, ImportMeta),
             "Duplicate counting circle results provided");
     }
 
@@ -425,16 +433,63 @@ public class ResultImportTest : BaseRestTest
         });
 
         var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
-        await _importWriter.Import(req, votingCardReq, ImportMeta);
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(
+            basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString(),
+            politicalBusinessIds: new() { MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen });
+
+        await _importWriter.Import(req, votingCardReq, countOfVotersInformation, ImportMeta);
 
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultImported>();
         ev.EmptyVoteCount.Should().Be(1); // 1 from missing position
-        ev.InvalidVoteCount.Should().Be(2); // 1 write in duplicate, 1 candidate duplicate
+        ev.InvalidVoteCount.Should().Be(1); // 1 from candidate duplicate
         ev.CandidateResults
             .Single(x => x.CandidateId == MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen)
             .VoteCount
             .Should()
             .Be(1);
+
+        var writeInBallotEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionWriteInBallotImported>().ToList();
+        writeInBallotEvents.Should().HaveCount(1);
+        var writeInBallot = writeInBallotEvents[0];
+        writeInBallot.CandidateIds.Should().HaveCount(1);
+        writeInBallot.WriteInMappingIds.Should().HaveCount(2);
+        writeInBallot.InvalidVoteCount.Should().Be(1); // same as in MajorityElectionResultImported event, since it is only one ballot
+        writeInBallot.EmptyVoteCount.Should().Be(1);
+
+        await RunEvents<MajorityElectionResultImported>(false);
+        await RunEvents<MajorityElectionWriteInBallotImported>(false);
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionWriteInsMapped
+            {
+                CountingCircleId = CountingCircleMockedData.GuidUzwil.ToString(),
+                MajorityElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+                WriteInMappings =
+                {
+                    new MajorityElectionWriteInMappedEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen,
+                        WriteInMappingId = ev.WriteIns[0].WriteInMappingId,
+                        Target = MajorityElectionWriteInMappingTarget.Candidate,
+                    },
+                },
+            });
+
+        var result = await RunOnDb(async db =>
+        {
+            return await db.MajorityElectionResults
+                .Include(r => r.CandidateResults)
+                .FirstAsync(r => r.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil
+                    && r.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen));
+        });
+
+        result.InvalidVoteCount.Should().Be(3); // 1 from duplicated candidate, 2 from mapped duplicated write-ins
+        result.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
+        result.HasUnmappedWriteIns.Should().BeFalse();
+
+        var candidateResult = result.CandidateResults.First();
+        candidateResult.VoteCount.Should().Be(1);
     }
 
     [Fact]
@@ -458,16 +513,70 @@ public class ResultImportTest : BaseRestTest
         });
 
         var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
-        await _importWriter.Import(req, votingCardReq, ImportMeta);
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(
+            basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString(),
+            politicalBusinessIds: new() { MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen });
+
+        await _importWriter.Import(req, votingCardReq, countOfVotersInformation, ImportMeta);
 
         var ev = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultImported>();
-        ev.EmptyVoteCount.Should().Be(2); // 1 from duplicate write in + 1 from missing positions
+        ev.EmptyVoteCount.Should().Be(1); // 1 from missing positions
         ev.InvalidVoteCount.Should().Be(0);
         ev.CandidateResults
             .Single(x => x.CandidateId == MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen)
             .VoteCount
             .Should()
             .Be(1);
+
+        var writeInBallotEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionWriteInBallotImported>().ToList();
+        writeInBallotEvents.Should().HaveCount(1);
+        var writeInBallot = writeInBallotEvents[0];
+        writeInBallot.CandidateIds.Should().HaveCount(1);
+        writeInBallot.WriteInMappingIds.Should().HaveCount(3);
+        writeInBallot.InvalidVoteCount.Should().Be(0);
+        writeInBallot.EmptyVoteCount.Should().Be(1); // same as in MajorityElectionResultImported event, since it is only one ballot
+
+        await RunEvents<MajorityElectionResultImported>(false);
+        await RunEvents<MajorityElectionWriteInBallotImported>(false);
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionWriteInsMapped
+            {
+                CountingCircleId = CountingCircleMockedData.GuidUzwil.ToString(),
+                MajorityElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+                WriteInMappings =
+                {
+                    new MajorityElectionWriteInMappedEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen,
+                        WriteInMappingId = ev.WriteIns[0].WriteInMappingId,
+                        Target = MajorityElectionWriteInMappingTarget.Candidate,
+                    },
+                    new MajorityElectionWriteInMappedEventData
+                    {
+                        CandidateId = MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen,
+                        WriteInMappingId = ev.WriteIns[1].WriteInMappingId,
+                        Target = MajorityElectionWriteInMappingTarget.Candidate,
+                    },
+                },
+            });
+
+        var result = await RunOnDb(async db =>
+        {
+            return await db.MajorityElectionResults
+                .Include(r => r.CandidateResults)
+                .FirstAsync(r => r.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil
+                                 && r.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen));
+        });
+
+        result.EmptyVoteCount.Should().Be(4); // 1 from missing positions, 3 from mapped duplicated write-ins
+        result.InvalidVoteCount.Should().Be(0);
+        result.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
+        result.HasUnmappedWriteIns.Should().BeFalse();
+
+        var candidateResult = result.CandidateResults.First();
+        candidateResult.VoteCount.Should().Be(1);
     }
 
     [Fact]
@@ -483,8 +592,11 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         });
         var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(
+            basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString(),
+            politicalBusinessIds: new() { MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen });
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, votingCardReq, ImportMeta),
+            () => _importWriter.Import(req, votingCardReq, countOfVotersInformation, ImportMeta),
             "the number of ballot positions exceeds the number of mandates (10 vs 5)");
     }
 
@@ -504,7 +616,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta),
             "the number of ballot positions exceeds the number of mandates (10 vs 3)");
     }
 
@@ -528,7 +640,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta),
             "proportional election ballot position cannot contain write-ins");
     }
 
@@ -540,7 +652,7 @@ public class ResultImportTest : BaseRestTest
         var ballot = req.PoliticalBusinessResults.OfType<EVotingElectionResult>().First().Ballots.First();
         ballot.Unmodified = true;
         ballot.ListId = Guid.Parse("4869ef1b-0497-4e24-8e01-a03013ed79a2");
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta));
     }
 
     [Fact]
@@ -551,7 +663,7 @@ public class ResultImportTest : BaseRestTest
         var ballot = req.PoliticalBusinessResults.OfType<EVotingElectionResult>().First().Ballots.First();
         ballot.Unmodified = true;
         ballot.ListId = null;
-        await _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta);
+        await _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta);
 
         var proportionalElectionImported = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().Single();
         proportionalElectionImported.BlankBallotCount.Should().Be(1);
@@ -578,7 +690,7 @@ public class ResultImportTest : BaseRestTest
                     ballotPositions),
         };
         return AssertException<ValidationException>(
-            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta),
+            () => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta),
             "was found more than 2 times on a single ballot");
     }
 
@@ -600,7 +712,7 @@ public class ResultImportTest : BaseRestTest
                 new EVotingVoteBallot(questionAnswers, Array.Empty<EVotingVoteBallotTieBreakQuestionAnswer>()),
         };
 
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta));
     }
 
     [Fact]
@@ -621,7 +733,53 @@ public class ResultImportTest : BaseRestTest
                 new EVotingVoteBallot(Array.Empty<EVotingVoteBallotQuestionAnswer>(), tieBreakQuestionAnswers),
         };
 
-        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), ImportMeta));
+        return Assert.ThrowsAsync<EntityNotFoundException>(() => _importWriter.Import(req, NewSimpleVotingCardImportData(), NewSimpleCountOfVotersImportData(), ImportMeta));
+    }
+
+    [Fact]
+    public Task DuplicateCountOfVotersInformationShouldThrow()
+    {
+        TrySetFakeAuth();
+        var ballotPositions = Enumerable.Repeat(EVotingElectionBallotPosition.Empty, 10).ToList();
+        var req = NewSimpleMajorityElectionImportData(new[]
+        {
+                new EVotingElectionBallot(
+                    null,
+                    false,
+                    ballotPositions),
+        });
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(
+            basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString(),
+            politicalBusinessIds: new()
+            {
+                MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+                MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+            });
+        return AssertException<ValidationException>(
+            () => _importWriter.Import(req, votingCardReq, countOfVotersInformation, ImportMeta),
+            "Duplicate count of voters information provided");
+    }
+
+    [Fact]
+    public Task MissingCountOfVotersInformationShouldThrow()
+    {
+        TrySetFakeAuth();
+        var ballotPositions = Enumerable.Repeat(EVotingElectionBallotPosition.Empty, 10).ToList();
+        var req = NewSimpleMajorityElectionImportData(new[]
+        {
+                new EVotingElectionBallot(
+                    null,
+                    false,
+                    ballotPositions),
+        });
+        var votingCardReq = NewSimpleVotingCardImportData(basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString());
+        var countOfVotersInformation = NewSimpleCountOfVotersImportData(
+            basisCountingCircleId: CountingCircleMockedData.GuidUzwil.ToString(),
+            politicalBusinessIds: new());
+        return AssertException<ValidationException>(
+            () => _importWriter.Import(req, votingCardReq, countOfVotersInformation, ImportMeta),
+            "Import does not contain count of voters information for counting circle ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e and political business d66ced3e-a2e4-4178-932b-ac91ee6a9d85");
     }
 
     [Fact]
@@ -645,14 +803,8 @@ public class ResultImportTest : BaseRestTest
         var propImportEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultImported>().ToArray();
         await TestEventPublisher.Publish(GetNextEventNumber(propImportEvents.Length), propImportEvents);
 
-        var proportionalElection = await GetProportionalElectionWithResults();
-        proportionalElection.Results.MatchSnapshot("proportionalElectionResults");
-
         var voteImportEvents = EventPublisherMock.GetPublishedEvents<VoteResultImported>().ToArray();
         await TestEventPublisher.Publish(GetNextEventNumber(voteImportEvents.Length), voteImportEvents);
-
-        var vote = await GetVoteWithResults();
-        vote.Results.MatchSnapshot("voteResults");
 
         var majorityImportEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionResultImported>().ToArray();
         await TestEventPublisher.Publish(GetNextEventNumber(majorityImportEvents.Length), majorityImportEvents);
@@ -660,11 +812,17 @@ public class ResultImportTest : BaseRestTest
         var secondaryMajorityImportEvents = EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToArray();
         await TestEventPublisher.Publish(GetNextEventNumber(secondaryMajorityImportEvents.Length), secondaryMajorityImportEvents);
 
-        var majorityElection = await GetMajorityElectionWithResults();
-        majorityElection.Results.MatchSnapshot("majorityElectionResults");
-
         var votingCardEvents = EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().ToArray();
         await TestEventPublisher.Publish(GetNextEventNumber(votingCardEvents.Length), votingCardEvents);
+
+        var vote = await GetVoteWithResults();
+        vote.Results.MatchSnapshot("voteResults");
+
+        var proportionalElection = await GetProportionalElectionWithResults();
+        proportionalElection.Results.MatchSnapshot("proportionalElectionResults");
+
+        var majorityElection = await GetMajorityElectionWithResults();
+        majorityElection.Results.MatchSnapshot("majorityElectionResults");
 
         var countingCircleDetails = await GetCountingCircleDetails();
         countingCircleDetails.MatchSnapshot("countingCircleDetails");
@@ -909,6 +1067,28 @@ public class ResultImportTest : BaseRestTest
             "my-mock-ech-message-id-0110",
             contestId ?? Guid.Parse(ContestMockedData.IdStGallenEvoting),
             votingCards);
+    }
+
+    private EVotingCountOfVotersInformationImport NewSimpleCountOfVotersImportData(
+        Guid? contestId = null,
+        string? basisCountingCircleId = null,
+        List<string>? politicalBusinessIds = null)
+    {
+        politicalBusinessIds ??= new()
+        {
+            VoteMockedData.IdGossauVoteInContestStGallen,
+            ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen,
+        };
+
+        basisCountingCircleId ??= CountingCircleMockedData.IdGossau;
+
+        var countOfVotersInformation = politicalBusinessIds
+            .ConvertAll(x => new EVotingCountingCircleResultCountOfVotersInformation(basisCountingCircleId, GuidParser.Parse(x), 123))
+;
+
+        return new EVotingCountOfVotersInformationImport(
+            contestId ?? Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            countOfVotersInformation);
     }
 
     private int GetNextEventNumber(int delta = 1)

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -13,8 +13,6 @@ public class CantonSettings : BaseEntity
     public string SecureConnectId { get; set; } = string.Empty;
 
     public string AuthorityName { get; set; } = string.Empty;
-
-    public List<ProportionalElectionMandateAlgorithm> ProportionalElectionMandateAlgorithms { get; set; } = new();
 
     public CantonMajorityElectionAbsoluteMajorityAlgorithm MajorityElectionAbsoluteMajorityAlgorithm { get; set; }
 
@@ -33,4 +31,15 @@ public class CantonSettings : BaseEntity
     /// This does never include E-Voting.
     /// </summary>
     public List<CantonSettingsVotingCardChannel> EnabledVotingCardChannels { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets a value indicating whether counting circles can use counting machines or not.
+    /// </summary>
+    public bool CountingMachineEnabled { get; set; }
+
+    public bool NewZhFeaturesEnabled { get; set; }
+
+    public bool MajorityElectionUseCandidateCheckDigit { get; set; }
+
+    public bool ProportionalElectionUseCandidateCheckDigit { get; set; }
 }

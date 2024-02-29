@@ -31,6 +31,9 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
         "NumberOfMandates": 6,
         "PoliticalBusinessNumber": "8000",
         "Active": false,
@@ -52,9 +55,7 @@
         "ShortDescription": "Neue Majorzwahl 1 de",
         "OfficialDescription": "Neue Majorzwahl 1 de",
         "Title": "8000: Neue Majorzwahl 1 de",
-        "Id": "4a258e1d-ba12-4564-a8eb-6bf89262dece",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "4a258e1d-ba12-4564-a8eb-6bf89262dece"
       },
       {
         "MandateAlgorithm": 2,
@@ -86,6 +87,9 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
         "NumberOfMandates": 3,
         "PoliticalBusinessNumber": "8001",
         "Active": false,
@@ -107,9 +111,7 @@
         "ShortDescription": "Neue Majorzwahl 2 de",
         "OfficialDescription": "Neue Majorzwahl 2 de",
         "Title": "8001: Neue Majorzwahl 2 de",
-        "Id": "764f30b9-3510-41a5-b7be-64173551d292",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "764f30b9-3510-41a5-b7be-64173551d292"
       }
     ]
   },

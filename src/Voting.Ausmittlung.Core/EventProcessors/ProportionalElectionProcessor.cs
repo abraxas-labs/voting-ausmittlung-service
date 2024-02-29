@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -237,8 +237,7 @@ public class ProportionalElectionProcessor :
         _mapper.Map(eventData, list);
         await _listTranslationRepo.DeleteRelatedTranslations(list.Id);
         await _listRepo.Update(list);
-
-        await _unionListBuilder.ChangeListShortDescription(list);
+        await _unionListBuilder.RebuildForProportionalElection(list.Id);
 
         _logger.LogInformation("Proportional election list {ProportionalElectionListId} updated after testing phase ended", id);
     }

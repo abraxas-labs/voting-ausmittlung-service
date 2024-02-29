@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -98,7 +98,12 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
                 eVotingVotingCard.CountOfReceivedVotingCards = 10 * modifier;
             }
 
-            var results = await db.BallotResults
+            var voteResults = await db.VoteResults
+                .AsTracking()
+                .Where(vr => vr.Vote.ContestId == contestId && vr.CountingCircle.BasisCountingCircleId == countingCircleId)
+                .ToListAsync();
+
+            var ballotResults = await db.BallotResults
                 .AsSplitQuery()
                 .AsTracking()
                 .Include(br => br.QuestionResults.OrderBy(bqr => bqr.Question.Number))
@@ -108,15 +113,20 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
                     && br.VoteResult.CountingCircle.BasisCountingCircleId == countingCircleId)
                 .ToListAsync();
 
-            foreach (var result in results)
+            foreach (var voteResult in voteResults)
             {
-                result.CountOfVoters.EVotingReceivedBallots = 20 * modifier;
-                result.CountOfVoters.EVotingInvalidBallots = 2 * modifier;
-                result.CountOfVoters.EVotingBlankBallots = 3 * modifier;
-                result.CountOfVoters.EVotingAccountedBallots = 15 * modifier;
-                result.CountOfVoters.UpdateVoterParticipation(50 * modifier);
+                voteResult.TotalSentEVotingVotingCards = 5 * modifier;
+            }
 
-                foreach (var bqr in result.QuestionResults)
+            foreach (var ballotResult in ballotResults)
+            {
+                ballotResult.CountOfVoters.EVotingReceivedBallots = 20 * modifier;
+                ballotResult.CountOfVoters.EVotingInvalidBallots = 2 * modifier;
+                ballotResult.CountOfVoters.EVotingBlankBallots = 3 * modifier;
+                ballotResult.CountOfVoters.EVotingAccountedBallots = 15 * modifier;
+                ballotResult.CountOfVoters.UpdateVoterParticipation(50 * modifier);
+
+                foreach (var bqr in ballotResult.QuestionResults)
                 {
                     bqr.ConventionalSubTotal.TotalCountOfAnswerYes = 5 * modifier;
                     bqr.ConventionalSubTotal.TotalCountOfAnswerNo = 4 * modifier;
@@ -126,7 +136,7 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
                     bqr.EVotingSubTotal.TotalCountOfAnswerUnspecified = 1 * modifier;
                 }
 
-                foreach (var tqr in result.TieBreakQuestionResults)
+                foreach (var tqr in ballotResult.TieBreakQuestionResults)
                 {
                     tqr.ConventionalSubTotal.TotalCountOfAnswerQ1 = 4 * modifier;
                     tqr.ConventionalSubTotal.TotalCountOfAnswerQ2 = 2 * modifier;

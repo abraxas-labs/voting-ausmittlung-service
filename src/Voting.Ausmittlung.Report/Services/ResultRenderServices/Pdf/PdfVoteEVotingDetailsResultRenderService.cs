@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -56,7 +56,6 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.Results.Where(r => r.CountingCircle.ContestDetails.Any(cd => cd.EVoting)))
             .ThenInclude(x => x.Results.OrderBy(b => b.Ballot.Position))
-            .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
             .ThenInclude(x => x.CountOfVoters)
@@ -80,7 +79,7 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .ThenInclude(x => x.CountingCircle)
             .ThenInclude(x => x.ContestDetails)
             .ThenInclude(x => x.VotingCards)
-            .Include(x => x.EndResult!.BallotEndResults.OrderBy(b => b.Ballot.Position)).ThenInclude(x => x.Ballot.Translations)
+            .Include(x => x.EndResult!.BallotEndResults.OrderBy(b => b.Ballot.Position)).ThenInclude(x => x.Ballot)
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.QuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.Translations)
@@ -100,12 +99,20 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             var pdfVote = _mapper.Map<PdfVote>(vote);
             var countingCirclesById = vote.Results.ToDictionary(x => x.CountingCircleId, x => x.CountingCircle);
 
+            if (pdfVote.Results?.Any() != true)
+            {
+                continue;
+            }
+
             foreach (var result in pdfVote.Results ?? Enumerable.Empty<PdfVoteResult>())
             {
                 if (countingCirclesById.TryGetValue(result.CountingCircle!.Id, out var cc) && cc.ContestDetails.Any())
                 {
                     result.CountingCircle = _mapper.Map<PdfCountingCircle>(cc);
-                    result.CountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(cc.ContestDetails.First());
+                    var ccDetails = cc.ContestDetails.FirstOrDefault();
+                    ccDetails?.OrderVotingCardsAndSubTotals();
+
+                    result.CountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
                     PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(result.CountingCircle.ContestCountingCircleDetails, vote.DomainOfInfluence.Type);
                 }
             }

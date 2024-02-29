@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
@@ -63,10 +64,6 @@ public class ResultReader
     {
         _logger.LogDebug("Listening to result state changes for contest with id {ContestId}", contestId);
 
-        _permissionService.EnsureAnyRole();
-
-        _logger.LogDebug("Listening permission is assured.");
-
         var ownedPoliticalBusinessIds = await _contestReader.GetAccessiblePoliticalBusinessIds(contestId);
         if (ownedPoliticalBusinessIds.Count == 0)
         {
@@ -81,8 +78,6 @@ public class ResultReader
 
     public async Task<ResultOverview> GetResultOverview(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         var tenantId = _permissionService.TenantId;
         var contest = await _contestRepo.Query()
                    .AsSplitQuery()
@@ -117,7 +112,6 @@ public class ResultReader
 
     public async Task<ResultList> GetList(Guid contestId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureAnyRole();
         var tenantId = _permissionService.TenantId;
         await _permissionService.EnsureCanReadBasisCountingCircle(basisCountingCircleId, contestId);
 
@@ -129,9 +123,12 @@ public class ResultReader
             ?? throw new EntityNotFoundException(contestId);
 
         var countingCircle = await _countingCircleRepo.Query()
+                .AsSplitQuery()
                 .Include(x => x.ResponsibleAuthority)
                 .Include(x => x.ContactPersonDuringEvent)
                 .Include(x => x.ContactPersonAfterEvent)
+                .Include(x => x.Electorates.OrderBy(e => e.DomainOfInfluenceTypes[0]))
+                .Include(x => x.ContestElectorates.OrderBy(e => e.DomainOfInfluenceTypes[0]))
                 .FirstOrDefaultAsync(x => x.BasisCountingCircleId == basisCountingCircleId && x.SnapshotContestId == contestId)
             ?? throw new EntityNotFoundException(basisCountingCircleId);
 
@@ -154,11 +151,16 @@ public class ResultReader
             .ToListAsync();
 
         var currentTenantIsResponsible = countingCircle.ResponsibleAuthority.SecureConnectId == tenantId || (contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded);
+        var electorateSummary = ContestCountingCircleElectorateSummaryBuilder.Build(
+            countingCircle,
+            details,
+            results.Select(r => r.PoliticalBusiness!.DomainOfInfluence.Type).ToHashSet());
 
         return new ResultList(
             contest,
             countingCircle,
             details,
+            electorateSummary,
             results,
             currentTenantIsResponsible,
             countingCircle.ContestCountingCircleContactPersonId,
@@ -167,8 +169,6 @@ public class ResultReader
 
     public async Task<IEnumerable<CountingCircleResultComment>> GetComments(Guid resultId)
     {
-        _permissionService.EnsureAnyRole();
-
         var result = await _simpleResultRepo.Query()
             .AsSplitQuery()
             .Include(x => x.CountingCircle)

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
         : base(repo, mapper, templateService, clock)
     {
         IncludeCalculationRounds = false;
+        IncludeDoiInformation = true;
     }
 
     protected override IQueryable<ProportionalElectionEndResult> BuildQuery()
@@ -32,6 +33,7 @@ public class PdfProportionalElectionEndResultListUnionsRenderService
         return base.BuildQuery()
             .Include(x => x.ProportionalElection.Contest.Details!.VotingCards)
             .Include(x => x.ProportionalElection.Contest.Details!.CountOfVotersInformationSubTotals)
+            .Include(x => x.ProportionalElection.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Include(x => x.ListEndResults.OrderBy(y => y.List.OrderNumber)) // required for E-Voting variant, because HB does not support E-Voting vote counts yet.
             .ThenInclude(x => x.List.Translations);
     }

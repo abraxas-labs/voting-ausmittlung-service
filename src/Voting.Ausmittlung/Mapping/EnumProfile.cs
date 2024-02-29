@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -44,6 +44,14 @@ public class EnumProfile : Profile
         CreateEnumMap<SharedProto.BallotQuestionAnswer, BallotQuestionAnswer>();
         CreateEnumMap<SharedProto.TieBreakQuestionAnswer, TieBreakQuestionAnswer>();
         CreateEnumMap<SharedProto.VoterType, VoterType>();
+
+        // explicitly map deprecated values to the corresponding new value.
+        CreateMap<ProtoModels.ProportionalElectionMandateAlgorithm, ProportionalElectionMandateAlgorithm>()
+            .ConvertUsingEnumMapping(opt => opt
+                .MapByName()
+                .MapValue(ProtoModels.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum, ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum)
+                .MapValue(ProtoModels.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum, ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum))
+            .ReverseMap();
     }
 
     private void CreateEnumMap<T1, T2>()

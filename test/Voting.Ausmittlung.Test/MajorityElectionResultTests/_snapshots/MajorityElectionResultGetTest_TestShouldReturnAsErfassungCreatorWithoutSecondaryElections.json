@@ -41,7 +41,11 @@
         "Email": "hans@sg.ch"
       },
       "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "Contest": {
@@ -70,7 +74,8 @@
       "EVotingResultsImported": false
     },
     "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": true
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false
   },
   "SecondaryMajorityElectionResults": [],
   "Entry": 0,

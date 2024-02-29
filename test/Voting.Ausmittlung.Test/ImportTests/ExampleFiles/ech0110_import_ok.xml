@@ -44,6 +44,7 @@
         <eCH-0155:eVotingPeriodTill>2023-03-20T17:00:00+01:00</eCH-0155:eVotingPeriodTill>
       </eCH-0155:eVotingPeriod>
     </eCH-0110:contestInformation>
+    <!-- Testurne -->
     <eCH-0110:countingCircleResults>
       <eCH-0110:countingCircle>
         <eCH-0155:countingCircleId>10001</eCH-0155:countingCircleId>
@@ -53,7 +54,6 @@
         <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
         <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
       </eCH-0110:votingCardsInformation>
-      <!-- The vote results are ignored, but we need to be able to parse them correctly anyway -->
       <eCH-0110:voteResults>
         <eCH-0110:vote>
           <eCH-0155:voteIdentification>85bb635e-99de-4547-9701-c7a44e337a1b</eCH-0155:voteIdentification>
@@ -387,7 +387,7 @@
         <eCH-0110:countOfReceivedValidVotingCardsTotal>6</eCH-0110:countOfReceivedValidVotingCardsTotal>
         <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
       </eCH-0110:votingCardsInformation>
-      <!-- The vote results are ignored, but we need to be able to parse them correctly anyway -->
+      <!-- Only the CountOfVotersInformation of a ElectionGroupResult is for the Elections considered. -->
       <eCH-0110:electionGroupResults>
         <eCH-0110:domainOfInfluenceIdentification>297ded66-cf45-4c33-bb83-6d4843557d77</eCH-0110:domainOfInfluenceIdentification>
         <eCH-0110:electionGroupDescription>
@@ -432,7 +432,117 @@
         </eCH-0110:countOfUnaccountedInvalidBallots>
         <eCH-0110:electionResults>
           <eCH-0110:election>
-            <eCH-0155:electionIdentification>35547f41-bedd-4ef2-a995-548ef5ee053f</eCH-0155:electionIdentification>
+            <eCH-0155:electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionDescription>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+            </eCH-0155:electionDescription>
+            <eCH-0155:numberOfMandates>1</eCH-0155:numberOfMandates>
+          </eCH-0110:election>
+          <eCH-0110:majoralElection>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>38824b31-b9dd-4e91-b0ee-048ed4b03a47</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>1</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 1</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 1</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 1</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>1c5f0c86-2bfa-4c05-b296-65b3f8ce0361</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>2</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 2</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 2</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 2</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:countOfInvalidVotesTotal>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfInvalidVotesTotal>
+          </eCH-0110:majoralElection>
+        </eCH-0110:electionResults>
+        <eCH-0110:electionResults>
+          <eCH-0110:election>
+            <eCH-0155:electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</eCH-0155:electionIdentification>
             <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
             <eCH-0155:electionDescription>
               <eCH-0155:electionDescriptionInfo>
@@ -551,6 +661,263 @@
         <eCH-0110:countOfReceivedValidVotingCardsTotal>24</eCH-0110:countOfReceivedValidVotingCardsTotal>
         <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
       </eCH-0110:votingCardsInformation>
+      <!-- Only the CountOfVotersInformation of the Vote Result is considered. -->
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <!-- This is an unknown vote ID, but the import should work nevertheless, because the ID matches the Ech-0222 vote id. -->
+          <eCH-0155:voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>21</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+      <!-- Only the CountOfVotersInformation of a ElectionGroupResult is for the Elections considered. -->
+      <eCH-0110:electionGroupResults>
+        <eCH-0110:domainOfInfluenceIdentification>297ded66-cf45-4c33-bb83-6d4843557d77</eCH-0110:domainOfInfluenceIdentification>
+        <eCH-0110:electionGroupDescription>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>DE</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>FR</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>IT</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>RM</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+        </eCH-0110:electionGroupDescription>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>23</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:total>3</eCH-0110:total>
+        </eCH-0110:countOfReceivedBallotsTotal>
+        <eCH-0110:countOfAccountedBallots>
+          <eCH-0110:total>2</eCH-0110:total>
+        </eCH-0110:countOfAccountedBallots>
+        <eCH-0110:countOfUnaccountedBallots>
+          <eCH-0110:total>1</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBallots>
+        <eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:total>1</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBlankBallots>
+        <eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:total>0</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedInvalidBallots>
+        <eCH-0110:electionResults>
+          <eCH-0110:election>
+            <eCH-0155:electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionDescription>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ersatzwahl KreisrichterIn</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Ersatzwahl KreisrichterIn Gerchtswahlkreis Rorschach</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+            </eCH-0155:electionDescription>
+            <eCH-0155:numberOfMandates>1</eCH-0155:numberOfMandates>
+          </eCH-0110:election>
+          <eCH-0110:majoralElection>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>38824b31-b9dd-4e91-b0ee-048ed4b03a47</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>1</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 1</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 1</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 1</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>15.03.1970, Rorschach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>1c5f0c86-2bfa-4c05-b296-65b3f8ce0361</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>2</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Nachname 2</eCH-0110:familyName>
+                <eCH-0110:firstName>Vorname 2</eCH-0110:firstName>
+                <eCH-0110:callName>Vorname 2</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>17.11.1973, Goldach</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>d0659fdd-f8de-391e-8066-1b007b781a53</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:countOfInvalidVotesTotal>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfInvalidVotesTotal>
+          </eCH-0110:majoralElection>
+        </eCH-0110:electionResults>
+      </eCH-0110:electionGroupResults>
     </eCH-0110:countingCircleResults>
   </eCH-0110:resultDelivery>
 </eCH-0110:delivery>

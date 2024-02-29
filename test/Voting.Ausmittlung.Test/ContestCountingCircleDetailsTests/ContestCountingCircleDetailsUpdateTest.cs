@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -389,11 +389,27 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 {
                     Channel = SharedProto.VotingChannel.ByMail,
                     Valid = true,
-                    CountOfReceivedVotingCards = 1,
+                    CountOfReceivedVotingCards = 10000,
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                 }))),
             StatusCode.InvalidArgument,
             "duplicated voting card details found");
+    }
+
+    [Fact]
+    public async Task UpdateDetailsShouldThrowWithElectorateAndNonUniqueCount()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+                x.VotingCards.Add(new UpdateVotingCardResultDetailRequest
+                {
+                    Channel = SharedProto.VotingChannel.ByMail,
+                    Valid = true,
+                    CountOfReceivedVotingCards = 9999,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
+                }))),
+            StatusCode.InvalidArgument,
+            "Voting card counts per electorate, channel and valid state must be unique");
     }
 
     [Fact]
@@ -435,6 +451,43 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 }))),
             StatusCode.InvalidArgument,
             "Voting cards with domain of influence type which don't exist are provided.");
+    }
+
+    [Fact]
+    public async Task UpdateDetailsWithCountingMachineUnspecifiedWithEnabledOnCantonSettingsShouldThrow()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdGossau),
+            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.Unspecified)),
+            StatusCode.InvalidArgument,
+            "Counting machine is required");
+    }
+
+    [Fact]
+    public async Task UpdateDetailsWithCountingMachineWithDisabledOnCantonSettingsShouldThrow()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.None)),
+            StatusCode.InvalidArgument,
+            "Cannot set counting machine if it is not enabled on canton settings");
+    }
+
+    [Fact]
+    public async Task UpdateDetailsWithCountingMachineWithEnabledOnCantonSettingsShouldBeOk()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdGossau),
+            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+
+        await ErfassungElectionAdminClient.UpdateDetailsAsync(
+            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.CalibratedScales));
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsUpdated>();
+        eventData.CountingMachine.Should().Be(SharedProto.CountingMachine.CalibratedScales);
     }
 
     [Fact]
@@ -578,6 +631,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     },
                 TotalCountOfVoters = 12000,
             },
+            CountingMachine = SharedProto.CountingMachine.None,
             EventInfo = GetMockedEventInfo(),
         };
     }

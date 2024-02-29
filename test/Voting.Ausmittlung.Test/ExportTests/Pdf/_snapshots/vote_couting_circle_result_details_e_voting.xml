@@ -38,7 +38,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -119,7 +118,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -360,7 +358,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -441,7 +438,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description>Bundesgesetz über TEST de</Description>
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -500,7 +496,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description>Dies ist die zweite Vorlage de</Description>
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -631,7 +626,6 @@
       <BallotResult>
         <Ballot>
           <Position>3</Position>
-          <Description>Dies ist die dritte Vorlage de</Description>
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -894,7 +888,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>

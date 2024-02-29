@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,6 @@ public class VoteModelBuilder :
     IEntityTypeConfiguration<Vote>,
     IEntityTypeConfiguration<VoteTranslation>,
     IEntityTypeConfiguration<Ballot>,
-    IEntityTypeConfiguration<BallotTranslation>,
     IEntityTypeConfiguration<BallotQuestion>,
     IEntityTypeConfiguration<BallotQuestionTranslation>,
     IEntityTypeConfiguration<TieBreakQuestion>,
@@ -69,11 +68,6 @@ public class VoteModelBuilder :
     public void Configure(EntityTypeBuilder<Ballot> builder)
     {
         builder
-            .HasMany(x => x.Translations)
-            .WithOne(x => x.Ballot!)
-            .HasForeignKey(x => x.BallotId);
-
-        builder
             .HasMany(b => b.BallotQuestions)
             .WithOne(bq => bq.Ballot)
             .HasForeignKey(bq => bq.BallotId)
@@ -94,15 +88,6 @@ public class VoteModelBuilder :
         builder
             .Property(x => x.HasTieBreakQuestions)
             .IsRequired();
-    }
-
-    public void Configure(EntityTypeBuilder<BallotTranslation> builder)
-    {
-        builder.HasLanguageQueryFilter();
-
-        builder
-            .HasIndex(b => new { b.BallotId, b.Language })
-            .IsUnique();
     }
 
     public void Configure(EntityTypeBuilder<BallotQuestion> builder)

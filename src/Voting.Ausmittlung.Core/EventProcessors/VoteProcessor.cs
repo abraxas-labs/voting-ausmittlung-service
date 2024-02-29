@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -33,7 +33,6 @@ public class VoteProcessor :
     private readonly VoteRepo _repo;
     private readonly VoteTranslationRepo _translationRepo;
     private readonly IDbRepository<DataContext, Ballot> _ballotRepo;
-    private readonly BallotTranslationRepo _ballotTranslationRepo;
     private readonly VoteResultRepo _voteResultsRepo;
     private readonly BallotQuestionRepo _ballotQuestionRepo;
     private readonly BallotQuestionTranslationRepo _ballotQuestionTranslationRepo;
@@ -51,7 +50,6 @@ public class VoteProcessor :
         VoteRepo repo,
         VoteTranslationRepo translationRepo,
         IDbRepository<DataContext, Ballot> ballotRepo,
-        BallotTranslationRepo ballotTranslationRepo,
         VoteResultRepo voteResultsRepo,
         BallotQuestionRepo ballotQuestionRepo,
         BallotQuestionTranslationRepo ballotQuestionTranslationRepo,
@@ -72,7 +70,6 @@ public class VoteProcessor :
         _repo = repo;
         _translationRepo = translationRepo;
         _ballotRepo = ballotRepo;
-        _ballotTranslationRepo = ballotTranslationRepo;
         _ballotQuestionRepo = ballotQuestionRepo;
         _ballotQuestionTranslationRepo = ballotQuestionTranslationRepo;
         _tieBreakQuestionRepo = tieBreakQuestionRepo;
@@ -184,7 +181,6 @@ public class VoteProcessor :
             throw new EntityNotFoundException(ballot.Id);
         }
 
-        await _ballotTranslationRepo.DeleteRelatedTranslations(ballot.Id);
         await _ballotQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
         await _tieBreakQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
 
@@ -205,15 +201,6 @@ public class VoteProcessor :
             .Include(b => b.Vote)
             .FirstOrDefaultAsync(b => b.Id == id)
             ?? throw new EntityNotFoundException(id);
-
-        foreach (var (lang, descTranslation) in eventData.Description)
-        {
-            ballot.Translations.Add(new BallotTranslation
-            {
-                Language = lang,
-                Description = descTranslation,
-            });
-        }
 
         var updatedBallotQuestionsByNumber = eventData.BallotQuestions.ToDictionary(x => x.Number);
         foreach (var question in ballot.BallotQuestions)
@@ -241,7 +228,6 @@ public class VoteProcessor :
             }
         }
 
-        await _ballotTranslationRepo.DeleteRelatedTranslations(ballot.Id);
         await _ballotQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
         await _tieBreakQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
         await _ballotRepo.Update(ballot);

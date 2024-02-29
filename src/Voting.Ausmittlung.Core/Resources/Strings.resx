@@ -128,6 +128,9 @@
   <data name="Exports.DomainOfInfluenceType.Ct" xml:space="preserve">
         <value>kantonal</value>
     </data>
+  <data name="Exports.DomainOfInfluenceType.Bz" xml:space="preserve">
+        <value>bezirk</value>
+    </data>
   <data name="Exports.DomainOfInfluenceType.Other" xml:space="preserve">
         <value>kommunal</value>
     </data>

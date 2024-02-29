@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -51,9 +51,17 @@ public static class EVotingMockedData
             await testPublisher.Publish(eventIdCounter, majorityImportEvents);
             eventIdCounter += majorityImportEvents.Length;
 
+            var majorityElectionWriteInBallotEvents = publisherMock.GetPublishedEvents<MajorityElectionWriteInBallotImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, majorityElectionWriteInBallotEvents);
+            eventIdCounter += majorityElectionWriteInBallotEvents.Length;
+
             var secMajorityImportEvents = publisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToArray();
             await testPublisher.Publish(eventIdCounter, secMajorityImportEvents);
             eventIdCounter += secMajorityImportEvents.Length;
+
+            var secMajorityElectionWriteInBallotEvents = publisherMock.GetPublishedEvents<SecondaryMajorityElectionWriteInBallotImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, secMajorityElectionWriteInBallotEvents);
+            eventIdCounter += secMajorityElectionWriteInBallotEvents.Length;
 
             var voteImportEvents = publisherMock.GetPublishedEvents<VoteResultImported>().ToArray();
             await testPublisher.Publish(eventIdCounter, voteImportEvents);

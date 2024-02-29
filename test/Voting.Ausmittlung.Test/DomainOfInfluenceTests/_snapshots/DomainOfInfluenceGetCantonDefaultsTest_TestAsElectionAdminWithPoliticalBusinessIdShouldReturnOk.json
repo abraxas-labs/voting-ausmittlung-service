@@ -1,0 +1,7 @@
+{
+  "MajorityElectionInvalidVotes": false,
+  "CountingMachineEnabled": false,
+  "NewZhFeaturesEnabled": false,
+  "MajorityElectionUseCandidateCheckDigit": false,
+  "ProportionalElectionUseCandidateCheckDigit": false
+}

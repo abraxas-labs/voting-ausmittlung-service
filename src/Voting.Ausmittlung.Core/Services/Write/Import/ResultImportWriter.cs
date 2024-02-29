@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -23,7 +23,6 @@ using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
-using Voting.Lib.MalwareScanner.Services;
 
 namespace Voting.Ausmittlung.Core.Services.Write.Import;
 
@@ -41,7 +40,8 @@ public class ResultImportWriter
     private readonly SecondaryMajorityElectionResultImportWriter _secondaryMajorityElectionResultImportWriter;
     private readonly VoteResultImportWriter _voteResultImportWriter;
     private readonly AppConfig _appConfig;
-    private readonly IMalwareScannerService _malwareScannerService;
+    private readonly Ech0110Deserializer _ech0110Deserializer;
+    private readonly Ech0222Deserializer _ech0222Deserializer;
 
     public ResultImportWriter(
         ILogger<ResultImportWriter> logger,
@@ -56,7 +56,8 @@ public class ResultImportWriter
         SecondaryMajorityElectionResultImportWriter secondaryMajorityElectionResultImportWriter,
         VoteResultImportWriter voteResultImportWriter,
         AppConfig appConfig,
-        IMalwareScannerService malwareScannerService)
+        Ech0110Deserializer ech0110Deserializer,
+        Ech0222Deserializer ech0222Deserializer)
     {
         _logger = logger;
         _contestService = contestService;
@@ -70,13 +71,12 @@ public class ResultImportWriter
         _secondaryMajorityElectionResultImportWriter = secondaryMajorityElectionResultImportWriter;
         _majorityElectionResultImportWriter = majorityElectionResultImportWriter;
         _permissionService = permissionService;
-        _malwareScannerService = malwareScannerService;
+        _ech0110Deserializer = ech0110Deserializer;
+        _ech0222Deserializer = ech0222Deserializer;
     }
 
     public async Task DeleteResults(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         var contest = await _contestRepo.Query()
                           .AsSplitQuery()
                           .Include(x => x.DomainOfInfluence)
@@ -116,7 +116,6 @@ public class ResultImportWriter
         PoliticalBusinessType pbType,
         IReadOnlyCollection<MajorityElectionWriteIn> mappings)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         var aggregate = await _aggregateRepository.GetById<ResultImportAggregate>(importId);
 
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(basisCountingCircleId, aggregate.ContestId);
@@ -144,7 +143,6 @@ public class ResultImportWriter
         Guid electionId,
         PoliticalBusinessType pbType)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(basisCountingCircleId, contestId);
         await _contestService.EnsureNotLocked(contestId);
 
@@ -170,29 +168,27 @@ public class ResultImportWriter
 
     public async Task Import(ResultImportMeta importMeta, CancellationToken ct)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         // VOTING-3558: must be fixed: cert pinning problems with malwarescanner. code commentet for futher reactivation
         // await _malwareScannerService.EnsureFileIsClean(importMeta.Ech0110FileContent, ct);
         // await _malwareScannerService.EnsureFileIsClean(importMeta.Ech0222FileContent, ct);
         // importMeta.Ech0222FileContent.Seek(0, SeekOrigin.Begin);
-        var importData = Ech0222Deserializer.DeserializeXml(importMeta.Ech0222FileContent);
+        var importData = _ech0222Deserializer.DeserializeXml(importMeta.Ech0222FileContent);
         if (importMeta.ContestId != importData.ContestId)
         {
             throw new ValidationException("contestIds do not match");
         }
 
         // importMeta.Ech0110FileContent.Seek(0, SeekOrigin.Begin);
-        var importedVotingCards = Ech0110Deserializer.DeserializeXml(importMeta.Ech0110FileContent);
+        var (importedVotingCards, importedCountOfVotersInformations) = _ech0110Deserializer.DeserializeXml(importMeta.Ech0110FileContent);
         if (importMeta.ContestId != importedVotingCards.ContestId)
         {
             throw new ValidationException("contestIds do not match");
         }
 
-        await Import(importData, importedVotingCards, importMeta);
+        await Import(importData, importedVotingCards, importedCountOfVotersInformations, importMeta);
     }
 
-    internal async Task Import(EVotingImport importData, EVotingVotingCardImport importedVotingCards, ResultImportMeta importMeta)
+    internal async Task Import(EVotingImport importData, EVotingVotingCardImport importedVotingCards, EVotingCountOfVotersInformationImport importedCountOfVotersInformations, ResultImportMeta importMeta)
     {
         var contest = await _contestRepo.Query()
             .AsSplitQuery()
@@ -215,6 +211,8 @@ public class ResultImportWriter
             contest,
             importData.PoliticalBusinessResults,
             importedVotingCards.CountingCircleVotingCards);
+
+        MapCountOfVoterInformationsToResults(importedCountOfVotersInformations.CountingCircleResultsCountOfVotersInformations, importData.PoliticalBusinessResults);
         var resultsByType = GroupByBusinessType(importData.PoliticalBusinessResults, contest.SimplePoliticalBusinesses);
 
         // The file names and eCH message IDs are currently concatenated. In the future, both the results and voting cards should be provided
@@ -406,6 +404,21 @@ public class ResultImportWriter
         }
 
         return ignoredCountingCircles.DistinctBy(x => x.CountingCircleId).ToList();
+    }
+
+    private void MapCountOfVoterInformationsToResults(List<EVotingCountingCircleResultCountOfVotersInformation> countOfVotersInformations, List<EVotingPoliticalBusinessResult> ccResults)
+    {
+        if (countOfVotersInformations.Count != countOfVotersInformations.DistinctBy(x => (x.BasisCountingCircleId, x.PoliticalBusinessId)).Count())
+        {
+            throw new ValidationException("Duplicate count of voters information provided");
+        }
+
+        foreach (var ccResult in ccResults)
+        {
+            ccResult.CountOfVotersInformation = countOfVotersInformations
+                .Find(x => x.PoliticalBusinessId == ccResult.PoliticalBusinessId && x.BasisCountingCircleId == ccResult.BasisCountingCircleId)
+                ?? throw new ValidationException($"Import does not contain count of voters information for counting circle {ccResult.BasisCountingCircleId} and political business {ccResult.PoliticalBusinessId}");
+        }
     }
 
     private async Task ImportVote(

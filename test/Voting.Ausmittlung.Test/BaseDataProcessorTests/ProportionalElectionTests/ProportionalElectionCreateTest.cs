@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,7 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
@@ -60,7 +62,7 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
                     DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
                     ContestId = ContestMockedData.IdBundesurnengang,
                     NumberOfMandates = 3,
-                    MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum,
+                    MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
                 },
             });
 
@@ -95,5 +97,36 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
         }
 
         simpleElections.MatchSnapshot("simple");
+    }
+
+    [Theory]
+    [InlineData(SharedProto.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim0Quorum, ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum)]
+    [InlineData(SharedProto.ProportionalElectionMandateAlgorithm.DoppelterPukelsheim5Quorum, ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum)]
+    public async Task TestCreateWithDeprecatedMandateAlgorithms(SharedProto.ProportionalElectionMandateAlgorithm deprecatedMandateAlgorithm, ProportionalElectionMandateAlgorithm expectedMandateAlgorithm)
+    {
+        var id = Guid.Parse("f6ebc06e-a252-4cf4-9aa7-9ad46dd517f3");
+        await TestEventPublisher.Publish(
+            new ProportionalElectionCreated
+            {
+                ProportionalElection = new ProportionalElectionEventData
+                {
+                    Id = id.ToString(),
+                    PoliticalBusinessNumber = "6000",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 1") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Proporzwahl 1") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+                    ContestId = ContestMockedData.IdGossau,
+                    NumberOfMandates = 6,
+                    MandateAlgorithm = deprecatedMandateAlgorithm,
+                    BallotNumberGeneration = SharedProto.BallotNumberGeneration.RestartForEachBundle,
+                    ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
+                    EnforceReviewProcedureForCountingCircles = true,
+                    CandidateCheckDigit = false,
+                    EnforceCandidateCheckDigitForCountingCircles = true,
+                },
+            });
+
+        var proportionalElection = await RunOnDb(db => db.ProportionalElections.SingleAsync(pe => pe.Id == id));
+        proportionalElection.MandateAlgorithm.Should().Be(expectedMandateAlgorithm);
     }
 }

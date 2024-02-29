@@ -1,19 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="eCH-0110-4-0" Version="$(EaiEchLibVersion)" />
-    <PackageReference Include="eCH-0222-1-0" Version="$(EaiEchLibVersion)" />
     <PackageReference Include="Voting.Lib.Ech" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Ech.Ech0110_4_0" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Ech.Ech0222_1_0" Version="$(VotingLibVersion)" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Schemas\*.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

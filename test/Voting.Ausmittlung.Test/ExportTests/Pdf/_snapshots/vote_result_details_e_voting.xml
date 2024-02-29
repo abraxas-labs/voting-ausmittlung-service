@@ -76,7 +76,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -161,6 +160,24 @@
           <TotalCountOfVotingCards>3370</TotalCountOfVotingCards>
           <TotalCountOfEVotingVotingCards>20</TotalCountOfEVotingVotingCards>
           <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>250</CountOfReceivedVotingCards>
+            <Valid>false</Valid>
+            <Channel>ByMail</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+            <Valid>true</Valid>
+            <Channel>BallotBox</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>1000</CountOfReceivedVotingCards>
+            <Valid>true</Valid>
+            <Channel>ByMail</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
             <CountOfReceivedVotingCards>20</CountOfReceivedVotingCards>
             <Valid>true</Valid>
             <Channel>EVoting</Channel>
@@ -172,24 +189,6 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>1000</CountOfReceivedVotingCards>
-            <Valid>true</Valid>
-            <Channel>ByMail</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
-            <Valid>true</Valid>
-            <Channel>BallotBox</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>250</CountOfReceivedVotingCards>
-            <Valid>false</Valid>
-            <Channel>ByMail</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -198,7 +197,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -299,7 +297,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -393,6 +390,12 @@
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
           <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
+            <Valid>true</Valid>
+            <Channel>BallotBox</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
             <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
             <Valid>true</Valid>
             <Channel>ByMail</Channel>
@@ -410,12 +413,6 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
-            <Valid>true</Valid>
-            <Channel>BallotBox</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -424,7 +421,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -506,7 +502,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -718,7 +713,6 @@
       <VoteBallotEndResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -803,15 +797,15 @@
           <TotalCountOfVotingCards>3370</TotalCountOfVotingCards>
           <TotalCountOfEVotingVotingCards>20</TotalCountOfEVotingVotingCards>
           <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>20</CountOfReceivedVotingCards>
-            <Valid>true</Valid>
-            <Channel>EVoting</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
             <CountOfReceivedVotingCards>250</CountOfReceivedVotingCards>
             <Valid>false</Valid>
             <Channel>ByMail</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+            <Valid>true</Valid>
+            <Channel>BallotBox</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
           <ContestVotingCardDetail>
@@ -821,9 +815,9 @@
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
           <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>2000</CountOfReceivedVotingCards>
+            <CountOfReceivedVotingCards>20</CountOfReceivedVotingCards>
             <Valid>true</Valid>
-            <Channel>BallotBox</Channel>
+            <Channel>EVoting</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
           <ContestVotingCardDetail>
@@ -840,7 +834,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -1081,7 +1074,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -1182,7 +1174,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -1423,7 +1414,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -1511,15 +1501,15 @@
           <TotalCountOfVotingCards>2780</TotalCountOfVotingCards>
           <TotalCountOfEVotingVotingCards>30</TotalCountOfEVotingVotingCards>
           <ContestVotingCardDetail>
-            <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
-            <Valid>true</Valid>
-            <Channel>BallotBox</Channel>
-            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
-          </ContestVotingCardDetail>
-          <ContestVotingCardDetail>
             <CountOfReceivedVotingCards>150</CountOfReceivedVotingCards>
             <Valid>false</Valid>
             <Channel>ByMail</Channel>
+            <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
+          </ContestVotingCardDetail>
+          <ContestVotingCardDetail>
+            <CountOfReceivedVotingCards>400</CountOfReceivedVotingCards>
+            <Valid>true</Valid>
+            <Channel>BallotBox</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
           <ContestVotingCardDetail>
@@ -1548,7 +1538,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>
@@ -1789,7 +1778,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
             <Label>Unspecified</Label>

@@ -9,7 +9,8 @@
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
-      "AutomaticEmptyVoteCounting": true
+      "AutomaticEmptyVoteCounting": true,
+      "CandidateCheckDigit": true
     },
     "CandidateResults": null,
     "EVotingSubTotal": {
@@ -51,6 +52,7 @@
         "ResultBallots": [],
         "CandidateResults": null,
         "WriteInMappings": [],
+        "WriteInBallots": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 1,
           "EmptyVoteCountInclWriteIns": 0,
@@ -94,6 +96,7 @@
     ],
     "Bundles": null,
     "WriteInMappings": [],
+    "WriteInBallots": [],
     "HasUnmappedWriteIns": true,
     "CountOfElectionsWithUnmappedWriteIns": 1,
     "PoliticalBusiness": null,
@@ -123,6 +126,7 @@
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 8000,
+    "TotalSentEVotingVotingCards": null,
     "Id": "1c0db5aa-321a-5d27-8f94-55fe0d903682"
   },
   "resultAfter": {
@@ -135,7 +139,8 @@
       "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
-      "AutomaticEmptyVoteCounting": true
+      "AutomaticEmptyVoteCounting": true,
+      "CandidateCheckDigit": true
     },
     "CandidateResults": null,
     "EVotingSubTotal": {
@@ -177,6 +182,7 @@
         "ResultBallots": [],
         "CandidateResults": null,
         "WriteInMappings": [],
+        "WriteInBallots": [],
         "EVotingSubTotal": {
           "IndividualVoteCount": 1,
           "EmptyVoteCountInclWriteIns": 0,
@@ -220,6 +226,7 @@
     ],
     "Bundles": null,
     "WriteInMappings": [],
+    "WriteInBallots": [],
     "HasUnmappedWriteIns": true,
     "CountOfElectionsWithUnmappedWriteIns": 1,
     "PoliticalBusiness": null,
@@ -249,6 +256,7 @@
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 8000,
+    "TotalSentEVotingVotingCards": null,
     "Id": "1c0db5aa-321a-5d27-8f94-55fe0d903682"
   }
 }

@@ -39,12 +39,17 @@
         "Email": "hans@sg.ch"
       },
       "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "Contest": null,
     "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": true
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": true
   },
   "LotDecisions": [
     {
@@ -57,7 +62,8 @@
         "LastName": "3lastName",
         "Party": "Test de",
         "Position": 3,
-        "Description": "number3 3pol last name 3pol firstName"
+        "Description": "number3 3pol last name 3pol firstName",
+        "CheckDigit": 5
       },
       "SelectedRank": null,
       "VoteCount": 600,
@@ -78,7 +84,8 @@
         "LastName": "4lastName",
         "Party": "Test de",
         "Position": 4,
-        "Description": "number4 4pol last name 4pol firstName"
+        "Description": "number4 4pol last name 4pol firstName",
+        "CheckDigit": 3
       },
       "SelectedRank": null,
       "VoteCount": 600,
@@ -99,7 +106,8 @@
         "LastName": "7lastName",
         "Party": "Test de",
         "Position": 7,
-        "Description": "number7 7pol last name 7pol firstName"
+        "Description": "number7 7pol last name 7pol firstName",
+        "CheckDigit": 8
       },
       "SelectedRank": null,
       "VoteCount": 360,
@@ -120,7 +128,8 @@
         "LastName": "8lastName",
         "Party": "Test de",
         "Position": 8,
-        "Description": "number8 8pol last name 8pol firstName"
+        "Description": "number8 8pol last name 8pol firstName",
+        "CheckDigit": 6
       },
       "SelectedRank": null,
       "VoteCount": 360,
@@ -154,7 +163,8 @@
             "LastName": "2lastName",
             "Party": "Test2 de",
             "Position": 2,
-            "Description": "number2 2pol last name 2pol firstName"
+            "Description": "number2 2pol last name 2pol firstName",
+            "CheckDigit": 7
           },
           "SelectedRank": null,
           "VoteCount": 600,
@@ -175,7 +185,8 @@
             "LastName": "3lastName",
             "Party": "Test3 de",
             "Position": 3,
-            "Description": "number3 3pol last name 3pol firstName"
+            "Description": "number3 3pol last name 3pol firstName",
+            "CheckDigit": 5
           },
           "SelectedRank": null,
           "VoteCount": 600,

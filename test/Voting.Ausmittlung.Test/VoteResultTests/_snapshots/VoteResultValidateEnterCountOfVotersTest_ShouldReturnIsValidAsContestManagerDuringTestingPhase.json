@@ -12,6 +12,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 0
     },
     {
@@ -26,6 +28,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 0
     },
     {
@@ -40,6 +44,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 0
     },
     {
@@ -54,6 +60,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 0
     },
     {
@@ -70,6 +78,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 4
     },
     {
@@ -86,6 +96,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 4
     },
     {
@@ -102,6 +114,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 4
     },
     {
@@ -118,6 +132,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 4
     },
     {
@@ -136,6 +152,8 @@
         "DeviationPercent": 33.333333333333336,
         "PoliticalBusinessType": 1
       },
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 11
     },
     {
@@ -150,6 +168,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 0
     },
     {
@@ -166,6 +186,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 5
     },
     {
@@ -182,6 +204,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 5
     },
     {
@@ -198,6 +222,8 @@
       "ComparisonCountOfVotersData": null,
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+      "ValidationGroup": 0,
+      "GroupValue": "",
       "DataCase": 5
     }
   ],

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -31,7 +31,6 @@ public class MajorityElectionEndResultReader
 
     public async Task<MajorityElectionEndResult> GetEndResult(Guid majorityElectionId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var tenantId = _permissionService.TenantId;
         var majorityElectionEndResult = await _endResultRepo.Query()
             .AsSplitQuery()
@@ -59,7 +58,6 @@ public class MajorityElectionEndResultReader
 
     public async Task<MajorityElectionEndResultAvailableLotDecisions> GetEndResultAvailableLotDecisions(Guid majorityElectionId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var tenantId = _permissionService.TenantId;
 
         var majorityElectionEndResult = await _endResultRepo.Query()

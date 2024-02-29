@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -43,7 +43,7 @@ public class XmlVoteEch0110RenderService : IRendererService
             .Include(v => v.Contest.Translations.OrderBy(t => t.Language))
             .Include(v => v.Contest.DomainOfInfluence)
             .Include(v => v.Contest.CountingCircleDetails).ThenInclude(ccd => ccd.VotingCards)
-            .Include(x => x.Ballots).ThenInclude(x => x.Translations.OrderBy(t => t.Language))
+            .Include(x => x.Ballots)
             .Include(x => x.Ballots).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations.OrderBy(t => t.Language))
             .Include(x => x.Ballots).ThenInclude(x => x.TieBreakQuestions).ThenInclude(x => x.Translations.OrderBy(t => t.Language))
             .Include(v => v.Results).ThenInclude(r => r.CountingCircle)

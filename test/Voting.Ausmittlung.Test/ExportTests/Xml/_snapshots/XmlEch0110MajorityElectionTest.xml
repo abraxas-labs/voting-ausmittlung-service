@@ -1,48 +1,48 @@
 <delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0110/4">
-  <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5">
-    <eCH-0058:senderId>ABX-VOTING</eCH-0058:senderId>
-    <eCH-0058:messageId>mock-id</eCH-0058:messageId>
-    <eCH-0058:messageType>1710967</eCH-0058:messageType>
-    <eCH-0058:sendingApplication>
-      <eCH-0058:manufacturer>Abraxas Informatik AG</eCH-0058:manufacturer>
-      <eCH-0058:product>Voting.Ausmittlung</eCH-0058:product>
-      <eCH-0058:productVersion>0.0.0.1</eCH-0058:productVersion>
-    </eCH-0058:sendingApplication>
-    <eCH-0058:messageDate>2020-01-10T13:12:10.200</eCH-0058:messageDate>
-    <eCH-0058:action>1</eCH-0058:action>
-    <eCH-0058:testDeliveryFlag>true</eCH-0058:testDeliveryFlag>
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1710967</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
   </deliveryHeader>
   <resultDelivery>
     <reportingBody>
       <reportingBodyIdentification>999999999999999999</reportingBodyIdentification>
-      <creationDateTime>2020-01-10T13:12:10.200</creationDateTime>
+      <creationDateTime>2020-01-10T13:12:10.2Z</creationDateTime>
     </reportingBody>
-    <contestInformation xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-      <eCH-0155:contestIdentification>20361fdf-7d18-47b9-bdef-fd82efe8a6a7</eCH-0155:contestIdentification>
-      <eCH-0155:contestDate>2029-02-12</eCH-0155:contestDate>
-      <eCH-0155:contestDescription>
-        <eCH-0155:contestDescriptionInfo>
-          <eCH-0155:language>de</eCH-0155:language>
-          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft de</eCH-0155:contestDescription>
-        </eCH-0155:contestDescriptionInfo>
-        <eCH-0155:contestDescriptionInfo>
-          <eCH-0155:language>fr</eCH-0155:language>
-          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft fr</eCH-0155:contestDescription>
-        </eCH-0155:contestDescriptionInfo>
-        <eCH-0155:contestDescriptionInfo>
-          <eCH-0155:language>it</eCH-0155:language>
-          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft it</eCH-0155:contestDescription>
-        </eCH-0155:contestDescriptionInfo>
-        <eCH-0155:contestDescriptionInfo>
-          <eCH-0155:language>rm</eCH-0155:language>
-          <eCH-0155:contestDescription>Nationalratswahlen in der Zukunft rm</eCH-0155:contestDescription>
-        </eCH-0155:contestDescriptionInfo>
-      </eCH-0155:contestDescription>
+    <contestInformation>
+      <contestIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">20361fdf-7d18-47b9-bdef-fd82efe8a6a7</contestIdentification>
+      <contestDate xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2029-02-12</contestDate>
+      <contestDescription xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+        <contestDescriptionInfo>
+          <language>de</language>
+          <contestDescription>Nationalratswahlen in der Zukunft de</contestDescription>
+        </contestDescriptionInfo>
+        <contestDescriptionInfo>
+          <language>fr</language>
+          <contestDescription>Nationalratswahlen in der Zukunft fr</contestDescription>
+        </contestDescriptionInfo>
+        <contestDescriptionInfo>
+          <language>it</language>
+          <contestDescription>Nationalratswahlen in der Zukunft it</contestDescription>
+        </contestDescriptionInfo>
+        <contestDescriptionInfo>
+          <language>rm</language>
+          <contestDescription>Nationalratswahlen in der Zukunft rm</contestDescription>
+        </contestDescriptionInfo>
+      </contestDescription>
     </contestInformation>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>Gossau</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">Gossau</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>3220</countOfReceivedValidVotingCardsTotal>
@@ -69,11 +69,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -83,23 +82,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -112,23 +111,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -141,23 +140,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -170,23 +169,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -199,23 +198,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -228,23 +227,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -257,23 +256,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -286,23 +285,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -315,23 +314,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -344,23 +343,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -380,9 +379,9 @@
       </electionGroupResults>
     </countingCircleResults>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>St. Gallen</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">1e2e062e-288d-4347-9f22-224e69b95bed</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">St. Gallen</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>3000</countOfReceivedValidVotingCardsTotal>
@@ -409,11 +408,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -423,23 +421,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -452,23 +450,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -481,23 +479,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -510,23 +508,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -539,23 +537,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -568,23 +566,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -597,23 +595,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -626,23 +624,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -655,23 +653,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -684,23 +682,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -720,9 +718,9 @@
       </electionGroupResults>
     </countingCircleResults>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>St. Gallen Auslandschweizer</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">St. Gallen Auslandschweizer</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
@@ -749,11 +747,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -763,23 +760,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -792,23 +789,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -821,23 +818,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -850,23 +847,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -879,23 +876,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -908,23 +905,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -937,23 +934,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -966,23 +963,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -995,23 +992,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1024,23 +1021,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1060,9 +1057,9 @@
       </electionGroupResults>
     </countingCircleResults>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>46adab98-9114-4503-9000-b02842640650</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>St. Gallen Haggen</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">46adab98-9114-4503-9000-b02842640650</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">St. Gallen Haggen</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
@@ -1089,11 +1086,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -1103,23 +1099,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1132,23 +1128,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1161,23 +1157,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1190,23 +1186,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1219,23 +1215,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1248,23 +1244,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1277,23 +1273,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1306,23 +1302,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1335,23 +1331,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1364,23 +1360,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1400,9 +1396,9 @@
       </electionGroupResults>
     </countingCircleResults>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>St. Gallen St. Fiden</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">44a75721-f192-461c-816f-9f46a00d274a</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">St. Gallen St. Fiden</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
@@ -1429,11 +1425,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -1443,23 +1438,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1472,23 +1467,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1501,23 +1496,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1530,23 +1525,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1559,23 +1554,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1588,23 +1583,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1617,23 +1612,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1646,23 +1641,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1675,23 +1670,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1704,23 +1699,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1740,9 +1735,9 @@
       </electionGroupResults>
     </countingCircleResults>
     <countingCircleResults>
-      <countingCircle xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-        <eCH-0155:countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</eCH-0155:countingCircleId>
-        <eCH-0155:countingCircleName>Uzwil</eCH-0155:countingCircleName>
+      <countingCircle>
+        <countingCircleId xmlns="http://www.ech.ch/xmlns/eCH-0155/4">ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
+        <countingCircleName xmlns="http://www.ech.ch/xmlns/eCH-0155/4">Uzwil</countingCircleName>
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>2750</countOfReceivedValidVotingCardsTotal>
@@ -1769,11 +1764,10 @@
           <total>600</total>
         </countOfUnaccountedInvalidBallots>
         <electionResults>
-          <election xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-            <eCH-0155:electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</eCH-0155:electionIdentification>
-            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
-            <eCH-0155:electionPosition>0</eCH-0155:electionPosition>
-            <eCH-0155:numberOfMandates>3</eCH-0155:numberOfMandates>
+          <election>
+            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/4">7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
+            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/4">2</typeOfElection>
+            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/4">3</numberOfMandates>
           </election>
           <majoralElection>
             <candidate>
@@ -1783,23 +1777,23 @@
                 <familyName>1lastName</familyName>
                 <firstName>1firstName</firstName>
                 <callName>1pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>1pol last name 1pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>1pol last name 1pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1812,23 +1806,23 @@
                 <familyName>2lastName</familyName>
                 <firstName>2firstName</firstName>
                 <callName>2pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>2pol last name 2pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>2pol last name 2pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1841,23 +1835,23 @@
                 <familyName>3lastName</familyName>
                 <firstName>3firstName</firstName>
                 <callName>3pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>3pol last name 3pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>3pol last name 3pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1870,23 +1864,23 @@
                 <familyName>4lastName</familyName>
                 <firstName>4firstName</firstName>
                 <callName>4pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>4pol last name 4pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>4pol last name 4pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1899,23 +1893,23 @@
                 <familyName>5lastName</familyName>
                 <firstName>5firstName</firstName>
                 <callName>5pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>5pol last name 5pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>5pol last name 5pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1928,23 +1922,23 @@
                 <familyName>6lastName</familyName>
                 <firstName>6firstName</firstName>
                 <callName>6pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>6pol last name 6pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>6pol last name 6pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1957,23 +1951,23 @@
                 <familyName>7lastName</familyName>
                 <firstName>7firstName</firstName>
                 <callName>7pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>7pol last name 7pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>7pol last name 7pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -1986,23 +1980,23 @@
                 <familyName>8lastName</familyName>
                 <firstName>8firstName</firstName>
                 <callName>8pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>8pol last name 8pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>8pol last name 8pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -2015,23 +2009,23 @@
                 <familyName>9lastName</familyName>
                 <firstName>9firstName</firstName>
                 <callName>9pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>9pol last name 9pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>9pol last name 9pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -2044,23 +2038,23 @@
                 <familyName>10lastName</familyName>
                 <firstName>10firstName</firstName>
                 <callName>10pol firstName</callName>
-                <candidateText xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4">
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>de</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>fr</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>it</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
-                  <eCH-0155:candidateTextInfo>
-                    <eCH-0155:language>rm</eCH-0155:language>
-                    <eCH-0155:candidateText>10pol last name 10pol firstName</eCH-0155:candidateText>
-                  </eCH-0155:candidateTextInfo>
+                <candidateText>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>de</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>fr</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>it</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
+                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
+                    <language>rm</language>
+                    <candidateText>10pol last name 10pol firstName</candidateText>
+                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>

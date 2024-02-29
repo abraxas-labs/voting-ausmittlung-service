@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -114,7 +114,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
             {
                 BundleId = "a8c45178-eae2-4741-8a08-444704162ffd",
             }),

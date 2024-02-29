@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -14,8 +14,8 @@ public class ProportionalElectionResultImport : ElectionResultImport
     private readonly Dictionary<Guid, ProportionalElectionListResultImport> _listResults =
         new Dictionary<Guid, ProportionalElectionListResultImport>();
 
-    public ProportionalElectionResultImport(Guid proportionalElectionId, Guid basisCountingCircleId)
-        : base(proportionalElectionId, basisCountingCircleId)
+    public ProportionalElectionResultImport(Guid proportionalElectionId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
+        : base(proportionalElectionId, basisCountingCircleId, countOfVotersInformationImport)
     {
     }
 

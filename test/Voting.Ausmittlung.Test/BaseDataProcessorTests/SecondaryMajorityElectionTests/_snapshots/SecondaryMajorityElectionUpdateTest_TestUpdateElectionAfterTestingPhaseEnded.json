@@ -31,6 +31,9 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false,
     "NumberOfMandates": 1,
     "PoliticalBusinessNumber": "201",
     "Active": true,
@@ -52,9 +55,7 @@
     "ShortDescription": "Mw SG fr",
     "OfficialDescription": "Majorzwahl St. Gallen fr",
     "Title": "201: Mw SG fr",
-    "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
-    "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": true
+    "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b"
   },
   "BusinessType": 4,
   "ElectionGroupId": "63bf2387-08e0-45ed-96e6-263f85500e28",

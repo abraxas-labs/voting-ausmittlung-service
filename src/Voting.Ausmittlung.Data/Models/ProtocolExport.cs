@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,6 +11,10 @@ public class ProtocolExport : BaseEntity
     public Contest? Contest { get; set; }
 
     public Guid ContestId { get; set; }
+
+    public Guid? CountingCircleId { get; set; }
+
+    public CountingCircle? CountingCircle { get; set; }
 
     /// <summary>
     /// Gets or sets the export template ID which uniquely identifies the export template.

@@ -23,6 +23,9 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
+    "ReviewProcedure": 2,
+    "EnforceReviewProcedureForCountingCircles": false,
+    "EnforceCandidateCheckDigitForCountingCircles": false,
     "NumberOfMandates": 2,
     "PoliticalBusinessNumber": "6000",
     "Active": false,
@@ -44,9 +47,7 @@
     "ShortDescription": "Update Proporzwahl de",
     "OfficialDescription": "Update Proporzwahl de",
     "Title": "6000: Update Proporzwahl de",
-    "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
-    "ReviewProcedure": 2,
-    "EnforceReviewProcedureForCountingCircles": false
+    "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
   },
   "simple": {
     "BusinessType": 3,

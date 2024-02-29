@@ -9,10 +9,12 @@
         "IsValid": true,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 20.0,
           "DomainOfInfluenceType": 1,
-          "DeviationPercent": 20.0
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       }
     ]
   },
@@ -23,10 +25,12 @@
         "IsValid": false,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 40.0,
           "DomainOfInfluenceType": 1,
-          "DeviationPercent": 40.0
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       }
     ]
   },
@@ -37,20 +41,24 @@
         "IsValid": true,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 14.285714285714286,
           "DomainOfInfluenceType": 2,
-          "DeviationPercent": 14.285714285714285
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       },
       {
         "Validation": 1150,
         "IsValid": true,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 20.0,
           "DomainOfInfluenceType": 1,
-          "DeviationPercent": 20.0
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       }
     ]
   },
@@ -61,20 +69,24 @@
         "IsValid": true,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 16.666666666666666666666666670,
           "DomainOfInfluenceType": 2,
-          "DeviationPercent": 16.666666666666668
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       },
       {
         "Validation": 1150,
         "IsValid": false,
         "IsOptional": true,
         "Data": {
-          "ThresholdPercent": 30.0,
+          "DeviationPercent": 40.0,
           "DomainOfInfluenceType": 1,
-          "DeviationPercent": 40.0
-        }
+          "ThresholdPercent": 30.0
+        },
+        "ValidationGroup": 0,
+        "GroupValue": ""
       }
     ]
   }

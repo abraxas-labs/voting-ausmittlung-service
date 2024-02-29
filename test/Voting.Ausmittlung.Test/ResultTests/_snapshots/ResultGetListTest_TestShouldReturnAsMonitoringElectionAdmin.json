@@ -113,7 +113,8 @@
         "DomainOfInfluenceType": 2
       }
     ],
-    "EVoting": false
+    "EVoting": false,
+    "CountingMachine": 0
   },
   "Results": [
     {
@@ -141,7 +142,11 @@
             "Email": "email@example.com"
           },
           "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false
+            "MajorityElectionInvalidVotes": false,
+            "CountingMachineEnabled": false,
+            "NewZhFeaturesEnabled": false,
+            "MajorityElectionUseCandidateCheckDigit": false,
+            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": null,
@@ -160,5 +165,15 @@
   "ContestCountingCircleContactPersonId": "",
   "MustUpdateContactPersons": false,
   "HasUnmappedEVotingWriteIns": false,
-  "EnabledVotingCardChannels": []
+  "EnabledVotingCardChannels": [],
+  "ElectorateSummary": {
+    "EffectiveElectorates": [
+      {
+        "DomainOfInfluenceTypes": [
+          1
+        ]
+      }
+    ],
+    "ContestCountingCircleElectorates": []
+  }
 }

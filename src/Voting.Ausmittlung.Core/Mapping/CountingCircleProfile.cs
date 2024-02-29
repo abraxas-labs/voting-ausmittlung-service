@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Abraxas.Voting.Basis.Events.V1.Data;
@@ -15,5 +15,6 @@ public sealed class CountingCircleProfile : Profile
             .ForMember(dst => dst.BasisCountingCircleId, opts => opts.MapFrom(src => src.Id));
         CreateMap<AuthorityEventData, Authority>();
         CreateMap<ContactPersonEventData, CountingCircleContactPerson>();
+        CreateMap<CountingCircleElectorateEventData, CountingCircleElectorate>();
     }
 }

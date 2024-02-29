@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -77,6 +77,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -140,6 +141,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -177,6 +179,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
         };
 
@@ -196,6 +199,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -223,6 +227,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -250,6 +255,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -104,6 +104,55 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     }
 
     [Fact]
+    public async Task ShouldWorkWithInvalidBallotTarget()
+    {
+        var resultBefore = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.CountOfVoters)
+            .Include(x => x.CandidateResults)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen)));
+
+        resultBefore.CountOfVoters.EVotingInvalidBallots.Should().Be(0);
+        resultBefore.CountOfVoters.EVotingAccountedBallots.Should().Be(8);
+        resultBefore.EVotingSubTotal.EmptyVoteCountInclWriteIns.Should().Be(31);
+        resultBefore.EmptyVoteCount.Should().Be(31);
+        resultBefore.CandidateResults.First().EVotingInclWriteInsVoteCount.Should().Be(3);
+        resultBefore.TotalCandidateVoteCountExclIndividual.Should().Be(3);
+
+        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
+        var (primaryEvent, secondaryEvent) = await MapMappings(importId, primaryMappings, secondaryMappings, (mapping, writeIn) =>
+        {
+            switch (mapping.WriteInCandidateName)
+            {
+                case "Hans Muster":
+                    writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Empty;
+                    break;
+                case "Hans Mueller":
+                    // Should result in some invalid ballots, as this is sometimes the only entry on a ballot
+                    writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Empty;
+                    break;
+                case "vereinzelt":
+                    writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.InvalidBallot;
+                    break;
+            }
+        });
+
+        await TestEventPublisher.Publish(primaryEvent);
+        await TestEventPublisher.Publish(1, secondaryEvent);
+
+        var resultAfter = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.CountOfVoters)
+            .Include(x => x.CandidateResults)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen)));
+
+        resultAfter.CountOfVoters.EVotingInvalidBallots.Should().Be(5);
+        resultAfter.CountOfVoters.EVotingAccountedBallots.Should().Be(3);
+        resultAfter.EVotingSubTotal.EmptyVoteCountInclWriteIns.Should().Be(12);
+        resultAfter.EmptyVoteCount.Should().Be(12);
+        resultAfter.CandidateResults.First().EVotingInclWriteInsVoteCount.Should().Be(2);
+        resultAfter.TotalCandidateVoteCountExclIndividual.Should().Be(2);
+    }
+
+    [Fact]
     public async Task TestShouldCreateSignature()
     {
         await TestEventsWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
@@ -151,43 +200,6 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
 
         primaryEvent.ShouldMatchChildSnapshot("primary");
         secondaryEvent.ShouldMatchChildSnapshot("secondary");
-    }
-
-    [Fact]
-    public async Task ShouldWorkAsElectionAdminWithSingleMandate()
-    {
-        await ModifyDbEntities(
-            (MajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
-            e => e.NumberOfMandates = 1);
-        await ModifyDbEntities(
-            (SecondaryMajorityElection e) => e.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdUzwilMajorityElectionInContestStGallen),
-            e => e.NumberOfMandates = 1);
-        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
-        var (primaryEvent, secondaryEvent) = await MapMappings(
-            importId,
-            primaryMappings,
-            secondaryMappings,
-            (_, writeIn) => writeIn.Target = SharedProto.MajorityElectionWriteInMappingTarget.Invalid);
-
-        await TestEventPublisher.Publish(primaryEvent);
-        await TestEventPublisher.Publish(1, secondaryEvent);
-
-        ResetIds(primaryEvent.WriteInMappings);
-        ResetIds(secondaryEvent.WriteInMappings);
-
-        primaryEvent.ShouldMatchChildSnapshot("primary");
-        secondaryEvent.ShouldMatchChildSnapshot("secondary");
-
-        var primaryResult = await RunOnDb(db => db.MajorityElectionResults
-            .Include(x => x.WriteInMappings)
-            .ThenInclude(x => x.CandidateResult)
-            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
-        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(0);
-        primaryResult.HasUnmappedWriteIns.Should().BeFalse();
-        primaryResult.CountOfVoters.EVotingReceivedBallots.Should().Be(12);
-        primaryResult.CountOfVoters.EVotingInvalidBallots.Should().Be(6);
-        primaryResult.CountOfVoters.EVotingBlankBallots.Should().Be(4);
-        primaryResult.CountOfVoters.EVotingAccountedBallots.Should().Be(2);
     }
 
     [Fact]

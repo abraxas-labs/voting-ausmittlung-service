@@ -1,9 +1,10 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,6 +13,7 @@ using Abraxas.Voting.Ausmittlung.Shared.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
@@ -25,6 +27,7 @@ using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.VotingExports.Repository;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 using ResultExportConfigurationPoliticalBusinessMetadata = Voting.Ausmittlung.Core.Domain.ResultExportConfigurationPoliticalBusinessMetadata;
@@ -37,6 +40,7 @@ public class ResultExportService
     private readonly ExportService _exportService;
     private readonly ContestReader _contestReader;
     private readonly PermissionService _permissionService;
+    private readonly IAuth _auth;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly ILogger<ResultExportService> _logger;
     private readonly IServiceProvider _serviceProvider;
@@ -50,6 +54,7 @@ public class ResultExportService
         ExportService exportService,
         ContestReader contestReader,
         PermissionService permissionService,
+        IAuth auth,
         ResultExportConfigurationRepo resultExportConfigurationRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         ILogger<ResultExportService> logger,
@@ -63,6 +68,7 @@ public class ResultExportService
         _exportService = exportService;
         _contestReader = contestReader;
         _permissionService = permissionService;
+        _auth = auth;
         _resultExportConfigurationRepo = resultExportConfigurationRepo;
         _logger = logger;
         _serviceProvider = serviceProvider;
@@ -107,8 +113,6 @@ public class ResultExportService
         IReadOnlyCollection<Guid> politicalBusinessIds,
         Dictionary<Guid, ResultExportConfigurationPoliticalBusinessMetadata> politicalBusinessMetadata)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         var export = await _resultExportConfigurationRepo.Query()
             .AsSplitQuery()
             .Include(x => x.DomainOfInfluence)
@@ -248,8 +252,13 @@ public class ResultExportService
             throw new ValidationException("Invalid export template IDs provided, could not find all matching templates");
         }
 
-        var isMonitoringAdmin = _permissionService.IsMonitoringElectionAdmin();
-        var accessiblePbIds = isMonitoringAdmin
+        var canReadOwnedPbs = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
+        if (!canReadOwnedPbs)
+        {
+            _auth.EnsurePermission(Permissions.PoliticalBusiness.ReadAccessible);
+        }
+
+        var accessiblePbIds = canReadOwnedPbs
             ? await _contestReader.GetOwnedPoliticalBusinessIds(contestId)
             : await _contestReader.GetAccessiblePoliticalBusinessIds(contestId);
 
@@ -272,10 +281,20 @@ public class ResultExportService
         CancellationToken ct = default)
     {
         using var scope = _serviceProvider.CreateScopeCopyAuthAndLanguage();
+
+        // Start a Repeatable Read transaction so that all generated exports use the same state of data
+        // The Repeatable Read isolation level in PostgreSQL guarantees that queries inside that transaction see a snapshot
+        // of the database as of the start of the transaction. Changes made by concurrent transactions do not affect it.
+        var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(IsolationLevel.RepeatableRead, ct);
+
         try
         {
             var service = scope.ServiceProvider.GetRequiredService<ResultExportService>();
             await service.GenerateExportsFromConfiguration(export, triggerMode, ct);
+
+            // Not really needed since no changes are done to the database, but used to clean up the transaction nicely
+            await transaction.CommitAsync(ct);
         }
         catch (Exception ex)
         {
@@ -343,7 +362,6 @@ public class ResultExportService
 
     private async Task EnsureExportBundleReviewPermissions(Guid countingCircleId, Guid contestId)
     {
-        _permissionService.EnsureErfassungElectionAdminOrCreator();
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(countingCircleId, contestId);
         await _contestService.EnsureNotLocked(contestId);
     }

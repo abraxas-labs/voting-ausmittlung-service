@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,12 +11,14 @@ public class MajorityElectionResultImport : ElectionResultImport
     internal static readonly IEqualityComparer<string> WriteInComparer = StringComparer.OrdinalIgnoreCase; // write ins should be case-insensitive
 
     private readonly Dictionary<Guid, int> _candidateVoteCounts = new();
-    private readonly Dictionary<string, int> _writeInVoteCounts = new(WriteInComparer);
+    private readonly Dictionary<string, WriteInMapping> _writeIns = new(WriteInComparer);
+    private readonly List<MajorityElectionBallot> _writeInBallots = new();
 
     public MajorityElectionResultImport(
         Guid politicalBusinessId,
-        Guid basisCountingCircleId)
-        : base(politicalBusinessId, basisCountingCircleId)
+        Guid basisCountingCircleId,
+        CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
+        : base(politicalBusinessId, basisCountingCircleId, countOfVotersInformationImport)
     {
     }
 
@@ -34,26 +36,55 @@ public class MajorityElectionResultImport : ElectionResultImport
 
     public IReadOnlyDictionary<Guid, int> CandidateVoteCounts => _candidateVoteCounts;
 
-    public IReadOnlyDictionary<string, int> WriteInVoteCounts => _writeInVoteCounts;
+    /// <summary>
+    /// Gets the aggregated write ins over the whole election by (case insensitive) name.
+    /// </summary>
+    public IReadOnlyDictionary<string, WriteInMapping> WriteIns => _writeIns;
 
-    internal void AddCandidateVote(Guid candidateId)
+    /// <summary>
+    /// Gets the ballots which contain a write in.
+    /// We need to keep track of them, since mapping the write ins needs information of the whole ballot.
+    /// For example, a write in may be mapped to a candidate that already exists on the ballot.
+    /// Two write ins on the same ballot may also be mapped to the same candidate.
+    /// </summary>
+    public IReadOnlyList<MajorityElectionBallot> WriteInBallots => _writeInBallots;
+
+    internal void AddBallot(MajorityElectionBallot ballot)
     {
-        _candidateVoteCounts.AddOrUpdate(candidateId, () => 1, i => i + 1);
-        TotalCandidateVoteCountExclIndividual++;
-    }
-
-    internal void AddInvalidOrEmptyVote(bool supportsInvalidVotes)
-    {
-        if (supportsInvalidVotes)
+        // If all positions are empty, treat the whole ballot as blank and ignore the ballot positions
+        // Note: This does not work correctly with secondary majority elections,
+        // as we would need to check whether all positions on the secondary election are also empty
+        if (ballot.CandidateIds.Count == 0 && ballot.WriteIns.Count == 0 && ballot.InvalidVoteCount == 0)
         {
-            InvalidVoteCount++;
+            BlankBallotCount++;
+            return;
         }
-        else
-        {
-            EmptyVoteCount++;
-        }
-    }
 
-    internal void AddMissingWriteIn(string name)
-        => _writeInVoteCounts.AddOrUpdate(name, () => 1, i => i + 1);
+        foreach (var candidateId in ballot.CandidateIds)
+        {
+            _candidateVoteCounts.AddOrUpdate(candidateId, () => 1, i => i + 1);
+            TotalCandidateVoteCountExclIndividual++;
+        }
+
+        foreach (var writeIn in ballot.WriteIns)
+        {
+            var mapping = _writeIns.AddOrUpdate(
+                writeIn,
+                () => new WriteInMapping(writeIn, 1),
+                writeInMapping =>
+                {
+                    writeInMapping.CountOfVotes++;
+                    return writeInMapping;
+                });
+            ballot.WriteInMappingIds.Add(mapping.Id);
+        }
+
+        if (ballot.WriteIns.Count > 0)
+        {
+            _writeInBallots.Add(ballot);
+        }
+
+        EmptyVoteCount += ballot.EmptyVoteCount;
+        InvalidVoteCount += ballot.InvalidVoteCount;
+    }
 }

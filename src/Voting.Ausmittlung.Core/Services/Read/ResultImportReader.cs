@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -24,32 +24,37 @@ public class ResultImportReader
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, ResultImport> _resultImportRepo;
     private readonly IDbRepository<DataContext, MajorityElection> _majorityElectionRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionResult> _majorityElectionResultRepo;
     private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityWriteInMappingRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _majoritySecondaryWriteInMappingRepo;
     private readonly ILogger<ResultImportReader> _logger;
     private readonly MessageConsumerHub<ResultImportChanged> _resultImportChangeConsumer;
+    private readonly MessageConsumerHub<WriteInMappingsChanged> _writeInMappingChangeConsumer;
 
     public ResultImportReader(
         PermissionService permissionService,
         IDbRepository<DataContext, ResultImport> resultImportRepo,
         IDbRepository<DataContext, MajorityElection> majorityElectionRepo,
+        IDbRepository<DataContext, MajorityElectionResult> majorityElectionResultRepo,
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityWriteInMappingRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> majoritySecondaryWriteInMappingRepo,
         ILogger<ResultImportReader> logger,
-        MessageConsumerHub<ResultImportChanged> resultImportChangeConsumer)
+        MessageConsumerHub<ResultImportChanged> resultImportChangeConsumer,
+        MessageConsumerHub<WriteInMappingsChanged> writeInMappingChangeConsumer)
     {
         _permissionService = permissionService;
         _resultImportRepo = resultImportRepo;
         _majorityElectionRepo = majorityElectionRepo;
+        _majorityElectionResultRepo = majorityElectionResultRepo;
         _majorityWriteInMappingRepo = majorityWriteInMappingRepo;
         _majoritySecondaryWriteInMappingRepo = majoritySecondaryWriteInMappingRepo;
         _logger = logger;
         _resultImportChangeConsumer = resultImportChangeConsumer;
+        _writeInMappingChangeConsumer = writeInMappingChangeConsumer;
     }
 
     public async Task<List<ResultImport>> GetResultImports(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         await _permissionService.EnsureIsContestManager(contestId);
         return await _resultImportRepo.Query()
             .AsSplitQuery()
@@ -63,7 +68,6 @@ public class ResultImportReader
 
     public async Task<ImportMajorityElectionWriteInMappings> GetMajorityElectionWriteInMappings(Guid contestId, Guid countingCircleBasisId)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleBasisId, contestId);
 
         var importId = await GetLatestResultImportId(contestId)
@@ -132,6 +136,28 @@ public class ResultImportReader
         return new ImportMajorityElectionWriteInMappings(importId, mappingGroups);
     }
 
+    public async Task ListenToWriteInMappingChanges(
+        Guid contestId,
+        Guid countingCircleId,
+        Func<WriteInMappingsChanged, Task> listener,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogDebug("Listening to write in mapping changes for counting circle with id {CountingCircleId}", countingCircleId);
+        await _permissionService.EnsureCanReadBasisCountingCircle(countingCircleId, contestId);
+        _logger.LogDebug("Listening permission is assured.");
+
+        var resultIds = await _majorityElectionResultRepo.Query()
+            .Where(x => x.MajorityElection.ContestId == contestId && x.CountingCircle.BasisCountingCircleId == countingCircleId)
+            .Select(x => x.Id)
+            .ToListAsync(cancellationToken);
+        var resultIdSet = new HashSet<Guid>(resultIds);
+
+        await _writeInMappingChangeConsumer.Listen(
+            b => resultIdSet.Contains(b.ElectionResultId),
+            listener,
+            cancellationToken);
+    }
+
     public async Task ListenToResultImportChanges(
         Guid contestId,
         Guid countingCircleId,
@@ -140,7 +166,6 @@ public class ResultImportReader
     {
         _logger.LogDebug("Listening to result import changes for counting circle with id {CountingCircleId}", countingCircleId);
 
-        _permissionService.EnsureErfassungElectionAdmin();
         await _permissionService.EnsureCanReadBasisCountingCircle(countingCircleId, contestId);
 
         _logger.LogDebug("Listening permission is assured.");

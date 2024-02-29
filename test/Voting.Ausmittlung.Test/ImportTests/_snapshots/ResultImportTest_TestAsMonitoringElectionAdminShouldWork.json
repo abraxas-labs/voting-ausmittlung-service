@@ -132,7 +132,10 @@
         "CountOfBlankRowsOnListsWithoutParty": 2,
         "CountOfVoters": 8,
         "BlankBallotCount": 1,
-        "InvalidBallotCount": 1
+        "InvalidBallotCount": 1,
+        "CountOfVotersInformation": {
+          "TotalCountOfVoters": 23
+        }
       }
     ]
   },
@@ -187,7 +190,10 @@
             "CountOfVoters": 4,
             "BlankBallotCount": 1
           }
-        ]
+        ],
+        "CountOfVotersInformation": {
+          "TotalCountOfVoters": 21
+        }
       }
     ]
   },
@@ -246,7 +252,10 @@
         "InvalidVoteCount": 0,
         "TotalCandidateVoteCountExclIndividual": 3,
         "CountOfVoters": 12,
-        "BlankBallotCount": 4
+        "BlankBallotCount": 4,
+        "CountOfVotersInformation": {
+          "TotalCountOfVoters": 20
+        }
       }
     ]
   },

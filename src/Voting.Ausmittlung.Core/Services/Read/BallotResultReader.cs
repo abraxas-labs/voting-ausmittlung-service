@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,14 +27,12 @@ public class BallotResultReader
 
     public async Task<BallotResult> Get(Guid ballotResultId)
     {
-        _permissionService.EnsureAnyRole();
         var ballotResult = await _repo.Query()
                 .AsSplitQuery()
                 .Include(x => x.VoteResult.Vote.Translations)
                 .Include(x => x.VoteResult.Vote.Contest.Translations)
                 .Include(x => x.VoteResult.Vote.DomainOfInfluence)
                 .Include(x => x.VoteResult.CountingCircle)
-                .Include(x => x.Ballot.Translations)
                 .Include(x => x.Ballot).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations)
                 .Include(x => x.Ballot).ThenInclude(x => x.TieBreakQuestions).ThenInclude(x => x.Translations)
                 .Include(x => x.QuestionResults).ThenInclude(qr => qr.Question.Translations)

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -34,7 +34,6 @@ public class ProportionalElectionEndResultReader
 
     public async Task<ProportionalElectionEndResult> GetEndResult(Guid proportionalElectionId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var tenantId = _permissionService.TenantId;
         var proportionalElectionEndResult = await _endResultRepo.Query()
             .AsSplitQuery()
@@ -82,7 +81,6 @@ public class ProportionalElectionEndResultReader
     public async Task<ProportionalElectionListEndResultAvailableLotDecisions> GetEndResultAvailableLotDecisions(
         Guid proportionalElectionListId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var tenantId = _permissionService.TenantId;
 
         var proportionalElectionListEndResult = await _listEndResultRepo.Query()

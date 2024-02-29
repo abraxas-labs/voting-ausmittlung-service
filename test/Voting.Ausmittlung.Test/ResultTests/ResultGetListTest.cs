@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -45,6 +45,10 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
     [Fact]
     public async Task TestShouldReturn()
     {
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.ContestId == Guid.Parse(ContestMockedData.IdVergangenerBundesurnengang),
+            x => x.CountingMachine = CountingMachine.None);
+
         var response = await ErfassungCreatorClient.GetListAsync(new GetResultListRequest
         {
             ContestId = ContestMockedData.IdVergangenerBundesurnengang,

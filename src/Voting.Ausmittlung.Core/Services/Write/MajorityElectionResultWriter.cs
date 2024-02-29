@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,7 +27,6 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 {
     private readonly ILogger<MajorityElectionResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.MajorityElectionResult> _resultRepo;
-    private readonly PermissionService _permissionService;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
@@ -44,7 +43,6 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     {
         _logger = logger;
         _resultRepo = resultRepo;
-        _permissionService = permissionService;
         _validationResultsEnsurer = validationResultsEnsurer;
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
@@ -54,9 +52,8 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         DataModels.MajorityElectionResultEntry resultEntry,
         MajorityElectionResultEntryParams? resultEntryParams)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         var result = await LoadPoliticalBusinessResult(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
         EnsureResultEntryRespectSettings(result.MajorityElection, resultEntry, resultEntryParams);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
@@ -75,7 +72,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             .ThenInclude(x => x.CandidateResults)
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(electionResult);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(electionResult.Id);
         aggregate.EnterCountOfVoters(countOfVoters, contestId);
@@ -103,9 +100,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
                 .ThenInclude(x => x.SecondaryMajorityElection)
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(electionResult);
         EnsureCandidatesExistsAndNoDuplicates(electionResult, candidateResults, secondaryCandidateResults);
-        EnsureNoEmptyVoteCountAndInvalidVoteCountForSingleMandate(electionResult, emptyVoteCount, invalidVoteCount, secondaryCandidateResults);
+        EnsureNoEmptyVoteCountForSingleMandate(electionResult, emptyVoteCount, secondaryCandidateResults);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(electionResult.Id);
 
@@ -126,7 +123,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             .ThenInclude(x => x.BallotGroup)
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(electionResult);
         EnsureBallotGroupsExistsAndNoDuplicates(electionResult, results);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(electionResult.Id);
@@ -137,7 +134,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId, true);
+        await EnsurePoliticalBusinessPermissions(resultId);
 
         var result = await LoadPoliticalBusinessResult(resultId);
         if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
@@ -159,7 +156,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
 
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
@@ -184,7 +181,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId, true);
+        await EnsurePoliticalBusinessPermissions(resultId);
 
         var result = await LoadPoliticalBusinessResult(resultId);
         if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
@@ -205,7 +202,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
 
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
@@ -317,6 +314,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         {
             throw new ValidationException($"enforced {nameof(election.ReviewProcedure)} setting not respected");
         }
+
+        if (resultEntryParams != null
+            && election.EnforceCandidateCheckDigitForCountingCircles
+            && election.CandidateCheckDigit != resultEntryParams.CandidateCheckDigit)
+        {
+            throw new ValidationException($"enforced {nameof(election.CandidateCheckDigit)} setting not respected");
+        }
     }
 
     private void EnsureBallotGroupsExistsAndNoDuplicates(
@@ -392,10 +396,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         }
     }
 
-    private void EnsureNoEmptyVoteCountAndInvalidVoteCountForSingleMandate(
+    private void EnsureNoEmptyVoteCountForSingleMandate(
         DataModels.MajorityElectionResult electionResult,
         int? emptyVoteCount,
-        int? invalidVoteCount,
         IReadOnlyCollection<SecondaryMajorityElectionCandidateResults> secondaryCandidateResults)
     {
         if (electionResult.Entry != DataModels.MajorityElectionResultEntry.FinalResults)
@@ -403,17 +406,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             return;
         }
 
-        if (electionResult.MajorityElection.NumberOfMandates == 1)
+        if (electionResult.MajorityElection.NumberOfMandates == 1 && emptyVoteCount != null)
         {
-            if (emptyVoteCount != null)
-            {
-                throw new ValidationException("empty vote count provided with single mandate");
-            }
-
-            if (invalidVoteCount != null)
-            {
-                throw new ValidationException("invalid vote count provided with single mandate");
-            }
+            throw new ValidationException("empty vote count provided with single mandate");
         }
 
         var secondaryById = electionResult.SecondaryMajorityElectionResults.ToDictionary(x => x.SecondaryMajorityElectionId);
@@ -424,17 +419,9 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
                 throw new ValidationException("secondary election results provided which don't exist");
             }
 
-            if (secondaryElectionResult.SecondaryMajorityElection.NumberOfMandates == 1)
+            if (secondaryElectionResult.SecondaryMajorityElection.NumberOfMandates == 1 && updatedSecondaryResult.EmptyVoteCount != null)
             {
-                if (updatedSecondaryResult.EmptyVoteCount != null)
-                {
-                    throw new ValidationException("empty vote count provided with single mandate");
-                }
-
-                if (updatedSecondaryResult.InvalidVoteCount != null)
-                {
-                    throw new ValidationException("invalid vote count provided with single mandate");
-                }
+                throw new ValidationException("empty vote count provided with single mandate");
             }
         }
     }

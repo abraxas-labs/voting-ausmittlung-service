@@ -1,7 +1,8 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using FluentValidation;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Jobs;
@@ -21,6 +22,7 @@ using Voting.Lib.DokConnector.Service;
 using Voting.Lib.Eventing;
 using Voting.Lib.Eventing.DependencyInjection;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Scheduler;
 using VotingValidators = Voting.Ausmittlung.Core.Services.Validation.Validators;
 
@@ -37,6 +39,7 @@ internal static class PublisherServiceCollection
 
         return services
             .AddScoped<PermissionService>()
+            .AddSingleton<IPermissionProvider, PermissionProvider>()
             .AddScoped<LanguageService>()
             .AddWriterServices(config.Publisher)
             .AddReaderServices();
@@ -70,6 +73,7 @@ internal static class PublisherServiceCollection
             .AddScoped<ResultWriter>()
             .AddScoped<ContestCountingCircleDetailsWriter>()
             .AddScoped<ContestCountingCircleContactPersonWriter>()
+            .AddScoped<ContestCountingCircleElectorateWriter>()
             .AddScoped<VoteResultWriter>()
             .AddScoped<VoteEndResultWriter>()
             .AddScoped<ProportionalElectionResultWriter>()
@@ -110,6 +114,8 @@ internal static class PublisherServiceCollection
             .AddScoped<BallotResultReader>()
             .AddScoped<ResultExportTemplateReader>()
             .AddScoped<ResultExportConfigurationReader>()
+            .AddScoped<SimplePoliticalBusinessReader>()
+            .AddScoped<SimpleCountingCircleResultReader>()
             .AddScoped<ResultExportService>()
             .AddScoped<ProtocolExportService>()
             .AddScoped<IExportProviderUploader, StandardProviderUploader>()

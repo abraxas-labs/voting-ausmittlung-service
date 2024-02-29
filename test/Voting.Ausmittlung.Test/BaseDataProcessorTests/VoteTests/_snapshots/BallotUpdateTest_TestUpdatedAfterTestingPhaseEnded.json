@@ -8,14 +8,6 @@
           "BallotType": 2,
           "HasTieBreakQuestions": true,
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-          "Translations": [
-            {
-              "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
-              "Description": "Updated description de",
-              "Language": "de",
-              "Id": "00000000-0000-0000-0000-000000000000"
-            }
-          ],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -75,7 +67,6 @@
           ],
           "Results": [],
           "EndResult": null,
-          "Description": "Updated description de",
           "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e"
         }
       ],
@@ -96,8 +87,10 @@
       "AutomaticBallotBundleNumberGeneration": true,
       "EnforceResultEntryForCountingCircles": false,
       "ResultEntry": 2,
-      "PoliticalBusinessNumber": "321",
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": false,
       "InternalDescription": "Abstimmung Gossau auf Urnengang St.Gallen",
+      "PoliticalBusinessNumber": "321",
       "Active": true,
       "SwissAbroadVotingRight": 0,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -117,9 +110,7 @@
       "ShortDescription": "Abst Gossau de",
       "OfficialDescription": "Abstimmung Gossau de",
       "Title": "321: Abst Gossau de",
-      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-      "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": false
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
     }
   ]
 }

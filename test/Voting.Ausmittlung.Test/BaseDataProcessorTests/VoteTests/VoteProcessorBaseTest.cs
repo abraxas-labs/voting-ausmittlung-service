@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,7 +37,7 @@ public abstract class VoteProcessorBaseTest : BaseDataProcessorTest
                 .AsSplitQuery()
                 .Where(predicate)
                 .Include(x => x.Translations)
-                .Include(x => x.Ballots).ThenInclude(x => x.Translations)
+                .Include(x => x.Ballots)
                 .Include(x => x.Ballots).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations)
                 .Include(x => x.Ballots).ThenInclude(x => x.TieBreakQuestions).ThenInclude(x => x.Translations)
                 .OrderBy(x => x.PoliticalBusinessNumber)
@@ -53,8 +53,6 @@ public abstract class VoteProcessorBaseTest : BaseDataProcessorTest
 
             foreach (var voteBallot in vote.Ballots)
             {
-                SetDynamicIdToDefaultValue(voteBallot.Translations);
-
                 voteBallot.BallotQuestions = voteBallot.BallotQuestions
                     .OrderBy(x => x.Number)
                     .ToList();

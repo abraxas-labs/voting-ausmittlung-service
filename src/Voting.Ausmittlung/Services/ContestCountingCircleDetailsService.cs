@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
@@ -6,17 +6,17 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ContestCountingCircleDetailsService.ContestCountingCircleDetailsServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class ContestCountingCircleDetailsService : ServiceBase
 {
     private readonly ContestCountingCircleDetailsWriter _writer;
@@ -33,6 +33,7 @@ public class ContestCountingCircleDetailsService : ServiceBase
         _ccDetailsValidationSummaryBuilder = ccDetailsValidationSummaryBuilder;
     }
 
+    [AuthorizePermission(Permissions.ContestCountingCircleDetails.Update)]
     public override async Task<Empty> UpdateDetails(
         UpdateContestCountingCircleDetailsRequest request,
         ServerCallContext context)
@@ -42,6 +43,7 @@ public class ContestCountingCircleDetailsService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.ContestCountingCircleDetails.Update)]
     public override async Task<ProtoModels.ValidationSummary> ValidateUpdateDetails(
         ValidateUpdateContestCountingCircleDetailsRequest request,
         ServerCallContext context)

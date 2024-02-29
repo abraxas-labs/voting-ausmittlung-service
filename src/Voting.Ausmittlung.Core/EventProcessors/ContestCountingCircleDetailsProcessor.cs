@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -36,6 +36,7 @@ public class ContestCountingCircleDetailsProcessor :
     private readonly VoteResultRepo _voteResultRepo;
     private readonly ProportionalElectionResultRepo _proportionalElectionResultRepo;
     private readonly MajorityElectionResultRepo _majorityElectionResultRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
     private readonly IMapper _mapper;
 
@@ -48,6 +49,7 @@ public class ContestCountingCircleDetailsProcessor :
         VoteResultRepo voteResultRepo,
         ProportionalElectionResultRepo proportionalElectionResultRepo,
         MajorityElectionResultRepo majorityElectionResultRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder)
     {
         _logger = logger;
@@ -58,6 +60,7 @@ public class ContestCountingCircleDetailsProcessor :
         _voteResultRepo = voteResultRepo;
         _proportionalElectionResultRepo = proportionalElectionResultRepo;
         _majorityElectionResultRepo = majorityElectionResultRepo;
+        _protocolExportRepo = protocolExportRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
     }
 
@@ -101,6 +104,7 @@ public class ContestCountingCircleDetailsProcessor :
             ?? throw new EntityNotFoundException(id);
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
+        await DeleteProtocolExports(GuidParser.Parse(eventData.ContestId), GuidParser.Parse(eventData.CountingCircleId));
         ResetDetails(details);
         await _repo.Update(details);
         await UpdateCountOfVotersForCountingCircleResults(details, true);
@@ -242,6 +246,7 @@ public class ContestCountingCircleDetailsProcessor :
     private void ResetDetails(ContestCountingCircleDetails details)
     {
         details.TotalCountOfVoters = 0;
+        details.CountingMachine = CountingMachine.Unspecified;
 
         foreach (var votingCard in details.VotingCards)
         {
@@ -252,5 +257,15 @@ public class ContestCountingCircleDetailsProcessor :
         {
             subTotal.CountOfVoters = null;
         }
+    }
+
+    private async Task DeleteProtocolExports(Guid contestId, Guid basisCcId)
+    {
+        var protocolExportIds = await _protocolExportRepo.Query()
+            .Where(x => x.ContestId == contestId && x.CountingCircle!.BasisCountingCircleId == basisCcId)
+            .Select(x => x.Id)
+            .ToListAsync();
+
+        await _protocolExportRepo.DeleteRangeByKey(protocolExportIds);
     }
 }

@@ -1,9 +1,10 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
@@ -29,26 +30,21 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
         _permissionService = permissionService;
     }
 
-    protected async Task<Guid> EnsureEditPermissionsForBundle(TBundleAggregate bundleAggregate, bool requireElectionAdmin)
+    protected async Task<Guid> EnsureEditPermissionsForBundle(TBundleAggregate bundleAggregate)
     {
         var result = await LoadPoliticalBusinessResult(bundleAggregate.PoliticalBusinessResultId);
-        return await EnsureEditPermissionsForBundle(result, bundleAggregate, requireElectionAdmin);
+        return await EnsureEditPermissionsForBundle(result, bundleAggregate);
     }
 
-    protected async Task<Guid> EnsureEditPermissionsForBundle(TResult result, TBundleAggregate bundleAggregate, bool requireElectionAdmin)
+    protected async Task<Guid> EnsureEditPermissionsForBundle(TResult result, TBundleAggregate bundleAggregate)
     {
-        var contestId = await EnsurePoliticalBusinessPermissions(result, requireElectionAdmin);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
 
         await EnsureBundleExists(bundleAggregate.Id);
 
-        if (_permissionService.IsErfassungElectionAdmin())
+        if (Auth.HasPermission(Permissions.PoliticalBusinessResultBundle.UpdateAll))
         {
             return contestId;
-        }
-
-        if (requireElectionAdmin)
-        {
-            throw new ForbiddenException("election admin rights are required for this operation");
         }
 
         if (bundleAggregate.State == BallotBundleState.ReadyForReview)
@@ -72,7 +68,7 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
     protected async Task<Guid> EnsureReviewPermissionsForBundle(TBundleAggregate bundle)
     {
         var result = await LoadPoliticalBusinessResult(bundle.PoliticalBusinessResultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(result, false);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
 
         if (bundle.CreatedBy == _permissionService.UserId)
         {

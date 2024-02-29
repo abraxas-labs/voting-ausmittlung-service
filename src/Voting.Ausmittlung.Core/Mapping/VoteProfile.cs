@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Abraxas.Voting.Basis.Events.V1;
@@ -33,7 +33,6 @@ public class VoteProfile : Profile
             .ForMember(dst => dst.Id, opts => opts.Ignore());
 
         CreateMap<BallotEventData, Ballot>()
-            .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<BallotTranslation>(((t, x) => t.Description = x, src.Description))))
             .AfterMap((_, dst) =>
             {
                 foreach (var q in dst.BallotQuestions)
@@ -47,7 +46,6 @@ public class VoteProfile : Profile
                 }
             });
         CreateMap<BallotAfterTestingPhaseUpdated, Ballot>(MemberList.Source)
-            .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<BallotTranslation>(((t, x) => t.Description = x, src.Description))))
             .ForSourceMember(src => src.EventInfo, opts => opts.DoNotValidate())
             .AfterMap((_, dst) =>
             {

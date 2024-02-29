@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -30,7 +30,6 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
 {
     private readonly MajorityElectionEndResultReader _endResultReader;
     private readonly IDbRepository<DataContext, DataModels.MajorityElectionEndResult> _endResultRepo;
-    private readonly PermissionService _permissionService;
 
     public MajorityElectionEndResultWriter(
         ILogger<MajorityElectionEndResultWriter> logger,
@@ -44,7 +43,6 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
         : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
     {
         _endResultReader = endResultReader;
-        _permissionService = permissionService;
         _endResultRepo = endResultRepo;
     }
 
@@ -52,7 +50,6 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
         Guid majorityElectionId,
         IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(majorityElectionId);
         var availableLotDecisions = await _endResultReader.GetEndResultAvailableLotDecisions(majorityElectionId);
 

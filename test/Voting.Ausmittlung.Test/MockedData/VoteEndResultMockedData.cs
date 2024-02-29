@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -85,9 +85,6 @@ public static class VoteEndResultMockedData
                     new Ballot
                     {
                         Id = Guid.Parse(BallotId1),
-                        Translations = TranslationUtil.CreateTranslations<BallotTranslation>(
-                            (t, o) => t.Description = o,
-                            "Bundesgesetz über TEST"),
                         Position = 1,
                         BallotType = BallotType.StandardBallot,
                         BallotQuestions = new List<BallotQuestion>
@@ -106,9 +103,6 @@ public static class VoteEndResultMockedData
                     {
                         Id = Guid.Parse(BallotId2),
                         Position = 2,
-                        Translations = TranslationUtil.CreateTranslations<BallotTranslation>(
-                            (t, o) => t.Description = o,
-                            "Dies ist die zweite Vorlage"),
                         BallotType = BallotType.VariantsBallot,
                         BallotQuestions = new List<BallotQuestion>
                         {
@@ -148,9 +142,6 @@ public static class VoteEndResultMockedData
                     {
                         Id = Guid.Parse(BallotId3),
                         Position = 3,
-                        Translations = TranslationUtil.CreateTranslations<BallotTranslation>(
-                            (t, o) => t.Description = o,
-                            "Dies ist die dritte Vorlage"),
                         BallotType = BallotType.VariantsBallot,
                         BallotQuestions = new List<BallotQuestion>
                         {

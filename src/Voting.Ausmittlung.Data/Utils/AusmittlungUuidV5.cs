@@ -1,7 +1,8 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 
@@ -30,9 +31,26 @@ public static class AusmittlungUuidV5
     private static readonly Guid VotingAusmittlungPoliticalBusinessEndResultNamespace = Guid.Parse("934e92fb-cc6b-4d8d-9d5c-5f0f8e561e46");
     private static readonly Guid VotingAusmittlungProtocolExportNamespace = Guid.Parse("2995a75c-7795-4c1e-874a-4c133faf636e");
     private static readonly Guid VotingAusmittlungExportTemplateNamespace = Guid.Parse("3d9fc696-281f-4af7-9320-c4ca129c2f90");
+    private static readonly Guid VotingAusmittlungCountingCircleElectorateSnapshotNamespace = Guid.Parse("4ea8f0da-1e21-429e-bc02-f24bad32cf37");
+    private static readonly Guid VotingAusmittlingContestCountingCircleElectorateNamespace = Guid.Parse("4ea8f0da-1e21-429e-bc02-f24bad32cf37");
+
+    // keep in sync with Basis
+    private static readonly Guid VotingBasisProportionalElectionNamespace = Guid.Parse("9602b447-bd9d-4ee0-a15c-94eb2f88e79b");
 
     public static Guid BuildContestCountingCircleDetails(Guid contestId, Guid basisCountingCircleId, bool testingPhaseEnded)
         => Create(VotingAusmittlungContestCountingCircleDetailsNamespace, testingPhaseEnded, contestId, basisCountingCircleId);
+
+    public static Guid BuildCountingCircleElectorateSnapshot(Guid contestId, Guid basisCountingCircleId, Guid electorateId)
+        => Create(VotingAusmittlungCountingCircleElectorateSnapshotNamespace, contestId, basisCountingCircleId, electorateId);
+
+    public static Guid BuildContestCountingCircleElectorate(
+        Guid contestId,
+        Guid countingCircleId,
+        IReadOnlyCollection<DomainOfInfluenceType> domainOfInfluenceTypes)
+    {
+        var domainOfInfluenceTypesId = string.Join(VotingAusmittlungSeparator, domainOfInfluenceTypes);
+        return UuidV5.Create(VotingAusmittlingContestCountingCircleElectorateNamespace, string.Join(VotingAusmittlungSeparator, contestId, countingCircleId, domainOfInfluenceTypesId));
+    }
 
     public static Guid BuildVoteBallotResult(Guid ballotId, Guid basisCountingCircleId)
         => Create(VotingAusmittlungVoteBallotResultNamespace, ballotId, basisCountingCircleId);
@@ -54,6 +72,9 @@ public static class AusmittlungUuidV5
 
     public static Guid BuildPoliticalBusinessEndResult(Guid politicalBusinessId, bool testingPhaseEnded)
         => Create(VotingAusmittlungPoliticalBusinessEndResultNamespace, testingPhaseEnded, politicalBusinessId);
+
+    public static Guid BuildProportionalElectionEmptyList(Guid proportionalElectionId)
+        => Create(VotingBasisProportionalElectionNamespace, proportionalElectionId);
 
     public static Guid BuildExportTemplate(
         string exportKey,

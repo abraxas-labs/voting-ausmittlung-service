@@ -26,7 +26,8 @@
           "NumberIncludingList": "L1.numberL1.C1",
           "ListDescription": "",
           "ListShortDescription": "Liste 1 de",
-          "ListPosition": 1
+          "ListPosition": 1,
+          "CheckDigit": 6
         },
         "VoteCount": 6001,
         "Rank": 1,
@@ -64,7 +65,8 @@
           "NumberIncludingList": "L1.numberL1.C2",
           "ListDescription": "",
           "ListShortDescription": "Liste 1 de",
-          "ListPosition": 1
+          "ListPosition": 1,
+          "CheckDigit": 4
         },
         "VoteCount": 6000,
         "Rank": 2,
@@ -102,7 +104,8 @@
           "NumberIncludingList": "L1.numberL1.C3",
           "ListDescription": "",
           "ListShortDescription": "Liste 1 de",
-          "ListPosition": 1
+          "ListPosition": 1,
+          "CheckDigit": 2
         },
         "VoteCount": 6000,
         "Rank": 3,
@@ -191,7 +194,8 @@
           "NumberIncludingList": "L1.numberL1.C2",
           "ListDescription": "",
           "ListShortDescription": "Liste 1 de",
-          "ListPosition": 1
+          "ListPosition": 1,
+          "CheckDigit": 4
         },
         "SelectedRank": 2,
         "VoteCount": 6000,
@@ -217,7 +221,8 @@
           "NumberIncludingList": "L1.numberL1.C3",
           "ListDescription": "",
           "ListShortDescription": "Liste 1 de",
-          "ListPosition": 1
+          "ListPosition": 1,
+          "CheckDigit": 2
         },
         "SelectedRank": 3,
         "VoteCount": 6000,

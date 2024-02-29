@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -45,7 +45,6 @@ public class ContestCountingCircleContactPersonWriter
         bool contactPersonSameDuringEventAsAfter,
         ContactPerson contactPersonAfterEvent)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
         await _contestService.EnsureNotLocked(contestId);
 
@@ -67,8 +66,6 @@ public class ContestCountingCircleContactPersonWriter
         bool contactPersonSameDuringEventAsAfter,
         ContactPerson contactPersonAfterEvent)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
-
         var aggregate = await _aggregateRepository.GetById<ContestCountingCircleContactPersonAggregate>(id);
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(aggregate.CountingCircleId, aggregate.ContestId);
         await _contestService.EnsureNotLocked(aggregate.ContestId);

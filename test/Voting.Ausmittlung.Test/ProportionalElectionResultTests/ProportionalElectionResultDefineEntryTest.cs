@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -197,6 +197,25 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
             "enforced ReviewProcedure setting not respected");
     }
 
+    [Fact]
+    public async Task TestNoRespectForEnforcedCandidateCheckDigitSettingShouldThrow()
+    {
+        await RunOnDb(async db =>
+        {
+            var election = await db.ProportionalElections
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen));
+            election.EnforceCandidateCheckDigitForCountingCircles = true;
+            election.CandidateCheckDigit = false;
+            await db.SaveChangesAsync();
+        });
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.DefineEntryAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "enforced CandidateCheckDigit setting not respected");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
@@ -231,6 +250,7 @@ public class ProportionalElectionResultDefineEntryTest : ProportionalElectionRes
                 AutomaticEmptyVoteCounting = true,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = SharedProto.ProportionalElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
         };

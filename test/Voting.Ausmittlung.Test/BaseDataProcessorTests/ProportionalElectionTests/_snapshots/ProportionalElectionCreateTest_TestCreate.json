@@ -25,6 +25,9 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
         "NumberOfMandates": 6,
         "PoliticalBusinessNumber": "6000",
         "Active": false,
@@ -46,12 +49,10 @@
         "ShortDescription": "Neue Proporzwahl 1 de",
         "OfficialDescription": "Neue Proporzwahl 1 de",
         "Title": "6000: Neue Proporzwahl 1 de",
-        "Id": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0"
       },
       {
-        "MandateAlgorithm": 2,
+        "MandateAlgorithm": 4,
         "CandidateCheckDigit": false,
         "BallotBundleSize": 0,
         "BallotBundleSampleSize": 0,
@@ -74,6 +75,9 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false,
         "NumberOfMandates": 3,
         "PoliticalBusinessNumber": "6001",
         "Active": false,
@@ -95,9 +99,7 @@
         "ShortDescription": "Neue Proporzwahl 2 de",
         "OfficialDescription": "Neue Proporzwahl 2 de",
         "Title": "6001: Neue Proporzwahl 2 de",
-        "Id": "350fb432-9083-44f0-ade9-f9f7f99dabe8",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "350fb432-9083-44f0-ade9-f9f7f99dabe8"
       }
     ]
   },

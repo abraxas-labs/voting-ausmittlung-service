@@ -10,7 +10,8 @@
       "LastName": "lastName",
       "Party": "Test de",
       "Position": 1,
-      "Description": "number1 pol last name pol first name"
+      "Description": "number1 pol last name pol first name",
+      "CheckDigit": 9
     },
     {
       "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
@@ -21,7 +22,8 @@
       "LastName": "Lustig",
       "Party": "CVP de",
       "Position": 2,
-      "Description": "number2 L Pete"
+      "Description": "number2 L Pete",
+      "CheckDigit": 7
     },
     {
       "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
@@ -32,7 +34,8 @@
       "LastName": "Proll",
       "Party": "SVP de",
       "Position": 3,
-      "Description": "number3 Proll Hansi"
+      "Description": "number3 Proll Hansi",
+      "CheckDigit": 5
     },
     {
       "Id": "340c482b-c064-427e-a906-2696fab2ab35",
@@ -43,7 +46,8 @@
       "LastName": "Meierhans",
       "Party": "CVP de",
       "Position": 4,
-      "Description": "number4 Meierhans Susi"
+      "Description": "number4 Meierhans Susi",
+      "CheckDigit": 3
     }
   ]
 }

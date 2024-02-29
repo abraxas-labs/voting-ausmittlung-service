@@ -8,7 +8,7 @@
       "OfficialDescription": "Proporzwahl Gossau de",
       "ShortDescription": "Pw Gossau de",
       "NumberOfMandates": 3,
-      "MandateAlgorithm": 2,
+      "MandateAlgorithm": 1,
       "CandidateCheckDigit": true,
       "BallotBundleSize": 10,
       "AutomaticBallotBundleNumberGeneration": true,
@@ -39,7 +39,11 @@
           "Email": ""
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -68,7 +72,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": false
     },
     "EntryParams": {
       "BallotBundleSize": 10,
@@ -76,7 +81,8 @@
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
-      "ReviewProcedure": 1
+      "ReviewProcedure": 1,
+      "CandidateCheckDigit": true
     },
     "State": 2,
     "SubmissionDoneTimestamp": null,

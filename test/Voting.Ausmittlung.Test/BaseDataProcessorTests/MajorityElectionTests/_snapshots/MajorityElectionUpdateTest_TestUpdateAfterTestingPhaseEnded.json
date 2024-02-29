@@ -29,6 +29,9 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false,
     "NumberOfMandates": 5,
     "PoliticalBusinessNumber": "8164",
     "Active": true,
@@ -50,9 +53,7 @@
     "ShortDescription": "Update Majorzwahl de",
     "OfficialDescription": "Update Majorzwahl de",
     "Title": "8164: Update Majorzwahl de",
-    "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
-    "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": true
+    "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
   },
   "simple": {
     "BusinessType": 2,

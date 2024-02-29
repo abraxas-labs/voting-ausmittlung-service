@@ -17,6 +17,8 @@
         "ComparisonCountOfVotersData": null,
         "ComparisonVotingChannelsData": null,
         "ComparisonValidVotingCardsWithAccountedBallotsData": null,
+        "ValidationGroup": 0,
+        "GroupValue": "",
         "DataCase": 8
       }
     ]

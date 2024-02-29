@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
@@ -167,8 +168,8 @@ public class ResultExportTemplateReader
             .FirstOrDefaultAsync(x => x.Id == contestId)
             ?? throw new EntityNotFoundException(contestId);
 
-        // activity protocol export should only be available if contest manager, testing phase ended and only for monitoring
-        if (!_permissionService.IsMonitoringElectionAdmin() || !contest.TestingPhaseEnded || _auth.Tenant.Id != contest.DomainOfInfluence.SecureConnectId)
+        // activity protocol export should only be available if contest manager, testing phase ended and only for those with permission
+        if (!_auth.HasPermission(Permissions.Export.ExportActivityProtocol) || !contest.TestingPhaseEnded || _auth.Tenant.Id != contest.DomainOfInfluence.SecureConnectId)
         {
             templates = templates.Where(t =>
                 t.Key != AusmittlungCsvContestTemplates.ActivityProtocol.Key
@@ -187,6 +188,12 @@ public class ResultExportTemplateReader
         if (!contest.EVoting)
         {
             templates = templates.Where(t => !_templateKeysPoliticalBusinessEVoting.Contains(t.Key));
+        }
+
+        // WPGemeindenSkStat should only be display for TG
+        if (contest.DomainOfInfluence.Canton != DomainOfInfluenceCanton.Tg)
+        {
+            templates = templates.Where(t => t.Key != AusmittlungWabstiCTemplates.WPGemeindenSkStat.Key);
         }
 
         if (!templates.Any())
@@ -248,7 +255,6 @@ public class ResultExportTemplateReader
 
     private async Task<ExportData> LoadExportDataForErfassung(Guid contestId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureAnyRole();
         var politicalBusinesses = await _contestReader.GetAccessiblePoliticalBusinesses(basisCountingCircleId, contestId);
         var politicalBusinessesByType = politicalBusinesses
             .GroupBy(x => x.BusinessType)
@@ -261,7 +267,7 @@ public class ResultExportTemplateReader
 
     private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
+        _auth.EnsurePermission(Permissions.Export.ExportMonitoringData);
         var politicalBusinesses = await _contestReader.GetOwnedPoliticalBusinesses(contestId);
         var politicalBusinessesByType = politicalBusinesses
             .GroupBy(x => x.BusinessType)
@@ -434,6 +440,7 @@ public class ResultExportTemplateReader
         {
             Data.Models.DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
             Data.Models.DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
+            Data.Models.DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
             _ => Strings.Exports_DomainOfInfluenceType_Other,
         };
 

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -26,7 +26,6 @@ namespace Voting.Ausmittlung.Core.Services.Write;
 public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteResult>
 {
     private readonly ILogger<VoteResultWriter> _logger;
-    private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, DataModels.VoteResult> _voteResultRepo;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
@@ -43,7 +42,6 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         : base(permissionService, contestService, auth, aggregateRepository)
     {
         _logger = logger;
-        _permissionService = permissionService;
         _voteResultRepo = voteResultRepo;
         _validationResultsEnsurer = validationResultsEnsurer;
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
@@ -51,10 +49,9 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     public async Task DefineEntry(Guid voteResultId, DataModels.VoteResultEntry resultEntry, VoteResultEntryParams? resultEntryParams)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
         EnsureResultEntryRespectSettings(voteResult.Vote, resultEntry, resultEntryParams);
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
         aggregate.DefineEntry(resultEntry, contestId, resultEntryParams);
@@ -72,7 +69,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
             .Include(x => x.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(qr => qr.Question)
             .FirstOrDefaultAsync(x => x.Id == voteResultId)
             ?? throw new EntityNotFoundException(voteResultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
         EnsureResultsExists(voteResult, ballotCountOfVoters);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -93,7 +90,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
             .Include(x => x.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(qr => qr.Question)
             .FirstOrDefaultAsync(x => x.Id == voteResultId)
             ?? throw new EntityNotFoundException(voteResultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
         EnsureResultsExists(voteResult, requestResults);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -116,7 +113,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
             .Include(x => x.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(qr => qr.Question)
             .FirstOrDefaultAsync(x => x.Id == voteResultId)
             ?? throw new EntityNotFoundException(voteResultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
         EnsureResultsExists(voteResult, requestResults);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -131,7 +128,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid voteResultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(voteResultId, true);
+        await EnsurePoliticalBusinessPermissions(voteResultId);
 
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
         if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
@@ -152,7 +149,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
         if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
         {
             await _secondFactorTransactionWriter.EnsureVerified(
@@ -176,7 +173,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid voteResultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(voteResultId, true);
+        await EnsurePoliticalBusinessPermissions(voteResultId);
 
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
         if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
@@ -197,7 +194,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(voteResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
         if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
         {
             await _secondFactorTransactionWriter.EnsureVerified(

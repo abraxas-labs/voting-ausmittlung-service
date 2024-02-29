@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -69,6 +69,9 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
 
     public ICollection<MajorityElectionWriteInMapping> WriteInMappings { get; set; }
         = new HashSet<MajorityElectionWriteInMapping>();
+
+    public ICollection<MajorityElectionWriteInBallot> WriteInBallots { get; set; }
+        = new HashSet<MajorityElectionWriteInBallot>();
 
     /// <summary>
     /// Gets a value indicating whether this result or any secondary result has write ins which are not mapped by a user yet.

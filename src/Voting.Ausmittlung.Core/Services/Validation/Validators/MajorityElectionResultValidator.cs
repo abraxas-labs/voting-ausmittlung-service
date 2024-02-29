@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
                 yield return ValidateEmptyVoteCountNotNull(data);
             }
 
-            if (data.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes && data.MajorityElection.NumberOfMandates != 1)
+            if (data.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
             {
                 yield return ValidateInvalidVoteCountNotNull(data);
             }

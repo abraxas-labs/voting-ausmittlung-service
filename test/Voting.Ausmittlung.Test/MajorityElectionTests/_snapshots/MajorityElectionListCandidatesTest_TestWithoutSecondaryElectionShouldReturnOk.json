@@ -9,7 +9,8 @@
       "LastName": "lastName",
       "Party": "SP de",
       "Position": 1,
-      "Description": "number1 pol last name pol first name"
+      "Description": "number1 pol last name pol first name",
+      "CheckDigit": 9
     },
     {
       "Id": "c966085a-5cba-499b-bcf0-788e13ad0984",
@@ -20,7 +21,8 @@
       "LastName": "lastName 2",
       "Party": "SVP de",
       "Position": 2,
-      "Description": "number2 pol last name 2 pol first name 2"
+      "Description": "number2 pol last name 2 pol first name 2",
+      "CheckDigit": 7
     }
   ],
   "SecondaryElectionCandidates": []

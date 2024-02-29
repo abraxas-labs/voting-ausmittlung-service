@@ -118,6 +118,7 @@
     ],
     "EVoting": false,
     "TotalCountOfVoters": 15800,
+    "CountingMachine": 2,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
   "ccDetailsAfter": {
@@ -239,6 +240,7 @@
     ],
     "EVoting": false,
     "TotalCountOfVoters": 0,
+    "CountingMachine": 0,
     "Id": "00000000-0000-0000-0000-000000000000"
   }
 }

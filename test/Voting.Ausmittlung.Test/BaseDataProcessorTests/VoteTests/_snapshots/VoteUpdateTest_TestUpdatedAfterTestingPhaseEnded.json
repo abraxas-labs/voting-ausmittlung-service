@@ -8,7 +8,6 @@
           "BallotType": 2,
           "HasTieBreakQuestions": true,
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -68,7 +67,6 @@
           ],
           "Results": [],
           "EndResult": null,
-          "Description": "",
           "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e"
         }
       ],
@@ -89,8 +87,10 @@
       "AutomaticBallotBundleNumberGeneration": true,
       "EnforceResultEntryForCountingCircles": false,
       "ResultEntry": 2,
-      "PoliticalBusinessNumber": "2000",
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": false,
       "InternalDescription": "Updated internal description",
+      "PoliticalBusinessNumber": "2000",
       "Active": true,
       "SwissAbroadVotingRight": 0,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -110,9 +110,7 @@
       "ShortDescription": "Updated Abstimmung 1 de",
       "OfficialDescription": "Updated Abstimmung 1 de",
       "Title": "2000: Updated Abstimmung 1 de",
-      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-      "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": false
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
     }
   ]
 }

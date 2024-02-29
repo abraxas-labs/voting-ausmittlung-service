@@ -1,46 +1,43 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using eCH_0222_1_0;
+using Ech0222_1_0;
 using Voting.Ausmittlung.Data.Models;
-using ElectionCandidate = eCH_0222_1_0.ElectionCandidate;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class MajorityElectionRawDataMapping
 {
-    private static readonly ElectionBallotPosition IndividualPosition = new ElectionBallotPosition
+    private static readonly ElectionRawDataTypeBallotRawDataBallotPosition IndividualPosition = new ElectionRawDataTypeBallotRawDataBallotPosition
     {
-        Item = new ElectionCandidate
-        {
-            ItemsElementName = new[] { ItemsChoiceType.writeIn },
-            Items = new[] { "Vereinzelte" },
-        },
+        Candidate = new ElectionRawDataTypeBallotRawDataBallotPositionCandidate { WriteIn = "Vereinzelte" },
+        IsEmpty = false,
     };
 
-    private static readonly ElectionBallotPosition EmptyPosition = new ElectionBallotPosition
+    private static readonly ElectionRawDataTypeBallotRawDataBallotPosition EmptyPosition = new ElectionRawDataTypeBallotRawDataBallotPosition
     {
-        Item = true,
+        IsEmpty = true,
     };
 
-    internal static ElectionGroupBallotRawData ToEchElectionGroupRawData(this MajorityElectionResult electionResult)
+    internal static RawDataTypeCountingCircleRawDataElectionGroupBallotRawData ToEchElectionGroupRawData(this MajorityElectionResult electionResult)
     {
-        return new ElectionGroupBallotRawData
+        return new RawDataTypeCountingCircleRawDataElectionGroupBallotRawData
         {
             ElectionGroupIdentification = electionResult.MajorityElection.ElectionGroup?.Id.ToString(),
             ElectionRawData = CreateElectionRawData(electionResult),
         };
     }
 
-    private static ElectionRawDataType[] CreateElectionRawData(MajorityElectionResult electionResult)
+    private static List<ElectionRawDataType> CreateElectionRawData(MajorityElectionResult electionResult)
     {
         return electionResult.SecondaryMajorityElectionResults
             .OrderBy(r => r.SecondaryMajorityElectionId)
             .Select(secondaryElectionResult => secondaryElectionResult.ToElectionRawData())
             .Append(electionResult.ToElectionRawData())
-            .ToArray();
+            .ToList();
     }
 
     private static ElectionRawDataType ToElectionRawData(this MajorityElectionResult electionResult)
@@ -58,7 +55,7 @@ internal static class MajorityElectionRawDataMapping
                 .Concat(electionResult.BallotGroupResults
                     .Where(x => x.VoteCount > 0)
                     .SelectMany(g => Enumerable.Repeat(g.ToEchElectionBallotRawData(electionResult.MajorityElectionId), g.VoteCount)))
-                .ToArray(),
+                .ToList(),
         };
     }
 
@@ -72,39 +69,41 @@ internal static class MajorityElectionRawDataMapping
                 .Select(b => b.ToEchElectionBallotRawData())
                 .Concat(electionResult.PrimaryResult.BallotGroupResults
                     .SelectMany(g => Enumerable.Repeat(g.ToEchElectionBallotRawData(electionResult.SecondaryMajorityElectionId), g.VoteCount)))
-                .ToArray(),
+                .ToList(),
         };
     }
 
-    private static ElectionBallotRawData ToEchElectionBallotRawData(this MajorityElectionResultBallot resultBallot)
+    private static ElectionRawDataTypeBallotRawData ToEchElectionBallotRawData(this MajorityElectionResultBallot resultBallot)
     {
         var positions = resultBallot.BallotCandidates
             .Where(c => c.Selected)
             .Select(c => c.Candidate.ToEchElectionBallotPosition())
             .Concat(Enumerable.Repeat(EmptyPosition, resultBallot.EmptyVoteCount))
-            .Concat(Enumerable.Repeat(IndividualPosition, resultBallot.IndividualVoteCount));
+            .Concat(Enumerable.Repeat(IndividualPosition, resultBallot.IndividualVoteCount))
+            .ToList();
 
-        return new ElectionBallotRawData
+        return new ElectionRawDataTypeBallotRawData
         {
-            BallotPosition = positions.ToArray(),
+            BallotPosition = positions,
         };
     }
 
-    private static ElectionBallotRawData ToEchElectionBallotRawData(this SecondaryMajorityElectionResultBallot resultBallot)
+    private static ElectionRawDataTypeBallotRawData ToEchElectionBallotRawData(this SecondaryMajorityElectionResultBallot resultBallot)
     {
         var positions = resultBallot.BallotCandidates
             .Where(c => c.Selected)
             .Select(c => c.Candidate.ToEchElectionBallotPosition())
             .Concat(Enumerable.Repeat(EmptyPosition, resultBallot.EmptyVoteCount))
-            .Concat(Enumerable.Repeat(IndividualPosition, resultBallot.IndividualVoteCount));
+            .Concat(Enumerable.Repeat(IndividualPosition, resultBallot.IndividualVoteCount))
+            .ToList();
 
-        return new ElectionBallotRawData
+        return new ElectionRawDataTypeBallotRawData
         {
-            BallotPosition = positions.ToArray(),
+            BallotPosition = positions,
         };
     }
 
-    private static ElectionBallotRawData ToEchElectionBallotRawData(this MajorityElectionBallotGroupResult ballotGroupResult, Guid electionId)
+    private static ElectionRawDataTypeBallotRawData ToEchElectionBallotRawData(this MajorityElectionBallotGroupResult ballotGroupResult, Guid electionId)
     {
         var ballotGroupEntries =
             ballotGroupResult.BallotGroup.Entries
@@ -118,21 +117,22 @@ internal static class MajorityElectionRawDataMapping
         positions = positions.Concat(ballotGroupEntries.SelectMany(entry => Enumerable.Repeat(EmptyPosition, entry.BlankRowCount)));
         positions = positions.Concat(ballotGroupEntries.SelectMany(entry => Enumerable.Repeat(IndividualPosition, entry.IndividualCandidatesVoteCount)));
 
-        return new ElectionBallotRawData
+        return new ElectionRawDataTypeBallotRawData
         {
-            BallotPosition = positions.ToArray(),
+            BallotPosition = positions.ToList(),
         };
     }
 
-    private static ElectionBallotPosition ToEchElectionBallotPosition(this MajorityElectionCandidateBase candidate)
+    private static ElectionRawDataTypeBallotRawDataBallotPosition ToEchElectionBallotPosition(this MajorityElectionCandidateBase candidate)
     {
-        return new ElectionBallotPosition
+        return new ElectionRawDataTypeBallotRawDataBallotPosition
         {
-            Item = new ElectionCandidate
+            Candidate = new ElectionRawDataTypeBallotRawDataBallotPositionCandidate
             {
-                Items = new[] { candidate.Id.ToString(), candidate.Number },
-                ItemsElementName = new[] { ItemsChoiceType.candidateIdentification, ItemsChoiceType.candidateReferenceOnPosition },
+                CandidateIdentification = candidate.Id.ToString(),
+                CandidateReferenceOnPosition = candidate.Number,
             },
+            IsEmpty = false,
         };
     }
 }

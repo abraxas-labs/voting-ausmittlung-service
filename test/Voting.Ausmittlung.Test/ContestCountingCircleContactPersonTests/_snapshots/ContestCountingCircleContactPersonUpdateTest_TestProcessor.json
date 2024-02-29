@@ -47,6 +47,8 @@
   "IsSnapshot": true,
   "ContestCountingCircleContactPersonId": null,
   "MustUpdateContactPersons": false,
+  "Electorates": [],
+  "ContestElectorates": [],
   "DomainOfInfluences": [],
   "VoteResults": [],
   "ProportionalElectionResults": [],

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using AutoMapper;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;

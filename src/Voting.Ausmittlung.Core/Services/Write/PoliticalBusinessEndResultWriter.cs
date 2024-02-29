@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -50,7 +50,6 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     public async Task Finalize(Guid politicalBusinessId, string secondFactorTransactionExternalId, CancellationToken ct)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
         await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded), ct);
@@ -68,7 +67,6 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     public async Task RevertFinalization(Guid politicalBusinessId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var (contestId, _) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
         var endResult = await GetEndResult(politicalBusinessId, _permissionService.TenantId)
@@ -85,7 +83,6 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareFinalize(Guid politicalBusinessId, string message)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
         // Check if the user can access the end result

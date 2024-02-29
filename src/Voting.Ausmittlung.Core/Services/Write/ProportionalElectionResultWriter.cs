@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,7 +27,6 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 {
     private readonly ILogger<ProportionalElectionResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResult> _resultRepo;
-    private readonly PermissionService _permissionService;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
@@ -44,16 +43,14 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         _logger = logger;
         _resultRepo = resultRepo;
-        _permissionService = permissionService;
         _validationResultsEnsurer = validationResultsEnsurer;
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
 
     public async Task DefineEntry(Guid resultId, ProportionalElectionResultEntryParams resultEntryParams)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         var result = await LoadPoliticalBusinessResult(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
         EnsureValidResultEntry(result.ProportionalElection, resultEntryParams);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
@@ -69,7 +66,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
                                 .Include(r => r.CountingCircle)
                                 .FirstOrDefaultAsync(r => r.Id == resultId)
                          ?? throw new EntityNotFoundException(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(electionResult);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
         aggregate.EnterCountOfVoters(countOfVoters, contestId);
@@ -86,7 +83,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
                                  .Include(x => x.UnmodifiedListResults)
                                  .FirstOrDefaultAsync(x => x.Id == resultId)
                              ?? throw new EntityNotFoundException(resultId);
-        var contestId = await EnsurePoliticalBusinessPermissions(electionResult, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(electionResult);
         EnsureListsExists(electionResult, results);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
@@ -97,7 +94,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId, true);
+        await EnsurePoliticalBusinessPermissions(resultId);
 
         var result = await LoadPoliticalBusinessResult(resultId);
         if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
@@ -118,7 +115,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
         if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
         {
             await _secondFactorTransactionWriter.EnsureVerified(
@@ -142,7 +139,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId, true);
+        await EnsurePoliticalBusinessPermissions(resultId);
 
         var result = await LoadPoliticalBusinessResult(resultId);
         if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
@@ -163,7 +160,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
-        var contestId = await EnsurePoliticalBusinessPermissions(result, true);
+        var contestId = await EnsurePoliticalBusinessPermissions(result);
         if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
         {
             await _secondFactorTransactionWriter.EnsureVerified(
@@ -257,6 +254,12 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
             && election.ReviewProcedure != resultEntryParams.ReviewProcedure)
         {
             throw new ValidationException($"enforced {nameof(election.ReviewProcedure)} setting not respected");
+        }
+
+        if (election.EnforceCandidateCheckDigitForCountingCircles
+            && election.CandidateCheckDigit != resultEntryParams.CandidateCheckDigit)
+        {
+            throw new ValidationException($"enforced {nameof(election.CandidateCheckDigit)} setting not respected");
         }
     }
 

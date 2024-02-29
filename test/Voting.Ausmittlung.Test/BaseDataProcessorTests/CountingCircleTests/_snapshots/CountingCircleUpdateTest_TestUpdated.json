@@ -49,6 +49,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -106,6 +108,26 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "CountingCircle": null,
+          "DomainOfInfluenceTypes": [
+            1,
+            2
+          ],
+          "Id": "8922095c-7b64-4f0b-aec1-a92c6521abc1"
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "CountingCircle": null,
+          "DomainOfInfluenceTypes": [
+            3
+          ],
+          "Id": "4078ba98-0db5-40a6-9869-11e5519f7af7"
+        }
+      ],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -163,6 +185,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -209,6 +233,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -266,6 +292,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -323,6 +351,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -380,6 +410,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -437,6 +469,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],
@@ -494,6 +528,8 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "Electorates": [],
+      "ContestElectorates": [],
       "DomainOfInfluences": [],
       "VoteResults": [],
       "ProportionalElectionResults": [],

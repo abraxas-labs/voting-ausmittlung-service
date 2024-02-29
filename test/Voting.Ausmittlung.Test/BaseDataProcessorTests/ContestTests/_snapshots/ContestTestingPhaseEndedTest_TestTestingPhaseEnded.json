@@ -34,6 +34,7 @@
             "VotingCards": [],
             "EVoting": false,
             "TotalCountOfVoters": 0,
+            "CountingMachine": 0,
             "Id": "1b18dfae-5e60-5ab5-8267-bef13cd4b1a3"
           }
         ],
@@ -99,6 +100,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
+        "TotalSentEVotingVotingCards": null,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -110,7 +112,8 @@
           "BallotBundleSampleSize": 0,
           "AutomaticBallotBundleNumberGeneration": false,
           "BallotNumberGeneration": 0,
-          "AutomaticEmptyVoteCounting": false
+          "AutomaticEmptyVoteCounting": false,
+          "CandidateCheckDigit": false
         },
         "UnmodifiedListResults": [
           {
@@ -177,6 +180,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
+        "TotalSentEVotingVotingCards": null,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -220,6 +224,7 @@
         "BallotGroupResults": [],
         "Bundles": [],
         "WriteInMappings": [],
+        "WriteInBallots": [],
         "HasUnmappedWriteIns": false,
         "CountOfElectionsWithUnmappedWriteIns": 0,
         "PoliticalBusiness": null,
@@ -249,6 +254,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 0,
+        "TotalSentEVotingVotingCards": null,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ]

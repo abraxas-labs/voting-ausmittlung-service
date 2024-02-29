@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
@@ -69,7 +70,7 @@ public class ResultWriter
     {
         // Only start the submission for the correct states and users
         if (data.Contest.State.IsLocked()
-            || !_permissionService.IsErfassungElectionAdmin()
+            || !_auth.HasPermission(Permissions.PoliticalBusinessResult.StartSubmission)
             || !(data.CountingCircle.ResponsibleAuthority.SecureConnectId.Equals(_permissionService.TenantId, StringComparison.Ordinal)
                  || (data.Contest.DomainOfInfluence.SecureConnectId.Equals(_permissionService.TenantId, StringComparison.Ordinal) && !data.Contest.TestingPhaseEnded)))
         {
@@ -106,7 +107,6 @@ public class ResultWriter
             throw new ValidationException("Counting circle details is not initialized yet");
         }
 
-        _permissionService.EnsureErfassungElectionAdmin();
         _contestService.EnsureInTestingPhase(data.Contest);
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleId, contestId);
 
@@ -153,7 +153,6 @@ public class ResultWriter
             throw new ValidationException("Counting circle details is not initialized yet");
         }
 
-        _permissionService.EnsureErfassungElectionAdmin();
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(data.CountingCircle, data.Contest);
         _contestService.EnsureNotLocked(data.Contest);
 

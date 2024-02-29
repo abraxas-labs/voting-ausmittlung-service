@@ -1,10 +1,11 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using Abraxas.Voting.Basis.Shared.V1;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Queries;
@@ -62,6 +63,19 @@ public class CountingCircleCreateTest : CountingCircleProcessorBaseTest
                         FamilyName = "Wichtig",
                         FirstName = "Rudolph",
                     },
+                    Electorates =
+                    {
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "f6819858-7348-40e3-8254-0885f2e68e1d",
+                            DomainOfInfluenceTypes = { DomainOfInfluenceType.Ch, DomainOfInfluenceType.Ct },
+                        },
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "65315a27-3991-47bd-ab2a-6b5c90e549a0",
+                            DomainOfInfluenceTypes = { DomainOfInfluenceType.Ki },
+                        },
+                    },
                 },
             },
             new CountingCircleCreated
@@ -108,6 +122,77 @@ public class CountingCircleCreateTest : CountingCircleProcessorBaseTest
             x => x.ResponsibleAuthority!.Id,
             x => x.ContactPersonAfterEvent!.Id,
             x => x.ContactPersonDuringEvent!.Id);
+    }
+
+    [Fact]
+    public async Task TestSnapshotsCreated()
+    {
+        await ContestMockedData.Seed(RunScoped);
+
+        var id = Guid.Parse("eae2cfaf-c787-48b9-a108-c975b0a580da");
+
+        await TestEventPublisher.Publish(
+            new CountingCircleCreated
+            {
+                CountingCircle = new CountingCircleEventData
+                {
+                    Name = "Uzwil",
+                    NameForProtocol = "Stadt Uzwil",
+                    Bfs = "1234",
+                    SortNumber = 5000,
+                    Id = id.ToString(),
+                    ResponsibleAuthority = new AuthorityEventData
+                    {
+                        Name = "Uzwil",
+                        Email = "uzwil-test@abraxas.ch",
+                        Phone = "071 123 12 20",
+                        Street = "WerkstrasseX",
+                        City = "MyCityX",
+                        Zip = "9200",
+                        SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    },
+                    ContactPersonSameDuringEventAsAfter = false,
+                    ContactPersonDuringEvent = new ContactPersonEventData
+                    {
+                        Email = "uzwil-test@abraxas.ch",
+                        Phone = "071 123 12 21",
+                        MobilePhone = "071 123 12 31",
+                        FamilyName = "Muster",
+                        FirstName = "Hans",
+                    },
+                    ContactPersonAfterEvent = new ContactPersonEventData
+                    {
+                        Email = "uzwil-test2@abraxas.ch",
+                        Phone = "071 123 12 22",
+                        MobilePhone = "071 123 12 33",
+                        FamilyName = "Wichtig",
+                        FirstName = "Rudolph",
+                    },
+                    Electorates =
+                    {
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "f6819858-7348-40e3-8254-0885f2e68e1d",
+                            DomainOfInfluenceTypes = { DomainOfInfluenceType.An },
+                        },
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "65315a27-3991-47bd-ab2a-6b5c90e549a0",
+                            DomainOfInfluenceTypes = { DomainOfInfluenceType.Ki },
+                        },
+                    },
+                },
+            });
+
+        var data = await GetData(cc => cc.BasisCountingCircleId == id);
+        data.MatchSnapshot(
+            x => x.Id,
+            x => x.ResponsibleAuthority!.Id,
+            x => x.ResponsibleAuthority!.CountingCircleId,
+            x => x.ContactPersonAfterEvent!.Id,
+            x => x.ContactPersonAfterEvent!.CountingCircleAfterEventId!,
+            x => x.ContactPersonDuringEvent!.Id,
+            x => x.ContactPersonDuringEvent!.CountingCircleDuringEventId!);
     }
 
     [Fact]

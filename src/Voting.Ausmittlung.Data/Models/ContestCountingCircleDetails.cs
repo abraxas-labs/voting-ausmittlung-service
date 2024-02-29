@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -25,6 +25,8 @@ public class ContestCountingCircleDetails : BaseEntity
     public bool EVoting { get; set; }
 
     public int TotalCountOfVoters { get; set; }
+
+    public CountingMachine CountingMachine { get; set; }
 
     public int GetMaxSumOfVotingCards(Func<(int Valid, int Invalid), int> validValueSelector)
     {

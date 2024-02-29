@@ -412,7 +412,8 @@
             <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
-                <listIdentification>99</listIdentification>
+                <!-- empty list -->
+                <listIdentification>7af4313c-2b0a-503a-b26c-8f8401a9acbd</listIdentification>
               </listRawData>
               <ballotPosition>
                 <candidate>
@@ -596,7 +597,8 @@
             <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <ballotRawData>
               <listRawData>
-                <listIdentification>99</listIdentification>
+                <!-- empty list -->
+                <listIdentification>7af4313c-2b0a-503a-b26c-8f8401a9acbd</listIdentification>
               </listRawData>
               <ballotPosition>
                 <isEmpty>true</isEmpty>

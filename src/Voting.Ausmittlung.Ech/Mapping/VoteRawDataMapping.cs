@@ -1,11 +1,11 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using eCH_0222_1_0;
+using Ech0222_1_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Common;
@@ -34,7 +34,7 @@ internal static class VoteRawDataMapping
         };
     }
 
-    private static VoteBallotRawData[] CreateBallotRawData(VoteResult voteResult)
+    private static List<VoteRawDataTypeBallotRawData> CreateBallotRawData(VoteResult voteResult)
     {
         // Export is only allowed for detailed result entry. This kind of result only have one variant ballot result.
         var ballotResult = voteResult.Results.First();
@@ -45,15 +45,15 @@ internal static class VoteRawDataMapping
             .OrderBy(x => x.Bundle.Number)
             .ThenBy(x => x.Number)
             .Select((ballot, index) => ballot.ToEchVoteBallotRawData(index))
-            .ToArray();
+            .ToList();
     }
 
-    private static VoteBallotRawData ToEchVoteBallotRawData(this VoteResultBallot voteResultBallot, int index)
+    private static VoteRawDataTypeBallotRawData ToEchVoteBallotRawData(this VoteResultBallot voteResultBallot, int index)
     {
-        return new VoteBallotRawData
+        return new VoteRawDataTypeBallotRawData
         {
             BallotIdentification = voteResultBallot.Bundle.BallotResult.BallotId.ToString(),
-            BallotCasted = new VoteBallotCasted
+            BallotCasted = new VoteRawDataTypeBallotRawDataBallotCasted
             {
                 // ballot casted number require 1 based index
                 BallotCastedNumber = (index + 1).ToString(CultureInfo.InvariantCulture),
@@ -62,7 +62,7 @@ internal static class VoteRawDataMapping
         };
     }
 
-    private static VoteBallotCastedQuestionRawData[] CreateVoteBallotCastedQuestionRawData(this VoteResultBallot voteResultBallot)
+    private static List<VoteRawDataTypeBallotRawDataBallotCastedQuestionRawData> CreateVoteBallotCastedQuestionRawData(this VoteResultBallot voteResultBallot)
     {
         return voteResultBallot.QuestionAnswers
             .OrderBy(x => x.Question.Number)
@@ -70,29 +70,29 @@ internal static class VoteRawDataMapping
             .Concat(voteResultBallot.TieBreakQuestionAnswers
                 .OrderBy(x => x.Question.Number)
                 .Select(ToEchVoteBallotCastedQuestionRawData))
-            .ToArray();
+            .ToList();
     }
 
-    private static VoteBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotQuestionAnswer questionAnswer)
+    private static VoteRawDataTypeBallotRawDataBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotQuestionAnswer questionAnswer)
     {
         var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(questionAnswer.Question.BallotId, false, questionAnswer.Question.Number);
-        return new VoteBallotCastedQuestionRawData
+        return new VoteRawDataTypeBallotRawDataBallotCastedQuestionRawData
         {
             QuestionIdentification = questionId,
-            Casted = new VoteBallotCastedQuestionRawDataCasted
+            Casted = new VoteRawDataTypeBallotRawDataBallotCastedQuestionRawDataCasted
             {
                 CastedVote = ToCastedVote(questionAnswer.Answer),
             },
         };
     }
 
-    private static VoteBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotTieBreakQuestionAnswer questionAnswer)
+    private static VoteRawDataTypeBallotRawDataBallotCastedQuestionRawData ToEchVoteBallotCastedQuestionRawData(this VoteResultBallotTieBreakQuestionAnswer questionAnswer)
     {
         var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(questionAnswer.Question.BallotId, true, questionAnswer.Question.Number);
-        return new VoteBallotCastedQuestionRawData
+        return new VoteRawDataTypeBallotRawDataBallotCastedQuestionRawData
         {
             QuestionIdentification = questionId,
-            Casted = new VoteBallotCastedQuestionRawDataCasted
+            Casted = new VoteRawDataTypeBallotRawDataBallotCastedQuestionRawDataCasted
             {
                 CastedVote = ToCastedVote(questionAnswer.Answer),
             },
@@ -143,18 +143,19 @@ internal static class VoteRawDataMapping
         };
     }
 
-    private static EVotingVoteBallotResult ToEVotingVoteBallotResult(string ballotKey, IEnumerable<VoteBallotRawData> ballotRawDatas)
+    private static EVotingVoteBallotResult ToEVotingVoteBallotResult(string ballotKey, IEnumerable<VoteRawDataTypeBallotRawData> ballotRawDatas)
     {
         var ballotId = GuidParser.Parse(ballotKey);
         var ballots = ballotRawDatas.Select(x => x.BallotCasted.ToEVotingVoteBallot()).ToList();
         return new EVotingVoteBallotResult(ballotId, ballots);
     }
 
-    private static EVotingVoteBallot ToEVotingVoteBallot(this VoteBallotCasted voteBallotCasted)
+    private static EVotingVoteBallot ToEVotingVoteBallot(this VoteRawDataTypeBallotRawDataBallotCasted voteBallotCasted)
     {
         var questions = voteBallotCasted
             .QuestionRawData
-            .Select(x => (Parsed: BallotQuestionIdConverter.FromEchBallotQuestionId(x.QuestionIdentification), x.Casted));
+            .Select(x => (Parsed: BallotQuestionIdConverter.FromEchBallotQuestionId(x.QuestionIdentification), x.Casted))
+            .ToArray();
 
         var questionAnswers =
             (IReadOnlyCollection<EVotingVoteBallotQuestionAnswer>?)questions

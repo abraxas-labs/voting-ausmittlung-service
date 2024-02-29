@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,11 @@ public class MajorityElectionResultModelBuilder :
     IEntityTypeConfiguration<MajorityElectionResultBallotCandidate>,
     IEntityTypeConfiguration<MajorityElectionResultBallot>,
     IEntityTypeConfiguration<MajorityElectionResultBundle>,
-    IEntityTypeConfiguration<SecondaryMajorityElectionCandidateResult>
+    IEntityTypeConfiguration<SecondaryMajorityElectionCandidateResult>,
+    IEntityTypeConfiguration<MajorityElectionWriteInBallot>,
+    IEntityTypeConfiguration<MajorityElectionWriteInBallotPosition>,
+    IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallot>,
+    IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallotPosition>
 {
     public void Configure(EntityTypeBuilder<MajorityElectionResult> builder)
     {
@@ -211,5 +215,53 @@ public class MajorityElectionResultModelBuilder :
         builder
             .HasIndex(x => new { x.ElectionResultId, x.CandidateId })
             .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<MajorityElectionWriteInBallot> builder)
+    {
+        builder
+            .HasOne(x => x.Result)
+            .WithMany(x => x.WriteInBallots)
+            .HasForeignKey(x => x.ResultId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<MajorityElectionWriteInBallotPosition> builder)
+    {
+        builder
+            .HasOne(x => x.Ballot)
+            .WithMany(x => x.WriteInPositions)
+            .HasForeignKey(x => x.BallotId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.WriteInMapping)
+            .WithMany(x => x.BallotPositions)
+            .HasForeignKey(x => x.WriteInMappingId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<SecondaryMajorityElectionWriteInBallot> builder)
+    {
+        builder
+            .HasOne(x => x.Result)
+            .WithMany(x => x.WriteInBallots)
+            .HasForeignKey(x => x.ResultId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<SecondaryMajorityElectionWriteInBallotPosition> builder)
+    {
+        builder
+            .HasOne(x => x.Ballot)
+            .WithMany(x => x.WriteInPositions)
+            .HasForeignKey(x => x.BallotId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.WriteInMapping)
+            .WithMany(x => x.BallotPositions)
+            .HasForeignKey(x => x.WriteInMappingId)
+            .IsRequired();
     }
 }

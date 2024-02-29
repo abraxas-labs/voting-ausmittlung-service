@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -123,7 +123,6 @@ public class BallotUpdateTest : VoteProcessorBaseTest
             {
                 EventInfo = GetMockedEventInfo(),
                 Id = VoteMockedData.BallotIdGossauVoteInContestStGallen,
-                Description = { LanguageUtil.MockAllLanguages("Updated description") },
                 BallotQuestions =
                 {
                         new BallotQuestionEventData

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -26,6 +27,7 @@ public class CountingCircleProcessor :
     IEventProcessor<CountingCirclesMergerActivated>
 {
     private readonly IDbRepository<DataContext, CountingCircle> _repo;
+    private readonly IDbRepository<DataContext, CountingCircleElectorate> _electorateRepo;
     private readonly DomainOfInfluencePermissionBuilder _permissionBuilder;
     private readonly CountingCircleResultsInitializer _ccResultsInitializer;
     private readonly ContestRepo _contestRepo;
@@ -33,12 +35,14 @@ public class CountingCircleProcessor :
 
     public CountingCircleProcessor(
         IDbRepository<DataContext, CountingCircle> repo,
+        IDbRepository<DataContext, CountingCircleElectorate> electorateRepo,
         CountingCircleResultsInitializer ccResultsInitializer,
         IMapper mapper,
         DomainOfInfluencePermissionBuilder permissionBuilder,
         ContestRepo contestRepo)
     {
         _repo = repo;
+        _electorateRepo = electorateRepo;
         _ccResultsInitializer = ccResultsInitializer;
         _mapper = mapper;
         _permissionBuilder = permissionBuilder;
@@ -68,32 +72,59 @@ public class CountingCircleProcessor :
                            .Include(x => x.ContactPersonDuringEvent)
                            .Include(x => x.ContactPersonAfterEvent)
                            .Include(x => x.ResponsibleAuthority)
+                           .Include(x => x.Electorates)
                            .FirstOrDefaultAsync(x => x.Id == id)
                        ?? throw new EntityNotFoundException(id);
 
         var countingCircle = _mapper.Map<CountingCircle>(eventData.CountingCircle);
+
+        foreach (var electorate in countingCircle.Electorates)
+        {
+            electorate.CountingCircleId = countingCircle.Id;
+        }
+
         SetExistingRelationIds(countingCircle, existing);
+        await ReplaceElectorates(existing.Electorates, countingCircle.Electorates);
+        countingCircle.Electorates = null!;
         await _repo.Update(countingCircle);
 
-        var snapshots = await _repo.Query()
+        var existingSnapshots = await _repo.Query()
             .Include(x => x.ContactPersonDuringEvent)
             .Include(x => x.ContactPersonAfterEvent)
             .Include(x => x.ResponsibleAuthority)
+            .Include(x => x.Electorates)
             .Where(cc => cc.BasisCountingCircleId == id)
             .WhereContestIsInTestingPhase()
             .ToListAsync();
 
         var snapshotCountingCirclesToUpdate = new List<CountingCircle>();
-        foreach (var snapshot in snapshots)
+        var snapshotElectoratesToCreate = new List<CountingCircleElectorate>();
+        var snapshotElectoratesToDelete = existingSnapshots.SelectMany(e => e.Electorates).ToList();
+
+        foreach (var snapshot in existingSnapshots)
         {
             var snapshotCountingCircle = _mapper.Map<CountingCircle>(eventData.CountingCircle);
             snapshotCountingCircle.SnapshotContestId = snapshot.SnapshotContestId!.Value;
             snapshotCountingCircle.Id = snapshot.Id;
+
             SetExistingRelationIds(snapshotCountingCircle, snapshot);
+
+            foreach (var electorate in snapshotCountingCircle.Electorates)
+            {
+                electorate.Id = AusmittlungUuidV5.BuildCountingCircleElectorateSnapshot(
+                    snapshotCountingCircle.SnapshotContestId!.Value,
+                    id,
+                    electorate.Id);
+                electorate.CountingCircleId = snapshot.Id;
+            }
+
+            snapshotElectoratesToCreate.AddRange(snapshotCountingCircle.Electorates);
+            snapshotCountingCircle.Electorates = null!;
             snapshotCountingCirclesToUpdate.Add(snapshotCountingCircle);
         }
 
         await _repo.UpdateRange(snapshotCountingCirclesToUpdate);
+        await ReplaceElectorates(snapshotElectoratesToDelete, snapshotElectoratesToCreate);
 
         await _permissionBuilder.RebuildPermissionTree();
     }
@@ -194,5 +225,11 @@ public class CountingCircleProcessor :
         {
             countingCircle.ContactPersonAfterEvent.Id = existing.ContactPersonAfterEvent?.Id ?? Guid.Empty;
         }
+    }
+
+    private async Task ReplaceElectorates(IEnumerable<CountingCircleElectorate> electoratesToDelete, IEnumerable<CountingCircleElectorate> electoratesToCreate)
+    {
+        await _electorateRepo.DeleteRangeByKey(electoratesToDelete.Select(e => e.Id));
+        await _electorateRepo.CreateRange(electoratesToCreate);
     }
 }

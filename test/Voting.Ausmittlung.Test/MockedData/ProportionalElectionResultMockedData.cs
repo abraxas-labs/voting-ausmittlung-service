@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -55,6 +55,7 @@ public static class ProportionalElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
         };
 
@@ -73,6 +74,7 @@ public static class ProportionalElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
         };
 
@@ -102,6 +104,7 @@ public static class ProportionalElectionResultMockedData
                 BallotBundleSampleSize = 2,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = true,
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {

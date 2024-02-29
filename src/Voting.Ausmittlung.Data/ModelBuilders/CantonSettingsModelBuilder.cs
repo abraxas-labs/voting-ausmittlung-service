@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +16,6 @@ public class CantonSettingsModelBuilder :
     {
         builder.HasIndex(x => x.Canton)
             .IsUnique();
-
-        builder.Property(x => x.ProportionalElectionMandateAlgorithms)
-            .HasPostgresEnumListToIntListConversion();
 
         builder.Property(x => x.SwissAbroadVotingRightDomainOfInfluenceTypes)
             .HasPostgresEnumListToIntListConversion();

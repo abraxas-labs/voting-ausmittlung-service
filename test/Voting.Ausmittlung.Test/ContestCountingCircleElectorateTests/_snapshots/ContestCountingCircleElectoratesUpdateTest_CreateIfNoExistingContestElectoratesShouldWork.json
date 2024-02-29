@@ -1,0 +1,35 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "200200200200200200",
+      "Name": "St. Gallen"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "Id": "71f3f5bd-27a1-519f-af88-bf6ebf455964",
+  "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+  "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+  "Electorates": [
+    {
+      "Id": "da50f50a-f0a9-55cf-bfcc-be0de8f98eb1",
+      "DomainOfInfluenceTypes": [
+        8
+      ]
+    },
+    {
+      "Id": "4c86e351-5f39-5304-b36b-4dc492c9113d",
+      "DomainOfInfluenceTypes": [
+        2
+      ]
+    }
+  ]
+}

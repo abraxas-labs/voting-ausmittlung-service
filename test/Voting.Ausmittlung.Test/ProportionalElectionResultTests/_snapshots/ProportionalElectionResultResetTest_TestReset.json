@@ -8,7 +8,8 @@
       "BallotBundleSampleSize": 0,
       "AutomaticBallotBundleNumberGeneration": false,
       "BallotNumberGeneration": 0,
-      "AutomaticEmptyVoteCounting": false
+      "AutomaticEmptyVoteCounting": false,
+      "CandidateCheckDigit": false
     },
     "UnmodifiedListResults": [
       {
@@ -153,6 +154,7 @@
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
+    "TotalSentEVotingVotingCards": null,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   },
   "resultAfter": {
@@ -164,7 +166,8 @@
       "BallotBundleSampleSize": 0,
       "AutomaticBallotBundleNumberGeneration": false,
       "BallotNumberGeneration": 0,
-      "AutomaticEmptyVoteCounting": false
+      "AutomaticEmptyVoteCounting": false,
+      "CandidateCheckDigit": false
     },
     "UnmodifiedListResults": [
       {
@@ -309,6 +312,7 @@
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
+    "TotalSentEVotingVotingCards": null,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   }
 }

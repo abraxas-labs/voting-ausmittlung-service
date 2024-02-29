@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -150,18 +150,19 @@ public static class MajorityElectionEndResultMockedData
             ReportDomainOfInfluenceLevel = 1,
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = true,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
                 {
-                    BuildCandidate(CandidateId1, 1),
-                    BuildCandidate(CandidateId2, 2),
-                    BuildCandidate(CandidateId3, 3),
-                    BuildCandidate(CandidateId4, 4),
-                    BuildCandidate(CandidateId5, 5),
-                    BuildCandidate(CandidateId6, 6),
-                    BuildCandidate(CandidateId7, 7),
-                    BuildCandidate(CandidateId8, 8),
-                    BuildCandidate(CandidateId9InBallotGroup, 9),
-                    BuildCandidate(CandidateId10InBallotGroup, 10),
+                    BuildCandidate(CandidateId1, 1, 9),
+                    BuildCandidate(CandidateId2, 2, 7),
+                    BuildCandidate(CandidateId3, 3, 5),
+                    BuildCandidate(CandidateId4, 4, 3),
+                    BuildCandidate(CandidateId5, 5, 1),
+                    BuildCandidate(CandidateId6, 6, 0),
+                    BuildCandidate(CandidateId7, 7, 8),
+                    BuildCandidate(CandidateId8, 8, 6),
+                    BuildCandidate(CandidateId9InBallotGroup, 9, 4),
+                    BuildCandidate(CandidateId10InBallotGroup, 10, 8),
                 },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
                 {
@@ -180,10 +181,10 @@ public static class MajorityElectionEndResultMockedData
                         Active = false,
                         Candidates = new List<SecondaryMajorityElectionCandidate>
                         {
-                            BuildSecondaryCandidate(SecondaryCandidateId1, 1, CandidateId1),
-                            BuildSecondaryCandidate(SecondaryCandidateId2, 2),
-                            BuildSecondaryCandidate(SecondaryCandidateId3, 3),
-                            BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4),
+                            BuildSecondaryCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
+                            BuildSecondaryCandidate(SecondaryCandidateId2, 2, 7),
+                            BuildSecondaryCandidate(SecondaryCandidateId3, 3, 5),
+                            BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
                         },
                     },
                     new SecondaryMajorityElection
@@ -201,10 +202,10 @@ public static class MajorityElectionEndResultMockedData
                         Active = true,
                         Candidates = new List<SecondaryMajorityElectionCandidate>
                         {
-                            BuildSecondaryCandidate(Secondary2CandidateId1, 1),
-                            BuildSecondaryCandidate(Secondary2CandidateId2, 2),
-                            BuildSecondaryCandidate(Secondary2CandidateId3, 3, CandidateId1),
-                            BuildSecondaryCandidate(Secondary2CandidateId4, 4),
+                            BuildSecondaryCandidate(Secondary2CandidateId1, 1, 9),
+                            BuildSecondaryCandidate(Secondary2CandidateId2, 2, 7),
+                            BuildSecondaryCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
+                            BuildSecondaryCandidate(Secondary2CandidateId4, 4, 3),
                         },
                     },
                 },
@@ -261,7 +262,7 @@ public static class MajorityElectionEndResultMockedData
         };
     }
 
-    public static MajorityElectionCandidate BuildCandidate(string candidateId, int position)
+    public static MajorityElectionCandidate BuildCandidate(string candidateId, int position, int checkDigit)
     {
         return new MajorityElectionCandidate
         {
@@ -286,12 +287,14 @@ public static class MajorityElectionEndResultMockedData
                 "occupation title",
                 (t, s) => t.Party = s,
                 "Test"),
+            CheckDigit = checkDigit,
         };
     }
 
     public static SecondaryMajorityElectionCandidate BuildSecondaryCandidate(
         string secondaryCandidateId,
         int position,
+        int checkDigit,
         string? candidateReferenceId = null)
     {
         return new SecondaryMajorityElectionCandidate
@@ -320,6 +323,7 @@ public static class MajorityElectionEndResultMockedData
                 "occupation title",
                 (t, s) => t.Party = s,
                 $"Test{position}"),
+            CheckDigit = checkDigit,
         };
     }
 

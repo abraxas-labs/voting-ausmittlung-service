@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -57,7 +57,6 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.Results.Where(r => r.CountingCircle.ContestDetails.Any(cd => cd.EVoting)))
             .ThenInclude(x => x.Results.OrderBy(b => b.Ballot.Position))
-            .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
             .ThenInclude(x => x.CountOfVoters)

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -126,6 +126,23 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
 
         _mapper.Map(data, ev);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
+
+        foreach (var writeInBallot in data.WriteInBallots)
+        {
+            var writeInEv = new MajorityElectionWriteInBallotImported
+            {
+                ContestId = ContestId.ToString(),
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ImportId = Id.ToString(),
+                CountingCircleId = data.BasisCountingCircleId.ToString(),
+                MajorityElectionId = data.PoliticalBusinessId.ToString(),
+                EmptyVoteCount = writeInBallot.EmptyVoteCount,
+                InvalidVoteCount = writeInBallot.InvalidVoteCount,
+                CandidateIds = { writeInBallot.CandidateIds.Select(id => id.ToString()) },
+                WriteInMappingIds = { writeInBallot.WriteInMappingIds.Select(id => id.ToString()) },
+            };
+            RaiseEvent(writeInEv, new EventSignatureBusinessDomainData(ContestId));
+        }
     }
 
     internal void ImportSecondaryMajorityElectionResult(MajorityElectionResultImport data)
@@ -142,6 +159,23 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
 
         _mapper.Map(data, ev);
         RaiseEvent(ev, new EventSignatureBusinessDomainData(ContestId));
+
+        foreach (var writeInBallot in data.WriteInBallots)
+        {
+            var writeInEv = new SecondaryMajorityElectionWriteInBallotImported
+            {
+                ContestId = ContestId.ToString(),
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ImportId = Id.ToString(),
+                CountingCircleId = data.BasisCountingCircleId.ToString(),
+                SecondaryMajorityElectionId = data.PoliticalBusinessId.ToString(),
+                EmptyVoteCount = writeInBallot.EmptyVoteCount,
+                InvalidVoteCount = writeInBallot.InvalidVoteCount,
+                CandidateIds = { writeInBallot.CandidateIds.Select(id => id.ToString()) },
+                WriteInMappingIds = { writeInBallot.WriteInMappingIds.Select(id => id.ToString()) },
+            };
+            RaiseEvent(writeInEv, new EventSignatureBusinessDomainData(ContestId));
+        }
     }
 
     internal void ImportVoteResult(VoteResultImport data)
@@ -345,6 +379,8 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
             case SecondaryMajorityElectionWriteInsMapped:
             case MajorityElectionWriteInsReset:
             case SecondaryMajorityElectionWriteInsReset:
+            case MajorityElectionWriteInBallotImported:
+            case SecondaryMajorityElectionWriteInBallotImported:
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
         }
@@ -360,7 +396,7 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
                 .ToHashSet();
     }
 
-    private void ValidateAllWriteInsAvailable(Guid electionId, Guid basisCountingCircleId, IEnumerable<MajorityElectionWriteInMappedEventData> mappings)
+    private void ValidateAllWriteInsAvailable(Guid electionId, Guid basisCountingCircleId, List<MajorityElectionWriteInMappedEventData> mappings)
     {
         if (!_availableWriteInIdsByElectionId.TryGetValue((electionId, basisCountingCircleId), out var availableMappingIds))
         {
@@ -370,6 +406,11 @@ public class ResultImportAggregate : BaseEventSignatureAggregate
         if (mappings.Any(m => !availableMappingIds.Contains(GuidParser.Parse(m.WriteInMappingId))))
         {
             throw new ValidationException("Invalid write in provided");
+        }
+
+        if (mappings.Count != availableMappingIds.Count)
+        {
+            throw new ValidationException("Invalid write ins provided");
         }
     }
 

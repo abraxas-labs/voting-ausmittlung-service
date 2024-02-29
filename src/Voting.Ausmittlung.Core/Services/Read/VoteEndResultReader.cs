@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -28,7 +28,6 @@ public class VoteEndResultReader
 
     public async Task<VoteEndResult> GetEndResult(Guid voteId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var tenantId = _permissionService.TenantId;
 
         var voteEndResult = await _repo.Query()
@@ -40,7 +39,7 @@ public class VoteEndResultReader
             .Include(x => x.CountOfVotersInformationSubTotals)
             .Include(x => x.VotingCards)
             .Include(x => x.BallotEndResults)
-                .ThenInclude(x => x.Ballot.Translations)
+                .ThenInclude(x => x.Ballot)
             .Include(x => x.BallotEndResults)
                 .ThenInclude(x => x.QuestionEndResults)
                     .ThenInclude(x => x.Question.Translations)

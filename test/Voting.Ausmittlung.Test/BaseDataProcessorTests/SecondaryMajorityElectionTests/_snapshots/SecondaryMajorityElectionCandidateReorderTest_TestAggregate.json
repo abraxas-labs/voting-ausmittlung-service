@@ -37,6 +37,7 @@
       "Locality": "locality",
       "Position": 1,
       "Origin": "origin",
+      "CheckDigit": 7,
       "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
     },
     {
@@ -76,6 +77,7 @@
       "Locality": "locality",
       "Position": 2,
       "Origin": "origin",
+      "CheckDigit": 9,
       "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf"
     },
     {
@@ -115,6 +117,7 @@
       "Locality": "locality",
       "Position": 3,
       "Origin": "origin",
+      "CheckDigit": 5,
       "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb"
     },
     {
@@ -154,6 +157,7 @@
       "Locality": "locality",
       "Position": 4,
       "Origin": "origin",
+      "CheckDigit": 3,
       "Id": "340c482b-c064-427e-a906-2696fab2ab35"
     }
   ]

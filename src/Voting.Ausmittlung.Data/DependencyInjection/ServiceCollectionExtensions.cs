@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Configuration;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Lib.Database.Interceptors;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,7 @@ public static class ServiceCollectionExtensions
         DataConfig config,
         Action<DbContextOptionsBuilder> optionsBuilder)
     {
-        services.AddDbContext<DataContext>(db =>
+        services.AddDbContext<DataContext>((serviceProvider, db) =>
         {
             if (config.EnableDetailedErrors)
             {
@@ -28,15 +29,24 @@ public static class ServiceCollectionExtensions
                 db.EnableSensitiveDataLogging();
             }
 
+            if (config.EnableMonitoring)
+            {
+                db.AddInterceptors(serviceProvider.GetRequiredService<DatabaseQueryMonitoringInterceptor>());
+            }
+
             db.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             optionsBuilder(db);
         });
 
+        if (config.EnableMonitoring)
+        {
+            services.AddDataMonitoring(config.Monitoring);
+        }
+
         return services
             .AddScoped<ResultImportRepo>()
             .AddScoped<BallotRepo>()
-            .AddScoped<BallotTranslationRepo>()
             .AddScoped<BallotQuestionRepo>()
             .AddScoped<BallotQuestionTranslationRepo>()
             .AddScoped<TieBreakQuestionRepo>()

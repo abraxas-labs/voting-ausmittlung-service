@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -44,6 +44,8 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
 
     protected bool IncludeCalculationRounds { get; set; } = true;
 
+    protected bool IncludeDoiInformation { get; set; }
+
     public async Task<FileModel> Render(
         ReportRenderContext ctx,
         CancellationToken ct = default)
@@ -54,6 +56,7 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
 
         // can be inlined with ef5
         SortData(data);
+        data.ProportionalElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
 
         // reset the domain of influence on the result, since this is a single domain of influence report
         var proportionalElection = Mapper.Map<PdfProportionalElection>(data.ProportionalElection);
@@ -61,8 +64,12 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
 
+        if (!IncludeDoiInformation)
+        {
+            domainOfInfluence.Details!.VotingCards = new List<PdfVotingCardResultDetail>();
+        }
+
         // we don't need this data in the xml
-        domainOfInfluence.Details!.VotingCards = new();
         proportionalElection.DomainOfInfluence = null!;
 
         MapAdditionalElectionData(data, proportionalElection);

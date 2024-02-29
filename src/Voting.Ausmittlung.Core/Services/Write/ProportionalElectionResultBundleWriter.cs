@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -50,7 +50,7 @@ public class ProportionalElectionResultBundleWriter
         Guid? listId,
         int? bundleNumber)
     {
-        var contestId = await EnsurePoliticalBusinessPermissions(resultId, false);
+        var contestId = await EnsurePoliticalBusinessPermissions(resultId);
 
         var electionResultAggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
         var generateBundleNumber = electionResultAggregate.ResultEntry.AutomaticBallotBundleNumberGeneration;
@@ -84,7 +84,7 @@ public class ProportionalElectionResultBundleWriter
     public async Task DeleteBundle(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, true);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.Delete(contestId);
 
         var electionResultAggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(aggregate.PoliticalBusinessResultId);
@@ -102,7 +102,7 @@ public class ProportionalElectionResultBundleWriter
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
         var result = await LoadPoliticalBusinessResult(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(result, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(result, aggregate);
         await EnsureValidCandidates(candidates, result.ProportionalElectionId, aggregate.ListId);
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
             emptyVoteCount,
@@ -124,7 +124,7 @@ public class ProportionalElectionResultBundleWriter
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
         var result = await LoadPoliticalBusinessResult(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(result, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(result, aggregate);
         await EnsureValidCandidates(candidates, result.ProportionalElectionId, aggregate.ListId);
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
             emptyVoteCount,
@@ -139,7 +139,7 @@ public class ProportionalElectionResultBundleWriter
     public async Task DeleteBallot(Guid bundleId, int ballotNumber)
     {
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.DeleteBallot(ballotNumber, contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -147,7 +147,7 @@ public class ProportionalElectionResultBundleWriter
     public async Task BundleSubmissionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.SubmissionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -155,7 +155,7 @@ public class ProportionalElectionResultBundleWriter
     public async Task BundleCorrectionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.CorrectionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }

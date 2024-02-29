@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -197,6 +197,9 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
+
+        await AssertSubmissionDoneTimestamp(false);
+
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new MajorityElectionResultCorrectionFinished
@@ -215,6 +218,8 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
             .Where(x => x.ResultId == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund))
             .ToListAsync());
         comments.MatchSnapshot(x => x.Id);
+
+        await AssertSubmissionDoneTimestamp(true);
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
@@ -312,5 +317,11 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         };
         customizer?.Invoke(req);
         return req;
+    }
+
+    private async Task AssertSubmissionDoneTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund)));
+        (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
     }
 }

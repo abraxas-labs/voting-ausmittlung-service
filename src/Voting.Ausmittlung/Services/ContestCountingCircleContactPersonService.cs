@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
@@ -6,17 +6,17 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ContestCountingCircleContactPersonService.ContestCountingCircleContactPersonServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class ContestCountingCircleContactPersonService : ServiceBase
 {
     private readonly ContestCountingCircleContactPersonWriter _writer;
@@ -28,6 +28,7 @@ public class ContestCountingCircleContactPersonService : ServiceBase
         _mapper = mapper;
     }
 
+    [AuthorizePermission(Permissions.CountingCircleContactPerson.Create)]
     public override async Task<ProtoModels.IdValue> Create(
         CreateContestCountingCircleContactPersonRequest request,
         ServerCallContext context)
@@ -48,6 +49,7 @@ public class ContestCountingCircleContactPersonService : ServiceBase
         };
     }
 
+    [AuthorizePermission(Permissions.CountingCircleContactPerson.Update)]
     public override async Task<Empty> Update(
         UpdateContestCountingCircleContactPersonRequest request,
         ServerCallContext context)

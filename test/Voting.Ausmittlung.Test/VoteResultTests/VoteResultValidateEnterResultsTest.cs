@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -46,6 +46,105 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
     public async Task ShouldReturnIsValid()
     {
         var result = await ErfassungElectionAdminClient.ValidateEnterResultsAsync(NewValidRequest());
+        result.MatchSnapshot();
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsValidWhenMultipleBallots()
+    {
+        var request = new ValidateEnterVoteResultsRequest
+        {
+            Request = new EnterVoteResultsRequest
+            {
+                VoteResultId = VoteResultMockedData.GuidBundVote2InContestBundResult.ToString(),
+                Results =
+                {
+                    new EnterVoteBallotResultsRequest
+                    {
+                        BallotId = VoteMockedData.BallotId2BundVote2InContestBund,
+                        CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
+                        {
+                            ConventionalReceivedBallots = 3194,
+                            ConventionalInvalidBallots = 500,
+                            ConventionalAccountedBallots = 1694,
+                            ConventionalBlankBallots = 1000,
+                        },
+                        QuestionResults =
+                        {
+                            new EnterVoteBallotQuestionResultRequest
+                            {
+                                QuestionNumber = 1,
+                                ReceivedCountYes = 1200,
+                                ReceivedCountNo = 494,
+                                ReceivedCountUnspecified = 0,
+                            },
+                        },
+                    },
+                    new EnterVoteBallotResultsRequest
+                    {
+                        BallotId = VoteMockedData.BallotId1BundVote2InContestBund,
+                        CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
+                        {
+                            ConventionalReceivedBallots = 2500,
+                            ConventionalInvalidBallots = 300,
+                            ConventionalAccountedBallots = 2000,
+                            ConventionalBlankBallots = 200,
+                        },
+                        QuestionResults =
+                        {
+                            new EnterVoteBallotQuestionResultRequest
+                            {
+                                QuestionNumber = 1,
+                                ReceivedCountYes = 1200,
+                                ReceivedCountNo = 800,
+                                ReceivedCountUnspecified = 0,
+                            },
+                            new EnterVoteBallotQuestionResultRequest
+                            {
+                                QuestionNumber = 2,
+                                ReceivedCountYes = 1500,
+                                ReceivedCountNo = 400,
+                                ReceivedCountUnspecified = 100,
+                            },
+                            new EnterVoteBallotQuestionResultRequest
+                            {
+                                QuestionNumber = 3,
+                                ReceivedCountYes = 350,
+                                ReceivedCountNo = 1000,
+                                ReceivedCountUnspecified = 650,
+                            },
+                        },
+                        TieBreakQuestionResults =
+                        {
+                            new EnterVoteTieBreakQuestionResultRequest
+                            {
+                                QuestionNumber = 1,
+                                ReceivedCountQ1 = 450,
+                                ReceivedCountQ2 = 1000,
+                                ReceivedCountUnspecified = 550,
+                            },
+                            new EnterVoteTieBreakQuestionResultRequest
+                            {
+                                QuestionNumber = 2,
+                                ReceivedCountQ1 = 450,
+                                ReceivedCountQ2 = 1000,
+                                ReceivedCountUnspecified = 550,
+                            },
+                            new EnterVoteTieBreakQuestionResultRequest
+                            {
+                                QuestionNumber = 3,
+                                ReceivedCountQ1 = 450,
+                                ReceivedCountQ2 = 1000,
+                                ReceivedCountUnspecified = 550,
+                            },
+                        },
+                    },
+                },
+            },
+        };
+
+        var result = await ErfassungElectionAdminClient.ValidateEnterResultsAsync(request);
         result.MatchSnapshot();
         result.IsValid.Should().BeTrue();
     }

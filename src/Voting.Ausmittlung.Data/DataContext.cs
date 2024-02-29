@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +26,8 @@ public class DataContext : DbContext
 
     public DbSet<CountingCircleContactPerson> CountingCircleContactPersons { get; set; } = null!;
 
+    public DbSet<CountingCircleElectorate> CountingCircleElectorates { get; set; } = null!;
+
     public DbSet<DomainOfInfluence> DomainOfInfluences { get; set; } = null!;
 
     public DbSet<DomainOfInfluenceCountingCircle> DomainOfInfluenceCountingCircles { get; set; } = null!;
@@ -39,8 +41,6 @@ public class DataContext : DbContext
     public DbSet<VoteResult> VoteResults { get; set; } = null!;
 
     public DbSet<Ballot> Ballots { get; set; } = null!;
-
-    public DbSet<BallotTranslation> BallotTranslations { get; set; } = null!;
 
     public DbSet<BallotResult> BallotResults { get; set; } = null!;
 
@@ -67,6 +67,8 @@ public class DataContext : DbContext
     public DbSet<Contest> Contests { get; set; } = null!;
 
     public DbSet<ContestTranslation> ContestTranslations { get; set; } = null!;
+
+    public DbSet<ContestCountingCircleElectorate> ContestCountingCircleElectorates { get; set; } = null!;
 
     public DbSet<ContestCountingCircleDetails> ContestCountingCircleDetails { get; set; } = null!;
 
@@ -163,9 +165,17 @@ public class DataContext : DbContext
 
     public DbSet<MajorityElectionWriteInMapping> MajorityElectionWriteInMappings { get; set; } = null!;
 
+    public DbSet<MajorityElectionWriteInBallot> MajorityElectionWriteInBallots { get; set; } = null!;
+
+    public DbSet<MajorityElectionWriteInBallotPosition> MajorityElectionWriteInBallotPositions { get; set; } = null!;
+
     public DbSet<SecondaryMajorityElectionResult> SecondaryMajorityElectionResults { get; set; } = null!;
 
     public DbSet<SecondaryMajorityElectionWriteInMapping> SecondaryMajorityElectionWriteInMappings { get; set; } = null!;
+
+    public DbSet<SecondaryMajorityElectionWriteInBallot> SecondaryMajorityElectionWriteInBallots { get; set; } = null!;
+
+    public DbSet<SecondaryMajorityElectionWriteInBallotPosition> SecondaryMajorityElectionWriteInBallotPositions { get; set; } = null!;
 
     public DbSet<MajorityElectionBallotGroupResult> MajorityElectionBallotGroupResults { get; set; } = null!;
 

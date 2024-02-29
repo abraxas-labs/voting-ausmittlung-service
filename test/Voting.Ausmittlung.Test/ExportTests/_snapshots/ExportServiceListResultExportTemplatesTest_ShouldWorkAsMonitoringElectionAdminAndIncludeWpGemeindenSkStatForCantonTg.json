@@ -1,0 +1,255 @@
+{
+  "Templates": [
+    {
+      "ExportTemplateId": "6df9eff5-321b-5ff5-b134-90d8646f606f",
+      "Description": "Abstimmungsergebnis(se) inkl. Details E-Voting",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "fd06d291-fb37-559a-8b95-37beb9c87a80",
+      "Description": "Abstimmungsresultat (eCH-0110)",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "17c99136-3705-555b-8a78-254f266a29b3",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "559c3610-1a10-5b29-9b48-04c1495c7d44",
+      "Description": "Rohdaten Abstimmung (eCH-0222)",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "018acfc2-7348-514f-a03e-56b1d787971a",
+      "Description": "SG_Gemeinden",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "89d13931-d678-509a-82f3-9b4db3c5325b",
+      "Description": "SG_Geschäfte",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "60cedbd2-451b-5136-8345-acd9371f7b2f",
+      "Description": "SGStatic_Gemeinden",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "0d8b0de6-4867-51b7-8580-e5bc9a5e6687",
+      "Description": "SGStatic_Geschäfte",
+      "EntityDescription": "Abst SG de"
+    },
+    {
+      "ExportTemplateId": "c040b633-78fe-5780-ba28-14af921f51d5",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "4bbae451-9abf-5e11-883b-cba9aaef6e2c",
+      "Description": "Majorzwahlresultat (eCH-0110)",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "ece95704-9231-517e-b4b5-62fab0669b7b",
+      "Description": "Rohdaten Majorzwahl (eCH-0222)",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "5b120eda-86b5-5699-b733-cba31bf6a3ef",
+      "Description": "WM_Gemeinden",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "ccfdfd5f-f694-518b-bdae-685e464f6a96",
+      "Description": "WM_Kandidaten",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "9c102d41-1e93-5241-b478-64f1dc95dd12",
+      "Description": "WM_KandidatenGde",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "88803e76-69d3-516b-b137-d0e80fe1a7ba",
+      "Description": "WM_Wahl",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "7c5468cc-e49a-5b88-8a32-23473321e509",
+      "Description": "WMStatic_Gemeinden",
+      "EntityDescription": "Mw SG de"
+    },
+    {
+      "ExportTemplateId": "aa66d822-7126-5207-bdd6-c46b068917a9",
+      "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "b7f9b584-3ea5-517d-90a2-d0d46d6c2d3c",
+      "Description": "Proporzwahlresultat (eCH-0110)",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "3a6c10d2-e8c4-5ec7-8d56-0576ca8a7ffe",
+      "Description": "Rohdaten Proporzwahl (eCH-0222)",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "548415f0-5793-5fe4-aa77-c0c780eedc7b",
+      "Description": "WP_Gemeinden",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "2d230d39-bda6-55a7-a003-de7362b23553",
+      "Description": "WP_Gemeinden_BFS",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "bae30465-19cd-5156-a00f-d1d992673f9e",
+      "Description": "WP_Gemeinden_BFS_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "c9d8a5e6-9194-5bb5-966a-c904d766e781",
+      "Description": "WP_Gemeinden_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "96ee0ca7-8fe3-58ef-b8ae-51272a71a81d",
+      "Description": "WP_Gemeinden_SK_STAT",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "efdff10c-50b0-5215-ae25-8af6f0c8230d",
+      "Description": "WP_Gemeinden_SK_STAT_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
+      "Description": "WP_Kandidaten",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "4c4226ad-20ae-5b54-9c0c-4670c97fcd3f",
+      "Description": "WP_Kandidaten_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "beb90cc1-6f18-598f-8651-85e874451155",
+      "Description": "WP_KandidatenGde",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "432c8b48-f0b2-5463-a408-753afe4dbf82",
+      "Description": "WP_KandidatenGde_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "376a8b91-401e-5c75-9de9-5d25972bbb6e",
+      "Description": "WP_Listen",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "4be7fee9-d304-56f1-b1f3-9c25b6d03afd",
+      "Description": "WP_Listen_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "c1389898-ef80-582a-994c-d07974570566",
+      "Description": "WP_ListenGde",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "4b9f83a4-baab-54f3-81d9-913942f52d76",
+      "Description": "WP_ListenGde_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "c17612c5-b8f6-5958-b18b-36703faed41c",
+      "Description": "WP_Wahl",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "1f667487-22f9-5774-8d42-4305cab27223",
+      "Description": "WP_Wahl_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "884c707f-6c8e-5383-9e80-e47e0a4fa18e",
+      "Description": "WPStatic_Gemeinden",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "508d38cd-c1f6-56f2-adce-7480e24d472b",
+      "Description": "WPStatic_Gemeinden_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "cc0fe9fc-ac08-5b8e-b8ea-870e3d8611ae",
+      "Description": "WPStatic_Kandidaten",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "bdf46055-3c72-520e-bb0f-34b34895eadf",
+      "Description": "WPStatic_Kandidaten_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "fb58357c-701e-5568-ac29-c80390ab548f",
+      "Description": "Parteistimmen",
+      "EntityDescription": "St. Gallen different Tenant"
+    },
+    {
+      "ExportTemplateId": "210f1371-ee9d-5a16-bb4b-4b11e4ae351c",
+      "Description": "Parteistimmen",
+      "EntityDescription": "St. Gallen different Tenant"
+    },
+    {
+      "ExportTemplateId": "1a4d30ef-e97d-5c5a-8c4c-4ee61d750f1a",
+      "Description": "Sitzverteilung",
+      "EntityDescription": "St. Gallen different Tenant"
+    },
+    {
+      "ExportTemplateId": "9974bfca-2683-5d97-a3a7-bc8f2801d4e3",
+      "Description": "Sitzverteilung",
+      "EntityDescription": "St. Gallen different Tenant"
+    },
+    {
+      "ExportTemplateId": "190610a7-357a-55fe-b406-0584b3274c9d",
+      "Description": "Wahlbeteiligung",
+      "EntityDescription": "St. Gallen different Tenant"
+    },
+    {
+      "ExportTemplateId": "bdbfd7c6-36e6-5d8d-a3a3-606129f08e2c",
+      "Description": "Wahlbeteiligung",
+      "EntityDescription": "St. Gallen different Tenant"
+    }
+  ],
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": null
+}

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -69,7 +69,7 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
             foreach (var group in ballotResultsByVote)
             {
-                var importResult = new VoteResultImport(group.Key, Guid.Parse(result.BasisCountingCircleId));
+                var importResult = new VoteResultImport(group.Key, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
                 yield return ProcessResult(
                     importResult,
                     group,

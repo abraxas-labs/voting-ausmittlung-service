@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -29,6 +29,7 @@ public class ContestCountingCircleDetailsWriter
     private readonly IAggregateFactory _aggregateFactory;
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, DataModels.CountingCircle> _countingCircleRepo;
+    private readonly IDbRepository<DataContext, DataModels.Contest> _contestRepo;
     private readonly ContestCountingCircleDetailsRepo _ccDetailsRepo;
     private readonly ContestService _contestService;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
@@ -39,6 +40,7 @@ public class ContestCountingCircleDetailsWriter
         IAggregateRepository aggregateRepository,
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.CountingCircle> countingCircleRepo,
+        IDbRepository<DataContext, DataModels.Contest> contestRepo,
         ContestCountingCircleDetailsRepo ccDetailsRepo,
         ContestService contestService,
         ValidationResultsEnsurer validationResultsEnsurer)
@@ -48,6 +50,7 @@ public class ContestCountingCircleDetailsWriter
         _aggregateRepository = aggregateRepository;
         _permissionService = permissionService;
         _countingCircleRepo = countingCircleRepo;
+        _contestRepo = contestRepo;
         _ccDetailsRepo = ccDetailsRepo;
         _contestService = contestService;
         _validationResultsEnsurer = validationResultsEnsurer;
@@ -55,12 +58,12 @@ public class ContestCountingCircleDetailsWriter
 
     public async Task CreateOrUpdate(ContestCountingCircleDetails details)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(details.CountingCircleId, details.ContestId);
         var (_, testingPhaseEnded) = await _contestService.EnsureNotLocked(details.ContestId);
         await ValidateSwissAbroadsDetailsOnlyIfAllowed(details.ContestId, details.CountingCircleId, details);
 
         await EnsureValidVotingCards(details.ContestId, details.CountingCircleId, details);
+        await EnsureValidCountingMachine(details.ContestId, details.CountingMachine);
 
         var existingCcDetails = await GetDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
         await _validationResultsEnsurer.EnsureContestCountingCircleDetailsIsValid(details, existingCcDetails);
@@ -144,6 +147,8 @@ public class ContestCountingCircleDetailsWriter
             .AsSplitQuery()
             .Include(x => x.SnapshotContest!.DomainOfInfluence.CantonDefaults)
             .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
+            .Include(x => x.Electorates)
+            .Include(x => x.ContestElectorates)
             .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
             ?? throw new EntityNotFoundException(new { basisCountingCircleId, contestId });
 
@@ -167,6 +172,31 @@ public class ContestCountingCircleDetailsWriter
         {
             throw new ValidationException($"Voting card channel {invalidVotingCardChannel.Channel}/{invalidVotingCardChannel.Valid} is not enabled");
         }
+
+        var electorates = cc.ContestElectorates.Count > 0
+            ? cc.ContestElectorates.OfType<DataModels.CountingCircleElectorateBase>().ToList()
+            : cc.Electorates.OfType<DataModels.CountingCircleElectorateBase>().ToList();
+        var electorateDoiTypes = electorates.SelectMany(e => e.DomainOfInfluenceTypes).ToHashSet();
+        var providedUnelectoratedDoiTypes = providedDomainOfInfluenceTypes.Where(doiType => !electorateDoiTypes.Contains(doiType)).ToList();
+        if (providedUnelectoratedDoiTypes.Count > 0)
+        {
+            electorates.Add(new DataModels.CountingCircleElectorate { DomainOfInfluenceTypes = providedUnelectoratedDoiTypes });
+        }
+
+        foreach (var electorate in electorates)
+        {
+            var uniqueVotingCardCountsByChannelAndValid = details.VotingCards
+                .Where(vc => electorate.DomainOfInfluenceTypes.Contains(vc.DomainOfInfluenceType))
+                .GroupBy(vc => new { vc.Channel, vc.Valid })
+                .ToDictionary(
+                    x => x.Key,
+                    x => x.Select(y => y.CountOfReceivedVotingCards).ToHashSet());
+
+            if (uniqueVotingCardCountsByChannelAndValid.Any(e => e.Value.Count > 1))
+            {
+                throw new ValidationException("Voting card counts per electorate, channel and valid state must be unique");
+            }
+        }
     }
 
     private async Task<DataModels.ContestCountingCircleDetails> GetDetails(Guid contestId, Guid ccId, bool testingPhaseEnded)
@@ -175,5 +205,22 @@ public class ContestCountingCircleDetailsWriter
 
         return await _ccDetailsRepo.GetWithRelatedEntities(ccDetailsId)
           ?? throw new EntityNotFoundException(new { contestId, ccId });
+    }
+
+    private async Task EnsureValidCountingMachine(Guid contestId, DataModels.CountingMachine countingMachine)
+    {
+        var countingMachineEnabled = await _contestRepo.Query()
+            .Include(c => c.DomainOfInfluence)
+            .AnyAsync(c => c.Id == contestId && c.DomainOfInfluence.CantonDefaults.CountingMachineEnabled);
+
+        if (!countingMachineEnabled && countingMachine != DataModels.CountingMachine.Unspecified)
+        {
+            throw new ValidationException("Cannot set counting machine if it is not enabled on canton settings");
+        }
+
+        if (countingMachineEnabled && countingMachine == DataModels.CountingMachine.Unspecified)
+        {
+            throw new ValidationException("Counting machine is required");
+        }
     }
 }

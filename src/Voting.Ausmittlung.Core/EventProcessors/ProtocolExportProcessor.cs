@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Messaging;
@@ -28,7 +29,8 @@ public class ProtocolExportProcessor :
         IDbRepository<DataContext, ProtocolExport> repo,
         ILogger<ProtocolExportProcessor> logger,
         IMapper mapper,
-        MessageProducerBuffer messageProducerBuffer)
+        MessageProducerBuffer messageProducerBuffer,
+        IDbRepository<DataContext, CountingCircle> countingCircleRepo)
     {
         _repo = repo;
         _logger = logger;
@@ -39,6 +41,11 @@ public class ProtocolExportProcessor :
     public async Task Process(ProtocolExportStarted eventData)
     {
         var protocolExport = _mapper.Map<ProtocolExport>(eventData);
+
+        if (protocolExport.CountingCircleId.HasValue)
+        {
+            protocolExport.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(protocolExport.ContestId, protocolExport.CountingCircleId.Value);
+        }
 
         // Delete previous protocol export if it was already started once
         await _repo.DeleteByKeyIfExists(protocolExport.Id);

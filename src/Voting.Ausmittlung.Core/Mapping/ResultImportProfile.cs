@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -19,24 +19,24 @@ public class ResultImportProfile : Profile
             .ForMember(dst => dst.MajorityElectionId, opts => opts.MapFrom(x => x.PoliticalBusinessId))
             .ForMember(x => x.CandidateResults, opts => opts.MapFrom(x => x.CandidateVoteCounts))
             .ForMember(dst => dst.CountingCircleId, opts => opts.MapFrom(x => x.BasisCountingCircleId))
-            .ForMember(dst => dst.WriteIns, opts => opts.MapFrom(src => src.WriteInVoteCounts));
+            .ForMember(dst => dst.WriteIns, opts => opts.MapFrom(src => src.WriteIns));
         CreateMap<MajorityElectionResultImport, SecondaryMajorityElectionResultImported>()
             .ForMember(dst => dst.SecondaryMajorityElectionId, opts => opts.MapFrom(x => x.PoliticalBusinessId))
             .ForMember(x => x.CandidateResults, opts => opts.MapFrom(x => x.CandidateVoteCounts))
             .ForMember(dst => dst.CountingCircleId, opts => opts.MapFrom(x => x.BasisCountingCircleId))
-            .ForMember(dst => dst.WriteIns, opts => opts.MapFrom(src => src.WriteInVoteCounts));
+            .ForMember(dst => dst.WriteIns, opts => opts.MapFrom(src => src.WriteIns));
         CreateMap<KeyValuePair<Guid, int>, MajorityElectionCandidateResultImportEventData>()
             .ConvertUsing(kvp => new MajorityElectionCandidateResultImportEventData
             {
                 CandidateId = kvp.Key.ToString(),
                 VoteCount = kvp.Value,
             });
-        CreateMap<KeyValuePair<string, int>, MajorityElectionWriteInEventData>()
+        CreateMap<KeyValuePair<string, WriteInMapping>, MajorityElectionWriteInEventData>()
             .ConvertUsing(kvp => new MajorityElectionWriteInEventData
             {
-                WriteInMappingId = Guid.NewGuid().ToString(),
+                WriteInMappingId = kvp.Value.Id.ToString(),
                 WriteInCandidateName = kvp.Key,
-                VoteCount = kvp.Value,
+                VoteCount = kvp.Value.CountOfVotes,
             });
 
         CreateMap<ProportionalElectionResultImport, ProportionalElectionResultImported>()
@@ -58,5 +58,7 @@ public class ResultImportProfile : Profile
 
         CreateMap<ImportIgnoredCountingCircleEventData, IgnoredImportCountingCircle>()
             .ReverseMap();
+
+        CreateMap<CountingCircleResultCountOfVotersInformationImport, CountingCircleResultCountOfVotersInformationImportEventData>();
     }
 }

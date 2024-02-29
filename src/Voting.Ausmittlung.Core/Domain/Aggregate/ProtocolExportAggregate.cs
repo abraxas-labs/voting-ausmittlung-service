@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -26,6 +26,10 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
     public Guid ContestId { get; set; }
 
     public string CallbackToken { get; set; } = string.Empty;
+
+    public DateTime CreatedDate { get; set; }
+
+    public string ExportKey { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets a value indicating whether the protocol export is completed or not.
@@ -106,6 +110,8 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
                 CallbackToken = ev.CallbackToken;
                 ContestId = GuidParser.Parse(ev.ContestId);
                 IsCompleted = false;
+                CreatedDate = ev.EventInfo.Timestamp.ToDateTime();
+                ExportKey = ev.ExportKey;
                 break;
             case ProtocolExportCompleted:
                 IsCompleted = true;

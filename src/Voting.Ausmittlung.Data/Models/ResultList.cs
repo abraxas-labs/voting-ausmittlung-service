@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -16,6 +16,7 @@ public class ResultList
         Contest contest,
         CountingCircle countingCircle,
         ContestCountingCircleDetails details,
+        ContestCountingCircleElectorateSummary electorateSummary,
         List<SimpleCountingCircleResult> results,
         bool currentTenantIsResponsible,
         Guid? contestCountingCircleContactPersonId,
@@ -24,6 +25,7 @@ public class ResultList
         Contest = contest;
         CountingCircle = countingCircle;
         Details = details;
+        ElectorateSummary = electorateSummary;
         Results = results;
         CurrentTenantIsResponsible = currentTenantIsResponsible;
         ContestCountingCircleContactPersonId = contestCountingCircleContactPersonId;
@@ -35,6 +37,8 @@ public class ResultList
     public CountingCircle CountingCircle { get; }
 
     public ContestCountingCircleDetails Details { get; }
+
+    public ContestCountingCircleElectorateSummary ElectorateSummary { get; }
 
     public List<SimpleCountingCircleResult> Results { get; }
 

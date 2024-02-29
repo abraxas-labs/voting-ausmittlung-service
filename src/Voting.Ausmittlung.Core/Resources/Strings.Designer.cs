@@ -76,7 +76,18 @@ namespace Voting.Ausmittlung.Resources {
                 return ResourceManager.GetString("Exports.DomainOfInfluenceType.Ct", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to bezrik.
+        /// </summary>
+        internal static string Exports_DomainOfInfluenceType_Bz
+        {
+            get
+            {
+                return ResourceManager.GetString("Exports.DomainOfInfluenceType.Bz", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to kommunal.
         /// </summary>

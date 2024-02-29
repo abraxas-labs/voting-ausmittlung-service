@@ -1,21 +1,21 @@
 <delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0222/1">
-  <deliveryHeader xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5">
-    <eCH-0058:senderId>ABX-VOTING</eCH-0058:senderId>
-    <eCH-0058:messageId>mock-id</eCH-0058:messageId>
-    <eCH-0058:messageType>1710967</eCH-0058:messageType>
-    <eCH-0058:sendingApplication>
-      <eCH-0058:manufacturer>Abraxas Informatik AG</eCH-0058:manufacturer>
-      <eCH-0058:product>Voting.Ausmittlung</eCH-0058:product>
-      <eCH-0058:productVersion>0.0.0.1</eCH-0058:productVersion>
-    </eCH-0058:sendingApplication>
-    <eCH-0058:messageDate>2020-01-10T13:12:10.200</eCH-0058:messageDate>
-    <eCH-0058:action>1</eCH-0058:action>
-    <eCH-0058:testDeliveryFlag>true</eCH-0058:testDeliveryFlag>
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1710967</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
   </deliveryHeader>
   <rawDataDelivery>
     <reportingBody>
       <reportingBodyIdentification>200200200200200200</reportingBodyIdentification>
-      <creationDateTime>2020-01-10T13:12:10.200</creationDateTime>
+      <creationDateTime>2020-01-10T13:12:10.2Z</creationDateTime>
     </reportingBody>
     <rawData>
       <contestIdentification>95825eb0-0f52-461a-a5f8-23fb35fa69e1</contestIdentification>

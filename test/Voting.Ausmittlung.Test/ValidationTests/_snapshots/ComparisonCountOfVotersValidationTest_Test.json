@@ -11,7 +11,9 @@
         "PreviousDate": "2017-05-10T00:00:00Z",
         "PreviousCount": 1000,
         "CurrentCount": 960
-      }
+      },
+      "ValidationGroup": 0,
+      "GroupValue": ""
     }
   ]
 }

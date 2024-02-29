@@ -106,8 +106,28 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "bae30465-19cd-5156-a00f-d1d992673f9e",
+      "Description": "WP_Gemeinden_BFS_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "c9d8a5e6-9194-5bb5-966a-c904d766e781",
+      "Description": "WP_Gemeinden_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "efdff10c-50b0-5215-ae25-8af6f0c8230d",
+      "Description": "WP_Gemeinden_SK_STAT_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
       "Description": "WP_Kandidaten",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "4c4226ad-20ae-5b54-9c0c-4670c97fcd3f",
+      "Description": "WP_Kandidaten_Einzel",
       "EntityDescription": "Pw SG de"
     },
     {
@@ -116,8 +136,18 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "432c8b48-f0b2-5463-a408-753afe4dbf82",
+      "Description": "WP_KandidatenGde_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "376a8b91-401e-5c75-9de9-5d25972bbb6e",
       "Description": "WP_Listen",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "4be7fee9-d304-56f1-b1f3-9c25b6d03afd",
+      "Description": "WP_Listen_Einzel",
       "EntityDescription": "Pw SG de"
     },
     {
@@ -126,8 +156,18 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "4b9f83a4-baab-54f3-81d9-913942f52d76",
+      "Description": "WP_ListenGde_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "c17612c5-b8f6-5958-b18b-36703faed41c",
       "Description": "WP_Wahl",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "1f667487-22f9-5774-8d42-4305cab27223",
+      "Description": "WP_Wahl_Einzel",
       "EntityDescription": "Pw SG de"
     },
     {
@@ -136,8 +176,18 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "508d38cd-c1f6-56f2-adce-7480e24d472b",
+      "Description": "WPStatic_Gemeinden_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "cc0fe9fc-ac08-5b8e-b8ea-870e3d8611ae",
       "Description": "WPStatic_Kandidaten",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "bdf46055-3c72-520e-bb0f-34b34895eadf",
+      "Description": "WPStatic_Kandidaten_Einzel",
       "EntityDescription": "Pw SG de"
     },
     {

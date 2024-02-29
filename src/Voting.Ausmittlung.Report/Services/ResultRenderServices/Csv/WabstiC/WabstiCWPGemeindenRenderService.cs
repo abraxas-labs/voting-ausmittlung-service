@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -19,25 +19,22 @@ using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceTy
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 
 // we use german names here since the entire wabstiC domain is in german and there are no eCH definitions.
-public class WabstiCWPGemeindenRenderService : IRendererService
+public class WabstiCWPGemeindenRenderService : WabstiCWPBaseRenderService
 {
-    private readonly TemplateService _templateService;
-    private readonly IDbRepository<DataContext, ProportionalElection> _repo;
     private readonly WabstiCContestDetailsAttacher _contestDetailsAttacher;
 
     public WabstiCWPGemeindenRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElection> repo,
         WabstiCContestDetailsAttacher contestDetailsAttacher)
+        : base(templateService, repo)
     {
-        _templateService = templateService;
-        _repo = repo;
         _contestDetailsAttacher = contestDetailsAttacher;
     }
 
-    public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
+    public override async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
-        var results = await _repo.Query()
+        var results = await Repo.Query()
             .AsSplitQuery()
             .Where(x => x.ContestId == ctx.ContestId && ctx.PoliticalBusinessIds.Contains(x.Id))
             .SelectMany(x => x.Results)
@@ -74,7 +71,7 @@ public class WabstiCWPGemeindenRenderService : IRendererService
 
         await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, results, ct);
 
-        return _templateService.RenderToCsv(
+        return await RenderToCsv(
             ctx,
             results);
     }

@@ -1,6 +1,7 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class SecondaryMajorityElectionResultImportProcessor :
     IEventProcessor<SecondaryMajorityElectionResultImported>,
+    IEventProcessor<SecondaryMajorityElectionWriteInBallotImported>,
     IEventProcessor<SecondaryMajorityElectionWriteInsMapped>,
     IEventProcessor<SecondaryMajorityElectionWriteInsReset>
 {
@@ -69,6 +71,24 @@ public class SecondaryMajorityElectionResultImportProcessor :
         await _dataContext.SaveChangesAsync();
     }
 
+    // Note: This event was not emitted in earlier versions of VOTING Ausmittlung.
+    public async Task Process(SecondaryMajorityElectionWriteInBallotImported eventData)
+    {
+        var electionId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
+        var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var result = await _secondaryMajorityElectionResultRepo.Query()
+            .AsTracking()
+            .FirstOrDefaultAsync(x =>
+                x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId && x.SecondaryMajorityElectionId == electionId)
+            ?? throw new EntityNotFoundException(nameof(SecondaryMajorityElectionResult), new { countingCircleId, electionId });
+
+        var writeInBallot = _mapper.Map<SecondaryMajorityElectionWriteInBallot>(eventData);
+        result.WriteInBallots.Add(writeInBallot);
+        await _dataContext.SaveChangesAsync();
+    }
+
+    // Note: Write ins may be mapped multiple times, for example
+    // a second event corrects the write in mapping from the first event, since something was mapped incorrectly
     public async Task Process(SecondaryMajorityElectionWriteInsMapped eventData)
     {
         var electionId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
@@ -77,12 +97,16 @@ public class SecondaryMajorityElectionResultImportProcessor :
             .AsTracking()
             .AsSplitQuery()
             .Include(x => x.CandidateResults)
-            .Include(x => x.WriteInMappings)
+            .Include(x => x.WriteInMappings.OrderBy(m => m.WriteInCandidateName))
             .ThenInclude(x => x.CandidateResult)
-            .Include(x => x.PrimaryResult)
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.BallotPositions)
+            .ThenInclude(x => x.Ballot)
+            .Include(x => x.PrimaryResult.MajorityElection.DomainOfInfluence.CantonDefaults)
             .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId
                     && x.SecondaryMajorityElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
+        var supportsInvalidVotes = result.PrimaryResult.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
 
         // we remove this election from the count, we may re-add it later, if there are still unspecified write-ins
         if (result.WriteInMappings.HasUnspecifiedMappings())
@@ -91,35 +115,7 @@ public class SecondaryMajorityElectionResultImportProcessor :
             await UpdateSimpleResult(result.PrimaryResult);
         }
 
-        var candidateResultsByCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
-        var writeInsById = result.WriteInMappings.ToDictionary(x => x.Id);
-        foreach (var writeInMapping in eventData.WriteInMappings)
-        {
-            if (!writeInsById.TryGetValue(GuidParser.Parse(writeInMapping.WriteInMappingId), out var resultMapping))
-            {
-                throw new ValidationException("Write in candidate not found");
-            }
-
-            AdjustWriteInMappingVoteCount(result, resultMapping, -1);
-
-            resultMapping.Target = _mapper.Map<MajorityElectionWriteInMappingTarget>(writeInMapping.Target);
-            if (resultMapping.Target == MajorityElectionWriteInMappingTarget.Candidate)
-            {
-                if (!candidateResultsByCandidateId.TryGetValue(GuidParser.Parse(writeInMapping.CandidateId), out var candidateResult))
-                {
-                    throw new ValidationException("Candidate result for mapped write in not found");
-                }
-
-                resultMapping.CandidateResultId = candidateResult.Id;
-                resultMapping.CandidateResult = candidateResult;
-            }
-            else
-            {
-                resultMapping.CandidateResultId = null;
-            }
-
-            AdjustWriteInMappingVoteCount(result, resultMapping, 1);
-        }
+        ApplyWriteInMappings(result, eventData, supportsInvalidVotes);
 
         if (result.WriteInMappings.HasUnspecifiedMappings())
         {
@@ -140,6 +136,9 @@ public class SecondaryMajorityElectionResultImportProcessor :
             .Include(x => x.CandidateResults)
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.CandidateResult)
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.BallotPositions)
+            .ThenInclude(x => x.Ballot)
             .Include(x => x.PrimaryResult)
             .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId
                 && x.SecondaryMajorityElectionId == electionId)
@@ -149,9 +148,15 @@ public class SecondaryMajorityElectionResultImportProcessor :
 
         foreach (var writeInMapping in result.WriteInMappings)
         {
-            AdjustWriteInMappingVoteCount(result, writeInMapping, -1);
+            ApplyWriteInMappingToResult(result, writeInMapping, -1);
+
             writeInMapping.CandidateResultId = null;
             writeInMapping.Target = MajorityElectionWriteInMappingTarget.Unspecified;
+
+            foreach (var ballotPosition in writeInMapping.BallotPositions)
+            {
+                ballotPosition.Target = MajorityElectionWriteInMappingTarget.Unspecified;
+            }
         }
 
         // WriteIns were correctly mapped before the reset -> only increase count in this case
@@ -164,19 +169,125 @@ public class SecondaryMajorityElectionResultImportProcessor :
         await _dataContext.SaveChangesAsync();
     }
 
-    private void AdjustWriteInMappingVoteCount(
+    private void ApplyWriteInMappings(
+        SecondaryMajorityElectionResult result,
+        SecondaryMajorityElectionWriteInsMapped eventData,
+        bool supportsInvalidVotes)
+    {
+        var candidateResultsByCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
+        var writeInsById = result.WriteInMappings.ToDictionary(x => x.Id);
+        foreach (var updatedMapping in eventData.WriteInMappings)
+        {
+            if (!writeInsById.TryGetValue(GuidParser.Parse(updatedMapping.WriteInMappingId), out var existingMapping))
+            {
+                throw new ValidationException("Write in mapping not found");
+            }
+
+            // The write ins could already have been mapped, remove these vote counts from the result here
+            ApplyWriteInMappingToResult(result, existingMapping, -1);
+
+            // Update the target (ex. candidate, individual, ...) of the write in mappings
+            UpdateExistingWithUpdatedMapping(existingMapping, updatedMapping, candidateResultsByCandidateId);
+        }
+
+        // Check whether the write ins lead to duplicated candidates on ballots and adjust these
+        // Older events do not have write in ballot information and skip this logic
+        foreach (var ballotPosition in result.WriteInMappings.SelectMany(m => m.BallotPositions))
+        {
+            UpdateBallotPosition(ballotPosition, supportsInvalidVotes);
+        }
+
+        foreach (var updatedMapping in eventData.WriteInMappings)
+        {
+            var existingMapping = writeInsById[GuidParser.Parse(updatedMapping.WriteInMappingId)];
+
+            // Finally, add the updated write in mapping vote counts back to the result
+            ApplyWriteInMappingToResult(result, existingMapping, 1);
+        }
+    }
+
+    private void UpdateExistingWithUpdatedMapping(
+        SecondaryMajorityElectionWriteInMapping existingMapping,
+        MajorityElectionWriteInMappedEventData updatedMapping,
+        Dictionary<Guid, SecondaryMajorityElectionCandidateResult> candidateResultsByCandidateId)
+    {
+        existingMapping.Target = _mapper.Map<MajorityElectionWriteInMappingTarget>(updatedMapping.Target);
+        if (existingMapping.Target == MajorityElectionWriteInMappingTarget.Candidate)
+        {
+            var candidateId = GuidParser.Parse(updatedMapping.CandidateId);
+            if (!candidateResultsByCandidateId.TryGetValue(candidateId, out var candidateResult))
+            {
+                throw new ValidationException("Candidate result for mapped write in not found");
+            }
+
+            existingMapping.CandidateResultId = candidateResult.Id;
+            existingMapping.CandidateResult = candidateResult;
+        }
+        else
+        {
+            existingMapping.CandidateResultId = null;
+        }
+
+        foreach (var ballotPosition in existingMapping.BallotPositions)
+        {
+            ballotPosition.Target = existingMapping.Target;
+        }
+    }
+
+    private void UpdateBallotPosition(SecondaryMajorityElectionWriteInBallotPosition ballotPosition, bool supportsInvalidVotes)
+    {
+        if (ballotPosition.Target != MajorityElectionWriteInMappingTarget.Candidate)
+        {
+            return;
+        }
+
+        var candidateId = ballotPosition.WriteInMapping!.CandidateId!.Value;
+        if (ballotPosition.Ballot!.CandidateIds.Contains(candidateId)
+            || ballotPosition.Ballot.WriteInPositions.Any(p =>
+                p.Id != ballotPosition.Id
+                && p.Target == MajorityElectionWriteInMappingTarget.Candidate
+                && p.WriteInMapping!.CandidateId == candidateId))
+        {
+            ballotPosition.Target = supportsInvalidVotes
+                ? MajorityElectionWriteInMappingTarget.Invalid
+                : MajorityElectionWriteInMappingTarget.Empty;
+        }
+    }
+
+    private void ApplyWriteInMappingToResult(
         SecondaryMajorityElectionResult result,
         SecondaryMajorityElectionWriteInMapping writeIn,
         int deltaFactor)
     {
+        // Needs to be handled separately, since ballot positions may not map to the candidate
+        if (writeIn.Target == MajorityElectionWriteInMappingTarget.Candidate && writeIn.BallotPositions.Count > 0)
+        {
+            foreach (var position in writeIn.BallotPositions)
+            {
+                ApplyWriteInToResult(result, position.Target, writeIn.CandidateResult, deltaFactor);
+            }
+
+            return;
+        }
+
+        // Everything else can be directly applied via the aggregated write in mapping
         var deltaVoteCount = writeIn.VoteCount * deltaFactor;
-        switch (writeIn.Target)
+        ApplyWriteInToResult(result, writeIn.Target, writeIn.CandidateResult, deltaVoteCount);
+    }
+
+    private void ApplyWriteInToResult(
+        SecondaryMajorityElectionResult result,
+        MajorityElectionWriteInMappingTarget target,
+        SecondaryMajorityElectionCandidateResult? candidateResult,
+        int deltaVoteCount)
+    {
+        switch (target)
         {
             case MajorityElectionWriteInMappingTarget.Individual:
                 result.EVotingSubTotal.IndividualVoteCount += deltaVoteCount;
                 break;
             case MajorityElectionWriteInMappingTarget.Candidate:
-                writeIn.CandidateResult!.EVotingWriteInsVoteCount += deltaVoteCount;
+                candidateResult!.EVotingWriteInsVoteCount += deltaVoteCount;
                 result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual += deltaVoteCount;
                 break;
             case MajorityElectionWriteInMappingTarget.Empty:

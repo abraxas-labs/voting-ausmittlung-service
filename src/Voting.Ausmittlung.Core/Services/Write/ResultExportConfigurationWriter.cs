@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
@@ -37,7 +37,6 @@ public class ResultExportConfigurationWriter
 
     public async Task Update(ResultExportConfiguration config)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
         var id = AusmittlungUuidV5.BuildResultExportConfiguration(config.ContestId, config.ExportConfigurationId);
 
         var existingConfig = await _repo

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -104,6 +104,7 @@ public static class ProportionalElectionEndResultMockedData
             NumberOfMandates = numberOfMandates,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
+            EnforceCandidateCheckDigitForCountingCircles = true,
             ProportionalElectionLists = new List<ProportionalElectionList>
                 {
                     BuildList(
@@ -112,9 +113,9 @@ public static class ProportionalElectionEndResultMockedData
                         numberOfMandates,
                         new List<ProportionalElectionCandidate>
                         {
-                            BuildCandidate(List1CandidateId1, 1, 1),
-                            BuildCandidate(List1CandidateId2, 1, 2),
-                            BuildCandidate(List1CandidateId3, 1, 3),
+                            BuildCandidate(List1CandidateId1, 1, 1, 6),
+                            BuildCandidate(List1CandidateId2, 1, 2, 4),
+                            BuildCandidate(List1CandidateId3, 1, 3, 2),
                         }),
                     BuildList(
                         ListId2,
@@ -122,9 +123,9 @@ public static class ProportionalElectionEndResultMockedData
                         numberOfMandates,
                         new List<ProportionalElectionCandidate>
                         {
-                            BuildCandidate(List2CandidateId1, 2, 1),
-                            BuildCandidate(List2CandidateId2, 2, 2),
-                            BuildCandidate(List2CandidateId3, 2, 3),
+                            BuildCandidate(List2CandidateId1, 2, 1, 3),
+                            BuildCandidate(List2CandidateId2, 2, 2, 1),
+                            BuildCandidate(List2CandidateId3, 2, 3, 0),
                         }),
                     BuildList(
                         ListId3,
@@ -132,9 +133,9 @@ public static class ProportionalElectionEndResultMockedData
                         numberOfMandates,
                         new List<ProportionalElectionCandidate>
                         {
-                            BuildCandidate(List3CandidateId1, 3, 1),
-                            BuildCandidate(List3CandidateId2, 3, 2),
-                            BuildCandidate(List3CandidateId3, 3, 3),
+                            BuildCandidate(List3CandidateId1, 3, 1, 0),
+                            BuildCandidate(List3CandidateId2, 3, 2, 9),
+                            BuildCandidate(List3CandidateId3, 3, 3, 7),
                         }),
                     BuildList(
                         ListId4,
@@ -142,8 +143,8 @@ public static class ProportionalElectionEndResultMockedData
                         numberOfMandates,
                         new List<ProportionalElectionCandidate>
                         {
-                            BuildCandidate(List4CandidateId1, 4, 1),
-                            BuildCandidate(List4CandidateId2, 4, 2),
+                            BuildCandidate(List4CandidateId1, 4, 1, 8),
+                            BuildCandidate(List4CandidateId2, 4, 2, 6),
                         }),
                 },
             ProportionalElectionListUnions = new List<ProportionalElectionListUnion>
@@ -240,7 +241,8 @@ public static class ProportionalElectionEndResultMockedData
     private static ProportionalElectionCandidate BuildCandidate(
         string candidateId,
         int listPosition,
-        int candidatePosition)
+        int candidatePosition,
+        int checkDigit)
     {
         var position = $"L{listPosition}.C{candidatePosition}";
         return new ProportionalElectionCandidate
@@ -264,6 +266,7 @@ public static class ProportionalElectionEndResultMockedData
                 "occupation",
                 (t, o) => t.OccupationTitle = o,
                 "occupation title"),
+            CheckDigit = checkDigit,
         };
     }
 }

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,6 +27,8 @@ public class MajorityElectionEndResultBuilder
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityElectionWriteInsRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionWriteInBallot> _majorityElectionWriteInBallotsRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> _secondaryMajorityElectionWriteInBallotsRepo;
     private readonly DataContext _dbContext;
 
     public MajorityElectionEndResultBuilder(
@@ -38,7 +40,9 @@ public class MajorityElectionEndResultBuilder
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityElectionWriteInsRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
-        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
+        IDbRepository<DataContext, MajorityElectionWriteInBallot> majorityElectionWriteInBallotsRepo,
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> secondaryMajorityElectionWriteInBallotsRepo)
     {
         _resultRepo = resultRepo;
         _endResultRepo = endResultRepo;
@@ -49,6 +53,8 @@ public class MajorityElectionEndResultBuilder
         _secondaryMajorityElectionWriteInsRepo = secondaryMajorityElectionWriteInsRepo;
         _simpleResultRepo = simpleResultRepo;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
+        _majorityElectionWriteInBallotsRepo = majorityElectionWriteInBallotsRepo;
+        _secondaryMajorityElectionWriteInBallotsRepo = secondaryMajorityElectionWriteInBallotsRepo;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -83,6 +89,18 @@ public class MajorityElectionEndResultBuilder
                 .Select(x => x.Id)
                 .ToListAsync();
             await _secondaryMajorityElectionWriteInsRepo.DeleteRangeByKey(secondaryIdsToDelete);
+
+            var primaryBallotIdsToDelete = await _majorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.Result.MajorityElection.ContestId == contestId)
+                .Select(x => x.Id)
+                .ToListAsync();
+            await _majorityElectionWriteInBallotsRepo.DeleteRangeByKey(primaryBallotIdsToDelete);
+
+            var secondaryBallotIdsToDelete = await _secondaryMajorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.Result.SecondaryMajorityElection.PrimaryMajorityElection.ContestId == contestId)
+                .Select(x => x.Id)
+                .ToListAsync();
+            await _secondaryMajorityElectionWriteInBallotsRepo.DeleteRangeByKey(secondaryBallotIdsToDelete);
         }
 
         await _dbContext.SaveChangesAsync();

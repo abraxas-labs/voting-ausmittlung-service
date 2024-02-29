@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
@@ -14,11 +15,13 @@ using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
 public class ContestReader
 {
+    private readonly IAuth _auth;
     private readonly IDbRepository<DataContext, Contest> _repo;
     private readonly IDbRepository<DataContext, ProportionalElectionUnion> _proportionalElectionUnionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionUnion> _majorityElectionUnionRepo;
@@ -27,6 +30,7 @@ public class ContestReader
     private readonly PermissionService _permissionService;
 
     public ContestReader(
+        IAuth auth,
         IDbRepository<DataContext, Contest> repo,
         IDbRepository<DataContext, ProportionalElectionUnion> proportionalElectionUnionRepo,
         IDbRepository<DataContext, MajorityElectionUnion> majorityElectionUnionRepo,
@@ -34,6 +38,7 @@ public class ContestReader
         SimplePoliticalBusinessRepo simplePoliticalBusinessRepo,
         PermissionService permissionService)
     {
+        _auth = auth;
         _repo = repo;
         _permissionService = permissionService;
         _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
@@ -44,11 +49,9 @@ public class ContestReader
 
     public async Task<Contest> Get(Guid id)
     {
-        _permissionService.EnsureAnyRole();
-
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(id);
 
-        var isMonitoringAdmin = _permissionService.IsMonitoringElectionAdmin();
+        var readOnlyOwned = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
         return await _repo.Query()
                    .AsSplitQuery()
                    .Include(x => x.Translations)
@@ -56,7 +59,7 @@ public class ContestReader
                    .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
                        pb.Active
                        && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                       && (!isMonitoringAdmin || pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
+                       && (!readOnlyOwned || pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
                        && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId))))
                    .FirstOrDefaultAsync(c => c.Id == id)
                ?? throw new EntityNotFoundException(id);
@@ -64,8 +67,6 @@ public class ContestReader
 
     public async Task<List<CountingCircle>> GetAccessibleCountingCircles(Guid contestId)
     {
-        _permissionService.EnsureAnyRole();
-
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(contestId);
 
         var contest = await _repo.GetByKey(contestId)
@@ -86,7 +87,6 @@ public class ContestReader
 
     public async Task<List<ContestSummary>> ListSummaries(IReadOnlyCollection<ContestState> states)
     {
-        _permissionService.EnsureAnyRole();
         var tenantId = _permissionService.TenantId;
 
         // Careful! ListSummaries lists all accessible contests that were ever created.
@@ -96,7 +96,7 @@ public class ContestReader
         var query = _simplePoliticalBusinessRepo.BuildAccessibleQuery(tenantId)
             .Where(pb => pb.Active && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection);
 
-        if (_permissionService.IsMonitoringElectionAdmin())
+        if (_auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
         {
             query = query.Where(pb => pb.DomainOfInfluence.SecureConnectId == tenantId);
         }
@@ -143,8 +143,6 @@ public class ContestReader
 
     public async Task<IEnumerable<PoliticalBusinessUnion>> ListPoliticalBusinessUnions(Guid contestId)
     {
-        _permissionService.EnsureMonitoringElectionAdmin();
-
         var tenantId = _permissionService.TenantId;
 
         var proportionalElectionUnions = await _proportionalElectionUnionRepo.Query()
@@ -163,6 +161,12 @@ public class ContestReader
             .Cast<PoliticalBusinessUnion>()
             .Union(majorityElectionUnions)
             .OrderBy(x => x.Description);
+    }
+
+    public async Task<DomainOfInfluenceCantonDefaults> GetCantonDefaults(Guid contestId)
+    {
+        var contest = await Get(contestId);
+        return contest.DomainOfInfluence.CantonDefaults;
     }
 
     internal async Task<IReadOnlySet<Guid>> GetAccessiblePoliticalBusinessIds(Guid contestId)

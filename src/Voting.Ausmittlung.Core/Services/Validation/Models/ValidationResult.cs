@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -27,4 +27,8 @@ public class ValidationResult
     /// ValidationResult message ProtoModels.
     /// </summary>
     public object? Data { get; }
+
+    public SharedProto.ValidationGroup ValidationGroup { get; set; } = SharedProto.ValidationGroup.Unspecified;
+
+    public string GroupValue { get; set; } = string.Empty;
 }

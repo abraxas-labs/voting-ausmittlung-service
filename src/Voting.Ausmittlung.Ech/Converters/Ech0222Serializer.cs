@@ -1,9 +1,9 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Linq;
-using eCH_0222_1_0;
-using eCH_0222_1_0.Standard;
+using Ech0222_1_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Lib.Common;
@@ -32,13 +32,13 @@ public class Ech0222Serializer
                 ContestIdentification = proportionalElection.Contest.Id.ToString(),
                 CountingCircleRawData = proportionalElection.Results
                     .OrderBy(r => r.CountingCircle.BasisCountingCircleId).Select(r =>
-                        new CountingCircleRawData
+                        new RawDataTypeCountingCircleRawData
                         {
-                            countingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                            electionGroupBallotRawData = new[] { r.ToEchElectionGroupRawData() },
+                            CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                            ElectionGroupBallotRawData = new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData> { r.ToEchElectionGroupRawData() },
                         })
-                    .Where(x => x.electionGroupBallotRawData.Length > 0)
-                    .ToArray(),
+                    .Where(x => x.ElectionGroupBallotRawData.Count > 0)
+                    .ToList(),
             },
         });
     }
@@ -54,13 +54,13 @@ public class Ech0222Serializer
                 CountingCircleRawData = majorityElection.Results
                     .Where(x => x.Entry == MajorityElectionResultEntry.Detailed)
                     .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
-                    .Select(r => new CountingCircleRawData
+                    .Select(r => new RawDataTypeCountingCircleRawData
                     {
-                        countingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                        electionGroupBallotRawData = new[] { r.ToEchElectionGroupRawData() },
+                        CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                        ElectionGroupBallotRawData = new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData> { r.ToEchElectionGroupRawData() },
                     })
-                    .Where(x => x.electionGroupBallotRawData.Length > 0)
-                    .ToArray(),
+                    .Where(x => x.ElectionGroupBallotRawData.Count > 0)
+                    .ToList(),
             },
         });
     }
@@ -76,20 +76,24 @@ public class Ech0222Serializer
                 CountingCircleRawData = vote.Results
                     .Where(x => x.Entry == VoteResultEntry.Detailed)
                     .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
-                    .Select(r => new CountingCircleRawData
+                    .Select(r => new RawDataTypeCountingCircleRawData
                     {
-                        countingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                        VoteRawData = new[] { r.ToEchVoteRawData() },
+                        CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                        VoteRawData = new List<VoteRawDataType> { r.ToEchVoteRawData() },
                     })
-                    .Where(x => x.VoteRawData.Length > 0)
-                    .ToArray(),
+                    .Where(x => x.VoteRawData.Count > 0)
+                    .ToList(),
             },
         });
     }
 
     private ReportingBodyType GetReportingBody(Contest contest)
     {
-        return ReportingBodyType.Create(contest.DomainOfInfluence.SecureConnectId, _clock.UtcNow);
+        return new ReportingBodyType
+        {
+            ReportingBodyIdentification = contest.DomainOfInfluence.SecureConnectId,
+            CreationDateTime = _clock.UtcNow,
+        };
     }
 
     private Delivery WrapInDelivery(EventRawDataDelivery data)

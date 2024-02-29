@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -12,6 +12,7 @@ using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
+using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
@@ -56,6 +57,7 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             ContestId = contestId.ToString(),
             CountingCircleId = countingCircleId.ToString(),
             CountOfVotersInformation = _mapper.Map<CountOfVotersInformationEventData>(details.CountOfVotersInformation),
+            CountingMachine = _mapper.Map<SharedProto.CountingMachine>(details.CountingMachine),
             EventInfo = _eventInfoProvider.NewEventInfo(),
         };
 
@@ -87,6 +89,7 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             ContestId = ContestId.ToString(),
             CountingCircleId = CountingCircleId.ToString(),
             CountOfVotersInformation = _mapper.Map<CountOfVotersInformationEventData>(details.CountOfVotersInformation),
+            CountingMachine = _mapper.Map<SharedProto.CountingMachine>(details.CountingMachine),
             EventInfo = _eventInfoProvider.NewEventInfo(),
         };
 

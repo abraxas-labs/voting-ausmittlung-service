@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +35,6 @@ public class DomainOfInfluenceModelBuilder :
         builder.Ignore(di => di.IsSnapshot);
         builder.OwnsOne(doi => doi.CantonDefaults, b =>
         {
-            b.Property(x => x.ProportionalElectionMandateAlgorithms)
-                .HasPostgresEnumListToIntListConversion();
-
             b.OwnsMany(x => x.EnabledVotingCardChannels);
         });
         builder.Navigation(doi => doi.CantonDefaults).IsRequired();

@@ -1,14 +1,16 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using eCH_0110_4_0;
-using eCH_0155_4_0;
+using Ech0110_4_0;
+using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Ech.Utils;
 using Ballot = Voting.Ausmittlung.Data.Models.Ballot;
+using BallotType = Voting.Ausmittlung.Data.Models.BallotType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -21,7 +23,7 @@ internal static class VoteResultMapping
         return new VoteResultType
         {
             Vote = voteResult.Vote.ToEchVote(),
-            ballotResult = voteResult.Results.OrderBy(r => r.Ballot.Position).Select(r => r.ToEchBallotResult()).ToArray(),
+            BallotResult = voteResult.Results.OrderBy(r => r.Ballot.Position).Select(r => r.ToEchBallotResult()).ToList(),
             CountOfVotersInformation = new CountOfVotersInformationType { CountOfVotersTotal = voteResult.TotalCountOfVoters.ToString(CultureInfo.InvariantCulture) },
         };
     }
@@ -30,24 +32,18 @@ internal static class VoteResultMapping
     {
         var ballot = ballotResult.Ballot;
 
-        // The ballot description is optional in VOTING, but not in eCH
-        var ballotDescriptionInfos = ballot.Translations
-            .Where(t => !string.IsNullOrEmpty(t.Description))
-            .Select(t => BallotDescriptionInfo.Create(t.Language, t.Description, null))
+        // The ballot description does not exist in VOTING, but is needed in eCH
+        var ballotDescriptionInfos = Languages.All
+            .Select(l => new BallotDescriptionInformationTypeBallotDescriptionInfo
+            {
+                Language = l,
+                BallotDescriptionLong = UnknownDescriptionFallback,
+            })
             .ToList();
 
-        if (ballotDescriptionInfos.Count == 0)
+        var ballotResultType = new BallotResultType
         {
-            ballotDescriptionInfos = Languages.All
-                .Select(l => BallotDescriptionInfo.Create(l, UnknownDescriptionFallback, null))
-                .ToList();
-        }
-
-        var ballotDescription = BallotDescriptionInformation.Create(ballotDescriptionInfos);
-
-        return new BallotResultType
-        {
-            BallotDescription = ballotDescription,
+            BallotDescription = ballotDescriptionInfos,
             BallotPosition = ballot.Position.ToString(CultureInfo.InvariantCulture),
             BallotIdentification = ballot.Id.ToString(),
             CountOfAccountedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalAccountedBallots),
@@ -55,10 +51,18 @@ internal static class VoteResultMapping
             CountOfUnaccountedBallotsTotal = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalUnaccountedBallots),
             CountOfUnaccountedBlankBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalBlankBallots),
             CountOfUnaccountedInvalidBallots = ResultDetailFromTotal(ballotResult.CountOfVoters.TotalInvalidBallots),
-            Item = ballot.BallotType == BallotType.StandardBallot
-                ? ballotResult.QuestionResults.First().ToEchStandardBallotResult()
-                : ballotResult.ToEchVariantBallotResult(),
         };
+
+        if (ballot.BallotType == BallotType.StandardBallot)
+        {
+            ballotResultType.StandardBallot = ballotResult.QuestionResults.First().ToEchStandardBallotResult();
+        }
+        else
+        {
+            ballotResultType.VariantBallot = ballotResult.ToEchVariantBallotResult();
+        }
+
+        return ballotResultType;
     }
 
     private static StandardBallotResultType ToEchStandardBallotResult(this BallotQuestionResult questionResult)
@@ -78,27 +82,27 @@ internal static class VoteResultMapping
     {
         return new VariantBallotResultType
         {
-            questionInformation = ballotResult.QuestionResults.OrderBy(r => r.Question.Number).Select(r => r.ToEchStandardBallotResult()).ToArray(),
-            tieBreak = ballotResult.TieBreakQuestionResults.OrderBy(r => r.Question.Number).Select(r => r.ToEchTieBreakResult(ballotResult.Ballot)).ToArray(),
+            QuestionInformation = ballotResult.QuestionResults.OrderBy(r => r.Question.Number).Select(r => r.ToEchStandardBallotResult()).ToList(),
+            TieBreak = ballotResult.TieBreakQuestionResults.OrderBy(r => r.Question.Number).Select(r => r.ToEchTieBreakResult(ballotResult.Ballot)).ToList(),
         };
     }
 
-    private static TieBreak ToEchTieBreakResult(this TieBreakQuestionResult tieBreakQuestionResult, Ballot ballot)
+    private static VariantBallotResultTypeTieBreak ToEchTieBreakResult(this TieBreakQuestionResult tieBreakQuestionResult, Ballot ballot)
     {
         var countInFavorQ1 = tieBreakQuestionResult.ToEchCountInFavorOf(true, ballot);
         var countInFavorQ2 = tieBreakQuestionResult.ToEchCountInFavorOf(false, ballot);
 
         var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(ballot.Id, true, tieBreakQuestionResult.Question.Number);
-        return new TieBreak
+        return new VariantBallotResultTypeTieBreak
         {
             QuestionIdentification = questionId,
-            CountInFavourOf = new[] { countInFavorQ1, countInFavorQ2 },
+            CountInFavourOf = new List<VariantBallotResultTypeTieBreakCountInFavourOf> { countInFavorQ1, countInFavorQ2 },
             CountOfAnswerEmpty = ResultDetailFromTotal(tieBreakQuestionResult.TotalCountOfAnswerUnspecified),
             CountOfAnswerInvalid = ResultDetailFromTotal(0),
         };
     }
 
-    private static CountInFavourOf ToEchCountInFavorOf(this TieBreakQuestionResult tieBreakQuestionResult, bool q1, Ballot ballot)
+    private static VariantBallotResultTypeTieBreakCountInFavourOf ToEchCountInFavorOf(this TieBreakQuestionResult tieBreakQuestionResult, bool q1, Ballot ballot)
     {
         var count = q1
             ? tieBreakQuestionResult.TotalCountOfAnswerQ1
@@ -108,7 +112,7 @@ internal static class VoteResultMapping
             : tieBreakQuestionResult.Question.Question2Number;
 
         var questionId = BallotQuestionIdConverter.ToEchBallotQuestionId(ballot.Id, false, questionNumber);
-        return new CountInFavourOf
+        return new VariantBallotResultTypeTieBreakCountInFavourOf
         {
             CountOfValidAnswers = ResultDetailFromTotal(count),
             QuestionIdentification = questionId,

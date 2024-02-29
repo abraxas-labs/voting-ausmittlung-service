@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -119,7 +119,7 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
     }
 
     [Fact]
-    public async Task ShouldReturnIsValidWhenEmptyVoteCountAndInvalidVoteCountAreNullWithSingleMandate()
+    public async Task ShouldReturnIsValidWhenEmptyVoteCountAreNullWithSingleMandate()
     {
         await ModifyDbEntities<MajorityElection>(
             me => me.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
@@ -128,8 +128,8 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x =>
         {
             x.Request.EmptyVoteCount = null;
-            x.Request.InvalidVoteCount = null;
-            x.Request.IndividualVoteCount = 50;
+            x.Request.InvalidVoteCount = 2;
+            x.Request.IndividualVoteCount = 48;
         }));
         result.IsValid.Should().BeTrue();
     }

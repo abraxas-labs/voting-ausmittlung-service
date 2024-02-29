@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -46,7 +46,7 @@ public class MajorityElectionResultBundleWriter
         Guid resultId,
         int? bundleNumber)
     {
-        var contestId = await EnsurePoliticalBusinessPermissions(resultId, false);
+        var contestId = await EnsurePoliticalBusinessPermissions(resultId);
 
         var electionResultAggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
 
@@ -81,7 +81,7 @@ public class MajorityElectionResultBundleWriter
     public async Task DeleteBundle(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, true);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.Delete(contestId);
 
         var electionResultAggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(aggregate.PoliticalBusinessResultId);
@@ -102,7 +102,7 @@ public class MajorityElectionResultBundleWriter
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
         var electionResult = await LoadElectionResultWithCandidates(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
         EnsureValidCandidates(electionResult, selectedCandidateIds);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
@@ -132,7 +132,7 @@ public class MajorityElectionResultBundleWriter
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
         var electionResult = await LoadElectionResultWithCandidates(aggregate.PoliticalBusinessResultId);
 
-        var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
         EnsureValidCandidates(electionResult, selectedCandidateIds);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
@@ -152,7 +152,7 @@ public class MajorityElectionResultBundleWriter
     public async Task DeleteBallot(Guid bundleId, int ballotNumber)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.DeleteBallot(ballotNumber, contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -160,7 +160,7 @@ public class MajorityElectionResultBundleWriter
     public async Task BundleSubmissionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.SubmissionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }
@@ -168,7 +168,7 @@ public class MajorityElectionResultBundleWriter
     public async Task BundleCorrectionFinished(Guid bundleId)
     {
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureEditPermissionsForBundle(aggregate, false);
+        var contestId = await EnsureEditPermissionsForBundle(aggregate);
         aggregate.CorrectionFinished(contestId);
         await AggregateRepository.Save(aggregate);
     }

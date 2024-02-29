@@ -43,13 +43,16 @@
         "Email": "hans@muster.com"
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [],
         "MajorityElectionAbsoluteMajorityAlgorithm": 0,
         "MajorityElectionInvalidVotes": false,
         "ProtocolDomainOfInfluenceSortType": 0,
         "ProtocolCountingCircleSortType": 0,
         "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": []
+        "EnabledVotingCardChannels": [],
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": false,
+        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],

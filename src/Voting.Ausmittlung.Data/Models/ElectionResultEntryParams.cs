@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -14,4 +14,6 @@ public abstract class ElectionResultEntryParams
     public BallotNumberGeneration BallotNumberGeneration { get; set; }
 
     public bool AutomaticEmptyVoteCounting { get; set; }
+
+    public bool CandidateCheckDigit { get; set; }
 }

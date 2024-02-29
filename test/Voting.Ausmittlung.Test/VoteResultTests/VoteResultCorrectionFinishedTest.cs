@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -156,6 +156,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await AssertSubmissionDoneTimestamp(false);
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new VoteResultCorrectionFinished
@@ -170,6 +171,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
                 },
             });
         await AssertCurrentState(CountingCircleResultState.CorrectionDone);
+        await AssertSubmissionDoneTimestamp(true);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult))
             .ToListAsync());
@@ -271,5 +273,11 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         };
         customizer?.Invoke(req);
         return req;
+    }
+
+    private async Task AssertSubmissionDoneTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
+        (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
     }
 }

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -19,7 +19,6 @@ namespace Voting.Ausmittlung.Controllers;
 
 [ApiController]
 [Route("api/result_export")]
-[Authorize]
 public class ResultExportController : ControllerBase
 {
     private readonly ResultExportService _resultExportService;

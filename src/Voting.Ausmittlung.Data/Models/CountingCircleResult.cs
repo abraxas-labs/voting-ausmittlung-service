@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -18,6 +18,11 @@ public abstract class CountingCircleResult : BaseEntity
 
     public CountingCircleResultState State { get; set; } = CountingCircleResultState.Initial;
 
+    /// <summary>
+    /// Gets or sets the submission done timestamp.
+    /// A submission done timestamp is set when the state is set to <see cref="CountingCircleResultState.SubmissionDone"/> or <see cref="CountingCircleResultState.CorrectionDone"/>.
+    /// When a result is set to <see cref="CountingCircleResultState.ReadyForCorrection" /> this timestamp will be removed.
+    /// </summary>
     public DateTime? SubmissionDoneTimestamp { get; set; }
 
     public DateTime? AuditedTentativelyTimestamp { get; set; }
@@ -29,6 +34,13 @@ public abstract class CountingCircleResult : BaseEntity
     /// In German: Anzahl Stimmberechtigte.
     /// </summary>
     public int TotalCountOfVoters { get; set; }
+
+    /// <summary>
+    /// Gets or sets the total sent e-voting voting cards which is set by the imported count of voters information.
+    /// (Hint: the imported count of voters informations is a subset of the conventional submitted count of voters informations,
+    /// which means that these dont need to be included in the <see cref="TotalCountOfVoters"/>).
+    /// </summary>
+    public int? TotalSentEVotingVotingCards { get; set; }
 
     public bool SubmissionDone()
     {

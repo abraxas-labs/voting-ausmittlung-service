@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using MassTransit.ExtensionsDependencyInjectionIntegration;
@@ -59,6 +59,7 @@ public class TestStartup : Startup
         {
             cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ResultStateChanged>>();
             cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ResultImportChanged>>();
+            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<WriteInMappingsChanged>>();
             cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ProtocolExportStateChanged>>();
             cfg.AddConsumerAndConsumerTestHarness<MajorityElectionBundleChangedMessageConsumer>();
             cfg.AddConsumerAndConsumerTestHarness<ProportionalElectionBundleChangedMessageConsumer>();

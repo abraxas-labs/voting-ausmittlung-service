@@ -59,7 +59,11 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -82,7 +86,8 @@
         "EVotingResultsImported": false
       },
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": true
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 34810,
@@ -231,7 +236,8 @@
           "LastName": "1lastName",
           "Party": "Test de",
           "Position": 1,
-          "Description": "number1 1pol last name 1pol firstName"
+          "Description": "number1 1pol last name 1pol firstName",
+          "CheckDigit": 9
         },
         "VoteCount": 1200,
         "EVotingVoteCount": 0,
@@ -252,7 +258,8 @@
           "LastName": "2lastName",
           "Party": "Test de",
           "Position": 2,
-          "Description": "number2 2pol last name 2pol firstName"
+          "Description": "number2 2pol last name 2pol firstName",
+          "CheckDigit": 7
         },
         "VoteCount": 900,
         "EVotingVoteCount": 0,
@@ -273,7 +280,8 @@
           "LastName": "4lastName",
           "Party": "Test de",
           "Position": 4,
-          "Description": "number4 4pol last name 4pol firstName"
+          "Description": "number4 4pol last name 4pol firstName",
+          "CheckDigit": 3
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -294,7 +302,8 @@
           "LastName": "3lastName",
           "Party": "Test de",
           "Position": 3,
-          "Description": "number3 3pol last name 3pol firstName"
+          "Description": "number3 3pol last name 3pol firstName",
+          "CheckDigit": 5
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -315,7 +324,8 @@
           "LastName": "5lastName",
           "Party": "Test de",
           "Position": 5,
-          "Description": "number5 5pol last name 5pol firstName"
+          "Description": "number5 5pol last name 5pol firstName",
+          "CheckDigit": 1
         },
         "VoteCount": 480,
         "EVotingVoteCount": 0,
@@ -336,7 +346,8 @@
           "LastName": "6lastName",
           "Party": "Test de",
           "Position": 6,
-          "Description": "number6 6pol last name 6pol firstName"
+          "Description": "number6 6pol last name 6pol firstName",
+          "CheckDigit": 0
         },
         "VoteCount": 420,
         "EVotingVoteCount": 0,
@@ -357,7 +368,8 @@
           "LastName": "7lastName",
           "Party": "Test de",
           "Position": 7,
-          "Description": "number7 7pol last name 7pol firstName"
+          "Description": "number7 7pol last name 7pol firstName",
+          "CheckDigit": 8
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
@@ -378,7 +390,8 @@
           "LastName": "8lastName",
           "Party": "Test de",
           "Position": 8,
-          "Description": "number8 8pol last name 8pol firstName"
+          "Description": "number8 8pol last name 8pol firstName",
+          "CheckDigit": 6
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
@@ -399,7 +412,8 @@
           "LastName": "9lastName",
           "Party": "Test de",
           "Position": 9,
-          "Description": "number9 9pol last name 9pol firstName"
+          "Description": "number9 9pol last name 9pol firstName",
+          "CheckDigit": 4
         },
         "VoteCount": 300,
         "EVotingVoteCount": 0,
@@ -420,7 +434,8 @@
           "LastName": "10lastName",
           "Party": "Test de",
           "Position": 10,
-          "Description": "number10 10pol last name 10pol firstName"
+          "Description": "number10 10pol last name 10pol firstName",
+          "CheckDigit": 8
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -454,7 +469,8 @@
               "LastName": "1lastName",
               "Party": "Test1 de",
               "Position": 1,
-              "Description": "number1 1pol last name 1pol firstName"
+              "Description": "number1 1pol last name 1pol firstName",
+              "CheckDigit": 9
             },
             "VoteCount": 1200,
             "EVotingVoteCount": 0,
@@ -475,7 +491,8 @@
               "LastName": "2lastName",
               "Party": "Test2 de",
               "Position": 2,
-              "Description": "number2 2pol last name 2pol firstName"
+              "Description": "number2 2pol last name 2pol firstName",
+              "CheckDigit": 7
             },
             "VoteCount": 600,
             "EVotingVoteCount": 0,
@@ -496,7 +513,8 @@
               "LastName": "3lastName",
               "Party": "Test3 de",
               "Position": 3,
-              "Description": "number3 3pol last name 3pol firstName"
+              "Description": "number3 3pol last name 3pol firstName",
+              "CheckDigit": 5
             },
             "VoteCount": 600,
             "EVotingVoteCount": 0,
@@ -517,7 +535,8 @@
               "LastName": "4lastName",
               "Party": "Test4 de",
               "Position": 4,
-              "Description": "number4 4pol last name 4pol firstName"
+              "Description": "number4 4pol last name 4pol firstName",
+              "CheckDigit": 3
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
@@ -574,7 +593,8 @@
               "LastName": "1lastName",
               "Party": "Test1 de",
               "Position": 1,
-              "Description": "number1 1pol last name 1pol firstName"
+              "Description": "number1 1pol last name 1pol firstName",
+              "CheckDigit": 9
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
@@ -595,7 +615,8 @@
               "LastName": "2lastName",
               "Party": "Test2 de",
               "Position": 2,
-              "Description": "number2 2pol last name 2pol firstName"
+              "Description": "number2 2pol last name 2pol firstName",
+              "CheckDigit": 7
             },
             "VoteCount": 420,
             "EVotingVoteCount": 0,
@@ -616,7 +637,8 @@
               "LastName": "3lastName",
               "Party": "Test3 de",
               "Position": 3,
-              "Description": "number3 3pol last name 3pol firstName"
+              "Description": "number3 3pol last name 3pol firstName",
+              "CheckDigit": 5
             },
             "VoteCount": 360,
             "EVotingVoteCount": 0,
@@ -637,7 +659,8 @@
               "LastName": "4lastName",
               "Party": "Test4 de",
               "Position": 4,
-              "Description": "number4 4pol last name 4pol firstName"
+              "Description": "number4 4pol last name 4pol firstName",
+              "CheckDigit": 3
             },
             "VoteCount": 330,
             "EVotingVoteCount": 0,
@@ -743,12 +766,17 @@
           "Email": "hans@sg.ch"
         },
         "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": false,
+          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": null,
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": true
+      "EnforceReviewProcedureForCountingCircles": true,
+      "EnforceCandidateCheckDigitForCountingCircles": true
     },
     "LotDecisions": [
       {
@@ -761,7 +789,8 @@
           "LastName": "4lastName",
           "Party": "Test de",
           "Position": 4,
-          "Description": "number4 4pol last name 4pol firstName"
+          "Description": "number4 4pol last name 4pol firstName",
+          "CheckDigit": 3
         },
         "SelectedRank": 3,
         "VoteCount": 600,
@@ -782,7 +811,8 @@
           "LastName": "3lastName",
           "Party": "Test de",
           "Position": 3,
-          "Description": "number3 3pol last name 3pol firstName"
+          "Description": "number3 3pol last name 3pol firstName",
+          "CheckDigit": 5
         },
         "SelectedRank": 4,
         "VoteCount": 600,
@@ -803,7 +833,8 @@
           "LastName": "7lastName",
           "Party": "Test de",
           "Position": 7,
-          "Description": "number7 7pol last name 7pol firstName"
+          "Description": "number7 7pol last name 7pol firstName",
+          "CheckDigit": 8
         },
         "SelectedRank": null,
         "VoteCount": 360,
@@ -824,7 +855,8 @@
           "LastName": "8lastName",
           "Party": "Test de",
           "Position": 8,
-          "Description": "number8 8pol last name 8pol firstName"
+          "Description": "number8 8pol last name 8pol firstName",
+          "CheckDigit": 6
         },
         "SelectedRank": null,
         "VoteCount": 360,
@@ -858,7 +890,8 @@
               "LastName": "2lastName",
               "Party": "Test2 de",
               "Position": 2,
-              "Description": "number2 2pol last name 2pol firstName"
+              "Description": "number2 2pol last name 2pol firstName",
+              "CheckDigit": 7
             },
             "SelectedRank": 2,
             "VoteCount": 600,
@@ -879,7 +912,8 @@
               "LastName": "3lastName",
               "Party": "Test3 de",
               "Position": 3,
-              "Description": "number3 3pol last name 3pol firstName"
+              "Description": "number3 3pol last name 3pol firstName",
+              "CheckDigit": 5
             },
             "SelectedRank": 3,
             "VoteCount": 600,

@@ -34,11 +34,6 @@
         "Email": ""
       },
       "CantonDefaults": {
-        "ProportionalElectionMandateAlgorithms": [
-          1,
-          3,
-          2
-        ],
         "MajorityElectionAbsoluteMajorityAlgorithm": 1,
         "MajorityElectionInvalidVotes": true,
         "ProtocolDomainOfInfluenceSortType": 1,
@@ -69,7 +64,11 @@
             "Channel": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
-        ]
+        ],
+        "CountingMachineEnabled": true,
+        "NewZhFeaturesEnabled": true,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": true
       },
       "PlausibilisationConfiguration": null,
       "Parties": [],

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -39,6 +39,17 @@ public class BallotResultValidator : IValidator<BallotResult>
         }
 
         results.AddRange(ValidateQuestionResults(data, context));
+
+        if (data.VoteResult.Results.Count <= 1)
+        {
+            return results;
+        }
+
+        foreach (var result in results)
+        {
+            result.ValidationGroup = SharedProto.ValidationGroup.VoteBallot;
+            result.GroupValue = data.Ballot.Position.ToString();
+        }
 
         return results;
     }

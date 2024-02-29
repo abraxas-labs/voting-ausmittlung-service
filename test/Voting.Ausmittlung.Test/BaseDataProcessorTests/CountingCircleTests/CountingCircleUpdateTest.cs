@@ -1,9 +1,10 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using Abraxas.Voting.Basis.Shared.V1;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
@@ -153,6 +154,30 @@ public class CountingCircleUpdateTest : CountingCircleProcessorBaseTest
                         MobilePhone = "072 123 12 33",
                         FamilyName = "Wichtig-2",
                         FirstName = "Rudolph-2",
+                    },
+                    Electorates =
+                    {
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "f705ac9f-e9f6-47c4-bfb7-33ed9b22c6d4",
+                            DomainOfInfluenceTypes =
+                            {
+                                DomainOfInfluenceType.Ch,
+                                DomainOfInfluenceType.Ct,
+                                DomainOfInfluenceType.Bz,
+                                DomainOfInfluenceType.Mu,
+                                DomainOfInfluenceType.Sk,
+                                DomainOfInfluenceType.An,
+                            },
+                        },
+                        new CountingCircleElectorateEventData
+                        {
+                            Id = "d7994447-f9bf-4334-a0cb-c7c0218f2068",
+                            DomainOfInfluenceTypes =
+                            {
+                                DomainOfInfluenceType.Og,
+                            },
+                        },
                     },
                 },
             });

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.Extensions.DependencyInjection;
@@ -13,5 +13,7 @@ public static class ServiceCollectionExtensions
         => services
             .AddVotingLibEch(config)
             .AddSingleton<Ech0110Serializer>()
-            .AddSingleton<Ech0222Serializer>();
+            .AddSingleton<Ech0222Serializer>()
+            .AddSingleton<Ech0110Deserializer>()
+            .AddSingleton<Ech0222Deserializer>();
 }

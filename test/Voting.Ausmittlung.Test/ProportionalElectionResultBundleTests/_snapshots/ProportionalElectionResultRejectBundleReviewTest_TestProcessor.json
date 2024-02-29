@@ -11,7 +11,8 @@
       "BallotBundleSampleSize": 2,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
-      "AutomaticEmptyVoteCounting": false
+      "AutomaticEmptyVoteCounting": false,
+      "CandidateCheckDigit": true
     },
     "UnmodifiedListResults": [],
     "ListResults": [],
@@ -68,6 +69,7 @@
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
+    "TotalSentEVotingVotingCards": null,
     "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932"
   },
   "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",

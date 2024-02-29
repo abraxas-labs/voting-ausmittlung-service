@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,4 +37,6 @@ public abstract class ElectionCandidate : BaseEntity
     public abstract string OccupationTitle { get; }
 
     public string Origin { get; set; } = string.Empty;
+
+    public int CheckDigit { get; set; }
 }

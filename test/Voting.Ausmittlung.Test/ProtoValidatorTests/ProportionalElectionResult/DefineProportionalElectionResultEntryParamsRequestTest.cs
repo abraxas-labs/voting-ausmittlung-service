@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -21,6 +21,7 @@ public class DefineProportionalElectionResultEntryParamsRequestTest : ProtoValid
             AutomaticEmptyVoteCounting = true,
             BallotBundleSize = 5,
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+            CandidateCheckDigit = true,
         };
 
         action?.Invoke(request);
@@ -36,6 +37,7 @@ public class DefineProportionalElectionResultEntryParamsRequestTest : ProtoValid
         yield return NewValidRequest(x => x.BallotBundleSampleSize = 500);
         yield return NewValidRequest(x => x.AutomaticEmptyVoteCounting = false);
         yield return NewValidRequest(x => x.AutomaticBallotBundleNumberGeneration = false);
+        yield return NewValidRequest(x => x.CandidateCheckDigit = false);
     }
 
     protected override IEnumerable<DefineProportionalElectionResultEntryParamsRequest> NotOkMessages()

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2022 by Abraxas Informatik AG
+﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -83,7 +83,6 @@ public class CountingCircleResultsValidationSummariesBuilder
 
     private void EnsureHasPermissions(CountingCircle countingCircle, Contest contest)
     {
-        _permissionService.EnsureErfassungElectionAdmin();
         _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(countingCircle, contest);
         _contestService.EnsureNotLocked(contest);
     }

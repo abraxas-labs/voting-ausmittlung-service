@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,7 @@ public class ContestModelBuilder :
     IEntityTypeConfiguration<Contest>,
     IEntityTypeConfiguration<ContestTranslation>,
     IEntityTypeConfiguration<ContestCountingCircleDetails>,
+    IEntityTypeConfiguration<ContestCountingCircleElectorate>,
     IEntityTypeConfiguration<CountOfVotersInformationSubTotal>,
     IEntityTypeConfiguration<VotingCardResultDetail>,
     IEntityTypeConfiguration<ContestDetails>,
@@ -188,5 +189,20 @@ public class ContestModelBuilder :
         builder
             .HasIndex(x => new { x.ContestDomainOfInfluenceDetailsId, x.Channel, x.Valid, x.DomainOfInfluenceType })
             .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<ContestCountingCircleElectorate> builder)
+    {
+        builder
+            .HasOne(x => x.Contest)
+            .WithMany()
+            .HasForeignKey(x => x.ContestId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.CountingCircle)
+            .WithMany(x => x.ContestElectorates)
+            .HasForeignKey(x => x.CountingCircleId)
+            .IsRequired();
     }
 }

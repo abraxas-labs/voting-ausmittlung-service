@@ -38,7 +38,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -114,7 +113,6 @@
       <BallotResult>
         <Ballot>
           <Position>1</Position>
-          <Description />
           <BallotType>VariantsBallot</BallotType>
         </Ballot>
         <CountOfVoters>
@@ -319,7 +317,6 @@
       <BallotResult>
         <Ballot>
           <Position>2</Position>
-          <Description />
           <BallotType>StandardBallot</BallotType>
         </Ballot>
         <CountOfVoters>

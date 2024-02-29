@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -30,21 +30,18 @@ public class MajorityElectionResultReader
 
     public async Task<MajorityElectionResult> Get(Guid electionResultId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryElectionResult(x => x.Id == electionResultId)
                ?? throw new EntityNotFoundException(electionResultId);
     }
 
     public async Task<MajorityElectionResult> Get(Guid electionId, Guid basisCountingCircleId)
     {
-        _permissionService.EnsureAnyRole();
         return await QueryElectionResult(x => x.MajorityElectionId == electionId && x.CountingCircle.BasisCountingCircleId == basisCountingCircleId)
                ?? throw new EntityNotFoundException(new { electionId, basisCountingCircleId });
     }
 
     public async Task<MajorityElectionResult> GetWithBallotGroups(Guid electionResultId)
     {
-        _permissionService.EnsureErfassungElectionAdminOrMonitoringElectionAdmin();
         var electionResult = await _repo.Query()
                                  .AsSplitQuery()
                                  .Include(x => x.CountingCircle)

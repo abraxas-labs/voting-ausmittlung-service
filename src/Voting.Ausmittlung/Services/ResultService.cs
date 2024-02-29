@@ -1,25 +1,24 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Ausmittlung.Resources;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ResultService.ResultServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class ResultService : ServiceBase
 {
     private readonly ResultReader _resultReader;
@@ -36,6 +35,7 @@ public class ResultService : ServiceBase
         _mapper = mapper;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.ReadOverview)]
     public override async Task<ProtoModels.ResultOverview> GetOverview(
         GetResultOverviewRequest request,
         ServerCallContext context)
@@ -44,6 +44,7 @@ public class ResultService : ServiceBase
         return _mapper.Map<ProtoModels.ResultOverview>(data);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Read)]
     public override async Task<ProtoModels.ResultList> GetList(
         GetResultListRequest request,
         ServerCallContext context)
@@ -58,6 +59,7 @@ public class ResultService : ServiceBase
         return _mapper.Map<ProtoModels.ResultList>(data);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.ReadComments)]
     public override async Task<ProtoModels.Comments> GetResultComments(
         GetResultCommentsRequest request,
         ServerCallContext context)
@@ -66,6 +68,7 @@ public class ResultService : ServiceBase
         return _mapper.Map<ProtoModels.Comments>(comments);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Read)]
     public override Task GetStateChanges(
         GetResultStateChangesRequest request,
         IServerStreamWriter<ProtoModels.ResultStateChange> responseStream,
@@ -81,6 +84,7 @@ public class ResultService : ServiceBase
             context.CancellationToken);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.ResetResults)]
     public override async Task<Empty> ResetCountingCircleResults(ResetCountingCircleResultsRequest request, ServerCallContext context)
     {
         await _resultWriter.ResetResults(
@@ -90,26 +94,31 @@ public class ResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
-    public override async Task<ValidationSummaries> ValidateCountingCircleResults(ValidateCountingCircleResultsRequest request, ServerCallContext context)
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.EnterResults)]
+    public override async Task<ProtoModels.ValidationSummaries> ValidateCountingCircleResults(ValidateCountingCircleResultsRequest request, ServerCallContext context)
     {
         var pbValidationResults = await _resultReader.GetCountingCircleResultsValidationResults(
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList());
 
-        return _mapper.Map<ValidationSummaries>(pbValidationResults);
+        return _mapper.Map<ProtoModels.ValidationSummaries>(pbValidationResults);
     }
 
-    public override async Task<SecondFactorTransaction> PrepareSubmissionFinished(CountingCircleResultsPrepareSubmissionFinishedRequest request, ServerCallContext context)
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(CountingCircleResultsPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code) = await _resultWriter.PrepareSubmissionFinished(
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
             Strings.CountingCircleResults_SubmissionFinished);
-        return secondFactorTransaction == null ? new SecondFactorTransaction() : new SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        return secondFactorTransaction == null
+            ? new ProtoModels.SecondFactorTransaction()
+            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<Empty> SubmissionFinished(CountingCircleResultsSubmissionFinishedRequest request, ServerCallContext context)
     {
         await _resultWriter.SubmissionFinished(

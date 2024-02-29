@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -8,18 +8,18 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Responses;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class ProportionalElectionResultBundleService : ServiceBase
 {
     private readonly ProportionalElectionResultBundleReader _proportionalElectionResultBundleReader;
@@ -36,6 +36,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         _mapper = mapper;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<ProtoModels.ProportionalElectionResultBundles> GetBundles(
         GetProportionalElectionResultBundlesRequest request,
         ServerCallContext context)
@@ -44,6 +45,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return _mapper.Map<ProtoModels.ProportionalElectionResultBundles>(electionResult);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<GetProportionalElectionResultBundleResponse> GetBundle(
         GetProportionalElectionResultBundleRequest request,
         ServerCallContext context)
@@ -52,6 +54,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return _mapper.Map<GetProportionalElectionResultBundleResponse>(bundle);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override Task GetBundleChanges(
         GetProportionalElectionResultBundleChangesRequest request,
         IServerStreamWriter<ProtoModels.ProportionalElectionResultBundle> responseStream,
@@ -63,6 +66,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
             context.CancellationToken);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Read)]
     public override async Task<ProtoModels.ProportionalElectionResultBallot> GetBallot(
         GetProportionalElectionResultBallotRequest request,
         ServerCallContext context)
@@ -71,6 +75,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return _mapper.Map<ProtoModels.ProportionalElectionResultBallot>(ballot);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Create)]
     public override async Task<CreateProportionalElectionResultBundleResponse> CreateBundle(CreateProportionalElectionResultBundleRequest request, ServerCallContext context)
     {
         var response = await _proportionalElectionResultBundleWriter.CreateBundle(
@@ -84,6 +89,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         };
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Delete)]
     public override async Task<Empty> DeleteBundle(
         DeleteProportionalElectionResultBundleRequest request,
         ServerCallContext context)
@@ -92,6 +98,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Create)]
     public override async Task<CreateProportionalElectionResultBallotResponse> CreateBallot(
         CreateProportionalElectionResultBallotRequest request,
         ServerCallContext context)
@@ -108,6 +115,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         };
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Update)]
     public override async Task<Empty> UpdateBallot(
         UpdateProportionalElectionResultBallotRequest request,
         ServerCallContext context)
@@ -121,6 +129,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Delete)]
     public override async Task<Empty> DeleteBallot(
         DeleteProportionalElectionResultBallotRequest request,
         ServerCallContext context)
@@ -129,6 +138,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.FinishSubmission)]
     public override async Task<Empty> BundleSubmissionFinished(
         ProportionalElectionResultBundleSubmissionFinishedRequest request,
         ServerCallContext context)
@@ -137,6 +147,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.FinishSubmission)]
     public override async Task<Empty> BundleCorrectionFinished(
         ProportionalElectionResultBundleCorrectionFinishedRequest request,
         ServerCallContext context)
@@ -145,12 +156,14 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> RejectBundleReview(RejectProportionalElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _proportionalElectionResultBundleWriter.RejectBundleReview(GuidParser.Parse(request.BundleId));
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> SucceedBundleReview(SucceedProportionalElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _proportionalElectionResultBundleWriter.SucceedBundleReview(GuidParser.Parse(request.BundleId));

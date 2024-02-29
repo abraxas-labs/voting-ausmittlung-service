@@ -27,7 +27,8 @@
           "BallotBundleSampleSize": 2,
           "AutomaticBallotBundleNumberGeneration": true,
           "BallotNumberGeneration": 2,
-          "AutomaticEmptyVoteCounting": false
+          "AutomaticEmptyVoteCounting": false,
+          "CandidateCheckDigit": true
         },
         "UnmodifiedListResults": [
           {
@@ -400,6 +401,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 15000,
+        "TotalSentEVotingVotingCards": 23,
         "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932"
       }
     ]
@@ -529,6 +531,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 15000,
+        "TotalSentEVotingVotingCards": 21,
         "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
       }
     ]
@@ -545,7 +548,8 @@
           "BallotBundleSampleSize": 3,
           "AutomaticBallotBundleNumberGeneration": true,
           "BallotNumberGeneration": 2,
-          "AutomaticEmptyVoteCounting": true
+          "AutomaticEmptyVoteCounting": true,
+          "CandidateCheckDigit": true
         },
         "CandidateResults": [
           {
@@ -586,6 +590,7 @@
               "Locality": "locality",
               "Position": 1,
               "Origin": "origin",
+              "CheckDigit": 9,
               "Id": "be81a3f3-5a9e-4a69-8f19-4f0598a32955"
             },
             "CandidatePosition": 1,
@@ -633,6 +638,7 @@
         "BallotGroupResults": [],
         "Bundles": [],
         "WriteInMappings": [],
+        "WriteInBallots": [],
         "HasUnmappedWriteIns": true,
         "CountOfElectionsWithUnmappedWriteIns": 2,
         "PoliticalBusiness": null,
@@ -662,6 +668,7 @@
         "AuditedTentativelyTimestamp": null,
         "PlausibilisedTimestamp": null,
         "TotalCountOfVoters": 8000,
+        "TotalSentEVotingVotingCards": 20,
         "Id": "1c0db5aa-321a-5d27-8f94-55fe0d903682"
       }
     ]
@@ -703,6 +710,7 @@
         "Result": null,
         "CandidateResultId": null,
         "CandidateResult": null,
+        "BallotPositions": [],
         "CandidateId": null,
         "WriteInCandidateName": "Hans Mueller",
         "VoteCount": 2,
@@ -714,6 +722,7 @@
         "Result": null,
         "CandidateResultId": null,
         "CandidateResult": null,
+        "BallotPositions": [],
         "CandidateId": null,
         "WriteInCandidateName": "hans müller",
         "VoteCount": 1,
@@ -725,6 +734,7 @@
         "Result": null,
         "CandidateResultId": null,
         "CandidateResult": null,
+        "BallotPositions": [],
         "CandidateId": null,
         "WriteInCandidateName": "Hans Muster",
         "VoteCount": 1,
@@ -736,6 +746,7 @@
         "Result": null,
         "CandidateResultId": null,
         "CandidateResult": null,
+        "BallotPositions": [],
         "CandidateId": null,
         "WriteInCandidateName": "vereinzelt",
         "VoteCount": 2,
@@ -751,6 +762,7 @@
         "Result": null,
         "CandidateResultId": null,
         "CandidateResult": null,
+        "BallotPositions": [],
         "CandidateId": null,
         "WriteInCandidateName": "Hans-Peter",
         "VoteCount": 3,
@@ -896,6 +908,7 @@
         ],
         "EVoting": true,
         "TotalCountOfVoters": 15800,
+        "CountingMachine": 0,
         "Id": "35d79372-fa1b-50a5-8503-e6dafc1355d0"
       },
       {
@@ -932,6 +945,7 @@
         ],
         "EVoting": true,
         "TotalCountOfVoters": 0,
+        "CountingMachine": 0,
         "Id": "51765e9f-c966-5ac5-8ba3-70a10fa9ed39"
       }
     ]

@@ -1,4 +1,4 @@
-// (c) Copyright 2022 by Abraxas Informatik AG
+// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -9,18 +9,18 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Responses;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
+using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.MajorityElectionResultBundleService.MajorityElectionResultBundleServiceBase;
 
 namespace Voting.Ausmittlung.Services;
 
-[Authorize]
 public class MajorityElectionResultBundleService : ServiceBase
 {
     private readonly MajorityElectionResultBundleReader _majorityElectionResultBundleReader;
@@ -37,6 +37,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         _mapper = mapper;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<ProtoModels.MajorityElectionResultBundles> GetBundles(
         GetMajorityElectionResultBundlesRequest request,
         ServerCallContext context)
@@ -45,6 +46,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return _mapper.Map<ProtoModels.MajorityElectionResultBundles>(electionResult);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override Task GetBundleChanges(
         GetMajorityElectionResultBundleChangesRequest request,
         IServerStreamWriter<ProtoModels.MajorityElectionResultBundle> responseStream,
@@ -56,6 +58,7 @@ public class MajorityElectionResultBundleService : ServiceBase
             context.CancellationToken);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<GetMajorityElectionResultBundleResponse> GetBundle(
         GetMajorityElectionResultBundleRequest request,
         ServerCallContext context)
@@ -64,6 +67,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return _mapper.Map<GetMajorityElectionResultBundleResponse>(bundle);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Read)]
     public override async Task<ProtoModels.MajorityElectionResultBallot> GetBallot(
         GetMajorityElectionResultBallotRequest request,
         ServerCallContext context)
@@ -72,6 +76,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return _mapper.Map<ProtoModels.MajorityElectionResultBallot>(ballot);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Create)]
     public override async Task<CreateMajorityElectionResultBundleResponse> CreateBundle(
         CreateMajorityElectionResultBundleRequest request,
         ServerCallContext context)
@@ -86,6 +91,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         };
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Delete)]
     public override async Task<Empty> DeleteBundle(
         DeleteMajorityElectionResultBundleRequest request,
         ServerCallContext context)
@@ -94,6 +100,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Create)]
     public override async Task<CreateMajorityElectionResultBallotResponse> CreateBallot(
         CreateMajorityElectionResultBallotRequest request,
         ServerCallContext context)
@@ -113,6 +120,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         };
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Update)]
     public override async Task<Empty> UpdateBallot(
         UpdateMajorityElectionResultBallotRequest request,
         ServerCallContext context)
@@ -129,6 +137,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Delete)]
     public override async Task<Empty> DeleteBallot(
         DeleteMajorityElectionResultBallotRequest request,
         ServerCallContext context)
@@ -137,6 +146,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.FinishSubmission)]
     public override async Task<Empty> BundleSubmissionFinished(
         MajorityElectionResultBundleSubmissionFinishedRequest request,
         ServerCallContext context)
@@ -145,6 +155,7 @@ public class MajorityElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.FinishSubmission)]
     public override async Task<Empty> BundleCorrectionFinished(
         MajorityElectionResultBundleCorrectionFinishedRequest request,
         ServerCallContext context)
@@ -153,12 +164,14 @@ public class MajorityElectionResultBundleService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> RejectBundleReview(RejectMajorityElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _majorityElectionResultBundleWriter.RejectBundleReview(GuidParser.Parse(request.BundleId));
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> SucceedBundleReview(SucceedMajorityElectionBundleReviewRequest request, ServerCallContext context)
     {
         await _majorityElectionResultBundleWriter.SucceedBundleReview(GuidParser.Parse(request.BundleId));
