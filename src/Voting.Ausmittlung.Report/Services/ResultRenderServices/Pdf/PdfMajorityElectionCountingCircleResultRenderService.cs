@@ -98,6 +98,6 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
             ctx,
             templateBag,
             data.MajorityElection.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 }

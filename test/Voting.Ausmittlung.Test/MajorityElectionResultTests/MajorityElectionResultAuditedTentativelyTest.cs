@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
@@ -34,6 +35,18 @@ public class MajorityElectionResultAuditedTentativelyTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultAuditedTentatively>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithPublish()
+    {
+        await RunToState(CountingCircleResultState.SubmissionDone);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.Type = DomainOfInfluenceType.Mu);
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultPublished>().ElectionResultId.Should().Be(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund);
     }
 
     [Fact]
@@ -131,13 +144,10 @@ public class MajorityElectionResultAuditedTentativelyTest : MajorityElectionResu
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.SubmissionDone);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultAuditedTentatively
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
@@ -153,11 +163,9 @@ public class MajorityElectionResultAuditedTentativelyTest : MajorityElectionResu
             .AuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private MajorityElectionResultAuditedTentativelyRequest NewValidRequest(Action<MajorityElectionResultAuditedTentativelyRequest>? customizer = null)

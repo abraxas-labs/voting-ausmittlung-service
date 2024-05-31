@@ -16,6 +16,8 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.DokConnector.Testing.Service;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -42,7 +44,7 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     [Fact]
     public async Task ShouldWork()
     {
-        await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
+        await MonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
         var connector = GetService<DokConnectorMock>();
         var save = await connector.NextUpload(TimeSpan.FromSeconds(10));
 
@@ -58,7 +60,7 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     [Fact]
     public async Task ProcessorShouldWork()
     {
-        await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
+        await MonitoringElectionAdminClient.TriggerResultExportAsync(NewValidRequest());
 
         // await async process
         var connector = GetService<DokConnectorMock>();
@@ -78,7 +80,7 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     public Task ShouldThrowOtherTenant()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(
+            async () => await MonitoringElectionAdminClient.TriggerResultExportAsync(
                 NewValidRequest(r => r.ExportConfigurationId = ExportConfigurationMockedData.IdGossauIntf100)),
             StatusCode.PermissionDenied);
     }
@@ -87,7 +89,7 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     public Task ShouldThrowDuplicatedPoliticalBusiness()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(
+            async () => await MonitoringElectionAdminClient.TriggerResultExportAsync(
                 NewValidRequest(r => r.PoliticalBusinessIds.Add(r.PoliticalBusinessIds[0]))),
             StatusCode.InvalidArgument,
             "Political business ids have to be unique");
@@ -97,21 +99,24 @@ public class ResultExportTestTriggerTest : BaseTest<ExportService.ExportServiceC
     public Task ShouldThrowWrongPoliticalBusiness()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.TriggerResultExportAsync(
+            async () => await MonitoringElectionAdminClient.TriggerResultExportAsync(
                 NewValidRequest(r => r.PoliticalBusinessIds.Add(VoteMockedData.IdUzwilVoteInContestStGallen))),
             StatusCode.InvalidArgument,
             "Political business ids provided without access");
     }
+
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ExportService.ExportServiceClient(channel).TriggerResultExportAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     private TriggerResultExportRequest NewValidRequest(

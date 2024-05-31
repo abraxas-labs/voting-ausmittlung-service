@@ -8,7 +8,7 @@ using CsvHelper.TypeConversion;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 
-public class WabstiCUpperSnakeCaseConverter : TypeConverter
+public class WabstiCUpperSnakeCaseConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

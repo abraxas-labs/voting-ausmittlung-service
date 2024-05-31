@@ -55,8 +55,7 @@ public class SecondFactorTransactionWriter
         var secondFactorAuthId = await _userService.RequestSecondFactor(
             userId,
             nameof(V1SecondFactorProvider.NEVIS),
-            message,
-            _appConfig.SecureConnect.Temporary2FATenantId);
+            message);
         var now = _clock.UtcNow;
         var expiredAt = now.AddMinutes(_appConfig.Publisher.SecondFactorTransactionExpiredAtMinutes);
         var secondFactorTransaction = new SecondFactorTransaction
@@ -103,7 +102,6 @@ public class SecondFactorTransactionWriter
             _permissionService.UserId,
             V1SecondFactorProvider.NEVIS,
             secondFactorTransaction.ExternalIdentifier,
-            _appConfig.SecureConnect.Temporary2FATenantId,
             ct);
         if (!isVerified)
         {

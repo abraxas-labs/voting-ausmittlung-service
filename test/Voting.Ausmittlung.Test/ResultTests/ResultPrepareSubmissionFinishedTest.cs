@@ -121,15 +121,20 @@ public class ResultPrepareSubmissionFinishedTest : MultiResultBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        // ensure that the tenant is only the contest manager
+        await ModifyDbEntities<Authority>(
+            x => x.CountingCircle!.BasisCountingCircleId == CountingCircleId,
+            x => x.SecureConnectId = "random-id");
+
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+
         await new ResultService.ResultServiceClient(channel)
             .PrepareSubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private CountingCircleResultsPrepareSubmissionFinishedRequest NewValidRequest(Action<CountingCircleResultsPrepareSubmissionFinishedRequest>? action = null)

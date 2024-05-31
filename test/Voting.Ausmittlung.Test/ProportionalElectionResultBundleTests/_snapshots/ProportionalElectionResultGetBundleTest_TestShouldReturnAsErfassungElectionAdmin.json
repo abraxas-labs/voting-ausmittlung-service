@@ -37,13 +37,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -69,7 +62,22 @@
           "Nanos": 0
         },
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -151,7 +159,8 @@
     "TotalCountOfBallots": 0,
     "TotalCountOfBlankRowsOnListsWithoutParty": 0,
     "TotalCountOfListsWithParty": 0,
-    "TotalCountOfLists": 0
+    "TotalCountOfLists": 0,
+    "Published": false
   },
   "Bundle": {
     "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",

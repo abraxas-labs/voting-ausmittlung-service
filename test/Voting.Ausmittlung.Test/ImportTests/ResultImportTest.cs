@@ -22,7 +22,6 @@ using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Ausmittlung.Test.Utils;
@@ -50,23 +49,14 @@ public class ResultImportTest : BaseRestTest
         "test-eCH-0110.xml",
         Stream.Null);
 
-    private readonly HttpClient _monitoringElectionAdminStGallenClient;
-    private readonly HttpClient _monitoringElectionAdminUzwilClient;
     private readonly ResultImportWriter _importWriter;
 
     private int _eventNumberCounter;
+    private bool _initializedAuthorizationTest;
 
     public ResultImportTest(TestApplicationFactory factory)
         : base(factory)
     {
-        _monitoringElectionAdminStGallenClient = CreateHttpClient(
-            tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
-            roles: RolesMockedData.MonitoringElectionAdmin);
-
-        _monitoringElectionAdminUzwilClient = CreateHttpClient(
-            tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
-            roles: RolesMockedData.MonitoringElectionAdmin);
-
         _importWriter = GetService<ResultImportWriter>();
     }
 
@@ -99,7 +89,7 @@ public class ResultImportTest : BaseRestTest
 
         EventPublisherMock.Clear();
 
-        using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
         resp.EnsureSuccessStatusCode();
 
         var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
@@ -193,7 +183,7 @@ public class ResultImportTest : BaseRestTest
 
             EventPublisherMock.Clear();
 
-            using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+            using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
             resp.EnsureSuccessStatusCode();
 
             var stateChanges = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultFlaggedForCorrection>();
@@ -227,7 +217,7 @@ public class ResultImportTest : BaseRestTest
     public async Task InvalidImportFileShouldThrow()
     {
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalid), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileInvalid), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "List of possible elements expected: 'senderId'");
     }
@@ -239,7 +229,7 @@ public class ResultImportTest : BaseRestTest
             x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
             x => x.State = ContestState.PastLocked);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "Contest is past locked or archived");
     }
@@ -251,7 +241,7 @@ public class ResultImportTest : BaseRestTest
             x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
             x => x.EVoting = false);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             "eVoting is not active on the Contest with the id 95825eb0-0f52-461a-a5f8-23fb35fa69e1");
     }
@@ -263,7 +253,7 @@ public class ResultImportTest : BaseRestTest
             x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau,
             x => x.EVoting = false);
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             $"eVoting is not active on the CountingCircle with the id {CountingCircleMockedData.IdGossau}");
     }
@@ -271,8 +261,11 @@ public class ResultImportTest : BaseRestTest
     [Fact]
     public Task OtherTenantShouldThrow()
     {
+        var otherTenantClient = base.CreateHttpClient(
+            tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
+            roles: RolesMockedData.MonitoringElectionAdmin);
         return AssertStatus(
-            () => _monitoringElectionAdminUzwilClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
+            () => otherTenantClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.Forbidden);
     }
 
@@ -283,7 +276,7 @@ public class ResultImportTest : BaseRestTest
         await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.AuditedTentatively);
 
         await AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             $"A result is in an invalid state for an eVoting import to be possible ({ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen})");
     }
@@ -292,7 +285,7 @@ public class ResultImportTest : BaseRestTest
     public Task OtherContestIdShouldThrow()
     {
         return AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId), ("ech0110File", TestFileEch0110Ok)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.BadRequest,
             "contestIds do not match");
     }
@@ -301,7 +294,7 @@ public class ResultImportTest : BaseRestTest
     public Task MissingEch0110ShouldThrow()
     {
         return AssertProblemDetails(
-            () => _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId)),
+            () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOtherContestId)),
             HttpStatusCode.BadRequest);
     }
 
@@ -410,10 +403,10 @@ public class ResultImportTest : BaseRestTest
     [Fact]
     public async Task MajorityElectionShouldMapDuplicatesToInvalidIfInvalidAvailable()
     {
-        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
-        await ModifyDbEntities(
-            (DomainOfInfluence doi) => doi.Id == id,
-            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.MajorityElectionInvalidVotes = true,
+            true);
 
         TrySetFakeAuth();
 
@@ -785,7 +778,7 @@ public class ResultImportTest : BaseRestTest
     [Fact]
     public async Task ProcessorShouldWork()
     {
-        using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
         resp.EnsureSuccessStatusCode();
 
         var importStarted = EventPublisherMock.GetSinglePublishedEvent<ResultImportStarted>();
@@ -882,7 +875,7 @@ public class ResultImportTest : BaseRestTest
     {
         async Task<string> RunImport()
         {
-            using var resp = await _monitoringElectionAdminStGallenClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+            using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
             resp.EnsureSuccessStatusCode();
 
             var importCreated = EventPublisherMock.GetSinglePublishedEvent<ResultImportCreated>();
@@ -947,14 +940,30 @@ public class ResultImportTest : BaseRestTest
             .Be(2);
     }
 
-    protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
-        => httpClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+    protected override HttpClient CreateHttpClient(
+        bool authorize = true,
+        string? tenant = "000000000000000000",
+        string? userId = "default-user-id",
+        params string[] roles)
+        => base.CreateHttpClient(authorize, SecureConnectTestDefaults.MockedTenantStGallen.Id, userId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override async Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {
-        yield return RolesMockedData.ErfassungElectionAdmin;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return NoRole;
+        if (!_initializedAuthorizationTest)
+        {
+            _initializedAuthorizationTest = true;
+
+            // set a state to submission finished
+            await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.SubmissionDone);
+            await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil, CountingCircleResultState.CorrectionDone);
+        }
+
+        return await httpClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private void TrySetFakeAuth()

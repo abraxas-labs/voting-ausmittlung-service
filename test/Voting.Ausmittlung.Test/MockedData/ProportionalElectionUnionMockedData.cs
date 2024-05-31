@@ -191,6 +191,14 @@ public static class ProportionalElectionUnionMockedData
             Description = "St. Gallen different Tenant",
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
+            ProportionalElectionUnionEntries =
+            {
+                new ProportionalElectionUnionEntry
+                {
+                    Id = Guid.Parse("7da3db8e-fdde-4b0b-ba42-f1832035979e"),
+                    ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen),
+                },
+            },
         };
 
     public static ProportionalElectionUnion Kirche

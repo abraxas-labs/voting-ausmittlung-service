@@ -22,6 +22,8 @@ public static class ProportionalElectionEndResultSgExampleMockedData
 {
     public const string IdStGallenNationalratElection = "175251eb-8a24-4a16-939f-2368856cd8b7";
 
+    public static readonly Guid GuidStGallenNationalratElection = Guid.Parse(IdStGallenNationalratElection);
+
     private const int NumberOfMandates = 12;
     private const int CountOfVotersMale = 153395;
     private const int CountOfVotersFemale = 164574;
@@ -171,7 +173,7 @@ public static class ProportionalElectionEndResultSgExampleMockedData
     {
         var election = new ProportionalElection
         {
-            Id = Guid.Parse(IdStGallenNationalratElection),
+            Id = GuidStGallenNationalratElection,
             PoliticalBusinessNumber = "100",
             Translations = TranslationUtil.CreateTranslations<ProportionalElectionTranslation>(
                 (t, o) => t.OfficialDescription = o,

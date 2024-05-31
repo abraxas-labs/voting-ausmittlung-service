@@ -42,6 +42,7 @@ public static class Permissions
         public const string StartSubmission = Prefix + ":start-submission";
         public const string FinishSubmission = Prefix + ":finish-submission";
         public const string Audit = Prefix + ":audit";
+        public const string FinishSubmissionAndAudit = Prefix + ":finish-submission-and-audit";
 
         private const string Prefix = "PoliticalBusinessResult";
     }
@@ -126,6 +127,22 @@ public static class Permissions
         private const string Prefix = "ProportionalElectionEndResult";
     }
 
+    public static class PoliticalBusinessUnionEndResult
+    {
+        public const string Read = Prefix + ReadSuffix;
+        public const string Finalize = Prefix + ":finalize";
+
+        private const string Prefix = "PoliticalBusinessUnionEndResult";
+    }
+
+    public static class PoliticalBusinessUnionEndResultLotDecision
+    {
+        public const string Read = Prefix + ReadSuffix;
+        public const string Update = Prefix + UpdateSuffix;
+
+        private const string Prefix = "PoliticalBusinessUnionEndResultLotDecision";
+    }
+
     public static class PoliticalBusinessEndResult
     {
         public const string Read = Prefix + ReadSuffix;
@@ -140,13 +157,6 @@ public static class Permissions
         public const string Update = Prefix + UpdateSuffix;
 
         private const string Prefix = "PoliticalBusinessEndResultLotDecision";
-    }
-
-    public static class PoliticalBusinessUnion
-    {
-        public const string Read = Prefix + ReadSuffix;
-
-        private const string Prefix = "PoliticalBusinessUnion";
     }
 
     public static class CountingCircleContactPerson
@@ -190,6 +200,15 @@ public static class Permissions
         private const string Prefix = "Export";
     }
 
+    public static class ReportExportApi
+    {
+        public const string ExportData = Prefix + ":data";
+        public const string ExportProtocol = Prefix + ":protocol";
+        public const string ExportEch0252 = Prefix + ":ech-0252";
+
+        private const string Prefix = "ReportExportApi";
+    }
+
     public static class ExportConfiguration
     {
         public const string Read = Prefix + ReadSuffix;
@@ -197,12 +216,5 @@ public static class Permissions
         public const string Trigger = Prefix + ":trigger";
 
         private const string Prefix = "ExportConfiguration";
-    }
-
-    public static class CantonDefaults
-    {
-        public const string Read = Prefix + ReadSuffix;
-
-        private const string Prefix = "CantonDefaults";
     }
 }

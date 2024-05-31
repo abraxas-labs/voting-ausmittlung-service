@@ -74,20 +74,7 @@ public class DomainOfInfluenceCantonDefaultsBuilder
 
     private void BuildCantonDefaultsOnDomainOfInfluence(CantonSettings cantonSettings, DomainOfInfluence domainOfInfluence)
     {
-        domainOfInfluence.CantonDefaults = new DomainOfInfluenceCantonDefaults
-        {
-            MajorityElectionAbsoluteMajorityAlgorithm = cantonSettings.MajorityElectionAbsoluteMajorityAlgorithm,
-            MajorityElectionInvalidVotes = cantonSettings.MajorityElectionInvalidVotes,
-            ProtocolCountingCircleSortType = cantonSettings.ProtocolCountingCircleSortType,
-            ProtocolDomainOfInfluenceSortType = cantonSettings.ProtocolDomainOfInfluenceSortType,
-            SwissAbroadVotingRight = GetSwissAbroadVotingRight(cantonSettings, domainOfInfluence.Type),
-            EnabledVotingCardChannels = cantonSettings.EnabledVotingCardChannels
-                .ConvertAll(x => new DomainOfInfluenceCantonDefaultsVotingCardChannel { Valid = x.Valid, VotingChannel = x.VotingChannel }),
-            CountingMachineEnabled = cantonSettings.CountingMachineEnabled,
-            NewZhFeaturesEnabled = cantonSettings.NewZhFeaturesEnabled,
-            MajorityElectionUseCandidateCheckDigit = cantonSettings.MajorityElectionUseCandidateCheckDigit,
-            ProportionalElectionUseCandidateCheckDigit = cantonSettings.ProportionalElectionUseCandidateCheckDigit,
-        };
+        domainOfInfluence.SwissAbroadVotingRight = GetSwissAbroadVotingRight(cantonSettings, domainOfInfluence.Type);
     }
 
     private SwissAbroadVotingRight GetSwissAbroadVotingRight(CantonSettings cantonSettings, DomainOfInfluenceType doiType)

@@ -24,6 +24,7 @@
               "EndResult": null,
               "Question": "Variante 1X de",
               "BallotAnswers": [],
+              "Type": 1,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -41,6 +42,7 @@
               "EndResult": null,
               "Question": "Variante 2X de",
               "BallotAnswers": [],
+              "Type": 3,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -58,6 +60,7 @@
               "EndResult": null,
               "Question": "Variante 3X de",
               "BallotAnswers": [],
+              "Type": 3,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],

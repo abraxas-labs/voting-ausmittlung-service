@@ -1,0 +1,31 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 5,
+      "Label": "SuperApportionmentLotDecision"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "GLP"
+    }
+  ],
+  "MandateAlgorithm": 6,
+  "VoteCounts": [
+    [
+      2250,
+      2250,
+      500,
+      20000
+    ]
+  ]
+}

@@ -18,7 +18,6 @@ using Snapper;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -184,10 +183,10 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     [Fact]
     public async Task ShouldWorkAsElectionAdminWithInvalidVotes()
     {
-        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
-        await ModifyDbEntities(
-            (DomainOfInfluence doi) => doi.Id == id,
-            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.MajorityElectionInvalidVotes = true,
+            true);
         var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
         var (primaryEvent, secondaryEvent) = await MapMappings(
             importId,
@@ -268,10 +267,6 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     [Fact]
     public async Task ShouldThrowWithInvalidVoteMappingsButNoInvalidVotes()
     {
-        await ModifyDbEntities<DomainOfInfluence>(
-            doi => doi.Id == Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
-            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
-
         var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
 
         await AssertStatus(
@@ -352,21 +347,34 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var (importId, primaryMappings, _) = await FetchMappings();
+
         await new ResultImportService.ResultImportServiceClient(channel)
             .MapMajorityElectionWriteInsAsync(new MapMajorityElectionWriteInsRequest
             {
-                ElectionId = "eebc9095-8ba3-4dbb-b2ae-99e0a5e1b965",
-                ImportId = "5649dc51-9558-4aef-9c1b-41f37868809e",
-                CountingCircleId = "ae636acd-6467-42af-9e41-6c8e79cde95d",
-                PoliticalBusinessType = ProtoModels.PoliticalBusinessType.MajorityElection,
+                ImportId = importId,
+                ElectionId = primaryMappings.Election.Id,
+                CountingCircleId = CountingCircleMockedData.IdUzwil,
+                PoliticalBusinessType = primaryMappings.Election.BusinessType,
+                Mappings =
+                {
+                    primaryMappings.WriteInMappings.Select(m =>
+                    {
+                        var writeIn = new MapMajorityElectionWriteInRequest
+                        {
+                            WriteInId = m.Id,
+                            Target = SharedProto.MajorityElectionWriteInMappingTarget.Individual,
+                        };
+                        return writeIn;
+                    }),
+                },
             });
     }
 

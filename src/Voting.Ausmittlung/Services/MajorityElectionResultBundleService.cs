@@ -174,7 +174,7 @@ public class MajorityElectionResultBundleService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> SucceedBundleReview(SucceedMajorityElectionBundleReviewRequest request, ServerCallContext context)
     {
-        await _majorityElectionResultBundleWriter.SucceedBundleReview(GuidParser.Parse(request.BundleId));
+        await _majorityElectionResultBundleWriter.SucceedBundleReview(request.BundleIds.Select(GuidParser.Parse).ToList());
         return ProtobufEmpty.Instance;
     }
 }

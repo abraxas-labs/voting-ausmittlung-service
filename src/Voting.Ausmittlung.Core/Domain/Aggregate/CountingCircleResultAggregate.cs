@@ -17,6 +17,8 @@ public abstract class CountingCircleResultAggregate : BaseEventSignatureAggregat
 
     public CountingCircleResultState State { get; protected set; } = CountingCircleResultState.Initial;
 
+    public bool Published { get; protected set; }
+
     public abstract void StartSubmission(Guid countingCircleId, Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded);
 
     public abstract void SubmissionFinished(Guid contestId);
@@ -34,6 +36,10 @@ public abstract class CountingCircleResultAggregate : BaseEventSignatureAggregat
     public abstract void FlagForCorrection(Guid contestId, string comment = "");
 
     public abstract void Reset(Guid contestId);
+
+    public abstract void Publish(Guid contestId);
+
+    public abstract void Unpublish(Guid contestId);
 
     protected void EnsureInState(params CountingCircleResultState[] validStates)
     {

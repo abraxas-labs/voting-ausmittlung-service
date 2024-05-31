@@ -10,7 +10,6 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -143,11 +142,77 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
         ballot2TieBreakQuestions[0].Q1Accepted.Should().BeTrue();
     }
 
+    [Fact]
+    public async Task TestBuildPopularAndCountingCircleMajorityEndResult()
+    {
+        await SeedVote(VoteResultAlgorithm.PopularAndCountingCircleMajority);
+        await StartResultSubmissions();
+
+        await FinishResultSubmission(VoteEndResultMockedData.GossauResultId);
+        await FinishResultSubmission(VoteEndResultMockedData.StGallenStFidenResultId);
+        await FinishResultSubmission(VoteEndResultMockedData.StGallenHaggenResultId);
+        await FinishResultSubmission(
+            VoteEndResultMockedData.StGallenAuslandschweizerResultId,
+            (40, 20),
+            (10, 15),
+            (10, 15));
+        await FinishResultSubmission(
+            VoteEndResultMockedData.StGallenResultId,
+            (40, 20),
+            (10, 15),
+            (10, 15));
+        await FinishResultSubmission(
+            VoteEndResultMockedData.UzwilResultId,
+            (0, 100),
+            (11, 15),
+            (15, 10));
+
+        var initEndResult = await GetEndResult();
+        initEndResult.MatchSnapshot("init");
+
+        await SetAllAuditedTentatively();
+
+        var afterAudited = await GetEndResult();
+        afterAudited.MatchSnapshot("afterAudited");
+
+        var ballot1Questions = await RunOnDb(db => db.BallotQuestionEndResults
+            .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId1))
+            .OrderBy(x => x.Question.Number)
+            .ToListAsync());
+
+        var ballot2Questions = await RunOnDb(db => db.BallotQuestionEndResults
+            .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId2))
+            .OrderBy(x => x.Question.Number)
+            .ToListAsync());
+        var ballot2TieBreakQuestions = await RunOnDb(db => db.TieBreakQuestionEndResults
+            .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId2))
+            .OrderBy(x => x.Question.Number)
+            .ToListAsync());
+
+        ballot1Questions[0].HasCountingCircleMajority.Should().BeTrue();
+        ballot1Questions[0].Accepted.Should().BeFalse();
+
+        ballot2Questions[0].HasCountingCircleMajority.Should().BeFalse();
+        ballot2Questions[0].Accepted.Should().BeFalse();
+
+        ballot2Questions[1].HasCountingCircleMajority.Should().BeTrue();
+        ballot2Questions[1].Accepted.Should().BeTrue();
+
+        ballot2TieBreakQuestions[0].HasCountingCircleQ1Majority.Should().BeTrue();
+        ballot2TieBreakQuestions[0].HasCountingCircleQ2Majority.Should().BeFalse();
+        ballot2TieBreakQuestions[0].Q1Accepted.Should().BeTrue();
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Skip this test, tested in another class
+        yield break;
+    }
+
     protected override IEnumerable<string> UnauthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        // Skip this test, tested in another class
+        yield break;
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

@@ -24,4 +24,9 @@ public enum VoteResultAlgorithm
     /// The vote is accepted if the majority of the counting circles accepted it.
     /// </summary>
     CountingCircleMajority,
+
+    /// <summary>
+    /// The vote is accepted if more persons voted for it than against it and the majority of the counting circles accepted it.
+    /// </summary>
+    PopularAndCountingCircleMajority,
 }

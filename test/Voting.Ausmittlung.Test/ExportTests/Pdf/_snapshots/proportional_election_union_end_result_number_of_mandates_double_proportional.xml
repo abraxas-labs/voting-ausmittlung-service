@@ -1,0 +1,295 @@
+<Voting>
+  <TemplateKey />
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Urnengang de</Description>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElectionUnion>
+    <Description>Kantonratswahl 2023</Description>
+    <ProportionalElectionUnionDoubleProportionalResult>
+      <NumberOfMandates>36</NumberOfMandates>
+      <VoteCount>491372</VoteCount>
+      <CantonalQuorum>14742</CantonalQuorum>
+      <VoterNumber>40420.831585081585081585081586</VoterNumber>
+      <ElectionKey>1132</ElectionKey>
+      <SuperApportionmentNumberOfMandates>36</SuperApportionmentNumberOfMandates>
+      <SubApportionmentNumberOfMandates>36</SubApportionmentNumberOfMandates>
+      <Row>
+        <ProportionalElection>
+          <PoliticalBusinessNumber>KtRat007</PoliticalBusinessNumber>
+          <OfficialDescription>Kantonratswahl de</OfficialDescription>
+          <ShortDescription>Kantonratswahl de</ShortDescription>
+          <DomainOfInfluence>
+            <Name>Bezirk Dietikon</Name>
+            <NameForProtocol>Bezirk Dietikon</NameForProtocol>
+            <ShortName>Bezirk Dietikon</ShortName>
+            <AuthorityName />
+            <Code />
+            <SortNumber>0</SortNumber>
+            <Bfs>101</Bfs>
+            <Type>Bz</Type>
+            <Canton>Zh</Canton>
+          </DomainOfInfluence>
+          <NumberOfMandates>11</NumberOfMandates>
+        </ProportionalElection>
+        <VoteCount>98971</VoteCount>
+        <VoterNumber>8997</VoterNumber>
+        <Quorum>4949</Quorum>
+        <Divisor>9639.800719314109537275999515</Divisor>
+        <NumberOfMandates>11</NumberOfMandates>
+        <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
+      </Row>
+      <Row>
+        <ProportionalElection>
+          <PoliticalBusinessNumber>KtRat010</PoliticalBusinessNumber>
+          <OfficialDescription>Kantonratswahl de</OfficialDescription>
+          <ShortDescription>Kantonratswahl de</ShortDescription>
+          <DomainOfInfluence>
+            <Name>Bezirk Meilen</Name>
+            <NameForProtocol>Bezirk Meilen</NameForProtocol>
+            <ShortName>Bezirk Meilen</ShortName>
+            <AuthorityName />
+            <Code />
+            <SortNumber>0</SortNumber>
+            <Bfs>102</Bfs>
+            <Type>Bz</Type>
+            <Canton>Zh</Canton>
+          </DomainOfInfluence>
+          <NumberOfMandates>12</NumberOfMandates>
+        </ProportionalElection>
+        <VoteCount>215661</VoteCount>
+        <VoterNumber>17828</VoterNumber>
+        <Quorum>10784</Quorum>
+        <Divisor>17700.097739297739297739302375</Divisor>
+        <NumberOfMandates>12</NumberOfMandates>
+        <SubApportionmentNumberOfMandates>12</SubApportionmentNumberOfMandates>
+      </Row>
+      <Row>
+        <ProportionalElection>
+          <PoliticalBusinessNumber>KtRat014</PoliticalBusinessNumber>
+          <OfficialDescription>Kantonratswahl de</OfficialDescription>
+          <ShortDescription>Kantonratswahl de</ShortDescription>
+          <DomainOfInfluence>
+            <Name>Bezirk Winterthur</Name>
+            <NameForProtocol>Bezirk Winterthur</NameForProtocol>
+            <ShortName>Bezirk Winterthur</ShortName>
+            <AuthorityName />
+            <Code />
+            <SortNumber>0</SortNumber>
+            <Bfs>103</Bfs>
+            <Type>Bz</Type>
+            <Canton>Zh</Canton>
+          </DomainOfInfluence>
+          <NumberOfMandates>13</NumberOfMandates>
+        </ProportionalElection>
+        <VoteCount>176740</VoteCount>
+        <VoterNumber>13595</VoterNumber>
+        <Quorum>8837</Quorum>
+        <Divisor>13473.118163906724018355752463</Divisor>
+        <NumberOfMandates>13</NumberOfMandates>
+        <SubApportionmentNumberOfMandates>13</SubApportionmentNumberOfMandates>
+      </Row>
+      <Column>
+        <UnionList>
+          <OrderNumber>01</OrderNumber>
+          <ShortDescription>SVP de</ShortDescription>
+        </UnionList>
+        <VoteCount>192474</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>16038.114219114219114219114220</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>14.167945423245776602667062032</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>14</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>14</SubApportionmentNumberOfMandates>
+        <Divisor>1</Divisor>
+        <Cell>
+          <List>
+            <OrderNumber>01</OrderNumber>
+            <ShortDescription>SVP de</ShortDescription>
+            <Description>Liste 01 (595b7588-2af3-4686-b4d4-f97a64679103) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>47079</VoteCount>
+          <VoterNumber>4279.9090909090909090909090909</VoterNumber>
+          <SubApportionmentNumberOfMandates>5</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>47.568479655656707520384759170</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>01</OrderNumber>
+            <ShortDescription>SVP de</ShortDescription>
+            <Description>Liste 01 (7f7808f7-79b5-4b3e-a434-eb7344131ce2) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>89540</VoteCount>
+          <VoterNumber>7461.6666666666666666666666667</VoterNumber>
+          <SubApportionmentNumberOfMandates>5</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>41.518865256119558010024992930</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>01</OrderNumber>
+            <ShortDescription>SVP de</ShortDescription>
+            <Description>Liste 01 (64672e72-1502-4829-a05f-b96821364552) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>55855</VoteCount>
+          <VoterNumber>4296.5384615384615384615384615</VoterNumber>
+          <SubApportionmentNumberOfMandates>4</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>31.602919542831277582890121080</VoteCountPercentageInElection>
+        </Cell>
+      </Column>
+      <Column>
+        <UnionList>
+          <OrderNumber>02</OrderNumber>
+          <ShortDescription>SP de</ShortDescription>
+        </UnionList>
+        <VoteCount>150628</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>12214.177156177156177156177156</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>10.789909148566392382646799608</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>11</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
+        <Divisor>1.0103451802617353589246264826</Divisor>
+        <Cell>
+          <List>
+            <OrderNumber>02</OrderNumber>
+            <ShortDescription>SP de</ShortDescription>
+            <Description>Liste 02 (ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>24473</VoteCount>
+          <VoterNumber>2224.8181818181818181818181818</VoterNumber>
+          <SubApportionmentNumberOfMandates>3</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>24.727445413302886704186074710</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>02</OrderNumber>
+            <ShortDescription>SP de</ShortDescription>
+            <Description>Liste 02 (89dfd5be-ad83-4e1e-b575-ded6ce513305) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>44480</VoteCount>
+          <VoterNumber>3706.6666666666666666666666667</VoterNumber>
+          <SubApportionmentNumberOfMandates>2</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>20.624962325130644854656150160</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>02</OrderNumber>
+            <ShortDescription>SP de</ShortDescription>
+            <Description>Liste 02 (c9a3491c-0774-4952-a487-e3087a1bd955) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>81675</VoteCount>
+          <VoterNumber>6282.6923076923076923076923077</VoterNumber>
+          <SubApportionmentNumberOfMandates>6</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>46.211949756704764060201425820</VoteCountPercentageInElection>
+        </Cell>
+      </Column>
+      <Column>
+        <UnionList>
+          <OrderNumber>03</OrderNumber>
+          <ShortDescription>FDP de</ShortDescription>
+        </UnionList>
+        <VoteCount>146546</VoteCount>
+        <CantonalQuorumReached>true</CantonalQuorumReached>
+        <AnyQuorumReached>true</AnyQuorumReached>
+        <VoterNumber>12168.540209790209790209790210</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>10.749593824903012182164125627</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>11</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
+        <Divisor>0.9121332956825265653739957174</Divisor>
+        <Cell>
+          <List>
+            <OrderNumber>03</OrderNumber>
+            <ShortDescription>FDP de</ShortDescription>
+            <Description>Liste 03 (c90826ef-759c-4c8c-af99-de77a28214a7) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>27419</VoteCount>
+          <VoterNumber>2492.6363636363636363636363636</VoterNumber>
+          <SubApportionmentNumberOfMandates>3</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>27.704074931040405775429166120</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>03</OrderNumber>
+            <ShortDescription>FDP de</ShortDescription>
+            <Description>Liste 03 (e3598805-c52c-4ff4-9049-2c5647972e8c) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>79917</VoteCount>
+          <VoterNumber>6659.75</VoterNumber>
+          <SubApportionmentNumberOfMandates>5</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>37.056769652371082393200439580</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>03</OrderNumber>
+            <ShortDescription>FDP de</ShortDescription>
+            <Description>Liste 03 (f31e9c04-eea8-41b5-b560-f34f97c01c26) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>true</ProportionalElectionQuorumReached>
+          <VoteCount>39210</VoteCount>
+          <VoterNumber>3016.1538461538461538461538462</VoterNumber>
+          <SubApportionmentNumberOfMandates>3</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>22.185130700463958356908453090</VoteCountPercentageInElection>
+        </Cell>
+      </Column>
+      <Column>
+        <UnionList>
+          <OrderNumber>04</OrderNumber>
+          <ShortDescription>SaPaPo de</ShortDescription>
+        </UnionList>
+        <VoteCount>1724</VoteCount>
+        <CantonalQuorumReached>false</CantonalQuorumReached>
+        <AnyQuorumReached>false</AnyQuorumReached>
+        <VoterNumber>0</VoterNumber>
+        <SuperApportionmentNumberOfMandatesUnrounded>0</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandates>0</SuperApportionmentNumberOfMandates>
+        <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+        <Divisor>0</Divisor>
+        <Cell>
+          <List>
+            <OrderNumber>04</OrderNumber>
+            <ShortDescription>SaPaPo de</ShortDescription>
+            <Description />
+          </List>
+          <ProportionalElectionQuorumReached>false</ProportionalElectionQuorumReached>
+          <VoteCount>0</VoteCount>
+          <VoterNumber>0</VoterNumber>
+          <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>0</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>04</OrderNumber>
+            <ShortDescription>SaPaPo de</ShortDescription>
+            <Description>Liste 04 (2cd8651a-33d2-451c-8a70-1eaaa47deb92) de</Description>
+          </List>
+          <ProportionalElectionQuorumReached>false</ProportionalElectionQuorumReached>
+          <VoteCount>1724</VoteCount>
+          <VoterNumber>0</VoterNumber>
+          <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>0.7994027663787147421184173300</VoteCountPercentageInElection>
+        </Cell>
+        <Cell>
+          <List>
+            <OrderNumber>04</OrderNumber>
+            <ShortDescription>SaPaPo de</ShortDescription>
+            <Description />
+          </List>
+          <ProportionalElectionQuorumReached>false</ProportionalElectionQuorumReached>
+          <VoteCount>0</VoteCount>
+          <VoterNumber>0</VoterNumber>
+          <SubApportionmentNumberOfMandates>0</SubApportionmentNumberOfMandates>
+          <VoteCountPercentageInElection>0</VoteCountPercentageInElection>
+        </Cell>
+      </Column>
+    </ProportionalElectionUnionDoubleProportionalResult>
+  </ProportionalElectionUnion>
+</Voting>

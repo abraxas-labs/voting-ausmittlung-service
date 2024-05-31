@@ -21,17 +21,20 @@ public class ContestCountingCircleDetailsBuilder
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
+    private readonly DataContext _dataContext;
 
     public ContestCountingCircleDetailsBuilder(
         DomainOfInfluenceCountingCircleRepo doiCountingCirclesRepo,
         IDbRepository<DataContext, Contest> contestRepo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder)
+        AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder,
+        DataContext dataContext)
     {
         _doiCountingCirclesRepo = doiCountingCirclesRepo;
         _contestRepo = contestRepo;
         _ccDetailsRepo = ccDetailsRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
+        _dataContext = dataContext;
     }
 
     internal async Task SyncForDomainOfInfluences(IEnumerable<Guid> doiIds)
@@ -40,7 +43,6 @@ public class ContestCountingCircleDetailsBuilder
             .AsSplitQuery()
             .WhereInTestingPhase()
             .Where(x => doiIds.Contains(x.DomainOfInfluenceId))
-            .Include(x => x.CountingCircleDetails)
             .Include(x => x.DomainOfInfluence.CountingCircles)
             .ThenInclude(x => x.CountingCircle)
             .ToListAsync();
@@ -85,17 +87,16 @@ public class ContestCountingCircleDetailsBuilder
     /// </summary>
     /// <param name="contest">The contest with the existing CountingCircleDetails loaded.</param>
     /// <param name="doiCountingCircles">The counting circles of the doi of the contest.</param>
-    /// <param name="eVoting">
-    /// If null, existing values are used if present or false if no value exists yet.
-    /// If a value is set all options eVoting flag is set according to the provided value.
-    /// </param>
     /// <returns>A task which resolves to all removed details.</returns>
     private async Task<List<ContestCountingCircleDetails>> Sync(
         Contest contest,
-        IEnumerable<DomainOfInfluenceCountingCircle> doiCountingCircles,
-        bool? eVoting = null)
+        IEnumerable<DomainOfInfluenceCountingCircle> doiCountingCircles)
     {
-        var existingValues = contest.CountingCircleDetails.ToDictionary(x => x.CountingCircleId);
+        var existingValues = await _ccDetailsRepo.Query()
+            .AsTracking()
+            .Where(x => x.ContestId == contest.Id)
+            .ToDictionaryAsync(x => x.CountingCircleId);
+
         var toAdd = new List<ContestCountingCircleDetails>();
 
         foreach (var cc in doiCountingCircles.Select(x => x.CountingCircle))
@@ -104,11 +105,8 @@ public class ContestCountingCircleDetailsBuilder
             {
                 existingValues.Remove(cc.Id);
 
-                if (eVoting.HasValue && detail.EVoting != eVoting)
-                {
-                    detail.EVoting = eVoting.Value;
-                    await _ccDetailsRepo.UpdateIgnoreRelations(detail);
-                }
+                // eVoting can only be true, if it is enabled on the counting circle and the contest
+                detail.EVoting = contest.EVoting && cc.EVoting;
 
                 continue;
             }
@@ -118,9 +116,11 @@ public class ContestCountingCircleDetailsBuilder
                 Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contest.Id, cc.BasisCountingCircleId, contest.TestingPhaseEnded),
                 ContestId = contest.Id,
                 CountingCircleId = cc.Id,
-                EVoting = eVoting == true,
+                EVoting = contest.EVoting && cc.EVoting,
             });
         }
+
+        await _dataContext.SaveChangesAsync();
 
         var toRemove = existingValues.Values.ToList();
 

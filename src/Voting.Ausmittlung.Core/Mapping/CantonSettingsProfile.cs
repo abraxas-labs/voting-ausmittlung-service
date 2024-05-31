@@ -13,5 +13,6 @@ public class CantonSettingsProfile : Profile
     {
         CreateMap<CantonSettingsEventData, CantonSettings>();
         CreateMap<CantonSettingsVotingCardChannelEventData, CantonSettingsVotingCardChannel>();
+        CreateMap<CountingCircleResultStateDescriptionEventData, CountingCircleResultStateDescription>();
     }
 }

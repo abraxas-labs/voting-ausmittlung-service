@@ -89,10 +89,13 @@ public class CountingCircleProcessor :
         await _repo.Update(countingCircle);
 
         var existingSnapshots = await _repo.Query()
+            .AsSplitQuery()
             .Include(x => x.ContactPersonDuringEvent)
             .Include(x => x.ContactPersonAfterEvent)
             .Include(x => x.ResponsibleAuthority)
             .Include(x => x.Electorates)
+            .Include(x => x.ContestDetails)
+            .Include(x => x.SnapshotContest)
             .Where(cc => cc.BasisCountingCircleId == id)
             .WhereContestIsInTestingPhase()
             .ToListAsync();
@@ -120,6 +123,14 @@ public class CountingCircleProcessor :
 
             snapshotElectoratesToCreate.AddRange(snapshotCountingCircle.Electorates);
             snapshotCountingCircle.Electorates = null!;
+
+            snapshotCountingCircle.ContestDetails = snapshot.ContestDetails;
+            foreach (var details in snapshotCountingCircle.ContestDetails)
+            {
+                // eVoting can only be true, if it is enabled on the counting circle and the contest
+                details.EVoting = snapshotCountingCircle.EVoting && snapshot.SnapshotContest!.EVoting;
+            }
+
             snapshotCountingCirclesToUpdate.Add(snapshotCountingCircle);
         }
 

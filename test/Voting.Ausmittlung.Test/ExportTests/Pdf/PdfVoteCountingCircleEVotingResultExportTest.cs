@@ -25,7 +25,7 @@ public class PdfVoteCountingCircleEVotingResultExportTest : PdfExportBaseTest
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_E-Voting_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_inkl_E-Voting_Details_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol.Key;
 

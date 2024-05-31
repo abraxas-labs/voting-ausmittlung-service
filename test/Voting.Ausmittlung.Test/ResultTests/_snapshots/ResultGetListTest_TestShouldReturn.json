@@ -16,7 +16,17 @@
     "EVotingFrom": null,
     "EVotingTo": null,
     "State": 3,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": false,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": false
+    }
   },
   "CountingCircle": {
     "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -140,13 +150,6 @@
             "Phone": "0799999999",
             "MobilePhone": "",
             "Email": "email@example.com"
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": null,
@@ -156,7 +159,9 @@
       },
       "State": 1,
       "SubmissionDoneTimestamp": null,
-      "HasComments": false
+      "HasComments": false,
+      "AuditedTentativelyTimestamp": null,
+      "PlausibilisedTimestamp": null
     }
   ],
   "CurrentTenantIsResponsible": true,

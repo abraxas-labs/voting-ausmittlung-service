@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eCH-0110:delivery xmlns:eCH-0110="http://www.ech.ch/xmlns/eCH-0110/4" xmlns:eCH-0008="http://www.ech.ch/xmlns/eCH-0008/3" xmlns:eCH-0010="http://www.ech.ch/xmlns/eCH-0010/6" xmlns:eCH-0044="http://www.ech.ch/xmlns/eCH-0044/4" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1">
+	<eCH-0110:deliveryHeader>
+		<eCH-0058:senderId>http://www.post.ch</eCH-0058:senderId>
+		<eCH-0058:messageId>6806BF4D6843D4AABB1741A47F9F6785</eCH-0058:messageId>
+		<eCH-0058:messageType>http://www.post.ch</eCH-0058:messageType>
+		<eCH-0058:sendingApplication>
+			<eCH-0058:manufacturer>SwissPost</eCH-0058:manufacturer>
+			<eCH-0058:product>E-Voting</eCH-0058:product>
+			<eCH-0058:productVersion>1</eCH-0058:productVersion>
+		</eCH-0058:sendingApplication>
+		<eCH-0058:messageDate>2024-01-05T17:26:32.364056600</eCH-0058:messageDate>
+		<eCH-0058:action>1</eCH-0058:action>
+		<eCH-0058:testDeliveryFlag>false</eCH-0058:testDeliveryFlag>
+	</eCH-0110:deliveryHeader>
+	<eCH-0110:resultDelivery>
+		<eCH-0110:reportingBody>
+			<eCH-0110:reportingBodyIdentification>SwissPost</eCH-0110:reportingBodyIdentification>
+			<eCH-0110:creationDateTime>2024-01-05T17:26:32.404058700</eCH-0110:creationDateTime>
+		</eCH-0110:reportingBody>
+		<eCH-0110:contestInformation>
+			<eCH-0155:contestIdentification>883fbb10-8b7b-4694-b1bf-e84c5657adb7</eCH-0155:contestIdentification>
+			<eCH-0155:contestDate>2024-03-03</eCH-0155:contestDate>
+			<eCH-0155:contestDescription>
+				<eCH-0155:contestDescriptionInfo>
+					<eCH-0155:language>DE</eCH-0155:language>
+					<eCH-0155:contestDescription>Eidgenössische Abstimmungen sowie Kantonsrats- und Regierungswahlen</eCH-0155:contestDescription>
+				</eCH-0155:contestDescriptionInfo>
+				<eCH-0155:contestDescriptionInfo>
+					<eCH-0155:language>FR</eCH-0155:language>
+					<eCH-0155:contestDescription>Eidgenössische Abstimmungen sowie Kantonsrats- und Regierungswahlen</eCH-0155:contestDescription>
+				</eCH-0155:contestDescriptionInfo>
+				<eCH-0155:contestDescriptionInfo>
+					<eCH-0155:language>IT</eCH-0155:language>
+					<eCH-0155:contestDescription>Eidgenössische Abstimmungen sowie Kantonsrats- und Regierungswahlen</eCH-0155:contestDescription>
+				</eCH-0155:contestDescriptionInfo>
+				<eCH-0155:contestDescriptionInfo>
+					<eCH-0155:language>RM</eCH-0155:language>
+					<eCH-0155:contestDescription>Eidgenössische Abstimmungen sowie Kantonsrats- und Regierungswahlen</eCH-0155:contestDescription>
+				</eCH-0155:contestDescriptionInfo>
+			</eCH-0155:contestDescription>
+			<eCH-0155:eVotingPeriod>
+				<eCH-0155:eVotingPeriodFrom>2024-01-05T12:00:00+01:00</eCH-0155:eVotingPeriodFrom>
+				<eCH-0155:eVotingPeriodTill>2024-03-02T12:00:00+01:00</eCH-0155:eVotingPeriodTill>
+			</eCH-0155:eVotingPeriod>
+		</eCH-0110:contestInformation>
+		<eCH-0110:countingCircleResults>
+			<eCH-0110:countingCircle>
+				<eCH-0155:countingCircleId>7d42e80b-aad1-43cb-94a3-11fd725515a5</eCH-0155:countingCircleId>
+				<eCH-0155:countingCircleName>Vilters-Wangs</eCH-0155:countingCircleName>
+			</eCH-0110:countingCircle>
+			<eCH-0110:votingCardsInformation>
+				<eCH-0110:countOfReceivedValidVotingCardsTotal>12</eCH-0110:countOfReceivedValidVotingCardsTotal>
+				<eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+			</eCH-0110:votingCardsInformation>
+			<eCH-0110:electionGroupResults>
+				<eCH-0110:domainOfInfluenceIdentification>4b5ab431-384d-4062-8de3-239609e3a733</eCH-0110:domainOfInfluenceIdentification>
+				<eCH-0110:electionGroupDescription>
+					<eCH-0155:electionDescriptionInfo>
+						<eCH-0155:language>DE</eCH-0155:language>
+						<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+						<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+					</eCH-0155:electionDescriptionInfo>
+					<eCH-0155:electionDescriptionInfo>
+						<eCH-0155:language>FR</eCH-0155:language>
+						<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+						<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+					</eCH-0155:electionDescriptionInfo>
+					<eCH-0155:electionDescriptionInfo>
+						<eCH-0155:language>IT</eCH-0155:language>
+						<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+						<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+					</eCH-0155:electionDescriptionInfo>
+					<eCH-0155:electionDescriptionInfo>
+						<eCH-0155:language>RM</eCH-0155:language>
+						<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+						<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+					</eCH-0155:electionDescriptionInfo>
+				</eCH-0110:electionGroupDescription>
+				<eCH-0110:countOfVotersInformation>
+					<eCH-0110:countOfVotersTotal>5</eCH-0110:countOfVotersTotal>
+				</eCH-0110:countOfVotersInformation>
+				<eCH-0110:countOfReceivedBallotsTotal>
+					<eCH-0110:total>12</eCH-0110:total>
+				</eCH-0110:countOfReceivedBallotsTotal>
+				<eCH-0110:countOfAccountedBallots>
+					<eCH-0110:total>11</eCH-0110:total>
+				</eCH-0110:countOfAccountedBallots>
+				<eCH-0110:countOfUnaccountedBallots>
+					<eCH-0110:total>0</eCH-0110:total>
+				</eCH-0110:countOfUnaccountedBallots>
+				<eCH-0110:countOfUnaccountedBlankBallots>
+					<eCH-0110:total>1</eCH-0110:total>
+				</eCH-0110:countOfUnaccountedBlankBallots>
+				<eCH-0110:countOfUnaccountedInvalidBallots>
+					<eCH-0110:total>0</eCH-0110:total>
+				</eCH-0110:countOfUnaccountedInvalidBallots>
+				<eCH-0110:electionResults>
+					<eCH-0110:election>
+						<eCH-0155:electionIdentification>2b5a668c-1456-4df5-ba4c-7eef8c84a8b3</eCH-0155:electionIdentification>
+						<eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+						<eCH-0155:electionPosition>1</eCH-0155:electionPosition>
+						<eCH-0155:electionDescription>
+							<eCH-0155:electionDescriptionInfo>
+								<eCH-0155:language>DE</eCH-0155:language>
+								<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+								<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+							</eCH-0155:electionDescriptionInfo>
+							<eCH-0155:electionDescriptionInfo>
+								<eCH-0155:language>FR</eCH-0155:language>
+								<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+								<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+							</eCH-0155:electionDescriptionInfo>
+							<eCH-0155:electionDescriptionInfo>
+								<eCH-0155:language>IT</eCH-0155:language>
+								<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+								<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+							</eCH-0155:electionDescriptionInfo>
+							<eCH-0155:electionDescriptionInfo>
+								<eCH-0155:language>RM</eCH-0155:language>
+								<eCH-0155:electionDescriptionShort>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl nebenamtliche/r Richter/in</eCH-0155:electionDescriptionShort>
+								<eCH-0155:electionDescription>Kreisgericht Werdenberg-Sarganserland: Ersatzwahl einer nebenamtlichen Richterin oder eines nebenamtlichen Richters</eCH-0155:electionDescription>
+							</eCH-0155:electionDescriptionInfo>
+						</eCH-0155:electionDescription>
+						<eCH-0155:numberOfMandates>1</eCH-0155:numberOfMandates>
+					</eCH-0110:election>
+					<eCH-0110:majoralElection>
+						<eCH-0110:candidate>
+							<eCH-0110:candidateInformation>
+								<eCH-0110:candidateIdentification>6cb4a328-4c53-448c-8fc0-21a3dd6f0a30</eCH-0110:candidateIdentification>
+								<eCH-0110:candidateReference>1</eCH-0110:candidateReference>
+								<eCH-0110:familyName>Nadja</eCH-0110:familyName>
+								<eCH-0110:firstName>Gähwiler-Rohrer</eCH-0110:firstName>
+								<eCH-0110:callName>Gähwiler-Rohrer</eCH-0110:callName>
+								<eCH-0110:candidateText>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>DE</eCH-0155:language>
+										<eCH-0155:candidateText>1982, Speditionskauffrau, Buchs, SP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>FR</eCH-0155:language>
+										<eCH-0155:candidateText>1982, Speditionskauffrau, Buchs, SP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>IT</eCH-0155:language>
+										<eCH-0155:candidateText>1982, Speditionskauffrau, Buchs, SP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>RM</eCH-0155:language>
+										<eCH-0155:candidateText>1982, Speditionskauffrau, Buchs, SP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+								</eCH-0110:candidateText>
+								<eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+							</eCH-0110:candidateInformation>
+							<eCH-0110:listResults>
+								<eCH-0110:listIdentification>76814221-c078-37e1-a150-6ac93a7f6841</eCH-0110:listIdentification>
+								<eCH-0110:countOfvotesFromUnchangedBallots>
+									<eCH-0110:total>0</eCH-0110:total>
+								</eCH-0110:countOfvotesFromUnchangedBallots>
+								<eCH-0110:countOfvotesFromChangedBallots>
+									<eCH-0110:total>0</eCH-0110:total>
+								</eCH-0110:countOfvotesFromChangedBallots>
+							</eCH-0110:listResults>
+							<eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+						</eCH-0110:candidate>
+						<eCH-0110:candidate>
+							<eCH-0110:candidateInformation>
+								<eCH-0110:candidateIdentification>2e981ee7-ddc6-4fbf-a9c7-23735d75ec04</eCH-0110:candidateIdentification>
+								<eCH-0110:candidateReference>2</eCH-0110:candidateReference>
+								<eCH-0110:familyName>Andreas</eCH-0110:familyName>
+								<eCH-0110:firstName>Schelling</eCH-0110:firstName>
+								<eCH-0110:callName>Schelling</eCH-0110:callName>
+								<eCH-0110:candidateText>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>DE</eCH-0155:language>
+										<eCH-0155:candidateText>1989, Polizist, Mels, SVP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>FR</eCH-0155:language>
+										<eCH-0155:candidateText>1989, Polizist, Mels, SVP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>IT</eCH-0155:language>
+										<eCH-0155:candidateText>1989, Polizist, Mels, SVP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+									<eCH-0155:candidateTextInfo>
+										<eCH-0155:language>RM</eCH-0155:language>
+										<eCH-0155:candidateText>1989, Polizist, Mels, SVP</eCH-0155:candidateText>
+									</eCH-0155:candidateTextInfo>
+								</eCH-0110:candidateText>
+								<eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+							</eCH-0110:candidateInformation>
+							<eCH-0110:listResults>
+								<eCH-0110:listIdentification>76814221-c078-37e1-a150-6ac93a7f6841</eCH-0110:listIdentification>
+								<eCH-0110:countOfvotesFromUnchangedBallots>
+									<eCH-0110:total>0</eCH-0110:total>
+								</eCH-0110:countOfvotesFromUnchangedBallots>
+								<eCH-0110:countOfvotesFromChangedBallots>
+									<eCH-0110:total>0</eCH-0110:total>
+								</eCH-0110:countOfvotesFromChangedBallots>
+							</eCH-0110:listResults>
+							<eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+						</eCH-0110:candidate>
+						<eCH-0110:candidate>
+							<eCH-0110:writeIn>Vilters Gericht 1</eCH-0110:writeIn>
+							<eCH-0110:listResults>
+								<eCH-0110:listIdentification>76814221-c078-37e1-a150-6ac93a7f6841</eCH-0110:listIdentification>
+								<eCH-0110:countOfvotesFromUnchangedBallots>
+									<eCH-0110:total>0</eCH-0110:total>
+								</eCH-0110:countOfvotesFromUnchangedBallots>
+								<eCH-0110:countOfvotesFromChangedBallots>
+									<eCH-0110:total>1</eCH-0110:total>
+								</eCH-0110:countOfvotesFromChangedBallots>
+							</eCH-0110:listResults>
+							<eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+						</eCH-0110:candidate>
+						<eCH-0110:countOfInvalidVotesTotal>
+							<eCH-0110:total>0</eCH-0110:total>
+						</eCH-0110:countOfInvalidVotesTotal>
+					</eCH-0110:majoralElection>
+				</eCH-0110:electionResults>
+			</eCH-0110:electionGroupResults>
+		</eCH-0110:countingCircleResults>
+		<eCH-0110:extension>
+			<signature>DJYppWnCJUUFEEW7ZxI73jZJxzCqZpDDrPLaoFuB5O5SdY0Jt6CY8iz4NbWZReVBCUITPXQRC/sP/n3CVzHX2OMv7l9XIGQk2gvJJwjRRSc+fPhv6XeDRpTZuE7y5q61ZYzX/7ElgzRfJ3zsVGQaCyurNyUmFFGi5/c3WupFSFOJNrOHohjOL3qplANPcvon5eL/8sY9+crzpgOtKYgznCwg9pI2wg/Ldpj2PLKw3qwrzDdnzErBjFVhe1d0yCSqod0OAzoLDQ7pwG9MBzPn5Ewq4pjvV2bUly0UT4nJaDruOIRDP7QmN8V/W8OOCisIH/ccATKwl8l05309XxnQnsMXouu76sciJ1jkuZb5LW9nkc3CU83EhFeAyj7H9G8WE7+6HcjgUOAyY7RRdaK2aN+2Sgj8uQ/fXrvdIJYo1D60MuXfX0VaZol1uD0ZrQ83CsKmtTA24NooV3ETb0LgXEh0E9emQiFMskcPlqg32Y22CCx1+rLvNsJ2IBPtwmAL</signature>
+		</eCH-0110:extension>
+	</eCH-0110:resultDelivery>
+</eCH-0110:delivery>

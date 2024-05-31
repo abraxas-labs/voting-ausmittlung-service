@@ -33,11 +33,6 @@ public class DomainOfInfluenceModelBuilder :
         builder.Navigation(di => di.ContactPerson).IsRequired();
 
         builder.Ignore(di => di.IsSnapshot);
-        builder.OwnsOne(doi => doi.CantonDefaults, b =>
-        {
-            b.OwnsMany(x => x.EnabledVotingCardChannels);
-        });
-        builder.Navigation(doi => doi.CantonDefaults).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<DomainOfInfluencePermissionEntry> builder)

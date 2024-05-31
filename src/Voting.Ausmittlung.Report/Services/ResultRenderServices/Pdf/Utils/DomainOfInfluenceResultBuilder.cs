@@ -37,7 +37,7 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
 
         politicalBusiness.Results = politicalBusiness
             .Results
-            .OrderByCountingCircle(x => x.CountingCircle, politicalBusiness.DomainOfInfluence.CantonDefaults)
+            .OrderByCountingCircle(x => x.CountingCircle, politicalBusiness.Contest.CantonDefaults)
             .ToList();
 
         var pbType = politicalBusiness.DomainOfInfluence.Type;
@@ -47,7 +47,7 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
         var doiResults = dois
             .Where(doi => doi.CountingCircles.Any(doiCc => ccIds.Contains(doiCc.CountingCircleId)))
             .Select(x => new TResult { DomainOfInfluence = x })
-            .OrderByDomainOfInfluence(x => x.DomainOfInfluence!, politicalBusiness.DomainOfInfluence.CantonDefaults)
+            .OrderByDomainOfInfluence(x => x.DomainOfInfluence!, politicalBusiness.Contest.CantonDefaults)
             .ToList();
 
         var doiResultByCcId = doiResults

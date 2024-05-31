@@ -69,11 +69,11 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
-            .ThenInclude(x => x.Ballot.BallotQuestions)
+            .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
-            .ThenInclude(x => x.Ballot.TieBreakQuestions)
+            .ThenInclude(x => x.Ballot.TieBreakQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.CountingCircle)
@@ -132,6 +132,6 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 }

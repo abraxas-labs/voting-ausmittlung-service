@@ -40,13 +40,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -66,7 +59,22 @@
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -83,7 +91,7 @@
       "ReviewProcedure": 1,
       "CandidateCheckDigit": true
     },
-    "State": 2,
+    "State": 1,
     "SubmissionDoneTimestamp": null,
     "TotalCountOfVoters": 15000,
     "CountOfVoters": {
@@ -152,7 +160,8 @@
       "ContactPersonSameDuringEventAsAfter": false,
       "ContactPersonAfterEvent": null
     },
-    "HasUnmappedWriteIns": false
+    "HasUnmappedWriteIns": false,
+    "Published": false
   },
   "Bundles": [
     {
@@ -184,8 +193,22 @@
       "BallotNumbersToReview": []
     },
     {
-      "Id": "0e6ce300-8106-49e2-824d-1311de811994",
+      "Id": "217ca0a0-72f6-4583-911e-46337a6f102e",
       "Number": 3,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "someones-user-id",
+        "FirstName": "Someone",
+        "LastName": "Else",
+        "FullName": "Someone Else"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    },
+    {
+      "Id": "0e6ce300-8106-49e2-824d-1311de811994",
+      "Number": 4,
       "State": 1,
       "CountOfBallots": 0,
       "CreatedBy": {
@@ -199,7 +222,7 @@
     },
     {
       "Id": "b1e326d7-2f47-43d7-8430-cf150401337c",
-      "Number": 4,
+      "Number": 5,
       "State": 1,
       "CountOfBallots": 0,
       "CreatedBy": {

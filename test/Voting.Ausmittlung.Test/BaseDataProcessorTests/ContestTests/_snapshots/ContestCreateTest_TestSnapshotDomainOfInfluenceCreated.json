@@ -14,6 +14,7 @@
     "AuthorityName": "",
     "Type": 5,
     "Canton": 1,
+    "ViewCountingCirclePartialResults": false,
     "ParentId": null,
     "Parent": null,
     "Children": [],
@@ -36,46 +37,10 @@
       "MobilePhone": "",
       "Email": ""
     },
-    "CantonDefaults": {
-      "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-      "MajorityElectionInvalidVotes": false,
-      "ProtocolDomainOfInfluenceSortType": 2,
-      "ProtocolCountingCircleSortType": 2,
-      "SwissAbroadVotingRight": 1,
-      "EnabledVotingCardChannels": [
-        {
-          "VotingChannel": 1,
-          "Valid": true,
-          "Channel": 1,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "VotingChannel": 4,
-          "Valid": true,
-          "Channel": 4,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "VotingChannel": 2,
-          "Valid": true,
-          "Channel": 2,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        },
-        {
-          "VotingChannel": 2,
-          "Valid": false,
-          "Channel": 2,
-          "Id": "00000000-0000-0000-0000-000000000000"
-        }
-      ],
-      "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
-      "MajorityElectionUseCandidateCheckDigit": false,
-      "ProportionalElectionUseCandidateCheckDigit": false
-    },
     "PlausibilisationConfiguration": null,
     "Parties": [],
     "Details": null,
+    "SwissAbroadVotingRight": 1,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
   "EVotingResultsImported": false,
@@ -227,6 +192,53 @@
       "Id": "f145cd49-6fe5-5876-a5d6-4f18a894f73a"
     }
   ],
+  "CantonDefaults": {
+    "ContestId": "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
+    "CountingCircleResultStateDescriptions": [
+      {
+        "State": 4,
+        "Description": "Erfassung beendet",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "StatePlausibilisedDisabled": false,
+    "MajorityElectionAbsoluteMajorityAlgorithm": 1,
+    "ProtocolDomainOfInfluenceSortType": 2,
+    "ProtocolCountingCircleSortType": 2,
+    "EnabledVotingCardChannels": [
+      {
+        "VotingChannel": 1,
+        "Valid": true,
+        "Channel": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "VotingChannel": 4,
+        "Valid": true,
+        "Channel": 4,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "VotingChannel": 2,
+        "Valid": true,
+        "Channel": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "VotingChannel": 2,
+        "Valid": false,
+        "Channel": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "MajorityElectionInvalidVotes": false,
+    "CountingMachineEnabled": false,
+    "NewZhFeaturesEnabled": false,
+    "MajorityElectionUseCandidateCheckDigit": true,
+    "ProportionalElectionUseCandidateCheckDigit": false,
+    "PublishResultsEnabled": true,
+    "Id": "00000000-0000-0000-0000-000000000000"
+  },
   "PoliticalBusinesses": [],
   "PoliticalBusinessUnions": [],
   "TestingPhaseEnded": false,

@@ -78,7 +78,8 @@ public class ResultImportReader
             .Include(x => x.Translations)
             .Include(x => x.SecondaryMajorityElections.Where(y => y.Active).OrderBy(y => y.PoliticalBusinessNumber))
             .ThenInclude(x => x.Translations)
-            .Include(x => x.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Contest.CantonDefaults)
             .Where(x => x.ContestId == contestId &&
                         x.Active &&
                         x.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId))

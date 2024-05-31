@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
@@ -17,6 +18,8 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
         : base(context)
     {
     }
+
+    internal string DelimetedTableName => DelimitedSchemaAndTableName;
 
     public Task<List<DomainOfInfluence>> ListWithContestsInTestingPhase(Guid basisDomainOfInfluenceId)
     {
@@ -32,6 +35,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
             .ToListAsync();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<List<Guid>> GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(Guid domainOfInfluenceId)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
@@ -54,6 +58,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
             .ToListAsync();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<DomainOfInfluenceCanton> GetRootCanton(Guid domainOfInfluenceId)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
@@ -78,6 +83,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
             .ToListAsync()).FirstOrDefault();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task UpdateInheritedCantons(Guid rootDomainOfInfluenceId, DomainOfInfluenceCanton rootCanton)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
@@ -104,6 +110,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
         await Context.SaveChangesAsync();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<List<DomainOfInfluence>> GetDomainOfInfluencesByReportingLevel(Guid domainOfInfluenceId, int reportingLevel)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
@@ -135,4 +142,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
             .Include(doi => doi.CountingCircles)
             .ToListAsync();
     }
+
+    internal string GetColumnName<TProp>(Expression<Func<DomainOfInfluence, TProp>> memberAccess)
+        => GetDelimitedColumnName(memberAccess);
 }

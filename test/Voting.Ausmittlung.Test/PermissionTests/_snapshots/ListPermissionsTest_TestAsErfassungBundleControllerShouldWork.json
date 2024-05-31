@@ -1,0 +1,17 @@
+{
+  "Permission": [
+    "Contest:read",
+    "PoliticalBusiness:read-accessible",
+    "PoliticalBusinessResult:read",
+    "PoliticalBusinessResult:read-comments",
+    "PoliticalBusinessResultBundle:read",
+    "PoliticalBusinessResultBundle:review",
+    "PoliticalBusinessResultBallot:update",
+    "PoliticalBusinessResultBallot:read",
+    "VoteBallotResult:read",
+    "MajorityElectionCandidate:read",
+    "ProportionalElectionCandidate:read",
+    "ProportionalElectionList:read",
+    "Export:export"
+  ]
+}

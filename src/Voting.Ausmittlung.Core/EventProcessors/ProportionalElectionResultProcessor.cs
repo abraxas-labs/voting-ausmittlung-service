@@ -31,7 +31,9 @@ public class ProportionalElectionResultProcessor :
     IEventProcessor<ProportionalElectionResultPlausibilised>,
     IEventProcessor<ProportionalElectionResultResettedToSubmissionFinished>,
     IEventProcessor<ProportionalElectionResultResettedToAuditedTentatively>,
-    IEventProcessor<ProportionalElectionResultResetted>
+    IEventProcessor<ProportionalElectionResultResetted>,
+    IEventProcessor<ProportionalElectionResultPublished>,
+    IEventProcessor<ProportionalElectionResultUnpublished>
 {
     private readonly IMapper _mapper;
     private readonly ProportionalElectionResultRepo _electionResultRepo;
@@ -78,6 +80,7 @@ public class ProportionalElectionResultProcessor :
         _mapper.Map(eventData.CountOfVoters, electionResult.CountOfVoters);
         electionResult.UpdateVoterParticipation();
         await _electionResultRepo.Update(electionResult);
+        await UpdateSimpleResult(electionResult.Id, electionResult.CountOfVoters);
     }
 
     public async Task Process(ProportionalElectionUnmodifiedListResultsEntered eventData)
@@ -171,5 +174,17 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
+    }
+
+    public async Task Process(ProportionalElectionResultPublished eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdatePublished(electionResultId, true);
+    }
+
+    public async Task Process(ProportionalElectionResultUnpublished eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdatePublished(electionResultId, false);
     }
 }

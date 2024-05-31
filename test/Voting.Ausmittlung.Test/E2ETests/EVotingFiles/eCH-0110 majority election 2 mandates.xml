@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eCH-0110:delivery xmlns:eCH-0110="http://www.ech.ch/xmlns/eCH-0110/4" xmlns:eCH-0008="http://www.ech.ch/xmlns/eCH-0008/3" xmlns:eCH-0010="http://www.ech.ch/xmlns/eCH-0010/6" xmlns:eCH-0044="http://www.ech.ch/xmlns/eCH-0044/4" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1">
+  <eCH-0110:deliveryHeader>
+    <eCH-0058:senderId>http://www.post.ch</eCH-0058:senderId>
+    <eCH-0058:messageId>E074D31333DB1637B1546031AE14E63C</eCH-0058:messageId>
+    <eCH-0058:messageType>http://www.post.ch</eCH-0058:messageType>
+    <eCH-0058:sendingApplication>
+      <eCH-0058:manufacturer>SwissPost</eCH-0058:manufacturer>
+      <eCH-0058:product>E-Voting</eCH-0058:product>
+      <eCH-0058:productVersion>1</eCH-0058:productVersion>
+    </eCH-0058:sendingApplication>
+    <eCH-0058:messageDate>2023-10-02T20:54:06.590194800</eCH-0058:messageDate>
+    <eCH-0058:action>1</eCH-0058:action>
+    <eCH-0058:testDeliveryFlag>false</eCH-0058:testDeliveryFlag>
+  </eCH-0110:deliveryHeader>
+  <eCH-0110:resultDelivery>
+    <eCH-0110:reportingBody>
+      <eCH-0110:reportingBodyIdentification>SwissPost</eCH-0110:reportingBodyIdentification>
+      <eCH-0110:creationDateTime>2023-10-02T20:54:06.602197500</eCH-0110:creationDateTime>
+    </eCH-0110:reportingBody>
+    <eCH-0110:contestInformation>
+      <eCH-0155:contestIdentification>883fbb10-8b7b-4694-b1bf-e84c5657adb7</eCH-0155:contestIdentification>
+      <eCH-0155:contestDate>2023-10-01</eCH-0155:contestDate>
+      <eCH-0155:contestDescription>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>DE</eCH-0155:language>
+          <eCH-0155:contestDescription>Test NRW Denis</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>FR</eCH-0155:language>
+          <eCH-0155:contestDescription>Test NRW Denis</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>IT</eCH-0155:language>
+          <eCH-0155:contestDescription>Test NRW Denis</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>RM</eCH-0155:language>
+          <eCH-0155:contestDescription>Test NRW Denis</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+      </eCH-0155:contestDescription>
+      <eCH-0155:eVotingPeriod>
+        <eCH-0155:eVotingPeriodFrom>2023-10-01T12:00:00+02:00</eCH-0155:eVotingPeriodFrom>
+        <eCH-0155:eVotingPeriodTill>2023-10-30T12:00:00+01:00</eCH-0155:eVotingPeriodTill>
+      </eCH-0155:eVotingPeriod>
+    </eCH-0110:contestInformation>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>7d42e80b-aad1-43cb-94a3-11fd725515a5</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Widnau</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>23</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:electionGroupResults>
+        <eCH-0110:domainOfInfluenceIdentification>4b5ab431-384d-4062-8de3-239609e3a733</eCH-0110:domainOfInfluenceIdentification>
+        <eCH-0110:electionGroupDescription>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>DE</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>FR</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>IT</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+          <eCH-0155:electionDescriptionInfo>
+            <eCH-0155:language>RM</eCH-0155:language>
+            <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+            <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+          </eCH-0155:electionDescriptionInfo>
+        </eCH-0110:electionGroupDescription>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>20</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:total>23</eCH-0110:total>
+        </eCH-0110:countOfReceivedBallotsTotal>
+        <eCH-0110:countOfAccountedBallots>
+          <eCH-0110:total>21</eCH-0110:total>
+        </eCH-0110:countOfAccountedBallots>
+        <eCH-0110:countOfUnaccountedBallots>
+          <eCH-0110:total>0</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBallots>
+        <eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:total>3</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedBlankBallots>
+        <eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:total>0</eCH-0110:total>
+        </eCH-0110:countOfUnaccountedInvalidBallots>
+        <eCH-0110:electionResults>
+          <eCH-0110:election>
+            <eCH-0155:electionIdentification>2b5a668c-1456-4df5-ba4c-7eef8c84a8b3</eCH-0155:electionIdentification>
+            <eCH-0155:typeOfElection>2</eCH-0155:typeOfElection>
+            <eCH-0155:electionPosition>1</eCH-0155:electionPosition>
+            <eCH-0155:electionDescription>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+              <eCH-0155:electionDescriptionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:electionDescriptionShort>Ständeratswahl</eCH-0155:electionDescriptionShort>
+                <eCH-0155:electionDescription>Erneuerungswahl der st.gallischen Mitglieder des Ständerates 2023</eCH-0155:electionDescription>
+              </eCH-0155:electionDescriptionInfo>
+            </eCH-0155:electionDescription>
+            <eCH-0155:numberOfMandates>2</eCH-0155:numberOfMandates>
+          </eCH-0110:election>
+          <eCH-0110:majoralElection>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>6bc1c618-ca30-45c4-b3cb-e6695ac5cafe</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>1</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Friedli</eCH-0110:familyName>
+                <eCH-0110:firstName>Esther Barbara</eCH-0110:firstName>
+                <eCH-0110:callName>Esther</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1977, Ebnat-Kappel, SVP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1977, Ebnat-Kappel, SVP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1977, Ebnat-Kappel, SVP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1977, Ebnat-Kappel, SVP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>13</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>2</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>0247dc60-234d-47a0-bc4e-76ddd9164782</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>2</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Würth</eCH-0110:familyName>
+                <eCH-0110:firstName>Benedikt</eCH-0110:firstName>
+                <eCH-0110:callName>Beni</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1968, Rapperswil-Jona, Die Mitte</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1968, Rapperswil-Jona, Die Mitte</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1968, Rapperswil-Jona, Die Mitte</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1968, Rapperswil-Jona, Die Mitte</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>9</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>9bf8f444-3c94-473b-8d68-c0381b864a85</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>3</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Bullakaj</eCH-0110:familyName>
+                <eCH-0110:firstName>Arber</eCH-0110:firstName>
+                <eCH-0110:callName>Arbër</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1986, Wil, SP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1986, Wil, SP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1986, Wil, SP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1986, Wil, SP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>3</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>3170cb8a-375a-435e-8cbc-0800b1a13cef</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>4</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Grob</eCH-0110:familyName>
+                <eCH-0110:firstName>Meret Maria</eCH-0110:firstName>
+                <eCH-0110:callName>Meret</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1995, Wil, GRÜNE</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1995, Wil, GRÜNE</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1995, Wil, GRÜNE</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1995, Wil, GRÜNE</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>116947d1-7ef4-4922-90ae-26064966d456</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>5</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Hubschmid</eCH-0110:familyName>
+                <eCH-0110:firstName>Stefan</eCH-0110:firstName>
+                <eCH-0110:callName>Stefan</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1983, Flawil, Parteifrei</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1983, Flawil, Parteifrei</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1983, Flawil, Parteifrei</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1983, Flawil, Parteifrei</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>ec38064d-dc59-4fea-bfe4-54d358e0b4e1</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>6</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Jetzer</eCH-0110:familyName>
+                <eCH-0110:firstName>Patrick</eCH-0110:firstName>
+                <eCH-0110:callName>Patrick</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1971, Bächli (Hemberg), Aufrecht SG</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1971, Bächli (Hemberg), Aufrecht SG</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1971, Bächli (Hemberg), Aufrecht SG</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1971, Bächli (Hemberg), Aufrecht SG</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>a8fbab74-d250-4a0e-88b2-2255ead1fe69</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>7</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Monstein</eCH-0110:familyName>
+                <eCH-0110:firstName>Andrin Florian</eCH-0110:firstName>
+                <eCH-0110:callName>Andrin</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1992, St.Gallen, GLP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1992, St.Gallen, GLP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1992, St.Gallen, GLP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1992, St.Gallen, GLP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:candidateInformation>
+                <eCH-0110:candidateIdentification>8138bad1-252b-454b-a3b8-008889dfd8b3</eCH-0110:candidateIdentification>
+                <eCH-0110:candidateReference>8</eCH-0110:candidateReference>
+                <eCH-0110:familyName>Seger</eCH-0110:familyName>
+                <eCH-0110:firstName>Oskar Moritz</eCH-0110:firstName>
+                <eCH-0110:callName>Oskar</eCH-0110:callName>
+                <eCH-0110:candidateText>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>DE</eCH-0155:language>
+                    <eCH-0155:candidateText>1990, St.Gallen, FDP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>FR</eCH-0155:language>
+                    <eCH-0155:candidateText>1990, St.Gallen, FDP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>IT</eCH-0155:language>
+                    <eCH-0155:candidateText>1990, St.Gallen, FDP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                  <eCH-0155:candidateTextInfo>
+                    <eCH-0155:language>RM</eCH-0155:language>
+                    <eCH-0155:candidateText>1990, St.Gallen, FDP</eCH-0155:candidateText>
+                  </eCH-0155:candidateTextInfo>
+                </eCH-0110:candidateText>
+                <eCH-0110:officialCandidateYesNo>true</eCH-0110:officialCandidateYesNo>
+              </eCH-0110:candidateInformation>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>0</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Hans Meier</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Hans Meier</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Dieter Meier</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Esther Friedli</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Esther Friedli</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Beni Wurth</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Beni Wurth</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:candidate>
+              <eCH-0110:writeIn>Hans Muster</eCH-0110:writeIn>
+              <eCH-0110:listResults>
+                <eCH-0110:listIdentification>5da92d50-4549-3897-9110-f186e47df5b4</eCH-0110:listIdentification>
+                <eCH-0110:countOfvotesFromUnchangedBallots>
+                  <eCH-0110:total>0</eCH-0110:total>
+                </eCH-0110:countOfvotesFromUnchangedBallots>
+                <eCH-0110:countOfvotesFromChangedBallots>
+                  <eCH-0110:total>1</eCH-0110:total>
+                </eCH-0110:countOfvotesFromChangedBallots>
+              </eCH-0110:listResults>
+              <eCH-0110:countOfVotesTotal>1</eCH-0110:countOfVotesTotal>
+            </eCH-0110:candidate>
+            <eCH-0110:countOfInvalidVotesTotal>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfInvalidVotesTotal>
+          </eCH-0110:majoralElection>
+        </eCH-0110:electionResults>
+      </eCH-0110:electionGroupResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:extension>
+      <signature>JBd6yBJ1Glhv9hYkpWY1DnkJ6Vyw/C/c+igpRiv0Bv3dPQkAgfDJ0PRLRbTpup6lU1q/HvtStKrV2jLGHCWoeCsSdNxRIK9fj3WiwuRriwvnVhMXPdqMzXYKv+zDdPE1gZBbYtW8X+fHXD6ipVo/YXX8UUl25iEppKwJvrlWsBHn1SB8LYCiIA6ce3+zSvvcBflDGwgCBNdm2e1VCQkGyOWhOdjtYSgi5va+U7PD3asaEIiCKnQBiwXR5k1LjjT5zbZVPow3Gt4DOI6Hdri+yPxhoNOQOpWJDIirhpKIzGkRWFCS3OpAfFqisaoc8kwe22I7NxNBKBvU95bO51TqV2JqlTCgKaywTnCXGa/EZ3+vHpXBsS9XsInVaqWs+EAXtsEcJ53RZULuY8k0W4r8q/eZqRm/0nQXFPosQG2W8jdii55aQS+dPcYtxjQgCKp6VNgf9fYKHtCVktwMsrCCFJVJAgQNGTjNqAXgLeBw6P1LuwS17R5SeOfOayMRSOmc</signature>
+    </eCH-0110:extension>
+  </eCH-0110:resultDelivery>
+</eCH-0110:delivery>

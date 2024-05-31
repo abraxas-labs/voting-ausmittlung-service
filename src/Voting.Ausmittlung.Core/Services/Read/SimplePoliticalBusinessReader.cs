@@ -28,15 +28,16 @@ public class SimplePoliticalBusinessReader
         _permissionService = permissionService;
     }
 
-    public async Task<DomainOfInfluenceCantonDefaults> GetCantonDefaults(Guid politicalBusinessId)
+    public async Task<ContestCantonDefaults> GetCantonDefaults(Guid politicalBusinessId)
     {
         var simplePoliticalBusiness = await _repo.Query()
-            .Include(x => x.DomainOfInfluence)
+            .AsSplitQuery()
+            .Include(x => x.Contest.CantonDefaults)
             .FirstOrDefaultAsync(x => x.Id == politicalBusinessId)
                 ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), politicalBusinessId);
 
         await EnsureCanReadPoliticalBusiness(politicalBusinessId, simplePoliticalBusiness.ContestId);
-        return simplePoliticalBusiness.DomainOfInfluence.CantonDefaults;
+        return simplePoliticalBusiness.Contest.CantonDefaults;
     }
 
     private async Task EnsureCanReadPoliticalBusiness(Guid politicalBusinessId, Guid contestId)

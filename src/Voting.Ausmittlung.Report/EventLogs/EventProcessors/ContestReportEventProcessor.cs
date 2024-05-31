@@ -1,6 +1,7 @@
 ﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using Abraxas.Voting.Basis.Events.V1;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
@@ -16,7 +17,9 @@ public class ContestReportEventProcessor :
     IReportEventProcessor<ContestArchived>,
     IReportEventProcessor<ContestPastUnlocked>,
     IReportEventProcessor<ContestArchiveDateUpdated>,
+#pragma warning disable CS0612 // contest counting circle options are deprecated
     IReportEventProcessor<ContestCountingCircleOptionsUpdated>
+#pragma warning restore CS0612
 {
     public EventLog? Process(ContestCreated eventData, EventLogBuilderContext context)
     {
@@ -63,6 +66,7 @@ public class ContestReportEventProcessor :
         return new();
     }
 
+    [Obsolete("contest counting circle options are deprecated")]
     public EventLog? Process(ContestCountingCircleOptionsUpdated eventData, EventLogBuilderContext context)
     {
         return new();

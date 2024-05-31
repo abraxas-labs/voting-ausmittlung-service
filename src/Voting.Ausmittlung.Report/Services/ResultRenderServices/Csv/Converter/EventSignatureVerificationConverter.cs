@@ -8,7 +8,7 @@ using Voting.Ausmittlung.Report.EventLogs;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.Converter;
 
-public class EventSignatureVerificationConverter : TypeConverter
+public class EventSignatureVerificationConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

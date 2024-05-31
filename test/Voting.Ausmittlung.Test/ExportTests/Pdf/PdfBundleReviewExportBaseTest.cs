@@ -1,6 +1,7 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -8,6 +9,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Voting.Ausmittlung.Controllers.Models;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -70,5 +72,13 @@ public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {
         return httpClient.PostAsJsonAsync(ExportEndpoint, NewRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 }

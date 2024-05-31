@@ -108,6 +108,16 @@ public class DataContext : DbContext
 
     public DbSet<ProportionalElectionEndResult> ProportionalElectionEndResult { get; set; } = null!;
 
+    public DbSet<ProportionalElectionUnionEndResult> ProportionalElectionUnionEndResults { get; set; } = null!;
+
+    public DbSet<DoubleProportionalResult> DoubleProportionalResults { get; set; } = null!;
+
+    public DbSet<DoubleProportionalResultRow> DoubleProportionalResultRows { get; set; } = null!;
+
+    public DbSet<DoubleProportionalResultCell> DoubleProportionalResultCells { get; set; } = null!;
+
+    public DbSet<DoubleProportionalResultColumn> DoubleProportionalResultColumns { get; set; } = null!;
+
     public DbSet<ProportionalElectionListEndResult> ProportionalElectionListEndResult { get; set; } = null!;
 
     public DbSet<ProportionalElectionCandidateEndResult> ProportionalElectionCandidateEndResult { get; set; } = null!;
@@ -219,6 +229,8 @@ public class DataContext : DbContext
 
     public DbSet<CantonSettingsVotingCardChannel> CantonSettingsVotingCardChannels { get; set; } = null!;
 
+    public DbSet<CountingCircleResultStateDescription> CountingCircleResultStateDescriptions { get; set; } = null!;
+
     public DbSet<VoteResultBundle> VoteResultBundles { get; set; } = null!;
 
     public DbSet<VoteResultBallot> VoteResultBallots { get; set; } = null!;
@@ -244,6 +256,10 @@ public class DataContext : DbContext
     public DbSet<ComparisonVotingChannelConfiguration> ComparisonVotingChannelConfigurations { get; set; } = null!;
 
     public DbSet<DomainOfInfluenceCantonDefaultsVotingCardChannel> DomainOfInfluenceCantonDefaultsVotingCardChannels { get; set; } = null!;
+
+    public DbSet<ContestCantonDefaultsCountingCircleResultStateDescription> ContestCantonDefaultsCountingCircleResultStateDescriptions { get; set; } = null!;
+
+    public DbSet<ContestCantonDefaults> ContestCantonDefaults { get; set; } = null!;
 
     public DbSet<DomainOfInfluenceParty> DomainOfInfluenceParties { get; set; } = null!;
 

@@ -38,9 +38,9 @@ public class ProportionalElectionResultValidator : CountingCircleResultValidator
 
     private ValidationResult ValidateAccountedBallotsEqualModifiedPlusUnmodifiedLists(ProportionalElectionResult electionResult)
     {
-        var totalAccountedBallots = electionResult.CountOfVoters.ConventionalAccountedBallots.GetValueOrDefault();
-        var totalCountOfBallots = electionResult.ConventionalSubTotal.TotalCountOfBallots;
-        var totalCountOfUnmodifiedLists = electionResult.ConventionalSubTotal.TotalCountOfUnmodifiedLists;
+        var totalAccountedBallots = electionResult.CountOfVoters.TotalAccountedBallots;
+        var totalCountOfBallots = electionResult.TotalCountOfBallots;
+        var totalCountOfUnmodifiedLists = electionResult.TotalCountOfUnmodifiedLists;
         var sumBallotsAndUnmodifiedLists = totalCountOfBallots + totalCountOfUnmodifiedLists;
 
         return new ValidationResult(

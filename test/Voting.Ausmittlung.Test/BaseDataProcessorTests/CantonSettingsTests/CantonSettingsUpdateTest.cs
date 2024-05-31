@@ -60,23 +60,20 @@ public class CantonSettingsUpdateTest : BaseDataProcessorTest
         var result = await RunOnDb(db => db.CantonSettings.FirstOrDefaultAsync(u => u.Id == Guid.Parse(CantonSettingsMockedData.IdStGallen)));
         result.MatchSnapshot("cantonSettings");
 
-        var contestPastDois = await RunOnDb(db => db.DomainOfInfluences
-            .Where(doi => doi.Canton == DomainOfInfluenceCanton.Sg && doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdVergangenerBundesurnengang))
+        var contestPastCantonDefaults = await RunOnDb(db => db.ContestCantonDefaults
+            .AsSplitQuery()
+            .Where(x => x.ContestId == Guid.Parse(ContestMockedData.IdVergangenerBundesurnengang))
             .ToListAsync());
-        var contestInTestingPhaseDois = await RunOnDb(db => db.DomainOfInfluences
-            .Where(doi => doi.Canton == DomainOfInfluenceCanton.Sg && doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang))
-            .ToListAsync());
-        var baseDois = await RunOnDb(db => db.DomainOfInfluences
-            .Where(doi => doi.Canton == DomainOfInfluenceCanton.Sg && doi.SnapshotContestId == null)
+        var contestInTestingPhaseCantonDefaults = await RunOnDb(db => db.ContestCantonDefaults
+            .AsSplitQuery()
+            .Where(x => x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang))
             .ToListAsync());
 
-        contestPastDois.Any().Should().BeTrue();
-        contestInTestingPhaseDois.Any().Should().BeTrue();
-        baseDois.Any().Should().BeTrue();
+        contestPastCantonDefaults.Any().Should().BeTrue();
+        contestInTestingPhaseCantonDefaults.Any().Should().BeTrue();
 
-        // only base dois and dois in testing phase should be affected
-        contestPastDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeFalse();
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeTrue();
+        // only canton defaults in testing phase should be affected
+        contestPastCantonDefaults.All(x => x.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeFalse();
+        contestInTestingPhaseCantonDefaults.All(x => x.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.CandidateVotesDividedByTheDoubleOfNumberOfMandates).Should().BeTrue();
     }
 }

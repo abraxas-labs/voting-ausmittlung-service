@@ -301,15 +301,14 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await SetResultsToAuditedTentatively();
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
             .UpdateEndResultLotDecisionsAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private UpdateMajorityElectionEndResultLotDecisionsRequest NewValidRequest(

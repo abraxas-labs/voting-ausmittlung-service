@@ -16,4 +16,13 @@ internal static class CountingCircleMapping
             CountingCircleName = countingCircle.Name,
         };
     }
+
+    internal static Ech0252_2_0.CountingCircleType ToEch0252CountingCircle(this CountingCircle countingCircle)
+    {
+        return new Ech0252_2_0.CountingCircleType
+        {
+            CountingCircleId = countingCircle.BasisCountingCircleId.ToString(),
+            CountingCircleName = countingCircle.Name,
+        };
+    }
 }

@@ -22,7 +22,22 @@
       "Nanos": 0
     },
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "Vote": {
     "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
@@ -51,13 +66,6 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      },
-      "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false,
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "ResultAlgorithm": 1,
@@ -84,7 +92,22 @@
         "Nanos": 0
       },
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "BallotBundleSampleSizePercent": 30,
     "AutomaticBallotBundleNumberGeneration": true,
@@ -204,7 +227,8 @@
         {
           "Question": {
             "Number": 1,
-            "Question": "Frage 1 Gossau de"
+            "Question": "Frage 1 Gossau de",
+            "Type": 1
           },
           "EVotingSubTotal": {
             "TotalCountOfAnswerYes": 0,
@@ -228,7 +252,8 @@
         {
           "Question": {
             "Number": 2,
-            "Question": "Frage 2 Gossau de"
+            "Question": "Frage 2 Gossau de",
+            "Type": 2
           },
           "EVotingSubTotal": {
             "TotalCountOfAnswerYes": 0,
@@ -283,5 +308,6 @@
   "CountOfDoneCountingCircles": 0,
   "TotalCountOfCountingCircles": 1,
   "AllCountingCirclesDone": false,
-  "Finalized": false
+  "Finalized": false,
+  "PartialResult": false
 }

@@ -49,6 +49,7 @@ public static class ServiceCollectionExtensions
             .AddPdfVoteResultRenderServices()
             .AddPdfMajorityElectionResultRenderServices()
             .AddPdfProportionalElectionResultRenderServices()
+            .AddPdfProportionalElectionUnionResultRenderServices()
             .AddXmlRenderServices();
     }
 
@@ -101,6 +102,7 @@ public static class ServiceCollectionExtensions
             .AddRendererService<WabstiCWPKandidatenGdeRenderService>(AusmittlungWabstiCTemplates.WPKandidatenGde, AusmittlungWabstiCTemplates.WPKandidatenGdeEinzel)
             .AddRendererService<WabstiCWPListenRenderService>(AusmittlungWabstiCTemplates.WPListen, AusmittlungWabstiCTemplates.WPListenEinzel)
             .AddRendererService<WabstiCWPListenGdeRenderService>(AusmittlungWabstiCTemplates.WPListenGde, AusmittlungWabstiCTemplates.WPListenGdeEinzel)
+            .AddRendererService<WabstiCWPListenGdeSkStatRenderService>(AusmittlungWabstiCTemplates.WPListenGdeSkStat, AusmittlungWabstiCTemplates.WPListenGdeSkStatEinzel)
             .AddRendererService<WabstiCSGStaticGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGStaticGeschaefte)
             .AddRendererService<WabstiCSGGeschaefteRenderService>(AusmittlungWabstiCTemplates.SGGeschaefte)
             .AddRendererService<WabstiCSGGemeindenRenderService>(AusmittlungWabstiCTemplates.SGGemeinden)
@@ -142,12 +144,23 @@ public static class ServiceCollectionExtensions
         return services.AddRendererService<PdfContestActivityProtocolRenderService>(AusmittlungPdfContestTemplates.ActivityProtocol);
     }
 
+    private static IReportingServiceCollection AddPdfProportionalElectionUnionResultRenderServices(this IReportingServiceCollection services)
+    {
+        return services
+            .AddRendererService<PdfProportionalElectionUnionDoubleProportionalResultRenderService>(
+                AusmittlungPdfProportionalElectionTemplates.UnionEndResultQuorumUnionListDoubleProportional,
+                AusmittlungPdfProportionalElectionTemplates.UnionEndResultSuperApportionmentDoubleProportional,
+                AusmittlungPdfProportionalElectionTemplates.UnionEndResultSubApportionmentDoubleProportional,
+                AusmittlungPdfProportionalElectionTemplates.UnionEndResultNumberOfMandatesDoubleProportional,
+                AusmittlungPdfProportionalElectionTemplates.UnionEndResultCalculationDoubleProportional);
+    }
+
     private static IReportingServiceCollection AddPdfProportionalElectionResultRenderServices(
         this IReportingServiceCollection services)
     {
         return services
-            .AddRendererService<PdfProportionalElectionUnionVoterTurnoutRenderService>(
-                AusmittlungPdfProportionalElectionTemplates.VoterTurnoutProtocol)
+            .AddRendererService<PdfProportionalElectionUnionRenderService>(
+                AusmittlungPdfProportionalElectionTemplates.ListVotesPoliticalBusinessUnionEndResults)
             .AddRendererService<PdfProportionalElectionCountingCircleResultRenderService>(
                 AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleProtocol,
                 AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol,
@@ -172,7 +185,9 @@ public static class ServiceCollectionExtensions
                 AusmittlungPdfProportionalElectionTemplates.EndResultListUnions,
                 AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting)
             .AddRendererService<PdfProportionalElectionResultBundleReviewRenderService>(
-                AusmittlungPdfProportionalElectionTemplates.ResultBundleReview);
+                AusmittlungPdfProportionalElectionTemplates.ResultBundleReview)
+            .AddRendererService<PdfProportionalElectionDoubleProportionalResultRenderService>(
+                AusmittlungPdfProportionalElectionTemplates.EndResultDoubleProportional);
     }
 
     private static IReportingServiceCollection AddXmlRenderServices(this IReportingServiceCollection services)
@@ -183,7 +198,10 @@ public static class ServiceCollectionExtensions
             .AddRendererService<XmlProportionalElectionEch0110RenderService>(AusmittlungXmlProportionalElectionTemplates.Ech0110)
             .AddRendererService<XmlMajorityElectionEch0222RenderService>(AusmittlungXmlMajorityElectionTemplates.Ech0222)
             .AddRendererService<XmlProportionalElectionEch0222RenderService>(AusmittlungXmlProportionalElectionTemplates.Ech0222)
-            .AddRendererService<XmlVoteEch0222RenderService>(AusmittlungXmlVoteTemplates.Ech0222);
+            .AddRendererService<XmlVoteEch0222RenderService>(AusmittlungXmlVoteTemplates.Ech0222)
+            .AddRendererService<XmlEch0252ProportionalElectionRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionsEch0252)
+            .AddRendererService<XmlEch0252MajorityElectionRenderService>(AusmittlungXmlContestTemplates.MajorityElectionsEch0252)
+            .AddRendererService<XmlEch0252VoteRenderService>(AusmittlungXmlContestTemplates.VoteEch0252);
     }
 
     private static IServiceCollection AddEventLog(this IServiceCollection services)

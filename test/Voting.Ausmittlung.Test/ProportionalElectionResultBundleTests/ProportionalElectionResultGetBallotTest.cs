@@ -8,6 +8,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -25,37 +26,46 @@ public class ProportionalElectionResultGetBallotTest : ProportionalElectionResul
     [Fact]
     public async Task ShouldReturnAsErfassungElectionAdmin()
     {
-        var response = await BundleErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await ErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldReturnAsErfassungCreator()
     {
-        var response = await BundleErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await ErfassungCreatorClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldReturnAsMonitoringElectionAdmin()
     {
-        var response = await BundleMonitoringElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await MonitoringElectionAdminClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldThrowAsErfassungCreatorOtherThanBundleCreator()
     {
+        await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(req =>
+            {
+                req.BallotNumber = LatestBallotNumber;
+                req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3;
+            })),
             StatusCode.PermissionDenied);
     }
 
     [Fact]
     public async Task ShouldReturnAsErfassungCreatorOtherThanBundleCreatorIfReview()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        var ballot = await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(req =>
+        {
+            req.BallotNumber = LatestBallotNumber;
+            req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3;
+        }));
         ballot.MatchSnapshot();
     }
 
@@ -63,7 +73,11 @@ public class ProportionalElectionResultGetBallotTest : ProportionalElectionResul
     public async Task ShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest(x => x.BallotNumber = 10)),
+            async () => await ErfassungCreatorClient.GetBallotAsync(new GetProportionalElectionResultBallotRequest
+            {
+                BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
+                BallotNumber = 10,
+            }),
             StatusCode.NotFound);
     }
 
@@ -73,9 +87,15 @@ public class ProportionalElectionResultGetBallotTest : ProportionalElectionResul
             .GetBallotAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     protected override async Task SeedPoliticalBusinessMockedData()

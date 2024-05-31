@@ -36,6 +36,7 @@
   "IsSnapshot": true,
   "ContestCountingCircleContactPersonId": null,
   "MustUpdateContactPersons": false,
+  "EVoting": false,
   "Electorates": [],
   "ContestElectorates": [
     {

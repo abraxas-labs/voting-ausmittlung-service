@@ -37,7 +37,7 @@
       <State>AuditedTentatively</State>
       <IsAuditedTentativelyOrPlausibilised>true</IsAuditedTentativelyOrPlausibilised>
       <CountOfVoters>
-        <VoterParticipation>0.5</VoterParticipation>
+        <VoterParticipation>0.500000</VoterParticipation>
         <TotalReceivedBallots>250</TotalReceivedBallots>
         <TotalUnaccountedBallots>140</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -596,13 +596,13 @@
           <ModifiedListsCount>3</ModifiedListsCount>
           <ModifiedListVotesCount>304</ModifiedListVotesCount>
           <ListVotesCountOnOtherLists>0</ListVotesCountOnOtherLists>
-          <ModifiedListBlankRowsCount>15</ModifiedListBlankRowsCount>
+          <ModifiedListBlankRowsCount>17</ModifiedListBlankRowsCount>
           <UnmodifiedListVotesCountInclBlankRows>118</UnmodifiedListVotesCountInclBlankRows>
           <ModifiedListVotesCountInclBlankRows>319</ModifiedListVotesCountInclBlankRows>
           <ListVotesCount>422</ListVotesCount>
           <ListCount>7</ListCount>
-          <BlankRowsCount>15</BlankRowsCount>
-          <TotalVoteCount>437</TotalVoteCount>
+          <BlankRowsCount>17</BlankRowsCount>
+          <TotalVoteCount>439</TotalVoteCount>
         </ConventionalSubTotal>
         <EVotingSubTotal>
           <UnmodifiedListsCount>0</UnmodifiedListsCount>
@@ -624,20 +624,20 @@
         <UnmodifiedListBlankRowsCount>0</UnmodifiedListBlankRowsCount>
         <ModifiedListsCount>4</ModifiedListsCount>
         <ModifiedListVotesCount>454</ModifiedListVotesCount>
-        <ModifiedListBlankRowsCount>20</ModifiedListBlankRowsCount>
+        <ModifiedListBlankRowsCount>22</ModifiedListBlankRowsCount>
         <UnmodifiedListVotesCountInclBlankRows>173</UnmodifiedListVotesCountInclBlankRows>
         <ModifiedListVotesCountInclBlankRows>474</ModifiedListVotesCountInclBlankRows>
         <ListVotesCount>627</ListVotesCount>
         <ListCount>8</ListCount>
-        <BlankRowsCount>20</BlankRowsCount>
-        <TotalVoteCount>647</TotalVoteCount>
+        <BlankRowsCount>22</BlankRowsCount>
+        <TotalVoteCount>649</TotalVoteCount>
       </ProportionalElectionTotalListResultInclWithoutParty>
       <ConventionalSubTotal>
         <TotalCountOfUnmodifiedLists>7</TotalCountOfUnmodifiedLists>
         <TotalCountOfModifiedLists>15</TotalCountOfModifiedLists>
         <TotalCountOfListsWithoutParty>1</TotalCountOfListsWithoutParty>
         <TotalCountOfBallots>16</TotalCountOfBallots>
-        <TotalCountOfBlankRowsOnListsWithoutParty>0</TotalCountOfBlankRowsOnListsWithoutParty>
+        <TotalCountOfBlankRowsOnListsWithoutParty>2</TotalCountOfBlankRowsOnListsWithoutParty>
         <TotalCountOfListsWithParty>22</TotalCountOfListsWithParty>
         <TotalCountOfLists>23</TotalCountOfLists>
       </ConventionalSubTotal>
@@ -654,7 +654,7 @@
       <TotalCountOfModifiedLists>20</TotalCountOfModifiedLists>
       <TotalCountOfListsWithoutParty>2</TotalCountOfListsWithoutParty>
       <TotalCountOfBallots>22</TotalCountOfBallots>
-      <TotalCountOfBlankRowsOnListsWithoutParty>0</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalCountOfBlankRowsOnListsWithoutParty>2</TotalCountOfBlankRowsOnListsWithoutParty>
       <TotalCountOfListsWithParty>30</TotalCountOfListsWithParty>
       <TotalCountOfLists>32</TotalCountOfLists>
     </ProportionalElectionResult>

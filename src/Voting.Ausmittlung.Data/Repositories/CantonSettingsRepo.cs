@@ -18,7 +18,9 @@ public class CantonSettingsRepo : DbRepository<DataContext, CantonSettings>
     public async Task<CantonSettings?> GetByDomainOfInfluenceCanton(DomainOfInfluenceCanton canton)
     {
         return await Query()
+            .AsSplitQuery()
             .Include(x => x.EnabledVotingCardChannels)
+            .Include(x => x.CountingCircleResultStateDescriptions)
             .SingleOrDefaultAsync(x => x.Canton == canton);
     }
 }

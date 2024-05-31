@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
@@ -16,13 +17,16 @@ public class ContestService
 {
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _politicalBusinessRepo;
+    private readonly IDbRepository<DataContext, ProportionalElectionUnion> _proportionalElectionUnionRepo;
 
     public ContestService(
         IDbRepository<DataContext, Contest> contestRepo,
-        IDbRepository<DataContext, SimplePoliticalBusiness> politicalBusinessRepo)
+        IDbRepository<DataContext, SimplePoliticalBusiness> politicalBusinessRepo,
+        IDbRepository<DataContext, ProportionalElectionUnion> proportionalElectionUnionRepo)
     {
         _contestRepo = contestRepo;
         _politicalBusinessRepo = politicalBusinessRepo;
+        _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
     }
 
     public void EnsureInTestingPhase(Contest contest)
@@ -66,6 +70,31 @@ public class ContestService
                     ?? throw new EntityNotFoundException(politicalBusinessId);
         EnsureNotLocked(contest.State);
         return (contest.Id, contest.TestingPhaseEnded);
+    }
+
+    public async Task<(Guid ContestId, bool TestingPhaseEnded)> EnsureNotLockedByProportionalElectionUnion(Guid unionId)
+    {
+        var contest = await _proportionalElectionUnionRepo.Query()
+            .Where(x => x.Id == unionId)
+            .Select(x => new { x.Contest.Id, x.Contest.State, x.Contest.TestingPhaseEnded })
+            .FirstOrDefaultAsync()
+            ?? throw new EntityNotFoundException(unionId);
+        EnsureNotLocked(contest.State);
+        return (contest.Id, contest.TestingPhaseEnded);
+    }
+
+    public async Task EnsureStatePlausibilisedEnabled(Guid id)
+    {
+        var contest = await _contestRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.CantonDefaults)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new EntityNotFoundException(nameof(Contest), id);
+
+        if (contest.CantonDefaults.StatePlausibilisedDisabled)
+        {
+            throw new ValidationException("state plausibilised is not enabled for contest");
+        }
     }
 
     private void EnsureNotLocked(ContestState state)

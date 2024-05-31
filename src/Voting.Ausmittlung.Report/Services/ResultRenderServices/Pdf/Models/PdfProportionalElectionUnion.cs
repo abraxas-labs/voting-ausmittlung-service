@@ -9,4 +9,7 @@ public class PdfProportionalElectionUnion : PdfPoliticalBusinessUnion
 {
     [XmlElement("ProportionalElectionUnionEndResult")]
     public PdfProportionalElectionUnionEndResult? EndResult { get; set; }
+
+    [XmlElement("ProportionalElectionUnionDoubleProportionalResult")]
+    public PdfDoubleProportionalResult? DoubleProportionalResult { get; set; }
 }

@@ -2,15 +2,19 @@
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
-using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
+using Google.Protobuf;
+using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 
 namespace Voting.Ausmittlung.Test.VoteResultTests;
 
@@ -31,90 +35,72 @@ public abstract class VoteResultBaseTest : PoliticalBusinessResultBaseTest<VoteR
 
     protected override async Task<CountingCircleResultState> GetCurrentState()
     {
-        var result = await ErfassungCreatorClient.GetAsync(new GetVoteResultRequest
-        {
-            VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            CountingCircleId = CountingCircleMockedData.IdGossau,
-        });
-        return (CountingCircleResultState)result.State;
+        var aggregate = await AggregateRepositoryMock.GetOrCreateById<VoteResultAggregate>(Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult));
+        return aggregate.State;
     }
 
     protected override async Task SetPlausibilised()
     {
-        await MonitoringElectionAdminClient
-            .PlausibiliseAsync(new VoteResultsPlausibiliseRequest
-            {
-                VoteResultIds =
-                {
-                        VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                },
-            });
-        await RunEvents<VoteResultPlausibilised>();
+        await RunOnResult<VoteResultPlausibilised>(aggregate =>
+            aggregate.Plausibilise(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetAuditedTentatively()
     {
-        await MonitoringElectionAdminClient
-            .AuditedTentativelyAsync(new VoteResultAuditedTentativelyRequest
-            {
-                VoteResultIds =
-                {
-                    VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                },
-            });
-        await RunEvents<VoteResultAuditedTentatively>();
+        await RunOnResult<VoteResultAuditedTentatively>(aggregate =>
+            aggregate.AuditedTentatively(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetCorrectionDone()
     {
-        await ErfassungElectionAdminClient
-            .CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<VoteResultCorrectionFinished>();
+        await RunOnResult<VoteResultCorrectionFinished>(aggregate =>
+            aggregate.CorrectionFinished(string.Empty, ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetReadyForCorrection()
     {
-        await MonitoringElectionAdminClient
-            .FlagForCorrectionAsync(new VoteResultFlagForCorrectionRequest
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-            });
-        await RunEvents<VoteResultFlaggedForCorrection>();
+        await RunOnResult<VoteResultFlaggedForCorrection>(aggregate =>
+            aggregate.FlagForCorrection(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetSubmissionDone()
     {
-        await ErfassungElectionAdminClient
-            .SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<VoteResultSubmissionFinished>();
+        await RunOnResult<VoteResultSubmissionFinished>(aggregate =>
+            aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetSubmissionOngoing()
     {
-        var contestGuid = Guid.Parse(ContestMockedData.IdStGallenEvoting);
-        var countingCircleGuid = CountingCircleMockedData.GuidGossau;
-        await RunOnDb(async db =>
-        {
-            var ccDetails = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .SingleAsync(x => x.ContestId == contestGuid && x.CountingCircle.BasisCountingCircleId == countingCircleGuid);
-            await db.SaveChangesAsync();
-        });
+        await RunOnResult<VoteResultSubmissionStarted>(aggregate =>
+            aggregate.StartSubmission(CountingCircleMockedData.Gossau.Id, VoteMockedData.GossauVoteInContestStGallen.Id, ContestMockedData.StGallenEvotingUrnengang.Id, false));
+    }
 
-        await new ResultService.ResultServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin))
-            .GetListAsync(new GetResultListRequest
-            {
-                ContestId = ContestMockedData.IdStGallenEvoting,
-                CountingCircleId = CountingCircleMockedData.IdGossau,
-            });
-        await RunEvents<VoteResultSubmissionStarted>();
+    protected async Task RunToPublished()
+    {
+        var voteResultAggregate = await AggregateRepositoryMock.GetOrCreateById<VoteResultAggregate>(Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult));
+        if (voteResultAggregate.Published)
+        {
+            return;
+        }
+
+        await RunOnResult<VoteResultPublished>(aggregate => aggregate.Publish(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    private async Task RunOnResult<T>(Action<VoteResultAggregate> resultAction)
+        where T : IMessage<T>
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<VoteResultAggregate>(VoteResultMockedData.GossauVoteInContestStGallenResult.Id);
+            resultAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<T>();
+        EventPublisherMock.Clear();
     }
 }

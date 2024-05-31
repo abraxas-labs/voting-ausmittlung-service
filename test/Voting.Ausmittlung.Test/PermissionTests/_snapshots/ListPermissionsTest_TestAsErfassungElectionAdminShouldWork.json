@@ -8,6 +8,7 @@
     "PoliticalBusinessResult:reset-results",
     "PoliticalBusinessResult:start-submission",
     "PoliticalBusinessResult:finish-submission",
+    "PoliticalBusinessResult:finish-submission-and-audit",
     "PoliticalBusinessResultBundle:read",
     "PoliticalBusinessResultBundle:create",
     "PoliticalBusinessResultBundle:update-all",
@@ -32,7 +33,6 @@
     "ContestCountingCircleDetails:update",
     "ContestCountingCircleElectorate:update",
     "Import:listen-import-changes",
-    "Export:export",
-    "CantonDefaults:read"
+    "Export:export"
   ]
 }

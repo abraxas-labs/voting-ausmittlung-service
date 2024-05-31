@@ -11,11 +11,14 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 
 public class ProportionalElectionUnionEndResultBuilder
 {
-    public ProportionalElectionUnionEndResult BuildEndResult(ProportionalElectionUnion union)
+    public ReportProportionalElectionUnionEndResult BuildEndResult(ProportionalElectionUnion union)
     {
-        var endResult = new ProportionalElectionUnionEndResult();
+        var endResult = new ReportProportionalElectionUnionEndResult();
         endResult.TotalCountOfVoters = union.ProportionalElectionUnionEntries
                 .Sum(x => x.ProportionalElection.EndResult!.TotalCountOfVoters);
+
+        endResult.TotalCountOfBlankRowsOnListsWithoutParty = union.ProportionalElectionUnionEntries
+            .Sum(x => x.ProportionalElection.EndResult!.TotalCountOfBlankRowsOnListsWithoutParty);
 
         var countOfVoters = union.ProportionalElectionUnionEntries
             .Select(x => x.ProportionalElection.EndResult!.CountOfVoters)
@@ -36,12 +39,18 @@ public class ProportionalElectionUnionEndResultBuilder
 
     private List<ProportionalElectionUnionListEndResult> BuildUnionListEndResults(IEnumerable<ProportionalElectionUnionList> unionLists)
     {
-        return unionLists.Select(unionList =>
+        // group by short description to combine lists with the same short description but different order numbers
+        return unionLists
+            .GroupBy(x => x.ShortDescription)
+            .Select(g =>
         {
-            var listEndResults = unionList
-                .ProportionalElectionUnionListEntries
+            var listEndResults = g.SelectMany(y => y.ProportionalElectionUnionListEntries)
                 .Select(x => x.ProportionalElectionList.EndResult!)
                 .ToList();
+
+            // since the short description is the same, we can use the first list in the group by and just update the order number
+            var unionList = g.First();
+            unionList.OrderNumber = string.Join(", ", g.OrderBy(x => x.OrderNumber).Select(x => x.OrderNumber));
 
             var unionListEndResult = new ProportionalElectionUnionListEndResult
             {

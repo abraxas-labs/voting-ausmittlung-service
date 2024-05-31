@@ -52,6 +52,7 @@ public class VoteResultBundleReader
                                .Include(x => x.VoteResult.Vote.Translations)
                                .Include(x => x.VoteResult.Vote.DomainOfInfluence)
                                .Include(x => x.VoteResult.Vote.Contest.Translations)
+                               .Include(x => x.VoteResult.Vote.Contest.CantonDefaults)
                                .Include(x => x.Bundles.OrderBy(b => b.Number))
                                .FirstOrDefaultAsync(x => x.Id == ballotResultId)
                            ?? throw new EntityNotFoundException(ballotResultId);
@@ -87,6 +88,7 @@ public class VoteResultBundleReader
                          .Include(x => x.BallotResult.VoteResult.CountingCircle)
                          .Include(x => x.BallotResult.VoteResult.Vote.Translations)
                          .Include(x => x.BallotResult.VoteResult.Vote.Contest.Translations)
+                         .Include(x => x.BallotResult.VoteResult.Vote.Contest.CantonDefaults)
                          .Include(x => x.BallotResult.VoteResult.Vote.DomainOfInfluence)
                          .Include(x => x.BallotResult.VoteResult.Vote.Contest.DomainOfInfluence)
                          .Include(x => x.BallotResult.Ballot).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations)

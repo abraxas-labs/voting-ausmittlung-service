@@ -36,7 +36,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         var hasInvalid = mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Invalid);
         var election = await GetElection(electionId);
 
-        if (hasInvalid && !election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
+        if (hasInvalid && !election.Contest.CantonDefaults.MajorityElectionInvalidVotes)
         {
             throw new ValidationException("Invalid votes are not enabled on this election");
         }
@@ -109,7 +109,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
     {
         var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
         importResult.CountOfVoters = result.Ballots.Count;
-        var supportsInvalidVotes = election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
+        var supportsInvalidVotes = election.Contest.CantonDefaults.MajorityElectionInvalidVotes;
 
         foreach (var ballot in result.Ballots)
         {

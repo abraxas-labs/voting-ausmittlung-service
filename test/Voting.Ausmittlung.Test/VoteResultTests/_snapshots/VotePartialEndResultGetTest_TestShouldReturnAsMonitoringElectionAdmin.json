@@ -1,0 +1,173 @@
+{
+  "Contest": {
+    "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Date": {
+      "Seconds": 1865548800,
+      "Nanos": 0
+    },
+    "Description": "Nationalratswahlen in der Zukunft de",
+    "EndOfTestingPhase": {
+      "Seconds": 1860883200,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
+  },
+  "Vote": {
+    "Id": "903a47bf-6b7b-4460-8475-b7bd89ea2ac9",
+    "PoliticalBusinessNumber": "201",
+    "OfficialDescription": "Abstimmung St. Gallen de",
+    "ShortDescription": "Abst SG de",
+    "InternalDescription": "Abstimmung St. Gallen auf Urnengang Bund",
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Active": true,
+    "Title": "201: Abst SG de",
+    "DomainOfInfluence": {
+      "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "Name": "St. Gallen",
+      "ShortName": "St. Gallen",
+      "AuthorityName": "",
+      "SecureConnectId": "200200200200200200",
+      "Type": 2,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 12",
+        "MobilePhone": "079 123 12 12",
+        "Email": "hans@sg.ch"
+      }
+    },
+    "ResultAlgorithm": 1,
+    "Contest": {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft de",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "State": 1,
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
+    },
+    "BallotBundleSampleSizePercent": 30,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "ResultEntry": 2,
+    "EnforceResultEntryForCountingCircles": false,
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": false
+  },
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 0,
+    "SubTotalInfo": []
+  },
+  "VotingCards": [],
+  "BallotEndResults": [
+    {
+      "Ballot": {
+        "Id": "60dd6c2c-e73a-467e-99e1-902f973a5d8e",
+        "Position": 1,
+        "BallotType": 1,
+        "VoteId": "903a47bf-6b7b-4460-8475-b7bd89ea2ac9",
+        "BallotQuestions": [],
+        "TieBreakQuestions": []
+      },
+      "CountOfVoters": {
+        "VoterParticipation": 0.0,
+        "ConventionalReceivedBallots": 100,
+        "ConventionalInvalidBallots": 6,
+        "ConventionalBlankBallots": 14,
+        "ConventionalAccountedBallots": 80,
+        "EVotingReceivedBallots": 0,
+        "EVotingInvalidBallots": 0,
+        "EVotingBlankBallots": 0,
+        "EVotingAccountedBallots": 0,
+        "TotalReceivedBallots": 100,
+        "TotalAccountedBallots": 80,
+        "TotalUnaccountedBallots": 20,
+        "TotalInvalidBallots": 6,
+        "TotalBlankBallots": 14
+      },
+      "QuestionEndResults": [
+        {
+          "Question": {
+            "Number": 1,
+            "Question": "Frage 1 Bund de",
+            "Type": 1
+          },
+          "EVotingSubTotal": {
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0
+          },
+          "ConventionalSubTotal": {
+            "TotalCountOfAnswerYes": 16,
+            "TotalCountOfAnswerNo": 10,
+            "TotalCountOfAnswerUnspecified": 2
+          },
+          "TotalCountOfAnswerYes": 16,
+          "TotalCountOfAnswerNo": 10,
+          "TotalCountOfAnswerUnspecified": 2,
+          "CountOfCountingCircleYes": 2,
+          "CountOfCountingCircleNo": 0,
+          "HasCountingCircleMajority": false,
+          "HasCountingCircleUnanimity": false,
+          "Accepted": false
+        }
+      ],
+      "TieBreakQuestionEndResults": []
+    }
+  ],
+  "CountOfDoneCountingCircles": 0,
+  "TotalCountOfCountingCircles": 2,
+  "AllCountingCirclesDone": false,
+  "Finalized": false,
+  "PartialResult": true
+}

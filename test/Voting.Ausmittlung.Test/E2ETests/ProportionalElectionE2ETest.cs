@@ -385,7 +385,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
             }
         }
 
-        endResult.Should().MatchSnapshot();
+        endResult.MatchSnapshot();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -396,6 +396,18 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
             {
                 ProportionalElectionId = ProportionalElectionId,
             });
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Skip this test, not needed here.
+        yield break;
+    }
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        // Skip this test, not needed here.
+        yield break;
     }
 
     private async Task SetupContestAndProportionalElection()
@@ -433,6 +445,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
                 },
                 ProportionalElectionMandateAlgorithms = { ProportionalElectionMandateAlgorithm.HagenbachBischoff },
                 SwissAbroadVotingRight = SwissAbroadVotingRight.SeparateCountingCircle,
+                ProportionalElectionUseCandidateCheckDigit = true,
             },
             EventInfo = GetMockedBasisEventInfo(),
         });
@@ -460,6 +473,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
                     MobilePhone = "41799999988",
                 },
                 ContactPersonSameDuringEventAsAfter = true,
+                EVoting = true,
             },
             EventInfo = GetMockedBasisEventInfo(),
         });
@@ -505,20 +519,6 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
                 EVoting = true,
                 EVotingFrom = MockedClock.GetDate().ToTimestamp(),
                 EVotingTo = MockedClock.GetDate(1).ToTimestamp(),
-            },
-            EventInfo = GetMockedBasisEventInfo(),
-        });
-
-        await TestEventPublisher.Publish(GetNextEventNumber(), new BasisEvents.ContestCountingCircleOptionsUpdated
-        {
-            ContestId = ContestId,
-            Options =
-            {
-                new ContestCountingCircleOptionEventData
-                {
-                    CountingCircleId = CountingCircleId,
-                    EVoting = true,
-                },
             },
             EventInfo = GetMockedBasisEventInfo(),
         });
@@ -773,8 +773,9 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
         {
             ElectionResultIds = { ElectionResultId },
         });
-        EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
+        EventPublisherMock.AllPublishedEvents.Should().HaveCount(2);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().Should().HaveCount(1);
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().HaveCount(1);
         await RunAllEvents();
     }
 
@@ -1048,7 +1049,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
 
         await resultBundleReviewerService.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
         {
-            BundleId = bundleId,
+            BundleIds = { bundleId },
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultBundleReviewSucceeded>().Should().HaveCount(1);

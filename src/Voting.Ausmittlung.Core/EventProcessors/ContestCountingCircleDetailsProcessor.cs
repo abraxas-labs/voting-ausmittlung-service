@@ -26,7 +26,9 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class ContestCountingCircleDetailsProcessor :
     IEventProcessor<ContestCountingCircleDetailsCreated>,
     IEventProcessor<ContestCountingCircleDetailsUpdated>,
+#pragma warning disable CS0612 // contest counting circle options are deprecated
     IEventProcessor<ContestCountingCircleOptionsUpdated>,
+#pragma warning restore CS0612
     IEventProcessor<ContestCountingCircleDetailsResetted>
 {
     private readonly ILogger<ContestCountingCircleDetailsProcessor> _logger;
@@ -70,6 +72,7 @@ public class ContestCountingCircleDetailsProcessor :
     public Task Process(ContestCountingCircleDetailsUpdated eventData)
         => ProcessCreateUpdate(eventData, eventData.Id);
 
+    [Obsolete("contest counting circle options are deprecated")]
     public async Task Process(ContestCountingCircleOptionsUpdated eventData)
     {
         var contestId = GuidParser.Parse(eventData.ContestId);

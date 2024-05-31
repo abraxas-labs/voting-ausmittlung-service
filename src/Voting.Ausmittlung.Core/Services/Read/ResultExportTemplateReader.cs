@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
@@ -54,6 +55,20 @@ public class ResultExportTemplateReader
         AusmittlungCsvVoteTemplates.EVotingDetails.Key,
     };
 
+    private static readonly IReadOnlySet<string> _templateKeysProportionalElectionMandateAlgorithmUnionDoubleProportional = new HashSet<string>
+    {
+        AusmittlungPdfProportionalElectionTemplates.UnionEndResultQuorumUnionListDoubleProportional.Key,
+        AusmittlungPdfProportionalElectionTemplates.UnionEndResultSubApportionmentDoubleProportional.Key,
+        AusmittlungPdfProportionalElectionTemplates.UnionEndResultSuperApportionmentDoubleProportional.Key,
+        AusmittlungPdfProportionalElectionTemplates.UnionEndResultNumberOfMandatesDoubleProportional.Key,
+        AusmittlungPdfProportionalElectionTemplates.UnionEndResultCalculationDoubleProportional.Key,
+    };
+
+    private static readonly IReadOnlySet<string> _templateKeysProportionalElectionMandateAlgorithmHagenbachBischoff = new HashSet<string>
+    {
+        AusmittlungPdfProportionalElectionTemplates.ListVotesPoliticalBusinessUnionEndResults.Key,
+    };
+
     private readonly ContestReader _contestReader;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepository;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepository;
@@ -64,6 +79,7 @@ public class ResultExportTemplateReader
     private readonly ILogger<ResultExportTemplateReader> _logger;
     private readonly MessageConsumerHub<ProtocolExportStateChanged> _protocolExportStateChangedConsumer;
     private readonly IAuth _auth;
+    private readonly ProportionalElectionReader _proportionalElectionReader;
 
     public ResultExportTemplateReader(
         ContestReader contestReader,
@@ -75,7 +91,8 @@ public class ResultExportTemplateReader
         PublisherConfig config,
         ILogger<ResultExportTemplateReader> logger,
         MessageConsumerHub<ProtocolExportStateChanged> protocolExportStateChangedConsumer,
-        IAuth auth)
+        IAuth auth,
+        ProportionalElectionReader proportionalElectionReader)
     {
         _contestReader = contestReader;
         _permissionService = permissionService;
@@ -87,6 +104,7 @@ public class ResultExportTemplateReader
         _protocolExportRepository = protocolExportRepository;
         _contestRepository = contestRepository;
         _auth = auth;
+        _proportionalElectionReader = proportionalElectionReader;
     }
 
     public async Task<ExportTemplateContainer<ResultExportTemplate>> ListDataExportTemplates(Guid contestId, Guid? basisCountingCircleId)
@@ -190,12 +208,6 @@ public class ResultExportTemplateReader
             templates = templates.Where(t => !_templateKeysPoliticalBusinessEVoting.Contains(t.Key));
         }
 
-        // WPGemeindenSkStat should only be display for TG
-        if (contest.DomainOfInfluence.Canton != DomainOfInfluenceCanton.Tg)
-        {
-            templates = templates.Where(t => t.Key != AusmittlungWabstiCTemplates.WPGemeindenSkStat.Key);
-        }
-
         if (!templates.Any())
         {
             return Array.Empty<ResultExportTemplate>();
@@ -262,7 +274,8 @@ public class ResultExportTemplateReader
         return new ExportData(
             basisCountingCircleId,
             politicalBusinessesByType,
-            Array.Empty<PoliticalBusinessUnion>());
+            Array.Empty<PoliticalBusinessUnion>(),
+            new Dictionary<Guid, ProportionalElectionMandateAlgorithm>());
     }
 
     private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId)
@@ -273,10 +286,12 @@ public class ResultExportTemplateReader
             .GroupBy(x => x.BusinessType)
             .ToDictionary(x => x.Key, x => (IReadOnlyCollection<SimplePoliticalBusiness>)x.ToList());
         var politicalBusinessUnions = await _contestReader.ListPoliticalBusinessUnions(contestId);
+        var proportionalElections = await _proportionalElectionReader.GetOwnedElections(contestId);
         return new ExportData(
             null,
             politicalBusinessesByType,
-            politicalBusinessUnions.ToList());
+            politicalBusinessUnions.ToList(),
+            proportionalElections.ToDictionary(pe => pe.Id, pe => pe.MandateAlgorithm));
     }
 
     private IEnumerable<ResultExportTemplate> BuildResultExportTemplates(
@@ -292,7 +307,8 @@ public class ResultExportTemplateReader
                     ? Enumerable.Empty<ResultExportTemplate>()
                     : ExpandPoliticalBusinesses(
                         template,
-                        data.PoliticalBusinessesByType);
+                        data.PoliticalBusinessesByType,
+                        data.MandateAlgorithmByProportionalElectionId);
 
             // counting circle exports
             case ResultType.CountingCircleResult:
@@ -302,6 +318,7 @@ public class ResultExportTemplateReader
                     : ExpandPoliticalBusinesses(
                         template,
                         data.PoliticalBusinessesByType,
+                        data.MandateAlgorithmByProportionalElectionId,
                         data.BasisCountingCircleId);
 
             case ResultType.Contest when !data.BasisCountingCircleId.HasValue:
@@ -316,15 +333,19 @@ public class ResultExportTemplateReader
     }
 
     private IEnumerable<ResultExportTemplate> ExpandPoliticalBusinessUnions(TemplateModel template, IEnumerable<PoliticalBusinessUnion> unions)
-        => unions.Select(u => new ResultExportTemplate(
+    {
+        var filteredUnions = FilterProportionalElectionMandateAlgorithms(template, unions);
+        return filteredUnions.Select(u => new ResultExportTemplate(
             template,
             _permissionService.TenantId,
             politicalBusinesses: u.PoliticalBusinesses.ToList(),
             politicalBusinessUnion: u));
+    }
 
     private IEnumerable<ResultExportTemplate> ExpandPoliticalBusinesses(
         TemplateModel template,
         IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> politicalBusinessesByType,
+        IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> mandateAlgorithmByProportionalElectionId,
         Guid? basisCountingCircleId = null)
     {
         var pbType = MapEntityTypeToPoliticalBusinessType(template.EntityType);
@@ -333,7 +354,7 @@ public class ResultExportTemplateReader
             return Enumerable.Empty<ResultExportTemplate>();
         }
 
-        var filteredPoliticalBusinesses = FilterPoliticalBusinessesForTemplate(template, politicalBusinesses);
+        var filteredPoliticalBusinesses = FilterPoliticalBusinessesForTemplate(template, politicalBusinesses, mandateAlgorithmByProportionalElectionId);
 
         if (template.ResultType
             is ResultType.MultiplePoliticalBusinessesResult
@@ -394,10 +415,12 @@ public class ResultExportTemplateReader
 
     private IEnumerable<SimplePoliticalBusiness> FilterPoliticalBusinessesForTemplate(
         TemplateModel template,
-        IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+        IEnumerable<SimplePoliticalBusiness> politicalBusinesses,
+        IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> mandateAlgorithmByProportionalElectionId)
     {
         politicalBusinesses = FilterDomainOfInfluenceType(template, politicalBusinesses);
         politicalBusinesses = FilterFinalized(template, politicalBusinesses);
+        politicalBusinesses = FilterProportionalElectionMandateAlgorithm(template, politicalBusinesses, mandateAlgorithmByProportionalElectionId);
         return FilterInvalidVotes(template, politicalBusinesses);
     }
 
@@ -426,7 +449,42 @@ public class ResultExportTemplateReader
         }
 
         return politicalBusinesses.Where(pb =>
-            pb.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes);
+            pb.Contest.CantonDefaults.MajorityElectionInvalidVotes);
+    }
+
+    private IEnumerable<PoliticalBusinessUnion> FilterProportionalElectionMandateAlgorithms(TemplateModel template, IEnumerable<PoliticalBusinessUnion> unions)
+    {
+        if (_templateKeysProportionalElectionMandateAlgorithmUnionDoubleProportional.Contains(template.Key))
+        {
+            return unions.Where(u =>
+                u is ProportionalElectionUnion proportionalElectionUnion && proportionalElectionUnion
+                    .ProportionalElectionUnionEntries.FirstOrDefault()?.ProportionalElection.MandateAlgorithm
+                    .IsDoubleProportional() == true);
+        }
+
+        if (_templateKeysProportionalElectionMandateAlgorithmHagenbachBischoff.Contains(template.Key))
+        {
+            return unions.Where(u =>
+                u is ProportionalElectionUnion proportionalElectionUnion && proportionalElectionUnion
+                    .ProportionalElectionUnionEntries.FirstOrDefault()?.ProportionalElection.MandateAlgorithm ==
+                    ProportionalElectionMandateAlgorithm.HagenbachBischoff);
+        }
+
+        return unions;
+    }
+
+    private IEnumerable<SimplePoliticalBusiness> FilterProportionalElectionMandateAlgorithm(
+        TemplateModel template,
+        IEnumerable<SimplePoliticalBusiness> politicalBusinesses,
+        IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> mandateAlgorithmByProportionalElectionId)
+    {
+        if (template.Key != AusmittlungPdfProportionalElectionTemplates.EndResultDoubleProportional.Key)
+        {
+            return politicalBusinesses;
+        }
+
+        return politicalBusinesses
+            .Where(pb => mandateAlgorithmByProportionalElectionId.GetValueOrDefault(pb.Id).IsNonUnionDoubleProportional());
     }
 
     private string MapPoliticalBusinessToDescription(Data.Models.DomainOfInfluenceType doiType, PoliticalBusinessType pbType, TemplateModel template)
@@ -470,5 +528,6 @@ public class ResultExportTemplateReader
     private record ExportData(
         Guid? BasisCountingCircleId,
         IReadOnlyDictionary<PoliticalBusinessType, IReadOnlyCollection<SimplePoliticalBusiness>> PoliticalBusinessesByType,
-        IReadOnlyCollection<PoliticalBusinessUnion> PoliticalBusinessUnions);
+        IReadOnlyCollection<PoliticalBusinessUnion> PoliticalBusinessUnions,
+        IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> MandateAlgorithmByProportionalElectionId);
 }

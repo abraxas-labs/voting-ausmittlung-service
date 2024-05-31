@@ -1,0 +1,486 @@
+{
+  "LotDecisions": [
+    {
+      "Number": 1,
+      "Columns": [
+        {
+          "UnionList": {
+            "Id": "304d6159-4a7d-5255-bd39-4e37d7ddaf0f",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de"
+          },
+          "List": null,
+          "Cells": [
+            {
+              "Election": {
+                "Id": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "PoliticalBusinessNumber": "SubLot002",
+                "OfficialDescription": "SubLot002 de",
+                "ShortDescription": "SubLot002 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot002: SubLot002 de",
+                "DomainOfInfluence": {
+                  "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                  "Name": "Bezirk Meilen",
+                  "ShortName": "Bezirk Meilen",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "4ca79f3c-992c-4996-96ce-0a1ae95440a1",
+                "ProportionalElectionId": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "OrderNumber": "02",
+                "ShortDescription": "SP de",
+                "BlankRowCount": 0,
+                "Position": 2,
+                "Description": "Liste 02 (4ca79f3c-992c-4996-96ce-0a1ae95440a1) de"
+              },
+              "NumberOfMandates": 5
+            },
+            {
+              "Election": {
+                "Id": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "PoliticalBusinessNumber": "SubLot003",
+                "OfficialDescription": "SubLot003 de",
+                "ShortDescription": "SubLot003 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot003: SubLot003 de",
+                "DomainOfInfluence": {
+                  "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                  "Name": "Bezirk Winterthur",
+                  "ShortName": "Bezirk Winterthur",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "4eb8d15e-f773-4105-94ed-564a76d53115",
+                "ProportionalElectionId": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "OrderNumber": "02",
+                "ShortDescription": "SP de",
+                "BlankRowCount": 0,
+                "Position": 2,
+                "Description": "Liste 02 (4eb8d15e-f773-4105-94ed-564a76d53115) de"
+              },
+              "NumberOfMandates": 4
+            }
+          ]
+        },
+        {
+          "UnionList": {
+            "Id": "c9aa5f87-de0d-5e87-8cbd-602b267e5d33",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de"
+          },
+          "List": null,
+          "Cells": [
+            {
+              "Election": {
+                "Id": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "PoliticalBusinessNumber": "SubLot002",
+                "OfficialDescription": "SubLot002 de",
+                "ShortDescription": "SubLot002 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot002: SubLot002 de",
+                "DomainOfInfluence": {
+                  "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                  "Name": "Bezirk Meilen",
+                  "ShortName": "Bezirk Meilen",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "ab2522d1-a42b-4968-a527-3113dbde6cba",
+                "ProportionalElectionId": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "OrderNumber": "03",
+                "ShortDescription": "FDP de",
+                "BlankRowCount": 0,
+                "Position": 3,
+                "Description": "Liste 03 (ab2522d1-a42b-4968-a527-3113dbde6cba) de"
+              },
+              "NumberOfMandates": 6
+            },
+            {
+              "Election": {
+                "Id": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "PoliticalBusinessNumber": "SubLot003",
+                "OfficialDescription": "SubLot003 de",
+                "ShortDescription": "SubLot003 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot003: SubLot003 de",
+                "DomainOfInfluence": {
+                  "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                  "Name": "Bezirk Winterthur",
+                  "ShortName": "Bezirk Winterthur",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "0fceb08d-b834-4343-964a-d016bfccd84f",
+                "ProportionalElectionId": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "OrderNumber": "03",
+                "ShortDescription": "FDP de",
+                "BlankRowCount": 0,
+                "Position": 3,
+                "Description": "Liste 03 (0fceb08d-b834-4343-964a-d016bfccd84f) de"
+              },
+              "NumberOfMandates": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Number": 2,
+      "Columns": [
+        {
+          "UnionList": {
+            "Id": "304d6159-4a7d-5255-bd39-4e37d7ddaf0f",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de"
+          },
+          "List": null,
+          "Cells": [
+            {
+              "Election": {
+                "Id": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "PoliticalBusinessNumber": "SubLot002",
+                "OfficialDescription": "SubLot002 de",
+                "ShortDescription": "SubLot002 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot002: SubLot002 de",
+                "DomainOfInfluence": {
+                  "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                  "Name": "Bezirk Meilen",
+                  "ShortName": "Bezirk Meilen",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "4ca79f3c-992c-4996-96ce-0a1ae95440a1",
+                "ProportionalElectionId": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "OrderNumber": "02",
+                "ShortDescription": "SP de",
+                "BlankRowCount": 0,
+                "Position": 2,
+                "Description": "Liste 02 (4ca79f3c-992c-4996-96ce-0a1ae95440a1) de"
+              },
+              "NumberOfMandates": 4
+            },
+            {
+              "Election": {
+                "Id": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "PoliticalBusinessNumber": "SubLot003",
+                "OfficialDescription": "SubLot003 de",
+                "ShortDescription": "SubLot003 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot003: SubLot003 de",
+                "DomainOfInfluence": {
+                  "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                  "Name": "Bezirk Winterthur",
+                  "ShortName": "Bezirk Winterthur",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "4eb8d15e-f773-4105-94ed-564a76d53115",
+                "ProportionalElectionId": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "OrderNumber": "02",
+                "ShortDescription": "SP de",
+                "BlankRowCount": 0,
+                "Position": 2,
+                "Description": "Liste 02 (4eb8d15e-f773-4105-94ed-564a76d53115) de"
+              },
+              "NumberOfMandates": 5
+            }
+          ]
+        },
+        {
+          "UnionList": {
+            "Id": "c9aa5f87-de0d-5e87-8cbd-602b267e5d33",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de"
+          },
+          "List": null,
+          "Cells": [
+            {
+              "Election": {
+                "Id": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "PoliticalBusinessNumber": "SubLot002",
+                "OfficialDescription": "SubLot002 de",
+                "ShortDescription": "SubLot002 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot002: SubLot002 de",
+                "DomainOfInfluence": {
+                  "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+                  "Name": "Bezirk Meilen",
+                  "ShortName": "Bezirk Meilen",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "ab2522d1-a42b-4968-a527-3113dbde6cba",
+                "ProportionalElectionId": "e24ea995-7d39-496c-8e8b-406a87b09e78",
+                "OrderNumber": "03",
+                "ShortDescription": "FDP de",
+                "BlankRowCount": 0,
+                "Position": 3,
+                "Description": "Liste 03 (ab2522d1-a42b-4968-a527-3113dbde6cba) de"
+              },
+              "NumberOfMandates": 7
+            },
+            {
+              "Election": {
+                "Id": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "PoliticalBusinessNumber": "SubLot003",
+                "OfficialDescription": "SubLot003 de",
+                "ShortDescription": "SubLot003 de",
+                "NumberOfMandates": 20,
+                "MandateAlgorithm": 4,
+                "CandidateCheckDigit": false,
+                "BallotBundleSize": 5,
+                "AutomaticBallotBundleNumberGeneration": false,
+                "BallotNumberGeneration": 0,
+                "AutomaticEmptyVoteCounting": false,
+                "EnforceEmptyVoteCountingForCountingCircles": false,
+                "SwissAbroadVotingRight": 0,
+                "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+                "Active": true,
+                "BallotBundleSampleSize": 0,
+                "Title": "SubLot003: SubLot003 de",
+                "DomainOfInfluence": {
+                  "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+                  "Name": "Bezirk Winterthur",
+                  "ShortName": "Bezirk Winterthur",
+                  "AuthorityName": "",
+                  "SecureConnectId": "999999999999999999",
+                  "Type": 3,
+                  "ParentId": "",
+                  "Children": [],
+                  "Canton": 3,
+                  "ContactPerson": {
+                    "FirstName": "",
+                    "FamilyName": "",
+                    "Phone": "",
+                    "MobilePhone": "",
+                    "Email": ""
+                  }
+                },
+                "Contest": null,
+                "ReviewProcedure": 1,
+                "EnforceReviewProcedureForCountingCircles": false,
+                "EnforceCandidateCheckDigitForCountingCircles": false
+              },
+              "List": {
+                "Id": "0fceb08d-b834-4343-964a-d016bfccd84f",
+                "ProportionalElectionId": "dd6d8a1b-8d48-49e1-b950-d0db1727096b",
+                "OrderNumber": "03",
+                "ShortDescription": "FDP de",
+                "BlankRowCount": 0,
+                "Position": 3,
+                "Description": "Liste 03 (0fceb08d-b834-4343-964a-d016bfccd84f) de"
+              },
+              "NumberOfMandates": 6
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

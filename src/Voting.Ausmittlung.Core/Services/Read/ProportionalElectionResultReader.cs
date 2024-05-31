@@ -47,6 +47,7 @@ public class ProportionalElectionResultReader
                                  .Include(x => x.CountingCircle)
                                  .Include(x => x.ProportionalElection.Translations)
                                  .Include(x => x.ProportionalElection.Contest.Translations)
+                                 .Include(x => x.ProportionalElection.Contest.CantonDefaults)
                                  .Include(x => x.ProportionalElection.DomainOfInfluence)
                                  .Include(x => x.UnmodifiedListResults).ThenInclude(x => x.List.Translations)
                                  .FirstOrDefaultAsync(x => x.Id == electionResultId)
@@ -92,6 +93,7 @@ public class ProportionalElectionResultReader
             .Include(x => x.CountingCircle)
             .Include(x => x.ProportionalElection.Translations)
             .Include(x => x.ProportionalElection.Contest.Translations)
+            .Include(x => x.ProportionalElection.Contest.CantonDefaults)
             .Include(x => x.ProportionalElection.DomainOfInfluence)
             .Where(predicate)
             .FirstOrDefaultAsync();

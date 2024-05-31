@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Utils.DoubleProportional;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
@@ -31,6 +32,9 @@ public class ContestResultInitializer
     private readonly ProportionalElectionEndResultInitializer _proportionalElectionEndResultInitializer;
     private readonly IDbRepository<DataContext, ContestDomainOfInfluenceDetails> _contestDomainOfInfluenceDetailsRepo;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
+    private readonly ProportionalElectionUnionEndResultInitializer _proportionalElectionUnionEndResultInitializer;
+    private readonly ProportionalElectionUnionRepo _proportionalElectionUnionRepo;
+    private readonly DoubleProportionalResultBuilder _proportionalElectionDpResultBuilder;
 
     public ContestResultInitializer(
         ResultImportRepo importRepo,
@@ -48,7 +52,10 @@ public class ContestResultInitializer
         ProportionalElectionResultBuilder proportionalElectionResultBuilder,
         ProportionalElectionEndResultInitializer proportionalElectionEndResultInitializer,
         IDbRepository<DataContext, ContestDomainOfInfluenceDetails> contestDomainOfInfluenceDetailsRepo,
-        IDbRepository<DataContext, ProtocolExport> protocolExportRepo)
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
+        ProportionalElectionUnionEndResultInitializer proportionalElectionUnionEndResultInitializer,
+        ProportionalElectionUnionRepo proportionalElectionUnionRepo,
+        DoubleProportionalResultBuilder proportionalElectionDpResultBuilder)
     {
         _importRepo = importRepo;
         _contestDetailsRepo = contestDetailsRepo;
@@ -66,6 +73,9 @@ public class ContestResultInitializer
         _proportionalElectionEndResultInitializer = proportionalElectionEndResultInitializer;
         _contestDomainOfInfluenceDetailsRepo = contestDomainOfInfluenceDetailsRepo;
         _protocolExportRepo = protocolExportRepo;
+        _proportionalElectionUnionEndResultInitializer = proportionalElectionUnionEndResultInitializer;
+        _proportionalElectionUnionRepo = proportionalElectionUnionRepo;
+        _proportionalElectionDpResultBuilder = proportionalElectionDpResultBuilder;
     }
 
     internal async Task ResetContestResults(Guid contestId, Guid? contestDetailsId)
@@ -84,6 +94,7 @@ public class ContestResultInitializer
         await ResetVoteResults(contestId);
         await ResetProportionalElectionResults(contestId);
         await ResetMajorityElectionResults(contestId);
+        await ResetProportionalElectionUnionResults(contestId);
         await _simpleCountingCircleResultRepo.Reset(contestId);
 
         await DeleteProtocolExports(contestId);
@@ -146,6 +157,21 @@ public class ContestResultInitializer
             await _majorityElectionResultBuilder.ResetForElection(election.Id, election.DomainOfInfluenceId);
             await _majorityElectionEndResultInitializer.ResetForElection(election.Id);
         }
+    }
+
+    private async Task ResetProportionalElectionUnionResults(Guid contestId)
+    {
+        var unionIds = await _proportionalElectionUnionRepo.Query()
+            .Where(e => e.ContestId == contestId)
+            .Select(e => e.Id)
+            .ToListAsync();
+
+        foreach (var unionId in unionIds)
+        {
+            await _proportionalElectionUnionEndResultInitializer.ResetForUnion(unionId);
+        }
+
+        await _proportionalElectionDpResultBuilder.ResetForContest(contestId);
     }
 
     private async Task DeleteContestDomainOfInfluenceDetails(Guid contestId)

@@ -119,42 +119,4 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
 
         childDomainOfInfluences.All(doi => doi.Canton == DomainOfInfluenceCanton.Tg).Should().BeTrue();
     }
-
-    [Fact]
-    public async Task TestUpdateRootDoiCanton()
-    {
-        await ContestMockedData.Seed(RunScoped);
-
-        await TestEventPublisher.Publish(
-            new DomainOfInfluenceUpdated
-            {
-                DomainOfInfluence = new DomainOfInfluenceEventData
-                {
-                    Id = DomainOfInfluenceMockedData.IdBund,
-                    Name = "Bund Neu",
-                    ShortName = "Bund1",
-                    SecureConnectId = "100",
-                    Type = SharedProto.DomainOfInfluenceType.Ch,
-                    Canton = SharedProto.DomainOfInfluenceCanton.Zh,
-                },
-            });
-
-        var data = await GetData(doi => doi.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdBund));
-
-        var contestPastDois = data.Where(doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdVergangenerBundesurnengang))
-            .ToList();
-        var contestInTestingPhaseDois = data.Where(doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang))
-            .ToList();
-        var baseDois = data.Where(doi => doi.SnapshotContestId == null)
-            .ToList();
-
-        contestPastDois.Any().Should().BeTrue();
-        contestInTestingPhaseDois.Any().Should().BeTrue();
-        baseDois.Any().Should().BeTrue();
-
-        // only base dois and dois in testing phase should be affected
-        contestPastDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeFalse();
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.NewZhFeaturesEnabled).Should().BeTrue();
-    }
 }

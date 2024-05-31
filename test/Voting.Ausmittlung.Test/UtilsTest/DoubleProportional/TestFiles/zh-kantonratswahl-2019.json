@@ -1,0 +1,390 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 5,
+      "Label": "Stadt Zürich, Kreis 1+2"
+    },
+    {
+      "NumberOfMandates": 12,
+      "Label": "Stadt Zürich, Kreis 3+9"
+    },
+    {
+      "NumberOfMandates": 5,
+      "Label": "Stadt Zürich, Kreis 4+5"
+    },
+    {
+      "NumberOfMandates": 9,
+      "Label": "Stadt Zürich, Kreis 6+10"
+    },
+    {
+      "NumberOfMandates": 6,
+      "Label": "Stadt Zürich, Kreis 7+8"
+    },
+    {
+      "NumberOfMandates": 12,
+      "Label": "Stadt Zürich, Kreis 11+12"
+    },
+    {
+      "NumberOfMandates": 11,
+      "Label": "Bezirk Dietikon"
+    },
+    {
+      "NumberOfMandates": 6,
+      "Label": "Bezirk Affoltern"
+    },
+    {
+      "NumberOfMandates": 15,
+      "Label": "Bezirk Horgen"
+    },
+    {
+      "NumberOfMandates": 12,
+      "Label": "Bezirk Meilen"
+    },
+    {
+      "NumberOfMandates": 11,
+      "Label": "Bezirk Hinwil"
+    },
+    {
+      "NumberOfMandates": 16,
+      "Label": "Bezirk Uster"
+    },
+    {
+      "NumberOfMandates": 7,
+      "Label": "Bezirk Pfäffikon"
+    },
+    {
+      "NumberOfMandates": 13,
+      "Label": "Stadt Winterthur"
+    },
+    {
+      "NumberOfMandates": 7,
+      "Label": "Winterthur-Land"
+    },
+    {
+      "NumberOfMandates": 4,
+      "Label": "Bezirk Andelfingen"
+    },
+    {
+      "NumberOfMandates": 18,
+      "Label": "Bezirk Bülach"
+    },
+    {
+      "NumberOfMandates": 11,
+      "Label": "Bezirk Dielsdorf"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "GLP"
+    },
+    {
+      "Label": "GRÜNE"
+    },
+    {
+      "Label": "CVP"
+    },
+    {
+      "Label": "EVP"
+    },
+    {
+      "Label": "AL"
+    },
+    {
+      "Label": "BDP"
+    },
+    {
+      "Label": "EDU"
+    },
+    {
+      "Label": "Helvida"
+    },
+    {
+      "Label": "die Guten"
+    },
+    {
+      "Label": "PdA"
+    }
+  ],
+  "MandateAlgorithm": 4,
+  "VoteCounts": [
+    [
+      5662,
+      10910,
+      7360,
+      5902,
+      7844,
+      1733,
+      595,
+      2416,
+      null,
+      234,
+      null,
+      null,
+      204
+    ],
+    [
+      33512,
+      70295,
+      23592,
+      28663,
+      40514,
+      9960,
+      5633,
+      19009,
+      844,
+      579,
+      null,
+      3120,
+      1639
+    ],
+    [
+      2806,
+      13484,
+      3544,
+      6298,
+      7648,
+      605,
+      332,
+      6716,
+      null,
+      132,
+      null,
+      null,
+      560
+    ],
+    [
+      19416,
+      47596,
+      23745,
+      23529,
+      28051,
+      4593,
+      3210,
+      13611,
+      1304,
+      527,
+      107,
+      null,
+      883
+    ],
+    [
+      10255,
+      18531,
+      19624,
+      11897,
+      12358,
+      3841,
+      1761,
+      3497,
+      null,
+      254,
+      null,
+      null,
+      326
+    ],
+    [
+      34595,
+      48742,
+      19779,
+      22934,
+      25102,
+      7495,
+      7270,
+      8129,
+      1726,
+      2007,
+      null,
+      null,
+      1057
+    ],
+    [
+      42481,
+      26964,
+      25055,
+      17993,
+      8943,
+      11792,
+      4696,
+      2059,
+      2282,
+      1912,
+      null,
+      null,
+      null
+    ],
+    [
+      19265,
+      12885,
+      10929,
+      10265,
+      7841,
+      2046,
+      6198,
+      645,
+      632,
+      1666,
+      null,
+      null,
+      null
+    ],
+    [
+      90998,
+      62623,
+      80180,
+      44371,
+      38102,
+      27867,
+      17095,
+      5358,
+      6190,
+      5201,
+      null,
+      null,
+      null
+    ],
+    [
+      84129,
+      44284,
+      78979,
+      41532,
+      28743,
+      13575,
+      7707,
+      3387,
+      3277,
+      5799,
+      null,
+      null,
+      null
+    ],
+    [
+      65778,
+      27743,
+      29178,
+      21841,
+      26285,
+      12702,
+      12406,
+      3348,
+      4494,
+      13508,
+      null,
+      null,
+      null
+    ],
+    [
+      104683,
+      66288,
+      58214,
+      58620,
+      41076,
+      19030,
+      13213,
+      6346,
+      13232,
+      9538,
+      null,
+      null,
+      null
+    ],
+    [
+      29795,
+      13278,
+      13278,
+      10930,
+      9147,
+      2560,
+      9014,
+      1142,
+      1960,
+      4628,
+      null,
+      null,
+      null
+    ],
+    [
+      60891,
+      78239,
+      34703,
+      47208,
+      49152,
+      12248,
+      17964,
+      12915,
+      5219,
+      5837,
+      null,
+      null,
+      null
+    ],
+    [
+      34466,
+      11390,
+      13911,
+      13606,
+      9274,
+      2963,
+      7823,
+      638,
+      1377,
+      2685,
+      null,
+      null,
+      null
+    ],
+    [
+      12437,
+      4796,
+      5329,
+      2891,
+      3289,
+      546,
+      1500,
+      348,
+      1573,
+      915,
+      null,
+      null,
+      null
+    ],
+    [
+      140138,
+      69786,
+      70138,
+      53964,
+      35950,
+      15590,
+      22574,
+      5680,
+      9707,
+      16807,
+      null,
+      null,
+      null
+    ],
+    [
+      64859,
+      21420,
+      21372,
+      19054,
+      14529,
+      5866,
+      4442,
+      1387,
+      2767,
+      8512,
+      null,
+      null,
+      null
+    ]
+  ]
+}

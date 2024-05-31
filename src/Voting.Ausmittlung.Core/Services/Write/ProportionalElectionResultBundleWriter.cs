@@ -168,12 +168,13 @@ public class ProportionalElectionResultBundleWriter
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task SucceedBundleReview(Guid bundleId)
+    public async Task SucceedBundleReview(IReadOnlyCollection<Guid> bundleIds)
     {
-        var aggregate = await AggregateRepository.GetById<ProportionalElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureReviewPermissionsForBundle(aggregate);
-        aggregate.SucceedReview(contestId);
-        await AggregateRepository.Save(aggregate);
+        await ExecuteOnAllAggregates<ProportionalElectionResultBundleAggregate>(bundleIds, async aggregate =>
+        {
+            var contestId = await EnsureReviewPermissionsForBundle(aggregate);
+            aggregate.SucceedReview(contestId);
+        });
     }
 
     protected override async Task<DataModels.ProportionalElectionResult> LoadPoliticalBusinessResult(Guid resultId)

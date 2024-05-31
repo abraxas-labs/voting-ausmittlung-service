@@ -16,7 +16,7 @@ public abstract class PoliticalBusiness : BaseEntity
     public bool Active { get; set; }
 
     public virtual SwissAbroadVotingRight SwissAbroadVotingRight =>
-        DomainOfInfluence?.CantonDefaults.SwissAbroadVotingRight ?? SwissAbroadVotingRight.Unspecified;
+        DomainOfInfluence?.SwissAbroadVotingRight ?? SwissAbroadVotingRight.Unspecified;
 
     public virtual Guid DomainOfInfluenceId { get; set; }
 

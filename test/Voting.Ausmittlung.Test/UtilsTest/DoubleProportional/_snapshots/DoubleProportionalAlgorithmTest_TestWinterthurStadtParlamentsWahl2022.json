@@ -1,0 +1,75 @@
+{
+  "CantonalQuorum": 0,
+  "VoteCount": 1511580,
+  "NumberOfMandates": 60,
+  "ColumnVoteCounts": [
+    384922,
+    231661,
+    214475,
+    209642,
+    187121,
+    97984,
+    105871,
+    61322,
+    18582
+  ],
+  "RowVoteCounts": [
+    1511580
+  ],
+  "RowQuorums": null,
+  "UnionListAnyQuorumReachedList": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "ElectionKey": 415.0,
+  "TotalVoterNumber": 25193.0,
+  "ColumnVoterNumbers": [
+    6415.366666666667,
+    3861.016666666667,
+    3574.5833333333335,
+    3494.0333333333333,
+    3118.6833333333334,
+    1633.0666666666666,
+    1764.5166666666667,
+    1022.0333333333333,
+    309.7
+  ],
+  "SuperApportionment": {
+    "NumberOfMandates": 60,
+    "NumberOfMandatesForLotDecision": 0,
+    "NumberOfMandatesExclLotDecisionVector": [
+      15,
+      9,
+      9,
+      8,
+      8,
+      4,
+      4,
+      2,
+      1
+    ],
+    "LotDecisionRequiredVector": null,
+    "NumberOfMandatesVectors": [
+      [
+        15,
+        9,
+        9,
+        8,
+        8,
+        4,
+        4,
+        2,
+        1
+      ]
+    ],
+    "SubApportionments": [],
+    "State": 4
+  }
+}

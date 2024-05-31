@@ -8,6 +8,8 @@ using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
@@ -24,37 +26,38 @@ public class VoteResultGetBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task ShouldReturnAsErfassungElectionAdmin()
     {
-        var response = await BundleErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await ErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldReturnAsErfassungCreator()
     {
-        var response = await BundleErfassungElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await ErfassungCreatorClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldReturnAsMonitoringElectionAdmin()
     {
-        var response = await BundleMonitoringElectionAdminClient.GetBallotAsync(NewValidRequest());
+        var response = await MonitoringElectionAdminClient.GetBallotAsync(NewValidRequest());
         response.MatchSnapshot();
     }
 
     [Fact]
     public async Task ShouldThrowAsErfassungCreatorOtherThanBundleCreator()
     {
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3)),
             StatusCode.PermissionDenied);
     }
 
     [Fact]
     public async Task ShouldReturnAsErfassungCreatorOtherThanBundleCreatorIfReview()
     {
-        await SetBundleSubmissionFinished();
-        var ballot = await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3));
         ballot.MatchSnapshot();
     }
 
@@ -62,7 +65,7 @@ public class VoteResultGetBallotTest : VoteResultBundleBaseTest
     public async Task ShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.GetBallotAsync(NewValidRequest(x => x.BallotNumber = 10)),
+            async () => await ErfassungCreatorClient.GetBallotAsync(NewValidRequest(x => x.BallotNumber = 10)),
             StatusCode.NotFound);
     }
 
@@ -72,9 +75,15 @@ public class VoteResultGetBallotTest : VoteResultBundleBaseTest
             .GetBallotAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     protected override async Task SeedPoliticalBusinessMockedData()

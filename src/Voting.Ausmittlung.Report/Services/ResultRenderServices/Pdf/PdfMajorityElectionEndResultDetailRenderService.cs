@@ -53,6 +53,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.Contest.DomainOfInfluence)
             .Include(x => x.Contest.Translations)
+            .Include(x => x.Contest.CantonDefaults)
             .Include(x => x.Translations)
             .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
@@ -123,7 +124,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             ctx,
             templateBag,
             data.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
     private void OrderCandidateResults(PdfMajorityElection majorityElection)

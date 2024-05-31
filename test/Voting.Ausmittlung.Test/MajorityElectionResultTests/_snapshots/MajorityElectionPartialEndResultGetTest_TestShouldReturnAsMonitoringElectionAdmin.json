@@ -1,0 +1,498 @@
+{
+  "Contest": {
+    "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Date": {
+      "Seconds": 1865548800,
+      "Nanos": 0
+    },
+    "Description": "Nationalratswahlen in der Zukunft de",
+    "EndOfTestingPhase": {
+      "Seconds": 1860883200,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
+  },
+  "MajorityElection": {
+    "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
+    "PoliticalBusinessNumber": "201",
+    "OfficialDescription": "Majorzwahl St. Gallen de",
+    "ShortDescription": "Mw SG de",
+    "NumberOfMandates": 1,
+    "MandateAlgorithm": 2,
+    "CandidateCheckDigit": false,
+    "BallotBundleSize": 25,
+    "BallotBundleSampleSize": 3,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": false,
+    "EnforceEmptyVoteCountingForCountingCircles": false,
+    "ResultEntry": 2,
+    "EnforceResultEntryForCountingCircles": false,
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Active": true,
+    "Title": "201: Mw SG de",
+    "CountOfSecondaryElections": 0,
+    "DomainOfInfluence": {
+      "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "Name": "St. Gallen",
+      "ShortName": "St. Gallen",
+      "AuthorityName": "",
+      "SecureConnectId": "200200200200200200",
+      "Type": 2,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 12",
+        "MobilePhone": "079 123 12 12",
+        "Email": "hans@sg.ch"
+      }
+    },
+    "Contest": {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft de",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "State": 1,
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
+    },
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false
+  },
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 0,
+    "SubTotalInfo": []
+  },
+  "VotingCards": [],
+  "CountOfDoneCountingCircles": 0,
+  "TotalCountOfCountingCircles": 2,
+  "AllCountingCirclesDone": false,
+  "CountOfVoters": {
+    "VoterParticipation": 0.0,
+    "ConventionalReceivedBallots": 100,
+    "ConventionalInvalidBallots": 6,
+    "ConventionalBlankBallots": 14,
+    "ConventionalAccountedBallots": 80,
+    "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingBlankBallots": 0,
+    "EVotingAccountedBallots": 0,
+    "TotalReceivedBallots": 100,
+    "TotalAccountedBallots": 80,
+    "TotalUnaccountedBallots": 20,
+    "TotalInvalidBallots": 6,
+    "TotalBlankBallots": 14
+  },
+  "CandidateEndResults": [
+    {
+      "Candidate": {
+        "Id": "81a11b8e-51b8-40c5-aa94-b7a854e2c726",
+        "Number": "number1",
+        "PoliticalFirstName": "pol first name",
+        "PoliticalLastName": "pol last name",
+        "FirstName": "firstName",
+        "LastName": "lastName",
+        "Party": "Test de",
+        "Position": 1,
+        "Description": "number1 pol last name pol first name",
+        "CheckDigit": 9
+      },
+      "VoteCount": 20,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 20,
+      "Rank": 0,
+      "LotDecision": false,
+      "LotDecisionEnabled": false,
+      "LotDecisionRequired": false,
+      "State": 1
+    },
+    {
+      "Candidate": {
+        "Id": "efdbb5e3-16bf-4a53-95c3-a35ed6371819",
+        "Number": "number5",
+        "PoliticalFirstName": "pol first name",
+        "PoliticalLastName": "pol last name",
+        "FirstName": "firstName2",
+        "LastName": "lastName2",
+        "Party": "Test de",
+        "Position": 2,
+        "Description": "number5 pol last name pol first name",
+        "CheckDigit": 1
+      },
+      "VoteCount": 10,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 10,
+      "Rank": 0,
+      "LotDecision": false,
+      "LotDecisionEnabled": false,
+      "LotDecisionRequired": false,
+      "State": 1
+    }
+  ],
+  "SecondaryMajorityElectionEndResults": [
+    {
+      "SecondaryMajorityElection": {
+        "Id": "0741da26-add2-4c4c-960d-7e251b82e91b",
+        "PoliticalBusinessNumber": "n1",
+        "OfficialDescription": "official de",
+        "ShortDescription": "short de",
+        "NumberOfMandates": 3,
+        "Active": false,
+        "Title": "n1: short de"
+      },
+      "CandidateEndResults": [
+        {
+          "Candidate": {
+            "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
+            "Number": "number2",
+            "PoliticalFirstName": "Pete",
+            "PoliticalLastName": "L",
+            "FirstName": "Peter",
+            "LastName": "Lustig",
+            "Party": "CVP de",
+            "Position": 2,
+            "Description": "number2 L Pete",
+            "CheckDigit": 7
+          },
+          "VoteCount": 4,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 4,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
+            "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9
+          },
+          "VoteCount": 2,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 2,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
+            "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
+            "Number": "number3",
+            "PoliticalFirstName": "Hansi",
+            "PoliticalLastName": "Proll",
+            "FirstName": "Hansruedi",
+            "LastName": "Proll",
+            "Party": "SVP de",
+            "Position": 3,
+            "Description": "number3 Proll Hansi",
+            "CheckDigit": 5
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
+            "Id": "340c482b-c064-427e-a906-2696fab2ab35",
+            "Number": "number4",
+            "PoliticalFirstName": "Susi",
+            "PoliticalLastName": "Meierhans",
+            "FirstName": "Susanne",
+            "LastName": "Meierhans",
+            "Party": "CVP de",
+            "Position": 4,
+            "Description": "number4 Meierhans Susi",
+            "CheckDigit": 3
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        }
+      ],
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": 4,
+        "EmptyVoteCountInclWriteIns": 8,
+        "EmptyVoteCountExclWriteIns": 8,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 6,
+        "TotalCandidateVoteCountExclIndividual": 6,
+        "TotalCandidateVoteCountInclIndividual": 10
+      },
+      "IndividualVoteCount": 4,
+      "EmptyVoteCount": 8,
+      "InvalidVoteCount": 6,
+      "TotalCandidateVoteCountExclIndividual": 6,
+      "TotalCandidateVoteCountInclIndividual": 10
+    },
+    {
+      "SecondaryMajorityElection": {
+        "Id": "292a5a89-e030-44db-a204-90e00540ba84",
+        "PoliticalBusinessNumber": "n2",
+        "OfficialDescription": "official2 de",
+        "ShortDescription": "short2 de",
+        "NumberOfMandates": 1,
+        "Active": false,
+        "Title": "n2: short2 de"
+      },
+      "CandidateEndResults": [
+        {
+          "Candidate": {
+            "Id": "4076daaa-b791-4923-94dc-498ad171d062",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
+            "Id": "910181c5-c003-4775-976b-1f33a19f2a1b",
+            "Number": "number2",
+            "PoliticalFirstName": "Pete2",
+            "PoliticalLastName": "L",
+            "FirstName": "Peter2",
+            "LastName": "Lustig2",
+            "Party": "CVP de",
+            "Position": 2,
+            "Description": "number2 L Pete2",
+            "CheckDigit": 7
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        }
+      ],
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    {
+      "SecondaryMajorityElection": {
+        "Id": "f4ae2b39-45b5-427a-96e4-24d645ddb080",
+        "PoliticalBusinessNumber": "n3",
+        "OfficialDescription": "official3 de",
+        "ShortDescription": "short3 de",
+        "NumberOfMandates": 2,
+        "Active": false,
+        "Title": "n3: short3 de"
+      },
+      "CandidateEndResults": [
+        {
+          "Candidate": {
+            "Id": "f136f4d7-7f4c-4674-a9c5-391dbed43985",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
+            "Id": "d7b2bd15-6ce9-4dbe-a56f-72c3fab598b3",
+            "Number": "number2",
+            "PoliticalFirstName": "Pete2",
+            "PoliticalLastName": "L",
+            "FirstName": "Peter2",
+            "LastName": "Lustig2",
+            "Party": "CVP de",
+            "Position": 2,
+            "Description": "number2 L Pete2",
+            "CheckDigit": 7
+          },
+          "VoteCount": 0,
+          "EVotingVoteCount": 0,
+          "ConventionalVoteCount": 0,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        }
+      ],
+      "EVotingSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "ConventionalSubTotal": {
+        "IndividualVoteCount": 0,
+        "EmptyVoteCountInclWriteIns": 0,
+        "EmptyVoteCountExclWriteIns": 0,
+        "EmptyVoteCountWriteIns": 0,
+        "InvalidVoteCount": 0,
+        "TotalCandidateVoteCountExclIndividual": 0,
+        "TotalCandidateVoteCountInclIndividual": 0
+      },
+      "IndividualVoteCount": 0,
+      "EmptyVoteCount": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    }
+  ],
+  "EVotingSubTotal": {
+    "IndividualVoteCount": 0,
+    "EmptyVoteCountInclWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": 0,
+    "EmptyVoteCountWriteIns": 0,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0
+  },
+  "ConventionalSubTotal": {
+    "IndividualVoteCount": 2,
+    "EmptyVoteCountInclWriteIns": 4,
+    "EmptyVoteCountExclWriteIns": 4,
+    "EmptyVoteCountWriteIns": 0,
+    "InvalidVoteCount": 6,
+    "TotalCandidateVoteCountExclIndividual": 30,
+    "TotalCandidateVoteCountInclIndividual": 32
+  },
+  "IndividualVoteCount": 2,
+  "EmptyVoteCount": 4,
+  "InvalidVoteCount": 6,
+  "TotalCandidateVoteCountExclIndividual": 30,
+  "TotalCandidateVoteCountInclIndividual": 32,
+  "Finalized": false,
+  "Calculation": {
+    "AbsoluteMajority": null
+  },
+  "PartialResult": true
+}

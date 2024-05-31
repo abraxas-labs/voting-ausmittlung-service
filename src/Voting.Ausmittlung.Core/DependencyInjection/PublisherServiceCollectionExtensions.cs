@@ -78,6 +78,7 @@ internal static class PublisherServiceCollection
             .AddScoped<VoteEndResultWriter>()
             .AddScoped<ProportionalElectionResultWriter>()
             .AddScoped<ProportionalElectionEndResultWriter>()
+            .AddScoped<ProportionalElectionUnionEndResultWriter>()
             .AddScoped<ProportionalElectionResultBundleWriter>()
             .AddScoped<MajorityElectionResultWriter>()
             .AddScoped<MajorityElectionResultBundleWriter>()
@@ -90,7 +91,8 @@ internal static class PublisherServiceCollection
             .AddScoped<VoteResultImportWriter>()
             .AddScoped<ResultExportConfigurationWriter>()
             .AddScoped<SecondFactorTransactionWriter>()
-            .AddScoped<EventSignatureWriter>();
+            .AddScoped<EventSignatureWriter>()
+            .AddScoped<DoubleProportionalResultWriter>();
     }
 
     private static IServiceCollection AddReaderServices(this IServiceCollection services)
@@ -106,6 +108,8 @@ internal static class PublisherServiceCollection
             .AddScoped<VoteEndResultReader>()
             .AddScoped<ProportionalElectionEndResultReader>()
             .AddScoped<ProportionalElectionResultBundleReader>()
+            .AddScoped<ProportionalElectionUnionEndResultReader>()
+            .AddScoped<DoubleProportionalResultReader>()
             .AddScoped<MajorityElectionReader>()
             .AddScoped<MajorityElectionResultReader>()
             .AddScoped<MajorityElectionResultBundleReader>()
@@ -118,6 +122,8 @@ internal static class PublisherServiceCollection
             .AddScoped<SimpleCountingCircleResultReader>()
             .AddScoped<ResultExportService>()
             .AddScoped<ProtocolExportService>()
+            .AddScoped<Ech0252ExportService>()
+            .AddScoped<ExportRateLimitService>()
             .AddScoped<IExportProviderUploader, StandardProviderUploader>()
             .AddScoped<IExportProviderUploader, SeantisProviderUploader>()
             .AddSingleton(typeof(LanguageAwareMessageConsumerHub<,>));
@@ -127,7 +133,8 @@ internal static class PublisherServiceCollection
     {
         return services
             .AddScheduledJob<ResultExportsJob>(config.AutomaticExports)
-            .AddScheduledJob<CleanSecondFactorTransactionsJob>(config.CleanSecondFactorTransactionsJob);
+            .AddScheduledJob<CleanSecondFactorTransactionsJob>(config.CleanSecondFactorTransactionsJob)
+            .AddScheduledJob<CleanExportLogEntriesJob>(config.CleanExportLogEntriesJob);
     }
 
     private static IServiceCollection AddValidation(this IServiceCollection services)

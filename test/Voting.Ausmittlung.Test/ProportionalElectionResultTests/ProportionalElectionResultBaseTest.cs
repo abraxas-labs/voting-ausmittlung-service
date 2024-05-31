@@ -2,15 +2,21 @@
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
+using Google.Protobuf;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
+using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 
 namespace Voting.Ausmittlung.Test.ProportionalElectionResultTests;
 
@@ -32,96 +38,49 @@ public abstract class ProportionalElectionResultBaseTest : PoliticalBusinessResu
 
     protected override async Task<CountingCircleResultState> GetCurrentState()
     {
-        var result = await ErfassungCreatorClient.GetAsync(new GetProportionalElectionResultRequest
-        {
-            ElectionId = ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen,
-            CountingCircleId = CountingCircleMockedData.IdGossau,
-        });
-        return (CountingCircleResultState)result.State;
+        var aggregate = await AggregateRepositoryMock.GetOrCreateById<ProportionalElectionResultAggregate>(
+            Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen));
+        return aggregate.State;
     }
 
     protected override async Task SetPlausibilised()
     {
-        await MonitoringElectionAdminClient
-            .PlausibiliseAsync(new ProportionalElectionResultsPlausibiliseRequest
-            {
-                ElectionResultIds =
-                {
-                        ProportionalElectionResultMockedData
-                            .IdGossauElectionResultInContestStGallen,
-                },
-            });
-        await RunEvents<ProportionalElectionResultPlausibilised>();
+        await RunOnResult<ProportionalElectionResultPlausibilised>(aggregate =>
+            aggregate.Plausibilise(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetAuditedTentatively()
     {
-        await MonitoringElectionAdminClient
-            .AuditedTentativelyAsync(new ProportionalElectionResultAuditedTentativelyRequest
-            {
-                ElectionResultIds =
-                {
-                        ProportionalElectionResultMockedData
-                            .IdGossauElectionResultInContestStGallen,
-                },
-            });
-        await RunEvents<ProportionalElectionResultAuditedTentatively>();
+        await RunOnResult<ProportionalElectionResultAuditedTentatively>(aggregate =>
+            aggregate.AuditedTentatively(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetCorrectionDone()
     {
-        await ErfassungElectionAdminClient
-            .CorrectionFinishedAsync(new ProportionalElectionResultCorrectionFinishedRequest
-            {
-                ElectionResultId = ProportionalElectionResultMockedData
-                    .IdGossauElectionResultInContestStGallen,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<ProportionalElectionResultCorrectionFinished>();
+        await RunOnResult<ProportionalElectionResultCorrectionFinished>(aggregate =>
+            aggregate.CorrectionFinished(string.Empty, ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetReadyForCorrection()
     {
-        await MonitoringElectionAdminClient
-            .FlagForCorrectionAsync(new ProportionalElectionResultFlagForCorrectionRequest
-            {
-                ElectionResultId = ProportionalElectionResultMockedData
-                    .IdGossauElectionResultInContestStGallen,
-            });
-        await RunEvents<ProportionalElectionResultFlaggedForCorrection>();
+        await RunOnResult<ProportionalElectionResultFlaggedForCorrection>(aggregate =>
+            aggregate.FlagForCorrection(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetSubmissionDone()
     {
-        await ErfassungElectionAdminClient
-            .SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
-            {
-                ElectionResultId = ProportionalElectionResultMockedData
-                    .IdGossauElectionResultInContestStGallen,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<ProportionalElectionResultSubmissionFinished>();
+        await RunOnResult<ProportionalElectionResultSubmissionFinished>(aggregate =>
+            aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
     protected override async Task SetSubmissionOngoing()
     {
-        var contestGuid = Guid.Parse(ContestMockedData.IdStGallenEvoting);
-        var countingCircleGuid = CountingCircleMockedData.GuidGossau;
-        await RunOnDb(async db =>
-        {
-            var ccDetails = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .SingleAsync(x => x.ContestId == contestGuid && x.CountingCircle.BasisCountingCircleId == countingCircleGuid);
-            await db.SaveChangesAsync();
-        });
-
-        await new ResultService.ResultServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin))
-            .GetListAsync(new GetResultListRequest
-            {
-                ContestId = ContestMockedData.IdStGallenEvoting,
-                CountingCircleId = CountingCircleMockedData.IdGossau,
-            });
-        await RunEvents<ProportionalElectionResultSubmissionStarted>();
+        await RunOnResult<ProportionalElectionResultSubmissionStarted>(aggregate =>
+            aggregate.StartSubmission(
+                CountingCircleMockedData.Gossau.Id,
+                ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id,
+                ContestMockedData.StGallenEvotingUrnengang.Id,
+                false));
     }
 
     protected async Task SeedBallots(BallotBundleState bundleState)
@@ -161,5 +120,35 @@ public abstract class ProportionalElectionResultBaseTest : PoliticalBusinessResu
             });
             await db.SaveChangesAsync();
         });
+    }
+
+    protected async Task RunToPublished()
+    {
+        var proportionalElectionResultAggregate = await AggregateRepositoryMock.GetOrCreateById<ProportionalElectionResultAggregate>(Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen));
+        if (proportionalElectionResultAggregate.Published)
+        {
+            return;
+        }
+
+        await RunOnResult<ProportionalElectionResultPublished>(aggregate => aggregate.Publish(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    private async Task RunOnResult<T>(Action<ProportionalElectionResultAggregate> resultAction)
+        where T : IMessage<T>
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<ProportionalElectionResultAggregate>(
+                ProportionalElectionResultMockedData.GossauElectionResultInContestStGallen.Id);
+            resultAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<T>();
+        EventPublisherMock.Clear();
     }
 }

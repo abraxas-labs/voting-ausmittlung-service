@@ -30,8 +30,8 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewRejected>()
             .MatchSnapshot();
     }
@@ -39,8 +39,8 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungElectionAdminClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungElectionAdminClient.RejectBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewRejected>()
             .MatchSnapshot();
     }
@@ -50,8 +50,8 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            await RunBundleToState(BallotBundleState.ReadyForReview);
-            await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+            await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+            await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionResultBundleReviewRejected>();
         });
     }
@@ -60,7 +60,10 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungElectionAdminClientBund.RejectBundleReviewAsync(NewValidRequest());
+        await BundleErfassungElectionAdminClientBund.RejectBundleReviewAsync(new RejectMajorityElectionBundleReviewRequest
+        {
+            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+        });
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewRejected>()
             .MatchSnapshot();
     }
@@ -70,7 +73,10 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClientBund.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await BundleErfassungElectionAdminClientBund.RejectBundleReviewAsync(new RejectMajorityElectionBundleReviewRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            }),
             StatusCode.PermissionDenied);
     }
 
@@ -79,7 +85,10 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(new RejectMajorityElectionBundleReviewRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -89,7 +98,10 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.RejectBundleReviewAsync(new RejectMajorityElectionBundleReviewRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -98,7 +110,7 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(
                 new RejectMajorityElectionBundleReviewRequest
                 {
                     BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1,
@@ -114,9 +126,9 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     [InlineData(BallotBundleState.Deleted)]
     public async Task TestShouldThrowInWrongState(BallotBundleState state)
     {
-        await RunBundleToState(state);
+        await RunBundleToState(state, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -126,7 +138,7 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -148,7 +160,7 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
         bundle.State.Should().Be(BallotBundleState.InCorrection);
         bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
         bundle.ElectionResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
         bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
 
         await AssertHasPublishedMessage<MajorityElectionBundleChanged>(
@@ -181,21 +193,24 @@ public class MajorityElectionResultRejectBundleReviewTest : MajorityElectionResu
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
             .RejectBundleReviewAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private RejectMajorityElectionBundleReviewRequest NewValidRequest()
     {
         return new RejectMajorityElectionBundleReviewRequest
         {
-            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
         };
     }
 }

@@ -27,6 +27,8 @@ public class ProportionalElectionEndResultEnterManualListEndResultTest : Proport
 {
     private const string IdNotFound = "8b89b1a7-90a8-4b38-9422-812545bbadbb";
 
+    private bool _initializedAuthorizationTest;
+
     public ProportionalElectionEndResultEnterManualListEndResultTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -265,15 +267,21 @@ public class ProportionalElectionEndResultEnterManualListEndResultTest : Proport
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await SetAllAuditedTentatively();
+
+        if (!_initializedAuthorizationTest)
+        {
+            _initializedAuthorizationTest = true;
+            await SetManualRequired();
+        }
+
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
             .EnterManualListEndResultAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private EnterProportionalElectionManualListEndResultRequest NewValidRequest(

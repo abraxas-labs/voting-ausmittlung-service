@@ -31,7 +31,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
@@ -41,7 +41,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
             await CreateBallot();
-            await BundleErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
+            await ErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionResultBundleSubmissionFinished>();
         });
     }
@@ -49,9 +49,12 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanCreator()
     {
-        await CreateBallot();
-        await BundleErfassungElectionAdminClientSecondUser
-            .BundleSubmissionFinishedAsync(NewValidRequest());
+        await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungElectionAdminClient
+            .BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+            });
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
@@ -59,7 +62,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     public async Task TestShouldReturnAsErfassungCreator()
     {
         await CreateBallot();
-        await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
@@ -84,7 +87,10 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+            }),
             StatusCode.PermissionDenied,
             "only election admins or the creator of a bundle can edit it");
     }
@@ -94,7 +100,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -109,7 +115,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
             await CreateBallot();
         }
 
-        await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
         var eventData = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleSubmissionFinished>();
         eventData.SampleBallotNumbers.Count.Should().Be(2);
         eventData.SampleBallotNumbers.Min().Should().BeGreaterOrEqualTo(minBallotNr);
@@ -120,7 +126,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     public async Task TestShouldThrowWithoutBallot()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "at least one ballot is required to close this bundle");
     }
@@ -129,7 +135,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
             {
                 BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1,
             }),
@@ -146,7 +152,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
         await CreateBallot();
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -175,7 +181,7 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
                 },
                 EventInfo = GetMockedEventInfo(),
             });
-        var bundleResp = await BundleErfassungElectionAdminClient.GetBundleAsync(
+        var bundleResp = await ErfassungElectionAdminClient.GetBundleAsync(
             new GetMajorityElectionResultBundleRequest
             {
                 BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
@@ -192,14 +198,21 @@ public class MajorityElectionResultBundleSubmissionFinishedTest : MajorityElecti
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var bundleId = await CreateBundle(10);
+        await CreateBallot(bundleId);
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
-            .BundleSubmissionFinishedAsync(NewValidRequest());
+            .BundleSubmissionFinishedAsync(new MajorityElectionResultBundleSubmissionFinishedRequest
+            {
+                BundleId = bundleId.ToString(),
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private MajorityElectionResultBundleSubmissionFinishedRequest NewValidRequest()

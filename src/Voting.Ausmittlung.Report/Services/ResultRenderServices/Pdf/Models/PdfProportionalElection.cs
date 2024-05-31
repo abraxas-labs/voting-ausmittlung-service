@@ -15,4 +15,7 @@ public class PdfProportionalElection : PdfPoliticalBusiness
 
     [XmlElement("ProportionalElectionEndResult")]
     public PdfProportionalElectionEndResult? EndResult { get; set; }
+
+    [XmlElement("ProportionalElectionDoubleProportionalResult")]
+    public PdfDoubleProportionalResult? DoubleProportionalResult { get; set; }
 }

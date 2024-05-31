@@ -50,26 +50,25 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             .Include(x => x.EndResult!.BallotEndResults)
                 .ThenInclude(x => x.Ballot)
             .Include(x => x.EndResult!.BallotEndResults)
-                .ThenInclude(x => x.QuestionEndResults)
-                    .ThenInclude(x => x.Question)
-                        .ThenInclude(x => x.Translations)
+                .ThenInclude(x => x.QuestionEndResults.OrderBy(q => q.Question.Number))
+                    .ThenInclude(x => x.Question.Translations)
             .Include(x => x.EndResult!.BallotEndResults)
-                .ThenInclude(x => x.TieBreakQuestionEndResults)
-                    .ThenInclude(x => x.Question)
-                        .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.BallotQuestions)
+                .ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number))
+                    .ThenInclude(x => x.Question.Translations)
+            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
                 .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.TieBreakQuestions)
+            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.TieBreakQuestions.OrderBy(q => q.Number))
                 .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.QuestionResults)
+            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.QuestionResults.OrderBy(q => q.Question.Number))
                 .ThenInclude(x => x.Question.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults)
+            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults.OrderBy(q => q.Question.Number))
                 .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.Contest.Translations)
             .Include(x => x.Contest.DomainOfInfluence)
+            .Include(x => x.Contest.CantonDefaults)
             .FirstOrDefaultAsync(v => v.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
 
@@ -162,6 +161,6 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             templateBag,
             PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(vote.DomainOfInfluence.Type),
             vote.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 }

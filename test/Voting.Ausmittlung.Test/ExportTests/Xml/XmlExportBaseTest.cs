@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -57,6 +58,11 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
     [Fact]
     public async Task TestXml()
     {
+        await TestXmlWithSnapshot();
+    }
+
+    protected async Task TestXmlWithSnapshot(string snapshotSuffix = "")
+    {
         var request = NewRequest();
         var response = await AssertStatus(
             () => TestClient.PostAsJsonAsync(ResultExportEndpoint, request),
@@ -70,7 +76,19 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
 
         var xml = await response.Content.ReadAsStringAsync();
         XmlUtil.ValidateSchema(xml, GetSchemaSet());
-        MatchXmlSnapshot(xml, GetType().Name);
+        MatchXmlSnapshot(xml, $"{GetType().Name}{snapshotSuffix}");
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
+    }
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
     }
 
     protected abstract Task SeedData();

@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="CsvHelper" Version="28.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(MsExtensionsVersion)" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="CsvHelper" Version="31.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Voting.Lib.Eventing" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.VotingExports" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DmDoc" Version="$(VotingLibVersion)" />

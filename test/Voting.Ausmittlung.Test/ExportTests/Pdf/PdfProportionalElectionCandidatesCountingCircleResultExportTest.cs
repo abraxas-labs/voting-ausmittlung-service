@@ -22,7 +22,7 @@ public class PdfProportionalElectionCandidatesCountingCircleResultExportTest : P
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular2a_KandStimmen_Kantonratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular2a_KandStimmen_Kantonratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateVotesCountingCircleProtocol.Key;
 

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
@@ -23,6 +24,7 @@ public class PermissionService
 {
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
+    private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluencePermissionEntry> _permissionRepo;
     private readonly ILogger _logger;
     private readonly IAuth _auth;
@@ -36,6 +38,7 @@ public class PermissionService
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, DomainOfInfluencePermissionEntry> permissionRepo,
         IDbRepository<DataContext, Contest> contestRepo,
+        DomainOfInfluenceRepo domainOfInfluenceRepo,
         AppConfig appConfig)
     {
         _logger = logger;
@@ -43,6 +46,7 @@ public class PermissionService
         _countingCircleRepo = countingCircleRepo;
         _permissionRepo = permissionRepo;
         _contestRepo = contestRepo;
+        _domainOfInfluenceRepo = domainOfInfluenceRepo;
         _appConfig = appConfig;
         _authStore = authStore;
     }
@@ -183,6 +187,21 @@ public class PermissionService
         {
             throw new ForbiddenException($"no permission entries available to access {basisCountingCircleId}");
         }
+    }
+
+    public async Task<HashSet<Guid>> GetViewablePartialResultsCountingCircleIds(Guid contestId, CancellationToken ct = default)
+    {
+        var basisDoiIdsWithFlag = await _domainOfInfluenceRepo.Query()
+            .Where(doi => doi.ViewCountingCirclePartialResults && doi.SecureConnectId == _auth.Tenant.Id && doi.SnapshotContestId == contestId)
+            .Select(doi => doi.BasisDomainOfInfluenceId)
+            .ToListAsync(ct);
+        var ccids = await _permissionRepo.Query()
+            .Where(p => p.ContestId == contestId && basisDoiIdsWithFlag.Contains(p.BasisDomainOfInfluenceId))
+            .Select(p => p.CountingCircleIds)
+            .ToListAsync(ct);
+        return ccids
+            .SelectMany(x => x)
+            .ToHashSet();
     }
 
     /// <summary>

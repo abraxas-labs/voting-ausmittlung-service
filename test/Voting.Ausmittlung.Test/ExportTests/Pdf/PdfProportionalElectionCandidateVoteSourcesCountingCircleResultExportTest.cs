@@ -22,7 +22,7 @@ public class PdfProportionalElectionCandidateVoteSourcesCountingCircleResultExpo
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular3b_Stimmenherkunft_KumPan_Kantonratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular3b_Stimmenherkunft_KumPan_Kantonratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesCountingCircleProtocol.Key;
 

@@ -47,6 +47,7 @@
   "IsSnapshot": false,
   "ContestCountingCircleContactPersonId": null,
   "MustUpdateContactPersons": false,
+  "EVoting": false,
   "Electorates": [],
   "ContestElectorates": [],
   "DomainOfInfluences": null,

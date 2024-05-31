@@ -24,6 +24,8 @@
   "CandidateResultVoteSources": [],
   "HagenbachBischoffGroup": null,
   "EndResult": null,
+  "DoubleProportionalResultCells": [],
+  "DoubleProportionalResultColumn": null,
   "ProportionalElectionListUnion": null,
   "ProportionalElectionSubListUnion": null,
   "Description": "Updated list description rm",

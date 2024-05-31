@@ -230,6 +230,12 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
 
         var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
+        if (aggregate.Published)
+        {
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("majority election result {MajorityElectionResultId} unpublished", aggregate.Id);
+        }
+
         aggregate.ResetToSubmissionFinished(contestId);
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Majority election result {MajorityElectionResultId} reset to submission finished", aggregate.Id);
@@ -252,6 +258,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             aggregate.AuditedTentatively(contestId);
             _logger.LogInformation("Majority election result {MajorityElectionResultId} audited tentatively", aggregate.Id);
+
+            var result = await LoadPoliticalBusinessResult(aggregate.Id);
+            if (CanAutomaticallyPublishResults(result.MajorityElection.DomainOfInfluence, result.MajorityElection.Contest))
+            {
+                aggregate.Publish(contestId);
+                _logger.LogInformation("majority election result {MajorityElectionResultId} published", aggregate.Id);
+            }
         });
     }
 
@@ -260,6 +273,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         await ExecuteOnAllAggregates<MajorityElectionResultAggregate>(resultIds, async aggregate =>
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            await EnsureStatePlausibilisedEnabled(contestId);
             aggregate.Plausibilise(contestId);
             _logger.LogInformation("Majority election result {MajorityElectionResultId} plausibilised", aggregate.Id);
         });
@@ -275,11 +289,60 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         });
     }
 
+    public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId)
+    {
+        var result = await LoadPoliticalBusinessResult(resultId);
+        if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
+        {
+            throw new ValidationException("finish submission and audit tentatively is not allowed for a non self owned political business");
+        }
+
+        var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
+        await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
+
+        var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(result.Id);
+        aggregate.SubmissionFinished(contestId);
+        aggregate.AuditedTentatively(contestId);
+        _logger.LogInformation("Submission finished and audited tentatively for majority election result {MajorityElectionResultId}", result.Id);
+
+        if (CanAutomaticallyPublishResults(result.MajorityElection.DomainOfInfluence, result.MajorityElection.Contest))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("majority election result {MajorityElectionResultId} published", aggregate.Id);
+        }
+
+        await AggregateRepository.Save(aggregate);
+    }
+
+    public async Task Publish(IReadOnlyCollection<Guid> resultIds)
+    {
+        await ExecuteOnAllAggregates<MajorityElectionResultAggregate>(resultIds, async aggregate =>
+        {
+            var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            var result = await LoadPoliticalBusinessResult(aggregate.Id);
+            EnsureCanManuallyPublishResults(result.MajorityElection.Contest, result.MajorityElection.DomainOfInfluence);
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Majority election result {MajorityElectionResultId} published", aggregate.Id);
+        });
+    }
+
+    public async Task Unpublish(IReadOnlyCollection<Guid> resultIds)
+    {
+        await ExecuteOnAllAggregates<MajorityElectionResultAggregate>(resultIds, async aggregate =>
+        {
+            var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            var result = await LoadPoliticalBusinessResult(aggregate.Id);
+            EnsureCanManuallyPublishResults(result.MajorityElection.Contest, result.MajorityElection.DomainOfInfluence);
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("Majority election result {MajorityElectionResultId} unpublished", aggregate.Id);
+        });
+    }
+
     protected override async Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId)
     {
         return await _resultRepo.Query()
             .AsSplitQuery()
-            .Include(vr => vr.MajorityElection.Contest)
+            .Include(vr => vr.MajorityElection.Contest.CantonDefaults)
             .Include(vr => vr.MajorityElection.DomainOfInfluence)
             .Include(vr => vr.CountingCircle.ResponsibleAuthority)
             .Include(vr => vr.CandidateResults)

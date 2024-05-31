@@ -105,24 +105,13 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
                 },
             });
 
-        var domainOfInfluences = await RunOnDb(db => db.DomainOfInfluences
-            .Where(cc => cc.BasisDomainOfInfluenceId == domainOfInfluenceId)
+        var contestInTestingPhaseCantonDefaults = await RunOnDb(db => db.ContestCantonDefaults
+            .AsSplitQuery()
+            .Where(x => x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang))
             .ToListAsync());
 
-        domainOfInfluences.All(doi => doi.Canton == DomainOfInfluenceCanton.Sg).Should().BeTrue();
-
-        var contestInTestingPhaseDois = domainOfInfluences.Where(doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang))
-            .ToList();
-        var baseDois = domainOfInfluences.Where(doi => doi.SnapshotContestId == null)
-            .ToList();
-
-        contestInTestingPhaseDois.Any().Should().BeTrue();
-        baseDois.Any().Should().BeTrue();
-
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo).Should().BeTrue();
-
-        contestInTestingPhaseDois.All(doi => doi.CantonDefaults.EnabledVotingCardChannels.Count == 4).Should().BeTrue();
-        baseDois.All(doi => doi.CantonDefaults.EnabledVotingCardChannels.Count == 4).Should().BeTrue();
+        contestInTestingPhaseCantonDefaults.Any().Should().BeTrue();
+        contestInTestingPhaseCantonDefaults.All(x => x.MajorityElectionAbsoluteMajorityAlgorithm == CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo).Should().BeTrue();
+        contestInTestingPhaseCantonDefaults.All(x => x.EnabledVotingCardChannels.Count == 4).Should().BeTrue();
     }
 }

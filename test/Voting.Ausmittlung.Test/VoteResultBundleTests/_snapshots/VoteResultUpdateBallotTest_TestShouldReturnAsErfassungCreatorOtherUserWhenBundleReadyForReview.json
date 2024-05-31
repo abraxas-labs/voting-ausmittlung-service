@@ -1,10 +1,10 @@
 {
   "EventInfo": {
     "User": {
-      "Id": "my-user-99",
-      "Username": "",
-      "FirstName": "",
-      "LastName": ""
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
     },
     "Tenant": {
       "Id": "300300300300300300",
@@ -15,7 +15,7 @@
       "Nanos": 200000000
     }
   },
-  "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+  "BundleId": "a2249597-4a74-4d27-a66b-e5159eb470a4",
   "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
   "BallotNumber": 1,
   "QuestionAnswers": [

@@ -9,9 +9,9 @@ namespace Voting.Ausmittlung.Core.Utils;
 
 public abstract class ElectionCandidateEndResultBuilder
 {
-    protected void RecalculateCandidateEndResultRanks<TElectionCandidateEndResultBase>(
+    internal void RecalculateCandidateEndResultRanks<TElectionCandidateEndResultBase>(
         IEnumerable<TElectionCandidateEndResultBase> candidateEndResults,
-        bool allCountingCirclesDone)
+        bool lotDecisionEnabled)
         where TElectionCandidateEndResultBase : ElectionCandidateEndResult
     {
         var orderedCandidateEndResults = candidateEndResults
@@ -48,7 +48,7 @@ public abstract class ElectionCandidateEndResultBuilder
                 continue;
             }
 
-            candidateEndResult.LotDecisionEnabled = allCountingCirclesDone;
+            candidateEndResult.LotDecisionEnabled = lotDecisionEnabled;
 
             if (candidateEndResult.VoteCount == countBefore)
             {

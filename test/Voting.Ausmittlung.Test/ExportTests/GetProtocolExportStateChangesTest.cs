@@ -11,12 +11,14 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 using Voting.Lib.Testing.Mocks;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
@@ -55,7 +57,7 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
     public async Task TestShouldNotifyCaller()
     {
         using var callCts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
-        var responseStream = StGallenMonitoringElectionAdminClient.GetProtocolExportStateChanges(
+        var responseStream = MonitoringElectionAdminClient.GetProtocolExportStateChanges(
             new GetProtocolExportStateChangesRequest
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,
@@ -123,7 +125,7 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
             async () =>
             {
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
-                var responseStream = StGallenMonitoringElectionAdminClient.GetProtocolExportStateChanges(
+                var responseStream = MonitoringElectionAdminClient.GetProtocolExportStateChanges(
                     new GetProtocolExportStateChangesRequest
                     {
                         ContestId = ContestMockedData.IdGossau,
@@ -135,6 +137,9 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
             StatusCode.NotFound);
     }
 
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
@@ -142,14 +147,21 @@ public class GetProtocolExportStateChangesTest : BaseTest<ExportService.ExportSe
             new GetProtocolExportStateChangesRequest
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,
+                CountingCircleId = CountingCircleMockedData.IdGossau,
             },
             new CallOptions(cancellationToken: cts.Token));
 
-        await responseStream.ResponseStream.MoveNext();
+        await responseStream.ResponseStream.ReadNIgnoreCancellation(1, cts.Token);
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 }

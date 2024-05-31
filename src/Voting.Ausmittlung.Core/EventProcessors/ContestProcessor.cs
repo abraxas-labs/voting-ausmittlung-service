@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using AutoMapper;
@@ -31,6 +30,7 @@ public class ContestProcessor :
 {
     private readonly ILogger<ContestProcessor> _logger;
     private readonly IDbRepository<DataContext, Contest> _repo;
+    private readonly IDbRepository<DataContext, DomainOfInfluence> _doiRepo;
     private readonly ContestTranslationRepo _translationRepo;
     private readonly ContestSnapshotBuilder _contestSnapshotBuilder;
     private readonly ResultExportConfigurationRepo _resultExportConfigRepo;
@@ -40,10 +40,12 @@ public class ContestProcessor :
     private readonly ResultExportConfigurationBuilder _resultExportConfigurationBuilder;
     private readonly IMapper _mapper;
     private readonly ContestResultInitializer _contestResultInitializer;
+    private readonly ContestCantonDefaultsBuilder _contestCantonDefaultsBuilder;
 
     public ContestProcessor(
         ILogger<ContestProcessor> logger,
         IDbRepository<DataContext, Contest> repo,
+        IDbRepository<DataContext, DomainOfInfluence> doiRepo,
         ContestTranslationRepo translationRepo,
         ContestSnapshotBuilder contestSnapshotBuilder,
         ResultExportConfigurationRepo resultExportConfigRepo,
@@ -52,15 +54,18 @@ public class ContestProcessor :
         AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder,
         ResultExportConfigurationBuilder resultExportConfigurationBuilder,
         IMapper mapper,
-        ContestResultInitializer contestResultInitializer)
+        ContestResultInitializer contestResultInitializer,
+        ContestCantonDefaultsBuilder contestCantonDefaultsBuilder)
     {
         _logger = logger;
         _repo = repo;
+        _doiRepo = doiRepo;
         _translationRepo = translationRepo;
         _contestSnapshotBuilder = contestSnapshotBuilder;
         _permissionBuilder = permissionBuilder;
         _mapper = mapper;
         _contestResultInitializer = contestResultInitializer;
+        _contestCantonDefaultsBuilder = contestCantonDefaultsBuilder;
         _resultExportConfigRepo = resultExportConfigRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
@@ -69,7 +74,12 @@ public class ContestProcessor :
 
     public async Task Process(ContestCreated eventData)
     {
+        var doiId = Guid.Parse(eventData.Contest.DomainOfInfluenceId);
+        var doi = await _doiRepo.GetByKey(doiId)
+                ?? throw new EntityNotFoundException(nameof(DomainOfInfluence), doiId);
+
         var contest = _mapper.Map<Contest>(eventData.Contest);
+        await _contestCantonDefaultsBuilder.BuildForContest(contest, doi.Canton);
         await _repo.Create(contest);
 
         await _contestSnapshotBuilder.CreateSnapshotForContest(contest);
@@ -84,6 +94,7 @@ public class ContestProcessor :
 
         var contest = await _repo.Query()
                                   .AsSplitQuery()
+                                  .Include(x => x.CantonDefaults)
                                   .Include(x => x.CountingCircleDetails)
                                   .ThenInclude(x => x.CountOfVotersInformationSubTotals)
                                   .Include(x => x.CountingCircleDetails)
@@ -124,11 +135,14 @@ public class ContestProcessor :
         var id = GuidParser.Parse(eventData.ContestId);
 
         var contest = await _repo.Query()
+                          .AsSplitQuery()
                           .Include(x => x.Details)
+                          .Include(x => x.CantonDefaults)
                           .FirstOrDefaultAsync(x => x.Id == id)
                       ?? throw new EntityNotFoundException(id);
 
         contest.State = ContestState.Active;
+        contest.EVotingResultsImported = false;
         await _repo.Update(contest);
 
         await _contestResultInitializer.ResetContestResults(id, contest.Details?.Id);
@@ -150,7 +164,10 @@ public class ContestProcessor :
 
     private async Task UpdateState(Guid id, ContestState newState)
     {
-        var contest = await _repo.GetByKey(id)
+        var contest = await _repo.Query()
+                .AsSplitQuery()
+                .Include(x => x.CantonDefaults)
+                .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(id);
 
         var oldState = contest.State;

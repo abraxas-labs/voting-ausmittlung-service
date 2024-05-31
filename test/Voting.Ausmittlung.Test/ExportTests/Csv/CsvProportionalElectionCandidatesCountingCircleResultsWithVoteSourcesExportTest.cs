@@ -25,7 +25,7 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
         tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Kandidatenstimmen Gesamttotal je Liste - unveränderte und veränderte Wahlzettel.csv";
+    protected override string NewRequestExpectedFileName => "Kandidatenstimmen Gesamttotal je Liste - unveränderte und veränderte Wahlzettel Uzwil.csv";
 
     protected override async Task SeedData()
     {

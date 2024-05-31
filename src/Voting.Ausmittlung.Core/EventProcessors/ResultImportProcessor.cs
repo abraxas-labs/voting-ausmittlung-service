@@ -148,7 +148,11 @@ public class ResultImportProcessor :
 
     private async Task SetContestEVotingImported(Guid contestId, bool imported)
     {
-        var contest = await _contestRepo.GetByKey(contestId)
+        var contest = await _contestRepo
+                .Query()
+                .AsSplitQuery()
+                .Include(x => x.CantonDefaults)
+                .FirstOrDefaultAsync(x => x.Id == contestId)
                       ?? throw new EntityNotFoundException(nameof(Contest), contestId);
         contest.EVotingResultsImported = imported;
         await _contestRepo.Update(contest);

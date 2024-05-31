@@ -22,6 +22,8 @@ namespace Voting.Ausmittlung.Test.MajorityElectionResultBundleTests;
 
 public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBundleBaseTest
 {
+    private bool _initializedAuthorizationTest;
+
     public MajorityElectionResultDeleteBundleTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -31,7 +33,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -39,8 +41,11 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanBundleCreator()
     {
-        await CreateBallot();
-        await BundleErfassungElectionAdminClientSecondUser.DeleteBundleAsync(NewValidRequest());
+        await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+        {
+            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+        });
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -50,8 +55,11 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     {
         await TestEventsWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            await CreateBallot();
-            await BundleErfassungElectionAdminClientSecondUser.DeleteBundleAsync(NewValidRequest());
+            await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+            await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+            });
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionResultBundleDeleted>(),
@@ -68,7 +76,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     public async Task TestShouldReturnForStates(BallotBundleState state)
     {
         await RunBundleToState(state);
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
     }
 
     [Fact]
@@ -95,7 +103,10 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
         await CreateBallot();
         await SetBundleDeleted();
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            {
+                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle3,
+            }),
             StatusCode.PermissionDenied);
     }
 
@@ -103,7 +114,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
             {
                 BundleId = "a8c45178-eae2-4741-8a08-444704162ffd",
             }),
@@ -114,7 +125,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
             {
                 BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1,
             }),
@@ -126,7 +137,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     {
         await SetBundleDeleted();
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "bundle is already deleted");
     }
@@ -136,7 +147,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -156,7 +167,7 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
             });
         var bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Deleted);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
 
         await AssertHasPublishedMessage<MajorityElectionBundleChanged>(
@@ -181,6 +192,8 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     [Fact]
     public async Task TestProcessorUpdatesCandidateResults()
     {
+        await ReplaceNullValuesWithZeroOnDetailedResults();
+
         await RunBundleToState(BallotBundleState.Reviewed);
         await ShouldHaveCandidateResults(true);
 
@@ -220,15 +233,26 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        if (!_initializedAuthorizationTest)
+        {
+            _initializedAuthorizationTest = true;
+            await DefineResultEntry();
+        }
+
+        var bundleNumber = await GenerateBundleNumber();
+        var bundleId = await CreateBundle(bundleNumber);
+
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
-            .DeleteBundleAsync(NewValidRequest());
+            .DeleteBundleAsync(new DeleteMajorityElectionResultBundleRequest
+            {
+                BundleId = bundleId.ToString(),
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private DeleteMajorityElectionResultBundleRequest NewValidRequest()

@@ -60,6 +60,17 @@ public static class CantonSettingsMockedData
             },
             ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.Alphabetical,
             ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.Alphabetical,
+            MajorityElectionUseCandidateCheckDigit = true,
+            CountingCircleResultStateDescriptions =
+            {
+                new CountingCircleResultStateDescription
+                {
+                    Id = Guid.Parse("28dc8a05-0214-4e0d-89c7-6536758f800f"),
+                    State = CountingCircleResultState.SubmissionDone,
+                    Description = "Erfassung beendet",
+                },
+            },
+            PublishResultsEnabled = true,
         };
 
     public static CantonSettings Zurich
@@ -110,6 +121,16 @@ public static class CantonSettingsMockedData
             NewZhFeaturesEnabled = true,
             MajorityElectionUseCandidateCheckDigit = true,
             ProportionalElectionUseCandidateCheckDigit = true,
+            CountingCircleResultStateDescriptions =
+            {
+                new CountingCircleResultStateDescription
+                {
+                    Id = Guid.Parse("df6f5549-e04d-4d0d-a0ef-6fb5c1760d15"),
+                    State = CountingCircleResultState.AuditedTentatively,
+                    Description = "geprüft",
+                },
+            },
+            StatePlausibilisedDisabled = true,
         };
 
     public static IEnumerable<CantonSettings> All
@@ -127,11 +148,13 @@ public static class CantonSettingsMockedData
         {
             var cantonSettingsRepo = sp.GetRequiredService<CantonSettingsRepo>();
             var doiCantonDefaultsBuilder = sp.GetRequiredService<DomainOfInfluenceCantonDefaultsBuilder>();
+            var contestCantonDefaultsBuilder = sp.GetRequiredService<ContestCantonDefaultsBuilder>();
 
             foreach (var cantonSettings in All)
             {
                 await cantonSettingsRepo.Create(cantonSettings);
                 await doiCantonDefaultsBuilder.RebuildForCanton(cantonSettings);
+                await contestCantonDefaultsBuilder.RebuildForCanton(cantonSettings);
             }
         });
     }

@@ -47,6 +47,7 @@ public class ContestProcessorBaseTest : BaseDataProcessorTest
                 return q
                     .OrderBy(x => x.Date)
                     .Include(x => x.Translations)
+                    .Include(x => x.CantonDefaults)
                     .ToListAsync();
             },
             Languages.German);

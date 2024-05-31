@@ -44,7 +44,7 @@ public class ResultGetImportChangesTest : BaseTest<ResultImportService.ResultImp
         var contestId = Guid.Parse(ContestMockedData.IdStGallenEvoting);
         var stGallenCcId = CountingCircleMockedData.GuidStGallen;
         var gossauCcId = CountingCircleMockedData.GuidGossau;
-        var responseStream = StGallenErfassungElectionAdminClient.GetImportChanges(
+        var responseStream = ErfassungElectionAdminClient.GetImportChanges(
             new GetResultImportChangesRequest
             {
                 ContestId = contestId.ToString(),
@@ -84,6 +84,9 @@ public class ResultGetImportChangesTest : BaseTest<ResultImportService.ResultImp
         callCts.Cancel();
     }
 
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
@@ -95,16 +98,12 @@ public class ResultGetImportChangesTest : BaseTest<ResultImportService.ResultImp
             },
             new CallOptions(cancellationToken: cts.Token));
 
-        await responseStream.ResponseStream.MoveNext();
+        await responseStream.ResponseStream.ReadNIgnoreCancellation(1, cts.Token);
     }
 
-    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
-        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
-
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 }

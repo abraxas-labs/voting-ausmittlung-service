@@ -63,6 +63,14 @@ public class VoteResultModelBuilder :
             .Property(x => x.SubmissionDoneTimestamp)
             .HasUtcConversion();
 
+        builder
+            .Property(x => x.AuditedTentativelyTimestamp)
+            .HasUtcConversion();
+
+        builder
+            .Property(x => x.PlausibilisedTimestamp)
+            .HasUtcConversion();
+
         builder.OwnsOne(x => x.EntryParams);
     }
 

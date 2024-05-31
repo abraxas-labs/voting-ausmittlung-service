@@ -1,6 +1,7 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using Npgsql;
 
 namespace Voting.Ausmittlung.TemporaryData.Configuration;
@@ -26,6 +27,12 @@ public class TemporaryDataConfig
     public string Pass { get; set; } = string.Empty;
 
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the version of the target database.
+    /// Required for Postgres when database version is lower v14 and Npgsql greater or equal v8.
+    /// </summary>
+    public Version? Version { get; set; } = null;
 
     public bool EnableSensitiveDataLogging { get; set; }
 

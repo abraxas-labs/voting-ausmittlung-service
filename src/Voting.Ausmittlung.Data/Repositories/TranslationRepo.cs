@@ -19,6 +19,7 @@ public abstract class TranslationRepo<T> : DbRepository<DataContext, T>
 
     protected abstract string MainEntityIdColumnName { get; }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public Task DeleteRelatedTranslations(Guid mainEntityId)
     {
         return Context.Database.ExecuteSqlRawAsync($"DELETE FROM {DelimitedSchemaAndTableName} WHERE {MainEntityIdColumnName} = {{0}}", mainEntityId);

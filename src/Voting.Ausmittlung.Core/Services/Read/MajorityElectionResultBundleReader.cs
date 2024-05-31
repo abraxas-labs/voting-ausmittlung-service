@@ -52,6 +52,7 @@ public class MajorityElectionResultBundleReader
                                  .Include(x => x.MajorityElection.Translations)
                                  .Include(x => x.MajorityElection.DomainOfInfluence)
                                  .Include(x => x.MajorityElection.Contest.Translations)
+                                 .Include(x => x.MajorityElection.Contest.CantonDefaults)
                                  .Include(x => x.Bundles.OrderBy(b => b.Number))
                                  .FirstOrDefaultAsync(x => x.Id == electionResultId)
                              ?? throw new EntityNotFoundException(electionResultId);
@@ -87,8 +88,8 @@ public class MajorityElectionResultBundleReader
                                  .Include(x => x.ElectionResult.CountingCircle)
                                  .Include(x => x.ElectionResult.MajorityElection.Translations)
                                  .Include(x => x.ElectionResult.MajorityElection.Contest.Translations)
-                                 .Include(x => x.ElectionResult.MajorityElection.DomainOfInfluence.CantonDefaults)
-                                 .Include(x => x.ElectionResult.MajorityElection.Contest.DomainOfInfluence)
+                                 .Include(x => x.ElectionResult.MajorityElection.Contest.CantonDefaults)
+                                 .Include(x => x.ElectionResult.MajorityElection.DomainOfInfluence)
                                  .Include(x => x.ElectionResult.SecondaryMajorityElectionResults).ThenInclude(r => r.SecondaryMajorityElection.Translations)
                                  .FirstOrDefaultAsync(x => x.Id == bundleId)
                              ?? throw new EntityNotFoundException(bundleId);

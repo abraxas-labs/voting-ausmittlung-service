@@ -21,6 +21,8 @@ namespace Voting.Ausmittlung.Test.ProportionalElectionResultBundleTests;
 
 public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionResultBundleBaseTest
 {
+    private int _bundleNumber = 10;
+
     public ProportionalElectionResultDeleteBundleTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -30,7 +32,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -39,7 +41,10 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanBundleCreator()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClientSecondUser.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+        {
+            BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
+        });
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -50,7 +55,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
         await TestEventsWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
             await CreateBallot();
-            await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+            await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionResultBundleDeleted>(),
@@ -84,7 +89,10 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
         await CreateBallot();
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClientSecondUser.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            {
+                BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
+            }),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -97,7 +105,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldReturnForStates(BallotBundleState state)
     {
         await RunBundleToState(state);
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
     }
 
     [Fact]
@@ -106,7 +114,10 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
         await CreateBallot();
         await SetBundleDeleted();
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            {
+                BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3,
+            }),
             StatusCode.PermissionDenied);
     }
 
@@ -114,7 +125,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
             {
                 BundleId = "a8c45178-eae2-4741-8a08-444704162ffd",
             }),
@@ -125,7 +136,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
             {
                 BundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle1,
             }),
@@ -137,7 +148,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
     {
         await SetBundleDeleted();
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "bundle is already deleted");
     }
@@ -157,7 +168,7 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
             });
         var bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Deleted);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(0);
 
         await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
@@ -200,15 +211,24 @@ public class ProportionalElectionResultDeleteBundleTest : ProportionalElectionRe
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var response = await ErfassungCreatorClient.CreateBundleAsync(new CreateProportionalElectionResultBundleRequest
+        {
+            ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+            BundleNumber = _bundleNumber++,
+        });
+        await RunEvents<ProportionalElectionResultBundleCreated>();
+
         await new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(channel)
-            .DeleteBundleAsync(NewValidRequest());
+            .DeleteBundleAsync(new DeleteProportionalElectionResultBundleRequest
+            {
+                BundleId = response.BundleId,
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private DeleteProportionalElectionResultBundleRequest NewValidRequest()

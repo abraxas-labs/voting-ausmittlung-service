@@ -36,6 +36,16 @@ public class MajorityElectionResultResetToSubmissionFinishedTest : MajorityElect
         await RunToState(CountingCircleResultState.AuditedTentatively);
         await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultResettedToSubmissionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultUnpublished>().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithUnpublish()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+        await RunToPublished();
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultUnpublished>().ElectionResultId.Should().Be(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund);
     }
 
     [Fact]
@@ -126,13 +136,9 @@ public class MajorityElectionResultResetToSubmissionFinishedTest : MajorityElect
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultResettedToSubmissionFinished
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultResettedToSubmissionFinished>();
+
         await AssertCurrentState(CountingCircleResultState.SubmissionDone);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetMajorityElectionEndResultRequest
@@ -156,11 +162,9 @@ public class MajorityElectionResultResetToSubmissionFinishedTest : MajorityElect
             .ResetToSubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private MajorityElectionResultResetToSubmissionFinishedRequest NewValidRequest()

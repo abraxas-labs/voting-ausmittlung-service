@@ -63,6 +63,8 @@ public class Contest : BaseEntity
     // snapshotted DomainOfInfluenceParties.
     public ICollection<DomainOfInfluenceParty> DomainOfInfluenceParties { get; set; } = new HashSet<DomainOfInfluenceParty>();
 
+    public ContestCantonDefaults CantonDefaults { get; set; } = new();
+
     [NotMapped]
     public IEnumerable<PoliticalBusiness> PoliticalBusinesses
     {

@@ -1,0 +1,66 @@
+{
+  "LotDecisions": [
+    {
+      "Number": 1,
+      "Columns": [
+        {
+          "UnionList": null,
+          "List": {
+            "Id": "3b083853-cd08-4b46-b81b-da849a979bfc",
+            "ProportionalElectionId": "446708c6-9ee2-4034-88c0-a7dbb026c60b",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (3b083853-cd08-4b46-b81b-da849a979bfc) de"
+          },
+          "NumberOfMandates": 1
+        },
+        {
+          "UnionList": null,
+          "List": {
+            "Id": "868cd951-5faf-4799-81ad-1ebd65874e52",
+            "ProportionalElectionId": "446708c6-9ee2-4034-88c0-a7dbb026c60b",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (868cd951-5faf-4799-81ad-1ebd65874e52) de"
+          },
+          "NumberOfMandates": 0
+        }
+      ]
+    },
+    {
+      "Number": 2,
+      "Columns": [
+        {
+          "UnionList": null,
+          "List": {
+            "Id": "3b083853-cd08-4b46-b81b-da849a979bfc",
+            "ProportionalElectionId": "446708c6-9ee2-4034-88c0-a7dbb026c60b",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (3b083853-cd08-4b46-b81b-da849a979bfc) de"
+          },
+          "NumberOfMandates": 0
+        },
+        {
+          "UnionList": null,
+          "List": {
+            "Id": "868cd951-5faf-4799-81ad-1ebd65874e52",
+            "ProportionalElectionId": "446708c6-9ee2-4034-88c0-a7dbb026c60b",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (868cd951-5faf-4799-81ad-1ebd65874e52) de"
+          },
+          "NumberOfMandates": 1
+        }
+      ]
+    }
+  ]
+}

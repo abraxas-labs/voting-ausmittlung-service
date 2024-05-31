@@ -16,6 +16,8 @@
         "Results": [],
         "ProportionalElectionUnionEntries": [],
         "EndResult": null,
+        "DoubleProportionalResult": null,
+        "DoubleProportionalResultRows": [],
         "Translations": [
           {
             "ProportionalElectionId": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0",
@@ -66,6 +68,8 @@
         "Results": [],
         "ProportionalElectionUnionEntries": [],
         "EndResult": null,
+        "DoubleProportionalResult": null,
+        "DoubleProportionalResultRows": [],
         "Translations": [
           {
             "ProportionalElectionId": "350fb432-9083-44f0-ade9-f9f7f99dabe8",

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eCH-0110:delivery xmlns:eCH-0110="http://www.ech.ch/xmlns/eCH-0110/4" xmlns:eCH-0008="http://www.ech.ch/xmlns/eCH-0008/3" xmlns:eCH-0010="http://www.ech.ch/xmlns/eCH-0010/6" xmlns:eCH-0044="http://www.ech.ch/xmlns/eCH-0044/4" xmlns:eCH-0058="http://www.ech.ch/xmlns/eCH-0058/5" xmlns:eCH-0155="http://www.ech.ch/xmlns/eCH-0155/4" xmlns:eCH-0222="http://www.ech.ch/xmlns/eCH-0222/1">
+  <eCH-0110:deliveryHeader>
+    <eCH-0058:senderId>http://www.post.ch</eCH-0058:senderId>
+    <eCH-0058:messageId>F9AF43835D268EDCC8C26992DE1DD1E8</eCH-0058:messageId>
+    <eCH-0058:messageType>http://www.post.ch</eCH-0058:messageType>
+    <eCH-0058:sendingApplication>
+      <eCH-0058:manufacturer>SwissPost</eCH-0058:manufacturer>
+      <eCH-0058:product>E-Voting</eCH-0058:product>
+      <eCH-0058:productVersion>1</eCH-0058:productVersion>
+    </eCH-0058:sendingApplication>
+    <eCH-0058:messageDate>2023-11-02T18:29:16.876513500</eCH-0058:messageDate>
+    <eCH-0058:action>1</eCH-0058:action>
+    <eCH-0058:testDeliveryFlag>false</eCH-0058:testDeliveryFlag>
+  </eCH-0110:deliveryHeader>
+  <eCH-0110:resultDelivery>
+    <eCH-0110:reportingBody>
+      <eCH-0110:reportingBodyIdentification>SwissPost</eCH-0110:reportingBodyIdentification>
+      <eCH-0110:creationDateTime>2023-11-02T18:29:16.880513400</eCH-0110:creationDateTime>
+    </eCH-0110:reportingBody>
+    <eCH-0110:contestInformation>
+      <eCH-0155:contestIdentification>904e4192-2a82-41b2-969e-c64310c4631f</eCH-0155:contestIdentification>
+      <eCH-0155:contestDate>2023-11-20</eCH-0155:contestDate>
+      <eCH-0155:contestDescription>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>DE</eCH-0155:language>
+          <eCH-0155:contestDescription>Kantonale Abstimmung</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>FR</eCH-0155:language>
+          <eCH-0155:contestDescription>Kantonale Abstimmung</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>IT</eCH-0155:language>
+          <eCH-0155:contestDescription>Kantonale Abstimmung</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+        <eCH-0155:contestDescriptionInfo>
+          <eCH-0155:language>RM</eCH-0155:language>
+          <eCH-0155:contestDescription>Kantonale Abstimmung</eCH-0155:contestDescription>
+        </eCH-0155:contestDescriptionInfo>
+      </eCH-0155:contestDescription>
+      <eCH-0155:eVotingPeriod>
+        <eCH-0155:eVotingPeriodFrom>2023-11-01T12:00:00+01:00</eCH-0155:eVotingPeriodFrom>
+        <eCH-0155:eVotingPeriodTill>2023-11-19T12:00:00+01:00</eCH-0155:eVotingPeriodTill>
+      </eCH-0155:eVotingPeriod>
+    </eCH-0110:contestInformation>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>b926bd58-561b-4a10-8f23-2bd8c7c049d4</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>Kirchberg</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>19</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <eCH-0155:voteIdentification>87adb963-1c5b-4ba0-b42d-678cd607872d</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>651ea5fa-dd87-4bcb-bbc3-d5a9ccde8151</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Kantonale Volksabstimmung vom 20.11.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Kantonale Volksabstimmung vom 20.11.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Kantonale Volksabstimmung vom 20.11.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Kantonale Volksabstimmung vom 20.11.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>50</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>ca7e0537-a822-4460-89c2-9937f5510da9</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Einheitsinitiative «St.Galler Klimafonds» sowie Kantonsratsbeschluss über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 (Gegenvorschlag)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Einheitsinitiative «St.Galler Klimafonds» und Gegenvorschlag</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Einheitsinitiative «St.Galler Klimafonds» sowie Kantonsratsbeschluss über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 (Gegenvorschlag)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Einheitsinitiative «St.Galler Klimafonds» und Gegenvorschlag</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Einheitsinitiative «St.Galler Klimafonds» sowie Kantonsratsbeschluss über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 (Gegenvorschlag)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Einheitsinitiative «St.Galler Klimafonds» und Gegenvorschlag</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Einheitsinitiative «St.Galler Klimafonds» sowie Kantonsratsbeschluss über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 (Gegenvorschlag)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Einheitsinitiative «St.Galler Klimafonds» und Gegenvorschlag</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>19</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>16</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:variantBallot>
+            <eCH-0110:questionInformation>
+              <eCH-0110:questionIdentification>ca7e0537-a822-4460-89c2-9937f5510da9_n_1</eCH-0110:questionIdentification>
+              <eCH-0110:question>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie der Einheitsinitiative «St.Galler Klimafonds» zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie der Einheitsinitiative «St.Galler Klimafonds» zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie der Einheitsinitiative «St.Galler Klimafonds» zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie der Einheitsinitiative «St.Galler Klimafonds» zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+              </eCH-0110:question>
+              <eCH-0110:countOfAnswerYes>
+                <eCH-0110:total>7</eCH-0110:total>
+              </eCH-0110:countOfAnswerYes>
+              <eCH-0110:countOfAnswerNo>
+                <eCH-0110:total>6</eCH-0110:total>
+              </eCH-0110:countOfAnswerNo>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>3</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+            </eCH-0110:questionInformation>
+            <eCH-0110:questionInformation>
+              <eCH-0110:questionIdentification>ca7e0537-a822-4460-89c2-9937f5510da9_n_2</eCH-0110:questionIdentification>
+              <eCH-0110:question>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie dem Gegenvorschlag des Kantonsrates in Form des Kantonsratsbeschlusses über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie dem Gegenvorschlag des Kantonsrates in Form des Kantonsratsbeschlusses über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie dem Gegenvorschlag des Kantonsrates in Form des Kantonsratsbeschlusses über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+                <eCH-0155:ballotQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:ballotQuestion>Wollen Sie dem Gegenvorschlag des Kantonsrates in Form des Kantonsratsbeschlusses über den Sonderkredit zur Finanzierung der Energieförderung in den Jahren 2024 bis 2030 zustimmen?</eCH-0155:ballotQuestion>
+                </eCH-0155:ballotQuestionInfo>
+              </eCH-0110:question>
+              <eCH-0110:countOfAnswerYes>
+                <eCH-0110:total>5</eCH-0110:total>
+              </eCH-0110:countOfAnswerYes>
+              <eCH-0110:countOfAnswerNo>
+                <eCH-0110:total>10</eCH-0110:total>
+              </eCH-0110:countOfAnswerNo>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>1</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+            </eCH-0110:questionInformation>
+            <eCH-0110:tieBreak>
+              <eCH-0110:questionIdentification>ca7e0537-a822-4460-89c2-9937f5510da9_t_1</eCH-0110:questionIdentification>
+              <eCH-0110:tieBreakQuestion>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>DE</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Einheitsinitiative als auch der Gegenvorschlag angenommen werden: Geben Sie der Einheitsinitiative oder dem Gegenvorschlag den Vorzug?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>FR</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Einheitsinitiative als auch der Gegenvorschlag angenommen werden: Geben Sie der Einheitsinitiative oder dem Gegenvorschlag den Vorzug?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>IT</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Einheitsinitiative als auch der Gegenvorschlag angenommen werden: Geben Sie der Einheitsinitiative oder dem Gegenvorschlag den Vorzug?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+                <eCH-0155:tieBreakQuestionInfo>
+                  <eCH-0155:language>RM</eCH-0155:language>
+                  <eCH-0155:tieBreakQuestion>Falls sowohl die Einheitsinitiative als auch der Gegenvorschlag angenommen werden: Geben Sie der Einheitsinitiative oder dem Gegenvorschlag den Vorzug?</eCH-0155:tieBreakQuestion>
+                </eCH-0155:tieBreakQuestionInfo>
+              </eCH-0110:tieBreakQuestion>
+              <eCH-0110:countOfAnswerInvalid>
+                <eCH-0110:total>0</eCH-0110:total>
+              </eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:countOfAnswerEmpty>
+                <eCH-0110:total>4</eCH-0110:total>
+              </eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:countInFavourOf>
+                <eCH-0110:questionIdentification>ca7e0537-a822-4460-89c2-9937f5510da9_n_1</eCH-0110:questionIdentification>
+                <eCH-0110:countOfValidAnswers>
+                  <eCH-0110:total>8</eCH-0110:total>
+                </eCH-0110:countOfValidAnswers>
+              </eCH-0110:countInFavourOf>
+              <eCH-0110:countInFavourOf>
+                <eCH-0110:questionIdentification>ca7e0537-a822-4460-89c2-9937f5510da9_n_2</eCH-0110:questionIdentification>
+                <eCH-0110:countOfValidAnswers>
+                  <eCH-0110:total>4</eCH-0110:total>
+                </eCH-0110:countOfValidAnswers>
+              </eCH-0110:countInFavourOf>
+            </eCH-0110:tieBreak>
+          </eCH-0110:variantBallot>
+        </eCH-0110:ballotResult>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>94be93ce-bd0e-4c28-9ed4-63c3f6e33578</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>2</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Beiträge für familien- und schulergänzende Kinderbetreuung</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>19</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>14</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>5</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>5</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>94be93ce-bd0e-4c28-9ed4-63c3f6e33578_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Nachtrag zum Gesetz über Beiträge für familien- und schulergänzende Kinderbetreuung zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>10</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>4</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>5</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>4e738791-66f2-448c-a023-e6d2cc6db2b4</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>3</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Instandsetzung und Umnutzung der Schützengasse 1</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Instandsetzung und Umnutzung der Schützengasse 1</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Instandsetzung und Umnutzung der Schützengasse 1</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Instandsetzung und Umnutzung der Schützengasse 1</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>19</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>15</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>4</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>4</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>4e738791-66f2-448c-a023-e6d2cc6db2b4_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie dem Kantonsratsbeschluss über die Instandsetzung und Umnutzung der Schützengasse 1 in St.Gallen für das Kreisgericht St.Gallen zustimmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>7</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>8</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>4</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:extension>
+      <signature>hlMowpjARoJ5c96xzIcX1fmLQXvtyMclm6zqMMZYmPL1l8SEHVUNdUXbUPxAehQsU5Kj7x/5XKxE3DssoZRxQMcJtgSbuknnregXqurBggGeITTKjKU0+fHTBbp6WRk0P+woQl9+AXx3lHQwX6Q/vCtIP7uEccwcIz0lwcEVrAA9SCSFjlREa9MvNnC2+HaS/zWI4VxFe9mGVdhTSe9xi0w3mSNZbTcl01BteIaFT1saV3E2oRTo94/ORF2M4n4wnV1doEinwG8ht9Oq4yFG/w43qIjF+O6gWAYfn8SQJ2gRAnMY3NAAB3Mqytz1Ax4yTT4KzOyyT828KM6T+O7nWcgf8xE33OPNV5NayK7mjp3Ss3cQzO32hgDWu84WEL+Efppi7GG2PU4RcfCA9IafTbXhfSeJ9eXpmMlh8+/BrRk0f6a9Ph4Jz4EprtC+ln+KHYI0+sdfOM+l2zqIqdHsRmJhxuY44cxrRSCvfSGzeE63A0mRlUsNCT0eR3Q9b8dX</signature>
+    </eCH-0110:extension>
+  </eCH-0110:resultDelivery>
+</eCH-0110:delivery>

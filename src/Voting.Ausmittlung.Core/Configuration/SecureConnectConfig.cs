@@ -14,6 +14,4 @@ public class SecureConnectConfig : SecureConnectOptions
     public string AppShortNameErfassung { get; set; } = string.Empty;
 
     public string AppShortNameMonitoring { get; set; } = string.Empty;
-
-    public string Temporary2FATenantId { get; set; } = string.Empty;
 }

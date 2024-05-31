@@ -93,11 +93,9 @@ public class ResultValidateCountigCircleResultsTest : BaseTest<ResultService.Res
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private ValidateCountingCircleResultsRequest NewValidRequest(Action<ValidateCountingCircleResultsRequest>? action = null)

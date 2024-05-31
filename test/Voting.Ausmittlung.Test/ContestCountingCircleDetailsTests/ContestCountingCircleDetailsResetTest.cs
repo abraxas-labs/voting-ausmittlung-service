@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleDetailsTests;
 
-public class ContestCountingCircleDetailsResetTest : BaseProcessorTest
+public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
 {
     private static readonly Guid ContestCountingCircleDetailsId = ContestCountingCircleDetailsMockData.GuidGossauUrnengangBundContestCountingCircleDetails;
     private static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang);

@@ -27,6 +27,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 {
     private readonly ILogger<VoteResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.VoteResult> _voteResultRepo;
+    private readonly IDbRepository<DataContext, DataModels.Contest> _contestRepo;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
@@ -36,6 +37,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         PermissionService permissionService,
         ContestService contestService,
         IDbRepository<DataContext, DataModels.VoteResult> voteResultRepo,
+        IDbRepository<DataContext, DataModels.Contest> contestRepo,
         ValidationResultsEnsurer validationResultsEnsurer,
         SecondFactorTransactionWriter secondFactorTransactionWriter,
         IAuth auth)
@@ -43,6 +45,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         _logger = logger;
         _voteResultRepo = voteResultRepo;
+        _contestRepo = contestRepo;
         _validationResultsEnsurer = validationResultsEnsurer;
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
@@ -221,6 +224,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
+        if (aggregate.Published)
+        {
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("vote result {VoteResultId} unpublished", aggregate.Id);
+        }
+
         aggregate.ResetToSubmissionFinished(contestId);
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Vote result {VoteResultId} reset to submission finished", aggregate.Id);
@@ -243,6 +252,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             aggregate.AuditedTentatively(contestId);
             _logger.LogInformation("Vote result {VoteResultId} audited tentatively", aggregate.Id);
+
+            var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
+            if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest))
+            {
+                aggregate.Publish(contestId);
+                _logger.LogInformation("vote result {VoteResultId} published", aggregate.Id);
+            }
         });
     }
 
@@ -251,6 +267,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         await ExecuteOnAllAggregates<VoteResultAggregate>(resultIds, async aggregate =>
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            await EnsureStatePlausibilisedEnabled(contestId);
             aggregate.Plausibilise(contestId);
             _logger.LogInformation("Vote result {VoteResultId} plausibilised", aggregate.Id);
         });
@@ -266,11 +283,60 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
        });
     }
 
+    public async Task SubmissionFinishedAndAuditedTentatively(Guid voteResultId)
+    {
+        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
+        {
+            throw new ValidationException("finish submission and audit tentatively is not allowed for a non self owned political business");
+        }
+
+        var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
+        await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
+
+        var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
+        aggregate.SubmissionFinished(contestId);
+        aggregate.AuditedTentatively(contestId);
+        _logger.LogInformation("Submission finished and audited tentatively for vote result {VoteResultId}", voteResult.Id);
+
+        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("vote result {VoteResultId} published", aggregate.Id);
+        }
+
+        await AggregateRepository.Save(aggregate);
+    }
+
+    public async Task Publish(IReadOnlyCollection<Guid> resultIds)
+    {
+        await ExecuteOnAllAggregates<VoteResultAggregate>(resultIds, async aggregate =>
+        {
+            var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
+            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence);
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Vote result {VoteResultId} published", aggregate.Id);
+        });
+    }
+
+    public async Task Unpublish(IReadOnlyCollection<Guid> resultIds)
+    {
+        await ExecuteOnAllAggregates<VoteResultAggregate>(resultIds, async aggregate =>
+        {
+            var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
+            var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
+            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence);
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("Vote result {VoteResultId} unpublished", aggregate.Id);
+        });
+    }
+
     protected override async Task<DataModels.VoteResult> LoadPoliticalBusinessResult(Guid resultId)
     {
         return await _voteResultRepo.Query()
             .AsSplitQuery()
-            .Include(vr => vr.Vote.Contest)
+            .Include(vr => vr.Vote.Contest.CantonDefaults)
             .Include(vr => vr.Vote.DomainOfInfluence)
             .Include(vr => vr.CountingCircle.ResponsibleAuthority)
             .Include(vr => vr.Results).ThenInclude(x => x.Ballot)

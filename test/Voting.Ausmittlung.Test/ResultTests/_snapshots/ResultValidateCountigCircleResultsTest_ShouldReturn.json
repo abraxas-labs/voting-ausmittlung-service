@@ -156,7 +156,7 @@
         },
         {
           "Validation": 18,
-          "IsValid": false,
+          "IsValid": true,
           "IsOptional": false,
           "PoliticalBusinessData": null,
           "VoteAccountedBallotsEqualQnData": null,

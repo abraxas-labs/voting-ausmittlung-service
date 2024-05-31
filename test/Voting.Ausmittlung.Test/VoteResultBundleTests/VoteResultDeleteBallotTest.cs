@@ -30,21 +30,22 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await BundleErfassungElectionAdminClient.DeleteBallotAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotDeleted>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanCreator()
     {
-        await BundleErfassungElectionAdminClientSecondUser.DeleteBallotAsync(NewValidRequest());
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.DeleteBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotDeleted>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
+        await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotDeleted>().MatchSnapshot();
     }
 
@@ -53,7 +54,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
+            await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBallotDeleted>();
         });
     }
@@ -62,7 +63,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnAsErfassungCreatorInCorrection()
     {
         await RunBundleToState(BallotBundleState.InCorrection);
-        await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
+        await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotDeleted>().MatchSnapshot();
     }
 
@@ -86,7 +87,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowAsErfassungCreatorOtherUser()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.DeleteBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3)),
             StatusCode.PermissionDenied,
             "only election admins or the creator of a bundle can edit it");
     }
@@ -95,7 +96,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowInexistentBallotNumber()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(x => x.BallotNumber = 99)),
+            async () => await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(x => x.BallotNumber = 99)),
             StatusCode.InvalidArgument,
             "only the last ballot can be deleted");
     }
@@ -104,7 +105,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowWrongBallotNumber()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(x => x.BallotNumber = 1)),
+            async () => await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest(x => x.BallotNumber = 1)),
             StatusCode.InvalidArgument,
             "only the last ballot can be deleted");
     }
@@ -113,7 +114,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBallotAsync(new DeleteVoteResultBallotRequest
+            async () => await ErfassungCreatorClient.DeleteBallotAsync(new DeleteVoteResultBallotRequest
             {
                 BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
                 BallotNumber = 1,
@@ -129,7 +130,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     {
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBallotAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBallotAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -139,7 +140,7 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.DeleteBallotAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -173,14 +174,17 @@ public class VoteResultDeleteBallotTest : VoteResultBundleBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await CreateBallot();
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
             .DeleteBallotAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override async Task SeedPoliticalBusinessMockedData()

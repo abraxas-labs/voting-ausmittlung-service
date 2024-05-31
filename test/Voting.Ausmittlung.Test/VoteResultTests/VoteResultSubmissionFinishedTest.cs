@@ -144,13 +144,10 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await AssertSubmissionDoneTimestamp(false);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultSubmissionFinished
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        await RunEvents<VoteResultSubmissionFinished>();
+
         await AssertCurrentState(CountingCircleResultState.SubmissionDone);
         await AssertSubmissionDoneTimestamp(true);
 
@@ -214,10 +211,9 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
             .SubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private VoteResultSubmissionFinishedRequest NewValidRequest(Action<VoteResultSubmissionFinishedRequest>? customizer = null)

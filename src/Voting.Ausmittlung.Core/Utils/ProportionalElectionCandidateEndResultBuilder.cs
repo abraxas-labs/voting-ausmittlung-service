@@ -65,7 +65,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         ICollection<ProportionalElectionCandidateEndResult> candidateEndResults,
         IEnumerable<ProportionalElectionCandidateResult> candidateResults,
         int deltaFactor,
-        bool allCountingCirclesDone)
+        bool lotDecisionEnabled)
     {
         candidateEndResults.MatchAndExec(
             x => x.CandidateId,
@@ -84,7 +84,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
                     AdjustCandidateVoteSources(endResult, result, deltaFactor);
                 });
 
-        RecalculateCandidateEndResultRanks(candidateEndResults, allCountingCirclesDone);
+        RecalculateCandidateEndResultRanks(candidateEndResults, lotDecisionEnabled);
     }
 
     internal void RecalculateCandidateEndResultStates(

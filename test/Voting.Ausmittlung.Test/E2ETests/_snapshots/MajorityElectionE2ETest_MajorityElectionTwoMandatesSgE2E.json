@@ -1,0 +1,389 @@
+{
+  "Contest": {
+    "Id": "883fbb10-8b7b-4694-b1bf-e84c5657adb7",
+    "Date": {
+      "Seconds": 1578787200,
+      "Nanos": 0
+    },
+    "Description": "contest desc de",
+    "EndOfTestingPhase": {
+      "Seconds": 1578575530,
+      "Nanos": 200000000
+    },
+    "TestingPhaseEnded": true,
+    "DomainOfInfluenceId": "4b5ab431-384d-4062-8de3-239609e3a733",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    },
+    "EVotingTo": {
+      "Seconds": 1578748330,
+      "Nanos": 200000000
+    },
+    "State": 2,
+    "EVotingResultsImported": true,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": false
+    }
+  },
+  "MajorityElection": {
+    "Id": "2b5a668c-1456-4df5-ba4c-7eef8c84a8b3",
+    "PoliticalBusinessNumber": "01",
+    "OfficialDescription": "official desc de",
+    "ShortDescription": "short desc de",
+    "NumberOfMandates": 2,
+    "MandateAlgorithm": 1,
+    "CandidateCheckDigit": false,
+    "BallotBundleSize": 25,
+    "BallotBundleSampleSize": 2,
+    "AutomaticBallotBundleNumberGeneration": false,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": true,
+    "EnforceEmptyVoteCountingForCountingCircles": false,
+    "ResultEntry": 1,
+    "EnforceResultEntryForCountingCircles": false,
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "4b5ab431-384d-4062-8de3-239609e3a733",
+    "ContestId": "883fbb10-8b7b-4694-b1bf-e84c5657adb7",
+    "Active": true,
+    "Title": "01: short desc de",
+    "CountOfSecondaryElections": 0,
+    "DomainOfInfluence": {
+      "Id": "4b5ab431-384d-4062-8de3-239609e3a733",
+      "Name": "Test-Oberbehörde",
+      "ShortName": "Test",
+      "AuthorityName": "Default",
+      "SecureConnectId": "000000000000000000",
+      "Type": 1,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    "Contest": {
+      "Id": "883fbb10-8b7b-4694-b1bf-e84c5657adb7",
+      "Date": {
+        "Seconds": 1578787200,
+        "Nanos": 0
+      },
+      "Description": "contest desc de",
+      "EndOfTestingPhase": {
+        "Seconds": 1578575530,
+        "Nanos": 200000000
+      },
+      "TestingPhaseEnded": true,
+      "DomainOfInfluenceId": "4b5ab431-384d-4062-8de3-239609e3a733",
+      "EVoting": true,
+      "EVotingFrom": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      },
+      "EVotingTo": {
+        "Seconds": 1578748330,
+        "Nanos": 200000000
+      },
+      "State": 2,
+      "EVotingResultsImported": true,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": false
+      }
+    },
+    "ReviewProcedure": 2,
+    "EnforceReviewProcedureForCountingCircles": false,
+    "EnforceCandidateCheckDigitForCountingCircles": false
+  },
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 12351,
+    "SubTotalInfo": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 6171
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 6180
+      }
+    ]
+  },
+  "VotingCards": [
+    {
+      "CountOfReceivedVotingCards": 4,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 2,
+      "Valid": true,
+      "Channel": 4,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 16,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 5,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 23,
+      "Valid": true,
+      "Channel": 3,
+      "DomainOfInfluenceType": 1
+    }
+  ],
+  "CountOfDoneCountingCircles": 1,
+  "TotalCountOfCountingCircles": 1,
+  "AllCountingCirclesDone": true,
+  "CountOfVoters": {
+    "VoterParticipation": 0.003643,
+    "ConventionalReceivedBallots": 22,
+    "ConventionalInvalidBallots": 1,
+    "ConventionalBlankBallots": 4,
+    "ConventionalAccountedBallots": 17,
+    "EVotingReceivedBallots": 23,
+    "EVotingInvalidBallots": 2,
+    "EVotingBlankBallots": 3,
+    "EVotingAccountedBallots": 18,
+    "TotalReceivedBallots": 45,
+    "TotalAccountedBallots": 35,
+    "TotalUnaccountedBallots": 10,
+    "TotalInvalidBallots": 3,
+    "TotalBlankBallots": 7
+  },
+  "CandidateEndResults": [
+    {
+      "Candidate": {
+        "Id": "6bc1c618-ca30-45c4-b3cb-e6695ac5cafe",
+        "Number": "01",
+        "PoliticalFirstName": "first1",
+        "PoliticalLastName": "last1",
+        "FirstName": "first1",
+        "LastName": "last1",
+        "Party": "party de",
+        "Position": 1,
+        "Description": "01 last1 first1",
+        "CheckDigit": 0
+      },
+      "VoteCount": 34,
+      "EVotingVoteCount": 15,
+      "ConventionalVoteCount": 19,
+      "Rank": 1,
+      "LotDecision": false,
+      "LotDecisionEnabled": false,
+      "LotDecisionRequired": false,
+      "State": 2
+    },
+    {
+      "Candidate": {
+        "Id": "0247dc60-234d-47a0-bc4e-76ddd9164782",
+        "Number": "02",
+        "PoliticalFirstName": "first2",
+        "PoliticalLastName": "last2",
+        "FirstName": "first2",
+        "LastName": "last2",
+        "Party": "party de",
+        "Position": 2,
+        "Description": "02 last2 first2",
+        "CheckDigit": 0
+      },
+      "VoteCount": 16,
+      "EVotingVoteCount": 9,
+      "ConventionalVoteCount": 7,
+      "Rank": 2,
+      "LotDecision": false,
+      "LotDecisionEnabled": false,
+      "LotDecisionRequired": false,
+      "State": 4
+    },
+    {
+      "Candidate": {
+        "Id": "9bf8f444-3c94-473b-8d68-c0381b864a85",
+        "Number": "03",
+        "PoliticalFirstName": "first3",
+        "PoliticalLastName": "last3",
+        "FirstName": "first3",
+        "LastName": "last3",
+        "Party": "party de",
+        "Position": 3,
+        "Description": "03 last3 first3",
+        "CheckDigit": 0
+      },
+      "VoteCount": 5,
+      "EVotingVoteCount": 3,
+      "ConventionalVoteCount": 2,
+      "Rank": 3,
+      "LotDecision": false,
+      "LotDecisionEnabled": false,
+      "LotDecisionRequired": false,
+      "State": 6
+    },
+    {
+      "Candidate": {
+        "Id": "116947d1-7ef4-4922-90ae-26064966d456",
+        "Number": "05",
+        "PoliticalFirstName": "first5",
+        "PoliticalLastName": "last5",
+        "FirstName": "first5",
+        "LastName": "last5",
+        "Party": "party de",
+        "Position": 5,
+        "Description": "05 last5 first5",
+        "CheckDigit": 0
+      },
+      "VoteCount": 0,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 0,
+      "Rank": 4,
+      "LotDecision": false,
+      "LotDecisionEnabled": true,
+      "LotDecisionRequired": false,
+      "State": 6
+    },
+    {
+      "Candidate": {
+        "Id": "3170cb8a-375a-435e-8cbc-0800b1a13cef",
+        "Number": "04",
+        "PoliticalFirstName": "first4",
+        "PoliticalLastName": "last4",
+        "FirstName": "first4",
+        "LastName": "last4",
+        "Party": "party de",
+        "Position": 4,
+        "Description": "04 last4 first4",
+        "CheckDigit": 0
+      },
+      "VoteCount": 0,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 0,
+      "Rank": 4,
+      "LotDecision": false,
+      "LotDecisionEnabled": true,
+      "LotDecisionRequired": false,
+      "State": 6
+    },
+    {
+      "Candidate": {
+        "Id": "8138bad1-252b-454b-a3b8-008889dfd8b3",
+        "Number": "08",
+        "PoliticalFirstName": "first8",
+        "PoliticalLastName": "last8",
+        "FirstName": "first8",
+        "LastName": "last8",
+        "Party": "party de",
+        "Position": 8,
+        "Description": "08 last8 first8",
+        "CheckDigit": 0
+      },
+      "VoteCount": 0,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 0,
+      "Rank": 4,
+      "LotDecision": false,
+      "LotDecisionEnabled": true,
+      "LotDecisionRequired": false,
+      "State": 6
+    },
+    {
+      "Candidate": {
+        "Id": "a8fbab74-d250-4a0e-88b2-2255ead1fe69",
+        "Number": "07",
+        "PoliticalFirstName": "first7",
+        "PoliticalLastName": "last7",
+        "FirstName": "first7",
+        "LastName": "last7",
+        "Party": "party de",
+        "Position": 7,
+        "Description": "07 last7 first7",
+        "CheckDigit": 0
+      },
+      "VoteCount": 0,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 0,
+      "Rank": 4,
+      "LotDecision": false,
+      "LotDecisionEnabled": true,
+      "LotDecisionRequired": false,
+      "State": 6
+    },
+    {
+      "Candidate": {
+        "Id": "ec38064d-dc59-4fea-bfe4-54d358e0b4e1",
+        "Number": "06",
+        "PoliticalFirstName": "first6",
+        "PoliticalLastName": "last6",
+        "FirstName": "first6",
+        "LastName": "last6",
+        "Party": "party de",
+        "Position": 6,
+        "Description": "06 last6 first6",
+        "CheckDigit": 0
+      },
+      "VoteCount": 0,
+      "EVotingVoteCount": 0,
+      "ConventionalVoteCount": 0,
+      "Rank": 4,
+      "LotDecision": false,
+      "LotDecisionEnabled": true,
+      "LotDecisionRequired": false,
+      "State": 6
+    }
+  ],
+  "SecondaryMajorityElectionEndResults": [],
+  "EVotingSubTotal": {
+    "IndividualVoteCount": 4,
+    "EmptyVoteCountInclWriteIns": 5,
+    "EmptyVoteCountExclWriteIns": 2,
+    "EmptyVoteCountWriteIns": 3,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 27,
+    "TotalCandidateVoteCountInclIndividual": 31
+  },
+  "ConventionalSubTotal": {
+    "IndividualVoteCount": 5,
+    "EmptyVoteCountInclWriteIns": 1,
+    "EmptyVoteCountExclWriteIns": 1,
+    "EmptyVoteCountWriteIns": 0,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 28,
+    "TotalCandidateVoteCountInclIndividual": 33
+  },
+  "IndividualVoteCount": 9,
+  "EmptyVoteCount": 6,
+  "InvalidVoteCount": 0,
+  "TotalCandidateVoteCountExclIndividual": 55,
+  "TotalCandidateVoteCountInclIndividual": 64,
+  "Finalized": false,
+  "Calculation": {
+    "AbsoluteMajority": 18
+  },
+  "PartialResult": false
+}

@@ -73,6 +73,9 @@ public class ContestTestingPhaseEndedTest : ContestProcessorBaseTest
                 },
             });
 
+            var contest = await db.Contests.AsTracking().SingleAsync(c => c.Id == _contestId);
+            contest.EVotingResultsImported = true;
+
             await db.SaveChangesAsync();
         });
     }
@@ -100,6 +103,21 @@ public class ContestTestingPhaseEndedTest : ContestProcessorBaseTest
             {
                 detail.CountingCircleId = detail.CountingCircle.BasisCountingCircleId;
                 detail.CountingCircle = null!;
+            }
+
+            contest.CantonDefaults.EnabledVotingCardChannels =
+                contest.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
+
+            foreach (var vcChannel in contest.CantonDefaults.EnabledVotingCardChannels)
+            {
+                vcChannel.Id = Guid.Empty;
+            }
+
+            contest.CantonDefaults.Id = Guid.Empty;
+
+            foreach (var stateDescription in contest.CantonDefaults.CountingCircleResultStateDescriptions)
+            {
+                stateDescription.Id = Guid.Empty;
             }
         }
 

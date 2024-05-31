@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
+using Voting.Lib.Database.Repositories;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Core.Utils;
@@ -23,17 +24,20 @@ public class VoteResultBuilder
     private readonly IMapper _mapper;
     private readonly BallotRepo _ballotRepo;
     private readonly VoteResultRepo _voteResultRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly DataContext _dataContext;
 
     public VoteResultBuilder(
         IMapper mapper,
         BallotRepo ballotRepo,
         VoteResultRepo voteResultRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext)
     {
         _mapper = mapper;
         _ballotRepo = ballotRepo;
         _voteResultRepo = voteResultRepo;
+        _simpleResultRepo = simpleResultRepo;
         _dataContext = dataContext;
     }
 
@@ -112,7 +116,7 @@ public class VoteResultBuilder
             }
         }
 
-        ResetConventionalResult(voteResult, false);
+        await ResetConventionalResult(voteResult, false);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -121,7 +125,7 @@ public class VoteResultBuilder
         var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
                  ?? throw new EntityNotFoundException(voteResultId);
 
-        ResetConventionalResult(voteResult, true);
+        await ResetConventionalResult(voteResult, true);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -132,8 +136,18 @@ public class VoteResultBuilder
         var voteResultId = GuidParser.Parse(resultId);
         var voteResult = await _voteResultRepo.GetVoteResultWithQuestionResultsAsTracked(voteResultId)
                          ?? throw new EntityNotFoundException(voteResultId);
+
+        if (voteResult.Results.Count == 0)
+        {
+            // Cannot update results, when missing ballots/results
+            // This can happen in the testing phase, when a vote has been created, but no ballots
+            return;
+        }
+
         UpdateResults(voteResult, results);
         await _dataContext.SaveChangesAsync();
+
+        await UpdateSimpleResult(voteResult);
     }
 
     internal void UpdateResults(
@@ -161,10 +175,21 @@ public class VoteResultBuilder
         var voteResultId = GuidParser.Parse(resultId);
         var voteResult = await _voteResultRepo.Query()
             .Include(x => x.Results)
+            .ThenInclude(x => x.Ballot)
             .FirstOrDefaultAsync(x => x.Id == voteResultId)
             ?? throw new EntityNotFoundException(nameof(VoteResult), voteResultId);
+
+        if (voteResult.Results.Count == 0)
+        {
+            // Cannot update count of voters, missing ballots/results
+            // This can happen in the testing phase, when a vote has been created, but no ballots
+            return;
+        }
+
         UpdateCountOfVoters(voteResult, resultsCountOfVoters);
         await _voteResultRepo.Update(voteResult);
+
+        await UpdateSimpleResult(voteResult);
     }
 
     internal void UpdateCountOfVoters(
@@ -259,13 +284,15 @@ public class VoteResultBuilder
         }
     }
 
-    private void ResetConventionalResult(VoteResult voteResult, bool includeCountOfVoters)
+    private async Task ResetConventionalResult(VoteResult voteResult, bool includeCountOfVoters)
     {
         voteResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
         foreach (var ballotResult in voteResult.Results)
         {
             ResetConventionalBallotResult(ballotResult);
         }
+
+        await ResetSimpleResult(voteResult);
     }
 
     private void UpdateBallotQuestionResultSubTotal(
@@ -302,5 +329,30 @@ public class VoteResultBuilder
             existingQuestionResult.ConventionalSubTotal.TotalCountOfAnswerQ2 = questionResult.ReceivedCountQ2;
             existingQuestionResult.ConventionalSubTotal.TotalCountOfAnswerUnspecified = questionResult.ReceivedCountUnspecified;
         }
+    }
+
+    private async Task UpdateSimpleResult(VoteResult voteResult)
+    {
+        // monitoring political businesses overview just need to display the first ballot values for count of voters
+        var firstBallotResult = voteResult.Results.First(x => x.Ballot.Position == 1);
+
+        var simpleResult = await _simpleResultRepo.GetByKey(voteResult.Id)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), voteResult.Id);
+
+        simpleResult.CountOfVoters = firstBallotResult.CountOfVoters;
+        await _simpleResultRepo.Update(simpleResult);
+    }
+
+    private async Task ResetSimpleResult(VoteResult voteResult)
+    {
+        var simpleResult = await _simpleResultRepo.GetByKey(voteResult.Id)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), voteResult.Id);
+
+        simpleResult.CountOfVoters.ConventionalReceivedBallots = 0;
+        simpleResult.CountOfVoters.ConventionalBlankBallots = 0;
+        simpleResult.CountOfVoters.ConventionalInvalidBallots = 0;
+        simpleResult.CountOfVoters.ConventionalAccountedBallots = 0;
+
+        await _simpleResultRepo.Update(simpleResult);
     }
 }

@@ -23,7 +23,7 @@ public class MajorityElectionEndResultRepo : DbRepository<DataContext, MajorityE
         return Set
             .AsTracking()
             .AsSplitQuery()
-            .Include(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.MajorityElection.Contest.CantonDefaults)
             .Include(x => x.MajorityElection.MajorityElectionCandidates)
             .Include(x => x.MajorityElection.SecondaryMajorityElections).ThenInclude(x => x.Candidates)
             .Include(x => x.CandidateEndResults)

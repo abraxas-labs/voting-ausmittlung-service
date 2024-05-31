@@ -1,0 +1,298 @@
+{
+  "Contest": {
+    "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Date": {
+      "Seconds": 1865548800,
+      "Nanos": 0
+    },
+    "Description": "Nationalratswahlen in der Zukunft de",
+    "EndOfTestingPhase": {
+      "Seconds": 1860883200,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
+  },
+  "ProportionalElection": {
+    "Id": "3a832f45-34c0-47ce-b1e3-db27b97948ba",
+    "PoliticalBusinessNumber": "201",
+    "OfficialDescription": "Proporzwahl St. Gallen de",
+    "ShortDescription": "Pw SG de",
+    "NumberOfMandates": 5,
+    "MandateAlgorithm": 4,
+    "CandidateCheckDigit": false,
+    "BallotBundleSize": 25,
+    "AutomaticBallotBundleNumberGeneration": true,
+    "BallotNumberGeneration": 1,
+    "AutomaticEmptyVoteCounting": false,
+    "EnforceEmptyVoteCountingForCountingCircles": true,
+    "SwissAbroadVotingRight": 3,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+    "Active": true,
+    "BallotBundleSampleSize": 3,
+    "Title": "201: Pw SG de",
+    "DomainOfInfluence": {
+      "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+      "Name": "St. Gallen",
+      "ShortName": "St. Gallen",
+      "AuthorityName": "",
+      "SecureConnectId": "200200200200200200",
+      "Type": 2,
+      "ParentId": "",
+      "Children": [],
+      "Canton": 1,
+      "ContactPerson": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 12",
+        "MobilePhone": "079 123 12 12",
+        "Email": "hans@sg.ch"
+      }
+    },
+    "Contest": {
+      "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
+      "Date": {
+        "Seconds": 1865548800,
+        "Nanos": 0
+      },
+      "Description": "Nationalratswahlen in der Zukunft de",
+      "EndOfTestingPhase": {
+        "Seconds": 1860883200,
+        "Nanos": 0
+      },
+      "TestingPhaseEnded": false,
+      "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+      "EVoting": false,
+      "EVotingFrom": null,
+      "EVotingTo": null,
+      "State": 1,
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
+    },
+    "ReviewProcedure": 1,
+    "EnforceReviewProcedureForCountingCircles": true,
+    "EnforceCandidateCheckDigitForCountingCircles": false
+  },
+  "CountOfVotersInformation": {
+    "TotalCountOfVoters": 0,
+    "SubTotalInfo": []
+  },
+  "VotingCards": [],
+  "CountOfDoneCountingCircles": 0,
+  "TotalCountOfCountingCircles": 2,
+  "AllCountingCirclesDone": false,
+  "CountOfVoters": {
+    "VoterParticipation": 0.0,
+    "ConventionalReceivedBallots": 100,
+    "ConventionalInvalidBallots": 6,
+    "ConventionalBlankBallots": 14,
+    "ConventionalAccountedBallots": 80,
+    "EVotingReceivedBallots": 0,
+    "EVotingInvalidBallots": 0,
+    "EVotingBlankBallots": 0,
+    "EVotingAccountedBallots": 0,
+    "TotalReceivedBallots": 100,
+    "TotalAccountedBallots": 80,
+    "TotalUnaccountedBallots": 20,
+    "TotalInvalidBallots": 6,
+    "TotalBlankBallots": 14
+  },
+  "ListEndResults": [
+    {
+      "List": {
+        "Id": "6fa5262f-bf27-4eb9-81d4-23bb1a49d031",
+        "ProportionalElectionId": "3a832f45-34c0-47ce-b1e3-db27b97948ba",
+        "OrderNumber": "1a",
+        "ShortDescription": "Liste 1 de",
+        "BlankRowCount": 0,
+        "Position": 1,
+        "Description": ""
+      },
+      "NumberOfMandates": 0,
+      "CandidateEndResults": [
+        {
+          "Candidate": {
+            "Id": "bba39596-a5f6-4729-a56f-e63871b30acc",
+            "ListId": "6fa5262f-bf27-4eb9-81d4-23bb1a49d031",
+            "ListNumber": "1a",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "Description": "1a.number1 pol last name pol first name",
+            "Position": 1,
+            "Accumulated": true,
+            "AccumulatedPosition": 2,
+            "NumberIncludingList": "1a.number1",
+            "ListDescription": "",
+            "ListShortDescription": "Liste 1 de",
+            "ListPosition": 1,
+            "CheckDigit": 6
+          },
+          "VoteCount": 20,
+          "Rank": 0,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1,
+          "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ConventionalSubTotal": {
+            "UnmodifiedListVotesCount": 20,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 10,
+            "VoteCount": 20
+          }
+        }
+      ],
+      "ListUnion": null,
+      "SubListUnion": null,
+      "HasOpenRequiredLotDecisions": false,
+      "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ConventionalSubTotal": {
+        "UnmodifiedListsCount": 10,
+        "UnmodifiedListVotesCount": 20,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 20,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 20,
+        "ListCount": 10,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 20
+      },
+      "UnmodifiedListsCount": 10,
+      "UnmodifiedListVotesCount": 20,
+      "UnmodifiedListBlankRowsCount": 0,
+      "ModifiedListsCount": 0,
+      "ModifiedListVotesCount": 0,
+      "ListVotesCountOnOtherLists": 0,
+      "ModifiedListBlankRowsCount": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 20,
+      "ModifiedListVotesCountInclBlankRows": 0,
+      "ListVotesCount": 20,
+      "ListCount": 10,
+      "BlankRowsCount": 0,
+      "TotalVoteCount": 20
+    },
+    {
+      "List": {
+        "Id": "05b72caf-23a9-411d-bac3-7d587666b48a",
+        "ProportionalElectionId": "3a832f45-34c0-47ce-b1e3-db27b97948ba",
+        "OrderNumber": "2a",
+        "ShortDescription": "Liste 2 de",
+        "BlankRowCount": 1,
+        "Position": 2,
+        "Description": ""
+      },
+      "NumberOfMandates": 0,
+      "CandidateEndResults": [],
+      "ListUnion": null,
+      "SubListUnion": null,
+      "HasOpenRequiredLotDecisions": false,
+      "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ConventionalSubTotal": {
+        "UnmodifiedListsCount": 16,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 16,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 16,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 16,
+        "BlankRowsCount": 16,
+        "TotalVoteCount": 16
+      },
+      "UnmodifiedListsCount": 16,
+      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListBlankRowsCount": 16,
+      "ModifiedListsCount": 0,
+      "ModifiedListVotesCount": 0,
+      "ListVotesCountOnOtherLists": 0,
+      "ModifiedListBlankRowsCount": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 16,
+      "ModifiedListVotesCountInclBlankRows": 0,
+      "ListVotesCount": 0,
+      "ListCount": 16,
+      "BlankRowsCount": 16,
+      "TotalVoteCount": 16
+    }
+  ],
+  "Finalized": false,
+  "ManualEndResultRequired": false,
+  "PartialResult": true
+}

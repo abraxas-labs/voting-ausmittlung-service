@@ -106,17 +106,34 @@ public class VoteResultPlausibilisedTest : VoteResultBaseTest
     }
 
     [Fact]
+    public async Task TestShouldThrowStatePlausibilisedDisabled()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+
+        await RunOnDb(async db =>
+        {
+            var cantonDefaults = await db.ContestCantonDefaults.AsSplitQuery().AsTracking().SingleAsync(x =>
+                x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting));
+
+            cantonDefaults.StatePlausibilisedDisabled = true;
+            await db.SaveChangesAsync();
+        });
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.PlausibiliseAsync(
+                NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "state plausibilised is not enabled for contest");
+    }
+
+    [Fact]
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
-        var eventInfo = GetMockedEventInfo();
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultPlausibilised
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = eventInfo,
-            });
+
+        await MonitoringElectionAdminClient.PlausibiliseAsync(NewValidRequest());
+        await RunEvents<VoteResultPlausibilised>();
+
         await AssertCurrentState(CountingCircleResultState.Plausibilised);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
@@ -132,7 +149,7 @@ public class VoteResultPlausibilisedTest : VoteResultBaseTest
             && x.NewState == CountingCircleResultState.Plausibilised);
 
         var resultEntity = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == id));
-        resultEntity.PlausibilisedTimestamp.Should().Be(eventInfo.Timestamp.ToDateTime());
+        resultEntity.PlausibilisedTimestamp.Should().NotBeNull();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -142,11 +159,9 @@ public class VoteResultPlausibilisedTest : VoteResultBaseTest
             .PlausibiliseAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private VoteResultsPlausibiliseRequest NewValidRequest(Action<VoteResultsPlausibiliseRequest>? customizer = null)

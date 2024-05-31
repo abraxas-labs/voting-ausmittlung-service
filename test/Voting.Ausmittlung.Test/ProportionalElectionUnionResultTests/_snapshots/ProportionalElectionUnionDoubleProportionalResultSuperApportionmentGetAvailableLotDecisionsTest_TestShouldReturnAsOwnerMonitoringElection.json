@@ -1,0 +1,50 @@
+{
+  "LotDecisions": [
+    {
+      "Number": 1,
+      "Columns": [
+        {
+          "UnionList": {
+            "Id": "d7b3a8fc-7550-5289-a6ca-c8bff5712bf5",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de"
+          },
+          "List": null,
+          "NumberOfMandates": 4
+        },
+        {
+          "UnionList": {
+            "Id": "5b94e66e-162b-523c-b4eb-e2fcda8f6d23",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de"
+          },
+          "List": null,
+          "NumberOfMandates": 0
+        }
+      ]
+    },
+    {
+      "Number": 2,
+      "Columns": [
+        {
+          "UnionList": {
+            "Id": "d7b3a8fc-7550-5289-a6ca-c8bff5712bf5",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de"
+          },
+          "List": null,
+          "NumberOfMandates": 3
+        },
+        {
+          "UnionList": {
+            "Id": "5b94e66e-162b-523c-b4eb-e2fcda8f6d23",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de"
+          },
+          "List": null,
+          "NumberOfMandates": 1
+        }
+      ]
+    }
+  ]
+}

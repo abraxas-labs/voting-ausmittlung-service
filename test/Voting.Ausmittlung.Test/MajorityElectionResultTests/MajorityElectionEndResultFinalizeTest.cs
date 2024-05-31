@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -260,8 +261,20 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
+            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x => x.LotDecision = true);
+        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
+            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x => x.LotDecision = true);
+
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
             .FinalizeEndResultAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private FinalizeMajorityElectionEndResultRequest NewValidRequest()

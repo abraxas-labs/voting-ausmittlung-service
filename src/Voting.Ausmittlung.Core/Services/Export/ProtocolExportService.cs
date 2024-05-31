@@ -42,6 +42,7 @@ public class ProtocolExportService
     private readonly PublisherConfig _publisherConfig;
     private readonly IDmDocDraftCleanupQueue _draftCleanupQueue;
     private readonly ILogger<ProtocolExportService> _logger;
+    private readonly ExportRateLimitService _rateLimitService;
 
     public ProtocolExportService(
         ExportService exportService,
@@ -53,7 +54,8 @@ public class ProtocolExportService
         IDbRepository<DataContext, Contest> contestRepo,
         PublisherConfig publisherConfig,
         IDmDocDraftCleanupQueue draftCleanupQueue,
-        ILogger<ProtocolExportService> logger)
+        ILogger<ProtocolExportService> logger,
+        ExportRateLimitService rateLimitService)
     {
         _exportService = exportService;
         _permissionService = permissionService;
@@ -65,6 +67,7 @@ public class ProtocolExportService
         _publisherConfig = publisherConfig;
         _draftCleanupQueue = draftCleanupQueue;
         _logger = logger;
+        _rateLimitService = rateLimitService;
     }
 
     public async IAsyncEnumerable<FileModel> GetProtocolExports(
@@ -105,13 +108,19 @@ public class ProtocolExportService
         }
     }
 
-    public async Task StartExports(
+    public async Task<IReadOnlyCollection<Guid>> StartExports(
         Guid contestId,
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> exportTemplateIds,
+        bool internalRateLimit,
         CancellationToken ct = default)
     {
         var exportTemplates = await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+
+        if (internalRateLimit)
+        {
+            await _rateLimitService.CheckAndLog(exportTemplates);
+        }
 
         var contestState = await _contestRepo.Query()
             .Where(x => x.Id == contestId)
@@ -119,6 +128,7 @@ public class ProtocolExportService
             .FirstAsync(ct);
 
         var requestId = Guid.NewGuid();
+        var protocolExportIds = new HashSet<Guid>();
 
         foreach (var exportTemplate in exportTemplates)
         {
@@ -126,6 +136,8 @@ public class ProtocolExportService
                 contestId,
                 contestState.TestingPhaseEnded(),
                 exportTemplate.ExportTemplateId);
+            protocolExportIds.Add(protocolExportId);
+
             var aggregate = await _aggregateRepository.GetOrCreateById<ProtocolExportAggregate>(protocolExportId);
 
             var callbackToken = Guid.NewGuid().ToString();
@@ -153,6 +165,8 @@ public class ProtocolExportService
 
             await _aggregateRepository.Save(aggregate);
         }
+
+        return protocolExportIds;
     }
 
     public async Task HandleCallback(
@@ -176,8 +190,8 @@ public class ProtocolExportService
                 else
                 {
                     var duration = DateTime.Now - aggregate.CreatedDate;
-                    ProtocolExportMeter.AddExportDuration(duration, aggregate.ExportKey);
                     aggregate.Complete(callbackToken, printJobId);
+                    ProtocolExportMeter.AddExportDuration(duration, aggregate.ExportKey);
                     ProtocolExportMeter.AddExportCompleted();
                     _logger.LogDebug("Successfully completed protocol export {ProtocolExportId}", protocolExportId);
                     _draftCleanupQueue.Enqueue(callbackData.ObjectId, DraftCleanupMode.Content);
@@ -196,6 +210,8 @@ public class ProtocolExportService
         catch (InvalidCallbackTokenException)
         {
             _logger.LogInformation("Callback token does not match for protocol export {Id}. Queuing it for cleanup.", protocolExportId);
+
+            ProtocolExportMeter.AddExportInvalidCallbackToken();
 
             // This draft is outdated (there is a newer version), let's clean this up
             _draftCleanupQueue.Enqueue(callbackData.ObjectId, DraftCleanupMode.Hard);

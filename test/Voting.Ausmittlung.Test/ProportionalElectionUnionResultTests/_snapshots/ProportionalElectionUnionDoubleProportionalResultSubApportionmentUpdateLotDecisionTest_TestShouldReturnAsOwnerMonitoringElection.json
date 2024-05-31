@@ -1,0 +1,49 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "999999999999999999",
+      "Name": "Bund"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "DoubleProportionalResultId": "d892dffb-c0f9-5966-85db-864f1f6b9eea",
+  "ProportionalElectionUnionId": "8194c3a3-d891-4bac-936a-e9e09c46f125",
+  "Number": 2,
+  "Columns": [
+    {
+      "UnionListId": "304d6159-4a7d-5255-bd39-4e37d7ddaf0f",
+      "Cells": [
+        {
+          "ListId": "4ca79f3c-992c-4996-96ce-0a1ae95440a1",
+          "NumberOfMandates": 4
+        },
+        {
+          "ListId": "4eb8d15e-f773-4105-94ed-564a76d53115",
+          "NumberOfMandates": 5
+        }
+      ]
+    },
+    {
+      "UnionListId": "c9aa5f87-de0d-5e87-8cbd-602b267e5d33",
+      "Cells": [
+        {
+          "ListId": "ab2522d1-a42b-4968-a527-3113dbde6cba",
+          "NumberOfMandates": 7
+        },
+        {
+          "ListId": "0fceb08d-b834-4343-964a-d016bfccd84f",
+          "NumberOfMandates": 6
+        }
+      ]
+    }
+  ]
+}

@@ -72,7 +72,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
         var (valid, _) = ccDetails.SumVotingCards(pbDoiType);
         return new ValidationResult(
             SharedProto.Validation.PoliticalBusinessReceivedBallotsLessOrEqualValidVotingCards,
-            countOfVoters.ConventionalReceivedBallots.GetValueOrDefault() <= valid,
+            countOfVoters.TotalReceivedBallots <= valid,
             new ValidationPoliticalBusinessData
             {
                 PoliticalBusinessType = pbType,
@@ -88,7 +88,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
         var (valid, _) = ccDetails.SumVotingCards(pbDoiType);
         return new ValidationResult(
             SharedProto.Validation.PoliticalBusinessAccountedBallotsLessOrEqualValidVotingCards,
-            countOfVoters.ConventionalAccountedBallots.GetValueOrDefault() <= valid,
+            countOfVoters.TotalAccountedBallots <= valid,
             new ValidationPoliticalBusinessData
             {
                 PoliticalBusinessType = pbType,
@@ -101,7 +101,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
     {
         return new ValidationResult(
             SharedProto.Validation.PoliticalBusinessAccountedBallotsEqualReceivedMinusBlankMinusInvalidBallots,
-            countOfVoters.ConventionalAccountedBallots.GetValueOrDefault() == countOfVoters.ConventionalReceivedBallots.GetValueOrDefault() - countOfVoters.ConventionalBlankBallots.GetValueOrDefault() - countOfVoters.ConventionalInvalidBallots.GetValueOrDefault(),
+            countOfVoters.TotalAccountedBallots == countOfVoters.TotalReceivedBallots - countOfVoters.TotalBlankBallots - countOfVoters.TotalInvalidBallots,
             new ValidationPoliticalBusinessData
             {
                 PoliticalBusinessType = pbType,
@@ -157,7 +157,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
         ValidationContext context)
     {
         var (validVotingCards, _) = context.CurrentContestCountingCircleDetails.SumVotingCards(context.PoliticalBusinessDomainOfInfluenceType);
-        var accountedBallots = countOfVoters.ConventionalAccountedBallots.GetValueOrDefault();
+        var accountedBallots = countOfVoters.TotalAccountedBallots;
 
         var deviationPercent = RelativeChange.CalculatePercent(validVotingCards, accountedBallots);
         var thresholdPercent = context.PlausibilisationConfiguration!.ComparisonValidVotingCardsWithAccountedBallotsThresholdPercent!.Value;

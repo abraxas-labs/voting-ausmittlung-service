@@ -11,6 +11,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -33,43 +34,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -141,6 +105,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -154,6 +119,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -176,18 +142,6 @@
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 0,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 0,
-        "ProtocolCountingCircleSortType": 0,
-        "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": [],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -259,6 +213,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 0,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -272,6 +227,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -294,18 +250,6 @@
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 0,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 0,
-        "ProtocolCountingCircleSortType": 0,
-        "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": [],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -377,6 +321,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 0,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -390,6 +335,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -412,43 +358,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -520,6 +429,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -533,6 +443,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -555,43 +466,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -663,6 +537,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -676,6 +551,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -698,43 +574,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -806,6 +645,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -819,6 +659,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -841,43 +682,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -949,6 +753,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -962,6 +767,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -984,43 +790,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -1092,6 +861,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -1105,6 +875,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -1127,43 +898,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -1235,6 +969,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -1248,6 +983,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -1270,43 +1006,6 @@
         "MobilePhone": "079 721 21 21",
         "Email": "hans@muster.com"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluence": null,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -1378,6 +1077,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ]

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -46,6 +47,11 @@ public static class PdfVoteUtil
                 ballotResult,
                 x => x.QuestionResults?.Select(r => r.Question!),
                 x => x.TieBreakQuestionResults?.Select(r => r.Question!));
+
+            SetLabels(
+                ballotResult,
+                x => x.Ballot?.BallotQuestions,
+                x => x.Ballot?.TieBreakQuestions);
         }
 
         SetResultLabel(vote);
@@ -62,7 +68,7 @@ public static class PdfVoteUtil
         switch (questions.Count)
         {
             case 1:
-                questions[0].Label = PdfVoteQuestionLabel.QuestionCount1Q1;
+                questions[0].Label = PdfVoteQuestionLabel.MainBallot;
                 break;
 
             case > 1 when tieBreakQuestions.Count == 0:
@@ -72,12 +78,12 @@ public static class PdfVoteUtil
                 throw new InvalidOperationException("ballots with 2 questions must have 0 or 1 tie break question");
 
             case 2:
-                questions[0].Label = PdfVoteQuestionLabel.QuestionCount2Q1;
-                questions[1].Label = PdfVoteQuestionLabel.QuestionCount2Q2;
+                questions[0].Label = PdfVoteQuestionLabel.MainBallot;
+                questions[1].Label = questions[1].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal : PdfVoteQuestionLabel.Variant;
 
                 if (tieBreakQuestions.Count == TieBreakQuestionCountWith2Questions)
                 {
-                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount2TBQ1;
+                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.TieBreak;
                 }
 
                 break;
@@ -86,15 +92,15 @@ public static class PdfVoteUtil
                 throw new InvalidOperationException("ballots with 3 questions must have 0 or 3 tie break questions");
 
             case 3:
-                questions[0].Label = PdfVoteQuestionLabel.QuestionCount3Q1;
-                questions[1].Label = PdfVoteQuestionLabel.QuestionCount3Q2;
-                questions[2].Label = PdfVoteQuestionLabel.QuestionCount3Q3;
+                questions[0].Label = PdfVoteQuestionLabel.MainBallot;
+                questions[1].Label = questions[1].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal1 : PdfVoteQuestionLabel.Variant1;
+                questions[2].Label = questions[2].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal2 : PdfVoteQuestionLabel.Variant2;
 
                 if (tieBreakQuestions.Count == TieBreakQuestionCountWith3Questions)
                 {
-                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.QuestionCount3TBQ1;
-                    tieBreakQuestions[1].Label = PdfVoteQuestionLabel.QuestionCount3TBQ2;
-                    tieBreakQuestions[2].Label = PdfVoteQuestionLabel.QuestionCount3TBQ3;
+                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.TieBreak1;
+                    tieBreakQuestions[1].Label = PdfVoteQuestionLabel.TieBreak2;
+                    tieBreakQuestions[2].Label = PdfVoteQuestionLabel.TieBreak3;
                 }
 
                 break;
@@ -147,6 +153,19 @@ public static class PdfVoteUtil
         {
             SetLabels(ballotDoiResult.NotAssignableResult);
         }
+
+        if (ballotDoiResult.AggregatedResult != null)
+        {
+            foreach (var result in ballotDoiResult.AggregatedResult.Results)
+            {
+                SetLabels(result);
+            }
+
+            SetLabels(
+                ballotDoiResult.AggregatedResult,
+                x => x.QuestionResults?.Select(r => r.Question!),
+                x => x.TieBreakQuestionResults?.Select(r => r.Question!));
+        }
     }
 
     private static void SetLabels(PdfVoteDomainOfInfluenceBallotResult ballotDoiResult)
@@ -168,5 +187,13 @@ public static class PdfVoteUtil
                 x => x.QuestionResults?.Select(r => r.Question!),
                 x => x.TieBreakQuestionResults?.Select(r => r.Question!));
         }
+    }
+
+    private static void SetLabels(PdfVoteCountingCircleBallotResult ballotDoiResult)
+    {
+        SetLabels(
+            ballotDoiResult,
+            x => x.QuestionResults?.Select(r => r.Question!),
+            x => x.TieBreakQuestionResults?.Select(r => r.Question!));
     }
 }

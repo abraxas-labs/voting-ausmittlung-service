@@ -64,9 +64,10 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
     public async Task ShouldWorkAsElectionAdminWithMappingsAndInvalidVotes()
     {
         var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
-        await ModifyDbEntities(
-            (DomainOfInfluence doi) => doi.Id == id,
-            doi => doi.CantonDefaults.MajorityElectionInvalidVotes = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.MajorityElectionInvalidVotes = true,
+            true);
 
         var candidateResultId = await RunOnDb(db => db.MajorityElectionCandidateResults
             .Where(x => x.CandidateId == Guid.Parse(MajorityElectionMockedData.CandidateIdUzwilMajorityElectionInContestStGallen))
@@ -149,10 +150,10 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

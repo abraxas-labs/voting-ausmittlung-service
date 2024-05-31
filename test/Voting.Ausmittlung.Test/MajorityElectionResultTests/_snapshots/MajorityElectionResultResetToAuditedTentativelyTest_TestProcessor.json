@@ -16,7 +16,22 @@
     "EVotingFrom": null,
     "EVotingTo": null,
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "MajorityElection": {
     "Id": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
@@ -56,13 +71,6 @@
         "Phone": "071 123 12 12",
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
-      },
-      "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false,
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "Contest": {
@@ -82,7 +90,22 @@
       "EVotingFrom": null,
       "EVotingTo": null,
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
@@ -155,7 +178,7 @@
   "TotalCountOfCountingCircles": 6,
   "AllCountingCirclesDone": false,
   "CountOfVoters": {
-    "VoterParticipation": 0.569620253164557,
+    "VoterParticipation": 0.56962,
     "ConventionalReceivedBallots": 9000,
     "ConventionalInvalidBallots": 500,
     "ConventionalBlankBallots": 500,
@@ -528,5 +551,6 @@
   "Finalized": false,
   "Calculation": {
     "AbsoluteMajority": null
-  }
+  },
+  "PartialResult": false
 }

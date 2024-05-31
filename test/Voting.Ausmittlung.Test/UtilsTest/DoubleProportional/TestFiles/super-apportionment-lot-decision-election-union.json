@@ -1,0 +1,45 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 2,
+      "Label": "P01"
+    },
+    {
+      "NumberOfMandates": 2,
+      "Label": "P02"
+    },
+    {
+      "NumberOfMandates": 1,
+      "Label": "P03"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "L01"
+    },
+    {
+      "Label": "L02"
+    },
+    {
+      "Label": "L03"
+    }
+  ],
+  "MandateAlgorithm": 4,
+  "VoteCounts": [
+    [
+      3000,
+      400,
+      0
+    ],
+    [
+      2000,
+      100,
+      1000
+    ],
+    [
+      1000,
+      250,
+      500
+    ]
+  ]
+}

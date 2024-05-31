@@ -15,5 +15,7 @@ public sealed class ContestProfile : Profile
         CreateMap<ContestEventData, Contest>()
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<ContestTranslation>(
                 ((t, x) => t.Description = x, src.Description))));
+        CreateMap<ContestCantonDefaults, ContestCantonDefaults>();
+        CreateMap<ContestCantonDefaultsCountingCircleResultStateDescription, ContestCantonDefaultsCountingCircleResultStateDescription>();
     }
 }

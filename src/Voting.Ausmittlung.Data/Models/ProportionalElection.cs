@@ -36,6 +36,10 @@ public class ProportionalElection : Election, IHasResults, IPoliticalBusinessHas
 
     public ProportionalElectionEndResult? EndResult { get; set; }
 
+    public DoubleProportionalResult? DoubleProportionalResult { get; set; }
+
+    public ICollection<DoubleProportionalResultRow> DoubleProportionalResultRows { get; set; } = new List<DoubleProportionalResultRow>();
+
     IEnumerable<CountingCircleResult> IHasResults.Results
     {
         get => Results;

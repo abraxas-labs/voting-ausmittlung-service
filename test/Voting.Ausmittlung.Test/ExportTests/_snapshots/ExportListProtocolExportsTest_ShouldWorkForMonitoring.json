@@ -1,0 +1,36 @@
+{
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": "2020-08-31T00:00:00Z",
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": "2018-12-20T00:00:00Z",
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": "2020-02-20T00:00:00Z",
+    "EVotingTo": "2020-03-01T00:00:00Z",
+    "State": 1,
+    "EVotingResultsImported": false
+  },
+  "CountingCircle": null,
+  "ProtocolExports": [
+    {
+      "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
+      "Description": "Protokoll E-Voting Ergebnisse",
+      "EntityDescription": "",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "a4718007-f178-5e2a-b19f-4955bfb57151",
+      "Description": "Protokoll inkl. Details E-Voting",
+      "EntityDescription": "",
+      "ProtocolExportId": "e4d8ac4c-f52d-55ff-8d93-754e0d6cf096",
+      "State": 2,
+      "FileName": "monitoring-mock-file.pdf",
+      "Started": "2020-11-05T05:00:00Z"
+    }
+  ]
+}

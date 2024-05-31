@@ -7,11 +7,10 @@ using Abraxas.Voting.Basis.Events.V1;
 using AutoMapper;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
-using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Core.Utils.DoubleProportional;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
-using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -22,27 +21,34 @@ public class ProportionalElectionUnionProcessor :
     IEventProcessor<ProportionalElectionUnionToNewContestMoved>,
     IEventProcessor<ProportionalElectionUnionEntriesUpdated>
 {
-    private readonly IDbRepository<DataContext, ProportionalElectionUnion> _repo;
+    private readonly ProportionalElectionUnionRepo _repo;
     private readonly ProportionalElectionUnionEntryRepo _entriesRepo;
     private readonly IMapper _mapper;
     private readonly ProportionalElectionUnionListBuilder _unionListBuilder;
+    private readonly ProportionalElectionUnionEndResultInitializer _endResultInitializer;
+    private readonly DoubleProportionalResultBuilder _dpResultBuilder;
 
     public ProportionalElectionUnionProcessor(
-        IDbRepository<DataContext, ProportionalElectionUnion> repo,
+        ProportionalElectionUnionRepo repo,
         ProportionalElectionUnionEntryRepo entriesRepo,
         IMapper mapper,
-        ProportionalElectionUnionListBuilder unionListBuilder)
+        ProportionalElectionUnionListBuilder unionListBuilder,
+        ProportionalElectionUnionEndResultInitializer endResultInitializer,
+        DoubleProportionalResultBuilder dpResultBuilder)
     {
         _repo = repo;
         _entriesRepo = entriesRepo;
         _mapper = mapper;
         _unionListBuilder = unionListBuilder;
+        _endResultInitializer = endResultInitializer;
+        _dpResultBuilder = dpResultBuilder;
     }
 
     public async Task Process(ProportionalElectionUnionCreated eventData)
     {
         var model = _mapper.Map<ProportionalElectionUnion>(eventData.ProportionalElectionUnion);
         await _repo.Create(model);
+        await _endResultInitializer.RebuildForUnion(model.Id, false);
     }
 
     public async Task Process(ProportionalElectionUnionUpdated eventData)
@@ -76,7 +82,9 @@ public class ProportionalElectionUnionProcessor :
         await _entriesRepo.Replace(proportionalElectionUnionId, models);
         await _unionListBuilder.RebuildLists(
             proportionalElectionUnionId,
-            models.Select(e => e.ProportionalElectionId).ToList());
+            models.ConvertAll(e => e.ProportionalElectionId));
+        await _endResultInitializer.RebuildForUnion(proportionalElectionUnionId, false);
+        await _dpResultBuilder.DeleteDpResultsForUnion(proportionalElectionUnionId);
     }
 
     public async Task Process(ProportionalElectionUnionDeleted eventData)

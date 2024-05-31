@@ -21,6 +21,8 @@ namespace Voting.Ausmittlung.Test.VoteResultBundleTests;
 
 public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
 {
+    private int _bundleNumber = 10;
+
     public VoteResultDeleteBundleTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -30,7 +32,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -41,7 +43,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
         await TestEventsWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
             await CreateBallot();
-            await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+            await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleDeleted>(),
@@ -53,8 +55,8 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanBundleCreator()
     {
-        await CreateBallot();
-        await BundleErfassungElectionAdminClientSecondUser.DeleteBundleAsync(NewValidRequest());
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleDeleted>().MatchSnapshot("deleted");
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberFreed>().MatchSnapshot("freed");
     }
@@ -67,7 +69,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnForStates(BallotBundleState state)
     {
         await RunBundleToState(state);
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest());
     }
 
     [Fact]
@@ -91,10 +93,9 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowAsErfassungCreatorOtherThanBundleCreator()
     {
-        await CreateBallot();
-        await SetBundleDeleted();
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(NewValidRequest(req => req.BundleId = VoteResultBundleMockedData.IdGossauBundle3)),
             StatusCode.PermissionDenied);
     }
 
@@ -102,7 +103,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowNotFound()
     {
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
             {
                 BundleId = "c9be6337-d25d-4e29-84e6-551ad5752f64",
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
@@ -114,7 +115,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
+            async () => await ErfassungCreatorClient.DeleteBundleAsync(new DeleteVoteResultBundleRequest
             {
                 BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
                 BallotResultId = VoteResultMockedData.IdUzwilVoteInContestStGallenBallotResult,
@@ -127,7 +128,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     {
         await SetBundleDeleted();
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "bundle is already deleted");
     }
@@ -137,7 +138,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.DeleteBundleAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -157,7 +158,7 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
             });
         var bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Deleted);
-        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.BallotResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
 
         await AssertHasPublishedMessage<VoteBundleChanged>(
@@ -210,23 +211,36 @@ public class VoteResultDeleteBundleTest : VoteResultBundleBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var response = await ErfassungCreatorClient.CreateBundleAsync(new CreateVoteResultBundleRequest
+        {
+            BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
+            BundleNumber = _bundleNumber++,
+            VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
+        });
+        await RunEvents<VoteResultBundleCreated>();
+
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
-            .DeleteBundleAsync(NewValidRequest());
+            .DeleteBundleAsync(new DeleteVoteResultBundleRequest
+            {
+                BundleId = response.BundleId,
+                BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private DeleteVoteResultBundleRequest NewValidRequest()
+    private DeleteVoteResultBundleRequest NewValidRequest(Action<DeleteVoteResultBundleRequest>? customizer = null)
     {
-        return new DeleteVoteResultBundleRequest
+        var req = new DeleteVoteResultBundleRequest
         {
             BundleId = VoteResultBundleMockedData.IdGossauBundle1,
             BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
         };
+        customizer?.Invoke(req);
+        return req;
     }
 }

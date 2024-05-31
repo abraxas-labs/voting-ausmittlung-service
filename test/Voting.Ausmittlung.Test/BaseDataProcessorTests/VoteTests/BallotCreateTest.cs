@@ -44,16 +44,19 @@ public class BallotCreateTest : VoteProcessorBaseTest
                             {
                                 Number = 1,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 1") },
+                                Type = SharedProto.BallotQuestionType.MainBallot,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 2,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 2") },
+                                Type = SharedProto.BallotQuestionType.Variant,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 3,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 3") },
+                                Type = SharedProto.BallotQuestionType.Variant,
                             },
                     },
                     TieBreakQuestions =

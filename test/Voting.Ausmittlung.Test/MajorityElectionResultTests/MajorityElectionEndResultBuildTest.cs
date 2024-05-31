@@ -9,7 +9,6 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Grpc.Net.Client;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -188,11 +187,16 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
             .GetEndResultAsync(NewValidRequest());
     }
 
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Skip this test, tested in another class
+        yield break;
+    }
+
     protected override IEnumerable<string> UnauthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        // Skip this test, tested in another class
+        yield break;
     }
 
     private GetMajorityElectionEndResultRequest NewValidRequest()

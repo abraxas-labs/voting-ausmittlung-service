@@ -6,20 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -126,19 +122,10 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.SubmissionDone);
         await AssertSubmissionDoneTimestamp(true);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultFlaggedForCorrection
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                Comment = "my-comment",
-                EventInfo = new EventInfo
-                {
-                    Timestamp = new DateTime(2020, 01, 10, 10, 10, 0, DateTimeKind.Utc).ToTimestamp(),
-                    User = SecureConnectTestDefaults.MockedUserDefault.ToEventInfoUser(),
-                    Tenant = SecureConnectTestDefaults.MockedTenantDefault.ToEventInfoTenant(),
-                },
-            });
+
+        await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
+        await RunEvents<VoteResultFlaggedForCorrection>();
+
         await AssertCurrentState(CountingCircleResultState.ReadyForCorrection);
         await AssertSubmissionDoneTimestamp(false);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
@@ -156,13 +143,10 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
     public async Task TestProcessorWithoutComment()
     {
         await RunToState(CountingCircleResultState.SubmissionDone);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultFlaggedForCorrection
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest(req => req.Comment = string.Empty));
+        await RunEvents<VoteResultFlaggedForCorrection>();
+
         await AssertCurrentState(CountingCircleResultState.ReadyForCorrection);
         var comment = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult))
@@ -177,11 +161,9 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
             .FlagForCorrectionAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private VoteResultFlagForCorrectionRequest NewValidRequest(

@@ -37,13 +37,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -69,7 +62,22 @@
           "Nanos": 0
         },
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -84,7 +92,7 @@
       "ReviewProcedure": 1,
       "CandidateCheckDigit": true
     },
-    "State": 2,
+    "State": 1,
     "SubmissionDoneTimestamp": null,
     "TotalCountOfVoters": 15000,
     "CountOfVoters": {
@@ -151,7 +159,8 @@
     "TotalCountOfBallots": 0,
     "TotalCountOfBlankRowsOnListsWithoutParty": 0,
     "TotalCountOfListsWithParty": 0,
-    "TotalCountOfLists": 0
+    "TotalCountOfLists": 0,
+    "Published": false
   },
   "Bundles": [
     {
@@ -218,6 +227,29 @@
         "FirstName": "Hans",
         "LastName": "Muster",
         "FullName": "Hans Muster"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    },
+    {
+      "Id": "ce73c633-8689-4e8d-bb77-612f354b4ad6",
+      "Number": 3,
+      "State": 0,
+      "CountOfBallots": 0,
+      "List": {
+        "Id": "9091a3b6-3785-4adc-a486-f486e686503e",
+        "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
+        "OrderNumber": "1a",
+        "ShortDescription": "Liste 1 de",
+        "BlankRowCount": 0,
+        "Position": 1,
+        "Description": ""
+      },
+      "CreatedBy": {
+        "SecureConnectId": "someones-user-id",
+        "FirstName": "Someone",
+        "LastName": "Else",
+        "FullName": "Someone Else"
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": []

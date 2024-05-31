@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Abraxas.Voting.Ausmittlung.Services.V1.Responses;
@@ -166,7 +167,7 @@ public class ProportionalElectionResultBundleService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     public override async Task<Empty> SucceedBundleReview(SucceedProportionalElectionBundleReviewRequest request, ServerCallContext context)
     {
-        await _proportionalElectionResultBundleWriter.SucceedBundleReview(GuidParser.Parse(request.BundleId));
+        await _proportionalElectionResultBundleWriter.SucceedBundleReview(request.BundleIds.Select(GuidParser.Parse).ToList());
         return ProtobufEmpty.Instance;
     }
 }

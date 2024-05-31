@@ -1,0 +1,31 @@
+{
+  "Permission": [
+    "Contest:read",
+    "PoliticalBusiness:read-accessible",
+    "PoliticalBusinessResult:read",
+    "PoliticalBusinessResult:read-comments",
+    "PoliticalBusinessResultBundle:read",
+    "PoliticalBusinessResultBundle:create",
+    "PoliticalBusinessResultBundle:update-all",
+    "PoliticalBusinessResultBundle:delete",
+    "PoliticalBusinessResultBundle:finish-submission",
+    "PoliticalBusinessResultBundle:review",
+    "PoliticalBusinessResultBallot:read",
+    "PoliticalBusinessResultBallot:read-all",
+    "PoliticalBusinessResultBallot:create",
+    "PoliticalBusinessResultBallot:update",
+    "PoliticalBusinessResultBallot:delete",
+    "VoteBallotResult:read",
+    "MajorityElectionCandidate:read",
+    "MajorityElectionBallotGroupResult:read",
+    "MajorityElectionWriteIn:read",
+    "ProportionalElectionCandidate:read",
+    "ProportionalElectionList:read",
+    "ProportionalElectionListResult:read",
+    "CountingCircleContactPerson:create",
+    "CountingCircleContactPerson:update",
+    "ContestCountingCircleDetails:update",
+    "Import:listen-import-changes",
+    "Export:export"
+  ]
+}

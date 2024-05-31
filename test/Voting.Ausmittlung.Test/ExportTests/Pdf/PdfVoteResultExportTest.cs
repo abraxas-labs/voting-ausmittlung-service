@@ -27,7 +27,7 @@ public class PdfVoteResultExportTest : PdfExportBaseTest
         tenantId: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.ErfassungElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_Eidg_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_Eidg_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.ResultProtocol.Key;
 

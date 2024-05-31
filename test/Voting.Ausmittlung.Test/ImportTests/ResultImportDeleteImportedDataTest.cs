@@ -191,6 +191,10 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await SetProportionalElectionResultState(
+            ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil,
+            CountingCircleResultState.CorrectionDone);
+
         await new ResultImportService.ResultImportServiceClient(channel)
             .DeleteImportDataAsync(NewValidRequest());
     }
@@ -202,11 +206,9 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
         params string[] roles)
         => base.CreateGrpcChannel(authorize, SecureConnectTestDefaults.MockedTenantUzwil.Id, userId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private DeleteResultImportDataRequest NewValidRequest()
@@ -228,6 +230,12 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
             .FirstAsync(r => r.Id == id))).ProportionalElection.ContestId;
 
         var resultAgg = await AggregateRepositoryMock.GetById<ProportionalElectionResultAggregate>(id);
+
+        if (resultAgg.State == state)
+        {
+            return;
+        }
+
         switch (state)
         {
             case CountingCircleResultState.SubmissionDone:

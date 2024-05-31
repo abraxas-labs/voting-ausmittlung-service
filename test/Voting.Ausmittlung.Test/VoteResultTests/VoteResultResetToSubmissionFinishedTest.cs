@@ -36,6 +36,16 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.AuditedTentatively);
         await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultResettedToSubmissionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<VoteResultUnpublished>().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithUnpublish()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+        await RunToPublished();
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultUnpublished>().VoteResultId.Should().Be(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
     }
 
     [Fact]
@@ -147,13 +157,9 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultResettedToSubmissionFinished
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        await RunEvents<VoteResultResettedToSubmissionFinished>();
+
         await AssertCurrentState(CountingCircleResultState.SubmissionDone);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
@@ -177,11 +183,9 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
             .ResetToSubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private VoteResultResetToSubmissionFinishedRequest NewValidRequest()

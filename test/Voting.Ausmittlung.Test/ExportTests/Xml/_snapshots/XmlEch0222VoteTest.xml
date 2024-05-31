@@ -95,6 +95,30 @@
               </questionRawData>
             </ballotCasted>
           </ballotRawData>
+          <ballotRawData>
+            <ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</ballotIdentification>
+            <ballotCasted>
+              <ballotCastedNumber>4</ballotCastedNumber>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_1</questionIdentification>
+                <casted>
+                  <castedVote>2</castedVote>
+                </casted>
+              </questionRawData>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_n_2</questionIdentification>
+                <casted>
+                  <castedVote>2</castedVote>
+                </casted>
+              </questionRawData>
+              <questionRawData>
+                <questionIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_t_1</questionIdentification>
+                <casted>
+                  <castedVote>3</castedVote>
+                </casted>
+              </questionRawData>
+            </ballotCasted>
+          </ballotRawData>
         </voteRawData>
       </countingCircleRawData>
     </rawData>

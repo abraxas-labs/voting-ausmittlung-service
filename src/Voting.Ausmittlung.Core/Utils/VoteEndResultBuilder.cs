@@ -175,37 +175,26 @@ public class VoteEndResultBuilder
 
     private void UpdateIsAccepted(BallotQuestionEndResult questionEndResult, VoteResultAlgorithm algorithm)
     {
-        switch (algorithm)
+        questionEndResult.Accepted = algorithm switch
         {
-            case VoteResultAlgorithm.PopularMajority:
-                questionEndResult.Accepted = questionEndResult.TotalCountOfAnswerYes > questionEndResult.TotalCountOfAnswerNo;
-                break;
-            case VoteResultAlgorithm.CountingCircleUnanimity:
-                questionEndResult.Accepted = questionEndResult.HasCountingCircleUnanimity;
-                break;
-            case VoteResultAlgorithm.CountingCircleMajority:
-                questionEndResult.Accepted = questionEndResult.HasCountingCircleMajority;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null);
-        }
+            VoteResultAlgorithm.PopularMajority => questionEndResult.TotalCountOfAnswerYes > questionEndResult.TotalCountOfAnswerNo,
+            VoteResultAlgorithm.CountingCircleUnanimity => questionEndResult.HasCountingCircleUnanimity,
+            VoteResultAlgorithm.CountingCircleMajority => questionEndResult.HasCountingCircleMajority,
+            VoteResultAlgorithm.PopularAndCountingCircleMajority => questionEndResult.TotalCountOfAnswerYes > questionEndResult.TotalCountOfAnswerNo && questionEndResult.HasCountingCircleMajority,
+            _ => throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null),
+        };
     }
 
     private void UpdateQ1Accepted(TieBreakQuestionEndResult questionEndResult, VoteResultAlgorithm algorithm)
     {
-        switch (algorithm)
+        questionEndResult.Q1Accepted = algorithm switch
         {
-            case VoteResultAlgorithm.PopularMajority:
-                questionEndResult.Q1Accepted = questionEndResult.TotalCountOfAnswerQ1 > questionEndResult.TotalCountOfAnswerQ2;
-                break;
+            VoteResultAlgorithm.PopularMajority => questionEndResult.TotalCountOfAnswerQ1 > questionEndResult.TotalCountOfAnswerQ2,
 
             // as defined by VOTING-416
-            case VoteResultAlgorithm.CountingCircleUnanimity:
-            case VoteResultAlgorithm.CountingCircleMajority:
-                questionEndResult.Q1Accepted = questionEndResult.HasCountingCircleQ1Majority;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null);
-        }
+            VoteResultAlgorithm.CountingCircleUnanimity or VoteResultAlgorithm.CountingCircleMajority => questionEndResult.HasCountingCircleQ1Majority,
+            VoteResultAlgorithm.PopularAndCountingCircleMajority => questionEndResult.TotalCountOfAnswerQ1 > questionEndResult.TotalCountOfAnswerQ2 && questionEndResult.HasCountingCircleQ1Majority,
+            _ => throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null),
+        };
     }
 }

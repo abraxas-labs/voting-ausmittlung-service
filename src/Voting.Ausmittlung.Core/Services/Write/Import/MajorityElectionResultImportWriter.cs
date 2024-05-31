@@ -51,14 +51,15 @@ public class MajorityElectionResultImportWriter : MajorityElectionResultImportWr
             .Include(x => x.MajorityElectionCandidates)
             .Include(x => x.Translations)
             .Include(x => x.ElectionGroup)
-            .Include(x => x.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.Contest.CantonDefaults)
             .ToListAsync();
     }
 
     protected override async Task<MajorityElection> GetElection(Guid electionId)
     {
         return await _majorityElectionRepo.Query()
-                   .Include(x => x.DomainOfInfluence.CantonDefaults)
+                   .AsSplitQuery()
+                   .Include(x => x.Contest.CantonDefaults)
                    .FirstOrDefaultAsync(x => x.Id == electionId)
                ?? throw new EntityNotFoundException(electionId);
     }

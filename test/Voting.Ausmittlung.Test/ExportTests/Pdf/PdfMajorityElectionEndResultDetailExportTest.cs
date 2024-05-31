@@ -21,7 +21,7 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_Majorzw de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_Majorzw de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol.Key;
 

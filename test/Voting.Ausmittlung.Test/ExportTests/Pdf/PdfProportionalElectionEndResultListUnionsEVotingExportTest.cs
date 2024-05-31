@@ -21,7 +21,7 @@ public class PdfProportionalElectionEndResultListUnionsEVotingExportTest : PdfEx
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular5_Wahlprotokoll_EVoting_Nationalratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular5_Wahlprotokoll_EVoting_Nationalratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting.Key;
 
@@ -45,7 +45,7 @@ public class PdfProportionalElectionEndResultListUnionsEVotingExportTest : PdfEx
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
                     SecureConnectTestDefaults.MockedTenantStGallen.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection))
+                    politicalBusinessId: ProportionalElectionEndResultSgExampleMockedData.GuidStGallenNationalratElection)
                     .ToString(),
             },
         };

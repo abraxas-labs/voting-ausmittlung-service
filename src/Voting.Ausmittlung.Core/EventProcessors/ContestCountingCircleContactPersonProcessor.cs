@@ -16,11 +16,16 @@ public class ContestCountingCircleContactPersonProcessor :
     IEventProcessor<ContestCountingCircleContactPersonUpdated>
 {
     private readonly CountingCircleRepo _countingCircleRepo;
+    private readonly CountingCircleContactPersonRepo _countingCircleContactPersonRepo;
     private readonly IMapper _mapper;
 
-    public ContestCountingCircleContactPersonProcessor(IMapper mapper, CountingCircleRepo countingCircleRepo)
+    public ContestCountingCircleContactPersonProcessor(
+        IMapper mapper,
+        CountingCircleRepo countingCircleRepo,
+        CountingCircleContactPersonRepo countingCircleContactPersonRepo)
     {
         _countingCircleRepo = countingCircleRepo;
+        _countingCircleContactPersonRepo = countingCircleContactPersonRepo;
         _mapper = mapper;
     }
 
@@ -43,7 +48,11 @@ public class ContestCountingCircleContactPersonProcessor :
 
         if (eventData.ContactPersonSameDuringEventAsAfter)
         {
-            existing.ContactPersonAfterEvent = null;
+            if (existing.ContactPersonAfterEvent != null)
+            {
+                await _countingCircleContactPersonRepo.DeleteByKeyIfExists(existing.ContactPersonAfterEvent.Id);
+                existing.ContactPersonAfterEvent = null;
+            }
         }
         else
         {
@@ -69,7 +78,11 @@ public class ContestCountingCircleContactPersonProcessor :
 
         if (eventData.ContactPersonSameDuringEventAsAfter)
         {
-            existing.ContactPersonAfterEvent = null;
+            if (existing.ContactPersonAfterEvent != null)
+            {
+                await _countingCircleContactPersonRepo.DeleteByKeyIfExists(existing.ContactPersonAfterEvent.Id);
+                existing.ContactPersonAfterEvent = null;
+            }
         }
         else
         {

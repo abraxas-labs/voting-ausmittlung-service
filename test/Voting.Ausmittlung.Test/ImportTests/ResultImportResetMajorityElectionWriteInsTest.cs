@@ -224,21 +224,21 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var (_, primaryMappings, _) = await FetchMappings();
         await new ResultImportService.ResultImportServiceClient(channel)
             .ResetMajorityElectionWriteInsAsync(new ResetMajorityElectionWriteInMappingsRequest
             {
-                ElectionId = "eebc9095-8ba3-4dbb-b2ae-99e0a5e1b965",
-                ContestId = "5649dc51-9558-4aef-9c1b-41f37868809e",
-                CountingCircleId = "ae636acd-6467-42af-9e41-6c8e79cde95d",
-                PoliticalBusinessType = ProtoModels.PoliticalBusinessType.MajorityElection,
+                ElectionId = primaryMappings.Election.Id,
+                ContestId = ContestMockedData.IdStGallenEvoting,
+                CountingCircleId = CountingCircleMockedData.IdUzwil,
+                PoliticalBusinessType = primaryMappings.Election.BusinessType,
             });
     }
 

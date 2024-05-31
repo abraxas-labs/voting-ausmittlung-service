@@ -15,6 +15,8 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -41,7 +43,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
     [Fact]
     public async Task ShouldWork()
     {
-        await StGallenMonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(NewValidRequest());
+        await MonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(NewValidRequest());
         var ev = EventPublisherMock.GetSinglePublishedEvent<ResultExportConfigurationUpdated>();
         ev.MatchSnapshot();
     }
@@ -50,7 +52,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
     public Task ShouldThrowOtherTenant()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
+            async () => await MonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
                 NewValidRequest(r => r.ExportConfigurationId = ExportConfigurationMockedData.IdGossauIntf100)),
             StatusCode.PermissionDenied);
     }
@@ -59,7 +61,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
     public Task ShouldThrowDuplicatedPoliticalBusiness()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
+            async () => await MonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
                 NewValidRequest(r => r.PoliticalBusinessIds.Add(r.PoliticalBusinessIds[0]))),
             StatusCode.InvalidArgument,
             "Political business ids have to be unique");
@@ -69,7 +71,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
     public Task ShouldThrowWrongPoliticalBusiness()
     {
         return AssertStatus(
-            async () => await StGallenMonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
+            async () => await MonitoringElectionAdminClient.UpdateResultExportConfigurationAsync(
                 NewValidRequest(r => r.PoliticalBusinessIds.Add(VoteMockedData.IdUzwilVoteInContestStGallen))),
             StatusCode.InvalidArgument,
             "Political business ids provided without access");
@@ -123,15 +125,18 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
         updated.MatchSnapshot();
     }
 
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ExportService.ExportServiceClient(channel).UpdateResultExportConfigurationAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     private UpdateResultExportConfigurationRequest NewValidRequest(

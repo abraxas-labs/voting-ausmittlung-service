@@ -44,6 +44,7 @@ public class EnumProfile : Profile
         CreateEnumMap<SharedProto.BallotQuestionAnswer, BallotQuestionAnswer>();
         CreateEnumMap<SharedProto.TieBreakQuestionAnswer, TieBreakQuestionAnswer>();
         CreateEnumMap<SharedProto.VoterType, VoterType>();
+        CreateEnumMap<ProtoModels.BallotQuestionType, BallotQuestionType>();
 
         // explicitly map deprecated values to the corresponding new value.
         CreateMap<ProtoModels.ProportionalElectionMandateAlgorithm, ProportionalElectionMandateAlgorithm>()

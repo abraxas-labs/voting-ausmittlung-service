@@ -9,11 +9,16 @@ using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
+using Google.Protobuf;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 
@@ -46,95 +51,49 @@ public abstract class MajorityElectionResultBaseTest : PoliticalBusinessResultBa
 
     protected override async Task<CountingCircleResultState> GetCurrentState()
     {
-        var result = await ErfassungCreatorClient.GetAsync(new GetMajorityElectionResultRequest
-        {
-            ElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
-            CountingCircleId = CountingCircleMockedData.IdStGallen,
-        });
-        return (CountingCircleResultState)result.State;
+        var aggregate = await AggregateRepositoryMock.GetOrCreateById<MajorityElectionResultAggregate>(
+            Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund));
+        return aggregate.State;
     }
 
     protected override async Task SetPlausibilised()
     {
-        await MonitoringElectionAdminClient
-            .PlausibiliseAsync(new MajorityElectionResultsPlausibiliseRequest
-            {
-                ElectionResultIds =
-                {
-                        MajorityElectionResultMockedData
-                            .IdStGallenElectionResultInContestBund,
-                },
-            });
-        await RunEvents<MajorityElectionResultPlausibilised>();
+        await RunOnResult<MajorityElectionResultPlausibilised>(aggregate =>
+            aggregate.Plausibilise(ContestMockedData.Bundesurnengang.Id));
     }
 
     protected override async Task SetAuditedTentatively()
     {
-        await MonitoringElectionAdminClient
-            .AuditedTentativelyAsync(new MajorityElectionResultAuditedTentativelyRequest
-            {
-                ElectionResultIds =
-                {
-                        MajorityElectionResultMockedData
-                            .IdStGallenElectionResultInContestBund,
-                },
-            });
-        await RunEvents<MajorityElectionResultAuditedTentatively>();
+        await RunOnResult<MajorityElectionResultAuditedTentatively>(aggregate =>
+            aggregate.AuditedTentatively(ContestMockedData.Bundesurnengang.Id));
     }
 
     protected override async Task SetCorrectionDone()
     {
-        await ErfassungElectionAdminClient
-            .CorrectionFinishedAsync(new MajorityElectionResultCorrectionFinishedRequest
-            {
-                ElectionResultId = MajorityElectionResultMockedData
-                    .IdStGallenElectionResultInContestBund,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<MajorityElectionResultCorrectionFinished>();
+        await RunOnResult<MajorityElectionResultCorrectionFinished>(aggregate =>
+            aggregate.CorrectionFinished(string.Empty, ContestMockedData.Bundesurnengang.Id));
     }
 
     protected override async Task SetReadyForCorrection()
     {
-        await MonitoringElectionAdminClient
-            .FlagForCorrectionAsync(new MajorityElectionResultFlagForCorrectionRequest
-            {
-                ElectionResultId = MajorityElectionResultMockedData
-                    .IdStGallenElectionResultInContestBund,
-            });
-        await RunEvents<MajorityElectionResultFlaggedForCorrection>();
+        await RunOnResult<MajorityElectionResultFlaggedForCorrection>(aggregate =>
+            aggregate.FlagForCorrection(ContestMockedData.Bundesurnengang.Id));
     }
 
     protected override async Task SetSubmissionDone()
     {
-        await ErfassungElectionAdminClient
-            .SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
-            });
-        await RunEvents<MajorityElectionResultSubmissionFinished>();
+        await RunOnResult<MajorityElectionResultSubmissionFinished>(aggregate =>
+            aggregate.SubmissionFinished(ContestMockedData.Bundesurnengang.Id));
     }
 
     protected override async Task SetSubmissionOngoing()
     {
-        var contestGuid = Guid.Parse(ContestMockedData.IdBundesurnengang);
-        var countingCircleGuid = CountingCircleMockedData.GuidStGallen;
-        await RunOnDb(async db =>
-        {
-            var ccDetails = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .SingleAsync(x => x.ContestId == contestGuid && x.CountingCircle.BasisCountingCircleId == countingCircleGuid);
-            await db.SaveChangesAsync();
-        });
-
-        await new ResultService.ResultServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin))
-            .GetListAsync(new GetResultListRequest
-            {
-                ContestId = ContestMockedData.IdBundesurnengang,
-                CountingCircleId = CountingCircleMockedData.IdStGallen,
-            });
-        await RunEvents<MajorityElectionResultSubmissionStarted>();
+        await RunOnResult<MajorityElectionResultSubmissionStarted>(aggregate =>
+            aggregate.StartSubmission(
+                CountingCircleMockedData.StGallen.Id,
+                MajorityElectionMockedData.StGallenMajorityElectionInContestBund.Id,
+                ContestMockedData.Bundesurnengang.Id,
+                false));
     }
 
     protected async Task SeedBallots(BallotBundleState bundleState)
@@ -175,8 +134,38 @@ public abstract class MajorityElectionResultBaseTest : PoliticalBusinessResultBa
         });
     }
 
+    protected async Task RunToPublished()
+    {
+        var majorityElectionResultAggregate = await AggregateRepositoryMock.GetOrCreateById<MajorityElectionResultAggregate>(Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund));
+        if (majorityElectionResultAggregate.Published)
+        {
+            return;
+        }
+
+        await RunOnResult<MajorityElectionResultPublished>(aggregate => aggregate.Publish(ContestMockedData.GuidBundesurnengang));
+    }
+
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
+
+    private async Task RunOnResult<T>(Action<MajorityElectionResultAggregate> resultAction)
+        where T : IMessage<T>
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<MajorityElectionResultAggregate>(
+                MajorityElectionResultMockedData.StGallenElectionResultInContestBund.Id);
+            resultAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<T>();
+        EventPublisherMock.Clear();
+    }
 
     private async Task ReplaceNullValuesWithZeroOnDetailedResults()
     {

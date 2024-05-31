@@ -20,6 +20,11 @@ public class ConverterProfile : Profile
         CreateMap<DateTime, Timestamp>().ConvertUsing<ProtoTimestampConverter>();
         CreateMap<DateTime?, Timestamp?>().ConvertUsing<ProtoTimestampConverter>();
 
+        CreateMap<DateTime, DateOnly>().ConvertUsing<DateTimeDateOnlyConverter>();
+        CreateMap<DateTime?, DateOnly?>().ConvertUsing<DateTimeDateOnlyConverter>();
+        CreateMap<DateOnly, DateTime>().ConvertUsing<DateTimeDateOnlyConverter>();
+        CreateMap<DateOnly?, DateTime?>().ConvertUsing<DateTimeDateOnlyConverter>();
+
         CreateMap<Guid?, string>().ConvertUsing<GuidStringConverter>();
         CreateMap<Guid, string>().ConvertUsing<GuidStringConverter>();
         CreateMap<string, Guid?>().ConvertUsing<GuidStringConverter>();

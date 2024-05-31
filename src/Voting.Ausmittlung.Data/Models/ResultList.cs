@@ -65,6 +65,6 @@ public class ResultList
     /// </summary>
     public IEnumerable<DomainOfInfluenceCantonDefaultsVotingCardChannel> EnabledVotingCardChannels
         => Details.EVoting
-        ? Contest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.Append(EVotingVotingCardChannel).OrderByPriority()
-        : Contest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.OrderByPriority();
+        ? Contest.CantonDefaults.EnabledVotingCardChannels.Append(EVotingVotingCardChannel).OrderByPriority()
+        : Contest.CantonDefaults.EnabledVotingCardChannels.OrderByPriority();
 }

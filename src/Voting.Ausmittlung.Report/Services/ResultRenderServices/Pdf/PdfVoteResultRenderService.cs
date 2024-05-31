@@ -110,6 +110,6 @@ public class PdfVoteResultRenderService : IRendererService
             ctx,
             templateBag,
             PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(ctx.DomainOfInfluenceType),
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 }

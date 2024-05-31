@@ -14,7 +14,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// Four digits number representing the percentage incl. 2 decimals.
 /// ex: 12.343% should be represented as 1234, 12.345% as 1235.
 /// </summary>
-public class WabstiCPercentageConverter : TypeConverter
+public class WabstiCPercentageConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         => ((int)Math.Round((decimal)value * 10_000)).ToString(CultureInfo.InvariantCulture);

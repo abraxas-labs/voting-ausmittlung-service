@@ -1,0 +1,31 @@
+{
+  "EventInfo": {
+    "User": {
+      "Id": "default-user-id",
+      "Username": "default username",
+      "FirstName": "default user firstname",
+      "LastName": "default user lastname"
+    },
+    "Tenant": {
+      "Id": "999999999999999999",
+      "Name": "Bund"
+    },
+    "Timestamp": {
+      "Seconds": 1578661930,
+      "Nanos": 200000000
+    }
+  },
+  "DoubleProportionalResultId": "9e4ab531-7359-50ac-8a8e-e86f5ebec244",
+  "ProportionalElectionUnionId": "2402df69-09a3-489a-8bc2-1a809ea2c148",
+  "Number": 2,
+  "Columns": [
+    {
+      "UnionListId": "d7b3a8fc-7550-5289-a6ca-c8bff5712bf5",
+      "NumberOfMandates": 3
+    },
+    {
+      "UnionListId": "5b94e66e-162b-523c-b4eb-e2fcda8f6d23",
+      "NumberOfMandates": 1
+    }
+  ]
+}

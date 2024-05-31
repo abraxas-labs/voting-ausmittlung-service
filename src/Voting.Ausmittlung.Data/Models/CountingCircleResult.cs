@@ -42,6 +42,8 @@ public abstract class CountingCircleResult : BaseEntity
     /// </summary>
     public int? TotalSentEVotingVotingCards { get; set; }
 
+    public bool Published { get; set; }
+
     public bool SubmissionDone()
     {
         return State >= CountingCircleResultState.SubmissionDone;

@@ -45,14 +45,6 @@ public abstract class DomainOfInfluenceProcessorBaseTest : BaseDataProcessorTest
                 doiCc.Id = Guid.Empty;
             }
 
-            domainOfInfluence.CantonDefaults.EnabledVotingCardChannels =
-                domainOfInfluence.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
-
-            foreach (var child in domainOfInfluence.CantonDefaults.EnabledVotingCardChannels)
-            {
-                child.Id = Guid.Empty;
-            }
-
             if (domainOfInfluence.PlausibilisationConfiguration == null)
             {
                 continue;

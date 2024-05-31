@@ -112,7 +112,7 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
     {
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
 
-        var response = await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(
                 NewValidRequest(x => x.CountingCircleResultIds.Add(VoteResultMockedData.IdUzwilVoteInContestStGallenResult))),
@@ -155,15 +155,20 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        // ensure that the tenant is only the cc manager and not the contest manager
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
+            x => x.SecureConnectId = "random-id");
+
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+
         await new ResultService.ResultServiceClient(channel)
             .SubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private CountingCircleResultsSubmissionFinishedRequest NewValidRequest(Action<CountingCircleResultsSubmissionFinishedRequest>? action = null)

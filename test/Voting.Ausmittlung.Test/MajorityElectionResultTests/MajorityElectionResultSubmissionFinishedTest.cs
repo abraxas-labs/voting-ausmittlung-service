@@ -185,13 +185,10 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await AssertSubmissionDoneTimestamp(false);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultSubmissionFinished
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultSubmissionFinished>();
+
         await AssertCurrentState(CountingCircleResultState.SubmissionDone);
         await AssertSubmissionDoneTimestamp(true);
 
@@ -255,10 +252,9 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
             .SubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private MajorityElectionResultSubmissionFinishedRequest NewValidRequest(Action<MajorityElectionResultSubmissionFinishedRequest>? customizer = null)

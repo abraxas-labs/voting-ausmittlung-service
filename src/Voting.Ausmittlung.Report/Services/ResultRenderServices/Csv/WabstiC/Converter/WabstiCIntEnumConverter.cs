@@ -12,7 +12,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// enum's would be converter to their string/name representation by default.
 /// this converter can be used to convert to the int representation instead.
 /// </summary>
-public class WabstiCIntEnumConverter : TypeConverter
+public class WabstiCIntEnumConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         => ((int)value).ToString(CultureInfo.InvariantCulture);

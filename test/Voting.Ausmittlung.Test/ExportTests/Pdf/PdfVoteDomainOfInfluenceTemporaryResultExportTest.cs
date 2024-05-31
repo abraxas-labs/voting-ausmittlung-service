@@ -21,7 +21,7 @@ public class PdfVoteDomainOfInfluenceTemporaryResultExportTest : PdfExportBaseTe
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Abst_Kant_provisorischeErgebnisse_Abst SG de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_Kant_provisorischeErgebnisse_Abst SG de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol.Key;
 

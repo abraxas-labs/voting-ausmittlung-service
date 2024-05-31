@@ -109,13 +109,10 @@ public class ProportionalElectionResultResetToAuditedTentativelyTest : Proportio
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.Plausibilised);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new ProportionalElectionResultResettedToAuditedTentatively
-            {
-                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await MonitoringElectionAdminClient.ResetToAuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<ProportionalElectionResultResettedToAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
@@ -141,11 +138,9 @@ public class ProportionalElectionResultResetToAuditedTentativelyTest : Proportio
             .ResetToAuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private ProportionalElectionResultsResetToAuditedTentativelyRequest NewValidRequest(Action<ProportionalElectionResultsResetToAuditedTentativelyRequest>? customizer = null)
@@ -153,9 +148,9 @@ public class ProportionalElectionResultResetToAuditedTentativelyTest : Proportio
         var r = new ProportionalElectionResultsResetToAuditedTentativelyRequest
         {
             ElectionResultIds =
-                {
-                    ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                },
+            {
+                ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+            },
         };
         customizer?.Invoke(r);
         return r;

@@ -27,7 +27,7 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
         tenantId: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abst_Kommunal_Gesamtergebnisse_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_Kommunal_Gesamtergebnisse_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EndResultProtocol.Key;
 

@@ -30,6 +30,11 @@ public class ProtocolExportMeter
         "Export",
         "Number of failed protocol exports");
 
+    private static readonly Counter<long> _protocolExportsInvalidCallbackToken = _meter.CreateCounter<long>(
+        InstrumentNamePrefix + "protocol_exports_invalid_callback_token",
+        "Export",
+        "Number of protocol exports with invalid callback token");
+
     private static readonly Histogram<double> _protocolExportsDuration = _meter.CreateHistogram<double>(
         InstrumentNamePrefix + "protocol_exports_duration",
         "Export",
@@ -48,6 +53,11 @@ public class ProtocolExportMeter
     public static void AddExportFailed()
     {
         _protocolExportsFailed.Add(1);
+    }
+
+    public static void AddExportInvalidCallbackToken()
+    {
+        _protocolExportsInvalidCallbackToken.Add(1);
     }
 
     public static void AddExportDuration(TimeSpan duration, string templateType)

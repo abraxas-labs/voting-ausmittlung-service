@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ProportionalElectionResultTests;
 
-public class ProportionalElectionResultResetTest : BaseProcessorTest
+public class ProportionalElectionResultResetTest : BaseIntegrationTest
 {
     private static readonly Guid ResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(
         Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestBund),

@@ -11,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Test.MockedData;
@@ -83,7 +84,7 @@ public class MajorityElectionResultGetBundleChangesTest : BaseTest<MajorityElect
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(0.5));
         var responseStream = new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel).GetBundleChanges(
             new GetMajorityElectionResultBundleChangesRequest
             {
@@ -91,12 +92,18 @@ public class MajorityElectionResultGetBundleChangesTest : BaseTest<MajorityElect
             },
             new CallOptions(cancellationToken: cts.Token));
 
-        await responseStream.ResponseStream.MoveNext();
+        await responseStream.ResponseStream.ReadNIgnoreCancellation(1, cts.Token);
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

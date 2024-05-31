@@ -42,7 +42,8 @@ public class ProportionalElectionProcessor :
     IEventProcessor<ProportionalElectionCandidateUpdated>,
     IEventProcessor<ProportionalElectionCandidateAfterTestingPhaseUpdated>,
     IEventProcessor<ProportionalElectionCandidatesReordered>,
-    IEventProcessor<ProportionalElectionCandidateDeleted>
+    IEventProcessor<ProportionalElectionCandidateDeleted>,
+    IEventProcessor<ProportionalElectionMandateAlgorithmUpdated>
 {
     private readonly ILogger<ProportionalElectionProcessor> _logger;
     private readonly IMapper _mapper;
@@ -63,6 +64,7 @@ public class ProportionalElectionProcessor :
     private readonly SimplePoliticalBusinessBuilder<ProportionalElection> _simplePoliticalBusinessBuilder;
     private readonly PoliticalBusinessToNewContestMover<ProportionalElection, ProportionalElectionRepo> _politicalBusinessToNewContestMover;
     private readonly ProportionalElectionCandidateRepo _proportionalElectionCandidateRepo;
+    private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
 
     public ProportionalElectionProcessor(
         ILogger<ProportionalElectionProcessor> logger,
@@ -83,7 +85,8 @@ public class ProportionalElectionProcessor :
         ProportionalElectionUnionListBuilder unionListBuilder,
         SimplePoliticalBusinessBuilder<ProportionalElection> simplePoliticalBusinessBuilder,
         PoliticalBusinessToNewContestMover<ProportionalElection, ProportionalElectionRepo> politicalBusinessToNewContestMover,
-        ProportionalElectionCandidateRepo proportionalElectionCandidateRepo)
+        ProportionalElectionCandidateRepo proportionalElectionCandidateRepo,
+        ProportionalElectionEndResultBuilder endResultBuilder)
     {
         _logger = logger;
         _mapper = mapper;
@@ -104,6 +107,7 @@ public class ProportionalElectionProcessor :
         _simplePoliticalBusinessBuilder = simplePoliticalBusinessBuilder;
         _politicalBusinessToNewContestMover = politicalBusinessToNewContestMover;
         _proportionalElectionCandidateRepo = proportionalElectionCandidateRepo;
+        _endResultBuilder = endResultBuilder;
     }
 
     public async Task Process(ProportionalElectionCreated eventData)
@@ -198,9 +202,9 @@ public class ProportionalElectionProcessor :
 
     public async Task Process(ProportionalElectionActiveStateUpdated eventData)
     {
-        var voteId = GuidParser.Parse(eventData.ProportionalElectionId);
-        var existingModel = await _repo.GetByKey(voteId)
-            ?? throw new EntityNotFoundException(voteId);
+        var proportionalElectionId = GuidParser.Parse(eventData.ProportionalElectionId);
+        var existingModel = await _repo.GetByKey(proportionalElectionId)
+            ?? throw new EntityNotFoundException(proportionalElectionId);
 
         existingModel.Active = eventData.Active;
         await _repo.Update(existingModel);
@@ -516,6 +520,19 @@ public class ProportionalElectionProcessor :
         }
 
         await _candidateRepo.UpdateRange(candidatesToUpdate);
+    }
+
+    public async Task Process(ProportionalElectionMandateAlgorithmUpdated eventData)
+    {
+        var proportionalElectionId = GuidParser.Parse(eventData.ProportionalElectionId);
+
+        await _endResultBuilder.ResetForElection(proportionalElectionId);
+
+        var existingModel = await _repo.GetByKey(proportionalElectionId)
+                            ?? throw new EntityNotFoundException(proportionalElectionId);
+
+        existingModel.MandateAlgorithm = _mapper.Map<ProportionalElectionMandateAlgorithm>(eventData.MandateAlgorithm);
+        await _repo.Update(existingModel);
     }
 
     private async Task UpdateSubListUnionsByRootListUnionEntries(ProportionalElectionListUnion rootListUnion, List<ProportionalElectionListUnionEntry> rootListUnionEntries)

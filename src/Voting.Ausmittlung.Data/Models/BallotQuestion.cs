@@ -25,4 +25,6 @@ public class BallotQuestion : BaseEntity
     public string Question => Translations.GetTranslated(x => x.Question);
 
     public ICollection<VoteResultBallotQuestionAnswer> BallotAnswers { get; set; } = new HashSet<VoteResultBallotQuestionAnswer>();
+
+    public BallotQuestionType Type { get; set; }
 }

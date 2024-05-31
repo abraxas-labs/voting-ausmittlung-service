@@ -96,6 +96,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -113,6 +114,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                             new BallotQuestion
                             {
@@ -121,6 +123,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 2"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                         },
                         HasTieBreakQuestions = true,
@@ -152,6 +155,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                             new BallotQuestion
                             {
@@ -160,6 +164,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 2"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                             new BallotQuestion
                             {
@@ -168,6 +173,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 3"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                         },
                         HasTieBreakQuestions = true,

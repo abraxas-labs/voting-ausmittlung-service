@@ -64,5 +64,20 @@ public class SimplePoliticalBusinessModelBuilder :
             .WithMany(x => x.SimpleResults!)
             .HasForeignKey(x => x.CountingCircleId)
             .IsRequired();
+
+        builder
+            .Property(x => x.SubmissionDoneTimestamp)
+            .HasUtcConversion();
+
+        builder
+            .Property(x => x.AuditedTentativelyTimestamp)
+            .HasUtcConversion();
+
+        builder
+            .Property(x => x.PlausibilisedTimestamp)
+            .HasUtcConversion();
+
+        builder.OwnsOne(x => x.CountOfVoters);
+        builder.Navigation(x => x.CountOfVoters).IsRequired();
     }
 }

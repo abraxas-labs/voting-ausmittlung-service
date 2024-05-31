@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -118,8 +119,20 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        // Finalize it first, so it can be reverted
+        await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
+        {
+            VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+        });
+
         await new VoteResultService.VoteResultServiceClient(channel)
             .RevertEndResultFinalizationAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private RevertVoteEndResultFinalizationRequest NewValidRequest()

@@ -82,6 +82,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<ContestTranslationRepo>()
             .AddScoped<DomainOfInfluenceRepo>()
             .AddScoped<CountingCircleRepo>()
+            .AddScoped<CountingCircleContactPersonRepo>()
             .AddScoped<ProportionalElectionUnionEntryRepo>()
             .AddScoped<MajorityElectionUnionEntryRepo>()
             .AddScoped<ProportionalElectionUnionListRepo>()
@@ -94,6 +95,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<ResultExportConfigurationRepo>()
             .AddScoped<ContestCountingCircleDetailsRepo>()
             .AddScoped<DomainOfInfluencePartyRepo>()
+            .AddScoped<ProportionalElectionUnionRepo>()
+            .AddScoped<DoubleProportionalResultRepo>()
             .AddVotingLibDatabase<DataContext>();
     }
 }

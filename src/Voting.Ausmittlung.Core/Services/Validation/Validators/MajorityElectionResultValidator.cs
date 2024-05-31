@@ -57,7 +57,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
                 yield return ValidateEmptyVoteCountNotNull(data);
             }
 
-            if (data.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes)
+            if (data.MajorityElection.Contest.CantonDefaults.MajorityElectionInvalidVotes)
             {
                 yield return ValidateInvalidVoteCountNotNull(data);
             }
@@ -108,11 +108,11 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
 
     private ValidationResult ValidateNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes(MajorityElectionResult electionResult)
     {
-        var totalAccountedBallots = electionResult.CountOfVoters.ConventionalAccountedBallots.GetValueOrDefault();
+        var totalAccountedBallots = electionResult.CountOfVoters.TotalAccountedBallots;
         var numberOfMandates = electionResult.MajorityElection.NumberOfMandates;
-        var emptyVoteCount = electionResult.ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
-        var invalidVoteCount = electionResult.ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
-        var candidateVoteCountInclIndividual = electionResult.ConventionalSubTotal.TotalCandidateVoteCountInclIndividual;
+        var emptyVoteCount = electionResult.EmptyVoteCount;
+        var invalidVoteCount = electionResult.InvalidVoteCount;
+        var candidateVoteCountInclIndividual = electionResult.TotalCandidateVoteCountInclIndividual;
 
         var result1 = emptyVoteCount + invalidVoteCount + candidateVoteCountInclIndividual;
         var result2 = numberOfMandates * totalAccountedBallots;

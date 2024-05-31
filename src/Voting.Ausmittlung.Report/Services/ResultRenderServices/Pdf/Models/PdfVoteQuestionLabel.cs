@@ -5,15 +5,15 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
 public enum PdfVoteQuestionLabel
 {
-    Unspecified,
-    QuestionCount1Q1,
-    QuestionCount2Q1,
-    QuestionCount2Q2,
-    QuestionCount2TBQ1,
-    QuestionCount3Q1,
-    QuestionCount3Q2,
-    QuestionCount3Q3,
-    QuestionCount3TBQ1,
-    QuestionCount3TBQ2,
-    QuestionCount3TBQ3,
+    MainBallot,
+    CounterProposal,
+    CounterProposal1,
+    CounterProposal2,
+    Variant,
+    Variant1,
+    Variant2,
+    TieBreak,
+    TieBreak1,
+    TieBreak2,
+    TieBreak3,
 }

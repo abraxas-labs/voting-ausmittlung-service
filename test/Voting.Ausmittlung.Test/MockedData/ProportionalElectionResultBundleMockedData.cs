@@ -15,7 +15,6 @@ using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
@@ -25,8 +24,10 @@ public static class ProportionalElectionResultBundleMockedData
 {
     public const string IdGossauBundle1 = "e0cf709d-f8eb-477a-b57d-ce058c3ce186";
     public const string IdGossauBundle2 = "e6be0892-eb02-41a7-a32b-d5b71de926f3";
+    public const string IdGossauBundle3 = "ce73c633-8689-4e8d-bb77-612f354b4ad6";
     public const string IdUzwilBundle1 = "15422d9e-8c4a-48cf-92b4-8c37c373a03e";
     public const string IdUzwilBundle2 = "8dfe615f-b277-4003-9083-113fb2742b64";
+    public const string IdUzwilBundle3 = "9b2ae103-37b3-4aab-88af-b1da670c0e6e";
 
     public static ProportionalElectionResultBundle GossauBundle1List1
         => new ProportionalElectionResultBundle
@@ -53,6 +54,21 @@ public static class ProportionalElectionResultBundleMockedData
                     FirstName = "Hans",
                     LastName = "Muster",
                     SecureConnectId = TestDefaults.UserId,
+            },
+            ElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen,
+        };
+
+    public static ProportionalElectionResultBundle GossauBundle3
+        => new ProportionalElectionResultBundle
+        {
+            Id = Guid.Parse(IdGossauBundle3),
+            ListId = Guid.Parse(ProportionalElectionMockedData.ListId1GossauProportionalElectionInContestStGallen),
+            Number = 3,
+            CreatedBy =
+            {
+                FirstName = "Someone",
+                LastName = "Else",
+                SecureConnectId = "someones-user-id",
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen,
         };
@@ -86,20 +102,36 @@ public static class ProportionalElectionResultBundleMockedData
             ElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
         };
 
+    public static ProportionalElectionResultBundle UzwilBundle3
+        => new ProportionalElectionResultBundle
+        {
+            Id = Guid.Parse(IdUzwilBundle3),
+            Number = 3,
+            CreatedBy =
+            {
+                FirstName = "Someone",
+                LastName = "Else",
+                SecureConnectId = "someones-user-id",
+            },
+            ElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+        };
+
     public static IEnumerable<ProportionalElectionResultBundle> All
     {
         get
         {
             yield return GossauBundle1List1;
             yield return GossauBundle2NoList;
+            yield return GossauBundle3;
             yield return UzwilBundle1NoList;
             yield return UzwilBundle2;
+            yield return UzwilBundle3;
         }
     }
 
-    public static async Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
+    public static Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
     {
-        await runScoped(async sp =>
+        return runScoped(async sp =>
         {
             var db = sp.GetRequiredService<DataContext>();
             var electionResults = await db.ProportionalElectionResults
@@ -116,38 +148,38 @@ public static class ProportionalElectionResultBundleMockedData
 
             await db.SaveChangesAsync();
 
-            // needed to create aggregates, since they access user/tenant information
-            var authStore = sp.GetRequiredService<IAuthStore>();
-            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
-
-            var mapper = sp.GetRequiredService<TestMapper>();
-            var resultEntriesByResultId = db.ProportionalElectionResults
-                .AsEnumerable()
-                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.ProportionalElectionResultEntryParams>(x.EntryParams));
-
             var bundles = await db.ProportionalElectionBundles
                 .Include(x => x.ElectionResult.CountingCircle)
                 .Include(x => x.ElectionResult.ProportionalElection.Contest)
                 .ToListAsync();
 
-            var aggregateFactory = sp.GetRequiredService<IAggregateFactory>();
-            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var mapper = sp.GetRequiredService<TestMapper>();
+
             foreach (var bundle in bundles)
             {
-                var contestId = bundle.ElectionResult.ProportionalElection.ContestId;
-                var resultAggregate = await GetOrCreateElectionResultAggregate(aggregateFactory, aggregateRepository, bundle);
-                resultAggregate.BundleNumberEntered(bundle.Number, contestId);
-                await aggregateRepository.Save(resultAggregate);
+                await runScoped(async newSp =>
+                {
+                    // needed to create aggregates, since they access user/tenant information
+                    var authStore = newSp.GetRequiredService<IAuthStore>();
+                    authStore.SetValues("mock-token", bundle.CreatedBy.SecureConnectId, "test", Enumerable.Empty<string>());
 
-                var aggregate = aggregateFactory.New<ProportionalElectionResultBundleAggregate>();
-                aggregate.Create(
-                    bundle.Id,
-                    bundle.ElectionResultId,
-                    bundle.ListId,
-                    bundle.Number,
-                    resultEntriesByResultId[bundle.ElectionResultId],
-                    contestId);
-                await aggregateRepository.Save(aggregate);
+                    var aggregateFactory = newSp.GetRequiredService<IAggregateFactory>();
+                    var aggregateRepository = newSp.GetRequiredService<IAggregateRepository>();
+                    var contestId = bundle.ElectionResult.ProportionalElection.ContestId;
+                    var resultAggregate = await GetOrCreateElectionResultAggregate(aggregateFactory, aggregateRepository, bundle);
+                    resultAggregate.BundleNumberEntered(bundle.Number, contestId);
+                    await aggregateRepository.Save(resultAggregate);
+
+                    var aggregate = aggregateFactory.New<ProportionalElectionResultBundleAggregate>();
+                    aggregate.Create(
+                        bundle.Id,
+                        bundle.ElectionResultId,
+                        bundle.ListId,
+                        bundle.Number,
+                        mapper.Map<DomainModels.ProportionalElectionResultEntryParams>(bundle.ElectionResult.EntryParams),
+                        contestId);
+                    await aggregateRepository.Save(aggregate);
+                });
             }
         });
     }

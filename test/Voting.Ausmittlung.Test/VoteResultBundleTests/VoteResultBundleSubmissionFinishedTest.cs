@@ -31,16 +31,19 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
         await CreateBallot();
-        await BundleErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanCreator()
     {
-        await CreateBallot();
-        await BundleErfassungElectionAdminClientSecondUser
-            .BundleSubmissionFinishedAsync(NewValidRequest());
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient
+            .BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
+            {
+                BundleId = VoteResultBundleMockedData.IdGossauBundle3,
+            });
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
@@ -48,7 +51,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnAsErfassungCreator()
     {
         await CreateBallot();
-        await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>().MatchSnapshot();
     }
 
@@ -58,7 +61,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
             await CreateBallot();
-            await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
+            await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleSubmissionFinished>();
         });
     }
@@ -84,7 +87,10 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreator()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
+            {
+                BundleId = VoteResultBundleMockedData.IdGossauBundle3,
+            }),
             StatusCode.PermissionDenied,
             "only election admins or the creator of a bundle can edit it");
     }
@@ -94,7 +100,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -109,7 +115,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
             await CreateBallot();
         }
 
-        await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
+        await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
         var eventData = EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>();
         eventData.SampleBallotNumbers.Count.Should().Be(3);
         eventData.SampleBallotNumbers.Min().Should().BeGreaterOrEqualTo(minBallotNr);
@@ -120,7 +126,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowWithoutBallot()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "at least one ballot is required to close this bundle");
     }
@@ -129,7 +135,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
+            async () => await ErfassungCreatorClient.BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
             {
                 BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
             }),
@@ -146,7 +152,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
         await CreateBallot();
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.BundleSubmissionFinishedAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -175,7 +181,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
                 },
                 EventInfo = GetMockedEventInfo(),
             });
-        var bundleResp = await BundleErfassungElectionAdminClient.GetBundleAsync(
+        var bundleResp = await ErfassungElectionAdminClient.GetBundleAsync(
             new GetVoteResultBundleRequest
             {
                 BundleId = VoteResultBundleMockedData.IdGossauBundle1,
@@ -192,14 +198,21 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var bundleId = await CreateBundle(10);
+        await CreateBallot(bundleId);
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
-            .BundleSubmissionFinishedAsync(NewValidRequest());
+            .BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
+            {
+                BundleId = bundleId.ToString(),
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private VoteResultBundleSubmissionFinishedRequest NewValidRequest()

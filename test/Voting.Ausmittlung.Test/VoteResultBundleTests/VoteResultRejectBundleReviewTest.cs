@@ -29,8 +29,8 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewRejected>()
             .MatchSnapshot();
     }
@@ -38,8 +38,8 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungElectionAdminClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.RejectBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewRejected>()
             .MatchSnapshot();
     }
@@ -49,8 +49,8 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await RunBundleToState(BallotBundleState.ReadyForReview);
-            await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest());
+            await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+            await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleReviewRejected>();
         });
     }
@@ -58,7 +58,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await BundleErfassungElectionAdminClientStGallen.RejectBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewRejected>()
             .MatchSnapshot();
@@ -78,7 +78,10 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(new RejectVoteBundleReviewRequest
+            {
+                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -88,7 +91,10 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.RejectBundleReviewAsync(new RejectVoteBundleReviewRequest
+            {
+                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -97,7 +103,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(
                 new RejectVoteBundleReviewRequest
                 {
                     BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
@@ -113,9 +119,9 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [InlineData(BallotBundleState.Deleted)]
     public async Task TestShouldThrowInWrongState(BallotBundleState state)
     {
-        await RunBundleToState(state);
+        await RunBundleToState(state, VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -125,7 +131,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.RejectBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.RejectBundleReviewAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -147,7 +153,7 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
         bundle.State.Should().Be(BallotBundleState.InCorrection);
         bundle.BallotResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
         bundle.BallotResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
-        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
+        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
         bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
 
         await AssertHasPublishedMessage<VoteBundleChanged>(
@@ -170,21 +176,24 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
             .RejectBundleReviewAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private RejectVoteBundleReviewRequest NewValidRequest()
     {
         return new RejectVoteBundleReviewRequest
         {
-            BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+            BundleId = VoteResultBundleMockedData.IdGossauBundle3,
         };
     }
 }

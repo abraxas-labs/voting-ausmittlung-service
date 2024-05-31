@@ -23,7 +23,7 @@ public class PdfProportionalElectionVotesCountingCircleResultEVotingExportTest :
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular1_Wahlzettelrapport_EVoting_Nationalratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular1_Wahlzettelrapport_EVoting_Nationalratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key;
 
@@ -48,7 +48,7 @@ public class PdfProportionalElectionVotesCountingCircleResultEVotingExportTest :
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
                     SecureConnectTestDefaults.MockedTenantStGallen.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection),
+                    politicalBusinessId: ProportionalElectionEndResultSgExampleMockedData.GuidStGallenNationalratElection,
                     countingCircleId: CountingCircleMockedData.GuidStGallen)
                     .ToString(),
             },

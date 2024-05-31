@@ -19,17 +19,8 @@
       "Started": null
     },
     {
-      "ExportTemplateId": "fedcbd82-941d-53a6-ab2f-f68732d01a52",
-      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
-      "EntityDescription": "St. Gallen different Tenant",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "349b351b-be3e-5a97-9098-4f43a990afe9",
-      "Description": "Wahlbeteiligung über die gesamte Geschäftsebene",
+      "ExportTemplateId": "94edf302-7a05-5353-99b5-428be0e4771a",
+      "Description": "C - Listenergebnisse",
       "EntityDescription": "St. Gallen different Tenant",
       "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
       "State": 0,
@@ -60,7 +51,22 @@
       "Nanos": 0
     },
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "CountingCircle": null
 }

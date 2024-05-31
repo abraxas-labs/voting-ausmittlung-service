@@ -7,7 +7,7 @@ using CsvHelper.TypeConversion;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 
-public class WabstiCBooleanConverter : TypeConverter
+public class WabstiCBooleanConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
         => value switch

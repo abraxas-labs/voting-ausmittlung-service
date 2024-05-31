@@ -106,24 +106,24 @@ public abstract class PoliticalBusinessResultWriter<T>
     /// <summary>
     /// Execute an action on multiple aggregates.
     /// </summary>
-    /// <param name="resultIds">The aggregate IDs on which to perform the action.</param>
+    /// <param name="aggregateIds">The aggregate IDs on which to perform the action.</param>
     /// <param name="action">The action to perform.</param>
     /// <typeparam name="TAggregate">The type of the aggregates.</typeparam>
     /// <exception cref="ValidationException">Thrown if duplicate IDs are present.</exception>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    protected async Task ExecuteOnAllAggregates<TAggregate>(IReadOnlyCollection<Guid> resultIds, Func<TAggregate, Task> action)
+    protected async Task ExecuteOnAllAggregates<TAggregate>(IReadOnlyCollection<Guid> aggregateIds, Func<TAggregate, Task> action)
         where TAggregate : BaseEventSourcingAggregate
     {
-        if (resultIds.Distinct().Count() != resultIds.Count)
+        if (aggregateIds.Distinct().Count() != aggregateIds.Count)
         {
             throw new ValidationException("duplicate ids present");
         }
 
         // Perform the action first to make sure no validation exceptions or similar occur.
         var aggregates = new List<TAggregate>();
-        foreach (var resultId in resultIds)
+        foreach (var id in aggregateIds)
         {
-            var aggregate = await AggregateRepository.GetById<TAggregate>(resultId);
+            var aggregate = await AggregateRepository.GetById<TAggregate>(id);
             await action(aggregate);
             aggregates.Add(aggregate);
         }
@@ -159,6 +159,28 @@ public abstract class PoliticalBusinessResultWriter<T>
     protected bool IsSelfOwnedPoliticalBusiness(PoliticalBusiness politicalBusiness)
     {
         return politicalBusiness.DomainOfInfluence.SecureConnectId == Auth.Tenant.Id;
+    }
+
+    protected async Task EnsureStatePlausibilisedEnabled(Guid contestId) =>
+        await _contestService.EnsureStatePlausibilisedEnabled(contestId);
+
+    protected bool CanAutomaticallyPublishResults(DomainOfInfluence domainOfInfluence, Contest contest)
+    {
+        // publish results if not enabled or for all results which have domain of influence type MU or lower
+        return !contest.CantonDefaults.PublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu;
+    }
+
+    protected void EnsureCanManuallyPublishResults(Contest contest, DomainOfInfluence domainOfInfluence)
+    {
+        if (!contest.CantonDefaults.PublishResultsEnabled)
+        {
+            throw new ValidationException("publish results is not enabled for contest");
+        }
+
+        if (domainOfInfluence.Type >= DomainOfInfluenceType.Mu)
+        {
+            throw new ValidationException($"cannot publish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
+        }
     }
 
     protected abstract Task<T> LoadPoliticalBusinessResult(Guid resultId);

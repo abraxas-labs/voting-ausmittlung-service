@@ -40,13 +40,14 @@
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.4</VoterParticipation>
+          <VoterParticipation>0.400000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -65,9 +66,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount1Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -120,44 +122,47 @@
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 Bund de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 Bund de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <TieBreakQuestion>
-            <Label>Unspecified</Label>
+            <Label>TieBreak1</Label>
+            <Number>1</Number>
+            <Question>Frage 1 vor Frage 2? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>2</Question2Number>
+          </TieBreakQuestion>
+          <TieBreakQuestion>
+            <Label>TieBreak2</Label>
             <Number>2</Number>
             <Question>Frage 1 vor Frage 3? de</Question>
             <Question1Number>1</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
           <TieBreakQuestion>
-            <Label>Unspecified</Label>
+            <Label>TieBreak3</Label>
             <Number>3</Number>
             <Question>Frage 2 vor Frage 3? de</Question>
             <Question1Number>2</Question1Number>
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
-          <TieBreakQuestion>
-            <Label>Unspecified</Label>
-            <Number>1</Number>
-            <Question>Frage 1 vor Frage 2? de</Question>
-            <Question1Number>1</Question1Number>
-            <Question2Number>2</Question2Number>
-          </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.4</VoterParticipation>
+          <VoterParticipation>0.400000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -176,9 +181,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -205,9 +211,10 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q2</Label>
+            <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 Bund de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -234,9 +241,10 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q3</Label>
+            <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 Bund de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -263,7 +271,7 @@
         </BallotQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ1</Label>
+            <Label>TieBreak1</Label>
             <Number>1</Number>
             <Question>Frage 1 vor Frage 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -294,7 +302,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ2</Label>
+            <Label>TieBreak2</Label>
             <Number>2</Number>
             <Question>Frage 1 vor Frage 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -325,7 +333,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ3</Label>
+            <Label>TieBreak3</Label>
             <Number>3</Number>
             <Question>Frage 2 vor Frage 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -360,13 +368,14 @@
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 2.1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.4</VoterParticipation>
+          <VoterParticipation>0.400000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -385,9 +394,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount1Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 2.1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -440,13 +450,14 @@
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>10.4</VoterParticipation>
+          <VoterParticipation>10.400000</VoterParticipation>
           <TotalReceivedBallots>520</TotalReceivedBallots>
           <TotalUnaccountedBallots>285</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -465,9 +476,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount1Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -498,17 +510,19 @@
           <Position>2</Position>
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
-            <Number>2</Number>
-            <Question>Frage 2 de</Question>
-          </BallotQuestion>
-          <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
+          </BallotQuestion>
+          <BallotQuestion>
+            <Label>CounterProposal</Label>
+            <Number>2</Number>
+            <Question>Frage 2 de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <TieBreakQuestion>
-            <Label>Unspecified</Label>
+            <Label>TieBreak</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -516,7 +530,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>9.4</VoterParticipation>
+          <VoterParticipation>9.400000</VoterParticipation>
           <TotalReceivedBallots>470</TotalReceivedBallots>
           <TotalUnaccountedBallots>265</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -535,9 +549,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount2Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -564,9 +579,10 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount2Q2</Label>
+            <Label>CounterProposal</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -593,7 +609,7 @@
         </BallotQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount2TBQ1</Label>
+            <Label>TieBreak</Label>
             <Number>1</Number>
             <Question>Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden? de</Question>
             <Question1Number>1</Question1Number>
@@ -628,36 +644,39 @@
           <Position>3</Position>
           <BallotType>VariantsBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
-            <Number>3</Number>
-            <Question>Frage 3 de</Question>
-          </BallotQuestion>
-          <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
+            <Type>CounterProposal</Type>
+          </BallotQuestion>
+          <BallotQuestion>
+            <Label>CounterProposal2</Label>
+            <Number>3</Number>
+            <Question>Frage 3 de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <TieBreakQuestion>
-            <Label>Unspecified</Label>
-            <Number>2</Number>
-            <Question>1 vor 3? de</Question>
-            <Question1Number>1</Question1Number>
-            <Question2Number>3</Question2Number>
-          </TieBreakQuestion>
-          <TieBreakQuestion>
-            <Label>Unspecified</Label>
+            <Label>TieBreak1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
           <TieBreakQuestion>
-            <Label>Unspecified</Label>
+            <Label>TieBreak2</Label>
+            <Number>2</Number>
+            <Question>1 vor 3? de</Question>
+            <Question1Number>1</Question1Number>
+            <Question2Number>3</Question2Number>
+          </TieBreakQuestion>
+          <TieBreakQuestion>
+            <Label>TieBreak3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -665,7 +684,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>8.4</VoterParticipation>
+          <VoterParticipation>8.400000</VoterParticipation>
           <TotalReceivedBallots>420</TotalReceivedBallots>
           <TotalUnaccountedBallots>35</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -684,9 +703,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -713,9 +733,10 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q2</Label>
+            <Label>CounterProposal1</Label>
             <Number>2</Number>
             <Question>Frage 2 de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -742,9 +763,10 @@
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount3Q3</Label>
+            <Label>CounterProposal2</Label>
             <Number>3</Number>
             <Question>Frage 3 de</Question>
+            <Type>CounterProposal</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
@@ -771,7 +793,7 @@
         </BallotQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ1</Label>
+            <Label>TieBreak1</Label>
             <Number>1</Number>
             <Question>1 vor 2? de</Question>
             <Question1Number>1</Question1Number>
@@ -802,7 +824,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ2</Label>
+            <Label>TieBreak2</Label>
             <Number>2</Number>
             <Question>1 vor 3? de</Question>
             <Question1Number>1</Question1Number>
@@ -833,7 +855,7 @@
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
           <TieBreakQuestion>
-            <Label>QuestionCount3TBQ3</Label>
+            <Label>TieBreak3</Label>
             <Number>3</Number>
             <Question>2 vor 3? de</Question>
             <Question1Number>2</Question1Number>
@@ -890,13 +912,14 @@
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
           <BallotQuestion>
-            <Label>Unspecified</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.4</VoterParticipation>
+          <VoterParticipation>0.400000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -915,9 +938,10 @@
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
-            <Label>QuestionCount1Q1</Label>
+            <Label>MainBallot</Label>
             <Number>1</Number>
             <Question>Frage 1 Bund de</Question>
+            <Type>MainBallot</Type>
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>

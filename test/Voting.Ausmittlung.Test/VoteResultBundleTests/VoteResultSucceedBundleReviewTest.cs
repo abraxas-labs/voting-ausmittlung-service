@@ -32,8 +32,8 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -41,8 +41,8 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -52,8 +52,8 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await RunBundleToState(BallotBundleState.ReadyForReview);
-            await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+            await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+            await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleReviewSucceeded>();
         });
     }
@@ -61,7 +61,7 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleReviewSucceeded>()
             .MatchSnapshot();
@@ -79,9 +79,12 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowAsErfassungCreatorSameUserAsBundleCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(new SucceedVoteBundleReviewRequest
+            {
+                BundleIds = { VoteResultBundleMockedData.IdGossauBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -89,9 +92,12 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowAsErfassungElectionAdminSameUserAsBundleCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.SucceedBundleReviewAsync(new SucceedVoteBundleReviewRequest
+            {
+                BundleIds = { VoteResultBundleMockedData.IdGossauBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -100,10 +106,10 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(
                 new SucceedVoteBundleReviewRequest
                 {
-                    BundleId = VoteResultBundleMockedData.IdUzwilBundle1,
+                    BundleIds = { VoteResultBundleMockedData.IdUzwilBundle1 },
                 }),
             StatusCode.PermissionDenied,
             "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
@@ -114,7 +120,7 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -126,11 +132,22 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     [InlineData(BallotBundleState.Deleted)]
     public async Task TestShouldThrowInWrongState(BallotBundleState state)
     {
-        await RunBundleToState(state);
+        await RunBundleToState(state, VoteResultBundleMockedData.GossauBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowDuplicate()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview, VoteResultBundleMockedData.GossauBundle3.Id);
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(
+                NewValidRequest(x => x.BundleIds.Add(VoteResultBundleMockedData.IdGossauBundle3))),
+            StatusCode.InvalidArgument,
+            "duplicate");
     }
 
     [Fact]
@@ -150,7 +167,7 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
         bundle.State.Should().Be(BallotBundleState.Reviewed);
         bundle.BallotResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
         bundle.BallotResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
-        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
 
         await AssertHasPublishedMessage<VoteBundleChanged>(
@@ -162,7 +179,7 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
     {
         await CreateBallot();
         await CreateBallot();
-        await CreateBallot(VoteResultBundleMockedData.IdGossauBundle2);
+        await CreateBallot(VoteResultBundleMockedData.GossauBundle2.Id);
 
         await ShouldHaveQuestionResults(false);
 
@@ -195,28 +212,38 @@ public class VoteResultSucceedBundleReviewTest : VoteResultBundleBaseTest
         tieBreakQuestionResults.MatchSnapshot("tieBreakQuestionResults", x => x.Id);
 
         var result = await GetBallotResult();
-        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         result.AllBundlesReviewedOrDeleted.Should().BeFalse();
         result.ConventionalCountOfDetailedEnteredBallots.Should().Be(2);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var bundleId = await CreateBundle(10, "another-user");
+        await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
         await new VoteResultBundleService.VoteResultBundleServiceClient(channel)
-            .SucceedBundleReviewAsync(NewValidRequest());
+            .SucceedBundleReviewAsync(new SucceedVoteBundleReviewRequest
+            {
+                BundleIds = { bundleId.ToString() },
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private SucceedVoteBundleReviewRequest NewValidRequest()
+    private SucceedVoteBundleReviewRequest NewValidRequest(Action<SucceedVoteBundleReviewRequest>? customizer = null)
     {
-        return new SucceedVoteBundleReviewRequest
+        var r = new SucceedVoteBundleReviewRequest
         {
-            BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+            BundleIds = { VoteResultBundleMockedData.IdGossauBundle3 },
         };
+
+        customizer?.Invoke(r);
+        return r;
     }
 }

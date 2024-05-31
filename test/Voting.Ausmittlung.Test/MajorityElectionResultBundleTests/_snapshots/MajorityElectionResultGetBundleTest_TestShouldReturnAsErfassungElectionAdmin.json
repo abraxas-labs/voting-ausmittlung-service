@@ -40,13 +40,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -61,12 +54,27 @@
           "Nanos": 0
         },
         "TestingPhaseEnded": false,
-        "DomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "EVoting": false,
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -258,7 +266,8 @@
       "ContactPersonSameDuringEventAsAfter": false,
       "ContactPersonAfterEvent": null
     },
-    "HasUnmappedWriteIns": false
+    "HasUnmappedWriteIns": false,
+    "Published": false
   },
   "Bundle": {
     "Id": "6c73b736-cc42-4325-a8be-7e5233f3d54e",

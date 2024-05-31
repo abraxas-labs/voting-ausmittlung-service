@@ -96,7 +96,7 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
             ctx,
             templateBag,
             data.ProportionalElection.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
     protected virtual void MapAdditionalElectionData(ProportionalElectionEndResult endResult, PdfProportionalElection pdfElection)

@@ -20,6 +20,7 @@ public class DomainOfInfluencePermissionRepo : DbRepository<DataContext, DomainO
 
     internal string DelimetedTableName => DelimitedSchemaAndTableName;
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task Replace(IEnumerable<DomainOfInfluencePermissionEntry> entries)
     {
         var isFinalColName = GetDelimitedColumnName(x => x.IsFinal);
@@ -28,6 +29,7 @@ public class DomainOfInfluencePermissionRepo : DbRepository<DataContext, DomainO
         await Context.SaveChangesAsync();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task SetContestPermissionsFinal(Guid contestId)
     {
         var contestIdColName = GetDelimitedColumnName(x => x.ContestId);

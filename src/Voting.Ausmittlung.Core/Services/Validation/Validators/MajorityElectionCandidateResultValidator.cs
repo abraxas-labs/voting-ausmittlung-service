@@ -21,6 +21,6 @@ public class MajorityElectionCandidateResultValidator : IValidator<MajorityElect
     {
         return new ValidationResult(
             SharedProto.Validation.MajorityElectionAccountedBallotsGreaterOrEqualCandidateVotes,
-            countOfVoters.ConventionalAccountedBallots.GetValueOrDefault() >= candidateResult.ConventionalVoteCount.GetValueOrDefault());
+            countOfVoters.TotalAccountedBallots >= candidateResult.VoteCount);
     }
 }

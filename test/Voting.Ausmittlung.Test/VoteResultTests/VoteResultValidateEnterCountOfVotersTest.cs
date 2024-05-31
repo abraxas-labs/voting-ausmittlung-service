@@ -139,7 +139,7 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
             x => x.Validation == SharedProto.Validation.ComparisonValidVotingCardsWithAccountedBallots);
 
         res.Should().HaveCount(1);
-        res.Should().MatchSnapshot();
+        res.MatchSnapshot();
     }
 
     [Fact]
@@ -257,11 +257,9 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
             .ValidateEnterCountOfVotersAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

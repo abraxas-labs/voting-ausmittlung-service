@@ -1,6 +1,8 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
+
 namespace Voting.Ausmittlung.Data.Models;
 
 public class PoliticalBusinessCountOfVoters
@@ -77,7 +79,8 @@ public class PoliticalBusinessCountOfVoters
             return;
         }
 
-        VoterParticipation = TotalReceivedBallots / (decimal)totalCountOfVoters;
+        // round to 6 decimal places has to be in sync with frontend
+        VoterParticipation = Math.Round(TotalReceivedBallots / (decimal)totalCountOfVoters, 6);
     }
 
     public void ResetSubTotal(VotingDataSource dataSource, int totalCountOfVoters)

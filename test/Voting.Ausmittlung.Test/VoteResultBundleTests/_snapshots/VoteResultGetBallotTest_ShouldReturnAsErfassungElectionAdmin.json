@@ -4,14 +4,16 @@
     {
       "Question": {
         "Number": 1,
-        "Question": "Frage 1 Gossau de"
+        "Question": "Frage 1 Gossau de",
+        "Type": 1
       },
       "Answer": 1
     },
     {
       "Question": {
         "Number": 2,
-        "Question": "Frage 2 Gossau de"
+        "Question": "Frage 2 Gossau de",
+        "Type": 2
       },
       "Answer": 2
     }

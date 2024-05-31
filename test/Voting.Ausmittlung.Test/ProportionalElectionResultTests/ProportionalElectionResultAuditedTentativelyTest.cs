@@ -11,10 +11,12 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
@@ -38,6 +40,18 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultAuditedTentatively>().MatchSnapshot();
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultPublished>().ElectionResultId.Should().Be(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithoutPublish()
+    {
+        await RunToState(CountingCircleResultState.SubmissionDone);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id && x.SnapshotContestId == ContestMockedData.StGallenEvotingUrnengang.Id,
+            x => x.Type = DomainOfInfluenceType.Bz);
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -137,13 +151,9 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new ProportionalElectionResultAuditedTentatively
-            {
-                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<ProportionalElectionResultAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
@@ -161,6 +171,104 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
             && x.NewState == CountingCircleResultState.AuditedTentatively);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithUnionDpAlgorithm()
+    {
+        ResetDb();
+        await ZhMockedData.Seed(RunScoped);
+
+        var electionGuid = ZhMockedData.ProportionalElectionGuidKtratWinterthur;
+        var ccResultGuid = AusmittlungUuidV5.BuildPoliticalBusinessResult(electionGuid, ZhMockedData.CountingCircleGuidWinterthur, false);
+
+        await ModifyDbEntities<ProportionalElectionUnionEndResult>(
+            x => x.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat,
+            x => x.CountOfDoneElections = 2);
+
+        await ModifyDbEntities<ProportionalElectionEndResult>(
+            x => x.ProportionalElectionId == electionGuid,
+            x => x.CountOfDoneCountingCircles = 0);
+
+        await TestEventPublisher.Publish(
+            new ProportionalElectionResultAuditedTentatively
+            {
+                ElectionResultId = ccResultGuid.ToString(),
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .Include(x => x.ListEndResults)
+            .ThenInclude(x => x.CandidateEndResults)
+            .SingleAsync(x => x.ProportionalElectionId == electionGuid));
+
+        endResult.ManualEndResultRequired.Should().BeFalse();
+        endResult.AllCountingCirclesDone.Should().BeTrue();
+
+        // Number of mandates should never be distributed by a election event with the union dp algorithm.
+        endResult.ListEndResults.Should().NotBeEmpty();
+        endResult.ListEndResults.All(l => l.NumberOfMandates == 0).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.Any()).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.State == ProportionalElectionCandidateEndResultState.Pending)).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.Rank == 0)).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionEnabled)).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionRequired)).Should().BeTrue();
+        endResult.ListEndResults.All(l => !l.HasOpenRequiredLotDecisions).Should().BeTrue();
+
+        var unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .Include(x => x.ProportionalElectionUnion.DoubleProportionalResult)
+            .SingleAsync(x => x.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+        unionEndResult.CountOfDoneElections.Should().Be(3);
+        unionEndResult.ProportionalElectionUnion.DoubleProportionalResult.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithNonUnionDpAlgorithm()
+    {
+        await RunToState(CountingCircleResultState.SubmissionDone);
+
+        await RunOnDb(async db =>
+        {
+            var endResult = await db.ProportionalElectionEndResult
+                .AsTracking()
+                .AsSplitQuery()
+                .Include(x => x.ProportionalElection)
+                .Include(x => x.ListEndResults.OrderBy(y => y.List.OrderNumber))
+                .ThenInclude(x => x.CandidateEndResults)
+                .SingleAsync(x => x.ProportionalElectionId == Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen));
+
+            endResult.ProportionalElection.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum;
+
+            var listEndResults = endResult.ListEndResults.ToList();
+            listEndResults[0].ConventionalSubTotal.UnmodifiedListVotesCount = 500;
+            listEndResults[1].ConventionalSubTotal.UnmodifiedListVotesCount = 500;
+            listEndResults[2].ConventionalSubTotal.UnmodifiedListVotesCount = 500;
+
+            await db.SaveChangesAsync();
+        });
+
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<ProportionalElectionResultAuditedTentatively>();
+
+        await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen,
+        });
+
+        endResult.MatchSnapshot("endResult");
+        endResult.ManualEndResultRequired.Should().BeFalse();
+        endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+
+        var dpResult = await MonitoringElectionAdminClient.GetDoubleProportionalResultAsync(new GetProportionalElectionDoubleProportionalResultRequest
+        {
+            ProportionalElectionId = ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen,
+        });
+        dpResult.MatchSnapshot("dpResult");
     }
 
     [Fact]
@@ -185,13 +293,9 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new ProportionalElectionResultAuditedTentatively
-            {
-                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<ProportionalElectionResultAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
@@ -215,11 +319,9 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             .AuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private ProportionalElectionResultAuditedTentativelyRequest NewValidRequest(Action<ProportionalElectionResultAuditedTentativelyRequest>? customizer = null)

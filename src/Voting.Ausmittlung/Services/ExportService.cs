@@ -91,6 +91,7 @@ public class ExportService : ServiceBase
             GuidParser.Parse(request.ContestId),
             GuidParser.ParseNullable(request.CountingCircleId),
             _mapper.Map<List<Guid>>(request.ExportTemplateIds),
+            false,
             context.CancellationToken);
         return ProtobufEmpty.Instance;
     }

@@ -11,7 +11,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// <summary>
 /// Converts a <see cref="DomainOfInfluenceType"/> to a wabstiC numeric value.
 /// </summary>
-public class WabstiCDomainOfIncluenceTypeConverter : TypeConverter
+public class WabstiCDomainOfIncluenceTypeConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

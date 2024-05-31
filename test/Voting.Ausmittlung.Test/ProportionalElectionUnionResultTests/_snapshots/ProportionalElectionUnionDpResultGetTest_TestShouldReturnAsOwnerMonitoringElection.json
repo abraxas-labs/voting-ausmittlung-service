@@ -1,0 +1,605 @@
+{
+  "Contest": {
+    "Id": "a5486b9c-c005-4648-b97c-3d00559b2471",
+    "Date": {
+      "Seconds": 1865548800,
+      "Nanos": 0
+    },
+    "Description": "Urnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1860883200,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": true,
+      "MajorityElectionUseCandidateCheckDigit": false,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": false
+    }
+  },
+  "ProportionalElectionUnion": {
+    "Id": "ea79e680-1848-43c6-91a3-a3f507010d12",
+    "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+    "Description": "Kantonratswahl 2023",
+    "SecureConnectId": "999999999999999999",
+    "Type": 1,
+    "PoliticalBusinesses": []
+  },
+  "ProportionalElection": null,
+  "MandateAlgorithm": 4,
+  "Rows": [
+    {
+      "ProportionalElection": {
+        "Id": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+        "PoliticalBusinessNumber": "KtRat007",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 11,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "84611d92-3cf5-48ce-b536-cf277302b105",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat007: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "84611d92-3cf5-48ce-b536-cf277302b105",
+          "Name": "Bezirk Dietikon",
+          "ShortName": "Bezirk Dietikon",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "Cells": [
+        {
+          "List": {
+            "Id": "595b7588-2af3-4686-b4d4-f97a64679103",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (595b7588-2af3-4686-b4d4-f97a64679103) de"
+          },
+          "VoteCount": 47079,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 4279.90909090909,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6) de"
+          },
+          "VoteCount": 24473,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 2224.8181818181815,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "c90826ef-759c-4c8c-af99-de77a28214a7",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (c90826ef-759c-4c8c-af99-de77a28214a7) de"
+          },
+          "VoteCount": 27419,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 2492.6363636363635,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 98971,
+      "Quorum": 4949,
+      "NumberOfMandates": 11,
+      "Divisor": 9639.80071931411,
+      "SubApportionmentNumberOfMandates": 11
+    },
+    {
+      "ProportionalElection": {
+        "Id": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+        "PoliticalBusinessNumber": "KtRat010",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 12,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat010: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+          "Name": "Bezirk Meilen",
+          "ShortName": "Bezirk Meilen",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "Cells": [
+        {
+          "List": {
+            "Id": "7f7808f7-79b5-4b3e-a434-eb7344131ce2",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (7f7808f7-79b5-4b3e-a434-eb7344131ce2) de"
+          },
+          "VoteCount": 89540,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 7461.666666666666,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "89dfd5be-ad83-4e1e-b575-ded6ce513305",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (89dfd5be-ad83-4e1e-b575-ded6ce513305) de"
+          },
+          "VoteCount": 44480,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 3706.6666666666665,
+          "SubApportionmentNumberOfMandates": 2,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "e3598805-c52c-4ff4-9049-2c5647972e8c",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (e3598805-c52c-4ff4-9049-2c5647972e8c) de"
+          },
+          "VoteCount": 79917,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 6659.75,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "2cd8651a-33d2-451c-8a70-1eaaa47deb92",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "04",
+            "ShortDescription": "SaPaPo de",
+            "BlankRowCount": 0,
+            "Position": 4,
+            "Description": "Liste 04 (2cd8651a-33d2-451c-8a70-1eaaa47deb92) de"
+          },
+          "VoteCount": 1724,
+          "ProportionalElectionQuorumReached": false,
+          "VoterNumber": 0.0,
+          "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 215661,
+      "Quorum": 10784,
+      "NumberOfMandates": 12,
+      "Divisor": 17700.09773929774,
+      "SubApportionmentNumberOfMandates": 12
+    },
+    {
+      "ProportionalElection": {
+        "Id": "69395ab1-de75-4165-b383-13b6cbc53e96",
+        "PoliticalBusinessNumber": "KtRat014",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 13,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat014: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+          "Name": "Bezirk Winterthur",
+          "ShortName": "Bezirk Winterthur",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "Cells": [
+        {
+          "List": {
+            "Id": "64672e72-1502-4829-a05f-b96821364552",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (64672e72-1502-4829-a05f-b96821364552) de"
+          },
+          "VoteCount": 55855,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 4296.538461538461,
+          "SubApportionmentNumberOfMandates": 4,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "c9a3491c-0774-4952-a487-e3087a1bd955",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (c9a3491c-0774-4952-a487-e3087a1bd955) de"
+          },
+          "VoteCount": 81675,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 6282.692307692307,
+          "SubApportionmentNumberOfMandates": 6,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "f31e9c04-eea8-41b5-b560-f34f97c01c26",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (f31e9c04-eea8-41b5-b560-f34f97c01c26) de"
+          },
+          "VoteCount": 39210,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 3016.1538461538457,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 176740,
+      "Quorum": 8837,
+      "NumberOfMandates": 13,
+      "Divisor": 13473.118163906724,
+      "SubApportionmentNumberOfMandates": 13
+    }
+  ],
+  "Columns": [
+    {
+      "UnionList": {
+        "Id": "7f8d556d-4297-5477-9782-88be98df6c85",
+        "OrderNumber": "01",
+        "ShortDescription": "SVP de"
+      },
+      "List": null,
+      "Cells": [
+        {
+          "List": {
+            "Id": "595b7588-2af3-4686-b4d4-f97a64679103",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (595b7588-2af3-4686-b4d4-f97a64679103) de"
+          },
+          "VoteCount": 47079,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 4279.90909090909,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "7f7808f7-79b5-4b3e-a434-eb7344131ce2",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (7f7808f7-79b5-4b3e-a434-eb7344131ce2) de"
+          },
+          "VoteCount": 89540,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 7461.666666666666,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "64672e72-1502-4829-a05f-b96821364552",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "01",
+            "ShortDescription": "SVP de",
+            "BlankRowCount": 0,
+            "Position": 1,
+            "Description": "Liste 01 (64672e72-1502-4829-a05f-b96821364552) de"
+          },
+          "VoteCount": 55855,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 4296.538461538461,
+          "SubApportionmentNumberOfMandates": 4,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 192474,
+      "CantonalQuorumReached": true,
+      "AnyRequiredQuorumReached": true,
+      "VoterNumber": 16038.114219114219,
+      "SuperApportionmentQuotient": 14.167945423245778,
+      "SuperApportionmentNumberOfMandates": 14,
+      "SubApportionmentNumberOfMandates": 14,
+      "Divisor": 1.0,
+      "SuperApportionmentLotDecisionRequired": false
+    },
+    {
+      "UnionList": {
+        "Id": "c537d6db-747d-5cd0-a883-69213468afda",
+        "OrderNumber": "02",
+        "ShortDescription": "SP de"
+      },
+      "List": null,
+      "Cells": [
+        {
+          "List": {
+            "Id": "ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (ad4ddd39-ba6d-4a31-8a36-1f6fdd6452e6) de"
+          },
+          "VoteCount": 24473,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 2224.8181818181815,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "89dfd5be-ad83-4e1e-b575-ded6ce513305",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (89dfd5be-ad83-4e1e-b575-ded6ce513305) de"
+          },
+          "VoteCount": 44480,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 3706.6666666666665,
+          "SubApportionmentNumberOfMandates": 2,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "c9a3491c-0774-4952-a487-e3087a1bd955",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "02",
+            "ShortDescription": "SP de",
+            "BlankRowCount": 0,
+            "Position": 2,
+            "Description": "Liste 02 (c9a3491c-0774-4952-a487-e3087a1bd955) de"
+          },
+          "VoteCount": 81675,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 6282.692307692307,
+          "SubApportionmentNumberOfMandates": 6,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 150628,
+      "CantonalQuorumReached": true,
+      "AnyRequiredQuorumReached": true,
+      "VoterNumber": 12214.177156177157,
+      "SuperApportionmentQuotient": 10.789909148566393,
+      "SuperApportionmentNumberOfMandates": 11,
+      "SubApportionmentNumberOfMandates": 11,
+      "Divisor": 1.0103451802617354,
+      "SuperApportionmentLotDecisionRequired": false
+    },
+    {
+      "UnionList": {
+        "Id": "97d0f165-ae8a-5976-a008-b17d83ae2c37",
+        "OrderNumber": "03",
+        "ShortDescription": "FDP de"
+      },
+      "List": null,
+      "Cells": [
+        {
+          "List": {
+            "Id": "c90826ef-759c-4c8c-af99-de77a28214a7",
+            "ProportionalElectionId": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (c90826ef-759c-4c8c-af99-de77a28214a7) de"
+          },
+          "VoteCount": 27419,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 2492.6363636363635,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "e3598805-c52c-4ff4-9049-2c5647972e8c",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (e3598805-c52c-4ff4-9049-2c5647972e8c) de"
+          },
+          "VoteCount": 79917,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 6659.75,
+          "SubApportionmentNumberOfMandates": 5,
+          "SubApportionmentLotDecisionRequired": false
+        },
+        {
+          "List": {
+            "Id": "f31e9c04-eea8-41b5-b560-f34f97c01c26",
+            "ProportionalElectionId": "69395ab1-de75-4165-b383-13b6cbc53e96",
+            "OrderNumber": "03",
+            "ShortDescription": "FDP de",
+            "BlankRowCount": 0,
+            "Position": 3,
+            "Description": "Liste 03 (f31e9c04-eea8-41b5-b560-f34f97c01c26) de"
+          },
+          "VoteCount": 39210,
+          "ProportionalElectionQuorumReached": true,
+          "VoterNumber": 3016.1538461538457,
+          "SubApportionmentNumberOfMandates": 3,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 146546,
+      "CantonalQuorumReached": true,
+      "AnyRequiredQuorumReached": true,
+      "VoterNumber": 12168.54020979021,
+      "SuperApportionmentQuotient": 10.749593824903013,
+      "SuperApportionmentNumberOfMandates": 11,
+      "SubApportionmentNumberOfMandates": 11,
+      "Divisor": 0.9121332956825267,
+      "SuperApportionmentLotDecisionRequired": false
+    },
+    {
+      "UnionList": {
+        "Id": "dda68619-5f98-57b0-ae9c-1894d7c66922",
+        "OrderNumber": "04",
+        "ShortDescription": "SaPaPo de"
+      },
+      "List": null,
+      "Cells": [
+        {
+          "List": {
+            "Id": "2cd8651a-33d2-451c-8a70-1eaaa47deb92",
+            "ProportionalElectionId": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+            "OrderNumber": "04",
+            "ShortDescription": "SaPaPo de",
+            "BlankRowCount": 0,
+            "Position": 4,
+            "Description": "Liste 04 (2cd8651a-33d2-451c-8a70-1eaaa47deb92) de"
+          },
+          "VoteCount": 1724,
+          "ProportionalElectionQuorumReached": false,
+          "VoterNumber": 0.0,
+          "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentLotDecisionRequired": false
+        }
+      ],
+      "VoteCount": 1724,
+      "CantonalQuorumReached": false,
+      "AnyRequiredQuorumReached": false,
+      "VoterNumber": 0.0,
+      "SuperApportionmentQuotient": 0.0,
+      "SuperApportionmentNumberOfMandates": 0,
+      "SubApportionmentNumberOfMandates": 0,
+      "Divisor": 0.0,
+      "SuperApportionmentLotDecisionRequired": false
+    }
+  ],
+  "NumberOfMandates": 36,
+  "VoteCount": 491372,
+  "CantonalQuorum": 14742,
+  "VoterNumber": 40420.831585081585,
+  "ElectionKey": 1132.0,
+  "SuperApportionmentNumberOfMandates": 36,
+  "SubApportionmentNumberOfMandates": 36,
+  "HasSuperApportionmentRequiredLotDecision": false,
+  "HasSubApportionmentRequiredLotDecision": false,
+  "SuperApportionmentState": 4,
+  "SubApportionmentState": 4
+}

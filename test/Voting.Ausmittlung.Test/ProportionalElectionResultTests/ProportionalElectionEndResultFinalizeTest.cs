@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -264,10 +265,57 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
             "Second factor transaction is not verified");
     }
 
+    [Fact]
+    public async Task ShouldThrowWithDpAlgorithmAndNoDpResult()
+    {
+        await ModifyDbEntities<ProportionalElection>(
+            x => x.Id == ProportionalElectionEndResultMockedData.ElectionGuid,
+            x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiQuorum);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "finalization is not possible if the double proportional election result is not calculated");
+    }
+
+    [Fact]
+    public async Task ShouldThrowWithUnfinishedDpResult()
+    {
+        await ModifyDbEntities<ProportionalElection>(
+            x => x.Id == ProportionalElectionEndResultMockedData.ElectionGuid,
+            x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiQuorum);
+
+        await RunOnDb(async db =>
+        {
+            db.DoubleProportionalResults.Add(new()
+            {
+                ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionGuid,
+            });
+            await db.SaveChangesAsync();
+        });
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "finalization is only possible if the double proportional election result distributed all number of mandates");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        // set all lot decisions as done
+        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
+            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
+            x => x.LotDecision = true);
+        await ModifyDbEntities<ProportionalElectionListEndResult>(
+            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
+            x => x.HasOpenRequiredLotDecisions = false);
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
             .FinalizeEndResultAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private FinalizeProportionalElectionEndResultRequest NewValidRequest()

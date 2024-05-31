@@ -30,21 +30,27 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await BundleErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotUpdated>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminOtherThanCreator()
     {
-        await BundleErfassungElectionAdminClientSecondUser.UpdateBallotAsync(NewValidRequest());
+        await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(req =>
+        {
+            req.BallotNumber = LatestBallotNumber;
+            req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3;
+        }));
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotUpdated>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnWithAutomaticEmptyVoteCount()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
+        var client = CreateService<ProportionalElectionResultService.ProportionalElectionResultServiceClient>(RolesMockedData.ErfassungElectionAdmin);
+        await client.DefineEntryAsync(new DefineProportionalElectionResultEntryRequest
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
             ResultEntryParams = new DefineProportionalElectionResultEntryParamsRequest
@@ -59,14 +65,14 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
         });
         await RunEvents<ProportionalElectionResultEntryDefined>();
 
-        var bundleResponse = await BundleErfassungCreatorClient.CreateBundleAsync(new CreateProportionalElectionResultBundleRequest
+        var bundleResponse = await ErfassungCreatorClient.CreateBundleAsync(new CreateProportionalElectionResultBundleRequest
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
         });
         await RunEvents<ProportionalElectionResultBundleCreated>();
-        await CreateBallot(bundleResponse.BundleId);
+        await CreateBallot(Guid.Parse(bundleResponse.BundleId));
 
-        await BundleErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x =>
+        await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x =>
         {
             x.BundleId = bundleResponse.BundleId;
             x.EmptyVoteCount = null;
@@ -77,15 +83,19 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotUpdated>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungCreatorOtherUserWhenBundleReadyForReview()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.UpdateBallotAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req =>
+        {
+            req.BallotNumber = LatestBallotNumber;
+            req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3;
+        }));
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotUpdated>().MatchSnapshot();
     }
 
@@ -94,7 +104,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
+            await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionResultBallotUpdated>();
         });
     }
@@ -102,7 +112,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     [Fact]
     public async Task TestShouldReturnEmptyBallot()
     {
-        await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+        await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
         {
             x.Candidates.Clear();
             x.EmptyVoteCount = 3;
@@ -138,7 +148,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
                 },
             },
         };
-        await BundleErfassungCreatorClient.UpdateBallotAsync(req);
+        await ErfassungCreatorClient.UpdateBallotAsync(req);
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBallotUpdated>().MatchSnapshot();
     }
 
@@ -163,7 +173,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowAsErfassungCreatorOtherUser()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.UpdateBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req => req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3)),
             StatusCode.PermissionDenied,
             "only election admins or the creator of a bundle can edit it");
     }
@@ -174,7 +184,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -189,7 +199,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
             EmptyVoteCount = 3,
         };
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(req),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(req),
             StatusCode.InvalidArgument,
             "At least one candidate must be added.");
     }
@@ -198,7 +208,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowTooManyCandidates()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
                 x.Candidates.Add(new CreateUpdateProportionalElectionResultBallotCandidateRequest
                 {
@@ -224,7 +234,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowTriplicatedCandidate()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
                 x.Candidates.Add(new CreateUpdateProportionalElectionResultBallotCandidateRequest
                 {
@@ -245,7 +255,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowUnknownListCandidate()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
                 x.Candidates.Clear();
                 x.Candidates.Add(new CreateUpdateProportionalElectionResultBallotCandidateRequest
@@ -263,7 +273,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowUnknownCandidate()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
             {
                 x.Candidates.Clear();
                 x.Candidates.Add(new CreateUpdateProportionalElectionResultBallotCandidateRequest
@@ -280,7 +290,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowAsErfassungCreatorOtherUserThanBundleCreatorInProcess()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.UpdateBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(req => req.BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle3)),
             StatusCode.PermissionDenied,
             "only election admins or the creator of a bundle can edit it");
     }
@@ -290,7 +300,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest()),
             StatusCode.PermissionDenied,
             "the creator of a bundle can't edit it while it is under review");
     }
@@ -299,7 +309,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(new UpdateProportionalElectionResultBallotRequest
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(new UpdateProportionalElectionResultBallotRequest
             {
                 BundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle1,
                 BallotNumber = 1,
@@ -320,7 +330,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowWrongBallotNumber()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.BallotNumber = 2)),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.BallotNumber = 2)),
             StatusCode.InvalidArgument,
             "ballot number not found");
     }
@@ -329,7 +339,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowNoEmptyVoteCountWithDisabledAutomaticCount()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = null)),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = null)),
             StatusCode.InvalidArgument,
             "automatic empty vote counting is disabled");
     }
@@ -338,7 +348,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     public async Task TestShouldThrowWrongEmptyVoteCountWithDisabledAutomaticCount()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 3)),
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 3)),
             StatusCode.InvalidArgument,
             "wrong number of empty votes, expected: 2 provided: 3");
     }
@@ -350,7 +360,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
     {
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -387,7 +397,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
                 EmptyVoteCount = 0,
                 EventInfo = GetMockedEventInfo(),
             });
-        var ballot = await BundleErfassungCreatorClient.GetBallotAsync(
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(
             new GetProportionalElectionResultBallotRequest
             {
                 BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
@@ -398,7 +408,7 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
         var bundle = await GetBundle();
         bundle.CountOfBallots.Should().Be(1);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(0);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -407,10 +417,13 @@ public class ProportionalElectionResultUpdateBallotTest : ProportionalElectionRe
             .UpdateBallotAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override async Task SeedPoliticalBusinessMockedData()

@@ -10,7 +10,7 @@ using Voting.Ausmittlung.Report.Utils;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.Converter;
 
-public class DateTimeConverter : TypeConverter
+public class DateTimeConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

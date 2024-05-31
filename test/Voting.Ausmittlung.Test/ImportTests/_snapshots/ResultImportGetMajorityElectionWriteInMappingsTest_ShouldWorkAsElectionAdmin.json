@@ -23,13 +23,6 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 5,
@@ -91,13 +84,6 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 2,

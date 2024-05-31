@@ -14,6 +14,8 @@
     "Results": [],
     "ProportionalElectionUnionEntries": [],
     "EndResult": null,
+    "DoubleProportionalResult": null,
+    "DoubleProportionalResultRows": [],
     "Translations": [
       {
         "ProportionalElectionId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",

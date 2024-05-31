@@ -27,7 +27,9 @@ public class VoteResultProcessor :
     IEventProcessor<VoteResultResettedToSubmissionFinished>,
     IEventProcessor<VoteResultResettedToAuditedTentatively>,
     IEventProcessor<VoteResultCountOfVotersEntered>,
-    IEventProcessor<VoteResultResetted>
+    IEventProcessor<VoteResultResetted>,
+    IEventProcessor<VoteResultPublished>,
+    IEventProcessor<VoteResultUnpublished>
 {
     private readonly VoteEndResultBuilder _endResultBuilder;
     private readonly VoteResultBuilder _resultBuilder;
@@ -123,5 +125,17 @@ public class VoteResultProcessor :
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         await UpdateState(voteResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(voteResultId);
+    }
+
+    public async Task Process(VoteResultPublished eventData)
+    {
+        var voteResultId = GuidParser.Parse(eventData.VoteResultId);
+        await UpdatePublished(voteResultId, true);
+    }
+
+    public async Task Process(VoteResultUnpublished eventData)
+    {
+        var voteResultId = GuidParser.Parse(eventData.VoteResultId);
+        await UpdatePublished(voteResultId, false);
     }
 }

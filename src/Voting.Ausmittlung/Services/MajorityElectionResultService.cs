@@ -181,6 +181,16 @@ public class MajorityElectionResultService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Read)]
+    public override async Task<ProtoModels.MajorityElectionEndResult> GetPartialEndResult(GetMajorityElectionPartialEndResultRequest request, ServerCallContext context)
+    {
+        var partialResult = await _majorityElectionEndResultReader.GetPartialEndResult(GuidParser.Parse(request.MajorityElectionId));
+
+        var mapped = _mapper.Map<ProtoModels.MajorityElectionEndResult>(partialResult);
+        mapped.PartialResult = true;
+        return mapped;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Read)]
     public override async Task<ProtoModels.MajorityElectionEndResult> GetEndResult(GetMajorityElectionEndResultRequest request, ServerCallContext context)
     {
         var endResult = await _majorityElectionEndResultReader.GetEndResult(GuidParser.Parse(request.MajorityElectionId));
@@ -251,5 +261,27 @@ public class MajorityElectionResultService : ServiceBase
             candidateResults,
             secondaryResults);
         return _mapper.Map<ProtoModels.ValidationSummary>(summary);
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(MajorityElectionResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var electionResultId = GuidParser.Parse(request.ElectionResultId);
+        await _majorityElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Audit)]
+    public override async Task<Empty> Publish(MajorityElectionResultPublishRequest request, ServerCallContext context)
+    {
+        await _majorityElectionResultWriter.Publish(request.ElectionResultIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Audit)]
+    public override async Task<Empty> Unpublish(MajorityElectionResultUnpublishRequest request, ServerCallContext context)
+    {
+        await _majorityElectionResultWriter.Unpublish(request.ElectionResultIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
     }
 }

@@ -30,7 +30,9 @@ public class MajorityElectionResultProcessor :
     IEventProcessor<MajorityElectionResultPlausibilised>,
     IEventProcessor<MajorityElectionResultResettedToSubmissionFinished>,
     IEventProcessor<MajorityElectionResultResettedToAuditedTentatively>,
-    IEventProcessor<MajorityElectionResultResetted>
+    IEventProcessor<MajorityElectionResultResetted>,
+    IEventProcessor<MajorityElectionResultPublished>,
+    IEventProcessor<MajorityElectionResultUnpublished>
 {
     private readonly IMapper _mapper;
     private readonly MajorityElectionResultRepo _electionResultRepo;
@@ -77,6 +79,7 @@ public class MajorityElectionResultProcessor :
         _mapper.Map(eventData.CountOfVoters, electionResult.CountOfVoters);
         electionResult.UpdateVoterParticipation();
         await _electionResultRepo.Update(electionResult);
+        await UpdateSimpleResult(electionResult.Id, electionResult.CountOfVoters);
     }
 
     public async Task Process(MajorityElectionCandidateResultsEntered eventData)
@@ -143,5 +146,17 @@ public class MajorityElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
+    }
+
+    public async Task Process(MajorityElectionResultPublished eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdatePublished(electionResultId, true);
+    }
+
+    public async Task Process(MajorityElectionResultUnpublished eventData)
+    {
+        var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+        await UpdatePublished(electionResultId, false);
     }
 }

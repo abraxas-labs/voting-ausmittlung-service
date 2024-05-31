@@ -52,14 +52,14 @@ public class BallotQuestionResultValidator : IValidator<BallotQuestionResult>
     {
         return new ValidationResult(
             SharedProto.Validation.VoteAccountedBallotsEqualCountOfAnswer,
-            countOfVoters.ConventionalAccountedBallots == questionResult.ConventionalSubTotal.CountOfAnswerTotal);
+            countOfVoters.TotalAccountedBallots == questionResult.CountOfAnswerTotal);
     }
 
     private ValidationResult ValidateAccountedBallotsEqualQnCountOfAnswer(BallotQuestionResult questionResult, PoliticalBusinessNullableCountOfVoters countOfVoters)
     {
         return new ValidationResult(
             SharedProto.Validation.VoteAccountedBallotsEqualQnCountOfAnswer,
-            countOfVoters.ConventionalAccountedBallots == questionResult.ConventionalSubTotal.CountOfAnswerTotal,
+            countOfVoters.TotalAccountedBallots == questionResult.CountOfAnswerTotal,
             new ValidationVoteAccountedBallotsEqualQnData
             {
                 QuestionNumber = questionResult.Question.Number,

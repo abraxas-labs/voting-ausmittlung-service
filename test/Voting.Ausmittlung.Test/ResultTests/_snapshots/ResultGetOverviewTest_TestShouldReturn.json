@@ -22,7 +22,22 @@
       "Nanos": 0
     },
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "PoliticalBusinesses": [
     {
@@ -46,13 +61,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "NumberOfMandates": 5,
@@ -81,13 +89,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "NumberOfMandates": 5,
@@ -116,13 +117,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "NumberOfMandates": null,
@@ -162,23 +156,82 @@
           "PoliticalBusinessId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "State": 1,
-          "SubmissionDoneTimestamp": null
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false
         },
         {
           "Id": "",
           "PoliticalBusinessId": "da091f50-9f11-4deb-9621-948fbfbdc322",
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "State": 1,
-          "SubmissionDoneTimestamp": null
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false
         },
         {
           "Id": "",
           "PoliticalBusinessId": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "State": 1,
-          "SubmissionDoneTimestamp": null
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false
         }
       ]
     }
-  ]
+  ],
+  "CurrentTenantIsContestManager": false,
+  "PoliticalBusinessUnions": []
 }

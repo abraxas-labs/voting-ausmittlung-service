@@ -9,11 +9,13 @@
       "BallotQuestions": [
         {
           "Number": 1,
-          "Question": "Frage 1 Gossau de"
+          "Question": "Frage 1 Gossau de",
+          "Type": 1
         },
         {
           "Number": 2,
-          "Question": "Frage 2 Gossau de"
+          "Question": "Frage 2 Gossau de",
+          "Type": 2
         }
       ],
       "TieBreakQuestions": [
@@ -76,13 +78,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "ResultAlgorithm": 1,
@@ -109,7 +104,22 @@
           "Nanos": 0
         },
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
@@ -133,11 +143,13 @@
           "BallotQuestions": [
             {
               "Number": 1,
-              "Question": "Frage 1 Gossau de"
+              "Question": "Frage 1 Gossau de",
+              "Type": 1
             },
             {
               "Number": 2,
-              "Question": "Frage 2 Gossau de"
+              "Question": "Frage 2 Gossau de",
+              "Type": 2
             }
           ],
           "TieBreakQuestions": [
@@ -198,7 +210,8 @@
       },
       "ContactPersonSameDuringEventAsAfter": false,
       "ContactPersonAfterEvent": null
-    }
+    },
+    "Published": false
   },
   "Bundle": {
     "Id": "cc757c66-e78c-4f56-907b-6afb27d723d5",

@@ -53,13 +53,6 @@
           "Phone": "",
           "MobilePhone": "",
           "Email": ""
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "ResultAlgorithm": 1,
@@ -86,7 +79,22 @@
           "Nanos": 0
         },
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
@@ -96,7 +104,7 @@
       "EnforceReviewProcedureForCountingCircles": false
     },
     "Entry": 2,
-    "State": 2,
+    "State": 1,
     "SubmissionDoneTimestamp": null,
     "TotalCountOfVoters": 15000,
     "Results": [
@@ -152,7 +160,8 @@
       },
       "ContactPersonSameDuringEventAsAfter": false,
       "ContactPersonAfterEvent": null
-    }
+    },
+    "Published": false
   },
   "Bundles": [
     {
@@ -184,8 +193,22 @@
       "BallotNumbersToReview": []
     },
     {
-      "Id": "13351714-0973-41be-992d-d2b32605db5d",
+      "Id": "a2249597-4a74-4d27-a66b-e5159eb470a4",
       "Number": 3,
+      "State": 0,
+      "CountOfBallots": 0,
+      "CreatedBy": {
+        "SecureConnectId": "someones-user-id",
+        "FirstName": "Someone",
+        "LastName": "Else",
+        "FullName": "Someone Else"
+      },
+      "ReviewedBy": null,
+      "BallotNumbersToReview": []
+    },
+    {
+      "Id": "13351714-0973-41be-992d-d2b32605db5d",
+      "Number": 4,
       "State": 1,
       "CountOfBallots": 0,
       "CreatedBy": {
@@ -199,7 +222,7 @@
     },
     {
       "Id": "cdaea8af-9455-46cb-8437-1c29eea8db43",
-      "Number": 4,
+      "Number": 5,
       "State": 1,
       "CountOfBallots": 0,
       "CreatedBy": {

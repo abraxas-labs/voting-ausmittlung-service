@@ -1,7 +1,6 @@
 ﻿// (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
@@ -25,7 +24,7 @@ public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest
         tenantId: SecureConnectTestDefaults.MockedTenantStGallen.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Proporz_FormularC_Listenergebnisse_Nationalratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_FormularC_Listenergebnisse_Nationalratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListVotesEndResults.Key;
 
@@ -44,7 +43,7 @@ public class PdfProportionalElectionEndResultExportTest : PdfExportBaseTest
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
                     SecureConnectTestDefaults.MockedTenantStGallen.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionEndResultSgExampleMockedData.IdStGallenNationalratElection))
+                    politicalBusinessId: ProportionalElectionEndResultSgExampleMockedData.GuidStGallenNationalratElection)
                     .ToString(),
             },
         };

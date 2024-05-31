@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Voting.Ausmittlung.Data.Extensions;
+using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -23,6 +25,11 @@ public class ProportionalElectionUnionList : BaseEntity
         ICollection<ProportionalElectionListTranslation> translations,
         List<ProportionalElectionList> lists)
     {
+        Id = AusmittlungUuidV5.BuildProportionalElectionUnionList(
+            unionId,
+            orderNumber,
+            translations.Single(t => t.Language == Languages.German).ShortDescription);
+
         OrderNumber = orderNumber;
         Translations = translations
             .Select(t => new ProportionalElectionUnionListTranslation { Language = t.Language, ShortDescription = t.ShortDescription })
@@ -47,6 +54,8 @@ public class ProportionalElectionUnionList : BaseEntity
 
     public ICollection<ProportionalElectionUnionListEntry> ProportionalElectionUnionListEntries { get; set; }
         = new HashSet<ProportionalElectionUnionListEntry>();
+
+    public DoubleProportionalResultColumn? DoubleProportionalResultColumn { get; set; }
 
     [NotMapped]
     public int ListCount => ProportionalElectionUnionListEntries.Count;

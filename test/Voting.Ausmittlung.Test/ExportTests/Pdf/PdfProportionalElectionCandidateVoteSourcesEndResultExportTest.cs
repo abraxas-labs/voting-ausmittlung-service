@@ -25,7 +25,7 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : Pd
         tenantId: SecureConnectTestDefaults.MockedTenantUzwil.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Proporz_FormularD_Stimmenherkunft_KumPan_Kantonratswahl de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_FormularD_Stimmenherkunft_KumPan_Kantonratswahl de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateVoteSourcesEndResults.Key;
 

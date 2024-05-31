@@ -317,6 +317,42 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public override void Publish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (Published)
+        {
+            throw new ValidationException("result is already published");
+        }
+
+        RaiseEvent(
+            new MajorityElectionResultPublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public override void Unpublish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (!Published)
+        {
+            throw new ValidationException("result is already unpublished");
+        }
+
+        RaiseEvent(
+            new MajorityElectionResultUnpublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -360,6 +396,12 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
                 break;
             case MajorityElectionResultResetted _:
                 State = CountingCircleResultState.SubmissionOngoing;
+                break;
+            case MajorityElectionResultPublished _:
+                Published = true;
+                break;
+            case MajorityElectionResultUnpublished _:
+                Published = false;
                 break;
         }
     }

@@ -30,6 +30,14 @@ public class MajorityElectionResultModelBuilder :
             .HasUtcConversion();
 
         builder
+            .Property(x => x.AuditedTentativelyTimestamp)
+            .HasUtcConversion();
+
+        builder
+            .Property(x => x.PlausibilisedTimestamp)
+            .HasUtcConversion();
+
+        builder
             .HasIndex(vo => new { vo.MajorityElectionId, vo.CountingCircleId })
             .IsUnique();
 

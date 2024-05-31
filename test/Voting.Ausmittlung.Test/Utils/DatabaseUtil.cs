@@ -10,6 +10,7 @@ public static class DatabaseUtil
 {
     private static bool _migrated;
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public static void Truncate(params DbContext[] dbContexts)
     {
         // on the first run, we migrate the database to ensure the same structure as the "real" DB

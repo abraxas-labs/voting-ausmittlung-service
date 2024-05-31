@@ -42,4 +42,10 @@ public class CantonSettings : BaseEntity
     public bool MajorityElectionUseCandidateCheckDigit { get; set; }
 
     public bool ProportionalElectionUseCandidateCheckDigit { get; set; }
+
+    public List<CountingCircleResultStateDescription> CountingCircleResultStateDescriptions { get; set; } = new();
+
+    public bool StatePlausibilisedDisabled { get; set; }
+
+    public bool PublishResultsEnabled { get; set; }
 }

@@ -16,7 +16,22 @@
     "EVotingFrom": null,
     "EVotingTo": null,
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "CountingCircle": {
     "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -130,13 +145,6 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 5,
@@ -146,7 +154,9 @@
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
-      "HasComments": false
+      "HasComments": false,
+      "AuditedTentativelyTimestamp": null,
+      "PlausibilisedTimestamp": null
     },
     {
       "Id": "66bf071b-7c70-5f73-80e9-bd8eefb9be30",
@@ -171,13 +181,6 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": null,
@@ -187,7 +190,9 @@
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
-      "HasComments": false
+      "HasComments": false,
+      "AuditedTentativelyTimestamp": null,
+      "PlausibilisedTimestamp": null
     },
     {
       "Id": "3e638c8e-954c-5b2f-976e-f029d1d2c173",
@@ -212,13 +217,6 @@
             "Phone": "",
             "MobilePhone": "",
             "Email": ""
-          },
-          "CantonDefaults": {
-            "MajorityElectionInvalidVotes": false,
-            "CountingMachineEnabled": false,
-            "NewZhFeaturesEnabled": false,
-            "MajorityElectionUseCandidateCheckDigit": false,
-            "ProportionalElectionUseCandidateCheckDigit": false
           }
         },
         "NumberOfMandates": 5,
@@ -228,7 +226,9 @@
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
-      "HasComments": false
+      "HasComments": false,
+      "AuditedTentativelyTimestamp": null,
+      "PlausibilisedTimestamp": null
     }
   ],
   "CurrentTenantIsResponsible": true,

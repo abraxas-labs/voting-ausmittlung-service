@@ -74,23 +74,25 @@
       <Number>1</Number>
       <QuestionAnswer>
         <Question>
-          <Label>QuestionCount2Q1</Label>
+          <Label>MainBallot</Label>
           <Number>1</Number>
           <Question>Frage 1 Gossau de</Question>
+          <Type>MainBallot</Type>
         </Question>
         <Answer>Yes</Answer>
       </QuestionAnswer>
       <QuestionAnswer>
         <Question>
-          <Label>QuestionCount2Q2</Label>
+          <Label>CounterProposal</Label>
           <Number>2</Number>
           <Question>Frage 2 Gossau de</Question>
+          <Type>CounterProposal</Type>
         </Question>
         <Answer>No</Answer>
       </QuestionAnswer>
       <TieBreakQuestionAnswer>
         <Question>
-          <Label>QuestionCount2TBQ1</Label>
+          <Label>TieBreak</Label>
           <Number>1</Number>
           <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
           <Question1Number>1</Question1Number>
@@ -103,23 +105,25 @@
       <Number>2</Number>
       <QuestionAnswer>
         <Question>
-          <Label>QuestionCount2Q1</Label>
+          <Label>MainBallot</Label>
           <Number>1</Number>
           <Question>Frage 1 Gossau de</Question>
+          <Type>MainBallot</Type>
         </Question>
         <Answer>Unspecified</Answer>
       </QuestionAnswer>
       <QuestionAnswer>
         <Question>
-          <Label>QuestionCount2Q2</Label>
+          <Label>CounterProposal</Label>
           <Number>2</Number>
           <Question>Frage 2 Gossau de</Question>
+          <Type>CounterProposal</Type>
         </Question>
         <Answer>Yes</Answer>
       </QuestionAnswer>
       <TieBreakQuestionAnswer>
         <Question>
-          <Label>QuestionCount2TBQ1</Label>
+          <Label>TieBreak</Label>
           <Number>1</Number>
           <Question>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</Question>
           <Question1Number>1</Question1Number>

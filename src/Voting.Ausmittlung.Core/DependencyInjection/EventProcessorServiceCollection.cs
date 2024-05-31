@@ -4,6 +4,7 @@
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Core.Utils.DoubleProportional;
 using Voting.Ausmittlung.Core.Utils.MajorityElectionStrategy;
 using Voting.Ausmittlung.Core.Utils.Snapshot;
 using Voting.Lib.Eventing;
@@ -29,8 +30,12 @@ internal static class EventProcessorServiceCollection
             .AddScoped<DomainOfInfluenceCountingCircleInheritanceBuilder>()
             .AddScoped<ProportionalElectionUnionListBuilder>()
             .AddScoped<DomainOfInfluenceCantonDefaultsBuilder>()
+            .AddScoped<ContestCantonDefaultsBuilder>()
             .AddScoped<ProportionalElectionEndResultLotDecisionBuilder>()
             .AddScoped<ProportionalElectionEndResultBuilder>()
+            .AddScoped<ProportionalElectionUnionEndResultBuilder>()
+            .AddScoped<DoubleProportionalResultBuilder>()
+            .AddScoped<DoubleProportionalAlgorithm>()
             .AddScoped<ProportionalElectionResultBallotBuilder>()
             .AddScoped<ProportionalElectionCandidateEndResultBuilder>()
             .AddScoped<MajorityElectionResultBallotBuilder>()
@@ -41,6 +46,7 @@ internal static class EventProcessorServiceCollection
             .AddScoped<VoteEndResultInitializer>()
             .AddScoped<VoteEndResultBuilder>()
             .AddScoped<ProportionalElectionEndResultInitializer>()
+            .AddScoped<ProportionalElectionUnionEndResultInitializer>()
             .AddScoped<ContestSnapshotBuilder>()
             .AddScoped(typeof(SimplePoliticalBusinessBuilder<>))
             .AddScoped(typeof(PoliticalBusinessToNewContestMover<,>))

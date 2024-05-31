@@ -86,7 +86,6 @@ public class DomainOfInfluenceProcessor :
         {
             var snapshotDomainOfInfluence = _mapper.Map<DomainOfInfluence>(eventData.DomainOfInfluence);
             snapshotDomainOfInfluence.Canton = domainOfInfluence.Canton;
-            snapshotDomainOfInfluence.CantonDefaults = _mapper.Map<DomainOfInfluenceCantonDefaults>(domainOfInfluence.CantonDefaults);
             snapshotDomainOfInfluence.SnapshotForContest(contest.Id);
 
             var parentId = snapshotDomainOfInfluence.ParentId;
@@ -114,9 +113,9 @@ public class DomainOfInfluenceProcessor :
             .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(id);
 
-        domainOfInfluence.CantonDefaults = existingDomainOfInfluence.CantonDefaults;
         domainOfInfluence.CountingCircles = existingDomainOfInfluence.CountingCircles;
         domainOfInfluence.PlausibilisationConfiguration = existingDomainOfInfluence.PlausibilisationConfiguration;
+        domainOfInfluence.SwissAbroadVotingRight = existingDomainOfInfluence.SwissAbroadVotingRight;
 
         // basis update does not provide a canton for non root domain of influences
         if (!isRootDomainOfInfluence)
@@ -144,11 +143,11 @@ public class DomainOfInfluenceProcessor :
         {
             var snapshotDomainOfInfluence = _mapper.Map<DomainOfInfluence>(eventData.DomainOfInfluence);
             snapshotDomainOfInfluence.SnapshotContestId = snapshot.SnapshotContestId!.Value;
-            snapshotDomainOfInfluence.CantonDefaults = snapshot.CantonDefaults;
             snapshotDomainOfInfluence.Id = snapshot.Id;
             snapshotDomainOfInfluence.ParentId = snapshot.ParentId;
             snapshotDomainOfInfluence.CountingCircles = snapshot.CountingCircles;
             snapshotDomainOfInfluence.PlausibilisationConfiguration = snapshot.PlausibilisationConfiguration;
+            snapshotDomainOfInfluence.SwissAbroadVotingRight = snapshot.SwissAbroadVotingRight;
 
             if (!isRootDomainOfInfluence)
             {

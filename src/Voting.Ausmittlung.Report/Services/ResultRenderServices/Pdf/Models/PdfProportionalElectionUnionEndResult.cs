@@ -18,6 +18,10 @@ public class PdfProportionalElectionUnionEndResult
 
     public int TotalVoteCount { get; set; }
 
+    public int TotalCountOfBlankRowsOnListsWithoutParty { get; set; }
+
+    public int TotalVoteCountInclWithoutParty { get; set; }
+
     [XmlElement("ProportionalElectionUnionListEndResult")]
     public List<PdfProportionalElectionUnionListEndResult>? UnionListEndResults { get; set; }
 }

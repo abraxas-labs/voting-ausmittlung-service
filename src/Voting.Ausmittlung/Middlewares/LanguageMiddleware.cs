@@ -36,7 +36,7 @@ public class LanguageMiddleware
     private string? GetLanguage(IHeaderDictionary requestHeaders)
     {
         return requestHeaders.TryGetValue(LangHeader, out var headerValue)
-            ? (string)headerValue
+            ? (string)headerValue!
             : null;
     }
 }

@@ -26,6 +26,7 @@
       ],
       "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
       "ProportionalElectionUnionListEntries": [],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 1 de",
@@ -43,6 +44,7 @@
       ],
       "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
       "ProportionalElectionUnionListEntries": [],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 3 de",
@@ -60,6 +62,7 @@
       ],
       "ProportionalElectionUnionId": "cfdc428a-2a75-4f41-972f-28cfa8a923d5",
       "ProportionalElectionUnionListEntries": [],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 2 de",
@@ -67,6 +70,8 @@
     }
   ],
   "Type": 1,
+  "EndResult": null,
+  "DoubleProportionalResult": null,
   "PoliticalBusinesses": [
     null,
     null

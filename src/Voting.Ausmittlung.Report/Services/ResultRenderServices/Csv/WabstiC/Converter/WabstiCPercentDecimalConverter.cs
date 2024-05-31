@@ -14,7 +14,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// for percentages which are formatted in the decimal format.
 /// ex: 12.343% should be represented as 12.34.
 /// </summary>
-public class WabstiCPercentDecimalConverter : TypeConverter
+public class WabstiCPercentDecimalConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

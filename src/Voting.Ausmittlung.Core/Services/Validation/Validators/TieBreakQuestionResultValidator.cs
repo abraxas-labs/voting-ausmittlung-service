@@ -37,7 +37,7 @@ public class TieBreakQuestionResultValidator : IValidator<TieBreakQuestionResult
     {
         return new ValidationResult(
             SharedProto.Validation.VoteAccountedBallotsEqualTieBreakQnCountOfAnswer,
-            countOfVoters.ConventionalAccountedBallots.GetValueOrDefault() == questionResult.ConventionalSubTotal.CountOfAnswerTotal,
+            countOfVoters.TotalAccountedBallots == questionResult.CountOfAnswerTotal,
             new ValidationVoteAccountedBallotsEqualQnData
             {
                 QuestionNumber = questionResult.Question.Number,

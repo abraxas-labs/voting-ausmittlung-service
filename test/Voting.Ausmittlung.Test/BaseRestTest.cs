@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -33,6 +34,9 @@ namespace Voting.Ausmittlung.Test;
 
 public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFactory, TestStartup>
 {
+    private Lazy<HttpClient> _monitoringElectionAdminClient;
+    private Lazy<HttpClient> _bundMonitoringElectionAdminClient;
+    private Lazy<HttpClient> _erfassungElectionAdminClient;
     private int _currentEventNumber;
 
     protected BaseRestTest(TestApplicationFactory factory)
@@ -48,18 +52,17 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
 
         ContestCache = GetService<ContestCache>();
 
-        // virtual call in ctor should be ok for tests
-        MonitoringElectionAdminClient = CreateHttpClient(
+        _monitoringElectionAdminClient = new Lazy<HttpClient>(() => CreateHttpClient(
             tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
-            roles: RolesMockedData.MonitoringElectionAdmin);
+            roles: RolesMockedData.MonitoringElectionAdmin));
 
-        BundMonitoringElectionAdminClient = CreateHttpClient(
+        _bundMonitoringElectionAdminClient = new Lazy<HttpClient>(() => CreateHttpClient(
             tenant: CountingCircleMockedData.Bund.ResponsibleAuthority.SecureConnectId,
-            roles: RolesMockedData.MonitoringElectionAdmin);
+            roles: RolesMockedData.MonitoringElectionAdmin));
 
-        ErfassungElectionAdminClient = CreateHttpClient(
+        _erfassungElectionAdminClient = new Lazy<HttpClient>(() => CreateHttpClient(
             tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
-            roles: RolesMockedData.ErfassungElectionAdmin);
+            roles: RolesMockedData.ErfassungElectionAdmin));
 
         EventInfoProvider = GetService<EventInfoProvider>();
 
@@ -74,15 +77,39 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
 
     protected TestEventPublisher TestEventPublisher { get; }
 
-    protected HttpClient MonitoringElectionAdminClient { get; }
+    protected HttpClient MonitoringElectionAdminClient => _monitoringElectionAdminClient.Value;
 
-    protected HttpClient BundMonitoringElectionAdminClient { get; }
+    protected HttpClient BundMonitoringElectionAdminClient => _bundMonitoringElectionAdminClient.Value;
 
-    protected HttpClient ErfassungElectionAdminClient { get; }
+    protected HttpClient ErfassungElectionAdminClient => _erfassungElectionAdminClient.Value;
 
     protected EventInfoProvider EventInfoProvider { get; }
 
     protected InMemoryTestHarness MessagingTestHarness { get; set; }
+
+    /// <summary>
+    /// Authorized roles should have access to the method.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task AuthorizedRolesShouldHaveAccess()
+    {
+        foreach (var role in AuthorizedRoles())
+        {
+            var response = await AuthorizationTestCall(CreateHttpClient(role == NoRole ? Array.Empty<string>() : new[] { role }));
+            response.IsSuccessStatusCode.Should().BeTrue($"{role} should have access");
+        }
+    }
+
+    protected abstract IEnumerable<string> AuthorizedRoles();
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        return RolesMockedData
+            .All()
+            .Append(NoRole)
+            .Except(AuthorizedRoles());
+    }
 
     protected Task RunOnDb(Func<DataContext, Task> action)
         => RunScoped(action);
@@ -96,12 +123,18 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         });
     }
 
-    protected Task ModifyDbEntities<T>(Expression<Func<T, bool>> predicate, Action<T> modifier)
+    protected Task ModifyDbEntities<T>(Expression<Func<T, bool>> predicate, Action<T> modifier, bool splitQuery = false)
         where T : class
     {
         return RunOnDb(async db =>
         {
-            var entities = await db.Set<T>().AsTracking().Where(predicate).ToListAsync();
+            var query = db.Set<T>().AsTracking();
+            if (splitQuery)
+            {
+                query = query.AsSplitQuery();
+            }
+
+            var entities = await query.Where(predicate).ToListAsync();
             foreach (var entity in entities)
             {
                 modifier(entity);

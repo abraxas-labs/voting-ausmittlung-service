@@ -21,7 +21,7 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Majorz_Gemeindeprotokoll_Mw SG de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Gemeindeprotokoll_Mw SG de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key;
 

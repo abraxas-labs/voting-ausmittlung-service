@@ -49,6 +49,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": true,
       "Electorates": [
         {
           "CountingCircleId": "891d223c-5ddc-5e2d-aadd-201d4a68c811",
@@ -133,6 +134,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": true,
       "Electorates": [
         {
           "CountingCircleId": "558f7b24-27b4-5205-8592-873b52d55331",
@@ -217,6 +219,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "8b0a599f-2cdf-5a36-a191-57e6bed01c11",
@@ -298,6 +301,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "58bf9c3e-d093-58be-a3fd-c3c7f7fcd7ec",
@@ -379,6 +383,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "934c5a04-ed2a-5675-887f-00c2daa4b46d",
@@ -460,6 +465,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "bd7df5c3-00ed-525d-b26f-42a057e68079",
@@ -541,6 +547,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "f0422cd3-e02d-5d33-aad1-49abf426341f",
@@ -622,6 +629,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "833c32c9-5b79-5252-bd79-aa4ae5acbab3",
@@ -703,6 +711,7 @@
       "IsSnapshot": true,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "b1d6f07b-d46b-554b-8eac-d41e7b3aef9d",
@@ -784,6 +793,7 @@
       "IsSnapshot": false,
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
+      "EVoting": false,
       "Electorates": [
         {
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",

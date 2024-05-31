@@ -14,7 +14,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// Converts a date time to a wabstiC time representation (HHmm) at the zurich time zone.
 /// The input date time needs to be in utc.
 /// </summary>
-public class WabstiCTimeConverter : TypeConverter
+public class WabstiCTimeConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

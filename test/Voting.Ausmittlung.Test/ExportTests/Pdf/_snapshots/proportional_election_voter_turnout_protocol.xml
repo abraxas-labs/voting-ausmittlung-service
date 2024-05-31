@@ -9,7 +9,7 @@
     <Description>Kantonratswahl</Description>
     <ProportionalElectionUnionEndResult>
       <CountOfVoters>
-        <VoterParticipation>0.0394529195160441872698579695</VoterParticipation>
+        <VoterParticipation>0.039453</VoterParticipation>
         <TotalReceivedBallots>750</TotalReceivedBallots>
         <TotalUnaccountedBallots>420</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -30,6 +30,8 @@
       <ListVotesCount>1787</ListVotesCount>
       <BlankRowsCount>45</BlankRowsCount>
       <TotalVoteCount>1832</TotalVoteCount>
+      <TotalCountOfBlankRowsOnListsWithoutParty>2</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalVoteCountInclWithoutParty>1834</TotalVoteCountInclWithoutParty>
       <ProportionalElectionUnionListEndResult>
         <UnionList>
           <OrderNumber>1a</OrderNumber>

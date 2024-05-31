@@ -65,7 +65,6 @@ public class ComparisonVoterParticipationValidationTest : BaseValidationTest<Pol
 
             validationResults.Where(x => x.Validation == SharedProto.Validation.ComparisonVoterParticipations)
                 .ToList()
-                .Should()
                 .MatchSnapshot($"result-{i + 1}");
             voteResult.State = afterValidationResultStates[i];
         }

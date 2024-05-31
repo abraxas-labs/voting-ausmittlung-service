@@ -50,6 +50,7 @@ public class EnumTest : BaseTest<TestApplicationFactory, TestStartup>
     [InlineData(typeof(BallotQuestionAnswer), typeof(SharedProto.BallotQuestionAnswer))]
     [InlineData(typeof(TieBreakQuestionAnswer), typeof(SharedProto.TieBreakQuestionAnswer))]
     [InlineData(typeof(VoterType), typeof(SharedProto.VoterType))]
+    [InlineData(typeof(BallotQuestionType), typeof(ProtoModels.BallotQuestionType))]
     public void ShouldBeSameEnum(Type dataEnumType, Type protoEnumType)
     {
         CompareEnums(dataEnumType, protoEnumType);

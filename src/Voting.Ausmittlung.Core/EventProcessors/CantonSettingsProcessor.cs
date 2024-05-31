@@ -20,18 +20,21 @@ public class CantonSettingsProcessor :
 {
     private readonly CantonSettingsRepo _repo;
     private readonly IMapper _mapper;
-    private readonly DomainOfInfluenceCantonDefaultsBuilder _cantonDefaultsBuilder;
+    private readonly DomainOfInfluenceCantonDefaultsBuilder _doiCantonDefaultsBuilder;
+    private readonly ContestCantonDefaultsBuilder _contestCantonDefaultsBuilder;
     private readonly DataContext _dbContext;
 
     public CantonSettingsProcessor(
         CantonSettingsRepo repo,
         IMapper mapper,
-        DomainOfInfluenceCantonDefaultsBuilder cantonDefaultsBuilder,
+        DomainOfInfluenceCantonDefaultsBuilder doiCantonDefaultsBuilder,
+        ContestCantonDefaultsBuilder contestCantonDefaultsBuilder,
         DataContext dbContext)
     {
         _repo = repo;
         _mapper = mapper;
-        _cantonDefaultsBuilder = cantonDefaultsBuilder;
+        _doiCantonDefaultsBuilder = doiCantonDefaultsBuilder;
+        _contestCantonDefaultsBuilder = contestCantonDefaultsBuilder;
         _dbContext = dbContext;
     }
 
@@ -40,21 +43,25 @@ public class CantonSettingsProcessor :
         var model = _mapper.Map<CantonSettings>(eventData.CantonSettings);
         await _repo.Create(model);
         Migrate(model);
-        await _cantonDefaultsBuilder.RebuildForCanton(model);
+        await _doiCantonDefaultsBuilder.RebuildForCanton(model);
+        await _contestCantonDefaultsBuilder.RebuildForCanton(model);
     }
 
     public async Task Process(CantonSettingsUpdated eventData)
     {
         var id = GuidParser.Parse(eventData.CantonSettings.Id);
         var existing = await _repo.Query()
+                .AsSplitQuery()
                 .AsTracking()
                 .Include(x => x.EnabledVotingCardChannels)
+                .Include(x => x.CountingCircleResultStateDescriptions)
                 .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(nameof(CantonSettings), id);
         _mapper.Map(eventData.CantonSettings, existing);
         Migrate(existing);
         await _dbContext.SaveChangesAsync();
-        await _cantonDefaultsBuilder.RebuildForCanton(existing);
+        await _doiCantonDefaultsBuilder.RebuildForCanton(existing);
+        await _contestCantonDefaultsBuilder.RebuildForCanton(existing);
     }
 
     private void Migrate(CantonSettings model)

@@ -11,6 +11,7 @@
       "AuthorityName": "",
       "Type": 1,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -89,43 +90,6 @@
         "Phone": "0799999999",
         "MobilePhone": "",
         "Email": "email@example.com"
-      },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
       },
       "PlausibilisationConfiguration": {
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -224,6 +188,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da"
     },
     {
@@ -237,6 +202,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Parent": null,
       "Children": [],
@@ -259,46 +225,10 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "ade30989-5e28-40c7-918c-2c9408f853ba"
     },
     {
@@ -312,6 +242,7 @@
       "AuthorityName": "",
       "Type": 5,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
       "Parent": null,
       "Children": [],
@@ -343,46 +274,10 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 1,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 1,
       "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd"
     },
     {
@@ -396,6 +291,7 @@
       "AuthorityName": "",
       "Type": 7,
       "Canton": 0,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -427,21 +323,10 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 0,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 0,
-        "ProtocolCountingCircleSortType": 0,
-        "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": [],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 0,
       "Id": "22949a1e-fb09-47ec-9e9f-d26675676565"
     },
     {
@@ -455,6 +340,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Parent": null,
       "Children": [],
@@ -526,43 +412,6 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "ComparisonVoterParticipationConfigurations": [
@@ -625,6 +474,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
     },
     {
@@ -638,6 +488,7 @@
       "AuthorityName": "",
       "Type": 4,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
       "Parent": null,
       "Children": [],
@@ -677,46 +528,10 @@
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "87718a25-11e2-4ab1-b3a0-112baa11676e"
     },
     {
@@ -730,6 +545,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Parent": null,
       "Children": [],
@@ -752,46 +568,10 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 3,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 3,
       "Id": "6bb6e372-ffa2-45fd-9329-6c6a0bc8a752"
     },
     {
@@ -805,6 +585,7 @@
       "AuthorityName": "",
       "Type": 5,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
       "Parent": null,
       "Children": [],
@@ -836,46 +617,10 @@
         "MobilePhone": "",
         "Email": ""
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 2,
-        "ProtocolCountingCircleSortType": 2,
-        "SwissAbroadVotingRight": 1,
-        "EnabledVotingCardChannels": [
-          {
-            "VotingChannel": 1,
-            "Valid": true,
-            "Channel": 1,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 4,
-            "Valid": true,
-            "Channel": 4,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": true,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          },
-          {
-            "VotingChannel": 2,
-            "Valid": false,
-            "Channel": 2,
-            "Id": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": null,
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 1,
       "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b"
     }
   ]

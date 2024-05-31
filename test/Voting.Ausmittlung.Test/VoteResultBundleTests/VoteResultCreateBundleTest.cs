@@ -27,16 +27,20 @@ namespace Voting.Ausmittlung.Test.VoteResultBundleTests;
 
 public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
 {
+    private readonly Abraxas.Voting.Ausmittlung.Services.V1.VoteResultService.VoteResultServiceClient _voteResultClient;
+
     public VoteResultCreateBundleTest(TestApplicationFactory factory)
         : base(factory)
     {
+        _voteResultClient = CreateService<Abraxas.Voting.Ausmittlung.Services.V1.VoteResultService.VoteResultServiceClient>(
+            RolesMockedData.ErfassungElectionAdmin);
     }
 
     public override async Task InitializeAsync()
     {
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -63,7 +67,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
                 BundleId = bundle3Id.ToString(),
-                BundleNumber = 3,
+                BundleNumber = 4,
                 EventInfo = new EventInfo
                 {
                     Timestamp = new Timestamp
@@ -79,7 +83,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
                 BundleId = bundle4Id.ToString(),
-                BundleNumber = 4,
+                BundleNumber = 5,
                 EventInfo = new EventInfo
                 {
                     Timestamp = new Timestamp
@@ -91,7 +95,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
                 },
             });
 
-        var bundles = await BundleErfassungElectionAdminClient.GetBundlesAsync(
+        var bundles = await ErfassungElectionAdminClient.GetBundlesAsync(
             new GetVoteResultBundlesRequest
             {
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
@@ -100,7 +104,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
 
         var result = await GetBallotResult();
         result.AllBundlesReviewedOrDeleted.Should().BeFalse();
-        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(4);
+        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(5);
 
         await AssertHasPublishedMessage<VoteBundleChanged>(
             x => x.Id == bundle3Id && x.BallotResultId == ballotResultId);
@@ -112,7 +116,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldBeOk()
     {
-        await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberEntered>().MatchSnapshot("1");
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleCreated>().MatchSnapshot("2", x => x.BundleId);
     }
@@ -122,7 +126,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     {
         await TestEventsWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+            await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
             return new[]
             {
                     EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBundleNumberEntered>(),
@@ -134,22 +138,22 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldNotReuseDeletedBundleNumberIfAuto()
     {
-        var bundleResp = await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+        var bundleResp = await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
         await RunEvents<VoteResultBundleCreated>();
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(
+        await ErfassungElectionAdminClient.DeleteBundleAsync(
             new DeleteVoteResultBundleRequest
             {
                 BundleId = bundleResp.BundleId,
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
             });
-        var bundleResp2 = await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+        var bundleResp2 = await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
         bundleResp.BundleNumber.Should().Be(bundleResp2.BundleNumber - 1);
     }
 
     [Fact]
     public async Task TestShouldBeOkAsCreator()
     {
-        await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest());
+        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberEntered>().MatchSnapshot("1");
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleCreated>().MatchSnapshot("2", x => x.BundleId);
     }
@@ -157,13 +161,13 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowIfFinalResultsEntry()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.FinalResults,
         });
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "bundle number is not generated automatically and should be provided");
     }
@@ -171,7 +175,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestManualBundleNumberShouldBeOkButThrowForZero()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -184,14 +188,14 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         });
 
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument);
 
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 0)),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 0)),
             StatusCode.InvalidArgument);
 
-        await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberEntered>().MatchSnapshot("numberEntered");
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleCreated>().MatchSnapshot("created", x => x.BundleId);
     }
@@ -216,7 +220,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowDuplicatedManualBundleNumber()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -228,9 +232,9 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             },
         });
 
-        await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
             StatusCode.InvalidArgument,
             "bundle number is already in use");
     }
@@ -238,7 +242,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldThrowDuplicatedManualBundleNumberAfterDelete()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -250,17 +254,17 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             },
         });
 
-        var bundleResponse = await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        var bundleResponse = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
         await RunEvents<VoteResultBundleCreated>();
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(
+        await ErfassungElectionAdminClient.DeleteBundleAsync(
             new DeleteVoteResultBundleRequest
             {
                 BundleId = bundleResponse.BundleId,
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
             });
-        await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10)),
             StatusCode.InvalidArgument,
             "bundle number is already in use");
     }
@@ -268,7 +272,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnIfDeletedBundleNumberIsReused()
     {
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -280,23 +284,23 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             },
         });
 
-        var bundleResp = await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        var bundleResp = await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
         await RunEvents<VoteResultBundleCreated>();
 
-        await BundleErfassungElectionAdminClient.DeleteBundleAsync(
+        await ErfassungElectionAdminClient.DeleteBundleAsync(
             new DeleteVoteResultBundleRequest
             {
                 BundleId = bundleResp.BundleId,
                 BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
             });
-        await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
+        await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest(x => x.BundleNumber = 10));
     }
 
     [Fact]
     public async Task TestShouldRestartBundleNumberAfterDefineEntry()
     {
-        await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
-        await ErfassungElectionAdminClient.DefineEntryAsync(new DefineVoteResultEntryRequest
+        await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+        await _voteResultClient.DefineEntryAsync(new DefineVoteResultEntryRequest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             ResultEntry = SharedProto.VoteResultEntry.Detailed,
@@ -309,7 +313,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         });
 
         EventPublisherMock.Clear();
-        var response = await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
+        var response = await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest());
         response.BundleNumber.Should().Be(1);
 
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleNumberEntered>()
@@ -338,7 +342,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         });
         await RunToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.CreateBundleAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -348,7 +352,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.CreateBundleAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -359,10 +363,12 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
             .CreateBundleAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private CreateVoteResultBundleRequest NewValidRequest(

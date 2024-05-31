@@ -26,7 +26,7 @@ public class ResultImportProfile : Profile
 
         CreateMap<ImportModels.ImportMajorityElectionWriteInMappings, ProtoModels.MajorityElectionContestWriteInMappings>();
         CreateMap<ImportModels.MajorityElectionGroupedWriteInMappings, ProtoModels.MajorityElectionWriteInMappings>()
-            .ForMember(dst => dst.InvalidVotes, opts => opts.MapFrom(x => x.Election.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes));
+            .ForMember(dst => dst.InvalidVotes, opts => opts.MapFrom(x => x.Election.Contest.CantonDefaults.MajorityElectionInvalidVotes));
         CreateMap<DataModels.MajorityElectionWriteInMappingBase, ProtoModels.MajorityElectionWriteInMapping>();
 
         // write

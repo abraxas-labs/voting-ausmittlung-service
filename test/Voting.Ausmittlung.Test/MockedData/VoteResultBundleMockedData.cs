@@ -15,7 +15,6 @@ using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
@@ -25,6 +24,7 @@ public static class VoteResultBundleMockedData
 {
     public const string IdGossauBundle1 = "cc757c66-e78c-4f56-907b-6afb27d723d5";
     public const string IdGossauBundle2 = "27d9ee7e-de18-4c95-af40-7d6deee61197";
+    public const string IdGossauBundle3 = "a2249597-4a74-4d27-a66b-e5159eb470a4";
     public const string IdUzwilBundle1 = "46b6e875-6e63-4a68-a7ef-96e0f667c40b";
 
     public static VoteResultBundle GossauBundle1
@@ -55,6 +55,20 @@ public static class VoteResultBundleMockedData
             BallotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
         };
 
+    public static VoteResultBundle GossauBundle3
+        => new VoteResultBundle
+        {
+            Id = Guid.Parse(IdGossauBundle3),
+            Number = 3,
+            CreatedBy =
+            {
+                    FirstName = "Someone",
+                    LastName = "Else",
+                    SecureConnectId = "someones-user-id",
+            },
+            BallotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
+        };
+
     public static VoteResultBundle UzwilBundle1
         => new VoteResultBundle
         {
@@ -75,13 +89,14 @@ public static class VoteResultBundleMockedData
         {
             yield return GossauBundle1;
             yield return GossauBundle2;
+            yield return GossauBundle3;
             yield return UzwilBundle1;
         }
     }
 
-    public static async Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
+    public static Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
     {
-        await runScoped(async sp =>
+        return runScoped(async sp =>
         {
             var db = sp.GetRequiredService<DataContext>();
             var ballotResults = await db.BallotResults
@@ -98,38 +113,38 @@ public static class VoteResultBundleMockedData
 
             await db.SaveChangesAsync();
 
-            // needed to create aggregates, since they access user/tenant information
-            var authStore = sp.GetRequiredService<IAuthStore>();
-            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
-
-            var mapper = sp.GetRequiredService<TestMapper>();
-            var resultEntryParamsByResultId = db.VoteResults
-                .AsEnumerable()
-                .ToDictionary(x => x.Id, x => mapper.Map<DomainModels.VoteResultEntryParams>(x.EntryParams));
-
             var bundles = await db.VoteResultBundles
                 .Include(x => x.BallotResult.VoteResult.CountingCircle)
                 .Include(x => x.BallotResult.VoteResult.Vote.Contest)
                 .ToListAsync();
 
-            var aggregateFactory = sp.GetRequiredService<IAggregateFactory>();
-            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var mapper = sp.GetRequiredService<TestMapper>();
+
             foreach (var bundle in bundles)
             {
-                var contestId = bundle.BallotResult.VoteResult.Vote.ContestId;
-                var resultAggregate = await GetOrCreateVoteResultAggregate(aggregateFactory, aggregateRepository, bundle);
-                resultAggregate.BundleNumberEntered(bundle.Number, bundle.BallotResultId, contestId);
-                await aggregateRepository.Save(resultAggregate);
+                await runScoped(async newSp =>
+                {
+                    // needed to create aggregates, since they access user/tenant information
+                    var authStore = newSp.GetRequiredService<IAuthStore>();
+                    authStore.SetValues("mock-token", bundle.CreatedBy.SecureConnectId, "test", Enumerable.Empty<string>());
 
-                var aggregate = aggregateFactory.New<VoteResultBundleAggregate>();
-                aggregate.Create(
-                    bundle.Id,
-                    bundle.BallotResult.VoteResultId,
-                    bundle.BallotResultId,
-                    bundle.Number,
-                    resultEntryParamsByResultId[bundle.BallotResult.VoteResultId],
-                    contestId);
-                await aggregateRepository.Save(aggregate);
+                    var aggregateFactory = newSp.GetRequiredService<IAggregateFactory>();
+                    var aggregateRepository = newSp.GetRequiredService<IAggregateRepository>();
+                    var contestId = bundle.BallotResult.VoteResult.Vote.ContestId;
+                    var resultAggregate = await GetOrCreateVoteResultAggregate(aggregateFactory, aggregateRepository, bundle);
+                    resultAggregate.BundleNumberEntered(bundle.Number, bundle.BallotResultId, contestId);
+                    await aggregateRepository.Save(resultAggregate);
+
+                    var aggregate = aggregateFactory.New<VoteResultBundleAggregate>();
+                    aggregate.Create(
+                        bundle.Id,
+                        bundle.BallotResult.VoteResultId,
+                        bundle.BallotResultId,
+                        bundle.Number,
+                        mapper.Map<DomainModels.VoteResultEntryParams>(bundle.BallotResult.VoteResult.EntryParams),
+                        contestId);
+                    await aggregateRepository.Save(aggregate);
+                });
             }
         });
     }

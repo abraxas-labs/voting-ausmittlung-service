@@ -97,6 +97,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -140,6 +141,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -183,6 +185,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -227,6 +230,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                             new BallotQuestion
                             {
@@ -235,6 +239,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 2 Bund"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                             new BallotQuestion
                             {
@@ -243,6 +248,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 3 Bund"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                         },
                         TieBreakQuestions = new List<TieBreakQuestion>
@@ -293,6 +299,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 2.1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -336,6 +343,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Bund"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -379,6 +387,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 St. Gallen"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -422,6 +431,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Uzwil"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -465,6 +475,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 St. Gallen"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -508,6 +519,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Gossau"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                             new BallotQuestion
                             {
@@ -516,6 +528,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 2 Gossau"),
+                                Type = BallotQuestionType.CounterProposal,
                             },
                         },
                         HasTieBreakQuestions = true,
@@ -596,6 +609,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Gossau"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },
@@ -639,6 +653,7 @@ public static class VoteMockedData
                                 Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Frage 1 Uzwil"),
+                                Type = BallotQuestionType.MainBallot,
                             },
                         },
                     },

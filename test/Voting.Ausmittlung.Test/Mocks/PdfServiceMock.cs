@@ -1,7 +1,6 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -32,8 +31,12 @@ public class PdfServiceMock : IPdfService
         return Task.CompletedTask;
     }
 
-    public Task<Stream> GetPdf(int printJobId, CancellationToken ct = default)
-        => throw new InvalidOperationException("Not supported");
+    public async Task<Stream> GetPdf(int printJobId, CancellationToken ct = default)
+    {
+        var ms = new MemoryStream();
+        await Task.CompletedTask;
+        return ms;
+    }
 
     // Returns the DmDoc XML for StartPdfGeneration calls only.
     public string GetGenerated(string templateName)

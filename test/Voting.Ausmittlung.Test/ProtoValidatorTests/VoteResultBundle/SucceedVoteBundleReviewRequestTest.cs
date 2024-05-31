@@ -13,19 +13,24 @@ public class SucceedVoteBundleReviewRequestTest : ProtoValidatorBaseTest<Succeed
     protected override IEnumerable<SucceedVoteBundleReviewRequest> OkMessages()
     {
         yield return NewValidRequest();
+        yield return NewValidRequest(x => x.BundleIds.Clear());
     }
 
     protected override IEnumerable<SucceedVoteBundleReviewRequest> NotOkMessages()
     {
-        yield return NewValidRequest(x => x.BundleId = "invalid-guid");
-        yield return NewValidRequest(x => x.BundleId = string.Empty);
+        yield return NewValidRequest(x => x.BundleIds.Add("invalid-guid"));
+        yield return NewValidRequest(x => x.BundleIds.Add(string.Empty));
     }
 
     private SucceedVoteBundleReviewRequest NewValidRequest(Action<SucceedVoteBundleReviewRequest>? action = null)
     {
         var request = new SucceedVoteBundleReviewRequest
         {
-            BundleId = "f67b688a-0566-4e3c-bd73-6063834fedaf",
+            BundleIds =
+            {
+                "f67b688a-0566-4e3c-bd73-6063834fedaf",
+                "87a982e0-b8df-4318-b787-28a0c01693a4",
+            },
         };
 
         action?.Invoke(request);

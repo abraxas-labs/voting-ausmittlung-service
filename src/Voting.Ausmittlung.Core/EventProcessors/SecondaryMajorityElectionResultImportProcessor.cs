@@ -102,11 +102,11 @@ public class SecondaryMajorityElectionResultImportProcessor :
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.BallotPositions)
             .ThenInclude(x => x.Ballot)
-            .Include(x => x.PrimaryResult.MajorityElection.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.PrimaryResult.MajorityElection.Contest.CantonDefaults)
             .FirstOrDefaultAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleId
                     && x.SecondaryMajorityElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
-        var supportsInvalidVotes = result.PrimaryResult.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionInvalidVotes;
+        var supportsInvalidVotes = result.PrimaryResult.MajorityElection.Contest.CantonDefaults.MajorityElectionInvalidVotes;
 
         // we remove this election from the count, we may re-add it later, if there are still unspecified write-ins
         if (result.WriteInMappings.HasUnspecifiedMappings())

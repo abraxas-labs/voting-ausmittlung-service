@@ -75,8 +75,8 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                             new EnterVoteBallotQuestionResultRequest
                             {
                                 QuestionNumber = 1,
-                                ReceivedCountYes = 1200,
-                                ReceivedCountNo = 494,
+                                ReceivedCountYes = 200,
+                                ReceivedCountNo = 384,
                                 ReceivedCountUnspecified = 0,
                             },
                         },
@@ -96,8 +96,8 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                             new EnterVoteBallotQuestionResultRequest
                             {
                                 QuestionNumber = 1,
-                                ReceivedCountYes = 1200,
-                                ReceivedCountNo = 800,
+                                ReceivedCountYes = 200,
+                                ReceivedCountNo = 310,
                                 ReceivedCountUnspecified = 0,
                             },
                             new EnterVoteBallotQuestionResultRequest
@@ -111,8 +111,8 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                             {
                                 QuestionNumber = 3,
                                 ReceivedCountYes = 350,
-                                ReceivedCountNo = 1000,
-                                ReceivedCountUnspecified = 650,
+                                ReceivedCountNo = 100,
+                                ReceivedCountUnspecified = 51,
                             },
                         },
                         TieBreakQuestionResults =
@@ -261,11 +261,9 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
             .ValidateEnterResultsAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

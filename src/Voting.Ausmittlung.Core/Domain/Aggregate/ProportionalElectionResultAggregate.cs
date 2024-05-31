@@ -264,6 +264,42 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public override void Publish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (Published)
+        {
+            throw new ValidationException("result is already published");
+        }
+
+        RaiseEvent(
+            new ProportionalElectionResultPublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public override void Unpublish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (!Published)
+        {
+            throw new ValidationException("result is already unpublished");
+        }
+
+        RaiseEvent(
+            new ProportionalElectionResultUnpublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -307,6 +343,12 @@ public class ProportionalElectionResultAggregate : ElectionResultAggregate
                 break;
             case ProportionalElectionResultResetted _:
                 State = CountingCircleResultState.SubmissionOngoing;
+                break;
+            case ProportionalElectionResultPublished _:
+                Published = true;
+                break;
+            case ProportionalElectionResultUnpublished _:
+                Published = false;
                 break;
         }
     }

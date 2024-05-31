@@ -16,6 +16,7 @@ public class CountingCircleRepo : DbRepository<DataContext, CountingCircle>
     {
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public Task SetMustUpdateContactPerson(Guid contestId)
     {
         var contestIdColName = GetDelimitedColumnName(x => x.SnapshotContestId);

@@ -21,7 +21,7 @@ public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExport
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_exkl_Majorzw de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Detailergebnisse_exkl_Majorzw de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol.Key;
 
@@ -34,9 +34,10 @@ public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExport
         await ModifyDbEntities<MajorityElectionResult>(
             x => x.MajorityElectionId == electionId,
             x => x.State = CountingCircleResultState.AuditedTentatively);
-        await ModifyDbEntities<DomainOfInfluence>(
-            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id,
-            x => x.CantonDefaults.MajorityElectionInvalidVotes = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.MajorityElectionInvalidVotes = true,
+            true);
     }
 
     protected override StartProtocolExportsRequest NewRequest()

@@ -32,8 +32,8 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -41,8 +41,8 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await ErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -52,8 +52,8 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await RunBundleToState(BallotBundleState.ReadyForReview);
-            await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+            await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+            await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionResultBundleReviewSucceeded>();
         });
     }
@@ -62,7 +62,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(NewValidRequest());
+        await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+        {
+            BundleIds = { ProportionalElectionResultBundleMockedData.IdGossauBundle1 },
+        });
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -73,7 +76,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await BundleErfassungElectionAdminClientStGallen.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+            {
+                BundleIds = { ProportionalElectionResultBundleMockedData.IdGossauBundle1 },
+            }),
             StatusCode.PermissionDenied);
     }
 
@@ -82,7 +88,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+            {
+                BundleIds = { ProportionalElectionResultBundleMockedData.IdGossauBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -93,7 +102,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -103,7 +112,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+            {
+                BundleIds = { ProportionalElectionResultBundleMockedData.IdGossauBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -112,11 +124,10 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(
-                new SucceedProportionalElectionBundleReviewRequest
-                {
-                    BundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle1,
-                }),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+            {
+                BundleIds = { ProportionalElectionResultBundleMockedData.IdUzwilBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
     }
@@ -130,9 +141,20 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
     {
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowDuplicate()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview, ProportionalElectionResultBundleMockedData.GossauBundle3.Id);
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(
+                NewValidRequest(x => x.BundleIds.Add(ProportionalElectionResultBundleMockedData.IdGossauBundle3))),
+            StatusCode.InvalidArgument,
+            "duplicate");
     }
 
     [Fact]
@@ -144,9 +166,9 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
 
         await CreateBallot();
         await CreateBallot();
-        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
-        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
-        await CreateBallot(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
+        await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
+        await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
+        await CreateBallot(ProportionalElectionResultBundleMockedData.GossauBundle2NoList.Id);
 
         await ShouldHaveCandidateResults(false);
         await ShouldHaveListResults(false);
@@ -164,7 +186,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
 
         var bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Reviewed);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(2);
         bundle.ElectionResult.TotalCountOfLists.Should().Be(2);
         bundle.ElectionResult.TotalCountOfModifiedLists.Should().Be(2);
@@ -223,7 +245,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
 
         bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Reviewed);
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(0);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(5);
         bundle.ElectionResult.TotalCountOfLists.Should().Be(5);
         bundle.ElectionResult.TotalCountOfModifiedLists.Should().Be(2);
@@ -236,21 +258,30 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var bundleId = await CreateBundle(10, "another-user");
+        await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
         await new ProportionalElectionResultBundleService.ProportionalElectionResultBundleServiceClient(channel)
-            .SucceedBundleReviewAsync(NewValidRequest());
+            .SucceedBundleReviewAsync(new SucceedProportionalElectionBundleReviewRequest
+            {
+                BundleIds = { bundleId.ToString() },
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private SucceedProportionalElectionBundleReviewRequest NewValidRequest()
+    private SucceedProportionalElectionBundleReviewRequest NewValidRequest(Action<SucceedProportionalElectionBundleReviewRequest>? customizer = null)
     {
-        return new SucceedProportionalElectionBundleReviewRequest
+        var r = new SucceedProportionalElectionBundleReviewRequest
         {
-            BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
+            BundleIds = { ProportionalElectionResultBundleMockedData.IdGossauBundle3 },
         };
+        customizer?.Invoke(r);
+        return r;
     }
 }

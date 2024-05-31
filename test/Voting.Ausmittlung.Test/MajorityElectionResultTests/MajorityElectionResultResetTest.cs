@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.MajorityElectionResultTests;
 
-public class MajorityElectionResultResetTest : BaseProcessorTest
+public class MajorityElectionResultResetTest : BaseIntegrationTest
 {
     private static readonly Guid ResultId = MajorityElectionResultMockedData.GuidUzwilElectionResultInContestStGallen;
 

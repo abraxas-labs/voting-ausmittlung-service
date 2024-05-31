@@ -170,12 +170,13 @@ public class VoteResultBundleWriter
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task SucceedBundleReview(Guid bundleId)
+    public async Task SucceedBundleReview(IReadOnlyCollection<Guid> bundleIds)
     {
-        var aggregate = await AggregateRepository.GetById<VoteResultBundleAggregate>(bundleId);
-        var contestId = await EnsureReviewPermissionsForBundle(aggregate);
-        aggregate.SucceedReview(contestId);
-        await AggregateRepository.Save(aggregate);
+        await ExecuteOnAllAggregates<VoteResultBundleAggregate>(bundleIds, async aggregate =>
+        {
+            var contestId = await EnsureReviewPermissionsForBundle(aggregate);
+            aggregate.SucceedReview(contestId);
+        });
     }
 
     protected override async Task<DataModels.VoteResult> LoadPoliticalBusinessResult(Guid resultId)

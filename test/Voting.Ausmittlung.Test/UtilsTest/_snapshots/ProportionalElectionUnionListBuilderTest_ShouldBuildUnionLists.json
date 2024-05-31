@@ -36,10 +36,11 @@
           "Id": "00000000-0000-0000-0000-000000000000"
         }
       ],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 3,
       "PoliticalBusinessNumbers": "  ",
       "ShortDescription": "SVP de",
-      "Id": "00000000-0000-0000-0000-000000000000"
+      "Id": "0c6fd6f1-617a-598b-b508-b1e00151f826"
     },
     {
       "OrderNumber": "02",
@@ -70,10 +71,11 @@
           "Id": "00000000-0000-0000-0000-000000000000"
         }
       ],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 2,
       "PoliticalBusinessNumbers": " ",
       "ShortDescription": "SP de",
-      "Id": "00000000-0000-0000-0000-000000000000"
+      "Id": "867543f9-2b65-5afe-b1ff-5cbbd2372665"
     },
     {
       "OrderNumber": "03",
@@ -97,10 +99,11 @@
           "Id": "00000000-0000-0000-0000-000000000000"
         }
       ],
+      "DoubleProportionalResultColumn": null,
       "ListCount": 1,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "FDP de",
-      "Id": "00000000-0000-0000-0000-000000000000"
+      "Id": "50b2ecb0-199c-500a-9c95-9d1e1b90325b"
     }
   ]
 }

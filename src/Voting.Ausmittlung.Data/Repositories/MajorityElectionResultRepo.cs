@@ -18,21 +18,22 @@ public class MajorityElectionResultRepo : PoliticalBusinessResultRepo<MajorityEl
     {
     }
 
-    public Task<List<MajorityElectionResult>> ListWithValidationContextData(Expression<Func<MajorityElectionResult, bool>> predicate, bool withCountingCircleAndContestData)
+    public Task<List<MajorityElectionResult>> ListWithValidationContextData(Expression<Func<MajorityElectionResult, bool>> predicate, bool withCountingCircleData)
     {
         var query = Set
             .AsSplitQuery()
-            .Include(x => x.MajorityElection.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.MajorityElection.Contest.CantonDefaults)
+            .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
             .Include(x => x.MajorityElection.Translations)
             .Include(x => x.CandidateResults)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
             .Include(x => x.BallotGroupResults)
             .Where(predicate);
 
-        if (withCountingCircleAndContestData)
+        if (withCountingCircleData)
         {
             query = query
-                .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
                 .Include(x => x.CountingCircle.ResponsibleAuthority);
         }
 

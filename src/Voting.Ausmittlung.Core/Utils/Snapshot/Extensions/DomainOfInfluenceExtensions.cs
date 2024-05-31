@@ -19,8 +19,6 @@ public static class DomainOfInfluenceExtensions
         doi.Id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, doi.Id);
         doi.SnapshotContestId = contestId;
 
-        doi.CantonDefaults.SnapshotForContest();
-
         foreach (var party in doi.Parties)
         {
             party.SnapshotForContest(contestId);
@@ -33,13 +31,5 @@ public static class DomainOfInfluenceExtensions
 
         doi.PlausibilisationConfiguration.DomainOfInfluenceId = doi.Id;
         doi.PlausibilisationConfiguration.SnapshotForContest();
-    }
-
-    private static void SnapshotForContest(this DomainOfInfluenceCantonDefaults cantonDefaults)
-    {
-        foreach (var vcChannel in cantonDefaults.EnabledVotingCardChannels)
-        {
-            vcChannel.Id = Guid.NewGuid();
-        }
     }
 }

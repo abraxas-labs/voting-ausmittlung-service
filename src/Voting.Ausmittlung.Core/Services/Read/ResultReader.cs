@@ -79,12 +79,22 @@ public class ResultReader
     public async Task<ResultOverview> GetResultOverview(Guid contestId)
     {
         var tenantId = _permissionService.TenantId;
+
+        var viewablePartialResultsCcIds =
+            await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId);
+
         var contest = await _contestRepo.Query()
                    .AsSplitQuery()
                    .Include(x => x.Translations)
                    .Include(x => x.DomainOfInfluence)
+                   .Include(x => x.CantonDefaults)
                    .Include(x => x.SimplePoliticalBusinesses
-                       .Where(pb => pb.Active && pb.DomainOfInfluence.SecureConnectId == tenantId && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection)
+                       .Where(pb =>
+                           pb.Active
+                           && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
+                           && (pb.Contest.DomainOfInfluence.SecureConnectId == tenantId
+                                || pb.DomainOfInfluence.SecureConnectId == tenantId
+                                || pb.SimpleResults.Any(r => viewablePartialResultsCcIds.Contains(r.CountingCircleId))))
                        .OrderBy(pb => pb.PoliticalBusinessNumber))
                    .ThenInclude(pb => pb.Translations)
                    .Include(x => x.SimplePoliticalBusinesses)
@@ -92,6 +102,18 @@ public class ResultReader
                    .ThenInclude(r => r.CountingCircle)
                    .Include(x => x.SimplePoliticalBusinesses)
                    .ThenInclude(x => x.DomainOfInfluence)
+                   .Include(x => x.ProportionalElectionUnions)
+                   .ThenInclude(x => x.ProportionalElectionUnionEntries)
+                   .ThenInclude(x => x.ProportionalElection.Translations)
+                   .Include(x => x.ProportionalElectionUnions)
+                   .ThenInclude(x => x.ProportionalElectionUnionEntries)
+                   .ThenInclude(x => x.ProportionalElection.DomainOfInfluence)
+                   .Include(x => x.MajorityElectionUnions)
+                   .ThenInclude(x => x.MajorityElectionUnionEntries)
+                   .ThenInclude(x => x.MajorityElection.Translations)
+                   .Include(x => x.MajorityElectionUnions)
+                   .ThenInclude(x => x.MajorityElectionUnionEntries)
+                   .ThenInclude(x => x.MajorityElection.DomainOfInfluence)
                    .FirstOrDefaultAsync(c => c.Id == contestId)
                ?? throw new EntityNotFoundException(contestId);
 
@@ -107,7 +129,8 @@ public class ResultReader
                 x => x.First().CountingCircle!,
                 x => x.ToList());
 
-        return new ResultOverview(contest, countingCircles);
+        var currentTenantIsContestManager = contest.DomainOfInfluence.SecureConnectId == tenantId;
+        return new ResultOverview(contest, countingCircles, currentTenantIsContestManager);
     }
 
     public async Task<ResultList> GetList(Guid contestId, Guid basisCountingCircleId)
@@ -119,6 +142,7 @@ public class ResultReader
             .AsSplitQuery()
             .Include(c => c.DomainOfInfluence)
             .Include(c => c.Translations)
+            .Include(c => c.CantonDefaults)
             .FirstOrDefaultAsync(c => c.Id == contestId)
             ?? throw new EntityNotFoundException(contestId);
 

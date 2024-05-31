@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +10,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
 
@@ -61,6 +61,9 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleRevi
         });
     }
 
+    protected override HttpClient CreateHttpClient(params string[] roles)
+        => CreateHttpClient(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
+
     protected override GenerateResultBundleReviewExportRequest NewRequest()
     {
         return new GenerateResultBundleReviewExportRequest
@@ -71,10 +74,5 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleRevi
             PoliticalBusinessResultBundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdUzwilBundle2),
             PoliticalBusinessId = Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestUzwilWithoutChilds),
         };
-    }
-
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
     }
 }

@@ -97,7 +97,7 @@
         <VoteCount>0</VoteCount>
       </MajorityElectionCandidateResult>
       <CountOfVoters>
-        <VoterParticipation>0.8</VoterParticipation>
+        <VoterParticipation>0.800000</VoterParticipation>
         <TotalReceivedBallots>100</TotalReceivedBallots>
         <TotalUnaccountedBallots>20</TotalUnaccountedBallots>
         <EVotingReceivedBallots>0</EVotingReceivedBallots>

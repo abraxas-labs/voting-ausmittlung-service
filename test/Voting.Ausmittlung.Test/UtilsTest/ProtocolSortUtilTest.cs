@@ -29,7 +29,7 @@ public class ProtocolSortUtilTest
         list = list
             .OrderByDomainOfInfluence(
                 x => x.DomainOfInfluence,
-                new DomainOfInfluenceCantonDefaults { ProtocolDomainOfInfluenceSortType = sortType })
+                new ContestCantonDefaults { ProtocolDomainOfInfluenceSortType = sortType })
             .ToList();
 
         list.Select(x => x.Data).SequenceEqual(expectedResult).Should().BeTrue();
@@ -52,7 +52,7 @@ public class ProtocolSortUtilTest
         list = list
             .OrderByCountingCircle(
                 x => x.CountingCircle,
-                new DomainOfInfluenceCantonDefaults { ProtocolCountingCircleSortType = sortType })
+                new ContestCantonDefaults { ProtocolCountingCircleSortType = sortType })
             .ToList();
 
         list.Select(x => x.Data).SequenceEqual(expectedResult).Should().BeTrue();

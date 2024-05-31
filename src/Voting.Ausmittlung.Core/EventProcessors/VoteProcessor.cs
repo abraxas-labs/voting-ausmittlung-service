@@ -167,6 +167,8 @@ public class VoteProcessor :
     {
         var model = _mapper.Map<Ballot>(eventData.Ballot);
 
+        SetDefaultValues(model);
+
         await _ballotRepo.Create(model);
         await _voteResultBuilder.RebuildForBallot(model.Id);
         await _voteEndResultInitializer.RebuildForBallot(model.Id);
@@ -180,6 +182,8 @@ public class VoteProcessor :
         {
             throw new EntityNotFoundException(ballot.Id);
         }
+
+        SetDefaultValues(ballot);
 
         await _ballotQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
         await _tieBreakQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
@@ -203,11 +207,13 @@ public class VoteProcessor :
             ?? throw new EntityNotFoundException(id);
 
         var updatedBallotQuestionsByNumber = eventData.BallotQuestions.ToDictionary(x => x.Number);
-        foreach (var question in ballot.BallotQuestions)
+        foreach (var existingQuestion in ballot.BallotQuestions)
         {
-            foreach (var (lang, questionTranslation) in updatedBallotQuestionsByNumber[question.Number].Question)
+            var question = updatedBallotQuestionsByNumber[existingQuestion.Number];
+            existingQuestion.Type = _mapper.Map<BallotQuestionType>(question.Type);
+            foreach (var (lang, questionTranslation) in question.Question)
             {
-                question.Translations.Add(new BallotQuestionTranslation
+                existingQuestion.Translations.Add(new BallotQuestionTranslation
                 {
                     Language = lang,
                     Question = questionTranslation,
@@ -228,8 +234,11 @@ public class VoteProcessor :
             }
         }
 
+        SetDefaultValues(ballot);
+
         await _ballotQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
         await _tieBreakQuestionTranslationRepo.DeleteTranslationsByBallotId(ballot.Id);
+
         await _ballotRepo.Update(ballot);
 
         _logger.LogInformation("Ballot {BallotId} updated after testing phase ended", id);
@@ -256,5 +265,19 @@ public class VoteProcessor :
         await _repo.Update(existingModel);
 
         await _simplePoliticalBusinessBuilder.Update(existingModel, false);
+    }
+
+    private void SetDefaultValues(Ballot ballot)
+    {
+        // Set default ballot question type value since the old eventData (before introducing the type) can contain the unspecified value.
+        foreach (var ballotQuestion in ballot.BallotQuestions)
+        {
+            if (ballotQuestion.Type == BallotQuestionType.Unspecified)
+            {
+                ballotQuestion.Type = ballotQuestion.Number == 1
+                    ? BallotQuestionType.MainBallot
+                    : BallotQuestionType.CounterProposal;
+            }
+        }
     }
 }

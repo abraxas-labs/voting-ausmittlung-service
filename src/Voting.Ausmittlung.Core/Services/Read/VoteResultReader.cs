@@ -45,6 +45,7 @@ public class VoteResultReader
             .AsSplitQuery()
             .Include(x => x.Vote.Translations)
             .Include(x => x.Vote.Contest.Translations)
+            .Include(x => x.Vote.Contest.CantonDefaults)
             .Include(x => x.Vote.DomainOfInfluence)
             .Include(x => x.CountingCircle)
             .Include(v => v.Results).ThenInclude(r => r.Ballot)

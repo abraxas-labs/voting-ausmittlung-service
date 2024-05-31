@@ -26,6 +26,7 @@ public class ServiceModeAppStartup : TestStartup
         // required to seed mock data, but not provided in all service modes
         services.TryAddScoped<ContestSnapshotBuilder>();
         services.TryAddScoped<DomainOfInfluenceCantonDefaultsBuilder>();
+        services.TryAddScoped<ContestCantonDefaultsBuilder>();
         services.TryAddScoped<ContestCountingCircleDetailsBuilder>();
         services.TryAddScoped<VoteEndResultInitializer>();
         services.TryAddScoped<SimplePoliticalBusinessBuilder<Vote>>();

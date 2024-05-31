@@ -20,7 +20,6 @@ public sealed class DomainOfInfluenceProfile : Profile
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<DomainOfInfluencePartyTranslation>(
                 ((t, x) => t.Name = x, src.Name),
                 ((t, x) => t.ShortDescription = x, src.ShortDescription))));
-        CreateMap<DomainOfInfluenceCantonDefaults, DomainOfInfluenceCantonDefaults>();
         CreateMap<DomainOfInfluenceCantonDefaultsVotingCardChannel, DomainOfInfluenceCantonDefaultsVotingCardChannel>();
     }
 }

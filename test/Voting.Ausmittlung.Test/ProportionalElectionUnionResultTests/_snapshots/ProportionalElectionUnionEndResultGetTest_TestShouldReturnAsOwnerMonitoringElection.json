@@ -1,0 +1,350 @@
+{
+  "Contest": {
+    "Id": "a5486b9c-c005-4648-b97c-3d00559b2471",
+    "Date": {
+      "Seconds": 1865548800,
+      "Nanos": 0
+    },
+    "Description": "Urnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1860883200,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "e786bbc9-9f10-4ed4-86f8-2bd40d77250c",
+    "EVoting": false,
+    "EVotingFrom": null,
+    "EVotingTo": null,
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": true,
+      "MajorityElectionUseCandidateCheckDigit": false,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": false
+    }
+  },
+  "ProportionalElectionUnion": {
+    "Id": "ea79e680-1848-43c6-91a3-a3f507010d12",
+    "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+    "Description": "Kantonratswahl 2023",
+    "SecureConnectId": "999999999999999999",
+    "Type": 1,
+    "PoliticalBusinesses": [
+      {
+        "Id": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+        "BusinessType": 3,
+        "Title": "KtRat007: Kantonratswahl de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "84611d92-3cf5-48ce-b536-cf277302b105",
+          "Name": "Bezirk Dietikon",
+          "ShortName": "Bezirk Dietikon",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 11,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "KtRat007",
+        "ShortDescription": "Kantonratswahl de"
+      },
+      {
+        "Id": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+        "BusinessType": 3,
+        "Title": "KtRat010: Kantonratswahl de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+          "Name": "Bezirk Meilen",
+          "ShortName": "Bezirk Meilen",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 12,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "KtRat010",
+        "ShortDescription": "Kantonratswahl de"
+      },
+      {
+        "Id": "69395ab1-de75-4165-b383-13b6cbc53e96",
+        "BusinessType": 3,
+        "Title": "KtRat014: Kantonratswahl de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+          "Name": "Bezirk Winterthur",
+          "ShortName": "Bezirk Winterthur",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "NumberOfMandates": 13,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "KtRat014",
+        "ShortDescription": "Kantonratswahl de"
+      }
+    ]
+  },
+  "ProportionalElectionEndResults": [
+    {
+      "Contest": null,
+      "ProportionalElection": {
+        "Id": "a72a6e07-6560-4247-8987-bac9ca458bc3",
+        "PoliticalBusinessNumber": "KtRat007",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 11,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "84611d92-3cf5-48ce-b536-cf277302b105",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat007: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "84611d92-3cf5-48ce-b536-cf277302b105",
+          "Name": "Bezirk Dietikon",
+          "ShortName": "Bezirk Dietikon",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "CountOfVotersInformation": {
+        "TotalCountOfVoters": 49485,
+        "SubTotalInfo": []
+      },
+      "VotingCards": [],
+      "CountOfDoneCountingCircles": 1,
+      "TotalCountOfCountingCircles": 1,
+      "AllCountingCirclesDone": true,
+      "CountOfVoters": {
+        "VoterParticipation": 0.49999,
+        "ConventionalReceivedBallots": 24742,
+        "ConventionalInvalidBallots": 2474,
+        "ConventionalBlankBallots": 2474,
+        "ConventionalAccountedBallots": 19794,
+        "EVotingReceivedBallots": 0,
+        "EVotingInvalidBallots": 0,
+        "EVotingBlankBallots": 0,
+        "EVotingAccountedBallots": 0,
+        "TotalReceivedBallots": 24742,
+        "TotalAccountedBallots": 19794,
+        "TotalUnaccountedBallots": 4948,
+        "TotalInvalidBallots": 2474,
+        "TotalBlankBallots": 2474
+      },
+      "ListEndResults": [],
+      "Finalized": false,
+      "ManualEndResultRequired": false,
+      "PartialResult": false
+    },
+    {
+      "Contest": null,
+      "ProportionalElection": {
+        "Id": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
+        "PoliticalBusinessNumber": "KtRat010",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 12,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat010: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "2b285260-6d4b-43cd-917d-174fe43ddd7e",
+          "Name": "Bezirk Meilen",
+          "ShortName": "Bezirk Meilen",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "CountOfVotersInformation": {
+        "TotalCountOfVoters": 107830,
+        "SubTotalInfo": []
+      },
+      "VotingCards": [],
+      "CountOfDoneCountingCircles": 1,
+      "TotalCountOfCountingCircles": 1,
+      "AllCountingCirclesDone": true,
+      "CountOfVoters": {
+        "VoterParticipation": 0.5,
+        "ConventionalReceivedBallots": 53915,
+        "ConventionalInvalidBallots": 5392,
+        "ConventionalBlankBallots": 5391,
+        "ConventionalAccountedBallots": 43132,
+        "EVotingReceivedBallots": 0,
+        "EVotingInvalidBallots": 0,
+        "EVotingBlankBallots": 0,
+        "EVotingAccountedBallots": 0,
+        "TotalReceivedBallots": 53915,
+        "TotalAccountedBallots": 43132,
+        "TotalUnaccountedBallots": 10783,
+        "TotalInvalidBallots": 5392,
+        "TotalBlankBallots": 5391
+      },
+      "ListEndResults": [],
+      "Finalized": false,
+      "ManualEndResultRequired": false,
+      "PartialResult": false
+    },
+    {
+      "Contest": null,
+      "ProportionalElection": {
+        "Id": "69395ab1-de75-4165-b383-13b6cbc53e96",
+        "PoliticalBusinessNumber": "KtRat014",
+        "OfficialDescription": "Kantonratswahl de",
+        "ShortDescription": "Kantonratswahl de",
+        "NumberOfMandates": 13,
+        "MandateAlgorithm": 4,
+        "CandidateCheckDigit": false,
+        "BallotBundleSize": 5,
+        "AutomaticBallotBundleNumberGeneration": false,
+        "BallotNumberGeneration": 0,
+        "AutomaticEmptyVoteCounting": false,
+        "EnforceEmptyVoteCountingForCountingCircles": false,
+        "SwissAbroadVotingRight": 0,
+        "DomainOfInfluenceId": "0711e821-6526-4809-a355-e7da47ab5bc8",
+        "ContestId": "a5486b9c-c005-4648-b97c-3d00559b2471",
+        "Active": true,
+        "BallotBundleSampleSize": 0,
+        "Title": "KtRat014: Kantonratswahl de",
+        "DomainOfInfluence": {
+          "Id": "0711e821-6526-4809-a355-e7da47ab5bc8",
+          "Name": "Bezirk Winterthur",
+          "ShortName": "Bezirk Winterthur",
+          "AuthorityName": "",
+          "SecureConnectId": "999999999999999999",
+          "Type": 3,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 3,
+          "ContactPerson": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          }
+        },
+        "Contest": null,
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
+        "EnforceCandidateCheckDigitForCountingCircles": false
+      },
+      "CountOfVotersInformation": {
+        "TotalCountOfVoters": 88370,
+        "SubTotalInfo": []
+      },
+      "VotingCards": [],
+      "CountOfDoneCountingCircles": 1,
+      "TotalCountOfCountingCircles": 1,
+      "AllCountingCirclesDone": true,
+      "CountOfVoters": {
+        "VoterParticipation": 0.5,
+        "ConventionalReceivedBallots": 44185,
+        "ConventionalInvalidBallots": 4419,
+        "ConventionalBlankBallots": 4418,
+        "ConventionalAccountedBallots": 35348,
+        "EVotingReceivedBallots": 0,
+        "EVotingInvalidBallots": 0,
+        "EVotingBlankBallots": 0,
+        "EVotingAccountedBallots": 0,
+        "TotalReceivedBallots": 44185,
+        "TotalAccountedBallots": 35348,
+        "TotalUnaccountedBallots": 8837,
+        "TotalInvalidBallots": 4419,
+        "TotalBlankBallots": 4418
+      },
+      "ListEndResults": [],
+      "Finalized": false,
+      "ManualEndResultRequired": false,
+      "PartialResult": false
+    }
+  ],
+  "CountOfDoneElections": 3,
+  "TotalCountOfElections": 3,
+  "AllElectionsDone": true,
+  "Finalized": false,
+  "PartialResult": false
+}

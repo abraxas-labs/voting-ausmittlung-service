@@ -15,6 +15,8 @@ using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
+using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -32,6 +34,7 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
     private readonly ProportionalElectionEndResultReader _endResultReader;
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> _endResultRepo;
+    private readonly ProportionalElectionRepo _proportionalElectionRepo;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> _listEndResultRepo;
 
     public ProportionalElectionEndResultWriter(
@@ -43,13 +46,15 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.ProportionalElectionEndResult> endResultRepo,
         SecondFactorTransactionWriter secondFactorTransactionWriter,
-        IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> listEndResultRepo)
+        IDbRepository<DataContext, DataModels.ProportionalElectionListEndResult> listEndResultRepo,
+        ProportionalElectionRepo proportionalElectionRepo)
         : base(logger, aggregateRepository, aggregateFactory, contestService, permissionService, secondFactorTransactionWriter)
     {
         _endResultReader = endResultReader;
         _permissionService = permissionService;
         _endResultRepo = endResultRepo;
         _listEndResultRepo = listEndResultRepo;
+        _proportionalElectionRepo = proportionalElectionRepo;
     }
 
     public async Task UpdateEndResultLotDecisions(
@@ -123,6 +128,29 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
     protected override async Task ValidateFinalize(DataModels.ProportionalElectionEndResult endResult)
     {
         await base.ValidateFinalize(endResult);
+
+        if (endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
+        {
+            var election = await _proportionalElectionRepo.Query()
+                .Include(pe => pe.DoubleProportionalResult)
+                .Include(pe => pe.ProportionalElectionUnionEntries)
+                    .ThenInclude(e => e.ProportionalElectionUnion.DoubleProportionalResult)
+                .FirstAsync(pe => pe.Id == endResult.ProportionalElectionId);
+
+            var dpResults = new[] { election.DoubleProportionalResult }.Concat(election.ProportionalElectionUnionEntries.Select(e => e.ProportionalElectionUnion.DoubleProportionalResult))
+                .WhereNotNull()
+                .ToList();
+
+            if (dpResults.Count == 0)
+            {
+                throw new ValidationException("finalization is not possible if the double proportional election result is not calculated");
+            }
+
+            if (dpResults.Any(x => !x.AllNumberOfMandatesDistributed))
+            {
+                throw new ValidationException("finalization is only possible if the double proportional election result distributed all number of mandates");
+            }
+        }
 
         var hasOpenLotDecisions = await _endResultRepo
             .Query()

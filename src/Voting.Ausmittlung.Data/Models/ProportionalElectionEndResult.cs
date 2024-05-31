@@ -83,8 +83,6 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
         {
             listEndResult.NumberOfMandates = 0;
         }
-
-        HagenbachBischoffRootGroup = null;
     }
 
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
@@ -99,6 +97,27 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
         if (includeCountOfVoters)
         {
             CountOfVoters.ResetSubTotal(dataSource, TotalCountOfVoters);
+        }
+    }
+
+    public void Reset()
+    {
+        ManualEndResultRequired = false;
+        Finalized = false;
+
+        foreach (var listEndResult in ListEndResults)
+        {
+            listEndResult.NumberOfMandates = 0;
+            listEndResult.HasOpenRequiredLotDecisions = false;
+
+            foreach (var candidateEndResult in listEndResult.CandidateEndResults)
+            {
+                candidateEndResult.Rank = 0;
+                candidateEndResult.LotDecision = false;
+                candidateEndResult.LotDecisionRequired = false;
+                candidateEndResult.LotDecisionEnabled = false;
+                candidateEndResult.State = ProportionalElectionCandidateEndResultState.Pending;
+            }
         }
     }
 }

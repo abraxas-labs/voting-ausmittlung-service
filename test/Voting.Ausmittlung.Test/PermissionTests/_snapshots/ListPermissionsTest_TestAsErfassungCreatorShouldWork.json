@@ -16,7 +16,6 @@
     "MajorityElectionCandidate:read",
     "ProportionalElectionCandidate:read",
     "ProportionalElectionList:read",
-    "Export:export",
-    "CantonDefaults:read"
+    "Export:export"
   ]
 }

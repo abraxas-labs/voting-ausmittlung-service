@@ -20,7 +20,8 @@ public class ContestModelBuilder :
     IEntityTypeConfiguration<ContestVotingCardResultDetail>,
     IEntityTypeConfiguration<ContestDomainOfInfluenceDetails>,
     IEntityTypeConfiguration<DomainOfInfluenceCountOfVotersInformationSubTotal>,
-    IEntityTypeConfiguration<DomainOfInfluenceVotingCardResultDetail>
+    IEntityTypeConfiguration<DomainOfInfluenceVotingCardResultDetail>,
+    IEntityTypeConfiguration<ContestCantonDefaults>
 {
     public void Configure(EntityTypeBuilder<Contest> builder)
     {
@@ -58,6 +59,12 @@ public class ContestModelBuilder :
             .HasOne(c => c.PreviousContest)
             .WithMany(c => c!.PreviousContestOwners)
             .HasForeignKey(c => c.PreviousContestId);
+
+        builder
+            .HasOne(c => c.CantonDefaults)
+            .WithOne(c => c.Contest)
+            .HasForeignKey<ContestCantonDefaults>(c => c.ContestId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public void Configure(EntityTypeBuilder<ContestTranslation> builder)
@@ -204,5 +211,11 @@ public class ContestModelBuilder :
             .WithMany(x => x.ContestElectorates)
             .HasForeignKey(x => x.CountingCircleId)
             .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ContestCantonDefaults> builder)
+    {
+        builder.OwnsMany(x => x.CountingCircleResultStateDescriptions);
+        builder.OwnsMany(x => x.EnabledVotingCardChannels);
     }
 }

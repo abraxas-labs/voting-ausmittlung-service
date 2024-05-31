@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.VoteResultTests;
 
-public class VoteResultResetTest : BaseProcessorTest
+public class VoteResultResetTest : BaseIntegrationTest
 {
     private static readonly Guid ResultId = VoteResultMockedData.GuidGossauVoteInContestStGallenResult;
     private static readonly Guid BallotResultId = VoteResultMockedData.GuidGossauVoteInContestStGallenBallotResult;

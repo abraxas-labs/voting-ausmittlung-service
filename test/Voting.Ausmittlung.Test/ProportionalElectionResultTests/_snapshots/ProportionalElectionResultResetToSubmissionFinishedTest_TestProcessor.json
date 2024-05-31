@@ -22,7 +22,22 @@
       "Nanos": 0
     },
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "ProportionalElection": {
     "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
@@ -59,13 +74,6 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      },
-      "CantonDefaults": {
-        "MajorityElectionInvalidVotes": false,
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
       }
     },
     "Contest": {
@@ -91,7 +99,22 @@
         "Nanos": 0
       },
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
@@ -532,5 +555,6 @@
     }
   ],
   "Finalized": false,
-  "ManualEndResultRequired": false
+  "ManualEndResultRequired": false,
+  "PartialResult": false
 }

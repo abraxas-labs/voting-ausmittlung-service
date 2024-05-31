@@ -1,10 +1,12 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -25,9 +27,37 @@ public class ListPermissionsTest : BaseTest<PermissionService.PermissionServiceC
     }
 
     [Fact]
+    public async Task TestAsErfassungCreatorWithoutBundleControlShouldWork()
+    {
+        var response = await ErfassungCreatorWithoutBundleControlClient.ListAsync(new Empty());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsErfassungBundleControllerShouldWork()
+    {
+        var response = await ErfassungBundleControllerClient.ListAsync(new Empty());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsErfassungElectionSupporterShouldWork()
+    {
+        var response = await ErfassungElectionSupporterClient.ListAsync(new Empty());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestAsErfassungElectionAdminShouldWork()
     {
         var response = await ErfassungElectionAdminClient.ListAsync(new Empty());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringElectionSupporterShouldWork()
+    {
+        var response = await MonitoringElectionSupporterClient.ListAsync(new Empty());
         response.MatchSnapshot();
     }
 
@@ -42,5 +72,18 @@ public class ListPermissionsTest : BaseTest<PermissionService.PermissionServiceC
     {
         await new PermissionService.PermissionServiceClient(channel)
             .ListAsync(new Empty());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return NoRole;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
+        yield return RolesMockedData.ReportExporterApi;
     }
 }

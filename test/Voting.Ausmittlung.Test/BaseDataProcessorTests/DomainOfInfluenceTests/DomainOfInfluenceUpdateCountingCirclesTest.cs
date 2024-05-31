@@ -8,7 +8,7 @@ using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
@@ -77,17 +77,6 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
             .OrderBy(x => x.CountingCircle.SnapshotContestId)
             .ThenBy(x => x.CountingCircle.BasisCountingCircleId)
             .ToListAsync());
-
-        foreach (var doiCc in data)
-        {
-            doiCc.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels =
-                doiCc.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
-
-            foreach (var vcChannel in doiCc.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels)
-            {
-                vcChannel.Id = Guid.Empty;
-            }
-        }
 
         data.MatchSnapshot(
             x => x.Id,
@@ -176,5 +165,36 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
 
         parentDoiStGallenCc.Should().BeNull();
         selfDoiStGallenCc.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestProcessorEVotingCountingCircleUpdatesContestDetails()
+    {
+        await ContestMockedData.Seed(RunScoped);
+
+        await RunOnDb(async db =>
+        {
+            var countingCircle = await db.CountingCircles.AsTracking().SingleAsync(x => x.Id == AusmittlungUuidV5.BuildCountingCircleSnapshot(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwilKirche));
+            countingCircle.EVoting = true;
+            await db.SaveChangesAsync();
+        });
+
+        await TestEventPublisher.Publish(new DomainOfInfluenceCountingCircleEntriesUpdated
+        {
+            DomainOfInfluenceCountingCircleEntries = new DomainOfInfluenceCountingCircleEntriesEventData
+            {
+                Id = DomainOfInfluenceMockedData.IdStGallen,
+                CountingCircleIds =
+                {
+                    CountingCircleMockedData.IdUzwilKirche,
+                },
+            },
+        });
+
+        var ccDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwilKirche, false);
+        var contestDetail = await RunOnDb(db => db.ContestCountingCircleDetails
+            .SingleAsync(x => x.Id == ccDetailsId));
+
+        contestDetail.EVoting.Should().BeTrue();
     }
 }

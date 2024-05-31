@@ -1,0 +1,59 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 36,
+      "Label": "Uster"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "EVP"
+    },
+    {
+      "Label": "CVP"
+    },
+    {
+      "Label": "SD"
+    },
+    {
+      "Label": "EDU"
+    },
+    {
+      "Label": "SEDU"
+    },
+    {
+      "Label": "GP"
+    },
+    {
+      "Label": "GLP"
+    },
+    {
+      "Label": "JEDU"
+    }
+  ],
+  "MandateAlgorithm": 6,
+  "VoteCounts": [
+    [
+      71847,
+      64728,
+      36613,
+      13600,
+      9756,
+      5745,
+      3353,
+      3752,
+      13369,
+      16476,
+      3365
+    ]
+  ]
+}

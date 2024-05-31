@@ -115,20 +115,19 @@ public class ResultGetMajorityElectionWriteInMappingChangesTest : BaseTest<Resul
             new GetMajorityElectionWriteInMappingChangesRequest
             {
                 ContestId = ContestMockedData.IdStGallenEvoting,
-                CountingCircleId = CountingCircleMockedData.IdStGallen,
+                CountingCircleId = CountingCircleMockedData.IdUzwil,
             },
             new CallOptions(cancellationToken: cts.Token));
 
-        await responseStream.ResponseStream.MoveNext();
+        await responseStream.ResponseStream.ReadNIgnoreCancellation(1, cts.Token);
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionSupporter;
     }
 }

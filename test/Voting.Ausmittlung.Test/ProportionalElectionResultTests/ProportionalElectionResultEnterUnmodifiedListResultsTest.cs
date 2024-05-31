@@ -221,11 +221,9 @@ public class ProportionalElectionResultEnterUnmodifiedListResultsTest : Proporti
             .EnterUnmodifiedListResultsAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private EnterProportionalElectionUnmodifiedListResultsRequest NewValidRequest(Action<EnterProportionalElectionUnmodifiedListResultsRequest>? customizer = null)

@@ -8,6 +8,7 @@ using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
@@ -42,16 +43,19 @@ public class BallotUpdateTest : VoteProcessorBaseTest
                             {
                                 Number = 1,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 1X") },
+                                Type = SharedProto.BallotQuestionType.MainBallot,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 2,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 2X") },
+                                Type = SharedProto.BallotQuestionType.Variant,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 3,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 3X") },
+                                Type = SharedProto.BallotQuestionType.Variant,
                             },
                     },
                     TieBreakQuestions =
@@ -116,6 +120,47 @@ public class BallotUpdateTest : VoteProcessorBaseTest
     }
 
     [Fact]
+    public async Task TestUpdatedShouldSetDefaultValues()
+    {
+        await TestEventPublisher.Publish(
+            new BallotUpdated
+            {
+                Ballot = new BallotEventData
+                {
+                    Id = VoteMockedData.BallotIdGossauVoteInContestGossau,
+                    Position = 3,
+                    VoteId = VoteMockedData.IdGossauVoteInContestGossau,
+                    BallotType = SharedProto.BallotType.VariantsBallot,
+                    HasTieBreakQuestions = true,
+                    BallotQuestions =
+                    {
+                            new BallotQuestionEventData
+                            {
+                                Number = 1,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 1X") },
+                                Type = SharedProto.BallotQuestionType.Unspecified,
+                            },
+                            new BallotQuestionEventData
+                            {
+                                Number = 2,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 2X") },
+                                Type = SharedProto.BallotQuestionType.Unspecified,
+                            },
+                            new BallotQuestionEventData
+                            {
+                                Number = 3,
+                                Question = { LanguageUtil.MockAllLanguages("Variante 3X") },
+                                Type = SharedProto.BallotQuestionType.Unspecified,
+                            },
+                    },
+                },
+            });
+
+        var data = await GetData(x => x.Id == Guid.Parse(VoteMockedData.IdGossauVoteInContestGossau), true);
+        data.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestUpdatedAfterTestingPhaseEnded()
     {
         await TestEventPublisher.Publish(
@@ -129,11 +174,13 @@ public class BallotUpdateTest : VoteProcessorBaseTest
                         {
                             Number = 1,
                             Question = { LanguageUtil.MockAllLanguages("Frage 1 updated") },
+                            Type = SharedProto.BallotQuestionType.MainBallot,
                         },
                         new BallotQuestionEventData
                         {
                             Number = 2,
                             Question = { LanguageUtil.MockAllLanguages("Frage 2 updated") },
+                            Type = SharedProto.BallotQuestionType.CounterProposal,
                         },
                 },
                 TieBreakQuestions =
@@ -150,5 +197,88 @@ public class BallotUpdateTest : VoteProcessorBaseTest
 
         var data = await GetData(x => x.Id == Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen), true);
         data.MatchSnapshot();
+
+        var result = await RunOnDb(db => db.BallotResults
+            .AsSplitQuery()
+            .Include(x => x.QuestionResults)
+                .ThenInclude(x => x.ConventionalSubTotal)
+            .Include(x => x.TieBreakQuestionResults)
+                .ThenInclude(x => x.ConventionalSubTotal)
+            .Where(x => x.Id == AusmittlungUuidV5.BuildVoteBallotResult(
+                Guid.Parse(VoteMockedData.BallotIdGossauVoteInContestStGallen), CountingCircleMockedData.GuidGossau))
+            .SingleAsync());
+
+        result.QuestionResults.Count.Should().Be(2);
+        foreach (var questionResult in result.QuestionResults)
+        {
+            questionResult.TotalCountOfAnswerYes.Should().NotBe(0);
+            questionResult.TotalCountOfAnswerNo.Should().NotBe(0);
+        }
+
+        result.TieBreakQuestionResults.Count.Should().Be(1);
+        var tieBreakQuestionResult = result.TieBreakQuestionResults.Single();
+        tieBreakQuestionResult.TotalCountOfAnswerQ1.Should().NotBe(0);
+        tieBreakQuestionResult.TotalCountOfAnswerQ2.Should().NotBe(0);
+    }
+
+    [Fact]
+    public async Task TestUpdatedAfterTestingPhaseEndedShouldSetDefaultValues()
+    {
+        await TestEventPublisher.Publish(
+            new BallotAfterTestingPhaseUpdated
+            {
+                EventInfo = GetMockedEventInfo(),
+                Id = VoteMockedData.BallotIdGossauVoteInContestStGallen,
+                BallotQuestions =
+                {
+                    new BallotQuestionEventData
+                    {
+                        Number = 1,
+                        Question = { LanguageUtil.MockAllLanguages("Frage 1 updated") },
+                        Type = SharedProto.BallotQuestionType.Unspecified,
+                    },
+                    new BallotQuestionEventData
+                    {
+                        Number = 2,
+                        Question = { LanguageUtil.MockAllLanguages("Frage 2 updated") },
+                        Type = SharedProto.BallotQuestionType.Unspecified,
+                    },
+                },
+                TieBreakQuestions =
+                {
+                    new TieBreakQuestionEventData
+                    {
+                        Number = 1,
+                        Question = { LanguageUtil.MockAllLanguages("Strichfrage updated") },
+                        Question1Number = 1,
+                        Question2Number = 2,
+                    },
+                },
+            });
+
+        var data = await GetData(x => x.Id == Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen), true);
+        data.MatchSnapshot();
+
+        var result = await RunOnDb(db => db.BallotResults
+            .AsSplitQuery()
+            .Include(x => x.QuestionResults)
+            .ThenInclude(x => x.ConventionalSubTotal)
+            .Include(x => x.TieBreakQuestionResults)
+            .ThenInclude(x => x.ConventionalSubTotal)
+            .Where(x => x.Id == AusmittlungUuidV5.BuildVoteBallotResult(
+                Guid.Parse(VoteMockedData.BallotIdGossauVoteInContestStGallen), CountingCircleMockedData.GuidGossau))
+            .SingleAsync());
+
+        result.QuestionResults.Count.Should().Be(2);
+        foreach (var questionResult in result.QuestionResults)
+        {
+            questionResult.TotalCountOfAnswerYes.Should().NotBe(0);
+            questionResult.TotalCountOfAnswerNo.Should().NotBe(0);
+        }
+
+        result.TieBreakQuestionResults.Count.Should().Be(1);
+        var tieBreakQuestionResult = result.TieBreakQuestionResults.Single();
+        tieBreakQuestionResult.TotalCountOfAnswerQ1.Should().NotBe(0);
+        tieBreakQuestionResult.TotalCountOfAnswerQ2.Should().NotBe(0);
     }
 }

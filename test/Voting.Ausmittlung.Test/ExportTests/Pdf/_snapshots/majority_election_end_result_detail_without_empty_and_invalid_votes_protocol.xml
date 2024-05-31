@@ -308,7 +308,7 @@
         <VoteCount>10</VoteCount>
       </MajorityElectionCandidateResult>
       <CountOfVoters>
-        <VoterParticipation>0.5</VoterParticipation>
+        <VoterParticipation>0.500000</VoterParticipation>
         <TotalReceivedBallots>1500</TotalReceivedBallots>
         <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
         <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -634,7 +634,7 @@
         <VoteCount>10</VoteCount>
       </MajorityElectionCandidateResult>
       <CountOfVoters>
-        <VoterParticipation>0.5</VoterParticipation>
+        <VoterParticipation>0.500000</VoterParticipation>
         <TotalReceivedBallots>1500</TotalReceivedBallots>
         <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
         <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -680,7 +680,7 @@
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.2585463947141625969548980178</VoterParticipation>
+        <VoterParticipation>0.258546</VoterParticipation>
         <TotalReceivedBallots>9000</TotalReceivedBallots>
         <TotalUnaccountedBallots>5040</TotalUnaccountedBallots>
         <EVotingReceivedBallots>6000</EVotingReceivedBallots>
@@ -1025,7 +1025,7 @@
         <Canton>Sg</Canton>
       </DomainOfInfluence>
       <CountOfVoters>
-        <VoterParticipation>0.0949367088607594936708860759</VoterParticipation>
+        <VoterParticipation>0.094937</VoterParticipation>
         <TotalReceivedBallots>1500</TotalReceivedBallots>
         <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
         <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -1598,7 +1598,7 @@
           <VoteCount>10</VoteCount>
         </MajorityElectionCandidateResult>
         <CountOfVoters>
-          <VoterParticipation>0.5</VoterParticipation>
+          <VoterParticipation>0.500000</VoterParticipation>
           <TotalReceivedBallots>1500</TotalReceivedBallots>
           <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
           <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -2225,7 +2225,7 @@
           <VoteCount>10</VoteCount>
         </MajorityElectionCandidateResult>
         <CountOfVoters>
-          <VoterParticipation>0.5</VoterParticipation>
+          <VoterParticipation>0.500000</VoterParticipation>
           <TotalReceivedBallots>1500</TotalReceivedBallots>
           <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
           <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -2551,7 +2551,7 @@
           <VoteCount>10</VoteCount>
         </MajorityElectionCandidateResult>
         <CountOfVoters>
-          <VoterParticipation>0.5</VoterParticipation>
+          <VoterParticipation>0.500000</VoterParticipation>
           <TotalReceivedBallots>1500</TotalReceivedBallots>
           <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
           <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -2605,7 +2605,7 @@
         <Canton>Sg</Canton>
       </DomainOfInfluence>
       <CountOfVoters>
-        <VoterParticipation>0.4672897196261682242990654206</VoterParticipation>
+        <VoterParticipation>0.467290</VoterParticipation>
         <TotalReceivedBallots>1500</TotalReceivedBallots>
         <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
         <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -3178,7 +3178,7 @@
           <VoteCount>10</VoteCount>
         </MajorityElectionCandidateResult>
         <CountOfVoters>
-          <VoterParticipation>0.5</VoterParticipation>
+          <VoterParticipation>0.500000</VoterParticipation>
           <TotalReceivedBallots>1500</TotalReceivedBallots>
           <TotalUnaccountedBallots>840</TotalUnaccountedBallots>
           <EVotingReceivedBallots>1000</EVotingReceivedBallots>
@@ -3221,7 +3221,7 @@
     </MajorityElectionDomainOfInfluenceResult>
     <MajorityElectionAggregatedResult>
       <CountOfVoters>
-        <VoterParticipation>0.2585463947141625969548980178</VoterParticipation>
+        <VoterParticipation>0.258546</VoterParticipation>
         <TotalReceivedBallots>9000</TotalReceivedBallots>
         <TotalUnaccountedBallots>5040</TotalUnaccountedBallots>
         <EVotingReceivedBallots>6000</EVotingReceivedBallots>

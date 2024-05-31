@@ -29,6 +29,8 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
 
     public DomainOfInfluenceCanton Canton { get; set; }
 
+    public bool ViewCountingCirclePartialResults { get; set; }
+
     public Guid? ParentId { get; set; }
 
     public DomainOfInfluence? Parent { get; set; }
@@ -63,11 +65,11 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
 
     public ContactPerson ContactPerson { get; set; } = new();
 
-    public DomainOfInfluenceCantonDefaults CantonDefaults { get; set; } = new();
-
     public PlausibilisationConfiguration? PlausibilisationConfiguration { get; set; }
 
     public ICollection<DomainOfInfluenceParty> Parties { get; set; } = new HashSet<DomainOfInfluenceParty>();
 
     public ContestDomainOfInfluenceDetails? Details { get; set; }
+
+    public SwissAbroadVotingRight SwissAbroadVotingRight { get; set; }
 }

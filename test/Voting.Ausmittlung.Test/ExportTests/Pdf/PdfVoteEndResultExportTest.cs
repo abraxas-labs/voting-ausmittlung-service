@@ -19,7 +19,7 @@ public class PdfVoteEndResultExportTest : PdfExportBaseTest
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Abst_Kant_Gesamtergebnisse_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_Kant_Gesamtergebnisse_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EndResultProtocol.Key;
 

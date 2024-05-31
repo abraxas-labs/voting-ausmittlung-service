@@ -73,7 +73,7 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
             ctx,
             templateBag,
             data.ProportionalElection.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
     protected virtual void PreparePdfData(PdfTemplateBag templateBag)

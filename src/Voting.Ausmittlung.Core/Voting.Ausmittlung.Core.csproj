@@ -1,20 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.EnumMapping" Version="1.1.0" />
-    <PackageReference Include="FluentValidation" Version="11.2.1" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.1" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.EnumMapping" Version="3.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
     <PackageReference Include="Voting.Lib.Scheduler" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Messaging" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.MalwareScanner" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DokConnector" Version="$(VotingLibVersion)" />
-    <PackageReference Include="SharpZipLib" Version="1.4.1" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Voting.Ausmittlung.BiproportionalApportionment\Voting.Ausmittlung.BiproportionalApportionment.csproj" />
     <ProjectReference Include="..\Voting.Ausmittlung.Report\Voting.Ausmittlung.Report.csproj" />
     <ProjectReference Include="..\Voting.Ausmittlung.Data\Voting.Ausmittlung.Data.csproj" />
     <ProjectReference Include="..\Voting.Ausmittlung.EventSignature\Voting.Ausmittlung.EventSignature.csproj" />

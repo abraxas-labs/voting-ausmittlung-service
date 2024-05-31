@@ -29,10 +29,13 @@ public static class AusmittlungUuidV5
     private static readonly Guid VotingAusmittlungDomainOfInfluenceSnapshotNamespace = Guid.Parse("afbfdc15-97dd-4777-bf83-c62b9cf44e0a");
     private static readonly Guid VotingAusmittlungPoliticalBusinessResultNamespace = Guid.Parse("d9400ff4-1cff-429a-bb9a-99243cdec279");
     private static readonly Guid VotingAusmittlungPoliticalBusinessEndResultNamespace = Guid.Parse("934e92fb-cc6b-4d8d-9d5c-5f0f8e561e46");
+    private static readonly Guid VotingAusmittlungPoliticalBusinessUnionEndResultNamespace = Guid.Parse("857e8405-e154-4788-b420-2099ac6e4b4b");
     private static readonly Guid VotingAusmittlungProtocolExportNamespace = Guid.Parse("2995a75c-7795-4c1e-874a-4c133faf636e");
     private static readonly Guid VotingAusmittlungExportTemplateNamespace = Guid.Parse("3d9fc696-281f-4af7-9320-c4ca129c2f90");
     private static readonly Guid VotingAusmittlungCountingCircleElectorateSnapshotNamespace = Guid.Parse("4ea8f0da-1e21-429e-bc02-f24bad32cf37");
-    private static readonly Guid VotingAusmittlingContestCountingCircleElectorateNamespace = Guid.Parse("4ea8f0da-1e21-429e-bc02-f24bad32cf37");
+    private static readonly Guid VotingAusmittlungContestCountingCircleElectorateNamespace = Guid.Parse("4ea8f0da-1e21-429e-bc02-f24bad32cf37");
+    private static readonly Guid VotingAusmittlungProportionalElectionUnionListNamespace = Guid.Parse("9c829147-4c4a-4a59-80b7-4cef41667eab");
+    private static readonly Guid VotingAusmittlungDoubleProportionalResultNamespace = Guid.Parse("2ad18af5-75f3-4c04-87df-78744880e4e1");
 
     // keep in sync with Basis
     private static readonly Guid VotingBasisProportionalElectionNamespace = Guid.Parse("9602b447-bd9d-4ee0-a15c-94eb2f88e79b");
@@ -49,7 +52,7 @@ public static class AusmittlungUuidV5
         IReadOnlyCollection<DomainOfInfluenceType> domainOfInfluenceTypes)
     {
         var domainOfInfluenceTypesId = string.Join(VotingAusmittlungSeparator, domainOfInfluenceTypes);
-        return UuidV5.Create(VotingAusmittlingContestCountingCircleElectorateNamespace, string.Join(VotingAusmittlungSeparator, contestId, countingCircleId, domainOfInfluenceTypesId));
+        return UuidV5.Create(VotingAusmittlungContestCountingCircleElectorateNamespace, string.Join(VotingAusmittlungSeparator, contestId, countingCircleId, domainOfInfluenceTypesId));
     }
 
     public static Guid BuildVoteBallotResult(Guid ballotId, Guid basisCountingCircleId)
@@ -73,8 +76,17 @@ public static class AusmittlungUuidV5
     public static Guid BuildPoliticalBusinessEndResult(Guid politicalBusinessId, bool testingPhaseEnded)
         => Create(VotingAusmittlungPoliticalBusinessEndResultNamespace, testingPhaseEnded, politicalBusinessId);
 
+    public static Guid BuildPoliticalBusinessUnionEndResult(Guid politicalBusinessUnionId, bool testingPhaseEnded)
+        => Create(VotingAusmittlungPoliticalBusinessUnionEndResultNamespace, testingPhaseEnded, politicalBusinessUnionId);
+
+    public static Guid BuildDoubleProportionalResult(Guid? proportionalElectionUnionId, Guid? proportionalElectionId, bool testingPhaseEnded)
+        => Create(VotingAusmittlungDoubleProportionalResultNamespace, testingPhaseEnded, proportionalElectionId ?? Guid.Empty, proportionalElectionUnionId ?? Guid.Empty);
+
     public static Guid BuildProportionalElectionEmptyList(Guid proportionalElectionId)
         => Create(VotingBasisProportionalElectionNamespace, proportionalElectionId);
+
+    public static Guid BuildProportionalElectionUnionList(Guid proportionalElectionUnionId, string orderNumber, string description)
+        => UuidV5.Create(VotingAusmittlungProportionalElectionUnionListNamespace, string.Join(VotingAusmittlungSeparator, new[] { proportionalElectionUnionId.ToString(), orderNumber, description }));
 
     public static Guid BuildExportTemplate(
         string exportKey,

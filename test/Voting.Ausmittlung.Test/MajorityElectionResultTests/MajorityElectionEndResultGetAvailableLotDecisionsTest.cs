@@ -19,6 +19,8 @@ public class MajorityElectionEndResultGetAvailableLotDecisionsTest : MajorityEle
     private const string IdNotFound = "8b89b1a7-90a8-4b38-9422-812545bbadbb";
     private const string IdBadFormat = "8b89b1a790a8-4b38-9422-812545bbadbb";
 
+    private bool _initializedAuthorizationTest;
+
     public MajorityElectionEndResultGetAvailableLotDecisionsTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -73,15 +75,20 @@ public class MajorityElectionEndResultGetAvailableLotDecisionsTest : MajorityEle
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        if (!_initializedAuthorizationTest)
+        {
+            _initializedAuthorizationTest = true;
+            await SetResultsToAuditedTentatively();
+        }
+
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
             .GetEndResultAvailableLotDecisionsAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     private GetMajorityElectionEndResultAvailableLotDecisionsRequest NewValidRequest()

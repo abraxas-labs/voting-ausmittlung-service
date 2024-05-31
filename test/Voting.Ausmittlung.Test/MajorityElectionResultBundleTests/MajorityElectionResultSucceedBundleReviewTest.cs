@@ -32,8 +32,8 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -41,8 +41,8 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await ErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -52,8 +52,8 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            await RunBundleToState(BallotBundleState.ReadyForReview);
-            await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest());
+            await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+            await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionResultBundleReviewSucceeded>();
         });
     }
@@ -62,7 +62,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
-        await BundleErfassungElectionAdminClientBund.SucceedBundleReviewAsync(NewValidRequest());
+        await BundleErfassungElectionAdminClientBund.SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+        {
+            BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle1 },
+        });
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBundleReviewSucceeded>()
             .MatchSnapshot();
     }
@@ -72,7 +75,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.Active);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClientBund.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await BundleErfassungElectionAdminClientBund.SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+            {
+                BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle1 },
+            }),
             StatusCode.PermissionDenied);
     }
 
@@ -81,7 +87,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+            {
+                BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -91,7 +100,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         await RunBundleToState(BallotBundleState.ReadyForReview);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+            {
+                BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle1 },
+            }),
             StatusCode.PermissionDenied,
             "The creator of a bundle can't review it");
     }
@@ -100,10 +112,10 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(
                 new SucceedMajorityElectionBundleReviewRequest
                 {
-                    BundleId = MajorityElectionResultBundleMockedData.IdKircheBundle1,
+                    BundleIds = { MajorityElectionResultBundleMockedData.IdKircheBundle1 },
                 }),
             StatusCode.PermissionDenied,
             "This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
@@ -114,7 +126,7 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     {
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -126,11 +138,22 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     [InlineData(BallotBundleState.Deleted)]
     public async Task TestShouldThrowInWrongState(BallotBundleState state)
     {
-        await RunBundleToState(state);
+        await RunBundleToState(state, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClientSecondUser.SucceedBundleReviewAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowDuplicate()
+    {
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.SucceedBundleReviewAsync(
+                NewValidRequest(x => x.BundleIds.Add(MajorityElectionResultBundleMockedData.IdStGallenBundle3))),
+            StatusCode.InvalidArgument,
+            "duplicate");
     }
 
     [Fact]
@@ -150,7 +173,7 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
         bundle.State.Should().Be(BallotBundleState.Reviewed);
         bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
         bundle.ElectionResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
-        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
 
         await AssertHasPublishedMessage<MajorityElectionBundleChanged>(
@@ -160,18 +183,15 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
     [Fact]
     public async Task TestProcessorUpdatesCandidateResults()
     {
-        await CreateBallot();
-        await CreateBallot();
-        await CreateBallot(MajorityElectionResultBundleMockedData.IdStGallenBundle2);
+        await ReplaceNullValuesWithZeroOnDetailedResults();
+
+        await CreateBallot(MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await RunBundleToState(BallotBundleState.ReadyForReview, MajorityElectionResultBundleMockedData.StGallenBundle3.Id);
+        await CreateBallot(Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle2));
         await ShouldHaveCandidateResults(false);
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultBundleReviewSucceeded
-            {
-                BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await ErfassungCreatorClient.SucceedBundleReviewAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultBundleReviewSucceeded>();
 
         await ShouldHaveCandidateResults(true);
 
@@ -197,28 +217,38 @@ public class MajorityElectionResultSucceedBundleReviewTest : MajorityElectionRes
 
         var result = await GetElectionResult();
         result.TotalCandidateVoteCountInclIndividual.Should().Be(2);
-        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(1);
+        result.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         result.AllBundlesReviewedOrDeleted.Should().BeFalse();
         result.ConventionalCountOfDetailedEnteredBallots.Should().Be(2);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        var bundleId = await CreateBundle(10, "another-user");
+        await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
-            .SucceedBundleReviewAsync(NewValidRequest());
+            .SucceedBundleReviewAsync(new SucceedMajorityElectionBundleReviewRequest
+            {
+                BundleIds = { bundleId.ToString() },
+            });
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private SucceedMajorityElectionBundleReviewRequest NewValidRequest()
+    private SucceedMajorityElectionBundleReviewRequest NewValidRequest(Action<SucceedMajorityElectionBundleReviewRequest>? customizer = null)
     {
-        return new SucceedMajorityElectionBundleReviewRequest
+        var r = new SucceedMajorityElectionBundleReviewRequest
         {
-            BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            BundleIds = { MajorityElectionResultBundleMockedData.IdStGallenBundle3 },
         };
+
+        customizer?.Invoke(r);
+        return r;
     }
 }

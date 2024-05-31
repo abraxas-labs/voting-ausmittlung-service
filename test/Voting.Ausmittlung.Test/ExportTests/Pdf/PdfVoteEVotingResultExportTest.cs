@@ -28,7 +28,7 @@ public class PdfVoteEVotingResultExportTest : PdfExportBaseTest
         tenantId: SecureConnectTestDefaults.MockedTenantBund.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_E-Voting_Ergebnisse_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Abstimmungsprotokoll_E-Voting_Ergebnisse_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EVotingResultProtocol.Key;
 

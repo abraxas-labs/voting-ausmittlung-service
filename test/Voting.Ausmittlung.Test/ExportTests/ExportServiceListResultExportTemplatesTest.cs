@@ -12,7 +12,6 @@ using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
-using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -64,14 +63,6 @@ public class ExportServiceListResultExportTemplatesTest : BaseTest<ExportService
     [Fact]
     public async Task ShouldWorkAsMonitoringElectionAdminWithoutCountingCircleId()
     {
-        var response = await MonitoringElectionAdminClient.ListDataExportTemplatesAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
-        response.MatchSnapshot();
-    }
-
-    [Fact]
-    public async Task ShouldWorkAsMonitoringElectionAdminAndIncludeWpGemeindenSkStatForCantonTg()
-    {
-        await ModifyDbEntities<DomainOfInfluence>(x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen), x => x.Canton = DomainOfInfluenceCanton.Tg);
         var response = await MonitoringElectionAdminClient.ListDataExportTemplatesAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
         response.MatchSnapshot();
     }
@@ -181,8 +172,16 @@ public class ExportServiceListResultExportTemplatesTest : BaseTest<ExportService
             .ListDataExportTemplatesAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
-        => new[] { NoRole };
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungBundleController;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
+    }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);

@@ -2,44 +2,35 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
-using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
-using Abraxas.Voting.Ausmittlung.Services.V1.Responses;
 using FluentAssertions;
+using Google.Protobuf;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Ausmittlung.Test.VoteResultTests;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
-using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
+using Voting.Lib.Testing;
+using VoteResultBallotQuestionAnswer = Voting.Ausmittlung.Core.Domain.VoteResultBallotQuestionAnswer;
+using VoteResultBallotTieBreakQuestionAnswer = Voting.Ausmittlung.Core.Domain.VoteResultBallotTieBreakQuestionAnswer;
+using VoteResultEntryParams = Voting.Ausmittlung.Core.Domain.VoteResultEntryParams;
 
 namespace Voting.Ausmittlung.Test.VoteResultBundleTests;
 
-public abstract class VoteResultBundleBaseTest : VoteResultBaseTest
+public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest<VoteResultBundleService.VoteResultBundleServiceClient>
 {
     protected VoteResultBundleBaseTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
-
-    protected VoteResultBundleService.VoteResultBundleServiceClient BundleMonitoringElectionAdminClient { get; private set; } =
-        null!; // initialized during InitializeAsync
-
-    protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungElectionAdminClient { get; private set; } =
-        null!; // initialized during InitializeAsync
-
-    protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungCreatorClient { get; private set; } =
-        null!; // initialized during InitializeAsync
-
-    protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungElectionAdminClientSecondUser { get; private set; } =
-        null!; // initialized during InitializeAsync
-
-    protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungCreatorClientSecondUser { get; private set; } =
-        null!; // initialized during InitializeAsync
 
     protected VoteResultBundleService.VoteResultBundleServiceClient BundleErfassungElectionAdminClientStGallen { get; private set; } =
         null!; // initialized during InitializeAsync
@@ -48,116 +39,128 @@ public abstract class VoteResultBundleBaseTest : VoteResultBaseTest
 
     public override async Task InitializeAsync()
     {
-        BundleMonitoringElectionAdminClient = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.MonitoringElectionAdmin));
-        BundleErfassungElectionAdminClient = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin));
-        BundleErfassungCreatorClient = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungCreator));
-        BundleErfassungElectionAdminClientSecondUser = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
-        BundleErfassungCreatorClientSecondUser = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, "my-user-99", RolesMockedData.ErfassungCreator));
         BundleErfassungElectionAdminClientStGallen = new VoteResultBundleService.VoteResultBundleServiceClient(CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, "my-user-99", RolesMockedData.ErfassungElectionAdmin));
         await base.InitializeAsync();
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ResetQuestionResults();
+        EventPublisherMock.Clear();
     }
 
     protected override async Task SeedPoliticalBusinessMockedData()
     {
-        await base.SeedPoliticalBusinessMockedData();
+        await VoteMockedData.Seed(RunScoped);
         await VoteResultBundleMockedData.Seed(RunScoped);
     }
 
-    protected async Task RunBundleToState(BallotBundleState state)
+    protected async Task RunBundleToState(BallotBundleState state, Guid? bundleId = null)
     {
         switch (state)
         {
             case BallotBundleState.InCorrection:
-                await RunBundleToState(BallotBundleState.ReadyForReview);
-                await SetBundleInCorrection();
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
+                await SetBundleInCorrection(bundleId);
                 break;
             case BallotBundleState.ReadyForReview:
-                await CreateBallot();
-                await SetBundleSubmissionFinished();
+                await CreateBallot(bundleId);
+                await SetBundleSubmissionFinished(bundleId);
                 break;
             case BallotBundleState.Reviewed:
-                await RunBundleToState(BallotBundleState.ReadyForReview);
-                await SetBundleReviewed();
+                await RunBundleToState(BallotBundleState.ReadyForReview, bundleId);
+                await SetBundleReviewed(bundleId);
                 break;
             case BallotBundleState.Deleted:
-                await SetBundleDeleted();
+                await SetBundleDeleted(bundleId);
                 break;
         }
     }
 
-    protected async Task SetBundleSubmissionFinished()
+    protected async Task SetBundleSubmissionFinished(Guid? bundleId = null)
     {
-        await BundleErfassungCreatorClient
-            .BundleSubmissionFinishedAsync(new VoteResultBundleSubmissionFinishedRequest
+        await RunOnBundle<VoteResultBundleSubmissionFinished>(
+            bundleId,
+            aggregate =>
             {
-                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+                switch (aggregate.State)
+                {
+                    case BallotBundleState.InCorrection:
+                        aggregate.CorrectionFinished(ContestMockedData.StGallenEvotingUrnengang.Id);
+                        break;
+                    case BallotBundleState.InProcess:
+                        aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id);
+                        break;
+                }
             });
-        await RunEvents<VoteResultBundleSubmissionFinished>();
     }
 
-    protected async Task SetBundleInCorrection()
+    protected async Task<Guid> CreateBundle(int bundleNumber, string userId = TestDefaults.UserId)
     {
-        await BundleErfassungCreatorClientSecondUser
-            .RejectBundleReviewAsync(new RejectVoteBundleReviewRequest
+        var bundleId = Guid.NewGuid();
+        await RunOnBundle<VoteResultBundleCreated>(
+            bundleId,
+            aggregate =>
             {
-                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
-            });
-        await RunEvents<VoteResultBundleReviewRejected>();
+                aggregate.Create(
+                    bundleId,
+                    VoteResultMockedData.GossauVoteInContestStGallenResult.Id,
+                    Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
+                    bundleNumber,
+                    new VoteResultEntryParams
+                    {
+                        BallotBundleSampleSizePercent = 10,
+                        ReviewProcedure = VoteReviewProcedure.Physically,
+                        AutomaticBallotBundleNumberGeneration = true,
+                    },
+                    ContestMockedData.StGallenEvotingUrnengang.Id);
+            },
+            userId);
+        return bundleId;
     }
 
-    protected async Task SetBundleReviewed()
+    protected async Task SetBundleInCorrection(Guid? bundleId = null)
     {
-        await BundleErfassungCreatorClientSecondUser
-            .SucceedBundleReviewAsync(new SucceedVoteBundleReviewRequest
+        await RunOnBundle<VoteResultBundleReviewRejected>(
+            bundleId,
+            aggregate =>
             {
-                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
+                if (aggregate.State == BallotBundleState.ReadyForReview)
+                {
+                    aggregate.RejectReview(ContestMockedData.StGallenEvotingUrnengang.Id);
+                }
             });
-        await RunEvents<VoteResultBundleReviewSucceeded>();
     }
 
-    protected async Task SetBundleDeleted()
+    protected async Task SetBundleReviewed(Guid? bundleId = null)
     {
-        await BundleErfassungElectionAdminClient
-            .DeleteBundleAsync(new DeleteVoteResultBundleRequest
-            {
-                BundleId = VoteResultBundleMockedData.IdGossauBundle1,
-                BallotResultId = VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult,
-            });
-        await RunEvents<VoteResultBundleDeleted>();
+        await RunOnBundle<VoteResultBundleReviewSucceeded>(bundleId, aggregate => aggregate.SucceedReview(ContestMockedData.StGallenEvotingUrnengang.Id));
     }
 
-    protected async Task<CreateVoteResultBallotResponse> CreateBallot(string bundleId = VoteResultBundleMockedData.IdGossauBundle1)
+    protected async Task SetBundleDeleted(Guid? bundleId = null)
     {
-        var ballotResponse = await BundleErfassungCreatorClient.CreateBallotAsync(new CreateVoteResultBallotRequest
+        await RunOnBundle<VoteResultBundleDeleted>(bundleId, aggregate => aggregate.Delete(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected async Task CreateBallot(Guid? bundleId = null)
+    {
+        await RunOnBundle<VoteResultBallotCreated>(bundleId, aggregate =>
         {
-            BundleId = bundleId,
-            QuestionAnswers =
+            if (aggregate.State != BallotBundleState.InProcess && aggregate.State != BallotBundleState.InCorrection)
+            {
+                return;
+            }
+
+            aggregate.CreateBallot(
+                new List<VoteResultBallotQuestionAnswer>
                 {
-                    new CreateUpdateVoteResultBallotQuestionAnswerRequest
-                    {
-                        QuestionNumber = 1,
-                        Answer = SharedProto.BallotQuestionAnswer.Yes,
-                    },
-                    new CreateUpdateVoteResultBallotQuestionAnswerRequest
-                    {
-                        QuestionNumber = 2,
-                        Answer = SharedProto.BallotQuestionAnswer.No,
-                    },
+                    new() { QuestionNumber = 1, Answer = BallotQuestionAnswer.Yes, },
+                    new() { QuestionNumber = 2, Answer = BallotQuestionAnswer.No, },
                 },
-            TieBreakQuestionAnswers =
+                new List<VoteResultBallotTieBreakQuestionAnswer>
                 {
-                    new CreateUpdateVoteResultBallotTieBreakQuestionAnswerRequest()
-                    {
-                        QuestionNumber = 1,
-                        Answer = SharedProto.TieBreakQuestionAnswer.Q1,
-                    },
+                    new() { QuestionNumber = 1, Answer = TieBreakQuestionAnswer.Q1, },
                 },
+                ContestMockedData.StGallenEvotingUrnengang.Id);
+            LatestBallotNumber = aggregate.CurrentBallotNumber;
         });
-        LatestBallotNumber = ballotResponse.BallotNumber;
-        await RunEvents<VoteResultBallotCreated>();
-        return ballotResponse;
     }
 
     protected Task<VoteResultBundle> GetBundle(Guid? id = null)
@@ -192,6 +195,86 @@ public abstract class VoteResultBundleBaseTest : VoteResultBaseTest
             (c.ConventionalSubTotal.TotalCountOfAnswerQ1 != 0 || c.ConventionalSubTotal.TotalCountOfAnswerQ2 != 0 ||
              c.ConventionalSubTotal.TotalCountOfAnswerUnspecified != 0)));
         hasNotZeroTieBreakQuestionResults.Should().Be(haveResults);
+    }
+
+    protected override async Task<CountingCircleResultState> GetCurrentState()
+    {
+        var aggregate = await AggregateRepositoryMock.GetOrCreateById<VoteResultAggregate>(Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult));
+        return aggregate.State;
+    }
+
+    protected override async Task SetPlausibilised()
+    {
+        await RunOnResult<VoteResultPlausibilised>(aggregate =>
+            aggregate.Plausibilise(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected override async Task SetAuditedTentatively()
+    {
+        await RunOnResult<VoteResultAuditedTentatively>(aggregate =>
+            aggregate.AuditedTentatively(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected override async Task SetCorrectionDone()
+    {
+        await RunOnResult<VoteResultCorrectionFinished>(aggregate =>
+            aggregate.CorrectionFinished(string.Empty, ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected override async Task SetReadyForCorrection()
+    {
+        await RunOnResult<VoteResultFlaggedForCorrection>(aggregate =>
+            aggregate.FlagForCorrection(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected override async Task SetSubmissionDone()
+    {
+        await RunOnResult<VoteResultSubmissionFinished>(aggregate =>
+            aggregate.SubmissionFinished(ContestMockedData.StGallenEvotingUrnengang.Id));
+    }
+
+    protected override async Task SetSubmissionOngoing()
+    {
+        await RunOnResult<VoteResultSubmissionStarted>(aggregate =>
+            aggregate.StartSubmission(CountingCircleMockedData.Gossau.Id, VoteMockedData.GossauVoteInContestStGallen.Id, ContestMockedData.StGallenEvotingUrnengang.Id, false));
+    }
+
+    private async Task RunOnBundle<T>(Guid? bundleId, Action<VoteResultBundleAggregate> bundleAction, string userId = TestDefaults.UserId)
+        where T : IMessage<T>
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            var actualBundleId = bundleId ?? VoteResultBundleMockedData.GossauBundle1.Id;
+
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", userId, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<VoteResultBundleAggregate>(actualBundleId);
+            bundleAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<T>();
+        EventPublisherMock.Clear();
+    }
+
+    private async Task RunOnResult<T>(Action<VoteResultAggregate> resultAction)
+        where T : IMessage<T>
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetById<VoteResultAggregate>(VoteResultMockedData.GossauVoteInContestStGallenResult.Id);
+            resultAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<T>();
+        EventPublisherMock.Clear();
     }
 
     private async Task ResetQuestionResults()

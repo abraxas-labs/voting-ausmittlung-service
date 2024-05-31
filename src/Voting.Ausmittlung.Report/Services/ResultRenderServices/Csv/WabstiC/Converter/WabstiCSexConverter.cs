@@ -8,7 +8,7 @@ using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 
-public class WabstiCSexConverter : TypeConverter
+public class WabstiCSexConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
         => value switch

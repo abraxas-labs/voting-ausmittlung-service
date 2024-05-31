@@ -41,6 +41,8 @@ public class CountingCircle : BaseEntity, IHasSnapshotContest
 
     public bool MustUpdateContactPersons { get; set; }
 
+    public bool EVoting { get; set; }
+
     public ICollection<CountingCircleElectorate> Electorates { get; set; } = new HashSet<CountingCircleElectorate>();
 
     public ICollection<ContestCountingCircleElectorate> ContestElectorates { get; set; } = new HashSet<ContestCountingCircleElectorate>();

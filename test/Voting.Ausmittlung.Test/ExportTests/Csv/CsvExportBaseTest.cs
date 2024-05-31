@@ -1,6 +1,7 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -39,6 +40,18 @@ public abstract class CsvExportBaseTest : BaseRestTest
 
     [Fact]
     public virtual Task TestCsv() => TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName);
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
+    }
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
+    }
 
     protected async Task TestCsvSnapshot(GenerateResultExportsRequest request, string expectedFileName, string? name = null)
     {

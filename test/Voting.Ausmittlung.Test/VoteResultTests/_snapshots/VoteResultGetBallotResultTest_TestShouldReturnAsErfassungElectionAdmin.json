@@ -8,11 +8,13 @@
     "BallotQuestions": [
       {
         "Number": 1,
-        "Question": "Frage 1 Gossau de"
+        "Question": "Frage 1 Gossau de",
+        "Type": 1
       },
       {
         "Number": 2,
-        "Question": "Frage 2 Gossau de"
+        "Question": "Frage 2 Gossau de",
+        "Type": 2
       }
     ],
     "TieBreakQuestions": [
@@ -45,7 +47,8 @@
       "Id": "2058ba46-58de-4dab-ab04-b6a203e7d621",
       "Question": {
         "Number": 1,
-        "Question": "Frage 1 Gossau de"
+        "Question": "Frage 1 Gossau de",
+        "Type": 1
       },
       "EVotingSubTotal": {
         "TotalCountOfAnswerYes": 0,
@@ -65,7 +68,8 @@
       "Id": "092033c1-d3b3-4c12-9c0b-35b1d35f555e",
       "Question": {
         "Number": 2,
-        "Question": "Frage 2 Gossau de"
+        "Question": "Frage 2 Gossau de",
+        "Type": 2
       },
       "EVotingSubTotal": {
         "TotalCountOfAnswerYes": 0,

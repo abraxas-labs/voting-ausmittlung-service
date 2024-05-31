@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,9 +9,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Voting.Ausmittlung.Controllers.Models;
+using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Report.Models;
+using Voting.Ausmittlung.Utils;
+using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Rest.Files;
 
 namespace Voting.Ausmittlung.Controllers;
@@ -35,6 +37,7 @@ public class ResultExportController : ControllerBase
         _mapper = mapper;
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     [HttpPost]
     public async Task<FileResult> DownloadExports(GenerateResultExportsRequest request, CancellationToken ct)
     {
@@ -43,12 +46,14 @@ public class ResultExportController : ControllerBase
                 request.ContestId,
                 request.CountingCircleId,
                 request.ExportTemplateIds,
+                false,
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await CreateFileResult(fileModels, isMultiExport, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, ct);
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     [HttpPost("bundle_review")]
     public async Task<FileResult> DownloadResultBundleReviewExport(GenerateResultBundleReviewExportRequest request, CancellationToken ct)
     {
@@ -56,6 +61,7 @@ public class ResultExportController : ControllerBase
         return SingleFileResult.Create(new FileModelWrapper(fileModel), ct);
     }
 
+    [AuthorizePermission(Permissions.Export.ExportData)]
     [HttpPost("protocol_exports")]
     public async Task<FileResult> DownloadProtocolExport(FetchProtocolExportsRequest request, CancellationToken ct)
     {
@@ -67,7 +73,7 @@ public class ResultExportController : ControllerBase
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await CreateFileResult(fileModels, isMultiExport, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, ct);
     }
 
     // Note: DmDoc currently does not support authorization in webhooks.
@@ -80,30 +86,5 @@ public class ResultExportController : ControllerBase
         using var streamReader = new StreamReader(Request.Body);
         var callbackData = await streamReader.ReadToEndAsync();
         await _protocolExportService.HandleCallback(callbackData, protocolExportId, callbackToken);
-    }
-
-    private async Task<FileResult> CreateFileResult(
-        IAsyncEnumerable<FileModelWrapper> fileModels,
-        bool isMultiExport,
-        CancellationToken ct)
-    {
-        if (isMultiExport)
-        {
-            return SingleFileResult.CreateZipFile(fileModels, "export.zip", ct);
-        }
-
-        var enumerator = fileModels.GetAsyncEnumerator(ct);
-        if (!await enumerator.MoveNextAsync().ConfigureAwait(false))
-        {
-            throw new InvalidOperationException("At least one file is required");
-        }
-
-        var file = enumerator.Current;
-        if (await enumerator.MoveNextAsync().ConfigureAwait(false))
-        {
-            throw new InvalidOperationException("At maximum one files is supported if " + nameof(isMultiExport) + " is false");
-        }
-
-        return SingleFileResult.Create(file, ct);
     }
 }

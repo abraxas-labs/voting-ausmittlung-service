@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
@@ -352,11 +353,12 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     {
         await RunOnDb(async db =>
         {
-            var doi = await db.DomainOfInfluences
+            var cantonDefaults = await db.ContestCantonDefaults
                 .AsTracking()
-                .SingleAsync(x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdGossau) && x.SnapshotContestId == GuidParser.Parse(ContestMockedData.IdGossau));
-            var vcChannel = doi.CantonDefaults.EnabledVotingCardChannels.Single(x => !x.Valid && x.Channel == VotingChannel.ByMail);
-            doi.CantonDefaults.EnabledVotingCardChannels.Remove(vcChannel);
+                .AsSplitQuery()
+                .SingleAsync(x => x.ContestId == GuidParser.Parse(ContestMockedData.IdGossau));
+            var vcChannel = cantonDefaults.EnabledVotingCardChannels.Single(x => !x.Valid && x.Channel == VotingChannel.ByMail);
+            cantonDefaults.EnabledVotingCardChannels.Remove(vcChannel);
             await db.SaveChangesAsync();
         });
         await AssertStatus(
@@ -456,9 +458,10 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     [Fact]
     public async Task UpdateDetailsWithCountingMachineUnspecifiedWithEnabledOnCantonSettingsShouldThrow()
     {
-        await ModifyDbEntities<DomainOfInfluence>(
-            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdGossau),
-            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidGossau,
+            x => x.CountingMachineEnabled = true,
+            true);
 
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
@@ -480,9 +483,10 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     [Fact]
     public async Task UpdateDetailsWithCountingMachineWithEnabledOnCantonSettingsShouldBeOk()
     {
-        await ModifyDbEntities<DomainOfInfluence>(
-            doi => doi.SnapshotContestId == Guid.Parse(ContestMockedData.IdGossau),
-            doi => doi.CantonDefaults.CountingMachineEnabled = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidGossau,
+            x => x.CountingMachineEnabled = true,
+            true);
 
         await ErfassungElectionAdminClient.UpdateDetailsAsync(
             NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.CalibratedScales));
@@ -512,6 +516,11 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     {
         await new ContestCountingCircleDetailsService.ContestCountingCircleDetailsServiceClient(channel)
             .UpdateDetailsAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

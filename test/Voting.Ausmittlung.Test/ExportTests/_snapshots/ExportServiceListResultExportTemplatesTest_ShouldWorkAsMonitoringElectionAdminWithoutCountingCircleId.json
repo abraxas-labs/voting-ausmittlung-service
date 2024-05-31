@@ -1,6 +1,21 @@
 {
   "Templates": [
     {
+      "ExportTemplateId": "840e7e30-f33c-5ce3-992a-ecd62915611c",
+      "Description": "Abstimmungsresultate (eCH-0252)",
+      "EntityDescription": ""
+    },
+    {
+      "ExportTemplateId": "c5bc6528-025f-5673-98ec-fc1061ae9cd3",
+      "Description": "Majorzwahlresultate (eCH-0252)",
+      "EntityDescription": ""
+    },
+    {
+      "ExportTemplateId": "4b6dd389-51b1-53f3-a037-c071e3094a20",
+      "Description": "Proporzwahlresultate (eCH-0252)",
+      "EntityDescription": ""
+    },
+    {
       "ExportTemplateId": "6df9eff5-321b-5ff5-b134-90d8646f606f",
       "Description": "Abstimmungsergebnis(se) inkl. Details E-Voting",
       "EntityDescription": "Abst SG de"
@@ -116,6 +131,11 @@
       "EntityDescription": "Pw SG de"
     },
     {
+      "ExportTemplateId": "96ee0ca7-8fe3-58ef-b8ae-51272a71a81d",
+      "Description": "WP_Gemeinden_SK_STAT",
+      "EntityDescription": "Pw SG de"
+    },
+    {
       "ExportTemplateId": "efdff10c-50b0-5215-ae25-8af6f0c8230d",
       "Description": "WP_Gemeinden_SK_STAT_Einzel",
       "EntityDescription": "Pw SG de"
@@ -158,6 +178,16 @@
     {
       "ExportTemplateId": "4b9f83a4-baab-54f3-81d9-913942f52d76",
       "Description": "WP_ListenGde_Einzel",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "e2fce3e3-b6ef-50fc-990b-e9157b7d846d",
+      "Description": "WP_ListenGde_SK_STAT",
+      "EntityDescription": "Pw SG de"
+    },
+    {
+      "ExportTemplateId": "6885b850-1cb3-5ac7-8bbc-0fbcf8d3821e",
+      "Description": "WP_ListenGde_SK_STAT_Einzel",
       "EntityDescription": "Pw SG de"
     },
     {
@@ -244,7 +274,22 @@
       "Nanos": 0
     },
     "State": 1,
-    "EVotingResultsImported": false
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true
+    }
   },
   "CountingCircle": null
 }

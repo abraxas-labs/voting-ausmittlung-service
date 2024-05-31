@@ -10,7 +10,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// <summary>
 /// Converts a count of majority elections to a wabstiC wahltyp.
 /// </summary>
-public class WabstiCMajoritySecondaryElectionsCountConverter : TypeConverter
+public class WabstiCMajoritySecondaryElectionsCountConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {

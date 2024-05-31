@@ -76,9 +76,35 @@ public class ContestCreateTest : ContestProcessorBaseTest
             {
                 translation.Contest = null;
             }
+
+            contest.CantonDefaults.Contest = null;
+            contest.CantonDefaults.Id = Guid.Empty;
+
+            contest.CantonDefaults.EnabledVotingCardChannels =
+                contest.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
+
+            foreach (var vcChannel in contest.CantonDefaults.EnabledVotingCardChannels)
+            {
+                vcChannel.Id = Guid.Empty;
+            }
+
+            foreach (var stateDescription in contest.CantonDefaults.CountingCircleResultStateDescriptions)
+            {
+                stateDescription.Id = Guid.Empty;
+            }
         }
 
         data.ShouldMatchSnapshot();
+
+        var contestDetails = await RunOnDb(db => db.ContestCountingCircleDetails
+            .Where(x => x.ContestId == id1 || x.ContestId == id2)
+            .ToListAsync());
+
+        contestDetails.Should().HaveCount(2);
+        var detail1 = contestDetails.First(x => x.ContestId == id1);
+        detail1.EVoting.Should().BeFalse();
+        var detail2 = contestDetails.First(x => x.ContestId == id2);
+        detail2.EVoting.Should().BeTrue();
     }
 
     [Fact]
@@ -104,6 +130,7 @@ public class ContestCreateTest : ContestProcessorBaseTest
                 .Include(c => c.DomainOfInfluenceParties)
                     .ThenInclude(p => p.Translations)
                 .Include(c => c.Translations)
+                .Include(c => c.CantonDefaults)
                 .SingleAsync(c => c.Id == contestId),
             Languages.French);
         createdContest.DomainOfInfluenceParties.Should().HaveCount(6);
@@ -115,12 +142,19 @@ public class ContestCreateTest : ContestProcessorBaseTest
             SetDynamicIdToDefaultValue(party.Translations);
         }
 
-        createdContest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels =
-            createdContest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
+        createdContest.CantonDefaults.EnabledVotingCardChannels =
+            createdContest.CantonDefaults.EnabledVotingCardChannels.OrderByPriority().ToList();
 
-        foreach (var vcChannel in createdContest.DomainOfInfluence.CantonDefaults.EnabledVotingCardChannels)
+        foreach (var vcChannel in createdContest.CantonDefaults.EnabledVotingCardChannels)
         {
             vcChannel.Id = Guid.Empty;
+        }
+
+        createdContest.CantonDefaults.Id = Guid.Empty;
+
+        foreach (var stateDescription in createdContest.CantonDefaults.CountingCircleResultStateDescriptions)
+        {
+            stateDescription.Id = Guid.Empty;
         }
 
         createdContest.DomainOfInfluenceId = Guid.Empty;

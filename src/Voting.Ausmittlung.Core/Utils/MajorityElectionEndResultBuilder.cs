@@ -120,7 +120,7 @@ public class MajorityElectionEndResultBuilder
 
         _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, lotDecisions);
         var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
-            majorityElectionEndResult.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
+            majorityElectionEndResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             majorityElectionEndResult.MajorityElection.MandateAlgorithm);
         strategy.RecalculateCandidateEndResultStates(majorityElectionEndResult);
         majorityElectionEndResult.Finalized = false;
@@ -186,7 +186,7 @@ public class MajorityElectionEndResultBuilder
         AdjustSecondaryEndResults(endResult, result, deltaFactor);
 
         var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
-            endResult.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
+            endResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             endResult.MajorityElection.MandateAlgorithm);
         strategy.RecalculateCandidateEndResultStates(endResult);
 

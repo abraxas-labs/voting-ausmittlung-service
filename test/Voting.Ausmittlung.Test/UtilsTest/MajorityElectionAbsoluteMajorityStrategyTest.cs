@@ -62,7 +62,7 @@ public class MajorityElectionAbsoluteMajorityStrategyTest
     private MajorityElectionAbsoluteMajorityStrategy GetStrategy(MajorityElectionEndResult result)
     {
         return (MajorityElectionAbsoluteMajorityStrategy)_strategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
-            result.MajorityElection.DomainOfInfluence.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
+            result.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             result.MajorityElection.MandateAlgorithm);
     }
 
@@ -88,9 +88,9 @@ public class MajorityElectionAbsoluteMajorityStrategyTest
             {
                 MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
                 NumberOfMandates = numberOfMandates,
-                DomainOfInfluence = new DomainOfInfluence
+                Contest = new Contest
                 {
-                    CantonDefaults = new DomainOfInfluenceCantonDefaults
+                    CantonDefaults = new ContestCantonDefaults
                     {
                         MajorityElectionAbsoluteMajorityAlgorithm = absoluteMajorityAlgorithm,
                     },

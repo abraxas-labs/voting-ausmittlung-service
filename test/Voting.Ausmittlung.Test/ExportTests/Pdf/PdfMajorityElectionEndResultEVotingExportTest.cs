@@ -21,7 +21,7 @@ public class PdfMajorityElectionEndResultEVotingExportTest : PdfExportBaseTest
     {
     }
 
-    protected override string NewRequestExpectedFileName => "Majorz_Wahlprotokoll_EVoting_Majorzw de_20200110.pdf";
+    protected override string NewRequestExpectedFileName => "Majorz_Wahlprotokoll_EVoting_Majorzw de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key;
 

@@ -43,7 +43,9 @@ public class ProportionalElectionUnionCreateTest : BaseDataProcessorTest
                 },
             });
 
-        var result = await RunOnDb(db => db.ProportionalElectionUnions.FirstOrDefaultAsync(u => u.Id == newId));
-        result!.MatchSnapshot(x => x.Id);
+        var result = await RunOnDb(db => db.ProportionalElectionUnions
+            .Include(u => u.EndResult)
+            .FirstOrDefaultAsync(u => u.Id == newId));
+        result!.MatchSnapshot();
     }
 }

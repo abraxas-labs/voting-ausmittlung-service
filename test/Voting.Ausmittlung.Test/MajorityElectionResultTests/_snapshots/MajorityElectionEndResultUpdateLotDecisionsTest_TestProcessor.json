@@ -17,7 +17,22 @@
       "EVotingFrom": null,
       "EVotingTo": null,
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "MajorityElection": {
       "Id": "7a7f337e-78c8-44f4-83eb-507d383fc8bf",
@@ -57,13 +72,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -83,7 +91,22 @@
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -210,7 +233,7 @@
     "TotalCountOfCountingCircles": 6,
     "AllCountingCirclesDone": true,
     "CountOfVoters": {
-      "VoterParticipation": 0.05170927894283252,
+      "VoterParticipation": 0.051709,
       "ConventionalReceivedBallots": 1800,
       "ConventionalInvalidBallots": 300,
       "ConventionalBlankBallots": 300,
@@ -723,7 +746,8 @@
     "Finalized": false,
     "Calculation": {
       "AbsoluteMajority": null
-    }
+    },
+    "PartialResult": false
   },
   "availableLotDecisions": {
     "MajorityElection": {
@@ -764,13 +788,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": null,

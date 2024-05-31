@@ -41,7 +41,7 @@
   "TotalCountOfListsWithParty": 0,
   "TotalCountOfLists": 0,
   "CountOfVoters": {
-    "VoterParticipation": 0.6666666666666666666666666667,
+    "VoterParticipation": 0.666667,
     "EVotingReceivedBallots": 0,
     "EVotingInvalidBallots": 0,
     "EVotingBlankBallots": 0,
@@ -66,5 +66,6 @@
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,
   "TotalSentEVotingVotingCards": null,
+  "Published": false,
   "Id": "043e8415-f3e7-55e5-befb-0dee93ee3932"
 }

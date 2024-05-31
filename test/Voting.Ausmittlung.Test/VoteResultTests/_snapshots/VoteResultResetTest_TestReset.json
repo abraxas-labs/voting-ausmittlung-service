@@ -123,6 +123,7 @@
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
     "TotalSentEVotingVotingCards": null,
+    "Published": false,
     "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
   },
   "resultAfter": {
@@ -134,7 +135,7 @@
         "BallotId": "154ee710-88b7-419a-ae5b-74a44c9c969e",
         "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
         "CountOfVoters": {
-          "VoterParticipation": 0.0003333333333333333333333333,
+          "VoterParticipation": 0.000333,
           "EVotingReceivedBallots": 5,
           "EVotingInvalidBallots": 0,
           "EVotingBlankBallots": 0,
@@ -249,6 +250,7 @@
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
     "TotalSentEVotingVotingCards": null,
+    "Published": false,
     "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
   }
 }

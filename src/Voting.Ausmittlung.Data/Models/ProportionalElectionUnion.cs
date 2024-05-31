@@ -17,6 +17,10 @@ public class ProportionalElectionUnion : PoliticalBusinessUnion
 
     public override PoliticalBusinessUnionType Type => PoliticalBusinessUnionType.ProportionalElection;
 
+    public ProportionalElectionUnionEndResult? EndResult { get; set; }
+
+    public DoubleProportionalResult? DoubleProportionalResult { get; set; }
+
     [NotMapped]
     public override IEnumerable<PoliticalBusiness> PoliticalBusinesses
         => ProportionalElectionUnionEntries.Select(x => x.ProportionalElection);

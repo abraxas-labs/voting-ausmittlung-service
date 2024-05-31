@@ -1,6 +1,7 @@
 // (c) Copyright 2024 by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
@@ -59,6 +60,18 @@ public abstract class PdfExportBaseTest : BaseTest<ExportService.ExportServiceCl
     {
         await new ExportService.ExportServiceClient(channel)
             .StartProtocolExportsAsync(NewRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
+    }
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        // Do not test the role access for each report. This is tested once for the endpoint in another test.
+        yield break;
     }
 
     protected async Task TestPdfReport(string snapshotSuffix)

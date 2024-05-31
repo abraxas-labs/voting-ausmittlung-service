@@ -13,6 +13,10 @@
     "PoliticalBusinessEndResult:finalize",
     "PoliticalBusinessEndResultLotDecision:read",
     "PoliticalBusinessEndResultLotDecision:update",
+    "PoliticalBusinessUnionEndResult:read",
+    "PoliticalBusinessUnionEndResult:finalize",
+    "PoliticalBusinessUnionEndResultLotDecision:read",
+    "PoliticalBusinessUnionEndResultLotDecision:update",
     "VoteBallotResult:read",
     "ProportionalElectionCandidate:read",
     "ProportionalElectionList:read",
@@ -20,7 +24,6 @@
     "ProportionalElectionEndResult:enter-manual-results",
     "MajorityElectionCandidate:read",
     "MajorityElectionBallotGroupResult:read",
-    "PoliticalBusinessUnion:read",
     "Import:import",
     "Import:read",
     "Import:delete",
@@ -29,7 +32,6 @@
     "Export:export-activity-protocol",
     "ExportConfiguration:read",
     "ExportConfiguration:update",
-    "ExportConfiguration:trigger",
-    "CantonDefaults:read"
+    "ExportConfiguration:trigger"
   ]
 }

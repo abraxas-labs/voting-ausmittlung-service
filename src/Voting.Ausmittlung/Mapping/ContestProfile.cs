@@ -23,5 +23,7 @@ public sealed class ContestProfile : Profile
         CreateMap<IEnumerable<CoreModels.ContestSummary>, ProtoModels.ContestSummaries>()
             .ForMember(dst => dst.ContestSummaries_, opts => opts.MapFrom(src => src));
         CreateMap<CoreModels.ContestSummaryEntryDetails, ProtoModels.ContestSummaryEntryDetails>();
+        CreateMap<DataModels.ContestCantonDefaults, ProtoModels.ContestCantonDefaults>();
+        CreateMap<DataModels.ContestCantonDefaultsCountingCircleResultStateDescription, ProtoModels.CountingCircleResultStateDescription>();
     }
 }

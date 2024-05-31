@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +10,7 @@ using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
@@ -53,6 +53,9 @@ public class PdfVoteResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
         });
     }
 
+    protected override HttpClient CreateHttpClient(params string[] roles)
+        => CreateHttpClient(true, SecureConnectTestDefaults.MockedTenantGossau.Id, TestDefaults.UserId, roles);
+
     protected override GenerateResultBundleReviewExportRequest NewRequest()
     {
         return new GenerateResultBundleReviewExportRequest
@@ -63,10 +66,5 @@ public class PdfVoteResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
             PoliticalBusinessResultBundleId = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1),
             PoliticalBusinessId = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen),
         };
-    }
-
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
     }
 }

@@ -101,9 +101,9 @@ public class ContestCountingCircleDetailsWriter
             .Query()
             .Where(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
             .SelectMany(cc => cc.VoteResults
-                .Select(vr => new { vr.Vote.ContestId, vr.Vote.DomainOfInfluence.CantonDefaults.SwissAbroadVotingRight })
-                .Concat(cc.ProportionalElectionResults.Select(vr => new { vr.ProportionalElection.ContestId, vr.ProportionalElection.DomainOfInfluence.CantonDefaults.SwissAbroadVotingRight }))
-                .Concat(cc.MajorityElectionResults.Select(vr => new { vr.MajorityElection.ContestId, vr.MajorityElection.DomainOfInfluence.CantonDefaults.SwissAbroadVotingRight })))
+                .Select(vr => new { vr.Vote.ContestId, vr.Vote.DomainOfInfluence.SwissAbroadVotingRight })
+                .Concat(cc.ProportionalElectionResults.Select(vr => new { vr.ProportionalElection.ContestId, vr.ProportionalElection.DomainOfInfluence.SwissAbroadVotingRight }))
+                .Concat(cc.MajorityElectionResults.Select(vr => new { vr.MajorityElection.ContestId, vr.MajorityElection.DomainOfInfluence.SwissAbroadVotingRight })))
             .AnyAsync(x => x.ContestId == contestId
                            && x.SwissAbroadVotingRight == DataModels.SwissAbroadVotingRight.OnEveryCountingCircle);
 
@@ -145,7 +145,7 @@ public class ContestCountingCircleDetailsWriter
         var cc = await _countingCircleRepo
             .Query()
             .AsSplitQuery()
-            .Include(x => x.SnapshotContest!.DomainOfInfluence.CantonDefaults)
+            .Include(x => x.SnapshotContest!.CantonDefaults)
             .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
             .Include(x => x.Electorates)
             .Include(x => x.ContestElectorates)
@@ -161,7 +161,6 @@ public class ContestCountingCircleDetailsWriter
         }
 
         var enabledChannels = cc.SnapshotContest!
-            .DomainOfInfluence
             .CantonDefaults
             .EnabledVotingCardChannels
             .Select(x => (x.Valid, x.Channel))
@@ -210,8 +209,8 @@ public class ContestCountingCircleDetailsWriter
     private async Task EnsureValidCountingMachine(Guid contestId, DataModels.CountingMachine countingMachine)
     {
         var countingMachineEnabled = await _contestRepo.Query()
-            .Include(c => c.DomainOfInfluence)
-            .AnyAsync(c => c.Id == contestId && c.DomainOfInfluence.CantonDefaults.CountingMachineEnabled);
+            .Include(c => c.CantonDefaults)
+            .AnyAsync(c => c.Id == contestId && c.CantonDefaults.CountingMachineEnabled);
 
         if (!countingMachineEnabled && countingMachine != DataModels.CountingMachine.Unspecified)
         {

@@ -30,9 +30,13 @@ public class PublisherConfig
 
     public ResultExportJobConfig AutomaticExports { get; set; } = new();
 
+    public ExportRateLimitConfig ExportRateLimit { get; set; } = new();
+
     public EchConfig Ech { get; set; } = new(typeof(AppConfig).Assembly);
 
     public JobConfig CleanSecondFactorTransactionsJob { get; set; } = new() { Interval = TimeSpan.FromHours(1) };
+
+    public JobConfig CleanExportLogEntriesJob { get; set; } = new() { Interval = TimeSpan.FromHours(1) };
 
     public int SecondFactorTransactionExpiredAtMinutes { get; set; } = 10;
 

@@ -125,13 +125,10 @@ public class MajorityElectionResultResetToAuditedTentativelyTest : MajorityElect
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.Plausibilised);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultResettedToAuditedTentatively
-            {
-                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await MonitoringElectionAdminClient.ResetToAuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultResettedToAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetMajorityElectionEndResultRequest
@@ -152,16 +149,14 @@ public class MajorityElectionResultResetToAuditedTentativelyTest : MajorityElect
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        await RunToState(CountingCircleResultState.SubmissionDone);
+        await RunToState(CountingCircleResultState.Plausibilised);
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
             .ResetToAuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private MajorityElectionResultsResetToAuditedTentativelyRequest NewValidRequest(Action<MajorityElectionResultsResetToAuditedTentativelyRequest>? customizer = null)

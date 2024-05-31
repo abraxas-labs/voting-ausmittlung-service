@@ -17,7 +17,22 @@
       "EVotingFrom": null,
       "EVotingTo": null,
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "ProportionalElection": {
       "Id": "ee6ee245-4cde-4474-bc2b-c3e6ee164c62",
@@ -54,13 +69,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -80,7 +88,22 @@
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -812,7 +835,8 @@
       }
     ],
     "Finalized": false,
-    "ManualEndResultRequired": false
+    "ManualEndResultRequired": false,
+    "PartialResult": false
   },
   "afterOneAuditedEndResult": {
     "Contest": {
@@ -832,7 +856,22 @@
       "EVotingFrom": null,
       "EVotingTo": null,
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "ProportionalElection": {
       "Id": "ee6ee245-4cde-4474-bc2b-c3e6ee164c62",
@@ -869,13 +908,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -895,7 +927,22 @@
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -992,7 +1039,7 @@
     "TotalCountOfCountingCircles": 6,
     "AllCountingCirclesDone": false,
     "CountOfVoters": {
-      "VoterParticipation": 0.06329113924050633,
+      "VoterParticipation": 0.063291,
       "ConventionalReceivedBallots": 1000,
       "ConventionalInvalidBallots": 50,
       "ConventionalBlankBallots": 50,
@@ -1709,7 +1756,8 @@
       }
     ],
     "Finalized": false,
-    "ManualEndResultRequired": false
+    "ManualEndResultRequired": false,
+    "PartialResult": false
   },
   "afterAllAuditedEndResults": {
     "Contest": {
@@ -1729,7 +1777,22 @@
       "EVotingFrom": null,
       "EVotingTo": null,
       "State": 1,
-      "EVotingResultsImported": false
+      "EVotingResultsImported": false,
+      "CantonDefaults": {
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true
+      }
     },
     "ProportionalElection": {
       "Id": "ee6ee245-4cde-4474-bc2b-c3e6ee164c62",
@@ -1766,13 +1829,6 @@
           "Phone": "071 123 12 12",
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
-        },
-        "CantonDefaults": {
-          "MajorityElectionInvalidVotes": false,
-          "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
-          "MajorityElectionUseCandidateCheckDigit": false,
-          "ProportionalElectionUseCandidateCheckDigit": false
         }
       },
       "Contest": {
@@ -1792,7 +1848,22 @@
         "EVotingFrom": null,
         "EVotingTo": null,
         "State": 1,
-        "EVotingResultsImported": false
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "NewZhFeaturesEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "PublishResultsEnabled": true
+        }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -1919,7 +1990,7 @@
     "TotalCountOfCountingCircles": 6,
     "AllCountingCirclesDone": true,
     "CountOfVoters": {
-      "VoterParticipation": 0.17236426314277506,
+      "VoterParticipation": 0.172364,
       "ConventionalReceivedBallots": 6000,
       "ConventionalInvalidBallots": 300,
       "ConventionalBlankBallots": 300,
@@ -2636,6 +2707,7 @@
       }
     ],
     "Finalized": false,
-    "ManualEndResultRequired": false
+    "ManualEndResultRequired": false,
+    "PartialResult": false
   }
 }

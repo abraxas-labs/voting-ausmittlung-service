@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Utils.DoubleProportional;
 using Voting.Ausmittlung.Core.Utils.ProportionalElectionStrategy;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
@@ -24,6 +26,8 @@ public class ProportionalElectionEndResultBuilder
     private readonly DataContext _dbContext;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly ILogger<ProportionalElectionEndResultBuilder> _logger;
+    private readonly ProportionalElectionUnionEndResultBuilder _unionEndResultBuilder;
+    private readonly DoubleProportionalResultBuilder _dpResultBuilder;
 
     public ProportionalElectionEndResultBuilder(
         ProportionalElectionEndResultRepo endResultRepo,
@@ -31,7 +35,9 @@ public class ProportionalElectionEndResultBuilder
         DataContext dbContext,
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
         ILogger<ProportionalElectionEndResultBuilder> logger,
-        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo)
+        IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
+        ProportionalElectionUnionEndResultBuilder unionEndResultBuilder,
+        DoubleProportionalResultBuilder dpResultBuilder)
     {
         _endResultRepo = endResultRepo;
         _resultRepo = resultRepo;
@@ -39,6 +45,8 @@ public class ProportionalElectionEndResultBuilder
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _logger = logger;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
+        _unionEndResultBuilder = unionEndResultBuilder;
+        _dpResultBuilder = dpResultBuilder;
     }
 
     internal async Task ResetAllResults(Guid contestId, VotingDataSource dataSource)
@@ -57,6 +65,35 @@ public class ProportionalElectionEndResultBuilder
         }
 
         await _dbContext.SaveChangesAsync();
+        await _dpResultBuilder.ResetForContest(contestId);
+    }
+
+    internal async Task ResetForElection(Guid electionId)
+    {
+        var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(electionId);
+        if (endResult == null)
+        {
+            return;
+        }
+
+        if (endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
+        {
+            await _dpResultBuilder.ResetForElection(electionId);
+        }
+
+        if (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff)
+        {
+            if (endResult.HagenbachBischoffRootGroup != null)
+            {
+                _dbContext
+                    .Set<HagenbachBischoffGroup>()
+                    .Remove(endResult.HagenbachBischoffRootGroup);
+                endResult.HagenbachBischoffRootGroup = null;
+            }
+
+            endResult.Reset();
+            await _dbContext.SaveChangesAsync();
+        }
     }
 
     internal async Task AdjustEndResult(Guid resultId, bool removeResults)
@@ -87,10 +124,16 @@ public class ProportionalElectionEndResultBuilder
             .FirstOrDefaultAsync(x => x.Id == endResult.ProportionalElectionId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.ProportionalElectionId);
 
+        var previousElectionDone = endResult.AllCountingCirclesDone;
         endResult.CountOfDoneCountingCircles += deltaFactor;
         endResult.Finalized = false;
         endResult.ManualEndResultRequired = false;
         simpleEndResult.EndResultFinalized = false;
+
+        if (previousElectionDone != endResult.AllCountingCirclesDone)
+        {
+            await _unionEndResultBuilder.AdjustCountOfDoneElections(endResult.ProportionalElectionId, endResult.AllCountingCirclesDone ? 1 : -1);
+        }
 
         EndResultContestDetailsUtils.AdjustEndResultContestDetails<
             ProportionalElectionEndResult,
@@ -106,32 +149,62 @@ public class ProportionalElectionEndResultBuilder
             endResult.TotalCountOfVoters,
             deltaFactor);
 
+        var isHagenbachBischoff = endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff;
         ResetCalculations(endResult);
 
         endResult.ForEachSubTotal(result, (endResultSubTotal, resultSubTotal) => AdjustEndResult(endResultSubTotal, resultSubTotal, deltaFactor));
-        AdjustListAndCandidateEndResults(endResult, result, deltaFactor, endResult.AllCountingCirclesDone);
+        AdjustListAndCandidateEndResults(endResult, result, deltaFactor, endResult.AllCountingCirclesDone && isHagenbachBischoff);
 
-        ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
+        if (isHagenbachBischoff)
+        {
+            ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
 
-        foreach (var listEndResult in endResult.ListEndResults)
-        {
-            _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
-        }
+            foreach (var listEndResult in endResult.ListEndResults)
+            {
+                _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+            }
 
-        if (!endResult.ManualEndResultRequired)
-        {
-            _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
-        }
-        else
-        {
-            _logger.LogWarning("Hagenbach Bischoff could not distribute all number of mandates. Manual end result required for election {ProportionalElectionId}", endResult.ProportionalElectionId);
+            if (!endResult.ManualEndResultRequired)
+            {
+                _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
+            }
+            else
+            {
+                _logger.LogWarning("Hagenbach Bischoff could not distribute all number of mandates. Manual end result required for election {ProportionalElectionId}", endResult.ProportionalElectionId);
+            }
         }
 
         await _dbContext.SaveChangesAsync();
+
+        if (endResult.ProportionalElection.MandateAlgorithm.IsUnionDoubleProportional())
+        {
+            // a change in an election which uses a union dp algorithm, always resets all union dp results.
+            await _dpResultBuilder.ResetForElection(endResult.ProportionalElectionId);
+        }
+
+        if (endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional())
+        {
+            if (endResult.AllCountingCirclesDone)
+            {
+                await _dpResultBuilder.BuildForElection(endResult.ProportionalElectionId);
+            }
+            else
+            {
+                await _dpResultBuilder.ResetForElection(endResult.ProportionalElectionId);
+            }
+        }
     }
 
     private void ResetCalculations(ProportionalElectionEndResult endResult)
     {
+        if (endResult.HagenbachBischoffRootGroup != null)
+        {
+            _dbContext
+                .Set<HagenbachBischoffGroup>()
+                .Remove(endResult.HagenbachBischoffRootGroup);
+            endResult.HagenbachBischoffRootGroup = null;
+        }
+
         endResult.ResetCalculation();
     }
 
@@ -139,7 +212,7 @@ public class ProportionalElectionEndResultBuilder
         ProportionalElectionEndResult endResult,
         ProportionalElectionResult result,
         int deltaFactor,
-        bool allCountingCirclesDone)
+        bool lotDecisionEnabled)
     {
         endResult.ListEndResults.MatchAndExec(
             x => x.ListId,
@@ -156,7 +229,7 @@ public class ProportionalElectionEndResultBuilder
                     listEndResult.CandidateEndResults,
                     listResult.CandidateResults,
                     deltaFactor,
-                    allCountingCirclesDone);
+                    lotDecisionEnabled);
             });
     }
 

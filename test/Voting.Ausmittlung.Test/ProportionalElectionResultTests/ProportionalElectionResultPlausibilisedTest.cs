@@ -106,17 +106,35 @@ public class ProportionalElectionResultPlausibilisedTest : ProportionalElectionR
     }
 
     [Fact]
+    public async Task TestShouldThrowStatePlausibilisedDisabled()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+
+        await RunOnDb(async db =>
+        {
+            var cantonDefaults = await db.ContestCantonDefaults.AsSplitQuery().AsTracking().SingleAsync(x =>
+                x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting));
+
+            cantonDefaults.StatePlausibilisedDisabled = true;
+            await db.SaveChangesAsync();
+        });
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.PlausibiliseAsync(
+                NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "state plausibilised is not enabled for contest");
+    }
+
+    [Fact]
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
         var eventInfo = GetMockedEventInfo();
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new ProportionalElectionResultPlausibilised
-            {
-                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                EventInfo = eventInfo,
-            });
+
+        await MonitoringElectionAdminClient.PlausibiliseAsync(NewValidRequest());
+        await RunEvents<ProportionalElectionResultPlausibilised>();
+
         await AssertCurrentState(CountingCircleResultState.Plausibilised);
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
@@ -125,7 +143,7 @@ public class ProportionalElectionResultPlausibilisedTest : ProportionalElectionR
             && x.NewState == CountingCircleResultState.Plausibilised);
 
         var resultEntity = await RunOnDb(db => db.ProportionalElectionResults.SingleAsync(x => x.Id == id));
-        resultEntity.PlausibilisedTimestamp.Should().Be(eventInfo.Timestamp.ToDateTime());
+        resultEntity.PlausibilisedTimestamp.Should().NotBeNull();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -135,11 +153,9 @@ public class ProportionalElectionResultPlausibilisedTest : ProportionalElectionR
             .PlausibiliseAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private ProportionalElectionResultsPlausibiliseRequest NewValidRequest(Action<ProportionalElectionResultsPlausibiliseRequest>? customizer = null)

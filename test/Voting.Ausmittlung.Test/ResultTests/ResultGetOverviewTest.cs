@@ -57,6 +57,17 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
         response.MatchSnapshot();
     }
 
+    [Fact]
+    public async Task TestShouldReturnAllPoliticalBusinesses()
+    {
+        var response = await StGallenMonitoringElectionAdminClient.GetOverviewAsync(new GetResultOverviewRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+        });
+        ResetResultIds(response);
+        response.MatchSnapshot();
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new ResultService.ResultServiceClient(channel)
@@ -69,11 +80,10 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionSupporter;
     }
 
     private void ResetResultIds(ProtoModels.ResultOverview response)

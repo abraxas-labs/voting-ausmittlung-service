@@ -11,6 +11,7 @@
       "AuthorityName": "",
       "Type": 2,
       "Canton": 1,
+      "ViewCountingCirclePartialResults": false,
       "ParentId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Parent": null,
       "Children": [],
@@ -82,18 +83,6 @@
         "MobilePhone": "079 123 12 12",
         "Email": "hans@sg.ch"
       },
-      "CantonDefaults": {
-        "MajorityElectionAbsoluteMajorityAlgorithm": 0,
-        "MajorityElectionInvalidVotes": false,
-        "ProtocolDomainOfInfluenceSortType": 0,
-        "ProtocolCountingCircleSortType": 0,
-        "SwissAbroadVotingRight": 0,
-        "EnabledVotingCardChannels": [],
-        "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
-        "MajorityElectionUseCandidateCheckDigit": false,
-        "ProportionalElectionUseCandidateCheckDigit": false
-      },
       "PlausibilisationConfiguration": {
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "ComparisonVoterParticipationConfigurations": [
@@ -163,6 +152,7 @@
       },
       "Parties": [],
       "Details": null,
+      "SwissAbroadVotingRight": 0,
       "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
     }
   ]

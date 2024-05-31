@@ -1,0 +1,59 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 60,
+      "Label": "Stadt Winterthur"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "glp"
+    },
+    {
+      "Label": "Grüne"
+    },
+    {
+      "Label": "EVP"
+    },
+    {
+      "Label": "CVP"
+    },
+    {
+      "Label": "AL"
+    },
+    {
+      "Label": "BDP"
+    },
+    {
+      "Label": "EDU"
+    },
+    {
+      "Label": "Piraten"
+    }
+  ],
+  "MandateAlgorithm": 6,
+  "VoteCounts": [
+    [
+      503877,
+      288602,
+      215383,
+      187234,
+      153369,
+      101696,
+      84905,
+      62944,
+      14482,
+      24365,
+      21963
+    ]
+  ]
+}

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
@@ -34,6 +35,18 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultAuditedTentatively>().MatchSnapshot();
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultPublished>().VoteResultId.Should().Be(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithoutPublish()
+    {
+        await RunToState(CountingCircleResultState.SubmissionDone);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id && x.SnapshotContestId == ContestMockedData.StGallenEvotingUrnengang.Id,
+            x => x.Type = DomainOfInfluenceType.Bz);
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -134,13 +147,9 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
                 r.EVotingSubTotal.TotalCountOfAnswerUnspecified = 6;
             });
 
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultAuditedTentatively
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = GetMockedEventInfo(),
-            });
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<VoteResultAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
@@ -163,11 +172,9 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
             .AuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private VoteResultAuditedTentativelyRequest NewValidRequest(Action<VoteResultAuditedTentativelyRequest>? customizer = null)

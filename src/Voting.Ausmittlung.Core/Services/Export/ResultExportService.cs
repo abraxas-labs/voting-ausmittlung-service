@@ -49,6 +49,7 @@ public class ResultExportService
     private readonly ResultExportTemplateReader _resultExportTemplateReader;
     private readonly IAggregateRepository _aggregateRepository;
     private readonly Dictionary<ExportProvider, IExportProviderUploader> _uploaders;
+    private readonly ExportRateLimitService _exportRateLimitService;
 
     public ResultExportService(
         ExportService exportService,
@@ -63,7 +64,8 @@ public class ResultExportService
         ContestService contestService,
         ResultExportTemplateReader resultExportTemplateReader,
         IAggregateRepository aggregateRepository,
-        IEnumerable<IExportProviderUploader> uploaders)
+        IEnumerable<IExportProviderUploader> uploaders,
+        ExportRateLimitService exportRateLimitService)
     {
         _exportService = exportService;
         _contestReader = contestReader;
@@ -78,15 +80,22 @@ public class ResultExportService
         _resultExportTemplateReader = resultExportTemplateReader;
         _aggregateRepository = aggregateRepository;
         _uploaders = uploaders.ToDictionary(x => x.Provider);
+        _exportRateLimitService = exportRateLimitService;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
         Guid contestId,
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> exportTemplateIds,
+        bool internalRateLimit,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
         var resolvedTemplates = await ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+
+        if (internalRateLimit)
+        {
+            await _exportRateLimitService.CheckAndLog(resolvedTemplates);
+        }
 
         var aggregate = await _aggregateRepository.GetOrCreateById<ExportAggregate>(contestId);
         var requestId = Guid.NewGuid();

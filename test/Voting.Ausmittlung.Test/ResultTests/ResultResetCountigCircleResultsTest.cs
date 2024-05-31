@@ -174,15 +174,14 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
         await new ResultService.ResultServiceClient(channel)
             .ResetCountingCircleResultsAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private ResetCountingCircleResultsRequest NewValidRequest(Action<ResetCountingCircleResultsRequest>? action = null)

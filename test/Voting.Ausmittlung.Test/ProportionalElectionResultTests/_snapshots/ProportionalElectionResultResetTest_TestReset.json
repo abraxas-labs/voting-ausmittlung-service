@@ -155,6 +155,7 @@
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
     "TotalSentEVotingVotingCards": null,
+    "Published": false,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   },
   "resultAfter": {
@@ -313,6 +314,7 @@
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 10000,
     "TotalSentEVotingVotingCards": null,
+    "Published": false,
     "Id": "bf6d5a79-ff5c-57f3-97b9-e21bbec89300"
   }
 }

@@ -30,10 +30,22 @@ public class CantonSettingsCreateTest : BaseDataProcessorTest
 
         _ = await RunOnDb(db =>
         {
+            var doiId = Guid.Parse("e84a3f1e-c2ea-422c-904e-130b822aad64");
+            var contestId = Guid.Parse("b5efaeac-2bed-4dd6-987d-c52bd7482dfb");
             db.DomainOfInfluences.Add(new DomainOfInfluence
             {
-                Id = Guid.Parse("e84a3f1e-c2ea-422c-904e-130b822aad64"),
+                Id = doiId,
                 Canton = DomainOfInfluenceCanton.Tg,
+            });
+            db.Contests.Add(new Contest
+            {
+                Id = contestId,
+                DomainOfInfluenceId = doiId,
+            });
+            db.ContestTranslations.Add(new ContestTranslation
+            {
+                Id = Guid.Parse("e25ca312-413d-4783-a501-f86c786ca3a8"),
+                ContestId = contestId,
             });
             return db.SaveChangesAsync();
         });
@@ -70,7 +82,18 @@ public class CantonSettingsCreateTest : BaseDataProcessorTest
         var result = await RunOnDb(db => db.CantonSettings.FirstOrDefaultAsync(u => u.Id == newId));
         result.MatchSnapshot("cantonSettings");
 
-        var affectedDois = await RunOnDb(db => db.DomainOfInfluences.Where(doi => doi.Canton == DomainOfInfluenceCanton.Tg).ToListAsync());
-        affectedDois.MatchSnapshot("affectedDomainOfInfluences");
+        var affectedContests = await RunOnDb(db => db.Contests
+            .AsSplitQuery()
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.CantonDefaults)
+            .Include(x => x.Translations)
+            .Where(x => x.DomainOfInfluence.Canton == DomainOfInfluenceCanton.Tg).ToListAsync());
+
+        foreach (var contest in affectedContests)
+        {
+            contest.CantonDefaults.Id = Guid.Empty;
+        }
+
+        affectedContests.MatchSnapshot("affectedContests");
     }
 }

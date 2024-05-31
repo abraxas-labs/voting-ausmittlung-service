@@ -181,12 +181,13 @@ public class MajorityElectionResultBundleWriter
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task SucceedBundleReview(Guid bundleId)
+    public async Task SucceedBundleReview(IReadOnlyCollection<Guid> bundleIds)
     {
-        var aggregate = await AggregateRepository.GetById<MajorityElectionResultBundleAggregate>(bundleId);
-        var contestId = await EnsureReviewPermissionsForBundle(aggregate);
-        aggregate.SucceedReview(contestId);
-        await AggregateRepository.Save(aggregate);
+        await ExecuteOnAllAggregates<MajorityElectionResultBundleAggregate>(bundleIds, async aggregate =>
+        {
+            var contestId = await EnsureReviewPermissionsForBundle(aggregate);
+            aggregate.SucceedReview(contestId);
+        });
     }
 
     protected override async Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId)

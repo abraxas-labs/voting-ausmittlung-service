@@ -8,7 +8,7 @@
       "VoteResult": null,
       "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
       "CountOfVoters": {
-        "VoterParticipation": 0.6666666666666666666666666667,
+        "VoterParticipation": 0.666667,
         "EVotingReceivedBallots": 0,
         "EVotingInvalidBallots": 0,
         "EVotingBlankBallots": 0,
@@ -48,5 +48,6 @@
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,
   "TotalSentEVotingVotingCards": null,
+  "Published": false,
   "Id": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83"
 }

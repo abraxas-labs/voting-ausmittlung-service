@@ -24,14 +24,15 @@ public class SimpleCountingCircleResultReader
         _permissionService = permissionService;
     }
 
-    public async Task<DomainOfInfluenceCantonDefaults> GetCantonDefaults(Guid resultId)
+    public async Task<ContestCantonDefaults> GetCantonDefaults(Guid resultId)
     {
         var simpleCountingCircleResult = await _repo.Query()
-            .Include(x => x.PoliticalBusiness!.DomainOfInfluence)
+            .AsSplitQuery()
+            .Include(x => x.PoliticalBusiness!.Contest.CantonDefaults)
             .FirstOrDefaultAsync(x => x.Id == resultId)
                 ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
 
         await _permissionService.EnsureCanReadCountingCircle(simpleCountingCircleResult.CountingCircleId, simpleCountingCircleResult.PoliticalBusiness!.ContestId);
-        return simpleCountingCircleResult.PoliticalBusiness.DomainOfInfluence.CantonDefaults;
+        return simpleCountingCircleResult.PoliticalBusiness.Contest.CantonDefaults;
     }
 }

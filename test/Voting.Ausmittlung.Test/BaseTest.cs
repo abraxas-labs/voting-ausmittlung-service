@@ -28,6 +28,7 @@ using Voting.Lib.Eventing.Testing.Mocks;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using Xunit;
 using Contest = Voting.Ausmittlung.Data.Models.Contest;
 
 namespace Voting.Ausmittlung.Test;
@@ -35,6 +36,13 @@ namespace Voting.Ausmittlung.Test;
 public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplicationFactory, TestStartup>
     where TService : ClientBase<TService>
 {
+    private readonly Lazy<TService> _erfassungCreatorClient;
+    private readonly Lazy<TService> _erfassungCreatorWithoutBundleControlClient;
+    private readonly Lazy<TService> _erfassungBundleControllerClient;
+    private readonly Lazy<TService> _erfassungElectionSupporterClient;
+    private readonly Lazy<TService> _erfassungElectionAdminClient;
+    private readonly Lazy<TService> _monitoringElectionSupporterClient;
+    private readonly Lazy<TService> _monitoringElectionAdminClient;
     private readonly Lazy<TService> _stGallenErfassungElectionAdminClient;
     private readonly Lazy<TService> _stGallenMonitoringElectionAdminClient;
 
@@ -55,9 +63,13 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
 
         ContestCache = GetService<ContestCache>();
 
-        ErfassungCreatorClient = CreateService(RolesMockedData.ErfassungCreator);
-        ErfassungElectionAdminClient = CreateService(RolesMockedData.ErfassungElectionAdmin);
-        MonitoringElectionAdminClient = CreateService(RolesMockedData.MonitoringElectionAdmin);
+        _erfassungCreatorClient = new Lazy<TService>(() => CreateService(RolesMockedData.ErfassungCreator));
+        _erfassungCreatorWithoutBundleControlClient = new Lazy<TService>(() => CreateService(RolesMockedData.ErfassungCreatorWithoutBundleControl));
+        _erfassungBundleControllerClient = new Lazy<TService>(() => CreateService(RolesMockedData.ErfassungBundleController));
+        _erfassungElectionSupporterClient = new Lazy<TService>(() => CreateService(RolesMockedData.ErfassungElectionSupporter));
+        _erfassungElectionAdminClient = new Lazy<TService>(() => CreateService(RolesMockedData.ErfassungElectionAdmin));
+        _monitoringElectionSupporterClient = new Lazy<TService>(() => CreateService(RolesMockedData.MonitoringElectionSupporter));
+        _monitoringElectionAdminClient = new Lazy<TService>(() => CreateService(RolesMockedData.MonitoringElectionAdmin));
         _stGallenMonitoringElectionAdminClient = new Lazy<TService>(() =>
             CreateServiceWithTenant(SecureConnectTestDefaults.MockedTenantStGallen.Id, RolesMockedData.MonitoringElectionAdmin));
         _stGallenErfassungElectionAdminClient = new Lazy<TService>(() =>
@@ -74,17 +86,55 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
 
     protected AggregateRepositoryMock AggregateRepositoryMock { get; }
 
-    protected TService ErfassungCreatorClient { get; }
+    protected TService ErfassungCreatorClient => _erfassungCreatorClient.Value;
 
-    protected TService ErfassungElectionAdminClient { get; }
+    protected TService ErfassungCreatorWithoutBundleControlClient => _erfassungCreatorWithoutBundleControlClient.Value;
 
-    protected TService MonitoringElectionAdminClient { get; }
+    protected TService ErfassungBundleControllerClient => _erfassungBundleControllerClient.Value;
+
+    protected TService ErfassungElectionSupporterClient => _erfassungElectionSupporterClient.Value;
+
+    protected TService ErfassungElectionAdminClient => _erfassungElectionAdminClient.Value;
+
+    protected TService MonitoringElectionSupporterClient => _monitoringElectionSupporterClient.Value;
+
+    protected TService MonitoringElectionAdminClient => _monitoringElectionAdminClient.Value;
 
     protected TService StGallenMonitoringElectionAdminClient => _stGallenMonitoringElectionAdminClient.Value;
 
     protected TService StGallenErfassungElectionAdminClient => _stGallenErfassungElectionAdminClient.Value;
 
     protected InMemoryTestHarness MessagingTestHarness { get; set; }
+
+    /// <summary>
+    /// Authorized roles should have access to the method.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    [Fact]
+    public async Task AuthorizedRolesShouldHaveAccess()
+    {
+        foreach (var role in AuthorizedRoles())
+        {
+            try
+            {
+                await AuthorizationTestCall(CreateGrpcChannel(role == NoRole ? Array.Empty<string>() : new[] { role }));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail($"Call failed for role {role}: {ex}");
+            }
+        }
+    }
+
+    protected abstract IEnumerable<string> AuthorizedRoles();
+
+    protected override IEnumerable<string> UnauthorizedRoles()
+    {
+        return RolesMockedData
+            .All()
+            .Append(NoRole)
+            .Except(AuthorizedRoles());
+    }
 
     protected async Task AssertHasPublishedMessage<T>(Func<T, bool> predicate, bool hasMessage = true)
         where T : class
@@ -113,12 +163,18 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         });
     }
 
-    protected Task ModifyDbEntities<T>(Expression<Func<T, bool>> predicate, Action<T> modifier)
+    protected Task ModifyDbEntities<T>(Expression<Func<T, bool>> predicate, Action<T> modifier, bool splitQuery = false)
         where T : class
     {
         return RunOnDb(async db =>
         {
-            var entities = await db.Set<T>().AsTracking().Where(predicate).ToListAsync();
+            var query = db.Set<T>().AsTracking();
+            if (splitQuery)
+            {
+                query = query.AsSplitQuery();
+            }
+
+            var entities = await query.Where(predicate).ToListAsync();
             foreach (var entity in entities)
             {
                 modifier(entity);

@@ -1,0 +1,132 @@
+{
+  "CantonalQuorum": 3501,
+  "VoteCount": 116680,
+  "NumberOfMandates": 60,
+  "ColumnVoteCounts": [
+    51120,
+    25560,
+    40000
+  ],
+  "RowVoteCounts": [
+    50000,
+    33340,
+    33340
+  ],
+  "RowQuorums": null,
+  "UnionListAnyQuorumReachedList": [
+    true,
+    true,
+    true
+  ],
+  "ElectionKey": 97.0,
+  "TotalVoterNumber": 5834.0,
+  "ColumnVoterNumbers": [
+    2556.0,
+    1278.0,
+    2000.0
+  ],
+  "SuperApportionment": {
+    "NumberOfMandates": 60,
+    "NumberOfMandatesForLotDecision": 0,
+    "NumberOfMandatesExclLotDecisionVector": [
+      26,
+      13,
+      21
+    ],
+    "LotDecisionRequiredVector": null,
+    "NumberOfMandatesVectors": [
+      [
+        26,
+        13,
+        21
+      ]
+    ],
+    "SubApportionments": [
+      {
+        "NumberOfMandates": 58,
+        "NumberOfMandatesExclLotDecisionMatrix": [
+          [
+            8,
+            4,
+            8
+          ],
+          [
+            9,
+            4,
+            6
+          ],
+          [
+            9,
+            4,
+            6
+          ]
+        ],
+        "LotDecisionRequiredMatrix": [
+          [
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true
+          ]
+        ],
+        "NumberOfMandatesMatrices": [
+          [
+            [
+              8,
+              4,
+              8
+            ],
+            [
+              9,
+              5,
+              6
+            ],
+            [
+              9,
+              4,
+              7
+            ]
+          ],
+          [
+            [
+              8,
+              4,
+              8
+            ],
+            [
+              9,
+              4,
+              7
+            ],
+            [
+              9,
+              5,
+              6
+            ]
+          ]
+        ],
+        "RowDivisors": [
+          2626.2538699690404,
+          1663.4925617418278,
+          1663.4925617418278
+        ],
+        "ColumnDivisors": [
+          1.0,
+          1.0393126658039187,
+          0.9248382432504715
+        ],
+        "State": 3
+      }
+    ],
+    "State": 4
+  }
+}

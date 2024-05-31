@@ -86,11 +86,9 @@ public class ProportionalElectionResultPrepareSubmissionFinishedTest : Proportio
             .PrepareSubmissionFinishedAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.MonitoringElectionAdmin;
-        yield return NoRole;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private ProportionalElectionResultPrepareSubmissionFinishedRequest NewValidRequest()

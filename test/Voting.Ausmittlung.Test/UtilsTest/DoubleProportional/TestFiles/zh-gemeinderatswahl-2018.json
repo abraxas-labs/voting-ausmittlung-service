@@ -1,0 +1,207 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 12,
+      "Label": "GGR, Kreis 1 und 2"
+    },
+    {
+      "NumberOfMandates": 15,
+      "Label": "GGR, Kreis 3"
+    },
+    {
+      "NumberOfMandates": 13,
+      "Label": "GGR, Kreis 4 und 5"
+    },
+    {
+      "NumberOfMandates": 10,
+      "Label": "GGR, Kreis 6"
+    },
+    {
+      "NumberOfMandates": 16,
+      "Label": "GGR, Kreis 7 und 8"
+    },
+    {
+      "NumberOfMandates": 16,
+      "Label": "GGR, Kreis 9"
+    },
+    {
+      "NumberOfMandates": 12,
+      "Label": "GGR, Kreis 10"
+    },
+    {
+      "NumberOfMandates": 22,
+      "Label": "GGR, Kreis 11"
+    },
+    {
+      "NumberOfMandates": 9,
+      "Label": "GGR, Kreis 12"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "Grüne"
+    },
+    {
+      "Label": "glp"
+    },
+    {
+      "Label": "AL"
+    },
+    {
+      "Label": "CVP"
+    },
+    {
+      "Label": "DU"
+    },
+    {
+      "Label": "EDU"
+    },
+    {
+      "Label": "Vernunft"
+    },
+    {
+      "Label": "PdA"
+    },
+    {
+      "Label": "EVA/BDP"
+    }
+  ],
+  "MandateAlgorithm": 5,
+  "VoteCounts": [
+    [
+      37360,
+      15856,
+      23990,
+      15007,
+      12551,
+      7668,
+      5215,
+      445,
+      532,
+      null,
+      723,
+      1841
+    ],
+    [
+      67129,
+      19340,
+      20529,
+      26471,
+      19573,
+      22692,
+      6062,
+      null,
+      754,
+      null,
+      2086,
+      2939
+    ],
+    [
+      49212,
+      8339,
+      13844,
+      19388,
+      16442,
+      22136,
+      2456,
+      null,
+      295,
+      null,
+      2456,
+      1152
+    ],
+    [
+      34296,
+      8974,
+      16857,
+      12571,
+      11613,
+      7612,
+      3175,
+      null,
+      227,
+      null,
+      854,
+      2101
+    ],
+    [
+      71164,
+      28050,
+      69536,
+      31442,
+      28414,
+      13659,
+      11579,
+      null,
+      741,
+      null,
+      null,
+      5655
+    ],
+    [
+      60063,
+      33783,
+      26712,
+      20296,
+      16488,
+      10164,
+      9140,
+      null,
+      903,
+      403,
+      879,
+      9777
+    ],
+    [
+      52231,
+      17789,
+      23098,
+      15534,
+      14630,
+      12054,
+      4094,
+      null,
+      403,
+      null,
+      1261,
+      3374
+    ],
+    [
+      89477,
+      55160,
+      40194,
+      28713,
+      31911,
+      12435,
+      11176,
+      null,
+      2549,
+      null,
+      1518,
+      13901
+    ],
+    [
+      13192,
+      8980,
+      3826,
+      4191,
+      2931,
+      1954,
+      1821,
+      null,
+      565,
+      null,
+      481,
+      2568
+    ]
+  ]
+}

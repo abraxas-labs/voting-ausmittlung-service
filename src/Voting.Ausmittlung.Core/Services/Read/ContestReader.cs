@@ -51,18 +51,28 @@ public class ContestReader
     {
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(id);
 
-        var readOnlyOwned = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
-        return await _repo.Query()
-                   .AsSplitQuery()
-                   .Include(x => x.Translations)
-                   .Include(x => x.DomainOfInfluence)
-                   .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
-                       pb.Active
-                       && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                       && (!readOnlyOwned || pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
-                       && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId))))
-                   .FirstOrDefaultAsync(c => c.Id == id)
-               ?? throw new EntityNotFoundException(id);
+        var query = _repo.Query()
+            .AsSplitQuery()
+            .Include(x => x.Translations)
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.CantonDefaults)
+            .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
+                pb.Active
+                && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
+                && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId))));
+
+        if (_auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
+        {
+            var viewablePartialResultsCcIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(id);
+            query = query
+                .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
+                    pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId
+                    || pb.SimpleResults.Any(cc => viewablePartialResultsCcIds.Contains(cc.CountingCircleId))));
+        }
+
+        return await query
+            .FirstOrDefaultAsync(c => c.Id == id)
+            ?? throw new EntityNotFoundException(id);
     }
 
     public async Task<List<CountingCircle>> GetAccessibleCountingCircles(Guid contestId)
@@ -93,13 +103,8 @@ public class ContestReader
         // To find out which contests are accessible, we need to access the counting circles,
         // which may be a huge number of entities, since they will grow with each created contest (due to snapshotting).
         // Keep this in mind when refactoring this.
-        var query = _simplePoliticalBusinessRepo.BuildAccessibleQuery(tenantId)
+        var query = _simplePoliticalBusinessRepo.BuildAccessibleQuery(tenantId, _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
             .Where(pb => pb.Active && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection);
-
-        if (_auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
-        {
-            query = query.Where(pb => pb.DomainOfInfluence.SecureConnectId == tenantId);
-        }
 
         if (states.Count > 0)
         {
@@ -120,6 +125,7 @@ public class ContestReader
             .AsSplitQuery()
             .Include(c => c.DomainOfInfluence)
             .Include(c => c.Translations)
+            .Include(c => c.CantonDefaults)
             .Where(c => countsByContestId.Keys.Contains(c.Id))
             .Order(states)
             .Select(c => new ContestSummary { Contest = c })
@@ -146,6 +152,8 @@ public class ContestReader
         var tenantId = _permissionService.TenantId;
 
         var proportionalElectionUnions = await _proportionalElectionUnionRepo.Query()
+            .Include(x => x.ProportionalElectionUnionEntries)
+            .ThenInclude(x => x.ProportionalElection)
             .Where(x =>
                 x.ContestId == contestId
                 && x.SecureConnectId == tenantId)
@@ -163,10 +171,10 @@ public class ContestReader
             .OrderBy(x => x.Description);
     }
 
-    public async Task<DomainOfInfluenceCantonDefaults> GetCantonDefaults(Guid contestId)
+    public async Task<ContestCantonDefaults> GetCantonDefaults(Guid contestId)
     {
         var contest = await Get(contestId);
-        return contest.DomainOfInfluence.CantonDefaults;
+        return contest.CantonDefaults;
     }
 
     internal async Task<IReadOnlySet<Guid>> GetAccessiblePoliticalBusinessIds(Guid contestId)
@@ -198,6 +206,7 @@ public class ContestReader
             .ThenBy(x => x.PoliticalBusinessType)
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.Translations)
+            .Include(x => x.Contest.CantonDefaults)
             .ToListAsync();
     }
 
@@ -213,6 +222,7 @@ public class ContestReader
             .ThenBy(x => x.PoliticalBusinessType)
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.Translations)
+            .Include(x => x.Contest.CantonDefaults)
             .ToListAsync();
     }
 

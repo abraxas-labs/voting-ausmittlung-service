@@ -70,17 +70,18 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
-            .ThenInclude(x => x.Ballot.BallotQuestions)
+            .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
-            .ThenInclude(x => x.Ballot.TieBreakQuestions)
+            .ThenInclude(x => x.Ballot.TieBreakQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.CountingCircle)
             .ThenInclude(x => x.ContestDetails)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Contest.CantonDefaults)
             .Where(x => ctx.PoliticalBusinessIds.Contains(x.Id))
             .OrderBy(x => x.DomainOfInfluence.Type)
             .ThenBy(x => x.PoliticalBusinessNumber)
@@ -109,7 +110,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
     private IEnumerable<IGrouping<Ballot, VoteDomainOfInfluenceBallotResult>> BuildResultsGroupedByBallot(Vote vote)
@@ -128,7 +129,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
 
         vote.Results = vote
             .Results
-            .OrderByCountingCircle(x => x.CountingCircle, vote.DomainOfInfluence.CantonDefaults)
+            .OrderByCountingCircle(x => x.CountingCircle, vote.Contest.CantonDefaults)
             .ToList();
 
         var pbType = vote.DomainOfInfluence.Type;

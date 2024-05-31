@@ -18,6 +18,7 @@ public class ResultExportConfigurationRepo : DbRepository<DataContext, ResultExp
     {
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public Task UnsetAllNextExecutionDates(Guid contestId)
     {
         var contestIdColName = GetDelimitedColumnName(x => x.ContestId);
@@ -27,6 +28,7 @@ public class ResultExportConfigurationRepo : DbRepository<DataContext, ResultExp
             contestId);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<ResultExportConfiguration?> FetchAndLock(DateTime now)
     {
         var nextExecutionColName = GetDelimitedColumnName(x => x.NextExecution);

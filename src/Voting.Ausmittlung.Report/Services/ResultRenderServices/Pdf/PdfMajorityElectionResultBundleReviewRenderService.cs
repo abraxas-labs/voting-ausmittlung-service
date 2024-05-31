@@ -68,6 +68,10 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         }
 
         bundle.Ballots = bundle.Ballots.OrderBy(x => x.Number).ToList();
+        foreach (var ballot in bundle.Ballots)
+        {
+            ballot.BallotCandidates = ballot.BallotCandidates.OrderBy(x => x.Candidate.Position).ToList();
+        }
 
         var countingCircle = await _countingCircleRepo.Query()
             .AsSplitQuery()

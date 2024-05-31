@@ -55,6 +55,7 @@ public class ProportionalElectionResultBundleReader
                                  .Include(x => x.ProportionalElection.Translations)
                                  .Include(x => x.ProportionalElection.DomainOfInfluence)
                                  .Include(x => x.ProportionalElection.Contest.Translations)
+                                 .Include(x => x.ProportionalElection.Contest.CantonDefaults)
                                  .Include(x => x.Bundles).ThenInclude(x => x.List!.Translations)
                                  .FirstOrDefaultAsync(x => x.Id == electionResultId)
                              ?? throw new EntityNotFoundException(electionResultId);
@@ -76,6 +77,7 @@ public class ProportionalElectionResultBundleReader
                                  .Include(x => x.ElectionResult.ProportionalElection.DomainOfInfluence)
                                  .Include(x => x.ElectionResult.ProportionalElection.Translations)
                                  .Include(x => x.ElectionResult.ProportionalElection.Contest.Translations)
+                                 .Include(x => x.ElectionResult.ProportionalElection.Contest.CantonDefaults)
                                  .Include(x => x.List!.Translations)
                                  .FirstOrDefaultAsync(x => x.Id == bundleId)
                              ?? throw new EntityNotFoundException(bundleId);

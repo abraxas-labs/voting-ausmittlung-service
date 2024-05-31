@@ -260,6 +260,42 @@ public class VoteResultAggregate : CountingCircleResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public override void Publish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (Published)
+        {
+            throw new ValidationException("result is already published");
+        }
+
+        RaiseEvent(
+            new VoteResultPublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                VoteResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public override void Unpublish(Guid contestId)
+    {
+        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+
+        if (!Published)
+        {
+            throw new ValidationException("result is already unpublished");
+        }
+
+        RaiseEvent(
+            new VoteResultUnpublished
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                VoteResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
     public int GenerateBundleNumber(Guid ballotResultId, Guid contestId)
     {
         EnsureInState(CountingCircleResultState.SubmissionOngoing, CountingCircleResultState.ReadyForCorrection);
@@ -373,6 +409,12 @@ public class VoteResultAggregate : CountingCircleResultAggregate
                 break;
             case VoteResultResetted _:
                 State = CountingCircleResultState.SubmissionOngoing;
+                break;
+            case VoteResultPublished _:
+                Published = true;
+                break;
+            case VoteResultUnpublished _:
+                Published = false;
                 break;
         }
     }

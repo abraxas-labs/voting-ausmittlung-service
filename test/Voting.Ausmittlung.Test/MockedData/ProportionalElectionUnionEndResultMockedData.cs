@@ -738,6 +738,7 @@ public static class ProportionalElectionUnionEndResultMockedData
         result.ConventionalSubTotal.TotalCountOfListsWithoutParty = 1;
         result.ConventionalSubTotal.TotalCountOfModifiedLists = 15;
         result.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 7;
+        result.ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = 2;
         result.EVotingSubTotal.TotalCountOfListsWithoutParty = 1;
         result.EVotingSubTotal.TotalCountOfModifiedLists = 5;
         result.EVotingSubTotal.TotalCountOfUnmodifiedLists = 3;

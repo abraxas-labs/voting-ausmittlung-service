@@ -1,0 +1,67 @@
+<Voting>
+  <TemplateKey>proportional_election_list_votes_political_business_union_end_results</TemplateKey>
+  <Contest>
+    <Date>2029-02-12T00:00:00Z</Date>
+    <Description>Nationalratswahlen in der Zukunft de</Description>
+    <State>TestingPhase</State>
+  </Contest>
+  <ProportionalElectionUnion>
+    <Description>Kantonratswahl</Description>
+    <ProportionalElectionUnionEndResult>
+      <CountOfVoters>
+        <VoterParticipation>0.039453</VoterParticipation>
+        <TotalReceivedBallots>750</TotalReceivedBallots>
+        <TotalUnaccountedBallots>420</TotalUnaccountedBallots>
+        <EVotingReceivedBallots>60</EVotingReceivedBallots>
+        <EVotingInvalidBallots>20</EVotingInvalidBallots>
+        <EVotingBlankBallots>10</EVotingBlankBallots>
+        <EVotingAccountedBallots>30</EVotingAccountedBallots>
+        <EVotingTotalUnaccountedBallots>30</EVotingTotalUnaccountedBallots>
+        <ConventionalReceivedBallots>690</ConventionalReceivedBallots>
+        <ConventionalInvalidBallots>280</ConventionalInvalidBallots>
+        <ConventionalBlankBallots>110</ConventionalBlankBallots>
+        <ConventionalAccountedBallots>300</ConventionalAccountedBallots>
+        <ConventionalTotalUnaccountedBallots>390</ConventionalTotalUnaccountedBallots>
+        <CountOfAccountedBallots>330</CountOfAccountedBallots>
+        <CountOfInvalidBallots>300</CountOfInvalidBallots>
+        <CountOfBlankBallots>120</CountOfBlankBallots>
+      </CountOfVoters>
+      <NumberOfMandates>5</NumberOfMandates>
+      <ListVotesCount>1787</ListVotesCount>
+      <BlankRowsCount>45</BlankRowsCount>
+      <TotalVoteCount>1832</TotalVoteCount>
+      <TotalCountOfBlankRowsOnListsWithoutParty>2</TotalCountOfBlankRowsOnListsWithoutParty>
+      <TotalVoteCountInclWithoutParty>1834</TotalVoteCountInclWithoutParty>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>1a, 1b</OrderNumber>
+          <ShortDescription>Liste 1a de</ShortDescription>
+        </UnionList>
+        <NumberOfMandates>4</NumberOfMandates>
+        <ListVotesCount>1345</ListVotesCount>
+        <BlankRowsCount>30</BlankRowsCount>
+        <TotalVoteCount>1375</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>2</OrderNumber>
+          <ShortDescription>Liste 2 de</ShortDescription>
+        </UnionList>
+        <NumberOfMandates>1</NumberOfMandates>
+        <ListVotesCount>442</ListVotesCount>
+        <BlankRowsCount>15</BlankRowsCount>
+        <TotalVoteCount>457</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+      <ProportionalElectionUnionListEndResult>
+        <UnionList>
+          <OrderNumber>3</OrderNumber>
+          <ShortDescription>Liste 3 de</ShortDescription>
+        </UnionList>
+        <NumberOfMandates>0</NumberOfMandates>
+        <ListVotesCount>0</ListVotesCount>
+        <BlankRowsCount>0</BlankRowsCount>
+        <TotalVoteCount>0</TotalVoteCount>
+      </ProportionalElectionUnionListEndResult>
+    </ProportionalElectionUnionEndResult>
+  </ProportionalElectionUnion>
+</Voting>

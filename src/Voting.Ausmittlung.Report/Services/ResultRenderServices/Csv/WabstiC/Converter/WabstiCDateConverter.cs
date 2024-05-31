@@ -9,7 +9,7 @@ using CsvHelper.TypeConversion;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 
-public class WabstiCDateConverter : TypeConverter
+public class WabstiCDateConverter : DefaultTypeConverter
 {
     public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
         => (value as DateTime?)?.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) ?? string.Empty;

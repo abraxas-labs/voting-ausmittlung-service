@@ -1,0 +1,29 @@
+{
+  "Permission": [
+    "Contest:read",
+    "PoliticalBusiness:read-owned",
+    "PoliticalBusinessResult:read",
+    "PoliticalBusinessResult:read-comments",
+    "PoliticalBusinessResult:read-overview",
+    "PoliticalBusinessResultBundle:read",
+    "PoliticalBusinessResultBallot:read",
+    "PoliticalBusinessResultBallot:read-all",
+    "PoliticalBusinessEndResult:read",
+    "PoliticalBusinessUnionEndResult:read",
+    "PoliticalBusinessEndResultLotDecision:read",
+    "PoliticalBusinessUnionEndResultLotDecision:read",
+    "VoteBallotResult:read",
+    "ProportionalElectionCandidate:read",
+    "ProportionalElectionList:read",
+    "ProportionalElectionListResult:read",
+    "MajorityElectionCandidate:read",
+    "MajorityElectionBallotGroupResult:read",
+    "Import:read",
+    "Export:export",
+    "Export:export-monitoring",
+    "Export:export-activity-protocol",
+    "ExportConfiguration:read",
+    "ExportConfiguration:update",
+    "ExportConfiguration:trigger"
+  ]
+}

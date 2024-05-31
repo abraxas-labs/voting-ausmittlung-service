@@ -164,6 +164,7 @@ public static class CountingCircleMockedData
                     DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Bz },
                 },
             },
+            EVoting = true,
         };
 
     public static CountingCircle Uzwil
@@ -221,6 +222,7 @@ public static class CountingCircleMockedData
                     DomainOfInfluenceTypes = new() { DomainOfInfluenceType.Bz },
                 },
             },
+            EVoting = true,
         };
 
     public static CountingCircle Rorschach

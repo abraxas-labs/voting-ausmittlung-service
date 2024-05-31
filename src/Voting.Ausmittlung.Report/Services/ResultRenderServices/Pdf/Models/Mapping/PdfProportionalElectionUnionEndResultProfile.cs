@@ -10,7 +10,7 @@ public class PdfProportionalElectionUnionEndResultProfile : Profile
 {
     public PdfProportionalElectionUnionEndResultProfile()
     {
-        CreateMap<ProportionalElectionUnionEndResult, PdfProportionalElectionUnionEndResult>();
+        CreateMap<ReportProportionalElectionUnionEndResult, PdfProportionalElectionUnionEndResult>();
         CreateMap<ProportionalElectionUnionListEndResult, PdfProportionalElectionUnionListEndResult>();
     }
 }

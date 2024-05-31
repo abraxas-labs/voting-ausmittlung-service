@@ -31,14 +31,14 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
-        await BundleErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdminWithRestartedBallotNumber()
     {
-        var bundleResponse = await BundleErfassungCreatorClient.CreateBundleAsync(new CreateVoteResultBundleRequest
+        var bundleResponse = await ErfassungElectionAdminClient.CreateBundleAsync(new CreateVoteResultBundleRequest
         {
             BundleNumber = 10,
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
@@ -46,14 +46,14 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
         });
         await RunEvents<VoteResultBundleCreated>();
 
-        await BundleErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = bundleResponse.BundleId));
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = bundleResponse.BundleId));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot(x => x.BundleId);
     }
 
     [Fact]
     public async Task TestShouldReturnAsErfassungCreator()
     {
-        await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
+        await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot();
     }
 
@@ -62,7 +62,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     {
         await TestEventWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
+            await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteResultBallotCreated>();
         });
     }
@@ -71,7 +71,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldReturnWhenInCorrection()
     {
         await RunBundleToState(BallotBundleState.InCorrection);
-        await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
+        await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>().MatchSnapshot();
     }
 
@@ -95,7 +95,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowOtherTenant()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = VoteResultBundleMockedData.IdUzwilBundle1)),
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.BundleId = VoteResultBundleMockedData.IdUzwilBundle1)),
             StatusCode.PermissionDenied);
     }
 
@@ -103,7 +103,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowDuplicatedQuestion()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
                 x.QuestionAnswers.Add(new CreateUpdateVoteResultBallotQuestionAnswerRequest
                 {
                     QuestionNumber = 1,
@@ -117,7 +117,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowUnknownQuestion()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.QuestionAnswers[0] =
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.QuestionAnswers[0] =
                 new CreateUpdateVoteResultBallotQuestionAnswerRequest
                 {
                     QuestionNumber = 3,
@@ -131,7 +131,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowDuplicatedTieBreakQuestion()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
                 x.TieBreakQuestionAnswers.Add(new CreateUpdateVoteResultBallotTieBreakQuestionAnswerRequest
                 {
                     QuestionNumber = 1,
@@ -145,7 +145,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowUnknownTieBreakQuestion()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.TieBreakQuestionAnswers[0] =
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x => x.TieBreakQuestionAnswers[0] =
                 new CreateUpdateVoteResultBallotTieBreakQuestionAnswerRequest
                 {
                     QuestionNumber = 2,
@@ -159,7 +159,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     public async Task TestShouldThrowAllUnspecified()
     {
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
             {
                 foreach (var qa in x.QuestionAnswers)
                 {
@@ -180,7 +180,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.PastLocked);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Contest is past locked or archived");
     }
@@ -188,14 +188,14 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestBallotNumberOverflowShouldThrow()
     {
-        await BundleErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest());
+        await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest());
 
         var ev = EventPublisherMock.GetSinglePublishedEvent<VoteResultBallotCreated>();
         ev.BallotNumber = int.MaxValue;
 
         await TestEventPublisher.Publish(ev);
         await AssertStatus(
-            async () => await BundleErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.Internal,
             nameof(OverflowException));
     }
@@ -208,7 +208,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
     {
         await RunBundleToState(state);
         await AssertStatus(
-            async () => await BundleErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
     }
@@ -248,7 +248,7 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
                 },
                 EventInfo = GetMockedEventInfo(),
             });
-        var ballot = await BundleErfassungCreatorClient.GetBallotAsync(
+        var ballot = await ErfassungCreatorClient.GetBallotAsync(
             new GetVoteResultBallotRequest
             {
                 BundleId = VoteResultBundleMockedData.IdGossauBundle1,
@@ -270,10 +270,12 @@ public class VoteResultCreateBallotTest : VoteResultBundleBaseTest
             .CreateBallotAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.MonitoringElectionAdmin;
+        yield return RolesMockedData.ErfassungCreator;
+        yield return RolesMockedData.ErfassungCreatorWithoutBundleControl;
+        yield return RolesMockedData.ErfassungElectionSupporter;
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private CreateVoteResultBallotRequest NewValidRequest(

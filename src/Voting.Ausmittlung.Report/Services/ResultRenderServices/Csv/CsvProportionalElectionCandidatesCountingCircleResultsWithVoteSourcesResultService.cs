@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
@@ -22,21 +24,27 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv;
 
 public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourcesResultService : IRendererService
 {
+    private const string FileNameParamReplacement = "_";
+    private static readonly Regex _validFileNameParam = new("[. ]+", RegexOptions.Compiled);
+
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, ProportionalElectionList> _listRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionCandidateResult> _repo;
+    private readonly IDbRepository<DataContext, ProportionalElection> _electionRepo;
     private readonly IClock _clock;
 
     public CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourcesResultService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionCandidateResult> repo,
         IDbRepository<DataContext, ProportionalElectionList> listRepo,
-        IClock clock)
+        IClock clock,
+        IDbRepository<DataContext, ProportionalElection> electionRepo)
     {
         _templateService = templateService;
         _repo = repo;
         _listRepo = listRepo;
         _clock = clock;
+        _electionRepo = electionRepo;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -95,7 +103,8 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
 
         return _templateService.RenderToDynamicCsv(
             ctx,
-            records);
+            records,
+            await LoadDomainOfInfluenceShortName(ctx));
     }
 
     private void SetVoteSources(
@@ -127,6 +136,16 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
 
         voteSourceVoteCounts.TryGetValue(list?.Id ?? Guid.Empty, out var voteCount);
         voteSources.Add(description, voteCount);
+    }
+
+    private async Task<string> LoadDomainOfInfluenceShortName(ReportRenderContext ctx)
+    {
+        var domainOfInfluenceShortName = await _electionRepo.Query()
+            .Where(pe => pe.Id == ctx.PoliticalBusinessId)
+            .Select(pe => pe.DomainOfInfluence.ShortName)
+            .FirstOrDefaultAsync() ?? throw new EntityNotFoundException(nameof(ProportionalElection), ctx.PoliticalBusinessId);
+
+        return _validFileNameParam.Replace(domainOfInfluenceShortName, FileNameParamReplacement);
     }
 
     private class Data

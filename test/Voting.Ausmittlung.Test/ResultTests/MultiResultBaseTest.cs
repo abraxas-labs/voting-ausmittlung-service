@@ -85,9 +85,27 @@ public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultService
         switch (state)
         {
             case CountingCircleResultState.SubmissionOngoing:
-                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x => x.StartSubmission(CountingCircleId, VoteId, ContestId, false));
-                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x => x.StartSubmission(CountingCircleId, ProportionalElectionId, ContestId, false));
-                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x => x.StartSubmission(CountingCircleId, MajorityElectionId, ContestId, false));
+                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x =>
+                {
+                    if (x.State != CountingCircleResultState.SubmissionOngoing)
+                    {
+                        x.StartSubmission(CountingCircleId, VoteId, ContestId, false);
+                    }
+                });
+                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x =>
+                {
+                    if (x.State != CountingCircleResultState.SubmissionOngoing)
+                    {
+                        x.StartSubmission(CountingCircleId, ProportionalElectionId, ContestId, false);
+                    }
+                });
+                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x =>
+                {
+                    if (x.State != CountingCircleResultState.SubmissionOngoing)
+                    {
+                        x.StartSubmission(CountingCircleId, MajorityElectionId, ContestId, false);
+                    }
+                });
                 break;
             case CountingCircleResultState.SubmissionDone:
                 await SetResultState(aggregateRepo, aggregateFactory, CountingCircleResultState.SubmissionOngoing);

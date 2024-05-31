@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
@@ -242,6 +243,11 @@ public class
     {
         await new ContestCountingCircleElectorateService.ContestCountingCircleElectorateServiceClient(channel)
             .UpdateElectoratesAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
     private UpdateContestCountingCircleElectoratesRequest NewValidRequest(

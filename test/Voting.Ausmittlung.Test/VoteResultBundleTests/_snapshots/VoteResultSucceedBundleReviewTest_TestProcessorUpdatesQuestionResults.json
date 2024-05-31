@@ -19,6 +19,7 @@
           "EndResult": null,
           "Question": "Frage 2 Gossau de",
           "BallotAnswers": [],
+          "Type": 2,
           "Id": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d"
         },
         "QuestionId": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d",
@@ -62,6 +63,7 @@
           "EndResult": null,
           "Question": "Frage 1 Gossau de",
           "BallotAnswers": [],
+          "Type": 1,
           "Id": "0516dfaf-4414-4f71-b062-d39dc4bb0277"
         },
         "QuestionId": "0516dfaf-4414-4f71-b062-d39dc4bb0277",

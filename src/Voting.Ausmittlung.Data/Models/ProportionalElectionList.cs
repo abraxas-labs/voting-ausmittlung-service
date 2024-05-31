@@ -56,6 +56,10 @@ public class ProportionalElectionList : BaseEntity
 
     public ProportionalElectionListEndResult? EndResult { get; set; }
 
+    public ICollection<DoubleProportionalResultCell> DoubleProportionalResultCells { get; set; } = new HashSet<DoubleProportionalResultCell>();
+
+    public DoubleProportionalResultColumn? DoubleProportionalResultColumn { get; set; }
+
     // TODO: Simplify with jira ticket 398
     [NotMapped]
     public ProportionalElectionListUnion? ProportionalElectionListUnion =>

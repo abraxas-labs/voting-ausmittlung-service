@@ -13,7 +13,7 @@ internal static class ProtocolSortUtil
     public static IEnumerable<T> OrderByDomainOfInfluence<T>(
         this IEnumerable<T> items,
         Func<T, DomainOfInfluence> doiSelector,
-        DomainOfInfluenceCantonDefaults cantonDefaults)
+        ContestCantonDefaults cantonDefaults)
     {
         return cantonDefaults.ProtocolDomainOfInfluenceSortType switch
         {
@@ -26,7 +26,7 @@ internal static class ProtocolSortUtil
     public static IEnumerable<T> OrderByCountingCircle<T>(
         this IEnumerable<T> items,
         Func<T, CountingCircle> ccSelector,
-        DomainOfInfluenceCantonDefaults cantonDefaults)
+        ContestCantonDefaults cantonDefaults)
     {
         return cantonDefaults.ProtocolCountingCircleSortType switch
         {

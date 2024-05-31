@@ -34,6 +34,54 @@
       "PreviousContest": null,
       "PreviousContestOwners": [],
       "DomainOfInfluenceParties": [],
+      "CantonDefaults": {
+        "ContestId": "92372a84-a9e6-4650-a906-c8455a3c04df",
+        "Contest": null,
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
+        "EnabledVotingCardChannels": [
+          {
+            "VotingChannel": 1,
+            "Valid": true,
+            "Channel": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 4,
+            "Valid": true,
+            "Channel": 4,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": true,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
       "PoliticalBusinesses": [],
       "PoliticalBusinessUnions": [],
       "TestingPhaseEnded": false,
@@ -74,6 +122,54 @@
       "PreviousContest": null,
       "PreviousContestOwners": [],
       "DomainOfInfluenceParties": [],
+      "CantonDefaults": {
+        "ContestId": "0c6bcd39-89ad-4017-a924-c682b1b1237e",
+        "Contest": null,
+        "CountingCircleResultStateDescriptions": [
+          {
+            "State": 4,
+            "Description": "Erfassung beendet",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "StatePlausibilisedDisabled": false,
+        "MajorityElectionAbsoluteMajorityAlgorithm": 1,
+        "ProtocolDomainOfInfluenceSortType": 2,
+        "ProtocolCountingCircleSortType": 2,
+        "EnabledVotingCardChannels": [
+          {
+            "VotingChannel": 1,
+            "Valid": true,
+            "Channel": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 4,
+            "Valid": true,
+            "Channel": 4,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": true,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "VotingChannel": 2,
+            "Valid": false,
+            "Channel": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "MajorityElectionInvalidVotes": false,
+        "CountingMachineEnabled": false,
+        "NewZhFeaturesEnabled": false,
+        "MajorityElectionUseCandidateCheckDigit": true,
+        "ProportionalElectionUseCandidateCheckDigit": false,
+        "PublishResultsEnabled": true,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
       "PoliticalBusinesses": [],
       "PoliticalBusinessUnions": [],
       "TestingPhaseEnded": false,

@@ -15,4 +15,6 @@ public class TemporaryDataContext : DbContext
 
     // nullables see https://docs.microsoft.com/en-us/ef/core/miscellaneous/nullable-reference-types
     public DbSet<SecondFactorTransaction> SecondFactorTransactions { get; set; } = null!;
+
+    public DbSet<ExportLogEntry> ExportLogEntries { get; set; } = null!;
 }

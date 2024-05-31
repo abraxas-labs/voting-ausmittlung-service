@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -136,8 +137,28 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        // set all lot decisions as done
+        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
+            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x => x.LotDecisionRequired = false);
+        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
+            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x => x.LotDecisionRequired = false);
+
+        // Finalize it first, so it can be reverted
+        await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
+        {
+            MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+        });
+
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)
             .RevertEndResultFinalizationAsync(NewValidRequest());
+    }
+
+    protected override IEnumerable<string> AuthorizedRoles()
+    {
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private RevertMajorityElectionEndResultFinalizationRequest NewValidRequest()

@@ -30,6 +30,8 @@ public class ProportionalElectionResultService : ServiceBase
     private readonly ProportionalElectionEndResultWriter _proportionalElectionEndResultWriter;
     private readonly ProportionalElectionResultValidationSummaryBuilder _proportionalElectionResultValidationSummaryBuilder;
     private readonly IMapper _mapper;
+    private readonly DoubleProportionalResultReader _dpResultReader;
+    private readonly DoubleProportionalResultWriter _dpResultWriter;
 
     public ProportionalElectionResultService(
         ProportionalElectionResultReader proportionalElectionResultReader,
@@ -37,7 +39,9 @@ public class ProportionalElectionResultService : ServiceBase
         ProportionalElectionEndResultReader proportionalElectionEndResultReader,
         ProportionalElectionEndResultWriter proportionalElectionEndResultWriter,
         ProportionalElectionResultValidationSummaryBuilder proportionalElectionResultValidationSummaryBuilder,
-        IMapper mapper)
+        IMapper mapper,
+        DoubleProportionalResultReader dpResultReader,
+        DoubleProportionalResultWriter dpResultWriter)
     {
         _proportionalElectionResultReader = proportionalElectionResultReader;
         _proportionalElectionResultWriter = proportionalElectionResultWriter;
@@ -45,6 +49,8 @@ public class ProportionalElectionResultService : ServiceBase
         _proportionalElectionEndResultWriter = proportionalElectionEndResultWriter;
         _proportionalElectionResultValidationSummaryBuilder = proportionalElectionResultValidationSummaryBuilder;
         _mapper = mapper;
+        _dpResultReader = dpResultReader;
+        _dpResultWriter = dpResultWriter;
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.Read)]
@@ -163,10 +169,27 @@ public class ProportionalElectionResultService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Read)]
+    public override async Task<ProtoModels.ProportionalElectionEndResult> GetPartialEndResult(GetProportionalElectionPartialEndResultRequest request, ServerCallContext context)
+    {
+        var partialResult = await _proportionalElectionEndResultReader.GetPartialEndResult(GuidParser.Parse(request.ProportionalElectionId));
+
+        var mapped = _mapper.Map<ProtoModels.ProportionalElectionEndResult>(partialResult);
+        mapped.PartialResult = true;
+        return mapped;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Read)]
     public override async Task<ProtoModels.ProportionalElectionEndResult> GetEndResult(GetProportionalElectionEndResultRequest request, ServerCallContext context)
     {
         var endResult = await _proportionalElectionEndResultReader.GetEndResult(GuidParser.Parse(request.ProportionalElectionId));
         return _mapper.Map<ProtoModels.ProportionalElectionEndResult>(endResult);
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Read)]
+    public override async Task<ProtoModels.DoubleProportionalResult> GetDoubleProportionalResult(GetProportionalElectionDoubleProportionalResultRequest request, ServerCallContext context)
+    {
+        var dpResult = await _dpResultReader.GetElectionDoubleProportionalResult(GuidParser.Parse(request.ProportionalElectionId));
+        return _mapper.Map<ProtoModels.DoubleProportionalResult>(dpResult);
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResultLotDecision.Read)]
@@ -225,6 +248,42 @@ public class ProportionalElectionResultService : ServiceBase
         var listId = GuidParser.Parse(request.ProportionalElectionListId);
         var candidateEndResults = _mapper.Map<List<ProportionalElectionManualCandidateEndResult>>(request.CandidateEndResults);
         await _proportionalElectionEndResultWriter.EnterManualListEndResult(listId, candidateEndResults);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(ProportionalElectionResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var electionResultId = GuidParser.Parse(request.ElectionResultId);
+        await _proportionalElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResultLotDecision.Read)]
+    public override async Task<ProtoModels.DoubleProportionalResultSuperApportionmentAvailableLotDecisions> GetDoubleProportionalResultSuperApportionmentAvailableLotDecisions(GetProportionalElectionDoubleProportionalResultSuperApportionmentAvailableLotDecisionsRequest request, ServerCallContext context)
+    {
+        var availableLotDecisions = await _dpResultReader.GetElectionDoubleProportionalSuperApportionmentAvailableLotDecisions(GuidParser.Parse(request.ProportionalElectionId));
+        return _mapper.Map<ProtoModels.DoubleProportionalResultSuperApportionmentAvailableLotDecisions>(availableLotDecisions);
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResultLotDecision.Update)]
+    public override async Task<Empty> UpdateDoubleProportionalResultSuperApportionmentLotDecision(UpdateProportionalElectionDoubleProportionalResultSuperApportionmentLotDecisionRequest request, ServerCallContext context)
+    {
+        await _dpResultWriter.UpdateElectionSuperApportionmentLotDecision(GuidParser.Parse(request.ProportionalElectionId), request.Number);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Audit)]
+    public override async Task<Empty> Publish(ProportionalElectionResultPublishRequest request, ServerCallContext context)
+    {
+        await _proportionalElectionResultWriter.Publish(request.ElectionResultIds.Select(GuidParser.Parse).ToList());
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.Audit)]
+    public override async Task<Empty> Unpublish(ProportionalElectionResultUnpublishRequest request, ServerCallContext context)
+    {
+        await _proportionalElectionResultWriter.Unpublish(request.ElectionResultIds.Select(GuidParser.Parse).ToList());
         return ProtobufEmpty.Instance;
     }
 }

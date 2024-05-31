@@ -8,13 +8,13 @@
       <PackageReference Include="Grpc.AspNetCore" Version="$(GrpcAspNetCoreVersion)" />
       <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="$(GrpcAspNetCoreVersion)" />
       <PackageReference Include="Grpc.AspNetCore.Web" Version="$(GrpcAspNetCoreVersion)" />
-      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(EfCoreVersion)" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MsExtensionsVersion)" />
-      <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.0" />
-      <PackageReference Include="prometheus-net.AspNetCore.Grpc" Version="6.0.0" />
-      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="6.0.0" />
-      <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
-      <PackageReference Include="Serilog.Expressions" Version="3.4.0" />
+      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.2" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+      <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
+      <PackageReference Include="prometheus-net.AspNetCore.Grpc" Version="8.2.1" />
+      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="8.2.1" />
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+      <PackageReference Include="Serilog.Expressions" Version="4.0.0" />
       <PackageReference Include="Voting.Lib.Grpc" Version="$(VotingLibVersion)" />
       <PackageReference Include="Voting.Lib.Prometheus" Version="$(VotingLibVersion)" />
       <PackageReference Include="Voting.Lib.Rest" Version="$(VotingLibVersion)" />

@@ -21,6 +21,10 @@ public class SimpleCountingCircleResult : BaseEntity
 
     public DateTime? SubmissionDoneTimestamp { get; set; }
 
+    public DateTime? AuditedTentativelyTimestamp { get; set; }
+
+    public DateTime? PlausibilisedTimestamp { get; set; }
+
     public bool HasComments { get; set; }
 
     public ICollection<CountingCircleResultComment>? Comments { get; set; }
@@ -28,4 +32,8 @@ public class SimpleCountingCircleResult : BaseEntity
     public bool HasUnmappedWriteIns => CountOfElectionsWithUnmappedWriteIns > 0;
 
     public int CountOfElectionsWithUnmappedWriteIns { get; set; }
+
+    public PoliticalBusinessNullableCountOfVoters CountOfVoters { get; set; } = new();
+
+    public bool Published { get; set; }
 }

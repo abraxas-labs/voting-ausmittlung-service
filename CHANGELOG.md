@@ -1,4 +1,4 @@
-# ✨ Changelog (`v1.108.0`)
+# ✨ Changelog (`v2.17.2`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,266 +8,439 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v1.108.0
-Previous version ---- v1.91.2
+This version -------- v2.17.2
+Previous version ---- v1.108.0
 Initial version ----- v1.29.14
-Total commits ------- 39
+Total commits ------- 690
 ```
 
-## [v1.108.0] - 2024-02-28
+## [v2.17.2] - 2024-05-31
+
+### 🔄 Changed
+
+- ballot after testing phase updated
+
+## [v2.17.1] - 2024-05-29
+
+### 🔄 Changed
+
+- split ech-0252 election to majority and proportional election export
+
+## [v2.17.0] - 2024-05-29
+
+### 🆕 Added
+
+- add published state to results
+
+## [v2.16.1] - 2024-05-27
+
+### 🔄 Changed
+
+- double proportional lot decision fixes
+
+## [v2.16.0] - 2024-05-22
+
+### 🆕 Added
+
+- add ballot question type
+
+## [v2.15.1] - 2024-05-17
+
+### 🆕 Added
+
+- testing utilities for double proportional results
+
+## [v2.15.0] - 2024-05-16
+
+### 🆕 Added
+
+- double proportional lot decisions
+
+## [v2.14.1] - 2024-05-14
+
+### 🔄 Changed
+
+- changed current date on pdf report names to contest date for all pdf exports
+
+## [v2.14.0] - 2024-05-08
+
+### :new: Added
+
+- added eCH-0252 for elections
+
+## [v2.13.0] - 2024-05-07
+
+### 🔄 Changed
+
+- allow to add same counting circle in domain of influence trees
+
+## [v2.12.0] - 2024-05-07
+
+### 🆕 Added
+
+- update mandate algorithm for proportional elections in unions
+
+## [v2.11.0] - 2024-05-03
+
+### 🆕 Added
+
+- ech-0252 export api
+
+## [v2.10.0] - 2024-04-30
+
+### 🆕 Added
+
+- set multiple bundles to review succeed
+
+## [v2.9.0] - 2024-04-26
+
+### 🆕 Added
+
+- double proportional election protocol
+
+## [v2.8.1] - 2024-04-24
+
+### 🔄 Changed
+
+- move canton defaults from doi to contest
+
+## [v2.8.0] - 2024-04-23
+
+### 🔄 Changed
+
+- rework monitoring cockpit overview
+
+## [v2.7.0] - 2024-04-23
+
+### 🆕 Added
+
+- non cantonal double proportional result
+
+## [v2.6.0] - 2024-04-19
+
+### 🆕 Added
+
+- add state plausibilised disabled canton setting
+
+## [v2.5.0] - 2024-04-18
+
+### 🆕 Added
+
+- add counting circle result state descriptions
+
+## [v2.4.3] - 2024-04-18
+
+### 🔄 Changed
+
+- support reset elections for all double proportional mandate algos
+
+## [v2.4.2] - 2024-04-18
+
+### 🔄 Changed
+
+- remove temporary tenant for 2fa transaction confirmation authorization
+- update VOTING IAM API client
+
+## [v2.4.1] - 2024-04-17
+
+### :arrows_counterclockwise: Changed
+
+- handle vote without ballots
+
+## [v2.4.0] - 2024-04-17
+
+### :new: Added
+
+- added vote end to end test
+
+## [v2.3.0] - 2024-04-15
+
+### 🆕 Added
+
+- data and protocol export api
+
+### :new: Added
+
+- added partial end results
+
+### ❌ Removed
+
+- remove unions from election end result
+
+### 🆕 Added
+
+- proportional election union double proportional result protocols
+
+- cantonal proportional election union results
+
+- added eCH-0252 export (currently vote only)
+
+- add political business unions to end result
+
+- add political business unions to result overview
+
+## [v2.2.0] - 2024-04-08
+
+### 🆕 Added
+
+- add evoting counting circle
+
+## [v2.1.4] - 2024-04-05
+
+### 🔄 Changed
+
+- union list export order by order number
+
+## [v2.1.3] - 2024-04-05
+
+### 🔄 Changed
+
+- update proportional election candidate results with vote sources template filename
+
+## [v2.1.2] - 2024-04-04
+
+### 🔄 Changed
+
+- group union lists by short description for export
+
+## [v2.1.1] - 2024-04-02
+
+### 🔄 Changed
+
+- validations consider conventional and e-voting results
+- contest testing phase ended resets e-voting imported flag
+
+## [v2.1.0] - 2024-03-21
+
+### 🆕 Added
+
+- add double proportional export templates
+
+## [v2.0.0] - 2024-03-15
+
+### :lock: Security
+
+- dependency and runtime patch policy
+- use latest dotnet runtime v8.0.3
+
+### 🆕 Added
+
+- add wp listen gde sk stat export
+
+### 🔄 Changed
+
+- majority election candidates bundle review order
+
+### ❌ Removed
+
+- voter turnout protocol export
+
+### 🆕 Added
+
+- add monitoring political business overview
+
+### 🆕 Added
+
+- add vote result algorithm popular and counting circle majority
+
+### 🔄 Changed
+
+- show wp gemeinden sk state export for every canton
+
+### :new: Added
+
+- added new roles
+
+### 🆕 Added
+
+- add list votes end result union export
+
+- add submission finished and audited tentatively endpoint
+
+BREAKING CHANGE: Updated service to .NET 8 LTS.
+
+### :arrows_counterclockwise: Changed
+
+- update to dotnet 8
+
+### :lock: Security
+
+- apply patch policy
+
+- round voter participation to 6 decimal places
+
+### 🔄 Changed
+
+- count asynchronous protocol exports with invalid callback token separately
 
 ### :new: Added
 
 - write in mapping change listener
 
-## [v1.107.0] - 2024-02-27
-
 ### :arrows_counterclockwise: Changed
 
 - adjust write in handling
-
-## [v1.106.0] - 2024-02-23
 
 ### 🆕 Added
 
 - add monitoring of asynchronous protocol exports
 
-## [v1.105.0] - 2024-02-20
-
 ### 🔄 Changed
 
 - report suffix for business level bz is "kantonal" instead of "bezirk"
-
-## [v1.104.1] - 2024-02-20
 
 ### 🔄 Changed
 
 - Enable electorates for non-zh
 
-## [v1.104.0] - 2024-02-19
-
 ### 🔄 Changed
 
 - Import ech-0110 count of voters informations
-
-## [v1.103.0] - 2024-02-19
 
 ### 🆕 Added
 
 - Add proportional wabsti exports with a single political business
 
-## [v1.102.2] - 2024-02-07
-
 ### 🔄 Changed
 
 - Group lists in proportional election unions
-
-## [v1.102.1] - 2024-02-07
 
 ### 🆕 Added
 
 - extend domain of influence type mapping with bezirk for report display name
 
-## [v1.102.0] - 2024-02-06
-
 ### 🆕 Added
 
 - Double proportional election mandate algorithms
-
-## [v1.101.0] - 2024-02-05
 
 ### 🆕 Added
 
 - database query monitoring
 
-## [v1.100.4] - 2024-02-05
-
 ### 🔄 Changed
 
 - proportional election union party votes export
-
-## [v1.100.3] - 2024-02-01
 
 ### :arrows_counterclockwise: Changed
 
 - exports generated for export configuration should use same state of data
 
-## [v1.100.2] - 2024-02-01
-
 ### 🔄 Changed
 
 - Filter out votes with no e-voting results in detail e-voting protocol
-
-## [v1.100.1] - 2024-01-31
 
 ### 🔄 Changed
 
 - Label in sk stat csv export
 
-## [v1.100.0] - 2024-01-31
-
 ### 🆕 Added
 
 - Add counting circle electorate
-
-## [v1.99.1] - 2024-01-31
 
 ### :arrows_counterclockwise: Changed
 
 - correctly check write-ins with their ballot content
 
-## [v1.99.0] - 2024-01-30
-
 ### 🆕 Added
 
 - add wp gemeinden sk stat export
-
-## [v1.98.0] - 2024-01-29
 
 ### 🆕 Added
 
 - add candidate check digit
 
-## [v1.97.1] - 2024-01-25
-
 ### :arrows_counterclockwise: Changed
 
 - adjusted proportional election end result protocols
-
-## [v1.97.0] - 2024-01-16
 
 ### 🆕 Added
 
 - add new zh features flag
 
-## [v1.96.0] - 2024-01-11
-
 ### :new: Added
 
 - added permission service
-
-## [v1.95.3] - 2024-01-05
 
 ### 🔄 Changed
 
 - csv proportional election candidates exports order
 
-## [v1.95.2] - 2024-01-05
-
 ### 🔄 Changed
 
 - Timestamp handling with result corrections
-
-## [v1.95.1] - 2024-01-04
 
 ### 🔄 Changed
 
 - csv proportional election candidates exports
 
-## [v1.95.0] - 2024-01-04
-
 ### :lock: Security
 
 - rework authentication system to use permissions instead of roles
-
-## [v1.94.0] - 2023-12-20
 
 ### 🆕 Added
 
 - Add counting machine to counting circle details
 
-## [v1.93.0] - 2023-12-20
-
 ### 🆕 Added
 
 - add eCH from voting lib
-
-## [v1.92.0] - 2023-12-19
 
 ### 🆕 Added
 
 - add multiple vote ballots
 
-## [v1.91.9] - 2023-12-14
-
 ### 🔄 Changed
 
 - adjust log level for abraxas authentication values
-
-## [v1.91.8] - 2023-12-13
 
 ### 🔄 Changed
 
 - use proportional election id for empty list identificationcurity
 
-## [v1.91.7] - 2023-12-08
-
 ### :arrows_counterclockwise: Changed
 
 - use separate port for metrics endpoint provisioning
-
-## [v1.91.6] - 2023-12-05
 
 ### 🔄 Changed
 
 - Delete protocol exports on counting circle reset
 
-## [v1.91.5] - 2023-12-04
-
 ### :arrows_counterclockwise: Changed
 
 - add additional oauth client scopes for subsystem access authorization
-
-## [v1.91.4] - 2023-11-24
 
 ### :new: Added
 
 - add support for custom oauth scopes.
 
-## [v1.91.3] - 2023-11-23
-
 ### 🔄 Changed
 
 - revert empty and invalid vote count for single majority mandate
-
-## [v1.91.2] - 2023-11-17
 
 ### 🔄 Changed
 
 - udpate to latest voting-lib version to fix role cache
 
-## [v1.91.1] - 2023-11-17
-
 ### :arrows_counterclockwise: Changed
 
 - add vote end results to e-voting details result export
 
-## [v1.91.0] - 2023-11-15
-
 ### :new: Added
 
 - add vote e-voting CSV report
-
-## [v1.90.0] - 2023-11-10
 
 ### 🆕 Added
 
 - add dmdoc callback fail policy
 - add dmdoc callback timeout parameter
 
-## [v1.89.0] - 2023-11-10
-
 ### :new: Added
 
 - added vote e-voting details result protocols
 
-## [v1.88.0] - 2023-11-09
-
 ### 🆕 Added
 
 - added vote result e-voting protocol
-
-## [v1.87.2] - 2023-11-08
 
 ### 🔄 Changed
 
@@ -276,25 +449,17 @@ Total commits ------- 39
 - schedule draft content cleanup after successful callback
 - schedule hard draft cleanup for obsolete documents
 
-## [v1.87.1] - 2023-11-03
-
 ### 🆕 Added
 
 - Add vote protocol e-voting fields
-
-## [v1.87.0] - 2023-11-02
 
 ### 🔄 Changed
 
 - update lib to add dmdoc callback retry
 
-## [v1.86.10] - 2023-10-30
-
 ### 🔄 Changed
 
 - clean up outdated draft on webhook callback
-
-## [v1.86.9] - 2023-10-25
 
 ### 🔄 Changed
 
@@ -891,6 +1056,298 @@ Total commits ------- 39
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v1.109.0] - 2024-02-28
+
+### 🔄 Changed
+
+- count asynchronous protocol exports with invalid callback token separately
+
+## [v1.108.0] - 2024-02-28
+
+### :new: Added
+
+- write in mapping change listener
+
+## [v1.107.0] - 2024-02-27
+
+### :arrows_counterclockwise: Changed
+
+- adjust write in handling
+
+## [v1.106.0] - 2024-02-23
+
+### 🆕 Added
+
+- add monitoring of asynchronous protocol exports
+
+## [v1.105.0] - 2024-02-20
+
+### 🔄 Changed
+
+- report suffix for business level bz is "kantonal" instead of "bezirk"
+
+## [v1.104.1] - 2024-02-20
+
+### 🔄 Changed
+
+- Enable electorates for non-zh
+
+## [v1.104.0] - 2024-02-19
+
+### 🔄 Changed
+
+- Import ech-0110 count of voters informations
+
+## [v1.103.0] - 2024-02-19
+
+### 🆕 Added
+
+- Add proportional wabsti exports with a single political business
+
+## [v1.102.2] - 2024-02-07
+
+### 🔄 Changed
+
+- Group lists in proportional election unions
+
+## [v1.102.1] - 2024-02-07
+
+### 🆕 Added
+
+- extend domain of influence type mapping with bezirk for report display name
+
+## [v1.102.0] - 2024-02-06
+
+### 🆕 Added
+
+- Double proportional election mandate algorithms
+
+## [v1.101.0] - 2024-02-05
+
+### 🆕 Added
+
+- database query monitoring
+
+## [v1.100.4] - 2024-02-05
+
+### 🔄 Changed
+
+- proportional election union party votes export
+
+## [v1.100.3] - 2024-02-01
+
+### :arrows_counterclockwise: Changed
+
+- exports generated for export configuration should use same state of data
+
+## [v1.100.2] - 2024-02-01
+
+### 🔄 Changed
+
+- Filter out votes with no e-voting results in detail e-voting protocol
+
+## [v1.100.1] - 2024-01-31
+
+### 🔄 Changed
+
+- Label in sk stat csv export
+
+## [v1.100.0] - 2024-01-31
+
+### 🆕 Added
+
+- Add counting circle electorate
+
+## [v1.99.1] - 2024-01-31
+
+### :arrows_counterclockwise: Changed
+
+- correctly check write-ins with their ballot content
+
+## [v1.99.0] - 2024-01-30
+
+### 🆕 Added
+
+- add wp gemeinden sk stat export
+
+## [v1.98.0] - 2024-01-29
+
+### 🆕 Added
+
+- add candidate check digit
+
+## [v1.97.1] - 2024-01-25
+
+### :arrows_counterclockwise: Changed
+
+- adjusted proportional election end result protocols
+
+## [v1.97.0] - 2024-01-16
+
+### 🆕 Added
+
+- add new zh features flag
+
+## [v1.96.0] - 2024-01-11
+
+### :new: Added
+
+- added permission service
+
+## [v1.95.3] - 2024-01-05
+
+### 🔄 Changed
+
+- csv proportional election candidates exports order
+
+## [v1.95.2] - 2024-01-05
+
+### 🔄 Changed
+
+- Timestamp handling with result corrections
+
+## [v1.95.1] - 2024-01-04
+
+### 🔄 Changed
+
+- csv proportional election candidates exports
+
+## [v1.95.0] - 2024-01-04
+
+### :lock: Security
+
+- rework authentication system to use permissions instead of roles
+
+## [v1.94.0] - 2023-12-20
+
+### 🆕 Added
+
+- Add counting machine to counting circle details
+
+## [v1.93.0] - 2023-12-20
+
+### 🆕 Added
+
+- add eCH from voting lib
+
+## [v1.92.0] - 2023-12-19
+
+### 🆕 Added
+
+- add multiple vote ballots
+
+## [v1.91.9] - 2023-12-14
+
+### 🔄 Changed
+
+- adjust log level for abraxas authentication values
+
+## [v1.91.8] - 2023-12-13
+
+### 🔄 Changed
+
+- use proportional election id for empty list identificationcurity
+
+## [v1.91.7] - 2023-12-08
+
+### :arrows_counterclockwise: Changed
+
+- use separate port for metrics endpoint provisioning
+
+## [v1.91.6] - 2023-12-05
+
+### 🔄 Changed
+
+- Delete protocol exports on counting circle reset
+
+## [v1.91.5] - 2023-12-04
+
+### :arrows_counterclockwise: Changed
+
+- add additional oauth client scopes for subsystem access authorization
+
+## [v1.91.4] - 2023-11-24
+
+### :new: Added
+
+- add support for custom oauth scopes.
+
+## [v1.91.3] - 2023-11-23
+
+### 🔄 Changed
+
+- revert empty and invalid vote count for single majority mandate
+
+## [v1.91.2] - 2023-11-17
+
+### 🔄 Changed
+
+- udpate to latest voting-lib version to fix role cache
+
+## [v1.91.1] - 2023-11-17
+
+### :arrows_counterclockwise: Changed
+
+- add vote end results to e-voting details result export
+
+## [v1.91.0] - 2023-11-15
+
+### :new: Added
+
+- add vote e-voting CSV report
+
+## [v1.90.0] - 2023-11-10
+
+### 🆕 Added
+
+- add dmdoc callback fail policy
+- add dmdoc callback timeout parameter
+
+## [v1.89.0] - 2023-11-10
+
+### :new: Added
+
+- added vote e-voting details result protocols
+
+## [v1.88.0] - 2023-11-09
+
+### 🆕 Added
+
+- added vote result e-voting protocol
+
+## [v1.87.2] - 2023-11-08
+
+### 🔄 Changed
+
+- avoid raising of additional ProtocolExportCompleted events if aggregate state is already completed
+- delegate draft cleanup to background job by enqueuing it to cleanup queue
+- schedule draft content cleanup after successful callback
+- schedule hard draft cleanup for obsolete documents
+
+## [v1.87.1] - 2023-11-03
+
+### 🆕 Added
+
+- Add vote protocol e-voting fields
+
+## [v1.87.0] - 2023-11-02
+
+### 🔄 Changed
+
+- update lib to add dmdoc callback retry
+
+## [v1.86.10] - 2023-10-30
+
+### 🔄 Changed
+
+- clean up outdated draft on webhook callback
+
+## [v1.86.9] - 2023-10-25
+
+### 🔄 Changed
+
+- correctly calculate count of modified lists for e-voting proportional elections
 
 ## [v1.86.8] - 2023-10-25
 

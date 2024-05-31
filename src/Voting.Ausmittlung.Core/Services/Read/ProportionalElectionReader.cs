@@ -71,6 +71,13 @@ public class ProportionalElectionReader
             .ToListAsync();
     }
 
+    internal async Task<List<ProportionalElection>> GetOwnedElections(Guid contestId)
+    {
+        return await _electionRepo.Query()
+            .Where(x => x.ContestId == contestId && x.Active && x.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
+            .ToListAsync();
+    }
+
     private async Task EnsureCanReadElection(Guid electionId)
     {
         var contestId = await _electionRepo.Query()

@@ -56,21 +56,21 @@ public abstract class PoliticalBusinessResultProcessor<T>
                 simpleResult.SubmissionDoneTimestamp = result.SubmissionDoneTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
             case CountingCircleResultState.AuditedTentatively when !result.AuditedTentativelyTimestamp.HasValue:
-                result.AuditedTentativelyTimestamp = eventInfo.Timestamp.ToDateTime();
+                simpleResult.AuditedTentativelyTimestamp = result.AuditedTentativelyTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
             case CountingCircleResultState.Plausibilised when !result.PlausibilisedTimestamp.HasValue:
-                result.PlausibilisedTimestamp = eventInfo.Timestamp.ToDateTime();
+                simpleResult.PlausibilisedTimestamp = result.PlausibilisedTimestamp = eventInfo.Timestamp.ToDateTime();
                 break;
         }
 
         if (newState < CountingCircleResultState.AuditedTentatively)
         {
-            result.AuditedTentativelyTimestamp = null;
+            simpleResult.AuditedTentativelyTimestamp = result.AuditedTentativelyTimestamp = null;
         }
 
         if (newState < CountingCircleResultState.Plausibilised)
         {
-            result.PlausibilisedTimestamp = null;
+            simpleResult.PlausibilisedTimestamp = result.PlausibilisedTimestamp = null;
         }
 
         await _repo.Update(result);
@@ -99,5 +99,26 @@ public abstract class PoliticalBusinessResultProcessor<T>
         };
         await _commentRepo.Create(comment);
         return true;
+    }
+
+    protected async Task UpdateSimpleResult(Guid resultId, PoliticalBusinessNullableCountOfVoters countOfVoters)
+    {
+        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
+
+        simpleResult.CountOfVoters = countOfVoters;
+        await _simpleResultRepo.Update(simpleResult);
+    }
+
+    protected async Task UpdatePublished(Guid resultId, bool published)
+    {
+        var result = await _repo.GetByKey(resultId)
+                     ?? throw new EntityNotFoundException(resultId);
+        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
+                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
+
+        simpleResult.Published = result.Published = published;
+        await _repo.Update(result);
+        await _simpleResultRepo.Update(simpleResult);
     }
 }

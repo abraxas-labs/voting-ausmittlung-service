@@ -109,13 +109,10 @@ public class VoteResultResetToAuditedTentativelyTest : VoteResultBaseTest
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.Plausibilised);
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultResettedToAuditedTentatively
-            {
-                VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                EventInfo = GetMockedEventInfo(),
-            });
+
+        await MonitoringElectionAdminClient.ResetToAuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<VoteResultResettedToAuditedTentatively>();
+
         await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
 
         var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
@@ -141,11 +138,9 @@ public class VoteResultResetToAuditedTentativelyTest : VoteResultBaseTest
             .ResetToAuditedTentativelyAsync(NewValidRequest());
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
+    protected override IEnumerable<string> AuthorizedRoles()
     {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
+        yield return RolesMockedData.MonitoringElectionAdmin;
     }
 
     private VoteResultsResetToAuditedTentativelyRequest NewValidRequest(Action<VoteResultsResetToAuditedTentativelyRequest>? customizer = null)

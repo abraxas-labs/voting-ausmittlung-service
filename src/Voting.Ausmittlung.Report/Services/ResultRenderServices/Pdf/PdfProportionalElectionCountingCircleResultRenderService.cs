@@ -97,7 +97,7 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
             ctx,
             templateBag,
             data.ProportionalElection.ShortDescription,
-            PdfDateUtil.BuildDateForFilename(_clock.UtcNow));
+            PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
     protected virtual void PrepareAndSortData(ProportionalElectionResult data)
