@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -43,6 +43,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestProcessor()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
 
         await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
@@ -92,6 +93,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestProcessorWithManualEndResult()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
 
         var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
 
@@ -141,6 +143,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldReturnAsMonitoringElectionAdmin()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(NewValidRequest());
         var eventData = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionListEndResultLotDecisionsUpdated>();
         eventData.MatchSnapshot("event", x => x.ProportionalElectionEndResultId);
@@ -155,6 +158,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
 
         // testing phase
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(request);
         var evInTestingPhase = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionListEndResultLotDecisionsUpdated>();
         await RunEvents<ProportionalElectionListEndResultLotDecisionsUpdated>();
@@ -170,7 +174,11 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
 
         await ModifyDbEntities<ProportionalElectionEndResult>(
             e => e.ProportionalElectionId == electionId,
-            e => e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles);
+            e =>
+            {
+                e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles;
+                e.MandateDistributionTriggered = true;
+            });
         await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
             e => e.ListEndResult.ElectionEndResultId == endResultTestingPhaseEndedId,
             e =>
@@ -192,6 +200,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
             await SetAllAuditedTentatively();
+            await TriggerMandateDistribution();
             await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionListEndResultLotDecisionsUpdated>();
         });
@@ -201,6 +210,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowIfRequiredLotDecisionIsMissing()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
                 new UpdateProportionalElectionListEndResultLotDecisionsRequest
@@ -228,6 +238,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowIfRankIsOutOfAllowedRange()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(new UpdateProportionalElectionListEndResultLotDecisionsRequest
             {
@@ -254,6 +265,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowIfDuplicateRankInSameElection()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
                 NewValidRequest(x =>
@@ -278,6 +290,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowIfDuplicateCandidate()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
                 NewValidRequest(x => x.LotDecisions.Add(new UpdateProportionalElectionEndResultLotDecisionRequest
@@ -293,6 +306,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowIfNoLotDecisions()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
                 NewValidRequest(x => x.LotDecisions.Clear())),
@@ -301,8 +315,10 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     }
 
     [Fact]
-    public async Task TestShouldThrowIfElectionCountingCircleNotAuditedTentatively()
+    public async Task TestShouldThrowIfElectionMandateDistributionNotStarted()
     {
+        await SetAllAuditedTentatively();
+
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
@@ -313,6 +329,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     public async Task TestShouldThrowContestLocked()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(NewValidRequest()),
@@ -323,6 +340,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     [Fact]
     public async Task TestShouldThrowNotFound()
     {
+        await SetAllAuditedTentatively();
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
                 NewValidRequest(x => x.ProportionalElectionListId = IdNotFound)),
@@ -341,6 +359,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)
             .UpdateListEndResultLotDecisionsAsync(NewValidRequest());
     }

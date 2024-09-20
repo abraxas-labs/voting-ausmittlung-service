@@ -1,14 +1,12 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Data.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
@@ -38,30 +36,36 @@ public class DomainOfInfluenceCantonDefaultsBuilder
     public async Task RebuildForCanton(CantonSettings cantonSettings)
         => await Rebuild(
             cantonSettings,
-            await _doiRepo.Query().WhereContestIsInTestingPhaseOrNoContest().ToListAsync(),
             doi => doi.Canton == cantonSettings.Canton);
 
-    public async Task RebuildForRootDomainOfInfluenceCantonUpdate(DomainOfInfluence rootDomainOfInfluence, List<DomainOfInfluence> allDomainOfInfluences)
+    public async Task RebuildForRootDomainOfInfluenceCantonUpdate(DomainOfInfluence rootBasisDomainOfInfluence)
          => await Rebuild(
-             await LoadCantonSettings(rootDomainOfInfluence.Canton),
-             allDomainOfInfluences,
-             doi => doi.Id == rootDomainOfInfluence.Id);
+             await LoadCantonSettings(rootBasisDomainOfInfluence.Canton),
+             doi => doi.Id == rootBasisDomainOfInfluence.Id);
 
-    private async Task Rebuild(CantonSettings cantonSettings, List<DomainOfInfluence> allDomainOfInfluences, Func<DomainOfInfluence, bool>? rootDoiPredicate = null)
+    private async Task Rebuild(
+        CantonSettings cantonSettings,
+        Func<DomainOfInfluence, bool>? rootDoiPredicate = null)
     {
-        var tree = DomainOfInfluenceTreeBuilder.BuildTree(allDomainOfInfluences);
+        var basisDomainOfInfluences = await _doiRepo.Query()
+            .Where(x => x.SnapshotContestId == null)
+            .ToListAsync();
+        var basisTree = DomainOfInfluenceTreeBuilder.BuildTree(basisDomainOfInfluences);
 
         if (rootDoiPredicate != null)
         {
-            tree = tree.Where(rootDoiPredicate).ToList();
+            basisTree = basisTree.Where(rootDoiPredicate).ToList();
         }
 
-        var untrackedAffectedDois = tree.Flatten(doi => doi.Children).ToList();
-        var affectedDoiIds = untrackedAffectedDois.ConvertAll(doi => doi.Id);
+        var affectedBasisDoiIds = basisTree
+            .Flatten(doi => doi.Children)
+            .Select(doi => doi.Id)
+            .ToList();
 
         var trackedDois = await _doiRepo.Query()
             .AsTracking()
-            .Where(doi => affectedDoiIds.Contains(doi.Id))
+            .Where(doi => affectedBasisDoiIds.Contains(doi.Id)
+                || (affectedBasisDoiIds.Contains(doi.BasisDomainOfInfluenceId) && doi.SnapshotContest!.State <= ContestState.TestingPhase))
             .ToListAsync();
 
         foreach (var doi in trackedDois)

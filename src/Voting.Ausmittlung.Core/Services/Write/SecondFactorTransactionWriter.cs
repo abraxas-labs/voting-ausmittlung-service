@@ -1,7 +1,8 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -46,13 +47,13 @@ public class SecondFactorTransactionWriter
         _actionIdComparer = actionIdComparer;
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> CreateSecondFactorTransaction(ActionId actionId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> CreateSecondFactorTransaction(ActionId actionId, string message)
     {
         var actionIdHash = actionId.ComputeHash();
         var userId = _permissionService.UserId;
         var code = RandomUtil.GetRandomString(4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
         message = $"({code}) {message}";
-        var secondFactorAuthId = await _userService.RequestSecondFactor(
+        var secondFactor = await _userService.RequestSecondFactor(
             userId,
             nameof(V1SecondFactorProvider.NEVIS),
             message);
@@ -62,11 +63,12 @@ public class SecondFactorTransactionWriter
         {
             Id = Guid.NewGuid(),
             ActionId = actionIdHash,
-            ExternalIdentifier = secondFactorAuthId,
+            ExternalIdentifier = secondFactor.Code,
             CreatedAt = now,
             LastUpdatedAt = now,
             ExpiredAt = expiredAt,
             UserId = userId,
+            ExternalTokenJwtIds = secondFactor.TokenJwtIds.ToList(),
         };
         await _repo.Create(secondFactorTransaction);
         _logger.LogInformation(
@@ -74,7 +76,7 @@ public class SecondFactorTransactionWriter
             "Created second factor transaction {SecondFactorExternalId} for action {ActionId}",
             secondFactorTransaction.ExternalIdentifier,
             actionId);
-        return (secondFactorTransaction, code);
+        return (secondFactorTransaction, code, secondFactor.Qr);
     }
 
     public async Task EnsureVerified(string externalId, Func<Task<ActionId>> action, CancellationToken ct)
@@ -102,6 +104,7 @@ public class SecondFactorTransactionWriter
             _permissionService.UserId,
             V1SecondFactorProvider.NEVIS,
             secondFactorTransaction.ExternalIdentifier,
+            secondFactorTransaction.ExternalTokenJwtIds ?? new(),
             ct);
         if (!isVerified)
         {

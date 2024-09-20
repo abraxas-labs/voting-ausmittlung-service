@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -56,6 +56,11 @@ public class PublisherConfig
     /// Gets or sets a value indicating whether gets or sets whether all exports should be disabled.
     /// </summary>
     public bool DisableAllExports { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the export template key canton suffix is enabled or not. Default is 'false'.
+    /// </summary>
+    public bool ExportTemplateKeyCantonSuffixEnabled { get; set; }
 
     public SecureConnectServiceAccountOptions SharedSecureConnect { get; set; } = new();
 

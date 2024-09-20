@@ -31,7 +31,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "MajorityElection": {
@@ -105,12 +107,15 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
-      "EnforceCandidateCheckDigitForCountingCircles": true
+      "EnforceCandidateCheckDigitForCountingCircles": true,
+      "IndividualCandidatesDisabled": false
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 0,
@@ -367,7 +372,8 @@
           "ShortDescription": "short de",
           "NumberOfMandates": 1,
           "Active": false,
-          "Title": "n1: short de"
+          "Title": "n1: short de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {
@@ -491,7 +497,8 @@
           "ShortDescription": "short2 de",
           "NumberOfMandates": 1,
           "Active": true,
-          "Title": "n2: short2 de"
+          "Title": "n2: short2 de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {
@@ -669,7 +676,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "MajorityElection": {
@@ -743,12 +752,15 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
-      "EnforceCandidateCheckDigitForCountingCircles": true
+      "EnforceCandidateCheckDigitForCountingCircles": true,
+      "IndividualCandidatesDisabled": false
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 15800,
@@ -1087,7 +1099,8 @@
           "ShortDescription": "short de",
           "NumberOfMandates": 1,
           "Active": false,
-          "Title": "n1: short de"
+          "Title": "n1: short de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {
@@ -1211,7 +1224,8 @@
           "ShortDescription": "short2 de",
           "NumberOfMandates": 1,
           "Active": true,
-          "Title": "n2: short2 de"
+          "Title": "n2: short2 de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {
@@ -1389,7 +1403,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "MajorityElection": {
@@ -1463,12 +1479,15 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
-      "EnforceCandidateCheckDigitForCountingCircles": true
+      "EnforceCandidateCheckDigitForCountingCircles": true,
+      "IndividualCandidatesDisabled": false
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 34810,
@@ -1837,7 +1856,8 @@
           "ShortDescription": "short de",
           "NumberOfMandates": 1,
           "Active": false,
-          "Title": "n1: short de"
+          "Title": "n1: short de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {
@@ -1961,7 +1981,8 @@
           "ShortDescription": "short2 de",
           "NumberOfMandates": 1,
           "Active": true,
-          "Title": "n2: short2 de"
+          "Title": "n2: short2 de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateEndResults": [
           {

@@ -22,6 +22,7 @@
     <ShortDescription>Majorzw de</ShortDescription>
     <NumberOfMandates>3</NumberOfMandates>
     <MandateAlgorithm>AbsoluteMajority</MandateAlgorithm>
+    <IndividualCandidatesDisabled>false</IndividualCandidatesDisabled>
     <MajorityElectionResult>
       <CountingCircle>
         <Name>St. Gallen</Name>

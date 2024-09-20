@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -101,6 +101,24 @@ public class MajorityElectionResultPublishTest : MajorityElectionResultBaseTest
 
     [Theory]
     [InlineData(CountingCircleResultState.SubmissionDone)]
+    [InlineData(CountingCircleResultState.CorrectionDone)]
+    public async Task TestShouldReturnWithSubmissionDoneBeforeAuditedPublishCantonSettings(CountingCircleResultState state)
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x =>
+            {
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+
+        await RunToState(state);
+        await MonitoringElectionAdminClient.PublishAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
+    }
+
+    [Theory]
+    [InlineData(CountingCircleResultState.SubmissionDone)]
     [InlineData(CountingCircleResultState.SubmissionOngoing)]
     [InlineData(CountingCircleResultState.ReadyForCorrection)]
     public async Task TestShouldThrowInWrongState(CountingCircleResultState state)
@@ -109,7 +127,7 @@ public class MajorityElectionResultPublishTest : MajorityElectionResultBaseTest
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.PublishAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
-            "This operation is not possible for state");
+            "cannot publish or unpublish a result with the state");
     }
 
     [Fact]
@@ -157,7 +175,7 @@ public class MajorityElectionResultPublishTest : MajorityElectionResultBaseTest
             async () => await MonitoringElectionAdminClient.PublishAsync(
                 NewValidRequest()),
             StatusCode.InvalidArgument,
-            $"cannot publish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
+            $"cannot publish or unpublish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
     }
 
     [Fact]

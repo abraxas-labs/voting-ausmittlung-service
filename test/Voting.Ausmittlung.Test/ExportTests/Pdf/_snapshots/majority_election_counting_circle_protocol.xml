@@ -33,6 +33,7 @@
     </DomainOfInfluence>
     <NumberOfMandates>1</NumberOfMandates>
     <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
+    <IndividualCandidatesDisabled>false</IndividualCandidatesDisabled>
     <MajorityElectionResult>
       <TotalCountOfVoters>15000</TotalCountOfVoters>
       <State>Initial</State>

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
@@ -92,31 +93,31 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
     }
 
     [Fact]
-    public async Task ShouldWorkWithCcResultStateFilter()
+    public async Task ShouldWorkWithCcResultStateFilterAndElections()
     {
-        var voteId1 = Guid.Parse(VoteMockedData.IdStGallenVoteInContestStGallen);
-        var voteId2 = Guid.Parse(VoteMockedData.IdBundVoteInContestStGallen);
+        var electionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen);
         var ccId = CountingCircleMockedData.GuidStGallen;
-
-        await ModifyDbEntities<VoteResult>(
-            v => v.VoteId == voteId1 && v.CountingCircle.BasisCountingCircleId == ccId,
-            v => v.State = CountingCircleResultState.Plausibilised);
-
-        await ModifyDbEntities<VoteResult>(
-            v => v.VoteId == voteId2 && v.CountingCircle.BasisCountingCircleId == ccId,
-            v => v.State = CountingCircleResultState.AuditedTentatively);
 
         var filter = new Ech0252FilterModel
         {
-            ContestDateFrom = new DateTime(2020, 1, 1),
-            ContestDateTo = new DateTime(2021, 1, 1),
+            ContestDateFrom = new DateTime(2020, 8, 31),
+            ContestDateTo = new DateTime(2020, 8, 31),
             CountingCircleResultStates = new() { CountingCircleResultState.Plausibilised, CountingCircleResultState.AuditedTentatively },
         };
 
         var result = await LoadContests(filter);
-        result.Should().HaveCount(1);
-        result[0].Results.Should().HaveCount(2);
-        result[0].Results.All(r => r.CountingCircleId == ccId && (r.PoliticalBusinessId == voteId1 || r.PoliticalBusinessId == voteId2)).Should().BeTrue();
+        result[0].Results.Any(r => r.PoliticalBusinessId == electionId).Should().BeFalse();
+
+        await ModifyDbEntities<ProportionalElectionResult>(
+            x => x.ProportionalElectionId == electionId && x.CountingCircle.BasisCountingCircleId == ccId,
+            v =>
+            {
+                v.State = CountingCircleResultState.Plausibilised;
+                v.Published = true;
+            });
+
+        result = await LoadContests(filter);
+        result[0].Results.Any(r => r.PoliticalBusinessId == electionId).Should().BeTrue();
     }
 
     [Fact]
@@ -235,7 +236,10 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
                         Date = c.Date,
                     };
 
-                    var ccResults = c.Votes.SelectMany(v => v.Results).OfType<CountingCircleResult>()
+                    var ccResults = c.Votes.SelectMany(v => v.Results)
+                        .OfType<CountingCircleResult>()
+                        .Concat(c.ProportionalElections.SelectMany(p => p.Results))
+                        .Concat(c.MajorityElections.SelectMany(m => m.Results))
                         .OrderBy(x => x.Id)
                         .ToList();
 

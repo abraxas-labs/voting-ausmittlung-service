@@ -6,8 +6,10 @@
         "Ballots": [],
         "ReportDomainOfInfluenceLevel": 0,
         "BusinessType": 1,
+        "BusinessSubType": 0,
         "ResultAlgorithm": 2,
         "EndResult": null,
+        "Type": 1,
         "Translations": [
           {
             "VoteId": "5483076b-e596-44d3-b34e-6e9220eed84c",
@@ -21,8 +23,10 @@
         "AutomaticBallotBundleNumberGeneration": false,
         "EnforceResultEntryForCountingCircles": false,
         "ResultEntry": 0,
-        "PoliticalBusinessNumber": "2000",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
         "InternalDescription": "",
+        "PoliticalBusinessNumber": "2000",
         "Active": false,
         "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -42,17 +46,17 @@
         "ShortDescription": "Neue Abstimmung 1 de",
         "OfficialDescription": "Neue Abstimmung 1 de",
         "Title": "2000: Neue Abstimmung 1 de",
-        "Id": "5483076b-e596-44d3-b34e-6e9220eed84c",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "5483076b-e596-44d3-b34e-6e9220eed84c"
       },
       {
         "Results": [],
         "Ballots": [],
         "ReportDomainOfInfluenceLevel": 0,
         "BusinessType": 1,
+        "BusinessSubType": 1,
         "ResultAlgorithm": 0,
         "EndResult": null,
+        "Type": 2,
         "Translations": [
           {
             "VoteId": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e",
@@ -66,8 +70,10 @@
         "AutomaticBallotBundleNumberGeneration": false,
         "EnforceResultEntryForCountingCircles": false,
         "ResultEntry": 0,
-        "PoliticalBusinessNumber": "2001",
+        "ReviewProcedure": 1,
+        "EnforceReviewProcedureForCountingCircles": false,
         "InternalDescription": "",
+        "PoliticalBusinessNumber": "2001",
         "Active": false,
         "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
@@ -87,9 +93,7 @@
         "ShortDescription": "Neue Abstimmung 2 de",
         "OfficialDescription": "Neue Abstimmung 2 de",
         "Title": "2001: Neue Abstimmung 2 de",
-        "Id": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e",
-        "ReviewProcedure": 1,
-        "EnforceReviewProcedureForCountingCircles": false
+        "Id": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e"
       }
     ]
   },
@@ -98,6 +102,8 @@
       {
         "BusinessType": 1,
         "PoliticalBusinessType": 1,
+        "BusinessSubType": 1,
+        "PoliticalBusinessSubType": 1,
         "SimpleResults": [],
         "NumberOfMandates": null,
         "CountOfSecondaryBusinesses": 0,
@@ -137,6 +143,8 @@
       {
         "BusinessType": 1,
         "PoliticalBusinessType": 1,
+        "BusinessSubType": 0,
+        "PoliticalBusinessSubType": 0,
         "SimpleResults": [],
         "NumberOfMandates": null,
         "CountOfSecondaryBusinesses": 0,

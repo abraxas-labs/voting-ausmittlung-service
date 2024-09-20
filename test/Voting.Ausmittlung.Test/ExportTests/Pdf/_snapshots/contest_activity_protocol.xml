@@ -1187,6 +1187,10 @@
       <AttributeName>election_result_id</AttributeName>
       <AttributeValue>d7681480-d8e8-5522-9656-997c5ad08163</AttributeValue>
     </EventAttribute>
+    <EventAttribute>
+      <AttributeName>implicit_mandate_distribution_disabled</AttributeName>
+      <AttributeValue>False</AttributeValue>
+    </EventAttribute>
     <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionResultAuditedTentatively</EventName>
     <Tenant>
       <TenantName>St. Gallen</TenantName>

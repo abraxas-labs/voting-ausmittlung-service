@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -10,11 +10,13 @@ public class ResultOverview
     public ResultOverview(
         Contest contest,
         IDictionary<CountingCircle, List<SimpleCountingCircleResult>> countingCircleResults,
-        bool currentTenantIsContestManager)
+        bool currentTenantIsContestManager,
+        bool hasPartialResults)
     {
         Contest = contest;
         CountingCircleResults = countingCircleResults;
         CurrentTenantIsContestManager = currentTenantIsContestManager;
+        HasPartialResults = hasPartialResults;
     }
 
     public Contest Contest { get; }
@@ -26,4 +28,6 @@ public class ResultOverview
     public IDictionary<CountingCircle, List<SimpleCountingCircleResult>> CountingCircleResults { get; }
 
     public bool CurrentTenantIsContestManager { get; }
+
+    public bool HasPartialResults { get; }
 }

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -666,7 +666,7 @@ public static class ProportionalElectionUnionEndResultMockedData
                 await simplePbBuilder.Create(election);
 
                 await sp.GetRequiredService<ProportionalElectionResultBuilder>()
-                    .RebuildForElection(election.Id, mappedDomainOfInfluence.Id, testingPhaseEnded);
+                    .RebuildForElection(election.Id, mappedDomainOfInfluence.Id, testingPhaseEnded, election.ContestId);
                 var endResultInitializer = sp.GetRequiredService<ProportionalElectionEndResultInitializer>();
                 var endResultBuilder = sp.GetRequiredService<ProportionalElectionEndResultBuilder>();
                 await endResultInitializer.RebuildForElection(election.Id, testingPhaseEnded);
@@ -692,7 +692,8 @@ public static class ProportionalElectionUnionEndResultMockedData
 
                 await db.SaveChangesAsync();
 
-                await endResultBuilder.AdjustEndResult(result.Id, false);
+                await endResultBuilder.AdjustEndResult(result.Id, false, true);
+                await endResultBuilder.DistributeNumberOfMandates(result.ProportionalElectionId);
                 await db.SaveChangesAsync();
             }
 

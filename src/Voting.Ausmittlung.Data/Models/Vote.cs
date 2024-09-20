@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -8,6 +8,8 @@ namespace Voting.Ausmittlung.Data.Models;
 
 public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTranslations
 {
+    private PoliticalBusinessSubType? _politicalBusinessSubType;
+
     public ICollection<VoteResult> Results { get; set; } = new HashSet<VoteResult>();
 
     IEnumerable<CountingCircleResult> IHasResults.Results
@@ -22,9 +24,17 @@ public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTransla
 
     public override PoliticalBusinessType BusinessType => PoliticalBusinessType.Vote;
 
+    // The sub type is only accurate if the ballots have been loaded (or no ballots exist).
+    // Otherwise, it should be calculated manually
+    public override PoliticalBusinessSubType BusinessSubType
+        => _politicalBusinessSubType
+           ?? CalculateSubType(Ballots.Any(b => b.BallotType == BallotType.VariantsBallot));
+
     public VoteResultAlgorithm ResultAlgorithm { get; set; }
 
     public VoteEndResult? EndResult { get; set; }
+
+    public VoteType Type { get; set; }
 
     public ICollection<VoteTranslation> Translations { get; set; } = new HashSet<VoteTranslation>();
 
@@ -47,4 +57,16 @@ public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTransla
     public bool EnforceReviewProcedureForCountingCircles { get; set; }
 
     public string InternalDescription { get; set; } = string.Empty;
+
+    public void UpdateSubTypeManually(bool hasBallotWithVariantBallotType)
+    {
+        _politicalBusinessSubType = CalculateSubType(hasBallotWithVariantBallotType);
+    }
+
+    private PoliticalBusinessSubType CalculateSubType(bool hasBallotWithVariantBallotType)
+    {
+        return Type == VoteType.VariantQuestionsOnMultipleBallots || hasBallotWithVariantBallotType
+            ? PoliticalBusinessSubType.VoteVariantBallot
+            : PoliticalBusinessSubType.Unspecified;
+    }
 }

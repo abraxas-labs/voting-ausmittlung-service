@@ -36,7 +36,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElection": {
@@ -113,7 +115,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ReviewProcedure": 1,
@@ -231,7 +235,7 @@
         "Position": 1,
         "Description": ""
       },
-      "NumberOfMandates": 1,
+      "NumberOfMandates": 0,
       "CandidateEndResults": [
         {
           "Candidate": {
@@ -254,8 +258,8 @@
           "VoteCount": 0,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
           "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -293,8 +297,8 @@
           "VoteCount": 0,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
           "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -326,7 +330,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959"
       },
-      "HasOpenRequiredLotDecisions": true,
+      "HasOpenRequiredLotDecisions": false,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -381,7 +385,7 @@
         "Position": 2,
         "Description": ""
       },
-      "NumberOfMandates": 1,
+      "NumberOfMandates": 0,
       "CandidateEndResults": [
         {
           "Candidate": {
@@ -406,7 +410,7 @@
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
-          "State": 2,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -492,7 +496,7 @@
         "Position": 3,
         "Description": ""
       },
-      "NumberOfMandates": 1,
+      "NumberOfMandates": 0,
       "CandidateEndResults": [],
       "ListUnion": {
         "Id": "6a8913a3-bd03-4cb3-a0f9-317db5de8959",
@@ -556,5 +560,6 @@
   ],
   "Finalized": false,
   "ManualEndResultRequired": false,
+  "MandateDistributionTriggered": false,
   "PartialResult": false
 }

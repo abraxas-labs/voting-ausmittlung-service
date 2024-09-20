@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -41,9 +41,9 @@ public class VoteResultBuilder
         _dataContext = dataContext;
     }
 
-    internal async Task RebuildForVote(Guid voteId, Guid domainOfInfluenceId, bool testingPhaseEnded)
+    internal async Task RebuildForVote(Guid voteId, Guid domainOfInfluenceId, bool testingPhaseEnded, Guid contestId)
     {
-        await _voteResultRepo.Rebuild(voteId, domainOfInfluenceId, testingPhaseEnded);
+        await _voteResultRepo.Rebuild(voteId, domainOfInfluenceId, testingPhaseEnded, contestId);
         var voteResults = await _voteResultRepo.Query()
             .Where(vr => vr.VoteId == voteId)
             .Include(x => x.CountingCircle)
@@ -73,7 +73,7 @@ public class VoteResultBuilder
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task ResetForVote(Guid voteId, Guid domainOfInfluenceId)
+    internal async Task ResetForVote(Guid voteId, Guid domainOfInfluenceId, Guid contestId)
     {
         var existingVoteResults = await _voteResultRepo.Query()
             .Include(x => x.CountingCircle)
@@ -88,7 +88,7 @@ public class VoteResultBuilder
             VoteId = vr.VoteId,
         }));
 
-        await RebuildForVote(voteId, domainOfInfluenceId, true);
+        await RebuildForVote(voteId, domainOfInfluenceId, true, contestId);
     }
 
     internal async Task UpdateResultEntryAndResetConventionalResults(

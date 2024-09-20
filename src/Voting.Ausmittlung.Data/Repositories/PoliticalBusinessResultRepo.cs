@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -20,7 +20,7 @@ public abstract class PoliticalBusinessResultRepo<T> : DbRepository<DataContext,
     {
     }
 
-    public async Task Rebuild(Guid politicalBusinessId, Guid domainOfInfluenceId, bool testingPhaseEnded)
+    public async Task Rebuild(Guid politicalBusinessId, Guid domainOfInfluenceId, bool testingPhaseEnded, Guid contestId)
     {
         var countingCircles = await Context.Set<DomainOfInfluenceCountingCircle>()
             .Where(cc => cc.DomainOfInfluenceId == domainOfInfluenceId)
@@ -34,22 +34,47 @@ public abstract class PoliticalBusinessResultRepo<T> : DbRepository<DataContext,
         // only navigation properties can be used by ef.
         var filter = FilterByPoliticalBusinessId(politicalBusinessId);
 
-        var existingEntries = await Set
+        var existingResults = await Set
             .Where(filter)
+            .Select(x => new { x.Id, x.CountingCircleId })
             .ToListAsync();
 
-        var entityIdsToRemove = existingEntries
+        var entityIdsToRemove = existingResults
             .Where(e => !contestCountingCircleIds.Contains(e.CountingCircleId))
             .Select(e => e.Id)
             .ToList();
         await DeleteRangeByKey(entityIdsToRemove);
 
-        var entriesToCreate = contestCountingCircleIds.Except(existingEntries.Select(x => x.CountingCircleId))
-            .Select(cid => new T
+        var toCreate = contestCountingCircleIds
+            .Except(existingResults.Select(e => e.CountingCircleId))
+            .ToList();
+        var ccDetailsByCountingCircleId = await Context.Set<ContestCountingCircleDetails>()
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Where(x => x.ContestId == contestId && toCreate.Contains(x.CountingCircleId))
+            .ToDictionaryAsync(x => x.CountingCircleId);
+
+        var politicalBusiness = await LoadPoliticalBusiness(politicalBusinessId);
+
+        var entriesToCreate = toCreate
+            .Select(cid =>
             {
-                Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(politicalBusinessId, basisCountingCircleIdByContestCountingCircleId[cid], testingPhaseEnded),
-                CountingCircleId = cid,
-                PoliticalBusinessId = politicalBusinessId,
+                var totalCountOfVoters = 0;
+                if (ccDetailsByCountingCircleId.TryGetValue(cid, out var details))
+                {
+                    totalCountOfVoters = politicalBusiness.SwissAbroadVotingRight == SwissAbroadVotingRight.OnEveryCountingCircle
+                        ? details.TotalCountOfVoters
+                        : details.CountOfVotersInformationSubTotals
+                            .Where(x => x.VoterType == VoterType.Swiss)
+                            .Sum(x => x.CountOfVoters.GetValueOrDefault());
+                }
+
+                return new T
+                {
+                    Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(politicalBusinessId, basisCountingCircleIdByContestCountingCircleId[cid], testingPhaseEnded),
+                    CountingCircleId = cid,
+                    PoliticalBusinessId = politicalBusinessId,
+                    TotalCountOfVoters = totalCountOfVoters,
+                };
             });
 
         Set.AddRange(entriesToCreate);
@@ -57,4 +82,6 @@ public abstract class PoliticalBusinessResultRepo<T> : DbRepository<DataContext,
     }
 
     protected abstract Expression<Func<T, bool>> FilterByPoliticalBusinessId(Guid id);
+
+    protected abstract Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id);
 }

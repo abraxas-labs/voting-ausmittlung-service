@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,9 +10,7 @@ namespace Voting.Ausmittlung.Core.Utils;
 
 public static class DomainOfInfluenceTreeBuilder
 {
-    internal static List<DomainOfInfluence> BuildTree(
-        List<DomainOfInfluence> flatDomains,
-        Dictionary<Guid, List<DomainOfInfluenceCountingCircle>>? countingCirclesByDomainOfInfluence = null)
+    internal static List<DomainOfInfluence> BuildTree(List<DomainOfInfluence> flatDomains)
     {
         if (flatDomains.Count == 0)
         {
@@ -40,17 +38,6 @@ public static class DomainOfInfluenceTreeBuilder
             }
         }
 
-        var tree = byParentId[Guid.Empty].OrderBy(d => d.Name).ToList();
-        if (countingCirclesByDomainOfInfluence == null)
-        {
-            return tree;
-        }
-
-        foreach (var (id, circles) in countingCirclesByDomainOfInfluence)
-        {
-            byId[id].CountingCircles = circles.OrderBy(x => x.CountingCircle.Name).ToList();
-        }
-
-        return tree;
+        return byParentId[Guid.Empty].OrderBy(d => d.Name).ToList();
     }
 }

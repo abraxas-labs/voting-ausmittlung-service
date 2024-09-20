@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -140,31 +140,17 @@ public class MajorityElectionEndResultFinalizeTest : MajorityElectionEndResultBa
     }
 
     [Fact]
-    public async Task ShouldThrowOpenLotDecisions()
+    public async Task ShouldThrowCantonSettingsEndResultFinalizeDisabled()
     {
-        await AssertStatus(
-            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
-            StatusCode.InvalidArgument,
-            "finalization is only possible after all required lot decisions are saved");
-    }
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
 
-    [Fact]
-    public async Task ShouldThrowOpenSecondaryLotDecisions()
-    {
-        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
-            x => x.MajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = false);
-        await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
-            x => x.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
-            x =>
-            {
-                x.LotDecisionRequired = true;
-                x.LotDecision = false;
-            });
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
-            "finalization is only possible after all required lot decisions are saved");
+            "End result finalize is not enabled for contest");
     }
 
     [Fact]

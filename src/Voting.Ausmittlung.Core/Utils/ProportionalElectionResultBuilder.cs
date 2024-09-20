@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -48,38 +48,63 @@ public class ProportionalElectionResultBuilder
         _mapper = mapper;
     }
 
-    internal async Task RebuildForElection(Guid electionId, Guid domainOfInfluenceId, bool testingPhaseEnded)
+    internal async Task RebuildForElection(Guid electionId, Guid domainOfInfluenceId, bool testingPhaseEnded, Guid contestId)
     {
-        await _resultRepo.Rebuild(electionId, domainOfInfluenceId, testingPhaseEnded);
+        await _resultRepo.Rebuild(electionId, domainOfInfluenceId, testingPhaseEnded, contestId);
         var results = await _resultRepo.Query()
-            .AsTracking()
             .AsSplitQuery()
             .Where(x => x.ProportionalElectionId == electionId)
-            .Include(x => x.UnmodifiedListResults)
-            .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults)
+            .Select(x => new
+            {
+                x.Id,
+                UnmodifiedListResultListIds = x.UnmodifiedListResults.Select(r => r.ListId),
+                ListResult = x.ListResults.Select(r => new
+                {
+                    r.Id,
+                    r.ListId,
+                    CandidateIds = r.CandidateResults.Select(cr => cr.CandidateId).ToList(),
+                })
+                .ToList(),
+            })
             .ToListAsync();
 
-        var lists = await _listRepo.Query()
-            .Include(l => l.ProportionalElectionCandidates)
+        var listAndCandidateIds = await _listRepo.Query()
             .Where(l => l.ProportionalElectionId == electionId)
+            .Select(x => new
+            {
+                x.Id,
+                CandidateIds = x.ProportionalElectionCandidates.Select(c => c.Id),
+            })
             .ToListAsync();
 
-        if (lists.Count == 0)
+        if (listAndCandidateIds.Count == 0)
         {
             return;
         }
 
-        var listIds = lists.ConvertAll(l => l.Id);
-        var candidateIdsByListId = lists.ToDictionary(l => l.Id, l => l.ProportionalElectionCandidates.Select(c => c.Id).ToList());
+        var listIds = listAndCandidateIds.ConvertAll(l => l.Id);
+        var candidateIdsByListId = listAndCandidateIds.ToDictionary(l => l.Id, l => l.CandidateIds.ToList());
         foreach (var result in results)
         {
-            AddMissingUnmodifiedListResults(result, listIds);
-            AddMissingListResults(result, listIds);
+            var unmodifiedResultsToAdd = listIds
+                .Except(result.UnmodifiedListResultListIds)
+                .Select(listId => new ProportionalElectionUnmodifiedListResult { ListId = listId, ResultId = result.Id });
+            _dataContext.ProportionalElectionUnmodifiedListResults.AddRange(unmodifiedResultsToAdd);
 
-            foreach (var listResult in result.ListResults)
+            var listResultsToAdd = listIds
+                .Except(result.ListResult.Select(x => x.ListId))
+                .Select(listId => new ProportionalElectionListResult { ListId = listId, ResultId = result.Id })
+                .ToList();
+            _dataContext.ProportionalElectionListResults.AddRange(listResultsToAdd);
+            result.ListResult.AddRange(listResultsToAdd.Select(r => new { r.Id, r.ListId, CandidateIds = new List<Guid>() }));
+
+            foreach (var listResult in result.ListResult)
             {
                 var candidateIds = candidateIdsByListId[listResult.ListId];
-                _candidateResultBuilder.AddMissingCandidateResults(listResult, candidateIds);
+                var toAdd = candidateIds
+                    .Except(listResult.CandidateIds)
+                    .Select(candidateId => new ProportionalElectionCandidateResult { CandidateId = candidateId, ListResultId = listResult.Id });
+                _dataContext.ProportionalElectionCandidateResults.AddRange(toAdd);
             }
         }
 
@@ -88,45 +113,41 @@ public class ProportionalElectionResultBuilder
 
     internal async Task InitializeForList(Guid electionId, Guid listId)
     {
-        var resultsToUpdate = await _resultRepo.Query()
-            .AsTracking()
-            .AsSplitQuery()
+        var resultIds = await _resultRepo.Query()
             .Where(x => x.ProportionalElectionId == electionId)
-            .Include(x => x.UnmodifiedListResults)
-            .Include(x => x.ListResults)
+            .Select(x => x.Id)
             .ToListAsync();
 
-        foreach (var result in resultsToUpdate)
-        {
-            result.UnmodifiedListResults.Add(new ProportionalElectionUnmodifiedListResult
-            {
-                ListId = listId,
-            });
-            result.ListResults.Add(new ProportionalElectionListResult
-            {
-                ListId = listId,
-            });
-        }
+        var unmodifiedResultsToAdd = resultIds.Select(x => new ProportionalElectionUnmodifiedListResult { ListId = listId, ResultId = x });
+        _dataContext.ProportionalElectionUnmodifiedListResults.AddRange(unmodifiedResultsToAdd);
+
+        var listResultsToAdd = resultIds.Select(x => new ProportionalElectionListResult { ListId = listId, ResultId = x });
+        _dataContext.ProportionalElectionListResults.AddRange(listResultsToAdd);
 
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task ResetForElection(Guid electionId, Guid domainOfInfluenceId)
+    internal async Task ResetForElection(Guid electionId, Guid domainOfInfluenceId, Guid contestId)
     {
         var existingElectionResults = await _resultRepo.Query()
-            .Include(x => x.CountingCircle)
             .Where(er => er.ProportionalElectionId == electionId)
+            .Select(x => new
+            {
+                x.Id,
+                x.CountingCircle.BasisCountingCircleId,
+                x.CountingCircleId,
+            })
             .ToListAsync();
 
         await _resultRepo.DeleteRangeByKey(existingElectionResults.Select(x => x.Id));
         await _resultRepo.CreateRange(existingElectionResults.Select(r => new ProportionalElectionResult
         {
-            Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(electionId, r.CountingCircle.BasisCountingCircleId, true),
+            Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(electionId, r.BasisCountingCircleId, true),
             CountingCircleId = r.CountingCircleId,
-            ProportionalElectionId = r.ProportionalElectionId,
+            ProportionalElectionId = electionId,
         }));
 
-        await RebuildForElection(electionId, domainOfInfluenceId, true);
+        await RebuildForElection(electionId, domainOfInfluenceId, true, contestId);
     }
 
     internal async Task ResetConventionalResultInTestingPhase(Guid resultId)
@@ -203,34 +224,6 @@ public class ProportionalElectionResultBuilder
     {
         await _candidateResultBuilder.AdjustConventionalCandidateResultForBundle(resultBundle, -1);
         await AdjustListResultForBundle(resultBundle, -1);
-    }
-
-    private void AddMissingUnmodifiedListResults(ProportionalElectionResult result, IEnumerable<Guid> listIds)
-    {
-        var toAdd = listIds.Except(result.UnmodifiedListResults.Select(x => x.ListId))
-            .Select(listId => new ProportionalElectionUnmodifiedListResult
-            {
-                ListId = listId,
-            })
-            .ToList();
-        foreach (var element in toAdd)
-        {
-            result.UnmodifiedListResults.Add(element);
-        }
-    }
-
-    private void AddMissingListResults(ProportionalElectionResult result, IEnumerable<Guid> listIds)
-    {
-        var toAdd = listIds.Except(result.ListResults.Select(x => x.ListId))
-            .Select(listId => new ProportionalElectionListResult
-            {
-                ListId = listId,
-            })
-            .ToList();
-        foreach (var listResult in toAdd)
-        {
-            result.ListResults.Add(listResult);
-        }
     }
 
     private async Task ResetConventionalResult(ProportionalElectionResult electionResult, bool includeCountOfVoters)

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -9,6 +9,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -31,6 +32,9 @@ public class ExportGenerateProtocolExportTest : ExportBaseRestTest
     [Fact]
     public async Task ShouldWorkForMonitoring()
     {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
         var response = await AssertStatus(() => StGallenReportExporterApiClient.PostAsJsonAsync(BaseUrl, NewValidRequest()), HttpStatusCode.OK);
         var responseBody = await ReadJson<GenerateProtocolExportResponse>(response);
         responseBody.MatchSnapshot();
@@ -66,6 +70,9 @@ public class ExportGenerateProtocolExportTest : ExportBaseRestTest
     [Fact]
     public async Task ShouldThrowIfApiLimitReached()
     {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
         var templateKey = AusmittlungPdfVoteTemplates.EVotingDetailsResultProtocol.Key;
         var tenantId = SecureConnectTestDefaults.MockedTenantStGallen.Id;
 

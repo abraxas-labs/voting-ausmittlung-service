@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -105,7 +105,7 @@ public class MajorityElectionResultReader
 
         await _permissionService.EnsureCanReadCountingCircle(result.CountingCircleId, result.MajorityElection.ContestId);
 
-        if (result.Entry == MajorityElectionResultEntry.FinalResults)
+        if (result.Entry == MajorityElectionResultEntry.FinalResults && result.State <= CountingCircleResultState.ReadyForCorrection)
         {
             SortCandidateByPosition(result);
         }

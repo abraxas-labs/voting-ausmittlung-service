@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -24,67 +24,81 @@ public class Ech0222Serializer
 
     public Delivery ToDelivery(ProportionalElection proportionalElection)
     {
-        return WrapInDelivery(new EventRawDataDelivery
-        {
-            ReportingBody = GetReportingBody(proportionalElection.Contest),
-            RawData = new RawDataType
+        return WrapInDelivery(
+            new EventRawDataDelivery
             {
-                ContestIdentification = proportionalElection.Contest.Id.ToString(),
-                CountingCircleRawData = proportionalElection.Results
-                    .OrderBy(r => r.CountingCircle.BasisCountingCircleId).Select(r =>
-                        new RawDataTypeCountingCircleRawData
-                        {
-                            CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                            ElectionGroupBallotRawData = new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData> { r.ToEchElectionGroupRawData() },
-                        })
-                    .Where(x => x.ElectionGroupBallotRawData.Count > 0)
-                    .ToList(),
+                ReportingBody = GetReportingBody(proportionalElection.Contest),
+                RawData = new RawDataType
+                {
+                    ContestIdentification = proportionalElection.Contest.Id.ToString(),
+                    CountingCircleRawData = proportionalElection.Results
+                        .OrderBy(r => r.CountingCircle.BasisCountingCircleId).Select(r =>
+                            new RawDataTypeCountingCircleRawData
+                            {
+                                CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                                ElectionGroupBallotRawData =
+                                    new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData>
+                                    {
+                                        r.ToEchElectionGroupRawData(),
+                                    },
+                            })
+                        .Where(x => x.ElectionGroupBallotRawData.Count > 0)
+                        .ToList(),
+                },
             },
-        });
+            proportionalElection.Contest);
     }
 
     public Delivery ToDelivery(MajorityElection majorityElection)
     {
-        return WrapInDelivery(new EventRawDataDelivery
-        {
-            ReportingBody = GetReportingBody(majorityElection.Contest),
-            RawData = new RawDataType
+        return WrapInDelivery(
+            new EventRawDataDelivery
             {
-                ContestIdentification = majorityElection.Contest.Id.ToString(),
-                CountingCircleRawData = majorityElection.Results
-                    .Where(x => x.Entry == MajorityElectionResultEntry.Detailed)
-                    .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
-                    .Select(r => new RawDataTypeCountingCircleRawData
-                    {
-                        CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                        ElectionGroupBallotRawData = new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData> { r.ToEchElectionGroupRawData() },
-                    })
-                    .Where(x => x.ElectionGroupBallotRawData.Count > 0)
-                    .ToList(),
+                ReportingBody = GetReportingBody(majorityElection.Contest),
+                RawData = new RawDataType
+                {
+                    ContestIdentification = majorityElection.Contest.Id.ToString(),
+                    CountingCircleRawData = majorityElection.Results
+                        .Where(x => x.Entry == MajorityElectionResultEntry.Detailed)
+                        .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
+                        .Select(r => new RawDataTypeCountingCircleRawData
+                        {
+                            CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                            ElectionGroupBallotRawData =
+                                new List<RawDataTypeCountingCircleRawDataElectionGroupBallotRawData>
+                                {
+                                    r.ToEchElectionGroupRawData(),
+                                },
+                        })
+                        .Where(x => x.ElectionGroupBallotRawData.Count > 0)
+                        .ToList(),
+                },
             },
-        });
+            majorityElection.Contest);
     }
 
     public Delivery ToDelivery(Vote vote)
     {
-        return WrapInDelivery(new EventRawDataDelivery
-        {
-            ReportingBody = GetReportingBody(vote.Contest),
-            RawData = new RawDataType
+        return WrapInDelivery(
+            new EventRawDataDelivery
             {
-                ContestIdentification = vote.Contest.Id.ToString(),
-                CountingCircleRawData = vote.Results
-                    .Where(x => x.Entry == VoteResultEntry.Detailed)
-                    .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
-                    .Select(r => new RawDataTypeCountingCircleRawData
-                    {
-                        CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
-                        VoteRawData = new List<VoteRawDataType> { r.ToEchVoteRawData() },
-                    })
-                    .Where(x => x.VoteRawData.Count > 0)
-                    .ToList(),
+                ReportingBody = GetReportingBody(vote.Contest),
+                RawData = new RawDataType
+                {
+                    ContestIdentification = vote.Contest.Id.ToString(),
+                    CountingCircleRawData = vote.Results
+                        .Where(x => x.Entry == VoteResultEntry.Detailed)
+                        .OrderBy(r => r.CountingCircle.BasisCountingCircleId)
+                        .Select(r => new RawDataTypeCountingCircleRawData
+                        {
+                            CountingCircleId = r.CountingCircle.BasisCountingCircleId.ToString(),
+                            VoteRawData = new List<VoteRawDataType> { r.ToEchVoteRawData() },
+                        })
+                        .Where(x => x.VoteRawData.Count > 0)
+                        .ToList(),
+                },
             },
-        });
+            vote.Contest);
     }
 
     private ReportingBodyType GetReportingBody(Contest contest)
@@ -96,11 +110,11 @@ public class Ech0222Serializer
         };
     }
 
-    private Delivery WrapInDelivery(EventRawDataDelivery data)
+    private Delivery WrapInDelivery(EventRawDataDelivery data, Contest contest)
     {
         return new Delivery
         {
-            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(),
+            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded),
             RawDataDelivery = data,
         };
     }

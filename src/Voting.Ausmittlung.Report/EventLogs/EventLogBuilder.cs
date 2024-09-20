@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -183,6 +183,8 @@ public class EventLogBuilder
             or ResultExportTriggered
             or ResultExportCompleted
             or ExportGenerated
+#pragma warning disable CS0612 // bundle review export generated event is deprecated
             or BundleReviewExportGenerated;
+#pragma warning restore CS0612
     }
 }

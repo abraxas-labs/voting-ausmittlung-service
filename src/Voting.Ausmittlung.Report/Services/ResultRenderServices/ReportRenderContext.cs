@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -39,4 +39,10 @@ public record ReportRenderContext
     public IRendererService? RendererService { get; internal set; }
 
     public AsyncPdfGenerationInfo? AsyncPdfGenerationInfo { get; init; }
+
+    public string? ExportTemplateKeyCantonSuffix { get; init; }
+
+    public string? TenantId { get; init; }
+
+    public HashSet<Guid>? ViewablePartialResultsCountingCircleIds { get; init; }
 }

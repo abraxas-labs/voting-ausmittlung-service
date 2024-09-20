@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -129,7 +129,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         _logger.LogInformation("Entered correction results for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid voteResultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid voteResultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(voteResultId);
 
@@ -170,11 +170,17 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
         aggregate.SubmissionFinished(contestId);
+        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Vote result {VoteResultId} published", aggregate.Id);
+        }
+
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Submission finished for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid voteResultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid voteResultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(voteResultId);
 
@@ -215,6 +221,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
         aggregate.CorrectionFinished(comment, contestId);
+        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Vote result {VoteResultId} published", aggregate.Id);
+        }
+
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Correction finished for vote result {VoteResultId}", voteResult.Id);
     }
@@ -222,12 +234,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     public async Task ResetToSubmissionFinished(Guid voteResultId)
     {
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
+        var result = await LoadPoliticalBusinessResult(voteResultId);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
-        if (aggregate.Published)
+        if (CanUnpublishResults(result.Vote.Contest, aggregate))
         {
             aggregate.Unpublish(contestId);
-            _logger.LogInformation("vote result {VoteResultId} unpublished", aggregate.Id);
+            _logger.LogInformation("Vote result {VoteResultId} unpublished", aggregate.Id);
         }
 
         aggregate.ResetToSubmissionFinished(contestId);
@@ -238,8 +251,15 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     public async Task FlagForCorrection(Guid voteResultId, string comment)
     {
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
+        var result = await LoadPoliticalBusinessResult(voteResultId);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResultId);
+        if (CanUnpublishResults(result.Vote.Contest, aggregate))
+        {
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("Vote result {VoteResultId} unpublished", aggregate.Id);
+        }
+
         aggregate.FlagForCorrection(contestId, comment);
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Vote result {VoteResultId} flagged for correction", aggregate.Id);
@@ -254,7 +274,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
             _logger.LogInformation("Vote result {VoteResultId} audited tentatively", aggregate.Id);
 
             var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
-            if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest))
+            if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest, aggregate))
             {
                 aggregate.Publish(contestId);
                 _logger.LogInformation("vote result {VoteResultId} published", aggregate.Id);
@@ -299,7 +319,32 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         aggregate.AuditedTentatively(contestId);
         _logger.LogInformation("Submission finished and audited tentatively for vote result {VoteResultId}", voteResult.Id);
 
-        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest))
+        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("vote result {VoteResultId} published", aggregate.Id);
+        }
+
+        await AggregateRepository.Save(aggregate);
+    }
+
+    public async Task CorrectionFinishedAndAuditedTentatively(Guid voteResultId)
+    {
+        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
+        {
+            throw new ValidationException("finish correction and audit tentatively is not allowed for a non self owned political business");
+        }
+
+        var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
+        await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
+
+        var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
+        aggregate.CorrectionFinished(string.Empty, contestId);
+        aggregate.AuditedTentatively(contestId);
+        _logger.LogInformation("Correction finished and audited tentatively for vote result {VoteResultId}", voteResult.Id);
+
+        if (CanAutomaticallyPublishResults(voteResult.Vote.DomainOfInfluence, voteResult.Vote.Contest, aggregate))
         {
             aggregate.Publish(contestId);
             _logger.LogInformation("vote result {VoteResultId} published", aggregate.Id);
@@ -314,7 +359,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
-            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence);
+            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence, aggregate);
             aggregate.Publish(contestId);
             _logger.LogInformation("Vote result {VoteResultId} published", aggregate.Id);
         });
@@ -326,7 +371,7 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             var voteResult = await LoadPoliticalBusinessResult(aggregate.Id);
-            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence);
+            EnsureCanManuallyPublishResults(voteResult.Vote.Contest, voteResult.Vote.DomainOfInfluence, aggregate);
             aggregate.Unpublish(contestId);
             _logger.LogInformation("Vote result {VoteResultId} unpublished", aggregate.Id);
         });

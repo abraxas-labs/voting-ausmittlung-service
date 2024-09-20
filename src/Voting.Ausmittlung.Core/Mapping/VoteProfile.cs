@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Abraxas.Voting.Basis.Events.V1;
@@ -27,12 +27,16 @@ public class VoteProfile : Profile
             .ForMember(dst => dst.PoliticalBusinessTranslations, opts => opts.Ignore())
             .ForMember(dst => dst.CountingCircleResults, opts => opts.Ignore())
             .ForMember(dst => dst.SwissAbroadVotingRight, opts => opts.Ignore())
+            .ForMember(dst => dst.PoliticalBusinessSubType, opts => opts.MapFrom(src => src.BusinessSubType))
             .AfterMap((_, dst) => dst.PoliticalBusinessType = PoliticalBusinessType.Vote);
 
         CreateMap<VoteTranslation, SimplePoliticalBusinessTranslation>()
             .ForMember(dst => dst.Id, opts => opts.Ignore());
 
         CreateMap<BallotEventData, Ballot>()
+            .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<BallotTranslation>(
+                ((t, x) => t.ShortDescription = x, src.ShortDescription),
+                ((t, x) => t.OfficialDescription = x, src.OfficialDescription))))
             .AfterMap((_, dst) =>
             {
                 foreach (var q in dst.BallotQuestions)

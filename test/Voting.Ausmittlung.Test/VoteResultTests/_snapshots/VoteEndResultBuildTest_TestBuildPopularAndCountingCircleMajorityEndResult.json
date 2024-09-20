@@ -31,7 +31,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "Vote": {
@@ -95,7 +97,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 0,
@@ -103,7 +107,8 @@
       "ResultEntry": 0,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 0,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 0
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 0,
@@ -116,6 +121,7 @@
           "Id": "970048ea-0eba-465e-ae29-049e388098f6",
           "Position": 1,
           "BallotType": 1,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -170,6 +176,7 @@
           "Id": "490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b",
           "Position": 2,
           "BallotType": 2,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -276,6 +283,7 @@
           "Id": "95ded86a-a31a-40bf-b32a-bbc80ad8ea11",
           "Position": 3,
           "BallotType": 2,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -493,7 +501,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "Vote": {
@@ -557,7 +567,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 0,
@@ -565,7 +577,8 @@
       "ResultEntry": 0,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 0,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 0
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 34810,
@@ -690,6 +703,7 @@
           "Id": "970048ea-0eba-465e-ae29-049e388098f6",
           "Position": 1,
           "BallotType": 1,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -744,6 +758,7 @@
           "Id": "490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b",
           "Position": 2,
           "BallotType": 2,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -850,6 +865,7 @@
           "Id": "95ded86a-a31a-40bf-b32a-bbc80ad8ea11",
           "Position": 3,
           "BallotType": 2,
+          "BallotSubType": 0,
           "VoteId": "9008dfe3-c74a-4b7f-ae9a-e2a395b8208f",
           "BallotQuestions": [],
           "TieBreakQuestions": []

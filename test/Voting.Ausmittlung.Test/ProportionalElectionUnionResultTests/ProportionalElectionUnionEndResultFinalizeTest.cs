@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -145,6 +145,11 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
     [Fact]
     public async Task TestProcessor()
     {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = false,
+            splitQuery: true);
+
         var result = await RunOnDb(x => x.ProportionalElectionUnionEndResults
             .Include(r => r.ProportionalElectionUnion.DoubleProportionalResult)
             .FirstAsync(r => r.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
@@ -192,6 +197,7 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
             .SingleAsync(x => x.ProportionalElectionId == electionGuid));
 
         endResult.ListEndResults.Should().NotBeEmpty();
+        endResult.Finalized.Should().BeFalse();
 
         // It should have open required lot decisions, because more than 1 number of mandate got distributed
         // and in our test scenario only one voter got a vote count of 1000 and all others have the equal vote count.
@@ -205,6 +211,39 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         candidateEndResults.Any(x => x.Rank == 2 && x.LotDecisionEnabled && x.LotDecisionRequired && x.State == ProportionalElectionCandidateEndResultState.Pending)
             .Should()
             .BeTrue();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var result = await RunOnDb(x => x.ProportionalElectionUnionEndResults
+            .Include(r => r.ProportionalElectionUnion.DoubleProportionalResult)
+            .FirstAsync(r => r.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+        result.Finalized.Should().BeFalse();
+
+        var electionGuid = ZhMockedData.ProportionalElectionGuidKtratWinterthur;
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionUnionEndResultFinalized
+            {
+                ProportionalElectionUnionId = result.ProportionalElectionUnionId.ToString(),
+                ProportionalElectionUnionEndResultId = result.Id.ToString(),
+                EventInfo = new EventInfo
+                {
+                    Timestamp = new DateTime(2020, 01, 10, 10, 10, 0, DateTimeKind.Utc).ToTimestamp(),
+                    User = SecureConnectTestDefaults.MockedUserDefault.ToEventInfoUser(),
+                    Tenant = SecureConnectTestDefaults.MockedTenantDefault.ToEventInfoTenant(),
+                },
+            });
+
+        var endResult = await RunOnDb(db => db.ProportionalElectionEndResult
+            .AsSplitQuery()
+            .Include(x => x.ListEndResults)
+                .ThenInclude(x => x.CandidateEndResults)
+            .SingleAsync(x => x.ProportionalElectionId == electionGuid));
+
+        endResult.Finalized.Should().BeTrue();
     }
 
     [Fact]

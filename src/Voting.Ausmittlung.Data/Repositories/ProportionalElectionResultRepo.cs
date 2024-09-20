@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,4 +37,9 @@ public class ProportionalElectionResultRepo : PoliticalBusinessResultRepo<Propor
 
     protected override Expression<Func<ProportionalElectionResult, bool>> FilterByPoliticalBusinessId(Guid id) =>
         x => x.ProportionalElectionId == id;
+
+    protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
+    {
+        return await Context.Set<ProportionalElection>().Where(x => x.Id == id).SingleAsync();
+    }
 }

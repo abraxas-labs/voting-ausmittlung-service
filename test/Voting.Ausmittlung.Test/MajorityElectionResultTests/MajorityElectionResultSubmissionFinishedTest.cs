@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,6 +37,7 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -53,6 +54,26 @@ public class MajorityElectionResultSubmissionFinishedTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await SeedBallots(BallotBundleState.Deleted);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.Type = DomainOfInfluenceType.Mu);
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]

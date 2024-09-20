@@ -156,7 +156,7 @@ csharp_space_between_square_brackets = false
 dotnet_diagnostic.IDE0005.severity = error
 
 # copyright
-file_header_template = (c) Copyright 2024 by Abraxas Informatik AG\nFor license information see LICENSE file
+file_header_template = (c) Copyright by Abraxas Informatik AG\nFor license information see LICENSE file
 
 # solution file
 [*.sln]

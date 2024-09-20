@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -165,6 +165,32 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
     }
 
     [Fact]
+    public async Task TestShouldWithNonNullIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(NewValidRequest(x => x.IndividualVoteCount = 1)),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled");
+    }
+
+    [Fact]
+    public async Task TestShouldWithNonNullSecondaryIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<SecondaryMajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(NewValidRequest(x => x.SecondaryElectionCandidateResults[0].IndividualVoteCount = 1)),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled");
+    }
+
+    [Fact]
     public async Task TestShouldThrowIfDetailedResultsEntry()
     {
         await ErfassungElectionAdminClient.DefineEntryAsync(new DefineMajorityElectionResultEntryRequest
@@ -224,17 +250,6 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
                 NewValidRequest(r => r.InvalidVoteCount = null)),
-            StatusCode.InvalidArgument,
-            "empty vote count provided with single mandate");
-    }
-
-    [Fact]
-    public async Task TestShouldThrowSecondaryEmptyVoteCountProvideWithSingleMandate()
-    {
-        await OverwriteSecondaryMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund), 1);
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.SecondaryElectionCandidateResults[0].IndividualVoteCount = null)),
             StatusCode.InvalidArgument,
             "empty vote count provided with single mandate");
     }

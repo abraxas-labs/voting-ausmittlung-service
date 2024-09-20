@@ -1,0 +1,51 @@
+{
+  "Rows": [
+    {
+      "NumberOfMandates": 36,
+      "Label": "Wetzikon"
+    }
+  ],
+  "Columns": [
+    {
+      "Label": "SVP"
+    },
+    {
+      "Label": "FDP"
+    },
+    {
+      "Label": "SP"
+    },
+    {
+      "Label": "GP"
+    },
+    {
+      "Label": "EVP"
+    },
+    {
+      "Label": "AW"
+    },
+    {
+      "Label": "Die Mitte"
+    },
+    {
+      "Label": "EDU"
+    },
+    {
+      "Label": "GLP"
+    }
+  ],
+  "MandateAlgorithm": 6,
+  "VoteCounts": [
+    [
+      30782,
+      22114,
+      22752,
+      18249,
+      12097,
+      8034,
+      9583,
+      9985,
+      8640
+    ]
+  ]
+}

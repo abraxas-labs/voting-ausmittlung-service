@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -95,7 +95,7 @@ public static class ProportionalElectionEndResultSgExampleMockedData
             await simplePbBuilder.Create(election);
 
             var resultBuilder = sp.GetRequiredService<ProportionalElectionResultBuilder>();
-            await resultBuilder.RebuildForElection(election.Id, mappedDomainOfInfluence.Id, false);
+            await resultBuilder.RebuildForElection(election.Id, mappedDomainOfInfluence.Id, false, election.ContestId);
 
             var endResultInitializer = sp.GetRequiredService<ProportionalElectionEndResultInitializer>();
             var endResultBuilder = sp.GetRequiredService<ProportionalElectionEndResultBuilder>();
@@ -164,7 +164,8 @@ public static class ProportionalElectionEndResultSgExampleMockedData
 
             await db.SaveChangesAsync();
 
-            await endResultBuilder.AdjustEndResult(result.Id, false);
+            await endResultBuilder.AdjustEndResult(result.Id, false, true);
+            await endResultBuilder.DistributeNumberOfMandates(result.ProportionalElectionId);
             await db.SaveChangesAsync();
         });
     }

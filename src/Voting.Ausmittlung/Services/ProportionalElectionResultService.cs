@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -108,8 +108,8 @@ public class ProportionalElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(ProportionalElectionResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_SubmissionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _proportionalElectionResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_SubmissionFinished);
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -129,8 +129,8 @@ public class ProportionalElectionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(ProportionalElectionResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _proportionalElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_CorrectionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _proportionalElectionResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.ElectionResultId), Strings.ProportionalElectionResult_CorrectionFinished);
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -212,11 +212,25 @@ public class ProportionalElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.ProportionalElectionEndResult.TriggerMandateDistribution)]
+    public override async Task<Empty> StartEndResultMandateDistribution(StartProportionalElectionEndResultMandateDistributionRequest request, ServerCallContext context)
+    {
+        await _proportionalElectionEndResultWriter.StartMandateDistribution(GuidParser.Parse(request.ProportionalElectionId));
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.ProportionalElectionEndResult.TriggerMandateDistribution)]
+    public override async Task<Empty> RevertEndResultMandateDistribution(RevertProportionalElectionEndResultMandateDistributionRequest request, ServerCallContext context)
+    {
+        await _proportionalElectionEndResultWriter.RevertMandateDistribution(GuidParser.Parse(request.ProportionalElectionId));
+        return ProtobufEmpty.Instance;
+    }
+
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionEndResultRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _proportionalElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionId), Strings.ProportionalElectionResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _proportionalElectionEndResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionId), Strings.ProportionalElectionResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
@@ -256,6 +270,14 @@ public class ProportionalElectionResultService : ServiceBase
     {
         var electionResultId = GuidParser.Parse(request.ElectionResultId);
         await _proportionalElectionResultWriter.SubmissionFinishedAndAuditedTentatively(electionResultId);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(ProportionalElectionResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var electionResultId = GuidParser.Parse(request.ElectionResultId);
+        await _proportionalElectionResultWriter.CorrectionFinishedAndAuditedTentatively(electionResultId);
         return ProtobufEmpty.Instance;
     }
 

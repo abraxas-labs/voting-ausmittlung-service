@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Core.Services.Export.Models;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Iam.Authorization;
 
 namespace Voting.Ausmittlung.Controllers;
@@ -26,6 +27,7 @@ public class ExportController
     private readonly ResultExportService _resultExportService;
     private readonly ProtocolExportService _protocolExportService;
     private readonly Ech0252ExportService _ech0252ExportService;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
 
     public ExportController(
@@ -33,13 +35,15 @@ public class ExportController
         IMapper mapper,
         ResultExportService resultExportService,
         ProtocolExportService protocolExportService,
-        Ech0252ExportService ech0252ExportService)
+        Ech0252ExportService ech0252ExportService,
+        IClock clock)
     {
         _templateReader = templateReader;
         _mapper = mapper;
         _resultExportService = resultExportService;
         _protocolExportService = protocolExportService;
         _ech0252ExportService = ech0252ExportService;
+        _clock = clock;
     }
 
     [AuthorizePermission(Permissions.ReportExportApi.ExportData)]
@@ -74,7 +78,7 @@ public class ExportController
                 ct)
                 .Select(f => new FileModelWrapper(f), ct);
 
-        return await FileResultUtil.CreateFileResult(fileModels, false, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, false, _clock, ct);
     }
 
     [AuthorizePermission(Permissions.ReportExportApi.ExportProtocol)]
@@ -108,10 +112,11 @@ public class ExportController
                 request.ContestId,
                 request.CountingCircleId,
                 [request.ProtocolExportId],
+                false,
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await FileResultUtil.CreateFileResult(fileModels, false, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, false, _clock, ct);
     }
 
     [AuthorizePermission(Permissions.ReportExportApi.ExportEch0252)]
@@ -119,9 +124,10 @@ public class ExportController
     public async Task<FileResult> DownloadEch0252Export(DownloadEch0252ExportRequest request, CancellationToken ct)
     {
         var filter = _ech0252ExportService.BuildAndValidateFilter(_mapper.Map<Ech0252FilterRequest>(request));
+        await _ech0252ExportService.EnsureCanExport();
         var fileModels = _ech0252ExportService.GenerateExports(filter, ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await FileResultUtil.CreateFileResult(fileModels, true, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, true, _clock, ct);
     }
 }

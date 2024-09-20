@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -104,6 +104,27 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             .BeTrue();
         CleanIds(resp);
         resp.ShouldMatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ShouldWorkAsElectionAdminWithMappingsAndDisabledIndividualVotes()
+    {
+        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
+            x => x.IndividualCandidatesDisabled = true,
+            true);
+
+        var resp = await ErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(new GetMajorityElectionWriteInMappingsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+        });
+        resp.ElectionWriteInMappings
+            .Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
+            .IndividualVotes
+            .Should()
+            .BeFalse();
     }
 
     [Fact]

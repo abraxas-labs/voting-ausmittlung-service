@@ -32,7 +32,9 @@
         "NewZhFeaturesEnabled": true,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false
+        "PublishResultsEnabled": false,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "Vote": {
@@ -97,7 +99,9 @@
           "NewZhFeaturesEnabled": true,
           "MajorityElectionUseCandidateCheckDigit": false,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": false
+          "PublishResultsEnabled": false,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 0,
@@ -105,7 +109,8 @@
       "ResultEntry": 1,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 2,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 1
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 12351,
@@ -160,6 +165,7 @@
           "Id": "ca7e0537-a822-4460-89c2-9937f5510da9",
           "Position": 1,
           "BallotType": 2,
+          "BallotSubType": 0,
           "VoteId": "90db57b6-5947-4623-b1d6-f5323f1ff881",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -301,7 +307,9 @@
         "NewZhFeaturesEnabled": true,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false
+        "PublishResultsEnabled": false,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "Vote": {
@@ -366,7 +374,9 @@
           "NewZhFeaturesEnabled": true,
           "MajorityElectionUseCandidateCheckDigit": false,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": false
+          "PublishResultsEnabled": false,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 0,
@@ -374,7 +384,8 @@
       "ResultEntry": 1,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 2,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 1
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 12351,
@@ -429,6 +440,7 @@
           "Id": "94be93ce-bd0e-4c28-9ed4-63c3f6e33578",
           "Position": 1,
           "BallotType": 1,
+          "BallotSubType": 0,
           "VoteId": "c9963428-985d-4668-8704-15c3067ab675",
           "BallotQuestions": [],
           "TieBreakQuestions": []
@@ -518,7 +530,9 @@
         "NewZhFeaturesEnabled": true,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false
+        "PublishResultsEnabled": false,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "Vote": {
@@ -583,7 +597,9 @@
           "NewZhFeaturesEnabled": true,
           "MajorityElectionUseCandidateCheckDigit": false,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": false
+          "PublishResultsEnabled": false,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 0,
@@ -591,7 +607,8 @@
       "ResultEntry": 1,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 2,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 1
     },
     "CountOfVotersInformation": {
       "TotalCountOfVoters": 12351,
@@ -646,6 +663,7 @@
           "Id": "4e738791-66f2-448c-a023-e6d2cc6db2b4",
           "Position": 1,
           "BallotType": 1,
+          "BallotSubType": 0,
           "VoteId": "6cec9d52-7b2f-4c9e-b009-02812d537d57",
           "BallotQuestions": [],
           "TieBreakQuestions": []

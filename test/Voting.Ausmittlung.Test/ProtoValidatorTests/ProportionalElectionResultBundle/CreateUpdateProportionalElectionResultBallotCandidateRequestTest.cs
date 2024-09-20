@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,7 +27,7 @@ public class CreateUpdateProportionalElectionResultBallotCandidateRequestTest : 
     {
         yield return NewValidRequest();
         yield return NewValidRequest(x => x.Position = 1);
-        yield return NewValidRequest(x => x.Position = 50);
+        yield return NewValidRequest(x => x.Position = 100);
         yield return NewValidRequest(x => x.OnList = false);
     }
 
@@ -36,6 +36,6 @@ public class CreateUpdateProportionalElectionResultBallotCandidateRequestTest : 
         yield return NewValidRequest(x => x.CandidateId = "invalid-guid");
         yield return NewValidRequest(x => x.CandidateId = string.Empty);
         yield return NewValidRequest(x => x.Position = 0);
-        yield return NewValidRequest(x => x.Position = 51);
+        yield return NewValidRequest(x => x.Position = 101);
     }
 }

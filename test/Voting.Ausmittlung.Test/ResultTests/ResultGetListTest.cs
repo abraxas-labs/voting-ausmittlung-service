@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -12,6 +12,7 @@ using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -167,6 +168,51 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
         response2.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);
         response2.Results.All(x => x.State == ProtoModels.CountingCircleResultState.SubmissionOngoing).Should().BeTrue();
         EventPublisherMock.AllPublishedEvents.Count().Should().Be(0);
+    }
+
+    [Fact]
+    public async Task TestShouldResetResultsWhenStateDoesNotMatch()
+    {
+        var contestId = ContestMockedData.IdGossau;
+        var countingCircleId = CountingCircleMockedData.IdGossau;
+
+        var response = await ErfassungElectionAdminClient.GetListAsync(new GetResultListRequest
+        {
+            ContestId = contestId,
+            CountingCircleId = countingCircleId,
+        });
+        response.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);
+        response.Results.All(x => x.State == ProtoModels.CountingCircleResultState.SubmissionOngoing).Should().BeTrue();
+
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultSubmissionStarted>();
+        await RunEvents<VoteResultSubmissionStarted>(false);
+
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultSubmissionStarted>();
+        await RunEvents<ProportionalElectionResultSubmissionStarted>(false);
+
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultSubmissionStarted>();
+        await RunEvents<MajorityElectionResultSubmissionStarted>(false);
+
+        // Simulate results being deleted and re-created
+        var affectedRows = await RunOnDb(db =>
+            db.SimpleCountingCircleResults
+                .Where(x => x.PoliticalBusiness!.ContestId == ContestMockedData.GuidGossau)
+                .ExecuteUpdateAsync(setter => setter.SetProperty(x => x.State, CountingCircleResultState.Initial)));
+        affectedRows.Should().Be(3);
+
+        // event should reset the results
+        var response2 = await ErfassungElectionAdminClient.GetListAsync(new GetResultListRequest
+        {
+            ContestId = contestId,
+            CountingCircleId = countingCircleId,
+        });
+        response2.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);
+        response2.Results.All(x => x.State == ProtoModels.CountingCircleResultState.SubmissionOngoing).Should().BeTrue();
+        EventPublisherMock.AllPublishedEvents.Count().Should().Be(6);
+
+        EventPublisherMock.GetSinglePublishedEvent<VoteResultResetted>();
+        EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultResetted>();
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultResetted>();
     }
 
     [Fact]

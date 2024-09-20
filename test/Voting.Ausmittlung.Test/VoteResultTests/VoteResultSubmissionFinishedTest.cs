@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,6 +37,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultSubmissionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -45,6 +46,22 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultSubmissionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]

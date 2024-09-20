@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -33,6 +33,11 @@ public class ResultExportConfigurationBuilder
         var dois = await _domainOfInfluenceRepo
             .Query()
             .Where(x => x.SnapshotContestId == contest.Id)
+            .Select(x => new
+            {
+                x.Id,
+                x.BasisDomainOfInfluenceId,
+            })
             .ToListAsync();
 
         var configs = await _exportConfigRepo
@@ -46,12 +51,12 @@ public class ResultExportConfigurationBuilder
 
         var resultExportConfigs = dois.SelectMany(doi =>
         {
-            if (!configsByDoiId.ContainsKey(doi.BasisDomainOfInfluenceId))
+            if (!configsByDoiId.TryGetValue(doi.BasisDomainOfInfluenceId, out var doiConfigs))
             {
                 return Enumerable.Empty<ResultExportConfiguration>();
             }
 
-            return configsByDoiId[doi.BasisDomainOfInfluenceId].Select(config => new ResultExportConfiguration
+            return doiConfigs.Select(config => new ResultExportConfiguration
             {
                 Id = AusmittlungUuidV5.BuildResultExportConfiguration(contest.Id, config.Id),
                 ContestId = contest.Id,

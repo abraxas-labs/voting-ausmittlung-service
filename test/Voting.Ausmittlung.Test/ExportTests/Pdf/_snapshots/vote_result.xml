@@ -32,7 +32,7 @@
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfVoters>3000</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
@@ -108,7 +108,7 @@
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfVoters>3000</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>

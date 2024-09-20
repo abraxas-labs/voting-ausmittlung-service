@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -19,9 +19,12 @@ public class ContestRepo : DbRepository<DataContext, Contest>
     {
     }
 
-    public Task<List<Contest>> GetContestsInTestingPhase()
+    public Task<List<Guid>> GetContestIdsInTestingPhase()
     {
-        return Query().WhereInTestingPhase().ToListAsync();
+        return Query()
+            .WhereInTestingPhase()
+            .Select(x => x.Id)
+            .ToListAsync();
     }
 
     public Task<Contest?> GetWithValidationContextData(Guid contestId)

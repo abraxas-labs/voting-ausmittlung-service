@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -34,6 +34,7 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
         await base.InitializeAsync();
         await SeedElectionAndFinishSubmissions();
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         await ModifyDbEntities<ProportionalElectionEndResult>(
             r => r.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
             r => r.Finalized = true);
@@ -102,6 +103,33 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
         return AssertStatus(
             async () => await CreateService("unknown-tenant", roles: RolesMockedData.MonitoringElectionAdmin).RevertEndResultFinalizationAsync(NewValidRequest()),
             StatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task ShouldThrowCantonSettingsEndResultFinalizeDisabled()
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "End result finalize is not enabled for contest");
+    }
+
+    [Fact]
+    public async Task ShouldThrowMandateDistrubtionNotStarted()
+    {
+        await ModifyDbEntities<ProportionalElectionEndResult>(
+            x => x.ProportionalElectionId == ProportionalElectionEndResultMockedData.ElectionGuid,
+            x => x.MandateDistributionTriggered = false);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "Cannot revert finalization if mandate distribution is not triggered yet");
     }
 
     [Fact]

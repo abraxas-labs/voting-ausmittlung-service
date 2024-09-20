@@ -1,8 +1,9 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -10,10 +11,13 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using FluentAssertions;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Ech;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -61,7 +65,37 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
         await TestXmlWithSnapshot();
     }
 
+    [Fact]
+    public async Task TestXmlWithoutTestDeliveryFlag()
+    {
+        await RunOnDb(async db =>
+        {
+            var contests = await db.Contests.AsTracking().ToListAsync();
+
+            foreach (var contest in contests)
+            {
+                contest.State = ContestState.Active;
+            }
+
+            await db.SaveChangesAsync();
+        });
+
+        var xml = await GetXml();
+        var schemaSet = GetSchemaSet();
+        var delivery = new EchDeserializer().DeserializeXml<T>(xml, schemaSet);
+
+        AssertTestDeliveryFlag(delivery);
+    }
+
     protected async Task TestXmlWithSnapshot(string snapshotSuffix = "")
+    {
+        var xml = await GetXml();
+
+        XmlUtil.ValidateSchema(xml, GetSchemaSet());
+        MatchXmlSnapshot(xml, $"{GetType().Name}{snapshotSuffix}");
+    }
+
+    protected async Task<string> GetXml()
     {
         var request = NewRequest();
         var response = await AssertStatus(
@@ -74,9 +108,7 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
         contentDisposition.FileNameStar.Should().Be(NewRequestExpectedFileName);
         contentDisposition.DispositionType.Should().Be("attachment");
 
-        var xml = await response.Content.ReadAsStringAsync();
-        XmlUtil.ValidateSchema(xml, GetSchemaSet());
-        MatchXmlSnapshot(xml, $"{GetType().Name}{snapshotSuffix}");
+        return await response.Content.ReadAsStringAsync();
     }
 
     protected override IEnumerable<string> AuthorizedRoles()
@@ -96,6 +128,8 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
     protected abstract GenerateResultExportsRequest NewRequest();
 
     protected abstract XmlSchemaSet GetSchemaSet();
+
+    protected abstract void AssertTestDeliveryFlag(T delivery);
 
     protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
     {

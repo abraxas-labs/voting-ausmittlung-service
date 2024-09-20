@@ -34,6 +34,8 @@
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
     "EnforceCandidateCheckDigitForCountingCircles": false,
+    "FederalIdentification": null,
+    "IndividualCandidatesDisabled": false,
     "NumberOfMandates": 1,
     "PoliticalBusinessNumber": "201",
     "Active": true,
@@ -42,6 +44,7 @@
     "DomainOfInfluence": null,
     "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
     "Contest": null,
+    "BusinessSubType": 0,
     "CountingCircleResults": [],
     "PoliticalBusinessTranslations": [
       {
@@ -79,9 +82,11 @@
   "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
   "Contest": null,
   "CountingCircleResults": [],
+  "IndividualCandidatesDisabled": false,
   "NumberOfMandates": 3,
   "PoliticalBusinessNumber": "n1 UPDATED",
   "Active": false,
+  "BusinessSubType": 0,
   "PoliticalBusinessTranslations": [
     {
       "SecondaryMajorityElectionId": "0741da26-add2-4c4c-960d-7e251b82e91b",

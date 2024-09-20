@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -74,7 +74,7 @@ public static class MajorityElectionResultMockedData
                 BallotBundleSize = 10,
                 BallotNumberGeneration = BallotNumberGeneration.ContinuousForAllBundles,
                 AutomaticEmptyVoteCounting = false,
-                BallotBundleSampleSize = 2,
+                BallotBundleSampleSize = 3,
                 AutomaticBallotBundleNumberGeneration = true,
                 ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
                 CandidateCheckDigit = true,
@@ -333,7 +333,7 @@ public static class MajorityElectionResultMockedData
             var merBuilder = sp.GetRequiredService<MajorityElectionResultBuilder>();
             foreach (var election in majorityElections)
             {
-                await merBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(election.ContestId));
+                await merBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(election.ContestId), election.ContestId);
             }
         });
     }

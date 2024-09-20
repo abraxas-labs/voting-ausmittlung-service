@@ -31,7 +31,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": true,
-      "PublishResultsEnabled": false
+      "PublishResultsEnabled": false,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElection": {
@@ -103,7 +105,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": true,
-        "PublishResultsEnabled": false
+        "PublishResultsEnabled": false,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ReviewProcedure": 2,
@@ -5580,5 +5584,6 @@
   ],
   "Finalized": false,
   "ManualEndResultRequired": true,
+  "MandateDistributionTriggered": true,
   "PartialResult": false
 }

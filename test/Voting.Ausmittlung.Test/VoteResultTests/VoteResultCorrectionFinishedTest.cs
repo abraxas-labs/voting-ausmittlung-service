@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -38,6 +38,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultCorrectionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -73,6 +74,22 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -153,12 +170,14 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await AssertSubmissionDoneTimestamp(false);
+        await AssertReadyForCorrectionTimestamp(true);
 
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         await RunEvents<VoteResultCorrectionFinished>();
 
         await AssertCurrentState(CountingCircleResultState.CorrectionDone);
         await AssertSubmissionDoneTimestamp(true);
+        await AssertReadyForCorrectionTimestamp(false);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult))
             .ToListAsync());
@@ -261,5 +280,11 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     {
         var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
         (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
+    }
+
+    private async Task AssertReadyForCorrectionTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
+        (result.ReadyForCorrectionTimestamp != null).Should().Be(hasTimestamp);
     }
 }

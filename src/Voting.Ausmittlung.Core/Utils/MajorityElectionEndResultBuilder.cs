@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -123,8 +123,6 @@ public class MajorityElectionEndResultBuilder
             majorityElectionEndResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             majorityElectionEndResult.MajorityElection.MandateAlgorithm);
         strategy.RecalculateCandidateEndResultStates(majorityElectionEndResult);
-        majorityElectionEndResult.Finalized = false;
-        simpleEndResult.EndResultFinalized = false;
 
         await _dbContext.SaveChangesAsync();
     }
@@ -152,13 +150,17 @@ public class MajorityElectionEndResultBuilder
             ?? throw new EntityNotFoundException(nameof(MajorityElectionEndResult), resultId);
 
         var simpleResult = await _simplePoliticalBusinessRepo.Query()
+            .AsSplitQuery()
             .AsTracking()
+            .Include(x => x.Contest.CantonDefaults)
             .FirstOrDefaultAsync(x => x.Id == endResult.MajorityElectionId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.MajorityElectionId);
 
         endResult.CountOfDoneCountingCircles += deltaFactor;
-        endResult.Finalized = false;
-        simpleResult.EndResultFinalized = false;
+
+        var implicitFinalized = simpleResult.Contest.CantonDefaults.EndResultFinalizeDisabled && endResult.AllCountingCirclesDone;
+        endResult.Finalized = implicitFinalized;
+        simpleResult.EndResultFinalized = implicitFinalized;
 
         EndResultContestDetailsUtils.AdjustEndResultContestDetails<
             MajorityElectionEndResult,

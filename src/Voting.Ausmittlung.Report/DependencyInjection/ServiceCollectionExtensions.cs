@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -199,9 +199,11 @@ public static class ServiceCollectionExtensions
             .AddRendererService<XmlMajorityElectionEch0222RenderService>(AusmittlungXmlMajorityElectionTemplates.Ech0222)
             .AddRendererService<XmlProportionalElectionEch0222RenderService>(AusmittlungXmlProportionalElectionTemplates.Ech0222)
             .AddRendererService<XmlVoteEch0222RenderService>(AusmittlungXmlVoteTemplates.Ech0222)
-            .AddRendererService<XmlEch0252ProportionalElectionRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionsEch0252)
-            .AddRendererService<XmlEch0252MajorityElectionRenderService>(AusmittlungXmlContestTemplates.MajorityElectionsEch0252)
-            .AddRendererService<XmlEch0252VoteRenderService>(AusmittlungXmlContestTemplates.VoteEch0252);
+            .AddRendererService<XmlEch0252ProportionalElectionResultRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionResultsEch0252)
+            .AddRendererService<XmlEch0252MajorityElectionResultRenderService>(AusmittlungXmlContestTemplates.MajorityElectionResultsEch0252)
+            .AddRendererService<XmlEch0252VoteResultRenderService>(AusmittlungXmlContestTemplates.VoteResultsEch0252)
+            .AddRendererService<XmlEch0252ProportionalElectionInfoRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionInfosEch0252)
+            .AddRendererService<XmlEch0252MajorityElectionInfoRenderService>(AusmittlungXmlContestTemplates.MajorityElectionInfosEch0252);
     }
 
     private static IServiceCollection AddEventLog(this IServiceCollection services)

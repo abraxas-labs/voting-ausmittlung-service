@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -47,7 +47,8 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
         Guid? countingCircleId,
         Guid? politicalBusinessId,
         Guid? politicalBusinessUnionId,
-        DomainOfInfluenceType domainOfInfluenceType)
+        DomainOfInfluenceType domainOfInfluenceType,
+        Guid? politicalBusinessResultBundleId)
     {
         Id = id;
 
@@ -68,6 +69,7 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
                 PoliticalBusinessId = politicalBusinessId?.ToString() ?? string.Empty,
                 PoliticalBusinessUnionId = politicalBusinessUnionId?.ToString() ?? string.Empty,
                 DomainOfInfluenceType = (Proto.DomainOfInfluenceType)domainOfInfluenceType,
+                PoliticalBusinessResultBundleId = politicalBusinessResultBundleId?.ToString() ?? string.Empty,
             },
             new EventSignatureBusinessDomainData(contestId));
     }

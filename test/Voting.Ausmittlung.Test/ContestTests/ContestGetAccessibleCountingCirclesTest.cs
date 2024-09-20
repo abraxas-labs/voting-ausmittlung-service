@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -76,6 +76,16 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
 
     [Fact]
     public async Task TestTenantWithMultipleDomainOfInfluenceShouldReturnOk()
+    {
+        var response = await StGallenErfassungElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestContestWithNoResultShouldReturnOk()
     {
         var response = await StGallenErfassungElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
         {

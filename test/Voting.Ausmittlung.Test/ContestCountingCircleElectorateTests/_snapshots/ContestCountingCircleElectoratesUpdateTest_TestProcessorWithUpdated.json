@@ -1,9 +1,9 @@
 {
-  "Name": "St. Gallen St. Fiden",
-  "Bfs": "5500-1",
-  "Code": "C5500-1",
-  "SortNumber": 2001,
-  "NameForProtocol": "St. Fiden",
+  "Name": "St. Gallen",
+  "Bfs": "5500",
+  "Code": "",
+  "SortNumber": 2000,
+  "NameForProtocol": "Stadt St. Gallen",
   "ResponsibleAuthority": {
     "SecureConnectId": "",
     "Name": "",
@@ -30,7 +30,7 @@
   },
   "ContactPersonSameDuringEventAsAfter": false,
   "ContactPersonAfterEvent": null,
-  "BasisCountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+  "BasisCountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
   "SnapshotContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
   "SnapshotContest": null,
   "IsSnapshot": true,
@@ -40,7 +40,7 @@
   "Electorates": [],
   "ContestElectorates": [
     {
-      "CountingCircleId": "71f3f5bd-27a1-519f-af88-bf6ebf455964",
+      "CountingCircleId": "e2875b43-e2ce-5802-bcca-0777af045580",
       "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Contest": null,
       "DomainOfInfluenceTypes": [
@@ -49,7 +49,7 @@
       "Id": "6f346535-a528-49f6-bda3-a3e8e25a3f78"
     },
     {
-      "CountingCircleId": "71f3f5bd-27a1-519f-af88-bf6ebf455964",
+      "CountingCircleId": "e2875b43-e2ce-5802-bcca-0777af045580",
       "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Contest": null,
       "DomainOfInfluenceTypes": [
@@ -65,5 +65,5 @@
   "MajorityElectionResults": [],
   "ContestDetails": [],
   "SimpleResults": [],
-  "Id": "71f3f5bd-27a1-519f-af88-bf6ebf455964"
+  "Id": "e2875b43-e2ce-5802-bcca-0777af045580"
 }

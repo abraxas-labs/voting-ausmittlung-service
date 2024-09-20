@@ -76,7 +76,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
@@ -160,7 +162,8 @@
     "TotalCountOfBlankRowsOnListsWithoutParty": 0,
     "TotalCountOfListsWithParty": 0,
     "TotalCountOfLists": 0,
-    "Published": false
+    "Published": false,
+    "ReadyForCorrectionTimestamp": null
   },
   "Bundles": [
     {
@@ -176,7 +179,8 @@
         "FullName": " "
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
@@ -199,7 +203,8 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "b1e326d7-2f47-43d7-8430-cf150401337c",
@@ -214,7 +219,8 @@
         "FullName": " "
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "e6be0892-eb02-41a7-a32b-d5b71de926f3",
@@ -229,7 +235,8 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "ce73c633-8689-4e8d-bb77-612f354b4ad6",
@@ -252,7 +259,8 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "e9590e17-abae-4e41-a575-08d1f5d79db3",
@@ -267,7 +275,8 @@
         "FullName": " "
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     }
   ]
 }

@@ -11,5 +11,7 @@
   "NewZhFeaturesEnabled": false,
   "MajorityElectionUseCandidateCheckDigit": true,
   "ProportionalElectionUseCandidateCheckDigit": false,
-  "PublishResultsEnabled": true
+  "PublishResultsEnabled": true,
+  "EndResultFinalizeDisabled": false,
+  "PublishResultsBeforeAuditedTentatively": false
 }

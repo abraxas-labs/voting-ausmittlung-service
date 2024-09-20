@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.17.2`)
+# ✨ Changelog (`v2.36.0`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,152 +8,464 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.17.2
-Previous version ---- v1.108.0
+This version -------- v2.36.0
+Previous version ---- v2.17.2
 Initial version ----- v1.29.14
-Total commits ------- 690
+Total commits ------- 741
 ```
 
-## [v2.17.2] - 2024-05-31
+## [v2.36.0] - 2024-09-12
+
+### 🔄 Changed
+
+- consider testing phase in testDeliveryFlag
+
+## [v2.35.1] - 2024-09-11
+
+### 🔄 Changed
+
+- move federal identification to ballot question
+
+## [v2.35.0] - 2024-09-06
+
+### 🆕 Added
+
+- add federal identification
+
+## [v2.34.0] - 2024-09-06
+
+### :new: Added
+
+- implement eCH-0252 sequence
+
+## [v2.33.2] - 2024-09-05
+
+### 🔄 Changed
+
+- result submission finished to audited tentatively for owned results
+
+## [v2.33.1] - 2024-09-04
+
+### 🔄 Changed
+
+- migrate from gcr to harbor
+
+## [v2.33.0] - 2024-09-04
+
+### 🆕 Added
+
+- add correction finished and audited tentatively endpoint
+
+## [v2.32.6] - 2024-09-03
+
+### 🔄 Changed
+
+- preserve ballot question results after update
+
+## [v2.32.5] - 2024-09-02
+
+### 🔄 Changed
+
+- update ausmittlung proto library to increase limit for candidate position
+
+## [v2.32.4] - 2024-08-30
+
+### 🔄 Changed
+
+- read only accessible counting circle results
+
+## [v2.32.3] - 2024-08-29
+
+### :arrows_counterclockwise: Changed
+
+- reset counting circle results when it is in an incorrect state
+
+## [v2.32.2] - 2024-08-29
+
+### 🔄 Changed
+
+- majority election result order by count for submission finished
+
+## [v2.32.1] - 2024-08-28
+
+### 🔄 Changed
+
+- eCH-0252 counting circle domain of influence type
+
+## [v2.32.0] - 2024-08-28
+
+### 🆕 Added
+
+- optional individual candidates on majority elections
+
+## [v2.31.7] - 2024-08-28
+
+🔄 Changed
+
+update bug bounty template reference
+patch ci-cd template version, align with new defaults
+
+## [v2.31.6] - 2024-08-28
+
+### 🔄 Changed
+
+- saint lague rounding fix
+
+## [v2.31.5] - 2024-08-23
+
+### 🆕 Added
+
+- add superior authority to eCH-0252
+
+## [v2.31.4] - 2024-08-22
+
+### 🔄 Changed
+
+- move environment specific app settings out of default file
+
+## [v2.31.3] - 2024-08-22
+
+### :arrows_counterclockwise: Changed
+
+- speed up processing of permission related events
+
+## [v2.31.2] - 2024-08-22
+
+### 🔄 Changed
+
+- allow empty vote count for single mandate secondary majority election
+
+## [v2.31.1] - 2024-08-21
+
+### 🔄 Changed
+
+- partial end result exports
+
+## [v2.31.0] - 2024-08-20
+
+### 🆕 Added
+
+- add 2fa fallback qr code
+
+## [v2.30.4] - 2024-08-20
+
+### 🔄 Changed
+
+- ensure swagger generator can be disabled completely
+
+## [v2.30.3] - 2024-08-16
+
+### 🔄 Changed
+
+- counting circles need a political business result to be accesible
+
+## [v2.30.2] - 2024-08-15
+
+### :arrows_counterclockwise: Changed
+
+- use consistent question id in vote eCH-0252 export
+
+## [v2.30.1] - 2024-08-15
+
+### 🆕 Added
+
+- add eCH-0252 info export templates
+
+## [v2.30.0] - 2024-08-14
+
+### 🆕 Added
+
+- add asynchronous bundle review
+
+## [v2.29.0] - 2024-08-14
+
+### 🆕 Added
+
+- eCH-0252 base delivery
+
+## [v2.28.2] - 2024-08-13
+
+### :arrows_counterclockwise: Changed
+
+- export variant votes on multiple ballots in eCH-0252 correctly
+
+## [v2.28.1] - 2024-08-09
+
+### 🔄 Changed
+
+- eCH-0252 vote delivery always with counting circle infos
+
+## [v2.28.0] - 2024-08-09
+
+### :new: Added
+
+- added political business and ballot sub type
+
+## [v2.27.5] - 2024-08-08
+
+### 🔄 Changed
+
+- Updated the VotingLibVersion property in the Common.props file from 12.10.4 to 12.10.5. This update includes improvements for the proto string validation for better error reporting.
+
+## [v2.27.4] - 2024-08-07
+
+### 🔒 Security
+
+- ech-0252 export per canton permissions
+
+## [v2.27.3] - 2024-08-07
+
+### 🔒 Security
+
+- add restriction for import data and multipart form section content types
+
+## [v2.27.2] - 2024-08-06
+
+### 🔄 Changed
+
+- reset bundle numbers if result is reset
+
+## [v2.27.1] - 2024-08-05
+
+### 🔄 Changed
+
+- improve performance and memory allocation in certain event processors
+
+## [v2.27.0] - 2024-07-30
+
+### :new: Added
+
+- added variant ballot on multiple ballots
+
+## [v2.26.0] - 2024-07-26
+
+### 🔄 Changed
+
+- Make DOI short name optional in eCH-0252
+
+## [v2.25.0] - 2024-07-19
+
+### 🆕 Added
+
+- canton settings with publish results before audited tentatively
+
+## [v2.24.0] - 2024-07-16
+
+### 🔄 Changed
+
+- set counting circle e-voting at a specific date
+
+## [v2.23.2] - 2024-07-16
+
+### 🔄 Changed
+
+- ech-0252 improvements
+
+## [v2.23.1] - 2024-07-15
+
+### 🔒 Security
+
+- upgrade npgsql to fix vulnerability CVE-2024-0057
+
+## [v2.23.0] - 2024-07-11
+
+### :arrows_counterclockwise: Changed
+
+- show protocol exports for political businesses which are not yet finalized
+
+###
+
+## [v2.22.2] - 2024-07-10
+
+### 🔄 Changed
+
+- calculation of select divisors in double proportional results
+
+## [v2.22.1] - 2024-07-05
+
+### 🔄 Changed
+
+- result overview with partial results
+
+## [v2.22.0] - 2024-07-05
+
+### 🆕 Added
+
+- add bundle state to pdf exports
+
+## [v2.21.0] - 2024-07-04
+
+### 🆕 Added
+
+- add export template key canton suffix option
+
+## [v2.20.5] - 2024-07-04
+
+### 🔄 Changed
+
+- update voting library to implement case-insensitivity for headers as per RFC-2616
+
+### 🔄 Changed
+
+- ExpandMultiplePoliticalBusinesses in ResultExportTemplateReader ensure that no ResultExportTemplate will be generated on empty political business.
+- extended template tests for political businesses in finalized state
+
+### 🔄 Changed
+
+- show ech-0252 main vote id on the 2nd question
+
+### 🔄 Changed
+
+- ech-0252 export improvements
+
+### 🔄 Changed
+
+- ech-0252 export improvements
+
+### 🔄 Changed
+
+- create zip file with time zone info
+
+### 🆕 Added
+
+- add candidate check digit to candidate exports
+
+### :arrows_counterclockwise: Changed
+
+- fix result bundle warnings
+
+### 🆕 Added
+
+- explicit election mandate distribution
+
+### 🔄 Changed
+
+- end result workflow
+
+### 🆕 Added
+
+- add partial results to result overview
+
+### 🔄 Changed
+
+- ech-252 export api adjustments
+
+### :arrows_counterclockwise: Changed
+
+- speed up reading of owned political businesses
+
+### 🔄 Changed
+
+- reset aggreated voting cards after electorates update
+
+### 🔄 Changed
+
+- update total count of voters and create missing voting cards when political business is created
+
+### 🆕 Added
+
+- add ready for correction timestamp
+
+### :arrows_counterclockwise: Changed
+
+- do not assume that a variant ballot with multiple questions has tie break questions
+
+### 🔒 Security
+
+- permissions on ech-0252
 
 ### 🔄 Changed
 
 - ballot after testing phase updated
 
-## [v2.17.1] - 2024-05-29
-
 ### 🔄 Changed
 
 - split ech-0252 election to majority and proportional election export
-
-## [v2.17.0] - 2024-05-29
 
 ### 🆕 Added
 
 - add published state to results
 
-## [v2.16.1] - 2024-05-27
-
 ### 🔄 Changed
 
 - double proportional lot decision fixes
-
-## [v2.16.0] - 2024-05-22
 
 ### 🆕 Added
 
 - add ballot question type
 
-## [v2.15.1] - 2024-05-17
-
 ### 🆕 Added
 
 - testing utilities for double proportional results
-
-## [v2.15.0] - 2024-05-16
 
 ### 🆕 Added
 
 - double proportional lot decisions
 
-## [v2.14.1] - 2024-05-14
-
 ### 🔄 Changed
 
 - changed current date on pdf report names to contest date for all pdf exports
-
-## [v2.14.0] - 2024-05-08
 
 ### :new: Added
 
 - added eCH-0252 for elections
 
-## [v2.13.0] - 2024-05-07
-
 ### 🔄 Changed
 
 - allow to add same counting circle in domain of influence trees
-
-## [v2.12.0] - 2024-05-07
 
 ### 🆕 Added
 
 - update mandate algorithm for proportional elections in unions
 
-## [v2.11.0] - 2024-05-03
-
 ### 🆕 Added
 
 - ech-0252 export api
-
-## [v2.10.0] - 2024-04-30
 
 ### 🆕 Added
 
 - set multiple bundles to review succeed
 
-## [v2.9.0] - 2024-04-26
-
 ### 🆕 Added
 
 - double proportional election protocol
-
-## [v2.8.1] - 2024-04-24
 
 ### 🔄 Changed
 
 - move canton defaults from doi to contest
 
-## [v2.8.0] - 2024-04-23
-
 ### 🔄 Changed
 
 - rework monitoring cockpit overview
-
-## [v2.7.0] - 2024-04-23
 
 ### 🆕 Added
 
 - non cantonal double proportional result
 
-## [v2.6.0] - 2024-04-19
-
 ### 🆕 Added
 
 - add state plausibilised disabled canton setting
-
-## [v2.5.0] - 2024-04-18
 
 ### 🆕 Added
 
 - add counting circle result state descriptions
 
-## [v2.4.3] - 2024-04-18
-
 ### 🔄 Changed
 
 - support reset elections for all double proportional mandate algos
-
-## [v2.4.2] - 2024-04-18
 
 ### 🔄 Changed
 
 - remove temporary tenant for 2fa transaction confirmation authorization
 - update VOTING IAM API client
 
-## [v2.4.1] - 2024-04-17
-
 ### :arrows_counterclockwise: Changed
 
 - handle vote without ballots
 
-## [v2.4.0] - 2024-04-17
-
 ### :new: Added
 
 - added vote end to end test
-
-## [v2.3.0] - 2024-04-15
 
 ### 🆕 Added
 
@@ -179,44 +491,30 @@ Total commits ------- 690
 
 - add political business unions to result overview
 
-## [v2.2.0] - 2024-04-08
-
 ### 🆕 Added
 
 - add evoting counting circle
-
-## [v2.1.4] - 2024-04-05
 
 ### 🔄 Changed
 
 - union list export order by order number
 
-## [v2.1.3] - 2024-04-05
-
 ### 🔄 Changed
 
 - update proportional election candidate results with vote sources template filename
 
-## [v2.1.2] - 2024-04-04
-
 ### 🔄 Changed
 
 - group union lists by short description for export
-
-## [v2.1.1] - 2024-04-02
 
 ### 🔄 Changed
 
 - validations consider conventional and e-voting results
 - contest testing phase ended resets e-voting imported flag
 
-## [v2.1.0] - 2024-03-21
-
 ### 🆕 Added
 
 - add double proportional export templates
-
-## [v2.0.0] - 2024-03-15
 
 ### :lock: Security
 
@@ -1056,6 +1354,620 @@ BREAKING CHANGE: Updated service to .NET 8 LTS.
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v2.20.4] - 2024-07-03
+
+### 🔄 Changed
+
+- ExpandMultiplePoliticalBusinesses in ResultExportTemplateReader ensure that no ResultExportTemplate will be generated on empty political business.
+- extended template tests for political businesses in finalized state
+
+## [v2.20.3] - 2024-07-02
+
+### 🔄 Changed
+
+- show ech-0252 main vote id on the 2nd question
+
+## [v2.20.2] - 2024-07-01
+
+### 🔄 Changed
+
+- ech-0252 export improvements
+
+## [v2.20.1] - 2024-06-25
+
+### 🔄 Changed
+
+- ech-0252 export improvements
+
+## [v2.20.0] - 2024-06-25
+
+### 🔄 Changed
+
+- create zip file with time zone info
+
+## [v2.19.3] - 2024-06-24
+
+### 🆕 Added
+
+- add candidate check digit to candidate exports
+
+## [v2.19.2] - 2024-06-24
+
+### 🔄 Changed
+
+- add index to improve contest list summaries performance
+
+## [v2.19.1] - 2024-06-21
+
+### :arrows_counterclockwise: Changed
+
+- fix result bundle warnings
+
+## [v2.19.0] - 2024-06-21
+
+### 🆕 Added
+
+- explicit election mandate distribution
+
+### 🔄 Changed
+
+- end result workflow
+
+## [v2.18.5] - 2024-06-20
+
+### 🆕 Added
+
+- add partial results to result overview
+
+## [v2.18.4] - 2024-06-14
+
+### 🔄 Changed
+
+- ech-252 export api adjustments
+
+## [v2.18.3] - 2024-06-14
+
+### :arrows_counterclockwise: Changed
+
+- speed up reading of owned political businesses
+
+## [v2.18.2] - 2024-06-12
+
+### 🔄 Changed
+
+- reset aggreated voting cards after electorates update
+
+## [v2.18.1] - 2024-06-11
+
+### 🔄 Changed
+
+- update total count of voters and create missing voting cards when political business is created
+
+## [v2.18.0] - 2024-06-07
+
+### 🆕 Added
+
+- add ready for correction timestamp
+
+### :arrows_counterclockwise: Changed
+
+- do not assume that a variant ballot with multiple questions has tie break questions
+
+### 🔒 Security
+
+- permissions on ech-0252
+
+### 🔄 Changed
+
+- ballot after testing phase updated
+
+### 🔄 Changed
+
+- split ech-0252 election to majority and proportional election export
+
+### 🆕 Added
+
+- add published state to results
+
+### 🔄 Changed
+
+- double proportional lot decision fixes
+
+### 🆕 Added
+
+- add ballot question type
+
+### 🆕 Added
+
+- testing utilities for double proportional results
+
+### 🆕 Added
+
+- double proportional lot decisions
+
+### 🔄 Changed
+
+- changed current date on pdf report names to contest date for all pdf exports
+
+### :new: Added
+
+- added eCH-0252 for elections
+
+### 🔄 Changed
+
+- allow to add same counting circle in domain of influence trees
+
+### 🆕 Added
+
+- update mandate algorithm for proportional elections in unions
+
+### 🆕 Added
+
+- ech-0252 export api
+
+### 🆕 Added
+
+- set multiple bundles to review succeed
+
+### 🆕 Added
+
+- double proportional election protocol
+
+### 🔄 Changed
+
+- move canton defaults from doi to contest
+
+### 🔄 Changed
+
+- rework monitoring cockpit overview
+
+### 🆕 Added
+
+- non cantonal double proportional result
+
+### 🆕 Added
+
+- add state plausibilised disabled canton setting
+
+### 🆕 Added
+
+- add counting circle result state descriptions
+
+### 🔄 Changed
+
+- support reset elections for all double proportional mandate algos
+
+### 🔄 Changed
+
+- remove temporary tenant for 2fa transaction confirmation authorization
+- update VOTING IAM API client
+
+### :arrows_counterclockwise: Changed
+
+- handle vote without ballots
+
+### :new: Added
+
+- added vote end to end test
+
+### 🆕 Added
+
+- data and protocol export api
+
+### :new: Added
+
+- added partial end results
+
+### ❌ Removed
+
+- remove unions from election end result
+
+### 🆕 Added
+
+- proportional election union double proportional result protocols
+
+- cantonal proportional election union results
+
+- added eCH-0252 export (currently vote only)
+
+- add political business unions to end result
+
+- add political business unions to result overview
+
+## [v2.2.1] - 2024-06-07
+
+### :arrows_counterclockwise: Changed
+
+- do not assume that a variant ballot with multiple questions has tie break questions
+
+### 🔒 Security
+
+- permissions on ech-0252
+
+### 🔄 Changed
+
+- ballot after testing phase updated
+
+### 🔄 Changed
+
+- split ech-0252 election to majority and proportional election export
+
+### 🆕 Added
+
+- add published state to results
+
+### 🔄 Changed
+
+- double proportional lot decision fixes
+
+### 🆕 Added
+
+- add ballot question type
+
+### 🆕 Added
+
+- testing utilities for double proportional results
+
+### 🆕 Added
+
+- double proportional lot decisions
+
+### 🔄 Changed
+
+- changed current date on pdf report names to contest date for all pdf exports
+
+### :new: Added
+
+- added eCH-0252 for elections
+
+### 🔄 Changed
+
+- allow to add same counting circle in domain of influence trees
+
+### 🆕 Added
+
+- update mandate algorithm for proportional elections in unions
+
+### 🆕 Added
+
+- ech-0252 export api
+
+### 🆕 Added
+
+- set multiple bundles to review succeed
+
+### 🆕 Added
+
+- double proportional election protocol
+
+### 🔄 Changed
+
+- move canton defaults from doi to contest
+
+### 🔄 Changed
+
+- rework monitoring cockpit overview
+
+### 🆕 Added
+
+- non cantonal double proportional result
+
+### 🆕 Added
+
+- add state plausibilised disabled canton setting
+
+### 🆕 Added
+
+- add counting circle result state descriptions
+
+### 🔄 Changed
+
+- support reset elections for all double proportional mandate algos
+
+### 🔄 Changed
+
+- remove temporary tenant for 2fa transaction confirmation authorization
+- update VOTING IAM API client
+
+### :arrows_counterclockwise: Changed
+
+- handle vote without ballots
+
+### :new: Added
+
+- added vote end to end test
+
+### 🆕 Added
+
+- data and protocol export api
+
+### :new: Added
+
+- added partial end results
+
+### ❌ Removed
+
+- remove unions from election end result
+
+### 🆕 Added
+
+- proportional election union double proportional result protocols
+
+- cantonal proportional election union results
+
+- added eCH-0252 export (currently vote only)
+
+- add political business unions to end result
+
+- add political business unions to result overview
+
+## [v2.17.4] - 2024-06-07
+
+### :arrows_counterclockwise: Changed
+
+- do not assume that a variant ballot with multiple questions has tie break questions
+
+## [v2.17.3] - 2024-06-04
+
+### 🔒 Security
+
+- permissions on ech-0252
+
+## [v2.17.2] - 2024-05-31
+
+### 🔄 Changed
+
+- ballot after testing phase updated
+
+## [v2.17.1] - 2024-05-29
+
+### 🔄 Changed
+
+- split ech-0252 election to majority and proportional election export
+
+## [v2.17.0] - 2024-05-29
+
+### 🆕 Added
+
+- add published state to results
+
+## [v2.16.1] - 2024-05-27
+
+### 🔄 Changed
+
+- double proportional lot decision fixes
+
+## [v2.16.0] - 2024-05-22
+
+### 🆕 Added
+
+- add ballot question type
+
+## [v2.15.1] - 2024-05-17
+
+### 🆕 Added
+
+- testing utilities for double proportional results
+
+## [v2.15.0] - 2024-05-16
+
+### 🆕 Added
+
+- double proportional lot decisions
+
+## [v2.14.1] - 2024-05-14
+
+### 🔄 Changed
+
+- changed current date on pdf report names to contest date for all pdf exports
+
+## [v2.14.0] - 2024-05-08
+
+### :new: Added
+
+- added eCH-0252 for elections
+
+## [v2.13.0] - 2024-05-07
+
+### 🔄 Changed
+
+- allow to add same counting circle in domain of influence trees
+
+## [v2.12.0] - 2024-05-07
+
+### 🆕 Added
+
+- update mandate algorithm for proportional elections in unions
+
+## [v2.11.0] - 2024-05-03
+
+### 🆕 Added
+
+- ech-0252 export api
+
+## [v2.10.0] - 2024-04-30
+
+### 🆕 Added
+
+- set multiple bundles to review succeed
+
+## [v2.9.0] - 2024-04-26
+
+### 🆕 Added
+
+- double proportional election protocol
+
+## [v2.8.1] - 2024-04-24
+
+### 🔄 Changed
+
+- move canton defaults from doi to contest
+
+## [v2.8.0] - 2024-04-23
+
+### 🔄 Changed
+
+- rework monitoring cockpit overview
+
+## [v2.7.0] - 2024-04-23
+
+### 🆕 Added
+
+- non cantonal double proportional result
+
+## [v2.6.0] - 2024-04-19
+
+### 🆕 Added
+
+- add state plausibilised disabled canton setting
+
+## [v2.5.0] - 2024-04-18
+
+### 🆕 Added
+
+- add counting circle result state descriptions
+
+## [v2.4.3] - 2024-04-18
+
+### 🔄 Changed
+
+- support reset elections for all double proportional mandate algos
+
+## [v2.4.2] - 2024-04-18
+
+### 🔄 Changed
+
+- remove temporary tenant for 2fa transaction confirmation authorization
+- update VOTING IAM API client
+
+## [v2.4.1] - 2024-04-17
+
+### :arrows_counterclockwise: Changed
+
+- handle vote without ballots
+
+## [v2.4.0] - 2024-04-17
+
+### :new: Added
+
+- added vote end to end test
+
+## [v2.3.0] - 2024-04-15
+
+### 🆕 Added
+
+- data and protocol export api
+
+### :new: Added
+
+- added partial end results
+
+### ❌ Removed
+
+- remove unions from election end result
+
+### 🆕 Added
+
+- proportional election union double proportional result protocols
+
+- cantonal proportional election union results
+
+- added eCH-0252 export (currently vote only)
+
+- add political business unions to end result
+
+- add political business unions to result overview
+
+## [v2.2.0] - 2024-04-08
+
+### 🆕 Added
+
+- add evoting counting circle
+
+## [v2.1.4] - 2024-04-05
+
+### 🔄 Changed
+
+- union list export order by order number
+
+## [v2.1.3] - 2024-04-05
+
+### 🔄 Changed
+
+- update proportional election candidate results with vote sources template filename
+
+## [v2.1.2] - 2024-04-04
+
+### 🔄 Changed
+
+- group union lists by short description for export
+
+## [v2.1.1] - 2024-04-02
+
+### 🔄 Changed
+
+- validations consider conventional and e-voting results
+- contest testing phase ended resets e-voting imported flag
+
+## [v2.1.0] - 2024-03-21
+
+### 🆕 Added
+
+- add double proportional export templates
+
+## [v2.0.0] - 2024-03-15
+
+### :lock: Security
+
+- dependency and runtime patch policy
+- use latest dotnet runtime v8.0.3
+
+### 🆕 Added
+
+- add wp listen gde sk stat export
+
+### 🔄 Changed
+
+- majority election candidates bundle review order
+
+### ❌ Removed
+
+- voter turnout protocol export
+
+### 🆕 Added
+
+- add monitoring political business overview
+
+### 🆕 Added
+
+- add vote result algorithm popular and counting circle majority
+
+### 🔄 Changed
+
+- show wp gemeinden sk state export for every canton
+
+### :new: Added
+
+- added new roles
+
+### 🆕 Added
+
+- add list votes end result union export
+
+- add submission finished and audited tentatively endpoint
+
+BREAKING CHANGE: Updated service to .NET 8 LTS.
+
+### :arrows_counterclockwise: Changed
+
+- update to dotnet 8
+
+### :lock: Security
+
+- apply patch policy
+
+- round voter participation to 6 decimal places
 
 ## [v1.109.0] - 2024-02-28
 

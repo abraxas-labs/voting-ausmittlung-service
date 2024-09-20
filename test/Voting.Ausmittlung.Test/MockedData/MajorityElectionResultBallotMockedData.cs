@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,8 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Test.MockedData.Mapping;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Test.MockedData;
 
@@ -98,18 +102,46 @@ public static class MajorityElectionResultBallotMockedData
             db.MajorityElectionResultBallots.AddRange(all);
             await db.SaveChangesAsync();
 
-            var ballotCountsByBundleId = all
+            var ballotsByBundleId = all
                 .GroupBy(x => x.BundleId)
-                .ToDictionary(x => x.Key, x => x.Count());
+                .ToDictionary(x => x.Key);
 
             var bundles = await db.MajorityElectionResultBundles
                 .AsTracking()
-                .Where(x => ballotCountsByBundleId.Keys.Contains(x.Id))
+                .Include(x => x.ElectionResult.MajorityElection.Contest)
+                .Where(x => ballotsByBundleId.Keys.Contains(x.Id))
                 .ToListAsync();
+
+            var mapper = sp.GetRequiredService<TestMapper>();
 
             foreach (var bundle in bundles)
             {
-                bundle.CountOfBallots = ballotCountsByBundleId[bundle.Id];
+                var ballots = ballotsByBundleId[bundle.Id];
+                bundle.CountOfBallots = ballots.Count();
+
+                await runScoped(async newSp =>
+                {
+                    // needed to create aggregates, since they access user/tenant information
+                    var authStore = newSp.GetRequiredService<IAuthStore>();
+                    authStore.SetValues("mock-token", bundle.CreatedBy.SecureConnectId, "test", Enumerable.Empty<string>());
+
+                    var aggregateRepository = newSp.GetRequiredService<IAggregateRepository>();
+                    var contestId = bundle.ElectionResult.MajorityElection.ContestId;
+
+                    var aggregate = await aggregateRepository.GetOrCreateById<MajorityElectionResultBundleAggregate>(bundle.Id);
+                    foreach (var ballot in ballots)
+                    {
+                        aggregate.CreateBallot(
+                            ballot.EmptyVoteCount,
+                            ballot.IndividualVoteCount,
+                            ballot.InvalidVoteCount,
+                            ballot.BallotCandidates.Select(x => x.Id),
+                            ballot.SecondaryMajorityElectionBallots.Select(x => mapper.Map<Core.Domain.SecondaryMajorityElectionResultBallot>(x)),
+                            contestId);
+                    }
+
+                    await aggregateRepository.Save(aggregate);
+                });
             }
 
             await db.SaveChangesAsync();

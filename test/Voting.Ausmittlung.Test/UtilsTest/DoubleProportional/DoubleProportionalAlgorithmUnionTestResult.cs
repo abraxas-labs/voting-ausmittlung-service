@@ -1,9 +1,9 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 namespace Voting.Ausmittlung.Test.UtilsTest.DoubleProportional;
 
-internal class DoubleProportionalAlgorithmUnionTestResult
+public class DoubleProportionalAlgorithmUnionTestResult
 {
     public DoubleProportionalAlgorithmUnionTestResult(
         int cantonalQuorum,

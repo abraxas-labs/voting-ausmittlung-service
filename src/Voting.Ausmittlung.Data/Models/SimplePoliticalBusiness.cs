@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -15,6 +15,10 @@ public class SimplePoliticalBusiness : PoliticalBusiness, IPoliticalBusinessHasT
     public override PoliticalBusinessType BusinessType => PoliticalBusinessType;
 
     public PoliticalBusinessType PoliticalBusinessType { get; set; }
+
+    public override PoliticalBusinessSubType BusinessSubType => PoliticalBusinessSubType;
+
+    public PoliticalBusinessSubType PoliticalBusinessSubType { get; set; }
 
     public ICollection<SimpleCountingCircleResult> SimpleResults { get; set; } = new HashSet<SimpleCountingCircleResult>();
 

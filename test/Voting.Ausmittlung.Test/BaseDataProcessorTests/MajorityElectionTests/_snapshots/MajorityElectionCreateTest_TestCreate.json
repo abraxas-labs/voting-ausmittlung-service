@@ -34,6 +34,8 @@
         "ReviewProcedure": 1,
         "EnforceReviewProcedureForCountingCircles": false,
         "EnforceCandidateCheckDigitForCountingCircles": false,
+        "FederalIdentification": 111,
+        "IndividualCandidatesDisabled": false,
         "NumberOfMandates": 6,
         "PoliticalBusinessNumber": "8000",
         "Active": false,
@@ -42,6 +44,7 @@
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
+        "BusinessSubType": 0,
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -90,6 +93,8 @@
         "ReviewProcedure": 1,
         "EnforceReviewProcedureForCountingCircles": false,
         "EnforceCandidateCheckDigitForCountingCircles": false,
+        "FederalIdentification": null,
+        "IndividualCandidatesDisabled": false,
         "NumberOfMandates": 3,
         "PoliticalBusinessNumber": "8001",
         "Active": false,
@@ -98,6 +103,7 @@
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
+        "BusinessSubType": 0,
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -120,6 +126,8 @@
       {
         "BusinessType": 2,
         "PoliticalBusinessType": 2,
+        "BusinessSubType": 0,
+        "PoliticalBusinessSubType": 0,
         "SimpleResults": [],
         "NumberOfMandates": 6,
         "CountOfSecondaryBusinesses": 0,
@@ -159,6 +167,8 @@
       {
         "BusinessType": 2,
         "PoliticalBusinessType": 2,
+        "BusinessSubType": 0,
+        "PoliticalBusinessSubType": 0,
         "SimpleResults": [],
         "NumberOfMandates": 3,
         "CountOfSecondaryBusinesses": 0,

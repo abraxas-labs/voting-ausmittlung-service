@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -76,7 +76,7 @@ public class ContestProcessor :
     {
         var doiId = Guid.Parse(eventData.Contest.DomainOfInfluenceId);
         var doi = await _doiRepo.GetByKey(doiId)
-                ?? throw new EntityNotFoundException(nameof(DomainOfInfluence), doiId);
+            ?? throw new EntityNotFoundException(nameof(DomainOfInfluence), doiId);
 
         var contest = _mapper.Map<Contest>(eventData.Contest);
         await _contestCantonDefaultsBuilder.BuildForContest(contest, doi.Canton);

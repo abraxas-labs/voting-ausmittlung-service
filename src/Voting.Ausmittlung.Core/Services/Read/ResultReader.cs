@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -98,7 +98,9 @@ public class ResultReader
                        .OrderBy(pb => pb.PoliticalBusinessNumber))
                    .ThenInclude(pb => pb.Translations)
                    .Include(x => x.SimplePoliticalBusinesses)
-                   .ThenInclude(pb => pb.SimpleResults.OrderBy(x => x.CountingCircle!.Name))
+                   .ThenInclude(pb => pb.SimpleResults
+                       .Where(x => viewablePartialResultsCcIds.Count == 0 || viewablePartialResultsCcIds.Contains(x.CountingCircleId))
+                       .OrderBy(x => x.CountingCircle!.Name))
                    .ThenInclude(r => r.CountingCircle)
                    .Include(x => x.SimplePoliticalBusinesses)
                    .ThenInclude(x => x.DomainOfInfluence)
@@ -130,7 +132,7 @@ public class ResultReader
                 x => x.ToList());
 
         var currentTenantIsContestManager = contest.DomainOfInfluence.SecureConnectId == tenantId;
-        return new ResultOverview(contest, countingCircles, currentTenantIsContestManager);
+        return new ResultOverview(contest, countingCircles, currentTenantIsContestManager, viewablePartialResultsCcIds.Count > 0);
     }
 
     public async Task<ResultList> GetList(Guid contestId, Guid basisCountingCircleId)
@@ -161,7 +163,11 @@ public class ResultReader
             ?? throw new EntityNotFoundException(nameof(ContestCountingCircleDetails), contestCcDetailsId);
         details.OrderVotingCardsAndSubTotals();
 
+        var currentTenantIsResponsible = countingCircle.ResponsibleAuthority.SecureConnectId == tenantId || (contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded);
+        var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId);
         var isPoliticalDoiType = contest.DomainOfInfluence.Type.IsPolitical();
+
+        // results which is the current tenant responsible or is an owned political businesses or is a partial result counting circle
         var results = await _simpleResultRepo.Query()
             .AsSplitQuery()
             .Include(x => x.PoliticalBusiness!.Translations)
@@ -169,12 +175,12 @@ public class ResultReader
             .Where(x =>
                 x.CountingCircleId == countingCircle.Id
                 && x.PoliticalBusiness!.ContestId == contestId
-                && x.PoliticalBusiness.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection)
+                && x.PoliticalBusiness.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
+                && (currentTenantIsResponsible || x.PoliticalBusiness.DomainOfInfluence.SecureConnectId == tenantId || viewablePartialResultsCountingCircleIds.Contains(x.CountingCircleId)))
             .OrderBy(x => isPoliticalDoiType ? x.PoliticalBusiness!.DomainOfInfluence.Type : 0)
             .ThenBy(x => x.PoliticalBusiness!.PoliticalBusinessNumber)
             .ToListAsync();
 
-        var currentTenantIsResponsible = countingCircle.ResponsibleAuthority.SecureConnectId == tenantId || (contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded);
         var electorateSummary = ContestCountingCircleElectorateSummaryBuilder.Build(
             countingCircle,
             details,

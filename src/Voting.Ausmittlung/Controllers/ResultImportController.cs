@@ -1,8 +1,9 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.IO;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -42,6 +43,7 @@ public class ResultImportController : ControllerBase
     /// <returns>A task representing the async operation.</returns>
     [AuthorizePermission(Permissions.Import.ImportData)]
     [HttpPost("{contestId:Guid}")]
+    [Consumes("multipart/form-data")]
     [RequestSizeLimit(MaxImportRequestSize)]
     [RequestFormLimits(MultipartBodyLengthLimit = MaxImportRequestSize)]
     [DisableFormValueModelBinding]
@@ -54,20 +56,23 @@ public class ResultImportController : ControllerBase
 
         try
         {
-            await _multipartRequestHelper.ReadFiles(Request, async multipartFile =>
-            {
-                switch (multipartFile.FormFieldName)
+            await _multipartRequestHelper.ReadFiles(
+                Request,
+                async multipartFile =>
                 {
-                    case Ech0222FormName:
-                        ech0222Stream = await BufferToTemporaryFile(multipartFile.Content);
-                        ech0222FileName = multipartFile.FileName;
-                        break;
-                    case Ech0110FormName:
-                        ech0110Stream = await BufferToTemporaryFile(multipartFile.Content);
-                        ech0110FileName = multipartFile.FileName;
-                        break;
-                }
-            });
+                    switch (multipartFile.FormFieldName)
+                    {
+                        case Ech0222FormName:
+                            ech0222Stream = await BufferToTemporaryFile(multipartFile.Content);
+                            ech0222FileName = multipartFile.FileName;
+                            break;
+                        case Ech0110FormName:
+                            ech0110Stream = await BufferToTemporaryFile(multipartFile.Content);
+                            ech0110FileName = multipartFile.FileName;
+                            break;
+                    }
+                },
+                [MediaTypeNames.Text.Xml]);
 
             if (ech0222Stream == null || ech0222FileName == null || ech0110Stream == null || ech0110FileName == null)
             {

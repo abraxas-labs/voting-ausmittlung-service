@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -126,7 +126,7 @@ public class ContestResultInitializer
 
         foreach (var vote in votes)
         {
-            await _voteResultBuilder.ResetForVote(vote.Id, vote.DomainOfInfluenceId);
+            await _voteResultBuilder.ResetForVote(vote.Id, vote.DomainOfInfluenceId, contestId);
             await _voteEndResultInitializer.ResetForVote(vote.Id);
         }
     }
@@ -140,7 +140,7 @@ public class ContestResultInitializer
 
         foreach (var election in elections)
         {
-            await _proportionalElectionResultBuilder.ResetForElection(election.Id, election.DomainOfInfluenceId);
+            await _proportionalElectionResultBuilder.ResetForElection(election.Id, election.DomainOfInfluenceId, contestId);
             await _proportionalElectionEndResultInitializer.ResetForElection(election.Id);
         }
     }
@@ -154,7 +154,7 @@ public class ContestResultInitializer
 
         foreach (var election in elections)
         {
-            await _majorityElectionResultBuilder.ResetForElection(election.Id, election.DomainOfInfluenceId);
+            await _majorityElectionResultBuilder.ResetForElection(election.Id, election.DomainOfInfluenceId, contestId);
             await _majorityElectionEndResultInitializer.ResetForElection(election.Id);
         }
     }

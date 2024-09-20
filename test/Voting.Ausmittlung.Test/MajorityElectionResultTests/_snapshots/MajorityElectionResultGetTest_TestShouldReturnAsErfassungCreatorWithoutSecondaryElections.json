@@ -78,12 +78,15 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
-    "EnforceCandidateCheckDigitForCountingCircles": false
+    "EnforceCandidateCheckDigitForCountingCircles": false,
+    "IndividualCandidatesDisabled": false
   },
   "SecondaryMajorityElectionResults": [],
   "Entry": 0,
@@ -158,5 +161,6 @@
     "ContactPersonAfterEvent": null
   },
   "HasUnmappedWriteIns": false,
-  "Published": false
+  "Published": false,
+  "ReadyForCorrectionTimestamp": null
 }

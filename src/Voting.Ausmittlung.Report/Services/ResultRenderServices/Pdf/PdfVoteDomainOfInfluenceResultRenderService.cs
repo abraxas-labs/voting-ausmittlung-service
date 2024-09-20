@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -22,25 +22,25 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Vote> _repo;
+    private readonly IDbRepository<DataContext, VoteResult> _resultRepo;
     private readonly IMapper _mapper;
     private readonly VoteDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
-    private readonly IClock _clock;
 
     public PdfVoteDomainOfInfluenceResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, Vote> repo,
+        IDbRepository<DataContext, VoteResult> resultRepo,
         IMapper mapper,
         VoteDomainOfInfluenceResultBuilder doiResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IClock clock)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
     {
         _templateService = templateService;
         _repo = repo;
+        _resultRepo = resultRepo;
         _mapper = mapper;
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -55,15 +55,6 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             .Include(x => x.EndResult!.BallotEndResults)
                 .ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number))
                     .ThenInclude(x => x.Question.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
-                .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.Ballot.TieBreakQuestions.OrderBy(q => q.Number))
-                .ThenInclude(x => x.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.QuestionResults.OrderBy(q => q.Question.Number))
-                .ThenInclude(x => x.Question.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.Results).ThenInclude(x => x.TieBreakQuestionResults.OrderBy(q => q.Question.Number))
-                .ThenInclude(x => x.Question.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.Contest.Translations)
@@ -72,6 +63,46 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             .FirstOrDefaultAsync(v => v.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
 
+        var isPartialResult = vote.DomainOfInfluence.SecureConnectId != ctx.TenantId;
+        if (isPartialResult && ctx.ViewablePartialResultsCountingCircleIds?.Count == 0)
+        {
+            throw new ValidationException("invalid partial result without any viewable counting circle ids");
+        }
+
+        var results = await _resultRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.VotingCards)
+            .Include(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.Results)
+                .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
+                    .ThenInclude(x => x.Translations)
+            .Include(x => x.Results)
+                .ThenInclude(x => x.Ballot.TieBreakQuestions.OrderBy(q => q.Number))
+                    .ThenInclude(x => x.Translations)
+            .Include(x => x.Results)
+                .ThenInclude(x => x.QuestionResults.OrderBy(q => q.Question.Number))
+                    .ThenInclude(x => x.Question.Translations)
+            .Include(x => x.Results)
+                .ThenInclude(x => x.TieBreakQuestionResults.OrderBy(q => q.Question.Number))
+                    .ThenInclude(x => x.Question.Translations)
+            .Where(x => x.VoteId == ctx.PoliticalBusinessId && (!isPartialResult || ctx.ViewablePartialResultsCountingCircleIds!.Contains(x.CountingCircleId)))
+            .ToListAsync(ct);
+
+        if (results.Count == 0)
+        {
+            throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
+        }
+
+        vote.Results = results;
+
+        if (isPartialResult)
+        {
+            vote.EndResult = PartialEndResultUtils.MergeIntoPartialEndResult(vote, results);
+        }
+
+        vote.EndResult!.OrderVotingCardsAndSubTotals();
         vote.EndResult!.OrderBallotResults();
 
         var ccDetailsList = await _ccDetailsRepo.Query()

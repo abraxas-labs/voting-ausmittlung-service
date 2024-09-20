@@ -1,35 +1,42 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Net.Mime;
+using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
-using Voting.Ausmittlung.Controllers.Models;
+using Google.Protobuf;
+using Grpc.Net.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Ausmittlung.Test.Mocks;
+using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
+using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
+public abstract class PdfBundleReviewExportBaseTest : BaseTest<ExportService.ExportServiceClient>
 {
-    private const string ExportEndpoint = "/api/result_export/bundle_review";
-    private const string PdfExtension = ".pdf";
-
     protected PdfBundleReviewExportBaseTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
 
-    protected virtual HttpClient TestClient => MonitoringElectionAdminClient;
+    protected virtual ExportService.ExportServiceClient TestClient => ErfassungElectionAdminClient;
 
     protected abstract string NewRequestExpectedFileName { get; }
+
+    protected abstract string TemplateKey { get; }
 
     public override async Task InitializeAsync()
     {
@@ -47,31 +54,26 @@ public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
         await TestPdfReport(string.Empty, request, NewRequestExpectedFileName);
     }
 
-    protected async Task TestPdfReport(string snapshotSuffix, GenerateResultBundleReviewExportRequest request, string expectedFileName)
+    protected async Task TestPdfReport(string snapshotSuffix, StartBundleReviewExportRequest request, string expectedFileName)
     {
-        var response = await AssertStatus(
-            () => TestClient.PostAsJsonAsync(ExportEndpoint, request),
-            HttpStatusCode.OK);
-        response.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Pdf);
-
-        var contentDisposition = response.Content.Headers.ContentDisposition;
-        contentDisposition!.FileNameStar.Should().EndWith(PdfExtension);
-        contentDisposition.FileNameStar.Should().Be(expectedFileName);
-        contentDisposition.DispositionType.Should().Be("attachment");
-
-        // demo mock just returns the xml
-        var xml = await response.Content.ReadAsStringAsync();
+        await TestClient.StartBundleReviewExportAsync(request);
+        var xml = RunScoped<PdfServiceMock, string>(x => x.GetGenerated(TemplateKey));
         var formattedXml = XmlUtil.FormatTestXml(xml);
-        formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{request.TemplateKey}{snapshotSuffix}.xml");
+        formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{TemplateKey}{snapshotSuffix}.xml");
+
+        var startedEvent = EventPublisherMock.GetSinglePublishedEvent<ProtocolExportStarted>();
+        startedEvent.FileName.Should().Be(expectedFileName);
+        startedEvent.ExportKey.Should().Be(TemplateKey);
     }
 
     protected abstract Task SeedData();
 
-    protected abstract GenerateResultBundleReviewExportRequest NewRequest();
+    protected abstract StartBundleReviewExportRequest NewRequest();
 
-    protected override Task<HttpResponseMessage> AuthorizationTestCall(HttpClient httpClient)
+    protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        return httpClient.PostAsJsonAsync(ExportEndpoint, NewRequest());
+        await new ExportService.ExportServiceClient(channel)
+            .StartBundleReviewExportAsync(NewRequest());
     }
 
     protected override IEnumerable<string> AuthorizedRoles()
@@ -80,5 +82,24 @@ public abstract class PdfBundleReviewExportBaseTest : BaseRestTest
         yield return RolesMockedData.ErfassungBundleController;
         yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
+    }
+
+    protected async Task RunOnBundle<TEvent, TAggregate>(Guid bundleId, Action<TAggregate> bundleAction)
+        where TEvent : IMessage<TEvent>
+        where TAggregate : PoliticalBusinessResultBundleAggregate
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", TestDefaults.UserId, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<TAggregate>(bundleId);
+            bundleAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<TEvent>();
+        EventPublisherMock.Clear();
     }
 }

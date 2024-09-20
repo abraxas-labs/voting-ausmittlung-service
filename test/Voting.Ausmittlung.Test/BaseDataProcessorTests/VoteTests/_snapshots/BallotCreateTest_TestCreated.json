@@ -6,8 +6,10 @@
         {
           "Position": 1,
           "BallotType": 1,
+          "SubType": 0,
           "HasTieBreakQuestions": false,
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
+          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -25,6 +27,7 @@
               "Question": "Frage 1 Gossau de",
               "BallotAnswers": [],
               "Type": 1,
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -36,8 +39,10 @@
         {
           "Position": 3,
           "BallotType": 2,
+          "SubType": 0,
           "HasTieBreakQuestions": true,
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
+          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -55,6 +60,7 @@
               "Question": "Variante 1 de",
               "BallotAnswers": [],
               "Type": 1,
+              "FederalIdentification": 111,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -73,6 +79,7 @@
               "Question": "Variante 2 de",
               "BallotAnswers": [],
               "Type": 3,
+              "FederalIdentification": 222,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -91,6 +98,7 @@
               "Question": "Variante 3 de",
               "BallotAnswers": [],
               "Type": 3,
+              "FederalIdentification": 333,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -112,6 +120,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V2 de",
               "BallotAnswers": [],
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -131,6 +140,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V3 de",
               "BallotAnswers": [],
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -150,6 +160,7 @@
               "EndResult": null,
               "Question": "TieBreak V2/V3 de",
               "BallotAnswers": [],
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -160,8 +171,10 @@
       ],
       "ReportDomainOfInfluenceLevel": 0,
       "BusinessType": 1,
+      "BusinessSubType": 1,
       "ResultAlgorithm": 1,
       "EndResult": null,
+      "Type": 0,
       "Translations": [
         {
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",

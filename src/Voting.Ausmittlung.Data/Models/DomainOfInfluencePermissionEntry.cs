@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -34,6 +34,8 @@ public class DomainOfInfluencePermissionEntry : BaseEntity
 
     /// <summary>
     /// Gets or sets a value indicating whether the TenantId is only assigned on a child level or a counting circle.
+    /// If true, the tenant does not have direct access to the domain of influence.
+    /// If false, the tenant has direct access to the domain of influence or one of its parent domain of influences.
     /// </summary>
     public bool IsParent { get; set; } = true;
 }

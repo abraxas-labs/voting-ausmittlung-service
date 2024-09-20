@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -53,8 +53,6 @@ public class ProportionalElectionEndResultLotDecisionBuilder
         }
 
         _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
-        listEndResult.ElectionEndResult.Finalized = false;
-        simpleEndResult.EndResultFinalized = false;
 
         await _dataContext.SaveChangesAsync();
     }

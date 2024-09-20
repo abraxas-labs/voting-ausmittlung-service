@@ -192,7 +192,7 @@
           </ContestVotingCardDetail>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfVoters>15000</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
@@ -420,7 +420,7 @@
           </ContestVotingCardDetail>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfVoters>3000</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
@@ -1559,7 +1559,7 @@
           </ContestVotingCardDetail>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
+      <TotalCountOfVoters>3000</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>

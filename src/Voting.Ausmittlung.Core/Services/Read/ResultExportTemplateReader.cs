@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -363,6 +363,11 @@ public class ResultExportTemplateReader
             return ExpandMultiplePoliticalBusinesses(template, filteredPoliticalBusinesses, basisCountingCircleId);
         }
 
+        if (!filteredPoliticalBusinesses.Any())
+        {
+            return Enumerable.Empty<ResultExportTemplate>();
+        }
+
         // expand templates for each individual political business
         return filteredPoliticalBusinesses
             .Select(pb => new ResultExportTemplate(
@@ -379,6 +384,11 @@ public class ResultExportTemplateReader
         IEnumerable<PoliticalBusiness> politicalBusinesses,
         Guid? basisCountingCircleId)
     {
+        if (!politicalBusinesses.Any())
+        {
+            return Enumerable.Empty<ResultExportTemplate>();
+        }
+
         if (!template.PerDomainOfInfluenceType)
         {
             return new[]
@@ -419,23 +429,12 @@ public class ResultExportTemplateReader
         IReadOnlyDictionary<Guid, ProportionalElectionMandateAlgorithm> mandateAlgorithmByProportionalElectionId)
     {
         politicalBusinesses = FilterDomainOfInfluenceType(template, politicalBusinesses);
-        politicalBusinesses = FilterFinalized(template, politicalBusinesses);
         politicalBusinesses = FilterProportionalElectionMandateAlgorithm(template, politicalBusinesses, mandateAlgorithmByProportionalElectionId);
         return FilterInvalidVotes(template, politicalBusinesses);
     }
 
     private IEnumerable<SimplePoliticalBusiness> FilterDomainOfInfluenceType(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
         => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
-
-    private IEnumerable<SimplePoliticalBusiness> FilterFinalized(
-        TemplateModel template,
-        IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
-    {
-        // pdfs for political business results are only available for finalized results
-        return template is { Format: ExportFileFormat.Pdf, ResultType: ResultType.PoliticalBusinessResult or ResultType.MultiplePoliticalBusinessesResult }
-            ? politicalBusinesses.Where(pb => pb.EndResultFinalized)
-            : politicalBusinesses;
-    }
 
     private IEnumerable<TemplateModel> FilterDisabledTemplates(IEnumerable<TemplateModel> templates)
         => templates.Where(t => !_config.DisabledExportTemplateKeys.Contains(t.Key));

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -164,22 +164,59 @@ public abstract class PoliticalBusinessResultWriter<T>
     protected async Task EnsureStatePlausibilisedEnabled(Guid contestId) =>
         await _contestService.EnsureStatePlausibilisedEnabled(contestId);
 
-    protected bool CanAutomaticallyPublishResults(DomainOfInfluence domainOfInfluence, Contest contest)
+    protected bool CanUnpublishResults(Contest contest, CountingCircleResultAggregate aggregate)
     {
-        // publish results if not enabled or for all results which have domain of influence type MU or lower
-        return !contest.CantonDefaults.PublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu;
+        if (!aggregate.Published)
+        {
+            return false;
+        }
+
+        return !contest.CantonDefaults.PublishResultsBeforeAuditedTentatively
+            ? aggregate.State == CountingCircleResultState.AuditedTentatively
+            : aggregate.State is CountingCircleResultState.SubmissionDone or CountingCircleResultState.CorrectionDone;
     }
 
-    protected void EnsureCanManuallyPublishResults(Contest contest, DomainOfInfluence domainOfInfluence)
+    protected bool CanAutomaticallyPublishResults(DomainOfInfluence domainOfInfluence, Contest contest, CountingCircleResultAggregate aggregate)
+    {
+        if (aggregate.Published)
+        {
+            return false;
+        }
+
+        var validCcResultState = !contest.CantonDefaults.PublishResultsBeforeAuditedTentatively
+            ? aggregate.State == CountingCircleResultState.AuditedTentatively
+            : aggregate.State is CountingCircleResultState.SubmissionDone or CountingCircleResultState.CorrectionDone or CountingCircleResultState.AuditedTentatively;
+
+        // publish results if not enabled or for all results which have domain of influence type MU or lower
+        return validCcResultState && (!contest.CantonDefaults.PublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu);
+    }
+
+    protected void EnsureCanManuallyPublishResults(Contest contest, DomainOfInfluence domainOfInfluence, CountingCircleResultAggregate aggregate)
     {
         if (!contest.CantonDefaults.PublishResultsEnabled)
         {
             throw new ValidationException("publish results is not enabled for contest");
         }
 
+        if (!contest.CantonDefaults.PublishResultsBeforeAuditedTentatively
+            && aggregate.State != CountingCircleResultState.AuditedTentatively
+            && aggregate.State != CountingCircleResultState.Plausibilised)
+        {
+            throw new ValidationException("cannot publish or unpublish a result with the state " + aggregate.State);
+        }
+
+        if (contest.CantonDefaults.PublishResultsBeforeAuditedTentatively
+            && aggregate.State != CountingCircleResultState.SubmissionDone
+            && aggregate.State != CountingCircleResultState.CorrectionDone
+            && aggregate.State != CountingCircleResultState.AuditedTentatively
+            && aggregate.State != CountingCircleResultState.Plausibilised)
+        {
+            throw new ValidationException("cannot publish or unpublish a result with the state " + aggregate.State);
+        }
+
         if (domainOfInfluence.Type >= DomainOfInfluenceType.Mu)
         {
-            throw new ValidationException($"cannot publish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
+            throw new ValidationException($"cannot publish or unpublish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
         }
     }
 

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -87,28 +87,6 @@ public class ExportAggregate : BaseEventSignatureAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    internal void BundleReviewExported(
-        Guid contestId,
-        string exportKey,
-        Guid countingCircleId,
-        Guid politicalBusinessId,
-        Guid politicalBusinessResultBundleId)
-    {
-        Id = contestId;
-
-        RaiseEvent(
-            new BundleReviewExportGenerated
-            {
-                EventInfo = _eventInfoProvider.NewEventInfo(),
-                Key = exportKey,
-                ContestId = contestId.ToString(),
-                CountingCircleId = countingCircleId.ToString(),
-                PoliticalBusinessId = politicalBusinessId.ToString(),
-                PoliticalBusinessResultBundleId = politicalBusinessResultBundleId.ToString(),
-            },
-            new EventSignatureBusinessDomainData(contestId));
-    }
-
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -119,7 +97,9 @@ public class ExportAggregate : BaseEventSignatureAggregate
             case ResultExportTriggered ev:
                 Id = Guid.Parse(ev.ContestId);
                 break;
+#pragma warning disable CS0612 // bundle review export generated event is deprecated
             case BundleReviewExportGenerated ev:
+#pragma warning restore CS0612
                 Id = Guid.Parse(ev.ContestId);
                 break;
             case ResultExportGenerated:

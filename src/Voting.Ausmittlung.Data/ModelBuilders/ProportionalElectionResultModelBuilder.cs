@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -159,8 +159,14 @@ public class ProportionalElectionResultModelBuilder :
         builder
             .Navigation(x => x.CreatedBy).IsRequired();
 
-        builder
-            .OwnsOne(x => x.ReviewedBy);
+        builder.OwnsOne(
+            x => x.ReviewedBy,
+            u =>
+            {
+                u.Property(uu => uu.SecureConnectId).IsRequired();
+                u.Property(uu => uu.FirstName).IsRequired();
+                u.Property(uu => uu.LastName).IsRequired();
+            });
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionResultBallot> builder)

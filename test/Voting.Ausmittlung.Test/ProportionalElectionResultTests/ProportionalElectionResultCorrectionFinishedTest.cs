@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -38,6 +38,7 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultCorrectionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -81,6 +82,22 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -180,12 +197,14 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await AssertSubmissionDoneTimestamp(false);
+        await AssertReadyForCorrectionTimestamp(true);
 
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         await RunEvents<ProportionalElectionResultCorrectionFinished>();
 
         await AssertCurrentState(CountingCircleResultState.CorrectionDone);
         await AssertSubmissionDoneTimestamp(true);
+        await AssertReadyForCorrectionTimestamp(false);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen)
             .ToListAsync());
@@ -288,5 +307,11 @@ public class ProportionalElectionResultCorrectionFinishedTest : ProportionalElec
     {
         var result = await RunOnDb(db => db.ProportionalElectionResults.SingleAsync(x => x.Id == Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen)));
         (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
+    }
+
+    private async Task AssertReadyForCorrectionTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.ProportionalElectionResults.SingleAsync(x => x.Id == Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen)));
+        (result.ReadyForCorrectionTimestamp != null).Should().Be(hasTimestamp);
     }
 }

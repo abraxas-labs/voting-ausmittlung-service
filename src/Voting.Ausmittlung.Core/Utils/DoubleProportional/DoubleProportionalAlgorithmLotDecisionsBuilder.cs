@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -186,6 +186,7 @@ public static class DoubleProportionalAlgorithmLotDecisionsBuilder
             }
         }
 
-        return numberOfMandatesPerLotDecisionByRowId.SequenceEqual(expectedNumberOfMandatesPerLotDecisionByRowId);
+        return numberOfMandatesPerLotDecisionByRowId.OrderBy(e => e.Key)
+            .SequenceEqual(expectedNumberOfMandatesPerLotDecisionByRowId.OrderBy(e => e.Key));
     }
 }

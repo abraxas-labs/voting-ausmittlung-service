@@ -1,10 +1,12 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Data;
@@ -102,6 +104,12 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
             Tenant = ToEventInfoTenant(SecureConnectTestDefaults.MockedTenantDefault),
             User = ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
         };
+    }
+
+    protected void EnsureValidAggregatedVotingCards<T>(ICollection<T> votingCardsBefore, ICollection<T> votingCardsAfter, Func<T, bool> predicate, int diff)
+        where T : AggregatedVotingCardResultDetail
+    {
+        (votingCardsAfter.Single(predicate).CountOfReceivedVotingCards - votingCardsBefore.Single(predicate).CountOfReceivedVotingCards).Should().Be(diff);
     }
 
     private EventInfoTenant ToEventInfoTenant(Tenant tenant)

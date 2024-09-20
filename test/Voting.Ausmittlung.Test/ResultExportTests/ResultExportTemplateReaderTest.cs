@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -66,6 +66,16 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
     }
 
     [Fact]
+    public async Task TestPdfMonitoringFinalizedShouldWork()
+    {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
+        var pdfTemplatesMonitoring = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf });
+        pdfTemplatesMonitoring.MatchSnapshot("PdfMonitoring");
+    }
+
+    [Fact]
     public async Task AllDisabledShouldReturnEmptyTemplates()
     {
         var config = GetService<PublisherConfig>();
@@ -99,19 +109,6 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
         {
             GetService<PublisherConfig>().DisabledExportTemplateKeys.Clear();
         }
-    }
-
-    [Fact]
-    public async Task EndResultFinalizationShouldFilterPdfs()
-    {
-        await ModifyDbEntities<SimplePoliticalBusiness>(_ => true, pb => pb.EndResultFinalized = false);
-        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null);
-
-        await ModifyDbEntities<SimplePoliticalBusiness>(_ => true, pb => pb.EndResultFinalized = true);
-        var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null);
-
-        resultBefore.Should().HaveCountGreaterThan(0);
-        resultAfter.Count.Should().BeGreaterThan(resultBefore.Count);
     }
 
     [Fact]

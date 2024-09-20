@@ -1,13 +1,15 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -66,6 +68,20 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
         });
         ResetResultIds(response);
         response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithPartialResults()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(x => x.SnapshotContestId == ContestMockedData.StGallenEvotingUrnengang.Id && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId, x => x.ViewCountingCirclePartialResults = true);
+        var response = await StGallenMonitoringElectionAdminClient.GetOverviewAsync(new GetResultOverviewRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+        });
+        ResetResultIds(response);
+        response.MatchSnapshot();
+
+        response.HasPartialResults.Should().BeTrue();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

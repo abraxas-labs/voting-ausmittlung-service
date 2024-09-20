@@ -80,6 +80,8 @@
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
         "PublishResultsEnabled": true,
+        "PublishResultsBeforeAuditedTentatively": false,
+        "EndResultFinalizeDisabled": false,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       "PoliticalBusinesses": [],
@@ -168,6 +170,8 @@
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
         "PublishResultsEnabled": true,
+        "PublishResultsBeforeAuditedTentatively": false,
+        "EndResultFinalizeDisabled": false,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       "PoliticalBusinesses": [],

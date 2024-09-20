@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
@@ -25,6 +26,8 @@ public class DoubleProportionalResultBuilder
     private readonly ProportionalElectionRepo _electionRepo;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly DoubleProportionalAlgorithm _dpAlgorithm;
+    private readonly ILogger<DoubleProportionalResultBuilder> _logger;
+    private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
 
     public DoubleProportionalResultBuilder(
         DoubleProportionalResultRepo dpResultRepo,
@@ -32,7 +35,9 @@ public class DoubleProportionalResultBuilder
         DataContext dataContext,
         ProportionalElectionRepo electionRepo,
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
-        DoubleProportionalAlgorithm dpAlgorithm)
+        DoubleProportionalAlgorithm dpAlgorithm,
+        ILogger<DoubleProportionalResultBuilder> logger,
+        SimplePoliticalBusinessRepo simplePoliticalBusinessRepo)
     {
         _dpResultRepo = dpResultRepo;
         _dataContext = dataContext;
@@ -40,6 +45,8 @@ public class DoubleProportionalResultBuilder
         _unionRepo = unionRepo;
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _dpAlgorithm = dpAlgorithm;
+        _logger = logger;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     internal async Task BuildForUnion(Guid unionId)
@@ -47,6 +54,17 @@ public class DoubleProportionalResultBuilder
         await ResetForUnion(unionId);
 
         var union = await LoadUnionAsTracking(unionId);
+
+        var electionIds = union.ProportionalElectionUnionEntries
+            .Select(e => e.ProportionalElectionId)
+            .ToList();
+
+        var simplePbById = await _simplePoliticalBusinessRepo
+            .Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .Where(x => electionIds.Contains(x.Id))
+            .ToDictionaryAsync(x => x.Id, x => x);
 
         _dpAlgorithm.BuildResultForUnion(union);
         var dpResult = union.DoubleProportionalResult!;
@@ -60,6 +78,10 @@ public class DoubleProportionalResultBuilder
                 ?? throw new InvalidOperationException("Dp result does not exist to a proportional election end result");
 
             UpdateUnionElectionEndResult(electionEndResult, electionDpResult, dpResult.AllNumberOfMandatesDistributed);
+
+            var implicitFinalize = union.Contest.CantonDefaults.EndResultFinalizeDisabled;
+            electionEndResult.Finalized = implicitFinalize;
+            simplePbById[electionEndResult.ProportionalElectionId].EndResultFinalized = implicitFinalize;
         }
 
         await _dataContext.SaveChangesAsync();
@@ -102,8 +124,14 @@ public class DoubleProportionalResultBuilder
 
     internal async Task SetSuperApportionmentLotDecisionForElection(Guid electionId, DoubleProportionalResultSuperApportionmentLotDecision lotDecision)
     {
-        var dpResult = await _dpResultRepo.GetElectionDoubleProportionalResultAsTracking(electionId)
-            ?? throw new EntityNotFoundException(electionId);
+        var dpResult = await _dpResultRepo.GetElectionDoubleProportionalResultAsTracking(electionId);
+
+        // Is possible historically, because audited tentatively triggered the calculation before using the ImplicitMandateDistributionDisabled flag.
+        if (dpResult == null)
+        {
+            _logger.LogWarning("Cannot calculate super apportionment for election {ElectionId}, because the dp result is missing", electionId);
+            return;
+        }
 
         _dpAlgorithm.SetSuperApportionmentLotDecision(dpResult, lotDecision);
 
@@ -198,6 +226,18 @@ public class DoubleProportionalResultBuilder
             .Where(u => unionIds.Contains(u.Id))
             .ToListAsync();
 
+        var electionIds = unions
+            .SelectMany(u => u.ProportionalElectionUnionEntries)
+            .Select(e => e.ProportionalElectionId)
+            .ToHashSet();
+
+        var simplePbs = await _simplePoliticalBusinessRepo
+            .Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .Where(x => electionIds.Contains(x.Id))
+            .ToListAsync();
+
         foreach (var union in unions)
         {
             if (union.DoubleProportionalResult != null)
@@ -213,6 +253,11 @@ public class DoubleProportionalResultBuilder
             }
         }
 
+        foreach (var simplePb in simplePbs)
+        {
+            simplePb.EndResultFinalized = false;
+        }
+
         await _dataContext.SaveChangesAsync();
     }
 
@@ -223,6 +268,8 @@ public class DoubleProportionalResultBuilder
             electionEndResult.Reset();
             return;
         }
+
+        electionEndResult.MandateDistributionTriggered = true;
 
         foreach (var listEndResult in electionEndResult.ListEndResults)
         {
@@ -246,6 +293,8 @@ public class DoubleProportionalResultBuilder
             return;
         }
 
+        electionEndResult.MandateDistributionTriggered = true;
+
         foreach (var listEndResult in electionEndResult.ListEndResults)
         {
             var dpResultColumn = dpResult.Columns.FirstOrDefault(x => x.ListId == listEndResult.ListId)
@@ -265,7 +314,7 @@ public class DoubleProportionalResultBuilder
         return await _unionRepo.Query()
             .AsTracking()
             .AsSplitQuery()
-            .Include(x => x.Contest)
+            .Include(x => x.Contest.CantonDefaults)
             .Include(x => x.EndResult)
             .Include(x => x.ProportionalElectionUnionEntries)
                 .ThenInclude(x => x.ProportionalElection.EndResult!.ListEndResults)
@@ -288,7 +337,7 @@ public class DoubleProportionalResultBuilder
         return await _electionRepo.Query()
             .AsTracking()
             .AsSplitQuery()
-            .Include(x => x.Contest)
+            .Include(x => x.Contest.CantonDefaults)
             .Include(x => x.EndResult!.ListEndResults)
             .ThenInclude(x => x.List)
             .Include(x => x.EndResult!.ListEndResults)

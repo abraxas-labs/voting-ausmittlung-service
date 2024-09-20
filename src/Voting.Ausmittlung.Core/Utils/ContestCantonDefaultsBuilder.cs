@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -70,6 +70,8 @@ public class ContestCantonDefaultsBuilder
             MajorityElectionUseCandidateCheckDigit = cantonSettings.MajorityElectionUseCandidateCheckDigit,
             ProportionalElectionUseCandidateCheckDigit = cantonSettings.ProportionalElectionUseCandidateCheckDigit,
             PublishResultsEnabled = cantonSettings.PublishResultsEnabled,
+            EndResultFinalizeDisabled = cantonSettings.EndResultFinalizeDisabled,
+            PublishResultsBeforeAuditedTentatively = cantonSettings.PublishResultsBeforeAuditedTentatively,
         };
     }
 

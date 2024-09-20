@@ -36,7 +36,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "CountingCircle": {
@@ -160,13 +162,15 @@
         "NumberOfMandates": 5,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "412",
-        "ShortDescription": "Pw Uzwil de"
+        "ShortDescription": "Pw Uzwil de",
+        "BusinessSubType": 0
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
-      "PlausibilisedTimestamp": null
+      "PlausibilisedTimestamp": null,
+      "ReadyForCorrectionTimestamp": null
     },
     {
       "Id": "b945f15b-38b9-5c88-807b-9977488504ad",
@@ -196,13 +200,15 @@
         "NumberOfMandates": null,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "412",
-        "ShortDescription": "Abst Uzwil de"
+        "ShortDescription": "Abst Uzwil de",
+        "BusinessSubType": 0
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
-      "PlausibilisedTimestamp": null
+      "PlausibilisedTimestamp": null,
+      "ReadyForCorrectionTimestamp": null
     },
     {
       "Id": "e9108db7-b67f-5338-a170-c2efe570f1fd",
@@ -232,13 +238,15 @@
         "NumberOfMandates": 5,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "412",
-        "ShortDescription": "Mw Uzwil de"
+        "ShortDescription": "Mw Uzwil de",
+        "BusinessSubType": 0
       },
       "State": 2,
       "SubmissionDoneTimestamp": null,
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
-      "PlausibilisedTimestamp": null
+      "PlausibilisedTimestamp": null,
+      "ReadyForCorrectionTimestamp": null
     }
   ],
   "CurrentTenantIsResponsible": true,

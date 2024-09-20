@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Abraxas.Voting.Ausmittlung.Services.V1.Responses;
 using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -30,6 +31,7 @@ public class ExportService : ServiceBase
     private readonly ResultExportConfigurationReader _configReader;
     private readonly ResultExportService _exportService;
     private readonly ProtocolExportService _protocolExportService;
+    private readonly ResultExportService _resultExportService;
 
     public ExportService(
         IMapper mapper,
@@ -37,12 +39,14 @@ public class ExportService : ServiceBase
         ResultExportConfigurationReader configReader,
         ResultExportConfigurationWriter configWriter,
         ResultExportService exportService,
-        ProtocolExportService protocolExportService)
+        ProtocolExportService protocolExportService,
+        ResultExportService resultExportService)
     {
         _mapper = mapper;
         _templateReader = templateReader;
         _exportService = exportService;
         _protocolExportService = protocolExportService;
+        _resultExportService = resultExportService;
         _configWriter = configWriter;
         _configReader = configReader;
     }
@@ -123,5 +127,33 @@ public class ExportService : ServiceBase
             request.PoliticalBusinessIds.Select(GuidParser.Parse).ToList(),
             metadata);
         return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
+    public override async Task<StartBundleReviewExportResponse> StartBundleReviewExport(
+        StartBundleReviewExportRequest request,
+        ServerCallContext context)
+    {
+        var protocolExportId = await _resultExportService.StartBundleReviewExport(
+            GuidParser.Parse(request.PoliticalBusinessResultBundleId),
+            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType),
+            context.CancellationToken);
+        return new StartBundleReviewExportResponse
+        {
+            ProtocolExportId = protocolExportId.ToString(),
+        };
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
+    public override Task GetBundleReviewExportStateChanges(
+        GetBundleReviewExportStateChangesRequest request,
+        IServerStreamWriter<ProtoModels.ProtocolExportStateChange> responseStream,
+        ServerCallContext context)
+    {
+        return _resultExportService.ListenToBundleReviewExportStateChanges(
+            GuidParser.Parse(request.PoliticalBusinessResultId),
+            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType),
+            e => responseStream.WriteAsync(_mapper.Map<ProtoModels.ProtocolExportStateChange>(e)),
+            context.CancellationToken);
     }
 }

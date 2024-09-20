@@ -73,12 +73,15 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
-      "EnforceCandidateCheckDigitForCountingCircles": false
+      "EnforceCandidateCheckDigitForCountingCircles": false,
+      "IndividualCandidatesDisabled": false
     },
     "SecondaryMajorityElectionResults": [],
     "Entry": 2,
@@ -161,7 +164,8 @@
       "ContactPersonAfterEvent": null
     },
     "HasUnmappedWriteIns": false,
-    "Published": false
+    "Published": false,
+    "ReadyForCorrectionTimestamp": null
   },
   "BallotGroupResults": [
     {
@@ -213,10 +217,11 @@
               "Contest": null,
               "ReviewProcedure": 1,
               "EnforceReviewProcedureForCountingCircles": true,
-              "EnforceCandidateCheckDigitForCountingCircles": false
+              "EnforceCandidateCheckDigitForCountingCircles": false,
+              "IndividualCandidatesDisabled": false
             },
             "SecondaryElection": null,
-            "HasIndividualCandidate": false,
+            "IndividualCandidatesVoteCount": 0,
             "PoliticalBusinessCase": 2
           },
           {
@@ -242,9 +247,10 @@
               "ShortDescription": "short de",
               "NumberOfMandates": 3,
               "Active": false,
-              "Title": "n1: short de"
+              "Title": "n1: short de",
+              "IndividualCandidatesDisabled": false
             },
-            "HasIndividualCandidate": false,
+            "IndividualCandidatesVoteCount": 0,
             "PoliticalBusinessCase": 3
           },
           {
@@ -257,9 +263,10 @@
               "ShortDescription": "short2 de",
               "NumberOfMandates": 1,
               "Active": false,
-              "Title": "n2: short2 de"
+              "Title": "n2: short2 de",
+              "IndividualCandidatesDisabled": false
             },
-            "HasIndividualCandidate": false,
+            "IndividualCandidatesVoteCount": 1,
             "PoliticalBusinessCase": 3
           },
           {
@@ -272,9 +279,10 @@
               "ShortDescription": "short3 de",
               "NumberOfMandates": 2,
               "Active": false,
-              "Title": "n3: short3 de"
+              "Title": "n3: short3 de",
+              "IndividualCandidatesDisabled": false
             },
-            "HasIndividualCandidate": false,
+            "IndividualCandidatesVoteCount": 0,
             "PoliticalBusinessCase": 3
           }
         ]

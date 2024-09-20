@@ -73,12 +73,15 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
-      "EnforceCandidateCheckDigitForCountingCircles": false
+      "EnforceCandidateCheckDigitForCountingCircles": false,
+      "IndividualCandidatesDisabled": false
     },
     "SecondaryMajorityElectionResults": [
       {
@@ -89,7 +92,8 @@
           "ShortDescription": "short3 de",
           "NumberOfMandates": 2,
           "Active": false,
-          "Title": "n3: short3 de"
+          "Title": "n3: short3 de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateResults": [],
         "EVotingSubTotal": {
@@ -124,7 +128,8 @@
           "ShortDescription": "short de",
           "NumberOfMandates": 3,
           "Active": false,
-          "Title": "n1: short de"
+          "Title": "n1: short de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateResults": [],
         "EVotingSubTotal": {
@@ -159,7 +164,8 @@
           "ShortDescription": "short2 de",
           "NumberOfMandates": 1,
           "Active": false,
-          "Title": "n2: short2 de"
+          "Title": "n2: short2 de",
+          "IndividualCandidatesDisabled": false
         },
         "CandidateResults": [],
         "EVotingSubTotal": {
@@ -190,7 +196,7 @@
     "Entry": 2,
     "EntryParams": {
       "BallotBundleSize": 10,
-      "BallotBundleSampleSize": 2,
+      "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
@@ -267,7 +273,8 @@
       "ContactPersonAfterEvent": null
     },
     "HasUnmappedWriteIns": false,
-    "Published": false
+    "Published": false,
+    "ReadyForCorrectionTimestamp": null
   },
   "Bundle": {
     "Id": "6c73b736-cc42-4325-a8be-7e5233f3d54e",
@@ -281,6 +288,7 @@
       "FullName": "Hans Muster"
     },
     "ReviewedBy": null,
-    "BallotNumbersToReview": []
+    "BallotNumbersToReview": [],
+    "ProtocolExport": null
   }
 }

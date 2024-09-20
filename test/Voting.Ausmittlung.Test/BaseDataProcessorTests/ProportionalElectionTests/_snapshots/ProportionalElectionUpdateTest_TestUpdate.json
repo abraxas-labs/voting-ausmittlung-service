@@ -28,6 +28,7 @@
     "ReviewProcedure": 2,
     "EnforceReviewProcedureForCountingCircles": false,
     "EnforceCandidateCheckDigitForCountingCircles": false,
+    "FederalIdentification": 111,
     "NumberOfMandates": 2,
     "PoliticalBusinessNumber": "6000",
     "Active": false,
@@ -36,6 +37,7 @@
     "DomainOfInfluence": null,
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
     "Contest": null,
+    "BusinessSubType": 0,
     "CountingCircleResults": [],
     "PoliticalBusinessTranslations": [
       {
@@ -54,6 +56,8 @@
   "simple": {
     "BusinessType": 3,
     "PoliticalBusinessType": 3,
+    "BusinessSubType": 0,
+    "PoliticalBusinessSubType": 0,
     "SimpleResults": [],
     "NumberOfMandates": 2,
     "CountOfSecondaryBusinesses": 0,

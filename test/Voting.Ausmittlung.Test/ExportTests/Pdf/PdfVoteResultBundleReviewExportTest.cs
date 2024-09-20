@@ -1,17 +1,18 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Controllers.Models;
+using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using PoliticalBusinessType = Abraxas.Voting.Ausmittlung.Services.V1.Models.PoliticalBusinessType;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -22,11 +23,13 @@ public class PdfVoteResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
     {
     }
 
-    protected override HttpClient TestClient => CreateHttpClient(
-        tenant: SecureConnectTestDefaults.MockedTenantGossau.Id,
-        roles: RolesMockedData.ErfassungElectionAdmin);
+    protected override ExportService.ExportServiceClient TestClient => CreateServiceWithTenant(
+        SecureConnectTestDefaults.MockedTenantGossau.Id,
+        RolesMockedData.ErfassungElectionAdmin);
 
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
+
+    protected override string TemplateKey => AusmittlungPdfVoteTemplates.ResultBundleReview.Key;
 
     protected override async Task SeedData()
     {
@@ -35,36 +38,20 @@ public class PdfVoteResultBundleReviewExportTest : PdfBundleReviewExportBaseTest
         await VoteResultBundleMockedData.Seed(RunScoped);
         await VoteResultBallotMockedData.Seed(RunScoped);
 
-        await RunOnDb(async db =>
-        {
-            var bundles = await db.VoteResultBundles.AsTracking().ToListAsync();
-            foreach (var bundle in bundles)
-            {
-                bundle.State = BallotBundleState.Reviewed;
-            }
-
-            var ballots = await db.VoteResultBallots.AsTracking().ToListAsync();
-            foreach (var ballot in ballots)
-            {
-                ballot.MarkedForReview = true;
-            }
-
-            await db.SaveChangesAsync();
-        });
+        await RunOnBundle<VoteResultBundleSubmissionFinished, VoteResultBundleAggregate>(
+            VoteResultBundleMockedData.GossauBundle1.Id,
+            aggregate => aggregate.SubmissionFinished(ContestMockedData.GuidStGallenEvoting));
     }
 
-    protected override HttpClient CreateHttpClient(params string[] roles)
-        => CreateHttpClient(true, SecureConnectTestDefaults.MockedTenantGossau.Id, TestDefaults.UserId, roles);
-
-    protected override GenerateResultBundleReviewExportRequest NewRequest()
+    protected override StartBundleReviewExportRequest NewRequest()
     {
-        return new GenerateResultBundleReviewExportRequest
+        return new StartBundleReviewExportRequest()
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            TemplateKey = AusmittlungPdfVoteTemplates.ResultBundleReview.Key,
-            CountingCircleId = CountingCircleMockedData.GuidGossau,
-            PoliticalBusinessResultBundleId = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1),
-            PoliticalBusinessId = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen),
+            PoliticalBusinessResultBundleId = VoteResultBundleMockedData.IdGossauBundle1,
+            PoliticalBusinessType = PoliticalBusinessType.Vote,
         };
     }
+
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantGossau.Id, TestDefaults.UserId, roles);
 }

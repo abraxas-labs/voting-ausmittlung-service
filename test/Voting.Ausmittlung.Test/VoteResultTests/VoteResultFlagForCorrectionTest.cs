@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -45,6 +45,24 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultFlaggedForCorrection>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithNoUnpublishWhenBeforeAuditedPublish()
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+
+        await RunToState(CountingCircleResultState.SubmissionDone);
+        await RunToPublished();
+
+        await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultUnpublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -122,12 +140,14 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.SubmissionDone);
         await AssertSubmissionDoneTimestamp(true);
+        await AssertReadyForCorrectionTimestamp(false);
 
         await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
         await RunEvents<VoteResultFlaggedForCorrection>();
 
         await AssertCurrentState(CountingCircleResultState.ReadyForCorrection);
         await AssertSubmissionDoneTimestamp(false);
+        await AssertReadyForCorrectionTimestamp(true);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult))
             .ToListAsync());
@@ -182,5 +202,11 @@ public class VoteResultFlagForCorrectionTest : VoteResultBaseTest
     {
         var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
         (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
+    }
+
+    private async Task AssertReadyForCorrectionTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult)));
+        (result.ReadyForCorrectionTimestamp != null).Should().Be(hasTimestamp);
     }
 }

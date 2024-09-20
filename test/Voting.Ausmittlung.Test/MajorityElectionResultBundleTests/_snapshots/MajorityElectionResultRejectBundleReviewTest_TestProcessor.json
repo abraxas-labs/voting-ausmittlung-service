@@ -7,7 +7,7 @@
     "EntryParams": {
       "ReviewProcedure": 1,
       "BallotBundleSize": 10,
-      "BallotBundleSampleSize": 2,
+      "BallotBundleSampleSize": 3,
       "AutomaticBallotBundleNumberGeneration": true,
       "BallotNumberGeneration": 2,
       "AutomaticEmptyVoteCounting": false,
@@ -76,6 +76,7 @@
     "CountingCircle": null,
     "State": 1,
     "SubmissionDoneTimestamp": null,
+    "ReadyForCorrectionTimestamp": null,
     "AuditedTentativelyTimestamp": null,
     "PlausibilisedTimestamp": null,
     "TotalCountOfVoters": 15000,
@@ -100,5 +101,6 @@
   },
   "CountOfBallots": 0,
   "BallotNumbersToReview": [],
+  "ProtocolExport": null,
   "Id": "6c73b736-cc42-4325-a8be-7e5233f3d54e"
 }

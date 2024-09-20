@@ -15,18 +15,28 @@
   "CountingCircle": null,
   "Templates": [
     {
-      "ExportTemplateId": "840e7e30-f33c-5ce3-992a-ecd62915611c",
-      "Description": "Abstimmungsresultate (eCH-0252)",
+      "ExportTemplateId": "fdef0658-d6d9-55cc-ac9d-5c1c6a054e78",
+      "Description": "Abstimmungsresultate (eCH-0252 Result Delivery)",
       "EntityDescription": ""
     },
     {
-      "ExportTemplateId": "c5bc6528-025f-5673-98ec-fc1061ae9cd3",
-      "Description": "Majorzwahlresultate (eCH-0252)",
+      "ExportTemplateId": "ab680084-fc13-5f2d-9a37-40d2d70a0a42",
+      "Description": "Majorzwahlinformationen (eCH-0252 Information Delivery)",
       "EntityDescription": ""
     },
     {
-      "ExportTemplateId": "4b6dd389-51b1-53f3-a037-c071e3094a20",
-      "Description": "Proporzwahlresultate (eCH-0252)",
+      "ExportTemplateId": "a4c8aafb-feee-5b23-a274-d77a5dbde820",
+      "Description": "Majorzwahlresultate (eCH-0252 Result Delivery)",
+      "EntityDescription": ""
+    },
+    {
+      "ExportTemplateId": "2cc552fa-0cfe-5e72-aed0-fcb20f7f424c",
+      "Description": "Proporzwahlinformationen (eCH-0252 Information Delivery)",
+      "EntityDescription": ""
+    },
+    {
+      "ExportTemplateId": "d9f255a7-e9b8-5f6b-a4a7-64bc97273d3a",
+      "Description": "Proporzwahlresultate (eCH-0252 Result Delivery)",
       "EntityDescription": ""
     },
     {

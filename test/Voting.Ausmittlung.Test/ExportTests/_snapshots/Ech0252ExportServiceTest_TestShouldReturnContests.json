@@ -5,9 +5,39 @@
       "Date": "2020-08-31T00:00:00Z",
       "Results": [
         {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "fa69e964-0a02-4d16-b417-247e8987021a",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
+          "PoliticalBusinessType": 1
+        },
+        {
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "50415df8-6ee9-4eb4-9e31-68c0d3021e76",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
         },
         {
           "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
@@ -15,8 +45,23 @@
           "PoliticalBusinessType": 1
         },
         {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
+        },
+        {
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
           "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
+          "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
           "PoliticalBusinessType": 1
         },
         {
@@ -25,9 +70,74 @@
           "PoliticalBusinessType": 1
         },
         {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
+        },
+        {
           "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "da091f50-9f11-4deb-9621-948fbfbdc322",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
         },
         {
           "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
@@ -35,9 +145,29 @@
           "PoliticalBusinessType": 1
         },
         {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "a6ab97b9-ce86-4973-876e-a128ff279bf7",
+          "PoliticalBusinessType": 2
+        },
+        {
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
         },
         {
           "CountingCircleId": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723",
@@ -50,9 +180,34 @@
           "PoliticalBusinessType": 1
         },
         {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
+          "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
+        },
+        {
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
         },
         {
           "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
@@ -61,8 +216,73 @@
         },
         {
           "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
+          "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
+          "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
           "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "PoliticalBusinessType": 3
         },
         {
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
@@ -73,6 +293,26 @@
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "PoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "06f7ecb7-e175-4c3b-9ea5-cfc138d08278",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "PoliticalBusinessType": 2
+        },
+        {
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
+          "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "PoliticalBusinessType": 2
         },
         {
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -87,8 +327,18 @@
       "Results": [
         {
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "76d1c7ed-85ec-4e62-a540-ca0a83149d32",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "PoliticalBusinessId": "7de846be-9e60-45c7-81e3-51441ff37592",
           "PoliticalBusinessType": 1
+        },
+        {
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "PoliticalBusinessId": "4aebd757-9f88-4a76-90b4-497dc64adb6f",
+          "PoliticalBusinessType": 2
         }
       ]
     },
@@ -96,6 +346,16 @@
       "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
       "Date": "2020-02-29T00:00:00Z",
       "Results": [
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "81880186-febc-4fd7-bb82-62c446430027",
+          "PoliticalBusinessType": 3
+        },
+        {
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "PoliticalBusinessId": "e39a4d1c-6db4-44a7-a707-05cf2005dd4a",
+          "PoliticalBusinessType": 2
+        },
         {
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "PoliticalBusinessId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",

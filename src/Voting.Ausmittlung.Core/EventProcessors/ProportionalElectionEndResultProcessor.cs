@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -22,16 +22,20 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class ProportionalElectionEndResultProcessor :
     PoliticalBusinessEndResultProcessor,
     IEventProcessor<ProportionalElectionListEndResultLotDecisionsUpdated>,
+    IEventProcessor<ProportionalElectionEndResultMandateDistributionStarted>,
+    IEventProcessor<ProportionalElectionEndResultMandateDistributionReverted>,
     IEventProcessor<ProportionalElectionEndResultFinalized>,
     IEventProcessor<ProportionalElectionEndResultFinalizationReverted>,
     IEventProcessor<ProportionalElectionManualListEndResultEntered>
 {
+    private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
     private readonly ProportionalElectionEndResultLotDecisionBuilder _endResultLotDecisionBuilder;
     private readonly ProportionalElectionEndResultRepo _endResultRepo;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly IMapper _mapper;
 
     public ProportionalElectionEndResultProcessor(
+        ProportionalElectionEndResultBuilder endResultBuilder,
         ProportionalElectionEndResultLotDecisionBuilder endResultLotDecisionBuilder,
         ProportionalElectionEndResultRepo endResultRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
@@ -39,10 +43,23 @@ public class ProportionalElectionEndResultProcessor :
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder)
         : base(simplePoliticalBusinessRepo)
     {
+        _endResultBuilder = endResultBuilder;
         _endResultRepo = endResultRepo;
         _mapper = mapper;
         _endResultLotDecisionBuilder = endResultLotDecisionBuilder;
         _candidateEndResultBuilder = candidateEndResultBuilder;
+    }
+
+    public async Task Process(ProportionalElectionEndResultMandateDistributionStarted eventData)
+    {
+        var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
+        await _endResultBuilder.DistributeNumberOfMandates(electionId);
+    }
+
+    public async Task Process(ProportionalElectionEndResultMandateDistributionReverted eventData)
+    {
+        var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
+        await _endResultBuilder.ResetDistributedNumberOfMandatesForElection(electionId);
     }
 
     public Task Process(ProportionalElectionEndResultFinalized eventData)

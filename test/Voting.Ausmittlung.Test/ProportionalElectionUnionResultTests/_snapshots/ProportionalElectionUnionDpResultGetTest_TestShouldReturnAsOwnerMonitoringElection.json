@@ -25,7 +25,9 @@
       "NewZhFeaturesEnabled": true,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false
+      "PublishResultsEnabled": false,
+      "EndResultFinalizeDisabled": true,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElectionUnion": {
@@ -135,7 +137,7 @@
       "VoteCount": 98971,
       "Quorum": 4949,
       "NumberOfMandates": 11,
-      "Divisor": 9639.80071931411,
+      "Divisor": 9000.0,
       "SubApportionmentNumberOfMandates": 11
     },
     {
@@ -250,7 +252,7 @@
       "VoteCount": 215661,
       "Quorum": 10784,
       "NumberOfMandates": 12,
-      "Divisor": 17700.09773929774,
+      "Divisor": 17700.0,
       "SubApportionmentNumberOfMandates": 12
     },
     {
@@ -349,7 +351,7 @@
       "VoteCount": 176740,
       "Quorum": 8837,
       "NumberOfMandates": 13,
-      "Divisor": 13473.118163906724,
+      "Divisor": 14000.0,
       "SubApportionmentNumberOfMandates": 13
     }
   ],
@@ -415,7 +417,7 @@
       "CantonalQuorumReached": true,
       "AnyRequiredQuorumReached": true,
       "VoterNumber": 16038.114219114219,
-      "SuperApportionmentQuotient": 14.167945423245778,
+      "SuperApportionmentQuotient": 14.193021432844441,
       "SuperApportionmentNumberOfMandates": 14,
       "SubApportionmentNumberOfMandates": 14,
       "Divisor": 1.0,
@@ -482,10 +484,10 @@
       "CantonalQuorumReached": true,
       "AnyRequiredQuorumReached": true,
       "VoterNumber": 12214.177156177157,
-      "SuperApportionmentQuotient": 10.789909148566393,
+      "SuperApportionmentQuotient": 10.809006332900138,
       "SuperApportionmentNumberOfMandates": 11,
       "SubApportionmentNumberOfMandates": 11,
-      "Divisor": 1.0103451802617354,
+      "Divisor": 1.01,
       "SuperApportionmentLotDecisionRequired": false
     },
     {
@@ -549,10 +551,10 @@
       "CantonalQuorumReached": true,
       "AnyRequiredQuorumReached": true,
       "VoterNumber": 12168.54020979021,
-      "SuperApportionmentQuotient": 10.749593824903013,
+      "SuperApportionmentQuotient": 10.7686196546816,
       "SuperApportionmentNumberOfMandates": 11,
       "SubApportionmentNumberOfMandates": 11,
-      "Divisor": 0.9121332956825267,
+      "Divisor": 1.0,
       "SuperApportionmentLotDecisionRequired": false
     },
     {
@@ -595,7 +597,7 @@
   "VoteCount": 491372,
   "CantonalQuorum": 14742,
   "VoterNumber": 40420.831585081585,
-  "ElectionKey": 1132.0,
+  "ElectionKey": 1130.0,
   "SuperApportionmentNumberOfMandates": 36,
   "SubApportionmentNumberOfMandates": 36,
   "HasSuperApportionmentRequiredLotDecision": false,

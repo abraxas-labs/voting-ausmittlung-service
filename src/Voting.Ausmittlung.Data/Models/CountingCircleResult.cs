@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -24,6 +24,8 @@ public abstract class CountingCircleResult : BaseEntity
     /// When a result is set to <see cref="CountingCircleResultState.ReadyForCorrection" /> this timestamp will be removed.
     /// </summary>
     public DateTime? SubmissionDoneTimestamp { get; set; }
+
+    public DateTime? ReadyForCorrectionTimestamp { get; set; }
 
     public DateTime? AuditedTentativelyTimestamp { get; set; }
 

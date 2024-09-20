@@ -93,7 +93,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "BallotBundleSampleSizePercent": 30,
@@ -101,7 +103,8 @@
       "ResultEntry": 2,
       "EnforceResultEntryForCountingCircles": false,
       "ReviewProcedure": 1,
-      "EnforceReviewProcedureForCountingCircles": false
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 0
     },
     "Entry": 2,
     "State": 1,
@@ -134,7 +137,7 @@
       }
     ],
     "EntryParams": {
-      "BallotBundleSampleSizePercent": 30,
+      "BallotBundleSampleSizePercent": 100,
       "AutomaticBallotBundleNumberGeneration": false,
       "ReviewProcedure": 1
     },
@@ -161,7 +164,8 @@
       "ContactPersonSameDuringEventAsAfter": false,
       "ContactPersonAfterEvent": null
     },
-    "Published": false
+    "Published": false,
+    "ReadyForCorrectionTimestamp": null
   },
   "Bundles": [
     {
@@ -176,7 +180,8 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "",
@@ -190,7 +195,8 @@
         "FullName": "Hans Muster"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     },
     {
       "Id": "",
@@ -204,7 +210,8 @@
         "FullName": "Someone Else"
       },
       "ReviewedBy": null,
-      "BallotNumbersToReview": []
+      "BallotNumbersToReview": [],
+      "ProtocolExport": null
     }
   ]
 }

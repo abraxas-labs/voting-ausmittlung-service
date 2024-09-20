@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -43,6 +43,7 @@ public class MajorityElectionProcessor :
     private readonly MajorityElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly SimplePoliticalBusinessBuilder<MajorityElection> _simplePoliticalBusinessBuilder;
     private readonly PoliticalBusinessToNewContestMover<MajorityElection, MajorityElectionRepo> _politicalBusinessToNewContestMover;
+    private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
     private readonly ILogger<MajorityElectionProcessor> _logger;
     private readonly IMapper _mapper;
 
@@ -60,7 +61,8 @@ public class MajorityElectionProcessor :
         MajorityElectionEndResultInitializer endResultInitializer,
         MajorityElectionCandidateEndResultBuilder candidateEndResultBuilder,
         SimplePoliticalBusinessBuilder<MajorityElection> simplePoliticalBusinessBuilder,
-        PoliticalBusinessToNewContestMover<MajorityElection, MajorityElectionRepo> politicalBusinessToNewContestMover)
+        PoliticalBusinessToNewContestMover<MajorityElection, MajorityElectionRepo> politicalBusinessToNewContestMover,
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
     {
         _logger = logger;
         _mapper = mapper;
@@ -76,6 +78,7 @@ public class MajorityElectionProcessor :
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _resultBuilder = resultBuilder;
         _politicalBusinessToNewContestMover = politicalBusinessToNewContestMover;
+        _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
     }
 
     public async Task Process(MajorityElectionCreated eventData)
@@ -91,9 +94,10 @@ public class MajorityElectionProcessor :
         }
 
         await _repo.Create(majorityElection);
-        await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false);
-        await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
         await _simplePoliticalBusinessBuilder.Create(majorityElection);
+        await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false, majorityElection.ContestId);
+        await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
+        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
     }
 
     public async Task Process(MajorityElectionUpdated eventData)
@@ -113,14 +117,20 @@ public class MajorityElectionProcessor :
 
         await _translationRepo.DeleteRelatedTranslations(majorityElection.Id);
         await _repo.Update(majorityElection);
+        await _simplePoliticalBusinessBuilder.Update(majorityElection, false);
 
         if (majorityElection.DomainOfInfluenceId != existingMajorityElection.DomainOfInfluenceId)
         {
-            await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false);
+            await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false, majorityElection.ContestId);
             await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
+            await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
         }
 
-        await _simplePoliticalBusinessBuilder.Update(majorityElection, false);
+        if (majorityElection.IndividualCandidatesDisabled != existingMajorityElection.IndividualCandidatesDisabled)
+        {
+            await _resultBuilder.ResetIndividualVoteCounts(majorityElection.Id);
+            await _endResultInitializer.ResetIndividualVoteCounts(majorityElection.Id);
+        }
     }
 
     public async Task Process(MajorityElectionAfterTestingPhaseUpdated eventData)

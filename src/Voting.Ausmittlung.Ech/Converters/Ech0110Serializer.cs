@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -26,32 +26,44 @@ public class Ech0110Serializer
 
     public Delivery ToDelivery(Vote vote)
     {
-        return WrapInDelivery(new EventResultDelivery
-        {
-            ReportingBody = GetReportingBody(vote.Contest),
-            ContestInformation = vote.Contest.ToEchContest(),
-            CountingCircleResults = vote.Results.OrderBy(r => r.CountingCircle.Name).Select(vr => ToEchCountingCircleResult(vr, vote.Contest)).ToList(),
-        });
+        return WrapInDelivery(
+            new EventResultDelivery
+            {
+                ReportingBody = GetReportingBody(vote.Contest),
+                ContestInformation = vote.Contest.ToEchContest(),
+                CountingCircleResults =
+                    vote.Results.OrderBy(r => r.CountingCircle.Name)
+                        .Select(vr => ToEchCountingCircleResult(vr, vote.Contest)).ToList(),
+            },
+            vote.Contest);
     }
 
     public Delivery ToDelivery(MajorityElection majorityElection)
     {
-        return WrapInDelivery(new EventResultDelivery
-        {
-            ReportingBody = GetReportingBody(majorityElection.Contest),
-            ContestInformation = majorityElection.Contest.ToEchContest(),
-            CountingCircleResults = majorityElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, majorityElection.Contest)).ToList(),
-        });
+        return WrapInDelivery(
+            new EventResultDelivery
+            {
+                ReportingBody = GetReportingBody(majorityElection.Contest),
+                ContestInformation = majorityElection.Contest.ToEchContest(),
+                CountingCircleResults =
+                    majorityElection.Results.OrderBy(r => r.CountingCircle.Name)
+                        .Select(r => ToEchCountingCircleResult(r, majorityElection.Contest)).ToList(),
+            },
+            majorityElection.Contest);
     }
 
     public Delivery ToDelivery(ProportionalElection proportionalElection)
     {
-        return WrapInDelivery(new EventResultDelivery
-        {
-            ReportingBody = GetReportingBody(proportionalElection.Contest),
-            ContestInformation = proportionalElection.Contest.ToEchContest(),
-            CountingCircleResults = proportionalElection.Results.OrderBy(r => r.CountingCircle.Name).Select(r => ToEchCountingCircleResult(r, proportionalElection.Contest)).ToList(),
-        });
+        return WrapInDelivery(
+            new EventResultDelivery
+            {
+                ReportingBody = GetReportingBody(proportionalElection.Contest),
+                ContestInformation = proportionalElection.Contest.ToEchContest(),
+                CountingCircleResults =
+                    proportionalElection.Results.OrderBy(r => r.CountingCircle.Name)
+                        .Select(r => ToEchCountingCircleResult(r, proportionalElection.Contest)).ToList(),
+            },
+            proportionalElection.Contest);
     }
 
     private CountingCircleResultsType ToEchCountingCircleResult(MajorityElectionResult electionResult, Contest contest)
@@ -111,11 +123,11 @@ public class Ech0110Serializer
         };
     }
 
-    private Delivery WrapInDelivery(EventResultDelivery data)
+    private Delivery WrapInDelivery(EventResultDelivery data, Contest contest)
     {
         return new Delivery
         {
-            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(),
+            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded),
             ResultDelivery = data,
         };
     }

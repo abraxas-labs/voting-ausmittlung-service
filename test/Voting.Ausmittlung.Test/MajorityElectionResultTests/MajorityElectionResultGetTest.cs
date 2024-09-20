@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -108,6 +108,22 @@ public class MajorityElectionResultGetTest : MajorityElectionResultBaseTest
                 .FirstAsync(x =>
                     x.Id == MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund);
             result.Entry = MajorityElectionResultEntry.Detailed;
+            await db.SaveChangesAsync();
+        });
+        var response = await ErfassungCreatorClient.GetAsync(NewValidRequest());
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnAsErfassungCreatorOrderedByCountWithFinalResults()
+    {
+        await RunOnDb(async db =>
+        {
+            var result = await db.MajorityElectionResults
+                .AsTracking()
+                .FirstAsync(x =>
+                    x.Id == MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund);
+            result.State = CountingCircleResultState.SubmissionDone;
             await db.SaveChangesAsync();
         });
         var response = await ErfassungCreatorClient.GetAsync(NewValidRequest());

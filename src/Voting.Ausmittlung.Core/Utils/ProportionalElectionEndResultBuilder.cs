@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -68,7 +68,57 @@ public class ProportionalElectionEndResultBuilder
         await _dpResultBuilder.ResetForContest(contestId);
     }
 
-    internal async Task ResetForElection(Guid electionId)
+    internal async Task DistributeNumberOfMandates(Guid electionId)
+    {
+        var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(electionId)
+            ?? throw new EntityNotFoundException(electionId);
+
+        var simplePb = await _simplePoliticalBusinessRepo
+                .Query()
+                .AsSplitQuery()
+                .AsTracking()
+                .Include(x => x.Contest.CantonDefaults)
+                .FirstOrDefaultAsync(x => x.Id == electionId)
+                ?? throw new EntityNotFoundException(electionId);
+
+        var implicitFinalized = simplePb.Contest.CantonDefaults.EndResultFinalizeDisabled;
+        endResult.Finalized = implicitFinalized;
+        simplePb.EndResultFinalized = implicitFinalized;
+        endResult.MandateDistributionTriggered = true;
+
+        if (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff)
+        {
+            ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
+
+            foreach (var listEndResult in endResult.ListEndResults)
+            {
+                _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
+                _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+            }
+
+            if (!endResult.ManualEndResultRequired)
+            {
+                _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
+            }
+            else
+            {
+                _logger.LogWarning("Hagenbach Bischoff could not distribute all number of mandates. Manual end result required for election {ProportionalElectionId}", endResult.ProportionalElectionId);
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+        else if (endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional())
+        {
+            await _dpResultBuilder.BuildForElection(endResult.ProportionalElectionId);
+            return;
+        }
+        else
+        {
+            throw new InvalidOperationException("Invalid mandate algorithm " + endResult.ProportionalElection.MandateAlgorithm);
+        }
+    }
+
+    internal async Task ResetDistributedNumberOfMandatesForElection(Guid electionId)
     {
         var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(electionId);
         if (endResult == null)
@@ -76,27 +126,25 @@ public class ProportionalElectionEndResultBuilder
             return;
         }
 
+        var simplePb = await _simplePoliticalBusinessRepo
+            .Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == electionId)
+            ?? throw new EntityNotFoundException(electionId);
+
+        simplePb.EndResultFinalized = false;
+
         if (endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
         {
             await _dpResultBuilder.ResetForElection(electionId);
         }
 
-        if (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff)
-        {
-            if (endResult.HagenbachBischoffRootGroup != null)
-            {
-                _dbContext
-                    .Set<HagenbachBischoffGroup>()
-                    .Remove(endResult.HagenbachBischoffRootGroup);
-                endResult.HagenbachBischoffRootGroup = null;
-            }
-
-            endResult.Reset();
-            await _dbContext.SaveChangesAsync();
-        }
+        ResetCalculations(endResult);
+        await _dbContext.SaveChangesAsync();
     }
 
-    internal async Task AdjustEndResult(Guid resultId, bool removeResults)
+    internal async Task AdjustEndResult(Guid resultId, bool removeResults, bool implicitMandateDistributionDisabled)
     {
         var deltaFactor = removeResults ? -1 : 1;
 
@@ -119,7 +167,7 @@ public class ProportionalElectionEndResultBuilder
         var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(result.ProportionalElectionId)
             ?? throw new EntityNotFoundException(nameof(ProportionalElectionEndResult), resultId);
 
-        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+        var simplePb = await _simplePoliticalBusinessRepo.Query()
             .AsTracking()
             .FirstOrDefaultAsync(x => x.Id == endResult.ProportionalElectionId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.ProportionalElectionId);
@@ -128,7 +176,7 @@ public class ProportionalElectionEndResultBuilder
         endResult.CountOfDoneCountingCircles += deltaFactor;
         endResult.Finalized = false;
         endResult.ManualEndResultRequired = false;
-        simpleEndResult.EndResultFinalized = false;
+        simplePb.EndResultFinalized = false;
 
         if (previousElectionDone != endResult.AllCountingCirclesDone)
         {
@@ -149,49 +197,24 @@ public class ProportionalElectionEndResultBuilder
             endResult.TotalCountOfVoters,
             deltaFactor);
 
-        var isHagenbachBischoff = endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff;
         ResetCalculations(endResult);
 
         endResult.ForEachSubTotal(result, (endResultSubTotal, resultSubTotal) => AdjustEndResult(endResultSubTotal, resultSubTotal, deltaFactor));
-        AdjustListAndCandidateEndResults(endResult, result, deltaFactor, endResult.AllCountingCirclesDone && isHagenbachBischoff);
-
-        if (isHagenbachBischoff)
-        {
-            ProportionalElectionHagenbachBischoffStrategy.RecalculateNumberOfMandatesForLists(endResult);
-
-            foreach (var listEndResult in endResult.ListEndResults)
-            {
-                _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
-            }
-
-            if (!endResult.ManualEndResultRequired)
-            {
-                _candidateEndResultBuilder.RecalculateCandidateEndResultStates(endResult);
-            }
-            else
-            {
-                _logger.LogWarning("Hagenbach Bischoff could not distribute all number of mandates. Manual end result required for election {ProportionalElectionId}", endResult.ProportionalElectionId);
-            }
-        }
-
+        AdjustListAndCandidateEndResults(endResult, result, deltaFactor);
         await _dbContext.SaveChangesAsync();
 
-        if (endResult.ProportionalElection.MandateAlgorithm.IsUnionDoubleProportional())
+        if (endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
         {
-            // a change in an election which uses a union dp algorithm, always resets all union dp results.
+            // a change in an election which uses a dp algorithm, always resets all related dp results.
             await _dpResultBuilder.ResetForElection(endResult.ProportionalElectionId);
         }
 
-        if (endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional())
+        if (!implicitMandateDistributionDisabled
+            && endResult.AllCountingCirclesDone
+            && (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff
+                || endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional()))
         {
-            if (endResult.AllCountingCirclesDone)
-            {
-                await _dpResultBuilder.BuildForElection(endResult.ProportionalElectionId);
-            }
-            else
-            {
-                await _dpResultBuilder.ResetForElection(endResult.ProportionalElectionId);
-            }
+            await DistributeNumberOfMandates(endResult.ProportionalElectionId);
         }
     }
 
@@ -205,14 +228,13 @@ public class ProportionalElectionEndResultBuilder
             endResult.HagenbachBischoffRootGroup = null;
         }
 
-        endResult.ResetCalculation();
+        endResult.Reset();
     }
 
     private void AdjustListAndCandidateEndResults(
         ProportionalElectionEndResult endResult,
         ProportionalElectionResult result,
-        int deltaFactor,
-        bool lotDecisionEnabled)
+        int deltaFactor)
     {
         endResult.ListEndResults.MatchAndExec(
             x => x.ListId,
@@ -228,8 +250,7 @@ public class ProportionalElectionEndResultBuilder
                 _candidateEndResultBuilder.AdjustCandidateEndResults(
                     listEndResult.CandidateEndResults,
                     listResult.CandidateResults,
-                    deltaFactor,
-                    lotDecisionEnabled);
+                    deltaFactor);
             });
     }
 

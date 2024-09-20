@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using Ech0110_4_0;
+using FluentAssertions;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Utils;
@@ -53,6 +54,8 @@ public class XmlEch0110ProportionalElectionTest : XmlExportBaseTest<Delivery>
 
     protected override XmlSchemaSet GetSchemaSet()
         => Ech0110Schemas.LoadEch0110Schemas();
+
+    protected override void AssertTestDeliveryFlag(Delivery delivery) => delivery.DeliveryHeader.TestDeliveryFlag.Should().BeFalse();
 
     protected override IEnumerable<string> UnauthorizedRoles()
     {

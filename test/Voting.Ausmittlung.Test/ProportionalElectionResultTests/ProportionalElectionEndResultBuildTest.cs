@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -34,9 +34,10 @@ public class ProportionalElectionEndResultBuildTest : ProportionalElectionEndRes
         afterOneAuditedEndResult.MatchSnapshot("afterOneAuditedEndResult");
 
         await SetOtherAuditedTentatively();
+        await TriggerMandateDistribution();
 
         var afterAllAuditedEndResults = await GetEndResult();
-        afterAllAuditedEndResults.MatchSnapshot("afterAllAuditedEndResults");
+        afterAllAuditedEndResults.MatchSnapshot("afterAllAuditedEndResultsAndMandateDistributionTriggered");
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

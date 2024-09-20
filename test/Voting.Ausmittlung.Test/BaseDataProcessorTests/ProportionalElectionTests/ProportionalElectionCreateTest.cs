@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -49,6 +49,7 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
                     ContestId = ContestMockedData.IdGossau,
                     NumberOfMandates = 6,
                     MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+                    FederalIdentification = 111,
                 },
             },
             new ProportionalElectionCreated
@@ -128,5 +129,135 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
 
         var proportionalElection = await RunOnDb(db => db.ProportionalElections.SingleAsync(pe => pe.Id == id));
         proportionalElection.MandateAlgorithm.Should().Be(expectedMandateAlgorithm);
+    }
+
+    [Fact]
+    public async Task TestShouldUpdateTotalCountOfVoters()
+    {
+        await TestEventPublisher.Publish(
+            new ProportionalElectionCreated
+            {
+                ProportionalElection = new ProportionalElectionEventData
+                {
+                    Id = "8393c549-04b9-4c6c-9cd7-7ccb57f89e5d",
+                    PoliticalBusinessNumber = "6000",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 1") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 1") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdGossau,
+                    ContestId = ContestMockedData.IdGossau,
+                    NumberOfMandates = 6,
+                    MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.HagenbachBischoff,
+                },
+            });
+
+        var results = await RunOnDb(
+            db => db.ProportionalElectionResults
+                .Where(x => x.ProportionalElection.PoliticalBusinessNumber == "6000")
+                .Include(x => x.ProportionalElection)
+                .ToListAsync());
+
+        foreach (var result in results)
+        {
+            result.TotalCountOfVoters.Should().NotBe(0);
+        }
+    }
+
+    [Fact]
+    public async Task TestShouldCreateMissingVotingCards()
+    {
+        await RunOnDb(
+            async db =>
+            {
+                var details = await db.ContestCountingCircleDetails
+                    .AsTracking()
+                    .Include(x => x.VotingCards)
+                    .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails);
+                details.VotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType != DomainOfInfluenceType.Ct).ToList();
+                await db.SaveChangesAsync();
+            });
+
+        var contestDetailsBefore = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        var doiDetailsBefore = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
+        await TestEventPublisher.Publish(
+            new ProportionalElectionCreated
+            {
+                ProportionalElection = new ProportionalElectionEventData
+                {
+                    Id = "809049e5-3245-4fdf-9708-28ec4b8f8722",
+                    PoliticalBusinessNumber = "6001",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                    ContestId = ContestMockedData.IdBundesurnengang,
+                    NumberOfMandates = 3,
+                    MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
+                },
+            });
+
+        var details = await RunOnDb(
+            db => db.ContestCountingCircleDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
+
+        var newCreatedVotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).ToList();
+        newCreatedVotingCards.Single(x => x.Valid && x.Channel == VotingChannel.BallotBox).CountOfReceivedVotingCards.Should().Be(2000);
+        newCreatedVotingCards.Single(x => x.Valid && x.Channel == VotingChannel.ByMail).CountOfReceivedVotingCards.Should().Be(1000);
+        newCreatedVotingCards.Single(x => !x.Valid && x.Channel == VotingChannel.ByMail).CountOfReceivedVotingCards.Should().Be(3000);
+
+        var contestDetailsAfter = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.BallotBox,
+            2000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.ByMail,
+            1000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && !x.Valid && x.Channel == VotingChannel.ByMail,
+            3000);
+
+        var doiDetailsAfter = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.BallotBox,
+            2000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.ByMail,
+            1000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && !x.Valid && x.Channel == VotingChannel.ByMail,
+            3000);
     }
 }

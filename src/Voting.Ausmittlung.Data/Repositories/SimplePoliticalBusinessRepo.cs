@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -26,8 +26,15 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         _doiRepo = doiRepo;
     }
 
+    /// <summary>
+    /// Gets the political businesses owned by the tenant.
+    /// If the ViewCountingCirclePartialResults are set for a domain of influence which the tenant owns, then these
+    /// political businesses are also returned.
+    /// </summary>
+    /// <param name="tenantId">Tenant id.</param>
+    /// <returns>A political business queryable.</returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened interpolated string parameters.")]
-    public IQueryable<SimplePoliticalBusiness> BuildAccessibleQuery(string tenantId, bool readOnlyOwned)
+    public IQueryable<SimplePoliticalBusiness> BuildOwnedPoliticalBusinessesQuery(string tenantId)
     {
         var permissionCcIdsColumn = _permissionRepo.GetColumnName(x => x.CountingCircleIds);
         var permissionBasisDoiIdColumn = _permissionRepo.GetColumnName(x => x.BasisDomainOfInfluenceId);
@@ -41,16 +48,43 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         var pbIdColumn = GetDelimitedColumnName(x => x.Id);
         var pbDoiIdColumn = GetDelimitedColumnName(x => x.DomainOfInfluenceId);
 
-        // If readOnlyOwned is true, then only "owned" political businesses should be returned.
-        // This means that the domain of influence of the political business must have a matching tenant id.
-        // An exception is made for domain of influences with the special "view counting circle partial results" flag.
-        var onlyOwnedRestriction = readOnlyOwned
-            ? $@"AND EXISTS (
-                SELECT 1 FROM {_doiRepo.DelimetedTableName} AS doi
-                WHERE (doi.{doiIdColumn} = pb.{pbDoiIdColumn} AND doi.{doiTenantIdColumn} = {{0}})
-                OR (doi.{doiPartialCcResultsColumn} = TRUE AND ccr.{ccResultCcIdColumn} IN (SELECT ccids FROM permission_query AS pq WHERE pq.doiid = doi.{doiBasisIdColumn}))
-            )"
-            : string.Empty;
+        // Access to a political business is decided by the participating counting circles.
+        // The tenant must either be the responsible authority of a participating counting circle
+        // or the responsible authority of a domain of influence which has an assigned participating counting circle.
+        return Set.FromSqlRaw(
+            $@"SELECT pb.* FROM {DelimitedSchemaAndTableName} AS pb WHERE EXISTS (
+                SELECT 1 FROM {_simpleCcResultRepo.DelimetedTableName} AS ccr
+                WHERE ccr.{ccResultPbIdColumn} = pb.{pbIdColumn}
+                AND EXISTS (
+                    SELECT 1 FROM {_doiRepo.DelimetedTableName} AS doi
+                    WHERE (doi.{doiIdColumn} = pb.{pbDoiIdColumn} AND doi.{doiTenantIdColumn} = {{0}})
+                    OR (doi.{doiPartialCcResultsColumn} = TRUE AND EXISTS (
+                        SELECT 1 FROM {_permissionRepo.DelimetedTableName} AS doip
+                        WHERE {permissionTenantIdColumn} = {{0}}
+                          AND doip.{permissionBasisDoiIdColumn} = doi.{doiBasisIdColumn}
+                          AND ccr.{ccResultCcIdColumn} = ANY(doip.{permissionCcIdsColumn})
+                        )
+                    )
+                )
+            )",
+            tenantId);
+    }
+
+    /// <summary>
+    /// Gets accessible political businesses for a tenant (accessible = tenant has a domain of influence permission entry with
+    /// a matching counting circle id entry).
+    /// </summary>
+    /// <param name="tenantId">Tenant id.</param>
+    /// <returns>A political business queryable.</returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened interpolated string parameters.")]
+    public IQueryable<SimplePoliticalBusiness> BuildAccessibleQuery(string tenantId)
+    {
+        var permissionCcIdsColumn = _permissionRepo.GetColumnName(x => x.CountingCircleIds);
+        var permissionBasisDoiIdColumn = _permissionRepo.GetColumnName(x => x.BasisDomainOfInfluenceId);
+        var permissionTenantIdColumn = _permissionRepo.GetColumnName(x => x.TenantId);
+        var ccResultPbIdColumn = _simpleCcResultRepo.GetColumnName(x => x.PoliticalBusinessId);
+        var ccResultCcIdColumn = _simpleCcResultRepo.GetColumnName(x => x.CountingCircleId);
+        var pbIdColumn = GetDelimitedColumnName(x => x.Id);
 
         // Access to a political business is decided by the participating counting circles.
         // The tenant must either be the responsible authority of a participating counting circle
@@ -63,7 +97,6 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
             SELECT pb.* FROM {DelimitedSchemaAndTableName} AS pb WHERE EXISTS (
                 SELECT 1 FROM {_simpleCcResultRepo.DelimetedTableName} AS ccr WHERE ccr.{ccResultPbIdColumn} = pb.{pbIdColumn}
                 AND ccr.{ccResultCcIdColumn} IN (SELECT ccids FROM permission_query)
-                {onlyOwnedRestriction}
             )",
             tenantId);
     }

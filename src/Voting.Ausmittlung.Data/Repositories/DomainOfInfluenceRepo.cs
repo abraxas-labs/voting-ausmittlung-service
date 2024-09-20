@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -84,18 +84,22 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
-    public async Task UpdateInheritedCantons(Guid rootDomainOfInfluenceId, DomainOfInfluenceCanton rootCanton)
+    public async Task UpdateInheritedCantons(Guid rootBasisDomainOfInfluenceId, List<Guid> snapshotIds, DomainOfInfluenceCanton rootCanton)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
         var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
         var cantonColumnName = GetDelimitedColumnName(x => x.Canton);
+
+        var combinedIds = snapshotIds
+            .Append(rootBasisDomainOfInfluenceId)
+            .ToList();
 
         await Context.Database.ExecuteSqlRawAsync(
             $@"
                 WITH RECURSIVE d AS (
 	                SELECT {idColumnName}
                     FROM {DelimitedSchemaAndTableName}
-                    WHERE {idColumnName} = {{0}}
+                    WHERE {idColumnName} =  ANY({{0}})
                     UNION
                     SELECT x.{idColumnName}
                     FROM d
@@ -105,7 +109,7 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
                 SET {cantonColumnName} = {{1}}
                 FROM d
                 WHERE d.{idColumnName} = r.{idColumnName}",
-            rootDomainOfInfluenceId,
+            combinedIds,
             rootCanton);
         await Context.SaveChangesAsync();
     }

@@ -1,11 +1,11 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
-using FluentAssertions;
+using Google.Protobuf;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -151,6 +151,25 @@ public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultService
             ?? aggregateFactory.New<TAggregate>();
         action.Invoke(aggregate);
         await aggregateRepo.Save(aggregate);
+    }
+
+    protected async Task RunOnResult<TEvent, TAggregate>(Guid aggregateId, Action<TAggregate> resultAction)
+        where TEvent : IMessage<TEvent>
+        where TAggregate : BaseEventSignatureAggregate
+    {
+        await RunScoped<IServiceProvider>(async sp =>
+        {
+            // needed to create aggregates, since they access user/tenant information
+            var authStore = sp.GetRequiredService<IAuthStore>();
+            authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+
+            var aggregateRepository = sp.GetRequiredService<IAggregateRepository>();
+            var aggregate = await aggregateRepository.GetOrCreateById<TAggregate>(aggregateId);
+            resultAction(aggregate);
+            await aggregateRepository.Save(aggregate);
+        });
+        await RunEvents<TEvent>();
+        EventPublisherMock.Clear();
     }
 
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)

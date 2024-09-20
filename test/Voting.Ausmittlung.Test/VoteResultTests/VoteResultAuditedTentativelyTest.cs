@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -158,11 +158,41 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
         });
 
         endResult.MatchSnapshot();
+        endResult.Finalized.Should().BeFalse();
 
         var id = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
             && x.NewState == CountingCircleResultState.AuditedTentatively);
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var voteGuid = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
+
+        await RunToState(CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        await ModifyDbEntities<VoteEndResult>(
+            x => x.VoteId == voteGuid,
+            x => x.CountOfDoneCountingCircles = x.TotalCountOfCountingCircles - 1);
+
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<VoteResultAuditedTentatively>();
+
+        await AssertCurrentState(CountingCircleResultState.AuditedTentatively);
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetVoteEndResultRequest
+        {
+            VoteId = voteGuid.ToString(),
+        });
+
+        endResult.Finalized.Should().BeTrue();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

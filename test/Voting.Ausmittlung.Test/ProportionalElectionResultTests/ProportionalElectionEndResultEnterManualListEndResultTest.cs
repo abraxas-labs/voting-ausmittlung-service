@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -44,6 +44,7 @@ public class ProportionalElectionEndResultEnterManualListEndResultTest : Proport
     public async Task TestProcessor()
     {
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
 
         await ModifyDbEntities<ProportionalElectionEndResult>(
@@ -81,7 +82,7 @@ public class ProportionalElectionEndResultEnterManualListEndResultTest : Proport
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
         });
-        endResult.Finalized.Should().BeFalse();
+        endResult.Finalized.Should().BeTrue();
 
         var listEndResult = endResult.ListEndResults.Single(x => x.List.Id == ProportionalElectionEndResultMockedData.ListId4);
         listEndResult.NumberOfMandates.Should().Be(1);

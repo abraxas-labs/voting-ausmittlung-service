@@ -22,6 +22,7 @@
     "ProportionalElectionList:read",
     "ProportionalElectionListResult:read",
     "ProportionalElectionEndResult:enter-manual-results",
+    "ProportionalElectionEndResult:trigger-mandate-distribution",
     "MajorityElectionCandidate:read",
     "MajorityElectionBallotGroupResult:read",
     "Import:import",

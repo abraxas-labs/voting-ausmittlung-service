@@ -12,7 +12,7 @@
       <VoteCount>491372</VoteCount>
       <CantonalQuorum>14742</CantonalQuorum>
       <VoterNumber>40420.831585081585081585081586</VoterNumber>
-      <ElectionKey>1132</ElectionKey>
+      <ElectionKey>1130</ElectionKey>
       <SuperApportionmentNumberOfMandates>36</SuperApportionmentNumberOfMandates>
       <SubApportionmentNumberOfMandates>36</SubApportionmentNumberOfMandates>
       <Row>
@@ -36,7 +36,7 @@
         <VoteCount>98971</VoteCount>
         <VoterNumber>8997</VoterNumber>
         <Quorum>4949</Quorum>
-        <Divisor>9639.800719314109537275999515</Divisor>
+        <Divisor>9000</Divisor>
         <NumberOfMandates>11</NumberOfMandates>
         <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
       </Row>
@@ -61,7 +61,7 @@
         <VoteCount>215661</VoteCount>
         <VoterNumber>17828</VoterNumber>
         <Quorum>10784</Quorum>
-        <Divisor>17700.097739297739297739302375</Divisor>
+        <Divisor>17700</Divisor>
         <NumberOfMandates>12</NumberOfMandates>
         <SubApportionmentNumberOfMandates>12</SubApportionmentNumberOfMandates>
       </Row>
@@ -86,7 +86,7 @@
         <VoteCount>176740</VoteCount>
         <VoterNumber>13595</VoterNumber>
         <Quorum>8837</Quorum>
-        <Divisor>13473.118163906724018355752463</Divisor>
+        <Divisor>14000</Divisor>
         <NumberOfMandates>13</NumberOfMandates>
         <SubApportionmentNumberOfMandates>13</SubApportionmentNumberOfMandates>
       </Row>
@@ -99,7 +99,7 @@
         <CantonalQuorumReached>true</CantonalQuorumReached>
         <AnyQuorumReached>true</AnyQuorumReached>
         <VoterNumber>16038.114219114219114219114220</VoterNumber>
-        <SuperApportionmentNumberOfMandatesUnrounded>14.167945423245776602667062032</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandatesUnrounded>14.193021432844441693999216124</SuperApportionmentNumberOfMandatesUnrounded>
         <SuperApportionmentNumberOfMandates>14</SuperApportionmentNumberOfMandates>
         <SubApportionmentNumberOfMandates>14</SubApportionmentNumberOfMandates>
         <Divisor>1</Divisor>
@@ -149,10 +149,10 @@
         <CantonalQuorumReached>true</CantonalQuorumReached>
         <AnyQuorumReached>true</AnyQuorumReached>
         <VoterNumber>12214.177156177156177156177156</VoterNumber>
-        <SuperApportionmentNumberOfMandatesUnrounded>10.789909148566392382646799608</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandatesUnrounded>10.809006332900138209872723147</SuperApportionmentNumberOfMandatesUnrounded>
         <SuperApportionmentNumberOfMandates>11</SuperApportionmentNumberOfMandates>
         <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
-        <Divisor>1.0103451802617353589246264826</Divisor>
+        <Divisor>1.01</Divisor>
         <Cell>
           <List>
             <OrderNumber>02</OrderNumber>
@@ -199,10 +199,10 @@
         <CantonalQuorumReached>true</CantonalQuorumReached>
         <AnyQuorumReached>true</AnyQuorumReached>
         <VoterNumber>12168.540209790209790209790210</VoterNumber>
-        <SuperApportionmentNumberOfMandatesUnrounded>10.749593824903012182164125627</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandatesUnrounded>10.768619654681601584256451513</SuperApportionmentNumberOfMandatesUnrounded>
         <SuperApportionmentNumberOfMandates>11</SuperApportionmentNumberOfMandates>
         <SubApportionmentNumberOfMandates>11</SubApportionmentNumberOfMandates>
-        <Divisor>0.9121332956825265653739957174</Divisor>
+        <Divisor>1</Divisor>
         <Cell>
           <List>
             <OrderNumber>03</OrderNumber>

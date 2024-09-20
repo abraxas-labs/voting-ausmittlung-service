@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -87,6 +87,16 @@ public static class ProportionalElectionResultMockedData
             TotalCountOfVoters = 20000,
             AuditedTentativelyTimestamp = MockedClock.GetDate(hoursDelta: -3),
             SubmissionDoneTimestamp = MockedClock.GetDate(hoursDelta: -12),
+            EntryParams = new ProportionalElectionResultEntryParams
+            {
+                BallotBundleSize = 10,
+                BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
+                AutomaticEmptyVoteCounting = false,
+                BallotBundleSampleSize = 3,
+                AutomaticBallotBundleNumberGeneration = true,
+                ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
+                CandidateCheckDigit = false,
+            },
         };
 
     public static ProportionalElectionResult GossauElectionResultInContestGossau
@@ -149,7 +159,7 @@ public static class ProportionalElectionResultMockedData
             var perRepo = sp.GetRequiredService<ProportionalElectionResultBuilder>();
             foreach (var election in proportionalElections)
             {
-                await perRepo.RebuildForElection(election.Id, election.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(election.ContestId));
+                await perRepo.RebuildForElection(election.Id, election.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(election.ContestId), election.ContestId);
             }
         });
     }

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -65,6 +65,7 @@ public class ProportionalElectionProcessor :
     private readonly PoliticalBusinessToNewContestMover<ProportionalElection, ProportionalElectionRepo> _politicalBusinessToNewContestMover;
     private readonly ProportionalElectionCandidateRepo _proportionalElectionCandidateRepo;
     private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
+    private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
 
     public ProportionalElectionProcessor(
         ILogger<ProportionalElectionProcessor> logger,
@@ -86,7 +87,8 @@ public class ProportionalElectionProcessor :
         SimplePoliticalBusinessBuilder<ProportionalElection> simplePoliticalBusinessBuilder,
         PoliticalBusinessToNewContestMover<ProportionalElection, ProportionalElectionRepo> politicalBusinessToNewContestMover,
         ProportionalElectionCandidateRepo proportionalElectionCandidateRepo,
-        ProportionalElectionEndResultBuilder endResultBuilder)
+        ProportionalElectionEndResultBuilder endResultBuilder,
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
     {
         _logger = logger;
         _mapper = mapper;
@@ -108,6 +110,7 @@ public class ProportionalElectionProcessor :
         _politicalBusinessToNewContestMover = politicalBusinessToNewContestMover;
         _proportionalElectionCandidateRepo = proportionalElectionCandidateRepo;
         _endResultBuilder = endResultBuilder;
+        _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
     }
 
     public async Task Process(ProportionalElectionCreated eventData)
@@ -123,10 +126,11 @@ public class ProportionalElectionProcessor :
         }
 
         await _repo.Create(proportionalElection);
-
-        await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false);
-        await _endResultInitializer.RebuildForElection(proportionalElection.Id, false);
         await _simplePoliticalBusinessBuilder.Create(proportionalElection);
+
+        await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false, proportionalElection.ContestId);
+        await _endResultInitializer.RebuildForElection(proportionalElection.Id, false);
+        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(proportionalElection.Id, proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
     }
 
     public async Task Process(ProportionalElectionUpdated eventData)
@@ -145,14 +149,14 @@ public class ProportionalElectionProcessor :
 
         await _translationRepo.DeleteRelatedTranslations(proportionalElection.Id);
         await _repo.Update(proportionalElection);
+        await _simplePoliticalBusinessBuilder.Update(proportionalElection, false);
 
         if (proportionalElection.DomainOfInfluenceId != existingModel.DomainOfInfluenceId)
         {
-            await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false);
+            await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false, proportionalElection.ContestId);
             await _endResultInitializer.RebuildForElection(proportionalElection.Id, false);
+            await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(proportionalElection.Id, proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
         }
-
-        await _simplePoliticalBusinessBuilder.Update(proportionalElection, false);
     }
 
     public async Task Process(ProportionalElectionAfterTestingPhaseUpdated eventData)
@@ -526,7 +530,7 @@ public class ProportionalElectionProcessor :
     {
         var proportionalElectionId = GuidParser.Parse(eventData.ProportionalElectionId);
 
-        await _endResultBuilder.ResetForElection(proportionalElectionId);
+        await _endResultBuilder.ResetDistributedNumberOfMandatesForElection(proportionalElectionId);
 
         var existingModel = await _repo.GetByKey(proportionalElectionId)
                             ?? throw new EntityNotFoundException(proportionalElectionId);

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -59,4 +59,6 @@ public class ProportionalElection : Election, IHasResults, IPoliticalBusinessHas
     public bool EnforceReviewProcedureForCountingCircles { get; set; }
 
     public bool EnforceCandidateCheckDigitForCountingCircles { get; set; }
+
+    public int? FederalIdentification { get; set; }
 }

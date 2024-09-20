@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -57,7 +57,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
         var endResult = await GetEndResult(politicalBusinessId, _permissionService.TenantId)
             ?? throw new EntityNotFoundException(politicalBusinessId);
 
-        await ValidateFinalize(endResult);
+        await ValidateFinalize(endResult, contestId);
 
         var aggregate = await AggregateRepository.GetOrCreateById<TAggregate>(endResult.Id);
         aggregate.Finalize(politicalBusinessId, contestId, testingPhaseEnded);
@@ -72,6 +72,8 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
         var endResult = await GetEndResult(politicalBusinessId, _permissionService.TenantId)
             ?? throw new EntityNotFoundException(politicalBusinessId);
 
+        await ValidateRevertFinalize(endResult, contestId);
+
         var aggregate = await AggregateRepository.GetById<TAggregate>(endResult.Id);
         aggregate.RevertFinalization(contestId);
         await AggregateRepository.Save(aggregate);
@@ -81,7 +83,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
             typeof(TEndResult).Name);
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareFinalize(Guid politicalBusinessId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> PrepareFinalize(Guid politicalBusinessId, string message)
     {
         await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
@@ -96,14 +98,19 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     protected abstract Task<TEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId);
 
-    protected virtual Task ValidateFinalize(TEndResult endResult)
+    protected virtual async Task ValidateFinalize(TEndResult endResult, Guid contestId)
     {
+        await ContestService.EnsureEndResultFinalizeEnabled(contestId);
+
         if (!endResult.AllCountingCirclesDone)
         {
             throw new ValidationException("not all counting circles are done");
         }
+    }
 
-        return Task.CompletedTask;
+    protected virtual async Task ValidateRevertFinalize(TEndResult endResult, Guid contestId)
+    {
+        await ContestService.EnsureEndResultFinalizeEnabled(contestId);
     }
 
     private async Task<ActionId> PrepareFinalizeActionId(Guid politicalBusinessId, bool testingPhaseEnded)

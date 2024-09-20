@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
@@ -19,6 +20,7 @@ public class MajorityElectionEndResultInitializer
     private readonly MajorityElectionEndResultRepo _endResultRepo;
     private readonly SecondaryMajorityElectionRepo _secondaryMajorityElectionRepo;
     private readonly MajorityElectionCandidateEndResultBuilder _candidateEndResultBuilder;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElectionEndResult> _secondaryEndResultRepo;
     private readonly DataContext _dataContext;
 
     public MajorityElectionEndResultInitializer(
@@ -26,12 +28,14 @@ public class MajorityElectionEndResultInitializer
         MajorityElectionEndResultRepo endResultRepo,
         SecondaryMajorityElectionRepo secondaryMajorityElectionRepo,
         MajorityElectionCandidateEndResultBuilder candidateEndResultBuilder,
+        IDbRepository<DataContext, SecondaryMajorityElectionEndResult> secondaryEndResultRepo,
         DataContext dataContext)
     {
         _electionRepo = electionRepo;
         _endResultRepo = endResultRepo;
         _secondaryMajorityElectionRepo = secondaryMajorityElectionRepo;
         _candidateEndResultBuilder = candidateEndResultBuilder;
+        _secondaryEndResultRepo = secondaryEndResultRepo;
         _dataContext = dataContext;
     }
 
@@ -104,6 +108,28 @@ public class MajorityElectionEndResultInitializer
 
         await _endResultRepo.DeleteByKey(majorityElectionEndResultId);
         await RebuildForElection(majorityElectionId, true);
+    }
+
+    internal async Task ResetIndividualVoteCounts(Guid majorityElectionId)
+    {
+        var endResult = await _endResultRepo.Query()
+            .FirstOrDefaultAsync(x => x.MajorityElectionId == majorityElectionId)
+            ?? throw new EntityNotFoundException(majorityElectionId);
+
+        endResult.ConventionalSubTotal.IndividualVoteCount = 0;
+        endResult.EVotingSubTotal.IndividualVoteCount = 0;
+        await _endResultRepo.Update(endResult);
+    }
+
+    internal async Task ResetSecondaryIndividualVoteCounts(Guid secondaryMajorityElectionId)
+    {
+        var endResult = await _secondaryEndResultRepo.Query()
+            .FirstOrDefaultAsync(x => x.SecondaryMajorityElectionId == secondaryMajorityElectionId)
+            ?? throw new EntityNotFoundException(secondaryMajorityElectionId);
+
+        endResult.ConventionalSubTotal.IndividualVoteCount = 0;
+        endResult.EVotingSubTotal.IndividualVoteCount = 0;
+        await _secondaryEndResultRepo.Update(endResult);
     }
 
     private void AddMissingEndResultsToSecondaryMajorityElection(SecondaryMajorityElection secondaryMajorityElection)

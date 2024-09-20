@@ -25,7 +25,9 @@
       "NewZhFeaturesEnabled": true,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false
+      "PublishResultsEnabled": false,
+      "EndResultFinalizeDisabled": true,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElectionUnion": {
@@ -44,7 +46,8 @@
         "NumberOfMandates": 0,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "",
-        "ShortDescription": "Kantonratswahl de"
+        "ShortDescription": "Kantonratswahl de",
+        "BusinessSubType": 0
       }
     ]
   },
@@ -2233,6 +2236,7 @@
       ],
       "Finalized": false,
       "ManualEndResultRequired": false,
+      "MandateDistributionTriggered": false,
       "PartialResult": false
     }
   ],

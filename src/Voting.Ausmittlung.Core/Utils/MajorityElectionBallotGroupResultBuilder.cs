@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -149,22 +149,27 @@ public class MajorityElectionBallotGroupResultBuilder
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task AddMissing(Guid electionId, IEnumerable<MajorityElectionResult> results)
+    internal async Task<List<MajorityElectionBallotGroupResult>> BuildMissing(Guid electionId, Dictionary<Guid, IEnumerable<Guid>> ballotGroupIdsByResultId)
     {
         var ballotGroupIds = await _ballotGroupRepo.Query()
             .Where(l => l.MajorityElectionId == electionId)
             .Select(l => l.Id)
             .ToListAsync();
 
+        var missingResults = new List<MajorityElectionBallotGroupResult>();
         if (ballotGroupIds.Count == 0)
         {
-            return;
+            return missingResults;
         }
 
-        foreach (var result in results)
+        foreach (var (resultId, resultBallotGroupIds) in ballotGroupIdsByResultId)
         {
-            AddMissing(result, ballotGroupIds);
+            var toAdd = ballotGroupIds.Except(resultBallotGroupIds)
+                .Select(x => new MajorityElectionBallotGroupResult { BallotGroupId = x, ElectionResultId = resultId });
+            missingResults.AddRange(toAdd);
         }
+
+        return missingResults;
     }
 
     private void SumCandidateDeltas(
@@ -184,17 +189,6 @@ public class MajorityElectionBallotGroupResultBuilder
             {
                 deltasByCandidateId[cId] += countDelta;
             }
-        }
-    }
-
-    private void AddMissing(MajorityElectionResult result, IEnumerable<Guid> ballotGroupIds)
-    {
-        var toAdd = ballotGroupIds.Except(result.BallotGroupResults.Select(x => x.BallotGroupId))
-            .Select(x => new MajorityElectionBallotGroupResult { BallotGroupId = x })
-            .ToList();
-        foreach (var element in toAdd)
-        {
-            result.BallotGroupResults.Add(element);
         }
     }
 

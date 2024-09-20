@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -29,4 +29,6 @@ public class TieBreakQuestion : BaseEntity
     public string Question => Translations.GetTranslated(x => x.Question);
 
     public ICollection<VoteResultBallotTieBreakQuestionAnswer> BallotAnswers { get; set; } = new HashSet<VoteResultBallotTieBreakQuestionAnswer>();
+
+    public int? FederalIdentification { get; set; }
 }

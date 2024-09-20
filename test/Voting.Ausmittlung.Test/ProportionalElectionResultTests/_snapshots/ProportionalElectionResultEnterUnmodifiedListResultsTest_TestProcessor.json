@@ -76,7 +76,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
@@ -160,7 +162,8 @@
     "TotalCountOfBlankRowsOnListsWithoutParty": 0,
     "TotalCountOfListsWithParty": 610,
     "TotalCountOfLists": 610,
-    "Published": false
+    "Published": false,
+    "ReadyForCorrectionTimestamp": null
   },
   "UnmodifiedListResults": [
     {

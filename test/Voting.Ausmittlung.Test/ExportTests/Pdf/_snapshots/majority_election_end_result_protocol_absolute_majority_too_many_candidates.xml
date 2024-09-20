@@ -22,6 +22,7 @@
     <ShortDescription>Majorzw de</ShortDescription>
     <NumberOfMandates>1</NumberOfMandates>
     <MandateAlgorithm>AbsoluteMajority</MandateAlgorithm>
+    <IndividualCandidatesDisabled>false</IndividualCandidatesDisabled>
     <MajorityElectionEndResult>
       <TotalCountOfVoters>34810</TotalCountOfVoters>
       <CountOfDoneCountingCircles>6</CountOfDoneCountingCircles>

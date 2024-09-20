@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -73,6 +73,14 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
         {
             await _countingCircleResultRepo.Sync(simplePoliticalBusiness.Id, simplePoliticalBusiness.DomainOfInfluenceId, testingPhaseEnded);
         }
+    }
+
+    public async Task UpdateSubTypeIfNecessary(TPoliticalBusiness politicalBusiness)
+    {
+        var simplePoliticalBusiness = _mapper.Map<SimplePoliticalBusiness>(politicalBusiness);
+        await _politicalBusinessRepo.Query()
+            .Where(x => x.Id == simplePoliticalBusiness.Id && x.PoliticalBusinessSubType != simplePoliticalBusiness.PoliticalBusinessSubType)
+            .ExecuteUpdateAsync(x => x.SetProperty(prop => prop.PoliticalBusinessSubType, simplePoliticalBusiness.PoliticalBusinessSubType));
     }
 
     public async Task MoveToNewContest(Guid politicalBusinessId, Guid newContestId)

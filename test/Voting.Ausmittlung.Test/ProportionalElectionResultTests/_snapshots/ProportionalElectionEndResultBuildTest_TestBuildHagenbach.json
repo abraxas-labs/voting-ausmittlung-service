@@ -31,7 +31,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ProportionalElection": {
@@ -102,7 +104,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
@@ -836,6 +840,7 @@
     ],
     "Finalized": false,
     "ManualEndResultRequired": false,
+    "MandateDistributionTriggered": false,
     "PartialResult": false
   },
   "afterOneAuditedEndResult": {
@@ -870,7 +875,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ProportionalElection": {
@@ -941,7 +948,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
@@ -1065,7 +1074,7 @@
           "Position": 1,
           "Description": ""
         },
-        "NumberOfMandates": 1,
+        "NumberOfMandates": 0,
         "CandidateEndResults": [
           {
             "Candidate": {
@@ -1242,7 +1251,7 @@
           "Position": 2,
           "Description": ""
         },
-        "NumberOfMandates": 1,
+        "NumberOfMandates": 0,
         "CandidateEndResults": [
           {
             "Candidate": {
@@ -1425,7 +1434,7 @@
           "Position": 3,
           "Description": ""
         },
-        "NumberOfMandates": 2,
+        "NumberOfMandates": 0,
         "CandidateEndResults": [
           {
             "Candidate": {
@@ -1614,7 +1623,7 @@
           "Position": 4,
           "Description": ""
         },
-        "NumberOfMandates": 1,
+        "NumberOfMandates": 0,
         "CandidateEndResults": [
           {
             "Candidate": {
@@ -1757,9 +1766,10 @@
     ],
     "Finalized": false,
     "ManualEndResultRequired": false,
+    "MandateDistributionTriggered": false,
     "PartialResult": false
   },
-  "afterAllAuditedEndResults": {
+  "afterAllAuditedEndResultsAndMandateDistributionTriggered": {
     "Contest": {
       "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Date": {
@@ -1791,7 +1801,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ProportionalElection": {
@@ -1862,7 +1874,9 @@
           "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": true
+          "PublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
         }
       },
       "ReviewProcedure": 1,
@@ -2708,6 +2722,7 @@
     ],
     "Finalized": false,
     "ManualEndResultRequired": false,
+    "MandateDistributionTriggered": true,
     "PartialResult": false
   }
 }

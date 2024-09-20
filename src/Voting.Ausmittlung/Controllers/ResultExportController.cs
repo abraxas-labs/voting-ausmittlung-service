@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -12,10 +12,9 @@ using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Core.Services.Export;
-using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Iam.Authorization;
-using Voting.Lib.Rest.Files;
 
 namespace Voting.Ausmittlung.Controllers;
 
@@ -26,15 +25,18 @@ public class ResultExportController : ControllerBase
     private readonly ResultExportService _resultExportService;
     private readonly ProtocolExportService _protocolExportService;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public ResultExportController(
         ResultExportService resultExportService,
         ProtocolExportService protocolExportService,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _resultExportService = resultExportService;
         _protocolExportService = protocolExportService;
         _mapper = mapper;
+        _clock = clock;
     }
 
     [AuthorizePermission(Permissions.Export.ExportData)]
@@ -50,15 +52,22 @@ public class ResultExportController : ControllerBase
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, _clock, ct);
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
     [HttpPost("bundle_review")]
-    public async Task<FileResult> DownloadResultBundleReviewExport(GenerateResultBundleReviewExportRequest request, CancellationToken ct)
+    public async Task<FileResult> DownloadResultBundleReviewExport(FetchProtocolExportsRequest request, CancellationToken ct)
     {
-        var fileModel = await _resultExportService.GenerateResultBundleReviewExport(request.ContestId, _mapper.Map<BundleReviewExportRequest>(request), ct);
-        return SingleFileResult.Create(new FileModelWrapper(fileModel), ct);
+        var fileModels = _protocolExportService.GetProtocolExports(
+                request.ContestId,
+                request.CountingCircleId,
+                request.ProtocolExportIds,
+                true,
+                ct)
+            .Select(f => new FileModelWrapper(f), ct);
+
+        return await FileResultUtil.CreateFileResult(fileModels, false, _clock, ct);
     }
 
     [AuthorizePermission(Permissions.Export.ExportData)]
@@ -70,10 +79,11 @@ public class ResultExportController : ControllerBase
                 request.ContestId,
                 request.CountingCircleId,
                 request.ProtocolExportIds,
+                false,
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 
-        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, ct);
+        return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, _clock, ct);
     }
 
     // Note: DmDoc currently does not support authorization in webhooks.

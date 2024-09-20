@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -21,7 +21,8 @@ public class ResultExportTemplate
         DomainOfInfluenceType? doiType = null,
         Guid? countingCircleId = null,
         IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses = null,
-        PoliticalBusinessUnion? politicalBusinessUnion = null)
+        PoliticalBusinessUnion? politicalBusinessUnion = null,
+        Guid? politicalBusinessResultBundleId = null)
     {
         Description = description ?? template.Description;
         EntityDescription = BuildEntityDescription(politicalBusinessUnion, politicalBusinesses) ?? string.Empty;
@@ -31,6 +32,7 @@ public class ResultExportTemplate
         DomainOfInfluenceType = doiType;
         CountingCircleId = countingCircleId;
         PoliticalBusinessIds = politicalBusinesses?.Select(pb => pb.Id).ToHashSet() ?? new HashSet<Guid>();
+        PoliticalBusinessResultBundleId = politicalBusinessResultBundleId;
 
         ExportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
             Template.Key,
@@ -38,7 +40,8 @@ public class ResultExportTemplate
             CountingCircleId,
             PoliticalBusinessId,
             PoliticalBusinessUnionId,
-            DomainOfInfluenceType ?? Data.Models.DomainOfInfluenceType.Unspecified);
+            DomainOfInfluenceType ?? Data.Models.DomainOfInfluenceType.Unspecified,
+            PoliticalBusinessResultBundleId);
     }
 
     public TemplateModel Template { get; }
@@ -55,6 +58,8 @@ public class ResultExportTemplate
     public Guid? PoliticalBusinessUnionId { get; }
 
     public Guid? CountingCircleId { get; }
+
+    public Guid? PoliticalBusinessResultBundleId { get; }
 
     public DomainOfInfluenceType? DomainOfInfluenceType { get; }
 

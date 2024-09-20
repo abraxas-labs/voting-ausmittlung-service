@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -269,6 +269,36 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
             async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
             StatusCode.Internal,
             nameof(OverflowException));
+    }
+
+    [Fact]
+    public async Task TestShouldWithNonNullIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            {
+                x.IndividualVoteCount = 1;
+                x.SelectedCandidateIds.Clear();
+            })),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled on election");
+    }
+
+    [Fact]
+    public async Task TestShouldWithNonNullSecondaryIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<SecondaryMajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled on election");
     }
 
     [Theory]

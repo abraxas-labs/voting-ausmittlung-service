@@ -1,18 +1,18 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Controllers.Models;
-using Voting.Ausmittlung.Core.Auth;
+using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
+using PoliticalBusinessType = Abraxas.Voting.Ausmittlung.Services.V1.Models.PoliticalBusinessType;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -23,18 +23,25 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleRevi
     {
     }
 
-    protected override HttpClient TestClient => CreateHttpClient(
-        tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
-        roles: RolesMockedData.ErfassungElectionAdmin);
-
     protected override string NewRequestExpectedFileName => "Bundkontrolle 2.pdf";
+
+    protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key;
 
     [Fact]
     public async Task TestBundleWithoutParty()
     {
         var request = NewRequest();
-        request.PoliticalBusinessResultBundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdUzwilBundle1);
+        request.PoliticalBusinessResultBundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle1;
         await TestPdfReport("_without_party", request, "Bundkontrolle 1.pdf");
+    }
+
+    [Fact]
+    public async Task TestBundleWithCandidateCheckDigit()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(
+            x => x.Id == ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            x => x.EntryParams.CandidateCheckDigit = true);
+        await TestPdfReport("_with_candidate_check_digit", NewRequest(), "Bundkontrolle 2.pdf");
     }
 
     protected override async Task SeedData()
@@ -43,36 +50,24 @@ public class PdfProportionalElectionResultBundleReviewExportTest : PdfBundleRevi
         await ProportionalElectionResultBundleMockedData.Seed(RunScoped);
         await ProportionalElectionResultBallotMockedData.Seed(RunScoped);
 
-        await RunOnDb(async db =>
-        {
-            var bundles = await db.ProportionalElectionBundles.AsTracking().ToListAsync();
-            foreach (var bundle in bundles)
-            {
-                bundle.State = BallotBundleState.Reviewed;
-            }
+        await RunOnBundle<ProportionalElectionResultBundleSubmissionFinished, ProportionalElectionResultBundleAggregate>(
+            ProportionalElectionResultBundleMockedData.UzwilBundle1NoList.Id,
+            aggregate => aggregate.SubmissionFinished(ContestMockedData.GuidUzwilEvoting));
 
-            var ballots = await db.ProportionalElectionResultBallots.AsTracking().ToListAsync();
-            foreach (var ballot in ballots)
-            {
-                ballot.MarkedForReview = true;
-            }
-
-            await db.SaveChangesAsync();
-        });
+        await RunOnBundle<ProportionalElectionResultBundleSubmissionFinished, ProportionalElectionResultBundleAggregate>(
+            ProportionalElectionResultBundleMockedData.UzwilBundle2.Id,
+            aggregate => aggregate.SubmissionFinished(ContestMockedData.GuidUzwilEvoting));
     }
 
-    protected override HttpClient CreateHttpClient(params string[] roles)
-        => CreateHttpClient(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
-
-    protected override GenerateResultBundleReviewExportRequest NewRequest()
+    protected override StartBundleReviewExportRequest NewRequest()
     {
-        return new GenerateResultBundleReviewExportRequest
+        return new StartBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            TemplateKey = AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key,
-            CountingCircleId = CountingCircleMockedData.GuidUzwil,
-            PoliticalBusinessResultBundleId = Guid.Parse(ProportionalElectionResultBundleMockedData.IdUzwilBundle2),
-            PoliticalBusinessId = Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestUzwilWithoutChilds),
+            PoliticalBusinessResultBundleId = ProportionalElectionResultBundleMockedData.IdUzwilBundle2,
+            PoliticalBusinessType = PoliticalBusinessType.ProportionalElection,
         };
     }
+
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantUzwil.Id, TestDefaults.UserId, roles);
 }

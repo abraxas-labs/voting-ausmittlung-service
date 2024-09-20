@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 namespace Voting.Ausmittlung.Core.Authorization;
@@ -123,6 +123,7 @@ public static class Permissions
     public static class ProportionalElectionEndResult
     {
         public const string EnterManualResults = Prefix + ":enter-manual-results";
+        public const string TriggerMandateDistribution = Prefix + ":trigger-mandate-distribution";
 
         private const string Prefix = "ProportionalElectionEndResult";
     }

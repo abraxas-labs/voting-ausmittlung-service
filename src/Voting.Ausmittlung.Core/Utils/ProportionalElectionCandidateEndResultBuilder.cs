@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -64,8 +64,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
     internal void AdjustCandidateEndResults(
         ICollection<ProportionalElectionCandidateEndResult> candidateEndResults,
         IEnumerable<ProportionalElectionCandidateResult> candidateResults,
-        int deltaFactor,
-        bool lotDecisionEnabled)
+        int deltaFactor)
     {
         candidateEndResults.MatchAndExec(
             x => x.CandidateId,
@@ -84,7 +83,7 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
                     AdjustCandidateVoteSources(endResult, result, deltaFactor);
                 });
 
-        RecalculateCandidateEndResultRanks(candidateEndResults, lotDecisionEnabled);
+        RecalculateCandidateEndResultRanks(candidateEndResults, false);
     }
 
     internal void RecalculateCandidateEndResultStates(
@@ -146,8 +145,6 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
             candidateEndResult.State = candidateState;
         }
 
-        listEndResult.ElectionEndResult.Finalized = false;
-        simpleEndResult.EndResultFinalized = false;
         listEndResult.NumberOfMandates = listEndResult.CandidateEndResults.Count(x => x.State == ProportionalElectionCandidateEndResultState.Elected);
         await _dataContext.SaveChangesAsync();
     }

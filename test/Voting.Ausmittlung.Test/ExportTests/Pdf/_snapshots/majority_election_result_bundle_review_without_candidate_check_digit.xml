@@ -1,0 +1,136 @@
+<Voting>
+  <TemplateKey>majority_election_result_bundle_review</TemplateKey>
+  <CountingCircle>
+    <Name>St. Gallen</Name>
+    <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+    <Bfs>5500</Bfs>
+    <Code />
+    <SortNumber>2000</SortNumber>
+    <ResponsibleAuthority>
+      <SecureConnectId>200200200200200200</SecureConnectId>
+      <Name>St. Gallen</Name>
+      <Phone>071 123 12 20</Phone>
+      <Email>sg@abraxas.ch</Email>
+      <Street>WerkstrasseX</Street>
+      <Zip>9000</Zip>
+      <City>MyCityX</City>
+    </ResponsibleAuthority>
+    <ContactPersonDuringEvent>
+      <FirstName>Hans-sg</FirstName>
+      <FamilyName>Muster-sg</FamilyName>
+      <Phone>071 123 12 21</Phone>
+      <MobilePhone>071 123 12 31</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonDuringEvent>
+    <ContactPersonSameDuringEventAsAfter>false</ContactPersonSameDuringEventAsAfter>
+    <ContactPersonAfterEvent>
+      <FirstName>Rudolph-sg</FirstName>
+      <FamilyName>Wichtig-sg</FamilyName>
+      <Phone>071 123 12 22</Phone>
+      <MobilePhone>071 123 12 33</MobilePhone>
+      <Email>sg@abraxas.ch</Email>
+    </ContactPersonAfterEvent>
+    <ContestCountingCircleDetails>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
+      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
+      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
+      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
+      <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>8000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Male</Sex>
+        <CountOfVoters>500</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>7000</CountOfVoters>
+        <VoterType>Swiss</VoterType>
+      </CountOfVotersDetail>
+      <CountOfVotersDetail>
+        <Sex>Female</Sex>
+        <CountOfVoters>300</CountOfVoters>
+        <VoterType>SwissAbroad</VoterType>
+      </CountOfVotersDetail>
+    </ContestCountingCircleDetails>
+  </CountingCircle>
+  <PoliticalBusiness>
+    <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
+    <OfficialDescription>Majorzwahl St. Gallen de</OfficialDescription>
+    <ShortDescription>Mw SG de</ShortDescription>
+  </PoliticalBusiness>
+  <MajorityElectionResultBundle>
+    <Number>1</Number>
+    <CreatedBy>
+      <FirstName>Hans</FirstName>
+      <LastName>Muster</LastName>
+      <FullName>Hans Muster</FullName>
+    </CreatedBy>
+    <State>ReadyForReview</State>
+    <CountOfBallots>3</CountOfBallots>
+    <MajorityElectionResultBallot>
+      <Number>1</Number>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <IndividualVoteCount>0</IndividualVoteCount>
+      <MajorityElectionCandidate>
+        <Description>number1 pol last name pol first name</Description>
+        <Number>number1</Number>
+        <FirstName>firstName</FirstName>
+        <LastName>lastName</LastName>
+        <PoliticalFirstName>pol first name</PoliticalFirstName>
+        <PoliticalLastName>pol last name</PoliticalLastName>
+        <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+        <Sex>Female</Sex>
+        <Title>title</Title>
+        <OccupationTitle>occupation title de</OccupationTitle>
+        <Occupation>occupation de</Occupation>
+        <Incumbent>true</Incumbent>
+        <ZipCode>zip code</ZipCode>
+        <Locality>locality</Locality>
+        <Position>1</Position>
+        <Origin>origin</Origin>
+        <Party>Test de</Party>
+      </MajorityElectionCandidate>
+      <SecondaryMajorityElectionResultBallot>
+        <EmptyVoteCount>0</EmptyVoteCount>
+        <IndividualVoteCount>0</IndividualVoteCount>
+        <SecondaryMajorityElectionCandidate>
+          <Description>number1 pol last name pol first name</Description>
+          <Number>number1</Number>
+          <FirstName>firstName</FirstName>
+          <LastName>lastName</LastName>
+          <PoliticalFirstName>pol first name</PoliticalFirstName>
+          <PoliticalLastName>pol last name</PoliticalLastName>
+          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
+          <Sex>Undefined</Sex>
+          <Title>title</Title>
+          <OccupationTitle>occupation title de</OccupationTitle>
+          <Occupation>occupation de</Occupation>
+          <Incumbent>true</Incumbent>
+          <ZipCode>zip code</ZipCode>
+          <Locality>locality</Locality>
+          <Position>1</Position>
+          <Origin>origin</Origin>
+          <Party>Test de</Party>
+        </SecondaryMajorityElectionCandidate>
+      </SecondaryMajorityElectionResultBallot>
+    </MajorityElectionResultBallot>
+    <MajorityElectionResultBallot>
+      <Number>2</Number>
+      <EmptyVoteCount>0</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <IndividualVoteCount>1</IndividualVoteCount>
+    </MajorityElectionResultBallot>
+    <MajorityElectionResultBallot>
+      <Number>3</Number>
+      <EmptyVoteCount>1</EmptyVoteCount>
+      <InvalidVoteCount>0</InvalidVoteCount>
+      <IndividualVoteCount>0</IndividualVoteCount>
+    </MajorityElectionResultBallot>
+  </MajorityElectionResultBundle>
+</Voting>

@@ -28,9 +28,11 @@
         "NumberOfMandates": 5,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "166",
-        "ShortDescription": "Mw Uzwil de"
+        "ShortDescription": "Mw Uzwil de",
+        "BusinessSubType": 0
       },
       "InvalidVotes": false,
+      "IndividualVotes": true,
       "WriteInMappings": [
         {
           "Id": "",
@@ -89,9 +91,11 @@
         "NumberOfMandates": 2,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "n1",
-        "ShortDescription": "short de"
+        "ShortDescription": "short de",
+        "BusinessSubType": 0
       },
       "InvalidVotes": false,
+      "IndividualVotes": true,
       "WriteInMappings": [
         {
           "Id": "",

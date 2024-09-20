@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -108,14 +108,14 @@ public class ResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(CountingCircleResultsPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _resultWriter.PrepareSubmissionFinished(
+        var (secondFactorTransaction, code, qrCode) = await _resultWriter.PrepareSubmissionFinished(
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
             Strings.CountingCircleResults_SubmissionFinished);
         return secondFactorTransaction == null
             ? new ProtoModels.SecondFactorTransaction()
-            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]

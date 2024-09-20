@@ -70,6 +70,7 @@
       <LastName>Muster</LastName>
       <FullName>Hans Muster</FullName>
     </CreatedBy>
+    <State>ReadyForReview</State>
     <List>
       <OrderNumber>99</OrderNumber>
       <ShortDescription>WoP</ShortDescription>

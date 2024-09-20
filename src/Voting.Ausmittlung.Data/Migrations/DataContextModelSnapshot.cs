@@ -18,7 +18,7 @@ namespace Voting.Ausmittlung.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -83,6 +83,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("integer");
 
+                    b.Property<int>("SubType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("VoteId")
                         .HasColumnType("uuid");
 
@@ -127,6 +130,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("BallotId")
                         .HasColumnType("uuid");
+
+                    b.Property<int?>("FederalIdentification")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Number")
                         .HasColumnType("integer");
@@ -256,6 +262,35 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("BallotResults");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.BallotTranslation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BallotId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OfficialDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BallotId", "Language")
+                        .IsUnique();
+
+                    b.ToTable("BallotTranslations");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.CantonSettings", b =>
                 {
                     b.Property<Guid>("Id")
@@ -270,6 +305,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("CountingMachineEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("EndResultFinalizeDisabled")
                         .HasColumnType("boolean");
 
                     b.Property<int>("MajorityElectionAbsoluteMajorityAlgorithm")
@@ -292,6 +330,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<int>("ProtocolDomainOfInfluenceSortType")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("PublishResultsBeforeAuditedTentatively")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("PublishResultsEnabled")
                         .HasColumnType("boolean");
@@ -469,6 +510,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("CountingMachineEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("EndResultFinalizeDisabled")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("MajorityElectionAbsoluteMajorityAlgorithm")
                         .HasColumnType("integer");
 
@@ -489,6 +533,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<int>("ProtocolDomainOfInfluenceSortType")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("PublishResultsBeforeAuditedTentatively")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("PublishResultsEnabled")
                         .HasColumnType("boolean");
@@ -937,6 +984,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.HasIndex("ParentId");
 
                     b.HasIndex("SnapshotContestId");
+
+                    b.HasIndex("ViewCountingCirclePartialResults");
 
                     b.ToTable("DomainOfInfluences");
                 });
@@ -1596,6 +1645,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("FederalIdentification")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IndividualCandidatesDisabled")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("MandateAlgorithm")
                         .HasColumnType("integer");
 
@@ -2038,6 +2093,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("Published")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime?>("ReadyForCorrectionTimestamp")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
@@ -2362,6 +2420,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("EnforceReviewProcedureForCountingCircles")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("FederalIdentification")
+                        .HasColumnType("integer");
+
                     b.Property<int>("MandateAlgorithm")
                         .HasColumnType("integer");
 
@@ -2622,6 +2683,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("Finalized")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("MandateDistributionTriggered")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ManualEndResultRequired")
@@ -2900,6 +2964,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<bool>("Published")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ReadyForCorrectionTimestamp")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("State")
                         .HasColumnType("integer");
@@ -3409,6 +3476,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("ElectionGroupId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IndividualCandidatesDisabled")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("NumberOfMandates")
                         .HasColumnType("integer");
 
@@ -3859,6 +3929,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("Published")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime?>("ReadyForCorrectionTimestamp")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
@@ -3901,6 +3974,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<string>("PoliticalBusinessNumber")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("PoliticalBusinessSubType")
+                        .HasColumnType("integer");
 
                     b.Property<int>("PoliticalBusinessType")
                         .HasColumnType("integer");
@@ -3951,6 +4027,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("BallotId")
                         .HasColumnType("uuid");
+
+                    b.Property<int?>("FederalIdentification")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Number")
                         .HasColumnType("integer");
@@ -4099,6 +4178,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("ReviewProcedure")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId");
@@ -4210,6 +4292,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<bool>("Published")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ReadyForCorrectionTimestamp")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("State")
                         .HasColumnType("integer");
@@ -4725,6 +4810,17 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("VoteResult");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.BallotTranslation", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.Ballot", "Ballot")
+                        .WithMany("Translations")
+                        .HasForeignKey("BallotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ballot");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.CantonSettingsVotingCardChannel", b =>
@@ -8107,6 +8203,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("Results");
 
                     b.Navigation("TieBreakQuestions");
+
+                    b.Navigation("Translations");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.BallotEndResult", b =>

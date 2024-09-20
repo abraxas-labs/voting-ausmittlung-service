@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -38,6 +38,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCorrectionFinished>().MatchSnapshot();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -81,6 +82,25 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await BundErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCorrectionFinished>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.Type = DomainOfInfluenceType.Mu);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -195,6 +215,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         await RunToState(CountingCircleResultState.ReadyForCorrection);
 
         await AssertSubmissionDoneTimestamp(false);
+        await AssertReadyForCorrectionTimestamp(true);
 
         await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest());
         await RunEvents<MajorityElectionResultCorrectionFinished>();
@@ -206,6 +227,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
         comments.MatchSnapshot(x => x.Id);
 
         await AssertSubmissionDoneTimestamp(true);
+        await AssertReadyForCorrectionTimestamp(false);
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
@@ -304,5 +326,11 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
     {
         var result = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund)));
         (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
+    }
+
+    private async Task AssertReadyForCorrectionTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund)));
+        (result.ReadyForCorrectionTimestamp != null).Should().Be(hasTimestamp);
     }
 }

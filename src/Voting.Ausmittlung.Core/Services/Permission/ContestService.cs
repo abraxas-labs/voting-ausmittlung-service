@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -94,6 +94,20 @@ public class ContestService
         if (contest.CantonDefaults.StatePlausibilisedDisabled)
         {
             throw new ValidationException("state plausibilised is not enabled for contest");
+        }
+    }
+
+    public async Task EnsureEndResultFinalizeEnabled(Guid id)
+    {
+        var contest = await _contestRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.CantonDefaults)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            ?? throw new EntityNotFoundException(nameof(Contest), id);
+
+        if (contest.CantonDefaults.EndResultFinalizeDisabled)
+        {
+            throw new ValidationException("End result finalize is not enabled for contest");
         }
     }
 

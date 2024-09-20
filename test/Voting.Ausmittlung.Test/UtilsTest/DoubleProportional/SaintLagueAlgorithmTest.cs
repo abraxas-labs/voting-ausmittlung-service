@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -26,27 +26,27 @@ public class SaintLagueAlgorithmTest
 
         AssertResult(
             result,
-            1583,
+            1580,
             new[] { 54, 36, 31, 13, 14, 9, 8, 5, 5, 5 },
-            new[] { 54.350M, 35.613M, 31.368M, 13.068M, 13.826M, 8.832M, 7.733M, 4.736M, 4.819M, 5.390M },
+            new[] { 54.453M, 35.680M, 31.427M, 13.093M, 13.852M, 8.849M, 7.748M, 4.745M, 4.828M, 5.401M },
             0);
     }
 
     [Fact]
-    public void ShouldWorkWithInitiallyToManyDistributedSeats()
+    public void ShouldWorkWithInitiallyTooManyDistributedSeats()
     {
         var result = _algo.Calculate(new[] { 3600M, 600M, 800M }, 5);
 
         AssertResult(
             result,
-            1114,
+            1100,
             new[] { 3, 1, 1 },
-            new[] { 3.232M, 0.539M, 0.718M },
+            new[] { 3.273M, 0.545M, 0.727M },
             0);
     }
 
     [Fact]
-    public void ShouldWorkWithInitiallyToManyDistributedSeatsAndLotDecisions()
+    public void ShouldWorkWithInitiallyTooManyDistributedSeatsAndLotDecisions()
     {
         var result = _algo.Calculate(new[] { 3500M, 500M, 1000M }, 5);
 
@@ -60,7 +60,7 @@ public class SaintLagueAlgorithmTest
     }
 
     [Fact]
-    public void ShouldWorkWithInitiallyToFewDistributedSeatsAndLotDecisions()
+    public void ShouldWorkWithInitiallyTooFewDistributedSeatsAndLotDecisions()
     {
         var result = _algo.Calculate(new[] { 450M, 450M, 100M, 4000M }, 5);
 
@@ -74,15 +74,15 @@ public class SaintLagueAlgorithmTest
     }
 
     [Fact]
-    public void ShouldWorkWithInitiallyToFewDistributedSeats()
+    public void ShouldWorkWithInitiallyTooFewDistributedSeats()
     {
         var result = _algo.Calculate(new[] { 450M, 400M, 150M, 4000M }, 5);
 
         AssertResult(
             result,
-            894,
+            890,
             new[] { 1, 0, 0, 4 },
-            new[] { 0.503M, 0.447M, 0.168M, 4.474M },
+            new[] { 0.506M, 0.449M, 0.169M, 4.494M },
             0);
     }
 

@@ -7,8 +7,10 @@
           {
             "Position": 1,
             "BallotType": 2,
+            "SubType": 0,
             "HasTieBreakQuestions": true,
             "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+            "Translations": [],
             "BallotQuestions": [
               {
                 "Number": 1,
@@ -26,6 +28,7 @@
                 "Question": "Frage 1 Gossau de",
                 "BallotAnswers": [],
                 "Type": 1,
+                "FederalIdentification": null,
                 "Id": "0516dfaf-4414-4f71-b062-d39dc4bb0277"
               },
               {
@@ -44,6 +47,7 @@
                 "Question": "Frage 2 Gossau de",
                 "BallotAnswers": [],
                 "Type": 2,
+                "FederalIdentification": null,
                 "Id": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d"
               }
             ],
@@ -65,6 +69,7 @@
                 "EndResult": null,
                 "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
                 "BallotAnswers": [],
+                "FederalIdentification": null,
                 "Id": "7c2e10f6-1262-45d9-a705-b480aa035d0e"
               }
             ],
@@ -75,8 +80,10 @@
         ],
         "ReportDomainOfInfluenceLevel": 0,
         "BusinessType": 1,
+        "BusinessSubType": 1,
         "ResultAlgorithm": 2,
         "EndResult": null,
+        "Type": 1,
         "Translations": [
           {
             "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
@@ -121,8 +128,10 @@
           {
             "Position": 1,
             "BallotType": 1,
+            "SubType": 0,
             "HasTieBreakQuestions": false,
             "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
+            "Translations": [],
             "BallotQuestions": [
               {
                 "Number": 1,
@@ -140,6 +149,7 @@
                 "Question": "Frage 1 Gossau de",
                 "BallotAnswers": [],
                 "Type": 1,
+                "FederalIdentification": null,
                 "Id": "f1344734-0ac3-4c1b-aafe-c39bfb2f277b"
               }
             ],
@@ -151,8 +161,10 @@
         ],
         "ReportDomainOfInfluenceLevel": 0,
         "BusinessType": 1,
+        "BusinessSubType": 0,
         "ResultAlgorithm": 0,
         "EndResult": null,
+        "Type": 1,
         "Translations": [
           {
             "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
@@ -196,6 +208,8 @@
   "simple": {
     "BusinessType": 1,
     "PoliticalBusinessType": 1,
+    "BusinessSubType": 1,
+    "PoliticalBusinessSubType": 1,
     "SimpleResults": [],
     "NumberOfMandates": null,
     "CountOfSecondaryBusinesses": 0,

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -14,11 +14,15 @@ public class Ballot : BaseEntity
 
     public BallotType BallotType { get; set; }
 
+    public BallotSubType SubType { get; set; }
+
     public bool HasTieBreakQuestions { get; set; }
 
     public Guid VoteId { get; set; }
 
     public Vote Vote { get; set; } = null!; // set by ef
+
+    public ICollection<BallotTranslation> Translations { get; set; } = new HashSet<BallotTranslation>();
 
     public ICollection<BallotQuestion> BallotQuestions { get; set; } = new HashSet<BallotQuestion>();
 

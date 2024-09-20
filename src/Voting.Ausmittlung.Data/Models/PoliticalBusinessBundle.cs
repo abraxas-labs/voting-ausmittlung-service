@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -21,4 +21,7 @@ public abstract class PoliticalBusinessBundle : BaseEntity
 
     [NotMapped]
     public List<int> BallotNumbersToReview { get; set; } = new();
+
+    [NotMapped]
+    public ProtocolExport? ProtocolExport { get; set; }
 }

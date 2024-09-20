@@ -1,8 +1,9 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
@@ -10,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
@@ -154,6 +156,33 @@ public class MajorityElectionResultAuditedTentativelyTest : MajorityElectionResu
         await AssertHasPublishedMessage<ResultStateChanged>(x =>
             x.Id == id
             && x.NewState == CountingCircleResultState.AuditedTentatively);
+
+        var endResult = await RunOnDb(db => db.MajorityElectionEndResults
+            .SingleAsync(r => r.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund)));
+        endResult.Finalized.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
+    {
+        var electionGuid = Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund);
+        await RunToState(CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        await ModifyDbEntities<MajorityElectionEndResult>(
+            x => x.MajorityElectionId == electionGuid,
+            x => x.CountOfDoneCountingCircles = x.TotalCountOfCountingCircles - 1);
+
+        await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultAuditedTentatively>();
+
+        var endResult = await RunOnDb(db => db.MajorityElectionEndResults
+            .SingleAsync(r => r.MajorityElectionId == electionGuid));
+        endResult.Finalized.Should().BeTrue();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

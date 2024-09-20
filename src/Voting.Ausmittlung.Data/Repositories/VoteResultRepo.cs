@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -67,4 +67,9 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
 
     protected override Expression<Func<VoteResult, bool>> FilterByPoliticalBusinessId(Guid id) =>
         vr => vr.VoteId == id;
+
+    protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
+    {
+        return await Context.Set<Vote>().Where(x => x.Id == id).SingleAsync();
+    }
 }

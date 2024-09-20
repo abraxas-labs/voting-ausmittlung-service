@@ -1,0 +1,72 @@
+{
+    "VoteCounts": [
+        [
+            1,
+            0,
+            1,
+            0
+        ],
+        [
+            1,
+            1,
+            0,
+            0
+        ],
+        [
+            1,
+            1,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            1,
+            1
+        ],
+        [
+            0,
+            0,
+            1,
+            1
+        ]
+    ],
+    "Columns": [
+        {
+            "Label": "P1"
+        },
+        {
+            "Label": "P2"
+        },
+        {
+            "Label": "P3"
+        },
+        {
+            "Label": "P4"
+        }
+    ],
+    "MandateAlgorithm": 5,
+    "Rows": [
+        {
+            "Label": "District 1",
+            "NumberOfMandates": 1
+        },
+        {
+            "Label": "District 2",
+            "NumberOfMandates": 1
+        },
+        {
+            "Label": "District 3",
+            "NumberOfMandates": 1
+        },
+        {
+            "Label": "District 4",
+            "NumberOfMandates": 1
+        },
+        {
+            "Label": "District 5",
+            "NumberOfMandates": 1
+        }
+    ],
+    "Detailed": true
+}

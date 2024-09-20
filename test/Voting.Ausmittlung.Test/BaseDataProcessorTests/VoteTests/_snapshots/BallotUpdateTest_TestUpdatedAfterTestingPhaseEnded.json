@@ -6,8 +6,10 @@
         {
           "Position": 1,
           "BallotType": 2,
+          "SubType": 0,
           "HasTieBreakQuestions": true,
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -25,6 +27,7 @@
               "Question": "Frage 1 updated de",
               "BallotAnswers": [],
               "Type": 1,
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -43,6 +46,7 @@
               "Question": "Frage 2 updated de",
               "BallotAnswers": [],
               "Type": 2,
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -64,6 +68,7 @@
               "EndResult": null,
               "Question": "Strichfrage updated de",
               "BallotAnswers": [],
+              "FederalIdentification": null,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -74,8 +79,10 @@
       ],
       "ReportDomainOfInfluenceLevel": 0,
       "BusinessType": 1,
+      "BusinessSubType": 1,
       "ResultAlgorithm": 1,
       "EndResult": null,
+      "Type": 0,
       "Translations": [
         {
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",

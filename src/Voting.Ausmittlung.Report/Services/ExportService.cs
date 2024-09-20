@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
+using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Report.Services;
 
@@ -25,6 +26,9 @@ public class ExportService
     public Task<FileModel> GenerateResultExport(
         Guid contestId,
         ResultExportTemplate exportTemplate,
+        string? exportTemplateKeyCantonSuffix,
+        string? tenantId = null,
+        HashSet<Guid>? viewablePartialResultsCountingCircleIds = null,
         AsyncPdfGenerationInfo? asyncPdfGenerationInfo = null,
         CancellationToken ct = default)
     {
@@ -34,18 +38,11 @@ public class ExportService
             BasisCountingCircleId = exportTemplate.CountingCircleId,
             DomainOfInfluenceType = exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
             PoliticalBusinessUnionId = exportTemplate.PoliticalBusinessUnionId,
+            PoliticalBusinessResultBundleId = exportTemplate.PoliticalBusinessResultBundleId,
             AsyncPdfGenerationInfo = asyncPdfGenerationInfo,
-        };
-        return _resultRenderServiceAdapter.Render(contestId, renderContext, ct);
-    }
-
-    public Task<FileModel> GenerateBundleReviewExport(Guid contestId, BundleReviewExportRequest request, CancellationToken ct = default)
-    {
-        var renderContext = new ReportRenderContext(contestId, request.Template)
-        {
-            PoliticalBusinessIds = new List<Guid> { request.PoliticalBusinessId },
-            BasisCountingCircleId = request.CountingCircleId,
-            PoliticalBusinessResultBundleId = request.PoliticalBusinessResultBundleId,
+            ExportTemplateKeyCantonSuffix = exportTemplateKeyCantonSuffix,
+            TenantId = tenantId,
+            ViewablePartialResultsCountingCircleIds = viewablePartialResultsCountingCircleIds,
         };
         return _resultRenderServiceAdapter.Render(contestId, renderContext, ct);
     }

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -510,6 +510,20 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
         contestDetailsAfter.MatchSnapshot("contestDetailsAfter");
         var doiDetailsAfter = await LoadContestDomainOfInfluenceDetails(contestId);
         doiDetailsAfter.MatchSnapshot("doiDetailsAfter");
+    }
+
+    [Fact]
+    public async Task UpdateDetailsShouldThrowForCountingCircleWithNoResults()
+    {
+        await AssertStatus(
+            async () => await StGallenErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+            {
+                x.ContestId = ContestMockedData.IdStGallenStadt;
+                x.CountingCircleId = CountingCircleMockedData.IdStGallenHaggen;
+                x.VotingCards.Clear();
+            })),
+            StatusCode.InvalidArgument,
+            "Counting circle has no results, cannot update the contest counting circle details.");
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

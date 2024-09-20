@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
@@ -141,7 +142,7 @@ public class ResultWriter
         }
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(
         Guid contestId,
         Guid countingCircleId,
         IReadOnlyCollection<Guid> resultIds,
@@ -164,7 +165,8 @@ public class ResultWriter
         actionAggregates.AddRange(ccResultAggregates);
 
         var pbIds = ccResultAggregates.Select(x => x.PoliticalBusinessId).ToList();
-        var hasOnlySelfOwnedPoliticalBusinesses = await HasOnlySelfOwnedPoliticalBusinesses(pbIds);
+        var politicalBusinessesById = await GetSimplePoliticalBusinessByIdDictionary(pbIds);
+        var hasOnlySelfOwnedPoliticalBusinesses = politicalBusinessesById.Values.All(x => x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id);
 
         if (hasOnlySelfOwnedPoliticalBusinesses)
         {
@@ -207,7 +209,8 @@ public class ResultWriter
         actionAggregates.AddRange(ccResultAggregates);
 
         var pbIds = ccResultAggregates.Select(x => x.PoliticalBusinessId).ToList();
-        var hasOnlySelfOwnedPoliticalBusinesses = await HasOnlySelfOwnedPoliticalBusinesses(pbIds);
+        var politicalBusinessesById = await GetSimplePoliticalBusinessByIdDictionary(pbIds);
+        var hasOnlySelfOwnedPoliticalBusinesses = politicalBusinessesById.Values.All(x => x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id);
 
         if (!hasOnlySelfOwnedPoliticalBusinesses)
         {
@@ -221,6 +224,11 @@ public class ResultWriter
         foreach (var ccResultAggregate in ccResultAggregates)
         {
             ccResultAggregate.SubmissionFinished(contestId);
+            var politicalBusiness = politicalBusinessesById[ccResultAggregate.PoliticalBusinessId];
+            if (politicalBusiness.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id)
+            {
+                ccResultAggregate.AuditedTentatively(contestId);
+            }
         }
 
         foreach (var ccResultAggregate in ccResultAggregates)
@@ -242,14 +250,11 @@ public class ResultWriter
 
         foreach (var result in results)
         {
-            result.State = CountingCircleResultState.SubmissionOngoing;
-
-            var aggregate = _aggregateFactory.New<VoteResultAggregate>();
-            aggregate.StartSubmission(countingCircle.BasisCountingCircleId, result.PoliticalBusinessId, result.PoliticalBusiness!.ContestId, testingPhaseEnded);
+            var aggregate = await StartSubmissionOrReset<VoteResultAggregate>(result, countingCircle.BasisCountingCircleId, testingPhaseEnded);
 
             if (idsWithEnforcedFinalResultEntry.Contains(result.PoliticalBusinessId))
             {
-                aggregate.DefineEntry(VoteResultEntry.FinalResults, result.PoliticalBusiness.ContestId);
+                aggregate.DefineEntry(VoteResultEntry.FinalResults, result.PoliticalBusiness!.ContestId);
             }
 
             await _aggregateRepository.Save(aggregate);
@@ -260,10 +265,7 @@ public class ResultWriter
     {
         foreach (var result in results)
         {
-            result.State = CountingCircleResultState.SubmissionOngoing;
-
-            var aggregate = _aggregateFactory.New<ProportionalElectionResultAggregate>();
-            aggregate.StartSubmission(countingCircle.BasisCountingCircleId, result.PoliticalBusinessId, result.PoliticalBusiness!.ContestId, testingPhaseEnded);
+            var aggregate = await StartSubmissionOrReset<ProportionalElectionResultAggregate>(result, countingCircle.BasisCountingCircleId, testingPhaseEnded);
             await _aggregateRepository.Save(aggregate);
         }
     }
@@ -281,19 +283,38 @@ public class ResultWriter
 
         foreach (var result in results)
         {
-            result.State = CountingCircleResultState.SubmissionOngoing;
-
-            var aggregate = _aggregateFactory.New<MajorityElectionResultAggregate>();
-            aggregate.StartSubmission(countingCircle.BasisCountingCircleId, result.PoliticalBusinessId, result.PoliticalBusiness!.ContestId, testingPhaseEnded);
+            var aggregate = await StartSubmissionOrReset<MajorityElectionResultAggregate>(result, countingCircle.BasisCountingCircleId, testingPhaseEnded);
 
             // if the result entry is enforced and only final results should be provided, it should be defined automatically
             if (idsWithEnforcedFinalResultEntry.Contains(result.PoliticalBusinessId))
             {
-                aggregate.DefineEntry(MajorityElectionResultEntry.FinalResults, result.PoliticalBusiness.ContestId);
+                aggregate.DefineEntry(MajorityElectionResultEntry.FinalResults, result.PoliticalBusiness!.ContestId);
             }
 
             await _aggregateRepository.Save(aggregate);
         }
+    }
+
+    private async Task<T> StartSubmissionOrReset<T>(SimpleCountingCircleResult result, Guid basisCountingCircleId, bool testingPhaseEnded)
+        where T : CountingCircleResultAggregate
+    {
+        result.State = CountingCircleResultState.SubmissionOngoing;
+
+        var aggregateId = AusmittlungUuidV5.BuildPoliticalBusinessResult(result.PoliticalBusinessId, basisCountingCircleId, testingPhaseEnded);
+        var aggregate = await _aggregateRepository.GetOrCreateById<T>(aggregateId);
+
+        if (aggregate.State == CountingCircleResultState.Initial)
+        {
+            aggregate.StartSubmission(basisCountingCircleId, result.PoliticalBusinessId, result.PoliticalBusiness!.ContestId, testingPhaseEnded);
+        }
+        else
+        {
+            // It could be that the aggregate already exists, for example if the counting circle was removed and assigned again to the same domain of influence.
+            // In that case, simply reset the whole result. This should only happen during the testing phase.
+            aggregate.Reset(result.PoliticalBusiness!.ContestId, true);
+        }
+
+        return aggregate;
     }
 
     private async Task<IReadOnlyCollection<CountingCircleResultAggregate>> GetResultAggregates(IReadOnlyCollection<SimpleCountingCircleResult> countingCircleResults)
@@ -347,12 +368,12 @@ public class ResultWriter
         return await GetResultAggregates(results);
     }
 
-    private async Task<bool> HasOnlySelfOwnedPoliticalBusinesses(IReadOnlyCollection<Guid> pbIds)
+    private async Task<Dictionary<Guid, SimplePoliticalBusiness>> GetSimplePoliticalBusinessByIdDictionary(IReadOnlyCollection<Guid> pbIds)
     {
         return await _simplePoliticalBusinessRepository
             .Query()
             .Include(x => x.DomainOfInfluence)
             .Where(x => pbIds.Contains(x.Id))
-            .AllAsync(x => x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id);
+            .ToDictionaryAsync(x => x.Id, x => x);
     }
 }

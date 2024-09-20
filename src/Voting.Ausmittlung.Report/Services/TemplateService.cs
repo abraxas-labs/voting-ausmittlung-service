@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -68,10 +68,11 @@ public class TemplateService
         params string[] filenameArgs)
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
+        var key = context.Template.Key + context.ExportTemplateKeyCantonSuffix;
 
         if (context.AsyncPdfGenerationInfo is { } asyncPdfInfo)
         {
-            await _pdfService.StartPdfGeneration(context.Template.Key, data, asyncPdfInfo.WebhookUrl);
+            await _pdfService.StartPdfGeneration(key, data, asyncPdfInfo.WebhookUrl);
             return new FileModel(
                 context,
                 fileName,
@@ -79,7 +80,7 @@ public class TemplateService
                 (_, _) => throw new InvalidOperationException("This is an asynchronous export and does not have any content."));
         }
 
-        var contentStream = await _pdfService.Render(context.Template.Key, data);
+        var contentStream = await _pdfService.Render(key, data);
         return new FileModel(context, fileName, ExportFileFormat.Pdf, async (w, ct) =>
         {
             try

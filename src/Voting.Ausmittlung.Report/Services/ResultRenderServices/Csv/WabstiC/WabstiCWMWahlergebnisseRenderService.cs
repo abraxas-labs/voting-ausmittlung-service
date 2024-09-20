@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -177,6 +177,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
         row.NumberOfMandates = election.NumberOfMandates;
         row.AbsoluteMajority = election.EndResult?.Calculation.AbsoluteMajority;
         row.PoliticalBusinessDomainOfInfluenceName = election.DomainOfInfluence.Name;
+        row.IndividualCandidatesDisabled = election.IndividualCandidatesDisabled;
     }
 
     private void AttachCandidateResults(
@@ -200,13 +201,16 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             i++;
         }
 
-        AddFakeCandidateResult(
-            i++,
-            data,
-            WabstiCConstants.IndividualMajorityCandidateNumber,
-            WabstiCConstants.IndividualMajorityCandidateLastName,
-            row.IndividualVoteCount,
-            resultState);
+        if (!row.IndividualCandidatesDisabled)
+        {
+            AddFakeCandidateResult(
+                i++,
+                data,
+                WabstiCConstants.IndividualMajorityCandidateNumber,
+                WabstiCConstants.IndividualMajorityCandidateLastName,
+                row.IndividualVoteCount,
+                resultState);
+        }
 
         AddFakeCandidateResult(
             i++,
@@ -430,6 +434,9 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
 
         [Ignore]
         public int InvalidVoteCount { get; set; }
+
+        [Ignore]
+        public bool IndividualCandidatesDisabled { get; set; }
 
         public IDictionary? CandidateResultsDict { get; set; }
 

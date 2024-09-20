@@ -25,7 +25,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false
+      "PublishResultsEnabled": false,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "CountingCircle": {
@@ -155,13 +157,15 @@
         "NumberOfMandates": null,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "200",
-        "ShortDescription": "Abst Bund de"
+        "ShortDescription": "Abst Bund de",
+        "BusinessSubType": 0
       },
       "State": 1,
       "SubmissionDoneTimestamp": null,
       "HasComments": false,
       "AuditedTentativelyTimestamp": null,
-      "PlausibilisedTimestamp": null
+      "PlausibilisedTimestamp": null,
+      "ReadyForCorrectionTimestamp": null
     }
   ],
   "CurrentTenantIsResponsible": true,

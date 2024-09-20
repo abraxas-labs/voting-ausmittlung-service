@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -80,7 +80,9 @@ public class ProportionalElectionEndResultReader
             .FirstOrDefaultAsync(x => x.ListId == proportionalElectionListId && x.ElectionEndResult.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId)
             ?? throw new EntityNotFoundException(proportionalElectionListId);
 
-        if (!proportionalElectionListEndResult.ElectionEndResult.AllCountingCirclesDone)
+        var endResult = proportionalElectionListEndResult.ElectionEndResult;
+
+        if (!endResult.AllCountingCirclesDone || !endResult.MandateDistributionTriggered)
         {
             throw new ValidationException("lot decisions are not allowed on this end result");
         }

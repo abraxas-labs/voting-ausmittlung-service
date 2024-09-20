@@ -42,7 +42,8 @@
     "Contest": null,
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
-    "EnforceCandidateCheckDigitForCountingCircles": true
+    "EnforceCandidateCheckDigitForCountingCircles": true,
+    "IndividualCandidatesDisabled": false
   },
   "LotDecisions": [
     {
@@ -143,7 +144,8 @@
         "ShortDescription": "short de",
         "NumberOfMandates": 2,
         "Active": false,
-        "Title": "n1: short de"
+        "Title": "n1: short de",
+        "IndividualCandidatesDisabled": false
       },
       "LotDecisions": [
         {
@@ -200,7 +202,8 @@
         "ShortDescription": "short2 de",
         "NumberOfMandates": 1,
         "Active": true,
-        "Title": "n2: short2 de"
+        "Title": "n2: short2 de",
+        "IndividualCandidatesDisabled": false
       },
       "LotDecisions": []
     }

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Csv;
 
@@ -23,6 +25,15 @@ public class CsvProportionalElectionCandidatesAlphabeticalExportTest : CsvExport
     public override HttpClient TestClient => ErfassungElectionAdminClient;
 
     protected override string NewRequestExpectedFileName => "Kandidatinnen und Kandidaten.csv";
+
+    [Fact]
+    public async Task TestCsvWithCandidateCheckDigit()
+    {
+        await ModifyDbEntities<ProportionalElection>(
+            x => x.Id == ProportionalElectionMockedData.StGallenProportionalElectionInContestBund.Id,
+            x => x.CandidateCheckDigit = true);
+        await TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName, "with_candidate_check_digit");
+    }
 
     protected override async Task SeedData()
     {
@@ -40,7 +51,7 @@ public class CsvProportionalElectionCandidatesAlphabeticalExportTest : CsvExport
                 AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungCsvProportionalElectionTemplates.CandidatesAlphabetical.Key,
                     SecureConnectTestDefaults.MockedTenantStGallen.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund),
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestBund.Id,
                     countingCircleId: CountingCircleMockedData.GuidStGallen),
             },
         };

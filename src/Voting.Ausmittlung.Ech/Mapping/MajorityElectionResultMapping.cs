@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Globalization;
@@ -53,9 +53,11 @@ internal static class MajorityElectionResultMapping
             MajoralElection = new ElectionResultTypeMajoralElection
             {
                 CountOfBlankVotesTotal = ResultDetailFromTotal(electionResult.EmptyVoteCount),
-                CountOfIndividualVotesTotal = ResultDetailFromTotal(electionResult.IndividualVoteCount),
                 CountOfInvalidVotesTotal = ResultDetailFromTotal(electionResult.InvalidVoteCount),
                 Candidate = candidates,
+                CountOfIndividualVotesTotal = !election.IndividualCandidatesDisabled
+                    ? ResultDetailFromTotal(electionResult.IndividualVoteCount)
+                    : null,
             },
         };
     }
@@ -79,9 +81,11 @@ internal static class MajorityElectionResultMapping
             MajoralElection = new ElectionResultTypeMajoralElection
             {
                 CountOfBlankVotesTotal = ResultDetailFromTotal(electionResult.EmptyVoteCount),
-                CountOfIndividualVotesTotal = ResultDetailFromTotal(electionResult.IndividualVoteCount),
                 CountOfInvalidVotesTotal = ResultDetailFromTotal(electionResult.InvalidVoteCount),
                 Candidate = candidates,
+                CountOfIndividualVotesTotal = !election.IndividualCandidatesDisabled
+                    ? ResultDetailFromTotal(electionResult.IndividualVoteCount)
+                    : null,
             },
         };
     }

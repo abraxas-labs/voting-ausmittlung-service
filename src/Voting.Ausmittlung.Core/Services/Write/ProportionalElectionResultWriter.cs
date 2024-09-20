@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -92,7 +92,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         _logger.LogInformation("Entered unmodified list results for proportional election result {ProportionalElectionResultId}", resultId);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareSubmissionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId);
 
@@ -133,11 +133,17 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
         aggregate.SubmissionFinished(contestId);
+        if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
+        }
+
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Submission finished for proportional election result {ProportionalElectionResultId}", result.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code)> PrepareCorrectionFinished(Guid resultId, string message)
+    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid resultId, string message)
     {
         await EnsurePoliticalBusinessPermissions(resultId);
 
@@ -178,6 +184,12 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
         aggregate.CorrectionFinished(comment, contestId);
+        if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
+        }
+
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Correction finished for proportional election result {ProportionalElectionResultId}", result.Id);
     }
@@ -187,10 +199,11 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
-        if (aggregate.Published)
+        var result = await LoadPoliticalBusinessResult(resultId);
+        if (CanUnpublishResults(result.ProportionalElection.Contest, aggregate))
         {
             aggregate.Unpublish(contestId);
-            _logger.LogInformation("majority election result {ProportionalElectionResultId} unpublished", aggregate.Id);
+            _logger.LogInformation("Proportional election result {ProportionalElectionResultId} unpublished", aggregate.Id);
         }
 
         aggregate.ResetToSubmissionFinished(contestId);
@@ -203,6 +216,13 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        if (CanUnpublishResults(result.ProportionalElection.Contest, aggregate))
+        {
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("Proportional election result {ProportionalElectionResultId} unpublished", aggregate.Id);
+        }
+
         aggregate.FlagForCorrection(contestId, comment);
         await AggregateRepository.Save(aggregate);
         _logger.LogInformation("Proportional election result {ProportionalElectionResultId} flagged for correction", aggregate.Id);
@@ -217,7 +237,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
             _logger.LogInformation("Proportional election result {ProportionalElectionResultId} audited tentatively", aggregate.Id);
 
             var result = await LoadPoliticalBusinessResult(aggregate.Id);
-            if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest))
+            if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest, aggregate))
             {
                 aggregate.Publish(contestId);
                 _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
@@ -262,7 +282,32 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         aggregate.AuditedTentatively(contestId);
         _logger.LogInformation("Submission finished and audited tentatively for proportional election result {ProportionalElectionResultId}", result.Id);
 
-        if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest))
+        if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest, aggregate))
+        {
+            aggregate.Publish(contestId);
+            _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
+        }
+
+        await AggregateRepository.Save(aggregate);
+    }
+
+    public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId)
+    {
+        var result = await LoadPoliticalBusinessResult(resultId);
+        if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
+        {
+            throw new ValidationException("finish correction and audit tentatively is not allowed for a non self owned political business");
+        }
+
+        var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
+        await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
+
+        var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
+        aggregate.CorrectionFinished(string.Empty, contestId);
+        aggregate.AuditedTentatively(contestId);
+        _logger.LogInformation("Correction finished and audited tentatively for proportional election result {ProportionalElectionResultId}", result.Id);
+
+        if (CanAutomaticallyPublishResults(result.ProportionalElection.DomainOfInfluence, result.ProportionalElection.Contest, aggregate))
         {
             aggregate.Publish(contestId);
             _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
@@ -277,7 +322,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             var result = await LoadPoliticalBusinessResult(aggregate.Id);
-            EnsureCanManuallyPublishResults(result.ProportionalElection.Contest, result.ProportionalElection.DomainOfInfluence);
+            EnsureCanManuallyPublishResults(result.ProportionalElection.Contest, result.ProportionalElection.DomainOfInfluence, aggregate);
             aggregate.Publish(contestId);
             _logger.LogInformation("Proportional election result {ProportionalElectionResultId} published", aggregate.Id);
         });
@@ -289,7 +334,7 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         {
             var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(aggregate.Id);
             var result = await LoadPoliticalBusinessResult(aggregate.Id);
-            EnsureCanManuallyPublishResults(result.ProportionalElection.Contest, result.ProportionalElection.DomainOfInfluence);
+            EnsureCanManuallyPublishResults(result.ProportionalElection.Contest, result.ProportionalElection.DomainOfInfluence, aggregate);
             aggregate.Unpublish(contestId);
             _logger.LogInformation("Proportional election result {ProportionalElectionResultId} unpublished", aggregate.Id);
         });

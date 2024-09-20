@@ -68,7 +68,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "BallotBundleSampleSizePercent": 30,
@@ -76,7 +78,8 @@
     "ResultEntry": 2,
     "EnforceResultEntryForCountingCircles": false,
     "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": false
+    "EnforceReviewProcedureForCountingCircles": false,
+    "Type": 0
   },
   "Entry": 2,
   "State": 1,
@@ -89,6 +92,7 @@
         "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
         "Position": 1,
         "BallotType": 2,
+        "BallotSubType": 0,
         "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
         "BallotQuestions": [],
         "TieBreakQuestions": []
@@ -182,7 +186,7 @@
     }
   ],
   "EntryParams": {
-    "BallotBundleSampleSizePercent": 30,
+    "BallotBundleSampleSizePercent": 100,
     "AutomaticBallotBundleNumberGeneration": false,
     "ReviewProcedure": 1
   },
@@ -209,5 +213,6 @@
     "ContactPersonSameDuringEventAsAfter": false,
     "ContactPersonAfterEvent": null
   },
-  "Published": false
+  "Published": false,
+  "ReadyForCorrectionTimestamp": null
 }

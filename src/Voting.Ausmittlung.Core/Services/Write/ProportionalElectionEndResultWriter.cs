@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -116,6 +116,35 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         await AggregateRepository.Save(endResultAggregate);
     }
 
+    public async Task StartMandateDistribution(Guid proportionalElectionId)
+    {
+        var endResult = await GetEndResult(proportionalElectionId, _permissionService.TenantId)
+            ?? throw new EntityNotFoundException(proportionalElectionId);
+        var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLocked(endResult.ProportionalElection.ContestId);
+
+        ValidateStartMandateDistribution(endResult);
+
+        var endResultAggregate = await AggregateRepository.GetOrCreateById<ProportionalElectionEndResultAggregate>(endResult.Id);
+        endResultAggregate.StartMandateDistribution(proportionalElectionId, contestId, testingPhaseEnded);
+        await AggregateRepository.Save(endResultAggregate);
+    }
+
+    public async Task RevertMandateDistribution(Guid proportionalElectionId)
+    {
+        var endResult = await GetEndResult(proportionalElectionId, _permissionService.TenantId)
+            ?? throw new EntityNotFoundException(proportionalElectionId);
+        var (contestId, _) = await ContestService.EnsureNotLocked(endResult.ProportionalElection.ContestId);
+
+        if (!endResult.MandateDistributionTriggered)
+        {
+            throw new ValidationException("Cannot revert mandate distribution, if it is not triggered yet.");
+        }
+
+        var endResultAggregate = await AggregateRepository.GetById<ProportionalElectionEndResultAggregate>(endResult.Id);
+        endResultAggregate.RevertMandateDistribution(contestId);
+        await AggregateRepository.Save(endResultAggregate);
+    }
+
     protected override Task<DataModels.ProportionalElectionEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId)
     {
         return _endResultRepo.Query()
@@ -125,44 +154,67 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
                 x.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId);
     }
 
-    protected override async Task ValidateFinalize(DataModels.ProportionalElectionEndResult endResult)
+    protected override async Task ValidateFinalize(DataModels.ProportionalElectionEndResult endResult, Guid contestId)
     {
-        await base.ValidateFinalize(endResult);
+        await base.ValidateFinalize(endResult, contestId);
 
-        if (endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
+        if (!endResult.MandateDistributionTriggered)
         {
-            var election = await _proportionalElectionRepo.Query()
-                .Include(pe => pe.DoubleProportionalResult)
-                .Include(pe => pe.ProportionalElectionUnionEntries)
-                    .ThenInclude(e => e.ProportionalElectionUnion.DoubleProportionalResult)
-                .FirstAsync(pe => pe.Id == endResult.ProportionalElectionId);
-
-            var dpResults = new[] { election.DoubleProportionalResult }.Concat(election.ProportionalElectionUnionEntries.Select(e => e.ProportionalElectionUnion.DoubleProportionalResult))
-                .WhereNotNull()
-                .ToList();
-
-            if (dpResults.Count == 0)
-            {
-                throw new ValidationException("finalization is not possible if the double proportional election result is not calculated");
-            }
-
-            if (dpResults.Any(x => !x.AllNumberOfMandatesDistributed))
-            {
-                throw new ValidationException("finalization is only possible if the double proportional election result distributed all number of mandates");
-            }
+            throw new ValidationException("Cannot finalize when mandates are not distributed yet");
         }
 
-        var hasOpenLotDecisions = await _endResultRepo
-            .Query()
-            .Where(x => x.Id == endResult.Id)
-            .AnyAsync(x => x.ListEndResults.Any(lr => lr.HasOpenRequiredLotDecisions));
-
-        if (hasOpenLotDecisions)
+        if (!endResult.ProportionalElection.MandateAlgorithm.IsDoubleProportional())
         {
-            throw new ValidationException("finalization is only possible after all required lot decisions are saved");
+            return;
         }
 
-        await EnsureValidEndResult(endResult);
+        var election = await _proportionalElectionRepo.Query()
+            .Include(pe => pe.DoubleProportionalResult)
+            .Include(pe => pe.ProportionalElectionUnionEntries)
+                .ThenInclude(e => e.ProportionalElectionUnion.DoubleProportionalResult)
+            .FirstAsync(pe => pe.Id == endResult.ProportionalElectionId);
+
+        var dpResults = new[] { election.DoubleProportionalResult }.Concat(election.ProportionalElectionUnionEntries.Select(e => e.ProportionalElectionUnion.DoubleProportionalResult))
+            .WhereNotNull()
+            .ToList();
+
+        if (dpResults.Count == 0)
+        {
+            throw new ValidationException("finalization is not possible if the double proportional election result is not calculated");
+        }
+
+        if (dpResults.Any(x => !x.AllNumberOfMandatesDistributed))
+        {
+            throw new ValidationException("finalization is only possible if the double proportional election result distributed all number of mandates");
+        }
+    }
+
+    protected override async Task ValidateRevertFinalize(DataModels.ProportionalElectionEndResult endResult, Guid contestId)
+    {
+        await base.ValidateRevertFinalize(endResult, contestId);
+
+        if (!endResult.MandateDistributionTriggered)
+        {
+            throw new ValidationException("Cannot revert finalization if mandate distribution is not triggered yet");
+        }
+    }
+
+    private void ValidateStartMandateDistribution(DataModels.ProportionalElectionEndResult endResult)
+    {
+        if (!endResult.AllCountingCirclesDone)
+        {
+            throw new ValidationException("Not all counting circles are done");
+        }
+
+        if (endResult.MandateDistributionTriggered)
+        {
+            throw new ValidationException("Cannot start mandate distribution, if it is already triggered");
+        }
+
+        if (endResult.ProportionalElection.MandateAlgorithm.IsUnionDoubleProportional())
+        {
+            throw new ValidationException("Cannot start mandate distribution with a union mandate algorithm");
+        }
     }
 
     private void ValidateLotDecisions(
@@ -210,24 +262,6 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
             {
                 throw new ValidationException("Invalid candidate end result state");
             }
-        }
-    }
-
-    private async Task EnsureValidEndResult(DataModels.ProportionalElectionEndResult endResult)
-    {
-        if (!endResult.ManualEndResultRequired)
-        {
-            return;
-        }
-
-        var listEndResults = await _listEndResultRepo.Query()
-            .Where(l => l.ElectionEndResultId == endResult.Id)
-            .ToListAsync();
-
-        var distributedNumberOfMandates = listEndResults.Sum(l => l.NumberOfMandates);
-        if (endResult.ProportionalElection.NumberOfMandates != distributedNumberOfMandates)
-        {
-            throw new ValidationException($"Manual end result is required and not all number of mandates are distributed, required: {endResult.ProportionalElection.NumberOfMandates}, set: {distributedNumberOfMandates}");
         }
     }
 }

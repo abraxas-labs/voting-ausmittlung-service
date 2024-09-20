@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -33,7 +33,7 @@ public class CsvProportionalElectionCandidatesNumericalRenderService : IRenderer
             .ThenBy(c => c.Position)
             .Select(c => new
             {
-                KandidatenNr = $"{c.ProportionalElectionList.OrderNumber}.{c.Number}",
+                KandidatenNr = $"{c.ProportionalElectionList.OrderNumber}.{c.Number}{(c.ProportionalElectionList.ProportionalElection.CandidateCheckDigit ? c.CheckDigit : string.Empty)}",
                 Nachname = c.PoliticalLastName,
                 Vorname = c.PoliticalFirstName,
                 Wohnort = c.Locality,

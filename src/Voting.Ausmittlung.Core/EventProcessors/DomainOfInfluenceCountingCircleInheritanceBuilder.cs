@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -36,7 +36,7 @@ public class DomainOfInfluenceCountingCircleInheritanceBuilder
 
         var newEntries = BuildDomainOfInfluenceCountingCircleEntries(doiId, hierarchicalGreaterOrSelfDoiIds, countingCircleIdsToAdd, existingEntries);
         await _doiCountingCirclesRepo.RemoveAll(hierarchicalGreaterOrSelfDoiIds, countingCircleIdsToRemove);
-        await _doiCountingCirclesRepo.AddRange(newEntries);
+        await _doiCountingCirclesRepo.CreateRange(newEntries);
     }
 
     internal Task<List<Guid>> GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(Guid domainOfInfluenceId)

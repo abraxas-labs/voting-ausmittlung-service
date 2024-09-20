@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -22,25 +22,25 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElection> _repo;
+    private readonly IDbRepository<DataContext, MajorityElectionResult> _resultRepo;
     private readonly IMapper _mapper;
     private readonly MajorityElectionDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
-    private readonly IClock _clock;
 
     public PdfMajorityElectionEndResultDetailRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElection> repo,
+        IDbRepository<DataContext, MajorityElectionResult> resultRepo,
         IMapper mapper,
         MajorityElectionDomainOfInfluenceResultBuilder doiResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IClock clock)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
     {
         _templateService = templateService;
         _repo = repo;
+        _resultRepo = resultRepo;
         _mapper = mapper;
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -48,8 +48,6 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         var data = await _repo.Query()
             .AsSplitQuery()
             .Include(x => x.EndResult!.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.Candidate.Translations)
-            .Include(x => x.Results).ThenInclude(x => x.CountingCircle)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
             .Include(x => x.Contest.DomainOfInfluence)
             .Include(x => x.Contest.Translations)
@@ -57,6 +55,35 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .Include(x => x.Translations)
             .FirstOrDefaultAsync(x => x.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
+
+        var isPartialResult = data.DomainOfInfluence.SecureConnectId != ctx.TenantId;
+        if (isPartialResult && ctx.ViewablePartialResultsCountingCircleIds?.Count == 0)
+        {
+            throw new ValidationException("invalid partial result without any viewable counting circle ids");
+        }
+
+        var results = await _resultRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle.ContestDetails)
+            .ThenInclude(x => x.VotingCards)
+            .Include(x => x.CountingCircle.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.CandidateResults)
+            .ThenInclude(x => x.Candidate.Translations)
+            .Where(x => x.MajorityElectionId == ctx.PoliticalBusinessId && (!isPartialResult || ctx.ViewablePartialResultsCountingCircleIds!.Contains(x.CountingCircleId)))
+            .ToListAsync(ct);
+
+        if (results.Count == 0)
+        {
+            throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
+        }
+
+        data.Results = results;
+
+        if (isPartialResult)
+        {
+            data.EndResult = PartialEndResultUtils.MergeIntoPartialEndResult(data, results);
+        }
 
         var ccDetailsList = await _ccDetailsRepo
             .Query()

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -52,11 +52,11 @@ public class CountingCircleResultsInitializer
     {
         var votesToUpdate = await _voteRepo.Query()
             .Where(v => domainOfInfluenceIds.Contains(v.DomainOfInfluenceId))
-            .Select(v => new { v.Id, v.DomainOfInfluenceId })
+            .Select(v => new { v.Id, v.DomainOfInfluenceId, v.ContestId })
             .ToListAsync();
         foreach (var vote in votesToUpdate)
         {
-            await _voteResultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, false);
+            await _voteResultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, false, vote.ContestId);
             await _ccResultRepo.Sync(vote.Id, vote.DomainOfInfluenceId, false);
         }
     }
@@ -65,11 +65,11 @@ public class CountingCircleResultsInitializer
     {
         var electionsToUpdate = await _proportionalElectionRepo.Query()
             .Where(v => domainOfInfluenceIds.Contains(v.DomainOfInfluenceId))
-            .Select(v => new { v.Id, v.DomainOfInfluenceId })
+            .Select(v => new { v.Id, v.DomainOfInfluenceId, v.ContestId })
             .ToListAsync();
         foreach (var election in electionsToUpdate)
         {
-            await _proportionalElectionResultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false);
+            await _proportionalElectionResultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId);
             await _ccResultRepo.Sync(election.Id, election.DomainOfInfluenceId, false);
         }
     }
@@ -78,11 +78,11 @@ public class CountingCircleResultsInitializer
     {
         var electionsToUpdate = await _majorityElectionRepo.Query()
             .Where(v => domainOfInfluenceIds.Contains(v.DomainOfInfluenceId))
-            .Select(v => new { v.Id, v.DomainOfInfluenceId })
+            .Select(v => new { v.Id, v.DomainOfInfluenceId, v.ContestId })
             .ToListAsync();
         foreach (var election in electionsToUpdate)
         {
-            await _majorityElectionResultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false);
+            await _majorityElectionResultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId);
             await _ccResultRepo.Sync(election.Id, election.DomainOfInfluenceId, false);
         }
     }

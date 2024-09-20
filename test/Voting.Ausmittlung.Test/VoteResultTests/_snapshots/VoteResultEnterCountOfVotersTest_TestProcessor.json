@@ -36,7 +36,7 @@
   "PoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
   "Entry": 2,
   "EntryParams": {
-    "BallotBundleSampleSizePercent": 30,
+    "BallotBundleSampleSizePercent": 100,
     "AutomaticBallotBundleNumberGeneration": false,
     "ReviewProcedure": 1
   },
@@ -44,6 +44,7 @@
   "CountingCircle": null,
   "State": 2,
   "SubmissionDoneTimestamp": null,
+  "ReadyForCorrectionTimestamp": null,
   "AuditedTentativelyTimestamp": null,
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,

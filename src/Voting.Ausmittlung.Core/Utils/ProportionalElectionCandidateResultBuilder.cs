@@ -1,8 +1,7 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -48,20 +47,6 @@ public class ProportionalElectionCandidateResultBuilder
         }
 
         await _dataContext.SaveChangesAsync();
-    }
-
-    internal void AddMissingCandidateResults(ProportionalElectionListResult listResult, IEnumerable<Guid> candidateIds)
-    {
-        var toAdd = candidateIds.Except(listResult.CandidateResults.Select(x => x.CandidateId))
-            .Select(candidateId => new ProportionalElectionCandidateResult
-            {
-                CandidateId = candidateId,
-            })
-            .ToList();
-        foreach (var candidateResult in toAdd)
-        {
-            listResult.CandidateResults.Add(candidateResult);
-        }
     }
 
     internal async Task AdjustConventionalCandidateResultForBundle(ProportionalElectionResultBundle resultBundle, int deltaFactor)

@@ -25,7 +25,9 @@
       "NewZhFeaturesEnabled": true,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false
+      "PublishResultsEnabled": false,
+      "EndResultFinalizeDisabled": true,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElectionUnion": {
@@ -61,7 +63,8 @@
         "NumberOfMandates": 11,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "KtRat007",
-        "ShortDescription": "Kantonratswahl de"
+        "ShortDescription": "Kantonratswahl de",
+        "BusinessSubType": 0
       },
       {
         "Id": "c3c7b0c5-5562-48b1-97e9-694151a93d68",
@@ -89,7 +92,8 @@
         "NumberOfMandates": 12,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "KtRat010",
-        "ShortDescription": "Kantonratswahl de"
+        "ShortDescription": "Kantonratswahl de",
+        "BusinessSubType": 0
       },
       {
         "Id": "69395ab1-de75-4165-b383-13b6cbc53e96",
@@ -117,7 +121,8 @@
         "NumberOfMandates": 13,
         "CountOfSecondaryBusinesses": 0,
         "PoliticalBusinessNumber": "KtRat014",
-        "ShortDescription": "Kantonratswahl de"
+        "ShortDescription": "Kantonratswahl de",
+        "BusinessSubType": 0
       }
     ]
   },
@@ -193,6 +198,7 @@
       "ListEndResults": [],
       "Finalized": false,
       "ManualEndResultRequired": false,
+      "MandateDistributionTriggered": false,
       "PartialResult": false
     },
     {
@@ -266,6 +272,7 @@
       "ListEndResults": [],
       "Finalized": false,
       "ManualEndResultRequired": false,
+      "MandateDistributionTriggered": false,
       "PartialResult": false
     },
     {
@@ -339,6 +346,7 @@
       "ListEndResults": [],
       "Finalized": false,
       "ManualEndResultRequired": false,
+      "MandateDistributionTriggered": false,
       "PartialResult": false
     }
   ],

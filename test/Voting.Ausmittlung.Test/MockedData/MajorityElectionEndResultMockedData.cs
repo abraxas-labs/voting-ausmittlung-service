@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -92,7 +92,7 @@ public static class MajorityElectionEndResultMockedData
             await simplePbBuilder.Create(election);
 
             await sp.GetRequiredService<MajorityElectionResultBuilder>()
-                .RebuildForElection(electionId, mappedDomainOfInfluence.Id, false);
+                .RebuildForElection(electionId, mappedDomainOfInfluence.Id, false, election.ContestId);
 
             var endResultInitializer = sp.GetRequiredService<MajorityElectionEndResultInitializer>();
             await endResultInitializer.RebuildForElection(electionId, false);
@@ -151,6 +151,7 @@ public static class MajorityElectionEndResultMockedData
             ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,
+            FederalIdentification = 333,
             MajorityElectionCandidates = new List<MajorityElectionCandidate>
                 {
                     BuildCandidate(CandidateId1, 1, 9),

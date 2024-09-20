@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
@@ -33,6 +34,19 @@ public class ExportListProtocolExportsTest : ExportBaseRestTest
     }
 
     [Fact]
+    public async Task ShouldWorkForMonitoringFinalizedResults()
+    {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
+        var response = await AssertStatus(
+            () => StGallenReportExporterApiClient.GetAsync(BuildUrl(ContestMockedData.GuidStGallenEvoting)),
+            HttpStatusCode.OK);
+        var responseBody = await ReadJson<ListProtocolExportsResponse>(response);
+        responseBody.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task ShouldWorkForErfassung()
     {
         var response = await AssertStatus(
@@ -45,6 +59,16 @@ public class ExportListProtocolExportsTest : ExportBaseRestTest
     [Fact]
     public async Task ShouldWorkWithExistingProtocolExports()
     {
+        var responseBody = await ReadJson<ListProtocolExportsResponse>(await StGallenReportExporterApiClient.GetAsync(BuildUrl(ContestMockedData.GuidStGallenEvoting)));
+        responseBody.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithExistingProtocolExportsFinalizedResults()
+    {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
         var responseBody = await ReadJson<ListProtocolExportsResponse>(await StGallenReportExporterApiClient.GetAsync(BuildUrl(ContestMockedData.GuidStGallenEvoting)));
         responseBody.MatchSnapshot();
     }

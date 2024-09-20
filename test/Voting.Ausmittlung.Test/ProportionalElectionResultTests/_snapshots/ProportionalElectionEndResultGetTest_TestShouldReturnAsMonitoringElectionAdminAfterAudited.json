@@ -36,7 +36,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "ProportionalElection": {
@@ -113,7 +115,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "ReviewProcedure": 1,
@@ -254,9 +258,9 @@
           "VoteCount": 0,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 3,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -293,9 +297,9 @@
           "VoteCount": 0,
           "Rank": 1,
           "LotDecision": false,
-          "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
-          "State": 3,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -326,7 +330,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "6a8913a3-bd03-4cb3-a0f9-317db5de8959"
       },
-      "HasOpenRequiredLotDecisions": true,
+      "HasOpenRequiredLotDecisions": false,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -406,7 +410,7 @@
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
-          "State": 3,
+          "State": 1,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
@@ -556,5 +560,6 @@
   ],
   "Finalized": false,
   "ManualEndResultRequired": false,
+  "MandateDistributionTriggered": false,
   "PartialResult": false
 }

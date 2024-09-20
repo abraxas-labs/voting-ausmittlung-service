@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -55,6 +55,10 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         voteResultEvents.MatchSnapshot(nameof(voteResultEvents));
         proportionalElectionResultEvents.MatchSnapshot(nameof(proportionalElectionResultEvents));
         majorityElectionResultEvents.MatchSnapshot(nameof(majorityElectionResultEvents));
+
+        EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
     }
 
     [Fact]
@@ -74,6 +78,18 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         voteResultEvents.MatchSnapshot(nameof(voteResultEvents));
         proportionalElectionResultEvents.MatchSnapshot(nameof(proportionalElectionResultEvents));
         majorityElectionResultEvents.MatchSnapshot(nameof(majorityElectionResultEvents));
+
+        var voteResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList();
+        var proportionalElectionResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList();
+        var majorityElectionResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList();
+
+        voteResultAuditedTentativelyEvents.Should().HaveCount(1);
+        proportionalElectionResultAuditedTentativelyEvents.Should().HaveCount(1);
+        majorityElectionResultAuditedTentativelyEvents.Should().HaveCount(1);
+
+        voteResultAuditedTentativelyEvents.MatchSnapshot(nameof(voteResultAuditedTentativelyEvents));
+        proportionalElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(proportionalElectionResultAuditedTentativelyEvents));
+        majorityElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(majorityElectionResultAuditedTentativelyEvents));
     }
 
     [Fact]

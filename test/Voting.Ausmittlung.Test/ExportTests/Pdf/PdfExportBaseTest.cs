@@ -1,13 +1,17 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -83,11 +87,20 @@ public abstract class PdfExportBaseTest : BaseTest<ExportService.ExportServiceCl
     protected async Task TestPdfReport(string snapshotSuffix, ExportService.ExportServiceClient client, StartProtocolExportsRequest request)
     {
         await client.StartProtocolExportsAsync(request);
-        var xml = RunScoped<PdfServiceMock, string>(x => x.GetGenerated(TemplateKey));
+        var config = GetService<PublisherConfig>();
+        var contest = await RunOnDb(db => db.Contests
+            .Include(x => x.DomainOfInfluence)
+            .FirstAsync(x => x.Id == Guid.Parse(request.ContestId)));
+        var exportTemplateKeyCantonSuffix = config.ExportTemplateKeyCantonSuffixEnabled
+            ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
+            : string.Empty;
+
+        var xml = RunScoped<PdfServiceMock, string>(x => x.GetGenerated(TemplateKey + exportTemplateKeyCantonSuffix));
         var formattedXml = XmlUtil.FormatTestXml(xml);
         formattedXml.MatchRawTextSnapshot("ExportTests", "Pdf", "_snapshots", $"{SnapshotName}{snapshotSuffix}.xml");
 
         var startedEvent = EventPublisherMock.GetSinglePublishedEvent<ProtocolExportStarted>();
         startedEvent.FileName.Should().Be(NewRequestExpectedFileName);
+        startedEvent.ExportKey.Should().Be(TemplateKey + exportTemplateKeyCantonSuffix);
     }
 }

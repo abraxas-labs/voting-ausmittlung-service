@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -42,12 +42,31 @@ public class ProportionalElectionResultResetToSubmissionFinishedTest : Proportio
     }
 
     [Fact]
-    public async Task TestShouldReturnWithUnpublish()
+    public async Task TestShouldReturnWithUnpublishWhenNoBeforeAuditedPublish()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
         await RunToPublished();
         await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionResultUnpublished>().ElectionResultId.Should().Be(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithNoUnpublishWhenBeforeAuditedPublish()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+        await RunToPublished();
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultUnpublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -227,6 +246,11 @@ public class ProportionalElectionResultResetToSubmissionFinishedTest : Proportio
             x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum);
 
         await RunToState(CountingCircleResultState.AuditedTentatively);
+        await TestEventPublisher.Publish(new ProportionalElectionEndResultMandateDistributionStarted
+        {
+            EventInfo = GetMockedEventInfo(),
+            ProportionalElectionId = electionGuid.ToString(),
+        });
 
         await RunOnDb(async db =>
         {

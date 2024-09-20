@@ -36,7 +36,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "PoliticalBusinesses": [
@@ -66,7 +68,8 @@
       "NumberOfMandates": 5,
       "CountOfSecondaryBusinesses": 0,
       "PoliticalBusinessNumber": "412",
-      "ShortDescription": "Mw Uzwil de"
+      "ShortDescription": "Mw Uzwil de",
+      "BusinessSubType": 0
     },
     {
       "Id": "76d1c7ed-85ec-4e62-a540-ca0a83149d32",
@@ -94,7 +97,8 @@
       "NumberOfMandates": 5,
       "CountOfSecondaryBusinesses": 0,
       "PoliticalBusinessNumber": "412",
-      "ShortDescription": "Pw Uzwil de"
+      "ShortDescription": "Pw Uzwil de",
+      "BusinessSubType": 0
     },
     {
       "Id": "7de846be-9e60-45c7-81e3-51441ff37592",
@@ -122,7 +126,8 @@
       "NumberOfMandates": null,
       "CountOfSecondaryBusinesses": 0,
       "PoliticalBusinessNumber": "412",
-      "ShortDescription": "Abst Uzwil de"
+      "ShortDescription": "Abst Uzwil de",
+      "BusinessSubType": 0
     }
   ],
   "CountingCircleResults": [
@@ -175,7 +180,8 @@
             "TotalInvalidBallots": 0,
             "TotalBlankBallots": 0
           },
-          "Published": false
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
         },
         {
           "Id": "",
@@ -201,7 +207,8 @@
             "TotalInvalidBallots": 0,
             "TotalBlankBallots": 0
           },
-          "Published": false
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
         },
         {
           "Id": "",
@@ -227,11 +234,13 @@
             "TotalInvalidBallots": 0,
             "TotalBlankBallots": 0
           },
-          "Published": false
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
         }
       ]
     }
   ],
   "CurrentTenantIsContestManager": true,
-  "PoliticalBusinessUnions": []
+  "PoliticalBusinessUnions": [],
+  "HasPartialResults": false
 }

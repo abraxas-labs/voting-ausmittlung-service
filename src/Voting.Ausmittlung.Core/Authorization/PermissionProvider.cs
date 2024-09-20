@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -234,6 +234,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionListResult.Read,
 
             Permissions.ProportionalElectionEndResult.EnterManualResults,
+            Permissions.ProportionalElectionEndResult.TriggerMandateDistribution,
 
             Permissions.MajorityElectionCandidate.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,

@@ -2,7 +2,7 @@
   <deliveryHeader>
     <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
     <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
-    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1710967</messageType>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
     <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
       <manufacturer>Abraxas Informatik AG</manufacturer>
       <product>Voting.Ausmittlung</product>
@@ -17,28 +17,41 @@
     <pollingDay>2020-08-31</pollingDay>
     <voteInfo>
       <vote>
-        <voteIdentification>b86d3fb0-0a01-46cd-a616-c559bb17c57b</voteIdentification>
+        <voteIdentification>512bb3a2-97e2-4779-ac51-83abd039afc4_1</voteIdentification>
         <domainOfInfluence>
           <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">eae2cfaf-c787-48b9-a108-c975b0a580da</domainOfInfluenceIdentification>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
         </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
+        </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Bund de</voteTitle>
+          <voteTitleShort>Abst Bund de</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
       </vote>
       <countingCircleInfo>
         <countingCircle>
-          <countingCircleId>eea024ee-7f93-4a58-9e7d-6e6b0c11b723</countingCircleId>
+          <countingCircleId>1</countingCircleId>
           <countingCircleName>Bund</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
           <receivedInvalidVotes>0</receivedInvalidVotes>
           <receivedBlankVotes>0</receivedBlankVotes>
@@ -46,267 +59,358 @@
           <countOfYesVotes>0</countOfYesVotes>
           <countOfNoVotes>0</countOfNoVotes>
           <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
         </resultData>
       </countingCircleInfo>
       <countingCircleInfo>
         <countingCircle>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countingCircleName>Gossau</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</countingCircleId>
-          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>46adab98-9114-4503-9000-b02842640650</countingCircleId>
-          <countingCircleName>St. Gallen Haggen</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</countingCircleId>
-          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
-          <countingCircleName>Uzwil</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-    </voteInfo>
-    <voteInfo>
-      <vote>
-        <voteIdentification>49e72672-bbaf-4724-ab82-ce19305f2be4</voteIdentification>
-        <domainOfInfluence>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0e9ae002-dfa1-4eb6-920b-5d837a33ff79</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
-        </domainOfInfluence>
-        <pollingDay>2020-08-31</pollingDay>
-        <decisiveMajority>1</decisiveMajority>
-        <voteSubType>1</voteSubType>
-      </vote>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
-          <countingCircleName>Gossau</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</countingCircleId>
-          <countingCircleName>St. Gallen</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</countingCircleId>
-          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>46adab98-9114-4503-9000-b02842640650</countingCircleId>
-          <countingCircleName>St. Gallen Haggen</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</countingCircleId>
-          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
-          <countingCircleName>Uzwil</countingCircleName>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-        </resultData>
-      </countingCircleInfo>
-    </voteInfo>
-    <voteInfo>
-      <vote>
-        <voteIdentification>191761e9-c08a-4d36-b693-cd9ec56f73ca</voteIdentification>
-        <domainOfInfluence>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d9f5e161-37f8-4c76-921d-c0237c54dc5b</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
-        </domainOfInfluence>
-        <pollingDay>2020-08-31</pollingDay>
-        <decisiveMajority>1</decisiveMajority>
-        <voteSubType>1</voteSubType>
-      </vote>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
-          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.750000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500</countingCircleId>
+          <countingCircleName>St. Gallen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-3</countingCircleId>
+          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-2</countingCircleId>
+          <countingCircleName>St. Gallen Haggen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-1</countingCircleId>
+          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>0ed26aad-e169-4d55-b9a9-90475ba81a02_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung St. Gallen de</voteTitle>
+          <voteTitleShort>Abst SG de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15000</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500</countingCircleId>
+          <countingCircleName>St. Gallen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-3</countingCircleId>
+          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-2</countingCircleId>
+          <countingCircleName>St. Gallen Haggen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-1</countingCircleId>
+          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>0.00</voterTurnout>
+          <receivedVotes>0</receivedVotes>
+          <receivedInvalidVotes>0</receivedInvalidVotes>
+          <receivedBlankVotes>0</receivedBlankVotes>
+          <receivedValidVotes>0</receivedValidVotes>
+          <countOfYesVotes>0</countOfYesVotes>
+          <countOfNoVotes>0</countOfNoVotes>
+          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
+        </resultData>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>e6ee82f9-70d4-4ffa-a673-34d56fc47204_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Uzwil de</voteTitle>
+          <voteTitleShort>Abst Uzwil de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+        <resultData>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15000</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
           <receivedInvalidVotes>3000</receivedInvalidVotes>
           <receivedBlankVotes>2000</receivedBlankVotes>
@@ -314,34 +418,51 @@
           <countOfYesVotes>5300</countOfYesVotes>
           <countOfNoVotes>4500</countOfNoVotes>
           <countOfVotesWithoutAnswer>200</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
         </resultData>
       </countingCircleInfo>
     </voteInfo>
     <voteInfo>
       <vote>
-        <voteIdentification>0516dfaf-4414-4f71-b062-d39dc4bb0277</voteIdentification>
-        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</mainVoteIdentification>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
         <domainOfInfluence>
           <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</domainOfInfluenceIdentification>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+        </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Frage 1 Gossau de</voteTitle>
+          <voteTitleShort>Frage 1 Gossau de</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
       </vote>
       <countingCircleInfo>
         <countingCircle>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.750000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
           <receivedInvalidVotes>3000</receivedInvalidVotes>
           <receivedBlankVotes>2000</receivedBlankVotes>
@@ -349,34 +470,51 @@
           <countOfYesVotes>5500</countOfYesVotes>
           <countOfNoVotes>4490</countOfNoVotes>
           <countOfVotesWithoutAnswer>10</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
         </resultData>
       </countingCircleInfo>
     </voteInfo>
     <voteInfo>
       <vote>
-        <voteIdentification>e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d</voteIdentification>
-        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</mainVoteIdentification>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_2</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
         <domainOfInfluence>
           <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</domainOfInfluenceIdentification>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+        </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Frage 2 Gossau de</voteTitle>
+          <voteTitleShort>Frage 2 Gossau de</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
+        <sequence>2</sequence>
       </vote>
       <countingCircleInfo>
         <countingCircle>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.750000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
           <receivedInvalidVotes>3000</receivedInvalidVotes>
           <receivedBlankVotes>2000</receivedBlankVotes>
@@ -384,19 +522,29 @@
           <countOfYesVotes>4500</countOfYesVotes>
           <countOfNoVotes>6500</countOfNoVotes>
           <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
         </resultData>
       </countingCircleInfo>
     </voteInfo>
     <voteInfo>
       <vote>
-        <voteIdentification>7c2e10f6-1262-45d9-a705-b480aa035d0e</voteIdentification>
-        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</mainVoteIdentification>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1_t</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
         <domainOfInfluence>
           <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</domainOfInfluenceIdentification>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+        </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
@@ -404,18 +552,20 @@
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>3</voteSubType>
+        <sequence>3</sequence>
       </vote>
       <countingCircleInfo>
         <countingCircle>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.750000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
           <receivedInvalidVotes>3000</receivedInvalidVotes>
           <receivedBlankVotes>2000</receivedBlankVotes>
@@ -423,9 +573,13 @@
           <countOfYesVotes>4500</countOfYesVotes>
           <countOfNoVotes>6400</countOfNoVotes>
           <countOfVotesWithoutAnswer>100</countOfVotesWithoutAnswer>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>1</text>
+          </namedElement>
         </resultData>
       </countingCircleInfo>
     </voteInfo>
-    <numberOfEntries>4</numberOfEntries>
+    <numberOfEntries>6</numberOfEntries>
   </voteBaseDelivery>
 </delivery>

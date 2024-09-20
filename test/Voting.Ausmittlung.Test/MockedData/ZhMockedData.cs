@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -445,6 +445,7 @@ public static class ZhMockedData
             CantonDefaults = new ContestCantonDefaults
             {
                 NewZhFeaturesEnabled = true,
+                EndResultFinalizeDisabled = true,
             },
         };
 
@@ -504,7 +505,7 @@ public static class ZhMockedData
             foreach (var election in proportionalElections)
             {
                 await simplePbBuilder.Create(election);
-                await resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false);
+                await resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId);
                 await endResultInitializer.RebuildForElection(election.Id, false);
             }
 

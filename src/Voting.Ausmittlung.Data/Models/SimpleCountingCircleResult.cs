@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -20,6 +20,8 @@ public class SimpleCountingCircleResult : BaseEntity
     public CountingCircleResultState State { get; set; } = CountingCircleResultState.Initial;
 
     public DateTime? SubmissionDoneTimestamp { get; set; }
+
+    public DateTime? ReadyForCorrectionTimestamp { get; set; }
 
     public DateTime? AuditedTentativelyTimestamp { get; set; }
 

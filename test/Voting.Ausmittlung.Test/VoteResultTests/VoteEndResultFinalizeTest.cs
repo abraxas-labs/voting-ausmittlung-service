@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -107,6 +107,20 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "not all counting circles are done");
+    }
+
+    [Fact]
+    public async Task ShouldThrowCantonSettingsEndResultFinalizeDisabled()
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "End result finalize is not enabled for contest");
     }
 
     [Fact]

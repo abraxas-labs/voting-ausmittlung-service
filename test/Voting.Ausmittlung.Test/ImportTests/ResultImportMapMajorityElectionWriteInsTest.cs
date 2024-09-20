@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -278,6 +278,30 @@ public class ResultImportMapMajorityElectionWriteInsTest : BaseTest<ResultImport
             async () => await MapMappings(importId, secondaryMappings, (_, m) => m.Target = SharedProto.MajorityElectionWriteInMappingTarget.Invalid),
             StatusCode.InvalidArgument,
             "Invalid votes are not enabled on this election");
+    }
+
+    [Fact]
+    public async Task ShouldThrowWithIndividualVoteMappingsButNoIndividualVotes()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await ModifyDbEntities<SecondaryMajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdUzwilMajorityElectionInContestStGallen),
+            x => x.IndividualCandidatesDisabled = true);
+
+        var (importId, primaryMappings, secondaryMappings) = await FetchMappings();
+
+        await AssertStatus(
+            async () => await MapMappings(importId, primaryMappings, (_, m) => m.Target = SharedProto.MajorityElectionWriteInMappingTarget.Individual),
+            StatusCode.InvalidArgument,
+            "Individual votes are not enabled on this election");
+
+        await AssertStatus(
+            async () => await MapMappings(importId, secondaryMappings, (_, m) => m.Target = SharedProto.MajorityElectionWriteInMappingTarget.Individual),
+            StatusCode.InvalidArgument,
+            "Individual votes are not enabled on this election");
     }
 
     [Fact]

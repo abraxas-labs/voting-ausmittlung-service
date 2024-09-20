@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -115,14 +115,21 @@ public class ContestCountingCircleDetailsWriter
 
     private async Task EnsurePoliticalBusinessesStillInProgress(Guid contestId, Guid basisCountingCircleId)
     {
-        var hasFinishedPoliticalBusiness = await _countingCircleRepo
+        var resultStates = await _countingCircleRepo
             .Query()
             .Where(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
             .SelectMany(cc => cc.VoteResults
                 .Select(br => br.State)
                 .Concat(cc.ProportionalElectionResults.Select(pr => pr.State))
                 .Concat(cc.MajorityElectionResults.Select(mr => mr.State)))
-            .AnyAsync(state => state >= DataModels.CountingCircleResultState.SubmissionDone);
+            .ToListAsync();
+
+        if (resultStates.Count == 0)
+        {
+            throw new ValidationException("Counting circle has no results, cannot update the contest counting circle details.");
+        }
+
+        var hasFinishedPoliticalBusiness = resultStates.Any(state => state >= DataModels.CountingCircleResultState.SubmissionDone);
 
         if (hasFinishedPoliticalBusiness)
         {

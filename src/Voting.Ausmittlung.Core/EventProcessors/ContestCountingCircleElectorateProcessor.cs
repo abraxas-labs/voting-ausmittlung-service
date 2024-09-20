@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -22,15 +23,18 @@ public class ContestCountingCircleElectorateProcessor : IEventProcessor<ContestC
     private readonly IDbRepository<DataContext, ContestCountingCircleElectorate> _repo;
     private readonly IDbRepository<DataContext, VotingCardResultDetail> _vcRepo;
     private readonly IMapper _mapper;
+    private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
 
     public ContestCountingCircleElectorateProcessor(
         IDbRepository<DataContext, ContestCountingCircleElectorate> repo,
         IDbRepository<DataContext, VotingCardResultDetail> vcRepo,
-        IMapper mapper)
+        IMapper mapper,
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
     {
         _repo = repo;
         _vcRepo = vcRepo;
         _mapper = mapper;
+        _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
     }
 
     public Task Process(ContestCountingCircleElectoratesCreated eventData)
@@ -65,28 +69,6 @@ public class ContestCountingCircleElectorateProcessor : IEventProcessor<ContestC
         }
 
         await _repo.CreateRange(electorates);
-        await ResetConventialReceivedVotingCardCounts(contestId, basisCountingCircleId);
-    }
-
-    private async Task ResetConventialReceivedVotingCardCounts(Guid contestId, Guid basisCountingCircleId)
-    {
-        var votingCards = await _vcRepo.Query()
-            .Where(vc =>
-                vc.ContestCountingCircleDetails.ContestId == contestId &&
-                vc.ContestCountingCircleDetails.CountingCircle.BasisCountingCircleId == basisCountingCircleId &&
-                vc.Channel != VotingChannel.EVoting)
-            .ToListAsync();
-
-        if (votingCards.Count == 0)
-        {
-            return;
-        }
-
-        foreach (var votingCard in votingCards)
-        {
-            votingCard.CountOfReceivedVotingCards = null;
-        }
-
-        await _vcRepo.UpdateRange(votingCards);
+        await _contestCountingCircleDetailsBuilder.ResetConventionalVotingCards(contestId, basisCountingCircleId);
     }
 }

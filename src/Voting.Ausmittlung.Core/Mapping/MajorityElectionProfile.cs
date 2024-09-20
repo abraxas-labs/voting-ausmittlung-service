@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
@@ -28,6 +28,7 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.PoliticalBusinessTranslations, opts => opts.Ignore())
             .ForMember(dst => dst.CountingCircleResults, opts => opts.Ignore())
             .ForMember(dst => dst.SwissAbroadVotingRight, opts => opts.Ignore())
+            .ForMember(dst => dst.PoliticalBusinessSubType, opts => opts.MapFrom(src => src.BusinessSubType))
             .AfterMap((_, dst) => dst.PoliticalBusinessType = PoliticalBusinessType.MajorityElection);
         CreateMap<MajorityElectionTranslation, SimplePoliticalBusinessTranslation>()
             .ForMember(dst => dst.Id, opts => opts.Ignore());
@@ -58,6 +59,7 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.PoliticalBusinessTranslations, opts => opts.Ignore())
             .ForMember(dst => dst.CountingCircleResults, opts => opts.Ignore())
             .ForMember(dst => dst.SwissAbroadVotingRight, opts => opts.Ignore())
+            .ForMember(dst => dst.PoliticalBusinessSubType, opts => opts.MapFrom(src => src.BusinessSubType))
             .AfterMap((_, dst) => dst.PoliticalBusinessType = PoliticalBusinessType.SecondaryMajorityElection);
         CreateMap<SecondaryMajorityElectionTranslation, SimplePoliticalBusinessTranslation>()
             .ForMember(dst => dst.Id, opts => opts.Ignore());

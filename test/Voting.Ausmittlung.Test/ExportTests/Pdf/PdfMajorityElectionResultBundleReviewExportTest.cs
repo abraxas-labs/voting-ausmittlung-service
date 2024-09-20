@@ -1,17 +1,18 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Controllers.Models;
-using Voting.Ausmittlung.Core.Auth;
+using Abraxas.Voting.Ausmittlung.Events.V1;
+using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Grpc.Net.Client;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
+using PoliticalBusinessType = Abraxas.Voting.Ausmittlung.Services.V1.Models.PoliticalBusinessType;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -22,11 +23,18 @@ public class PdfMajorityElectionResultBundleReviewExportTest : PdfBundleReviewEx
     {
     }
 
-    protected override HttpClient TestClient => CreateHttpClient(
-        tenant: SecureConnectTestDefaults.MockedTenantStGallen.Id,
-        roles: RolesMockedData.ErfassungElectionAdmin);
-
     protected override string NewRequestExpectedFileName => "Bundkontrolle 1.pdf";
+
+    protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key;
+
+    [Fact]
+    public async Task TestBundleWithoutCandidateCheckDigit()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            x => x.Id == MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund,
+            x => x.EntryParams!.CandidateCheckDigit = false);
+        await TestPdfReport("_without_candidate_check_digit", NewRequest(), NewRequestExpectedFileName);
+    }
 
     protected override async Task SeedData()
     {
@@ -35,36 +43,20 @@ public class PdfMajorityElectionResultBundleReviewExportTest : PdfBundleReviewEx
         await MajorityElectionResultBundleMockedData.Seed(RunScoped);
         await MajorityElectionResultBallotMockedData.Seed(RunScoped);
 
-        await RunOnDb(async db =>
-        {
-            var bundles = await db.MajorityElectionResultBundles.AsTracking().ToListAsync();
-            foreach (var bundle in bundles)
-            {
-                bundle.State = BallotBundleState.Reviewed;
-            }
-
-            var ballots = await db.MajorityElectionResultBallots.AsTracking().ToListAsync();
-            foreach (var ballot in ballots)
-            {
-                ballot.MarkedForReview = true;
-            }
-
-            await db.SaveChangesAsync();
-        });
+        await RunOnBundle<MajorityElectionResultBundleSubmissionFinished, MajorityElectionResultBundleAggregate>(
+            MajorityElectionResultBundleMockedData.StGallenBundle1.Id,
+            aggregate => aggregate.SubmissionFinished(ContestMockedData.GuidBundesurnengang));
     }
 
-    protected override HttpClient CreateHttpClient(params string[] roles)
-        => CreateHttpClient(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
-
-    protected override GenerateResultBundleReviewExportRequest NewRequest()
+    protected override StartBundleReviewExportRequest NewRequest()
     {
-        return new GenerateResultBundleReviewExportRequest
+        return new StartBundleReviewExportRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            TemplateKey = AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key,
-            CountingCircleId = CountingCircleMockedData.GuidStGallen,
-            PoliticalBusinessResultBundleId = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1),
-            PoliticalBusinessId = Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            PoliticalBusinessResultBundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+            PoliticalBusinessType = PoliticalBusinessType.MajorityElection,
         };
     }
+
+    protected override GrpcChannel CreateGrpcChannel(params string[] roles)
+        => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantStGallen.Id, TestDefaults.UserId, roles);
 }

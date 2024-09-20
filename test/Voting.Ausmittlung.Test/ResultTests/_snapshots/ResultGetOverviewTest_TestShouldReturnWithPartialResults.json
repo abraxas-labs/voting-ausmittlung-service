@@ -1,0 +1,777 @@
+{
+  "Contest": {
+    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+    "Date": {
+      "Seconds": 1598832000,
+      "Nanos": 0
+    },
+    "Description": "Kantonsurnengang de",
+    "EndOfTestingPhase": {
+      "Seconds": 1545264000,
+      "Nanos": 0
+    },
+    "TestingPhaseEnded": false,
+    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+    "EVoting": true,
+    "EVotingFrom": {
+      "Seconds": 1582156800,
+      "Nanos": 0
+    },
+    "EVotingTo": {
+      "Seconds": 1583020800,
+      "Nanos": 0
+    },
+    "State": 1,
+    "EVotingResultsImported": false,
+    "CantonDefaults": {
+      "CountingCircleResultStateDescriptions": [
+        {
+          "State": 4,
+          "Description": "Erfassung beendet"
+        }
+      ],
+      "StatePlausibilisedDisabled": false,
+      "MajorityElectionInvalidVotes": false,
+      "CountingMachineEnabled": false,
+      "NewZhFeaturesEnabled": false,
+      "MajorityElectionUseCandidateCheckDigit": true,
+      "ProportionalElectionUseCandidateCheckDigit": false,
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
+    }
+  },
+  "PoliticalBusinesses": [
+    {
+      "Id": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+      "BusinessType": 2,
+      "Title": "100: Mw Bund de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "100",
+      "ShortDescription": "Mw Bund de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+      "BusinessType": 3,
+      "Title": "100: Pw Bund de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "100",
+      "ShortDescription": "Pw Bund de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "f69b3543-ccee-467d-9cde-56941f6e4bad",
+      "BusinessType": 1,
+      "Title": "100: Abst Bund de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "100",
+      "ShortDescription": "Abst Bund de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+      "BusinessType": 3,
+      "Title": "155: Pw SG de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "155",
+      "ShortDescription": "Pw SG de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+      "BusinessType": 1,
+      "Title": "155: Abst SG de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "155",
+      "ShortDescription": "Abst SG de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+      "BusinessType": 2,
+      "Title": "155: Mw SG de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "155",
+      "ShortDescription": "Mw SG de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+      "BusinessType": 2,
+      "Title": "166: Mw Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100100100100100100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 1,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Mw Uzwil de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "da091f50-9f11-4deb-9621-948fbfbdc322",
+      "BusinessType": 3,
+      "Title": "166: Pw Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100100100100100100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 5,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Pw Uzwil de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+      "BusinessType": 1,
+      "Title": "166: Abst Uzwil de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
+        "Name": "Uzwil",
+        "ShortName": "Uzwil",
+        "AuthorityName": "",
+        "SecureConnectId": "100100100100100100",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "166",
+      "ShortDescription": "Abst Uzwil de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+      "BusinessType": 1,
+      "Title": "321: Abst Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": null,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "321",
+      "ShortDescription": "Abst Gossau de",
+      "BusinessSubType": 1
+    },
+    {
+      "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
+      "BusinessType": 3,
+      "Title": "321: Pw Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 3,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "321",
+      "ShortDescription": "Pw Gossau de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "50415df8-6ee9-4eb4-9e31-68c0d3021e76",
+      "BusinessType": 2,
+      "Title": "322: Mw Gossau de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
+      },
+      "NumberOfMandates": 3,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "322",
+      "ShortDescription": "Mw Gossau de",
+      "BusinessSubType": 0
+    }
+  ],
+  "CountingCircleResults": [
+    {
+      "CountingCircle": {
+        "Id": "46adab98-9114-4503-9000-b02842640650",
+        "Name": "St. Gallen Haggen",
+        "Bfs": "5500-2",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        }
+      ]
+    },
+    {
+      "CountingCircle": {
+        "Id": "44a75721-f192-461c-816f-9f46a00d274a",
+        "Name": "St. Gallen St. Fiden",
+        "Bfs": "5500-1",
+        "ResponsibleAuthority": {
+          "SecureConnectId": "",
+          "Name": "",
+          "Street": "",
+          "Zip": "",
+          "City": "",
+          "Phone": "",
+          "Email": ""
+        },
+        "ContactPersonDuringEvent": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        },
+        "ContactPersonSameDuringEventAsAfter": false,
+        "ContactPersonAfterEvent": null
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        }
+      ]
+    }
+  ],
+  "CurrentTenantIsContestManager": true,
+  "PoliticalBusinessUnions": [],
+  "HasPartialResults": true
+}

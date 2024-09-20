@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,6 +10,7 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -59,6 +60,16 @@ public class ExportServiceListProtocolExportsTest : BaseTest<ExportService.Expor
     [Fact]
     public async Task ShouldWorkAsMonitoringElectionAdminWithoutCountingCircleId()
     {
+        var response = await MonitoringElectionAdminClient.ListProtocolExportsAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ShouldWorkAsMonitoringElectionAdminWithoutCountingCircleIdFinalized()
+    {
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            _ => true,
+            pb => pb.EndResultFinalized = true);
         var response = await MonitoringElectionAdminClient.ListProtocolExportsAsync(NewValidRequest(x => x.CountingCircleId = string.Empty));
         response.MatchSnapshot();
     }

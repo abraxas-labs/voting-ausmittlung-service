@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -94,8 +94,25 @@ public static class AusmittlungUuidV5
         Guid? countingCircleId = null,
         Guid? politicalBusinessId = null,
         Guid? politicalBusinessUnionId = null,
-        DomainOfInfluenceType domainOfInfluenceType = DomainOfInfluenceType.Unspecified)
+        DomainOfInfluenceType domainOfInfluenceType = DomainOfInfluenceType.Unspecified,
+        Guid? politicalBusinessResultBundleId = null)
     {
+        // this is necessary for backwards compatibility
+        if (politicalBusinessResultBundleId.HasValue)
+        {
+            return UuidV5.Create(
+                VotingAusmittlungExportTemplateNamespace,
+                string.Join(
+                    VotingAusmittlungSeparator,
+                    exportKey,
+                    tenantId,
+                    countingCircleId,
+                    politicalBusinessId,
+                    politicalBusinessUnionId,
+                    politicalBusinessResultBundleId,
+                    (int)domainOfInfluenceType));
+        }
+
         return UuidV5.Create(
             VotingAusmittlungExportTemplateNamespace,
             string.Join(

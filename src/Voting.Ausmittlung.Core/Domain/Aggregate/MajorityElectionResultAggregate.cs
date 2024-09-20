@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -274,13 +274,16 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
             new EventSignatureBusinessDomainData(contestId));
     }
 
-    public override void Reset(Guid contestId)
+    public override void Reset(Guid contestId, bool skipStateCheck = false)
     {
-        EnsureInState(
-            CountingCircleResultState.SubmissionOngoing,
-            CountingCircleResultState.ReadyForCorrection,
-            CountingCircleResultState.SubmissionDone,
-            CountingCircleResultState.CorrectionDone);
+        if (!skipStateCheck)
+        {
+            EnsureInState(
+                CountingCircleResultState.SubmissionOngoing,
+                CountingCircleResultState.ReadyForCorrection,
+                CountingCircleResultState.SubmissionDone,
+                CountingCircleResultState.CorrectionDone);
+        }
 
         EnsureInTestingPhase();
 
@@ -319,7 +322,11 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
 
     public override void Publish(Guid contestId)
     {
-        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+        EnsureInState(
+            CountingCircleResultState.SubmissionDone,
+            CountingCircleResultState.CorrectionDone,
+            CountingCircleResultState.AuditedTentatively,
+            CountingCircleResultState.Plausibilised);
 
         if (Published)
         {
@@ -337,7 +344,11 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
 
     public override void Unpublish(Guid contestId)
     {
-        EnsureInState(CountingCircleResultState.AuditedTentatively, CountingCircleResultState.Plausibilised);
+        EnsureInState(
+            CountingCircleResultState.SubmissionDone,
+            CountingCircleResultState.CorrectionDone,
+            CountingCircleResultState.AuditedTentatively,
+            CountingCircleResultState.Plausibilised);
 
         if (!Published)
         {
@@ -396,6 +407,8 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
                 break;
             case MajorityElectionResultResetted _:
                 State = CountingCircleResultState.SubmissionOngoing;
+                Published = false;
+                ResetBundleNumbers();
                 break;
             case MajorityElectionResultPublished _:
                 Published = true;

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -118,6 +118,17 @@ public class
         votingCardCounts.Should().NotBeEmpty();
         votingCardCounts.Where(x => x != null).Should().NotBeEmpty();
 
+        var contestDetailsBefore = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        var doiDetailsBefore = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id));
+
         await TestEventPublisher.Publish(new ContestCountingCircleElectoratesCreated
         {
             ContestId = ContestMockedData.IdBundesurnengang,
@@ -150,12 +161,83 @@ public class
         votingCards.Where(vc => vc.Channel != VotingChannel.EVoting && vc.CountOfReceivedVotingCards != null).Should().BeEmpty();
         votingCards.Where(vc => vc.Channel == VotingChannel.EVoting).Should().NotBeEmpty();
         votingCards.Where(vc => vc.Channel == VotingChannel.EVoting && vc.CountOfReceivedVotingCards == null).Should().BeEmpty();
+
+        var contestDetailsAfter = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
+            -1000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
+            -250);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
+            -2000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.Paper,
+            -100);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.EVoting,
+            0);
+
+        var doiDetailsAfter = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id));
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
+            -1000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
+            -250);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
+            -2000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.Paper,
+            -100);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.EVoting,
+            0);
     }
 
     [Fact]
     public async Task TestProcessorWithUpdated()
     {
-        var ccDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(Guid.Parse(ContestMockedData.IdBundesurnengang), CountingCircleMockedData.GuidStGallenStFiden, false);
+        var ccDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(Guid.Parse(ContestMockedData.IdBundesurnengang), CountingCircleMockedData.GuidStGallen, false);
         await RunOnDb(async db =>
         {
             db.VotingCardResultDetails.Add(new VotingCardResultDetail
@@ -176,10 +258,21 @@ public class
         votingCardCounts.Should().NotBeEmpty();
         votingCardCounts.Where(x => x != null).Should().NotBeEmpty();
 
+        var contestDetailsBefore = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        var doiDetailsBefore = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
         await TestEventPublisher.Publish(new ContestCountingCircleElectoratesUpdated
         {
             ContestId = ContestMockedData.IdBundesurnengang,
-            CountingCircleId = CountingCircleMockedData.IdStGallenStFiden,
+            CountingCircleId = CountingCircleMockedData.IdStGallen,
             Electorates =
             {
                 new ContestCountingCircleElectorateEventData
@@ -199,7 +292,7 @@ public class
             .AsSplitQuery()
             .Include(cc => cc.Electorates.OrderBy(e => e.DomainOfInfluenceTypes[0]))
             .Include(cc => cc.ContestElectorates.OrderBy(e => e.DomainOfInfluenceTypes[0]))
-            .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenStFiden && cc.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang)));
+            .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && cc.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang)));
 
         cc.MatchSnapshot();
 
@@ -210,6 +303,65 @@ public class
             .ToListAsync());
         votingCardCounts.Should().NotBeEmpty();
         votingCardCounts.Where(x => x != null).Should().BeEmpty();
+
+        var contestDetailsAfter = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.VotingCards)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
+            -2000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
+            -1000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
+            -3000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.Paper,
+            -5);
+
+        var doiDetailsAfter = await RunOnDb(
+            db => db.DomainOfInfluences
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
+            -2000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
+            -1000);
+
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
+            -3000);
+
+        EnsureValidAggregatedVotingCards(
+            contestDetailsBefore.VotingCards,
+            contestDetailsAfter.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.Paper,
+            -5);
     }
 
     [Fact]

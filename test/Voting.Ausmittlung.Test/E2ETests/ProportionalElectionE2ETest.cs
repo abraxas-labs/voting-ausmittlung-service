@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -776,6 +776,14 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(2);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().HaveCount(1);
+        await RunAllEvents();
+
+        await monitoringResultService.StartEndResultMandateDistributionAsync(new StartProportionalElectionEndResultMandateDistributionRequest
+        {
+            ProportionalElectionId = ProportionalElectionId,
+        });
+        EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionEndResultMandateDistributionStarted>().Should().HaveCount(1);
         await RunAllEvents();
     }
 

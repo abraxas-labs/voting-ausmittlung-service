@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -91,6 +91,20 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
         return AssertStatus(
             async () => await CreateService("unknown-tenant", roles: RolesMockedData.MonitoringElectionAdmin).RevertEndResultFinalizationAsync(NewValidRequest()),
             StatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task ShouldThrowCantonSettingsEndResultFinalizeDisabled()
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "End result finalize is not enabled for contest");
     }
 
     [Fact]

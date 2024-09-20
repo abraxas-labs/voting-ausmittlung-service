@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -117,7 +117,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
 
         await ErfassungCreatorClient.BundleSubmissionFinishedAsync(NewValidRequest());
         var eventData = EventPublisherMock.GetSinglePublishedEvent<VoteResultBundleSubmissionFinished>();
-        eventData.SampleBallotNumbers.Count.Should().Be(3);
+        eventData.SampleBallotNumbers.Count.Should().Be(10);
         eventData.SampleBallotNumbers.Min().Should().BeGreaterOrEqualTo(minBallotNr);
         eventData.SampleBallotNumbers.Max().Should().BeLessOrEqualTo(maxBallotNr);
     }

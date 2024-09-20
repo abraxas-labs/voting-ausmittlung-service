@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -74,6 +74,15 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         foreach (var ballot in bundle.Ballots)
         {
             ballot.BallotCandidates = ballot.BallotCandidates.OrderBy(x => x.Position).ThenBy(x => x.RemovedFromList).ToList();
+
+            // add check digit to each candidate in this bundle, this is done manually as it is only used in the bundle review exports
+            if (bundle.ElectionResult.EntryParams.CandidateCheckDigit)
+            {
+                foreach (var ballotCandidate in ballot.BallotCandidates)
+                {
+                    ballotCandidate.Candidate.Number = $"{ballotCandidate.Candidate.Number}{ballotCandidate.Candidate.CheckDigit}";
+                }
+            }
         }
 
         var countingCircle = await _countingCircleRepo.Query()

@@ -1,7 +1,8 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.TemporaryData.Models;
@@ -21,4 +22,6 @@ public class SecondFactorTransaction : BaseEntity
     public DateTime ExpiredAt { get; set; }
 
     public string ActionId { get; set; } = string.Empty;
+
+    public List<string>? ExternalTokenJwtIds { get; set; } = new();
 }

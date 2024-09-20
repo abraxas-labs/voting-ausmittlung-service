@@ -70,6 +70,7 @@
       <LastName>Muster</LastName>
       <FullName>Hans Muster</FullName>
     </CreatedBy>
+    <State>ReadyForReview</State>
     <List>
       <OrderNumber>1a</OrderNumber>
       <ShortDescription>Liste 1 de</ShortDescription>

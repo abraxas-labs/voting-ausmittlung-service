@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -272,7 +272,7 @@ public static class VoteResultMockedData
             EntryParams = new VoteResultEntryParams
             {
                 AutomaticBallotBundleNumberGeneration = false,
-                BallotBundleSampleSizePercent = 30,
+                BallotBundleSampleSizePercent = 100,
                 ReviewProcedure = VoteReviewProcedure.Electronically,
             },
             Results =
@@ -420,7 +420,7 @@ public static class VoteResultMockedData
             var voteResultBuilder = sp.GetRequiredService<VoteResultBuilder>();
             foreach (var vote in votes)
             {
-                await voteResultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(vote.ContestId));
+                await voteResultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, ContestMockedData.TestingPhaseEnded(vote.ContestId), vote.ContestId);
             }
         });
     }

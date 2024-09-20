@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,6 +27,7 @@ public abstract class ExportBaseRestTest : BaseRestTest
 
     private Lazy<HttpClient> _stGallenReportExporterApiClient;
     private Lazy<HttpClient> _gossauReportExporterApiClient;
+    private Lazy<HttpClient> _uzwilExporterApiClient;
 
     protected ExportBaseRestTest(TestApplicationFactory factory)
         : base(factory)
@@ -38,6 +39,10 @@ public abstract class ExportBaseRestTest : BaseRestTest
         _gossauReportExporterApiClient = new Lazy<HttpClient>(() => CreateHttpClient(
             tenant: SecureConnectTestDefaults.MockedTenantGossau.Id,
             roles: RolesMockedData.ReportExporterApi));
+
+        _uzwilExporterApiClient = new Lazy<HttpClient>(() => CreateHttpClient(
+             tenant: SecureConnectTestDefaults.MockedTenantUzwil.Id,
+             roles: RolesMockedData.ReportExporterApi));
     }
 
     protected abstract string BaseUrl { get; }
@@ -65,6 +70,8 @@ public abstract class ExportBaseRestTest : BaseRestTest
     protected HttpClient StGallenReportExporterApiClient => _stGallenReportExporterApiClient.Value;
 
     protected HttpClient GossauReportExporterApiClient => _gossauReportExporterApiClient.Value;
+
+    protected HttpClient UzwilReportExporterApiClient => _uzwilExporterApiClient.Value;
 
     public override async Task InitializeAsync()
     {

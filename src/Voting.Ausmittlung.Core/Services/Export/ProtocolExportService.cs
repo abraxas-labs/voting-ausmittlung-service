@@ -1,9 +1,10 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -25,6 +26,7 @@ using Voting.Lib.DmDoc;
 using Voting.Lib.DmDoc.Models;
 using Voting.Lib.DmDoc.Serialization.Json;
 using Voting.Lib.Eventing.Persistence;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.VotingExports.Models;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
@@ -43,6 +45,7 @@ public class ProtocolExportService
     private readonly IDmDocDraftCleanupQueue _draftCleanupQueue;
     private readonly ILogger<ProtocolExportService> _logger;
     private readonly ExportRateLimitService _rateLimitService;
+    private readonly IAuth _auth;
 
     public ProtocolExportService(
         ExportService exportService,
@@ -55,7 +58,8 @@ public class ProtocolExportService
         PublisherConfig publisherConfig,
         IDmDocDraftCleanupQueue draftCleanupQueue,
         ILogger<ProtocolExportService> logger,
-        ExportRateLimitService rateLimitService)
+        ExportRateLimitService rateLimitService,
+        IAuth auth)
     {
         _exportService = exportService;
         _permissionService = permissionService;
@@ -68,12 +72,14 @@ public class ProtocolExportService
         _draftCleanupQueue = draftCleanupQueue;
         _logger = logger;
         _rateLimitService = rateLimitService;
+        _auth = auth;
     }
 
     public async IAsyncEnumerable<FileModel> GetProtocolExports(
         Guid contestId,
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> protocolExportIds,
+        bool isBundleReview,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
         var protocolExports = await _protocolExportRepo
@@ -88,8 +94,12 @@ public class ProtocolExportService
 
         var exportTemplateIds = protocolExports.ConvertAll(e => e.ExportTemplateId);
 
-        // This ensure that the user can access the generated protocols
-        await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+        // This ensures that the user has access to the generated protocols.
+        // Bundle review templates cannot be resolved since they aren't listed in the template repository, so we bypass them.
+        if (!isBundleReview)
+        {
+            await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+        }
 
         foreach (var protocolExport in protocolExports)
         {
@@ -122,10 +132,10 @@ public class ProtocolExportService
             await _rateLimitService.CheckAndLog(exportTemplates);
         }
 
-        var contestState = await _contestRepo.Query()
-            .Where(x => x.Id == contestId)
-            .Select(x => x.State)
-            .FirstAsync(ct);
+        var contest = await _contestRepo.Query()
+            .Include(x => x.DomainOfInfluence)
+            .FirstOrDefaultAsync(x => x.Id == contestId, ct)
+            ?? throw new EntityNotFoundException(nameof(Contest), contestId);
 
         var requestId = Guid.NewGuid();
         var protocolExportIds = new HashSet<Guid>();
@@ -134,7 +144,7 @@ public class ProtocolExportService
         {
             var protocolExportId = AusmittlungUuidV5.BuildProtocolExport(
                 contestId,
-                contestState.TestingPhaseEnded(),
+                contest.State.TestingPhaseEnded(),
                 exportTemplate.ExportTemplateId);
             protocolExportIds.Add(protocolExportId);
 
@@ -146,7 +156,19 @@ public class ProtocolExportService
                 WebhookUrl = _publisherConfig.Documatrix.GetProtocolExportCallbackUrl(protocolExportId, callbackToken),
             };
 
-            var file = await _exportService.GenerateResultExport(contestId, exportTemplate, asyncPdfGenerationInfo, ct);
+            var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled
+                ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
+                : string.Empty;
+
+            var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId, ct);
+            var file = await _exportService.GenerateResultExport(
+                contestId,
+                exportTemplate,
+                exportTemplateKeyCantonSuffix,
+                _auth.Tenant.Id,
+                viewablePartialResultsCountingCircleIds,
+                asyncPdfGenerationInfo,
+                ct);
 
             ProtocolExportMeter.AddExportStarted();
 
@@ -157,11 +179,12 @@ public class ProtocolExportService
                 callbackToken,
                 exportTemplate.ExportTemplateId,
                 requestId,
-                exportTemplate.Template.Key,
+                exportTemplate.Template.Key + exportTemplateKeyCantonSuffix,
                 exportTemplate.CountingCircleId,
                 exportTemplate.PoliticalBusinessId,
                 exportTemplate.PoliticalBusinessUnionId,
-                exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified);
+                exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
+                exportTemplate.PoliticalBusinessResultBundleId);
 
             await _aggregateRepository.Save(aggregate);
         }

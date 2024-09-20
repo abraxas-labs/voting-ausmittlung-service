@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -98,8 +98,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(VoteResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -119,8 +119,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(VoteResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
+        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -177,8 +177,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeVoteEndResultRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
@@ -234,6 +234,14 @@ public class VoteResultService : ServiceBase
     {
         var voteResultId = GuidParser.Parse(request.VoteResultId);
         await _voteResultWriter.SubmissionFinishedAndAuditedTentatively(voteResultId);
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(VoteResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var voteResultId = GuidParser.Parse(request.VoteResultId);
+        await _voteResultWriter.CorrectionFinishedAndAuditedTentatively(voteResultId);
         return ProtobufEmpty.Instance;
     }
 

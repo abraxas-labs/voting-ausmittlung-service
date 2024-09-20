@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -118,7 +118,7 @@ public class ResultImportReader
             .GroupBy(x => x.Result.SecondaryMajorityElectionId)
             .ToDictionary(x => x.Key, x => x.ToList());
 
-        var politicalBusinesses = elections.SelectMany(e => e.SecondaryMajorityElections.Cast<Election>().Prepend(e));
+        var politicalBusinesses = elections.SelectMany(e => e.SecondaryMajorityElections.Cast<MajorityElectionBase>().Prepend(e));
         var mappingGroups = new List<MajorityElectionGroupedWriteInMappings>();
         foreach (var politicalBusiness in politicalBusinesses)
         {

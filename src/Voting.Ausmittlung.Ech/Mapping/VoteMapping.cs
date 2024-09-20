@@ -1,9 +1,10 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Linq;
 using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
+using VoteType = Ech0155_4_0.VoteType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 

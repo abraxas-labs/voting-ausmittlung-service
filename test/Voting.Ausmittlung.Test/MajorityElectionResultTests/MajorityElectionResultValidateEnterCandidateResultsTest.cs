@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -96,6 +96,18 @@ public class MajorityElectionResultValidateEnterCandidateResultsTest : MajorityE
         var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x => x.Request.CandidateResults[0].VoteCount = null));
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionCandidateVotesNotNull)
             .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsValidWhenCandidateVotesNotNullWithIndividualVotesDisabled()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        var result = await ErfassungElectionAdminClient.ValidateEnterCandidateResultsAsync(NewValidRequest(x => x.Request.IndividualVoteCount = null));
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionCandidateVotesNotNull)
+            .IsValid.Should().BeTrue();
     }
 
     [Fact]

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -40,12 +40,30 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldReturnWithUnpublish()
+    public async Task TestShouldReturnWithUnpublishWhenNoBeforeAuditedPublish()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
         await RunToPublished();
         await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<VoteResultUnpublished>().VoteResultId.Should().Be(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithNoUnpublishWhenBeforeAuditedPublish()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+        await RunToPublished();
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
+            x =>
+            {
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+
+        await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<VoteResultUnpublished>().Should().BeEmpty();
     }
 
     [Fact]

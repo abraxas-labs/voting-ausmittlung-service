@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElection : Election, IHasResults, IPoliticalBusinessHasTranslations
+public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBusinessHasTranslations
 {
     public MajorityElectionMandateAlgorithm MandateAlgorithm { get; set; }
 
@@ -67,4 +67,6 @@ public class MajorityElection : Election, IHasResults, IPoliticalBusinessHasTran
     public bool EnforceReviewProcedureForCountingCircles { get; set; }
 
     public bool EnforceCandidateCheckDigitForCountingCircles { get; set; }
+
+    public int? FederalIdentification { get; set; }
 }

@@ -62,6 +62,7 @@
   "CountingCircle": null,
   "State": 2,
   "SubmissionDoneTimestamp": null,
+  "ReadyForCorrectionTimestamp": null,
   "AuditedTentativelyTimestamp": null,
   "PlausibilisedTimestamp": null,
   "TotalCountOfVoters": 15000,

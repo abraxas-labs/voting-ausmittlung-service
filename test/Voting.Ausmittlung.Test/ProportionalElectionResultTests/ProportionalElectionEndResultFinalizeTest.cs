@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -37,18 +37,12 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
         await base.InitializeAsync();
         await SeedElectionAndFinishSubmissions();
         await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
     }
 
     [Fact]
     public async Task ShouldWork()
     {
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
         var ev = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultFinalized>();
         ev.ProportionalElectionId.Should().Be(ProportionalElectionEndResultMockedData.ElectionId);
@@ -60,13 +54,6 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
     {
         await TestEventWithSignature(ContestMockedData.IdBundesurnengang, async () =>
         {
-            // set all lot decisions as done
-            await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.LotDecision = true);
-            await ModifyDbEntities<ProportionalElectionListEndResult>(
-                x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-                x => x.HasOpenRequiredLotDecisions = false);
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<ProportionalElectionEndResultFinalized>();
         });
@@ -80,14 +67,6 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
         var contestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
         // testing phase
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == electionId,
-            x => x.LotDecision = true);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == electionId,
-            x => x.HasOpenRequiredLotDecisions = false);
-
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(request);
         var evInTestingPhase = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultFinalized>();
         await RunEvents<ProportionalElectionEndResultFinalized>();
@@ -100,15 +79,13 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
         await RunEvents<ContestTestingPhaseEnded>();
 
         // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == electionId,
-            x => x.LotDecision = true);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == electionId,
-            x => x.HasOpenRequiredLotDecisions = false);
         await ModifyDbEntities<ProportionalElectionEndResult>(
             e => e.ProportionalElectionId == electionId,
-            e => e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles);
+            e =>
+            {
+                e.CountOfDoneCountingCircles = e.TotalCountOfCountingCircles;
+                e.MandateDistributionTriggered = true;
+            });
 
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(request);
         var evTestingPhaseEnded = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultFinalized>();
@@ -116,22 +93,6 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
 
         var endResultTestingPhaseEndedId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(electionId, true);
         evTestingPhaseEnded.ProportionalElectionEndResultId.Should().Be(endResultTestingPhaseEndedId.ToString());
-    }
-
-    [Fact]
-    public async Task ShouldWorkOnlyNonRequiredLotDecisions()
-    {
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.LotDecisionRequired = false);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.HasOpenRequiredLotDecisions = false);
-        await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest());
-        var ev = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultFinalized>();
-        ev.ProportionalElectionId.Should().Be(ProportionalElectionEndResultMockedData.ElectionId);
-        ev.ProportionalElectionEndResultId.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -144,50 +105,29 @@ public class ProportionalElectionEndResultFinalizeTest : ProportionalElectionEnd
     }
 
     [Fact]
-    public async Task ShouldThrowCountingCirclesNotDone()
+    public async Task ShouldThrowMandatesNotDistributed()
     {
         await ModifyDbEntities<ProportionalElectionEndResult>(
             x => x.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x => x.CountOfDoneCountingCircles--);
+            x => x.MandateDistributionTriggered = false);
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
-            "not all counting circles are done");
+            "Cannot finalize when mandates are not distributed yet");
     }
 
     [Fact]
-    public async Task ShouldThrowOpenLotDecisions()
+    public async Task ShouldThrowCantonSettingsEndResultFinalizeDisabled()
     {
-        await AssertStatus(
-            async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
-            StatusCode.InvalidArgument,
-            "finalization is only possible after all required lot decisions are saved");
-    }
-
-    [Fact]
-    public async Task ShouldThrowMissingRequiredManualEndResult()
-    {
-        var electionId = Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId);
-
-        // set all lot decisions as done
-        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
-            x => x.ListEndResult.ElectionEndResult.ProportionalElectionId == electionId,
-            x => x.LotDecision = true);
-        await ModifyDbEntities<ProportionalElectionListEndResult>(
-            x => x.ElectionEndResult.ProportionalElectionId == Guid.Parse(ProportionalElectionEndResultMockedData.ElectionId),
-            x =>
-            {
-                x.NumberOfMandates = 0;
-                x.HasOpenRequiredLotDecisions = false;
-            });
-        await ModifyDbEntities<ProportionalElectionEndResult>(
-            x => x.ProportionalElectionId == electionId,
-            x => x.ManualEndResultRequired = true);
+        await ModifyDbEntities<ContestCantonDefaults>(
+            _ => true,
+            x => x.EndResultFinalizeDisabled = true,
+            splitQuery: true);
 
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
-            "Manual end result is required and not all number of mandates are distributed");
+            "End result finalize is not enabled for contest");
     }
 
     [Fact]

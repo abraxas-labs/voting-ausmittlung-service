@@ -36,7 +36,8 @@
           "Nanos": 200000000
         }
       },
-      "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932"
+      "ElectionResultId": "043e8415-f3e7-55e5-befb-0dee93ee3932",
+      "ImplicitMandateDistributionDisabled": true
     }
   ]
 }

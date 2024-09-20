@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -31,6 +31,33 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
 
     public Guid ProportionalElectionId { get; private set; }
 
+    public bool MandateDistributionStarted { get; private set; }
+
+    public void StartMandateDistribution(Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)
+    {
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
+        RaiseEvent(
+            new ProportionalElectionEndResultMandateDistributionStarted
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ProportionalElectionId = politicalBusinessId.ToString(),
+                ProportionalElectionEndResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
+    public void RevertMandateDistribution(Guid contestId)
+    {
+        RaiseEvent(
+            new ProportionalElectionEndResultMandateDistributionReverted
+            {
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+                ProportionalElectionId = ProportionalElectionId.ToString(),
+                ProportionalElectionEndResultId = Id.ToString(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
     public ActionId PrepareFinalize(Guid politicalBusinessId, bool testingPhaseEnded)
     {
         Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
@@ -39,7 +66,7 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
 
     public void Finalize(Guid politicalBusinessId, Guid contestId, bool testingPhaseEnded)
     {
-        // We cannot check whether the aggregate is already finalized, as that state could be reset with other events (eg. lot decisions)
+        // We cannot check whether the aggregate is already finalized, as that state could be reset with other events (eg. cc result reset)
         Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(politicalBusinessId, testingPhaseEnded);
         RaiseEvent(
             new ProportionalElectionEndResultFinalized
@@ -106,6 +133,11 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
     {
         switch (eventData)
         {
+            case ProportionalElectionEndResultMandateDistributionStarted ev:
+                Apply(ev);
+                break;
+            case ProportionalElectionEndResultMandateDistributionReverted _:
+                break;
             case ProportionalElectionEndResultFinalized ev:
                 Apply(ev);
                 break;
@@ -119,6 +151,12 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
         }
+    }
+
+    private void Apply(ProportionalElectionEndResultMandateDistributionStarted ev)
+    {
+        Id = Guid.Parse(ev.ProportionalElectionEndResultId);
+        ProportionalElectionId = Guid.Parse(ev.ProportionalElectionId);
     }
 
     private void Apply(ProportionalElectionEndResultFinalized ev)

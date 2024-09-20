@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,11 +11,13 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
+using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
@@ -24,26 +26,32 @@ public class ProportionalElectionResultBundleReader
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBallot> _ballotRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly LanguageAwareMessageConsumerHub<ProportionalElectionBundleChanged, ProportionalElectionResultBundle> _bundleChangeListener;
     private readonly PermissionService _permissionService;
     private readonly IAuth _auth;
     private readonly LanguageService _languageService;
+    private readonly PoliticalBusinessResultBundleBuilder _politicalBusinessResultBundleBuilder;
 
     public ProportionalElectionResultBundleReader(
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
         IDbRepository<DataContext, ProportionalElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, ProportionalElectionResultBallot> ballotRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         LanguageAwareMessageConsumerHub<ProportionalElectionBundleChanged, ProportionalElectionResultBundle> bundleChangeListener,
         PermissionService permissionService,
         IAuth auth,
-        LanguageService languageService)
+        LanguageService languageService,
+        PoliticalBusinessResultBundleBuilder politicalBusinessResultBundleBuilder)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
+        _protocolExportRepo = protocolExportRepo;
         _permissionService = permissionService;
         _auth = auth;
         _languageService = languageService;
+        _politicalBusinessResultBundleBuilder = politicalBusinessResultBundleBuilder;
         _bundleChangeListener = bundleChangeListener;
     }
 
@@ -65,6 +73,14 @@ public class ProportionalElectionResultBundleReader
         electionResult.Bundles = electionResult.Bundles
             .OrderBy(b => b.Number)
             .ToList();
+
+        await _politicalBusinessResultBundleBuilder.AddProtocolExportsToBundles(
+            electionResult.Bundles,
+            electionResult.CountingCircle.BasisCountingCircleId,
+            electionResult.PoliticalBusinessId,
+            electionResult.ProportionalElection.ContestId,
+            electionResult.ProportionalElection.Contest.TestingPhaseEnded,
+            AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key);
 
         return electionResult;
     }

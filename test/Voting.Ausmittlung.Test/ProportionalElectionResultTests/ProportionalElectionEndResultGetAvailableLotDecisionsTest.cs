@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -30,18 +30,19 @@ public class ProportionalElectionEndResultGetAvailableLotDecisionsTest : Proport
     {
         await base.InitializeAsync();
         await SeedElectionAndFinishSubmissions();
+        await SetAllAuditedTentatively();
     }
 
     [Fact]
     public async Task TestShouldReturnAsMonitoringElectionAdmin()
     {
-        await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
         var endResult = await MonitoringElectionAdminClient.GetListEndResultAvailableLotDecisionsAsync(NewValidRequest());
         endResult.MatchSnapshot();
     }
 
     [Fact]
-    public async Task TestShouldThrowIfElectionCountingCircleNotAuditedTentatively()
+    public async Task TestShouldThrowIfElectionMandateDistributionNotStarted()
     {
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.GetListEndResultAvailableLotDecisionsAsync(NewValidRequest()),
@@ -78,7 +79,7 @@ public class ProportionalElectionEndResultGetAvailableLotDecisionsTest : Proport
         if (!_initializedAuthorizationTest)
         {
             _initializedAuthorizationTest = true;
-            await SetAllAuditedTentatively();
+            await TriggerMandateDistribution();
         }
 
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)

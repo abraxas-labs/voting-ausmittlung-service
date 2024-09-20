@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -71,7 +71,7 @@ public static class ProportionalElectionEndResultMockedData
         await runScoped(sp => sp.GetRequiredService<SimplePoliticalBusinessBuilder<ProportionalElection>>().Create(election));
 
         await runScoped(sp =>
-            sp.GetRequiredService<ProportionalElectionResultBuilder>().RebuildForElection(election.Id, election.DomainOfInfluenceId, false));
+            sp.GetRequiredService<ProportionalElectionResultBuilder>().RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId));
 
         await runScoped(sp =>
             sp.GetRequiredService<ProportionalElectionEndResultInitializer>().RebuildForElection(election.Id, false));
@@ -105,6 +105,7 @@ public static class ProportionalElectionEndResultMockedData
             ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = true,
             EnforceCandidateCheckDigitForCountingCircles = true,
+            FederalIdentification = 444,
             ProportionalElectionLists = new List<ProportionalElectionList>
                 {
                     BuildList(

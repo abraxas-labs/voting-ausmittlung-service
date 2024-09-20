@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -81,17 +81,17 @@ public class DomainOfInfluenceProcessor :
         await _domainOfInfluenceCantonDefaultsBuilder.BuildForDomainOfInfluence(domainOfInfluence);
         await _repo.Create(domainOfInfluence);
 
-        var contestInTestingPhase = await _contestRepo.GetContestsInTestingPhase();
-        foreach (var contest in contestInTestingPhase)
+        var contestIdsInTestingPhase = await _contestRepo.GetContestIdsInTestingPhase();
+        foreach (var contestId in contestIdsInTestingPhase)
         {
             var snapshotDomainOfInfluence = _mapper.Map<DomainOfInfluence>(eventData.DomainOfInfluence);
             snapshotDomainOfInfluence.Canton = domainOfInfluence.Canton;
-            snapshotDomainOfInfluence.SnapshotForContest(contest.Id);
+            snapshotDomainOfInfluence.SnapshotForContest(contestId);
 
             var parentId = snapshotDomainOfInfluence.ParentId;
             if (parentId != null)
             {
-                snapshotDomainOfInfluence.ParentId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contest.Id, parentId.Value);
+                snapshotDomainOfInfluence.ParentId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, parentId.Value);
             }
 
             await _repo.Create(snapshotDomainOfInfluence);
@@ -105,9 +105,6 @@ public class DomainOfInfluenceProcessor :
         var id = GuidParser.Parse(eventData.DomainOfInfluence.Id);
         var domainOfInfluence = _mapper.Map<DomainOfInfluence>(eventData.DomainOfInfluence);
         var isRootDomainOfInfluence = domainOfInfluence.ParentId == null;
-        var allDois = await _repo.Query()
-            .WhereContestIsInTestingPhaseOrNoContest()
-            .ToListAsync();
 
         var existingDomainOfInfluence = await QueryExistingForUpdate()
             .FirstOrDefaultAsync(x => x.Id == id)
@@ -127,12 +124,6 @@ public class DomainOfInfluenceProcessor :
             && existingDomainOfInfluence.Canton != domainOfInfluence.Canton;
 
         await _repo.Update(domainOfInfluence);
-
-        if (hasDifferentCantonAndIsRoot)
-        {
-            await _repo.UpdateInheritedCantons(id, domainOfInfluence.Canton);
-            await _domainOfInfluenceCantonDefaultsBuilder.RebuildForRootDomainOfInfluenceCantonUpdate(domainOfInfluence, allDois);
-        }
 
         var snapshots = await QueryExistingForUpdate()
             .Where(cc => cc.BasisDomainOfInfluenceId == id)
@@ -155,12 +146,13 @@ public class DomainOfInfluenceProcessor :
             }
 
             await _repo.Update(snapshotDomainOfInfluence);
+        }
 
-            if (hasDifferentCantonAndIsRoot)
-            {
-                await _repo.UpdateInheritedCantons(snapshotDomainOfInfluence.Id, domainOfInfluence.Canton);
-                await _domainOfInfluenceCantonDefaultsBuilder.RebuildForRootDomainOfInfluenceCantonUpdate(snapshotDomainOfInfluence, allDois);
-            }
+        if (hasDifferentCantonAndIsRoot)
+        {
+            var snapshotIds = snapshots.ConvertAll(x => x.Id);
+            await _repo.UpdateInheritedCantons(id, snapshotIds, domainOfInfluence.Canton);
+            await _domainOfInfluenceCantonDefaultsBuilder.RebuildForRootDomainOfInfluenceCantonUpdate(domainOfInfluence);
         }
 
         await _permissionBuilder.RebuildPermissionTree();

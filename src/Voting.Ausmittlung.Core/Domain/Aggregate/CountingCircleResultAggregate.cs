@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -35,7 +35,7 @@ public abstract class CountingCircleResultAggregate : BaseEventSignatureAggregat
 
     public abstract void FlagForCorrection(Guid contestId, string comment = "");
 
-    public abstract void Reset(Guid contestId);
+    public abstract void Reset(Guid contestId, bool skipStateCheck = false);
 
     public abstract void Publish(Guid contestId);
 

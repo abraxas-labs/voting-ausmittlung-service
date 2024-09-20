@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -27,6 +27,8 @@ public abstract class PoliticalBusiness : BaseEntity
     public virtual Contest Contest { get; set; } = null!;
 
     public virtual PoliticalBusinessType BusinessType { get; }
+
+    public virtual PoliticalBusinessSubType BusinessSubType { get; }
 
     [NotMapped]
     public virtual IEnumerable<CountingCircleResult> CountingCircleResults

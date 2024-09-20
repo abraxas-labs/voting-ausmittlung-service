@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -89,7 +89,7 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
     {
         return new ValidationResult(
             SharedProto.Validation.MajorityElectionCandidateVotesNotNull,
-            electionResult.CandidateResults.All(x => x.ConventionalVoteCount.HasValue) && electionResult.ConventionalSubTotal.IndividualVoteCount.HasValue);
+            electionResult.CandidateResults.All(x => x.ConventionalVoteCount.HasValue) && (electionResult.MajorityElection.IndividualCandidatesDisabled || electionResult.ConventionalSubTotal.IndividualVoteCount.HasValue));
     }
 
     private ValidationResult ValidateEmptyVoteCountNotNull(MajorityElectionResult electionResult)

@@ -1,0 +1,327 @@
+{
+    "VoteCounts": [
+        [
+            5254,
+            7936,
+            6627,
+            3558,
+            1398,
+            498,
+            2594,
+            247,
+            1672,
+            0
+        ],
+        [
+            40938,
+            59704,
+            24457,
+            21153,
+            10345,
+            5471,
+            15292,
+            1260,
+            16831,
+            1811
+        ],
+        [
+            3083,
+            10421,
+            3057,
+            5124,
+            728,
+            324,
+            3306,
+            185,
+            5917,
+            254
+        ],
+        [
+            24108,
+            43212,
+            23290,
+            14986,
+            5605,
+            3157,
+            12614,
+            868,
+            13162,
+            1884
+        ],
+        [
+            12107,
+            18251,
+            20260,
+            7934,
+            3421,
+            1681,
+            6166,
+            334,
+            3571,
+            579
+        ],
+        [
+            42103,
+            43393,
+            18551,
+            12862,
+            10313,
+            5687,
+            12147,
+            2430,
+            6889,
+            3382
+        ],
+        [
+            52052,
+            25020,
+            28696,
+            5283,
+            11961,
+            5487,
+            8038,
+            1620,
+            1792,
+            2288
+        ],
+        [
+            21870,
+            12297,
+            12280,
+            4737,
+            2599,
+            5882,
+            5557,
+            1510,
+            691,
+            0
+        ],
+        [
+            109374,
+            62568,
+            80566,
+            22022,
+            30240,
+            15687,
+            27859,
+            5684,
+            4659,
+            10657
+        ],
+        [
+            101578,
+            47955,
+            93626,
+            16325,
+            14596,
+            7170,
+            25014,
+            8963,
+            3734,
+            6390
+        ],
+        [
+            83273,
+            30668,
+            32729,
+            14655,
+            13017,
+            13598,
+            15830,
+            15419,
+            3009,
+            8358
+        ],
+        [
+            127780,
+            67381,
+            59884,
+            21491,
+            17936,
+            11775,
+            34535,
+            9767,
+            4414,
+            21761
+        ],
+        [
+            32872,
+            14694,
+            13295,
+            5325,
+            2662,
+            7570,
+            6425,
+            4142,
+            759,
+            2768
+        ],
+        [
+            68076,
+            75188,
+            39016,
+            28613,
+            16907,
+            23650,
+            25746,
+            7089,
+            11802,
+            8784
+        ],
+        [
+            37310,
+            11911,
+            12989,
+            4711,
+            2914,
+            6458,
+            8133,
+            2847,
+            777,
+            4181
+        ],
+        [
+            13225,
+            4875,
+            5740,
+            2972,
+            597,
+            1007,
+            1739,
+            1224,
+            302,
+            1939
+        ],
+        [
+            151323,
+            67966,
+            66897,
+            20355,
+            16196,
+            18532,
+            25543,
+            16968,
+            3608,
+            14239
+        ],
+        [
+            72703,
+            23304,
+            22143,
+            8982,
+            5574,
+            4184,
+            10429,
+            9461,
+            875,
+            2739
+        ]
+    ],
+    "Columns": [
+        {
+            "Label": "SVP"
+        },
+        {
+            "Label": "SP"
+        },
+        {
+            "Label": "FDP"
+        },
+        {
+            "Label": "GrÃ¼ne"
+        },
+        {
+            "Label": "CVP"
+        },
+        {
+            "Label": "EVP"
+        },
+        {
+            "Label": "glp"
+        },
+        {
+            "Label": "EDU"
+        },
+        {
+            "Label": "AL"
+        },
+        {
+            "Label": "BDP"
+        }
+    ],
+    "MandateAlgorithm": 5,
+    "Rows": [
+        {
+            "Label": "Stadt Zuerich, Kr. 1+2",
+            "NumberOfMandates": 4
+        },
+        {
+            "Label": "Stadt Zuerich, Kr. 3+9",
+            "NumberOfMandates": 12
+        },
+        {
+            "Label": "Stadt Zuerich, Kr. 4+5",
+            "NumberOfMandates": 5
+        },
+        {
+            "Label": "Stadt Zuerich, Kr. 6+10",
+            "NumberOfMandates": 9
+        },
+        {
+            "Label": "Stadt Zuerich, Kr. 7+8",
+            "NumberOfMandates": 6
+        },
+        {
+            "Label": "Stadt Zuerich, Kr. 11+12",
+            "NumberOfMandates": 12
+        },
+        {
+            "Label": "Bezirk Dietikon",
+            "NumberOfMandates": 11
+        },
+        {
+            "Label": "Bezirk Affoltern",
+            "NumberOfMandates": 6
+        },
+        {
+            "Label": "Bezirk Horgen",
+            "NumberOfMandates": 15
+        },
+        {
+            "Label": "Bezirk Meilen",
+            "NumberOfMandates": 13
+        },
+        {
+            "Label": "Bezirk Hinwil",
+            "NumberOfMandates": 12
+        },
+        {
+            "Label": "Bezirk Uster",
+            "NumberOfMandates": 16
+        },
+        {
+            "Label": "Bezirk Pfaeffikon",
+            "NumberOfMandates": 7
+        },
+        {
+            "Label": "Winterthur-Stadt",
+            "NumberOfMandates": 13
+        },
+        {
+            "Label": "Winterthur-Land",
+            "NumberOfMandates": 7
+        },
+        {
+            "Label": "Bezirk Andelfingen",
+            "NumberOfMandates": 4
+        },
+        {
+            "Label": "Bezirk Buelach",
+            "NumberOfMandates": 17
+        },
+        {
+            "Label": "Bezirk Dielsdorf",
+            "NumberOfMandates": 11
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -77,13 +77,7 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
     /// </summary>
     public bool ManualEndResultRequired { get; set; }
 
-    public void ResetCalculation()
-    {
-        foreach (var listEndResult in ListEndResults)
-        {
-            listEndResult.NumberOfMandates = 0;
-        }
-    }
+    public bool MandateDistributionTriggered { get; set; }
 
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
     {
@@ -103,6 +97,7 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
     public void Reset()
     {
         ManualEndResultRequired = false;
+        MandateDistributionTriggered = false;
         Finalized = false;
 
         foreach (var listEndResult in ListEndResults)

@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -113,6 +113,7 @@ public class MajorityElectionResultBundleWriter
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
             selectedCandidateIds.Count);
 
+        EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
         ValidateSecondaryResults(electionResult, secondaryResults);
 
         aggregate.CreateBallot(emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
@@ -143,6 +144,7 @@ public class MajorityElectionResultBundleWriter
             aggregate.ResultEntryParams.AutomaticEmptyVoteCounting,
             selectedCandidateIds.Count);
 
+        EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
         ValidateSecondaryResults(electionResult, secondaryResults);
 
         aggregate.UpdateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
@@ -245,6 +247,8 @@ public class MajorityElectionResultBundleWriter
                 secondaryResult.InvalidVoteCount,
                 electionResult.EntryParams!.AutomaticEmptyVoteCounting,
                 secondaryResult.SelectedCandidateIds.Count);
+
+            EnsureNoDisabledVoteCount(secondaryResult.IndividualVoteCount, secondaryElectionResult.SecondaryMajorityElection);
         }
     }
 
@@ -278,6 +282,16 @@ public class MajorityElectionResultBundleWriter
         }
 
         return expectedEmptyVoteCount;
+    }
+
+    private void EnsureNoDisabledVoteCount(
+        int individualVoteCount,
+        DataModels.MajorityElectionBase election)
+    {
+        if (election.IndividualCandidatesDisabled && individualVoteCount > 0)
+        {
+            throw new ValidationException($"Individual vote count is disabled on election {election.Id}");
+        }
     }
 
     private void EnsureValidCandidates(

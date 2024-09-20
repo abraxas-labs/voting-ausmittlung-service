@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -50,7 +50,7 @@ public class ProportionalElectionUnionEndResultWriter
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code)> PrepareFinalize(Guid unionId, string message)
+    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> PrepareFinalize(Guid unionId, string message)
     {
         await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
 

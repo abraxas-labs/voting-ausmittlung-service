@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +41,8 @@ public class DataContext : DbContext
     public DbSet<VoteResult> VoteResults { get; set; } = null!;
 
     public DbSet<Ballot> Ballots { get; set; } = null!;
+
+    public DbSet<BallotTranslation> BallotTranslations { get; set; } = null!;
 
     public DbSet<BallotResult> BallotResults { get; set; } = null!;
 

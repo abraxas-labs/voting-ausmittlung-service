@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,9 +11,6 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 
 public static class PdfVoteUtil
 {
-    private const int TieBreakQuestionCountWith2Questions = 1;
-    private const int TieBreakQuestionCountWith3Questions = 3;
-
     public static void SetLabels(IEnumerable<PdfVote> votes)
     {
         foreach (var vote in votes)
@@ -71,36 +68,32 @@ public static class PdfVoteUtil
                 questions[0].Label = PdfVoteQuestionLabel.MainBallot;
                 break;
 
-            case > 1 when tieBreakQuestions.Count == 0:
-                throw new InvalidOperationException("tie break questions must not be empty when the ballot has more than 1 question");
-
-            case 2 when tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith2Questions:
-                throw new InvalidOperationException("ballots with 2 questions must have 0 or 1 tie break question");
-
             case 2:
                 questions[0].Label = PdfVoteQuestionLabel.MainBallot;
                 questions[1].Label = questions[1].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal : PdfVoteQuestionLabel.Variant;
 
-                if (tieBreakQuestions.Count == TieBreakQuestionCountWith2Questions)
+                if (tieBreakQuestions.Count == 1)
                 {
                     tieBreakQuestions[0].Label = PdfVoteQuestionLabel.TieBreak;
                 }
 
                 break;
 
-            case 3 when tieBreakQuestions.Count != 0 && tieBreakQuestions.Count != TieBreakQuestionCountWith3Questions:
-                throw new InvalidOperationException("ballots with 3 questions must have 0 or 3 tie break questions");
-
             case 3:
                 questions[0].Label = PdfVoteQuestionLabel.MainBallot;
                 questions[1].Label = questions[1].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal1 : PdfVoteQuestionLabel.Variant1;
                 questions[2].Label = questions[2].Type == BallotQuestionType.CounterProposal ? PdfVoteQuestionLabel.CounterProposal2 : PdfVoteQuestionLabel.Variant2;
 
-                if (tieBreakQuestions.Count == TieBreakQuestionCountWith3Questions)
+                var tieBreakLabels = new[]
                 {
-                    tieBreakQuestions[0].Label = PdfVoteQuestionLabel.TieBreak1;
-                    tieBreakQuestions[1].Label = PdfVoteQuestionLabel.TieBreak2;
-                    tieBreakQuestions[2].Label = PdfVoteQuestionLabel.TieBreak3;
+                    PdfVoteQuestionLabel.TieBreak1,
+                    PdfVoteQuestionLabel.TieBreak2,
+                    PdfVoteQuestionLabel.TieBreak3,
+                };
+
+                for (var i = 0; i < tieBreakQuestions.Count; i++)
+                {
+                    tieBreakQuestions[i].Label = tieBreakLabels[i];
                 }
 
                 break;

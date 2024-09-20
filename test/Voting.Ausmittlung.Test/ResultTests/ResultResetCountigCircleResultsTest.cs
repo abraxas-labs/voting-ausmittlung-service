@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,14 +11,14 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
-using Voting.Lib.Eventing.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.ResultTests;
 
@@ -50,6 +50,81 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
         proportionalElectionResultResettedEvents.MatchSnapshot("proportionalElectionResultResettedEvents");
         majorityElectionResultResettedEvents.MatchSnapshot("majorityElectionResultResettedEvents");
         ccDetailsResettedEvents.MatchSnapshot("ccDetailsResettedEvents");
+    }
+
+    [Fact]
+    public async Task ShouldResetBundleNumbers()
+    {
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+
+        await RunOnResult<MajorityElectionResultBundleNumberEntered, MajorityElectionResultAggregate>(
+            MajorityElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            aggregate =>
+            {
+                aggregate.DefineEntry(
+                    MajorityElectionResultEntry.Detailed,
+                    ContestMockedData.GuidUzwilEvoting,
+                    new DomainModels.MajorityElectionResultEntryParams
+                    {
+                        AutomaticBallotBundleNumberGeneration = true,
+                    });
+                aggregate.GenerateBundleNumber(ContestMockedData.GuidUzwilEvoting);
+            });
+
+        await RunOnResult<ProportionalElectionResultBundleNumberEntered, ProportionalElectionResultAggregate>(
+            ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            aggregate =>
+            {
+                aggregate.DefineEntry(
+                    new DomainModels.ProportionalElectionResultEntryParams
+                    {
+                        AutomaticBallotBundleNumberGeneration = true,
+                    },
+                    ContestMockedData.GuidUzwilEvoting);
+                aggregate.GenerateBundleNumber(ContestMockedData.GuidUzwilEvoting);
+            });
+
+        var ballotResultId = Guid.Parse("740a9013-a26e-46d2-9efd-6a0857230bc6");
+
+        await RunOnResult<VoteResultBundleNumberEntered, VoteResultAggregate>(
+            VoteResultMockedData.GuidUzwilVoteInContestUzwilResult,
+            aggregate =>
+            {
+                aggregate.DefineEntry(
+                    VoteResultEntry.Detailed,
+                    ContestMockedData.GuidUzwilEvoting,
+                    new DomainModels.VoteResultEntryParams
+                    {
+                        AutomaticBallotBundleNumberGeneration = true,
+                    });
+                aggregate.GenerateBundleNumber(ballotResultId, ContestMockedData.GuidUzwilEvoting);
+            });
+
+        await ErfassungElectionAdminClient.ResetCountingCircleResultsAsync(NewValidRequest());
+
+        await RunOnResult<MajorityElectionResultBundleNumberEntered, MajorityElectionResultAggregate>(
+            MajorityElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            aggregate =>
+            {
+                var bundleNumber = aggregate.GenerateBundleNumber(ContestMockedData.GuidUzwilEvoting);
+                bundleNumber.Should().Be(1);
+            });
+
+        await RunOnResult<ProportionalElectionResultBundleNumberEntered, ProportionalElectionResultAggregate>(
+            ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            aggregate =>
+            {
+                var bundleNumber = aggregate.GenerateBundleNumber(ContestMockedData.GuidUzwilEvoting);
+                bundleNumber.Should().Be(1);
+            });
+
+        await RunOnResult<VoteResultBundleNumberEntered, VoteResultAggregate>(
+            VoteResultMockedData.GuidUzwilVoteInContestUzwilResult,
+            aggregate =>
+            {
+                var bundleNumber = aggregate.GenerateBundleNumber(ballotResultId, ContestMockedData.GuidUzwilEvoting);
+                bundleNumber.Should().Be(1);
+            });
     }
 
     [Theory]

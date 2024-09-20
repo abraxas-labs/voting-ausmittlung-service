@@ -1,29 +1,100 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Models;
+using Voting.Lib.Common;
+using VoteType = Ech0252_2_0.VoteType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteInfoVoteMapping
 {
-    internal static IEnumerable<VoteInfoType> ToVoteInfoEchVote(this Ballot ballot)
+    private const string FederalIdentifier = "idBund";
+
+    internal static IEnumerable<VoteInfoType> ToVoteInfoEchVote(
+        this Ballot ballot,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
     {
         ballot.OrderQuestions();
 
+        string? mainQuestionId = null;
+        var voteSubType = VoteSubTypeType.Item1;
+        var titleInfos = new List<VoteTitleInformationType>();
+
+        if (ballot.SubType != BallotSubType.Unspecified)
+        {
+            // This is a variant vote on multiple ballots
+            voteSubType = ballot.SubType switch
+            {
+                BallotSubType.MainBallot => VoteSubTypeType.Item1,
+                BallotSubType.CounterProposal1 => VoteSubTypeType.Item2,
+                BallotSubType.CounterProposal2 => VoteSubTypeType.Item4,
+                BallotSubType.Variant1 => VoteSubTypeType.Item2,
+                BallotSubType.Variant2 => VoteSubTypeType.Item4,
+                BallotSubType.TieBreak1 => VoteSubTypeType.Item3,
+                BallotSubType.TieBreak2 => VoteSubTypeType.Item5,
+                BallotSubType.TieBreak3 => VoteSubTypeType.Item6,
+                _ => throw new InvalidOperationException($"Unsupported ballot sub type {ballot.SubType}"),
+            };
+
+            mainQuestionId = BuildQuestionId(ballot.Vote.Ballots.Single(x => x.Position == 1).Id);
+            titleInfos = ballot.Translations
+                .Where(t => t.Language == Languages.German)
+                .Select(t => new VoteTitleInformationType
+                {
+                    Language = t.Language,
+                    VoteTitle = t.OfficialDescription,
+                    VoteTitleShort = t.ShortDescription,
+                })
+                .ToList();
+        }
+        else if (ballot.BallotType == BallotType.VariantsBallot)
+        {
+            // Variant vote on a single ballot
+            mainQuestionId = BuildQuestionId(ballot.Id);
+        }
+        else
+        {
+            // This is a standard vote
+            titleInfos = ballot.Vote.Translations
+                .Where(t => t.Language == Languages.German)
+                .Select(t => new VoteTitleInformationType
+                {
+                    Language = t.Language,
+                    VoteTitle = t.OfficialDescription,
+                    VoteTitleShort = t.ShortDescription,
+                })
+                .ToList();
+        }
+
         foreach (var (question, i) in ballot.BallotQuestions.Select((question, i) => (question, i)))
         {
-            var type = i switch
+            if (ballot.BallotType == BallotType.VariantsBallot)
             {
-                0 => VoteSubTypeType.Item1,
-                1 => VoteSubTypeType.Item2,
-                _ => VoteSubTypeType.Item4,
-            };
-            yield return ToVoteInfoEchVote(question, type);
+                voteSubType = i switch
+                {
+                    0 => VoteSubTypeType.Item1,
+                    1 => VoteSubTypeType.Item2,
+                    _ => VoteSubTypeType.Item4,
+                };
+            }
+
+            yield return ToVoteInfoEchVote(
+                question,
+                voteSubType,
+                mainQuestionId,
+                titleInfos,
+                ctx,
+                enabledResultStates,
+                sequenceBySuperiorAuthorityId);
         }
 
         foreach (var (question, i) in ballot.TieBreakQuestions.Select((question, i) => (question, i)))
@@ -34,38 +105,65 @@ internal static class VoteInfoVoteMapping
                 1 => VoteSubTypeType.Item5,
                 _ => VoteSubTypeType.Item6,
             };
-            yield return ToVoteInfoEchVote(question, type);
+            yield return ToVoteInfoEchVote(
+                question,
+                type,
+                mainQuestionId,
+                ctx,
+                enabledResultStates,
+                sequenceBySuperiorAuthorityId);
         }
     }
 
-    private static VoteInfoType ToVoteInfoEchVote(BallotQuestion question, VoteSubTypeType type)
+    private static VoteInfoType ToVoteInfoEchVote(
+        BallotQuestion question,
+        VoteSubTypeType type,
+        string? mainQuestionId,
+        List<VoteTitleInformationType> titleInfos,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
     {
-        var titleInfos = question.Translations
-            .OrderBy(t => t.Language)
-            .Select(t => new VoteTitleInformationType
-            {
-                Language = t.Language,
-                VoteTitle = t.Question,
-            });
+        if (question.Ballot.BallotType == BallotType.VariantsBallot)
+        {
+            titleInfos = question.Translations
+                .Where(t => t.Language == Languages.German)
+                .Select(t => new VoteTitleInformationType
+                {
+                    Language = t.Language,
+                    VoteTitle = t.Question,
+                    VoteTitleShort = t.Question,
+                })
+                .ToList();
+        }
 
+        var questionId = BuildQuestionId(question.BallotId, question.Number);
         return new VoteInfoType
         {
-            Vote = ToVoteTypeEchVote(question.Id, titleInfos, question.Ballot, type),
+            Vote = ToVoteTypeEchVote(questionId, titleInfos, question.Ballot, type, mainQuestionId, ctx, sequenceBySuperiorAuthorityId, question.FederalIdentification),
             CountingCircleInfo = question.Results
-                .Where(r => r.BallotResult.VoteResult.Published)
                 .OrderBy(r => r.BallotResult.VoteResult.CountingCircle.Name)
                 .Select(r => ToCountingCircleInfo(
                     r.BallotResult,
                     r.TotalCountOfAnswerYes,
                     r.TotalCountOfAnswerNo,
-                    r.TotalCountOfAnswerUnspecified))
+                    r.TotalCountOfAnswerUnspecified,
+                    enabledResultStates))
                 .ToList(),
         };
     }
 
-    private static VoteInfoType ToVoteInfoEchVote(TieBreakQuestion question, VoteSubTypeType type)
+    private static VoteInfoType ToVoteInfoEchVote(
+        TieBreakQuestion question,
+        VoteSubTypeType type,
+        string? mainQuestionId,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
     {
+        var questionId = BuildQuestionId(question.BallotId, question.Number, true);
         var titleInfos = question.Translations
+            .Where(t => t.Language == Languages.German)
             .OrderBy(t => t.Language)
             .Select(t => new VoteTitleInformationType
             {
@@ -75,34 +173,48 @@ internal static class VoteInfoVoteMapping
 
         return new VoteInfoType
         {
-            Vote = ToVoteTypeEchVote(question.Id, titleInfos, question.Ballot, type),
+            Vote = ToVoteTypeEchVote(questionId, titleInfos, question.Ballot, type, mainQuestionId, ctx, sequenceBySuperiorAuthorityId, question.FederalIdentification),
             CountingCircleInfo = question.Results
-                .Where(r => r.BallotResult.VoteResult.Published)
                 .OrderBy(r => r.BallotResult.VoteResult.CountingCircle.Name)
                 .Select(r => ToCountingCircleInfo(
                     r.BallotResult,
                     r.TotalCountOfAnswerQ1,
                     r.TotalCountOfAnswerQ2,
-                    r.TotalCountOfAnswerUnspecified))
+                    r.TotalCountOfAnswerUnspecified,
+                    enabledResultStates))
                 .ToList(),
         };
     }
 
     private static VoteType ToVoteTypeEchVote(
-        Guid questionId,
+        string questionId,
         IEnumerable<VoteTitleInformationType> titleInfos,
         Ballot ballot,
-        VoteSubTypeType type)
+        VoteSubTypeType type,
+        string? mainQuestionId,
+        Ech0252MappingContext ctx,
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
+        int? federalIdentification)
     {
+        var superiorAuthority = ctx.GetSuperiorAuthority(ballot.Vote.DomainOfInfluence.Bfs);
+        var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
+
+        var previousSequence = sequenceBySuperiorAuthorityId.GetValueOrDefault(superiorAuthorityId, (ushort)0);
+        var sequence = (ushort)(previousSequence + 1);
+        sequenceBySuperiorAuthorityId[superiorAuthorityId] = sequence;
+
         return new VoteType
         {
             PollingDay = ballot.Vote.Contest.Date,
+            SuperiorAuthority = superiorAuthority?.ToEchDomainOfInfluence(),
             DomainOfInfluence = ballot.Vote.DomainOfInfluence.ToEchDomainOfInfluence(),
             DecisiveMajority = ballot.Vote.ResultAlgorithm.ToDecisiveMajorityType(),
-            VoteIdentification = questionId.ToString(),
-            MainVoteIdentification = ballot.HasTieBreakQuestions ? ballot.Id.ToString() : null,
+            VoteIdentification = questionId,
+            MainVoteIdentification = mainQuestionId,
             VoteSubType = type,
             VoteTitleInformation = titleInfos.ToList(),
+            Sequence = sequence,
+            OtherIdentification = ToOtherIdentification(federalIdentification),
         };
     }
 
@@ -110,30 +222,37 @@ internal static class VoteInfoVoteMapping
         BallotResult ballotResult,
         int answersYes,
         int answersNo,
-        int answersUnspecified)
+        int answersUnspecified,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
+        var hasResultData = ballotResult.VoteResult.Published
+            && enabledResultStates?.Contains(ballotResult.VoteResult.State) != false;
+
         return new CountingCircleInfoType
         {
-            CountingCircle = ballotResult.VoteResult.CountingCircle.ToEch0252CountingCircle(),
-            ResultData = new ResultDataType
-            {
-                CountOfVotersInformation =
-                    new CountOfVotersInformationType
-                    {
-                        CountOfVotersTotal = (uint)ballotResult.VoteResult.TotalCountOfVoters,
-                    },
-                FullyCountedTrue = ballotResult.VoteResult.SubmissionDoneTimestamp.HasValue,
-                ReleasedTimestamp = ballotResult.VoteResult.SubmissionDoneTimestamp,
-                LockoutTimestamp = ballotResult.VoteResult.AuditedTentativelyTimestamp,
-                VoterTurnout = ballotResult.CountOfVoters.VoterParticipation,
-                ReceivedVotes = (uint)ballotResult.CountOfVoters.TotalReceivedBallots,
-                ReceivedBlankVotes = (uint)ballotResult.CountOfVoters.TotalBlankBallots,
-                ReceivedInvalidVotes = (uint)ballotResult.CountOfVoters.TotalInvalidBallots,
-                ReceivedValidVotes = (uint)ballotResult.CountOfVoters.TotalAccountedBallots,
-                CountOfNoVotes = (uint)answersNo,
-                CountOfYesVotes = (uint)answersYes,
-                CountOfVotesWithoutAnswer = (uint)answersUnspecified,
-            },
+            CountingCircle = ballotResult.VoteResult.CountingCircle.ToEch0252CountingCircle(ballotResult.Ballot.Vote.Contest.DomainOfInfluenceId),
+            ResultData = hasResultData
+                ? new ResultDataType
+                {
+                    CountOfVotersInformation =
+                        new CountOfVotersInformationType
+                        {
+                            CountOfVotersTotal = (uint)ballotResult.VoteResult.TotalCountOfVoters,
+                        },
+                    IsFullyCounted = ballotResult.VoteResult.SubmissionDoneTimestamp.HasValue,
+                    ReleasedTimestamp = ballotResult.VoteResult.SubmissionDoneTimestamp,
+                    LockoutTimestamp = ballotResult.VoteResult.AuditedTentativelyTimestamp,
+                    VoterTurnout = VoteInfoCountingCircleResultMapping.DecimalToPercentage(ballotResult.CountOfVoters.VoterParticipation),
+                    ReceivedVotes = (uint)ballotResult.CountOfVoters.TotalReceivedBallots,
+                    ReceivedBlankVotes = (uint)ballotResult.CountOfVoters.TotalBlankBallots,
+                    ReceivedInvalidVotes = (uint)ballotResult.CountOfVoters.TotalInvalidBallots,
+                    ReceivedValidVotes = (uint)ballotResult.CountOfVoters.TotalAccountedBallots,
+                    CountOfNoVotes = (uint)answersNo,
+                    CountOfYesVotes = (uint)answersYes,
+                    CountOfVotesWithoutAnswer = (uint)answersUnspecified,
+                    NamedElement = VoteInfoCountingCircleResultMapping.GetNamedElements(ballotResult.VoteResult),
+                }
+                : null,
         };
     }
 
@@ -147,5 +266,25 @@ internal static class VoteInfoVoteMapping
             VoteResultAlgorithm.PopularAndCountingCircleMajority => DecisiveMajorityType.Item4,
             _ => throw new InvalidOperationException("Invalid result algorithm"),
         };
+    }
+
+    // Question ids are not stored in events, they are generated randomly during event processing
+    // and thus are not persisted when events are replayed.
+    // To get something that stays the same, the question number must be used.
+    private static string BuildQuestionId(Guid ballotId, int questionNumber = 1, bool isTieBreakQuestion = false)
+        => $"{ballotId}_{questionNumber}{(isTieBreakQuestion ? "_t" : string.Empty)}";
+
+    private static List<NamedIdType> ToOtherIdentification(int? federalIdentification)
+    {
+        return federalIdentification.HasValue
+            ? new List<NamedIdType>
+            {
+                new NamedIdType
+                {
+                    IdName = FederalIdentifier,
+                    Id = federalIdentification.Value.ToString(CultureInfo.InvariantCulture),
+                },
+            }
+            : new List<NamedIdType>();
     }
 }

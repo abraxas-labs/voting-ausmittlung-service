@@ -15,9 +15,36 @@
   "CountingCircle": null,
   "ProtocolExports": [
     {
+      "ExportTemplateId": "830acad7-e3d9-59fc-8ee3-17b24fc7f16e",
+      "Description": "Abstimmung kantonal: Detailergebnisse",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "29f862f7-a490-506c-b506-095fe9e59337",
+      "Description": "Abstimmung kantonal: Gesamtergebnisse",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "6aa42a6d-74b0-501f-b2ea-8241586e8d67",
+      "Description": "Abstimmung kantonal: Provisorische Ergebnisse",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
       "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
       "Description": "Protokoll E-Voting Ergebnisse",
-      "EntityDescription": "",
+      "EntityDescription": "Abst SG de",
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
@@ -26,11 +53,110 @@
     {
       "ExportTemplateId": "a4718007-f178-5e2a-b19f-4955bfb57151",
       "Description": "Protokoll inkl. Details E-Voting",
-      "EntityDescription": "",
+      "EntityDescription": "Abst SG de",
       "ProtocolExportId": "e4d8ac4c-f52d-55ff-8d93-754e0d6cf096",
       "State": 2,
       "FileName": "monitoring-mock-file.pdf",
       "Started": "2020-11-05T05:00:00Z"
+    },
+    {
+      "ExportTemplateId": "847b6053-917c-53a9-9e3d-9806a94cb90d",
+      "Description": "Majorz kantonal: Detailergebnisse",
+      "EntityDescription": "Mw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "a9c5d24c-86cf-59bb-85aa-b53f9289b9e8",
+      "Description": "Majorz kantonal: Wahlprotokoll",
+      "EntityDescription": "Mw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "c57ccfa3-e5e8-555b-bca8-473ad9797c73",
+      "Description": "Majorz kantonal: Wahlprotokoll E-Voting",
+      "EntityDescription": "Mw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "1c1dab0f-60f6-5930-bb66-f423a25a602d",
+      "Description": "Proporz kantonal: 5 - Wahlprotokoll",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "f96272d4-5bd4-5898-90eb-b1c9fe2b75fe",
+      "Description": "Proporz kantonal: 5 - Wahlprotokoll E-Voting",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "174031a5-deea-5560-86d7-c6a3adc16199",
+      "Description": "Proporz kantonal: 5a - Sitzverteilung",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "f06672c8-ba06-5531-8861-2452a9984552",
+      "Description": "Proporz kantonal: 5b - Kandidierenden- und Parteiergebnisse",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "5321c0f7-0774-5a25-8fb8-2c76f7a53950",
+      "Description": "Proporz kantonal: 5b - Kandidierenden- und Parteiergebnisse E-Voting",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "4f19c3b6-9584-54a8-9ff8-2096d202c5e7",
+      "Description": "Proporz kantonal: B - Kandidierendenstimmen",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "c5c3987e-b5f1-5f23-b8e5-37b904e09715",
+      "Description": "Proporz kantonal: C - Listenergebnisse",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
+      "ExportTemplateId": "47eda491-23aa-5246-be3c-207f587e66fa",
+      "Description": "Proporz kantonal: D - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null
     }
   ]
 }

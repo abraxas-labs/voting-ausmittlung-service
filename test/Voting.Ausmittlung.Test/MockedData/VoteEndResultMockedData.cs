@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -97,6 +97,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
                                 Type = BallotQuestionType.MainBallot,
+                                FederalIdentification = 555,
                             },
                         },
                     },
@@ -115,6 +116,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 1"),
                                 Type = BallotQuestionType.MainBallot,
+                                FederalIdentification = 666,
                             },
                             new BallotQuestion
                             {
@@ -124,6 +126,7 @@ public static class VoteEndResultMockedData
                                     (t, o) => t.Question = o,
                                     "Frage 2"),
                                 Type = BallotQuestionType.CounterProposal,
+                                FederalIdentification = 777,
                             },
                         },
                         HasTieBreakQuestions = true,
@@ -138,6 +141,7 @@ public static class VoteEndResultMockedData
                                 Translations = TranslationUtil.CreateTranslations<TieBreakQuestionTranslation>(
                                     (t, o) => t.Question = o,
                                     "Welcher der beiden Vorlagen soll in Kraft treten, falls sowohl der Beschluss als auch der Gegenvorschlag angenommen werden?"),
+                                FederalIdentification = 888,
                             },
                         },
                     },
@@ -234,7 +238,7 @@ public static class VoteEndResultMockedData
             await simplePbBuilder.Create(vote);
 
             await sp.GetRequiredService<VoteResultBuilder>()
-                .RebuildForVote(vote.Id, mappedDomainOfInfluence.Id, false);
+                .RebuildForVote(vote.Id, mappedDomainOfInfluence.Id, false, vote.ContestId);
 
             var endResultInitializer = sp.GetRequiredService<VoteEndResultInitializer>();
             await endResultInitializer.RebuildForVote(vote.Id, false);

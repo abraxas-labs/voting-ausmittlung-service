@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
-using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Messaging.Messages;
@@ -82,7 +81,5 @@ public class ExportProfile : Profile
         // write
         CreateMap<UpdateResultExportConfigurationRequest, ResultExportConfiguration>();
         CreateMap<UpdatePoliticalBusinessExportMetadataRequest, ResultExportConfigurationPoliticalBusinessMetadata>();
-        CreateMap<GenerateResultBundleReviewExportRequest, BundleReviewExportRequest>()
-            .ForPath(dst => dst.Template.Key, opts => opts.MapFrom(x => x.TemplateKey));
     }
 }

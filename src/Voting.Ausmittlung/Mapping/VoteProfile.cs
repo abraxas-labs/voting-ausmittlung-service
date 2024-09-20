@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using AutoMapper;
@@ -14,7 +14,8 @@ public class VoteProfile : Profile
         // read
         CreateMap<DataModels.Vote, ProtoModels.Vote>()
             .ForMember(dst => dst.DomainOfInfluenceId, opts => opts.MapFrom(src => src.DomainOfInfluence.BasisDomainOfInfluenceId));
-        CreateMap<DataModels.Ballot, ProtoModels.Ballot>();
+        CreateMap<DataModels.Ballot, ProtoModels.Ballot>()
+            .ForMember(dest => dest.BallotSubType, opts => opts.MapFrom(src => src.SubType));
         CreateMap<DataModels.BallotQuestion, ProtoModels.BallotQuestion>();
         CreateMap<DataModels.TieBreakQuestion, ProtoModels.TieBreakQuestion>();
     }

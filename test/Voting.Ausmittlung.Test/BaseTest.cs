@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.EventSignature;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.Utils;
@@ -314,6 +315,12 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
     protected TCustomService CreateService<TCustomService>(params string[] roles)
     {
         return (TCustomService)Activator.CreateInstance(typeof(TCustomService), CreateGrpcChannel(roles))!;
+    }
+
+    protected void EnsureValidAggregatedVotingCards<T>(ICollection<T> votingCardsBefore, ICollection<T> votingCardsAfter, Func<T, bool> predicate, int diff)
+        where T : AggregatedVotingCardResultDetail
+    {
+        (votingCardsAfter.Single(predicate).CountOfReceivedVotingCards - votingCardsBefore.Single(predicate).CountOfReceivedVotingCards).Should().Be(diff);
     }
 
     private TService CreateService(params string[] roles)

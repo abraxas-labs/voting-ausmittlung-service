@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -83,24 +83,27 @@ public class MajorityElectionCandidateResultBuilder
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task AddMissing(
-        Guid electionId,
-        IEnumerable<MajorityElectionResult> results)
+    internal async Task<List<MajorityElectionCandidateResult>> BuildMissing(Guid electionId, Dictionary<Guid, IEnumerable<Guid>> candidateIdsByResultId)
     {
         var candidateIds = await _candidateRepo.Query()
             .Where(c => c.MajorityElectionId == electionId)
             .Select(c => c.Id)
             .ToListAsync();
 
+        var missingResults = new List<MajorityElectionCandidateResult>();
         if (candidateIds.Count == 0)
         {
-            return;
+            return missingResults;
         }
 
-        foreach (var result in results)
+        foreach (var (resultId, resultCandidateIds) in candidateIdsByResultId)
         {
-            AddMissing(result, candidateIds);
+            var toAdd = candidateIds.Except(resultCandidateIds)
+                .Select(x => new MajorityElectionCandidateResult { CandidateId = x, ElectionResultId = resultId });
+            missingResults.AddRange(toAdd);
         }
+
+        return missingResults;
     }
 
     internal void SetConventionalVoteCountValues(
@@ -155,17 +158,6 @@ public class MajorityElectionCandidateResultBuilder
             cr => cr.ElectionResult.PrimaryResultId == primaryElectionResultId,
             candidateVoteDeltas,
             deltaFactor);
-    }
-
-    private void AddMissing(MajorityElectionResult result, IEnumerable<Guid> candidateIds)
-    {
-        var toAdd = candidateIds.Except(result.CandidateResults.Select(x => x.CandidateId))
-            .Select(x => new MajorityElectionCandidateResult { CandidateId = x })
-            .ToList();
-        foreach (var element in toAdd)
-        {
-            result.CandidateResults.Add(element);
-        }
     }
 
     private async Task AdjustConventionalCandidateVotesForBundle(Guid electionResultId, Guid bundleId, int deltaFactor)

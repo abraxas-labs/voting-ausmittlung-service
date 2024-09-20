@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -285,6 +285,36 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.SecondaryMajorityElectionResults[0].EmptyVoteCount = 3)),
             StatusCode.InvalidArgument,
             "wrong number of empty votes, expected: 1 provided: 3");
+    }
+
+    [Fact]
+    public async Task TestShouldWithNonNullIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<MajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x =>
+            {
+                x.IndividualVoteCount = 1;
+                x.SelectedCandidateIds.Clear();
+            })),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled on election");
+    }
+
+    [Fact]
+    public async Task TestShouldWithNonNullSecondaryIndividualVotesWhenDisabled()
+    {
+        await ModifyDbEntities<SecondaryMajorityElection>(
+            x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+            x => x.IndividualCandidatesDisabled = true);
+
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "Individual vote count is disabled on election");
     }
 
     [Theory]

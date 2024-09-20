@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -147,7 +147,7 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, false);
+        await _endResultBuilder.AdjustEndResult(electionResultId, false, eventData.ImplicitMandateDistributionDisabled);
     }
 
     public async Task Process(ProportionalElectionResultPlausibilised eventData)
@@ -160,7 +160,7 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, true);
+        await _endResultBuilder.AdjustEndResult(electionResultId, true, false);
     }
 
     public async Task Process(ProportionalElectionResultResettedToAuditedTentatively eventData)

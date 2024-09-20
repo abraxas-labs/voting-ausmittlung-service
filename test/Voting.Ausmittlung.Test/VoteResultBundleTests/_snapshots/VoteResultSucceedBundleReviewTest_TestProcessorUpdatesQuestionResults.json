@@ -20,6 +20,7 @@
           "Question": "Frage 2 Gossau de",
           "BallotAnswers": [],
           "Type": 2,
+          "FederalIdentification": null,
           "Id": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d"
         },
         "QuestionId": "e4dc0d77-5fb7-45f0-9c54-10d2c1d1660d",
@@ -64,6 +65,7 @@
           "Question": "Frage 1 Gossau de",
           "BallotAnswers": [],
           "Type": 1,
+          "FederalIdentification": null,
           "Id": "0516dfaf-4414-4f71-b062-d39dc4bb0277"
         },
         "QuestionId": "0516dfaf-4414-4f71-b062-d39dc4bb0277",
@@ -113,6 +115,7 @@
           "EndResult": null,
           "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) it",
           "BallotAnswers": [],
+          "FederalIdentification": null,
           "Id": "7c2e10f6-1262-45d9-a705-b480aa035d0e"
         },
         "QuestionId": "7c2e10f6-1262-45d9-a705-b480aa035d0e",

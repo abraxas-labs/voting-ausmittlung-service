@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -34,11 +34,18 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
         await ValidateState(electionId, basisCountingCircleId);
 
         var hasInvalid = mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Invalid);
+        var hasIndividual = mappings.Any(m => m.Target == MajorityElectionWriteInMappingTarget.Individual);
         var election = await GetElection(electionId);
+        var individualVotesDisabled = GetIndividualVotesDisabled(election);
 
         if (hasInvalid && !election.Contest.CantonDefaults.MajorityElectionInvalidVotes)
         {
             throw new ValidationException("Invalid votes are not enabled on this election");
+        }
+
+        if (hasIndividual && individualVotesDisabled)
+        {
+            throw new ValidationException("Individual votes are not enabled on this election");
         }
 
         var candidateIds = mappings
@@ -101,6 +108,8 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
     protected abstract Task<List<Guid>> GetCandidateIds(Guid electionId);
 
     protected abstract IEnumerable<MajorityElectionCandidateBase> GetCandidates(TElection election);
+
+    protected abstract bool GetIndividualVotesDisabled(TElection election);
 
     private MajorityElectionResultImport ProcessResult(
         EVotingElectionResult result,

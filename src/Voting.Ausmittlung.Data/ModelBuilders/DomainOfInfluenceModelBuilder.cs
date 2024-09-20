@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +33,12 @@ public class DomainOfInfluenceModelBuilder :
         builder.Navigation(di => di.ContactPerson).IsRequired();
 
         builder.Ignore(di => di.IsSnapshot);
+
+        // Without this, listing the contests is very slow when many (>100) contests exist.
+        // If the performance problems reappear in the future, reevaluate this index.
+        // It may need to be replaced with a better index.
+        // Testing with >900 contests showed that this is currently the best index we can set to improve performance.
+        builder.HasIndex(di => di.ViewCountingCirclePartialResults);
     }
 
     public void Configure(EntityTypeBuilder<DomainOfInfluencePermissionEntry> builder)

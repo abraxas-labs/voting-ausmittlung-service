@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -64,13 +64,17 @@ public class VoteEndResultBuilder
             ?? throw new EntityNotFoundException(nameof(VoteEndResult), voteResult.VoteId);
 
         var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+                .AsSplitQuery()
                 .AsTracking()
+                .Include(x => x.Contest.CantonDefaults)
                 .FirstOrDefaultAsync(x => x.Id == voteResult.VoteId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), voteResult.VoteId);
 
         voteEndResult.CountOfDoneCountingCircles += deltaFactor;
-        voteEndResult.Finalized = false;
-        simpleEndResult.EndResultFinalized = false;
+
+        var implicitFinalized = simpleEndResult.Contest.CantonDefaults.EndResultFinalizeDisabled && voteEndResult.AllCountingCirclesDone;
+        voteEndResult.Finalized = implicitFinalized;
+        simpleEndResult.EndResultFinalized = implicitFinalized;
 
         EndResultContestDetailsUtils.AdjustEndResultContestDetails<
             VoteEndResult,

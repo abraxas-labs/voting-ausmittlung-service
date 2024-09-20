@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -11,6 +11,8 @@ namespace Voting.Ausmittlung.Core.Utils.DoubleProportional;
 
 public class SaintLagueAlgorithm
 {
+    private const int MaxCorrectionAttempts = 100000;
+
     public SaintLagueAlgorithmResult? Calculate(decimal[] voterNumbers, int numberOfMandates)
     {
         var context = new SaintLagueAlgorithmContext(voterNumbers, numberOfMandates);
@@ -27,6 +29,7 @@ public class SaintLagueAlgorithm
         var distributedNumberOfMandates = SetSuperApportionmentOnColumns(context);
 
         // Step 2: Try to reduce the distribution error iteratively.
+        var countOfCorrectionAttempts = 0;
         while (distributedNumberOfMandates != context.NumberOfMandates && !columns.Any(c => c.LotDecisionRequired))
         {
             context.DistributionError = Math.Abs(distributedNumberOfMandates - context.NumberOfMandates);
@@ -41,18 +44,18 @@ public class SaintLagueAlgorithm
             }
 
             distributedNumberOfMandates = SetSuperApportionmentOnColumns(context);
+
+            countOfCorrectionAttempts++;
+            if (countOfCorrectionAttempts == MaxCorrectionAttempts)
+            {
+                throw new DoubleProportionalAlgorithmException("Max correction attempts in saint lague algorithm reached");
+            }
         }
 
         if (!context.HasLotDecisions)
         {
-            var upperLimitDivisor = GetColumnDivisors(context.Columns, -0.5M).Min();
-            var lowerLimitDivisor = GetColumnDivisors(context.Columns, 0.5M).Max();
-            var selectDivisor = decimal.Divide(lowerLimitDivisor + upperLimitDivisor, 2);
-
-            // If possible, try to get an integer election key.
-            context.ElectionKey = upperLimitDivisor - lowerLimitDivisor >= 1 || decimal.Floor(upperLimitDivisor) != decimal.Floor(lowerLimitDivisor)
-                ? decimal.Round(selectDivisor)
-                : selectDivisor;
+            context.ElectionKey = DivisorUtils.CalculateSelectDivisor(
+                context.Columns.Select(co => new DivisorApportionment(co.VoterNumber, co.NumberOfMandates)).ToArray());
             context.Divisor = context.ElectionKey;
         }
         else
@@ -144,7 +147,9 @@ public class SaintLagueAlgorithm
         foreach (var column in context.Columns)
         {
             column.Quotient = column.VoterNumber / context.Divisor;
-            column.NumberOfMandates = (int)decimal.Round(column.Quotient, MidpointRounding.AwayFromZero);
+            column.NumberOfMandates = column.Quotient.ApproxEquals((int)column.Quotient + 0.5M)
+                ? (int)column.Quotient + 1
+                : (int)decimal.Round(column.Quotient);
         }
 
         return context.Columns.Sum(x => x.NumberOfMandates);
@@ -152,13 +157,9 @@ public class SaintLagueAlgorithm
 
     private decimal[] GetColumnDivisors(SaintLagueVectorItem[] columns, decimal deltaNumberOfMandates)
     {
-        var x = columns.Select(c => new
-        {
-            c.VoterNumber,
-            NumberOfMandates = c.NumberOfMandates + deltaNumberOfMandates,
-        }).ToArray();
-
-        return x.Select(v => v.NumberOfMandates > 0 ? v.VoterNumber / v.NumberOfMandates : decimal.MaxValue).ToArray();
+        return DivisorUtils.GetDivisors(
+            columns.Select(c => new DivisorApportionment(c.VoterNumber, c.NumberOfMandates)).ToArray(),
+            deltaNumberOfMandates);
     }
 
     private class SaintLagueAlgorithmContext

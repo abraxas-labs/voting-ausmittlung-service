@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -119,6 +119,17 @@ public abstract class ProportionalElectionEndResultBaseTest : BaseTest<
         await SetOtherAuditedTentatively();
     }
 
+    protected async Task TriggerMandateDistribution()
+    {
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionEndResultMandateDistributionStarted
+            {
+                ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+                EventInfo = GetMockedEventInfo(),
+            });
+    }
+
     protected Task SetOneAuditedTentatively()
     {
         return SetAuditedTentatively(_countingCircleElectionResultIdPairs[0].ElectionEndResultId);
@@ -140,6 +151,7 @@ public abstract class ProportionalElectionEndResultBaseTest : BaseTest<
             {
                 ElectionResultId = resultId,
                 EventInfo = GetMockedEventInfo(),
+                ImplicitMandateDistributionDisabled = true,
             });
     }
 

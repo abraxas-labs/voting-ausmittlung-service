@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -45,6 +45,24 @@ public class MajorityElectionResultFlagForCorrectionTest : MajorityElectionResul
         await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultFlaggedForCorrection>().MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithNoUnpublishWhenBeforeAuditedPublish()
+    {
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x =>
+            {
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+
+        await RunToState(CountingCircleResultState.SubmissionDone);
+        await RunToPublished();
+
+        await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultUnpublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -135,12 +153,14 @@ public class MajorityElectionResultFlagForCorrectionTest : MajorityElectionResul
     {
         await RunToState(CountingCircleResultState.SubmissionDone);
         await AssertSubmissionDoneTimestamp(true);
+        await AssertReadyForCorrectionTimestamp(false);
 
         await MonitoringElectionAdminClient.FlagForCorrectionAsync(NewValidRequest());
         await RunEvents<MajorityElectionResultFlaggedForCorrection>();
 
         await AssertCurrentState(CountingCircleResultState.ReadyForCorrection);
         await AssertSubmissionDoneTimestamp(false);
+        await AssertReadyForCorrectionTimestamp(true);
         var comments = await RunOnDb(db => db.CountingCircleResultComments
             .Where(x => x.ResultId == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund))
             .ToListAsync());
@@ -195,5 +215,11 @@ public class MajorityElectionResultFlagForCorrectionTest : MajorityElectionResul
     {
         var result = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund)));
         (result.SubmissionDoneTimestamp != null).Should().Be(hasTimestamp);
+    }
+
+    private async Task AssertReadyForCorrectionTimestamp(bool hasTimestamp)
+    {
+        var result = await RunOnDb(db => db.MajorityElectionResults.SingleAsync(x => x.Id == Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund)));
+        (result.ReadyForCorrectionTimestamp != null).Should().Be(hasTimestamp);
     }
 }

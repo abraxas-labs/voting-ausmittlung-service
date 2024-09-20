@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -54,11 +54,11 @@ public class CountingCircleProcessor :
         var countingCircle = _mapper.Map<CountingCircle>(eventData.CountingCircle);
         await _repo.Create(countingCircle);
 
-        var contestInTestingPhase = await _contestRepo.GetContestsInTestingPhase();
-        foreach (var contest in contestInTestingPhase)
+        var contestIdsInTestingPhase = await _contestRepo.GetContestIdsInTestingPhase();
+        foreach (var contestId in contestIdsInTestingPhase)
         {
             var snapshotCountingCircle = _mapper.Map<CountingCircle>(eventData.CountingCircle);
-            snapshotCountingCircle.SnapshotForContest(contest.Id);
+            snapshotCountingCircle.SnapshotForContest(contestId);
             await _repo.Create(snapshotCountingCircle);
         }
 

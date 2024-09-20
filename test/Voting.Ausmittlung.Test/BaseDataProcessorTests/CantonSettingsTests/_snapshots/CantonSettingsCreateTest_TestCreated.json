@@ -20,6 +20,8 @@
     "CountingCircleResultStateDescriptions": [],
     "StatePlausibilisedDisabled": false,
     "PublishResultsEnabled": false,
+    "PublishResultsBeforeAuditedTentatively": false,
+    "EndResultFinalizeDisabled": true,
     "Id": "2d203a3c-40ba-4b53-a57e-38909d71390c"
   },
   "affectedContests": {
@@ -110,6 +112,8 @@
           "MajorityElectionUseCandidateCheckDigit": false,
           "ProportionalElectionUseCandidateCheckDigit": false,
           "PublishResultsEnabled": false,
+          "PublishResultsBeforeAuditedTentatively": false,
+          "EndResultFinalizeDisabled": true,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
         "PoliticalBusinesses": [],

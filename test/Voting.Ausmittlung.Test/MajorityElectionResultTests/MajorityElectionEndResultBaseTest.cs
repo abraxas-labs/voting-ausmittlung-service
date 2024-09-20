@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -124,7 +124,7 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         await RunScoped((SimplePoliticalBusinessBuilder<MajorityElection> builder) => builder.Create(election));
 
         await RunScoped((MajorityElectionResultBuilder resultBuilder) =>
-            resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false));
+            resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId));
 
         await RunScoped((MajorityElectionEndResultInitializer endResultBuilder) =>
             endResultBuilder.RebuildForElection(election.Id, false));

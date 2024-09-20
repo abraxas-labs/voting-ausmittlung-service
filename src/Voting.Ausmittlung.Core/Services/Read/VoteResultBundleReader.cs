@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,12 +10,14 @@ using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Messaging;
+using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
@@ -24,7 +26,9 @@ public class VoteResultBundleReader
     private readonly IDbRepository<DataContext, BallotResult> _resultRepo;
     private readonly IDbRepository<DataContext, VoteResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, VoteResultBallot> _ballotRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly MessageConsumerHub<VoteBundleChanged, VoteResultBundle> _bundleChangeListener;
+    private readonly PoliticalBusinessResultBundleBuilder _politicalBusinessResultBundleBuilder;
     private readonly PermissionService _permissionService;
     private readonly IAuth _auth;
 
@@ -32,16 +36,20 @@ public class VoteResultBundleReader
         IDbRepository<DataContext, BallotResult> resultRepo,
         IDbRepository<DataContext, VoteResultBundle> bundleRepo,
         IDbRepository<DataContext, VoteResultBallot> ballotRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         PermissionService permissionService,
         IAuth auth,
-        MessageConsumerHub<VoteBundleChanged, VoteResultBundle> bundleChangeListener)
+        MessageConsumerHub<VoteBundleChanged, VoteResultBundle> bundleChangeListener,
+        PoliticalBusinessResultBundleBuilder politicalBusinessResultBundleBuilder)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
+        _protocolExportRepo = protocolExportRepo;
         _permissionService = permissionService;
         _auth = auth;
         _bundleChangeListener = bundleChangeListener;
+        _politicalBusinessResultBundleBuilder = politicalBusinessResultBundleBuilder;
     }
 
     public async Task<BallotResult> GetBallotResultWithBundles(Guid ballotResultId)
@@ -58,6 +66,14 @@ public class VoteResultBundleReader
                            ?? throw new EntityNotFoundException(ballotResultId);
 
         await _permissionService.EnsureCanReadCountingCircle(ballotResult.VoteResult.CountingCircleId, ballotResult.VoteResult.Vote.ContestId);
+
+        await _politicalBusinessResultBundleBuilder.AddProtocolExportsToBundles(
+            ballotResult.Bundles,
+            ballotResult.VoteResult.CountingCircle.BasisCountingCircleId,
+            ballotResult.VoteResult.PoliticalBusinessId,
+            ballotResult.VoteResult.Vote.ContestId,
+            ballotResult.VoteResult.Vote.Contest.TestingPhaseEnded,
+            AusmittlungPdfVoteTemplates.ResultBundleReview.Key);
 
         return ballotResult;
     }

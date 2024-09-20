@@ -1,9 +1,8 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -74,23 +73,6 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
             .FirstOrDefaultAsync(x =>
                 x.MajorityElectionId == politicalBusinessId
                 && x.MajorityElection.DomainOfInfluence.SecureConnectId == tenantId);
-    }
-
-    protected override async Task ValidateFinalize(DataModels.MajorityElectionEndResult endResult)
-    {
-        await base.ValidateFinalize(endResult);
-
-        var hasOpenLotDecisions = await _endResultRepo
-            .Query()
-            .Where(x => x.Id == endResult.Id)
-            .AnyAsync(x => x.CandidateEndResults.Any(c => c.LotDecisionRequired && !c.LotDecision)
-                           || x.SecondaryMajorityElectionEndResults
-                               .Any(c => c.CandidateEndResults.Any(cr => cr.LotDecisionRequired && !cr.LotDecision)));
-
-        if (hasOpenLotDecisions)
-        {
-            throw new ValidationException("finalization is only possible after all required lot decisions are saved");
-        }
     }
 
     private void ValidateLotDecisions(

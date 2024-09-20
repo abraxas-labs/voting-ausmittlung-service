@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -22,4 +22,6 @@ public class Ech0252FilterRequest
     public List<CountingCircleResultState>? CountingStates { get; set; } = new();
 
     public List<PoliticalBusinessType>? PoliticalBusinessTypes { get; set; } = new();
+
+    public bool InformationOnly { get; set; }
 }

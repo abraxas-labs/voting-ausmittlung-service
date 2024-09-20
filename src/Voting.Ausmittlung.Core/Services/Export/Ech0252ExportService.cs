@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -10,14 +10,16 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Services.Export.Models;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Ech.Converters;
+using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Common;
+using Voting.Lib.Database.Repositories;
 using Voting.Lib.Ech;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.VotingExports.Models;
@@ -27,17 +29,19 @@ namespace Voting.Ausmittlung.Core.Services.Export;
 public class Ech0252ExportService
 {
     private const int MaxDaysRange = 365 * 10;
-    private const string Ech0252ExportFileName = "eCH-0252-{0}-{1}";
+    private const string Ech0252ExportFileName = "eCH-0252_{0}_{1}_{2}";
 
     private static readonly (string, ExportFileFormat) _exportData = ("eCH-0252-api", ExportFileFormat.Xml);
 
     private readonly Ech0252Serializer _ech0252Serializer;
     private readonly EchSerializer _echSerializer;
     private readonly ContestRepo _contestRepo;
+    private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
     private readonly IClock _clock;
     private readonly IAuth _auth;
     private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
     private readonly ExportRateLimitService _rateLimitService;
+    private readonly IDbRepository<DataContext, CantonSettings> _cantonSettingsRepo;
 
     public Ech0252ExportService(
         Ech0252Serializer ech0252Serializer,
@@ -46,7 +50,9 @@ public class Ech0252ExportService
         IClock clock,
         IAuth auth,
         SimplePoliticalBusinessRepo simplePoliticalBusinessRepo,
-        ExportRateLimitService rateLimitService)
+        ExportRateLimitService rateLimitService,
+        IDbRepository<DataContext, CantonSettings> cantonSettingsRepo,
+        DomainOfInfluenceRepo domainOfInfluenceRepo)
     {
         _ech0252Serializer = ech0252Serializer;
         _echSerializer = echSerializer;
@@ -55,15 +61,16 @@ public class Ech0252ExportService
         _auth = auth;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
         _rateLimitService = rateLimitService;
+        _cantonSettingsRepo = cantonSettingsRepo;
+        _domainOfInfluenceRepo = domainOfInfluenceRepo;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
         Ech0252FilterModel filter,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
-        await _rateLimitService.CheckAndLog(new[] { _exportData });
-
         var contestsEnumerable = await LoadContests(filter, ct);
+        var doisByContestId = await LoadDomainOfInfluences(filter);
 
         await foreach (var contest in contestsEnumerable)
         {
@@ -74,22 +81,33 @@ public class Ech0252ExportService
                 continue;
             }
 
+            var ctx = new Ech0252MappingContext(doisByContestId[contest.Id]);
+
             if (contest.Votes.Count > 0)
             {
-                var voteDelivery = _ech0252Serializer.ToVoteDelivery(contest);
-                yield return RenderToXml(contest.Date, voteDelivery, "votes");
+                var voteDelivery = _ech0252Serializer.ToVoteDelivery(
+                    contest,
+                    ctx,
+                    filter.CountingCircleResultStates.Count > 0 ? filter.CountingCircleResultStates : null);
+
+                yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
             }
 
             if (contest.ProportionalElections.Count > 0)
             {
-                var electionDelivery = _ech0252Serializer.ToProportionalElectionDelivery(contest);
-                yield return RenderToXml(contest.Date, electionDelivery, "proportional-elections");
+                var electionDelivery = filter.InformationOnly
+                    ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
+                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest);
+
+                yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
             }
 
             if (contest.MajorityElections.Count > 0)
             {
-                var electionDelivery = _ech0252Serializer.ToMajorityElectionDelivery(contest);
-                yield return RenderToXml(contest.Date, electionDelivery, "majority-elections");
+                var electionDelivery = filter.InformationOnly
+                    ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
+                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest);
+                yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
             }
         }
     }
@@ -104,26 +122,23 @@ public class Ech0252ExportService
             PoliticalBusinessIds = filterRequest.VotingIdentifications ?? new(),
             PoliticalBusinessTypes = filterRequest.PoliticalBusinessTypes ?? new(),
             CountingCircleResultStates = filterRequest.CountingStates ?? new(),
+            InformationOnly = filterRequest.InformationOnly,
         };
+    }
+
+    public async Task EnsureCanExport()
+    {
+        await _rateLimitService.CheckAndLog(new[] { _exportData });
     }
 
     internal async Task<IAsyncEnumerable<Contest>> LoadContests(Ech0252FilterModel filter, CancellationToken ct = default)
     {
         var tenantId = _auth.Tenant.Id;
 
-        var accessiblePbs = await _simplePoliticalBusinessRepo.BuildAccessibleQuery(
-            tenantId,
-            _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
-            .Where(pb => pb.Active)
+        var accessibleCantons = await _cantonSettingsRepo.Query()
+            .Where(c => c.SecureConnectId == tenantId)
+            .Select(c => c.Canton)
             .ToListAsync(ct);
-
-        var accessiblePbIds = accessiblePbs
-            .GroupBy(pb => pb.PoliticalBusinessType)
-            .ToDictionary(x => x.Key, x => x.Select(y => y.Id).ToList());
-
-        var accessibleContestIds = accessiblePbs.Select(pb => pb.ContestId)
-            .Distinct()
-            .ToList();
 
         var query = BuildQuery(
             filter.ContestDateFrom,
@@ -131,8 +146,8 @@ public class Ech0252ExportService
             filter.PoliticalBusinessIds,
             filter.PoliticalBusinessTypes,
             filter.CountingCircleResultStates,
-            accessiblePbIds,
-            accessibleContestIds);
+            filter.InformationOnly,
+            accessibleCantons);
 
         return query.ToAsyncEnumerable();
     }
@@ -176,14 +191,19 @@ public class Ech0252ExportService
     }
 
     private FileModel RenderToXml(
-        DateTime contestDate,
+        Contest contest,
         Ech0252_2_0.Delivery data,
         string type)
     {
         var fileName = FileNameBuilder.GenerateFileName(
             Ech0252ExportFileName,
             ExportFileFormat.Xml,
-            new List<string> { type, contestDate.ToString("yyyyMMdd", CultureInfo.InvariantCulture) });
+            new List<string>
+            {
+                type,
+                contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture),
+                contest.Id.ToString(),
+            });
 
         return new FileModel(null, fileName, ExportFileFormat.Xml, data.DeliveryHeader.MessageId, (w, _) =>
         {
@@ -198,14 +218,16 @@ public class Ech0252ExportService
         List<Guid> politicalBusinessIds,
         List<PoliticalBusinessType> politicalBusinessTypes,
         List<CountingCircleResultState> countingCircleResultStates,
-        Dictionary<PoliticalBusinessType, List<Guid>> accessiblePbIdsByType,
-        List<Guid> accessibleContestIds)
+        bool informationOnly,
+        List<DomainOfInfluenceCanton> accessibleCantons)
     {
         var query = _contestRepo.Query()
             .AsSplitQuery()
+            .AsNoTrackingWithIdentityResolution()
+            .IgnoreQueryFilters() // eCH exports need all languages, do not filter them
             .Include(c => c.DomainOfInfluence)
             .OrderByDescending(c => c.Date)
-            .Where(c => accessibleContestIds.Contains(c.Id));
+            .Where(c => accessibleCantons.Contains(c.DomainOfInfluence.Canton));
 
         query = to == null
             ? query.Where(c => c.Date == from)
@@ -217,11 +239,20 @@ public class Ech0252ExportService
 
         if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.Vote))
         {
-            var hasAccessibleVotes = accessiblePbIdsByType.TryGetValue(PoliticalBusinessType.Vote, out var accessibleVoteIds);
-
-            query = query.Include(x => x.Votes.Where(v => (noPbIdFilter || politicalBusinessIds.Contains(v.Id)) && (!hasAccessibleVotes || accessibleVoteIds!.Contains(v.Id))))
-                    .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
-                    .ThenInclude(x => x.CountingCircle)
+            query = query
+                .Include(x => x.Votes.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
+                    .ThenInclude(x => x.Results) // we filter per counting circle result state in the ech mapper, since the counting circle is required.
+                    .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
+                    .ThenInclude(x => x.DomainOfInfluence)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Translations)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Ballots)
+                    .ThenInclude(x => x.Translations)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Ballots)
+                    .ThenInclude(x => x.BallotQuestions)
+                    .ThenInclude(x => x.Translations)
                 .Include(x => x.Votes)
                     .ThenInclude(x => x.Ballots)
                     .ThenInclude(x => x.TieBreakQuestions)
@@ -244,68 +275,135 @@ public class Ech0252ExportService
 
         if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.ProportionalElection))
         {
-            var hasAccessibleProps = accessiblePbIdsByType.TryGetValue(PoliticalBusinessType.ProportionalElection, out var accessiblePropIds);
-
-            query = query.Include(x => x.ProportionalElections.Where(v => (noPbIdFilter || politicalBusinessIds.Contains(v.Id)) && (!hasAccessibleProps || accessiblePropIds!.Contains(v.Id))))
-                .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
-                .ThenInclude(x => x.CountingCircle)
-                .Include(x => x.ProportionalElections)
-                    .ThenInclude(x => x.DomainOfInfluence)
-                .Include(x => x.ProportionalElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.CountOfVoters)
-                .Include(x => x.ProportionalElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.ListResults)
-                    .ThenInclude(x => x.CandidateResults)
-                .Include(x => x.ProportionalElections)
-                    .ThenInclude(x => x.EndResult!)
-                    .ThenInclude(x => x.ListEndResults)
-                    .ThenInclude(x => x.CandidateEndResults);
+            if (!informationOnly)
+            {
+                query = query
+                    .Include(x => x.ProportionalElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
+                        .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
+                        .ThenInclude(x => x.CountingCircle)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.DomainOfInfluence)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountOfVoters)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.ListResults)
+                        .ThenInclude(x => x.CandidateResults)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.ListEndResults)
+                        .ThenInclude(x => x.CandidateEndResults);
+            }
+            else
+            {
+                query = query
+                    .Include(x => x.ProportionalElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.DomainOfInfluence)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionLists)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionLists)
+                        .ThenInclude(x => x.ProportionalElectionCandidates)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionLists)
+                        .ThenInclude(x => x.ProportionalElectionCandidates)
+                        .ThenInclude(x => x.Party!)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.ProportionalElectionUnions)
+                        .ThenInclude(x => x.ProportionalElectionUnionEntries)
+                        .ThenInclude(x => x.ProportionalElection);
+            }
         }
 
         if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.MajorityElection))
         {
-            var hasAccessibleElections = accessiblePbIdsByType.TryGetValue(PoliticalBusinessType.MajorityElection, out var accessibleElectionIds);
-
-            query = query.Include(x => x.MajorityElections.Where(v => (noPbIdFilter || politicalBusinessIds.Contains(v.Id)) && (!hasAccessibleElections || accessibleElectionIds!.Contains(v.Id))))
-                    .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
-                    .ThenInclude(x => x.CountingCircle)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.DomainOfInfluence)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.CountOfVoters)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.CandidateResults)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.EndResult!)
-                    .ThenInclude(x => x.Calculation)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.EndResult!)
-                    .ThenInclude(x => x.CandidateEndResults)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.SecondaryMajorityElections)
-                    .ThenInclude(x => x.EndResult!)
-                    .ThenInclude(x => x.CandidateEndResults)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.SecondaryMajorityElections)
-                    .ThenInclude(x => x.EndResult!)
-                    .ThenInclude(x => x.PrimaryMajorityElectionEndResult)
-                    .ThenInclude(x => x.Calculation)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.SecondaryMajorityElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.CandidateResults)
-                .Include(x => x.MajorityElections)
-                    .ThenInclude(x => x.SecondaryMajorityElections)
-                    .ThenInclude(x => x.Results)
-                    .ThenInclude(x => x.PrimaryResult)
-                    .ThenInclude(x => x.CountingCircle);
+            if (!informationOnly)
+            {
+                query = query
+                    .Include(x => x.MajorityElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
+                        .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
+                        .ThenInclude(x => x.CountingCircle)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.DomainOfInfluence)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountOfVoters)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CandidateResults)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.Calculation)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.CandidateEndResults)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.CandidateEndResults)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.PrimaryMajorityElectionEndResult)
+                        .ThenInclude(x => x.Calculation)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CandidateResults)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.PrimaryResult)
+                        .ThenInclude(x => x.CountingCircle);
+            }
+            else
+            {
+                query = query
+                    .Include(x => x.MajorityElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.DomainOfInfluence)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.MajorityElectionCandidates)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.SecondaryMajorityElections)
+                        .ThenInclude(x => x.Candidates)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.MajorityElectionUnions)
+                        .ThenInclude(x => x.MajorityElectionUnionEntries);
+            }
         }
 
         return query.Where(c => c.Votes.Any() || c.ProportionalElections.Any() || c.MajorityElections.Any());
+    }
+
+    private async Task<Dictionary<Guid, List<DomainOfInfluence>>> LoadDomainOfInfluences(Ech0252FilterModel filter)
+    {
+        var query = _domainOfInfluenceRepo.Query();
+
+        // Must match with the filter of the contest query
+        query = filter.ContestDateTo == null
+            ? query.Where(d => d.SnapshotContest!.Date == filter.ContestDateFrom)
+            : query.Where(d => d.SnapshotContest!.Date >= filter.ContestDateFrom && d.SnapshotContest!.Date <= filter.ContestDateTo.Value);
+
+        return await query
+            .GroupBy(d => d.SnapshotContestId!.Value)
+            .ToDictionaryAsync(x => x.Key, x => x.ToList());
     }
 
     private (DateTime From, DateTime? To) GetContestDateFilter(Ech0252FilterRequest filterRequest)

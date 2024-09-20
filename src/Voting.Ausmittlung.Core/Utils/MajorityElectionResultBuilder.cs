@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -23,6 +23,7 @@ namespace Voting.Ausmittlung.Core.Utils;
 public class MajorityElectionResultBuilder
 {
     private readonly MajorityElectionResultRepo _resultRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _secondaryResultRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryMajorityElectionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> _secondaryBallotRepo;
@@ -34,6 +35,7 @@ public class MajorityElectionResultBuilder
 
     public MajorityElectionResultBuilder(
         MajorityElectionResultRepo resultRepo,
+        IDbRepository<DataContext, SecondaryMajorityElectionResult> secondaryResultRepo,
         IDbRepository<DataContext, SecondaryMajorityElection> secondaryMajorityElectionRepo,
         IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> secondaryBallotRepo,
@@ -44,6 +46,7 @@ public class MajorityElectionResultBuilder
         IMapper mapper)
     {
         _resultRepo = resultRepo;
+        _secondaryResultRepo = secondaryResultRepo;
         _secondaryMajorityElectionRepo = secondaryMajorityElectionRepo;
         _ballotRepo = ballotRepo;
         _secondaryBallotRepo = secondaryBallotRepo;
@@ -54,21 +57,39 @@ public class MajorityElectionResultBuilder
         _mapper = mapper;
     }
 
-    internal async Task RebuildForElection(Guid electionId, Guid domainOfInfluenceId, bool testingPhaseEnded)
+    internal async Task RebuildForElection(Guid electionId, Guid domainOfInfluenceId, bool testingPhaseEnded, Guid contestId)
     {
-        await _resultRepo.Rebuild(electionId, domainOfInfluenceId, testingPhaseEnded);
+        await _resultRepo.Rebuild(electionId, domainOfInfluenceId, testingPhaseEnded, contestId);
         var results = await _resultRepo.Query()
-            .AsTracking()
             .AsSplitQuery()
             .Where(x => x.MajorityElectionId == electionId)
-            .Include(x => x.BallotGroupResults)
-            .Include(x => x.CandidateResults)
-            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .Select(x => new
+            {
+                x.Id,
+                BallotGroupIds = x.BallotGroupResults.Select(r => r.BallotGroupId),
+                CandidateIds = x.CandidateResults.Select(r => r.CandidateId),
+                SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
+                {
+                    r.Id,
+                    r.SecondaryMajorityElectionId,
+                    CandidateIds = r.CandidateResults.Select(c => c.CandidateId).ToList(),
+                })
+                .ToList(),
+            })
             .ToListAsync();
 
-        await _ballotGroupResultBuilder.AddMissing(electionId, results);
-        await _candidateResultBuilder.AddMissing(electionId, results);
-        await AddMissingSecondaryMajorityElectionResults(electionId, results);
+        var missingBallotGroupResults = await _ballotGroupResultBuilder.BuildMissing(electionId, results.ToDictionary(x => x.Id, x => x.BallotGroupIds));
+        _dataContext.MajorityElectionBallotGroupResults.AddRange(missingBallotGroupResults);
+
+        var missingCandidateResults = await _candidateResultBuilder.BuildMissing(electionId, results.ToDictionary(x => x.Id, x => x.CandidateIds));
+        _dataContext.MajorityElectionCandidateResults.AddRange(missingCandidateResults);
+
+        var existingSecondaryResultByResultId = results.ToDictionary(
+            x => x.Id,
+            x => x.SecondaryResults.ConvertAll(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)));
+        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, existingSecondaryResultByResultId);
+        _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
+        _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
 
         await _dataContext.SaveChangesAsync();
     }
@@ -76,17 +97,31 @@ public class MajorityElectionResultBuilder
     internal async Task InitializeSecondaryElection(Guid electionId, Guid secondaryElectionId)
     {
         var resultsToUpdate = await _resultRepo.Query()
-            .AsTracking()
             .AsSplitQuery()
             .Where(x => x.MajorityElectionId == electionId &&
                         x.SecondaryMajorityElectionResults.All(y => y.SecondaryMajorityElectionId != secondaryElectionId))
-            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .Select(x => new
+            {
+                x.Id,
+                SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
+                {
+                    r.Id,
+                    r.SecondaryMajorityElectionId,
+                    CandidateIds = r.CandidateResults.Select(c => c.CandidateId),
+                }),
+            })
             .ToListAsync();
-        await AddMissingSecondaryMajorityElectionResults(electionId, resultsToUpdate);
+
+        var existingSecondaryResultByResultId = resultsToUpdate.ToDictionary(
+            x => x.Id,
+            x => x.SecondaryResults.Select(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)).ToList());
+        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, existingSecondaryResultByResultId);
+        _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
+        _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task ResetForElection(Guid electionId, Guid domainOfInfluenceId)
+    internal async Task ResetForElection(Guid electionId, Guid domainOfInfluenceId, Guid contestId)
     {
         var existingElectionResults = await _resultRepo.Query()
             .Include(x => x.CountingCircle)
@@ -101,7 +136,7 @@ public class MajorityElectionResultBuilder
             MajorityElectionId = r.MajorityElectionId,
         }));
 
-        await RebuildForElection(electionId, domainOfInfluenceId, true);
+        await RebuildForElection(electionId, domainOfInfluenceId, true, contestId);
     }
 
     internal async Task ResetConventionalResultInTestingPhase(Guid resultId)
@@ -205,6 +240,53 @@ public class MajorityElectionResultBuilder
     {
         await AdjustConventionalVoteCountsForBundle(electionResultId, bundleId, -1);
         await AdjustSecondaryVoteCountsForBundle(electionResultId, bundleId, -1);
+    }
+
+    internal async Task ResetIndividualVoteCounts(Guid electionId)
+    {
+        var ccResults = await _resultRepo.Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .Where(r => r.MajorityElectionId == electionId)
+            .Include(r => r.Bundles)
+            .ThenInclude(b => b.Ballots)
+            .ToListAsync();
+
+        foreach (var ccResult in ccResults)
+        {
+            ccResult.ConventionalSubTotal.IndividualVoteCount = null;
+            ccResult.EVotingSubTotal.IndividualVoteCount = 0;
+        }
+
+        foreach (var ballot in ccResults.SelectMany(r => r.Bundles).SelectMany(b => b.Ballots))
+        {
+            ballot.IndividualVoteCount = 0;
+        }
+
+        await _dataContext.SaveChangesAsync();
+    }
+
+    internal async Task ResetSecondaryIndividualVoteCounts(Guid electionId)
+    {
+        var ccResults = await _secondaryResultRepo.Query()
+            .AsSplitQuery()
+            .AsTracking()
+            .Where(r => r.SecondaryMajorityElectionId == electionId)
+            .Include(r => r.ResultBallots)
+            .ToListAsync();
+
+        foreach (var ccResult in ccResults)
+        {
+            ccResult.ConventionalSubTotal.IndividualVoteCount = null;
+            ccResult.EVotingSubTotal.IndividualVoteCount = 0;
+        }
+
+        foreach (var ballot in ccResults.SelectMany(r => r.ResultBallots))
+        {
+            ballot.IndividualVoteCount = 0;
+        }
+
+        await _dataContext.SaveChangesAsync();
     }
 
     private async Task AdjustConventionalVoteCountsForBundle(Guid electionResultId, Guid bundleId, int factor)
@@ -315,9 +397,9 @@ public class MajorityElectionResultBuilder
         }
     }
 
-    private async Task AddMissingSecondaryMajorityElectionResults(
+    private async Task<MissingSecondaryResults> BuildMissingSecondaryMajorityElectionResults(
         Guid electionId,
-        IEnumerable<MajorityElectionResult> results)
+        Dictionary<Guid, List<SecondaryResultIds>> secondaryResultIdsByResultId)
     {
         var secondaryElectionIds = await _secondaryMajorityElectionRepo.Query()
             .Where(e => e.PrimaryMajorityElectionId == electionId)
@@ -328,45 +410,32 @@ public class MajorityElectionResultBuilder
             })
             .ToListAsync();
 
+        var missingSecondaryResults = new List<SecondaryMajorityElectionResult>();
+        var missingSecondaryCandidateResults = new List<SecondaryMajorityElectionCandidateResult>();
         if (secondaryElectionIds.Count == 0)
         {
-            return;
+            return new MissingSecondaryResults(missingSecondaryResults, missingSecondaryCandidateResults);
         }
 
         var secondaryCandidateIdsByElectionId =
             secondaryElectionIds.ToDictionary(x => x.ElectionId, x => x.CandidateIds);
-        foreach (var result in results)
+        foreach (var (resultId, secondaryResultIdList) in secondaryResultIdsByResultId)
         {
-            AddMissingItems(
-                result.SecondaryMajorityElectionResults,
-                secondaryElectionIds.Select(x => x.ElectionId),
-                x => x.SecondaryMajorityElectionId,
-                id => new SecondaryMajorityElectionResult { SecondaryMajorityElectionId = id });
+            var secondaryResultsToAdd = secondaryElectionIds.Select(x => x.ElectionId).Except(secondaryResultIdList.Select(x => x.SecondaryElectionId))
+                .Select(x => new SecondaryMajorityElectionResult { SecondaryMajorityElectionId = x, PrimaryResultId = resultId, Id = Guid.NewGuid() })
+                .ToList();
+            missingSecondaryResults.AddRange(secondaryResultsToAdd);
+            secondaryResultIdList.AddRange(secondaryResultsToAdd.Select(x => new SecondaryResultIds(x.SecondaryMajorityElectionId, x.Id, new List<Guid>())));
 
-            foreach (var secondaryResult in result.SecondaryMajorityElectionResults)
+            foreach (var secondaryResultIds in secondaryResultIdList)
             {
-                AddMissingItems(
-                    secondaryResult.CandidateResults,
-                    secondaryCandidateIdsByElectionId[secondaryResult.SecondaryMajorityElectionId],
-                    x => x.CandidateId,
-                    id => new SecondaryMajorityElectionCandidateResult { CandidateId = id });
+                var toAdd = secondaryCandidateIdsByElectionId[secondaryResultIds.SecondaryElectionId].Except(secondaryResultIds.CandidateIds)
+                    .Select(x => new SecondaryMajorityElectionCandidateResult { CandidateId = x, ElectionResultId = secondaryResultIds.SecondaryResultId });
+                missingSecondaryCandidateResults.AddRange(toAdd);
             }
         }
-    }
 
-    private void AddMissingItems<T>(
-        ICollection<T> elements,
-        IEnumerable<Guid> allIds,
-        Func<T, Guid> idSelector,
-        Func<Guid, T> newProvider)
-    {
-        var toAdd = allIds.Except(elements.Select(idSelector))
-            .Select(newProvider)
-            .ToList();
-        foreach (var element in toAdd)
-        {
-            elements.Add(element);
-        }
+        return new MissingSecondaryResults(missingSecondaryResults, missingSecondaryCandidateResults);
     }
 
     private async Task UpdateSimpleResult(Guid resultId, PoliticalBusinessNullableCountOfVoters countOfVoters)
@@ -395,4 +464,10 @@ public class MajorityElectionResultBuilder
 
         await _simpleResultRepo.Update(simpleResult);
     }
+
+    private record SecondaryResultIds(Guid SecondaryElectionId, Guid SecondaryResultId, IEnumerable<Guid> CandidateIds);
+
+    private record MissingSecondaryResults(
+        List<SecondaryMajorityElectionResult> SecondaryResults,
+        List<SecondaryMajorityElectionCandidateResult> CandidateResults);
 }

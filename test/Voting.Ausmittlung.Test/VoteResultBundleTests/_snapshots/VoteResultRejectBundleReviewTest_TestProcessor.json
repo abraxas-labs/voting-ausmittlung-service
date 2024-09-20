@@ -46,5 +46,6 @@
   },
   "CountOfBallots": 0,
   "BallotNumbersToReview": [],
+  "ProtocolExport": null,
   "Id": "cc757c66-e78c-4f56-907b-6afb27d723d5"
 }

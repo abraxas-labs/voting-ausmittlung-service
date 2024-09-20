@@ -1,4 +1,4 @@
-// (c) Copyright 2024 by Abraxas Informatik AG
+// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -45,18 +45,21 @@ public class BallotCreateTest : VoteProcessorBaseTest
                                 Number = 1,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 1") },
                                 Type = SharedProto.BallotQuestionType.MainBallot,
+                                FederalIdentification = 111,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 2,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 2") },
                                 Type = SharedProto.BallotQuestionType.Variant,
+                                FederalIdentification = 222,
                             },
                             new BallotQuestionEventData
                             {
                                 Number = 3,
                                 Question = { LanguageUtil.MockAllLanguages("Variante 3") },
                                 Type = SharedProto.BallotQuestionType.Variant,
+                                FederalIdentification = 333,
                             },
                     },
                     TieBreakQuestions =

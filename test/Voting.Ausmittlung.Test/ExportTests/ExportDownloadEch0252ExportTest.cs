@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -15,7 +15,10 @@ using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 
@@ -33,26 +36,35 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
     [Fact]
     public async Task ShouldWork()
     {
+        await ModifyDbEntities<VoteResult>(x => true, x =>
+        {
+            x.SubmissionDoneTimestamp = new DateTime(2022, 10, 22, 12, 3, 0, DateTimeKind.Utc);
+            x.State = CountingCircleResultState.SubmissionDone;
+        });
+
+        await ModifyDbEntities<ProportionalElectionResult>(x => true, x =>
+        {
+            x.AuditedTentativelyTimestamp = new DateTime(2022, 4, 11, 12, 3, 0, DateTimeKind.Utc);
+            x.State = CountingCircleResultState.AuditedTentatively;
+        });
+
         await TestExport(NewValidRequest(), StGallenReportExporterApiClient, archive =>
         {
             archive.Entries.Count.Should().Be(9);
-            archive.Entries.Any(e => e.FullName == "eCH-0252-votes-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-proportional-elections-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-majority-elections-20200302.xml").Should().BeTrue();
 
-            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252-votes-20200831.xml").Open();
+            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srVotes = new StreamReader(entryStreamVotes);
             var xmlVotes = srVotes.ReadToEnd();
             var formattedXmlVotes = XmlUtil.FormatTestXml(xmlVotes);
             formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApi.xml");
 
-            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252-proportional-elections-20200831.xml").Open();
+            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srProportionalElections = new StreamReader(entryStreamProportionalElections);
             var xmlProportionalElections = srProportionalElections.ReadToEnd();
             var formattedXmlProportionalElections = XmlUtil.FormatTestXml(xmlProportionalElections);
             formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApi.xml");
 
-            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252-majority-elections-20200831.xml").Open();
+            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srMajorityElections = new StreamReader(entryStreamMajorityElections);
             var xmlMajorityElections = srMajorityElections.ReadToEnd();
             var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
@@ -63,39 +75,50 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
     [Fact]
     public async Task ShouldWorkWithoutPublished()
     {
-        var voteResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(VoteMockedData.BundVoteInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        var voteResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(VoteMockedData.StGallenVoteInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
         await ModifyDbEntities<VoteResult>(x => x.Id == voteResultId, x => x.Published = false);
 
-        var proportionalElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        var proportionalElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
         await ModifyDbEntities<ProportionalElectionResult>(x => x.Id == proportionalElectionResultId, x => x.Published = false);
 
-        var majorityElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(MajorityElectionMockedData.BundMajorityElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        var majorityElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
         await ModifyDbEntities<MajorityElectionResult>(x => x.Id == majorityElectionResultId, x => x.Published = false);
 
         await TestExport(NewValidRequest(), StGallenReportExporterApiClient, archive =>
         {
             archive.Entries.Count.Should().Be(9);
-            archive.Entries.Any(e => e.FullName == "eCH-0252-votes-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-proportional-elections-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-majority-elections-20200302.xml").Should().BeTrue();
 
-            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252-votes-20200831.xml").Open();
+            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srVotes = new StreamReader(entryStreamVotes);
             var xmlVotes = srVotes.ReadToEnd();
             var formattedXmlVotes = XmlUtil.FormatTestXml(xmlVotes);
             formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApiWithoutPublished.xml");
 
-            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252-proportional-elections-20200831.xml").Open();
+            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srProportionalElections = new StreamReader(entryStreamProportionalElections);
             var xmlProportionalElections = srProportionalElections.ReadToEnd();
             var formattedXmlProportionalElections = XmlUtil.FormatTestXml(xmlProportionalElections);
             formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiWithoutPublished.xml");
 
-            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252-majority-elections-20200831.xml").Open();
+            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
             using var srMajorityElections = new StreamReader(entryStreamMajorityElections);
             var xmlMajorityElections = srMajorityElections.ReadToEnd();
             var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
             formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApiWithoutPublished.xml");
+        });
+    }
+
+    [Fact]
+    public async Task NonCantonSettingsAdminShouldReturnEmpty()
+    {
+        var request = new DownloadEch0252ExportRequest
+        {
+            PollingDate = new DateOnly(2020, 3, 2),
+        };
+
+        await TestExport(request, UzwilReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(0);
         });
     }
 
@@ -110,9 +133,56 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
         await TestExport(request, StGallenReportExporterApiClient, archive =>
         {
             archive.Entries.Count.Should().Be(3);
-            archive.Entries.Any(e => e.FullName == "eCH-0252-votes-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-proportional-elections-20200302.xml").Should().BeTrue();
-            archive.Entries.Any(e => e.FullName == "eCH-0252-majority-elections-20200302.xml").Should().BeTrue();
+            archive.Entries.Any(e => e.FullName == "eCH-0252_vote-result-delivery_20200302_cc70fe43-8f4e-4bc6-a461-b808907bc996.xml").Should().BeTrue();
+            archive.Entries.Any(e => e.FullName == "eCH-0252_proportional-election-result-delivery_20200302_cc70fe43-8f4e-4bc6-a461-b808907bc996.xml").Should().BeTrue();
+            archive.Entries.Any(e => e.FullName == "eCH-0252_majority-election-result-delivery_20200302_cc70fe43-8f4e-4bc6-a461-b808907bc996.xml").Should().BeTrue();
+        });
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithInformationOnly()
+    {
+        await RunOnDb(async db =>
+        {
+            db.ProportionalElectionUnions.Add(new ProportionalElectionUnion()
+            {
+                Id = Guid.Parse("8cdc91a4-5ec5-46e1-8872-cad60b907300"),
+                ProportionalElectionUnionEntries = new List<ProportionalElectionUnionEntry>
+                {
+                    new() { ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen) },
+                },
+                ContestId = ContestMockedData.GuidStGallenEvoting,
+                Description = "Kantonratswahl 2020",
+            });
+
+            await db.SaveChangesAsync();
+        });
+
+        await ModifyDbEntities<ProportionalElectionCandidate>(
+            x => x.Id == Guid.Parse(ProportionalElectionMockedData.CandidateId1BundProportionalElectionInContestStGallen),
+            x => x.PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere));
+
+        var request = new DownloadEch0252ExportRequest
+        {
+            PollingDate = new DateOnly(2020, 8, 31),
+            InformationOnly = true,
+        };
+
+        await TestExport(request, StGallenReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(3);
+
+            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252_proportional-election-info-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
+            using var srProportionalElections = new StreamReader(entryStreamProportionalElections);
+            var xmlProportionalElections = srProportionalElections.ReadToEnd();
+            var formattedXmlProportionalElections = XmlUtil.FormatTestXml(xmlProportionalElections);
+            formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsInformationApi.xml");
+
+            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252_majority-election-info-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
+            using var srMajorityElections = new StreamReader(entryStreamMajorityElections);
+            var xmlMajorityElections = srMajorityElections.ReadToEnd();
+            var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
+            formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsInformationApi.xml");
         });
     }
 
@@ -144,6 +214,35 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
             () => StGallenReportExporterApiClient.PostAsJsonAsync(BaseUrl, request),
             HttpStatusCode.BadRequest,
             "Only one date filter is allowed and required.");
+    }
+
+    [Fact]
+    public async Task ShouldThrowIfApiLimitReached()
+    {
+        var tenantId = SecureConnectTestDefaults.MockedTenantStGallen.Id;
+
+        await RunScoped<TemporaryDataContext>(async dbContext =>
+        {
+            dbContext.ExportLogEntries.AddRange(
+                new()
+                {
+                    TenantId = tenantId,
+                    ExportKey = "eCH-0252-api",
+                    Timestamp = MockedClock.UtcNowDate,
+                },
+                new()
+                {
+                    TenantId = tenantId,
+                    ExportKey = "eCH-0252-api",
+                    Timestamp = MockedClock.UtcNowDate,
+                });
+            await dbContext.SaveChangesAsync();
+        });
+
+        await AssertProblemDetails(
+            () => StGallenReportExporterApiClient.PostAsJsonAsync(BaseUrl, NewValidRequest()),
+            HttpStatusCode.Forbidden,
+            "Rate limit reached");
     }
 
     public override async Task InitializeAsync()

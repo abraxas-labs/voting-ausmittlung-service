@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -8,7 +8,7 @@ namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 /// <summary>
 /// The signpost function is associated with the rounding function. It maps a rational number to an integer and vica verca.
 /// </summary>
-internal static class SignPost
+public static class SignPost
 {
     public static int Round(decimal q)
     {

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Collections.Generic;
@@ -48,4 +48,12 @@ public class CantonSettings : BaseEntity
     public bool StatePlausibilisedDisabled { get; set; }
 
     public bool PublishResultsEnabled { get; set; }
+
+    public bool PublishResultsBeforeAuditedTentatively { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether political business end results can be finalized via UI or not.
+    /// If set to true, no user interaction can explicitly change finalized, it will always be implicitly finalized.
+    /// </summary>
+    public bool EndResultFinalizeDisabled { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System.Threading.Tasks;
@@ -67,8 +67,8 @@ public class ProportionalElectionUnionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionUnionEndResultRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code) = await _endResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionUnionId), Strings.ProportionalElectionUnionResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code };
+        var (secondFactorTransaction, code, qrCode) = await _endResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionUnionId), Strings.ProportionalElectionUnionResult_FinalizeEndResult);
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]

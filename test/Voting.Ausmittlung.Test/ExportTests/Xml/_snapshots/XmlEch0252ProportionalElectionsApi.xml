@@ -2,7 +2,7 @@
   <deliveryHeader>
     <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
     <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
-    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1710967</messageType>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
     <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
       <manufacturer>Abraxas Informatik AG</manufacturer>
       <product>Voting.Ausmittlung</product>
@@ -20,12 +20,13 @@
       <electionResult>
         <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
         <countingCircleResult>
-          <countingCircleId>eea024ee-7f93-4a58-9e7d-6e6b0c11b723</countingCircleId>
+          <countingCircleId>1</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -34,7 +35,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -54,14 +55,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
+            <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -70,7 +80,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -90,14 +100,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</countingCircleId>
+          <countingCircleId>5500</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -106,7 +125,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -126,14 +145,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</countingCircleId>
+          <countingCircleId>5500-3</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -142,7 +170,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -162,14 +190,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>46adab98-9114-4503-9000-b02842640650</countingCircleId>
+          <countingCircleId>5500-2</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -178,7 +215,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -198,14 +235,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</countingCircleId>
+          <countingCircleId>5500-1</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -214,7 +260,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -234,14 +280,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
+          <countingCircleId>1234</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -250,7 +305,7 @@
             <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -270,6 +325,14 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <elected>
           <proportionalElection>
@@ -286,12 +349,13 @@
       <electionResult>
         <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
         <countingCircleResult>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
+            <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -300,7 +364,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -315,14 +379,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</countingCircleId>
+          <countingCircleId>5500</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -331,7 +404,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -346,14 +419,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</countingCircleId>
+          <countingCircleId>5500-3</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -362,7 +444,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -377,14 +459,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>46adab98-9114-4503-9000-b02842640650</countingCircleId>
+          <countingCircleId>5500-2</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -393,7 +484,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -408,14 +499,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</countingCircleId>
+          <countingCircleId>5500-1</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -424,7 +524,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -439,14 +539,23 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <countingCircleResult>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
+          <countingCircleId>1234</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -455,7 +564,7 @@
             <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -470,6 +579,14 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <elected>
           <proportionalElection>
@@ -482,16 +599,192 @@
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
+      <electionGroupIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+        <countingCircleResult>
+          <countingCircleId>3443</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>15000</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircleId>5500</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircleId>5500-3</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircleId>5500-2</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircleId>5500-1</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircleId>1234</countingCircleId>
+          <countOfVotersInformation>
+            <countOfVotersTotal>0</countOfVotersTotal>
+          </countOfVotersInformation>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
+          <countOfReceivedBallots>0</countOfReceivedBallots>
+          <countOfBlankBallots>0</countOfBlankBallots>
+          <countOfInvalidBallots>0</countOfInvalidBallots>
+          <countOfValidBallots>0</countOfValidBallots>
+          <electionResult>
+            <electionIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
+            <proportionalElection>
+              <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
+            </proportionalElection>
+          </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
+        </countingCircleResult>
+        <elected />
+      </electionResult>
+    </electionGroupResult>
+    <electionGroupResult>
       <electionGroupIdentification>da091f50-9f11-4deb-9621-948fbfbdc322</electionGroupIdentification>
       <electionResult>
         <electionIdentification>da091f50-9f11-4deb-9621-948fbfbdc322</electionIdentification>
         <countingCircleResult>
-          <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
+          <countingCircleId>1234</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -500,7 +793,7 @@
             <electionIdentification>da091f50-9f11-4deb-9621-948fbfbdc322</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>66dbbea3-0c99-469f-94c5-4314c32e8eab</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -515,6 +808,14 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <elected>
           <proportionalElection>
@@ -531,12 +832,13 @@
       <electionResult>
         <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
         <countingCircleResult>
-          <countingCircleId>0bb8d89c-d387-40d0-83cf-84e118a8d524</countingCircleId>
+          <countingCircleId>3443</countingCircleId>
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
-          <fullyCountedTrue>false</fullyCountedTrue>
-          <voterTurnout>0.000000</voterTurnout>
+          <isFullyCounted>false</isFullyCounted>
+          <lockoutTimestamp>2022-04-11T12:03:00Z</lockoutTimestamp>
+          <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
           <countOfBlankBallots>0</countOfBlankBallots>
           <countOfInvalidBallots>0</countOfInvalidBallots>
@@ -545,7 +847,7 @@
             <electionIdentification>fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
             <proportionalElection>
               <countOfChangedBallotsWithoutListDesignation>0</countOfChangedBallotsWithoutListDesignation>
-              <countOfEmptyVotesOfChangedBallotsWithoutListDesignation>0</countOfEmptyVotesOfChangedBallotsWithoutListDesignation>
+              <countOfBlankVotesOfChangedBallotsWithoutListDesignation>0</countOfBlankVotesOfChangedBallotsWithoutListDesignation>
               <listResults>
                 <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
                 <countOfChangedBallots>0</countOfChangedBallots>
@@ -584,6 +886,14 @@
               </listResults>
             </proportionalElection>
           </electionResult>
+          <namedElement>
+            <elementName>countingStatus</elementName>
+            <text>6</text>
+          </namedElement>
+          <namedElement>
+            <elementName>lastCountingStatusChange</elementName>
+            <text>2022-04-11T12:03:00Z</text>
+          </namedElement>
         </countingCircleResult>
         <elected>
           <proportionalElection>
@@ -603,6 +913,6 @@
         </elected>
       </electionResult>
     </electionGroupResult>
-    <numberOfEntries>4</numberOfEntries>
+    <numberOfEntries>5</numberOfEntries>
   </electionResultDelivery>
 </delivery>

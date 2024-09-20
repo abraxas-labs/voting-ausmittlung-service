@@ -20,6 +20,8 @@
     "CountingCircleResultStateDescriptions": [],
     "StatePlausibilisedDisabled": false,
     "PublishResultsEnabled": false,
+    "PublishResultsBeforeAuditedTentatively": false,
+    "EndResultFinalizeDisabled": true,
     "Id": "d33e6070-4c4f-4c22-8b35-50d7a87afffe"
   }
 }

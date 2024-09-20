@@ -6,8 +6,10 @@
         {
           "Position": 3,
           "BallotType": 2,
+          "SubType": 0,
           "HasTieBreakQuestions": true,
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
+          "Translations": [],
           "BallotQuestions": [
             {
               "Number": 1,
@@ -25,6 +27,7 @@
               "Question": "Variante 1X de",
               "BallotAnswers": [],
               "Type": 1,
+              "FederalIdentification": 111,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -43,6 +46,7 @@
               "Question": "Variante 2X de",
               "BallotAnswers": [],
               "Type": 3,
+              "FederalIdentification": 222,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -61,6 +65,7 @@
               "Question": "Variante 3X de",
               "BallotAnswers": [],
               "Type": 3,
+              "FederalIdentification": 333,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -82,6 +87,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V2X de",
               "BallotAnswers": [],
+              "FederalIdentification": 444,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -101,6 +107,7 @@
               "EndResult": null,
               "Question": "TieBreak V1/V3X de",
               "BallotAnswers": [],
+              "FederalIdentification": 555,
               "Id": "00000000-0000-0000-0000-000000000000"
             },
             {
@@ -120,6 +127,7 @@
               "EndResult": null,
               "Question": "TieBreak V2/V3X de",
               "BallotAnswers": [],
+              "FederalIdentification": 666,
               "Id": "00000000-0000-0000-0000-000000000000"
             }
           ],
@@ -130,8 +138,10 @@
       ],
       "ReportDomainOfInfluenceLevel": 0,
       "BusinessType": 1,
+      "BusinessSubType": 1,
       "ResultAlgorithm": 1,
       "EndResult": null,
+      "Type": 0,
       "Translations": [
         {
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",

@@ -1,4 +1,4 @@
-﻿// (c) Copyright 2024 by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Voting.Ausmittlung.Controllers.Models;
+using Voting.Lib.Common;
 using Voting.Lib.Rest.Files;
 
 namespace Voting.Ausmittlung.Utils;
@@ -16,11 +17,12 @@ internal static class FileResultUtil
     public static async Task<FileResult> CreateFileResult(
         IAsyncEnumerable<FileModelWrapper> fileModels,
         bool isMultiExport,
+        IClock clock,
         CancellationToken ct)
     {
         if (isMultiExport)
         {
-            return SingleFileResult.CreateZipFile(fileModels, "export.zip", ct);
+            return SingleFileResult.CreateZipFile(fileModels, "export.zip", clock.UtcNow.ConvertUtcTimeToSwissTime(), ct);
         }
 
         var enumerator = fileModels.GetAsyncEnumerator(ct);

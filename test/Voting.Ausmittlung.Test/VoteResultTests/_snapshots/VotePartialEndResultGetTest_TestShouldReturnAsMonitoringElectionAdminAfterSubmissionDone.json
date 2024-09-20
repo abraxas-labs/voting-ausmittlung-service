@@ -30,7 +30,9 @@
       "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true
+      "PublishResultsEnabled": true,
+      "EndResultFinalizeDisabled": false,
+      "PublishResultsBeforeAuditedTentatively": false
     }
   },
   "Vote": {
@@ -94,7 +96,9 @@
         "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true
+        "PublishResultsEnabled": true,
+        "EndResultFinalizeDisabled": false,
+        "PublishResultsBeforeAuditedTentatively": false
       }
     },
     "BallotBundleSampleSizePercent": 30,
@@ -102,7 +106,8 @@
     "ResultEntry": 2,
     "EnforceResultEntryForCountingCircles": false,
     "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": false
+    "EnforceReviewProcedureForCountingCircles": false,
+    "Type": 0
   },
   "CountOfVotersInformation": {
     "TotalCountOfVoters": 0,
@@ -115,6 +120,7 @@
         "Id": "60dd6c2c-e73a-467e-99e1-902f973a5d8e",
         "Position": 1,
         "BallotType": 1,
+        "BallotSubType": 0,
         "VoteId": "903a47bf-6b7b-4460-8475-b7bd89ea2ac9",
         "BallotQuestions": [],
         "TieBreakQuestions": []
