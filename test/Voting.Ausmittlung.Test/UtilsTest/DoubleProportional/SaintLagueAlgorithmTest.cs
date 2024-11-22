@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
@@ -21,7 +22,7 @@ public class SaintLagueAlgorithmTest
     public void TestZhKantonratswah2015()
     {
         var result = _algo.Calculate(
-            new[] { 86036M, 56375M, 49655M, 20687M, 21887M, 13981M, 12242M, 7497M, 7629M, 8533M },
+            new Rational[] { 86036, 56375, 49655, 20687, 21887, 13981, 12242, 7497, 7629, 8533 },
             180);
 
         AssertResult(
@@ -35,7 +36,7 @@ public class SaintLagueAlgorithmTest
     [Fact]
     public void ShouldWorkWithInitiallyTooManyDistributedSeats()
     {
-        var result = _algo.Calculate(new[] { 3600M, 600M, 800M }, 5);
+        var result = _algo.Calculate(new Rational[] { 3600, 600, 800 }, 5);
 
         AssertResult(
             result,
@@ -48,7 +49,7 @@ public class SaintLagueAlgorithmTest
     [Fact]
     public void ShouldWorkWithInitiallyTooManyDistributedSeatsAndLotDecisions()
     {
-        var result = _algo.Calculate(new[] { 3500M, 500M, 1000M }, 5);
+        var result = _algo.Calculate(new Rational[] { 3500, 500, 1000 }, 5);
 
         AssertResult(
             result,
@@ -62,7 +63,7 @@ public class SaintLagueAlgorithmTest
     [Fact]
     public void ShouldWorkWithInitiallyTooFewDistributedSeatsAndLotDecisions()
     {
-        var result = _algo.Calculate(new[] { 450M, 450M, 100M, 4000M }, 5);
+        var result = _algo.Calculate(new Rational[] { 450, 450, 100, 4000 }, 5);
 
         AssertResult(
             result,
@@ -76,7 +77,7 @@ public class SaintLagueAlgorithmTest
     [Fact]
     public void ShouldWorkWithInitiallyTooFewDistributedSeats()
     {
-        var result = _algo.Calculate(new[] { 450M, 400M, 150M, 4000M }, 5);
+        var result = _algo.Calculate(new Rational[] { 450, 400, 150, 4000 }, 5);
 
         AssertResult(
             result,
@@ -95,9 +96,9 @@ public class SaintLagueAlgorithmTest
         TieState[]? expectedTieStates = null)
     {
         result.Should().NotBeNull();
-        result!.ElectionKey.Should().BeApproximately(expectedElectionKey, ApproxEqualsPrecision);
+        ((decimal)result!.ElectionKey).Should().BeApproximately(expectedElectionKey, ApproxEqualsPrecision);
         result.Apportionment.SequenceEqual(expectedApportionment).Should().BeTrue();
-        result.Quotients.SequenceApproxEqual(expectedQuotients, ApproxEqualsPrecision).Should().BeTrue();
+        result.Quotients.Select(q => (decimal)q).SequenceApproxEqual(expectedQuotients, ApproxEqualsPrecision).Should().BeTrue();
         result.CountOfMissingNumberOfMandates.Should().Be(expectedCountOfMissingNumberOfMandates);
 
         expectedTieStates ??= Enumerable.Repeat(TieState.Unique, result.Apportionment.Length).ToArray();

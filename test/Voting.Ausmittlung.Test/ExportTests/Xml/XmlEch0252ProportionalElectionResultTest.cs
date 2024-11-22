@@ -49,6 +49,10 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
         {
             var result = await db.ProportionalElectionResults
                 .AsTracking()
+                .AsSplitQuery()
+                .Include(x => x.ListResults)
+                .ThenInclude(x => x.CandidateResults)
+                .ThenInclude(x => x.VoteSources)
                 .SingleAsync(x => x.Id == ProportionalElectionEndResultMockedData.StGallenResultGuid);
 
             result.CountOfVoters = new()
@@ -62,6 +66,29 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
             result.TotalCountOfVoters = 1000;
             result.SubmissionDoneTimestamp = new DateTime(2024, 6, 15, 0, 0, 0, DateTimeKind.Utc);
             result.UpdateVoterParticipation();
+
+            var listIds = result.ListResults
+                .OrderBy(x => x.ListId)
+                .Select(x => x.ListId)
+                .ToList();
+            var candidates = result.ListResults.SelectMany(x => x.CandidateResults);
+            foreach (var candidate in candidates)
+            {
+                candidate.VoteSources.Add(new ProportionalElectionCandidateVoteSourceResult
+                {
+                    ConventionalVoteCount = 3,
+                });
+
+                foreach (var (listId, index) in listIds.Select((x, i) => (x, i)))
+                {
+                    candidate.VoteSources.Add(new ProportionalElectionCandidateVoteSourceResult
+                    {
+                        ConventionalVoteCount = index + 1,
+                        EVotingVoteCount = index,
+                        ListId = listId,
+                    });
+                }
+            }
 
             await db.SaveChangesAsync();
         });

@@ -94,12 +94,13 @@
         <UnionList>
           <OrderNumber>01</OrderNumber>
           <ShortDescription>SVP de</ShortDescription>
+          <Description>Liste 01 (595b7588-2af3-4686-b4d4-f97a64679103) de</Description>
         </UnionList>
         <VoteCount>192474</VoteCount>
         <CantonalQuorumReached>true</CantonalQuorumReached>
         <AnyQuorumReached>true</AnyQuorumReached>
         <VoterNumber>16038.114219114219114219114220</VoterNumber>
-        <SuperApportionmentNumberOfMandatesUnrounded>14.193021432844441693999216124</SuperApportionmentNumberOfMandatesUnrounded>
+        <SuperApportionmentNumberOfMandatesUnrounded>14.193021432844441693999216123</SuperApportionmentNumberOfMandatesUnrounded>
         <SuperApportionmentNumberOfMandates>14</SuperApportionmentNumberOfMandates>
         <SubApportionmentNumberOfMandates>14</SubApportionmentNumberOfMandates>
         <Divisor>1</Divisor>
@@ -144,6 +145,7 @@
         <UnionList>
           <OrderNumber>02</OrderNumber>
           <ShortDescription>SP de</ShortDescription>
+          <Description>Liste 02 (89dfd5be-ad83-4e1e-b575-ded6ce513305) de</Description>
         </UnionList>
         <VoteCount>150628</VoteCount>
         <CantonalQuorumReached>true</CantonalQuorumReached>
@@ -194,6 +196,7 @@
         <UnionList>
           <OrderNumber>03</OrderNumber>
           <ShortDescription>FDP de</ShortDescription>
+          <Description>Liste 03 (c90826ef-759c-4c8c-af99-de77a28214a7) de</Description>
         </UnionList>
         <VoteCount>146546</VoteCount>
         <CantonalQuorumReached>true</CantonalQuorumReached>
@@ -244,6 +247,7 @@
         <UnionList>
           <OrderNumber>04</OrderNumber>
           <ShortDescription>SaPaPo de</ShortDescription>
+          <Description>Liste 04 (2cd8651a-33d2-451c-8a70-1eaaa47deb92) de</Description>
         </UnionList>
         <VoteCount>1724</VoteCount>
         <CantonalQuorumReached>false</CantonalQuorumReached>

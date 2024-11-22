@@ -164,6 +164,8 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.PoliticalBusinessResult.Read,
             Permissions.PoliticalBusinessResult.ReadComments,
+            Permissions.PoliticalBusinessResult.EnterResults,
+            Permissions.PoliticalBusinessResult.ResetResults,
 
             Permissions.PoliticalBusinessResultBundle.Read,
             Permissions.PoliticalBusinessResultBundle.Create,

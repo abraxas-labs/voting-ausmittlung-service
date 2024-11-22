@@ -4,6 +4,8 @@
     "PoliticalBusiness:read-accessible",
     "PoliticalBusinessResult:read",
     "PoliticalBusinessResult:read-comments",
+    "PoliticalBusinessResult:enter-results",
+    "PoliticalBusinessResult:reset-results",
     "PoliticalBusinessResultBundle:read",
     "PoliticalBusinessResultBundle:create",
     "PoliticalBusinessResultBundle:update-all",

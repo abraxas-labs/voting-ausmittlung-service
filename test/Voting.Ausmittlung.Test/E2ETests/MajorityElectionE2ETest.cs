@@ -727,7 +727,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
         await electionResultService.SubmissionFinishedAsync(new MajorityElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ElectionResultId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<MajorityElectionResultSubmissionFinished>().Should().HaveCount(1);

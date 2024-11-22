@@ -8,6 +8,7 @@
       <product>Voting.Ausmittlung</product>
       <productVersion>0.0.0.1</productVersion>
     </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
     <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
     <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
     <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
@@ -35,6 +36,7 @@
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
         </superiorAuthority>
+        <electionGroupPosition>1</electionGroupPosition>
         <electionInformation>
           <election>
             <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
@@ -44,21 +46,6 @@
                 <language>de</language>
                 <electionDescriptionShort>Pw Bund de</electionDescriptionShort>
                 <electionDescription>Proporzwahl Bund de</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>fr</language>
-                <electionDescriptionShort>Pw Bund fr</electionDescriptionShort>
-                <electionDescription>Proporzwahl Bund fr</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>it</language>
-                <electionDescriptionShort>Pw Bund it</electionDescriptionShort>
-                <electionDescription>Proporzwahl Bund it</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>rm</language>
-                <electionDescriptionShort>Pw Bund rm</electionDescriptionShort>
-                <electionDescription>Proporzwahl Bund rm</electionDescription>
               </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
@@ -93,19 +80,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title de</occupationalTitle>
+                <occupationalTitle>occupation de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title fr</occupationalTitle>
+                <occupationalTitle>occupation fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title it</occupationalTitle>
+                <occupationalTitle>occupation it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title rm</occupationalTitle>
+                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -117,30 +104,31 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
             <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <partyAffiliationInfo>
                 <language>de</language>
-                <partyAffiliationShort>Andere de</partyAffiliationShort>
+                <partyAffiliationShort>AN de</partyAffiliationShort>
+                <partyAffiliationLong>Andere de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
-                <partyAffiliationShort>Andere fr</partyAffiliationShort>
+                <partyAffiliationShort>AN fr</partyAffiliationShort>
+                <partyAffiliationLong>Andere fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
-                <partyAffiliationShort>Andere it</partyAffiliationShort>
+                <partyAffiliationShort>AN it</partyAffiliationShort>
+                <partyAffiliationLong>Andere it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
-                <partyAffiliationShort>Andere rm</partyAffiliationShort>
+                <partyAffiliationShort>AN rm</partyAffiliationShort>
+                <partyAffiliationLong>Andere rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -174,19 +162,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title 2 de</occupationalTitle>
+                <occupationalTitle>occupation 2 de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title 2 fr</occupationalTitle>
+                <occupationalTitle>occupation 2 fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title 2 it</occupationalTitle>
+                <occupationalTitle>occupation 2 it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title 2 rm</occupationalTitle>
+                <occupationalTitle>occupation 2 rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -198,11 +186,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin 2</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title2</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number2</candidateReference>
@@ -361,6 +346,7 @@
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
         </superiorAuthority>
+        <electionGroupPosition>1</electionGroupPosition>
         <electionInformation>
           <election>
             <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
@@ -370,21 +356,6 @@
                 <language>de</language>
                 <electionDescriptionShort>Pw SG de</electionDescriptionShort>
                 <electionDescription>Proporzwahl St. Gallen de</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>fr</language>
-                <electionDescriptionShort>Pw SG fr</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen fr</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>it</language>
-                <electionDescriptionShort>Pw SG it</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen it</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>rm</language>
-                <electionDescriptionShort>Pw SG rm</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen rm</electionDescription>
               </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
@@ -417,19 +388,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title de</occupationalTitle>
+                <occupationalTitle>occupation de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title fr</occupationalTitle>
+                <occupationalTitle>occupation fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title it</occupationalTitle>
+                <occupationalTitle>occupation it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title rm</occupationalTitle>
+                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -441,11 +412,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
@@ -563,83 +531,6 @@
     </electionGroupInfo>
     <electionGroupInfo>
       <electionGroup>
-        <electionGroupIdentification>06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionGroupIdentification>
-        <domainOfInfluence>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
-        </domainOfInfluence>
-        <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
-        </superiorAuthority>
-        <electionInformation>
-          <election>
-            <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">06f7ecb7-e175-4c3b-9ea5-cfc138d08278</electionIdentification>
-            <typeOfElection xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</typeOfElection>
-            <electionDescription xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <electionDescriptionInfo>
-                <language>de</language>
-                <electionDescriptionShort>Pw SG2 de</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen 2 de</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>fr</language>
-                <electionDescriptionShort>Pw SG2 fr</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen 2 fr</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>it</language>
-                <electionDescriptionShort>Pw SG2 it</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen 2 it</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>rm</language>
-                <electionDescriptionShort>Pw SG2 rm</electionDescriptionShort>
-                <electionDescription>Proporzwahl St. Gallen 2 rm</electionDescription>
-              </electionDescriptionInfo>
-            </electionDescription>
-            <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
-          </election>
-          <quorum>5</quorum>
-        </electionInformation>
-      </electionGroup>
-      <countingCircle>
-        <countingCircleId>3443</countingCircleId>
-        <countingCircleName>Gossau</countingCircleName>
-        <domainOfInfluenceType>SK</domainOfInfluenceType>
-      </countingCircle>
-      <countingCircle>
-        <countingCircleId>5500</countingCircleId>
-        <countingCircleName>St. Gallen</countingCircleName>
-        <domainOfInfluenceType>MU</domainOfInfluenceType>
-      </countingCircle>
-      <countingCircle>
-        <countingCircleId>5500-3</countingCircleId>
-        <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
-        <domainOfInfluenceType>MU</domainOfInfluenceType>
-      </countingCircle>
-      <countingCircle>
-        <countingCircleId>5500-2</countingCircleId>
-        <countingCircleName>St. Gallen Haggen</countingCircleName>
-        <domainOfInfluenceType>MU</domainOfInfluenceType>
-      </countingCircle>
-      <countingCircle>
-        <countingCircleId>5500-1</countingCircleId>
-        <countingCircleName>St. Gallen St. Fiden</countingCircleName>
-        <domainOfInfluenceType>MU</domainOfInfluenceType>
-      </countingCircle>
-      <countingCircle>
-        <countingCircleId>1234</countingCircleId>
-        <countingCircleName>Uzwil</countingCircleName>
-        <domainOfInfluenceType>SK</domainOfInfluenceType>
-      </countingCircle>
-    </electionGroupInfo>
-    <electionGroupInfo>
-      <electionGroup>
         <electionGroupIdentification>da091f50-9f11-4deb-9621-948fbfbdc322</electionGroupIdentification>
         <domainOfInfluence>
           <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
@@ -653,6 +544,7 @@
           <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
         </superiorAuthority>
+        <electionGroupPosition>1</electionGroupPosition>
         <electionInformation>
           <election>
             <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">da091f50-9f11-4deb-9621-948fbfbdc322</electionIdentification>
@@ -662,21 +554,6 @@
                 <language>de</language>
                 <electionDescriptionShort>Pw Uzwil de</electionDescriptionShort>
                 <electionDescription>Proporzwahl Uzwil de</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>fr</language>
-                <electionDescriptionShort>Pw Uzwil fr</electionDescriptionShort>
-                <electionDescription>Proporzwahl Uzwil fr</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>it</language>
-                <electionDescriptionShort>Pw Uzwil it</electionDescriptionShort>
-                <electionDescription>Proporzwahl Uzwil it</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>rm</language>
-                <electionDescriptionShort>Pw Uzwil rm</electionDescriptionShort>
-                <electionDescription>Proporzwahl Uzwil rm</electionDescription>
               </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
@@ -709,19 +586,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title de</occupationalTitle>
+                <occupationalTitle>occupation de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title fr</occupationalTitle>
+                <occupationalTitle>occupation fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title it</occupationalTitle>
+                <occupationalTitle>occupation it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title rm</occupationalTitle>
+                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -733,11 +610,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
@@ -838,11 +712,12 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
+        <electionGroupPosition>1</electionGroupPosition>
         <electionInformation>
           <election>
             <electionIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">fa69e964-0a02-4d16-b417-247e8987021a</electionIdentification>
@@ -852,21 +727,6 @@
                 <language>de</language>
                 <electionDescriptionShort>Pw Gossau de</electionDescriptionShort>
                 <electionDescription>Proporzwahl Gossau de</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>fr</language>
-                <electionDescriptionShort>Pw Gossau fr</electionDescriptionShort>
-                <electionDescription>Proporzwahl Gossau fr</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>it</language>
-                <electionDescriptionShort>Pw Gossau it</electionDescriptionShort>
-                <electionDescription>Proporzwahl Gossau it</electionDescription>
-              </electionDescriptionInfo>
-              <electionDescriptionInfo>
-                <language>rm</language>
-                <electionDescriptionShort>Pw Gossau rm</electionDescriptionShort>
-                <electionDescription>Proporzwahl Gossau rm</electionDescription>
               </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</numberOfMandates>
@@ -899,19 +759,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title de</occupationalTitle>
+                <occupationalTitle>occupation de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title fr</occupationalTitle>
+                <occupationalTitle>occupation fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title it</occupationalTitle>
+                <occupationalTitle>occupation it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title rm</occupationalTitle>
+                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -923,11 +783,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number1</candidateReference>
@@ -962,19 +819,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title 2 de</occupationalTitle>
+                <occupationalTitle>occupation 2 de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title 2 fr</occupationalTitle>
+                <occupationalTitle>occupation 2 fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title 2 it</occupationalTitle>
+                <occupationalTitle>occupation 2 it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title 2 rm</occupationalTitle>
+                <occupationalTitle>occupation 2 rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -986,11 +843,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin 2</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title 2</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.number2</candidateReference>
@@ -1025,19 +879,19 @@
             <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <occupationalTitleInfo>
                 <language>de</language>
-                <occupationalTitle>occupation title 3 de</occupationalTitle>
+                <occupationalTitle>occupation 3 de</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>fr</language>
-                <occupationalTitle>occupation title 3 fr</occupationalTitle>
+                <occupationalTitle>occupation 3 fr</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>it</language>
-                <occupationalTitle>occupation title 3 it</occupationalTitle>
+                <occupationalTitle>occupation 3 it</occupationalTitle>
               </occupationalTitleInfo>
               <occupationalTitleInfo>
                 <language>rm</language>
-                <occupationalTitle>occupation title 3 rm</occupationalTitle>
+                <occupationalTitle>occupation 3 rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1049,11 +903,8 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <origin>origin 3</origin>
-            </swiss>
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title 3</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">02.number3</candidateReference>
@@ -1250,6 +1101,6 @@
         <domainOfInfluenceType>SK</domainOfInfluenceType>
       </countingCircle>
     </electionGroupInfo>
-    <numberOfEntries>5</numberOfEntries>
+    <numberOfEntries>4</numberOfEntries>
   </electionInformationDelivery>
 </delivery>

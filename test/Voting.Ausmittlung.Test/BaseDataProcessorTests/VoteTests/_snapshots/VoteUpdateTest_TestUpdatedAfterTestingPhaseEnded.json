@@ -74,6 +74,8 @@
           ],
           "Results": [],
           "EndResult": null,
+          "ShortDescription": "",
+          "OfficialDescription": "",
           "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e"
         }
       ],
@@ -82,7 +84,7 @@
       "BusinessSubType": 1,
       "ResultAlgorithm": 1,
       "EndResult": null,
-      "Type": 0,
+      "Type": 1,
       "Translations": [
         {
           "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
@@ -101,11 +103,11 @@
       "InternalDescription": "Updated internal description",
       "PoliticalBusinessNumber": "2000",
       "Active": true,
-      "SwissAbroadVotingRight": 0,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
       "DomainOfInfluence": null,
       "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
       "Contest": null,
+      "EnabledVoterTypes": [],
       "CountingCircleResults": [],
       "PoliticalBusinessTranslations": [
         {

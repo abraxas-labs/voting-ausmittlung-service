@@ -25,6 +25,7 @@ public class UpdateProportionalElectionEndResultLotDecisionRequestTest : ProtoVa
     protected override IEnumerable<UpdateProportionalElectionEndResultLotDecisionRequest> OkMessages()
     {
         yield return NewValidRequest();
+        yield return NewValidRequest(x => x.Rank = null);
         yield return NewValidRequest(x => x.Rank = 1);
         yield return NewValidRequest(x => x.Rank = 50);
     }

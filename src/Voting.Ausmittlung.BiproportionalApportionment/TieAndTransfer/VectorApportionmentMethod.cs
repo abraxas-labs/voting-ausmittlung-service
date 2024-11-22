@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Linq;
+using Rationals;
 
 namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
@@ -25,7 +26,7 @@ internal class VectorApportionmentMethod
 
     private int[] CalculateApportionment(Weight[] weights, int numberOfMandates)
     {
-        var divisor = (decimal)weights.Sum(x => x.VoteCount) / numberOfMandates;
+        var divisor = new Rational(weights.Sum(x => x.VoteCount), numberOfMandates);
         var apportionment = new int[weights.Length];
 
         // Initial distribution
@@ -41,7 +42,7 @@ internal class VectorApportionmentMethod
             while (currentDistributedNumberOfMandates < numberOfMandates)
             {
                 var underrepresentatedIndex = 0;
-                decimal? minRatio = null;
+                Rational? minRatio = null;
 
                 for (var i = 0; i < weights.Length; i++)
                 {
@@ -70,15 +71,15 @@ internal class VectorApportionmentMethod
             while (currentDistributedNumberOfMandates > numberOfMandates)
             {
                 var overrepresentedIndex = 0;
-                double? maxRatio = null;
+                Rational? maxRatio = null;
 
                 for (var i = 0; i < weights.Length; i++)
                 {
                     if (weights[i].VoteCount > 0)
                     {
-                        var ratio = (double)SignPost.Get(apportionment[i] - 1) / weights[i].VoteCount;
+                        var ratio = SignPost.Get(apportionment[i] - 1) / weights[i].VoteCount;
 
-                        if ((maxRatio == null) || ratio > maxRatio)
+                        if (maxRatio == null || ratio > maxRatio)
                         {
                             overrepresentedIndex = i;
                             maxRatio = ratio;
@@ -99,9 +100,9 @@ internal class VectorApportionmentMethod
         return apportionment;
     }
 
-    private decimal GetMaxDivisor(Weight[] weights, int[] apportionment)
+    private Rational GetMaxDivisor(Weight[] weights, int[] apportionment)
     {
-        decimal? maxRatio = null;
+        Rational? maxRatio = null;
 
         for (var i = 0; i < weights.Length; i++)
         {
@@ -110,8 +111,8 @@ internal class VectorApportionmentMethod
                 continue;
             }
 
-            var ratio = decimal.Divide(SignPost.Get(apportionment[i] - 1), weights[i].VoteCount);
-            if (maxRatio == null || ratio > maxRatio.Value)
+            var ratio = SignPost.Get(apportionment[i] - 1) / weights[i].VoteCount;
+            if (maxRatio == null || ratio > maxRatio)
             {
                 maxRatio = ratio;
             }
@@ -122,6 +123,6 @@ internal class VectorApportionmentMethod
             throw new BiproportionalApportionmentException($"Cannot find the max divisor of {weights[0].Name} by the {nameof(VectorApportionmentMethod)}");
         }
 
-        return decimal.Divide(1, maxRatio.Value);
+        return 1 / maxRatio.Value;
     }
 }

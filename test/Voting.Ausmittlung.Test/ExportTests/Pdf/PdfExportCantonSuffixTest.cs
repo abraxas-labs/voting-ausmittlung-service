@@ -10,7 +10,6 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
-using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
@@ -27,18 +26,14 @@ public class PdfExportCantonSuffixTest : PdfExportBaseTest
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key;
 
-    [Fact]
-    public virtual async Task TestPdfWithCantonSuffix()
-    {
-        var config = GetService<PublisherConfig>();
-        config.ExportTemplateKeyCantonSuffixEnabled = true;
-        await TestPdfReport(string.Empty);
-    }
+    protected override string SnapshotName => TemplateKey + "_with_canton_suffix";
 
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
+        var config = GetService<PublisherConfig>();
+        config.ExportTemplateKeyCantonSuffixEnabled = true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

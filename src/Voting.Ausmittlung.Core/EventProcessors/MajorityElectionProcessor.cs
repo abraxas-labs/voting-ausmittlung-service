@@ -97,7 +97,7 @@ public class MajorityElectionProcessor :
         await _simplePoliticalBusinessBuilder.Create(majorityElection);
         await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false, majorityElection.ContestId);
         await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
-        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
     }
 
     public async Task Process(MajorityElectionUpdated eventData)
@@ -123,7 +123,7 @@ public class MajorityElectionProcessor :
         {
             await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false, majorityElection.ContestId);
             await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
-            await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+            await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
         }
 
         if (majorityElection.IndividualCandidatesDisabled != existingMajorityElection.IndividualCandidatesDisabled)
@@ -153,7 +153,9 @@ public class MajorityElectionProcessor :
 
         if (!await _repo.ExistsByKey(id))
         {
-            throw new EntityNotFoundException(id);
+            // skip event processing to prevent race condition if majority election was deleted from other process.
+            _logger.LogWarning("event 'MajorityElectionDeleted' skipped. majority election {id} has already been deleted", id);
+            return;
         }
 
         await _repo.DeleteByKey(id);
@@ -188,6 +190,15 @@ public class MajorityElectionProcessor :
     public async Task Process(MajorityElectionCandidateCreated eventData)
     {
         var model = _mapper.Map<MajorityElectionCandidate>(eventData.MajorityElectionCandidate);
+        TruncateCandidateNumber(model);
+
+        var majorityElection = await _repo.Query()
+                .Include(x => x.Contest)
+                .FirstOrDefaultAsync(x => x.Id == model.MajorityElectionId)
+            ?? throw new EntityNotFoundException(nameof(MajorityElection), model.MajorityElectionId);
+
+        model.CreatedDuringActiveContest = majorityElection.Contest.State == ContestState.Active;
+
         await _candidateRepo.Create(model);
         await _candidateResultBuilder.Initialize(model.MajorityElectionId, model.Id);
         await _candidateEndResultBuilder.Initialize(model.Id);
@@ -196,6 +207,7 @@ public class MajorityElectionProcessor :
     public async Task Process(MajorityElectionCandidateUpdated eventData)
     {
         var candidate = _mapper.Map<MajorityElectionCandidate>(eventData.MajorityElectionCandidate);
+        TruncateCandidateNumber(candidate);
 
         if (!await _candidateRepo.ExistsByKey(candidate.Id))
         {
@@ -245,8 +257,13 @@ public class MajorityElectionProcessor :
     {
         var id = GuidParser.Parse(eventData.MajorityElectionCandidateId);
 
-        var existingCandidate = await _candidateRepo.GetByKey(id)
-            ?? throw new EntityNotFoundException(id);
+        var existingCandidate = await _candidateRepo.GetByKey(id);
+        if (existingCandidate is null)
+        {
+            // skip event processing to prevent race condition if majority election candidate was deleted from other process.
+            _logger.LogWarning("event 'MajorityElectionCandidateDeleted' skipped. majority election candidate{id} has already been deleted", id);
+            return;
+        }
 
         await _candidateRepo.DeleteByKey(id);
 
@@ -283,7 +300,7 @@ public class MajorityElectionProcessor :
             candidateReference.Title = candidate.Title;
             candidateReference.ZipCode = candidate.ZipCode;
             candidateReference.Origin = candidate.Origin;
-            candidate.Translations = candidate.Translations.Select(t => new MajorityElectionCandidateTranslation
+            candidateReference.Translations = candidate.Translations.Select(t => new SecondaryMajorityElectionCandidateTranslation
             {
                 Language = t.Language,
                 Occupation = t.Occupation,
@@ -294,5 +311,16 @@ public class MajorityElectionProcessor :
 
         await _secondaryMajorityCandidateTranslationRepo.DeleteCandidateReferenceTranslations(candidate.Id);
         await _secondaryMajorityCandidateRepo.UpdateRange(candidateReferences);
+    }
+
+    private void TruncateCandidateNumber(MajorityElectionCandidate candidate)
+    {
+        if (candidate.Number.Length <= 10)
+        {
+            return;
+        }
+
+        // old events can contain a number which is longer than 10 chars
+        candidate.Number = candidate.Number[..10];
     }
 }

@@ -48,7 +48,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         var vote = await _repo.Query()
             .AsSplitQuery()
             .Include(x => x.EndResult!.BallotEndResults)
-                .ThenInclude(x => x.Ballot)
+                .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.EndResult!.BallotEndResults)
                 .ThenInclude(x => x.QuestionEndResults.OrderBy(q => q.Question.Number))
                     .ThenInclude(x => x.Question.Translations)
@@ -57,6 +57,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
                     .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Include(x => x.Contest.Translations)
             .Include(x => x.Contest.DomainOfInfluence)
             .Include(x => x.Contest.CantonDefaults)
@@ -75,6 +76,8 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
                 .ThenInclude(x => x.VotingCards)
             .Include(x => x.CountingCircle.ContestDetails)
                 .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.Results)
+                .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.Results)
                 .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
                     .ThenInclude(x => x.Translations)
@@ -106,7 +109,9 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         vote.EndResult!.OrderBallotResults();
 
         var ccDetailsList = await _ccDetailsRepo.Query()
+            .AsSplitQuery()
             .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .Where(x => x.ContestId == vote.ContestId)
             .ToListAsync(ct);
 
@@ -120,10 +125,11 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
 
         foreach (var details in pdfCcDetails)
         {
-            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(details, vote.DomainOfInfluence.Type);
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(details, vote.DomainOfInfluence);
 
             // we don't need this data in the xml
             details.VotingCards = new List<PdfVotingCardResultDetail>();
+            details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         }
 
         var pdfVote = _mapper.Map<PdfVote>(vote);
@@ -166,10 +172,11 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = pdfVote.DomainOfInfluence;
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, vote.DomainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, vote.DomainOfInfluence);
 
         // we don't need this data in the xml
         domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         pdfVote.DomainOfInfluence = null;
 
         var contest = _mapper.Map<PdfContest>(vote.Contest);

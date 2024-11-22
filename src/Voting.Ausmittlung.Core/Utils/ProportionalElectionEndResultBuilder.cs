@@ -93,7 +93,7 @@ public class ProportionalElectionEndResultBuilder
             foreach (var listEndResult in endResult.ListEndResults)
             {
                 _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
-                _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+                _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult, endResult.ManualEndResultRequired);
             }
 
             if (!endResult.ManualEndResultRequired)
@@ -169,6 +169,7 @@ public class ProportionalElectionEndResultBuilder
 
         var simplePb = await _simplePoliticalBusinessRepo.Query()
             .AsTracking()
+            .Include(x => x.DomainOfInfluence)
             .FirstOrDefaultAsync(x => x.Id == endResult.ProportionalElectionId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), endResult.ProportionalElectionId);
 
@@ -189,6 +190,7 @@ public class ProportionalElectionEndResultBuilder
             ProportionalElectionEndResultVotingCardDetail>(
                 endResult,
                 countingCircleDetails,
+                simplePb.DomainOfInfluence,
                 deltaFactor);
 
         PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(

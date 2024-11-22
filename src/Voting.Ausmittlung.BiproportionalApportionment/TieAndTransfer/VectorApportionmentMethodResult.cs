@@ -1,11 +1,13 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using Rationals;
+
 namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
 internal class VectorApportionmentMethodResult
 {
-    public VectorApportionmentMethodResult(int[] apportionment, decimal maxDivisor)
+    public VectorApportionmentMethodResult(int[] apportionment, Rational maxDivisor)
     {
         Apportionment = apportionment;
         MaxDivisor = maxDivisor;
@@ -13,5 +15,5 @@ internal class VectorApportionmentMethodResult
 
     public int[] Apportionment { get; }
 
-    public decimal MaxDivisor { get; }
+    public Rational MaxDivisor { get; }
 }

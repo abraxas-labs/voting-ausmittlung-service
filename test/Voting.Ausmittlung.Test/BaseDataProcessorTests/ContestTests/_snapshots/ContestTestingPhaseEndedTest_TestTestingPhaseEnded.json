@@ -87,7 +87,6 @@
           ],
           "MajorityElectionInvalidVotes": false,
           "CountingMachineEnabled": false,
-          "NewZhFeaturesEnabled": false,
           "MajorityElectionUseCandidateCheckDigit": true,
           "ProportionalElectionUseCandidateCheckDigit": false,
           "PublishResultsEnabled": true,
@@ -280,6 +279,7 @@
         "WriteInBallots": [],
         "HasUnmappedWriteIns": false,
         "CountOfElectionsWithUnmappedWriteIns": 0,
+        "HasBallotGroups": false,
         "PoliticalBusiness": null,
         "PoliticalBusinessId": "e39a4d1c-6db4-44a7-a707-05cf2005dd4a",
         "CountOfVoters": {

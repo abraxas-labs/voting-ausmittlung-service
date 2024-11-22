@@ -22,4 +22,14 @@ public enum VoterType
     /// Voter is Swiss but living abroad.
     /// </summary>
     SwissAbroad,
+
+    /// <summary>
+    /// Voter is foreigner.
+    /// </summary>
+    Foreigner,
+
+    /// <summary>
+    /// Voter is minor.
+    /// </summary>
+    Minor,
 }

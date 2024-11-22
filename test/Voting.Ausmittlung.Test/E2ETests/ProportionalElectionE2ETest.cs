@@ -761,7 +761,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
         await electionResultService.SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ElectionResultId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
         EventPublisherMock.AllPublishedEvents.Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().Should().HaveCount(1);

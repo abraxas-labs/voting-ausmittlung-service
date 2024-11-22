@@ -85,6 +85,8 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     /// </summary>
     public int CountOfElectionsWithUnmappedWriteIns { get; set; }
 
+    public bool HasBallotGroups => BallotGroupResults.Count != 0;
+
     [NotMapped]
     public override PoliticalBusiness PoliticalBusiness => MajorityElection;
 

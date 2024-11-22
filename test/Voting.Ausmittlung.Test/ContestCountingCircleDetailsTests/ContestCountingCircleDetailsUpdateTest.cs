@@ -90,6 +90,58 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     }
 
     [Fact]
+    public async Task UpdateDetailsWithoutEVotingInEVotingContestShouldBeOk()
+    {
+        var client = CreateService(SecureConnectTestDefaults.MockedTenantGossau.Id, roles: new[] { RolesMockedData.ErfassungElectionAdmin });
+        await client.UpdateDetailsAsync(new UpdateContestCountingCircleDetailsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdGossau,
+            VotingCards =
+            {
+                new UpdateVotingCardResultDetailRequest
+                {
+                    Channel = SharedProto.VotingChannel.ByMail,
+                    Valid = true,
+                    CountOfReceivedVotingCards = 8000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                },
+                new UpdateVotingCardResultDetailRequest
+                {
+                    Channel = SharedProto.VotingChannel.BallotBox,
+                    Valid = true,
+                    CountOfReceivedVotingCards = 3000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                },
+                new UpdateVotingCardResultDetailRequest
+                {
+                    Channel = SharedProto.VotingChannel.ByMail,
+                    Valid = false,
+                    CountOfReceivedVotingCards = 4000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                },
+            },
+            CountOfVoters =
+            {
+                new UpdateCountOfVotersInformationSubTotalRequest
+                {
+                    Sex = SharedProto.SexType.Female,
+                    VoterType = SharedProto.VoterType.Swiss,
+                    CountOfVoters = 6000,
+                },
+                new UpdateCountOfVotersInformationSubTotalRequest
+                {
+                    Sex = SharedProto.SexType.Male,
+                    VoterType = SharedProto.VoterType.Swiss,
+                    CountOfVoters = 4000,
+                },
+            },
+        });
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsUpdated>();
+        eventData.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task UpdateDetailsWithEVotingShouldBeOk()
     {
         var client = CreateService(SecureConnectTestDefaults.MockedTenantGossau.Id, roles: new[] { RolesMockedData.ErfassungElectionAdmin });
@@ -370,6 +422,8 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     [Fact]
     public async Task UpdateDetailsShouldThrowIfSwissAbroadVoterType()
     {
+        await ModifyDbEntities<DomainOfInfluence>(x => true, x => x.SwissAbroadVotingRight = SwissAbroadVotingRight.NoRights);
+
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
                 x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest

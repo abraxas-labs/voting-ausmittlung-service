@@ -10,10 +10,10 @@ CT;201;number8;8pol last name;8pol firstName;Test de;occupation de;occupation ti
 CT;201;number9;9pol last name;9pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;960;1981;1;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
 CT;201;number10;10pol last name;10pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;60;1981;1;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
 CT;201;999;Vereinzelte;;;;;;;1950;0;;1680;1981;7;0;;1680;0;;1692;;1680;1680;1692;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;n1;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;locality1;1960;;;;1981;6;0;;1140;0;;3660;W;;1680;1692;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n1;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;locality1;1960;;;;1981;6;0;;240;0;;3660;W;;1680;1692;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
 CT;n2;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;number1;1960;;;;1981;4;;;;0;;1500;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
 CT;n1;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;locality2;1960;;;;1981;2;1;;2760;;;;;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
 CT;n2;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;number2;1960;;;;1981;4;;;;1;;1320;;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
-CT;n1;number3;3pol last name;3pol firstName;Test3 de;occupation de;occupation title de;title;locality3;1960;;;;1981;2;0;;1860;;;;M;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n1;number3;3pol last name;3pol firstName;Test3 de;occupation de;occupation title de;title;locality3;1960;;;;1981;2;0;;2760;;;;M;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
 CT;n1;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;locality4;1960;;;;1981;2;1;;1680;;;;W;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
 CT;n2;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;number4;1960;;;;1981;4;;;;1;;1050;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;

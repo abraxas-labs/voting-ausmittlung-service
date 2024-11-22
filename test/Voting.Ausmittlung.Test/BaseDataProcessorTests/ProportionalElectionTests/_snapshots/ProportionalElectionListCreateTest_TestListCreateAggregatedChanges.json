@@ -4,8 +4,9 @@
       "OrderNumber": "1a",
       "Translations": [
         {
-          "ShortDescription": "Liste 1 rm",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "Liste 1 rm",
+          "Description": "",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -16,8 +17,9 @@
       "OrderNumber": "2",
       "Translations": [
         {
-          "ShortDescription": "Liste 2 rm",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "Liste 2 rm",
+          "Description": "",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -28,8 +30,9 @@
       "OrderNumber": "3a",
       "Translations": [
         {
-          "ShortDescription": "Liste 3 rm",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "Liste 3 rm",
+          "Description": "",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -40,8 +43,9 @@
       "OrderNumber": "4",
       "Translations": [
         {
-          "ShortDescription": "Liste 4 rm",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "Liste 4 rm",
+          "Description": "Liste 4 rm",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"

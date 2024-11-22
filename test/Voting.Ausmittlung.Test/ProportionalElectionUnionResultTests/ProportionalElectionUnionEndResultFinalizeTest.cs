@@ -75,7 +75,7 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         evInTestingPhase.ProportionalElectionUnionEndResultId.Should().Be(endResultInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         // set all elections done
@@ -253,7 +253,7 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
             item.ActionId = "updated-action-id";
             await db.SaveChangesAsync();
@@ -273,9 +273,9 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
-            item.ExternalIdentifier = invalidExternalId;
+            item.ExternalTokenJwtIds = [invalidExternalId];
             await db.SaveChangesAsync();
         });
 
@@ -283,7 +283,7 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionUnionEndResultRequest
             {
                 ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-                SecondFactorTransactionId = invalidExternalId,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             }),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
@@ -305,7 +305,7 @@ public class ProportionalElectionUnionEndResultFinalizeTest : ProportionalElecti
         return new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
     }
 }

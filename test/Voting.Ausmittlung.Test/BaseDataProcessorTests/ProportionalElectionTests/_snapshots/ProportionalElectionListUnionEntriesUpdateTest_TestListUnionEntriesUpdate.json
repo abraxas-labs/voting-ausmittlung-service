@@ -46,6 +46,7 @@
         "EndResult": null,
         "DoubleProportionalResultCells": [],
         "DoubleProportionalResultColumn": null,
+        "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
         "Description": "",
         "ShortDescription": "Liste 1 de",
@@ -84,6 +85,7 @@
         "EndResult": null,
         "DoubleProportionalResultCells": [],
         "DoubleProportionalResultColumn": null,
+        "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
         "Description": "",
         "ShortDescription": "Liste 3 de",
@@ -122,6 +124,7 @@
         "EndResult": null,
         "DoubleProportionalResultCells": [],
         "DoubleProportionalResultColumn": null,
+        "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
         "Description": "",
         "ShortDescription": "Liste 2 de",
@@ -131,6 +134,7 @@
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ],
+  "ListLotDecisionEntries": [],
   "IsSubListUnion": false,
   "AllListNumbers": "1a,3a,2",
   "HagenbachBischoffGroup": null,

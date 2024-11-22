@@ -7,6 +7,7 @@ using System.Linq;
 using Ech0110_4_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Ech;
 using ProportionalElection = Voting.Ausmittlung.Data.Models.ProportionalElection;
@@ -125,9 +126,11 @@ public class Ech0110Serializer
 
     private Delivery WrapInDelivery(EventResultDelivery data, Contest contest)
     {
+        var header = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded);
+        header.Comment = DeliveryHeaderUtils.EnrichComment(header.Comment, contest.TestingPhaseEnded);
         return new Delivery
         {
-            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded),
+            DeliveryHeader = header,
             ResultDelivery = data,
         };
     }

@@ -62,11 +62,12 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         var proportionalElection = Mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         var domainOfInfluence = proportionalElection.DomainOfInfluence;
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.ProportionalElection.DomainOfInfluence);
 
         if (!IncludeDoiInformation)
         {
             domainOfInfluence.Details!.VotingCards = new List<PdfVotingCardResultDetail>();
+            domainOfInfluence.Details!.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         }
 
         // we don't need this data in the xml
@@ -109,6 +110,7 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
             .AsSplitQuery()
             .Include(x => x.ProportionalElection.Translations)
             .Include(x => x.ProportionalElection.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.ProportionalElection.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Include(x => x.ProportionalElection.Contest.Translations)
             .Include(x => x.ProportionalElection.Contest.DomainOfInfluence);
         return BuildCalculationIncludes(query);

@@ -10,6 +10,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Queries;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
@@ -44,6 +45,7 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id,
                 Type = SharedProto.DomainOfInfluenceType.Bz,
                 Canton = SharedProto.DomainOfInfluenceCanton.Zh,
+                HasForeignerVoters = true,
             },
         });
 
@@ -71,6 +73,8 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
                     SortNumber = 3,
                     SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id,
                     Type = SharedProto.DomainOfInfluenceType.Bz,
+                    HasMinorVoters = true,
+                    SuperiorAuthorityDomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
                 },
             });
 
@@ -83,6 +87,13 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
         // remove non-snapshot domain of influence
         var countOfDomainOfInfluenceSnapshots = countOfDomainOfInfluences - 1;
         countOfDomainOfInfluenceSnapshots.Should().Be(countOfContestsInTestingPhase);
+
+        var doiSnapshot = await RunOnDb(db => db.DomainOfInfluences
+            .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
+            .SingleAsync(doi => doi.BasisDomainOfInfluenceId == domainOfInfluenceId && doi.SnapshotContestId == ContestMockedData.GuidBundesurnengang));
+
+        doiSnapshot.SuperiorAuthorityDomainOfInfluence!.SnapshotContestId.Should().Be(ContestMockedData.GuidBundesurnengang);
+        doiSnapshot.SuperiorAuthorityDomainOfInfluenceId.Should().Be(AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(doiSnapshot.SnapshotContestId!.Value, doiSnapshot.SuperiorAuthorityDomainOfInfluence!.BasisDomainOfInfluenceId));
     }
 
     [Fact]

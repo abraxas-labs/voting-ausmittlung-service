@@ -22,7 +22,6 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
 {
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
-    private readonly VoteDomainOfInfluenceResultBuilder _voteDoiResultBuilder;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
     private readonly IClock _clock;
@@ -32,14 +31,12 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
         IMapper mapper,
         TemplateService templateService,
         IDbRepository<DataContext, Contest> contestRepo,
-        VoteDomainOfInfluenceResultBuilder voteDoiResultBuilder,
         IClock clock)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
         _templateService = templateService;
         _contestRepo = contestRepo;
-        _voteDoiResultBuilder = voteDoiResultBuilder;
         _clock = clock;
     }
 
@@ -69,6 +66,9 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
+            .ThenInclude(x => x.Ballot.Translations)
+            .Include(x => x.Results)
+            .ThenInclude(x => x.Results)
             .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
@@ -79,6 +79,10 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .ThenInclude(x => x.CountingCircle)
             .ThenInclude(x => x.ContestDetails)
             .ThenInclude(x => x.VotingCards)
+            .Include(x => x.Results)
+            .ThenInclude(x => x.CountingCircle)
+            .ThenInclude(x => x.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .Include(x => x.EndResult!.BallotEndResults.OrderBy(b => b.Ballot.Position)).ThenInclude(x => x.Ballot)
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.QuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
@@ -113,7 +117,8 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
                     ccDetails?.OrderVotingCardsAndSubTotals();
 
                     result.CountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-                    PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(result.CountingCircle.ContestCountingCircleDetails, vote.DomainOfInfluence.Type);
+                    PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(result.CountingCircle.ContestCountingCircleDetails, vote.DomainOfInfluence);
+                    result.CountingCircle.ContestCountingCircleDetails.CountOfVotersInformationSubTotals = new();
                 }
             }
 

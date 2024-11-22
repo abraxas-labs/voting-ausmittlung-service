@@ -232,6 +232,7 @@ public class VoteResultEnterCorrectionResultsTest : VoteResultBaseTest
 
     protected override IEnumerable<string> AuthorizedRoles()
     {
+        yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 

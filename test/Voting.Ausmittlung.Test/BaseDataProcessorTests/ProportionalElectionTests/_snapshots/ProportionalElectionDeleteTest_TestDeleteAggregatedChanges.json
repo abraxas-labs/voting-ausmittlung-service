@@ -4,8 +4,9 @@
       "OrderNumber": "1a",
       "Translations": [
         {
-          "ShortDescription": "Liste 1 de",
           "ProportionalElectionUnionListId": "2399ba4e-9bfd-4cf9-80fe-402c0e3a55d2",
+          "ShortDescription": "Liste 1 de",
+          "Description": "",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"

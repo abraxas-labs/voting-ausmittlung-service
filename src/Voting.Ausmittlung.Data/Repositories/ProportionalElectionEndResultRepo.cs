@@ -44,6 +44,7 @@ public class ProportionalElectionEndResultRepo : DbRepository<DataContext, Propo
                     .ThenInclude(x => x.VoteSources)
             .Include(x => x.VotingCards)
             .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.ListLotDecisions)
             .FirstOrDefaultAsync(x => x.ProportionalElectionId == proportionalElectionId);
     }
 

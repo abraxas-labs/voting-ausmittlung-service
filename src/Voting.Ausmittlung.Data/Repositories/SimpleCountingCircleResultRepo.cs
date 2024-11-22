@@ -45,13 +45,19 @@ public class SimpleCountingCircleResultRepo : DbRepository<DataContext, SimpleCo
     public async Task Sync(Guid politicalBusinessId, Guid domainOfInfluenceId, bool testingPhaseEnded)
     {
         var countingCircles = await Context.Set<DomainOfInfluenceCountingCircle>()
+            .Include(x => x.CountingCircle)
             .Where(cc => cc.DomainOfInfluenceId == domainOfInfluenceId)
-            .Select(cc => new { cc.CountingCircleId, cc.CountingCircle.BasisCountingCircleId })
             .ToListAsync();
-        var basisCountingCircleIdByContestCountingCircleId = countingCircles.ToDictionary(
+
+        var countingCirclesWithBasisCcId = countingCircles
+            .DistinctBy(x => x.CountingCircleId)
+            .Select(cc => new { cc.CountingCircleId, cc.CountingCircle.BasisCountingCircleId })
+            .ToList();
+
+        var basisCountingCircleIdByContestCountingCircleId = countingCirclesWithBasisCcId.ToDictionary(
             x => x.CountingCircleId,
             x => x.BasisCountingCircleId);
-        var contestCountingCircleIds = countingCircles.ConvertAll(x => x.CountingCircleId);
+        var contestCountingCircleIds = countingCirclesWithBasisCcId.ConvertAll(x => x.CountingCircleId);
 
         var existingEntries = await Set
             .Where(x => x.PoliticalBusinessId == politicalBusinessId)

@@ -14,7 +14,9 @@ public class ProportionalElectionEndResultModelBuilder :
     IEntityTypeConfiguration<ProportionalElectionCandidateVoteSourceEndResult>,
     IEntityTypeConfiguration<HagenbachBischoffGroup>,
     IEntityTypeConfiguration<HagenbachBischoffCalculationRound>,
-    IEntityTypeConfiguration<HagenbachBischoffCalculationRoundGroupValues>
+    IEntityTypeConfiguration<HagenbachBischoffCalculationRoundGroupValues>,
+    IEntityTypeConfiguration<ProportionalElectionEndResultListLotDecision>,
+    IEntityTypeConfiguration<ProportionalElectionEndResultListLotDecisionEntry>
 {
     public void Configure(EntityTypeBuilder<ProportionalElectionEndResult> builder)
     {
@@ -188,5 +190,33 @@ public class ProportionalElectionEndResultModelBuilder :
         builder
             .HasIndex(x => new { x.GroupId, x.CalculationRoundId })
             .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<ProportionalElectionEndResultListLotDecision> builder)
+    {
+        builder
+            .HasOne(x => x.ProportionalElectionEndResult)
+            .WithMany(x => x.ListLotDecisions)
+            .HasForeignKey(x => x.ProportionalElectionEndResultId)
+            .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<ProportionalElectionEndResultListLotDecisionEntry> builder)
+    {
+        builder
+            .HasOne(x => x.ProportionalElectionEndResultListLotDecision)
+            .WithMany(x => x.Entries)
+            .HasForeignKey(x => x.ProportionalElectionEndResultListLotDecisionId)
+            .IsRequired();
+
+        builder
+            .HasOne(x => x.List)
+            .WithMany(x => x.ListLotDecisionEntries)
+            .HasForeignKey(x => x.ListId);
+
+        builder
+            .HasOne(x => x.ListUnion)
+            .WithMany(x => x.ListLotDecisionEntries)
+            .HasForeignKey(x => x.ListUnionId);
     }
 }

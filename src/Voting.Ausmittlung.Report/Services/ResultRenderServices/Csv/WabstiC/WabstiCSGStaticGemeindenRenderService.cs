@@ -39,21 +39,25 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
         var results = await _repo.Query()
             .Where(x => x.ContestId == ctx.ContestId && ctx.PoliticalBusinessIds.Contains(x.Id))
             .SelectMany(x => x.Results)
-            .OrderBy(x => x.Vote.PoliticalBusinessNumber)
-            .ThenBy(x => x.CountingCircle.Code)
-            .ThenBy(x => x.CountingCircle.Name)
+            .SelectMany(x => x.Results)
+            .OrderBy(x => x.Ballot.Vote.PoliticalBusinessNumber)
+            .ThenBy(x => x.VoteResult.CountingCircle.Code)
+            .ThenBy(x => x.VoteResult.CountingCircle.Name)
+            .ThenBy(x => x.Ballot.Position)
             .Select(x => new Data
             {
-                VoteId = x.VoteId,
-                DomainOfInfluenceName = x.Vote.DomainOfInfluence.Name,
-                DomainOfInfluenceType = x.Vote.DomainOfInfluence.Type,
-                DomainOfInfluenceSortNumber = x.Vote.DomainOfInfluence.SortNumber,
-                PoliticalBusinessNumber = x.Vote.PoliticalBusinessNumber,
-                CountingCircleBfs = x.CountingCircle.Bfs,
-                CountingCircleCode = x.CountingCircle.Code,
-                CountingCircleName = x.CountingCircle.Name,
-                CountingCircleId = x.CountingCircle.Id,
-                CountOfVotersTotal = x.TotalCountOfVoters,
+                VoteId = x.VoteResult.Vote.Type == VoteType.QuestionsOnSingleBallot ? x.VoteResult.VoteId : x.BallotId,
+                DomainOfInfluenceName = x.VoteResult.Vote.DomainOfInfluence.Name,
+                DomainOfInfluenceType = x.VoteResult.Vote.DomainOfInfluence.Type,
+                DomainOfInfluenceSortNumber = x.VoteResult.Vote.DomainOfInfluence.SortNumber,
+                PoliticalBusinessNumber = x.VoteResult.Vote.PoliticalBusinessNumber,
+                CountingCircleBfs = x.VoteResult.CountingCircle.Bfs,
+                CountingCircleCode = x.VoteResult.CountingCircle.Code,
+                CountingCircleName = x.VoteResult.CountingCircle.Name,
+                CountingCircleId = x.VoteResult.CountingCircle.Id,
+                CountOfVotersTotal = x.VoteResult.TotalCountOfVoters,
+                VoteType = x.VoteResult.Vote.Type,
+                Position = x.Ballot.Position,
             })
             .ToListAsync(ct);
 
@@ -99,5 +103,14 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
 
         [Name("GeLfNr")]
         public Guid VoteId { get; set; }
+
+        [Name("GeSubNr")]
+        public string BallotSubType => WabstiCPositionUtil.BuildPosition(Position, VoteType);
+
+        [Ignore]
+        public VoteType VoteType { get; set; }
+
+        [Ignore]
+        public int Position { get; set; }
     }
 }

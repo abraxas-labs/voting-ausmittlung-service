@@ -153,7 +153,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
-    public async Task SubmissionFinished(Guid resultId, string secondFactorTransactionExternalId, CancellationToken ct)
+    public async Task SubmissionFinished(Guid resultId, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
@@ -161,8 +161,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
+            if (secondFactorTransactionId == null)
+            {
+                throw new ValidationException("Second factor transaction id cannot be null.");
+            }
+
             await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionExternalId,
+                secondFactorTransactionId.Value,
                 () => PrepareActionId<MajorityElectionResultAggregate>(
                     nameof(SubmissionFinished),
                     result.Id,
@@ -205,7 +210,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
-    public async Task CorrectionFinished(Guid resultId, string comment, string secondFactorTransactionExternalId, CancellationToken ct)
+    public async Task CorrectionFinished(Guid resultId, string comment, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
 
@@ -213,8 +218,13 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
+            if (secondFactorTransactionId == null)
+            {
+                throw new ValidationException("Second factor transaction id cannot be null.");
+            }
+
             await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionExternalId,
+                secondFactorTransactionId.Value,
                 () => PrepareActionId<MajorityElectionResultAggregate>(
                     nameof(CorrectionFinished),
                     result.Id,
@@ -318,6 +328,11 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             throw new ValidationException("finish submission and audit tentatively is not allowed for a non self owned political business");
         }
 
+        if (result.MajorityElection.DomainOfInfluence.Type < DataModels.DomainOfInfluenceType.Mu)
+        {
+            throw new ValidationException("finish submission and audit tentatively is not allowed for non communal political business");
+        }
+
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
         await _validationResultsEnsurer.EnsureMajorityElectionResultIsValid(result);
 
@@ -341,6 +356,11 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
             throw new ValidationException("finish correction and audit tentatively is not allowed for a non self owned political business");
+        }
+
+        if (result.MajorityElection.DomainOfInfluence.Type < DataModels.DomainOfInfluenceType.Mu)
+        {
+            throw new ValidationException("finish correction and audit tentatively is not allowed for non communal political business");
         }
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
@@ -382,6 +402,28 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
             aggregate.Unpublish(contestId);
             _logger.LogInformation("Majority election result {MajorityElectionResultId} unpublished", aggregate.Id);
         });
+    }
+
+    public async Task ResetToSubmissionFinishedAndFlagForCorrection(Guid resultId)
+    {
+        var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        if (result.MajorityElection.DomainOfInfluence.Type < DataModels.DomainOfInfluenceType.Mu)
+        {
+            throw new ValidationException("reset to submission finished and flag for correction is not allowed for non communal political business");
+        }
+
+        var aggregate = await AggregateRepository.GetById<MajorityElectionResultAggregate>(resultId);
+        if (aggregate.Published)
+        {
+            aggregate.Unpublish(contestId);
+            _logger.LogInformation("Majority election result {MajorityElectionResultId} unpublished", aggregate.Id);
+        }
+
+        aggregate.ResetToSubmissionFinished(contestId);
+        aggregate.FlagForCorrection(contestId);
+        await AggregateRepository.Save(aggregate);
+        _logger.LogInformation("Majority election result {MajorityElectionResultId} reset to submission finished and flagged for correction", aggregate.Id);
     }
 
     protected override async Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId)

@@ -80,14 +80,9 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
 
         data.MatchSnapshot(
             x => x.Id,
-            x => x.CountingCircleId,
-            x => x.CountingCircle.Id,
             x => x.CountingCircle.ResponsibleAuthority,
             x => x.CountingCircle.ContactPersonAfterEvent!,
-            x => x.CountingCircle.ContactPersonDuringEvent,
-            x => x.DomainOfInfluenceId,
-            x => x.DomainOfInfluence.Id,
-            x => x.DomainOfInfluence.ParentId!);
+            x => x.CountingCircle.ContactPersonDuringEvent);
     }
 
     [Fact]
@@ -124,7 +119,7 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
         var parentDoiUzwilKircheCc = parentDoiCcs.Find(doiCc => doiCc.CountingCircleId == CountingCircleMockedData.GuidUzwilKirche);
         var selfDoiUzwilKircheCc = selfDoiCcs.Find(doiCc => doiCc.CountingCircleId == CountingCircleMockedData.GuidUzwilKirche);
 
-        parentDoiCcs.Should().HaveCount(7);
+        parentDoiCcs.Should().HaveCount(8);
         selfDoiCcs.Should().HaveCount(6);
 
         parentDoiUzwilKircheCc.Should().NotBeNull();
@@ -160,7 +155,7 @@ public class DomainOfInfluenceUpdateCountingCirclesTest : BaseDataProcessorTest
         var parentDoiStGallenCc = parentDoiCcs.FirstOrDefault(doiCc => doiCc.CountingCircleId == CountingCircleMockedData.GuidStGallen);
         var selfDoiStGallenCc = selfDoiCcs.FirstOrDefault(doiCc => doiCc.CountingCircleId == CountingCircleMockedData.GuidStGallen);
 
-        parentDoiCcs.Should().HaveCount(5);
+        parentDoiCcs.Should().HaveCount(6);
         selfDoiCcs.Should().HaveCount(4);
 
         parentDoiStGallenCc.Should().BeNull();

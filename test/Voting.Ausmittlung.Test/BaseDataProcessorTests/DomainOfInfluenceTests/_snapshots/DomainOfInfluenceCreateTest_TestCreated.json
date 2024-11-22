@@ -12,6 +12,8 @@
       "Type": 3,
       "Canton": 3,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": true,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -38,6 +40,9 @@
       "Parties": [],
       "Details": null,
       "SwissAbroadVotingRight": 3,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "3c3f3ae2-0439-4998-85ff-ae1f7eac94a3"
     }
   ]

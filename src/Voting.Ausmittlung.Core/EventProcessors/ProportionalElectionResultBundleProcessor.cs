@@ -82,7 +82,7 @@ public class ProportionalElectionResultBundleProcessor :
         // event (which deletes all bundles in the read model, but the aggregates still exist),
         // between a bundle create and a ballot create event.
         // Thats why we just log and skip the processing of this event, if the bundle does not exist.
-        if (!await _bundleRepo.ExistsByKey(bundleId))
+        if (!await _ballotBuilder.CreateBallot(bundleId, eventData.BallotNumber, eventData.EmptyVoteCount, eventData.Candidates))
         {
             _logger.LogWarning(
                 "Could not process {EventName} with ballot number {BallotNumber} because the bundle {BundleId} does not exist. Skip processing",
@@ -92,12 +92,7 @@ public class ProportionalElectionResultBundleProcessor :
             return;
         }
 
-        await _ballotBuilder.CreateBallot(
-            bundleId,
-            eventData.BallotNumber,
-            eventData.EmptyVoteCount,
-            eventData.Candidates);
-        await UpdateCountOfBallots(bundleId, 1);
+        await UpdateCountOfBallots(bundleId, 1, GuidParser.Parse(eventData.ElectionResultId));
     }
 
     public async Task Process(ProportionalElectionResultBallotUpdated eventData)
@@ -114,11 +109,11 @@ public class ProportionalElectionResultBundleProcessor :
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
         var ballot = await _ballotRepo
-                         .Query()
-                         .FirstOrDefaultAsync(x => x.Number == eventData.BallotNumber && x.BundleId == bundleId)
-                     ?? throw new EntityNotFoundException(new { bundleId, eventData.BallotNumber });
+            .Query()
+            .FirstOrDefaultAsync(x => x.Number == eventData.BallotNumber && x.BundleId == bundleId)
+            ?? throw new EntityNotFoundException(new { bundleId, eventData.BallotNumber });
         await _ballotRepo.DeleteByKey(ballot.Id);
-        await UpdateCountOfBallots(bundleId, -1);
+        await UpdateCountOfBallots(bundleId, -1, GuidParser.Parse(eventData.ElectionResultId));
     }
 
     public Task Process(ProportionalElectionResultBundleSubmissionFinished eventData)
@@ -177,13 +172,12 @@ public class ProportionalElectionResultBundleProcessor :
         await UpdateTotalCountOfBallots(bundle, -1);
     }
 
-    private async Task UpdateCountOfBallots(Guid bundleId, int delta)
+    private async Task UpdateCountOfBallots(Guid bundleId, int delta, Guid electionResultId)
     {
-        var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
-        bundle.CountOfBallots += delta;
-        await _bundleRepo.Update(bundle);
-        PublishBundleChangeMessage(bundle);
+        await _bundleRepo.Query()
+            .Where(x => x.Id == bundleId)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountOfBallots, x => x.CountOfBallots + delta));
+        PublishBundleChangeMessage(bundleId, electionResultId);
     }
 
     private async Task UpdateBundleState(
@@ -257,7 +251,10 @@ public class ProportionalElectionResultBundleProcessor :
     }
 
     private void PublishBundleChangeMessage(ProportionalElectionResultBundle bundle)
+        => PublishBundleChangeMessage(bundle.Id, bundle.ElectionResultId);
+
+    private void PublishBundleChangeMessage(Guid bundleId, Guid electionResultId)
         => _bundleChangedMessageProducer.Add(new ProportionalElectionBundleChanged(
-            bundle.Id,
-            bundle.ElectionResultId));
+            bundleId,
+            electionResultId));
 }

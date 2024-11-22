@@ -23,6 +23,22 @@
           "Id": "00000000-0000-0000-0000-000000000000"
         },
         {
+          "Sex": 1,
+          "CountOfVoters": 30,
+          "VoterType": 3,
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "Sex": 1,
+          "CountOfVoters": 70,
+          "VoterType": 4,
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
           "Sex": 2,
           "CountOfVoters": 6000,
           "VoterType": 1,
@@ -34,6 +50,22 @@
           "Sex": 2,
           "CountOfVoters": 1000,
           "VoterType": 2,
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "Sex": 2,
+          "CountOfVoters": 70,
+          "VoterType": 3,
+          "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
+          "ContestCountingCircleDetails": null,
+          "Id": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "Sex": 2,
+          "CountOfVoters": 30,
+          "VoterType": 4,
           "ContestCountingCircleDetailsId": "452de2e5-6e23-545d-b533-195f3a2435ad",
           "ContestCountingCircleDetails": null,
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -87,7 +119,7 @@
         }
       ],
       "EVoting": false,
-      "TotalCountOfVoters": 12000,
+      "TotalCountOfVoters": 12200,
       "CountingMachine": 2,
       "Id": "452de2e5-6e23-545d-b533-195f3a2435ad"
     }

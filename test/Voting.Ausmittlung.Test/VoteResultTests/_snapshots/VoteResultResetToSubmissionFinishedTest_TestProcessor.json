@@ -33,7 +33,6 @@
       "StatePlausibilisedDisabled": false,
       "MajorityElectionInvalidVotes": false,
       "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
       "PublishResultsEnabled": true,
@@ -47,7 +46,10 @@
     "OfficialDescription": "Abstimmung Gossau de",
     "ShortDescription": "Abst Gossau de",
     "InternalDescription": "Abstimmung Gossau auf Urnengang St.Gallen",
-    "SwissAbroadVotingRight": 1,
+    "EnabledVoterTypes": [
+      1,
+      2
+    ],
     "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
     "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
     "Active": true,
@@ -105,7 +107,6 @@
         "StatePlausibilisedDisabled": false,
         "MajorityElectionInvalidVotes": false,
         "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
         "PublishResultsEnabled": true,
@@ -119,7 +120,7 @@
     "EnforceResultEntryForCountingCircles": false,
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": false,
-    "Type": 0
+    "Type": 1
   },
   "CountOfVotersInformation": {
     "TotalCountOfVoters": 0,

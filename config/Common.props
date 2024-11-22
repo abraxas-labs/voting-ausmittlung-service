@@ -12,9 +12,9 @@
         <FileVersion>0.0.0.1</FileVersion>
         <Version>0.0.0.1</Version>
 
-        <VotingAusmittlungProtoVersion>1.132.0</VotingAusmittlungProtoVersion>
-        <VotingBasisProtoVersion>1.106.1</VotingBasisProtoVersion>
-        <VotingLibVersion>12.14.0</VotingLibVersion>
+        <VotingAusmittlungProtoVersion>1.136.0</VotingAusmittlungProtoVersion>
+        <VotingBasisProtoVersion>1.108.0</VotingBasisProtoVersion>
+        <VotingLibVersion>12.15.5</VotingLibVersion>
         <EfCoreVersion>8.0.2</EfCoreVersion>
         <GrpcAspNetCoreVersion>2.61.0</GrpcAspNetCoreVersion>
     </PropertyGroup>
@@ -26,8 +26,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
         <PackageReference Include="Voting.Lib.Common" Version="$(VotingLibVersion)" />
     </ItemGroup>
 

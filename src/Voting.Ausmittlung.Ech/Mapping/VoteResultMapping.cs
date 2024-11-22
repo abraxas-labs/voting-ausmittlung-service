@@ -75,6 +75,7 @@ internal static class VoteResultMapping
             CountOfAnswerInvalid = ResultDetailFromTotal(0),
             CountOfAnswerYes = ResultDetailFromTotal(questionResult.TotalCountOfAnswerYes),
             CountOfAnswerNo = ResultDetailFromTotal(questionResult.TotalCountOfAnswerNo),
+            Question = null,
         };
     }
 
@@ -99,6 +100,7 @@ internal static class VoteResultMapping
             CountInFavourOf = new List<VariantBallotResultTypeTieBreakCountInFavourOf> { countInFavorQ1, countInFavorQ2 },
             CountOfAnswerEmpty = ResultDetailFromTotal(tieBreakQuestionResult.TotalCountOfAnswerUnspecified),
             CountOfAnswerInvalid = ResultDetailFromTotal(0),
+            TieBreakQuestion = null,
         };
     }
 

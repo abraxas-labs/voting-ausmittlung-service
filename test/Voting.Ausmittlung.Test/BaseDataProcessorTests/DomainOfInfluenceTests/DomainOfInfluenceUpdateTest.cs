@@ -10,6 +10,7 @@ using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
@@ -51,6 +52,7 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
                     SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id,
                     ParentId = DomainOfInfluenceMockedData.IdBund,
                     Type = SharedProto.DomainOfInfluenceType.Ct,
+                    HasForeignerVoters = true,
                 },
             });
 
@@ -78,6 +80,8 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
                     SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id,
                     ParentId = DomainOfInfluenceMockedData.IdBund,
                     Type = SharedProto.DomainOfInfluenceType.Ct,
+                    HasMinorVoters = true,
+                    SuperiorAuthorityDomainOfInfluenceId = DomainOfInfluenceMockedData.IdBund,
                 },
             });
 
@@ -90,6 +94,13 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
         data.MatchSnapshot(
             x => x.Id,
             x => x.ParentId!);
+
+        var doiSnapshot = await RunOnDb(db => db.DomainOfInfluences
+            .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
+            .SingleAsync(doi => doi.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen) && doi.SnapshotContestId == ContestMockedData.GuidBundesurnengang));
+
+        doiSnapshot.SuperiorAuthorityDomainOfInfluence!.SnapshotContestId.Should().Be(ContestMockedData.GuidBundesurnengang);
+        doiSnapshot.SuperiorAuthorityDomainOfInfluenceId.Should().Be(AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(doiSnapshot.SnapshotContestId!.Value, doiSnapshot.SuperiorAuthorityDomainOfInfluence!.BasisDomainOfInfluenceId));
     }
 
     [Fact]

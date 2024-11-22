@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Voting.Ausmittlung.TemporaryData;
 
 #nullable disable
 
@@ -60,10 +57,6 @@ namespace Voting.Ausmittlung.TemporaryData.Migrations
 
                     b.Property<DateTime>("ExpiredAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ExternalIdentifier")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<List<string>>("ExternalTokenJwtIds")
                         .HasColumnType("text[]");

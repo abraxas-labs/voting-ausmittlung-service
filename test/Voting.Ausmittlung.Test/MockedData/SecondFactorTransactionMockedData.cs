@@ -18,14 +18,17 @@ public static class SecondFactorTransactionMockedData
 {
     public static readonly string ExternalIdSecondFactorTransaction = SecureConnectTestDefaults.MockedVerified2faId;
 
+    public static readonly Guid SecondFactorTransactionId = Guid.NewGuid();
+    public static readonly string SecondFactorTransactionIdString = SecondFactorTransactionId.ToString();
+
     public static SecondFactorTransaction SecondFactorTransaction
         => new()
         {
-            Id = Guid.NewGuid(),
+            Id = SecondFactorTransactionId,
             CreatedAt = new DateTime(2020, 1, 9, 0, 0, 0, DateTimeKind.Utc),
             LastUpdatedAt = new DateTime(2020, 1, 9, 0, 0, 0, DateTimeKind.Utc),
             ExpiredAt = new DateTime(2020, 1, 9, 0, 10, 0, DateTimeKind.Utc),
-            ExternalIdentifier = SecureConnectTestDefaults.MockedVerified2faId,
+            ExternalTokenJwtIds = [SecureConnectTestDefaults.MockedVerified2faId],
             PollCount = 0,
             UserId = TestDefaults.UserId,
             ActionId = ActionIdComparerMock.ActionIdHashMock,

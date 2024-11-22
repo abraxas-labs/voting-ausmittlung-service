@@ -8,6 +8,7 @@
       <product>Voting.Ausmittlung</product>
       <productVersion>0.0.0.1</productVersion>
     </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
     <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
     <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
     <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
@@ -15,242 +16,6 @@
   <voteBaseDelivery>
     <cantonId>17</cantonId>
     <pollingDay>2020-08-31</pollingDay>
-    <voteInfo>
-      <vote>
-        <voteIdentification>512bb3a2-97e2-4779-ac51-83abd039afc4_1</voteIdentification>
-        <domainOfInfluence>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
-        </domainOfInfluence>
-        <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
-          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
-        </superiorAuthority>
-        <pollingDay>2020-08-31</pollingDay>
-        <voteTitleInformation>
-          <language>de</language>
-          <voteTitle>Abstimmung Bund de</voteTitle>
-          <voteTitleShort>Abst Bund de</voteTitleShort>
-        </voteTitleInformation>
-        <decisiveMajority>1</decisiveMajority>
-        <voteSubType>1</voteSubType>
-        <sequence>1</sequence>
-      </vote>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>1</countingCircleId>
-          <countingCircleName>Bund</countingCircleName>
-          <domainOfInfluenceType>MU</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>3443</countingCircleId>
-          <countingCircleName>Gossau</countingCircleName>
-          <domainOfInfluenceType>SK</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>5500</countingCircleId>
-          <countingCircleName>St. Gallen</countingCircleName>
-          <domainOfInfluenceType>MU</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>5500-3</countingCircleId>
-          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
-          <domainOfInfluenceType>MU</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>5500-2</countingCircleId>
-          <countingCircleName>St. Gallen Haggen</countingCircleName>
-          <domainOfInfluenceType>MU</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>5500-1</countingCircleId>
-          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
-          <domainOfInfluenceType>MU</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-      <countingCircleInfo>
-        <countingCircle>
-          <countingCircleId>1234</countingCircleId>
-          <countingCircleName>Uzwil</countingCircleName>
-          <domainOfInfluenceType>SK</domainOfInfluenceType>
-        </countingCircle>
-        <resultData>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>true</isFullyCounted>
-          <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
-          <voterTurnout>0.00</voterTurnout>
-          <receivedVotes>0</receivedVotes>
-          <receivedInvalidVotes>0</receivedInvalidVotes>
-          <receivedBlankVotes>0</receivedBlankVotes>
-          <receivedValidVotes>0</receivedValidVotes>
-          <countOfYesVotes>0</countOfYesVotes>
-          <countOfNoVotes>0</countOfNoVotes>
-          <countOfVotesWithoutAnswer>0</countOfVotesWithoutAnswer>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>4</text>
-          </namedElement>
-          <namedElement>
-            <elementName>lastCountingStatusChange</elementName>
-            <text>2022-10-22T12:03:00Z</text>
-          </namedElement>
-        </resultData>
-      </countingCircleInfo>
-    </voteInfo>
     <voteInfo>
       <vote>
         <voteIdentification>0ed26aad-e169-4d55-b9a9-90475ba81a02_1</voteIdentification>
@@ -284,8 +49,13 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -316,6 +86,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -346,6 +117,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -376,6 +148,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -406,6 +179,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -436,6 +210,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>0.00</voterTurnout>
@@ -492,6 +267,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>75.00</voterTurnout>
@@ -524,16 +300,16 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 1 Gossau de</voteTitle>
-          <voteTitleShort>Frage 1 Gossau de</voteTitleShort>
+          <voteTitle>Abstimmung Gossau de - Frage 1 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 1 Gossau de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
@@ -549,6 +325,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>75.00</voterTurnout>
@@ -581,16 +362,16 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 2 Gossau de</voteTitle>
-          <voteTitleShort>Frage 2 Gossau de</voteTitleShort>
+          <voteTitle>Abstimmung Gossau de - Frage 2 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 2 Gossau de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
@@ -606,6 +387,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>75.00</voterTurnout>
@@ -638,10 +424,10 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
@@ -662,6 +448,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>true</isFullyCounted>
           <releasedTimestamp>2022-10-22T12:03:00Z</releasedTimestamp>
           <voterTurnout>75.00</voterTurnout>
@@ -683,6 +474,6 @@
         </resultData>
       </countingCircleInfo>
     </voteInfo>
-    <numberOfEntries>6</numberOfEntries>
+    <numberOfEntries>5</numberOfEntries>
   </voteBaseDelivery>
 </delivery>

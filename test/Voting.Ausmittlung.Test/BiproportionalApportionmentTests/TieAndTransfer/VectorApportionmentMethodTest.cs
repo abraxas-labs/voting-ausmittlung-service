@@ -35,6 +35,6 @@ public class VectorApportionmentMethodTest
             .Should()
             .BeTrue();
 
-        result.MaxDivisor.ApproxEquals(expectedMaxDivisor, 2);
+        ((decimal)result.MaxDivisor).ApproxEquals(expectedMaxDivisor, 2);
     }
 }

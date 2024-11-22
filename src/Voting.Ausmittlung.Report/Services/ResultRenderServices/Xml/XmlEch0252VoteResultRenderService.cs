@@ -63,6 +63,10 @@ public class XmlEch0252VoteResultRenderService : IRendererService
                 .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
                 .ThenInclude(x => x.DomainOfInfluence)
             .Include(x => x.Votes)
+                .ThenInclude(x => x.Results)
+                .ThenInclude(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.VotingCards)
+            .Include(x => x.Votes)
                 .ThenInclude(x => x.Ballots)
                 .ThenInclude(x => x.Results)
                 .ThenInclude(x => x.CountOfVoters)
@@ -78,6 +82,7 @@ public class XmlEch0252VoteResultRenderService : IRendererService
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
 
         var domainOfInfluences = await _doiRepo.Query()
+            .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
             .Where(doi => doi.SnapshotContestId == ctx.ContestId)
             .ToListAsync(ct);
 

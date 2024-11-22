@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Linq;
+using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
 namespace Voting.Ausmittlung.BiproportionalApportionment;
@@ -11,7 +12,7 @@ namespace Voting.Ausmittlung.BiproportionalApportionment;
 /// </summary>
 public class BiproportionalApportionmentResult
 {
-    internal BiproportionalApportionmentResult(decimal[] columnDivisors, decimal[] rowDivisors, int numberOfTransfers, int numberOfUpdates, TieState[][] ties, int[][] apportionment)
+    internal BiproportionalApportionmentResult(Rational[] columnDivisors, Rational[] rowDivisors, int numberOfTransfers, int numberOfUpdates, TieState[][] ties, int[][] apportionment)
     {
         ColumnDivisors = columnDivisors;
         RowDivisors = rowDivisors;
@@ -25,12 +26,12 @@ public class BiproportionalApportionmentResult
     /// <summary>
     /// Gets the column divisors (union list divisors).
     /// </summary>
-    public decimal[] ColumnDivisors { get; }
+    public Rational[] ColumnDivisors { get; }
 
     /// <summary>
     /// Gets the row divisors (election / domain of influence divisors).
     /// </summary>
-    public decimal[] RowDivisors { get; }
+    public Rational[] RowDivisors { get; }
 
     /// <summary>
     /// Gets the number of transfer operations.

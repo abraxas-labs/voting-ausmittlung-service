@@ -11,7 +11,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Da
 internal abstract class WabstiCPoliticalBusinessData
 {
     internal const int StartIndex = 1;
-    internal const int EndIndex = int.MaxValue;
+    internal const int EndIndex = int.MaxValue - 100;
 
     [Name("Art")]
     [Index(StartIndex)]

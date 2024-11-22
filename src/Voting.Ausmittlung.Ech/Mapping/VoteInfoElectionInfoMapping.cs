@@ -7,6 +7,7 @@ using System.Linq;
 using Ech0155_5_0;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -19,6 +20,7 @@ internal static class VoteInfoElectionInfoMapping
         where TPoliticalBusinessTranslation : PoliticalBusinessTranslation
     {
         var descriptionInfos = translations
+            .Where(t => t.Language == Languages.German)
             .OrderBy(t => t.Language)
             .Select(t => new ElectionDescriptionInformationTypeElectionDescriptionInfo
             {
@@ -32,7 +34,7 @@ internal static class VoteInfoElectionInfoMapping
         {
             ElectionIdentification = election.Id.ToString(),
             NumberOfMandates = election.NumberOfMandates.ToString(),
-            ElectionDescription = descriptionInfos,
+            ElectionDescription = descriptionInfos.Count == 0 ? null : descriptionInfos,
             TypeOfElection = politicalBusinessType == PoliticalBusinessType.ProportionalElection
                 ? TypeOfElectionType.Item1
                 : TypeOfElectionType.Item2,

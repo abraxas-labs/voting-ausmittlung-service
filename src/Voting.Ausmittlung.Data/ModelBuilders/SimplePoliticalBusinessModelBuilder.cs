@@ -37,9 +37,6 @@ public class SimplePoliticalBusinessModelBuilder :
             .WithOne(x => x.PoliticalBusiness!)
             .HasForeignKey(x => x.PoliticalBusinessId)
             .IsRequired();
-
-        builder
-            .Ignore(x => x.SwissAbroadVotingRight);
     }
 
     public void Configure(EntityTypeBuilder<SimplePoliticalBusinessTranslation> builder)

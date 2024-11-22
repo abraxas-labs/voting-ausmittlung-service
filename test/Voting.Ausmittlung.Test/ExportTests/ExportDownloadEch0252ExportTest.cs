@@ -48,6 +48,10 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
             x.State = CountingCircleResultState.AuditedTentatively;
         });
 
+        await ModifyDbEntities<Vote>(
+            x => x.Id == Guid.Parse(VoteMockedData.IdBundVoteInContestStGallen),
+            x => x.Active = false);
+
         await TestExport(NewValidRequest(), StGallenReportExporterApiClient, archive =>
         {
             archive.Entries.Count.Should().Be(9);
@@ -241,7 +245,7 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
 
         await AssertProblemDetails(
             () => StGallenReportExporterApiClient.PostAsJsonAsync(BaseUrl, NewValidRequest()),
-            HttpStatusCode.Forbidden,
+            HttpStatusCode.TooManyRequests,
             "Rate limit reached");
     }
 

@@ -919,5 +919,453 @@
         </eCH-0110:electionResults>
       </eCH-0110:electionGroupResults>
     </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>46adab98-9114-4503-9000-b02842640650</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen Haggen</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <!-- This is an unknown vote ID, but the import should work nevertheless, because the ID matches the Ech-0222 vote id. -->
+          <eCH-0155:voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>21</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>35c7f490-abf1-4d6e-a9b1-4ae4de5248ab</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen Auslandschweizer</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <!-- This is an unknown vote ID, but the import should work nevertheless, because the ID matches the Ech-0222 vote id. -->
+          <eCH-0155:voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>21</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>1e2e062e-288d-4347-9f22-224e69b95bed</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <!-- This is an unknown vote ID, but the import should work nevertheless, because the ID matches the Ech-0222 vote id. -->
+          <eCH-0155:voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>21</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
+    <eCH-0110:countingCircleResults>
+      <eCH-0110:countingCircle>
+        <eCH-0155:countingCircleId>44a75721-f192-461c-816f-9f46a00d274a</eCH-0155:countingCircleId>
+        <eCH-0155:countingCircleName>St. Gallen St. Fiden</eCH-0155:countingCircleName>
+      </eCH-0110:countingCircle>
+      <eCH-0110:votingCardsInformation>
+        <eCH-0110:countOfReceivedValidVotingCardsTotal>3</eCH-0110:countOfReceivedValidVotingCardsTotal>
+        <eCH-0110:countOfReceivedInvalidVotingCardsTotal>0</eCH-0110:countOfReceivedInvalidVotingCardsTotal>
+      </eCH-0110:votingCardsInformation>
+      <eCH-0110:voteResults>
+        <eCH-0110:vote>
+          <!-- This is an unknown vote ID, but the import should work nevertheless, because the ID matches the Ech-0222 vote id. -->
+          <eCH-0155:voteIdentification>29a239cf-40b2-4a9b-8a71-726976ec7109</eCH-0155:voteIdentification>
+          <eCH-0155:domainOfInfluenceIdentification>a18b1c6a-6b66-43e4-a7d2-a440a7025dbd</eCH-0155:domainOfInfluenceIdentification>
+          <eCH-0155:voteDescription>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+            <eCH-0155:voteDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:voteDescription>Eidgenössische Volksabstimmung vom 30.04.2023</eCH-0155:voteDescription>
+            </eCH-0155:voteDescriptionInfo>
+          </eCH-0155:voteDescription>
+        </eCH-0110:vote>
+        <eCH-0110:countOfVotersInformation>
+          <eCH-0110:countOfVotersTotal>21</eCH-0110:countOfVotersTotal>
+        </eCH-0110:countOfVotersInformation>
+        <eCH-0110:ballotResult>
+          <eCH-0110:ballotIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e</eCH-0110:ballotIdentification>
+          <eCH-0110:ballotPosition>1</eCH-0110:ballotPosition>
+          <eCH-0110:ballotDescription>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>DE</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>FR</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Initiative populaire Pour la dignité des animaux de rente agricoles (initiative pour les vaches à cornes)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>IT</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa popolare Per la dignità degli animali da reddito agricoli (Iniziativa per vacche con le corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+            <eCH-0155:ballotDescriptionInfo>
+              <eCH-0155:language>RM</eCH-0155:language>
+              <eCH-0155:ballotDescriptionLong>Iniziativa dal pievel Per la dignitad dals animals da niz agriculs (Iniziativa davart las vatgas cun corna)</eCH-0155:ballotDescriptionLong>
+              <eCH-0155:ballotDescriptionShort>Hornkuh-Initiative</eCH-0155:ballotDescriptionShort>
+            </eCH-0155:ballotDescriptionInfo>
+          </eCH-0110:ballotDescription>
+          <eCH-0110:countOfReceivedBallotsTotal>
+            <eCH-0110:total>3</eCH-0110:total>
+          </eCH-0110:countOfReceivedBallotsTotal>
+          <eCH-0110:countOfAccountedBallotsTotal>
+            <eCH-0110:total>2</eCH-0110:total>
+          </eCH-0110:countOfAccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBallotsTotal>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBallotsTotal>
+          <eCH-0110:countOfUnaccountedBlankBallots>
+            <eCH-0110:total>1</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedBlankBallots>
+          <eCH-0110:countOfUnaccountedInvalidBallots>
+            <eCH-0110:total>0</eCH-0110:total>
+          </eCH-0110:countOfUnaccountedInvalidBallots>
+          <eCH-0110:standardBallot>
+            <eCH-0110:questionIdentification>a4a534dd-8eda-4368-9f3b-65d6a1e5e6bf_n_1</eCH-0110:questionIdentification>
+            <eCH-0110:question>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>DE</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>FR</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>IT</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+              <eCH-0155:ballotQuestionInfo>
+                <eCH-0155:language>RM</eCH-0155:language>
+                <eCH-0155:ballotQuestion>Wollen Sie die Volksinitiative Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative) annehmen?</eCH-0155:ballotQuestion>
+              </eCH-0155:ballotQuestionInfo>
+            </eCH-0110:question>
+            <eCH-0110:countOfAnswerYes>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerYes>
+            <eCH-0110:countOfAnswerNo>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerNo>
+            <eCH-0110:countOfAnswerInvalid>
+              <eCH-0110:total>0</eCH-0110:total>
+            </eCH-0110:countOfAnswerInvalid>
+            <eCH-0110:countOfAnswerEmpty>
+              <eCH-0110:total>1</eCH-0110:total>
+            </eCH-0110:countOfAnswerEmpty>
+          </eCH-0110:standardBallot>
+        </eCH-0110:ballotResult>
+      </eCH-0110:voteResults>
+    </eCH-0110:countingCircleResults>
   </eCH-0110:resultDelivery>
 </eCH-0110:delivery>

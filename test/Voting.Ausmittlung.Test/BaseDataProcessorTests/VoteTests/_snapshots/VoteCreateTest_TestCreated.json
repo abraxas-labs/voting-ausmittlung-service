@@ -28,11 +28,11 @@
         "InternalDescription": "",
         "PoliticalBusinessNumber": "2000",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -75,11 +75,11 @@
         "InternalDescription": "",
         "PoliticalBusinessNumber": "2001",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -121,11 +121,11 @@
         "ResultExportConfigurations": [],
         "PoliticalBusinessNumber": "2001",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "PoliticalBusinessTranslations": [
           {
             "SimplePoliticalBusinessId": "051c2a1a-9df6-4c9c-98a2-d7f3d720c62e",
@@ -162,11 +162,11 @@
         "ResultExportConfigurations": [],
         "PoliticalBusinessNumber": "2000",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "PoliticalBusinessTranslations": [
           {
             "SimplePoliticalBusinessId": "5483076b-e596-44d3-b34e-6e9220eed84c",

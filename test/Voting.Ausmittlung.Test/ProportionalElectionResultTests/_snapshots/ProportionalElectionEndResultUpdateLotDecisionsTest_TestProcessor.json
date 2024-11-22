@@ -72,7 +72,7 @@
         "Rank": 2,
         "LotDecision": true,
         "LotDecisionEnabled": true,
-        "LotDecisionRequired": true,
+        "LotDecisionRequired": false,
         "State": 3,
         "EVotingSubTotal": {
           "UnmodifiedListVotesCount": 0,
@@ -111,7 +111,7 @@
         "Rank": 3,
         "LotDecision": true,
         "LotDecisionEnabled": true,
-        "LotDecisionRequired": true,
+        "LotDecisionRequired": false,
         "State": 3,
         "EVotingSubTotal": {
           "UnmodifiedListVotesCount": 0,
@@ -199,7 +199,7 @@
         },
         "SelectedRank": 2,
         "VoteCount": 6000,
-        "LotDecisionRequired": true,
+        "LotDecisionRequired": false,
         "SelectableRanks": [
           2,
           3
@@ -226,7 +226,7 @@
         },
         "SelectedRank": 3,
         "VoteCount": 6000,
-        "LotDecisionRequired": true,
+        "LotDecisionRequired": false,
         "SelectableRanks": [
           2,
           3

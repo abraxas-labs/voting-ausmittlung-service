@@ -36,6 +36,7 @@
           <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
           <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
           <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -362,6 +363,7 @@
           <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
           <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
           <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -1326,6 +1328,7 @@
             <TotalCountOfInvalidVotingCards>250</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>120</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -1953,6 +1956,7 @@
             <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -2279,6 +2283,7 @@
             <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -2906,6 +2911,7 @@
             <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>

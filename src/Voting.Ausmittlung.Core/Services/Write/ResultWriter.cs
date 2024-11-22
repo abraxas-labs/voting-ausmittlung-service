@@ -181,7 +181,7 @@ public class ResultWriter
         Guid contestId,
         Guid countingCircleId,
         IReadOnlyCollection<Guid> resultIds,
-        string secondFactorTransactionExternalId,
+        Guid? secondFactorTransactionId,
         CancellationToken ct)
     {
         var data = await _resultReader.GetList(contestId, countingCircleId);
@@ -214,8 +214,13 @@ public class ResultWriter
 
         if (!hasOnlySelfOwnedPoliticalBusinesses)
         {
+            if (secondFactorTransactionId == null)
+            {
+                throw new ValidationException("Second factor transaction id cannot be null.");
+            }
+
             await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionExternalId,
+                secondFactorTransactionId.Value,
                 () => Task.FromResult(new ActionId(nameof(SubmissionFinished), actionAggregates.ToArray())),
                 ct);
         }

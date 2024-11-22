@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils.Models;
@@ -40,7 +41,7 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
             .OrderByCountingCircle(x => x.CountingCircle, politicalBusiness.Contest.CantonDefaults)
             .ToList();
 
-        var pbType = politicalBusiness.DomainOfInfluence.Type;
+        var doi = politicalBusiness.DomainOfInfluence;
         var ccResults = GetResults(politicalBusiness).ToList();
         var ccIds = ccResults.ConvertAll(r => r.CountingCircleId);
 
@@ -51,7 +52,7 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
             .ToList();
 
         var doiResultByCcId = doiResults
-            .SelectMany(result => result.DomainOfInfluence?.CountingCircles.Select(y => (y.CountingCircleId, result)) ?? Enumerable.Empty<(Guid, TResult)>())
+            .SelectMany(result => result.DomainOfInfluence?.CountingCircles.DistinctBy(x => x.CountingCircleId).Select(y => (y.CountingCircleId, result)) ?? Enumerable.Empty<(Guid, TResult)>())
             .ToDictionary(x => x.CountingCircleId, x => x.result);
         var ccDetailsByCcId = ccDetails.ToDictionary(cc => cc.CountingCircleId);
 
@@ -75,8 +76,8 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
                     ResetCountingCircleDetail(ccDetail);
                 }
 
-                ApplyContestCountingCircleDetail(doiResult, ccDetail, pbType);
-                ApplyContestCountingCircleDetail(aggregatedResult, ccDetail, pbType);
+                ApplyContestCountingCircleDetail(doiResult, ccDetail, doi);
+                ApplyContestCountingCircleDetail(aggregatedResult, ccDetail, doi);
             }
 
             ApplyCountingCircleResult(doiResult, ccResult);
@@ -86,10 +87,10 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
         return (doiResults, notAssignableResult, aggregatedResult);
     }
 
-    internal void ApplyContestCountingCircleDetail(TResult result, ContestCountingCircleDetails ccDetail, DomainOfInfluenceType doiType)
+    internal void ApplyContestCountingCircleDetail(TResult result, ContestCountingCircleDetails ccDetail, DomainOfInfluence doi)
     {
-        var receivedVotingCards = ccDetail.SumVotingCards(doiType);
-        result.ContestDomainOfInfluenceDetails.TotalCountOfVoters += ccDetail.TotalCountOfVoters;
+        var receivedVotingCards = ccDetail.SumVotingCards(doi.Type);
+        result.ContestDomainOfInfluenceDetails.TotalCountOfVoters += ccDetail.GetTotalCountOfVotersForDomainOfInfluence(doi);
         result.ContestDomainOfInfluenceDetails.TotalCountOfValidVotingCards += receivedVotingCards.Valid;
         result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards += receivedVotingCards.Invalid;
     }

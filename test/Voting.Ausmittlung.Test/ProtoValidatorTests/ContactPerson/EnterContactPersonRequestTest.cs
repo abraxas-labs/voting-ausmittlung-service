@@ -28,9 +28,9 @@ public class EnterContactPersonRequestTest : ProtoValidatorBaseTest<EnterContact
     protected override IEnumerable<EnterContactPersonRequest> OkMessages()
     {
         yield return NewValidRequest();
-        yield return NewValidRequest(x => x.FirstName = "A");
+        yield return NewValidRequest(x => x.FirstName = "A (B)");
         yield return NewValidRequest(x => x.FirstName = new string('A', 50));
-        yield return NewValidRequest(x => x.FamilyName = "A");
+        yield return NewValidRequest(x => x.FamilyName = "A (B)");
         yield return NewValidRequest(x => x.FamilyName = new string('A', 50));
         yield return NewValidRequest(x => x.Email = string.Empty);
     }

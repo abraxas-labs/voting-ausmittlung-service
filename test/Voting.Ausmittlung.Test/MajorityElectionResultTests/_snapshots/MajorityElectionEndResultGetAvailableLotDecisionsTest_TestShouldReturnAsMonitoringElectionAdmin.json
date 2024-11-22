@@ -15,7 +15,10 @@
     "EnforceEmptyVoteCountingForCountingCircles": false,
     "ResultEntry": 2,
     "EnforceResultEntryForCountingCircles": false,
-    "SwissAbroadVotingRight": 3,
+    "EnabledVoterTypes": [
+      1,
+      2
+    ],
     "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
     "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
     "Active": true,

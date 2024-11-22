@@ -1,6 +1,8 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using Rationals;
+
 namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
 internal class TieAndTransferMethodContext
@@ -14,8 +16,8 @@ internal class TieAndTransferMethodContext
         Rows = rowApportionment.Length;
         Cols = columnApportionment.Length;
 
-        RowDivisors = new decimal[Rows];
-        ColDivisors = new decimal[Cols];
+        RowDivisors = new Rational[Rows];
+        ColDivisors = new Rational[Cols];
 
         Apportionment = new int[Rows][];
         Ties = new TieState[Rows][];
@@ -36,9 +38,9 @@ internal class TieAndTransferMethodContext
 
     public int Cols { get; }
 
-    public decimal[] RowDivisors { get; }
+    public Rational[] RowDivisors { get; }
 
-    public decimal[] ColDivisors { get; }
+    public Rational[] ColDivisors { get; }
 
     public int[][] Apportionment { get; }
 
@@ -54,10 +56,9 @@ internal class TieAndTransferMethodContext
     /// <param name="row">Row index.</param>
     /// <param name="col">Column index.</param>
     /// <returns>Returns the quotient (number of mandates per list).</returns>
-    public decimal GetQuotient(int row, int col)
+    public Rational GetQuotient(int row, int col)
     {
-        var quotient = decimal
-            .Divide(Weights[row][col].VoteCount, RowDivisors[row]);
-        return decimal.Divide(quotient, ColDivisors[col]);
+        var quotient = new Rational(Weights[row][col].VoteCount) / RowDivisors[row];
+        return (quotient / ColDivisors[col]).CanonicalForm;
     }
 }

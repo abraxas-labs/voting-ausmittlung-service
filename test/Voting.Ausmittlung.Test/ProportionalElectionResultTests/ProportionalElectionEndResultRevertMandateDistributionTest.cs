@@ -73,7 +73,7 @@ public class ProportionalElectionEndResultRevertMandateDistributionTest : Propor
         evInTestingPhase.ProportionalElectionEndResultId.Should().Be(endResultInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         await ModifyDbEntities<ProportionalElectionEndResult>(
@@ -175,6 +175,6 @@ public class ProportionalElectionEndResultRevertMandateDistributionTest : Propor
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
         });
-        await TestEventPublisher.Publish(EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultMandateDistributionStarted>());
+        await TestEventPublisher.Publish(GetNextEventNumber(), EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionEndResultMandateDistributionStarted>());
     }
 }

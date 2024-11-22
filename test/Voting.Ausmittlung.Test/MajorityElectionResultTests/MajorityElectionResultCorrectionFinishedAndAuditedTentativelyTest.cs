@@ -30,6 +30,14 @@ public class MajorityElectionResultCorrectionFinishedAndAuditedTentativelyTest :
     {
     }
 
+    public override async Task InitializeAsync()
+    {
+        await base.InitializeAsync();
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.Type = DomainOfInfluenceType.Mu);
+    }
+
     [Fact]
     public async Task TestShouldReturnAsErfassungElectionAdmin()
     {
@@ -41,17 +49,6 @@ public class MajorityElectionResultCorrectionFinishedAndAuditedTentativelyTest :
             EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultAuditedTentatively>(),
         };
         events.MatchSnapshot();
-        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().BeEmpty();
-    }
-
-    [Fact]
-    public async Task TestShouldReturnWithPublish()
-    {
-        await RunToState(CountingCircleResultState.ReadyForCorrection);
-        await ModifyDbEntities<DomainOfInfluence>(
-            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
-            x => x.Type = DomainOfInfluenceType.Mu);
-        await ErfassungElectionAdminClient.CorrectionFinishedAndAuditedTentativelyAsync(NewValidRequest());
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultPublished>().ElectionResultId.Should().Be(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund);
     }
 
@@ -160,6 +157,21 @@ public class MajorityElectionResultCorrectionFinishedAndAuditedTentativelyTest :
             async () => await ErfassungElectionAdminClient.CorrectionFinishedAndAuditedTentativelyAsync(NewValidRequest()),
             StatusCode.InvalidArgument,
             "This operation is not possible for state");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowForNonCommunalPoliticalBusiness()
+    {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
+
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.Type = DomainOfInfluenceType.Ct);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.CorrectionFinishedAndAuditedTentativelyAsync(NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "finish correction and audit tentatively is not allowed for non communal political business");
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

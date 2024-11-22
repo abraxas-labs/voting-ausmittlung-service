@@ -13,7 +13,6 @@ using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -25,22 +24,19 @@ public class PdfVoteResultRenderService : IRendererService
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
-    private readonly IClock _clock;
 
     public PdfVoteResultRenderService(
         IDbRepository<DataContext, Vote> voteRepo,
         IMapper mapper,
         TemplateService templateService,
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
-        IDbRepository<DataContext, Contest> contestRepo,
-        IClock clock)
+        IDbRepository<DataContext, Contest> contestRepo)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
         _contestRepo = contestRepo;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -56,7 +52,7 @@ public class PdfVoteResultRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.Results.Where(r => r.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId))
             .ThenInclude(x => x.Results.OrderBy(b => b.Ballot.Position))
-            .ThenInclude(x => x.Ballot)
+            .ThenInclude(x => x.Ballot.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
             .ThenInclude(x => x.CountOfVoters)
@@ -92,7 +88,15 @@ public class PdfVoteResultRenderService : IRendererService
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+
+        if (votes.Count > 0)
+        {
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(pdfCountingCircle.ContestCountingCircleDetails, votes[0].DomainOfInfluence);
+        }
+        else
+        {
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
+        }
 
         var pdfVotes = _mapper.Map<List<PdfVote>>(votes);
         PdfVoteUtil.SetLabels(pdfVotes);

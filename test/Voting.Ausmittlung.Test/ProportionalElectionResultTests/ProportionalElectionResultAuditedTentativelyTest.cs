@@ -151,7 +151,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(new ProportionalElectionResultAuditedTentatively
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionResultAuditedTentatively
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
             EventInfo = GetMockedEventInfo(),
@@ -254,7 +254,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(new ProportionalElectionResultAuditedTentatively
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionResultAuditedTentatively
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
             EventInfo = GetMockedEventInfo(),
@@ -301,7 +301,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
             await db.SaveChangesAsync();
         });
 
-        await TestEventPublisher.Publish(new ProportionalElectionResultAuditedTentatively
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionResultAuditedTentatively
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
             EventInfo = GetMockedEventInfo(),

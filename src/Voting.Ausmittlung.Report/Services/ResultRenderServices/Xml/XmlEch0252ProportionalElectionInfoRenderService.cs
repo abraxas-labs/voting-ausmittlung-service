@@ -45,7 +45,8 @@ public class XmlEch0252ProportionalElectionInfoRenderService : IRendererService
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.ProportionalElections.Where(v => ctx.PoliticalBusinessIds.Contains(v.Id)))
                 .ThenInclude(x => x.Results)
-                .ThenInclude(x => x.CountingCircle)
+                .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
+                .ThenInclude(x => x.DomainOfInfluence)
             .Include(x => x.ProportionalElections)
                 .ThenInclude(x => x.Translations)
             .Include(x => x.ProportionalElections)
@@ -69,6 +70,7 @@ public class XmlEch0252ProportionalElectionInfoRenderService : IRendererService
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
 
         var domainOfInfluences = await _doiRepo.Query()
+            .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
             .Where(doi => doi.SnapshotContestId == ctx.ContestId)
             .ToListAsync(ct);
 

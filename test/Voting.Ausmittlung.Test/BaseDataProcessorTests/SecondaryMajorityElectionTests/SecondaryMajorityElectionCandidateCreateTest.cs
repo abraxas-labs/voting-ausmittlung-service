@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Test.MockedData;
@@ -140,5 +141,90 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
             Languages.German);
         SetDynamicIdToDefaultValue(candidate.Translations);
         candidate.MatchSnapshot(c => c.EndResult!.Id, c => c.EndResult!.SecondaryMajorityElectionEndResultId);
+    }
+
+    [Fact]
+    public async Task TestCreateCandidateShouldTruncateCandidateNumber()
+    {
+        var id = Guid.Parse("4eced12b-1bac-45d7-9070-4de347382fe8");
+        await TestEventPublisher.Publish(
+            new SecondaryMajorityElectionCandidateCreated
+            {
+                SecondaryMajorityElectionCandidate = new MajorityElectionCandidateEventData
+                {
+                    Id = id.ToString(),
+                    MajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                    Position = 3,
+                    FirstName = "firstName",
+                    LastName = "lastName",
+                    PoliticalFirstName = "pol first name",
+                    PoliticalLastName = "pol last name",
+                    Occupation = { LanguageUtil.MockAllLanguages("occupation") },
+                    OccupationTitle = { LanguageUtil.MockAllLanguages("occupation title") },
+                    DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                    Incumbent = true,
+                    Locality = "locality",
+                    Number = "number1toolong",
+                    Sex = SharedProto.SexType.Female,
+                    Title = "title",
+                    ZipCode = "zip code",
+                    Party = { LanguageUtil.MockAllLanguages("SP") },
+                    Origin = "origin",
+                    CheckDigit = 9,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.SecondaryMajorityElectionCandidates.FirstAsync(x => x.Id == id),
+            Languages.Italian);
+        candidate.Number.Should().Be("number1too");
+    }
+
+    [Fact]
+    public async Task TestCreateCandidateAfterTestingPhaseEnded()
+    {
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ContestTestingPhaseEnded
+            {
+                ContestId = ContestMockedData.IdBundesurnengang,
+            });
+
+        var id = Guid.Parse("94f728b7-a0f1-4df3-8300-cd0f18155a1c");
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new SecondaryMajorityElectionCandidateCreated
+            {
+                SecondaryMajorityElectionCandidate = new MajorityElectionCandidateEventData
+                {
+                    Id = id.ToString(),
+                    MajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                    Position = 3,
+                    FirstName = "firstName",
+                    LastName = "lastName",
+                    PoliticalFirstName = "pol first name",
+                    PoliticalLastName = "pol last name",
+                    Occupation = { LanguageUtil.MockAllLanguages("occupation") },
+                    OccupationTitle = { LanguageUtil.MockAllLanguages("occupation title") },
+                    DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                    Incumbent = true,
+                    Locality = "locality",
+                    Number = "number1",
+                    Sex = SharedProto.SexType.Female,
+                    Title = "title",
+                    ZipCode = "zip code",
+                    Party = { LanguageUtil.MockAllLanguages("SP") },
+                    Origin = "origin",
+                    CheckDigit = 9,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.SecondaryMajorityElectionCandidates
+                .Where(x => x.Id == id)
+                .FirstAsync(),
+            Languages.German);
+
+        candidate.CreatedDuringActiveContest.Should().BeTrue();
     }
 }

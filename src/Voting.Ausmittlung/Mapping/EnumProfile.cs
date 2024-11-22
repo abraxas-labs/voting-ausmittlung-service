@@ -34,7 +34,6 @@ public class EnumProfile : Profile
         CreateEnumMap<ProtoModels.PoliticalBusinessUnionType, PoliticalBusinessUnionType>();
         CreateEnumMap<ProtoModels.ProportionalElectionMandateAlgorithm, ProportionalElectionMandateAlgorithm>();
         CreateEnumMap<SharedProto.ProportionalElectionCandidateEndResultState, ProportionalElectionCandidateEndResultState>();
-        CreateEnumMap<ProtoModels.SwissAbroadVotingRight, SwissAbroadVotingRight>();
         CreateEnumMap<ProtoModels.BallotType, BallotType>();
         CreateEnumMap<ProtoModels.VoteResultAlgorithm, VoteResultAlgorithm>();
         CreateEnumMap<SharedProto.BallotNumberGeneration, BallotNumberGeneration>();

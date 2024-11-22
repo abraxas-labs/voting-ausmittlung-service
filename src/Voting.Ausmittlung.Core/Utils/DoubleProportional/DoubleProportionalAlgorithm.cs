@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Domain;
@@ -176,15 +177,23 @@ public class DoubleProportionalAlgorithm
             return;
         }
 
-        // Calculate "Wählerzahl" on each list, union list and the whole election union.
-        foreach (var cell in columnsWithQuorumReached.SelectMany(x => x.Cells).ToList())
-        {
-            cell.VoterNumber = (decimal)cell.VoteCount / cell.Row.NumberOfMandates;
-        }
+        var exactColumnVoterNumbers = new Rational[columnsWithQuorumReached.Count];
 
-        foreach (var column in columnsWithQuorumReached)
+        // Calculate "Wählerzahl" on each list, union list and the whole election union.
+        for (var col = 0; col < columnsWithQuorumReached.Count; col++)
         {
-            column.VoterNumber = column.Cells.Sum(x => x.VoterNumber);
+            var column = columnsWithQuorumReached[col];
+            column.VoterNumber = 0;
+            exactColumnVoterNumbers[col] = Rational.Zero;
+
+            foreach (var cell in column.Cells)
+            {
+                var exactCellVoterNumber = new Rational(cell.VoteCount, cell.Row.NumberOfMandates);
+                cell.VoterNumber = (decimal)exactCellVoterNumber;
+
+                column.VoterNumber += (decimal)exactCellVoterNumber;
+                exactColumnVoterNumbers[col] += exactCellVoterNumber;
+            }
         }
 
         dpResult.VoterNumber = columnsWithQuorumReached.Sum(x => x.VoterNumber);
@@ -200,7 +209,7 @@ public class DoubleProportionalAlgorithm
         try
         {
             saintLagueResult = saintLagueAlgorithm.Calculate(
-                columnsWithQuorumReached.Select(c => c.VoterNumber).ToArray(),
+                exactColumnVoterNumbers,
                 dpResult.NumberOfMandates);
         }
         catch (DoubleProportionalAlgorithmException ex)
@@ -217,7 +226,7 @@ public class DoubleProportionalAlgorithm
         for (var x = 0; x < saintLagueResult.Quotients.Length; x++)
         {
             var column = columnsWithQuorumReached[x];
-            column.SuperApportionmentQuotient = saintLagueResult.Quotients[x];
+            column.SuperApportionmentQuotient = (decimal)saintLagueResult.Quotients[x];
             column.SuperApportionmentNumberOfMandatesExclLotDecision = saintLagueResult.Apportionment[x];
 
             var tieState = saintLagueResult.TieStates[x];
@@ -236,11 +245,18 @@ public class DoubleProportionalAlgorithm
             }
         }
 
-        dpResult.ElectionKey = saintLagueResult.ElectionKey;
+        dpResult.ElectionKey = (decimal)saintLagueResult.ElectionKey;
         dpResult.SuperApportionmentNumberOfMandatesForLotDecision = saintLagueResult.CountOfMissingNumberOfMandates;
         dpResult.HasSuperApportionmentRequiredLotDecision = saintLagueResult.HasTies;
-
         dpResult.SuperApportionmentNumberOfMandates = columnsWithQuorumReached.Sum(c => c.SuperApportionmentNumberOfMandatesExclLotDecision);
+
+        if (dpResult.SuperApportionmentNumberOfMandates + dpResult.SuperApportionmentNumberOfMandatesForLotDecision != dpResult.NumberOfMandates)
+        {
+            dpResult.SuperApportionmentState = DoubleProportionalResultApportionmentState.Error;
+            _logger.LogError("Not all number of mandates were distributed in the super apportionment");
+            return;
+        }
+
         dpResult.SuperApportionmentState = !saintLagueResult.HasTies
             ? DoubleProportionalResultApportionmentState.Completed
             : DoubleProportionalResultApportionmentState.HasOpenLotDecision;
@@ -300,7 +316,7 @@ public class DoubleProportionalAlgorithm
         // Set the sub apportionment number of mandates on each list, and the election and union list dividers.
         for (var i = 0; i < rows.Count; i++)
         {
-            rows[i].Divisor = bipropResult.RowDivisors[i];
+            rows[i].Divisor = (decimal)bipropResult.RowDivisors[i];
             var listDpResults = rows[i].Cells.ToList();
 
             for (var j = 0; j < columnsWithSeats.Count; j++)
@@ -337,7 +353,7 @@ public class DoubleProportionalAlgorithm
 
         for (var j = 0; j < columnsWithSeats.Count; j++)
         {
-            columnsWithSeats[j].Divisor = bipropResult.ColumnDivisors[j];
+            columnsWithSeats[j].Divisor = (decimal)bipropResult.ColumnDivisors[j];
             columnsWithSeats[j].SubApportionmentNumberOfMandates = columnsWithSeats[j].Cells.Sum(x => x.SubApportionmentNumberOfMandates);
         }
 
@@ -410,8 +426,8 @@ public class DoubleProportionalAlgorithm
                     weights[i] = decimal.Divide(cells[i].VoteCount, rowDivisor * medianColumnDivisor);
                 }
 
-                column.Divisor = DivisorUtils.CalculateSelectDivisor(
-                    cells.Select((ce, ceIndex) => new DivisorApportionment(weights[ceIndex], ce.SubApportionmentNumberOfMandatesExclLotDecision)).ToArray());
+                column.Divisor = (decimal)DivisorUtils.CalculateSelectDivisor(
+                    cells.Select((ce, ceIndex) => new DivisorApportionment(DivisorUtils.ParseToRational(weights[ceIndex]), ce.SubApportionmentNumberOfMandatesExclLotDecision)).ToArray());
             }
 
             // Calculate the select divisor of each row.
@@ -427,7 +443,7 @@ public class DoubleProportionalAlgorithm
                     continue;
                 }
 
-                var weights = new decimal[rows.Count];
+                var weights = new decimal[cells.Count];
 
                 for (var j = 0; j < cells.Count; j++)
                 {
@@ -435,8 +451,8 @@ public class DoubleProportionalAlgorithm
                     weights[j] = decimal.Divide(cells[j].VoteCount, columnSelectDivisor);
                 }
 
-                row.Divisor = DivisorUtils.CalculateSelectDivisor(
-                    cells.Select((ce, ceIndex) => new DivisorApportionment(weights[ceIndex], ce.SubApportionmentNumberOfMandatesExclLotDecision)).ToArray());
+                row.Divisor = (decimal)DivisorUtils.CalculateSelectDivisor(
+                    cells.Select((ce, ceIndex) => new DivisorApportionment(DivisorUtils.ParseToRational(weights[ceIndex]), ce.SubApportionmentNumberOfMandatesExclLotDecision)).ToArray());
             }
         }
         catch (Exception ex)
@@ -480,8 +496,8 @@ public class DoubleProportionalAlgorithm
 
             for (var j = 0; j < cells.Count; j++)
             {
-                var columnDivisor = cells[j].Column.Divisor;
-                var rowDivisor = rows[i].Divisor;
+                var columnDivisor = DivisorUtils.ParseToRational(cells[j].Column.Divisor);
+                var rowDivisor = DivisorUtils.ParseToRational(rows[i].Divisor);
 
                 if (columnDivisor == 0)
                 {
@@ -490,12 +506,13 @@ public class DoubleProportionalAlgorithm
                     continue;
                 }
 
-                var quotient = decimal.Divide(cells[j].VoteCount, columnDivisor * rowDivisor);
-                var numberOfMandates = quotient.ApproxEquals(SignPost.Get((int)quotient))
-                    ? (int)quotient
-                    : (int)Math.Round(quotient);
+                var quotient = cells[j].VoteCount / (columnDivisor * rowDivisor);
 
-                if (numberOfMandates != cells[j].SubApportionmentNumberOfMandatesExclLotDecision)
+                var numberOfMandatesExclLotDecision = quotient == SignPost.Get((int)quotient)
+                    ? (int)quotient
+                    : quotient.Round();
+
+                if (numberOfMandatesExclLotDecision != cells[j].SubApportionmentNumberOfMandatesExclLotDecision)
                 {
                     return false;
                 }

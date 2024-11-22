@@ -430,11 +430,24 @@ public class ResultExportTemplateReader
     {
         politicalBusinesses = FilterDomainOfInfluenceType(template, politicalBusinesses);
         politicalBusinesses = FilterProportionalElectionMandateAlgorithm(template, politicalBusinesses, mandateAlgorithmByProportionalElectionId);
+        politicalBusinesses = FilterMultipleCountingCircleResults(template, politicalBusinesses);
         return FilterInvalidVotes(template, politicalBusinesses);
     }
 
     private IEnumerable<SimplePoliticalBusiness> FilterDomainOfInfluenceType(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
         => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
+
+    private IEnumerable<SimplePoliticalBusiness> FilterMultipleCountingCircleResults(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
+    {
+        // These two templates should only be displayed in Ausmittlung Erfassung for political businesses with multiple counting circle results.
+        // e.g. counting circle of a normal federal political business or communal political business as a "Stadtkreis" can view these protocols
+        if (template.Key == AusmittlungPdfVoteTemplates.ResultProtocol.Key || template.Key == AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key)
+        {
+            return politicalBusinesses.Where(x => x.SimpleResults.Count > 1);
+        }
+
+        return politicalBusinesses;
+    }
 
     private IEnumerable<TemplateModel> FilterDisabledTemplates(IEnumerable<TemplateModel> templates)
         => templates.Where(t => !_config.DisabledExportTemplateKeys.Contains(t.Key));
@@ -498,6 +511,8 @@ public class ResultExportTemplateReader
             Data.Models.DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
             Data.Models.DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
             Data.Models.DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
+            Data.Models.DomainOfInfluenceType.Mu => Strings.Exports_DomainOfInfluenceType_Mu,
+            Data.Models.DomainOfInfluenceType.Sk => Strings.Exports_DomainOfInfluenceType_Mu,
             _ => Strings.Exports_DomainOfInfluenceType_Other,
         };
 

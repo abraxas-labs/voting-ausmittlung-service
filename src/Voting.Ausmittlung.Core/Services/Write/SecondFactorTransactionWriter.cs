@@ -63,7 +63,6 @@ public class SecondFactorTransactionWriter
         {
             Id = Guid.NewGuid(),
             ActionId = actionIdHash,
-            ExternalIdentifier = secondFactor.Code,
             CreatedAt = now,
             LastUpdatedAt = now,
             ExpiredAt = expiredAt,
@@ -73,29 +72,29 @@ public class SecondFactorTransactionWriter
         await _repo.Create(secondFactorTransaction);
         _logger.LogInformation(
             SecurityLogging.SecurityEventId,
-            "Created second factor transaction {SecondFactorExternalId} for action {ActionId}",
-            secondFactorTransaction.ExternalIdentifier,
+            "Created second factor transaction with ExternalTokenJwtIds <{SecondFactorExternalTokenJwtIds}> for action {ActionId}",
+            string.Join(',', secondFactorTransaction.ExternalTokenJwtIds ?? []),
             actionId);
         return (secondFactorTransaction, code, secondFactor.Qr);
     }
 
-    public async Task EnsureVerified(string externalId, Func<Task<ActionId>> action, CancellationToken ct)
+    public async Task EnsureVerified(Guid transactionId, Func<Task<ActionId>> action, CancellationToken ct)
     {
-        await EnsureAwaitVerification(externalId, ct);
+        await EnsureAwaitVerification(transactionId, ct);
 
         // The action id must be fetched after the blocking verify request, to check for data changes in the aggregate during the request.
         var actionId = await action();
-        await EnsureDataHasNotChanged(externalId, actionId);
+        await EnsureDataHasNotChanged(transactionId, actionId);
         _logger.LogInformation(
             SecurityLogging.SecurityEventId,
             "Second factor transaction {SecondFactorExternalId} for action {ActionId} verified",
-            externalId,
+            transactionId,
             actionId);
     }
 
-    private async Task EnsureAwaitVerification(string externalId, CancellationToken ct)
+    private async Task EnsureAwaitVerification(Guid transactionId, CancellationToken ct)
     {
-        var secondFactorTransaction = await _repo.GetByExternalIdentifier(externalId) ?? throw new EntityNotFoundException(externalId);
+        var secondFactorTransaction = await _repo.GetByKey(transactionId) ?? throw new EntityNotFoundException(transactionId);
         secondFactorTransaction.PollCount++;
         secondFactorTransaction.LastUpdatedAt = _clock.UtcNow;
         await _repo.Update(secondFactorTransaction);
@@ -103,7 +102,6 @@ public class SecondFactorTransactionWriter
         var isVerified = await _userService.VerifySecondFactor(
             _permissionService.UserId,
             V1SecondFactorProvider.NEVIS,
-            secondFactorTransaction.ExternalIdentifier,
             secondFactorTransaction.ExternalTokenJwtIds ?? new(),
             ct);
         if (!isVerified)
@@ -111,20 +109,20 @@ public class SecondFactorTransactionWriter
             _logger.LogWarning(
                 SecurityLogging.SecurityEventId,
                 "Second factor transaction {SecondFactorExternalId} failed",
-                externalId);
+                transactionId);
             throw new SecondFactorTransactionNotVerifiedException();
         }
     }
 
-    private async Task EnsureDataHasNotChanged(string externalId, ActionId actionId)
+    private async Task EnsureDataHasNotChanged(Guid transactionId, ActionId actionId)
     {
-        var secondFactorTransaction = await _repo.GetByExternalIdentifier(externalId) ?? throw new EntityNotFoundException(externalId);
+        var secondFactorTransaction = await _repo.GetByKey(transactionId) ?? throw new EntityNotFoundException(transactionId);
         if (!_actionIdComparer.Compare(actionId, secondFactorTransaction.ActionId))
         {
             _logger.LogWarning(
                 SecurityLogging.SecurityEventId,
-                "Data changed during second factor transaction {SecondFactorExternalId} for action {ActionId}",
-                externalId,
+                "Data changed during second factor transaction {SecondFactorTransactionId} for action {ActionId}",
+                transactionId,
                 actionId);
             throw new SecondFactorTransactionDataChangedException();
         }

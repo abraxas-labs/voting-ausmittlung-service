@@ -216,7 +216,7 @@ public class AggregatedContestCountingCircleDetailsBuilder
             };
         }
 
-        return dois.SelectMany(doi => doi.CountingCircles)
+        return dois.SelectMany(doi => doi.CountingCircles.DistinctBy(x => x.CountingCircleId))
             .GroupBy(x => x.CountingCircleId)
             .ToDictionary(
                 x => x.Key,

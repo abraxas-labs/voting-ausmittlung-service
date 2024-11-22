@@ -27,7 +27,6 @@
       "StatePlausibilisedDisabled": false,
       "MajorityElectionInvalidVotes": false,
       "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
       "PublishResultsEnabled": true,
@@ -48,7 +47,10 @@
     "BallotNumberGeneration": 1,
     "AutomaticEmptyVoteCounting": false,
     "EnforceEmptyVoteCountingForCountingCircles": true,
-    "SwissAbroadVotingRight": 3,
+    "EnabledVoterTypes": [
+      1,
+      2
+    ],
     "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
     "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
     "Active": true,
@@ -100,7 +102,6 @@
         "StatePlausibilisedDisabled": false,
         "MajorityElectionInvalidVotes": false,
         "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
         "PublishResultsEnabled": true,
@@ -299,5 +300,6 @@
   "Finalized": false,
   "ManualEndResultRequired": false,
   "MandateDistributionTriggered": false,
-  "PartialResult": true
+  "PartialResult": true,
+  "ListLotDecisions": []
 }

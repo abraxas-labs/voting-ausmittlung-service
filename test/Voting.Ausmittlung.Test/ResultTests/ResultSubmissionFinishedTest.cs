@@ -199,7 +199,7 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
                 ProportionalElectionResultId.ToString(),
                 MajorityElectionResultId.ToString(),
             },
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
 
         action?.Invoke(request);

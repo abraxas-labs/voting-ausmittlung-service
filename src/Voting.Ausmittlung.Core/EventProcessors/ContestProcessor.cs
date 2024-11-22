@@ -124,7 +124,9 @@ public class ContestProcessor :
 
         if (!await _repo.ExistsByKey(id))
         {
-            throw new EntityNotFoundException(id);
+            // skip event processing to prevent race condition if contest was deleted from other process.
+            _logger.LogWarning("event 'ContestDeleted' skipped. contest {id} has already been deleted", id);
+            return;
         }
 
         await _repo.DeleteByKey(id);

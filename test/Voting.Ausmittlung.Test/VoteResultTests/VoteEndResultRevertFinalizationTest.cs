@@ -44,7 +44,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
         var ev = EventPublisherMock.GetSinglePublishedEvent<VoteEndResultFinalizationReverted>();
@@ -60,7 +60,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
             {
                 VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             });
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
             return EventPublisherMock.GetSinglePublishedEventWithMetadata<VoteEndResultFinalizationReverted>();
@@ -137,7 +137,7 @@ public class VoteEndResultRevertFinalizationTest : VoteResultBaseTest
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await new VoteResultService.VoteResultServiceClient(channel)

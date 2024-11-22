@@ -175,6 +175,7 @@
       <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+      <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>
   </CountingCircle>
 </Voting>

@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -320,6 +322,48 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
             .Any(x => x.ExportTemplateId == exportTemplateId)
             .Should()
             .BeTrue();
+    }
+
+    [Fact]
+    public async Task MultipleCountingCirclesShouldFilter()
+    {
+        var exportTemplateIds = new List<string>
+        {
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    politicalBusinessId: MajorityElectionMockedData.UzwilMajorityElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfVoteTemplates.ResultProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    domainOfInfluenceType: DomainOfInfluenceMockedData.Uzwil.Type)
+                .ToString(),
+        };
+
+        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwil, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
+
+        await TestEventPublisher.Publish(new DomainOfInfluenceCountingCircleEntriesUpdated
+        {
+            DomainOfInfluenceCountingCircleEntries = new DomainOfInfluenceCountingCircleEntriesEventData
+            {
+                Id = DomainOfInfluenceMockedData.IdUzwil,
+                CountingCircleIds =
+                {
+                    CountingCircleMockedData.IdUzwil,
+                    CountingCircleMockedData.IdUzwilKirche,
+                },
+            },
+        });
+
+        var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwil, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        foreach (var exportTemplateId in exportTemplateIds)
+        {
+            resultAfter.Find(x => x.ExportTemplateId == exportTemplateId).Should().NotBeNull();
+        }
     }
 
     private async Task<List<DataExportTemplate>> FetchExportTemplates(Guid contestId, Guid? countingCircleId = null, ExportFileFormat[]? formats = null, string? tenantId = null)

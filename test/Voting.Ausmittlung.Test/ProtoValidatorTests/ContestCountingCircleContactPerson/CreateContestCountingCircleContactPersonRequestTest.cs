@@ -32,7 +32,7 @@ public class CreateContestCountingCircleContactPersonRequestTest : ProtoValidato
         {
             CountingCircleId = "636d68d0-6654-4c07-9610-56dad5df20bd",
             ContestId = "b93ccec1-dbdf-4a00-9328-0a2026214b20",
-            ContactPersonDuringEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Ali"),
+            ContactPersonDuringEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Ali (Bart)"),
             ContactPersonAfterEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Hans"),
         };
 

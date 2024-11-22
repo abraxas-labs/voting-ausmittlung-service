@@ -4,8 +4,9 @@
       "OrderNumber": "01",
       "Translations": [
         {
-          "ShortDescription": "SVP de",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "SVP de",
+          "Description": "SVP de",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -40,14 +41,16 @@
       "ListCount": 3,
       "PoliticalBusinessNumbers": "  ",
       "ShortDescription": "SVP de",
+      "Description": "SVP de",
       "Id": "0c6fd6f1-617a-598b-b508-b1e00151f826"
     },
     {
       "OrderNumber": "02",
       "Translations": [
         {
-          "ShortDescription": "SP de",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "SP de",
+          "Description": "SP de",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -75,14 +78,16 @@
       "ListCount": 2,
       "PoliticalBusinessNumbers": " ",
       "ShortDescription": "SP de",
+      "Description": "SP de",
       "Id": "867543f9-2b65-5afe-b1ff-5cbbd2372665"
     },
     {
       "OrderNumber": "03",
       "Translations": [
         {
-          "ShortDescription": "FDP de",
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
+          "ShortDescription": "FDP de",
+          "Description": "FDP de",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -103,6 +108,7 @@
       "ListCount": 1,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "FDP de",
+      "Description": "FDP de",
       "Id": "50b2ecb0-199c-500a-9c95-9d1e1b90325b"
     }
   ]

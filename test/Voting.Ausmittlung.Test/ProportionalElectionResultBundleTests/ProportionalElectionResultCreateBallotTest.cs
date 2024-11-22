@@ -343,6 +343,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
             new ProportionalElectionResultBallotCreated
             {
                 BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
+                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
                 BallotNumber = 1,
                 Candidates =
                 {

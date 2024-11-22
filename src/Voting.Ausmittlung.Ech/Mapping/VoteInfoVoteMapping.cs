@@ -126,13 +126,15 @@ internal static class VoteInfoVoteMapping
     {
         if (question.Ballot.BallotType == BallotType.VariantsBallot)
         {
+            var voteTranslation = question.Ballot.Vote.Translations.Single(t => t.Language == Languages.German);
+
             titleInfos = question.Translations
                 .Where(t => t.Language == Languages.German)
                 .Select(t => new VoteTitleInformationType
                 {
                     Language = t.Language,
-                    VoteTitle = t.Question,
-                    VoteTitleShort = t.Question,
+                    VoteTitle = $"{voteTranslation.OfficialDescription} - {t.Question}",
+                    VoteTitleShort = $"{voteTranslation.ShortDescription} - {t.Question}",
                 })
                 .ToList();
         }
@@ -196,7 +198,7 @@ internal static class VoteInfoVoteMapping
         Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
         int? federalIdentification)
     {
-        var superiorAuthority = ctx.GetSuperiorAuthority(ballot.Vote.DomainOfInfluence.Bfs);
+        var superiorAuthority = ctx.GetSuperiorAuthority(ballot.Vote.DomainOfInfluence.Id);
         var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
 
         var previousSequence = sequenceBySuperiorAuthorityId.GetValueOrDefault(superiorAuthorityId, (ushort)0);
@@ -251,6 +253,7 @@ internal static class VoteInfoVoteMapping
                     CountOfYesVotes = (uint)answersYes,
                     CountOfVotesWithoutAnswer = (uint)answersUnspecified,
                     NamedElement = VoteInfoCountingCircleResultMapping.GetNamedElements(ballotResult.VoteResult),
+                    VotingCardInformation = ballotResult.VoteResult.CountingCircle.ToVoteInfoVotingCardInfo(ballotResult.VoteResult.Vote.DomainOfInfluence.Type),
                 }
                 : null,
         };

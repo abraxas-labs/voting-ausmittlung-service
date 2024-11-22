@@ -63,12 +63,32 @@ public abstract class ElectionEndResultWriter<TElectionEndResultAvailableLotDeci
         IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions,
         IReadOnlyCollection<TElectionEndResultAvailableLotDecision> availableLotDecisions)
     {
-        var requiredLotDecisions = availableLotDecisions.Where(x => x.LotDecisionRequired);
         var candidateIdsInLotDecisions = lotDecisions.Select(x => x.CandidateId).ToList();
 
-        if (requiredLotDecisions.Any(x => !candidateIdsInLotDecisions.Contains(x.Candidate.Id)))
+        var relatedAvailableLotDecisionGroups = availableLotDecisions
+            .GroupBy(x => x.VoteCount)
+            .ToDictionary(x => x.Key, x => new { Count = x.Count(), CandidateIds = x.Select(c => c.Candidate.Id).ToList() });
+
+        foreach (var (relatedVoteCount, relatedAvailabeLotDecisionGroup) in relatedAvailableLotDecisionGroups)
         {
-            throw new ValidationException("required lot decision is missing");
+            var relatedLotDecisions = lotDecisions
+                .Where(l => relatedAvailabeLotDecisionGroup.CandidateIds.Contains(l.CandidateId))
+                .ToList();
+
+            if (relatedLotDecisions.Count == 0)
+            {
+                continue;
+            }
+
+            if (!relatedLotDecisions.All(l => l.Rank == null) && !relatedLotDecisions.All(l => l.Rank != null))
+            {
+                throw new ValidationException($"Either all related lot decisions of the group with vote count {relatedVoteCount} must have a rank or none");
+            }
+
+            if (relatedLotDecisions.Count != relatedAvailabeLotDecisionGroup.Count)
+            {
+                throw new ValidationException($"A related lot decision of the group with vote count {relatedVoteCount} is missing");
+            }
         }
 
         // min and max rank is determined by the vote count of the candidate and how often the same vote count appears
@@ -94,7 +114,7 @@ public abstract class ElectionEndResultWriter<TElectionEndResultAvailableLotDeci
 
             if (lotDecision.Rank < lotDecisionMinMaxRank.MinRank
                 || lotDecision.Rank > lotDecisionMinMaxRank.MaxRank
-                || !takenRanks.Add(lotDecision.Rank))
+                || (lotDecision.Rank.HasValue && !takenRanks.Add(lotDecision.Rank.Value)))
             {
                 throw new ValidationException("bad rank or rank already taken in existing lot decisions");
             }

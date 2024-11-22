@@ -230,11 +230,11 @@ public class TieAndTransferMethodTest
             .Should()
             .BeTrue();
 
-        result.RowDivisors.SequenceApproxEqual(expectedResult.RowDivisors, DecimalPrecision)
+        result.RowDivisors.Select(d => (decimal)d).SequenceApproxEqual(expectedResult.RowDivisors, DecimalPrecision)
             .Should()
             .BeTrue();
 
-        result.ColumnDivisors.SequenceApproxEqual(expectedResult.ColumnDivisors, DecimalPrecision)
+        result.ColumnDivisors.Select(d => (decimal)d).SequenceApproxEqual(expectedResult.ColumnDivisors, DecimalPrecision)
             .Should()
             .BeTrue();
 

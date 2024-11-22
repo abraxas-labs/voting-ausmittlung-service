@@ -5,6 +5,7 @@ using System;
 using AutoMapper;
 
 namespace Voting.Ausmittlung.Core.Mapping.Converter;
+
 public class DateTimeDateOnlyConverter :
     ITypeConverter<DateTime, DateOnly>,
     ITypeConverter<DateTime?, DateOnly?>,

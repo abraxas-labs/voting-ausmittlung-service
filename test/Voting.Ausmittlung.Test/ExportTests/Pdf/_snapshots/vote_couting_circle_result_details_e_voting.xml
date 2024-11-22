@@ -32,13 +32,15 @@
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
-      <TotalCountOfVoters>15000</TotalCountOfVoters>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -97,6 +99,7 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -114,13 +117,15 @@
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
-      <TotalCountOfVoters>15000</TotalCountOfVoters>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -367,6 +372,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -425,6 +432,7 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
@@ -449,6 +457,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -509,6 +519,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -643,6 +655,8 @@
         <Ballot>
           <Position>3</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -887,6 +901,7 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
@@ -904,13 +919,15 @@
       <Canton>Sg</Canton>
     </DomainOfInfluence>
     <VoteResult>
-      <TotalCountOfVoters>15000</TotalCountOfVoters>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -969,6 +986,7 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <CountingCircle>
     <Name>St. Gallen</Name>
@@ -1043,6 +1061,7 @@
         <CountOfVoters>300</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
       </CountOfVotersDetail>
+      <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>
   </CountingCircle>
 </Voting>

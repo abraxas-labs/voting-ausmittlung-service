@@ -106,7 +106,7 @@ public class ContestReader
         // a counting circle should only be accessible if the current tenant is responsible or is a partial result counting circle
         var accessibleCountingCircleIds = readableCountingCircleIds.Intersect(responsibleCountingCircleIds.Concat(viewablePartialResultsCountingCircleIds));
 
-        return await _domainOfInfluenceCountingCircleRepo.Query()
+        var doiCcs = await _domainOfInfluenceCountingCircleRepo.Query()
             .Include(x => x.CountingCircle)
                 .ThenInclude(x => x.ResponsibleAuthority)
             .Include(x => x.CountingCircle)
@@ -114,9 +114,12 @@ public class ContestReader
             .Include(x => x.CountingCircle)
                 .ThenInclude(x => x.ContactPersonAfterEvent)
             .Where(x => accessibleCountingCircleIds.Contains(x.CountingCircleId) && x.DomainOfInfluenceId == contest.DomainOfInfluenceId)
+            .ToListAsync();
+
+        return doiCcs.DistinctBy(x => x.CountingCircleId)
             .Select(x => x.CountingCircle)
             .OrderBy(x => x.Name)
-            .ToListAsync();
+            .ToList();
     }
 
     public async Task<List<ContestSummary>> ListSummaries(IReadOnlyCollection<ContestState> states)
@@ -234,6 +237,7 @@ public class ContestReader
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.Translations)
             .Include(x => x.Contest.CantonDefaults)
+            .Include(x => x.SimpleResults)
             .ToListAsync();
     }
 

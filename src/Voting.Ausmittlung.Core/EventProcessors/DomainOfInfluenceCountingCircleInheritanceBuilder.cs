@@ -31,11 +31,11 @@ public class DomainOfInfluenceCountingCircleInheritanceBuilder
         List<Guid> countingCircleIdsToRemove)
     {
         var existingEntries = await _doiCountingCirclesRepo.Query()
-            .Where(doiCc => hierarchicalGreaterOrSelfDoiIds.Contains(doiCc.DomainOfInfluenceId) && countingCircleIdsToAdd.Contains(doiCc.CountingCircleId))
+            .Where(doiCc => hierarchicalGreaterOrSelfDoiIds.Contains(doiCc.DomainOfInfluenceId) && countingCircleIdsToAdd.Contains(doiCc.CountingCircleId) && doiCc.SourceDomainOfInfluenceId == doiId)
             .ToListAsync();
 
         var newEntries = BuildDomainOfInfluenceCountingCircleEntries(doiId, hierarchicalGreaterOrSelfDoiIds, countingCircleIdsToAdd, existingEntries);
-        await _doiCountingCirclesRepo.RemoveAll(hierarchicalGreaterOrSelfDoiIds, countingCircleIdsToRemove);
+        await _doiCountingCirclesRepo.RemoveAll(hierarchicalGreaterOrSelfDoiIds, countingCircleIdsToRemove, doiId);
         await _doiCountingCirclesRepo.CreateRange(newEntries);
     }
 
@@ -51,11 +51,11 @@ public class DomainOfInfluenceCountingCircleInheritanceBuilder
         IReadOnlyCollection<DomainOfInfluenceCountingCircle> existingEntries)
     {
         return doiIds.SelectMany(doiId =>
-            ccIds.Where(ccId => !existingEntries.Any(x => x.CountingCircleId == ccId && x.DomainOfInfluenceId == doiId)).Select(ccId => new DomainOfInfluenceCountingCircle
+            ccIds.Where(ccId => !existingEntries.Any(x => x.CountingCircleId == ccId && x.DomainOfInfluenceId == doiId && x.SourceDomainOfInfluenceId == currentDoiId)).Select(ccId => new DomainOfInfluenceCountingCircle
             {
                 CountingCircleId = ccId,
                 DomainOfInfluenceId = doiId,
-                Inherited = doiId != currentDoiId,
+                SourceDomainOfInfluenceId = currentDoiId,
             }));
     }
 }

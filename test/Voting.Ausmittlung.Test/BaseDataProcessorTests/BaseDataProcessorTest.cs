@@ -24,6 +24,8 @@ namespace Voting.Ausmittlung.Test.BaseDataProcessorTests;
 
 public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, TestStartup>
 {
+    private int _currentEventNumber;
+
     protected BaseDataProcessorTest(TestApplicationFactory factory)
         : base(factory)
     {
@@ -68,6 +70,11 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
         DatabaseUtil.Truncate(db, temporaryDb);
     }
 
+    protected int GetNextEventNumber()
+    {
+        return _currentEventNumber++;
+    }
+
     protected void SetDynamicIdToDefaultValue(IEnumerable<BaseEntity> entities)
     {
         foreach (var entity in entities)
@@ -110,6 +117,12 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
         where T : AggregatedVotingCardResultDetail
     {
         (votingCardsAfter.Single(predicate).CountOfReceivedVotingCards - votingCardsBefore.Single(predicate).CountOfReceivedVotingCards).Should().Be(diff);
+    }
+
+    protected void EnsureValidAggregatedSubTotals<T>(ICollection<T> votingCardsBefore, ICollection<T> votingCardsAfter, Func<T, bool> predicate, int diff)
+        where T : AggregatedCountOfVotersInformationSubTotal
+    {
+        (votingCardsAfter.Single(predicate).CountOfVoters - votingCardsBefore.Single(predicate).CountOfVoters).Should().Be(diff);
     }
 
     private EventInfoTenant ToEventInfoTenant(Tenant tenant)

@@ -238,6 +238,11 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         hasOne.Should().Be(hasMessage);
     }
 
+    protected int GetNextEventNumber()
+    {
+        return _currentEventNumber++;
+    }
+
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)
     {
         var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;

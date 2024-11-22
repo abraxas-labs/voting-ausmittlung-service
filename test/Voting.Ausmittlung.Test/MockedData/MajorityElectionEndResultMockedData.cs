@@ -406,9 +406,9 @@ public static class MajorityElectionEndResultMockedData
 
         var voteCountByCandidateId = new Dictionary<string, int>
             {
-                { SecondaryCandidateId1, 60 },
+                { SecondaryCandidateId1, 10 },
                 { SecondaryCandidateId2, 150 },
-                { SecondaryCandidateId3, 100 },
+                { SecondaryCandidateId3, 150 },
                 { SecondaryCandidateId4InBallotGroup, 90 },
                 { Secondary2CandidateId1, 80 },
                 { Secondary2CandidateId2, 70 },

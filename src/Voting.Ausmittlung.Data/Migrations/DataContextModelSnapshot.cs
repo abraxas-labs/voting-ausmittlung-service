@@ -319,9 +319,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("MajorityElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("NewZhFeaturesEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
@@ -520,9 +517,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("MajorityElectionUseCandidateCheckDigit")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("NewZhFeaturesEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
@@ -945,6 +939,12 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("HasForeignerVoters")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("HasMinorVoters")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -970,6 +970,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("SortNumber")
                         .HasColumnType("integer");
 
+                    b.Property<Guid?>("SuperiorAuthorityDomainOfInfluenceId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("SwissAbroadVotingRight")
                         .HasColumnType("integer");
 
@@ -984,6 +987,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.HasIndex("ParentId");
 
                     b.HasIndex("SnapshotContestId");
+
+                    b.HasIndex("SuperiorAuthorityDomainOfInfluenceId");
 
                     b.HasIndex("ViewCountingCirclePartialResults");
 
@@ -1031,14 +1036,14 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("DomainOfInfluenceId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Inherited")
-                        .HasColumnType("boolean");
+                    b.Property<Guid>("SourceDomainOfInfluenceId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DomainOfInfluenceId");
 
-                    b.HasIndex("CountingCircleId", "DomainOfInfluenceId")
+                    b.HasIndex("CountingCircleId", "DomainOfInfluenceId", "SourceDomainOfInfluenceId")
                         .IsUnique();
 
                     b.ToTable("DomainOfInfluenceCountingCircles");
@@ -1800,6 +1805,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<int>("CheckDigit")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("CreatedDuringActiveContest")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
@@ -2733,6 +2741,51 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.ToTable("ProportionalElectionEndResultCountOfVotersInformationSubTotal");
                 });
 
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecision", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProportionalElectionEndResultId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProportionalElectionEndResultId");
+
+                    b.ToTable("ProportionalElectionEndResultListLotDecision");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecisionEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ListId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ListUnionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProportionalElectionEndResultListLotDecisionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Winning")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ListId");
+
+                    b.HasIndex("ListUnionId");
+
+                    b.HasIndex("ProportionalElectionEndResultListLotDecisionId");
+
+                    b.ToTable("ProportionalElectionEndResultListLotDecisionEntry");
+                });
+
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultVotingCardDetail", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3224,6 +3277,10 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Language")
                         .IsRequired()
                         .HasColumnType("text");
@@ -3509,6 +3566,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<int>("CheckDigit")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("CreatedDuringActiveContest")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
@@ -5163,6 +5223,11 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasForeignKey("SnapshotContestId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Voting.Ausmittlung.Data.Models.DomainOfInfluence", "SuperiorAuthorityDomainOfInfluence")
+                        .WithMany("SubAuthorityDomainOfInfluences")
+                        .HasForeignKey("SuperiorAuthorityDomainOfInfluenceId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.OwnsOne("Voting.Ausmittlung.Data.Models.ContactPerson", "ContactPerson", b1 =>
                         {
                             b1.Property<Guid>("DomainOfInfluenceId")
@@ -5202,6 +5267,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("Parent");
 
                     b.Navigation("SnapshotContest");
+
+                    b.Navigation("SuperiorAuthorityDomainOfInfluence");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.DomainOfInfluenceCountOfVotersInformationSubTotal", b =>
@@ -6553,6 +6620,42 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasForeignKey("ProportionalElectionEndResultId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecision", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResult", "ProportionalElectionEndResult")
+                        .WithMany("ListLotDecisions")
+                        .HasForeignKey("ProportionalElectionEndResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProportionalElectionEndResult");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecisionEntry", b =>
+                {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ProportionalElectionList", "List")
+                        .WithMany("ListLotDecisionEntries")
+                        .HasForeignKey("ListId");
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ProportionalElectionListUnion", "ListUnion")
+                        .WithMany("ListLotDecisionEntries")
+                        .HasForeignKey("ListUnionId")
+                        .HasConstraintName("FK_ProportionalElectionEndResultListLotDecisionEntry_Proporti~1");
+
+                    b.HasOne("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecision", "ProportionalElectionEndResultListLotDecision")
+                        .WithMany("Entries")
+                        .HasForeignKey("ProportionalElectionEndResultListLotDecisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProportionalElectionEndResultListLotDecisionEntry_Proporti~2");
+
+                    b.Navigation("List");
+
+                    b.Navigation("ListUnion");
+
+                    b.Navigation("ProportionalElectionEndResultListLotDecision");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultVotingCardDetail", b =>
@@ -8347,6 +8450,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Navigation("SimplePoliticalBusinesses");
 
+                    b.Navigation("SubAuthorityDomainOfInfluences");
+
                     b.Navigation("Votes");
                 });
 
@@ -8553,7 +8658,14 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Navigation("ListEndResults");
 
+                    b.Navigation("ListLotDecisions");
+
                     b.Navigation("VotingCards");
+                });
+
+            modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionEndResultListLotDecision", b =>
+                {
+                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionList", b =>
@@ -8571,6 +8683,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("EndResult");
 
                     b.Navigation("HagenbachBischoffGroup");
+
+                    b.Navigation("ListLotDecisionEntries");
 
                     b.Navigation("ProportionalElectionCandidates");
 
@@ -8600,6 +8714,8 @@ namespace Voting.Ausmittlung.Data.Migrations
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.ProportionalElectionListUnion", b =>
                 {
                     b.Navigation("HagenbachBischoffGroup");
+
+                    b.Navigation("ListLotDecisionEntries");
 
                     b.Navigation("ProportionalElectionListUnionEntries");
 

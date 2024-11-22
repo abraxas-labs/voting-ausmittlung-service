@@ -59,6 +59,29 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
+    public async Task<List<Guid>> GetHierarchicalLowerOrSelfDomainOfInfluenceIds(Guid domainOfInfluenceId)
+    {
+        var idColumnName = GetDelimitedColumnName(x => x.Id);
+        var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
+
+        return await Context.DomainOfInfluences.FromSqlRaw(
+                $@"
+                WITH RECURSIVE children_or_self AS (
+                    SELECT {idColumnName}, {parentIdColumnName}
+                    FROM {DelimitedSchemaAndTableName}
+                    WHERE {idColumnName} = {{0}}
+                    UNION
+                    SELECT x.{idColumnName}, x.{parentIdColumnName}
+                    FROM {DelimitedSchemaAndTableName} x
+                    JOIN children_or_self c ON x.{parentIdColumnName} = c.{idColumnName}
+                )
+                SELECT * FROM children_or_self",
+                domainOfInfluenceId)
+            .Select(doi => doi.Id)
+            .ToListAsync();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<DomainOfInfluenceCanton> GetRootCanton(Guid domainOfInfluenceId)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);

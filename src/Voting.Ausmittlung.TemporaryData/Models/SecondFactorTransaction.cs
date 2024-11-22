@@ -11,8 +11,6 @@ public class SecondFactorTransaction : BaseEntity
 {
     public string UserId { get; set; } = string.Empty;
 
-    public string ExternalIdentifier { get; set; } = string.Empty;
-
     public int PollCount { get; set; }
 
     public DateTime LastUpdatedAt { get; set; }

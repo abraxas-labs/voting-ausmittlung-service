@@ -188,7 +188,6 @@
       "StatePlausibilisedDisabled": false,
       "MajorityElectionInvalidVotes": false,
       "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
       "PublishResultsEnabled": true,

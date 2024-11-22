@@ -22,7 +22,6 @@
       "StatePlausibilisedDisabled": false,
       "MajorityElectionInvalidVotes": false,
       "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
       "PublishResultsEnabled": false,
@@ -170,7 +169,9 @@
   ],
   "CurrentTenantIsResponsible": true,
   "State": 1,
-  "SwissAbroadHaveVotingRightsOnAnyBusiness": false,
+  "EnabledVoterTypes": [
+    1
+  ],
   "ContestCountingCircleContactPersonId": "",
   "MustUpdateContactPersons": false,
   "HasUnmappedEVotingWriteIns": false,

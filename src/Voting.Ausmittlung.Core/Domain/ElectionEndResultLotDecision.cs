@@ -12,5 +12,5 @@ public class ElectionEndResultLotDecision
 {
     public Guid CandidateId { get; set; }
 
-    public int Rank { get; set; }
+    public int? Rank { get; set; }
 }

@@ -18,4 +18,6 @@ public class SecondaryMajorityElectionCandidateResult : MajorityElectionCandidat
 
     public ICollection<SecondaryMajorityElectionWriteInMapping> WriteInMappings { get; set; }
         = new HashSet<SecondaryMajorityElectionWriteInMapping>();
+
+    public override string CandidateNumber => Candidate.Number;
 }

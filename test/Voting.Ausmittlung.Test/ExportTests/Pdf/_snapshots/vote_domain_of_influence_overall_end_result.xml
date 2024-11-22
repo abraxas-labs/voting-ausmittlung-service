@@ -29,6 +29,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.086182</VoterParticipation>
@@ -61,6 +63,10 @@
           <CountOfAnswerTotal>1920</CountOfAnswerTotal>
           <PercentageYes>0.6666666666666666666666666667</PercentageYes>
           <PercentageNo>0.3333333333333333333333333333</PercentageNo>
+          <CountOfCountingCircleYes>6</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>true</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>true</HasCountingCircleUnanimity>
           <Accepted>true</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>60</CountOfAnswerTotalYes>
@@ -85,6 +91,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.077564</VoterParticipation>
@@ -117,6 +125,10 @@
           <CountOfAnswerTotal>978</CountOfAnswerTotal>
           <PercentageYes>0.2857142857142857142857142857</PercentageYes>
           <PercentageNo>0.7142857142857142857142857143</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>12</CountOfAnswerTotalYes>
@@ -148,6 +160,10 @@
           <CountOfAnswerTotal>978</CountOfAnswerTotal>
           <PercentageYes>0.6666666666666666666666666667</PercentageYes>
           <PercentageNo>0.3333333333333333333333333333</PercentageNo>
+          <CountOfCountingCircleYes>6</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>true</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>true</HasCountingCircleUnanimity>
           <Accepted>true</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>150</CountOfAnswerTotalYes>
@@ -204,6 +220,8 @@
         <Ballot>
           <Position>3</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.068946</VoterParticipation>
@@ -236,6 +254,10 @@
           <CountOfAnswerTotal>2280</CountOfAnswerTotal>
           <PercentageYes>0.0476190476190476190476190476</PercentageYes>
           <PercentageNo>0.9523809523809523809523809524</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
@@ -267,6 +289,10 @@
           <CountOfAnswerTotal>2280</CountOfAnswerTotal>
           <PercentageYes>0.0869565217391304347826086957</PercentageYes>
           <PercentageNo>0.9130434782608695652173913043</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>90</CountOfAnswerTotalYes>
@@ -298,6 +324,10 @@
           <CountOfAnswerTotal>2220</CountOfAnswerTotal>
           <PercentageYes>0.4705882352941176470588235294</PercentageYes>
           <PercentageNo>0.5294117647058823529411764706</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
@@ -419,6 +449,8 @@
       <Ballot>
         <Position>1</Position>
         <BallotType>StandardBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription />
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -476,6 +508,7 @@
               <TotalCountOfInvalidVotingCards>250</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>120</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -611,6 +644,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -678,6 +712,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -813,6 +848,7 @@
               <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -937,6 +973,7 @@
               <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1004,6 +1041,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1151,6 +1189,8 @@
       <Ballot>
         <Position>2</Position>
         <BallotType>VariantsBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription />
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -1221,6 +1261,7 @@
               <TotalCountOfInvalidVotingCards>250</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>120</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1478,6 +1519,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1606,6 +1648,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1863,6 +1906,7 @@
               <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -2109,6 +2153,7 @@
               <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -2237,6 +2282,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -2567,6 +2613,8 @@
       <Ballot>
         <Position>3</Position>
         <BallotType>VariantsBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription />
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -2657,6 +2705,7 @@
               <TotalCountOfInvalidVotingCards>250</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>3470</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>120</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -3098,6 +3147,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -3318,6 +3368,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -3759,6 +3810,7 @@
               <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -4189,6 +4241,7 @@
               <TotalCountOfInvalidVotingCards>3000</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>6000</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -4409,6 +4462,7 @@
               <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
               <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
               <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+              <CountingMachine>Unspecified</CountingMachine>
             </ContestCountingCircleDetails>
           </CountingCircle>
           <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -5012,6 +5066,7 @@
       </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <DomainOfInfluence>
     <Name>St. Gallen</Name>

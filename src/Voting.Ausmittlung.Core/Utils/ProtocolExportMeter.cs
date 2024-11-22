@@ -7,6 +7,7 @@ using System.Diagnostics.Metrics;
 using System.Reflection;
 
 namespace Voting.Ausmittlung.Core.Utils;
+
 public class ProtocolExportMeter
 {
     private const string MeterName = "Voting.Ausmittlung.Metrics";

@@ -398,7 +398,7 @@ public class ResultImportWriter
             throw new ValidationException("Imported counting circles results do not match with voting cards");
         }
 
-        if (contest.TestingPhaseEnded && contest.CountingCircleDetails.Count(x => x.EVoting) != countOfImportedCountingCircles)
+        if (contest.CountingCircleDetails.Count(x => x.EVoting) != countOfImportedCountingCircles)
         {
             throw new ValidationException("Did not provide results for all counting circles");
         }

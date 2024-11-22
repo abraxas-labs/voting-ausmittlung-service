@@ -18,8 +18,9 @@
       "OrderNumber": "1a",
       "Translations": [
         {
-          "ShortDescription": "Liste 1 de",
           "ProportionalElectionUnionListId": "2399ba4e-9bfd-4cf9-80fe-402c0e3a55d2",
+          "ShortDescription": "Liste 1 de",
+          "Description": "",
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -30,14 +31,16 @@
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 1 de",
+      "Description": "",
       "Id": "2399ba4e-9bfd-4cf9-80fe-402c0e3a55d2"
     },
     {
       "OrderNumber": "3a",
       "Translations": [
         {
-          "ShortDescription": "Liste 3 de",
           "ProportionalElectionUnionListId": "6e7227d6-9b32-4eab-a1d1-85ef4521f93d",
+          "ShortDescription": "Liste 3 de",
+          "Description": "",
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -48,14 +51,16 @@
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 3 de",
+      "Description": "",
       "Id": "6e7227d6-9b32-4eab-a1d1-85ef4521f93d"
     },
     {
       "OrderNumber": "2",
       "Translations": [
         {
-          "ShortDescription": "Liste 2 de",
           "ProportionalElectionUnionListId": "8ce79d7d-57fe-4e56-9d57-10696ff3d243",
+          "ShortDescription": "Liste 2 de",
+          "Description": "",
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -66,6 +71,7 @@
       "ListCount": 0,
       "PoliticalBusinessNumbers": "",
       "ShortDescription": "Liste 2 de",
+      "Description": "",
       "Id": "8ce79d7d-57fe-4e56-9d57-10696ff3d243"
     }
   ],

@@ -79,6 +79,9 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
 
     public bool MandateDistributionTriggered { get; set; }
 
+    public ICollection<ProportionalElectionEndResultListLotDecision> ListLotDecisions { get; set; }
+        = new HashSet<ProportionalElectionEndResultListLotDecision>();
+
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
     {
         this.ResetSubTotal(dataSource);
@@ -99,6 +102,7 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
         ManualEndResultRequired = false;
         MandateDistributionTriggered = false;
         Finalized = false;
+        ListLotDecisions = new List<ProportionalElectionEndResultListLotDecision>();
 
         foreach (var listEndResult in ListEndResults)
         {

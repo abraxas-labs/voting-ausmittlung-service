@@ -48,7 +48,7 @@ public class WabstiCSGGemeindenRenderService : IRendererService
             {
                 DomainOfInfluenceType = x.VoteResult.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.VoteResult.Vote.DomainOfInfluence.SortNumber,
-                PoliticalBusinessId = x.VoteResult.VoteId,
+                PoliticalBusinessId = x.VoteResult.Vote.Type == VoteType.QuestionsOnSingleBallot ? x.VoteResult.VoteId : x.BallotId,
                 PoliticalBusinessNumber = x.VoteResult.Vote.PoliticalBusinessNumber,
                 VoterParticipation = x.CountOfVoters.VoterParticipation,
                 CountingCircleBfs = x.VoteResult.CountingCircle.Bfs,
@@ -64,6 +64,8 @@ public class WabstiCSGGemeindenRenderService : IRendererService
                 CountOfVotersTotal = x.VoteResult.TotalCountOfVoters,
                 QuestionResults = x.QuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 TieBreakQuestionResults = x.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
+                VoteType = x.VoteResult.Vote.Type,
+                Position = x.Ballot.Position,
             })
             .ToListAsync(ct);
 
@@ -97,5 +99,15 @@ public class WabstiCSGGemeindenRenderService : IRendererService
         [Name("StiAusweiseEVoting")]
         [Index(StartIndex + 5)]
         public int VotingCardsEVoting { get; set; }
+
+        [Name("GeSubNr")]
+        [Index(WabstiCPoliticalBusinessData.EndIndex + 1)]
+        public string BallotSubType => WabstiCPositionUtil.BuildPosition(Position, VoteType);
+
+        [Ignore]
+        public VoteType VoteType { get; set; }
+
+        [Ignore]
+        public int Position { get; set; }
     }
 }

@@ -163,9 +163,10 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     [Fact]
     public async Task TestShouldReturnWithEmptyBallot()
     {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 2);
         var req = NewValidRequest(x =>
         {
-            x.EmptyVoteCount = 1;
+            x.EmptyVoteCount = 2;
             x.SelectedCandidateIds.Clear();
         });
         await ErfassungCreatorClient.UpdateBallotAsync(req);
@@ -263,6 +264,7 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     [Fact]
     public async Task TestShouldThrowNoEmptyVoteCountWithDisabledAutomaticCount()
     {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 2);
         await AssertStatus(
             async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = null)),
             StatusCode.InvalidArgument,
@@ -272,10 +274,11 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     [Fact]
     public async Task TestShouldThrowWrongEmptyVoteCountWithDisabledAutomaticCount()
     {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 2);
         await AssertStatus(
             async () => await ErfassungCreatorClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 3)),
             StatusCode.InvalidArgument,
-            "wrong number of empty votes, expected: 0 provided: 3");
+            "wrong number of empty votes, expected: 1 provided: 3");
     }
 
     [Fact]
@@ -384,6 +387,15 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
     }
 
+    [Fact]
+    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandate()
+    {
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 0)),
+            StatusCode.InvalidArgument,
+            "empty vote count provided with single mandate");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await new MajorityElectionResultBundleService.MajorityElectionResultBundleServiceClient(channel)
@@ -413,7 +425,6 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
             BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
             BallotNumber = 1,
             IndividualVoteCount = 0,
-            EmptyVoteCount = 0,
             SelectedCandidateIds =
                 {
                     MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
@@ -434,5 +445,12 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
         };
         customizer?.Invoke(req);
         return req;
+    }
+
+    private async Task OverwriteMajorityElectionNumberOfMandates(Guid majorityElectionId, int numberOfMandates)
+    {
+        await ModifyDbEntities<MajorityElection>(
+            me => me.Id == majorityElectionId,
+            me => me.NumberOfMandates = numberOfMandates);
     }
 }

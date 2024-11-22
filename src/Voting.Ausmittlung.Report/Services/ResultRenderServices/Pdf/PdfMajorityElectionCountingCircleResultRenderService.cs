@@ -13,7 +13,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,20 +23,17 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
     private readonly IDbRepository<DataContext, MajorityElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
-    private readonly IClock _clock;
 
     public PdfMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper,
-        IClock clock)
+        IMapper mapper)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _ccDetailsRepo = ccDetailsRepo;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -45,29 +41,26 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         CancellationToken ct = default)
     {
         var data = await _repo.Query()
-                       .AsSplitQuery()
-                       .Include(x => x.CandidateResults).ThenInclude(x => x.Candidate.Translations)
-                       .Include(x => x.MajorityElection.Translations)
-                       .Include(x => x.MajorityElection.DomainOfInfluence)
-                       .Include(x => x.MajorityElection.Contest.Translations)
-                       .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
-                       .Include(x => x.CountingCircle.ResponsibleAuthority)
-                       .Include(x => x.CountingCircle.ContactPersonDuringEvent)
-                       .Include(x => x.CountingCircle.ContactPersonAfterEvent)
-                       .FirstOrDefaultAsync(
-                           x =>
-                               x.MajorityElectionId == ctx.PoliticalBusinessId &&
-                               x.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId,
-                           ct)
-                   ?? throw new ValidationException(
-                       $"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
+            .AsSplitQuery()
+            .Include(x => x.CandidateResults).ThenInclude(x => x.Candidate.Translations)
+            .Include(x => x.MajorityElection.Translations)
+            .Include(x => x.MajorityElection.DomainOfInfluence)
+            .Include(x => x.MajorityElection.Contest.Translations)
+            .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
+            .Include(x => x.CountingCircle.ResponsibleAuthority)
+            .Include(x => x.CountingCircle.ContactPersonDuringEvent)
+            .Include(x => x.CountingCircle.ContactPersonAfterEvent)
+            .FirstOrDefaultAsync(x => x.MajorityElectionId == ctx.PoliticalBusinessId && x.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
+            ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
 
         data.CandidateResults = data.CandidateResults.OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidatePosition)
             .ToList();
 
         var ccDetails = await _ccDetailsRepo.Query()
+            .AsSplitQuery()
             .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(
                 x => x.ContestId == data.MajorityElection.ContestId && x.CountingCircleId == data.CountingCircleId,
                 ct);
@@ -75,10 +68,11 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         var countingCircle = majorityElection.Results![0].CountingCircle!;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(countingCircle.ContestCountingCircleDetails, majorityElection.DomainOfInfluence!.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(countingCircle.ContestCountingCircleDetails, data.MajorityElection.DomainOfInfluence);
 
         // we don't need this data in the xml
         countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();
+        countingCircle.ContestCountingCircleDetails.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
 
         // reset the counting circle on the result, since this is a single counting circle report
         majorityElection.Results![0].CountingCircle = null;
@@ -89,9 +83,9 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
             Contest = _mapper.Map<PdfContest>(data.MajorityElection.Contest),
             CountingCircle = countingCircle,
             MajorityElections = new List<PdfMajorityElection>
-                {
-                    majorityElection,
-                },
+            {
+                majorityElection,
+            },
         };
 
         return await _templateService.RenderToPdf(

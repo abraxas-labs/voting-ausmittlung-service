@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
@@ -231,16 +232,7 @@ public class ContestCountingCircleDetailsProcessor :
             throw new ContestCountingCircleDetailsNotUpdatableException();
         }
 
-        if (result.PoliticalBusiness.SwissAbroadVotingRight == SwissAbroadVotingRight.OnEveryCountingCircle)
-        {
-            result.TotalCountOfVoters = details.TotalCountOfVoters;
-        }
-        else
-        {
-            result.TotalCountOfVoters = details.CountOfVotersInformationSubTotals
-                .Where(x => x.VoterType == VoterType.Swiss)
-                .Sum(x => x.CountOfVoters.GetValueOrDefault());
-        }
+        result.TotalCountOfVoters = details.GetTotalCountOfVotersForDomainOfInfluence(result.PoliticalBusiness.DomainOfInfluence);
     }
 
     private void UpdateVoterParticipation(PoliticalBusinessNullableCountOfVoters countOfVoters, ContestCountingCircleDetails details)

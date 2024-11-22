@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Core.Configuration;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Ausmittlung.TemporaryData.Repositories;
 using Voting.Lib.Common;
-using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.VotingExports.Models;
 
@@ -77,7 +77,7 @@ public class ExportRateLimitService
 
         if (hasReachedLimit)
         {
-            throw new ForbiddenException($"Rate limit reached for export {export.Key}. Try later again");
+            throw new RateLimitReachedException($"Rate limit reached for export {export.Key}. Try later again");
         }
 
         await CreateLogEntries(exports.Select(e => e.Key).ToList());

@@ -156,6 +156,7 @@ public class MajorityElectionResultDeleteBallotTest : MajorityElectionResultBund
             new MajorityElectionResultBallotDeleted
             {
                 BundleId = MajorityElectionResultBundleMockedData.IdStGallenBundle1,
+                ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
                 BallotNumber = 1,
                 EventInfo = GetMockedEventInfo(),
             });

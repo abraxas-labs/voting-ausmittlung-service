@@ -52,7 +52,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -76,7 +76,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
             {
                 MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             });
 
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -163,7 +163,7 @@ public class MajorityElectionEndResultRevertFinalizationTest : MajorityElectionE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeMajorityElectionEndResultRequest
         {
             MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await new MajorityElectionResultService.MajorityElectionResultServiceClient(channel)

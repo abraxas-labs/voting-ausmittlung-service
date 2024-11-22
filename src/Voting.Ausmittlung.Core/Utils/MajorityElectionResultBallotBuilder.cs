@@ -32,11 +32,32 @@ public class MajorityElectionResultBallotBuilder
         _dbContext = dbContext;
     }
 
-    internal async Task CreateBallot(
+    internal async Task<bool> CreateBallot(
         Guid bundleId,
         MajorityElectionResultBallotCreated data)
     {
-        var selectedCandidates = data.SelectedCandidateIds?.Select(Guid.Parse).ToHashSet() ?? new HashSet<Guid>();
+        var ids = await _bundleRepo.Query()
+            .AsSingleQuery()
+            .Where(b => b.Id == bundleId)
+            .Select(x => new
+            {
+                PrimaryCandidateIds = x.ElectionResult.MajorityElection.MajorityElectionCandidates.Select(c => c.Id),
+                SecondaryIds = x.ElectionResult.SecondaryMajorityElectionResults.Select(e => new
+                {
+                    ElectionId = e.SecondaryMajorityElectionId,
+                    ResultId = e.Id,
+                    CandidateIds = e.CandidateResults.Select(c => c.CandidateId),
+                }),
+            })
+            .FirstOrDefaultAsync();
+
+        // The bundle may not exist
+        if (ids == null)
+        {
+            return false;
+        }
+
+        var selectedCandidates = data.SelectedCandidateIds.Select(Guid.Parse).ToHashSet();
         var ballot = new MajorityElectionResultBallot
         {
             Number = data.BallotNumber,
@@ -45,75 +66,21 @@ public class MajorityElectionResultBallotBuilder
             IndividualVoteCount = data.IndividualVoteCount,
             InvalidVoteCount = data.InvalidVoteCount,
             CandidateVoteCountExclIndividual = selectedCandidates.Count,
+            BallotCandidates = ids.PrimaryCandidateIds
+                .Select(x => new MajorityElectionResultBallotCandidate
+                {
+                    CandidateId = x,
+                    Selected = selectedCandidates.Contains(x),
+                })
+                .ToList(),
         };
 
-        await InitBallotCandidates(ballot, selectedCandidates);
-        await InitBallotSecondaryElections(ballot, data.SecondaryMajorityElectionResults ?? Enumerable.Empty<SecondaryMajorityElectionResultBallotEventData>());
-        await _ballotRepo.Create(ballot);
-    }
-
-    internal async Task UpdateBallot(
-        Guid bundleId,
-        MajorityElectionResultBallotUpdated data)
-    {
-        var ballot = await _ballotRepo
-                         .Query()
-                         .AsTracking()
-                         .AsSplitQuery()
-                         .Include(x => x.BallotCandidates)
-                         .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.BallotCandidates)
-                         .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.SecondaryMajorityElectionResult)
-                         .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
-                     ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
-
-        ballot.EmptyVoteCount = data.EmptyVoteCount;
-        ballot.IndividualVoteCount = data.IndividualVoteCount;
-        ballot.InvalidVoteCount = data.InvalidVoteCount;
-        ballot.CandidateVoteCountExclIndividual = ReplaceSelectedCandidates(ballot.BallotCandidates, data.SelectedCandidateIds);
-        UpdateSecondaryMajorityElectionResults(ballot, data.SecondaryMajorityElectionResults);
-        await _dbContext.SaveChangesAsync();
-    }
-
-    private async Task InitBallotCandidates(
-        MajorityElectionResultBallot ballot,
-        ICollection<Guid> selectedCandidateIds)
-    {
-        var allCandidatesIds = await _bundleRepo.Query()
-            .Where(b => b.Id == ballot.BundleId)
-            .SelectMany(b => b.ElectionResult.MajorityElection.MajorityElectionCandidates)
-            .Select(c => c.Id)
-            .ToListAsync();
-        foreach (var candidateId in allCandidatesIds)
-        {
-            ballot.BallotCandidates.Add(new MajorityElectionResultBallotCandidate
-            {
-                CandidateId = candidateId,
-                Selected = selectedCandidateIds.Contains(candidateId),
-            });
-        }
-    }
-
-    private async Task InitBallotSecondaryElections(
-        MajorityElectionResultBallot ballot,
-        IEnumerable<SecondaryMajorityElectionResultBallotEventData> secondaryElectionResults)
-    {
-        var secondaryResultsById = secondaryElectionResults.ToDictionary(x => Guid.Parse(x.SecondaryMajorityElectionId));
-        var resultAndCandidates = await _bundleRepo.Query()
-            .Where(b => b.Id == ballot.BundleId)
-            .SelectMany(b => b.ElectionResult.SecondaryMajorityElectionResults)
-            .Select(e => new
-            {
-                ElectionId = e.SecondaryMajorityElectionId,
-                ResultId = e.Id,
-                CandidateIds = e.CandidateResults.Select(c => c.CandidateId),
-            })
-            .ToListAsync();
-
-        foreach (var resultAndCandidate in resultAndCandidates)
+        var secondaryResultsById = data.SecondaryMajorityElectionResults.ToDictionary(x => Guid.Parse(x.SecondaryMajorityElectionId));
+        foreach (var resultAndCandidate in ids.SecondaryIds)
         {
             if (!secondaryResultsById.TryGetValue(resultAndCandidate.ElectionId, out var result))
             {
-                result = new();
+                result = new SecondaryMajorityElectionResultBallotEventData();
             }
 
             var selectedCandidateIds = result.SelectedCandidateIds.Select(Guid.Parse).ToHashSet();
@@ -133,6 +100,31 @@ public class MajorityElectionResultBallotBuilder
                     .ToList(),
             });
         }
+
+        await _ballotRepo.Create(ballot);
+        return true;
+    }
+
+    internal async Task UpdateBallot(
+        Guid bundleId,
+        MajorityElectionResultBallotUpdated data)
+    {
+        var ballot = await _ballotRepo
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.BallotCandidates)
+            .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.BallotCandidates)
+            .Include(x => x.SecondaryMajorityElectionBallots).ThenInclude(x => x.SecondaryMajorityElectionResult)
+            .FirstOrDefaultAsync(x => x.Number == data.BallotNumber && x.BundleId == bundleId)
+            ?? throw new EntityNotFoundException(new { bundleId, data.BallotNumber });
+
+        ballot.EmptyVoteCount = data.EmptyVoteCount;
+        ballot.IndividualVoteCount = data.IndividualVoteCount;
+        ballot.InvalidVoteCount = data.InvalidVoteCount;
+        ballot.CandidateVoteCountExclIndividual = ReplaceSelectedCandidates(ballot.BallotCandidates, data.SelectedCandidateIds);
+        UpdateSecondaryMajorityElectionResults(ballot, data.SecondaryMajorityElectionResults);
+        await _dbContext.SaveChangesAsync();
     }
 
     private void UpdateSecondaryMajorityElectionResults(

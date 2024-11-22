@@ -12,6 +12,8 @@
       "Type": 5,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
       "Parent": null,
       "Children": [],
@@ -25,6 +27,7 @@
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
           "Inherited": false,
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -47,6 +50,9 @@
       "Parties": [],
       "Details": null,
       "SwissAbroadVotingRight": 0,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd"
     }
   ]

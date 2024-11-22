@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
@@ -213,5 +214,134 @@ public class VoteUpdateTest : VoteProcessorBaseTest
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && !x.Valid && x.Channel == VotingChannel.ByMail,
             3000);
+    }
+
+    [Fact]
+    public async Task TestShouldRemoveNotNeededSubTotals()
+    {
+        var subTotals = new List<CountOfVotersInformationSubTotal>
+        {
+            new()
+            {
+                VoterType = VoterType.Swiss,
+                Sex = SexType.Male,
+                CountOfVoters = 1050,
+            },
+            new()
+            {
+                VoterType = VoterType.Swiss,
+                Sex = SexType.Female,
+                CountOfVoters = 950,
+            },
+            new()
+            {
+                VoterType = VoterType.Foreigner,
+                Sex = SexType.Male,
+                CountOfVoters = 90,
+            },
+            new()
+            {
+                VoterType = VoterType.Foreigner,
+                Sex = SexType.Female,
+                CountOfVoters = 110,
+            },
+            new()
+            {
+                VoterType = VoterType.Minor,
+                Sex = SexType.Male,
+                CountOfVoters = 11,
+            },
+            new()
+            {
+                VoterType = VoterType.Minor,
+                Sex = SexType.Female,
+                CountOfVoters = 9,
+            },
+        };
+
+        await RunOnDb(
+            async db =>
+            {
+                var details = await db.ContestCountingCircleDetails
+                    .AsTracking()
+                    .Include(x => x.CountOfVotersInformationSubTotals)
+                    .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails);
+                details.CountOfVotersInformationSubTotals.Clear();
+
+                foreach (var subTotal in subTotals)
+                {
+                    details.CountOfVotersInformationSubTotals.Add(subTotal);
+                }
+
+                details.TotalCountOfVoters = subTotals.Sum(s => s.CountOfVoters.GetValueOrDefault());
+
+                var contestDetails = await db.ContestDetails
+                    .AsTracking()
+                    .Include(x => x.CountOfVotersInformationSubTotals)
+                    .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang);
+                contestDetails.CountOfVotersInformationSubTotals.Clear();
+
+                foreach (var subTotal in subTotals)
+                {
+                    contestDetails.CountOfVotersInformationSubTotals.Add(new ContestCountOfVotersInformationSubTotal
+                    {
+                        Sex = subTotal.Sex,
+                        CountOfVoters = subTotal.CountOfVoters.GetValueOrDefault(),
+                        VoterType = subTotal.VoterType,
+                    });
+                }
+
+                await db.SaveChangesAsync();
+            });
+
+        var ccDetailsBefore = await RunOnDb(db => db.ContestCountingCircleDetails.Include(x => x.CountOfVotersInformationSubTotals)
+            .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
+
+        var contestDetailsBefore = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        await TestEventPublisher.Publish(
+            new VoteUpdated
+            {
+                Vote = new VoteEventData
+                {
+                    Id = VoteMockedData.IdBundVoteInContestBund,
+                    PoliticalBusinessNumber = "2001",
+                    OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Abstimmung 2") },
+                    ShortDescription = { LanguageUtil.MockAllLanguages("Neue Abstimmung 2") },
+                    DomainOfInfluenceId = DomainOfInfluenceMockedData.IdStGallen,
+                    ContestId = ContestMockedData.IdBundesurnengang,
+                },
+            });
+
+        var detailsAfter = await RunOnDb(
+            db => db.ContestCountingCircleDetails
+                .Include(x => x.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
+
+        var contestDetailsAfter = await RunOnDb(
+            db => db.ContestDetails
+                .Include(x => x.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+
+        EnsureValidAggregatedSubTotals(
+            contestDetailsBefore.CountOfVotersInformationSubTotals,
+            contestDetailsAfter.CountOfVotersInformationSubTotals,
+            x => x.Sex == SexType.Male && x.VoterType == VoterType.Swiss,
+            0);
+
+        EnsureValidAggregatedSubTotals(
+            contestDetailsBefore.CountOfVotersInformationSubTotals,
+            contestDetailsAfter.CountOfVotersInformationSubTotals,
+            x => x.Sex == SexType.Female && x.VoterType == VoterType.Foreigner,
+            -110);
+
+        EnsureValidAggregatedSubTotals(
+            contestDetailsBefore.CountOfVotersInformationSubTotals,
+            contestDetailsAfter.CountOfVotersInformationSubTotals,
+            x => x.Sex == SexType.Male && x.VoterType == VoterType.Minor,
+            -11);
     }
 }

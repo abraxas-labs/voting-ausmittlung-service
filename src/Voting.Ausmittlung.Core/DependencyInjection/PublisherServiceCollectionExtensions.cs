@@ -28,7 +28,7 @@ using VotingValidators = Voting.Ausmittlung.Core.Services.Validation.Validators;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-internal static class PublisherServiceCollection
+internal static class PublisherServiceCollectionExtensions
 {
     internal static IServiceCollection AddPublisherServices(this IServiceCollection services, AppConfig config)
     {
@@ -146,7 +146,6 @@ internal static class PublisherServiceCollection
             .AddScoped<VoteResultValidationSummaryBuilder>()
             .AddScoped<ProportionalElectionResultValidationSummaryBuilder>()
             .AddScoped<MajorityElectionResultValidationSummaryBuilder>()
-            .AddScoped<ContestCountingCircleDetailsValidationSummaryBuilder>()
             .AddScoped<CountingCircleResultsValidationSummariesBuilder>()
             .AddValidators();
     }

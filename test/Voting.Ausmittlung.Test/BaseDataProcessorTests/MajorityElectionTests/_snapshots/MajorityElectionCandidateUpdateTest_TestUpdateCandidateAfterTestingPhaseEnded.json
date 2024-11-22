@@ -21,6 +21,7 @@
   "Occupation": "new occupation de",
   "OccupationTitle": "new occupation title de",
   "Description": "number1 new pol last name new pol first name",
+  "CreatedDuringActiveContest": false,
   "Number": "number1",
   "FirstName": "new first name",
   "LastName": "new last name",

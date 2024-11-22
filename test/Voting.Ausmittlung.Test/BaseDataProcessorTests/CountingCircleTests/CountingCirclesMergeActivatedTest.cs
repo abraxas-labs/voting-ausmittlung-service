@@ -193,7 +193,7 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
 
         // Create the unassigned counting circle
         var unassignedCountingCircleId = "4b7a051a-0dae-41fd-a695-34a686db177f";
-        await TestEventPublisher.Publish(new CountingCircleCreated
+        await TestEventPublisher.Publish(GetNextEventNumber(), new CountingCircleCreated
         {
             CountingCircle = new CountingCircleEventData
             {
@@ -225,6 +225,7 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
         // Merge counting circles with the unassigned counting circle as a template
         var mergedCountingCircleId = Guid.Parse("ef7393ac-cb21-4114-9b77-1ee421069a70");
         await TestEventPublisher.Publish(
+            GetNextEventNumber(),
             new CountingCirclesMergerActivated
             {
                 Merger = new CountingCirclesMergerEventData
@@ -265,7 +266,7 @@ public class CountingCirclesMergeActivatedTest : CountingCircleProcessorBaseTest
             });
 
         // This should not throw, as it did previously
-        await TestEventPublisher.Publish(new DomainOfInfluenceCountingCircleEntriesUpdated
+        await TestEventPublisher.Publish(GetNextEventNumber(), new DomainOfInfluenceCountingCircleEntriesUpdated
         {
             DomainOfInfluenceCountingCircleEntries = new DomainOfInfluenceCountingCircleEntriesEventData
             {

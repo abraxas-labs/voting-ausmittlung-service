@@ -31,7 +31,7 @@ public class ProportionalElectionResultBallotBuilder
         _dbContext = dbContext;
     }
 
-    internal async Task CreateBallot(
+    internal async Task<bool> CreateBallot(
         Guid bundleId,
         int ballotNumber,
         int emptyVoteCount,
@@ -46,11 +46,20 @@ public class ProportionalElectionResultBallotBuilder
 
         var listCandidates = await _bundleRepo.Query()
             .Where(x => x.Id == bundleId)
-            .SelectMany(x => x.List!.ProportionalElectionCandidates)
-            .ToListAsync();
+            .Select(x => new
+            {
+                Candidates = x.List!.ProportionalElectionCandidates,
+            })
+            .FirstOrDefaultAsync();
 
-        ReplaceCandidates(ballot, listCandidates, candidates);
+        if (listCandidates == null)
+        {
+            return false;
+        }
+
+        ReplaceCandidates(ballot, listCandidates.Candidates, candidates);
         await _ballotRepo.Create(ballot);
+        return true;
     }
 
     internal async Task UpdateBallot(

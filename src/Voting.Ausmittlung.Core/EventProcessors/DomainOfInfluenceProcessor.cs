@@ -42,6 +42,8 @@ public class DomainOfInfluenceProcessor :
     private readonly DomainOfInfluenceCantonDefaultsBuilder _domainOfInfluenceCantonDefaultsBuilder;
     private readonly CountingCircleResultsInitializer _ccResultsInitializer;
     private readonly DataContext _db;
+    private readonly DomainOfInfluenceCountingCircleRepo _doiCcRepo;
+    private readonly DomainOfInfluenceRepo _doiRepo;
 
     public DomainOfInfluenceProcessor(
         DomainOfInfluenceRepo repo,
@@ -54,7 +56,9 @@ public class DomainOfInfluenceProcessor :
         DomainOfInfluenceCantonDefaultsBuilder domainOfInfluenceCantonDefaultsBuilder,
         IMapper mapper,
         CountingCircleResultsInitializer ccResultsInitializer,
-        DataContext db)
+        DataContext db,
+        DomainOfInfluenceCountingCircleRepo doiCcRepo,
+        DomainOfInfluenceRepo doiRepo)
     {
         _repo = repo;
         _permissionBuilder = permissionBuilder;
@@ -67,6 +71,8 @@ public class DomainOfInfluenceProcessor :
         _domainOfInfluenceCantonDefaultsBuilder = domainOfInfluenceCantonDefaultsBuilder;
         _ccResultsInitializer = ccResultsInitializer;
         _db = db;
+        _doiCcRepo = doiCcRepo;
+        _doiRepo = doiRepo;
     }
 
     public async Task Process(DomainOfInfluenceCreated eventData)
@@ -92,6 +98,11 @@ public class DomainOfInfluenceProcessor :
             if (parentId != null)
             {
                 snapshotDomainOfInfluence.ParentId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, parentId.Value);
+            }
+
+            if (snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId != null)
+            {
+                snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId.Value);
             }
 
             await _repo.Create(snapshotDomainOfInfluence);
@@ -132,8 +143,9 @@ public class DomainOfInfluenceProcessor :
 
         foreach (var snapshot in snapshots)
         {
+            var contestId = snapshot.SnapshotContestId!.Value;
             var snapshotDomainOfInfluence = _mapper.Map<DomainOfInfluence>(eventData.DomainOfInfluence);
-            snapshotDomainOfInfluence.SnapshotContestId = snapshot.SnapshotContestId!.Value;
+            snapshotDomainOfInfluence.SnapshotContestId = contestId;
             snapshotDomainOfInfluence.Id = snapshot.Id;
             snapshotDomainOfInfluence.ParentId = snapshot.ParentId;
             snapshotDomainOfInfluence.CountingCircles = snapshot.CountingCircles;
@@ -143,6 +155,11 @@ public class DomainOfInfluenceProcessor :
             if (!isRootDomainOfInfluence)
             {
                 snapshotDomainOfInfluence.Canton = existingDomainOfInfluence.Canton;
+            }
+
+            if (snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId != null)
+            {
+                snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, snapshotDomainOfInfluence.SuperiorAuthorityDomainOfInfluenceId.Value);
             }
 
             await _repo.Update(snapshotDomainOfInfluence);
@@ -341,20 +358,12 @@ public class DomainOfInfluenceProcessor :
 
     private async Task RemoveAssignedAndInheritedCountingCircles(Guid domainOfInfluenceId)
     {
-        var assignedAndInheritedCountingCircleIds = await _repo.Query()
-            .Where(x => x.Id == domainOfInfluenceId)
-            .SelectMany(x => x.CountingCircles)
-            .Select(x => x.CountingCircleId)
-            .ToListAsync();
+        var hierarchicalLowerOrSelfDoiIds = await _doiRepo.GetHierarchicalLowerOrSelfDomainOfInfluenceIds(domainOfInfluenceId);
+        await _doiCcRepo.Query()
+            .Where(doiCc => hierarchicalLowerOrSelfDoiIds.Contains(doiCc.SourceDomainOfInfluenceId))
+            .ExecuteDeleteAsync();
 
         var hierarchicalGreaterOrSelfDoiIds = await _doiCcInheritanceBuilder.GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(domainOfInfluenceId);
-
-        await _doiCcInheritanceBuilder.BuildInheritanceForCountingCircles(
-            domainOfInfluenceId,
-            hierarchicalGreaterOrSelfDoiIds,
-            new(),
-            assignedAndInheritedCountingCircleIds);
-
         await UpdateDomainOfInfluenceCountingCircleDependentEntities(hierarchicalGreaterOrSelfDoiIds);
     }
 

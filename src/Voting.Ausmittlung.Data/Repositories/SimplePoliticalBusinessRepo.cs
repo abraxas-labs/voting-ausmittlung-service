@@ -91,12 +91,13 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         // or the responsible authority of a domain of influence which has an assigned participating counting circle.
         return Set.FromSqlRaw(
             $@"WITH permission_query AS (
-                SELECT unnest({permissionCcIdsColumn}) as ccids, {permissionBasisDoiIdColumn} as doiid FROM {_permissionRepo.DelimetedTableName}
+                SELECT ccr.{ccResultPbIdColumn}
+                FROM {_permissionRepo.DelimetedTableName} dp
+                JOIN {_simpleCcResultRepo.DelimetedTableName} ccr ON ccr.{ccResultCcIdColumn} = ANY(dp.{permissionCcIdsColumn})
                 WHERE {permissionTenantIdColumn} = {{0}}
             )
             SELECT pb.* FROM {DelimitedSchemaAndTableName} AS pb WHERE EXISTS (
-                SELECT 1 FROM {_simpleCcResultRepo.DelimetedTableName} AS ccr WHERE ccr.{ccResultPbIdColumn} = pb.{pbIdColumn}
-                AND ccr.{ccResultCcIdColumn} IN (SELECT ccids FROM permission_query)
+                SELECT 1 FROM permission_query WHERE permission_query.{ccResultPbIdColumn} = pb.{pbIdColumn}
             )",
             tenantId);
     }

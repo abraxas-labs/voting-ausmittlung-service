@@ -81,6 +81,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -125,6 +126,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -169,6 +171,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -213,6 +216,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = true,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.VariantQuestionsOnMultipleBallots,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -221,6 +225,9 @@ public static class VoteMockedData
                         Position = 1,
                         BallotType = BallotType.VariantsBallot,
                         HasTieBreakQuestions = true,
+                        Translations = TranslationUtil.CreateTranslations<BallotTranslation>(
+                            (t, o) => t.OfficialDescription = o,
+                            "Frage 1"),
                         BallotQuestions = new List<BallotQuestion>
                         {
                             new BallotQuestion
@@ -290,6 +297,9 @@ public static class VoteMockedData
                         Id = Guid.Parse(BallotId2BundVote2InContestBund),
                         Position = 2,
                         BallotType = BallotType.StandardBallot,
+                        Translations = TranslationUtil.CreateTranslations<BallotTranslation>(
+                            (t, o) => t.OfficialDescription = o,
+                            "Frage 2"),
                         BallotQuestions = new List<BallotQuestion>
                         {
                             new BallotQuestion
@@ -327,6 +337,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -371,6 +382,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -415,6 +427,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = true,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -459,6 +472,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -503,6 +517,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -593,6 +608,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot
@@ -637,6 +653,7 @@ public static class VoteMockedData
             EnforceResultEntryForCountingCircles = false,
             ReviewProcedure = VoteReviewProcedure.Electronically,
             EnforceReviewProcedureForCountingCircles = false,
+            Type = VoteType.QuestionsOnSingleBallot,
             Ballots = new List<Ballot>
             {
                     new Ballot

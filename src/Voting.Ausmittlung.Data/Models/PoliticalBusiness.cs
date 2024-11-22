@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Voting.Ausmittlung.Data.Extensions;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -14,9 +15,6 @@ public abstract class PoliticalBusiness : BaseEntity
     public string PoliticalBusinessNumber { get; set; } = string.Empty;
 
     public bool Active { get; set; }
-
-    public virtual SwissAbroadVotingRight SwissAbroadVotingRight =>
-        DomainOfInfluence?.SwissAbroadVotingRight ?? SwissAbroadVotingRight.Unspecified;
 
     public virtual Guid DomainOfInfluenceId { get; set; }
 
@@ -29,6 +27,8 @@ public abstract class PoliticalBusiness : BaseEntity
     public virtual PoliticalBusinessType BusinessType { get; }
 
     public virtual PoliticalBusinessSubType BusinessSubType { get; }
+
+    public virtual List<VoterType> EnabledVoterTypes => VoterTypesBuilder.BuildEnabledVoterTypes(DomainOfInfluence);
 
     [NotMapped]
     public virtual IEnumerable<CountingCircleResult> CountingCircleResults

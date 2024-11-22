@@ -45,6 +45,6 @@ public class MajorityElectionResultRepo : PoliticalBusinessResultRepo<MajorityEl
 
     protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
     {
-        return await Context.Set<MajorityElection>().Where(x => x.Id == id).SingleAsync();
+        return await Context.Set<MajorityElection>().Include(x => x.DomainOfInfluence).Where(x => x.Id == id).SingleAsync();
     }
 }

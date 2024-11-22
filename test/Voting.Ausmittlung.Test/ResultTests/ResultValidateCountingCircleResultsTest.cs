@@ -1,4 +1,4 @@
-// (c) Copyright by Abraxas Informatik AG
+﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
 using System;
@@ -20,12 +20,12 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ResultTests;
 
-public class ResultValidateCountigCircleResultsTest : BaseTest<ResultService.ResultServiceClient>
+public class ResultValidateCountingCircleResultsTest : BaseTest<ResultService.ResultServiceClient>
 {
     private static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting);
     private static readonly Guid CountingCircleId = CountingCircleMockedData.GuidUzwil;
 
-    public ResultValidateCountigCircleResultsTest(TestApplicationFactory factory)
+    public ResultValidateCountingCircleResultsTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
@@ -95,6 +95,7 @@ public class ResultValidateCountigCircleResultsTest : BaseTest<ResultService.Res
 
     protected override IEnumerable<string> AuthorizedRoles()
     {
+        yield return RolesMockedData.ErfassungElectionSupporter;
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 

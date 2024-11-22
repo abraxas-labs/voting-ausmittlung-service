@@ -13,7 +13,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
-using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -87,19 +86,10 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
             .Include(x => x.ResponsibleAuthority)
             .Include(x => x.ContactPersonDuringEvent)
             .Include(x => x.ContactPersonAfterEvent)
-            .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
-            .ThenInclude(x => x.VotingCards)
-            .Include(x => x.ContestDetails)
-            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
             ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
-        var ccDetails = countingCircle.ContestDetails.FirstOrDefault();
-        ccDetails?.OrderVotingCardsAndSubTotals();
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
-        pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
-
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,

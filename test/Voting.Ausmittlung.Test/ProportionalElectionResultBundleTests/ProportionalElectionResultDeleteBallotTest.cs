@@ -156,6 +156,7 @@ public class ProportionalElectionResultDeleteBallotTest : ProportionalElectionRe
             new ProportionalElectionResultBallotDeleted
             {
                 BundleId = ProportionalElectionResultBundleMockedData.IdGossauBundle1,
+                ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
                 BallotNumber = 1,
                 EventInfo = GetMockedEventInfo(),
             });

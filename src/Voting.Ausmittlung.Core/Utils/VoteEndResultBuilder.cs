@@ -63,18 +63,19 @@ public class VoteEndResultBuilder
         var voteEndResult = await _endResultRepo.GetByVoteIdAsTracked(voteResult.VoteId)
             ?? throw new EntityNotFoundException(nameof(VoteEndResult), voteResult.VoteId);
 
-        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
+        var simplePb = await _simplePoliticalBusinessRepo.Query()
                 .AsSplitQuery()
                 .AsTracking()
+                .Include(x => x.DomainOfInfluence)
                 .Include(x => x.Contest.CantonDefaults)
                 .FirstOrDefaultAsync(x => x.Id == voteResult.VoteId)
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), voteResult.VoteId);
 
         voteEndResult.CountOfDoneCountingCircles += deltaFactor;
 
-        var implicitFinalized = simpleEndResult.Contest.CantonDefaults.EndResultFinalizeDisabled && voteEndResult.AllCountingCirclesDone;
+        var implicitFinalized = simplePb.Contest.CantonDefaults.EndResultFinalizeDisabled && voteEndResult.AllCountingCirclesDone;
         voteEndResult.Finalized = implicitFinalized;
-        simpleEndResult.EndResultFinalized = implicitFinalized;
+        simplePb.EndResultFinalized = implicitFinalized;
 
         EndResultContestDetailsUtils.AdjustEndResultContestDetails<
             VoteEndResult,
@@ -82,6 +83,7 @@ public class VoteEndResultBuilder
             VoteEndResultVotingCardDetail>(
                 voteEndResult,
                 countingCircleDetails,
+                simplePb.DomainOfInfluence,
                 deltaFactor);
 
         voteEndResult.BallotEndResults.MatchAndExec(

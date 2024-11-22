@@ -58,9 +58,6 @@ public class ProportionalElectionModelBuilder :
             .HasForeignKey(lu => lu.ProportionalElectionId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
-
-        builder
-            .Ignore(m => m.SwissAbroadVotingRight);
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionTranslation> builder)

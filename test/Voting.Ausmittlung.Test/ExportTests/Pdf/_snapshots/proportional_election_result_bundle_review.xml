@@ -30,33 +30,6 @@
       <MobilePhone>071 123 12 33</MobilePhone>
       <Email>uzwil-test2@abraxas.ch</Email>
     </ContactPersonAfterEvent>
-    <ContestCountingCircleDetails>
-      <TotalCountOfVoters>3210</TotalCountOfVoters>
-      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
-      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
-      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
-      <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
-      <CountOfVotersDetail>
-        <Sex>Male</Sex>
-        <CountOfVoters>1600</CountOfVoters>
-        <VoterType>Swiss</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Male</Sex>
-        <CountOfVoters>100</CountOfVoters>
-        <VoterType>SwissAbroad</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Female</Sex>
-        <CountOfVoters>1400</CountOfVoters>
-        <VoterType>Swiss</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Female</Sex>
-        <CountOfVoters>110</CountOfVoters>
-        <VoterType>SwissAbroad</VoterType>
-      </CountOfVotersDetail>
-    </ContestCountingCircleDetails>
   </CountingCircle>
   <PoliticalBusiness>
     <PoliticalBusinessNumber>412</PoliticalBusinessNumber>

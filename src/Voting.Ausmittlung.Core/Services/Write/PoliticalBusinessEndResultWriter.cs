@@ -48,11 +48,14 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
 
     protected ContestService ContestService { get; }
 
-    public async Task Finalize(Guid politicalBusinessId, string secondFactorTransactionExternalId, CancellationToken ct)
+    public async Task Finalize(Guid politicalBusinessId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionId,
+            () => PrepareFinalizeActionId(politicalBusinessId, testingPhaseEnded),
+            ct);
 
         var endResult = await GetEndResult(politicalBusinessId, _permissionService.TenantId)
             ?? throw new EntityNotFoundException(politicalBusinessId);

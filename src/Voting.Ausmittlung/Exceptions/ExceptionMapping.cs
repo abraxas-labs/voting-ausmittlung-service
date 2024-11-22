@@ -60,6 +60,7 @@ internal readonly struct ExceptionMapping
             AutoMapperMappingException autoMapperException when string.Equals(autoMapperException.Source, EnumMappingErrorSource) => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
             ValidationException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
             XmlSchemaValidationException => new(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest),
+            RateLimitReachedException => new(StatusCode.ResourceExhausted, StatusCodes.Status429TooManyRequests),
             _ => new ExceptionMapping(StatusCode.Internal, StatusCodes.Status500InternalServerError),
         };
 }

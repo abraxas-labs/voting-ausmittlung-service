@@ -50,7 +50,7 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -71,7 +71,7 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
             {
                 ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             });
 
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -165,7 +165,7 @@ public class ProportionalElectionEndResultRevertFinalizationTest : ProportionalE
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeProportionalElectionEndResultRequest
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)

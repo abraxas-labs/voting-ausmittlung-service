@@ -6,6 +6,7 @@ using System.Linq;
 using Ech0222_1_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Ech;
 
@@ -112,9 +113,11 @@ public class Ech0222Serializer
 
     private Delivery WrapInDelivery(EventRawDataDelivery data, Contest contest)
     {
+        var header = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded);
+        header.Comment = DeliveryHeaderUtils.EnrichComment(header.Comment, contest.TestingPhaseEnded);
         return new Delivery
         {
-            DeliveryHeader = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded),
+            DeliveryHeader = header,
             RawDataDelivery = data,
         };
     }

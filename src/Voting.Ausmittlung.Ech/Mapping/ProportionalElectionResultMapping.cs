@@ -39,6 +39,7 @@ internal static class ProportionalElectionResultMapping
                 ElectionIdentification = election.Id.ToString(),
                 TypeOfElection = TypeOfElectionType.Item1,
                 NumberOfMandates = election.NumberOfMandates.ToString(),
+                ElectionDescription = null,
             },
             ProportionalElection = new ElectionResultTypeProportionalElection
             {

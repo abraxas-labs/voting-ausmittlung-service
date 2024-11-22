@@ -17,6 +17,10 @@ public class PdfBallot
 
     public BallotType BallotType { get; set; }
 
+    public string ShortDescription { get; set; } = string.Empty;
+
+    public string OfficialDescription { get; set; } = string.Empty;
+
     [XmlElement("BallotQuestion")]
     public List<PdfBallotQuestion>? BallotQuestions { get; set; }
 

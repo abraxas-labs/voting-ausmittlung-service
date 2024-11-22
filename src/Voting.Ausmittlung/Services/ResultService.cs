@@ -115,7 +115,7 @@ public class ResultService : ServiceBase
             Strings.CountingCircleResults_SubmissionFinished);
         return secondFactorTransaction == null
             ? new ProtoModels.SecondFactorTransaction()
-            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
+            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -125,7 +125,7 @@ public class ResultService : ServiceBase
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
-            request.SecondFactorTransactionId,
+            GuidParser.ParseNullable(request.SecondFactorTransactionId),
             context.CancellationToken);
         return ProtobufEmpty.Instance;
     }

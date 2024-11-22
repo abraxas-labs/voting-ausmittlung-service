@@ -17,6 +17,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.EventSignature;
 using Voting.Ausmittlung.Test.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 
 namespace Voting.Ausmittlung.Test.MockedData;
@@ -381,21 +382,21 @@ public static class ZhMockedData
                             Id = Guid.Parse("3b672264-80b7-4ced-ade2-cdd3c86be455"),
                             CountingCircleId = CountingCircleGuidDietikon,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.A,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidDietikon,
                         },
                         new()
                         {
                             Id = Guid.Parse("722b5f31-3940-4f16-99fe-e292bb861de7"),
                             CountingCircleId = CountingCircleGuidMeilen,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.B,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidMeilen,
                         },
                         new()
                         {
                             Id = Guid.Parse("bd081d98-b909-407b-8850-67c6c1e768df"),
                             CountingCircleId = CountingCircleGuidWinterthur,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.C,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidWinterthur,
                         },
                     };
                 }),
@@ -409,21 +410,21 @@ public static class ZhMockedData
                             Id = Guid.Parse("b7f0313f-ab94-41ea-b5f2-a18258115693"),
                             CountingCircleId = CountingCircleGuidDietikon,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.A,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidDietikon,
                         },
                         new()
                         {
                             Id = Guid.Parse("6b5551e9-b144-439d-b74e-bdc892109232"),
                             CountingCircleId = CountingCircleGuidMeilen,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.B,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidMeilen,
                         },
                         new()
                         {
                             Id = Guid.Parse("e5f72f04-0315-4df4-bb21-9d1198f006e1"),
                             CountingCircleId = CountingCircleGuidWinterthur,
                             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.C,
-                            Inherited = true,
+                            SourceDomainOfInfluenceId = DomainOfInfluenceGuidWinterthur,
                         },
                     };
                 }),
@@ -444,7 +445,6 @@ public static class ZhMockedData
             State = ContestState.TestingPhase,
             CantonDefaults = new ContestCantonDefaults
             {
-                NewZhFeaturesEnabled = true,
                 EndResultFinalizeDisabled = true,
             },
         };
@@ -637,6 +637,7 @@ public static class ZhMockedData
                 {
                     Id = Guid.NewGuid(),
                     CountingCircleId = countingCircleId.Value!,
+                    SourceDomainOfInfluenceId = id,
                 },
             };
         }
@@ -733,6 +734,8 @@ public static class ZhMockedData
                 ProportionalElectionCandidates = Enumerable.Range(1, numberOfMandates)
                     .Select(j => new ProportionalElectionCandidate
                     {
+                        // create deterministic id for snapshot testing
+                        Id = UuidV5.Create(Guid.Parse("124ff00a-9f96-4e78-8ec5-8d84e5c1ffd8"), string.Join(":", list.Item1) + ":" + j),
                         FirstName = $"FN {i + 1}.{j}",
                         LastName = $"LN {i + 1}.{j}",
                     }).ToList(),

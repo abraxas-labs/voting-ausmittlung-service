@@ -78,19 +78,10 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
             .Include(x => x.ResponsibleAuthority)
             .Include(x => x.ContactPersonDuringEvent)
             .Include(x => x.ContactPersonAfterEvent)
-            .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
-            .ThenInclude(x => x.VotingCards)
-            .Include(x => x.ContestDetails)
-            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(x => x.SnapshotContestId == ctx.ContestId && x.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
             ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
-        var ccDetails = countingCircle.ContestDetails.FirstOrDefault();
-        ccDetails?.OrderVotingCardsAndSubTotals();
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
-        pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfCountingCircle.ContestCountingCircleDetails, ctx.DomainOfInfluenceType);
-
         var pdfBundle = _mapper.Map<PdfVoteResultBundle>(bundle);
         foreach (var pdfBallotResult in pdfBundle.Ballots)
         {

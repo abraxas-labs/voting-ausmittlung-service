@@ -8,6 +8,7 @@
       <product>Voting.Ausmittlung</product>
       <productVersion>0.0.0.1</productVersion>
     </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
     <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
     <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
     <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
@@ -50,6 +51,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -73,8 +75,13 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -100,6 +107,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -125,6 +133,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -150,6 +159,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -175,6 +185,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -200,6 +211,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -249,8 +261,13 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -283,6 +300,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -308,6 +326,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -333,6 +352,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -358,6 +378,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -409,6 +430,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
@@ -436,16 +458,16 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 1 Gossau de</voteTitle>
-          <voteTitleShort>Frage 1 Gossau de</voteTitleShort>
+          <voteTitle>Abstimmung Gossau de - Frage 1 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 1 Gossau de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
@@ -461,6 +483,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
@@ -488,16 +515,16 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 2 Gossau de</voteTitle>
-          <voteTitleShort>Frage 2 Gossau de</voteTitleShort>
+          <voteTitle>Abstimmung Gossau de - Frage 2 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 2 Gossau de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
@@ -513,6 +540,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>
@@ -540,10 +572,10 @@
           <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </domainOfInfluence>
         <superiorAuthority>
-          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
           <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
-          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thurgau</domainOfInfluenceName>
-          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Thur…</domainOfInfluenceShortname>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
         </superiorAuthority>
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
@@ -564,6 +596,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
           <receivedVotes>20000</receivedVotes>

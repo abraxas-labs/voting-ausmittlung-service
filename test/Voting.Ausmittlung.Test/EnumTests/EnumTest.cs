@@ -40,7 +40,6 @@ public class EnumTest : BaseTest<TestApplicationFactory, TestStartup>
     [InlineData(typeof(PoliticalBusinessType), typeof(ProtoModels.PoliticalBusinessType))]
     [InlineData(typeof(PoliticalBusinessUnionType), typeof(ProtoModels.PoliticalBusinessUnionType))]
     [InlineData(typeof(ProportionalElectionCandidateEndResultState), typeof(SharedProto.ProportionalElectionCandidateEndResultState))]
-    [InlineData(typeof(SwissAbroadVotingRight), typeof(ProtoModels.SwissAbroadVotingRight))]
     [InlineData(typeof(BallotType), typeof(ProtoModels.BallotType))]
     [InlineData(typeof(VoteResultAlgorithm), typeof(ProtoModels.VoteResultAlgorithm))]
     [InlineData(typeof(BallotNumberGeneration), typeof(SharedProto.BallotNumberGeneration))]

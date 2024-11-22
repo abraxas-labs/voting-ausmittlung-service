@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Database.Repositories;
@@ -23,13 +24,19 @@ public abstract class PoliticalBusinessResultRepo<T> : DbRepository<DataContext,
     public async Task Rebuild(Guid politicalBusinessId, Guid domainOfInfluenceId, bool testingPhaseEnded, Guid contestId)
     {
         var countingCircles = await Context.Set<DomainOfInfluenceCountingCircle>()
+            .Include(x => x.CountingCircle)
             .Where(cc => cc.DomainOfInfluenceId == domainOfInfluenceId)
-            .Select(cc => new { cc.CountingCircleId, cc.CountingCircle.BasisCountingCircleId })
             .ToListAsync();
-        var basisCountingCircleIdByContestCountingCircleId = countingCircles.ToDictionary(
+
+        var countingCirclesWithBasisCcId = countingCircles
+            .DistinctBy(x => x.CountingCircleId)
+            .Select(cc => new { cc.CountingCircleId, cc.CountingCircle.BasisCountingCircleId })
+            .ToList();
+
+        var basisCountingCircleIdByContestCountingCircleId = countingCirclesWithBasisCcId.ToDictionary(
             x => x.CountingCircleId,
             x => x.BasisCountingCircleId);
-        var contestCountingCircleIds = countingCircles.ConvertAll(x => x.CountingCircleId);
+        var contestCountingCircleIds = countingCirclesWithBasisCcId.ConvertAll(x => x.CountingCircleId);
 
         // only navigation properties can be used by ef.
         var filter = FilterByPoliticalBusinessId(politicalBusinessId);
@@ -61,11 +68,7 @@ public abstract class PoliticalBusinessResultRepo<T> : DbRepository<DataContext,
                 var totalCountOfVoters = 0;
                 if (ccDetailsByCountingCircleId.TryGetValue(cid, out var details))
                 {
-                    totalCountOfVoters = politicalBusiness.SwissAbroadVotingRight == SwissAbroadVotingRight.OnEveryCountingCircle
-                        ? details.TotalCountOfVoters
-                        : details.CountOfVotersInformationSubTotals
-                            .Where(x => x.VoterType == VoterType.Swiss)
-                            .Sum(x => x.CountOfVoters.GetValueOrDefault());
+                    totalCountOfVoters = details.GetTotalCountOfVotersForDomainOfInfluence(politicalBusiness.DomainOfInfluence);
                 }
 
                 return new T

@@ -108,7 +108,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
-            StatusCode.NotFound);
+            StatusCode.InvalidArgument);
     }
 
     [Fact]
@@ -131,7 +131,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
                 new VoteResultCorrectionFinishedRequest
                 {
                     VoteResultId = IdNotFound,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.NotFound);
     }
@@ -145,7 +145,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
                 new VoteResultCorrectionFinishedRequest
                 {
                     VoteResultId = IdBadFormat,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.InvalidArgument);
     }
@@ -213,7 +213,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
             item.ActionId = "updated-action-id";
             await db.SaveChangesAsync();
@@ -235,9 +235,9 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
-            item.ExternalIdentifier = invalidExternalId;
+            item.ExternalTokenJwtIds = [invalidExternalId];
             await db.SaveChangesAsync();
         });
 
@@ -245,7 +245,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
             async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
-                SecondFactorTransactionId = invalidExternalId,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             }),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
@@ -270,7 +270,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         {
             VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
             Comment = "my-comment",
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
         customizer?.Invoke(req);
         return req;

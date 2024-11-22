@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
@@ -18,4 +19,6 @@ public class PdfVote : PdfPoliticalBusiness
     public List<PdfVoteBallotDomainOfInfluenceResult>? DomainOfInfluenceBallotResults { get; set; }
 
     public string InternalDescription { get; set; } = string.Empty;
+
+    public VoteResultAlgorithm ResultAlgorithm { get; set; }
 }

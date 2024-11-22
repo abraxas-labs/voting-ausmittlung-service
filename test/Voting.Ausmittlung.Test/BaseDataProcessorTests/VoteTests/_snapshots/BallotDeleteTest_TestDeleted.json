@@ -8,7 +8,7 @@
       "BusinessSubType": 0,
       "ResultAlgorithm": 1,
       "EndResult": null,
-      "Type": 0,
+      "Type": 1,
       "Translations": [
         {
           "VoteId": "8fbba43a-cd73-407a-b490-df13c41cc5ee",
@@ -27,11 +27,11 @@
       "InternalDescription": "Abstimmung Gossau auf Urnengang Gossau mit E-Voting",
       "PoliticalBusinessNumber": "324",
       "Active": true,
-      "SwissAbroadVotingRight": 0,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
       "DomainOfInfluence": null,
       "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
       "Contest": null,
+      "EnabledVoterTypes": [],
       "CountingCircleResults": [],
       "PoliticalBusinessTranslations": [
         {

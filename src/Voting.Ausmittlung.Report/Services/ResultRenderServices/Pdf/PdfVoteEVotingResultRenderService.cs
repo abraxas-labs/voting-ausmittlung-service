@@ -70,6 +70,9 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .ThenInclude(x => x.Question.Translations)
             .Include(x => x.Results)
             .ThenInclude(x => x.Results)
+            .ThenInclude(x => x.Ballot.Translations)
+            .Include(x => x.Results)
+            .ThenInclude(x => x.Results)
             .ThenInclude(x => x.Ballot.BallotQuestions.OrderBy(q => q.Number))
             .ThenInclude(x => x.Translations)
             .Include(x => x.Results)
@@ -79,6 +82,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .Include(x => x.Results)
             .ThenInclude(x => x.CountingCircle)
             .ThenInclude(x => x.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.Contest.CantonDefaults)
@@ -139,7 +143,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             var ccDetail = ccResult.CountingCircle.ContestDetails.FirstOrDefault();
             if (ccDetail != null)
             {
-                _voteDoiResultBuilder.ApplyContestCountingCircleDetail(aggregatedResult, ccDetail, pbType);
+                _voteDoiResultBuilder.ApplyContestCountingCircleDetail(aggregatedResult, ccDetail, vote.DomainOfInfluence);
             }
 
             _voteDoiResultBuilder.ApplyVoteCountingCircleResult(aggregatedResult, ccResult);

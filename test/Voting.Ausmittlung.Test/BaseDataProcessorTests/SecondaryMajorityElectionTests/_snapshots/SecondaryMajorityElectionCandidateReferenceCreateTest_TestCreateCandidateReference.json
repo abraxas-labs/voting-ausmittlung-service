@@ -22,6 +22,7 @@
   "Occupation": "occupation2 de",
   "OccupationTitle": "occupation title2 de",
   "Description": "number5 pol last name pol first name",
+  "CreatedDuringActiveContest": false,
   "Number": "number5",
   "FirstName": "firstName2",
   "LastName": "lastName2",

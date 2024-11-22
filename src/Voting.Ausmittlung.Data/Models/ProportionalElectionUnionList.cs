@@ -32,7 +32,7 @@ public class ProportionalElectionUnionList : BaseEntity
 
         OrderNumber = orderNumber;
         Translations = translations
-            .Select(t => new ProportionalElectionUnionListTranslation { Language = t.Language, ShortDescription = t.ShortDescription })
+            .Select(t => new ProportionalElectionUnionListTranslation { Language = t.Language, ShortDescription = t.ShortDescription, Description = t.Description })
             .ToList();
         ProportionalElectionUnionId = unionId;
         ProportionalElectionUnionListEntries = lists.Select(l => new ProportionalElectionUnionListEntry
@@ -66,4 +66,6 @@ public class ProportionalElectionUnionList : BaseEntity
         .OrderBy(n => n));
 
     public string ShortDescription => Translations.GetTranslated(x => x.ShortDescription);
+
+    public string Description => Translations.GetTranslated(x => x.Description);
 }

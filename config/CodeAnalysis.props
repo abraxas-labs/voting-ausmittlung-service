@@ -1,11 +1,11 @@
 <Project>
 
     <ItemGroup>
-        <PackageReference Include="Roslynator.Analyzers" Version="4.11.0" PrivateAssets="All">
+        <PackageReference Include="Roslynator.Analyzers" Version="4.12.6" PrivateAssets="All">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>

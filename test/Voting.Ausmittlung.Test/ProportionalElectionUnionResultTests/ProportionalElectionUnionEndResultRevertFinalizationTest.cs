@@ -43,7 +43,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -60,7 +60,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
             await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
             {
                 ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             });
 
             await MonitoringElectionAdminClient.RevertEndResultFinalizationAsync(NewValidRequest());
@@ -100,7 +100,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await RunEvents<ProportionalElectionUnionEndResultFinalized>();
@@ -212,7 +212,7 @@ public class ProportionalElectionUnionEndResultRevertFinalizationTest : Proporti
         await MonitoringElectionAdminClient.FinalizeEndResultAsync(new()
         {
             ProportionalElectionUnionId = ZhMockedData.ProportionalElectionUnionIdKtrat,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         });
 
         await new ProportionalElectionUnionResultService.ProportionalElectionUnionResultServiceClient(channel)

@@ -14,4 +14,6 @@ public class MajorityElectionCandidateResult : MajorityElectionCandidateResultBa
     public MajorityElectionCandidate Candidate { get; set; } = null!;
 
     public override int CandidatePosition => Candidate.Position;
+
+    public override string CandidateNumber => Candidate.Number;
 }

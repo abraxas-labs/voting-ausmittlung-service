@@ -715,6 +715,7 @@
         <CountOfVoters>110</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
       </CountOfVotersDetail>
+      <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>
   </CountingCircle>
 </Voting>

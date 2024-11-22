@@ -3,6 +3,7 @@
 
 using System;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using EventStore.Client;
 using Microsoft.EntityFrameworkCore;
@@ -74,29 +75,38 @@ public sealed class EventProcessorScope : IEventProcessorScope, IDisposable
 
     private async Task SetLastProcessedPosition(Position position, StreamPosition streamPosition)
     {
-        var existingEventProcessingState = await _repo.GetByKey(EventProcessingState.StaticId);
-        if (existingEventProcessingState == null)
+        var eventNumber = (ulong)streamPosition;
+        var updatedRows = await _repo.Query()
+            .Where(x => x.Id == EventProcessingState.StaticId && x.EventNumber < eventNumber)
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(x => x.PreparePosition, position.PreparePosition)
+                .SetProperty(x => x.CommitPosition, position.CommitPosition)
+                .SetProperty(x => x.EventNumber, eventNumber));
+
+        if (updatedRows > 0)
+        {
+            // We optimize for the most common use case, where an event processing state already exists
+            // and the event number is smaller than the current one.
+            return;
+        }
+
+        if (!await _repo.Query().AnyAsync())
         {
             await _repo.Create(new EventProcessingState
             {
                 PreparePosition = position.PreparePosition,
                 CommitPosition = position.CommitPosition,
-                EventNumber = streamPosition,
+                EventNumber = eventNumber,
             });
             return;
         }
 
-        if (streamPosition <= existingEventProcessingState.EventNumber)
-        {
-            _logger.LogCritical(
-                "Received event with number {EventNumber} which seems to be out of order in consideration of current snapshot event number {SnapshotEventNumber}",
-                streamPosition,
-                existingEventProcessingState.EventNumber);
-        }
-
-        existingEventProcessingState.PreparePosition = position.PreparePosition;
-        existingEventProcessingState.CommitPosition = position.CommitPosition;
-        existingEventProcessingState.EventNumber = streamPosition;
-        await _repo.Update(existingEventProcessingState);
+        // If we get here, the event number was out of order.
+        var existingEventProcessingState = await _repo.GetByKey(EventProcessingState.StaticId);
+        _logger.LogCritical(
+            "Received event with number {EventNumber} which seems to be out of order in consideration of current snapshot event number {SnapshotEventNumber}",
+            eventNumber,
+            existingEventProcessingState!.EventNumber);
+        throw new InvalidOperationException($"Received event {eventNumber} out of order");
     }
 }

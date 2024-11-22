@@ -13,7 +13,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,20 +23,17 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
-    private readonly IClock _clock;
 
     public PdfProportionalElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper,
-        IClock clock)
+        IMapper mapper)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
         _ccDetailsRepo = ccDetailsRepo;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -45,13 +41,8 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
         CancellationToken ct = default)
     {
         var data = await BuildQuery()
-                       .FirstOrDefaultAsync(
-                           x =>
-                               x.ProportionalElectionId == ctx.PoliticalBusinessId &&
-                               x.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId,
-                           ct)
-                   ?? throw new ValidationException(
-                       $"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
+            .FirstOrDefaultAsync(x => x.ProportionalElectionId == ctx.PoliticalBusinessId && x.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
+            ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
 
         // this could be inlined with ef core 5
         PrepareAndSortData(data);
@@ -75,7 +66,7 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
         var countingCircle = result.CountingCircle!;
         result.CountingCircle = null;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(countingCircle.ContestCountingCircleDetails, data.ProportionalElection.DomainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(countingCircle.ContestCountingCircleDetails, data.ProportionalElection.DomainOfInfluence);
 
         // we don't need this data in the xml
         countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();
@@ -86,9 +77,9 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
             Contest = _mapper.Map<PdfContest>(data.ProportionalElection.Contest),
             CountingCircle = countingCircle,
             ProportionalElections = new List<PdfProportionalElection>
-                {
-                    proportionalElection,
-                },
+            {
+                proportionalElection,
+            },
         };
 
         PreparePdfData(templateBag);

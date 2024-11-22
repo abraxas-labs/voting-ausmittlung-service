@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -31,6 +32,10 @@ public class Ballot : BaseEntity
     public ICollection<BallotResult> Results { get; set; } = new HashSet<BallotResult>();
 
     public BallotEndResult? EndResult { get; set; }
+
+    public string ShortDescription => Translations.GetTranslated(x => x.ShortDescription, true);
+
+    public string OfficialDescription => Translations.GetTranslated(x => x.OfficialDescription, true);
 
     public void OrderQuestions()
     {

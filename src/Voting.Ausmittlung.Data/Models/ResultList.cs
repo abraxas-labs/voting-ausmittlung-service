@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Voting.Ausmittlung.Data.Utils;
 
 namespace Voting.Ausmittlung.Data.Models;
 
@@ -55,9 +56,8 @@ public class ResultList
             ? CountingCircleResultState.Initial
             : Results.Min(r => r.State);
 
-    public bool SwissAbroadHaveVotingRightsOnAnyBusiness =>
-        Results.Any(r =>
-            r.PoliticalBusiness!.SwissAbroadVotingRight == SwissAbroadVotingRight.OnEveryCountingCircle);
+    public IEnumerable<VoterType> EnabledVoterTypes =>
+        VoterTypesBuilder.BuildEnabledVoterTypes(Results.ConvertAll(r => r.PoliticalBusiness!.DomainOfInfluence));
 
     /// <summary>
     /// Gets the enabled voting card channels.

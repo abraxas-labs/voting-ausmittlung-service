@@ -25,6 +25,14 @@ public class PdfBallotQuestionEndResult
 
     public decimal PercentageNo { get; set; }
 
+    public int CountOfCountingCircleYes { get; set; }
+
+    public int CountOfCountingCircleNo { get; set; }
+
+    public bool HasCountingCircleMajority { get; set; }
+
+    public bool HasCountingCircleUnanimity { get; set; }
+
     public bool Accepted { get; set; }
 
     public PdfBallotQuestionResultSubTotal? EVotingSubTotal { get; set; }

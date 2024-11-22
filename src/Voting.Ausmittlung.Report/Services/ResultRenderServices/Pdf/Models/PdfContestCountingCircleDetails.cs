@@ -3,6 +3,7 @@
 
 using System;
 using System.Xml.Serialization;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
@@ -10,4 +11,6 @@ public class PdfContestCountingCircleDetails : PdfBaseDetails
 {
     [XmlIgnore]
     public Guid CountingCircleId { get; set; }
+
+    public CountingMachine CountingMachine { get; set; }
 }

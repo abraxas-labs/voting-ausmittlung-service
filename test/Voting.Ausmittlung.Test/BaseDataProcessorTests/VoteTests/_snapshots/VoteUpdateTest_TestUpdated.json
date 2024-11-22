@@ -75,6 +75,8 @@
             ],
             "Results": [],
             "EndResult": null,
+            "ShortDescription": "",
+            "OfficialDescription": "",
             "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e"
           }
         ],
@@ -102,11 +104,11 @@
         "InternalDescription": "",
         "PoliticalBusinessNumber": "2000",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -156,6 +158,8 @@
             "TieBreakQuestions": [],
             "Results": [],
             "EndResult": null,
+            "ShortDescription": "",
+            "OfficialDescription": "",
             "Id": "a2aa6f61-752b-446f-94b4-002a95111c7a"
           }
         ],
@@ -183,11 +187,11 @@
         "InternalDescription": "",
         "PoliticalBusinessNumber": "2001",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -227,11 +231,11 @@
     "ResultExportConfigurations": [],
     "PoliticalBusinessNumber": "2000",
     "Active": false,
-    "SwissAbroadVotingRight": 0,
     "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
     "DomainOfInfluence": null,
     "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
     "Contest": null,
+    "EnabledVoterTypes": [],
     "PoliticalBusinessTranslations": [
       {
         "SimplePoliticalBusinessId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",

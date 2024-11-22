@@ -37,8 +37,6 @@ public class CantonSettings : BaseEntity
     /// </summary>
     public bool CountingMachineEnabled { get; set; }
 
-    public bool NewZhFeaturesEnabled { get; set; }
-
     public bool MajorityElectionUseCandidateCheckDigit { get; set; }
 
     public bool ProportionalElectionUseCandidateCheckDigit { get; set; }

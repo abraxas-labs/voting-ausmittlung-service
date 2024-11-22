@@ -96,7 +96,7 @@ public class ExportGenerateProtocolExportTest : ExportBaseRestTest
 
         await AssertProblemDetails(
             () => StGallenReportExporterApiClient.PostAsJsonAsync(BaseUrl, NewValidRequest()),
-            HttpStatusCode.Forbidden,
+            HttpStatusCode.TooManyRequests,
             "Rate limit reached");
     }
 

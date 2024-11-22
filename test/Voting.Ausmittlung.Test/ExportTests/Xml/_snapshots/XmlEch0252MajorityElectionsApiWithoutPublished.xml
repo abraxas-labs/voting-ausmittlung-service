@@ -8,6 +8,7 @@
       <product>Voting.Ausmittlung</product>
       <productVersion>0.0.0.1</productVersion>
     </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
     <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
     <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
     <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
@@ -24,6 +25,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -36,12 +38,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -58,8 +62,13 @@
         <countingCircleResult>
           <countingCircleId>3443</countingCircleId>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -72,12 +81,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -96,6 +107,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -108,12 +120,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -132,6 +146,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -144,12 +159,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -168,6 +185,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -180,12 +198,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -204,6 +224,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -216,12 +237,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -240,6 +263,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -252,12 +276,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>665f752b-6248-4f06-a232-6c7af148e550</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>c966085a-5cba-499b-bcf0-788e13ad0984</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -283,8 +309,13 @@
         <countingCircleResult>
           <countingCircleId>3443</countingCircleId>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -297,6 +328,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -315,6 +347,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -327,6 +360,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -345,6 +379,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -357,6 +392,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -375,6 +411,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -387,6 +424,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -405,6 +443,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <countOfReceivedBallots>0</countOfReceivedBallots>
@@ -417,6 +456,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -430,162 +470,6 @@
             <text>1</text>
           </namedElement>
         </countingCircleResult>
-        <elected>
-          <majorityElection />
-        </elected>
-      </electionResult>
-    </electionGroupResult>
-    <electionGroupResult>
-      <electionGroupIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionGroupIdentification>
-      <electionResult>
-        <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-        <countingCircleResult>
-          <countingCircleId>3443</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircleId>5500</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircleId>5500-3</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircleId>5500-2</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircleId>5500-1</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircleId>1234</countingCircleId>
-          <countOfVotersInformation>
-            <countOfVotersTotal>0</countOfVotersTotal>
-          </countOfVotersInformation>
-          <isFullyCounted>false</isFullyCounted>
-          <voterTurnout>0.00</voterTurnout>
-          <countOfReceivedBallots>0</countOfReceivedBallots>
-          <countOfBlankBallots>0</countOfBlankBallots>
-          <countOfInvalidBallots>0</countOfInvalidBallots>
-          <countOfValidBallots>0</countOfValidBallots>
-          <electionResult>
-            <electionIdentification>a6ab97b9-ce86-4973-876e-a128ff279bf7</electionIdentification>
-            <majorityElection>
-              <countOfInvalidVotesTotal>0</countOfInvalidVotesTotal>
-              <countOfBlankVotesTotal>0</countOfBlankVotesTotal>
-              <countOfIndividualVotesTotal>0</countOfIndividualVotesTotal>
-            </majorityElection>
-          </electionResult>
-          <namedElement>
-            <elementName>countingStatus</elementName>
-            <text>1</text>
-          </namedElement>
-        </countingCircleResult>
-        <elected>
-          <majorityElection />
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -597,6 +481,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>8000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>70.00</voterTurnout>
           <countOfReceivedBallots>6000</countOfReceivedBallots>
@@ -609,6 +494,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>be81a3f3-5a9e-4a69-8f19-4f0598a32955</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -633,6 +519,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>8000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>70.00</voterTurnout>
           <countOfReceivedBallots>6000</countOfReceivedBallots>
@@ -645,6 +532,7 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>6bf76024-ed15-4b7e-b68e-583b7bb5d2d5</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -672,6 +560,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>8000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>70.00</voterTurnout>
           <countOfReceivedBallots>6000</countOfReceivedBallots>
@@ -684,12 +577,14 @@
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>4a44cb35-05a7-41f9-aa1e-034bedd320ec</candidateIdentification>
+                  <candidateReference>number2</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
               <candidateResult>
                 <candidateOrWriteInCandidate>
                   <candidateIdentification>77ce6bf0-b27c-4d9d-926f-ced7863aff2f</candidateIdentification>
+                  <candidateReference>number1</candidateReference>
                 </candidateOrWriteInCandidate>
                 <countOfVotesTotal>0</countOfVotesTotal>
               </candidateResult>
@@ -708,6 +603,6 @@
         </elected>
       </electionResult>
     </electionGroupResult>
-    <numberOfEntries>5</numberOfEntries>
+    <numberOfEntries>4</numberOfEntries>
   </electionResultDelivery>
 </delivery>

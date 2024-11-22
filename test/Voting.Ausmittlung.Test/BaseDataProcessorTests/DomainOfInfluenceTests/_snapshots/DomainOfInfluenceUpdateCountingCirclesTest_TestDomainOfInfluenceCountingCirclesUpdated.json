@@ -54,6 +54,7 @@
         "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524"
       },
       "ComparisonCountOfVotersCategory": 1,
+      "SourceDomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
       "Inherited": true,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
@@ -111,6 +112,7 @@
         "Id": "1e2e062e-288d-4347-9f22-224e69b95bed"
       },
       "ComparisonCountOfVotersCategory": 2,
+      "SourceDomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
       "Inherited": true,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
@@ -168,6 +170,7 @@
         "Id": "44a75721-f192-461c-816f-9f46a00d274a"
       },
       "ComparisonCountOfVotersCategory": 0,
+      "SourceDomainOfInfluenceId": "87718a25-11e2-4ab1-b3a0-112baa11676e",
       "Inherited": true,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
@@ -225,6 +228,7 @@
         "Id": "46adab98-9114-4503-9000-b02842640650"
       },
       "ComparisonCountOfVotersCategory": 0,
+      "SourceDomainOfInfluenceId": "87718a25-11e2-4ab1-b3a0-112baa11676e",
       "Inherited": true,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
@@ -282,6 +286,7 @@
         "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e"
       },
       "ComparisonCountOfVotersCategory": 0,
+      "SourceDomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
       "Inherited": true,
       "Id": "00000000-0000-0000-0000-000000000000"
     },
@@ -339,6 +344,7 @@
         "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a4e"
       },
       "ComparisonCountOfVotersCategory": 0,
+      "SourceDomainOfInfluenceId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Inherited": false,
       "Id": "00000000-0000-0000-0000-000000000000"
     }

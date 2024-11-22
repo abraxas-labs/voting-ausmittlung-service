@@ -65,11 +65,11 @@ public class ProportionalElectionUnionEndResultWriter
         return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
     }
 
-    public async Task Finalize(Guid unionId, string secondFactorTransactionExternalId, CancellationToken ct)
+    public async Task Finalize(Guid unionId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var (contestId, testingPhaseEnded) = await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
 
-        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionExternalId, () => PrepareFinalizeActionId(unionId, testingPhaseEnded), ct);
+        await _secondFactorTransactionWriter.EnsureVerified(secondFactorTransactionId, () => PrepareFinalizeActionId(unionId, testingPhaseEnded), ct);
 
         var endResult = await GetEndResult(unionId, _permissionService.TenantId)
                         ?? throw new EntityNotFoundException(unionId);

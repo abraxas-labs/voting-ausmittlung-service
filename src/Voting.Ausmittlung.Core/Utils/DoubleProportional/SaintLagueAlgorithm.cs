@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
@@ -13,14 +14,13 @@ public class SaintLagueAlgorithm
 {
     private const int MaxCorrectionAttempts = 100000;
 
-    public SaintLagueAlgorithmResult? Calculate(decimal[] voterNumbers, int numberOfMandates)
+    public SaintLagueAlgorithmResult? Calculate(Rational[] voterNumbers, int numberOfMandates)
     {
         var context = new SaintLagueAlgorithmContext(voterNumbers, numberOfMandates);
-        var voterNumber = context.Columns.Sum(c => c.VoterNumber);
         var columns = context.Columns;
 
         // Step 1: Calculate the initial divisor and check whether we can distribute all number of mandates.
-        context.Divisor = decimal.Round(voterNumber / context.NumberOfMandates);
+        context.Divisor = context.SumVoterNumber / context.NumberOfMandates;
         if (context.Divisor == 0)
         {
             throw new DoubleProportionalAlgorithmException("Saint lague divisor is 0");
@@ -76,9 +76,9 @@ public class SaintLagueAlgorithm
     private void IncreaseDistributedNumberOfMandates(SaintLagueAlgorithmContext context)
     {
         // The divisor needs to be decreased to distribute more number of mandates.
-        var divisors = GetColumnDivisors(context.Columns, 0.5M);
+        var divisors = GetColumnDivisors(context.Columns, new Rational(1, 2));
         var maxDivisor = divisors.Max();
-        var countOfEqualMaxDivisors = divisors.Count(d => d.ApproxEquals(maxDivisor));
+        var countOfEqualMaxDivisors = divisors.Count(d => d == maxDivisor);
         if (countOfEqualMaxDivisors > 1 && countOfEqualMaxDivisors > context.DistributionError)
         {
             context.CountOfMissingNumberOfMandates = countOfEqualMaxDivisors - context.DistributionError;
@@ -86,7 +86,7 @@ public class SaintLagueAlgorithm
 
             for (var l = 0; l < context.Columns.Length; l++)
             {
-                if (!divisors[l].ApproxEquals(maxDivisor))
+                if (divisors[l] != maxDivisor)
                 {
                     continue;
                 }
@@ -103,15 +103,15 @@ public class SaintLagueAlgorithm
     private void DecreaseDistributedNumberOfMandates(SaintLagueAlgorithmContext context)
     {
         // The divisor needs to be increased to distribute fewer number of mandates.
-        var divisors = GetColumnDivisors(context.Columns, -0.5M);
+        var divisors = GetColumnDivisors(context.Columns, new Rational(-1, 2));
         var minDivisor = divisors.Min();
 
-        if (minDivisor == decimal.MaxValue)
+        if (minDivisor == DivisorUtils.ParseToRational(decimal.MaxValue))
         {
             throw new DoubleProportionalAlgorithmException("Invalid min divisor. Problem is not feasible.");
         }
 
-        var countOfEqualMinDivisors = divisors.Count(d => d.ApproxEquals(minDivisor));
+        var countOfEqualMinDivisors = divisors.Count(d => d == minDivisor);
         if (countOfEqualMinDivisors > 1 && countOfEqualMinDivisors > context.DistributionError)
         {
             context.CountOfMissingNumberOfMandates = countOfEqualMinDivisors - context.DistributionError;
@@ -119,7 +119,7 @@ public class SaintLagueAlgorithm
 
             for (var l = 0; l < context.Columns.Length; l++)
             {
-                if (divisors[l].ApproxEquals(minDivisor))
+                if (divisors[l] == minDivisor)
                 {
                     context.TieStates[l] = TieState.Negative;
                     context.Columns[l].LotDecisionRequired = true;
@@ -132,7 +132,7 @@ public class SaintLagueAlgorithm
 
         // Set the 2nd smallest divisor as the divisor, because with the min divisor it will still round up the closest number to the rounding function.
         // With the 2nd smallest divisor we decrease the distributed number of mandates by 1 (if no lot decision is involved).
-        var divisorsWithoutMinDivisor = divisors.Where(d => !d.ApproxEquals(minDivisor)).ToList();
+        var divisorsWithoutMinDivisor = divisors.Where(d => d != minDivisor).ToList();
 
         if (divisorsWithoutMinDivisor.Count == 0)
         {
@@ -147,15 +147,13 @@ public class SaintLagueAlgorithm
         foreach (var column in context.Columns)
         {
             column.Quotient = column.VoterNumber / context.Divisor;
-            column.NumberOfMandates = column.Quotient.ApproxEquals((int)column.Quotient + 0.5M)
-                ? (int)column.Quotient + 1
-                : (int)decimal.Round(column.Quotient);
+            column.NumberOfMandates = column.Quotient.Round();
         }
 
         return context.Columns.Sum(x => x.NumberOfMandates);
     }
 
-    private decimal[] GetColumnDivisors(SaintLagueVectorItem[] columns, decimal deltaNumberOfMandates)
+    private Rational[] GetColumnDivisors(SaintLagueVectorItem[] columns, Rational deltaNumberOfMandates)
     {
         return DivisorUtils.GetDivisors(
             columns.Select(c => new DivisorApportionment(c.VoterNumber, c.NumberOfMandates)).ToArray(),
@@ -164,20 +162,26 @@ public class SaintLagueAlgorithm
 
     private class SaintLagueAlgorithmContext
     {
-        public SaintLagueAlgorithmContext(decimal[] voterNumbers, int numberOfMandates)
+        public SaintLagueAlgorithmContext(Rational[] voterNumbers, int numberOfMandates)
         {
             Columns = voterNumbers.Select(v => new SaintLagueVectorItem { VoterNumber = v }).ToArray();
-            VoterNumber = Columns.Sum(c => c.VoterNumber);
             Cols = Columns.Length;
             NumberOfMandates = numberOfMandates;
             TieStates = new TieState[Cols];
+
+            SumVoterNumber = Rational.Zero;
+
+            foreach (var voterNumber in voterNumbers)
+            {
+                SumVoterNumber += voterNumber;
+            }
         }
 
         public SaintLagueVectorItem[] Columns { get; }
 
         public int NumberOfMandates { get; }
 
-        public decimal VoterNumber { get; }
+        public Rational SumVoterNumber { get; }
 
         public int Cols { get; }
 
@@ -187,20 +191,20 @@ public class SaintLagueAlgorithm
 
         public int CountOfMissingNumberOfMandates { get; set; }
 
-        public decimal ElectionKey { get; set; }
+        public Rational ElectionKey { get; set; }
 
-        public decimal Divisor { get; set; }
+        public Rational Divisor { get; set; } = Rational.Zero;
 
         public bool HasLotDecisions => Columns.Any(c => c.LotDecisionRequired);
     }
 
     private class SaintLagueVectorItem
     {
-        public decimal VoterNumber { get; set; }
+        public Rational VoterNumber { get; set; } = Rational.Zero;
 
         public int NumberOfMandates { get; set; }
 
-        public decimal Quotient { get; set; }
+        public Rational Quotient { get; set; } = Rational.Zero;
 
         public bool LotDecisionRequired { get; set; }
     }

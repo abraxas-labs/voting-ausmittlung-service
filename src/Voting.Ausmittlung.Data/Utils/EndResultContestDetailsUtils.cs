@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Linq;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.Utils;
@@ -11,12 +12,13 @@ public static class EndResultContestDetailsUtils
     public static void AdjustEndResultContestDetails<TEndResult, TCountOfVoterInfo, TVotingCard>(
         TEndResult trackedEndResult,
         ContestCountingCircleDetails countingCircleDetails,
+        DomainOfInfluence domainOfInfluence,
         int deltaFactor)
         where TEndResult : PoliticalBusinessEndResultBase, IEndResultDetail<TCountOfVoterInfo, TVotingCard>
         where TCountOfVoterInfo : EndResultCountOfVotersInformationSubTotal, new()
         where TVotingCard : EndResultVotingCardDetail, new()
     {
-        trackedEndResult.TotalCountOfVoters += countingCircleDetails.TotalCountOfVoters * deltaFactor;
+        trackedEndResult.TotalCountOfVoters += countingCircleDetails.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence) * deltaFactor;
 
         foreach (var votingCard in countingCircleDetails.VotingCards)
         {
@@ -49,7 +51,7 @@ public static class EndResultContestDetailsUtils
             {
                 matchingInfo.CountOfVoters += countOfVoterInfo.CountOfVoters * deltaFactor;
             }
-            else if (deltaFactor > 0)
+            else if (deltaFactor > 0 && HasVoterTypeSupport(domainOfInfluence, countOfVoterInfo.VoterType))
             {
                 trackedEndResult.CountOfVotersInformationSubTotals.Add(new TCountOfVoterInfo
                 {
@@ -59,5 +61,25 @@ public static class EndResultContestDetailsUtils
                 });
             }
         }
+    }
+
+    private static bool HasVoterTypeSupport(DomainOfInfluence domainOfInfluence, VoterType voterType)
+    {
+        if (domainOfInfluence.SwissAbroadVotingRight != SwissAbroadVotingRight.OnEveryCountingCircle && voterType == VoterType.SwissAbroad)
+        {
+            return false;
+        }
+
+        if (!domainOfInfluence.HasForeignerVoters && voterType == VoterType.Foreigner)
+        {
+            return false;
+        }
+
+        if (!domainOfInfluence.HasMinorVoters && voterType == VoterType.Minor)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -11,7 +11,7 @@
         "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": null,
         "ComparisonVoterParticipationsData": {
           "ThresholdPercent": 3.0,
-          "DeviationPercent": 99.21568627450979,
+          "DeviationPercent": 99.25549019607843,
           "DomainOfInfluenceType": 1
         },
         "ComparisonCountOfVotersData": null,

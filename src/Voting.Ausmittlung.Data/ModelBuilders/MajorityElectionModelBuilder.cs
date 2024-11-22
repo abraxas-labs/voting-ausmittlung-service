@@ -53,9 +53,6 @@ public class MajorityElectionModelBuilder :
             .WithOne(sme => sme.PrimaryMajorityElection)
             .HasForeignKey(po => po.PrimaryMajorityElectionId)
             .IsRequired();
-
-        builder
-            .Ignore(m => m.SwissAbroadVotingRight);
     }
 
     public void Configure(EntityTypeBuilder<MajorityElectionTranslation> builder)
@@ -158,7 +155,6 @@ public class MajorityElectionModelBuilder :
             .WithOne(x => x.SecondaryMajorityElection!)
             .HasForeignKey(x => x.SecondaryMajorityElectionId);
 
-        builder.Ignore(sme => sme.SwissAbroadVotingRight);
         builder.Ignore(sme => sme.DomainOfInfluenceId);
         builder.Ignore(sme => sme.DomainOfInfluence);
         builder.Ignore(sme => sme.ContestId);

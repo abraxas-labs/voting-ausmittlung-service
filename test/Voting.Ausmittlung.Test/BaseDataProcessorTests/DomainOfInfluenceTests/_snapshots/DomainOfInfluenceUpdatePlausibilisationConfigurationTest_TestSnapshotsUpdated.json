@@ -12,6 +12,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -113,7 +115,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -128,6 +133,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -222,6 +229,9 @@
       "Parties": [],
       "Details": null,
       "SwissAbroadVotingRight": 0,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -236,6 +246,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -330,6 +342,9 @@
       "Parties": [],
       "Details": null,
       "SwissAbroadVotingRight": 0,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -344,6 +359,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -445,7 +462,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -460,6 +480,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -561,7 +583,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -576,6 +601,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -677,7 +704,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -692,6 +722,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -793,7 +825,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -808,6 +843,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -909,7 +946,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -924,6 +964,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -1025,7 +1067,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -1040,6 +1085,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": null,
       "Parent": null,
       "Children": [],
@@ -1141,7 +1188,10 @@
       },
       "Parties": [],
       "Details": null,
-      "SwissAbroadVotingRight": 3,
+      "SwissAbroadVotingRight": 2,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ]

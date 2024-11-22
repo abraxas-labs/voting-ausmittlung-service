@@ -31,6 +31,9 @@ public class ProportionalElectionListUnion : BaseEntity
 
     public ICollection<ProportionalElectionListUnionEntry> ProportionalElectionListUnionEntries { get; set; } = new HashSet<ProportionalElectionListUnionEntry>();
 
+    public ICollection<ProportionalElectionEndResultListLotDecisionEntry> ListLotDecisionEntries { get; set; }
+        = new HashSet<ProportionalElectionEndResultListLotDecisionEntry>();
+
     public bool IsSubListUnion => ProportionalElectionRootListUnionId.HasValue;
 
     public string AllListNumbers => string.Join(

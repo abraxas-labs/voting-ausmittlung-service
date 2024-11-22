@@ -27,7 +27,6 @@
       "StatePlausibilisedDisabled": false,
       "MajorityElectionInvalidVotes": false,
       "CountingMachineEnabled": false,
-      "NewZhFeaturesEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
       "PublishResultsEnabled": true,
@@ -48,7 +47,10 @@
     "BallotNumberGeneration": 1,
     "AutomaticEmptyVoteCounting": false,
     "EnforceEmptyVoteCountingForCountingCircles": false,
-    "SwissAbroadVotingRight": 3,
+    "EnabledVoterTypes": [
+      1,
+      2
+    ],
     "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
     "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
     "Active": true,
@@ -100,7 +102,6 @@
         "StatePlausibilisedDisabled": false,
         "MajorityElectionInvalidVotes": false,
         "CountingMachineEnabled": false,
-        "NewZhFeaturesEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
         "PublishResultsEnabled": true,
@@ -682,7 +683,7 @@
           "Rank": 2,
           "LotDecision": false,
           "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
+          "LotDecisionRequired": false,
           "State": 3,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -721,7 +722,7 @@
           "Rank": 2,
           "LotDecision": false,
           "LotDecisionEnabled": true,
-          "LotDecisionRequired": true,
+          "LotDecisionRequired": false,
           "State": 3,
           "EVotingSubTotal": {
             "UnmodifiedListVotesCount": 0,
@@ -753,7 +754,7 @@
         "Position": 1,
         "ProportionalElectionRootListUnionId": "c46de46e-e319-43fb-8433-d571bc459dce"
       },
-      "HasOpenRequiredLotDecisions": true,
+      "HasOpenRequiredLotDecisions": false,
       "EVotingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
@@ -952,5 +953,6 @@
   "Finalized": false,
   "ManualEndResultRequired": false,
   "MandateDistributionTriggered": true,
-  "PartialResult": false
+  "PartialResult": false,
+  "ListLotDecisions": []
 }

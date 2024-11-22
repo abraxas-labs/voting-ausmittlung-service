@@ -128,7 +128,10 @@
   <data name="Exports.DomainOfInfluenceType.Ct" xml:space="preserve">
         <value>Kant</value>
     </data>
-  <data name="Exports.DomainOfInfluenceType.Other" xml:space="preserve">
+  <data name="Exports.DomainOfInfluenceType.Mu" xml:space="preserve">
         <value>Kommunal</value>
+    </data>
+  <data name="Exports.DomainOfInfluenceType.Other" xml:space="preserve">
+        <value>Sonstige</value>
     </data>
 </root>

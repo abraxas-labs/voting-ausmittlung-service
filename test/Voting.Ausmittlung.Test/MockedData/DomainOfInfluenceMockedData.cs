@@ -230,6 +230,7 @@ public static class DomainOfInfluenceMockedData
             SecureConnectId = CountingCircleMockedData.CountingCircleUzwilKircheSecureConnectId,
             Type = DomainOfInfluenceType.Ki,
             ParentId = null,
+            SuperiorAuthorityDomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
         };
 
     public static DomainOfInfluence Thurgau
@@ -285,12 +286,14 @@ public static class DomainOfInfluenceMockedData
             Id = Guid.Parse("ab32b5c3-48db-4242-90b6-16a13e94f8d9"),
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidBund,
+            SourceDomainOfInfluenceId = Guid.Parse(IdBund),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("0FB13047-2EE4-426F-858D-DFFD1EA2207A"),
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidStGallenAuslandschweizer,
+            SourceDomainOfInfluenceId = Guid.Parse(IdBund),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
@@ -298,7 +301,7 @@ public static class DomainOfInfluenceMockedData
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.B,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallen),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
@@ -306,98 +309,105 @@ public static class DomainOfInfluenceMockedData
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
             ComparisonCountOfVotersCategory = ComparisonCountOfVotersCategory.A,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdGossau),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("085cdabd-c2d3-4d9e-b558-58706026d374"),
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdUzwil),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("38932947-adea-4377-b92c-c1e5205e0abc"),
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidStGallenStFiden,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("78ca5534-71a8-4fd5-988c-18efb686073b"),
             DomainOfInfluenceId = Guid.Parse(IdBund),
             CountingCircleId = CountingCircleMockedData.GuidStGallenHaggen,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("dbf7dea8-3739-4e15-9e67-37f2f2fd6f1f"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallen),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("b6bd656e-c2d8-4912-bab9-dfdbdbaacd0f"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdUzwil),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("260ca8b9-3967-4d76-b382-e3349b215055"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdGossau),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("5ECE831E-8CD3-41B9-9631-9330FAC72F18"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidStGallenStFiden,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("B73C30CF-4AB8-4BA5-B956-648379E736DA"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidStGallenHaggen,
-            Inherited = true,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("5A1E702A-8E41-46A3-9080-06C323B6D1D0"),
             DomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
             CountingCircleId = CountingCircleMockedData.GuidStGallenStFiden,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("5A855BAA-F391-4D3F-9E09-260FB6785E99"),
             DomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
             CountingCircleId = CountingCircleMockedData.GuidStGallenHaggen,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallenStadt),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("B26CD185-A373-469F-91FB-8B28BA547F59"),
             DomainOfInfluenceId = Guid.Parse(IdStGallen),
             CountingCircleId = CountingCircleMockedData.GuidStGallenAuslandschweizer,
+            SourceDomainOfInfluenceId = Guid.Parse(IdStGallen),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("ae8b1e0f-7ba0-4ec6-a25a-7acbcb42778f"),
             DomainOfInfluenceId = Guid.Parse(IdGossau),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
+            SourceDomainOfInfluenceId = Guid.Parse(IdGossau),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("458a7b20-3eb3-42ba-bc9c-adeed71527d6"),
             DomainOfInfluenceId = Guid.Parse(IdUzwil),
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
+            SourceDomainOfInfluenceId = Guid.Parse(IdUzwil),
         };
         yield return new DomainOfInfluenceCountingCircle
         {
             Id = Guid.Parse("a23b7b20-3eb3-42ba-bc9c-adeed71555c3"),
             DomainOfInfluenceId = Guid.Parse(IdKirchgemeinde),
             CountingCircleId = CountingCircleMockedData.GuidUzwilKirche,
+            SourceDomainOfInfluenceId = Guid.Parse(IdKirchgemeinde),
         };
     }
 

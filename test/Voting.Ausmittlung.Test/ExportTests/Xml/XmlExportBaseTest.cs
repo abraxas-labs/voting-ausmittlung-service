@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -11,7 +10,6 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using FluentAssertions;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.EventProcessors;

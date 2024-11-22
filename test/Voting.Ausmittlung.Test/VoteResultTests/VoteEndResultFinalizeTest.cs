@@ -73,7 +73,7 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
         evInTestingPhase.VoteEndResultId.Should().Be(endResultInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         await ModifyDbEntities<VoteEndResult>(
@@ -160,7 +160,7 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
             item.ActionId = "updated-action-id";
             await db.SaveChangesAsync();
@@ -180,9 +180,9 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
-            item.ExternalIdentifier = invalidExternalId;
+            item.ExternalTokenJwtIds = [invalidExternalId];
             await db.SaveChangesAsync();
         });
 
@@ -190,7 +190,7 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
             async () => await MonitoringElectionAdminClient.FinalizeEndResultAsync(new FinalizeVoteEndResultRequest
             {
                 VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-                SecondFactorTransactionId = invalidExternalId,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             }),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
@@ -212,7 +212,7 @@ public class VoteEndResultFinalizeTest : VoteResultBaseTest
         return new FinalizeVoteEndResultRequest
         {
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
     }
 }

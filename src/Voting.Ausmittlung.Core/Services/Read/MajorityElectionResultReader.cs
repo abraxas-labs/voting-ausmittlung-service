@@ -92,6 +92,7 @@ public class MajorityElectionResultReader
             .Include(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults).ThenInclude(cr => cr.Candidate.Translations)
             .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)
+            .Include(x => x.BallotGroupResults)
             .Where(predicate)
             .FirstOrDefaultAsync();
         if (result == null)

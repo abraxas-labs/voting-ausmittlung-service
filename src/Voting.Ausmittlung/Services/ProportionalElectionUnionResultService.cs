@@ -68,13 +68,13 @@ public class ProportionalElectionUnionResultService : ServiceBase
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionUnionEndResultRequest request, ServerCallContext context)
     {
         var (secondFactorTransaction, code, qrCode) = await _endResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionUnionId), Strings.ProportionalElectionUnionResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.ExternalIdentifier, Code = code, QrCode = qrCode };
+        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]
     public override async Task<Empty> FinalizeEndResult(FinalizeProportionalElectionUnionEndResultRequest request, ServerCallContext context)
     {
-        await _endResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionUnionId), request.SecondFactorTransactionId, context.CancellationToken);
+        await _endResultWriter.Finalize(GuidParser.Parse(request.ProportionalElectionUnionId), GuidParser.Parse(request.SecondFactorTransactionId), context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

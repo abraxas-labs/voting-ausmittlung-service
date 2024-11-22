@@ -99,6 +99,7 @@
     "WriteInBallots": [],
     "HasUnmappedWriteIns": true,
     "CountOfElectionsWithUnmappedWriteIns": 1,
+    "HasBallotGroups": true,
     "PoliticalBusiness": null,
     "PoliticalBusinessId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
     "CountOfVoters": {
@@ -231,6 +232,7 @@
     "WriteInBallots": [],
     "HasUnmappedWriteIns": true,
     "CountOfElectionsWithUnmappedWriteIns": 1,
+    "HasBallotGroups": true,
     "PoliticalBusiness": null,
     "PoliticalBusinessId": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
     "CountOfVoters": {

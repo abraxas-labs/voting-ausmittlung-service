@@ -70,6 +70,6 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
 
     protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
     {
-        return await Context.Set<Vote>().Where(x => x.Id == id).SingleAsync();
+        return await Context.Set<Vote>().Include(x => x.DomainOfInfluence).Where(x => x.Id == id).SingleAsync();
     }
 }

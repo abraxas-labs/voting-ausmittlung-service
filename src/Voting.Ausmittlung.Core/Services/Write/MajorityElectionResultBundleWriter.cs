@@ -104,6 +104,7 @@ public class MajorityElectionResultBundleWriter
 
         var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
         EnsureValidCandidates(electionResult, selectedCandidateIds);
+        EnsureNoEmptyVoteCountForSingleMandate(electionResult, emptyVoteCount);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
             emptyVoteCount,
@@ -135,6 +136,7 @@ public class MajorityElectionResultBundleWriter
 
         var contestId = await EnsureEditPermissionsForBundle(electionResult, aggregate);
         EnsureValidCandidates(electionResult, selectedCandidateIds);
+        EnsureNoEmptyVoteCountForSingleMandate(electionResult, emptyVoteCount);
 
         emptyVoteCount = CalculateAndValidateEmptyVoteCount(
             emptyVoteCount,
@@ -268,7 +270,7 @@ public class MajorityElectionResultBundleWriter
 
         if (!emptyVoteCount.HasValue)
         {
-            if (!automaticEmptyVoteCounting)
+            if (!automaticEmptyVoteCounting && numberOfMandates > 1)
             {
                 throw new ValidationException("automatic empty vote counting is disabled");
             }
@@ -306,6 +308,14 @@ public class MajorityElectionResultBundleWriter
         if (suppliedCandidateIds.Except(candidateIds).Any())
         {
             throw new ValidationException("unknown candidates provided");
+        }
+    }
+
+    private void EnsureNoEmptyVoteCountForSingleMandate(DataModels.MajorityElectionResult electionResult, int? emptyVoteCount)
+    {
+        if (electionResult.MajorityElection.NumberOfMandates == 1 && emptyVoteCount != null)
+        {
+            throw new ValidationException("empty vote count provided with single mandate");
         }
     }
 }

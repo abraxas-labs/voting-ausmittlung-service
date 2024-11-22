@@ -13,9 +13,12 @@ namespace Voting.Ausmittlung.Data.Repositories;
 
 public class DomainOfInfluenceCountingCircleRepo : DbRepository<DataContext, DomainOfInfluenceCountingCircle>
 {
-    public DomainOfInfluenceCountingCircleRepo(DataContext context)
+    private readonly DomainOfInfluenceRepo _doiRepo;
+
+    public DomainOfInfluenceCountingCircleRepo(DataContext context, DomainOfInfluenceRepo doiRepo)
         : base(context)
     {
+        _doiRepo = doiRepo;
     }
 
     public async Task<Dictionary<Guid, List<CountingCircle>>> BasisCountingCirclesByDomainOfInfluenceId()
@@ -35,18 +38,20 @@ public class DomainOfInfluenceCountingCircleRepo : DbRepository<DataContext, Dom
     /// <summary>
     /// Removes all Entries, where any of the DomainOfInfluenceIds matches any of the CountingCircleIds.
     /// </summary>
-    /// <param name="domainOfInfluenceIds">DomainofInfluenceIds to delete.</param>
+    /// <param name="domainOfInfluenceIds">DomainOfInfluenceIds to delete.</param>
     /// <param name="countingCircleIds">CountingCircleIds to delete.</param>
+    /// <param name="currentDoiId">Current domain of influence id which is responsible for the deletion.</param>
     /// <returns>A Task.</returns>
-    public async Task RemoveAll(List<Guid> domainOfInfluenceIds, List<Guid> countingCircleIds)
+    public async Task RemoveAll(List<Guid> domainOfInfluenceIds, List<Guid> countingCircleIds, Guid currentDoiId)
     {
         if (domainOfInfluenceIds.Count == 0 || countingCircleIds.Count == 0)
         {
             return;
         }
 
+        var hierarchicalLowerOrSelfDoiIds = await _doiRepo.GetHierarchicalLowerOrSelfDomainOfInfluenceIds(currentDoiId);
         await Query()
-            .Where(doiCc => domainOfInfluenceIds.Contains(doiCc.DomainOfInfluenceId) && countingCircleIds.Contains(doiCc.CountingCircleId))
+            .Where(doiCc => domainOfInfluenceIds.Contains(doiCc.DomainOfInfluenceId) && countingCircleIds.Contains(doiCc.CountingCircleId) && hierarchicalLowerOrSelfDoiIds.Contains(doiCc.SourceDomainOfInfluenceId))
             .ExecuteDeleteAsync();
     }
 }

@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 using Voting.Lib.Database.Repositories;
 using IndexAttribute = CsvHelper.Configuration.Attributes.IndexAttribute;
 
@@ -41,7 +42,7 @@ public class WabstiCSGGeschaefteRenderService : IRendererService
             .Select(x => new Data
             {
                 ContestDate = x.Vote.Contest.Date,
-                PoliticalBusinessId = x.VoteId,
+                PoliticalBusinessId = x.Vote.Type == VoteType.QuestionsOnSingleBallot ? x.VoteId : x.Id,
                 DomainOfInfluenceType = x.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.Vote.DomainOfInfluence.SortNumber,
                 DomainOfInfluenceCanton = x.Vote.DomainOfInfluence.Canton,
@@ -50,6 +51,8 @@ public class WabstiCSGGeschaefteRenderService : IRendererService
                 CountOfDoneCountingCircles = x.Vote.EndResult!.CountOfDoneCountingCircles,
                 TotalCountOfCountingCircles = x.Vote.EndResult!.TotalCountOfCountingCircles,
                 Finalized = x.Vote.EndResult!.Finalized,
+                VoteType = x.Vote.Type,
+                Position = x.Position,
             })
             .ToListAsync(ct);
 
@@ -97,5 +100,15 @@ public class WabstiCSGGeschaefteRenderService : IRendererService
         [TypeConverter(typeof(WabstiCUpperSnakeCaseConverter))]
         [Index(StartIndex + 6)]
         public DomainOfInfluenceCanton DomainOfInfluenceCanton { get; set; }
+
+        [Ignore]
+        public VoteType VoteType { get; set; }
+
+        [Ignore]
+        public int Position { get; set; }
+
+        [Name("GeSubNr")]
+        [Index(EndIndex + 1)]
+        public string BallotSubType => WabstiCPositionUtil.BuildPosition(Position, VoteType);
     }
 }

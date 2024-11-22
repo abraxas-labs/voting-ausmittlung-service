@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -90,6 +91,65 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
     }
 
     [Fact]
+    public async Task TestProcessorWithNullRanks()
+    {
+        await SetResultsToAuditedTentatively();
+        var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
+
+        await ModifyDbEntities<MajorityElectionCandidateEndResult>(
+            x => x.Candidate.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x =>
+            {
+                if (x.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.CandidateId3))
+                {
+                    x.Rank = 3;
+                    x.LotDecision = true;
+                }
+
+                if (x.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.CandidateId4))
+                {
+                    x.Rank = 4;
+                    x.LotDecision = true;
+                }
+            });
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionEndResultLotDecisionsUpdated
+            {
+                MajorityElectionEndResultId = endResultId,
+                MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+                LotDecisions =
+                {
+                        new MajorityElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = MajorityElectionEndResultMockedData.CandidateId3,
+                            Rank = null,
+                        },
+                        new MajorityElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
+                            Rank = null,
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetMajorityElectionEndResultRequest
+        {
+            MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+        });
+
+        var candidate3 = endResult.CandidateEndResults.Single(x => x.Candidate.Id == MajorityElectionEndResultMockedData.CandidateId3);
+        candidate3.Rank.Should().Be(3);
+        candidate3.LotDecision.Should().BeFalse();
+
+        var candidate4 = endResult.CandidateEndResults.Single(x => x.Candidate.Id == MajorityElectionEndResultMockedData.CandidateId4);
+        candidate4.Rank.Should().Be(3);
+        candidate4.LotDecision.Should().BeFalse();
+    }
+
+    [Fact]
     public async Task TestShouldReturnAsMonitoringElectionAdmin()
     {
         await SetResultsToAuditedTentatively();
@@ -115,7 +175,7 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
         evInTestingPhase.MajorityElectionEndResultId.Should().Be(endResultInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         var endResultTestingPhaseEndedId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(electionId, true);
@@ -129,6 +189,12 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
             {
                 e.LotDecisionEnabled = true;
                 e.LotDecisionRequired = false;
+
+                if (e.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.CandidateId3) ||
+                    e.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.CandidateId4))
+                {
+                    e.ConventionalVoteCount = 100;
+                }
             });
         await ModifyDbEntities<SecondaryMajorityElectionCandidateEndResult>(
             e => e.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResultId == endResultTestingPhaseEndedId,
@@ -136,7 +202,18 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
             {
                 e.LotDecisionEnabled = true;
                 e.LotDecisionRequired = false;
+
+                if (e.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.SecondaryCandidateId2) ||
+                    e.CandidateId == Guid.Parse(MajorityElectionEndResultMockedData.SecondaryCandidateId3))
+                {
+                    e.ConventionalVoteCount = 100;
+                }
             });
+
+        foreach (var lotDecision in request.LotDecisions)
+        {
+            lotDecision.Rank = null;
+        }
 
         await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(request);
         var evTestingPhaseEnded = EventPublisherMock.GetSinglePublishedEvent<MajorityElectionEndResultLotDecisionsUpdated>();
@@ -157,22 +234,50 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
     }
 
     [Fact]
-    public async Task TestShouldThrowIfRequiredLotDecisionIsMissing()
+    public async Task TestShouldThrowIfLotDecisionWithSameVoteCountIsMissing()
     {
         await SetResultsToAuditedTentatively();
+
+        var request = NewValidRequest(x =>
+        {
+            x.LotDecisions.Clear();
+            x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
+            {
+                CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
+                Rank = null,
+            });
+        });
+
         await AssertStatus(
-            async () => await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(
-                NewValidRequest(x =>
-                {
-                    x.LotDecisions.Clear();
-                    x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
-                    {
-                        CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
-                        Rank = 4,
-                    });
-                })),
+            async () => await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(request),
             StatusCode.InvalidArgument,
-            "required lot decision is missing");
+            "A related lot decision of the group with vote count");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowIfLotDecisionWithSameVoteCountHasMixedNullAndNonNullRanks()
+    {
+        await SetResultsToAuditedTentatively();
+
+        var request = NewValidRequest(x =>
+        {
+            x.LotDecisions.Clear();
+            x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
+            {
+                CandidateId = MajorityElectionEndResultMockedData.CandidateId3,
+                Rank = 3,
+            });
+            x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
+            {
+                CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
+                Rank = null,
+            });
+        });
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(request),
+            StatusCode.InvalidArgument,
+            "Either all related lot decisions of the group with vote count");
     }
 
     [Fact]

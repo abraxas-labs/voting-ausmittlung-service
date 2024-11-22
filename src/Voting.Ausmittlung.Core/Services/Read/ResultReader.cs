@@ -167,7 +167,7 @@ public class ResultReader
         var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId);
         var isPoliticalDoiType = contest.DomainOfInfluence.Type.IsPolitical();
 
-        // results which is the current tenant responsible or is an owned political businesses or is a partial result counting circle
+        // results which the current tenant is responsible or contest manager, or is result from an owned political business or result is on a partial result counting circle
         var results = await _simpleResultRepo.Query()
             .AsSplitQuery()
             .Include(x => x.PoliticalBusiness!.Translations)
@@ -176,7 +176,7 @@ public class ResultReader
                 x.CountingCircleId == countingCircle.Id
                 && x.PoliticalBusiness!.ContestId == contestId
                 && x.PoliticalBusiness.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                && (currentTenantIsResponsible || x.PoliticalBusiness.DomainOfInfluence.SecureConnectId == tenantId || viewablePartialResultsCountingCircleIds.Contains(x.CountingCircleId)))
+                && (countingCircle.ResponsibleAuthority.SecureConnectId == tenantId || contest.DomainOfInfluence.SecureConnectId == tenantId || x.PoliticalBusiness.DomainOfInfluence.SecureConnectId == tenantId || viewablePartialResultsCountingCircleIds.Contains(x.CountingCircleId)))
             .OrderBy(x => isPoliticalDoiType ? x.PoliticalBusiness!.DomainOfInfluence.Type : 0)
             .ThenBy(x => x.PoliticalBusiness!.PoliticalBusinessNumber)
             .ToListAsync();

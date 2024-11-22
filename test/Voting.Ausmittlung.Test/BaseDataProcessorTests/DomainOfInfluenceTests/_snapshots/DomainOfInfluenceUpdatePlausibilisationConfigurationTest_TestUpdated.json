@@ -12,6 +12,8 @@
       "Type": 2,
       "Canton": 1,
       "ViewCountingCirclePartialResults": false,
+      "HasForeignerVoters": false,
+      "HasMinorVoters": false,
       "ParentId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
       "Parent": null,
       "Children": [],
@@ -25,6 +27,7 @@
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
           "Inherited": true,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
@@ -33,6 +36,7 @@
           "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 2,
+          "SourceDomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
           "Inherited": false,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
@@ -41,6 +45,7 @@
           "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
           "Inherited": false,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
@@ -49,6 +54,7 @@
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "87718a25-11e2-4ab1-b3a0-112baa11676e",
           "Inherited": true,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
@@ -57,6 +63,7 @@
           "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "87718a25-11e2-4ab1-b3a0-112baa11676e",
           "Inherited": true,
           "Id": "00000000-0000-0000-0000-000000000000"
         },
@@ -65,6 +72,7 @@
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "CountingCircle": null,
           "ComparisonCountOfVotersCategory": 0,
+          "SourceDomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
           "Inherited": true,
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -153,6 +161,9 @@
       "Parties": [],
       "Details": null,
       "SwissAbroadVotingRight": 0,
+      "SuperiorAuthorityDomainOfInfluenceId": null,
+      "SuperiorAuthorityDomainOfInfluence": null,
+      "SubAuthorityDomainOfInfluences": [],
       "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
     }
   ]

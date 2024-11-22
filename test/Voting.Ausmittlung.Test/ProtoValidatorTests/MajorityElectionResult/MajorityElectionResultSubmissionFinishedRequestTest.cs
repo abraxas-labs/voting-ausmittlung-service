@@ -29,7 +29,7 @@ public class MajorityElectionResultSubmissionFinishedRequestTest : ProtoValidato
         var request = new MajorityElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = "f67b688a-0566-4e3c-bd73-6063834fedaf",
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
 
         action?.Invoke(request);

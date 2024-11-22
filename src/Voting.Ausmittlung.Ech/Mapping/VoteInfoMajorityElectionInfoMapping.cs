@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,17 +14,19 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 internal static class VoteInfoMajorityElectionInfoMapping
 {
     private const string FederalIdentifier = "idBund";
+    private const string DecisiveMajorityElementName = "decisiveMajority";
+    private const string AbsoluteMajorityText = "absolute";
+    private const string RelativeMajorityText = "relative";
 
     internal static IEnumerable<ElectionGroupInfoType> ToVoteInfoEchMajorityElectionGroups(
-        this ICollection<MajorityElection> elections,
-        Ech0252MappingContext ctx)
+        this IEnumerable<MajorityElection> elections,
+        Ech0252MappingContext ctx,
+        Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
         return elections
-            .OrderBy(x => x.DomainOfInfluence.Type)
-            .ThenBy(x => x.PoliticalBusinessNumber)
             .Select(x => new ElectionGroupInfoType
             {
-                ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx),
+                ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx, positionBySuperiorAuthorityId),
                 CountingCircle = x.Results
                     .OrderBy(r => r.CountingCircle.Name)
                     .Select(r => r.CountingCircle.ToEch0252CountingCircle(x.Contest.DomainOfInfluenceId))
@@ -40,14 +43,22 @@ internal static class VoteInfoMajorityElectionInfoMapping
 
     private static ElectionGroupInfoTypeElectionGroup ToVoteInfoEchElectionGroup(
         this MajorityElection election,
-        Ech0252MappingContext ctx)
+        Ech0252MappingContext ctx,
+        Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
         var canton = election.DomainOfInfluence.Canton;
+        var superiorAuthority = ctx.GetSuperiorAuthority(election.DomainOfInfluence.Id);
+        var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
 
-        return new ElectionGroupInfoTypeElectionGroup()
+        var previousPosition = positionBySuperiorAuthorityId.GetValueOrDefault(superiorAuthorityId, 0);
+        var position = previousPosition + 1;
+        positionBySuperiorAuthorityId[superiorAuthorityId] = position;
+
+        return new ElectionGroupInfoTypeElectionGroup
         {
             ElectionGroupIdentification = election.Id.ToString(),
-            SuperiorAuthority = ctx.GetSuperiorAuthority(election.DomainOfInfluence.Bfs)?.ToEchDomainOfInfluence(),
+            ElectionGroupPosition = position.ToString(),
+            SuperiorAuthority = superiorAuthority?.ToEchDomainOfInfluence(),
             DomainOfInfluence = election.DomainOfInfluence.ToEchDomainOfInfluence(),
             ElectionInformation = election.SecondaryMajorityElections
                 .OrderBy(y => y.PoliticalBusinessNumber)
@@ -70,6 +81,14 @@ internal static class VoteInfoMajorityElectionInfoMapping
                 .Select(c => c.ToVoteInfoEchCandidate(canton))
                 .ToList(),
             OtherIdentification = election.ToOtherIdentification(),
+            NamedElement = new List<NamedElementType>
+            {
+                new()
+                {
+                    ElementName = DecisiveMajorityElementName,
+                    Text = election.MandateAlgorithm == MajorityElectionMandateAlgorithm.AbsoluteMajority ? AbsoluteMajorityText : RelativeMajorityText,
+                },
+            },
         };
     }
 
@@ -85,6 +104,16 @@ internal static class VoteInfoMajorityElectionInfoMapping
                 .OrderBy(c => c.Number)
                 .Select(c => c.ToVoteInfoEchCandidate(canton))
                 .ToList(),
+            NamedElement = new List<NamedElementType>
+            {
+                new()
+                {
+                    ElementName = DecisiveMajorityElementName,
+                    Text = election.PrimaryMajorityElection.MandateAlgorithm == MajorityElectionMandateAlgorithm.AbsoluteMajority
+                        ? AbsoluteMajorityText
+                        : RelativeMajorityText,
+                },
+            },
         };
     }
 
@@ -92,7 +121,10 @@ internal static class VoteInfoMajorityElectionInfoMapping
     {
         return candidate.ToVoteInfoEchCandidate(
             canton,
+            PoliticalBusinessType.MajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Party));
     }
 
@@ -100,7 +132,10 @@ internal static class VoteInfoMajorityElectionInfoMapping
     {
         return candidate.ToVoteInfoEchCandidate(
             canton,
+            PoliticalBusinessType.SecondaryMajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Party));
     }
 

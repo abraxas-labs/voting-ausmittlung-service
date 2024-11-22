@@ -81,6 +81,8 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
 
         var response2 = await StGallenErfassungElectionAdminClient.GetListAsync(request);
         response2.CurrentTenantIsResponsible.Should().BeFalse();
+
+        response.Results.Count.Should().Be(response2.Results.Count);
     }
 
     [Fact]
@@ -254,7 +256,7 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
             majorityElectionInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
 
         var response2 = await ErfassungElectionAdminClient.GetListAsync(request);
         response2.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);

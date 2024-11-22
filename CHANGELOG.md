@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.36.0`)
+# ✨ Changelog (`v2.45.2`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,281 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.36.0
-Previous version ---- v2.17.2
+This version -------- v2.45.2
+Previous version ---- v2.36.0
 Initial version ----- v1.29.14
-Total commits ------- 741
+Total commits ------- 45
 ```
+
+## [v2.45.2] - 2024-11-08
+
+### 🔄 Changed
+
+- require all counting circle e-voting results during testing phase import
+
+## [v2.45.1] - 2024-11-07
+
+### 🔄 Changed
+
+- update secondary election candidate translations correctly after update from referenced candidate
+
+## [v2.45.0] - 2024-11-07
+
+### 🆕 Added
+
+- add reset to submission finished and flag for correction endpoints
+
+## [v2.44.2] - 2024-11-06
+
+### 🔄 Changed
+
+- finish submission and audit not allowed for non communal political businesses
+
+## [v2.44.1] - 2024-11-06
+
+### 🔄 Changed
+
+- double proportional calculation with exact rational calculations
+
+## [v2.44.0] - 2024-11-06
+
+### 🆕 Added
+
+- optional rank in candidate lot decisions
+
+## [v2.43.0] - 2024-11-04
+
+### 🆕 Added
+
+- add proportional election end result list lot decisions
+
+## [v2.42.1] - 2024-11-04
+
+### 🔄 Changed
+
+- ech-0252 counting circle domain of influence types
+
+## [v2.42.0] - 2024-11-04
+
+### :new: Added
+
+- added candidate list results info in eCH-0252
+
+## [v2.41.0] - 2024-10-31
+
+### :new: Added
+
+- added voting card info to eCH-0252
+
+## [v2.40.7] - 2024-10-30
+
+### :arrows_counterclockwise: Changed
+
+- remove origin and use occupation instead of occupation title in eCH-0252
+
+## [v2.40.6] - 2024-10-30
+
+### 🔄 Changed
+
+- performance improvements for accessible contest list summaries
+
+## [v2.40.5] - 2024-10-29
+
+### 🔄 Changed
+
+- fix protocol count of voters sum
+- fix contest create domain of influence snapshots with superior authority
+
+## [v2.40.4] - 2024-10-28
+
+### 🆕 Added
+
+- wabstic columns for ZH
+
+## [v2.40.3] - 2024-10-25
+
+### :arrows_counterclockwise: Changed
+
+- remove title and add decisiveMajority named element to eCH-0252
+
+## [v2.40.2] - 2024-10-24
+
+### 🔄 Changed
+
+- Eventprocessors: ContestProcessor, MajorityElectonProcessor, ProportionalElectionProcessor, Voteprocessor on deletion assume that object was already deleted if id was not found. In this case scip event processing.
+
+## [v2.40.1] - 2024-10-23
+
+### 🔄 Changed
+
+- init eventing meter histogram to avoid no data alerts
+- remove deprecated version from docker-compose
+
+### 🔒 Security
+
+- update Voting.Lib and according references to close Microsoft.Extensions.Caching.Memory vulnerability
+
+## [v2.40.0] - 2024-10-23
+
+### :arrows_counterclockwise: Changed
+
+- election group position and other changes to eCH-0252
+
+## [v2.39.2] - 2024-10-18
+
+### :new: Added
+
+- add counting machine to PDF exports
+
+## [v2.39.1] - 2024-10-17
+
+### :new: Added
+
+- add ballot descriptions and vote result algorithm to PDF exports
+
+## [v2.39.0] - 2024-10-15
+
+### 🆕 Added
+
+- superior authority domain of influence
+
+## [v2.38.14] - 2024-10-14
+
+### 🆕 Added
+
+- add has ballot groups
+
+## [v2.38.13] - 2024-10-11
+
+### ❌ Removed
+
+- remove counting circle detail validate endpoint
+
+## [v2.38.12] - 2024-10-10
+
+### 🔄 Changed
+
+- filter multiple counting circle results for protocols
+
+## [v2.38.11] - 2024-10-10
+
+### 🔄 Changed
+
+- inherited cc should not be deleted when multiple cc's exists on same doi tree
+
+## [v2.38.10] - 2024-10-09
+
+### :arrows_counterclockwise: Changed
+
+- speed up event processing
+
+## [v2.38.9] - 2024-10-04
+
+### 🔄 Changed
+
+- update proto version to apply new name input validation
+
+## [v2.38.8] - 2024-10-03
+
+### ❌ Removed
+
+- remove zh feature flag
+
+## [v2.38.7] - 2024-10-03
+
+### 🔄 Changed
+
+- resolved compiler warnings after updating analyzers
+
+### ⚠️ Deprecated
+
+- remove deprecated second factor code, instead use jwts tokens as primary codes
+
+## [v2.38.6] - 2024-10-02
+
+### 🔄 Changed
+
+- eCH-0252 election elected mapping
+
+## [v2.38.5] - 2024-10-02
+
+### 🔄 Changed
+
+- fix candidate text for majority election
+
+## [v2.38.4] - 2024-10-01
+
+### 🔄 Changed
+
+- enter results as election supporter
+
+## [v2.38.3] - 2024-09-30
+
+### 🔄 Changed
+
+- single mandate should throw if an empty vote is provided
+
+## [v2.38.2] - 2024-09-27
+
+### 🔄 Changed
+
+- always load the counting circle results for the contest manager, whether the contest is in testing phase or active
+
+## [v2.38.1] - 2024-09-27
+
+### 🆕 Added
+
+- add comment to delivery header
+
+## [v2.38.0] - 2024-09-26
+
+### 🆕 Added
+
+- add candidate write in mapping and lot decisions
+
+## [v2.37.4] - 2024-09-26
+
+### 🔄 Changed
+
+- only include active political businesses in eCH-0252
+
+## [v2.37.3] - 2024-09-26
+
+### :arrows_counterclockwise: Changed
+
+- change rate limit reached status code
+
+## [v2.37.2] - 2024-09-26
+
+### 🔄 Changed
+
+- add additional vote info to ech-0252 variant ballots
+
+## [v2.37.1] - 2024-09-25
+
+### 🔄 Changed
+
+- double proportional algorithm run into an error, if there was more lists than political businesses
+
+## [v2.37.0] - 2024-09-25
+
+### 🆕 Added
+
+- foreigner and minor voters
+
+## [v2.36.1] - 2024-09-23
+
+### 🔄 Changed
+
+- truncate election candidate number
+
+### 🔄 Changed
+
+- file name and export name for other domain of influence types changed to sonstige
+
+### 🔄 Changed
+
+- added Description to ProportionalElectionUnionList
 
 ## [v2.36.0] - 2024-09-12
 
@@ -44,230 +314,150 @@ Total commits ------- 741
 
 - result submission finished to audited tentatively for owned results
 
-## [v2.33.1] - 2024-09-04
-
 ### 🔄 Changed
 
 - migrate from gcr to harbor
-
-## [v2.33.0] - 2024-09-04
 
 ### 🆕 Added
 
 - add correction finished and audited tentatively endpoint
 
-## [v2.32.6] - 2024-09-03
-
 ### 🔄 Changed
 
 - preserve ballot question results after update
-
-## [v2.32.5] - 2024-09-02
 
 ### 🔄 Changed
 
 - update ausmittlung proto library to increase limit for candidate position
 
-## [v2.32.4] - 2024-08-30
-
 ### 🔄 Changed
 
 - read only accessible counting circle results
-
-## [v2.32.3] - 2024-08-29
 
 ### :arrows_counterclockwise: Changed
 
 - reset counting circle results when it is in an incorrect state
 
-## [v2.32.2] - 2024-08-29
-
 ### 🔄 Changed
 
 - majority election result order by count for submission finished
-
-## [v2.32.1] - 2024-08-28
 
 ### 🔄 Changed
 
 - eCH-0252 counting circle domain of influence type
 
-## [v2.32.0] - 2024-08-28
-
 ### 🆕 Added
 
 - optional individual candidates on majority elections
-
-## [v2.31.7] - 2024-08-28
 
 🔄 Changed
 
 update bug bounty template reference
 patch ci-cd template version, align with new defaults
 
-## [v2.31.6] - 2024-08-28
-
 ### 🔄 Changed
 
 - saint lague rounding fix
-
-## [v2.31.5] - 2024-08-23
 
 ### 🆕 Added
 
 - add superior authority to eCH-0252
 
-## [v2.31.4] - 2024-08-22
-
 ### 🔄 Changed
 
 - move environment specific app settings out of default file
-
-## [v2.31.3] - 2024-08-22
 
 ### :arrows_counterclockwise: Changed
 
 - speed up processing of permission related events
 
-## [v2.31.2] - 2024-08-22
-
 ### 🔄 Changed
 
 - allow empty vote count for single mandate secondary majority election
-
-## [v2.31.1] - 2024-08-21
 
 ### 🔄 Changed
 
 - partial end result exports
 
-## [v2.31.0] - 2024-08-20
-
 ### 🆕 Added
 
 - add 2fa fallback qr code
-
-## [v2.30.4] - 2024-08-20
 
 ### 🔄 Changed
 
 - ensure swagger generator can be disabled completely
 
-## [v2.30.3] - 2024-08-16
-
 ### 🔄 Changed
 
 - counting circles need a political business result to be accesible
-
-## [v2.30.2] - 2024-08-15
 
 ### :arrows_counterclockwise: Changed
 
 - use consistent question id in vote eCH-0252 export
 
-## [v2.30.1] - 2024-08-15
-
 ### 🆕 Added
 
 - add eCH-0252 info export templates
-
-## [v2.30.0] - 2024-08-14
 
 ### 🆕 Added
 
 - add asynchronous bundle review
 
-## [v2.29.0] - 2024-08-14
-
 ### 🆕 Added
 
 - eCH-0252 base delivery
-
-## [v2.28.2] - 2024-08-13
 
 ### :arrows_counterclockwise: Changed
 
 - export variant votes on multiple ballots in eCH-0252 correctly
 
-## [v2.28.1] - 2024-08-09
-
 ### 🔄 Changed
 
 - eCH-0252 vote delivery always with counting circle infos
-
-## [v2.28.0] - 2024-08-09
 
 ### :new: Added
 
 - added political business and ballot sub type
 
-## [v2.27.5] - 2024-08-08
-
 ### 🔄 Changed
 
 - Updated the VotingLibVersion property in the Common.props file from 12.10.4 to 12.10.5. This update includes improvements for the proto string validation for better error reporting.
-
-## [v2.27.4] - 2024-08-07
 
 ### 🔒 Security
 
 - ech-0252 export per canton permissions
 
-## [v2.27.3] - 2024-08-07
-
 ### 🔒 Security
 
 - add restriction for import data and multipart form section content types
-
-## [v2.27.2] - 2024-08-06
 
 ### 🔄 Changed
 
 - reset bundle numbers if result is reset
 
-## [v2.27.1] - 2024-08-05
-
-### 🔄 Changed
-
-- improve performance and memory allocation in certain event processors
-
-## [v2.27.0] - 2024-07-30
-
 ### :new: Added
 
 - added variant ballot on multiple ballots
-
-## [v2.26.0] - 2024-07-26
 
 ### 🔄 Changed
 
 - Make DOI short name optional in eCH-0252
 
-## [v2.25.0] - 2024-07-19
-
 ### 🆕 Added
 
 - canton settings with publish results before audited tentatively
-
-## [v2.24.0] - 2024-07-16
 
 ### 🔄 Changed
 
 - set counting circle e-voting at a specific date
 
-## [v2.23.2] - 2024-07-16
-
 ### 🔄 Changed
 
 - ech-0252 improvements
 
-## [v2.23.1] - 2024-07-15
-
 ### 🔒 Security
 
 - upgrade npgsql to fix vulnerability CVE-2024-0057
-
-## [v2.23.0] - 2024-07-11
 
 ### :arrows_counterclockwise: Changed
 
@@ -275,31 +465,21 @@ patch ci-cd template version, align with new defaults
 
 ###
 
-## [v2.22.2] - 2024-07-10
-
 ### 🔄 Changed
 
 - calculation of select divisors in double proportional results
-
-## [v2.22.1] - 2024-07-05
 
 ### 🔄 Changed
 
 - result overview with partial results
 
-## [v2.22.0] - 2024-07-05
-
 ### 🆕 Added
 
 - add bundle state to pdf exports
 
-## [v2.21.0] - 2024-07-04
-
 ### 🆕 Added
 
 - add export template key canton suffix option
-
-## [v2.20.5] - 2024-07-04
 
 ### 🔄 Changed
 
@@ -1354,6 +1534,267 @@ BREAKING CHANGE: Updated service to .NET 8 LTS.
 - extend evoting date with time
 
 The readmodel needs to be recreated after this commit
+
+## [v2.33.1] - 2024-09-04
+
+### 🔄 Changed
+
+- migrate from gcr to harbor
+
+## [v2.33.0] - 2024-09-04
+
+### 🆕 Added
+
+- add correction finished and audited tentatively endpoint
+
+## [v2.32.6] - 2024-09-03
+
+### 🔄 Changed
+
+- preserve ballot question results after update
+
+## [v2.32.5] - 2024-09-02
+
+### 🔄 Changed
+
+- update ausmittlung proto library to increase limit for candidate position
+
+## [v2.32.4] - 2024-08-30
+
+### 🔄 Changed
+
+- read only accessible counting circle results
+
+## [v2.32.3] - 2024-08-29
+
+### :arrows_counterclockwise: Changed
+
+- reset counting circle results when it is in an incorrect state
+
+## [v2.32.2] - 2024-08-29
+
+### 🔄 Changed
+
+- majority election result order by count for submission finished
+
+## [v2.32.1] - 2024-08-28
+
+### 🔄 Changed
+
+- eCH-0252 counting circle domain of influence type
+
+## [v2.32.0] - 2024-08-28
+
+### 🆕 Added
+
+- optional individual candidates on majority elections
+
+## [v2.31.7] - 2024-08-28
+
+🔄 Changed
+
+update bug bounty template reference
+patch ci-cd template version, align with new defaults
+
+## [v2.31.6] - 2024-08-28
+
+### 🔄 Changed
+
+- saint lague rounding fix
+
+## [v2.31.5] - 2024-08-23
+
+### 🆕 Added
+
+- add superior authority to eCH-0252
+
+## [v2.31.4] - 2024-08-22
+
+### 🔄 Changed
+
+- move environment specific app settings out of default file
+
+## [v2.31.3] - 2024-08-22
+
+### :arrows_counterclockwise: Changed
+
+- speed up processing of permission related events
+
+## [v2.31.2] - 2024-08-22
+
+### 🔄 Changed
+
+- allow empty vote count for single mandate secondary majority election
+
+## [v2.31.1] - 2024-08-21
+
+### 🔄 Changed
+
+- partial end result exports
+
+## [v2.31.0] - 2024-08-20
+
+### 🆕 Added
+
+- add 2fa fallback qr code
+
+## [v2.30.4] - 2024-08-20
+
+### 🔄 Changed
+
+- ensure swagger generator can be disabled completely
+
+## [v2.30.3] - 2024-08-16
+
+### 🔄 Changed
+
+- counting circles need a political business result to be accesible
+
+## [v2.30.2] - 2024-08-15
+
+### :arrows_counterclockwise: Changed
+
+- use consistent question id in vote eCH-0252 export
+
+## [v2.30.1] - 2024-08-15
+
+### 🆕 Added
+
+- add eCH-0252 info export templates
+
+## [v2.30.0] - 2024-08-14
+
+### 🆕 Added
+
+- add asynchronous bundle review
+
+## [v2.29.0] - 2024-08-14
+
+### 🆕 Added
+
+- eCH-0252 base delivery
+
+## [v2.28.2] - 2024-08-13
+
+### :arrows_counterclockwise: Changed
+
+- export variant votes on multiple ballots in eCH-0252 correctly
+
+## [v2.28.1] - 2024-08-09
+
+### 🔄 Changed
+
+- eCH-0252 vote delivery always with counting circle infos
+
+## [v2.28.0] - 2024-08-09
+
+### :new: Added
+
+- added political business and ballot sub type
+
+## [v2.27.5] - 2024-08-08
+
+### 🔄 Changed
+
+- Updated the VotingLibVersion property in the Common.props file from 12.10.4 to 12.10.5. This update includes improvements for the proto string validation for better error reporting.
+
+## [v2.27.4] - 2024-08-07
+
+### 🔒 Security
+
+- ech-0252 export per canton permissions
+
+## [v2.27.3] - 2024-08-07
+
+### 🔒 Security
+
+- add restriction for import data and multipart form section content types
+
+## [v2.27.2] - 2024-08-06
+
+### 🔄 Changed
+
+- reset bundle numbers if result is reset
+
+## [v2.27.1] - 2024-08-05
+
+### 🔄 Changed
+
+- improve performance and memory allocation in certain event processors
+
+## [v2.27.0] - 2024-07-30
+
+### :new: Added
+
+- added variant ballot on multiple ballots
+
+## [v2.26.0] - 2024-07-26
+
+### 🔄 Changed
+
+- Make DOI short name optional in eCH-0252
+
+## [v2.25.0] - 2024-07-19
+
+### 🆕 Added
+
+- canton settings with publish results before audited tentatively
+
+## [v2.24.0] - 2024-07-16
+
+### 🔄 Changed
+
+- set counting circle e-voting at a specific date
+
+## [v2.23.2] - 2024-07-16
+
+### 🔄 Changed
+
+- ech-0252 improvements
+
+## [v2.23.1] - 2024-07-15
+
+### 🔒 Security
+
+- upgrade npgsql to fix vulnerability CVE-2024-0057
+
+## [v2.23.0] - 2024-07-11
+
+### :arrows_counterclockwise: Changed
+
+- show protocol exports for political businesses which are not yet finalized
+
+###
+
+## [v2.22.2] - 2024-07-10
+
+### 🔄 Changed
+
+- calculation of select divisors in double proportional results
+
+## [v2.22.1] - 2024-07-05
+
+### 🔄 Changed
+
+- result overview with partial results
+
+## [v2.22.0] - 2024-07-05
+
+### 🆕 Added
+
+- add bundle state to pdf exports
+
+## [v2.21.0] - 2024-07-04
+
+### 🆕 Added
+
+- add export template key canton suffix option
+
+## [v2.20.5] - 2024-07-04
+
+### 🔄 Changed
+
+- update voting library to implement case-insensitivity for headers as per RFC-2616
 
 ## [v2.20.4] - 2024-07-03
 

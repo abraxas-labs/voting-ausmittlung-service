@@ -60,6 +60,12 @@ public class ProportionalElectionEndResultReader
                 .ThenInclude(x => x.List)
                     .ThenInclude(x => x.ProportionalElectionListUnionEntries)
                         .ThenInclude(x => x.ProportionalElectionListUnion.Translations)
+            .Include(x => x.ListLotDecisions)
+                .ThenInclude(x => x.Entries)
+                    .ThenInclude(x => x.List!.Translations)
+            .Include(x => x.ListLotDecisions)
+                .ThenInclude(x => x.Entries)
+                    .ThenInclude(x => x.ListUnion!.Translations)
             .FirstOrDefaultAsync(x => x.ProportionalElectionId == proportionalElectionId && x.ProportionalElection.DomainOfInfluence.SecureConnectId == tenantId)
             ?? throw new EntityNotFoundException(proportionalElectionId);
 
@@ -267,6 +273,18 @@ public class ProportionalElectionEndResultReader
         endResult.ListEndResults = endResult.ListEndResults
             .OrderBy(x => x.List.Position)
             .ToList();
+
+        endResult.ListLotDecisions = endResult.ListLotDecisions
+            .OrderBy(x => x.Id)
+            .ToList();
+
+        foreach (var listLotDecision in endResult.ListLotDecisions)
+        {
+            listLotDecision.Entries = listLotDecision.Entries
+                .OrderBy(x => x.ListId)
+                .ThenBy(x => x.ListUnionId)
+                .ToList();
+        }
 
         foreach (var listEndResult in endResult.ListEndResults)
         {

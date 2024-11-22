@@ -75,6 +75,7 @@
       <AllCountingCirclesDone>false</AllCountingCirclesDone>
     </VoteEndResult>
     <InternalDescription>Abstimmung Uzwil auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
 </Voting>

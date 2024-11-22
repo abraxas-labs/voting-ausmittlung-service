@@ -2,9 +2,12 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -29,6 +32,13 @@ public class PdfMajorityElectionCountingCircleResultExportTest : PdfExportBaseTe
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
+
+        await RunOnDb(db =>
+        {
+            return db.ContestCountingCircleDetails
+                .Where(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && x.ContestId == ContestMockedData.GuidBundesurnengang)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountingMachine, CountingMachine.BanknoteCountingMachine));
+        });
     }
 
     protected override StartProtocolExportsRequest NewRequest()

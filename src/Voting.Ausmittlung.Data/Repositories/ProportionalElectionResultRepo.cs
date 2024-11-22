@@ -40,6 +40,6 @@ public class ProportionalElectionResultRepo : PoliticalBusinessResultRepo<Propor
 
     protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
     {
-        return await Context.Set<ProportionalElection>().Where(x => x.Id == id).SingleAsync();
+        return await Context.Set<ProportionalElection>().Include(x => x.DomainOfInfluence).Where(x => x.Id == id).SingleAsync();
     }
 }

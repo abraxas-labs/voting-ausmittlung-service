@@ -278,7 +278,6 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
                     },
                 },
                 SwissAbroadVotingRight = SwissAbroadVotingRight.SeparateCountingCircle,
-                NewZhFeaturesEnabled = true,
             },
             EventInfo = GetMockedBasisEventInfo(),
         });
@@ -742,7 +741,7 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
             await voteResultService.SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
             {
                 VoteResultId = voteResultId,
-                SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             });
         }
 

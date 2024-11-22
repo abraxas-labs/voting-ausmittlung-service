@@ -95,6 +95,61 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
+    public async Task CreateDetailsWithAllVoterTypesShouldBeOk()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x =>
+            {
+                x.HasForeignerVoters = true;
+                x.HasMinorVoters = true;
+                x.SwissAbroadVotingRight = SwissAbroadVotingRight.OnEveryCountingCircle;
+            });
+
+        await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+        {
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.SwissAbroad,
+                Sex = SharedProto.SexType.Male,
+                CountOfVoters = 40,
+            });
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.SwissAbroad,
+                Sex = SharedProto.SexType.Female,
+                CountOfVoters = 60,
+            });
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.Foreigner,
+                Sex = SharedProto.SexType.Male,
+                CountOfVoters = 20,
+            });
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.Foreigner,
+                Sex = SharedProto.SexType.Female,
+                CountOfVoters = 80,
+            });
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.Minor,
+                Sex = SharedProto.SexType.Male,
+                CountOfVoters = 80,
+            });
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                VoterType = SharedProto.VoterType.Minor,
+                Sex = SharedProto.SexType.Female,
+                CountOfVoters = 20,
+            });
+        }));
+        var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsCreated>();
+        eventData.MatchSnapshot("create");
+    }
+
+    [Fact]
     public async Task TestShouldWorkAfterTestingPhaseEnded()
     {
         var request = NewValidRequest();
@@ -202,7 +257,7 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task CreateDetailsShouldThrowIfSwissAbroadVoterType()
+    public async Task CreateDetailsShouldThrowIfDisallowedSwissAbroadVoterType()
     {
         await AssertStatus(
         async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
@@ -217,6 +272,42 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
         })),
         StatusCode.InvalidArgument,
         "swiss abroads not allowed");
+    }
+
+    [Fact]
+    public async Task CreateDetailsShouldThrowIfDisallowedForeignerVoterType()
+    {
+        await AssertStatus(
+        async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+        {
+            x.ContestId = ContestMockedData.IdGossau;
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                Sex = SharedProto.SexType.Female,
+                VoterType = SharedProto.VoterType.Foreigner,
+                CountOfVoters = 1,
+            });
+        })),
+        StatusCode.InvalidArgument,
+        "foreigners not allowed");
+    }
+
+    [Fact]
+    public async Task CreateDetailsShouldThrowIfDisallowedMinorVoterType()
+    {
+        await AssertStatus(
+        async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
+        {
+            x.ContestId = ContestMockedData.IdGossau;
+            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            {
+                Sex = SharedProto.SexType.Female,
+                VoterType = SharedProto.VoterType.Minor,
+                CountOfVoters = 1,
+            });
+        })),
+        StatusCode.InvalidArgument,
+        "minors not allowed");
     }
 
     [Fact]
@@ -479,8 +570,32 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                             VoterType = SharedProto.VoterType.SwissAbroad,
                             CountOfVoters = 1000,
                         },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Foreigner,
+                            CountOfVoters = 30,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Foreigner,
+                            CountOfVoters = 70,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Minor,
+                            CountOfVoters = 70,
+                        },
+                        new CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Minor,
+                            CountOfVoters = 30,
+                        },
                     },
-                TotalCountOfVoters = 12000,
+                TotalCountOfVoters = 12200,
             },
             CountingMachine = SharedProto.CountingMachine.CalibratedScales,
             EventInfo = GetMockedEventInfo(),

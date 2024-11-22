@@ -670,6 +670,7 @@
             <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -996,6 +997,7 @@
             <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
             <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
+            <CountingMachine>Unspecified</CountingMachine>
           </ContestCountingCircleDetails>
         </CountingCircle>
         <TotalCountOfVoters>1000</TotalCountOfVoters>

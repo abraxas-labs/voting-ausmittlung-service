@@ -36,6 +36,7 @@
         <UnionList>
           <OrderNumber>1a</OrderNumber>
           <ShortDescription>Liste 1a de</ShortDescription>
+          <Description>Liste 1a SP/JUSO Frauen de</Description>
         </UnionList>
         <NumberOfMandates>2</NumberOfMandates>
         <ListVotesCount>720</ListVotesCount>
@@ -46,6 +47,7 @@
         <UnionList>
           <OrderNumber>1b</OrderNumber>
           <ShortDescription>Liste 1b de</ShortDescription>
+          <Description>Liste 1b SP/JUSO Männer de</Description>
         </UnionList>
         <NumberOfMandates>2</NumberOfMandates>
         <ListVotesCount>625</ListVotesCount>
@@ -56,6 +58,7 @@
         <UnionList>
           <OrderNumber>2</OrderNumber>
           <ShortDescription>Liste 2 de</ShortDescription>
+          <Description>Liste 2, GLP de</Description>
         </UnionList>
         <NumberOfMandates>1</NumberOfMandates>
         <ListVotesCount>442</ListVotesCount>
@@ -66,6 +69,7 @@
         <UnionList>
           <OrderNumber>3</OrderNumber>
           <ShortDescription>Liste 3 de</ShortDescription>
+          <Description>Liste 3 SP/JUSO Männer Studenten de</Description>
         </UnionList>
         <NumberOfMandates>0</NumberOfMandates>
         <ListVotesCount>0</ListVotesCount>

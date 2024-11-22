@@ -49,6 +49,7 @@ internal static class MajorityElectionResultMapping
                 ElectionIdentification = election.Id.ToString(),
                 TypeOfElection = TypeOfElectionType.Item2,
                 NumberOfMandates = election.NumberOfMandates.ToString(),
+                ElectionDescription = null,
             },
             MajoralElection = new ElectionResultTypeMajoralElection
             {
@@ -77,6 +78,7 @@ internal static class MajorityElectionResultMapping
                 ElectionIdentification = election.Id.ToString(),
                 TypeOfElection = TypeOfElectionType.Item2,
                 NumberOfMandates = election.NumberOfMandates.ToString(),
+                ElectionDescription = null,
             },
             MajoralElection = new ElectionResultTypeMajoralElection
             {

@@ -99,7 +99,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await AssertStatus(
             async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
-            StatusCode.NotFound);
+            StatusCode.InvalidArgument);
     }
 
     [Fact]
@@ -149,7 +149,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
                 new ProportionalElectionResultSubmissionFinishedRequest
                 {
                     ElectionResultId = IdNotFound,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.NotFound);
     }
@@ -163,7 +163,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
                 new ProportionalElectionResultSubmissionFinishedRequest
                 {
                     ElectionResultId = IdBadFormat,
-                    SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.InvalidArgument);
     }
@@ -209,7 +209,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
             item.ActionId = "updated-action-id";
             await db.SaveChangesAsync();
@@ -231,9 +231,9 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         {
             var item = await db.SecondFactorTransactions
                 .AsTracking()
-                .FirstAsync(x => x.ExternalIdentifier == SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction);
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
 
-            item.ExternalIdentifier = invalidExternalId;
+            item.ExternalTokenJwtIds = [invalidExternalId];
             await db.SaveChangesAsync();
         });
 
@@ -241,7 +241,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
             async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(new ProportionalElectionResultSubmissionFinishedRequest
             {
                 ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-                SecondFactorTransactionId = invalidExternalId,
+                SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
             }),
             StatusCode.FailedPrecondition,
             "Second factor transaction is not verified");
@@ -264,7 +264,7 @@ public class ProportionalElectionResultSubmissionFinishedTest : ProportionalElec
         var req = new ProportionalElectionResultSubmissionFinishedRequest
         {
             ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
-            SecondFactorTransactionId = SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
         customizer?.Invoke(req);
         return req;

@@ -14,7 +14,6 @@
     ],
     "EnabledVotingCardChannels": [],
     "CountingMachineEnabled": true,
-    "NewZhFeaturesEnabled": false,
     "MajorityElectionUseCandidateCheckDigit": false,
     "ProportionalElectionUseCandidateCheckDigit": false,
     "CountingCircleResultStateDescriptions": [],

@@ -35,6 +35,8 @@
       <Ballot>
         <Position>1</Position>
         <BallotType>StandardBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription />
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -332,6 +334,7 @@
       </VoteDomainOfInfluenceResult>
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -352,6 +355,8 @@
       <Ballot>
         <Position>1</Position>
         <BallotType>VariantsBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription>Frage 1 de</OfficialDescription>
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -1297,6 +1302,8 @@
       <Ballot>
         <Position>2</Position>
         <BallotType>StandardBallot</BallotType>
+        <ShortDescription />
+        <OfficialDescription>Frage 2 de</OfficialDescription>
         <BallotQuestion>
           <Label>MainBallot</Label>
           <Number>1</Number>
@@ -1594,5 +1601,6 @@
       </VoteDomainOfInfluenceResult>
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
 </Voting>

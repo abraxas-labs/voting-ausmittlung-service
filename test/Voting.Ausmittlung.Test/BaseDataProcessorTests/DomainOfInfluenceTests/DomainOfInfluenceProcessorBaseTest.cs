@@ -38,6 +38,7 @@ public abstract class DomainOfInfluenceProcessorBaseTest : BaseDataProcessorTest
         {
             domainOfInfluence.CountingCircles = domainOfInfluence.CountingCircles
                 .OrderBy(x => x.CountingCircleId)
+                .ThenBy(x => x.SourceDomainOfInfluenceId)
                 .ToList();
 
             foreach (var doiCc in domainOfInfluence.CountingCircles)

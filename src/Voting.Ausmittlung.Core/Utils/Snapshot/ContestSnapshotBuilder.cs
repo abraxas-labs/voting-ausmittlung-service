@@ -26,6 +26,7 @@ public class ContestSnapshotBuilder
         var domainOfInfluenceBasisIdToNewIdMap = await CopyDomainOfInfluences(contest.Id);
         await _dbContext.SaveChangesAsync();
 
+        await SetSnapshotSuperiorAuthority(domainOfInfluenceBasisIdToNewIdMap, contest.Id);
         await CopyDomainOfInfluenceCountingCircleRelations(countingCircleBasisIdToNewIdMap, domainOfInfluenceBasisIdToNewIdMap);
 
         contest.DomainOfInfluenceId = MapToNewId(domainOfInfluenceBasisIdToNewIdMap, contest.DomainOfInfluenceId);
@@ -94,9 +95,25 @@ public class ContestSnapshotBuilder
             doiCc.Id = Guid.NewGuid();
             doiCc.DomainOfInfluenceId = MapToNewId(doiBasisIdToNewIdMapping, doiCc.DomainOfInfluenceId);
             doiCc.CountingCircleId = MapToNewId(countingCircleBasisIdToNewIdMapping, doiCc.CountingCircleId);
+            doiCc.SourceDomainOfInfluenceId = MapToNewId(doiBasisIdToNewIdMapping, doiCc.SourceDomainOfInfluenceId);
         }
 
         _dbContext.DomainOfInfluenceCountingCircles.AddRange(doiCountingCircles);
+    }
+
+    // We need to set the snapshot superior authority separately from the snapshot creation, otherwise it leads to cycle conflicts
+    // because a child could also be a superior authority, but a child cannot be created before the parent (domain of influence tree).
+    private async Task SetSnapshotSuperiorAuthority(Dictionary<Guid, Guid> domainOfInfluenceBasisIdToNewIdMap, Guid contestId)
+    {
+        var domainOfInfluences = await _dbContext.DomainOfInfluences
+            .AsTracking()
+            .Where(x => x.SnapshotContestId == contestId)
+            .ToListAsync();
+
+        foreach (var domainOfInfluence in domainOfInfluences.Where(doi => doi.SuperiorAuthorityDomainOfInfluenceId != null))
+        {
+            domainOfInfluence.SuperiorAuthorityDomainOfInfluenceId = MapToNewId(domainOfInfluenceBasisIdToNewIdMap, domainOfInfluence.SuperiorAuthorityDomainOfInfluenceId!.Value);
+        }
     }
 
     private Guid MapToNewId(Dictionary<Guid, Guid> basisIdToNewIdMapping, Guid basisId)

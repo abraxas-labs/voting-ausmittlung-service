@@ -26,12 +26,14 @@ public class ProportionalElectionEndResultProcessor :
     IEventProcessor<ProportionalElectionEndResultMandateDistributionReverted>,
     IEventProcessor<ProportionalElectionEndResultFinalized>,
     IEventProcessor<ProportionalElectionEndResultFinalizationReverted>,
-    IEventProcessor<ProportionalElectionManualListEndResultEntered>
+    IEventProcessor<ProportionalElectionManualListEndResultEntered>,
+    IEventProcessor<ProportionalElectionListEndResultListLotDecisionsUpdated>
 {
     private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
     private readonly ProportionalElectionEndResultLotDecisionBuilder _endResultLotDecisionBuilder;
     private readonly ProportionalElectionEndResultRepo _endResultRepo;
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
+    private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
 
     public ProportionalElectionEndResultProcessor(
@@ -40,7 +42,8 @@ public class ProportionalElectionEndResultProcessor :
         ProportionalElectionEndResultRepo endResultRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         IMapper mapper,
-        ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder)
+        ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
+        DataContext dataContext)
         : base(simplePoliticalBusinessRepo)
     {
         _endResultBuilder = endResultBuilder;
@@ -48,6 +51,7 @@ public class ProportionalElectionEndResultProcessor :
         _mapper = mapper;
         _endResultLotDecisionBuilder = endResultLotDecisionBuilder;
         _candidateEndResultBuilder = candidateEndResultBuilder;
+        _dataContext = dataContext;
     }
 
     public async Task Process(ProportionalElectionEndResultMandateDistributionStarted eventData)
@@ -90,6 +94,19 @@ public class ProportionalElectionEndResultProcessor :
             x => _mapper.Map<ProportionalElectionCandidateEndResultState>(x.State));
 
         await _candidateEndResultBuilder.SetCandidateEndResultsManually(listId, candidateStateById);
+    }
+
+    public async Task Process(ProportionalElectionListEndResultListLotDecisionsUpdated eventData)
+    {
+        var electionId = Guid.Parse(eventData.ProportionalElectionId);
+        var endResult = await _endResultRepo.GetByProportionalElectionIdAsTracked(electionId);
+        if (endResult == null)
+        {
+            throw new EntityNotFoundException(electionId);
+        }
+
+        endResult.ListLotDecisions = _mapper.Map<List<ProportionalElectionEndResultListLotDecision>>(eventData.ListLotDecisions);
+        await _dataContext.SaveChangesAsync();
     }
 
     protected override async Task SetFinalized(Guid politicalBusinessId, bool finalized)

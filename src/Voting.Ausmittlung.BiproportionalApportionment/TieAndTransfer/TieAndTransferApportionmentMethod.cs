@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using Rationals;
 
 namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
@@ -13,7 +14,6 @@ namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 /// </summary>
 public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMethod
 {
-    private const int ApproxEqualsPrecision = 20;
     private readonly VectorApportionmentMethod _vectorApportionmentMethod = new();
 
     /// <inheritdoc />
@@ -212,8 +212,8 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
 
                 // Check if quotient is equal to rounding function
                 var quotient = ctx.GetQuotient(i, j);
-                var canRoundUp = quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j]), ApproxEqualsPrecision);
-                var canRoundDown = quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j]) - 1, ApproxEqualsPrecision);
+                var canRoundUp = quotient == SignPost.Get(ctx.Apportionment[i][j]);
+                var canRoundDown = quotient == SignPost.Get(ctx.Apportionment[i][j]) - 1;
 
                 if (canRoundUp || canRoundDown)
                 {
@@ -244,7 +244,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
 
                         if (delta != null)
                         {
-                            delta = decimal.Divide(delta.Value + 1, 2);
+                            delta = (delta + 1) / 2;
                         }
                         else
                         {
@@ -269,12 +269,12 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
 
         for (var i = 0; i < ctx.Rows; i++)
         {
-            ctx.RowDivisors[i] = decimal.Multiply(ctx.RowDivisors[i], divisorFactor);
+            ctx.RowDivisors[i] *= divisorFactor;
         }
 
         for (var j = 0; j < ctx.Cols; j++)
         {
-            ctx.ColDivisors[j] = decimal.Divide(ctx.ColDivisors[j], divisorFactor);
+            ctx.ColDivisors[j] /= divisorFactor;
         }
     }
 
@@ -309,7 +309,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
                     {
                         var quotient = ctx.GetQuotient(i, j);
 
-                        if (quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j]), ApproxEqualsPrecision))
+                        if (quotient == SignPost.Get(ctx.Apportionment[i][j]))
                         {
                             queue[queueEndIndex++] = j + ctx.Rows;
                             labeled[j + ctx.Rows] = true;
@@ -330,7 +330,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
                     {
                         var quotient = ctx.GetQuotient(i, j);
 
-                        if (quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j]) - 1, ApproxEqualsPrecision))
+                        if (quotient == SignPost.Get(ctx.Apportionment[i][j]) - 1)
                         {
                             queue[queueEndIndex++] = i;
                             labeled[i] = true;
@@ -343,9 +343,9 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
     }
 
     // This algorithm is described in Martin Zachariasen paper as "Algorithm 2 Compute Delta for updaing multipiers" and in BAZI.
-    private decimal? ComputeDelta(TieAndTransferMethodContext ctx, bool[] labeled)
+    private Rational? ComputeDelta(TieAndTransferMethodContext ctx, bool[] labeled)
     {
-        decimal? minDelta = null;
+        Rational? minDelta = null;
 
         for (var i = 0; i < ctx.Rows; i++)
         {
@@ -355,7 +355,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
                 if (labeled[i] && (!labeled[j + ctx.Rows]) && ctx.Weights[i][j].VoteCount > 0)
                 {
                     var quotient = ctx.GetQuotient(i, j);
-                    var delta = decimal.Divide(SignPost.Get(ctx.Apportionment[i][j]), quotient);
+                    var delta = SignPost.Get(ctx.Apportionment[i][j]) / quotient;
 
                     if (minDelta == null || delta < minDelta)
                     {
@@ -371,7 +371,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
 
                     if (dFunc > 0)
                     {
-                        var delta = decimal.Divide(quotient, dFunc);
+                        var delta = quotient / dFunc;
                         if (minDelta == null || delta < minDelta)
                         {
                             minDelta = delta;
@@ -381,7 +381,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
             }
         }
 
-        if (minDelta <= 1.0M && minDelta > 0)
+        if (minDelta <= 1 && minDelta > 0)
         {
             throw new BiproportionalApportionmentException("Computed delta is between 0 and 1. Problem is infeasible");
         }
@@ -401,11 +401,11 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
                 {
                     var quotient = ctx.GetQuotient(i, j);
 
-                    if (quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j]), ApproxEqualsPrecision))
+                    if (quotient == SignPost.Get(ctx.Apportionment[i][j]))
                     {
                         ctx.Ties[i][j] = TieState.Positive;
                     }
-                    else if (quotient.ApproxEquals(SignPost.Get(ctx.Apportionment[i][j] - 1), ApproxEqualsPrecision))
+                    else if (quotient == SignPost.Get(ctx.Apportionment[i][j] - 1))
                     {
                         ctx.Ties[i][j] = TieState.Negative;
                     }
@@ -414,14 +414,14 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
         }
     }
 
-    private void UpdateDivisors(TieAndTransferMethodContext ctx, bool[] labeled, decimal delta)
+    private void UpdateDivisors(TieAndTransferMethodContext ctx, bool[] labeled, Rational delta)
     {
         // Update row divisors for labeled rows
         for (var i = 0; i < ctx.Rows; i++)
         {
             if (labeled[i])
             {
-                ctx.RowDivisors[i] = decimal.Divide(ctx.RowDivisors[i], delta);
+                ctx.RowDivisors[i] /= delta;
             }
         }
 
@@ -430,7 +430,7 @@ public class TieAndTransferApportionmentMethod : IBiproportionalApportionmentMet
         {
             if (labeled[j + ctx.Rows])
             {
-                ctx.ColDivisors[j] = decimal.Multiply(ctx.ColDivisors[j], delta);
+                ctx.ColDivisors[j] *= delta;
             }
         }
     }

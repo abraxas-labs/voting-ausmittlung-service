@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -16,15 +17,14 @@ internal static class VoteInfoProportionalElectionInfoMapping
     private const string FederalIdentifier = "idBund";
 
     internal static IEnumerable<ElectionGroupInfoType> ToVoteInfoEchProportionalElectionGroups(
-        this ICollection<ProportionalElection> elections,
-        Ech0252MappingContext ctx)
+        this IEnumerable<ProportionalElection> elections,
+        Ech0252MappingContext ctx,
+        Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
         return elections
-            .OrderBy(x => x.DomainOfInfluence.Type)
-            .ThenBy(x => x.PoliticalBusinessNumber)
             .Select(x => new ElectionGroupInfoType
             {
-                ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx),
+                ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx, positionBySuperiorAuthorityId),
                 CountingCircle = x.Results
                     .OrderBy(r => r.CountingCircle.Name)
                     .Select(r => r.CountingCircle.ToEch0252CountingCircle(x.Contest.DomainOfInfluenceId))
@@ -41,19 +41,27 @@ internal static class VoteInfoProportionalElectionInfoMapping
 
     private static ElectionGroupInfoTypeElectionGroup ToVoteInfoEchElectionGroup(
         this ProportionalElection election,
-        Ech0252MappingContext ctx)
+        Ech0252MappingContext ctx,
+        Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
         var canton = election.DomainOfInfluence.Canton;
+        var superiorAuthority = ctx.GetSuperiorAuthority(election.DomainOfInfluence.Id);
+        var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
 
-        return new ElectionGroupInfoTypeElectionGroup()
+        var previousPosition = positionBySuperiorAuthorityId.GetValueOrDefault(superiorAuthorityId, 0);
+        var position = previousPosition + 1;
+        positionBySuperiorAuthorityId[superiorAuthorityId] = position;
+
+        return new ElectionGroupInfoTypeElectionGroup
         {
             ElectionGroupIdentification = election.Id.ToString(),
-            SuperiorAuthority = ctx.GetSuperiorAuthority(election.DomainOfInfluence.Bfs)?.ToEchDomainOfInfluence(),
+            SuperiorAuthority = superiorAuthority?.ToEchDomainOfInfluence(),
             DomainOfInfluence = election.DomainOfInfluence.ToEchDomainOfInfluence(),
             ElectionInformation = new List<ElectionGroupInfoTypeElectionGroupElectionInformation>
             {
                 election.ToVoteInfoEchElectionInfo(canton),
             },
+            ElectionGroupPosition = position.ToString(),
         };
     }
 
@@ -121,6 +129,7 @@ internal static class VoteInfoProportionalElectionInfoMapping
             TotalPositionsOnList = list.ProportionalElectionCandidates.Sum(c => c.Accumulated ? 2 : 1).ToString(),
             CandidatePosition = candidatePositions,
             EmptyListPositions = list.BlankRowCount.ToString(),
+            ListUnionBallotText = null,
         };
     }
 
@@ -128,7 +137,10 @@ internal static class VoteInfoProportionalElectionInfoMapping
     {
         var candidateType = candidate.ToVoteInfoEchCandidate(
             canton,
+            PoliticalBusinessType.ProportionalElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
+            candidate.Party?.Translations.ToDictionary(t => t.Language, t => t.ShortDescription),
             candidate.Party?.Translations.ToDictionary(t => t.Language, t => t.Name));
 
         candidateType.CandidateReference = GenerateCandidateReference(candidate);

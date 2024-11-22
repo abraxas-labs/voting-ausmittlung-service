@@ -1,7 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
+using Rationals;
 
 namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
@@ -10,24 +10,24 @@ namespace Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 /// </summary>
 public static class SignPost
 {
-    public static int Round(decimal q)
+    public static int Round(Rational q)
     {
         if (q <= 0)
         {
             return 0;
         }
 
-        var x = (int)Math.Floor(q);
+        var x = (int)q.WholePart;
         return q >= x ? x + 1 : x;
     }
 
-    public static decimal Get(int x)
+    public static Rational Get(int x)
     {
         if (x < 0)
         {
             return 0;
         }
 
-        return x + 0.5M;
+        return new Rational(x) + new Rational(1, 2);
     }
 }

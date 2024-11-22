@@ -5,6 +5,10 @@ using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using Voting.Ausmittlung.Core.Domain;
+using Voting.Ausmittlung.Data.Models;
+using ProportionalElectionResultBallotCandidate = Voting.Ausmittlung.Core.Domain.ProportionalElectionResultBallotCandidate;
+using ProportionalElectionResultEntryParams = Voting.Ausmittlung.Core.Domain.ProportionalElectionResultEntryParams;
+using ProportionalElectionUnmodifiedListResult = Voting.Ausmittlung.Core.Domain.ProportionalElectionUnmodifiedListResult;
 
 namespace Voting.Ausmittlung.Core.Mapping.WriterMappings;
 
@@ -17,6 +21,8 @@ public class ProportionalElectionResultProfile : Profile
         CreateMap<ProportionalElectionResultEntryParams, ProportionalElectionResultEntryParamsEventData>().ReverseMap();
         CreateMap<ElectionEndResultLotDecision, ProportionalElectionEndResultLotDecisionEventData>().ReverseMap();
         CreateMap<ProportionalElectionManualCandidateEndResult, ProportionalElectionManualCandidateEndResultEventData>().ReverseMap();
+        CreateMap<ProportionalElectionEndResultListLotDecision, ProportionalElectionEndResultListLotDecisionEventData>().ReverseMap();
+        CreateMap<ProportionalElectionEndResultListLotDecisionEntry, ProportionalElectionEndResultListLotDecisionEntryEventData>().ReverseMap();
 
         CreateMap<ProportionalElectionDoubleProportionalSuperApportionmentLotDecisionUpdated, DoubleProportionalResultSuperApportionmentLotDecision>();
         CreateMap<DoubleProportionalResultSuperApportionmentLotDecisionColumn, ProportionalElectionDoubleProportionalSuperApportionmentLotDecisionColumnEventData>()

@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,7 +13,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -21,19 +21,19 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElectionEndResult> _repo;
+    private readonly IDbRepository<DataContext, MajorityElectionResult> _resultRepo;
     private readonly IMapper _mapper;
-    private readonly IClock _clock;
 
     public PdfMajorityElectionEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElectionEndResult> repo,
-        IMapper mapper,
-        IClock clock)
+        IDbRepository<DataContext, MajorityElectionResult> resultRepo,
+        IMapper mapper)
     {
         _templateService = templateService;
         _repo = repo;
+        _resultRepo = resultRepo;
         _mapper = mapper;
-        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -44,6 +44,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.MajorityElection.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.MajorityElection.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
             .Include(x => x.MajorityElection.Contest.Translations)
             .Include(x => x.MajorityElection.Translations)
@@ -56,11 +57,22 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = majorityElection.DomainOfInfluence;
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.MajorityElection.DomainOfInfluence);
 
         // we don't need this data in the xml
         domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
+
+        if (data.TotalCountOfCountingCircles == 1)
+        {
+            var countingMachine = await _resultRepo.Query()
+                .Where(x => x.MajorityElectionId == ctx.PoliticalBusinessId)
+                .SelectMany(x => x.CountingCircle.ContestDetails)
+                .Select(x => x.CountingMachine)
+                .FirstAsync(ct);
+            domainOfInfluence.Details.CountingMachine = countingMachine;
+        }
 
         var contest = _mapper.Map<PdfContest>(data.MajorityElection.Contest);
 
@@ -70,9 +82,9 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
             Contest = contest,
             DomainOfInfluence = domainOfInfluence,
             MajorityElections = new List<PdfMajorityElection>
-                {
-                    majorityElection,
-                },
+            {
+                majorityElection,
+            },
         };
 
         return await _templateService.RenderToPdf(

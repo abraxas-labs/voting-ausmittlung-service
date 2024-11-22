@@ -166,8 +166,16 @@ public class MajorityElectionCandidateEndResultBuilder : ElectionCandidateEndRes
         foreach (var lotDecision in lotDecisions)
         {
             var candidateEndResult = candidateEndResultsByCandidateId[lotDecision.CandidateId];
-            candidateEndResult.Rank = lotDecision.Rank;
-            candidateEndResult.LotDecision = true;
+
+            if (lotDecision.Rank.HasValue)
+            {
+                candidateEndResult.Rank = lotDecision.Rank.Value;
+                candidateEndResult.LotDecision = true;
+            }
+            else
+            {
+                candidateEndResult.LotDecision = false;
+            }
         }
     }
 }

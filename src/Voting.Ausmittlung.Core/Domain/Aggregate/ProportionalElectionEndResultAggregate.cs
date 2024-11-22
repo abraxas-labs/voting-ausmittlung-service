@@ -9,6 +9,7 @@ using AutoMapper;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Eventing.Domain;
 
@@ -129,6 +130,23 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void UpdateListLotDecisions(
+        Guid proportionalElectionId,
+        IEnumerable<ProportionalElectionEndResultListLotDecision> lotDecisions,
+        Guid contestId,
+        bool testingPhaseEnded)
+    {
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(proportionalElectionId, testingPhaseEnded);
+        var ev = new ProportionalElectionListEndResultListLotDecisionsUpdated
+        {
+            ProportionalElectionEndResultId = Id.ToString(),
+            ProportionalElectionId = proportionalElectionId.ToString(),
+            ListLotDecisions = { _mapper.Map<IEnumerable<ProportionalElectionEndResultListLotDecisionEventData>>(lotDecisions) },
+            EventInfo = _eventInfoProvider.NewEventInfo(),
+        };
+        RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
+    }
+
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -147,6 +165,9 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
                 Apply(ev);
                 break;
             case ProportionalElectionManualListEndResultEntered ev:
+                Apply(ev);
+                break;
+            case ProportionalElectionListEndResultListLotDecisionsUpdated ev:
                 Apply(ev);
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
@@ -172,6 +193,12 @@ public class ProportionalElectionEndResultAggregate : BaseEventSignatureAggregat
     }
 
     private void Apply(ProportionalElectionManualListEndResultEntered ev)
+    {
+        Id = Guid.Parse(ev.ProportionalElectionEndResultId);
+        ProportionalElectionId = Guid.Parse(ev.ProportionalElectionId);
+    }
+
+    private void Apply(ProportionalElectionListEndResultListLotDecisionsUpdated ev)
     {
         Id = Guid.Parse(ev.ProportionalElectionEndResultId);
         ProportionalElectionId = Guid.Parse(ev.ProportionalElectionId);

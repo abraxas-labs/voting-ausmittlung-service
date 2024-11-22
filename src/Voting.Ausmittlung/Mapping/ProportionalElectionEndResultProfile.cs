@@ -26,6 +26,9 @@ public class ProportionalElectionEndResultProfile : Profile
             .ForMember(dst => dst.ListUnion, opts => opts.MapFrom(src => src.List.ProportionalElectionListUnion))
             .ForMember(dst => dst.SubListUnion, opts => opts.MapFrom(src => src.List.ProportionalElectionSubListUnion));
         CreateMap<DataModels.ProportionalElectionCandidateEndResult, ProtoModels.ProportionalElectionCandidateEndResult>();
+        CreateMap<DataModels.ProportionalElectionEndResultListLotDecision, ProtoModels.ProportionalElectionEndResultListLotDecision>();
+        CreateMap<DataModels.ProportionalElectionEndResultListLotDecisionEntry, ProtoModels.ProportionalElectionEndResultListLotDecisionEntry>()
+            .ForMember(dst => dst.Description, opts => opts.MapFrom(src => src.List != null ? src.List.ShortDescription : src.ListUnion!.Description));
 
         CreateMap<CoreModels.ProportionalElectionListEndResultAvailableLotDecisions, ProtoModels.ProportionalElectionListEndResultAvailableLotDecisions>();
         CreateMap<CoreModels.ProportionalElectionEndResultAvailableLotDecision, ProtoModels.ProportionalElectionEndResultAvailableLotDecision>();
@@ -33,5 +36,7 @@ public class ProportionalElectionEndResultProfile : Profile
         // write
         CreateMap<UpdateProportionalElectionEndResultLotDecisionRequest, ElectionEndResultLotDecision>();
         CreateMap<EnterProportionalElectionManualCandidateEndResultRequest, ProportionalElectionManualCandidateEndResult>();
+        CreateMap<UpdateProportionalElectionEndResultListLotDecisionRequest, DataModels.ProportionalElectionEndResultListLotDecision>();
+        CreateMap<UpdateProportionalElectionEndResultListLotDecisionEntryRequest, DataModels.ProportionalElectionEndResultListLotDecisionEntry>();
     }
 }

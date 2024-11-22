@@ -55,7 +55,7 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
             SetCandidateEndResultStateAfterAllSubmissionsDone(candidateEndResult, numberOfMandates, absoluteMajority);
         }
 
-        RecalculateLotDecisionRequired(candidateEndResults, numberOfMandates);
+        RecalculateLotDecisionState(candidateEndResults, numberOfMandates);
     }
 
     private void SetCandidateEndResultStateAfterAllSubmissionsDone<TMajorityElectionCandidateEndResultBase>(

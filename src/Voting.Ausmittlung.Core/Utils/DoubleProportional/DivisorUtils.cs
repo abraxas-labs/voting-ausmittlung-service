@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using Rationals;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
 
 namespace Voting.Ausmittlung.Core.Utils.DoubleProportional;
@@ -11,7 +12,7 @@ internal static class DivisorUtils
 {
     private const int MaxSelectDivisorDigits = 16;
 
-    public static decimal[] GetDivisors(DivisorApportionment[] apportionments, decimal deltaApportionment)
+    public static Rational[] GetDivisors(DivisorApportionment[] apportionments, Rational deltaApportionment)
     {
         return apportionments
             .Select(c => new
@@ -19,14 +20,24 @@ internal static class DivisorUtils
                 c.Weight,
                 NumberOfMandates = c.NumberOfMandates + deltaApportionment,
             })
-            .Select(v => v.NumberOfMandates > 0 ? v.Weight / v.NumberOfMandates : decimal.MaxValue)
+            .Select(v => v.NumberOfMandates > 0 ? v.Weight / v.NumberOfMandates : ParseToRational(decimal.MaxValue))
             .ToArray();
     }
 
-    public static decimal CalculateSelectDivisor(DivisorApportionment[] apportionments)
+    public static Rational ParseToRational(decimal n)
     {
-        var divisorsWithOneHalfNumberOfMandateLess = GetDivisors(apportionments, -0.5M);
-        var divisorsWithOneHalfNumberOfMandateMore = GetDivisors(apportionments, 0.5M);
+        return (Rational)n;
+    }
+
+    public static Rational ParseToRational(double n)
+    {
+        return (Rational)n;
+    }
+
+    public static Rational CalculateSelectDivisor(DivisorApportionment[] apportionments)
+    {
+        var divisorsWithOneHalfNumberOfMandateLess = GetDivisors(apportionments, new Rational(-1, 2));
+        var divisorsWithOneHalfNumberOfMandateMore = GetDivisors(apportionments, new Rational(1, 2));
 
         var divisorUpperBoundary = divisorsWithOneHalfNumberOfMandateLess.Min();
         var divisorLowerBoundary = divisorsWithOneHalfNumberOfMandateMore.Max();
@@ -34,9 +45,9 @@ internal static class DivisorUtils
         return CalculateSelectDivisor(divisorLowerBoundary, divisorUpperBoundary);
     }
 
-    public static decimal CalculateSelectDivisor(decimal divisorLowerBoundary, decimal divisorUpperBoundary)
+    public static Rational CalculateSelectDivisor(Rational divisorLowerBoundary, Rational divisorUpperBoundary)
     {
-        var midDivisor = decimal.Divide(divisorLowerBoundary + divisorUpperBoundary, 2);
+        var midDivisor = (divisorLowerBoundary + divisorUpperBoundary) / 2;
 
         for (var countOfDigitsFromLeft = 0; countOfDigitsFromLeft < MaxSelectDivisorDigits; countOfDigitsFromLeft++)
         {
@@ -50,7 +61,7 @@ internal static class DivisorUtils
         return midDivisor;
     }
 
-    private static int GetCountOfDigits(decimal n)
+    private static int GetCountOfDigits(Rational n)
     {
         return (int)(1 + Math.Floor(Math.Log10((double)n)));
     }
@@ -62,17 +73,17 @@ internal static class DivisorUtils
     /// <param name="countOfDigitsFromLeft">Count of digits from the left.</param>
     /// <param name="number">The number.</param>
     /// <returns>A number which is rounded at the count of digits from the left.</returns>
-    private static decimal Round(int countOfDigitsFromLeft, decimal number)
+    private static Rational Round(int countOfDigitsFromLeft, Rational number)
     {
         if (countOfDigitsFromLeft - GetCountOfDigits(number) < 0)
         {
             var x1 = Math.Pow(10.0, GetCountOfDigits(number) - countOfDigitsFromLeft);
             var x2 = Math.Pow(10.0, countOfDigitsFromLeft - GetCountOfDigits(number));
-            return (decimal)(x1 * Math.Round((double)number * x2));
+            return ParseToRational(x1 * Math.Round((double)number * x2));
         }
         else
         {
-            return Math.Round(number * ScalePow(countOfDigitsFromLeft, number)) / ScalePow(countOfDigitsFromLeft, number);
+            return ParseToRational(Math.Round((decimal)(number * ScalePow(countOfDigitsFromLeft, number)))) / ScalePow(countOfDigitsFromLeft, number);
         }
     }
 
@@ -82,8 +93,8 @@ internal static class DivisorUtils
     /// <param name="countOfDigits">Count of digits.</param>
     /// <param name="number">The number.</param>
     /// <returns>The scaling multiplier.</returns>
-    private static decimal ScalePow(int countOfDigits, decimal number)
+    private static Rational ScalePow(int countOfDigits, Rational number)
     {
-        return (decimal)Math.Pow(10.0, countOfDigits - GetCountOfDigits(number));
+        return ParseToRational(Math.Pow(10.0, countOfDigits - GetCountOfDigits(number)));
     }
 }

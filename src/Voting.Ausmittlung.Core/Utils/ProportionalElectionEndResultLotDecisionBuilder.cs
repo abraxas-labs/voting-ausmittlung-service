@@ -52,7 +52,7 @@ public class ProportionalElectionEndResultLotDecisionBuilder
             _candidateEndResultBuilder.RecalculateCandidateEndResultStates(listEndResult);
         }
 
-        _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+        _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult, listEndResult.ElectionEndResult.ManualEndResultRequired);
 
         await _dataContext.SaveChangesAsync();
     }

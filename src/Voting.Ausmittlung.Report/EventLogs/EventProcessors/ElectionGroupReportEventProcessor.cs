@@ -4,6 +4,7 @@
 using Abraxas.Voting.Basis.Events.V1;
 
 namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
+
 public class ElectionGroupReportEventProcessor :
     IReportEventProcessor<ElectionGroupCreated>,
     IReportEventProcessor<ElectionGroupUpdated>,

@@ -115,8 +115,16 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         foreach (var lotDecision in lotDecisions)
         {
             var candidateEndResult = candidateEndResultsByCandidateId[lotDecision.CandidateId];
-            candidateEndResult.Rank = lotDecision.Rank;
-            candidateEndResult.LotDecision = true;
+
+            if (lotDecision.Rank.HasValue)
+            {
+                candidateEndResult.Rank = lotDecision.Rank.Value;
+                candidateEndResult.LotDecision = true;
+            }
+            else
+            {
+                candidateEndResult.LotDecision = false;
+            }
         }
     }
 
@@ -149,15 +157,34 @@ public class ProportionalElectionCandidateEndResultBuilder : ElectionCandidateEn
         await _dataContext.SaveChangesAsync();
     }
 
-    internal void RecalculateLotDecisionRequired(ProportionalElectionListEndResult listEndResult)
+    internal void RecalculateLotDecisionState(ProportionalElectionListEndResult listEndResult, bool manualEndResult = false)
     {
         var enabledCandidateEndResults = listEndResult.CandidateEndResults.Where(x => x.LotDecisionEnabled);
+
+        var candidateEndResultMinMaxRankByVoteCount = enabledCandidateEndResults
+            .GroupBy(candEndResult => candEndResult.VoteCount)
+            .ToDictionary(x => x.Key, x => new
+            {
+                MinRank = x.Min(candEndResult => candEndResult.Rank),
+                MaxRank = x.Min(candEndResult => candEndResult.Rank) + x.Count() - 1,
+            });
 
         listEndResult.HasOpenRequiredLotDecisions = false;
         foreach (var candidateEndResult in enabledCandidateEndResults)
         {
-            // lot decision is always required when there are candidates with the same vote count
-            candidateEndResult.LotDecisionRequired = true;
+            var candidateEndResultMinMaxRank = candidateEndResultMinMaxRankByVoteCount[candidateEndResult.VoteCount];
+
+            if (!candidateEndResult.LotDecision)
+            {
+                candidateEndResult.Rank = candidateEndResultMinMaxRank.MinRank;
+            }
+
+            // lot decision is required when there are candidates with the same vote count
+            // and the elected candidates is dependent of this candidate rank
+            candidateEndResult.LotDecisionRequired = manualEndResult
+                || (candidateEndResultMinMaxRank.MinRank <= listEndResult.NumberOfMandates
+                    && candidateEndResultMinMaxRank.MaxRank > listEndResult.NumberOfMandates);
+
             listEndResult.HasOpenRequiredLotDecisions |= candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision;
         }
     }

@@ -12,4 +12,6 @@ public abstract class MajorityElectionCandidateBase : ElectionCandidate
     public abstract string Party { get; }
 
     public abstract Guid PoliticalBusinessId { get; }
+
+    public bool CreatedDuringActiveContest { get; set; }
 }

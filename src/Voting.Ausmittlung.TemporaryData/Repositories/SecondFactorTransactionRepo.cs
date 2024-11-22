@@ -17,6 +17,6 @@ public class SecondFactorTransactionRepo : DbRepository<TemporaryDataContext, Se
 
     public Task<SecondFactorTransaction?> GetByExternalIdentifier(string externalIdentifier)
     {
-        return Set.FirstOrDefaultAsync(x => x.ExternalIdentifier == externalIdentifier);
+        return Set.FirstOrDefaultAsync(x => x.Id.ToString() == externalIdentifier);
     }
 }

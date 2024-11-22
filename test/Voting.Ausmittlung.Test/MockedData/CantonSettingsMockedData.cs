@@ -26,10 +26,14 @@ public static class CantonSettingsMockedData
             SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
             MajorityElectionAbsoluteMajorityAlgorithm = CantonMajorityElectionAbsoluteMajorityAlgorithm.ValidBallotsDividedByTwo,
             MajorityElectionInvalidVotes = false,
-            SwissAbroadVotingRight = SwissAbroadVotingRight.SeparateCountingCircle,
+            SwissAbroadVotingRight = SwissAbroadVotingRight.OnEveryCountingCircle,
             SwissAbroadVotingRightDomainOfInfluenceTypes = new List<DomainOfInfluenceType>
             {
-                    DomainOfInfluenceType.Sk,
+                DomainOfInfluenceType.Ch,
+                DomainOfInfluenceType.Ct,
+                DomainOfInfluenceType.Bz,
+                DomainOfInfluenceType.Mu,
+                DomainOfInfluenceType.Sk,
             },
             EnabledVotingCardChannels = new List<CantonSettingsVotingCardChannel>
             {
@@ -118,7 +122,6 @@ public static class CantonSettingsMockedData
             ProtocolCountingCircleSortType = ProtocolCountingCircleSortType.SortNumber,
             ProtocolDomainOfInfluenceSortType = ProtocolDomainOfInfluenceSortType.SortNumber,
             CountingMachineEnabled = true,
-            NewZhFeaturesEnabled = true,
             MajorityElectionUseCandidateCheckDigit = true,
             ProportionalElectionUseCandidateCheckDigit = true,
             CountingCircleResultStateDescriptions =

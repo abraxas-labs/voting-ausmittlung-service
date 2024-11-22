@@ -77,6 +77,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.4</VoterParticipation>
@@ -109,6 +111,10 @@
           <CountOfAnswerTotal>48</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>9</CountOfAnswerTotalYes>
@@ -190,15 +196,18 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>15000</TotalCountOfVoters>
+      <TotalCountOfVoters>15800</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -292,6 +301,7 @@
             <Channel>EVoting</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -301,6 +311,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -418,15 +430,18 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>3000</TotalCountOfVoters>
+      <TotalCountOfVoters>3210</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -485,6 +500,7 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -510,6 +526,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.4</VoterParticipation>
@@ -542,6 +560,10 @@
           <CountOfAnswerTotal>48</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>9</CountOfAnswerTotalYes>
@@ -573,6 +595,10 @@
           <CountOfAnswerTotal>48</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>9</CountOfAnswerTotalYes>
@@ -604,6 +630,10 @@
           <CountOfAnswerTotal>48</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>9</CountOfAnswerTotalYes>
@@ -724,6 +754,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription />
         </Ballot>
         <CountOfVoters>
           <VoterParticipation>0.4</VoterParticipation>
@@ -756,6 +788,10 @@
           <CountOfAnswerTotal>48</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
+          <HasCountingCircleMajority>false</HasCountingCircleMajority>
+          <HasCountingCircleUnanimity>false</HasCountingCircleUnanimity>
           <Accepted>false</Accepted>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>9</CountOfAnswerTotalYes>
@@ -837,6 +873,7 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>40000</TotalCountOfVoters>
@@ -846,6 +883,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 1 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1092,6 +1131,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 2 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1185,6 +1226,7 @@
             <Channel>EVoting</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -1194,6 +1236,8 @@
         <Ballot>
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 1 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1440,6 +1484,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 2 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1557,15 +1603,18 @@
             <Channel>Paper</Channel>
             <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
           </ContestVotingCardDetail>
+          <CountingMachine>Unspecified</CountingMachine>
         </ContestCountingCircleDetails>
       </CountingCircle>
-      <TotalCountOfVoters>3000</TotalCountOfVoters>
+      <TotalCountOfVoters>3210</TotalCountOfVoters>
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
           <Position>1</Position>
           <BallotType>VariantsBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 1 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1812,6 +1861,8 @@
         <Ballot>
           <Position>2</Position>
           <BallotType>StandardBallot</BallotType>
+          <ShortDescription />
+          <OfficialDescription>Frage 2 de</OfficialDescription>
           <BallotQuestion>
             <Label>MainBallot</Label>
             <Number>1</Number>
@@ -1870,5 +1921,6 @@
       </BallotResult>
     </VoteResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
+    <ResultAlgorithm>PopularMajority</ResultAlgorithm>
   </Vote>
 </Voting>

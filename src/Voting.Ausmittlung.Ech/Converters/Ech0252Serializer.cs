@@ -9,6 +9,7 @@ using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Ausmittlung.Ech.Models;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Ech;
 
 namespace Voting.Ausmittlung.Ech.Converters;
@@ -28,7 +29,8 @@ public class Ech0252Serializer
     {
         var sequenceBySuperiorAuthorityId = new Dictionary<Guid, ushort>();
         var voteInfos = contest.Votes
-            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x), Vote = x })
+            .Where(x => x.Active)
+            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), Vote = x })
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.Vote.DomainOfInfluence.Type)
             .ThenBy(x => x.Vote.Id)
@@ -52,11 +54,15 @@ public class Ech0252Serializer
 
     public Delivery ToProportionalElectionResultDelivery(Contest contest)
     {
+        var elections = contest.ProportionalElections
+            .Where(x => x.Active)
+            .ToList();
+
         var electionDelivery = new EventElectionResultDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
-            ElectionGroupResult = contest.ProportionalElections.ToVoteInfoEchProportionalElectionGroupResults().ToList(),
+            ElectionGroupResult = elections.ToVoteInfoEchProportionalElectionGroupResults().ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupResult.Count;
@@ -70,11 +76,17 @@ public class Ech0252Serializer
 
     public Delivery ToMajorityElectionResultDelivery(Contest contest)
     {
+        var elections = contest.MajorityElections
+            .Where(x => x.Active)
+            .ToList();
+
         var electionDelivery = new EventElectionResultDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
-            ElectionGroupResult = contest.MajorityElections.ToVoteInfoEchMajorityElectionGroupResults().ToList(),
+            ElectionGroupResult = elections
+                .ToVoteInfoEchMajorityElectionGroupResults()
+                .ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupResult.Count;
@@ -88,12 +100,21 @@ public class Ech0252Serializer
 
     public Delivery ToProportionalElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
     {
+        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
+        var elections = contest.ProportionalElections
+            .Where(x => x.Active)
+            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), ProportionalElection = x })
+            .OrderBy(x => x.PbNumber)
+            .ThenBy(x => x.ProportionalElection.DomainOfInfluence.Type)
+            .ThenBy(x => x.ProportionalElection.Id)
+            .Select(x => x.ProportionalElection);
+
         var electionDelivery = new EventElectionInformationDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
             ElectionAssociation = contest.ProportionalElectionUnions.ToVoteInfoEchElectionAssociations().ToList(),
-            ElectionGroupInfo = contest.ProportionalElections.ToVoteInfoEchProportionalElectionGroups(ctx).ToList(),
+            ElectionGroupInfo = elections.ToVoteInfoEchProportionalElectionGroups(ctx, positionBySuperiorAuthorityId).ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupInfo.Count;
@@ -107,12 +128,21 @@ public class Ech0252Serializer
 
     public Delivery ToMajorityElectionInformationDelivery(Contest contest, Ech0252MappingContext ctx)
     {
+        var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
+        var elections = contest.MajorityElections
+            .Where(x => x.Active)
+            .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), MajorityElection = x })
+            .OrderBy(x => x.PbNumber)
+            .ThenBy(x => x.MajorityElection.DomainOfInfluence.Type)
+            .ThenBy(x => x.MajorityElection.Id)
+            .Select(x => x.MajorityElection);
+
         var electionDelivery = new EventElectionInformationDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
             ElectionAssociation = contest.MajorityElectionUnions.ToVoteInfoEchElectionAssociations().ToList(),
-            ElectionGroupInfo = contest.MajorityElections.ToVoteInfoEchMajorityElectionGroups(ctx).ToList(),
+            ElectionGroupInfo = elections.ToVoteInfoEchMajorityElectionGroups(ctx, positionBySuperiorAuthorityId).ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupInfo.Count;
@@ -124,9 +154,9 @@ public class Ech0252Serializer
         };
     }
 
-    private int ParsePoliticalBusinessNumber(Vote vote)
+    private int ParsePoliticalBusinessNumber(string politicalBusinessNumber)
     {
-        return int.TryParse(vote.PoliticalBusinessNumber, out var pbNumber)
+        return int.TryParse(politicalBusinessNumber, out var pbNumber)
             ? pbNumber
             : UnparsablePbNumer;
     }
@@ -147,6 +177,7 @@ public class Ech0252Serializer
     {
         var header = _deliveryHeaderProvider.BuildHeader(!contest.TestingPhaseEnded);
         header.MessageType = MessageType;
+        header.Comment = DeliveryHeaderUtils.EnrichComment(header.Comment, contest.TestingPhaseEnded);
         return header;
     }
 }

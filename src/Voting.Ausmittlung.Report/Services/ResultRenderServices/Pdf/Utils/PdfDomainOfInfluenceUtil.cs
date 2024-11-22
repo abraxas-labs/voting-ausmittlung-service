@@ -14,6 +14,9 @@ internal static class PdfDomainOfInfluenceUtil
         {
             DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
             DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Mu => Strings.Exports_DomainOfInfluenceType_Mu,
+            DomainOfInfluenceType.Sk => Strings.Exports_DomainOfInfluenceType_Mu,
             _ => Strings.Exports_DomainOfInfluenceType_Other,
         };
     }

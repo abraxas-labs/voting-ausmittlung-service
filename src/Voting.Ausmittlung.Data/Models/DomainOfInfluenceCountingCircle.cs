@@ -19,7 +19,12 @@ public class DomainOfInfluenceCountingCircle : BaseEntity
     public ComparisonCountOfVotersCategory ComparisonCountOfVotersCategory { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the relation is inherited by a Child DomainOfInfluence or not.
+    /// Gets or sets a value indicating the source domain of influence to which counting circle was assigned.
     /// </summary>
-    public bool Inherited { get; set; }
+    public Guid SourceDomainOfInfluenceId { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the relation is inherited by a Child DomainOfInfluence or not.
+    /// </summary>
+    public bool Inherited => DomainOfInfluenceId != SourceDomainOfInfluenceId;
 }

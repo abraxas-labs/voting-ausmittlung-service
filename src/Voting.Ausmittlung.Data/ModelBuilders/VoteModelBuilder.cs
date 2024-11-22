@@ -52,9 +52,6 @@ public class VoteModelBuilder :
             .HasForeignKey(b => b.VoteId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
-
-        builder
-            .Ignore(v => v.SwissAbroadVotingRight);
     }
 
     public void Configure(EntityTypeBuilder<VoteTranslation> builder)

@@ -40,9 +40,9 @@ public class SecondaryMajorityElection : MajorityElectionBase, IPoliticalBusines
         set => Translations = value.Cast<SecondaryMajorityElectionTranslation>().ToList();
     }
 
-    public override SwissAbroadVotingRight SwissAbroadVotingRight
+    public override List<VoterType> EnabledVoterTypes
     {
-        get => PrimaryMajorityElection.SwissAbroadVotingRight;
+        get => PrimaryMajorityElection.EnabledVoterTypes;
     }
 
     public override Guid DomainOfInfluenceId

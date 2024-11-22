@@ -31,6 +31,10 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
 
     public bool ViewCountingCirclePartialResults { get; set; }
 
+    public bool HasForeignerVoters { get; set; }
+
+    public bool HasMinorVoters { get; set; }
+
     public Guid? ParentId { get; set; }
 
     public DomainOfInfluence? Parent { get; set; }
@@ -72,4 +76,10 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
     public ContestDomainOfInfluenceDetails? Details { get; set; }
 
     public SwissAbroadVotingRight SwissAbroadVotingRight { get; set; }
+
+    public Guid? SuperiorAuthorityDomainOfInfluenceId { get; set; }
+
+    public DomainOfInfluence? SuperiorAuthorityDomainOfInfluence { get; set; }
+
+    public ICollection<DomainOfInfluence> SubAuthorityDomainOfInfluences { get; set; } = new HashSet<DomainOfInfluence>();
 }

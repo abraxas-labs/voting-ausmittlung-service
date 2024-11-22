@@ -182,6 +182,15 @@ public class SecondaryMajorityElectionProcessor :
     public async Task Process(SecondaryMajorityElectionCandidateCreated eventData)
     {
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
+        TruncateCandidateNumber(model);
+
+        var majorityElection = await _repo.Query()
+                .Include(x => x.PrimaryMajorityElection.Contest)
+                .FirstOrDefaultAsync(x => x.Id == model.SecondaryMajorityElectionId)
+            ?? throw new EntityNotFoundException(nameof(SecondaryMajorityElection), model.SecondaryMajorityElectionId);
+
+        model.CreatedDuringActiveContest = majorityElection.Contest.State == ContestState.Active;
+
         await _candidateRepo.Create(model);
         await _candidateResultBuilder.InitializeSecondaryMajorityElectionCandidate(model.SecondaryMajorityElectionId, model.Id);
         await _candidateEndResultBuilder.InitializeForSecondaryMajorityElectionCandidate(model.Id);
@@ -190,6 +199,7 @@ public class SecondaryMajorityElectionProcessor :
     public async Task Process(SecondaryMajorityElectionCandidateUpdated eventData)
     {
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
+        TruncateCandidateNumber(model);
 
         if (!await _candidateRepo.ExistsByKey(model.Id))
         {
@@ -244,10 +254,13 @@ public class SecondaryMajorityElectionProcessor :
         var referencedCandidate = await _majorityElectionCandidateRepo.Query()
             .IgnoreQueryFilters() // do not filter translations
             .Include(x => x.Translations)
+            .Include(x => x.MajorityElection.Contest)
             .FirstAsync(x => x.Id == referencedCandidateId);
 
         var candidateReference = _mapper.Map<SecondaryMajorityElectionCandidate>(referencedCandidate);
         _mapper.Map(eventData.MajorityElectionCandidateReference, candidateReference);
+
+        candidateReference.CreatedDuringActiveContest = referencedCandidate.MajorityElection.Contest.State == ContestState.Active;
 
         await _candidateRepo.Create(candidateReference);
         await _candidateResultBuilder.InitializeSecondaryMajorityElectionCandidate(candidateReference.SecondaryMajorityElectionId, candidateReference.Id);
@@ -289,5 +302,16 @@ public class SecondaryMajorityElectionProcessor :
         }
 
         await _candidateRepo.UpdateRange(candidatesToUpdate);
+    }
+
+    private void TruncateCandidateNumber(SecondaryMajorityElectionCandidate candidate)
+    {
+        if (candidate.Number.Length <= 10)
+        {
+            return;
+        }
+
+        // old events can contain a number which is longer than 10 chars
+        candidate.Number = candidate.Number[..10];
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Test.MockedData;
@@ -118,5 +119,44 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
         }
 
         candidates.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestCandidateCreateShouldTruncateCandidateNumber()
+    {
+        var id = Guid.Parse("413525c6-8da4-4c49-bbdc-d6bc43ceacff");
+        await TestEventPublisher.Publish(
+            new ProportionalElectionCandidateCreated
+            {
+                ProportionalElectionCandidate = new ProportionalElectionCandidateEventData
+                {
+                    Id = id.ToString(),
+                    ProportionalElectionListId = ProportionalElectionMockedData.ListIdStGallenProportionalElectionInContestStGallen,
+                    Position = 2,
+                    FirstName = "firstName",
+                    LastName = "lastName",
+                    PoliticalFirstName = "pol first name",
+                    PoliticalLastName = "pol last name",
+                    Occupation = { LanguageUtil.MockAllLanguages("occupation") },
+                    OccupationTitle = { LanguageUtil.MockAllLanguages("occupation title") },
+                    DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                    Incumbent = true,
+                    Accumulated = false,
+                    Locality = "locality",
+                    Number = "number1toolong",
+                    Sex = SharedProto.SexType.Female,
+                    Title = "title",
+                    ZipCode = "zip code",
+                    PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
+                    Origin = "origin",
+                    CheckDigit = 6,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.ProportionalElectionCandidates.FirstAsync(x => x.Id == id),
+            Languages.German);
+
+        candidate.Number.Should().Be("number1too");
     }
 }

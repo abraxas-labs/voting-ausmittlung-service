@@ -279,7 +279,7 @@ public class DoubleProportionalResultBuilder
             listEndResult.NumberOfMandates = dpResultCell.SubApportionmentNumberOfMandates;
 
             _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
-            _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+            _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult);
         }
 
         _candidateEndResultBuilder.RecalculateCandidateEndResultStates(electionEndResult);
@@ -303,7 +303,7 @@ public class DoubleProportionalResultBuilder
             listEndResult.NumberOfMandates = dpResultColumn.SuperApportionmentNumberOfMandates;
 
             _candidateEndResultBuilder.RecalculateCandidateEndResultRanks(listEndResult.CandidateEndResults, true);
-            _candidateEndResultBuilder.RecalculateLotDecisionRequired(listEndResult);
+            _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult);
         }
 
         _candidateEndResultBuilder.RecalculateCandidateEndResultStates(electionEndResult);

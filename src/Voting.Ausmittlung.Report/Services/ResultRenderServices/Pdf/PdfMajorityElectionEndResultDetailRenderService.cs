@@ -49,6 +49,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.EndResult!.CandidateEndResults).ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Include(x => x.Contest.DomainOfInfluence)
             .Include(x => x.Contest.Translations)
             .Include(x => x.Contest.CantonDefaults)
@@ -87,7 +88,9 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
 
         var ccDetailsList = await _ccDetailsRepo
             .Query()
+            .AsSplitQuery()
             .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .Where(x => x.ContestId == data.ContestId)
             .ToListAsync(ct);
 
@@ -99,10 +102,11 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         var pdfCcDetails = _mapper.Map<List<PdfContestCountingCircleDetails>>(ccDetailsList);
         foreach (var details in pdfCcDetails)
         {
-            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(details, data.DomainOfInfluence.Type);
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(details, data.DomainOfInfluence);
 
             // we don't need this data in the xml
             details.VotingCards = new List<PdfVotingCardResultDetail>();
+            details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         }
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data);
@@ -128,10 +132,11 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
         // reset the domain of influence on the result, since this is a single domain of influence report
         var domainOfInfluence = majorityElection.DomainOfInfluence;
         domainOfInfluence!.Details ??= new PdfContestDomainOfInfluenceDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(domainOfInfluence.Details, domainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(domainOfInfluence.Details, data.DomainOfInfluence);
 
         // we don't need this data in the xml
         domainOfInfluence.Details.VotingCards = new List<PdfVotingCardResultDetail>();
+        domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 
         var contest = _mapper.Map<PdfContest>(data.Contest);

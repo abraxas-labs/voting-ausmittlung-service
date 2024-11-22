@@ -30,33 +30,6 @@
       <MobilePhone />
       <Email />
     </ContactPersonAfterEvent>
-    <ContestCountingCircleDetails>
-      <TotalCountOfVoters>15800</TotalCountOfVoters>
-      <TotalCountOfValidVotingCards>0</TotalCountOfValidVotingCards>
-      <TotalCountOfInvalidVotingCards>0</TotalCountOfInvalidVotingCards>
-      <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
-      <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
-      <CountOfVotersDetail>
-        <Sex>Male</Sex>
-        <CountOfVoters>8000</CountOfVoters>
-        <VoterType>Swiss</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Male</Sex>
-        <CountOfVoters>500</CountOfVoters>
-        <VoterType>SwissAbroad</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Female</Sex>
-        <CountOfVoters>7000</CountOfVoters>
-        <VoterType>Swiss</VoterType>
-      </CountOfVotersDetail>
-      <CountOfVotersDetail>
-        <Sex>Female</Sex>
-        <CountOfVoters>300</CountOfVoters>
-        <VoterType>SwissAbroad</VoterType>
-      </CountOfVotersDetail>
-    </ContestCountingCircleDetails>
   </CountingCircle>
   <PoliticalBusiness>
     <PoliticalBusinessNumber>321</PoliticalBusinessNumber>

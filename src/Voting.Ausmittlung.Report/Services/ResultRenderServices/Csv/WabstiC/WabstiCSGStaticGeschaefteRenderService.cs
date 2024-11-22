@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 using Voting.Lib.Database.Repositories;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
@@ -41,7 +42,7 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
             .Select(x => new Data
             {
                 ContestDate = x.Vote.Contest.Date,
-                VoteId = x.VoteId,
+                VoteId = x.Vote.Type == VoteType.QuestionsOnSingleBallot ? x.VoteId : x.Id,
                 DomainOfInfluenceType = x.Vote.DomainOfInfluence.Type,
                 DomainOfInfluenceSortNumber = x.Vote.DomainOfInfluence.SortNumber,
                 DomainOfInfluenceName = x.Vote.DomainOfInfluence.Name,
@@ -55,6 +56,10 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
                 HasTieBreakQuestions = x.HasTieBreakQuestions,
                 BallotQuestionTranslations = x.BallotQuestions.OrderBy(b => b.Number).Select(b => b.Translations),
                 TieBreakQuestionTranslations = x.TieBreakQuestions.OrderBy(t => t.Number).Select(t => t.Translations),
+                SuperiorAuthorityDomainOfInfluenceName = x.Vote.DomainOfInfluence.SuperiorAuthorityDomainOfInfluence != null ? x.Vote.DomainOfInfluence.SuperiorAuthorityDomainOfInfluence.Name : string.Empty,
+                BallotTranslations = x.Translations,
+                VoteType = x.Vote.Type,
+                Position = x.Position,
             })
             .AsAsyncEnumerable();
 
@@ -127,7 +132,10 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
         public IEnumerable<ICollection<BallotQuestionTranslation>>? BallotQuestionTranslations { get; set; }
 
         [Name("GeBezOffiziellGV")]
-        public string BallotQuestion => string.Join(", ", BallotQuestionTranslations!.Select(t => t.GetTranslated(x => x.Question)));
+        public string BallotQuestion => VoteType == VoteType.QuestionsOnSingleBallot
+            ? BallotQuestionTranslations!.ElementAtOrDefault(BallotType == BallotType.VariantsBallot ? 1 : 0)!
+                .GetTranslated(x => x.Question)
+            : BallotTranslations.GetTranslated(x => x.OfficialDescription);
 
         [Ignore]
         public IEnumerable<ICollection<TieBreakQuestionTranslation>>? TieBreakQuestionTranslations { get; set; }
@@ -143,5 +151,26 @@ public class WabstiCSGStaticGeschaefteRenderService : IRendererService
 
         [Name("GeLfNr")]
         public Guid VoteId { get; set; }
+
+        [Name("WahlkreisChef")]
+        public string SuperiorAuthorityDomainOfInfluenceName { get; set; } = string.Empty;
+
+        [Name("GeSubNr")]
+        public string BallotSubType => WabstiCPositionUtil.BuildPosition(Position, VoteType);
+
+        [Name("GeBezKurzGV")]
+        public string CounterProposalShortDescription => VoteType == VoteType.QuestionsOnSingleBallot ? BallotQuestionTranslations!.ElementAtOrDefault(BallotType == BallotType.VariantsBallot ? 1 : 0)!.GetTranslated(x => x.Question) : string.Empty;
+
+        [Name("GeBezKurzSF")]
+        public string? TieBreakShortDescription => VoteType == VoteType.QuestionsOnSingleBallot ? TieBreakQuestionTranslations?.ElementAtOrDefault(0)?.GetTranslated(x => x.Question) : string.Empty;
+
+        [Ignore]
+        public ICollection<BallotTranslation> BallotTranslations { get; set; } = new HashSet<BallotTranslation>();
+
+        [Ignore]
+        public VoteType VoteType { get; set; }
+
+        [Ignore]
+        public int Position { get; set; }
     }
 }

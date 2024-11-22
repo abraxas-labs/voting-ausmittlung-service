@@ -12,6 +12,8 @@ public abstract class MajorityElectionCandidateResultBase : BaseEntity, IHasNull
 
     public abstract int CandidatePosition { get; }
 
+    public abstract string CandidateNumber { get; }
+
     public int? ConventionalVoteCount { get; set; }
 
     public int EVotingExclWriteInsVoteCount { get; set; }

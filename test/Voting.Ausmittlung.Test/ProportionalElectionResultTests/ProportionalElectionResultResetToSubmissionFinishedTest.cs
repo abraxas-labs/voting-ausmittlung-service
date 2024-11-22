@@ -246,7 +246,7 @@ public class ProportionalElectionResultResetToSubmissionFinishedTest : Proportio
             x => x.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum);
 
         await RunToState(CountingCircleResultState.AuditedTentatively);
-        await TestEventPublisher.Publish(new ProportionalElectionEndResultMandateDistributionStarted
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionEndResultMandateDistributionStarted
         {
             EventInfo = GetMockedEventInfo(),
             ProportionalElectionId = electionGuid.ToString(),

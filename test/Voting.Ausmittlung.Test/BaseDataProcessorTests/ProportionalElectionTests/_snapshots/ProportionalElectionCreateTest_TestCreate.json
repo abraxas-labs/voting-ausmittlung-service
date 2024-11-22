@@ -34,12 +34,12 @@
         "NumberOfMandates": 6,
         "PoliticalBusinessNumber": "6000",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
         "BusinessSubType": 0,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -88,12 +88,12 @@
         "NumberOfMandates": 3,
         "PoliticalBusinessNumber": "6001",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
         "BusinessSubType": 0,
+        "EnabledVoterTypes": [],
         "CountingCircleResults": [],
         "PoliticalBusinessTranslations": [
           {
@@ -135,11 +135,11 @@
         "ResultExportConfigurations": [],
         "PoliticalBusinessNumber": "6001",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "PoliticalBusinessTranslations": [
           {
             "SimplePoliticalBusinessId": "350fb432-9083-44f0-ade9-f9f7f99dabe8",
@@ -176,11 +176,11 @@
         "ResultExportConfigurations": [],
         "PoliticalBusinessNumber": "6000",
         "Active": false,
-        "SwissAbroadVotingRight": 0,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
         "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
         "Contest": null,
+        "EnabledVoterTypes": [],
         "PoliticalBusinessTranslations": [
           {
             "SimplePoliticalBusinessId": "91d9234e-cd14-4e18-95ce-5c06a9cec6f0",

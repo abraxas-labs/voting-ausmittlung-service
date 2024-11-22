@@ -8,6 +8,7 @@
       <product>Voting.Ausmittlung</product>
       <productVersion>0.0.0.1</productVersion>
     </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
     <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
     <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
     <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
@@ -52,6 +53,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -77,6 +85,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -102,6 +115,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -127,6 +141,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -152,6 +167,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -177,6 +193,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>500</receivedVotes>
@@ -214,8 +237,8 @@
         <pollingDay>2029-02-12</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 1 de</voteTitle>
-          <voteTitleShort>Frage 1 de</voteTitleShort>
+          <voteTitle>Abstimmung St. Gallen de - Frage 1 de</voteTitle>
+          <voteTitleShort>Abst SG de - Frage 1 de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
@@ -231,6 +254,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -256,6 +286,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -281,6 +316,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -306,6 +342,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -331,6 +368,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -356,6 +394,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -393,8 +438,8 @@
         <pollingDay>2029-02-12</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 2 de</voteTitle>
-          <voteTitleShort>Frage 2 de</voteTitleShort>
+          <voteTitle>Abstimmung St. Gallen de - Frage 2 de</voteTitle>
+          <voteTitleShort>Abst SG de - Frage 2 de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
@@ -410,6 +455,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -435,6 +487,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -460,6 +517,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -485,6 +543,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -510,6 +569,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -535,6 +595,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -588,6 +655,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -613,6 +687,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -638,6 +717,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -663,6 +743,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -688,6 +769,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -713,6 +795,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>50.00</voterTurnout>
           <receivedVotes>450</receivedVotes>
@@ -746,8 +835,8 @@
         <pollingDay>2029-02-12</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 1 de</voteTitle>
-          <voteTitleShort>Frage 1 de</voteTitleShort>
+          <voteTitle>Abstimmung St. Gallen de - Frage 1 de</voteTitle>
+          <voteTitleShort>Abst SG de - Frage 1 de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
@@ -763,6 +852,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -788,6 +884,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -813,6 +914,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -838,6 +940,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -863,6 +966,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -888,6 +992,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -921,8 +1032,8 @@
         <pollingDay>2029-02-12</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 2 de</voteTitle>
-          <voteTitleShort>Frage 2 de</voteTitleShort>
+          <voteTitle>Abstimmung St. Gallen de - Frage 2 de</voteTitle>
+          <voteTitleShort>Abst SG de - Frage 2 de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
@@ -938,6 +1049,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -963,6 +1081,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -988,6 +1111,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1013,6 +1137,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1038,6 +1163,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1063,6 +1189,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1096,8 +1229,8 @@
         <pollingDay>2029-02-12</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Frage 3 de</voteTitle>
-          <voteTitleShort>Frage 3 de</voteTitleShort>
+          <voteTitle>Abstimmung St. Gallen de - Frage 3 de</voteTitle>
+          <voteTitleShort>Abst SG de - Frage 3 de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>4</voteSubType>
@@ -1113,6 +1246,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1138,6 +1278,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1163,6 +1308,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1188,6 +1334,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1213,6 +1360,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1238,6 +1386,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1287,6 +1442,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1312,6 +1474,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1337,6 +1504,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1362,6 +1530,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1387,6 +1556,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1412,6 +1582,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1461,6 +1638,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1486,6 +1670,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1511,6 +1700,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1536,6 +1726,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1561,6 +1752,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1586,6 +1778,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1635,6 +1834,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1660,6 +1866,11 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1685,6 +1896,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1710,6 +1922,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1735,6 +1948,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1760,6 +1974,13 @@
           <countOfVotersInformation>
             <countOfVotersTotal>1000</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>45.00</voterTurnout>
           <receivedVotes>400</receivedVotes>
@@ -1807,8 +2028,15 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>100</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>250</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>120</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -1832,8 +2060,13 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>15000</countOfVotersTotal>
+            <countOfVotersTotal>15800</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>2000</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>1000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>3000</countOfInvalidVotingCardsReceivedByMail>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -1859,6 +2092,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -1884,6 +2118,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -1909,6 +2144,7 @@
           <countOfVotersInformation>
             <countOfVotersTotal>0</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation />
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>
@@ -1932,8 +2168,15 @@
         </countingCircle>
         <resultData>
           <countOfVotersInformation>
-            <countOfVotersTotal>3000</countOfVotersTotal>
+            <countOfVotersTotal>3210</countOfVotersTotal>
           </countOfVotersInformation>
+          <votingCardInformation>
+            <countOfVotingCardsReceivedInBallotBox>400</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedPrematurelyInBallotBox>200</countOfVotingCardsReceivedPrematurelyInBallotBox>
+            <countOfVotingCardsReceivedByMail>2000</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>150</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedByEvoting>150</countOfVotingCardsReceivedByEvoting>
+          </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>0.00</voterTurnout>
           <receivedVotes>0</receivedVotes>

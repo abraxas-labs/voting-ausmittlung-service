@@ -27,7 +27,7 @@ public class MajorityElectionProfile : Profile
         CreateMap<MajorityElection, SimplePoliticalBusiness>()
             .ForMember(dst => dst.PoliticalBusinessTranslations, opts => opts.Ignore())
             .ForMember(dst => dst.CountingCircleResults, opts => opts.Ignore())
-            .ForMember(dst => dst.SwissAbroadVotingRight, opts => opts.Ignore())
+            .ForMember(dst => dst.EnabledVoterTypes, opts => opts.Ignore())
             .ForMember(dst => dst.PoliticalBusinessSubType, opts => opts.MapFrom(src => src.BusinessSubType))
             .AfterMap((_, dst) => dst.PoliticalBusinessType = PoliticalBusinessType.MajorityElection);
         CreateMap<MajorityElectionTranslation, SimplePoliticalBusinessTranslation>()
@@ -58,7 +58,7 @@ public class MajorityElectionProfile : Profile
         CreateMap<SecondaryMajorityElection, SimplePoliticalBusiness>()
             .ForMember(dst => dst.PoliticalBusinessTranslations, opts => opts.Ignore())
             .ForMember(dst => dst.CountingCircleResults, opts => opts.Ignore())
-            .ForMember(dst => dst.SwissAbroadVotingRight, opts => opts.Ignore())
+            .ForMember(dst => dst.EnabledVoterTypes, opts => opts.Ignore())
             .ForMember(dst => dst.PoliticalBusinessSubType, opts => opts.MapFrom(src => src.BusinessSubType))
             .AfterMap((_, dst) => dst.PoliticalBusinessType = PoliticalBusinessType.SecondaryMajorityElection);
         CreateMap<SecondaryMajorityElectionTranslation, SimplePoliticalBusinessTranslation>()

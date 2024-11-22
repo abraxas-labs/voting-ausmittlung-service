@@ -90,6 +90,71 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     }
 
     [Fact]
+    public async Task TestProcessorWithNullRanks()
+    {
+        await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
+        var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
+
+        await ModifyDbEntities<ProportionalElectionCandidateEndResult>(
+            x => x.Candidate.ProportionalElectionListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1),
+            x =>
+            {
+                x.State = ProportionalElectionCandidateEndResultState.NotElected;
+                if (x.CandidateId == Guid.Parse(ProportionalElectionEndResultMockedData.List1CandidateId2))
+                {
+                    x.Rank = 3;
+                    x.LotDecision = true;
+                }
+
+                if (x.CandidateId == Guid.Parse(ProportionalElectionEndResultMockedData.List1CandidateId3))
+                {
+                    x.Rank = 2;
+                    x.LotDecision = true;
+                }
+            });
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionListEndResultLotDecisionsUpdated
+            {
+                ProportionalElectionEndResultId = endResultId,
+                ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+                ProportionalElectionListId = ProportionalElectionEndResultMockedData.ListId1,
+                LotDecisions =
+                {
+                        new ProportionalElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId2,
+                            Rank = null,
+                        },
+                        new ProportionalElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId3,
+                            Rank = null,
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+        });
+        var listEndResult = endResult.ListEndResults.First(x => x.List.Id == ProportionalElectionEndResultMockedData.ListId1);
+
+        var candidate2 = listEndResult.CandidateEndResults.Single(x => x.Candidate.Id == ProportionalElectionEndResultMockedData.List1CandidateId2);
+        candidate2.LotDecision.Should().BeFalse();
+        candidate2.Rank.Should().Be(2);
+        candidate2.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.NotElected);
+
+        var candidate3 = listEndResult.CandidateEndResults.Single(x => x.Candidate.Id == ProportionalElectionEndResultMockedData.List1CandidateId3);
+        candidate3.LotDecision.Should().BeFalse();
+        candidate3.Rank.Should().Be(2);
+        candidate3.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.NotElected);
+    }
+
+    [Fact]
     public async Task TestProcessorWithManualEndResult()
     {
         await SetAllAuditedTentatively();
@@ -132,6 +197,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
         {
             ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
         });
+        endResult.ManualEndResultRequired.Should().BeTrue();
         var listEndResult = endResult.ListEndResults.First();
         listEndResult.MatchSnapshot("response");
 
@@ -167,7 +233,7 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
         evInTestingPhase.ProportionalElectionEndResultId.Should().Be(endResultInTestingPhaseId.ToString());
 
         // testing phase ended
-        await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ContestTestingPhaseEnded { ContestId = contestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
 
         var endResultTestingPhaseEndedId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(electionId, true);
@@ -186,6 +252,12 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
                 e.LotDecisionEnabled = true;
                 e.LotDecisionRequired = false;
             });
+
+        request.LotDecisions.Add(new UpdateProportionalElectionEndResultLotDecisionRequest
+        {
+            CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId1,
+            Rank = 1,
+        });
 
         await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(request);
         var evTestingPhaseEnded = EventPublisherMock.GetSinglePublishedEvent<ProportionalElectionListEndResultLotDecisionsUpdated>();
@@ -207,31 +279,52 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
     }
 
     [Fact]
-    public async Task TestShouldThrowIfRequiredLotDecisionIsMissing()
+    public async Task TestShouldThrowIfLotDecisionWithSameVoteCountIsMissing()
     {
         await SetAllAuditedTentatively();
         await TriggerMandateDistribution();
+
+        var request = NewValidRequest(x =>
+        {
+            x.LotDecisions.Clear();
+            x.LotDecisions.Add(new UpdateProportionalElectionEndResultLotDecisionRequest
+            {
+                CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId2,
+                Rank = null,
+            });
+        });
+
         await AssertStatus(
-            async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(
-                new UpdateProportionalElectionListEndResultLotDecisionsRequest
-                {
-                    ProportionalElectionListId = ProportionalElectionEndResultMockedData.ListId2,
-                    LotDecisions =
-                    {
-                            new UpdateProportionalElectionEndResultLotDecisionRequest
-                            {
-                                CandidateId = ProportionalElectionEndResultMockedData.List2CandidateId1,
-                                Rank = 1,
-                            },
-                            new UpdateProportionalElectionEndResultLotDecisionRequest
-                            {
-                                CandidateId = ProportionalElectionEndResultMockedData.List2CandidateId2,
-                                Rank = 2,
-                            },
-                    },
-                }),
+            async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(request),
             StatusCode.InvalidArgument,
-            "required lot decision is missing");
+            "A related lot decision of the group with vote count");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowIfLotDecisionWithSameVoteCountHasMixedNullAndNonNullRanks()
+    {
+        await SetAllAuditedTentatively();
+        await TriggerMandateDistribution();
+
+        var request = NewValidRequest(x =>
+        {
+            x.LotDecisions.Clear();
+            x.LotDecisions.Add(new UpdateProportionalElectionEndResultLotDecisionRequest
+            {
+                CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId2,
+                Rank = null,
+            });
+            x.LotDecisions.Add(new UpdateProportionalElectionEndResultLotDecisionRequest
+            {
+                CandidateId = ProportionalElectionEndResultMockedData.List1CandidateId3,
+                Rank = 1,
+            });
+        });
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.UpdateListEndResultLotDecisionsAsync(request),
+            StatusCode.InvalidArgument,
+            "Either all related lot decisions of the group with vote count");
     }
 
     [Fact]

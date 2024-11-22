@@ -10,7 +10,6 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
-using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -22,9 +21,8 @@ public class PdfProportionalElectionCandidateVoteSourcesCountingCircleResultRend
         TemplateService templateService,
         IDbRepository<DataContext, ProportionalElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper,
-        IClock clock)
-        : base(templateService, repo, ccDetailsRepo, mapper, clock)
+        IMapper mapper)
+        : base(templateService, repo, ccDetailsRepo, mapper)
     {
     }
 
@@ -53,7 +51,7 @@ public class PdfProportionalElectionCandidateVoteSourcesCountingCircleResultRend
     {
         foreach (var election in templateBag.ProportionalElections!)
         {
-            PdfProportionalElectionListResultVoteSourceBuilder.BuildVoteSourceSums(election.Results!.SelectMany(r => r.ListResults));
+            PdfProportionalElectionListResultVoteSourceBuilder.BuildVoteSourceSums(election.Results.SelectMany(r => r.ListResults));
         }
     }
 

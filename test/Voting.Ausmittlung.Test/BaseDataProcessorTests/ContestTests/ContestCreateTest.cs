@@ -110,6 +110,21 @@ public class ContestCreateTest : ContestProcessorBaseTest
     [Fact]
     public async Task TestSnapshotDomainOfInfluenceCreated()
     {
+        await RunOnDb(async db =>
+        {
+            var doi = await db.DomainOfInfluences
+                .AsTracking()
+                .SingleAsync(doi => doi.Id == Guid.Parse(DomainOfInfluenceMockedData.IdGossau));
+            doi.SuperiorAuthorityDomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen);
+
+            doi = await db.DomainOfInfluences
+                .AsTracking()
+                .SingleAsync(doi => doi.Id == Guid.Parse(DomainOfInfluenceMockedData.IdBund));
+            doi.SuperiorAuthorityDomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen);
+
+            await db.SaveChangesAsync();
+        });
+
         var contest = new ContestEventData
         {
             Id = "9ccf9b68-94b0-4b79-be1a-09f24f467c4a",
@@ -126,7 +141,7 @@ public class ContestCreateTest : ContestProcessorBaseTest
         var createdContest = await RunOnDb(
             db => db.Contests
                 .AsSplitQuery()
-                .Include(c => c.DomainOfInfluence)
+                .Include(c => c.DomainOfInfluence.SuperiorAuthorityDomainOfInfluence)
                 .Include(c => c.DomainOfInfluenceParties)
                     .ThenInclude(p => p.Translations)
                 .Include(c => c.Translations)

@@ -29,7 +29,7 @@ public class UpdateContestCountingCircleContactPersonRequestTest : ProtoValidato
         var request = new UpdateContestCountingCircleContactPersonRequest
         {
             Id = "636d68d0-6654-4c07-9610-56dad5df20bd",
-            ContactPersonDuringEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Ali"),
+            ContactPersonDuringEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Ali (Bart)"),
             ContactPersonAfterEvent = EnterContactPersonRequestTest.NewValidRequest(x => x.FirstName = "Hans"),
         };
 

@@ -66,7 +66,6 @@ public class ContestCantonDefaultsBuilder
                 .ConvertAll(x => new DomainOfInfluenceCantonDefaultsVotingCardChannel { Valid = x.Valid, VotingChannel = x.VotingChannel }),
             MajorityElectionInvalidVotes = cantonSettings.MajorityElectionInvalidVotes,
             CountingMachineEnabled = cantonSettings.CountingMachineEnabled,
-            NewZhFeaturesEnabled = cantonSettings.NewZhFeaturesEnabled,
             MajorityElectionUseCandidateCheckDigit = cantonSettings.MajorityElectionUseCandidateCheckDigit,
             ProportionalElectionUseCandidateCheckDigit = cantonSettings.ProportionalElectionUseCandidateCheckDigit,
             PublishResultsEnabled = cantonSettings.PublishResultsEnabled,

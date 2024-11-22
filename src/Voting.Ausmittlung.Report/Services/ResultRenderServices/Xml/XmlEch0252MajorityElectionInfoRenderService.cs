@@ -45,7 +45,8 @@ public class XmlEch0252MajorityElectionInfoRenderService : IRendererService
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.MajorityElections.Where(v => ctx.PoliticalBusinessIds.Contains(v.Id)))
                 .ThenInclude(x => x.Results)
-                .ThenInclude(x => x.CountingCircle)
+                .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
+                .ThenInclude(x => x.DomainOfInfluence)
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.DomainOfInfluence)
             .Include(x => x.MajorityElections)
@@ -67,6 +68,7 @@ public class XmlEch0252MajorityElectionInfoRenderService : IRendererService
 
         var domainOfInfluences = await _doiRepo.Query()
             .Where(doi => doi.SnapshotContestId == ctx.ContestId)
+            .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
             .ToListAsync(ct);
 
         var mappingCtx = new Ech0252MappingContext(domainOfInfluences);

@@ -22,6 +22,8 @@ public abstract class PoliticalBusinessRepo<T> : DbRepository<DataContext, T>
     {
         return await Set.Where(x => x.Id == politicalBusinessId)
             .SelectMany(x => x.DomainOfInfluence.CountingCircles)
+            .GroupBy(x => x.CountingCircleId)
+            .Select(x => x.FirstOrDefault())
             .CountAsync();
     }
 

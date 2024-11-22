@@ -145,6 +145,54 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
         await AggregateRepository.Save(endResultAggregate);
     }
 
+    public async Task UpdateEndResultListLotDecisions(
+        Guid proportionalElectionId,
+        List<DataModels.ProportionalElectionEndResultListLotDecision> listLotDecisions)
+    {
+        var endResult = await _endResultRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.ProportionalElection.Contest)
+            .Include(x => x.ListEndResults)
+            .ThenInclude(x => x.List.ProportionalElectionListUnionEntries)
+            .ThenInclude(x => x.ProportionalElectionListUnion)
+            .FirstOrDefaultAsync(x => x.ProportionalElectionId == proportionalElectionId && x.ProportionalElection.DomainOfInfluence.SecureConnectId == _permissionService.TenantId)
+            ?? throw new EntityNotFoundException(proportionalElectionId);
+
+        var contest = endResult.ProportionalElection.Contest;
+        ContestService.EnsureNotLocked(contest);
+
+        if (!endResult.AllCountingCirclesDone || !endResult.MandateDistributionTriggered)
+        {
+            throw new ValidationException("lot decisions are not allowed on this end result");
+        }
+
+        if (!endResult.ManualEndResultRequired)
+        {
+            throw new ValidationException("list lot decisions not allowed for non manual end result required");
+        }
+
+        var listIds = endResult.ListEndResults.Select(x => x.ListId);
+        var listUnionIds = endResult.ListEndResults.Where(x => x.List.ProportionalElectionListUnion != null)
+            .Select(x => x.List.ProportionalElectionListUnion!.Id);
+        var listSubUnionIds = endResult.ListEndResults.Where(x => x.List.ProportionalElectionSubListUnion != null)
+            .Select(x => x.List.ProportionalElectionSubListUnion!.Id);
+
+        var availableListIds = listIds.Concat(listUnionIds.Concat(listSubUnionIds)).ToList();
+        ValidateListLotDecisions(availableListIds, listLotDecisions);
+
+        var endResultAggregate = await AggregateRepository.GetOrCreateById<ProportionalElectionEndResultAggregate>(endResult.Id);
+        endResultAggregate.UpdateListLotDecisions(
+            proportionalElectionId,
+            listLotDecisions,
+            contest.Id,
+            contest.TestingPhaseEnded);
+
+        await AggregateRepository.Save(endResultAggregate);
+        Logger.LogInformation(
+            "Updated list lot decisions for proportional election end result {ProportionalElectionEndResultId}",
+            endResult.Id);
+    }
+
     protected override Task<DataModels.ProportionalElectionEndResult?> GetEndResult(Guid politicalBusinessId, string tenantId)
     {
         return _endResultRepo.Query()
@@ -261,6 +309,44 @@ public class ProportionalElectionEndResultWriter : ElectionEndResultWriter<
             if (!validCandidateEndResultStates.Contains(manualCandidateEndResult.State))
             {
                 throw new ValidationException("Invalid candidate end result state");
+            }
+        }
+    }
+
+    private void ValidateListLotDecisions(
+        IReadOnlyCollection<Guid> availableListIds,
+        IReadOnlyCollection<DataModels.ProportionalElectionEndResultListLotDecision> listLotDecisions)
+    {
+        foreach (var listLotDecision in listLotDecisions)
+        {
+            if (listLotDecision.Entries.Count < 2)
+            {
+                throw new ValidationException("a list lot decision must have at least 2 entries");
+            }
+
+            if (!listLotDecision.Entries.Any(x => x.Winning))
+            {
+                throw new ValidationException("a list lot decision must have at least 1 winning entry");
+            }
+
+            if (listLotDecision.Entries.Any(entry => entry.ListId == null && entry.ListUnionId == null))
+            {
+                throw new ValidationException("a list lot decision entry must have a list id or list union id");
+            }
+
+            if (listLotDecision.Entries.Any(entry => entry.ListId != null && entry.ListUnionId != null))
+            {
+                throw new ValidationException("a list lot decision entry can only have a list id or list union id");
+            }
+
+            if (listLotDecision.Entries.Count != listLotDecision.Entries.Select(x => x.ListId ?? x.ListUnionId).Distinct().Count())
+            {
+                throw new ValidationException("a list id or list union id may only appear once in the lot decisions");
+            }
+
+            if (listLotDecision.Entries.Any(x => !availableListIds.Contains(x.ListId ?? x.ListUnionId!.Value)))
+            {
+                throw new ValidationException("a list id or list union id found which not exists in available lists");
             }
         }
     }

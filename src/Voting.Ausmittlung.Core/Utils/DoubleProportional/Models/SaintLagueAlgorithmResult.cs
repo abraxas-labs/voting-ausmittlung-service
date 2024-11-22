@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System.Linq;
+using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 
 namespace Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
@@ -9,11 +10,11 @@ namespace Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;
 public class SaintLagueAlgorithmResult
 {
     public SaintLagueAlgorithmResult(
-        decimal[] quotients,
+        Rational[] quotients,
         int[] apportionment,
         TieState[] tieStates,
         int countOfMissingNumberOfMandates,
-        decimal electionKey)
+        Rational electionKey)
     {
         Quotients = quotients;
         Apportionment = apportionment;
@@ -22,7 +23,7 @@ public class SaintLagueAlgorithmResult
         ElectionKey = electionKey;
     }
 
-    public decimal[] Quotients { get; }
+    public Rational[] Quotients { get; }
 
     public int[] Apportionment { get; }
 
@@ -30,7 +31,7 @@ public class SaintLagueAlgorithmResult
 
     public int CountOfMissingNumberOfMandates { get; }
 
-    public decimal ElectionKey { get; }
+    public Rational ElectionKey { get; }
 
     public bool HasTies => TieStates.Any(t => t != TieState.Unique);
 }

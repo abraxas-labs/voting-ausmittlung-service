@@ -96,7 +96,7 @@ public class VoteProcessor :
         await _simplePoliticalBusinessBuilder.Create(vote);
         await _voteResultsRepo.Rebuild(vote.Id, vote.DomainOfInfluenceId, false, vote.ContestId);
         await _voteEndResultInitializer.RebuildForVote(vote.Id, false);
-        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
+        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
     }
 
     public async Task Process(VoteUpdated eventData)
@@ -118,7 +118,7 @@ public class VoteProcessor :
         {
             await _voteResultBuilder.RebuildForVote(vote.Id, vote.DomainOfInfluenceId, false, vote.ContestId);
             await _voteEndResultInitializer.RebuildForVote(vote.Id, false);
-            await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsInElectorate(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
+            await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
         }
     }
 
@@ -142,14 +142,14 @@ public class VoteProcessor :
     public async Task Process(VoteDeleted eventData)
     {
         var id = GuidParser.Parse(eventData.VoteId);
-
         if (!await _repo.ExistsByKey(id))
         {
-            throw new EntityNotFoundException(id);
+            // skip event processing to prevent race condition if vote was deleted from other process.
+            _logger.LogWarning("event 'VoteDeleted' skipped. vote {id} has already been deleted", id);
+            return;
         }
 
         await _repo.DeleteByKey(id);
-
         await _simplePoliticalBusinessBuilder.Delete(id);
     }
 
@@ -296,7 +296,9 @@ public class VoteProcessor :
         var id = GuidParser.Parse(eventData.BallotId);
         if (!await _ballotRepo.ExistsByKey(id))
         {
-            throw new EntityNotFoundException(id);
+            // skip event processing to prevent race condition if ballot was deleted from other process.
+            _logger.LogWarning("event 'BallotDeleted' skipped. ballot {id} has already been deleted", id);
+            return;
         }
 
         await _ballotRepo.DeleteByKey(id);

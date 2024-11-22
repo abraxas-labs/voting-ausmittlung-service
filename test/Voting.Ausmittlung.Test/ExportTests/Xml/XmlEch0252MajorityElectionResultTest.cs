@@ -43,6 +43,9 @@ public class XmlEch0252MajorityElectionResultTest : XmlExportBaseTest<Delivery>
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
         await ModifyDbEntities<MajorityElectionResult>(_ => true, x => x.Published = true);
+        await ModifyDbEntities<MajorityElectionCandidate>(
+            x => x.Id == Guid.Parse(MajorityElectionEndResultMockedData.CandidateId1),
+            x => x.CreatedDuringActiveContest = true);
     }
 
     protected override GenerateResultExportsRequest NewRequest()

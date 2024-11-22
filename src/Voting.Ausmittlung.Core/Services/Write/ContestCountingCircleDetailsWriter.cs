@@ -60,13 +60,10 @@ public class ContestCountingCircleDetailsWriter
     {
         await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(details.CountingCircleId, details.ContestId);
         var (_, testingPhaseEnded) = await _contestService.EnsureNotLocked(details.ContestId);
-        await ValidateSwissAbroadsDetailsOnlyIfAllowed(details.ContestId, details.CountingCircleId, details);
+        await ValidateCountOfVoters(details.ContestId, details.CountingCircleId, details);
 
         await EnsureValidVotingCards(details.ContestId, details.CountingCircleId, details);
         await EnsureValidCountingMachine(details.ContestId, details.CountingMachine);
-
-        var existingCcDetails = await GetDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
-        await _validationResultsEnsurer.EnsureContestCountingCircleDetailsIsValid(details, existingCcDetails);
 
         var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
         var aggregate = await _aggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(id);
@@ -87,29 +84,42 @@ public class ContestCountingCircleDetailsWriter
         await _aggregateRepository.Save(aggregate);
     }
 
-    private async Task ValidateSwissAbroadsDetailsOnlyIfAllowed(
+    private async Task ValidateCountOfVoters(
         Guid contestId,
         Guid basisCountingCircleId,
         ContestCountingCircleDetails details)
     {
-        if (details.CountOfVotersInformation.SubTotalInfo.All(x => x.VoterType != DataModels.VoterType.SwissAbroad))
+        var subTotalInfos = details.CountOfVotersInformation.SubTotalInfo;
+
+        if (subTotalInfos.All(x => x.VoterType == DataModels.VoterType.Swiss))
         {
             return;
         }
 
-        var swissAbroadsOnEveryCountingCircle = await _countingCircleRepo
+        var domainOfInfluences = await _countingCircleRepo
             .Query()
             .Where(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
             .SelectMany(cc => cc.VoteResults
-                .Select(vr => new { vr.Vote.ContestId, vr.Vote.DomainOfInfluence.SwissAbroadVotingRight })
-                .Concat(cc.ProportionalElectionResults.Select(vr => new { vr.ProportionalElection.ContestId, vr.ProportionalElection.DomainOfInfluence.SwissAbroadVotingRight }))
-                .Concat(cc.MajorityElectionResults.Select(vr => new { vr.MajorityElection.ContestId, vr.MajorityElection.DomainOfInfluence.SwissAbroadVotingRight })))
-            .AnyAsync(x => x.ContestId == contestId
-                           && x.SwissAbroadVotingRight == DataModels.SwissAbroadVotingRight.OnEveryCountingCircle);
+                .Select(vr => new { vr.Vote.ContestId, vr.Vote.DomainOfInfluence.SwissAbroadVotingRight, vr.Vote.DomainOfInfluence.HasForeignerVoters, vr.Vote.DomainOfInfluence.HasMinorVoters })
+                .Concat(cc.ProportionalElectionResults.Select(vr => new { vr.ProportionalElection.ContestId, vr.ProportionalElection.DomainOfInfluence.SwissAbroadVotingRight, vr.ProportionalElection.DomainOfInfluence.HasForeignerVoters, vr.ProportionalElection.DomainOfInfluence.HasMinorVoters }))
+                .Concat(cc.MajorityElectionResults.Select(vr => new { vr.MajorityElection.ContestId, vr.MajorityElection.DomainOfInfluence.SwissAbroadVotingRight, vr.MajorityElection.DomainOfInfluence.HasForeignerVoters, vr.MajorityElection.DomainOfInfluence.HasMinorVoters })))
+            .Where(x => x.ContestId == contestId)
+            .ToListAsync();
 
-        if (!swissAbroadsOnEveryCountingCircle)
+        if (!domainOfInfluences.Any(x => x.SwissAbroadVotingRight == DataModels.SwissAbroadVotingRight.OnEveryCountingCircle)
+            && subTotalInfos.Any(x => x.VoterType == DataModels.VoterType.SwissAbroad))
         {
             throw new ValidationException("swiss abroads not allowed");
+        }
+
+        if (!domainOfInfluences.Any(x => x.HasForeignerVoters) && subTotalInfos.Any(x => x.VoterType == DataModels.VoterType.Foreigner))
+        {
+            throw new ValidationException("foreigners not allowed");
+        }
+
+        if (!domainOfInfluences.Any(x => x.HasMinorVoters) && subTotalInfos.Any(x => x.VoterType == DataModels.VoterType.Minor))
+        {
+            throw new ValidationException("minors not allowed");
         }
     }
 
@@ -203,14 +213,6 @@ public class ContestCountingCircleDetailsWriter
                 throw new ValidationException("Voting card counts per electorate, channel and valid state must be unique");
             }
         }
-    }
-
-    private async Task<DataModels.ContestCountingCircleDetails> GetDetails(Guid contestId, Guid ccId, bool testingPhaseEnded)
-    {
-        var ccDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, ccId, testingPhaseEnded);
-
-        return await _ccDetailsRepo.GetWithRelatedEntities(ccDetailsId)
-          ?? throw new EntityNotFoundException(new { contestId, ccId });
     }
 
     private async Task EnsureValidCountingMachine(Guid contestId, DataModels.CountingMachine countingMachine)

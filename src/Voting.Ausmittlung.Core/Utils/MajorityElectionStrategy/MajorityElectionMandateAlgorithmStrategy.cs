@@ -23,7 +23,7 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
         }
     }
 
-    protected void RecalculateLotDecisionRequired<TMajorityElectionCandidateEndResultBase>(
+    protected void RecalculateLotDecisionState<TMajorityElectionCandidateEndResultBase>(
         IEnumerable<TMajorityElectionCandidateEndResultBase> candidateEndResults,
         int numberOfMandates)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
@@ -41,6 +41,11 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
         foreach (var candidateEndResult in enabledCandidateEndResults)
         {
             var candidateEndResultMinMaxRank = candidateEndResultMinMaxRankByVoteCount[candidateEndResult.VoteCount];
+
+            if (!candidateEndResult.LotDecision)
+            {
+                candidateEndResult.Rank = candidateEndResultMinMaxRank.MinRank;
+            }
 
             // lot decision is required when there are candidates with the same vote count
             // and the elected candidates is dependent of this candidate rank
