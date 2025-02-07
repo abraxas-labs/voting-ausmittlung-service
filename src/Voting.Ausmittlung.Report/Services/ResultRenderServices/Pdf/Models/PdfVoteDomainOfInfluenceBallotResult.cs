@@ -12,7 +12,7 @@ public class PdfVoteDomainOfInfluenceBallotResult : PdfDomainOfInfluenceResult
     public List<PdfVoteCountingCircleBallotResult> Results { get; set; } = new List<PdfVoteCountingCircleBallotResult>();
 
     [XmlElement("BallotQuestionResult")]
-    public List<PdfBallotQuestionResult>? QuestionResults { get; set; }
+    public List<PdfBallotQuestionDomainOfInfluenceResult>? QuestionResults { get; set; }
 
     [XmlElement("TieBreakQuestionResult")]
     public List<PdfTieBreakQuestionResult>? TieBreakQuestionResults { get; set; }

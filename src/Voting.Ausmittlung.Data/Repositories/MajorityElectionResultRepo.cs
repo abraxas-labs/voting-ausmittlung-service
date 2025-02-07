@@ -27,7 +27,8 @@ public class MajorityElectionResultRepo : PoliticalBusinessResultRepo<MajorityEl
             .Include(x => x.MajorityElection.Contest.DomainOfInfluence)
             .Include(x => x.MajorityElection.Translations)
             .Include(x => x.CandidateResults)
-            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults).ThenInclude(c => c.Candidate)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)
             .Include(x => x.BallotGroupResults)
             .Where(predicate);
 

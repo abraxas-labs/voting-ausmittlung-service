@@ -9,8 +9,6 @@ namespace Voting.Ausmittlung.Data.Models;
 
 public class SecondaryMajorityElection : MajorityElectionBase, IPoliticalBusinessHasTranslations
 {
-    public SecondaryMajorityElectionAllowedCandidate AllowedCandidates { get; set; }
-
     public Guid PrimaryMajorityElectionId { get; set; }
 
     public MajorityElection PrimaryMajorityElection { get; set; } = null!; // set by EF

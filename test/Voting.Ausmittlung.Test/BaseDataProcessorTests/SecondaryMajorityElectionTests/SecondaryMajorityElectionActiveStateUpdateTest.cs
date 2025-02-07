@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Xunit;
@@ -26,46 +27,61 @@ public class SecondaryMajorityElectionActiveStateUpdateTest : BaseDataProcessorT
         await MajorityElectionMockedData.Seed(RunScoped);
     }
 
-    [Fact]
-    public async Task TestUpdateActiveState()
+    [Theory]
+    [InlineData(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund, false)]
+    [InlineData(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot, true)]
+    public async Task TestUpdateActiveState(string id, bool onSeparateBallot)
     {
         await TestEventPublisher.Publish(
             new SecondaryMajorityElectionActiveStateUpdated
             {
-                SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                SecondaryMajorityElectionId = id,
                 Active = true,
+                IsOnSeparateBallot = onSeparateBallot,
             });
 
-        var result = await RunOnDb(db => db.SecondaryMajorityElections
-            .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund)));
+        var result = await GetElection(id, onSeparateBallot);
         result.Active.Should().BeTrue();
 
         var simpleResult = await RunOnDb(db => db.SimplePoliticalBusinesses
-            .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund)));
+            .FirstAsync(x => x.Id == Guid.Parse(id)));
         simpleResult.Active.Should().BeTrue();
 
         await TestEventPublisher.Publish(
             1,
             new SecondaryMajorityElectionActiveStateUpdated
             {
-                SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                SecondaryMajorityElectionId = id,
                 Active = false,
+                IsOnSeparateBallot = onSeparateBallot,
             });
 
-        result = await RunOnDb(
-            db => db.SecondaryMajorityElections
-                .Include(e => e.Translations)
-                .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund)),
-            Languages.German);
+        result = await GetElection(id, onSeparateBallot);
         result.Active.Should().BeFalse();
-        result.ShortDescription.Should().Be("short de");
 
         simpleResult = await RunOnDb(
             db => db.SimplePoliticalBusinesses
                 .Include(b => b.Translations)
-                .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund)),
+                .FirstAsync(x => x.Id == Guid.Parse(id)),
             Languages.Italian);
         simpleResult.Active.Should().BeFalse();
-        simpleResult.ShortDescription.Should().Be("short it");
+    }
+
+    private async Task<MajorityElectionBase> GetElection(string id, bool onSeparateBallot)
+    {
+        if (!onSeparateBallot)
+        {
+            return await RunOnDb(
+                db => db.SecondaryMajorityElections
+                    .Include(e => e.Translations)
+                    .FirstAsync(x => x.Id == Guid.Parse(id)),
+                Languages.German);
+        }
+
+        return await RunOnDb(
+            db => db.MajorityElections
+                .Include(e => e.Translations)
+                .FirstAsync(x => x.Id == Guid.Parse(id)),
+            Languages.German);
     }
 }

@@ -1,0 +1,178 @@
+{
+  "CountingCircles_": [
+    {
+      "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+      "Name": "Gossau",
+      "Bfs": "3443",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "300300300300300300",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    {
+      "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+      "Name": "St. Gallen",
+      "Bfs": "5500",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200200200200200200",
+        "Name": "St. Gallen",
+        "Street": "WerkstrasseX",
+        "Zip": "9000",
+        "City": "MyCityX",
+        "Phone": "071 123 12 20",
+        "Email": "sg@abraxas.ch"
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "Hans-sg",
+        "FamilyName": "Muster-sg",
+        "Phone": "071 123 12 21",
+        "MobilePhone": "071 123 12 31",
+        "Email": "sg@abraxas.ch"
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "Rudolph-sg",
+        "FamilyName": "Wichtig-sg",
+        "Phone": "071 123 12 22",
+        "MobilePhone": "071 123 12 33",
+        "Email": "sg@abraxas.ch"
+      }
+    },
+    {
+      "Id": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+      "Name": "St. Gallen Auslandschweizer",
+      "Bfs": "5500-3",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200200200200200200",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    {
+      "Id": "46adab98-9114-4503-9000-b02842640650",
+      "Name": "St. Gallen Haggen",
+      "Bfs": "5500-2",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200200200200200200",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    {
+      "Id": "44a75721-f192-461c-816f-9f46a00d274a",
+      "Name": "St. Gallen St. Fiden",
+      "Bfs": "5500-1",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "200200200200200200",
+        "Name": "",
+        "Street": "",
+        "Zip": "",
+        "City": "",
+        "Phone": "",
+        "Email": ""
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "",
+        "FamilyName": "",
+        "Phone": "",
+        "MobilePhone": "",
+        "Email": ""
+      }
+    },
+    {
+      "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+      "Name": "Uzwil",
+      "Bfs": "1234",
+      "ResponsibleAuthority": {
+        "SecureConnectId": "100100100100100100",
+        "Name": "Uzwil",
+        "Street": "Werkstrasse",
+        "Zip": "9595",
+        "City": "MyCity",
+        "Phone": "071 123 12 20",
+        "Email": "uzwil-test@abraxas.ch"
+      },
+      "ContactPersonDuringEvent": {
+        "FirstName": "Hans",
+        "FamilyName": "Muster",
+        "Phone": "071 123 12 21",
+        "MobilePhone": "071 123 12 31",
+        "Email": "uzwil-test@abraxas.ch"
+      },
+      "ContactPersonSameDuringEventAsAfter": false,
+      "ContactPersonAfterEvent": {
+        "FirstName": "Rudolph",
+        "FamilyName": "Wichtig",
+        "Phone": "071 123 12 22",
+        "MobilePhone": "071 123 12 33",
+        "Email": "uzwil-test2@abraxas.ch"
+      }
+    }
+  ]
+}

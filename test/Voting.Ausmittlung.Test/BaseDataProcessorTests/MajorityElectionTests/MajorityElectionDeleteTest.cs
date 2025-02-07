@@ -47,7 +47,11 @@ public class MajorityElectionDeleteTest : BaseDataProcessorTest
     [Fact]
     public async Task TestDeleteRelatedVotingCards()
     {
-        await TestEventPublisher.Publish(0, new MajorityElectionDeleted
+        await TestEventPublisher.Publish(GetNextEventNumber(), new MajorityElectionDeleted
+        {
+            MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+        });
+        await TestEventPublisher.Publish(GetNextEventNumber(), new MajorityElectionDeleted
         {
             MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
         });
@@ -81,7 +85,7 @@ public class MajorityElectionDeleteTest : BaseDataProcessorTest
         doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 2000, 1000, 3000 }).Should().BeTrue();
         doiDetails.VotingCards.Any(x => x.CountOfReceivedVotingCards != 0).Should().BeTrue();
 
-        await TestEventPublisher.Publish(1, new MajorityElectionDeleted
+        await TestEventPublisher.Publish(GetNextEventNumber(), new MajorityElectionDeleted
         {
             MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenWithoutChilds,
         });

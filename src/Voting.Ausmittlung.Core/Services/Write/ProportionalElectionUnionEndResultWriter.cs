@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Voting.Ausmittlung.Core.Domain;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;

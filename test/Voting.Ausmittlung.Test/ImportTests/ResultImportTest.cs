@@ -268,15 +268,37 @@ public class ResultImportTest : BaseRestTest
     }
 
     [Fact]
-    public async Task CountingCircleResultAuditedShouldThrow()
+    public async Task CountingCircleResultAuditedAfterTestingPhaseEndedShouldThrow()
     {
-        // set a state to submission finished
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
+
+        // set a state to audited tentatively
         await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.AuditedTentatively);
 
         await AssertProblemDetails(
             () => MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok)),
             HttpStatusCode.FailedDependency,
             $"A result is in an invalid state for an eVoting import to be possible ({ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen})");
+    }
+
+    [Fact]
+    public async Task CountingCircleResultAuditedTentativelyInTestingPhaseShouldWork()
+    {
+        // set a state to audited tentatively
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.AuditedTentatively);
+
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+        resp.EnsureSuccessStatusCode();
+    }
+
+    [Fact]
+    public async Task CountingCircleResultPlausibilisedInTestingPhaseShouldWork()
+    {
+        // set a state to audited tentatively
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.Plausibilised);
+
+        using var resp = await MonitoringElectionAdminClient.PostFiles(BuildUri(), ("ech0222File", TestFileOk), ("ech0110File", TestFileEch0110Ok));
+        resp.EnsureSuccessStatusCode();
     }
 
     [Fact]
@@ -1280,10 +1302,18 @@ public class ResultImportTest : BaseRestTest
                 resultAgg.SubmissionFinished(contestId);
                 resultAgg.AuditedTentatively(contestId);
                 break;
+            case CountingCircleResultState.Plausibilised:
+                resultAgg.SubmissionFinished(contestId);
+                resultAgg.AuditedTentatively(contestId);
+                resultAgg.Plausibilise(contestId);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
 
         await AggregateRepositoryMock.Save(resultAgg);
     }
+
+    private Task SetContestState(string id, ContestState state)
+        => ModifyDbEntities<Contest>(c => c.Id == Guid.Parse(id), c => c.State = state);
 }

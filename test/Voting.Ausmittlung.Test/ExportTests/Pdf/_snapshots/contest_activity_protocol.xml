@@ -1377,6 +1377,64 @@
     <EventSignatureVerification>NoSignature</EventSignatureVerification>
   </Event>
   <Event>
+    <Date>2020-07-17T10:36:00Z</Date>
+    <EventAttribute>
+      <AttributeName>proportional_election_end_result_id</AttributeName>
+      <AttributeValue>cbd87126-6df5-4839-ab24-02fe42c9b27f</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>proportional_election_id</AttributeName>
+      <AttributeValue>3a832f45-34c0-47ce-b1e3-db27b97948ba</AttributeValue>
+    </EventAttribute>
+    <EventAttribute>
+      <AttributeName>list_lot_decisions</AttributeName>
+      <EventAttribute>
+        <AttributeName>entries</AttributeName>
+        <EventAttribute>
+          <AttributeName>list_id</AttributeName>
+          <AttributeValue>f8eec387-c0dc-4262-ba11-3cfa42425bb5</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>list_union_id</AttributeName>
+          <AttributeValue />
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>winning</AttributeName>
+          <AttributeValue>False</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+      <EventAttribute>
+        <AttributeName>entries</AttributeName>
+        <EventAttribute>
+          <AttributeName>list_id</AttributeName>
+          <AttributeValue />
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>list_union_id</AttributeName>
+          <AttributeValue>b1ab8dba-b606-4607-a673-e1d7d74681b8</AttributeValue>
+        </EventAttribute>
+        <EventAttribute>
+          <AttributeName>winning</AttributeName>
+          <AttributeValue>True</AttributeValue>
+        </EventAttribute>
+      </EventAttribute>
+    </EventAttribute>
+    <EventName>abraxas.voting.ausmittlung.events.v1.ProportionalElectionListEndResultListLotDecisionsUpdated</EventName>
+    <Tenant>
+      <TenantName>St. Gallen</TenantName>
+    </Tenant>
+    <User>
+      <Username>AXADMIN</Username>
+      <Firstname>Monitoring</Firstname>
+      <Lastname>Admin</Lastname>
+    </User>
+    <PoliticalBusiness>
+      <Number>201 UPDATE</Number>
+      <Description>Pw SG UPDATE de</Description>
+    </PoliticalBusiness>
+    <EventSignatureVerification>NoSignature</EventSignatureVerification>
+  </Event>
+  <Event>
     <Date>2020-07-17T10:41:50Z</Date>
     <EventAttribute>
       <AttributeName>vote_result_id</AttributeName>

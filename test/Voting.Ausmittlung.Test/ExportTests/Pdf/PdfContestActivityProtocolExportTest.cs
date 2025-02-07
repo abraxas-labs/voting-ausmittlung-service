@@ -1033,6 +1033,32 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
             },
         };
         PublishAusmittlungBusinessEvent(manualListEndResult, manualListEndResult.ProportionalElectionEndResultId);
+
+        var listLotDecisionsUpdated = new ProportionalElectionListEndResultListLotDecisionsUpdated
+        {
+            EventInfo = GetEventInfo(1660, true),
+            ProportionalElectionId = electionId,
+            ProportionalElectionEndResultId = "cbd87126-6df5-4839-ab24-02fe42c9b27f",
+            ListLotDecisions =
+            {
+                new ProportionalElectionEndResultListLotDecisionEventData
+                {
+                    Entries =
+                    {
+                        new ProportionalElectionEndResultListLotDecisionEntryEventData
+                        {
+                            ListId = "f8eec387-c0dc-4262-ba11-3cfa42425bb5",
+                        },
+                        new ProportionalElectionEndResultListLotDecisionEntryEventData
+                        {
+                            ListUnionId = "b1ab8dba-b606-4607-a673-e1d7d74681b8",
+                            Winning = true,
+                        },
+                    },
+                },
+            },
+        };
+        PublishAusmittlungBusinessEvent(listLotDecisionsUpdated, lotDecisionsUpdated.ProportionalElectionEndResultId);
     }
 
     private void SeedProportionalElectionBundleEvents()

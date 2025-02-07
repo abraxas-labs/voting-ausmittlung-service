@@ -495,6 +495,7 @@
     </VoteEndResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>Unspecified</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
@@ -581,6 +582,7 @@
     </VoteEndResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>QuestionsOnSingleBallot</Type>
   </Vote>
   <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
 </Voting>

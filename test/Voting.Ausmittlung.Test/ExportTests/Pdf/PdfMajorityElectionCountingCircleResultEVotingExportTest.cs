@@ -27,18 +27,16 @@ public class PdfMajorityElectionCountingCircleResultEVotingExportTest : PdfExpor
 
     protected override string TemplateKey => AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key;
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-        await ModifyDbEntities<ContestCountingCircleDetails>(
-            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
-            x => x.EVoting = true);
-    }
-
     protected override async Task SeedData()
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen,
+            x => x.EVoting = true);
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            x => x.EVoting = true);
     }
 
     protected override StartProtocolExportsRequest NewRequest()

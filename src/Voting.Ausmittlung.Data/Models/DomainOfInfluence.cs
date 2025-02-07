@@ -82,4 +82,8 @@ public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
     public DomainOfInfluence? SuperiorAuthorityDomainOfInfluence { get; set; }
 
     public ICollection<DomainOfInfluence> SubAuthorityDomainOfInfluences { get; set; } = new HashSet<DomainOfInfluence>();
+
+    public bool PublishResultsDisabled { get; set; }
+
+    public bool HideLowerDomainOfInfluencesInReports { get; set; }
 }

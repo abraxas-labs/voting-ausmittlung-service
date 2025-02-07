@@ -14,5 +14,17 @@ public class PdfMajorityElectionResultProfile : Profile
         CreateMap<MajorityElectionCandidateResult, PdfMajorityElectionCandidateResult>();
         CreateMap<MajorityElectionResultSubTotal, PdfMajorityElectionResultSubTotal>();
         CreateMap<MajorityElectionResultNullableSubTotal, PdfMajorityElectionResultSubTotal>();
+
+        CreateMap<SecondaryMajorityElectionResult, PdfMajorityElectionResult>()
+            .ForMember(dst => dst.CountingCircle, opts => opts.MapFrom(src => src.PrimaryResult.CountingCircle))
+            .ForMember(dst => dst.CountOfVoters, opts => opts.MapFrom(src => src.PrimaryResult.CountOfVoters))
+            .ForMember(dst => dst.TotalCountOfVoters, opts => opts.MapFrom(src => src.PrimaryResult.TotalCountOfVoters))
+            .ForMember(dst => dst.State, opts => opts.MapFrom(src => src.PrimaryResult.State))
+            .ForMember(
+                dst => dst.IsAuditedTentativelyOrPlausibilised,
+                opts => opts.MapFrom(src =>
+                    src.PrimaryResult.State == CountingCircleResultState.AuditedTentatively ||
+                    src.PrimaryResult.State == CountingCircleResultState.Plausibilised));
+        CreateMap<SecondaryMajorityElectionCandidateResult, PdfMajorityElectionCandidateResult>();
     }
 }

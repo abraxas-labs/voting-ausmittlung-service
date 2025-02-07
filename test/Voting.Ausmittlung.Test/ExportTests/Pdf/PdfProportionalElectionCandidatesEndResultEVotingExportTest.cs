@@ -23,10 +23,10 @@ public class PdfProportionalElectionCandidatesEndResultEVotingExportTest : PdfEx
     }
 
     protected override ExportService.ExportServiceClient TestClient => CreateService(
-        SecureConnectTestDefaults.MockedTenantUzwil.Id,
+        SecureConnectTestDefaults.MockedTenantStGallen.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular5b_KandParteiErgebnisse_EVoting_Kantonratswahl de_20290212.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular5b_KandParteiErgebnisse_EVoting_Pw SG de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting.Key;
 
@@ -53,8 +53,8 @@ public class PdfProportionalElectionCandidatesEndResultEVotingExportTest : PdfEx
             {
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
-                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId))
+                    SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                    politicalBusinessId: Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund))
                     .ToString(),
             },
         };

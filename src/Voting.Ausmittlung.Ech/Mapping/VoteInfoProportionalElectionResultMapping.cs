@@ -13,7 +13,8 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 internal static class VoteInfoProportionalElectionResultMapping
 {
     internal static IEnumerable<EventElectionResultDeliveryTypeElectionGroupResult> ToVoteInfoEchProportionalElectionGroupResults(
-        this ICollection<ProportionalElection> proportionalElections)
+        this ICollection<ProportionalElection> proportionalElections,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         return proportionalElections
             .OrderBy(x => x.DomainOfInfluence.Type)
@@ -23,12 +24,14 @@ internal static class VoteInfoProportionalElectionResultMapping
                 ElectionGroupIdentification = x.Id.ToString(),
                 ElectionResult =
                 [
-                    ToVoteInfoEchResult(x)
+                    ToVoteInfoEchResult(x, enabledResultStates)
                 ],
             });
     }
 
-    private static EventElectionResultDeliveryTypeElectionGroupResultElectionResult ToVoteInfoEchResult(ProportionalElection proportionalElection)
+    private static EventElectionResultDeliveryTypeElectionGroupResultElectionResult ToVoteInfoEchResult(
+        ProportionalElection proportionalElection,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCircleResultsArePublished = proportionalElection.Results.All(x => x.Published);
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
@@ -60,67 +63,71 @@ internal static class VoteInfoProportionalElectionResultMapping
             CountingCircleResult = proportionalElection.Results
                 .Where(r => r.Published)
                 .OrderBy(r => r.CountingCircle.Name)
-                .Select(ToCountingCircleResult)
+                .Select(r => ToCountingCircleResult(r, enabledResultStates))
                 .ToList(),
             DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(proportionalElection) : null,
         };
     }
 
-    private static CountingCircleResultType ToCountingCircleResult(ProportionalElectionResult result)
+    private static CountingCircleResultType ToCountingCircleResult(ProportionalElectionResult result, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
+        var resultData = result.Published && enabledResultStates?.Contains(result.State) != false
+            ? new CountingCircleResultTypeResultData
+            {
+                CountOfVotersInformation = result.CountingCircle.ToVoteInfoCountOfVotersInfo(result.ProportionalElection.DomainOfInfluence.Type),
+                IsFullyCounted = result.SubmissionDoneTimestamp.HasValue,
+                ReleasedTimestamp = result.SubmissionDoneTimestamp,
+                LockoutTimestamp = result.AuditedTentativelyTimestamp,
+                VoterTurnout = VoteInfoCountingCircleResultMapping.DecimalToPercentage(result.CountOfVoters.VoterParticipation),
+                CountOfReceivedBallots = (uint)result.CountOfVoters.TotalReceivedBallots,
+                CountOfBlankBallots = (uint)result.CountOfVoters.TotalBlankBallots,
+                CountOfInvalidBallots = (uint)result.CountOfVoters.TotalInvalidBallots,
+                CountOfValidBallots = (uint)result.CountOfVoters.TotalAccountedBallots,
+                NamedElement = VoteInfoCountingCircleResultMapping.GetNamedElements(result),
+                ElectionResult = new ElectionResultType
+                {
+                    ElectionIdentification = result.ProportionalElectionId.ToString(),
+                    ProportionalElection = new ElectionResultTypeProportionalElection
+                    {
+                        CountOfChangedBallotsWithoutListDesignation = (uint)result.TotalCountOfListsWithoutParty,
+                        CountOfBlankVotesOfChangedBallotsWithoutListDesignation = (uint)result.TotalCountOfBlankRowsOnListsWithoutParty,
+                        ListResults = result.ListResults
+                            .Where(x => x.CandidateResults.Count > 0) // Otherwise it is not valid
+                            .OrderByDescending(x => x.TotalVoteCount)
+                            .ThenBy(x => x.ListId)
+                            .Select(x => new ListResultType
+                            {
+                                ListIdentification = x.ListId.ToString(),
+                                CountOfUnchangedBallots = (uint)x.UnmodifiedListsCount,
+                                CountOfChangedBallots = (uint)x.ModifiedListsCount,
+                                CountOfAdditionalVotes = (uint)x.BlankRowsCount,
+                                CountOfCandidateVotes = (uint)x.ListVotesCount,
+                                CandidateResults = x.CandidateResults
+                                    .OrderByDescending(c => c.VoteCount)
+                                    .ThenBy(c => c.CandidateId)
+                                    .Select(c => new ListResultTypeCandidateResults
+                                    {
+                                        CandidateIdentification = c.CandidateId.ToString(),
+                                        CountOfVotesFromUnchangedBallots = (uint)c.UnmodifiedListVotesCount,
+                                        CountOfVotesFromChangedBallots = (uint)c.ModifiedListVotesCount,
+                                        CandidateListResultsInfo = new ListResultTypeCandidateResultsCandidateListResultsInfo
+                                        {
+                                            CandidateListResults = c.ToCandidateListResults(),
+                                            CountOfVotesFromBallotsWithoutListDesignation = (uint?)c.VoteSources.FirstOrDefault(y => y.ListId == null)?.VoteCount,
+                                        },
+                                    })
+                                    .ToList(),
+                            })
+                            .ToList(),
+                    },
+                },
+                VotingCardInformation = result.CountingCircle.ToVoteInfoVotingCardInfo(result.ProportionalElection.DomainOfInfluence.Type),
+            }
+            : null;
         return new CountingCircleResultType
         {
-            CountOfVotersInformation = new CountOfVotersInformationType
-            {
-                CountOfVotersTotal = (uint)result.TotalCountOfVoters,
-            },
-            IsFullyCounted = result.SubmissionDoneTimestamp.HasValue,
-            ReleasedTimestamp = result.SubmissionDoneTimestamp,
-            LockoutTimestamp = result.AuditedTentativelyTimestamp,
-            VoterTurnout = VoteInfoCountingCircleResultMapping.DecimalToPercentage(result.CountOfVoters.VoterParticipation),
-            CountingCircleId = result.CountingCircle.Bfs,
-            CountOfReceivedBallots = (uint)result.CountOfVoters.TotalReceivedBallots,
-            CountOfBlankBallots = (uint)result.CountOfVoters.TotalBlankBallots,
-            CountOfInvalidBallots = (uint)result.CountOfVoters.TotalInvalidBallots,
-            CountOfValidBallots = (uint)result.CountOfVoters.TotalAccountedBallots,
-            NamedElement = VoteInfoCountingCircleResultMapping.GetNamedElements(result),
-            ElectionResult = new ElectionResultType
-            {
-                ElectionIdentification = result.ProportionalElectionId.ToString(),
-                ProportionalElection = new ElectionResultTypeProportionalElection
-                {
-                    CountOfChangedBallotsWithoutListDesignation = (uint)result.TotalCountOfListsWithoutParty,
-                    CountOfBlankVotesOfChangedBallotsWithoutListDesignation = (uint)result.TotalCountOfBlankRowsOnListsWithoutParty,
-                    ListResults = result.ListResults
-                        .OrderByDescending(x => x.TotalVoteCount)
-                        .ThenBy(x => x.ListId)
-                        .Select(x => new ListResultType
-                        {
-                            ListIdentification = x.ListId.ToString(),
-                            CountOfUnchangedBallots = (uint)x.UnmodifiedListsCount,
-                            CountOfChangedBallots = (uint)x.ModifiedListsCount,
-                            CountOfAdditionalVotes = (uint)x.BlankRowsCount,
-                            CountOfCandidateVotes = (uint)x.ListVotesCount,
-                            CandidateResults = x.CandidateResults
-                                .OrderByDescending(c => c.VoteCount)
-                                .ThenBy(c => c.CandidateId)
-                                .Select(c => new ListResultTypeCandidateResults
-                                {
-                                    CandidateIdentification = c.CandidateId.ToString(),
-                                    CountOfVotesFromUnchangedBallots = (uint)c.UnmodifiedListVotesCount,
-                                    CountOfVotesFromChangedBallots = (uint)c.ModifiedListVotesCount,
-                                    CandidateListResultsInfo = new ListResultTypeCandidateResultsCandidateListResultsInfo
-                                    {
-                                        CandidateListResults = c.ToCandidateListResults(),
-                                        CountOfVotesFromBallotsWithoutListDesignation = (uint?)c.VoteSources.FirstOrDefault(y => y.ListId == null)?.VoteCount,
-                                    },
-                                })
-                                .ToList(),
-                        })
-                        .ToList(),
-                },
-            },
-            VotingCardInformation = result.CountingCircle.ToVoteInfoVotingCardInfo(result.ProportionalElection.DomainOfInfluence.Type),
+            CountingCircle = result.CountingCircle.ToEch0252CountingCircle(result.ProportionalElection.Contest.DomainOfInfluenceId),
+            ResultData = resultData,
         };
     }
 

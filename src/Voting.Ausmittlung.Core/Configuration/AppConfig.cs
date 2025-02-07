@@ -9,6 +9,7 @@ using Voting.Lib.Common.Net;
 using Voting.Lib.Cryptography.Configuration;
 using Voting.Lib.Cryptography.HealthChecks;
 using Voting.Lib.Eventing.Configuration;
+using Voting.Lib.Iam.Configuration;
 using Voting.Lib.Iam.Services;
 using Voting.Lib.MalwareScanner.Configuration;
 using Voting.Lib.Messaging.Configuration;
@@ -77,4 +78,9 @@ public class AppConfig
     };
 
     public MalwareScannerConfig MalwareScanner { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the auth store configuration.
+    /// </summary>
+    public AuthStoreConfig AuthStore { get; set; } = new();
 }

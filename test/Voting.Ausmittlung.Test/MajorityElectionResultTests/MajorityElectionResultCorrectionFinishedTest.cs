@@ -95,7 +95,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
             x => x.ContestId == ContestMockedData.GuidBundesurnengang,
             x =>
             {
-                x.PublishResultsEnabled = false;
+                x.ManualPublishResultsEnabled = false;
                 x.PublishResultsBeforeAuditedTentatively = true;
             },
             splitQuery: true);

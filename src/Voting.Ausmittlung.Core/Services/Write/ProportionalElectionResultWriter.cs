@@ -94,9 +94,8 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId);
-
         var result = await LoadPoliticalBusinessResult(resultId);
+        await EnsurePoliticalBusinessPermissions(result);
         if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
         {
             return default;
@@ -150,9 +149,8 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId);
-
         var result = await LoadPoliticalBusinessResult(resultId);
+        await EnsurePoliticalBusinessPermissions(result);
         if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
         {
             return default;

@@ -29,7 +29,7 @@ public class Ech0252Serializer
     {
         var sequenceBySuperiorAuthorityId = new Dictionary<Guid, ushort>();
         var voteInfos = contest.Votes
-            .Where(x => x.Active)
+            .Where(IsInEchDelivery)
             .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), Vote = x })
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.Vote.DomainOfInfluence.Type)
@@ -52,17 +52,17 @@ public class Ech0252Serializer
         };
     }
 
-    public Delivery ToProportionalElectionResultDelivery(Contest contest)
+    public Delivery ToProportionalElectionResultDelivery(Contest contest, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var elections = contest.ProportionalElections
-            .Where(x => x.Active)
+            .Where(IsInEchDelivery)
             .ToList();
 
         var electionDelivery = new EventElectionResultDeliveryType
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
-            ElectionGroupResult = elections.ToVoteInfoEchProportionalElectionGroupResults().ToList(),
+            ElectionGroupResult = elections.ToVoteInfoEchProportionalElectionGroupResults(enabledResultStates).ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupResult.Count;
@@ -74,10 +74,10 @@ public class Ech0252Serializer
         };
     }
 
-    public Delivery ToMajorityElectionResultDelivery(Contest contest)
+    public Delivery ToMajorityElectionResultDelivery(Contest contest, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var elections = contest.MajorityElections
-            .Where(x => x.Active)
+            .Where(IsInEchDelivery)
             .ToList();
 
         var electionDelivery = new EventElectionResultDeliveryType
@@ -85,7 +85,7 @@ public class Ech0252Serializer
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
             ElectionGroupResult = elections
-                .ToVoteInfoEchMajorityElectionGroupResults()
+                .ToVoteInfoEchMajorityElectionGroupResults(enabledResultStates)
                 .ToList(),
         };
 
@@ -102,7 +102,7 @@ public class Ech0252Serializer
     {
         var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
         var elections = contest.ProportionalElections
-            .Where(x => x.Active)
+            .Where(IsInEchDelivery)
             .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), ProportionalElection = x })
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.ProportionalElection.DomainOfInfluence.Type)
@@ -130,7 +130,7 @@ public class Ech0252Serializer
     {
         var positionBySuperiorAuthorityId = new Dictionary<Guid, int>();
         var elections = contest.MajorityElections
-            .Where(x => x.Active)
+            .Where(IsInEchDelivery)
             .Select(x => new { PbNumber = ParsePoliticalBusinessNumber(x.PoliticalBusinessNumber), MajorityElection = x })
             .OrderBy(x => x.PbNumber)
             .ThenBy(x => x.MajorityElection.DomainOfInfluence.Type)
@@ -179,5 +179,11 @@ public class Ech0252Serializer
         header.MessageType = MessageType;
         header.Comment = DeliveryHeaderUtils.EnrichComment(header.Comment, contest.TestingPhaseEnded);
         return header;
+    }
+
+    private bool IsInEchDelivery<TPoliticalBusiness>(TPoliticalBusiness pb)
+        where TPoliticalBusiness : PoliticalBusiness
+    {
+        return pb.Active && !pb.DomainOfInfluence.PublishResultsDisabled;
     }
 }

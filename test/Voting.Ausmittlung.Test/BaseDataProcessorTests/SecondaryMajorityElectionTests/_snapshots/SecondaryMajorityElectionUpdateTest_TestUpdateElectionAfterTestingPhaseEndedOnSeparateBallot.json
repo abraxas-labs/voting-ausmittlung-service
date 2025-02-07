@@ -1,0 +1,62 @@
+{
+  "MandateAlgorithm": 2,
+  "CandidateCheckDigit": false,
+  "BallotBundleSize": 50,
+  "BallotBundleSampleSize": 1,
+  "AutomaticBallotBundleNumberGeneration": true,
+  "BallotNumberGeneration": 2,
+  "AutomaticEmptyVoteCounting": false,
+  "EnforceEmptyVoteCountingForCountingCircles": false,
+  "ResultEntry": 1,
+  "EnforceResultEntryForCountingCircles": true,
+  "ReportDomainOfInfluenceLevel": 0,
+  "BusinessType": 2,
+  "MajorityElectionCandidates": [],
+  "SecondaryMajorityElections": [],
+  "ElectionGroup": null,
+  "BallotGroups": [],
+  "BallotGroupEntries": [],
+  "Results": [],
+  "MajorityElectionUnionEntries": [],
+  "EndResult": null,
+  "Translations": [
+    {
+      "MajorityElectionId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+      "ShortDescription": "Update Nebenwahl fr",
+      "OfficialDescription": "Update Nebenwahl fr",
+      "Language": "fr",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ReviewProcedure": 1,
+  "EnforceReviewProcedureForCountingCircles": true,
+  "EnforceCandidateCheckDigitForCountingCircles": false,
+  "FederalIdentification": null,
+  "PrimaryMajorityElectionId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+  "PrimaryMajorityElection": null,
+  "SecondaryMajorityElectionsOnSeparateBallots": [],
+  "IndividualCandidatesDisabled": false,
+  "NumberOfMandates": 1,
+  "PoliticalBusinessNumber": "n1 UPDATED",
+  "Active": true,
+  "DomainOfInfluenceId": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424",
+  "DomainOfInfluence": null,
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "Contest": null,
+  "BusinessSubType": 0,
+  "EnabledVoterTypes": [],
+  "CountingCircleResults": [],
+  "PoliticalBusinessTranslations": [
+    {
+      "MajorityElectionId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+      "ShortDescription": "Update Nebenwahl fr",
+      "OfficialDescription": "Update Nebenwahl fr",
+      "Language": "fr",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "ShortDescription": "Update Nebenwahl fr",
+  "OfficialDescription": "Update Nebenwahl fr",
+  "Title": "n1 UPDATED: Update Nebenwahl fr",
+  "Id": "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+}

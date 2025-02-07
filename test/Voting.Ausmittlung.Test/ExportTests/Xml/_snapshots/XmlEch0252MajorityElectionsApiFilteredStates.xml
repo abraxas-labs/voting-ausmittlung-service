@@ -1,0 +1,226 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <electionResultDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <electionGroupResult>
+      <electionGroupIdentification>0fee4b4e-f16d-46a3-9f7a-2776ee5785db</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>0fee4b4e-f16d-46a3-9f7a-2776ee5785db</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1</countingCircleId>
+            <countingCircleName>Bund</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500</countingCircleId>
+            <countingCircleName>St. Gallen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-3</countingCircleId>
+            <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-2</countingCircleId>
+            <countingCircleName>St. Gallen Haggen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-1</countingCircleId>
+            <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1234</countingCircleId>
+            <countingCircleName>Uzwil</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+    </electionGroupResult>
+    <electionGroupResult>
+      <electionGroupIdentification>cd464c26-24d4-4cfc-95d9-e7c930b1784e</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>cd464c26-24d4-4cfc-95d9-e7c930b1784e</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500</countingCircleId>
+            <countingCircleName>St. Gallen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-3</countingCircleId>
+            <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-2</countingCircleId>
+            <countingCircleName>St. Gallen Haggen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-1</countingCircleId>
+            <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1234</countingCircleId>
+            <countingCircleName>Uzwil</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+    </electionGroupResult>
+    <electionGroupResult>
+      <electionGroupIdentification>e966bec6-f1d4-4c07-8094-6f7df4cc515a</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>e966bec6-f1d4-4c07-8094-6f7df4cc515a</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500</countingCircleId>
+            <countingCircleName>St. Gallen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-3</countingCircleId>
+            <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-2</countingCircleId>
+            <countingCircleName>St. Gallen Haggen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500-1</countingCircleId>
+            <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1234</countingCircleId>
+            <countingCircleName>Uzwil</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+    </electionGroupResult>
+    <electionGroupResult>
+      <electionGroupIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>d66ced3e-a2e4-4178-932b-ac91ee6a9d85</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1234</countingCircleId>
+            <countingCircleName>Uzwil</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+      <electionResult>
+        <electionIdentification>5ec8cf85-229a-4dc7-a601-1bb6980fee78</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>1234</countingCircleId>
+            <countingCircleName>Uzwil</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+    </electionGroupResult>
+    <electionGroupResult>
+      <electionGroupIdentification>50415df8-6ee9-4eb4-9e31-68c0d3021e76</electionGroupIdentification>
+      <electionResult>
+        <electionIdentification>50415df8-6ee9-4eb4-9e31-68c0d3021e76</electionIdentification>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>3443</countingCircleId>
+            <countingCircleName>Gossau</countingCircleName>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
+          </countingCircle>
+        </countingCircleResult>
+        <elected>
+          <majorityElection />
+        </elected>
+      </electionResult>
+    </electionGroupResult>
+    <numberOfEntries>5</numberOfEntries>
+  </electionResultDelivery>
+</delivery>

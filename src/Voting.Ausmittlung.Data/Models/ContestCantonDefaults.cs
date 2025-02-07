@@ -42,7 +42,7 @@ public class ContestCantonDefaults : BaseEntity
 
     public bool ProportionalElectionUseCandidateCheckDigit { get; set; }
 
-    public bool PublishResultsEnabled { get; set; }
+    public bool ManualPublishResultsEnabled { get; set; }
 
     public bool PublishResultsBeforeAuditedTentatively { get; set; }
 

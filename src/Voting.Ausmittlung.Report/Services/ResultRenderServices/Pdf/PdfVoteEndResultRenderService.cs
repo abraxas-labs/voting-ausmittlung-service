@@ -23,6 +23,7 @@ public class PdfVoteEndResultRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
+    private readonly IDbRepository<DataContext, VoteResult> _voteResultRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
@@ -31,12 +32,14 @@ public class PdfVoteEndResultRenderService : IRendererService
         TemplateService templateService,
         IMapper mapper,
         IDbRepository<DataContext, Contest> contestRepo,
+        IDbRepository<DataContext, VoteResult> voteResultRepo,
         IDbRepository<DataContext, Vote> voteRepo,
         IClock clock)
     {
         _templateService = templateService;
         _mapper = mapper;
         _contestRepo = contestRepo;
+        _voteResultRepo = voteResultRepo;
         _voteRepo = voteRepo;
         _clock = clock;
     }
@@ -63,17 +66,34 @@ public class PdfVoteEndResultRenderService : IRendererService
             .OrderBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
 
+        var domainOfInfluence = GetDomainOfInfluenceAndEnsureIsSingle(votes);
+
         // Bugfix for VOTING-2833, where the protocol expects ContestDetails, even though that is not correct
         // For example, when ctx.DomainOfInfluenceType is a communal type (ex. municipality), the ContestDetails do not work.
         // It contains the voting cards for all counting circles in the contest, but we only want the voting cards for the
         // domain of influence of the votes.
         // This should be fixed in the future by no longer sending the contest details, but individual domain of influence details.
-        contest.Details = BuildContestDetails(votes);
+        contest.Details = BuildContestDetails(domainOfInfluence);
 
         contest.Details?.OrderVotingCardsAndSubTotals();
         var pdfContest = _mapper.Map<PdfContest>(contest);
         pdfContest.Details ??= new PdfContestDetails();
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details, ctx.DomainOfInfluenceType);
+
+        if (votes[0].EndResult!.TotalCountOfCountingCircles == 1)
+        {
+            pdfContest.Details.CountingMachine = await _voteResultRepo.Query()
+                .Where(x => x.VoteId == votes[0].Id)
+                .SelectMany(x => x.CountingCircle.ContestDetails)
+                .Select(x => x.CountingMachine)
+                .FirstAsync(ct);
+        }
+
+        // Do not need this in the report, since we fill out the contest details for the time being
+        foreach (var vote in votes)
+        {
+            vote.DomainOfInfluence.Details = null;
+        }
 
         var pdfVotes = _mapper.Map<List<PdfVote>>(votes);
         PdfVoteUtil.SetLabels(pdfVotes);
@@ -93,20 +113,24 @@ public class PdfVoteEndResultRenderService : IRendererService
             PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
     }
 
-    private ContestDetails? BuildContestDetails(IReadOnlyCollection<Vote> votes)
+    private DomainOfInfluence GetDomainOfInfluenceAndEnsureIsSingle(IReadOnlyCollection<Vote> votes)
     {
         var domainOfInfluences = votes
             .Select(x => x.DomainOfInfluence)
             .DistinctBy(x => x.Id)
             .ToList();
-        if (domainOfInfluences.Count > 1)
+
+        if (domainOfInfluences.Count != 1)
         {
-            throw new ValidationException("Cannot export votes with more than one domain of influence");
+            throw new ValidationException("Cannot export votes with none or more than one domain of influence");
         }
 
-        var domainOfInfluence = domainOfInfluences[0];
+        return domainOfInfluences[0];
+    }
 
-        var contestDetails = domainOfInfluence.Details == null
+    private ContestDetails? BuildContestDetails(DomainOfInfluence domainOfInfluence)
+    {
+        return domainOfInfluence.Details == null
             ? null
             : new ContestDetails
             {
@@ -127,13 +151,5 @@ public class PdfVoteEndResultRenderService : IRendererService
                         CountOfVoters = x.CountOfVoters,
                     }).ToList(),
             };
-
-        // do not need this in the report, since we fill out the contest details for the time being
-        foreach (var vote in votes)
-        {
-            vote.DomainOfInfluence.Details = null;
-        }
-
-        return contestDetails;
     }
 }

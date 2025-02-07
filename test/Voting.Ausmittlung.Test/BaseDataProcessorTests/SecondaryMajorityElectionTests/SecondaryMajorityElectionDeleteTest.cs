@@ -41,4 +41,23 @@ public class SecondaryMajorityElectionDeleteTest : BaseDataProcessorTest
         var primarySimpleElection = await RunOnDb(db => db.SimplePoliticalBusinesses.FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund)));
         primarySimpleElection.CountOfSecondaryBusinesses.Should().Be(2);
     }
+
+    [Fact]
+    public async Task TestDeleteOnSeparateBallot()
+    {
+        var id = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot;
+        var idGuid = Guid.Parse(id);
+        var exists = await RunOnDb(db => db.MajorityElections.AnyAsync(c => c.Id == idGuid));
+        exists.Should().BeTrue();
+
+        var simpleElectionExists = await RunOnDb(db => db.SimplePoliticalBusinesses.AnyAsync(c => c.Id == idGuid));
+        simpleElectionExists.Should().BeTrue();
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionDeleted { SecondaryMajorityElectionId = id, IsOnSeparateBallot = true });
+
+        exists = await RunOnDb(db => db.MajorityElections.AnyAsync(c => c.Id == idGuid));
+        exists.Should().BeFalse();
+
+        simpleElectionExists = await RunOnDb(db => db.SimplePoliticalBusinesses.AnyAsync(c => c.Id == idGuid));
+        simpleElectionExists.Should().BeFalse();
+    }
 }

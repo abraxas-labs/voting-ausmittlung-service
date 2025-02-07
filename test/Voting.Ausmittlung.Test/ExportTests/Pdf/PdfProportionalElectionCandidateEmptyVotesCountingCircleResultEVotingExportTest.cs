@@ -24,22 +24,22 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultEVoti
 
     protected override ExportService.ExportServiceClient TestClient => StGallenErfassungElectionAdminClient;
 
-    protected override string NewRequestExpectedFileName => "Proporz_Formular2_KandParteiStimmen_EVoting_Kantonratswahl de_20290212.pdf";
+    protected override string NewRequestExpectedFileName => "Proporz_Formular2_KandParteiStimmen_EVoting_Pw SG de_20290212.pdf";
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key;
 
     public override async Task InitializeAsync()
     {
         await base.InitializeAsync();
-        await ModifyDbEntities<ContestCountingCircleDetails>(
-            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
-            x => x.EVoting = true);
     }
 
     protected override async Task SeedData()
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            x => x.EVoting = true);
     }
 
     protected override StartProtocolExportsRequest NewRequest()
@@ -53,7 +53,7 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultEVoti
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
                     SecureConnectTestDefaults.MockedTenantStGallen.Id,
-                    politicalBusinessId: Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId),
+                    politicalBusinessId: Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund),
                     countingCircleId: CountingCircleMockedData.GuidUzwil)
                     .ToString(),
             },

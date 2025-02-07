@@ -738,6 +738,7 @@ public static class ZhMockedData
                         Id = UuidV5.Create(Guid.Parse("124ff00a-9f96-4e78-8ec5-8d84e5c1ffd8"), string.Join(":", list.Item1) + ":" + j),
                         FirstName = $"FN {i + 1}.{j}",
                         LastName = $"LN {i + 1}.{j}",
+                        DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     }).ToList(),
                 Position = i + 1,
                 OrderNumber = (i + 1).ToString("00", CultureInfo.InvariantCulture),

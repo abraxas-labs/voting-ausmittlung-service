@@ -29,12 +29,28 @@ public class SecondaryMajorityElectionCandidateDeleteTest : BaseDataProcessorTes
     public async Task TestDeleteCandidate()
     {
         var id = MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund;
+        var exists = await RunOnDb(db =>
+            db.SecondaryMajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeTrue();
         await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidateDeleted
         { SecondaryMajorityElectionCandidateId = id });
 
-        var idGuid = Guid.Parse(id);
-        var candidate = await RunOnDb(db =>
-            db.SecondaryMajorityElectionCandidates.FirstOrDefaultAsync(c => c.Id == idGuid));
-        candidate.Should().BeNull();
+        exists = await RunOnDb(db =>
+            db.SecondaryMajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task TestDeleteCandidateOnSeparateBallot()
+    {
+        var id = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot;
+        var exists = await RunOnDb(db =>
+            db.MajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeTrue();
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidateDeleted
+        { SecondaryMajorityElectionCandidateId = id, IsOnSeparateBallot = true });
+
+        exists = await RunOnDb(db => db.MajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeFalse();
     }
 }

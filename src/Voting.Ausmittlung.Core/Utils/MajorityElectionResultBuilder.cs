@@ -27,7 +27,7 @@ public class MajorityElectionResultBuilder
     private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryMajorityElectionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> _secondaryBallotRepo;
-    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
+    private readonly SimpleCountingCircleResultRepo _simpleResultRepo;
     private readonly MajorityElectionBallotGroupResultBuilder _ballotGroupResultBuilder;
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
     private readonly DataContext _dataContext;
@@ -39,7 +39,7 @@ public class MajorityElectionResultBuilder
         IDbRepository<DataContext, SecondaryMajorityElection> secondaryMajorityElectionRepo,
         IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> secondaryBallotRepo,
-        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
+        SimpleCountingCircleResultRepo simpleResultRepo,
         MajorityElectionBallotGroupResultBuilder ballotGroupResultBuilder,
         MajorityElectionCandidateResultBuilder candidateResultBuilder,
         DataContext dataContext,
@@ -92,6 +92,22 @@ public class MajorityElectionResultBuilder
         _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
 
         await _dataContext.SaveChangesAsync();
+
+        if (missingSecondaryResults.Count == 0)
+        {
+            return;
+        }
+
+        var secondaryElectionIds = missingSecondaryResults.Select(r => r.SecondaryMajorityElectionId).ToHashSet();
+        var secondaryMajorityElections = await _secondaryMajorityElectionRepo.Query()
+            .Include(x => x.PrimaryMajorityElection)
+            .Where(x => secondaryElectionIds.Contains(x.Id))
+            .ToListAsync();
+
+        foreach (var secondaryMajorityElection in secondaryMajorityElections)
+        {
+            await _simpleResultRepo.Sync(secondaryMajorityElection.Id, secondaryMajorityElection.DomainOfInfluenceId, false);
+        }
     }
 
     internal async Task InitializeSecondaryElection(Guid electionId, Guid secondaryElectionId)

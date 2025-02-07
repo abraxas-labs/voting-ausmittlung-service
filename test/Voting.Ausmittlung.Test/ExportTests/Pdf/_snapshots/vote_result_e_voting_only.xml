@@ -330,11 +330,15 @@
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>3</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteDomainOfInfluenceResult>
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>QuestionsOnSingleBallot</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -1142,6 +1146,9 @@
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>3</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -1172,6 +1179,9 @@
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>3</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -1202,6 +1212,9 @@
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>3</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -1597,10 +1610,14 @@
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>3</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteDomainOfInfluenceResult>
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>VariantQuestionsOnMultipleBallots</Type>
   </Vote>
 </Voting>

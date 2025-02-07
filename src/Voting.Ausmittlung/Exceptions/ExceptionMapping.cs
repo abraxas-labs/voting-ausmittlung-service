@@ -44,6 +44,7 @@ internal readonly struct ExceptionMapping
             CountingCircleResultInInvalidStateForEVotingImportException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             SecondFactorTransactionDataChangedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             SecondFactorTransactionNotVerifiedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
+            SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),
             VerifySecondFactorTimeoutException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             NotAuthenticatedException _ => new ExceptionMapping(StatusCode.Unauthenticated, StatusCodes.Status401Unauthorized),
             ForbiddenException _ => new ExceptionMapping(StatusCode.PermissionDenied, StatusCodes.Status403Forbidden),

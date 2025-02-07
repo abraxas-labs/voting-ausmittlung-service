@@ -122,6 +122,13 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         });
 
         await RunScoped((SimplePoliticalBusinessBuilder<MajorityElection> builder) => builder.Create(election));
+        await RunScoped(async (SimplePoliticalBusinessBuilder<SecondaryMajorityElection> builder) =>
+        {
+            foreach (var secondaryMajorityElection in election.SecondaryMajorityElections)
+            {
+                await builder.Create(secondaryMajorityElection);
+            }
+        });
 
         await RunScoped((MajorityElectionResultBuilder resultBuilder) =>
             resultBuilder.RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId));

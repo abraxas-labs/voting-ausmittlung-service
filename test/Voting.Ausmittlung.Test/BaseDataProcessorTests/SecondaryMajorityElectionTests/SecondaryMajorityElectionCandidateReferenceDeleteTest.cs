@@ -29,12 +29,29 @@ public class SecondaryMajorityElectionCandidateReferenceDeleteTest : BaseDataPro
     public async Task TestDeleteCandidateReference()
     {
         var id = MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund;
+        var exists = await RunOnDb(db =>
+            db.SecondaryMajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeTrue();
         await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidateDeleted
         { SecondaryMajorityElectionCandidateId = id });
 
-        var idGuid = Guid.Parse(id);
-        var candidate = await RunOnDb(db =>
-            db.SecondaryMajorityElectionCandidates.FirstOrDefaultAsync(c => c.Id == idGuid));
-        candidate.Should().BeNull();
+        exists = await RunOnDb(db =>
+            db.SecondaryMajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task TestDeleteCandidateReferenceOnSeparateBallot()
+    {
+        var id = MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot;
+        var exists = await RunOnDb(db =>
+            db.MajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeTrue();
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidateDeleted
+        { SecondaryMajorityElectionCandidateId = id, IsOnSeparateBallot = true });
+
+        exists = await RunOnDb(db =>
+            db.MajorityElectionCandidates.AnyAsync(c => c.Id == Guid.Parse(id)));
+        exists.Should().BeFalse();
     }
 }

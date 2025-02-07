@@ -28,4 +28,6 @@ internal static class WabstiCConstants
     internal const string ListWithoutPartyShortDescription = "WoP";
 
     internal const string ListWithoutPartyNumberAndDescription = ListWithoutPartyOrderNumber + "." + ListWithoutPartyShortDescription;
+
+    internal const int CandidateDefaultBirthYear = 1900;
 }

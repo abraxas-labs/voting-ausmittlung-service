@@ -53,6 +53,12 @@ public class MajorityElectionModelBuilder :
             .WithOne(sme => sme.PrimaryMajorityElection)
             .HasForeignKey(po => po.PrimaryMajorityElectionId)
             .IsRequired();
+
+        builder
+            .HasMany(p => p.SecondaryMajorityElectionsOnSeparateBallots)
+            .WithOne(sme => sme.PrimaryMajorityElection)
+            .HasForeignKey(po => po.PrimaryMajorityElectionId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public void Configure(EntityTypeBuilder<MajorityElectionTranslation> builder)
@@ -75,6 +81,12 @@ public class MajorityElectionModelBuilder :
             .Property(d => d.DateOfBirth)
             .HasDateType()
             .HasUtcConversion();
+
+        builder
+            .HasMany(x => x.CandidateReferencesOfSecondaryElectionsOnSeparateBallot)
+            .WithOne(x => x.CandidateReference)
+            .HasForeignKey(x => x.CandidateReferenceId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public void Configure(EntityTypeBuilder<MajorityElectionCandidateTranslation> builder)

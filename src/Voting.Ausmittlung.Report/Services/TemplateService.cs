@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
 using Voting.Lib.Ech;
 using Voting.Lib.VotingExports.Models;
+using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Report.Services;
 
@@ -69,6 +70,12 @@ public class TemplateService
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
         var key = context.Template.Key + context.ExportTemplateKeyCantonSuffix;
+
+        // Protocols in DmDoc are the same for secondary majority election and majority election.
+        if (key.StartsWith(AusmittlungPdfSecondaryMajorityElectionTemplates.SecondaryMajorityElectionTemplateKeyPrefix))
+        {
+            key = key[AusmittlungPdfSecondaryMajorityElectionTemplates.SecondaryMajorityElectionTemplateKeyPrefix.Length..];
+        }
 
         if (context.AsyncPdfGenerationInfo is { } asyncPdfInfo)
         {

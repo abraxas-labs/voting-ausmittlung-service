@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.DmDoc.Serialization.Xml;
+using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.Mocks;
 
@@ -40,5 +41,12 @@ public class PdfServiceMock : IPdfService
 
     // Returns the DmDoc XML for StartPdfGeneration calls only.
     public string GetGenerated(string templateName)
-        => _generatedByTemplateName[templateName];
+    {
+        if (templateName.StartsWith(AusmittlungPdfSecondaryMajorityElectionTemplates.SecondaryMajorityElectionTemplateKeyPrefix))
+        {
+            templateName = templateName[AusmittlungPdfSecondaryMajorityElectionTemplates.SecondaryMajorityElectionTemplateKeyPrefix.Length..];
+        }
+
+        return _generatedByTemplateName[templateName];
+    }
 }

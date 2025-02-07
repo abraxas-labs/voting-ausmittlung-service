@@ -19,6 +19,7 @@ using Voting.Lib.Eventing.Testing.Mocks;
 using Voting.Lib.Iam.Models;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
+using User = Voting.Lib.Iam.Models.User;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests;
 
@@ -92,6 +93,27 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
         }
     }
 
+    protected void RemoveDynamicData(IEnumerable<MajorityElection> majorityElections)
+    {
+        foreach (var election in majorityElections)
+        {
+            RemoveDynamicData(election);
+
+            foreach (var secondaryElection in election.SecondaryMajorityElections)
+            {
+                foreach (var translation in secondaryElection.Translations)
+                {
+                    translation.Id = Guid.Empty;
+                }
+            }
+
+            foreach (var secondaryElection in election.SecondaryMajorityElectionsOnSeparateBallots)
+            {
+                RemoveDynamicData(secondaryElection);
+            }
+        }
+    }
+
     protected void RemoveDynamicData(IEnumerable<PoliticalBusiness> pbs)
     {
         foreach (var politicalBusiness in pbs)
@@ -134,7 +156,7 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
         };
     }
 
-    private EventInfoUser ToEventInfoUser(Lib.Iam.Models.User user)
+    private EventInfoUser ToEventInfoUser(User user)
     {
         return new()
         {

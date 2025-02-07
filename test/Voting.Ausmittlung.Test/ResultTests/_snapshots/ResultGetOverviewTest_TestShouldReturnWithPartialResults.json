@@ -35,7 +35,7 @@
       "CountingMachineEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true,
+      "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
     }
@@ -213,6 +213,35 @@
       "CountOfSecondaryBusinesses": 0,
       "PoliticalBusinessNumber": "155",
       "ShortDescription": "Mw SG de",
+      "BusinessSubType": 0
+    },
+    {
+      "Id": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+      "BusinessType": 2,
+      "Title": "155.1: NW SG de",
+      "Active": true,
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
+      },
+      "NumberOfMandates": 1,
+      "CountOfSecondaryBusinesses": 0,
+      "PoliticalBusinessNumber": "155.1",
+      "ShortDescription": "NW SG de",
       "BusinessSubType": 0
     },
     {
@@ -577,6 +606,33 @@
           },
           "Published": false,
           "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
         }
       ]
     },
@@ -743,6 +799,33 @@
         {
           "Id": "",
           "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalReceivedBallots": null,
+            "ConventionalInvalidBallots": null,
+            "ConventionalBlankBallots": null,
+            "ConventionalAccountedBallots": null,
+            "EVotingReceivedBallots": 0,
+            "EVotingInvalidBallots": 0,
+            "EVotingBlankBallots": 0,
+            "EVotingAccountedBallots": 0,
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
           "State": 1,
           "SubmissionDoneTimestamp": null,

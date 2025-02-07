@@ -21,4 +21,6 @@ public class PdfVote : PdfPoliticalBusiness
     public string InternalDescription { get; set; } = string.Empty;
 
     public VoteResultAlgorithm ResultAlgorithm { get; set; }
+
+    public VoteType Type { get; set; }
 }

@@ -70,6 +70,46 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
     }
 
     [Fact]
+    public async Task TestUpdateCandidateOnSeparateBallot()
+    {
+        await TestEventPublisher.Publish(
+            new SecondaryMajorityElectionCandidateUpdated
+            {
+                IsOnSeparateBallot = true,
+                SecondaryMajorityElectionCandidate = new MajorityElectionCandidateEventData
+                {
+                    Id = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                    MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                    FirstName = "new first name",
+                    LastName = "new last name",
+                    PoliticalFirstName = "new pol first name",
+                    PoliticalLastName = "new pol last name",
+                    Occupation = { LanguageUtil.MockAllLanguages("new occupation") },
+                    OccupationTitle = { LanguageUtil.MockAllLanguages("new occupation title") },
+                    DateOfBirth = new DateTime(1961, 8, 6, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                    Incumbent = false,
+                    Position = 1,
+                    Locality = "locality",
+                    Number = "numberNew",
+                    Sex = SharedProto.SexType.Male,
+                    Title = "new title",
+                    ZipCode = "new zip code",
+                    Party = { LanguageUtil.MockAllLanguages("NEW") },
+                    Origin = "origin",
+                    CheckDigit = 0,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot)),
+            Languages.German);
+        SetDynamicIdToDefaultValue(candidate.Translations);
+        candidate.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestUpdateCandidateAfterTestingPhaseEnded()
     {
         await TestEventPublisher.Publish(

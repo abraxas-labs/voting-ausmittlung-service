@@ -8,6 +8,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -77,6 +78,17 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
     [Fact]
     public async Task TestTenantWithMultipleDomainOfInfluenceShouldReturnOk()
     {
+        var response = await StGallenErfassungElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+        });
+        response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestTenantWithMultipleDomainOfInfluenceAfterTestingPhaseEndedShouldReturnOk()
+    {
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
         var response = await StGallenErfassungElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
         {
             ContestId = ContestMockedData.IdStGallenEvoting,

@@ -592,6 +592,9 @@
             <PercentageYes>0.6666666666666666666666666667</PercentageYes>
             <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>1</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteDomainOfInfluenceResult>
       <VoteDomainOfInfluenceResult>
@@ -796,6 +799,9 @@
             <PercentageYes>0.6666666666666666666666666667</PercentageYes>
             <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>2</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteDomainOfInfluenceResult>
       <VoteDomainOfInfluenceResult>
@@ -932,6 +938,9 @@
             <PercentageYes>0.6666666666666666666666666667</PercentageYes>
             <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>1</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteDomainOfInfluenceResult>
       <VoteResult>
@@ -1125,6 +1134,9 @@
             <PercentageYes>0.6666666666666666666666666667</PercentageYes>
             <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>2</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteResult>
       <VoteAggregatedResult>
@@ -1182,6 +1194,9 @@
             <PercentageYes>0.6666666666666666666666666667</PercentageYes>
             <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>6</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
       </VoteAggregatedResult>
     </VoteBallotDomainOfInfluenceResult>
@@ -1406,6 +1421,9 @@
             <PercentageYes>0.296875</PercentageYes>
             <PercentageNo>0.703125</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -1436,6 +1454,9 @@
             <PercentageYes>0.6</PercentageYes>
             <PercentageNo>0.4</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>1</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -1793,6 +1814,9 @@
             <PercentageYes>0.296875</PercentageYes>
             <PercentageNo>0.703125</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -1823,6 +1847,9 @@
             <PercentageYes>0.6</PercentageYes>
             <PercentageNo>0.4</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>2</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -2051,6 +2078,9 @@
             <PercentageYes>0.296875</PercentageYes>
             <PercentageNo>0.703125</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -2081,6 +2111,9 @@
             <PercentageYes>0.6</PercentageYes>
             <PercentageNo>0.4</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>1</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -2427,6 +2460,9 @@
             <PercentageYes>0.296875</PercentageYes>
             <PercentageNo>0.703125</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -2457,6 +2493,9 @@
             <PercentageYes>0.6</PercentageYes>
             <PercentageNo>0.4</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>2</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -2545,6 +2584,9 @@
             <PercentageYes>0.296875</PercentageYes>
             <PercentageNo>0.703125</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -2575,6 +2617,9 @@
             <PercentageYes>0.6</PercentageYes>
             <PercentageNo>0.4</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>true</HasMajority>
+          <CountOfCountingCircleYes>6</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -2942,6 +2987,9 @@
             <PercentageYes>0.0476190476190476190476190476</PercentageYes>
             <PercentageNo>0.9523809523809523809523809524</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -2972,6 +3020,9 @@
             <PercentageYes>0.0238095238095238095238095238</PercentageYes>
             <PercentageNo>0.9761904761904761904761904762</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -3002,6 +3053,9 @@
             <PercentageYes>0.4705882352941176470588235294</PercentageYes>
             <PercentageNo>0.5294117647058823529411764706</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -3605,6 +3659,9 @@
             <PercentageYes>0.0476190476190476190476190476</PercentageYes>
             <PercentageNo>0.9523809523809523809523809524</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -3635,6 +3692,9 @@
             <PercentageYes>0.0238095238095238095238095238</PercentageYes>
             <PercentageNo>0.9761904761904761904761904762</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -3665,6 +3725,9 @@
             <PercentageYes>0.4705882352941176470588235294</PercentageYes>
             <PercentageNo>0.5294117647058823529411764706</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -4047,6 +4110,9 @@
             <PercentageYes>0.0476190476190476190476190476</PercentageYes>
             <PercentageNo>0.9523809523809523809523809524</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4077,6 +4143,9 @@
             <PercentageYes>0.0238095238095238095238095238</PercentageYes>
             <PercentageNo>0.9761904761904761904761904762</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4107,6 +4176,9 @@
             <PercentageYes>0.4705882352941176470588235294</PercentageYes>
             <PercentageNo>0.5294117647058823529411764706</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>1</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -4699,6 +4771,9 @@
             <PercentageYes>0.0476190476190476190476190476</PercentageYes>
             <PercentageNo>0.9523809523809523809523809524</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4729,6 +4804,9 @@
             <PercentageYes>0.0238095238095238095238095238</PercentageYes>
             <PercentageNo>0.9761904761904761904761904762</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4759,6 +4837,9 @@
             <PercentageYes>0.4705882352941176470588235294</PercentageYes>
             <PercentageNo>0.5294117647058823529411764706</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>2</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -4909,6 +4990,9 @@
             <PercentageYes>0.0476190476190476190476190476</PercentageYes>
             <PercentageNo>0.9523809523809523809523809524</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4939,6 +5023,9 @@
             <PercentageYes>0.0238095238095238095238095238</PercentageYes>
             <PercentageNo>0.9761904761904761904761904762</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -4969,6 +5056,9 @@
             <PercentageYes>0.4705882352941176470588235294</PercentageYes>
             <PercentageNo>0.5294117647058823529411764706</PercentageNo>
           </ConventionalSubTotal>
+          <HasMajority>false</HasMajority>
+          <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
+          <CountOfCountingCircleNo>6</CountOfCountingCircleNo>
         </BallotQuestionResult>
         <TieBreakQuestionResult>
           <TieBreakQuestion>
@@ -5067,6 +5157,7 @@
     </VoteBallotDomainOfInfluenceResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>Unspecified</Type>
   </Vote>
   <DomainOfInfluence>
     <Name>St. Gallen</Name>

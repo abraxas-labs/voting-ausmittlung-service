@@ -100,6 +100,7 @@
     </VoteResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>QuestionsOnSingleBallot</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -433,6 +434,7 @@
     </VoteResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>VariantQuestionsOnMultipleBallots</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
@@ -902,6 +904,7 @@
     </VoteResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>Unspecified</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>201</PoliticalBusinessNumber>
@@ -987,6 +990,7 @@
     </VoteResult>
     <InternalDescription>Abstimmung St. Gallen auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>QuestionsOnSingleBallot</Type>
   </Vote>
   <CountingCircle>
     <Name>St. Gallen</Name>

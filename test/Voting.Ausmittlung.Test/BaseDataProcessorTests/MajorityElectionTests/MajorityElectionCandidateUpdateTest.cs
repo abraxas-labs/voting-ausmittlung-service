@@ -153,7 +153,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
     [Fact]
     public async Task TestUpdateWithReferences()
     {
-        var candidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund;
+        var candidateId = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallen;
 
         await TestEventPublisher.Publish(
             new MajorityElectionCandidateUpdated
@@ -161,7 +161,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                 MajorityElectionCandidate = new MajorityElectionCandidateEventData
                 {
                     Id = candidateId,
-                    MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
+                    MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
                     FirstName = "new first name",
                     LastName = "new last name",
                     PoliticalFirstName = "new pol first name",
@@ -195,6 +195,21 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
             SetDynamicIdToDefaultValue(secondaryCandidate.Translations);
         }
 
-        secondaryCandidates.MatchSnapshot();
+        secondaryCandidates.MatchSnapshot("secondaryCandidates");
+
+        var secondaryCandidatesOnSeparateBallots = await RunOnDb(
+            async db => await db.MajorityElectionCandidates
+                .Include(x => x.Translations.OrderBy(t => t.Language))
+                .OrderBy(x => x.Id)
+                .Where(x => x.CandidateReferenceId == Guid.Parse(candidateId))
+                .ToListAsync(),
+            Languages.German);
+
+        foreach (var secondaryCandidate in secondaryCandidatesOnSeparateBallots)
+        {
+            SetDynamicIdToDefaultValue(secondaryCandidate.Translations);
+        }
+
+        secondaryCandidatesOnSeparateBallots.MatchSnapshot("secondaryCandidatesOnSeparateBallots");
     }
 }

@@ -35,10 +35,14 @@ public class PoliticalBusinessToNewContestMover<TPoliticalBusiness, TPoliticalBu
     public async Task Move(Guid politicalBusinessId, Guid newContestId)
     {
         var politicalBusiness = await _pbRepo.QueryWithResults()
-            .Include(pb => pb.DomainOfInfluence)
-            .FirstOrDefaultAsync(pb => pb.Id == politicalBusinessId)
-            ?? throw new EntityNotFoundException(politicalBusinessId);
+                                    .Include(pb => pb.DomainOfInfluence)
+                                    .FirstOrDefaultAsync(pb => pb.Id == politicalBusinessId)
+                                ?? throw new EntityNotFoundException(politicalBusinessId);
+        await Move(politicalBusiness, newContestId);
+    }
 
+    public async Task Move(TPoliticalBusiness politicalBusinessWithResult, Guid newContestId)
+    {
         var countingCircleMap = await _countingCircleRepo.Query()
             .Where(cc => cc.SnapshotContestId == newContestId)
             .ToDictionaryAsync(x => x.BasisCountingCircleId, x => x.Id);
@@ -47,17 +51,17 @@ public class PoliticalBusinessToNewContestMover<TPoliticalBusiness, TPoliticalBu
             .Where(cc => cc.SnapshotContestId == newContestId)
             .ToDictionaryAsync(x => x.BasisDomainOfInfluenceId, x => x.Id);
 
-        politicalBusiness.DomainOfInfluenceId = MapToNewId(domainOfInfluenceMap, politicalBusiness.DomainOfInfluence.BasisDomainOfInfluenceId);
-        politicalBusiness.DomainOfInfluence = null!;
+        politicalBusinessWithResult.DomainOfInfluenceId = MapToNewId(domainOfInfluenceMap, politicalBusinessWithResult.DomainOfInfluence.BasisDomainOfInfluenceId);
+        politicalBusinessWithResult.DomainOfInfluence = null!;
 
-        foreach (var countingCircleResult in politicalBusiness.CountingCircleResults)
+        foreach (var countingCircleResult in politicalBusinessWithResult.CountingCircleResults)
         {
             countingCircleResult.CountingCircleId = MapToNewId(countingCircleMap, countingCircleResult.CountingCircle.BasisCountingCircleId);
             countingCircleResult.CountingCircle = null!;
         }
 
-        politicalBusiness.ContestId = newContestId;
-        await _pbRepo.Update(politicalBusiness);
+        politicalBusinessWithResult.ContestId = newContestId;
+        await _pbRepo.Update(politicalBusinessWithResult);
     }
 
     private Guid MapToNewId(IReadOnlyDictionary<Guid, Guid> basisIdToNewIdMapping, Guid basisId)

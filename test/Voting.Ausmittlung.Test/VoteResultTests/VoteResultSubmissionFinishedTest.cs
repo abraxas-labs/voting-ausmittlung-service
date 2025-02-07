@@ -56,7 +56,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
             x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
             x =>
             {
-                x.PublishResultsEnabled = false;
+                x.ManualPublishResultsEnabled = false;
                 x.PublishResultsBeforeAuditedTentatively = true;
             },
             splitQuery: true);

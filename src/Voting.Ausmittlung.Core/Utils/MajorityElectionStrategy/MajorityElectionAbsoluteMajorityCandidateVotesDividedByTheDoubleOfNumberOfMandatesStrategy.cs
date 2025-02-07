@@ -12,14 +12,34 @@ public class MajorityElectionAbsoluteMajorityCandidateVotesDividedByTheDoubleOfN
 
     public override void CalculateAbsoluteMajority(MajorityElectionEndResult majorityElectionEndResult)
     {
-        var nrOfMandates = majorityElectionEndResult.MajorityElection.NumberOfMandates;
-        if (nrOfMandates == 0)
+        CalculateAbsoluteMajority(
+            majorityElectionEndResult.Calculation,
+            majorityElectionEndResult.MajorityElection.NumberOfMandates,
+            majorityElectionEndResult);
+    }
+
+    protected override void CalculateAbsoluteMajority(
+        MajorityElectionEndResult primaryEndResult,
+        SecondaryMajorityElectionEndResult secondaryEndResult)
+    {
+        CalculateAbsoluteMajority(
+            secondaryEndResult.Calculation,
+            secondaryEndResult.SecondaryMajorityElection.NumberOfMandates,
+            secondaryEndResult);
+    }
+
+    private void CalculateAbsoluteMajority(
+        MajorityElectionEndResultCalculation calculation,
+        int numberOfMandates,
+        IMajorityElectionResultTotal<int> resultTotal)
+    {
+        if (numberOfMandates == 0)
         {
             throw new ArgumentException($"{nameof(MajorityElection.NumberOfMandates)} must not be 0");
         }
 
-        majorityElectionEndResult.Calculation.DecisiveVoteCount = majorityElectionEndResult.TotalCandidateVoteCountInclIndividual;
-        majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold = (decimal)majorityElectionEndResult.Calculation.DecisiveVoteCount / nrOfMandates / 2;
-        majorityElectionEndResult.Calculation.AbsoluteMajority = (int)Math.Floor(majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold.Value) + 1;
+        calculation.DecisiveVoteCount = resultTotal.TotalCandidateVoteCountInclIndividual;
+        calculation.AbsoluteMajorityThreshold = (decimal)calculation.DecisiveVoteCount / numberOfMandates / 2;
+        calculation.AbsoluteMajority = (int)Math.Floor(calculation.AbsoluteMajorityThreshold.Value) + 1;
     }
 }

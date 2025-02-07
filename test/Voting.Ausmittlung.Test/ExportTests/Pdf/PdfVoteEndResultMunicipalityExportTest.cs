@@ -44,6 +44,12 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
                 .AsTracking()
                 .FirstAsync(x => x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds));
             vote.Active = true;
+
+            var ccDetails = await db.ContestCountingCircleDetails
+                .AsTracking()
+                .FirstAsync(x => x.Id == AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestMockedData.GuidBundesurnengang, CountingCircleMockedData.GuidUzwil, false));
+            ccDetails.CountingMachine = Data.Models.CountingMachine.CalibratedScales;
+
             await db.SaveChangesAsync();
         });
     }

@@ -281,8 +281,10 @@ public static class ProportionalElectionEndResultSgExampleMockedData
         return Enumerable.Range(1, NumberOfMandates - GetNrOfEmptyRows(listNr))
             .Select(i => new ProportionalElectionCandidate
             {
+                Number = i.ToString(),
                 FirstName = $"FN {listNr}.{i}",
                 LastName = $"LN {listNr}.{i}",
+                DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             })
             .ToList();
     }

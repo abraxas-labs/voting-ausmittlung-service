@@ -21,9 +21,9 @@
   "Party": "Test de",
   "Occupation": "occupation2 de",
   "OccupationTitle": "occupation title2 de",
-  "Description": "number5 pol last name pol first name",
+  "Description": "1.2 pol last name pol first name",
   "CreatedDuringActiveContest": false,
-  "Number": "number5",
+  "Number": "1.2",
   "FirstName": "firstName2",
   "LastName": "lastName2",
   "PoliticalFirstName": "pol first name",
@@ -36,6 +36,6 @@
   "Locality": "locality",
   "Position": 3,
   "Origin": "origin",
-  "CheckDigit": 1,
+  "CheckDigit": 4,
   "Id": "2e2d586f-dc6d-45ce-a0b8-39a70d9cf46a"
 }

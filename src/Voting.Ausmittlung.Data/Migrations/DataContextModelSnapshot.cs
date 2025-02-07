@@ -319,6 +319,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("MajorityElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("ManualPublishResultsEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
@@ -329,9 +332,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("PublishResultsBeforeAuditedTentatively")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("PublishResultsEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<string>("SecureConnectId")
@@ -519,6 +519,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("MajorityElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("ManualPublishResultsEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("ProportionalElectionUseCandidateCheckDigit")
                         .HasColumnType("boolean");
 
@@ -529,9 +532,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<bool>("PublishResultsBeforeAuditedTentatively")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("PublishResultsEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("StatePlausibilisedDisabled")
@@ -945,6 +945,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("HasMinorVoters")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("HideLowerDomainOfInfluencesInReports")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -955,6 +958,9 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uuid");
+
+                    b.Property<bool>("PublishResultsDisabled")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecureConnectId")
                         .IsRequired()
@@ -1666,6 +1672,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("PrimaryMajorityElectionId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("ReportDomainOfInfluenceLevel")
                         .HasColumnType("integer");
 
@@ -1680,6 +1689,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.HasIndex("ContestId");
 
                     b.HasIndex("DomainOfInfluenceId");
+
+                    b.HasIndex("PrimaryMajorityElectionId");
 
                     b.ToTable("MajorityElections");
                 });
@@ -1803,13 +1814,16 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("CandidateReferenceId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("CheckDigit")
                         .HasColumnType("integer");
 
                     b.Property<bool>("CreatedDuringActiveContest")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<string>("FirstName")
@@ -1861,6 +1875,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CandidateReferenceId");
 
                     b.HasIndex("MajorityElectionId");
 
@@ -3527,9 +3543,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("AllowedCandidates")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("ElectionGroupId")
                         .HasColumnType("uuid");
 
@@ -3570,7 +3583,7 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<bool>("CreatedDuringActiveContest")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<string>("FirstName")
@@ -5558,9 +5571,16 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElection", "PrimaryMajorityElection")
+                        .WithMany("SecondaryMajorityElectionsOnSeparateBallots")
+                        .HasForeignKey("PrimaryMajorityElectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.Navigation("Contest");
 
                     b.Navigation("DomainOfInfluence");
+
+                    b.Navigation("PrimaryMajorityElection");
                 });
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionBallotGroup", b =>
@@ -5646,11 +5666,18 @@ namespace Voting.Ausmittlung.Data.Migrations
 
             modelBuilder.Entity("Voting.Ausmittlung.Data.Models.MajorityElectionCandidate", b =>
                 {
+                    b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElectionCandidate", "CandidateReference")
+                        .WithMany("CandidateReferencesOfSecondaryElectionsOnSeparateBallot")
+                        .HasForeignKey("CandidateReferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Voting.Ausmittlung.Data.Models.MajorityElection", "MajorityElection")
                         .WithMany("MajorityElectionCandidates")
                         .HasForeignKey("MajorityElectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CandidateReference");
 
                     b.Navigation("MajorityElection");
                 });
@@ -5711,6 +5738,28 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasForeignKey("Voting.Ausmittlung.Data.Models.MajorityElectionEndResult", "MajorityElectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionEndResultCalculation", "Calculation", b1 =>
+                        {
+                            b1.Property<Guid>("MajorityElectionEndResultId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<int?>("AbsoluteMajority")
+                                .HasColumnType("integer");
+
+                            b1.Property<decimal?>("AbsoluteMajorityThreshold")
+                                .HasColumnType("numeric");
+
+                            b1.Property<int?>("DecisiveVoteCount")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("MajorityElectionEndResultId");
+
+                            b1.ToTable("MajorityElectionEndResults");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MajorityElectionEndResultId");
+                        });
 
                     b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionResultSubTotal", "ConventionalSubTotal", b1 =>
                         {
@@ -5813,28 +5862,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                                 .HasColumnType("integer");
 
                             b1.Property<int>("TotalCandidateVoteCountExclIndividual")
-                                .HasColumnType("integer");
-
-                            b1.HasKey("MajorityElectionEndResultId");
-
-                            b1.ToTable("MajorityElectionEndResults");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MajorityElectionEndResultId");
-                        });
-
-                    b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionEndResultCalculation", "Calculation", b1 =>
-                        {
-                            b1.Property<Guid>("MajorityElectionEndResultId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<int?>("AbsoluteMajority")
-                                .HasColumnType("integer");
-
-                            b1.Property<decimal?>("AbsoluteMajorityThreshold")
-                                .HasColumnType("numeric");
-
-                            b1.Property<int?>("DecisiveVoteCount")
                                 .HasColumnType("integer");
 
                             b1.HasKey("MajorityElectionEndResultId");
@@ -7555,6 +7582,28 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_SecMajElEndResults_SecondaryMajorityElectionId");
 
+                    b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionEndResultCalculation", "Calculation", b1 =>
+                        {
+                            b1.Property<Guid>("SecondaryMajorityElectionEndResultId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<int?>("AbsoluteMajority")
+                                .HasColumnType("integer");
+
+                            b1.Property<decimal?>("AbsoluteMajorityThreshold")
+                                .HasColumnType("numeric");
+
+                            b1.Property<int?>("DecisiveVoteCount")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("SecondaryMajorityElectionEndResultId");
+
+                            b1.ToTable("SecondaryMajorityElectionEndResults");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SecondaryMajorityElectionEndResultId");
+                        });
+
                     b.OwnsOne("Voting.Ausmittlung.Data.Models.MajorityElectionResultSubTotal", "ConventionalSubTotal", b1 =>
                         {
                             b1.Property<Guid>("SecondaryMajorityElectionEndResultId")
@@ -7610,6 +7659,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("SecondaryMajorityElectionEndResultId");
                         });
+
+                    b.Navigation("Calculation")
+                        .IsRequired();
 
                     b.Navigation("ConventionalSubTotal")
                         .IsRequired();
@@ -8518,6 +8570,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Navigation("SecondaryMajorityElections");
 
+                    b.Navigation("SecondaryMajorityElectionsOnSeparateBallots");
+
                     b.Navigation("Translations");
                 });
 
@@ -8540,6 +8594,8 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Navigation("BallotGroupEntries");
 
                     b.Navigation("CandidateReferences");
+
+                    b.Navigation("CandidateReferencesOfSecondaryElectionsOnSeparateBallot");
 
                     b.Navigation("CandidateResults");
 

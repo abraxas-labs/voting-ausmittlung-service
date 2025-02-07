@@ -4,14 +4,13 @@
 using System;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Google.Protobuf;
-using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Eventing.Domain;
 
-namespace Voting.Ausmittlung.Core.Domain;
+namespace Voting.Ausmittlung.Core.Domain.Aggregate;
 
 public class ProportionalElectionUnionEndResultAggregate : BaseEventSignatureAggregate
 {

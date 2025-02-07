@@ -40,9 +40,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
       }
     },
     {
@@ -74,7 +92,7 @@
         },
         {
           "DomainOfInfluenceType": 2,
-          "ContestEntriesCount": 3
+          "ContestEntriesCount": 4
         },
         {
           "DomainOfInfluenceType": 5,
@@ -95,9 +113,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
       }
     },
     {
@@ -136,9 +172,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
       }
     },
     {
@@ -172,9 +226,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false,
+        "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
       }
     },
     {
@@ -208,9 +280,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": false,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false,
+        "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
+        "Name": "Bund",
+        "ShortName": "Bund",
+        "AuthorityName": "",
+        "SecureConnectId": "999999999999999999",
+        "Type": 1,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Firstname contact",
+          "FamilyName": "Lastname contact",
+          "Phone": "0799999999",
+          "MobilePhone": "",
+          "Email": "email@example.com"
+        }
       }
     }
   ]

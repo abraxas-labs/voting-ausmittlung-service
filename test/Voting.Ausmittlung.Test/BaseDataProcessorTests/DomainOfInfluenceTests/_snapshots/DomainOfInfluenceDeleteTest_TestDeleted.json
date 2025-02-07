@@ -156,6 +156,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da"
     },
     {
@@ -201,6 +203,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "ade30989-5e28-40c7-918c-2c9408f853ba"
     },
     {
@@ -256,6 +260,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "22949a1e-fb09-47ec-9e9f-d26675676565"
     },
     {
@@ -301,6 +307,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "6bb6e372-ffa2-45fd-9329-6c6a0bc8a752"
     }
   ]

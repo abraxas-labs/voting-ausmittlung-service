@@ -91,20 +91,21 @@ public class ContestReader
 
         var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId);
 
-        // counting circle ids which is the current tenant responsible or user have access to read owned political businesses
+        // counting circle ids which is the current tenant responsible or contest manager or user have access to read owned political businesses
         var responsibleCountingCircleIds = await _simpleResultRepo.Query()
             .Include(x => x.PoliticalBusiness!.DomainOfInfluence)
             .Include(x => x.CountingCircle!.ResponsibleAuthority)
             .Where(x =>
                 x.CountingCircle!.ResponsibleAuthority.SecureConnectId == tenantId ||
-                (contest.DomainOfInfluence.SecureConnectId == tenantId && !contest.TestingPhaseEnded) ||
+                contest.DomainOfInfluence.SecureConnectId == tenantId ||
                 (canReadOwnedPbs && x.PoliticalBusiness!.DomainOfInfluence.SecureConnectId == tenantId))
             .Select(x => x.CountingCircleId)
             .Distinct()
             .ToListAsync();
 
-        // a counting circle should only be accessible if the current tenant is responsible or is a partial result counting circle
-        var accessibleCountingCircleIds = readableCountingCircleIds.Intersect(responsibleCountingCircleIds.Concat(viewablePartialResultsCountingCircleIds));
+        var accessibleCountingCircleIds = !canReadOwnedPbs
+            ? readableCountingCircleIds.Intersect(responsibleCountingCircleIds)
+            : readableCountingCircleIds.Intersect(responsibleCountingCircleIds.Concat(viewablePartialResultsCountingCircleIds));
 
         var doiCcs = await _domainOfInfluenceCountingCircleRepo.Query()
             .Include(x => x.CountingCircle)
@@ -255,6 +256,7 @@ public class ContestReader
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.Translations)
             .Include(x => x.Contest.CantonDefaults)
+            .Include(x => x.SimpleResults)
             .ToListAsync();
     }
 

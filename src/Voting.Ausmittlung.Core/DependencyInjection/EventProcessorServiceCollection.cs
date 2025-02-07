@@ -22,6 +22,7 @@ internal static class EventProcessorServiceCollection
         }
 
         return services
+            .AddScoped<MajorityElectionProcessor>()
             .AddScoped<ContestCountingCircleDetailsBuilder>()
             .AddScoped<ContestResultInitializer>()
             .AddScoped<AggregatedContestCountingCircleDetailsBuilder>()

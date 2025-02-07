@@ -68,7 +68,7 @@ public class ContestCantonDefaultsBuilder
             CountingMachineEnabled = cantonSettings.CountingMachineEnabled,
             MajorityElectionUseCandidateCheckDigit = cantonSettings.MajorityElectionUseCandidateCheckDigit,
             ProportionalElectionUseCandidateCheckDigit = cantonSettings.ProportionalElectionUseCandidateCheckDigit,
-            PublishResultsEnabled = cantonSettings.PublishResultsEnabled,
+            ManualPublishResultsEnabled = cantonSettings.ManualPublishResultsEnabled,
             EndResultFinalizeDisabled = cantonSettings.EndResultFinalizeDisabled,
             PublishResultsBeforeAuditedTentatively = cantonSettings.PublishResultsBeforeAuditedTentatively,
         };

@@ -87,9 +87,13 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "4a1742b8-0115-5e9d-a80d-4dcbccd86448"
     },
     "SubAuthorityDomainOfInfluences": [],
+    "PublishResultsDisabled": false,
+    "HideLowerDomainOfInfluencesInReports": false,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
   "EVotingResultsImported": false,
@@ -284,7 +288,7 @@
     "CountingMachineEnabled": false,
     "MajorityElectionUseCandidateCheckDigit": true,
     "ProportionalElectionUseCandidateCheckDigit": false,
-    "PublishResultsEnabled": true,
+    "ManualPublishResultsEnabled": true,
     "PublishResultsBeforeAuditedTentatively": false,
     "EndResultFinalizeDisabled": false,
     "Id": "00000000-0000-0000-0000-000000000000"

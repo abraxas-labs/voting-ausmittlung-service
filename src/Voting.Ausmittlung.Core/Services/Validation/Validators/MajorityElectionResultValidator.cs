@@ -13,15 +13,18 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
 {
     private readonly IValidator<PoliticalBusinessNullableCountOfVoters> _countOfVotersValidator;
     private readonly IValidator<MajorityElectionCandidateResultBase> _candidateValidator;
+    private readonly IValidator<SecondaryMajorityElectionResult> _secondaryMajorityElectionResultValidator;
 
     public MajorityElectionResultValidator(
         IValidator<PoliticalBusinessNullableCountOfVoters> countOfVotersValidator,
         IValidator<MajorityElectionCandidateResultBase> candidateValidator,
-        IValidator<ContestCountingCircleDetails> ccDetailsValidator)
+        IValidator<ContestCountingCircleDetails> ccDetailsValidator,
+        IValidator<SecondaryMajorityElectionResult> secondaryMajorityElectionResultValidator)
         : base(ccDetailsValidator)
     {
         _countOfVotersValidator = countOfVotersValidator;
         _candidateValidator = candidateValidator;
+        _secondaryMajorityElectionResultValidator = secondaryMajorityElectionResultValidator;
     }
 
     public override IEnumerable<ValidationResult> Validate(MajorityElectionResult data, ValidationContext context)
@@ -43,27 +46,55 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
             yield return result;
         }
 
-        yield return ValidateNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes(data);
-
         if (context.IsDetailedEntry)
         {
             yield return ValidateBundlesNotInProcess(data);
         }
-        else
+
+        foreach (var result in ValidateMajorityElectionValidationGroup(data, context))
         {
-            yield return ValidateCandidateVotesNotNull(data);
+            yield return result;
+        }
+
+        foreach (var result in data.SecondaryMajorityElectionResults
+            .OrderBy(r => r.SecondaryMajorityElection.Title)
+            .SelectMany(r => _secondaryMajorityElectionResultValidator.Validate(r, context)))
+        {
+            yield return result;
+        }
+    }
+
+    private IEnumerable<ValidationResult> ValidateMajorityElectionValidationGroup(MajorityElectionResult data, ValidationContext context)
+    {
+        var results = new List<ValidationResult>
+        {
+            ValidateNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes(data),
+        };
+
+        if (!context.IsDetailedEntry)
+        {
+            results.Add(ValidateCandidateVotesNotNull(data));
+
             if (data.MajorityElection.NumberOfMandates != 1)
             {
-                yield return ValidateEmptyVoteCountNotNull(data);
+                results.Add(ValidateEmptyVoteCountNotNull(data));
             }
 
             if (data.MajorityElection.Contest.CantonDefaults.MajorityElectionInvalidVotes)
             {
-                yield return ValidateInvalidVoteCountNotNull(data);
+                results.Add(ValidateInvalidVoteCountNotNull(data));
             }
         }
 
-        yield return ValidateCandidateResults(data, context);
+        results.Add(ValidateCandidateResults(data, context));
+
+        foreach (var result in results)
+        {
+            result.ValidationGroup = SharedProto.ValidationGroup.MajorityElection;
+            result.GroupValue = data.MajorityElection.Title;
+        }
+
+        return results;
     }
 
     private ValidationResult ValidateCandidateResults(MajorityElectionResult electionResult, ValidationContext context)
@@ -72,15 +103,14 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
         // This can happen when no official candidate exists (ex. for an unpopular mandate).
         // Users first have to analyse the write-ins/individual candidates and then create the most mentioned candidates in VOTING Basis.
         // Since this is a very rare edge case, we only display this validation in case it fails.
-        if (electionResult.CandidateResults.Count == 0 ||
-            electionResult.SecondaryMajorityElectionResults.Any(x => x.CandidateResults.Count == 0))
+        if (electionResult.CandidateResults.Count == 0)
         {
-            return new ValidationResult(SharedProto.Validation.MajorityElectionHasCandidates, false);
+            return new ValidationResult(
+                SharedProto.Validation.MajorityElectionHasCandidates,
+                false);
         }
 
         return electionResult.CandidateResults
-            .Cast<MajorityElectionCandidateResultBase>()
-            .Concat(electionResult.SecondaryMajorityElectionResults.SelectMany(x => x.CandidateResults))
             .SelectMany(x => _candidateValidator.Validate(x, context))
             .FirstInvalidOrElseFirstValid();
     }

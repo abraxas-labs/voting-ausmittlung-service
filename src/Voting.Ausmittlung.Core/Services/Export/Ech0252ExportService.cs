@@ -79,13 +79,14 @@ public class Ech0252ExportService
             }
 
             var ctx = new Ech0252MappingContext(doisByContestId[contest.Id]);
+            var enabledCountingCircleStates = filter.CountingCircleResultStates.Count > 0 ? filter.CountingCircleResultStates : null;
 
             if (contest.Votes.Count > 0)
             {
                 var voteDelivery = _ech0252Serializer.ToVoteDelivery(
                     contest,
                     ctx,
-                    filter.CountingCircleResultStates.Count > 0 ? filter.CountingCircleResultStates : null);
+                    enabledCountingCircleStates);
 
                 yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
             }
@@ -94,7 +95,7 @@ public class Ech0252ExportService
             {
                 var electionDelivery = filter.InformationOnly
                     ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest);
+                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates);
 
                 yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
             }
@@ -103,7 +104,7 @@ public class Ech0252ExportService
             {
                 var electionDelivery = filter.InformationOnly
                     ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest);
+                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, enabledCountingCircleStates);
                 yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
             }
         }
@@ -142,7 +143,6 @@ public class Ech0252ExportService
             filter.ContestDateTo,
             filter.PoliticalBusinessIds,
             filter.PoliticalBusinessTypes,
-            filter.CountingCircleResultStates,
             filter.InformationOnly,
             accessibleCantons);
 
@@ -214,7 +214,6 @@ public class Ech0252ExportService
         DateTime? to,
         List<Guid> politicalBusinessIds,
         List<PoliticalBusinessType> politicalBusinessTypes,
-        List<CountingCircleResultState> countingCircleResultStates,
         bool informationOnly,
         List<DomainOfInfluenceCanton> accessibleCantons)
     {
@@ -231,7 +230,6 @@ public class Ech0252ExportService
             : query.Where(c => c.Date >= from && c.Date <= to.Value);
 
         var noPbIdFilter = politicalBusinessIds.Count == 0;
-        var noCcResultStateFilter = countingCircleResultStates.Count == 0;
         var noPbTypesFiter = politicalBusinessTypes.Count == 0;
 
         if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.Vote))
@@ -245,6 +243,10 @@ public class Ech0252ExportService
                     .ThenInclude(x => x.Results)
                     .ThenInclude(x => x.CountingCircle.ContestDetails)
                     .ThenInclude(x => x.VotingCards)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Results)
+                    .ThenInclude(x => x.CountingCircle.ContestDetails)
+                    .ThenInclude(x => x.CountOfVotersInformationSubTotals)
                 .Include(x => x.Votes)
                     .ThenInclude(x => x.Translations)
                 .Include(x => x.Votes)
@@ -280,9 +282,13 @@ public class Ech0252ExportService
             {
                 query = query
                     .Include(x => x.ProportionalElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
-                        .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
+                        .ThenInclude(x => x.Results)
                         .ThenInclude(x => x.CountingCircle.ContestDetails)
                         .ThenInclude(x => x.VotingCards)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle.ContestDetails)
+                        .ThenInclude(x => x.CountOfVotersInformationSubTotals)
                     .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.DomainOfInfluence)
                     .Include(x => x.ProportionalElections)
@@ -320,10 +326,6 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
                         .ThenInclude(x => x.DomainOfInfluence)
                     .Include(x => x.ProportionalElections)
-                        .ThenInclude(x => x.Results)
-                        .ThenInclude(x => x.CountingCircle.ContestDetails)
-                        .ThenInclude(x => x.VotingCards)
-                    .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.Translations)
                     .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.DomainOfInfluence)
@@ -351,8 +353,13 @@ public class Ech0252ExportService
             {
                 query = query
                     .Include(x => x.MajorityElections.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
-                        .ThenInclude(x => x.Results.Where(r => noCcResultStateFilter || countingCircleResultStates.Contains(r.State)))
-                        .ThenInclude(x => x.CountingCircle)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle.ContestDetails)
+                        .ThenInclude(x => x.VotingCards)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle.ContestDetails)
+                        .ThenInclude(x => x.CountOfVotersInformationSubTotals)
                     .Include(x => x.MajorityElections)
                         .ThenInclude(x => x.DomainOfInfluence)
                     .Include(x => x.MajorityElections)
@@ -370,12 +377,12 @@ public class Ech0252ExportService
                     .Include(x => x.MajorityElections)
                         .ThenInclude(x => x.EndResult!)
                         .ThenInclude(x => x.CandidateEndResults)
-                        .ThenInclude(x => x.Candidate)
+                        .ThenInclude(x => x.Candidate.Translations)
                     .Include(x => x.MajorityElections)
                         .ThenInclude(x => x.SecondaryMajorityElections)
                         .ThenInclude(x => x.EndResult!)
                         .ThenInclude(x => x.CandidateEndResults)
-                        .ThenInclude(x => x.Candidate)
+                        .ThenInclude(x => x.Candidate.Translations)
                     .Include(x => x.MajorityElections)
                         .ThenInclude(x => x.SecondaryMajorityElections)
                         .ThenInclude(x => x.EndResult!)

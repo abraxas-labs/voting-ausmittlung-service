@@ -47,6 +47,10 @@ public class XmlEch0252ProportionalElectionResultRenderService : IRendererServic
                 .ThenInclude(x => x.VotingCards)
             .Include(x => x.ProportionalElections)
                 .ThenInclude(x => x.Results)
+                .ThenInclude(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.ProportionalElections)
+                .ThenInclude(x => x.Results)
                 .ThenInclude(x => x.CountOfVoters)
             .Include(x => x.ProportionalElections)
                 .ThenInclude(x => x.Results)
@@ -74,7 +78,7 @@ public class XmlEch0252ProportionalElectionResultRenderService : IRendererServic
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
 
-        var eventDelivery = _ech0252Serializer.ToProportionalElectionResultDelivery(contest);
+        var eventDelivery = _ech0252Serializer.ToProportionalElectionResultDelivery(contest, null);
         return _templateService.RenderToXml(ctx, eventDelivery.DeliveryHeader.MessageId, eventDelivery, contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture));
     }
 }

@@ -2,9 +2,9 @@
 // For license information see LICENSE file
 
 using System;
-using Ech0155_5_0;
+using Ech0155_5_1;
 using Voting.Ausmittlung.Data.Models;
-using DomainOfInfluenceType = Ech0155_5_0.DomainOfInfluenceType;
+using DomainOfInfluenceType = Ech0155_5_1.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 

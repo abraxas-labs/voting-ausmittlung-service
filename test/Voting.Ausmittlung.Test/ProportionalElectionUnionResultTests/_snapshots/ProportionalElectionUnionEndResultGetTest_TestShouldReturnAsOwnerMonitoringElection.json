@@ -24,7 +24,7 @@
       "CountingMachineEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": false,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false,
+      "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": true,
       "PublishResultsBeforeAuditedTentatively": false
     }

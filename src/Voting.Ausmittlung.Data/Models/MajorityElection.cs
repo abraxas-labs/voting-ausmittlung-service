@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -69,4 +70,15 @@ public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBus
     public bool EnforceCandidateCheckDigitForCountingCircles { get; set; }
 
     public int? FederalIdentification { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id of the primary election.
+    /// Can only be set if this is a secondary election on a separate ballot.
+    /// </summary>
+    public Guid? PrimaryMajorityElectionId { get; set; }
+
+    public MajorityElection? PrimaryMajorityElection { get; set; }
+
+    public ICollection<MajorityElection> SecondaryMajorityElectionsOnSeparateBallots { get; set; } =
+        new HashSet<MajorityElection>();
 }

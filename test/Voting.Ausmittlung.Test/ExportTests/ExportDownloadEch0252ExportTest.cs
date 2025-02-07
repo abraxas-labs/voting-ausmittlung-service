@@ -17,6 +17,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Ech.Ech0252_2_0.Schemas;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
@@ -56,22 +57,13 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
         {
             archive.Entries.Count.Should().Be(9);
 
-            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srVotes = new StreamReader(entryStreamVotes);
-            var xmlVotes = srVotes.ReadToEnd();
-            var formattedXmlVotes = XmlUtil.FormatTestXml(xmlVotes);
+            var formattedXmlVotes = ValidateAndFormat(archive, "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApi.xml");
 
-            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srProportionalElections = new StreamReader(entryStreamProportionalElections);
-            var xmlProportionalElections = srProportionalElections.ReadToEnd();
-            var formattedXmlProportionalElections = XmlUtil.FormatTestXml(xmlProportionalElections);
+            var formattedXmlProportionalElections = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApi.xml");
 
-            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srMajorityElections = new StreamReader(entryStreamMajorityElections);
-            var xmlMajorityElections = srMajorityElections.ReadToEnd();
-            var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
+            var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApi.xml");
         });
     }
@@ -92,23 +84,41 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
         {
             archive.Entries.Count.Should().Be(9);
 
-            using var entryStreamVotes = archive.Entries.Single(e => e.FullName == "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srVotes = new StreamReader(entryStreamVotes);
-            var xmlVotes = srVotes.ReadToEnd();
-            var formattedXmlVotes = XmlUtil.FormatTestXml(xmlVotes);
+            var formattedXmlVotes = ValidateAndFormat(archive, "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApiWithoutPublished.xml");
 
-            using var entryStreamProportionalElections = archive.Entries.Single(e => e.FullName == "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srProportionalElections = new StreamReader(entryStreamProportionalElections);
-            var xmlProportionalElections = srProportionalElections.ReadToEnd();
-            var formattedXmlProportionalElections = XmlUtil.FormatTestXml(xmlProportionalElections);
+            var formattedXmlProportionalElections = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiWithoutPublished.xml");
 
-            using var entryStreamMajorityElections = archive.Entries.Single(e => e.FullName == "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml").Open();
-            using var srMajorityElections = new StreamReader(entryStreamMajorityElections);
-            var xmlMajorityElections = srMajorityElections.ReadToEnd();
-            var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
+            var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApiWithoutPublished.xml");
+        });
+    }
+
+    [Fact]
+    public async Task ShouldWorkFilteredStatesIncludedButNoResultData()
+    {
+        var voteResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(VoteMockedData.StGallenVoteInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        await ModifyDbEntities<VoteResult>(x => x.Id == voteResultId, x => x.State = CountingCircleResultState.SubmissionOngoing);
+
+        var proportionalElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        await ModifyDbEntities<ProportionalElectionResult>(x => x.Id == proportionalElectionResultId, x => x.State = CountingCircleResultState.SubmissionOngoing);
+
+        var majorityElectionResultId = AusmittlungUuidV5.BuildPoliticalBusinessResult(MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id, CountingCircleMockedData.GuidStGallen, false);
+        await ModifyDbEntities<MajorityElectionResult>(x => x.Id == majorityElectionResultId, x => x.State = CountingCircleResultState.SubmissionOngoing);
+
+        await TestExport(NewValidRequest(x => x.CountingStates = [CountingCircleResultState.SubmissionDone]), StGallenReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(9);
+
+            var formattedXmlVotes = ValidateAndFormat(archive, "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApiFilteredStates.xml");
+
+            var formattedXmlProportionalElections = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiFilteredStates.xml");
+
+            var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApiFilteredStates.xml");
         });
     }
 
@@ -290,5 +300,14 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
                 return response;
             },
             "export.zip");
+    }
+
+    private string ValidateAndFormat(ZipArchive archive, string entryName)
+    {
+        using var entryStream = archive.Entries.Single(e => e.FullName == entryName).Open();
+        using var sr = new StreamReader(entryStream);
+        var xml = sr.ReadToEnd();
+        XmlUtil.ValidateSchema(xml, Ech0252Schemas.LoadEch0252Schemas());
+        return XmlUtil.FormatTestXml(xml);
     }
 }

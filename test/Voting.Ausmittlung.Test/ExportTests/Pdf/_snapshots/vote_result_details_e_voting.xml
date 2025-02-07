@@ -501,6 +501,7 @@
     </VoteResult>
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>QuestionsOnSingleBallot</Type>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -1922,5 +1923,6 @@
     </VoteResult>
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>VariantQuestionsOnMultipleBallots</Type>
   </Vote>
 </Voting>

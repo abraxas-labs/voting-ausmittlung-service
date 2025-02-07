@@ -67,50 +67,35 @@ public static class MajorityElectionEndResultMockedData
     public static async Task Seed(
         Func<Func<IServiceProvider, Task>, Task> runScoped,
         MajorityElectionMandateAlgorithm alg = MajorityElectionMandateAlgorithm.AbsoluteMajority,
-        int primaryElectionNumberOfMandates = 3)
+        int primaryElectionNumberOfMandates = 3,
+        bool secondaryOnSeparateBallot = false)
     {
         var election = BuildElection(
             MajorityElectionResultEntry.FinalResults,
             alg,
             primaryElectionNumberOfMandates,
             1,
-            2);
-        var electionId = Guid.Parse(ElectionId);
+            2,
+            secondaryOnSeparateBallot);
 
         await runScoped(async sp =>
         {
             var db = sp.GetRequiredService<DataContext>();
-            var simplePbBuilder = sp.GetRequiredService<SimplePoliticalBusinessBuilder<MajorityElection>>();
-
             var mappedDomainOfInfluence = await db.DomainOfInfluences.FirstAsync(doi =>
                 doi.SnapshotContestId == election.ContestId && doi.BasisDomainOfInfluenceId == election.DomainOfInfluenceId);
             election.DomainOfInfluenceId = mappedDomainOfInfluence.Id;
+            foreach (var secondaryElectionOnSeparateBallot in election.SecondaryMajorityElectionsOnSeparateBallots)
+            {
+                secondaryElectionOnSeparateBallot.DomainOfInfluenceId = mappedDomainOfInfluence.Id;
+            }
 
             db.MajorityElections.Add(election);
             await db.SaveChangesAsync();
 
-            await simplePbBuilder.Create(election);
-
-            await sp.GetRequiredService<MajorityElectionResultBuilder>()
-                .RebuildForElection(electionId, mappedDomainOfInfluence.Id, false, election.ContestId);
-
-            var endResultInitializer = sp.GetRequiredService<MajorityElectionEndResultInitializer>();
-            await endResultInitializer.RebuildForElection(electionId, false);
-
-            var results = await db.MajorityElectionResults
-                .AsTracking()
-                .AsSplitQuery()
-                .Where(x => x.MajorityElectionId == electionId)
-                .Include(x => x.CandidateResults)
-                .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
-                .ToListAsync();
-            SetResultsMockData(results);
-            await db.SaveChangesAsync();
-
-            var endResultBuilder = sp.GetRequiredService<MajorityElectionEndResultBuilder>();
-            foreach (var result in results)
+            await SeedElectionRelatedData(sp, election);
+            foreach (var secondaryElectionOnSeparateBallot in election.SecondaryMajorityElectionsOnSeparateBallots)
             {
-                await endResultBuilder.AdjustEndResult(result.Id, false);
+                await SeedElectionRelatedData(sp, secondaryElectionOnSeparateBallot);
             }
 
             await db.SaveChangesAsync();
@@ -122,9 +107,10 @@ public static class MajorityElectionEndResultMockedData
         MajorityElectionMandateAlgorithm mandateAlgorithm,
         int primaryElectionNumberOfMandates,
         int secondaryElectionNumberOfMandates = 1,
-        int secondaryElectionNumberOfMandates2 = 1)
+        int secondaryElectionNumberOfMandates2 = 1,
+        bool secondaryOnSeparateBallot = false)
     {
-        return new MajorityElection
+        var election = new MajorityElection
         {
             Id = Guid.Parse(ElectionId),
             PoliticalBusinessNumber = "201",
@@ -165,109 +151,163 @@ public static class MajorityElectionEndResultMockedData
                     BuildCandidate(CandidateId9InBallotGroup, 9, 4),
                     BuildCandidate(CandidateId10InBallotGroup, 10, 8),
                 },
-            SecondaryMajorityElections = new List<SecondaryMajorityElection>
+        };
+
+        if (secondaryOnSeparateBallot)
+        {
+            election.SecondaryMajorityElectionsOnSeparateBallots.Add(
+                new MajorityElection
                 {
-                    new SecondaryMajorityElection
+                    Id = Guid.Parse(SecondaryElectionId),
+                    PrimaryMajorityElectionId = Guid.Parse(ElectionId),
+                    MandateAlgorithm = election.MandateAlgorithm,
+                    ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+                    Translations = TranslationUtil.CreateTranslations<MajorityElectionTranslation>(
+                        (t, o) => t.OfficialDescription = o,
+                        "official",
+                        (t, s) => t.ShortDescription = s,
+                        "short"),
+                    NumberOfMandates = secondaryElectionNumberOfMandates,
+                    PoliticalBusinessNumber = "n1",
+                    Active = false,
+                    MajorityElectionCandidates = new List<MajorityElectionCandidate>
                     {
-                        Id = Guid.Parse(SecondaryElectionId),
-                        Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
-                            (t, o) => t.OfficialDescription = o,
-                            "official",
-                            (t, s) => t.ShortDescription = s,
-                            "short"),
-                        NumberOfMandates = secondaryElectionNumberOfMandates,
-                        PoliticalBusinessNumber = "n1",
-                        AllowedCandidates = SecondaryMajorityElectionAllowedCandidate.MayExistInPrimaryElection,
-                        ElectionGroupId = Guid.Parse(ElectionGroupId),
-                        Active = false,
-                        Candidates = new List<SecondaryMajorityElectionCandidate>
-                        {
-                            BuildSecondaryCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
-                            BuildSecondaryCandidate(SecondaryCandidateId2, 2, 7),
-                            BuildSecondaryCandidate(SecondaryCandidateId3, 3, 5),
-                            BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
-                        },
+                        BuildCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
+                        BuildCandidate(SecondaryCandidateId2, 2, 7),
+                        BuildCandidate(SecondaryCandidateId3, 3, 5),
+                        BuildCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
                     },
-                    new SecondaryMajorityElection
+                });
+            election.SecondaryMajorityElectionsOnSeparateBallots.Add(
+                new MajorityElection
+                {
+                    Id = Guid.Parse(SecondaryElectionId2),
+                    PrimaryMajorityElectionId = Guid.Parse(ElectionId),
+                    MandateAlgorithm = election.MandateAlgorithm,
+                    ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+                    Translations = TranslationUtil.CreateTranslations<MajorityElectionTranslation>(
+                        (t, o) => t.OfficialDescription = o,
+                        "official2",
+                        (t, s) => t.ShortDescription = s,
+                        "short2"),
+                    NumberOfMandates = secondaryElectionNumberOfMandates2,
+                    PoliticalBusinessNumber = "n2",
+                    Active = true,
+                    MajorityElectionCandidates = new List<MajorityElectionCandidate>
                     {
-                        Id = Guid.Parse(SecondaryElectionId2),
-                        Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
-                            (t, o) => t.OfficialDescription = o,
-                            "official2",
-                            (t, s) => t.ShortDescription = s,
-                            "short2"),
-                        NumberOfMandates = secondaryElectionNumberOfMandates2,
-                        PoliticalBusinessNumber = "n2",
-                        AllowedCandidates = SecondaryMajorityElectionAllowedCandidate.MayExistInPrimaryElection,
-                        ElectionGroupId = Guid.Parse(ElectionGroupId),
-                        Active = true,
-                        Candidates = new List<SecondaryMajorityElectionCandidate>
-                        {
-                            BuildSecondaryCandidate(Secondary2CandidateId1, 1, 9),
-                            BuildSecondaryCandidate(Secondary2CandidateId2, 2, 7),
-                            BuildSecondaryCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
-                            BuildSecondaryCandidate(Secondary2CandidateId4, 4, 3),
-                        },
+                        BuildCandidate(Secondary2CandidateId1, 1, 9),
+                        BuildCandidate(Secondary2CandidateId2, 2, 7),
+                        BuildCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
+                        BuildCandidate(Secondary2CandidateId4, 4, 3),
                     },
-                },
-            ElectionGroup = new ElectionGroup
+                });
+        }
+        else
+        {
+            election.SecondaryMajorityElections.Add(
+                new SecondaryMajorityElection
+                {
+                    Id = Guid.Parse(SecondaryElectionId),
+                    Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
+                        (t, o) => t.OfficialDescription = o,
+                        "official",
+                        (t, s) => t.ShortDescription = s,
+                        "short"),
+                    NumberOfMandates = secondaryElectionNumberOfMandates,
+                    PoliticalBusinessNumber = "n1",
+                    ElectionGroupId = Guid.Parse(ElectionGroupId),
+                    Active = false,
+                    Candidates = new List<SecondaryMajorityElectionCandidate>
+                    {
+                        BuildSecondaryCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
+                        BuildSecondaryCandidate(SecondaryCandidateId2, 2, 7),
+                        BuildSecondaryCandidate(SecondaryCandidateId3, 3, 5),
+                        BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
+                    },
+                });
+            election.SecondaryMajorityElections.Add(
+                new SecondaryMajorityElection
+                {
+                    Id = Guid.Parse(SecondaryElectionId2),
+                    Translations = TranslationUtil.CreateTranslations<SecondaryMajorityElectionTranslation>(
+                        (t, o) => t.OfficialDescription = o,
+                        "official2",
+                        (t, s) => t.ShortDescription = s,
+                        "short2"),
+                    NumberOfMandates = secondaryElectionNumberOfMandates2,
+                    PoliticalBusinessNumber = "n2",
+                    ElectionGroupId = Guid.Parse(ElectionGroupId),
+                    Active = true,
+                    Candidates = new List<SecondaryMajorityElectionCandidate>
+                    {
+                        BuildSecondaryCandidate(Secondary2CandidateId1, 1, 9),
+                        BuildSecondaryCandidate(Secondary2CandidateId2, 2, 7),
+                        BuildSecondaryCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
+                        BuildSecondaryCandidate(Secondary2CandidateId4, 4, 3),
+                    },
+                });
+            election.ElectionGroup = new ElectionGroup
             {
                 Id = Guid.Parse(ElectionGroupId),
                 Description = "Test Election Group",
                 Number = 1,
-            },
-            BallotGroups = new List<MajorityElectionBallotGroup>
+            };
+            election.BallotGroups = new List<MajorityElectionBallotGroup>
+            {
+                new MajorityElectionBallotGroup
                 {
-                    new MajorityElectionBallotGroup
+                    Id = Guid.Parse(BallotGroupId),
+                    Description = "BG1 long description",
+                    ShortDescription = "BG1",
+                    Position = 1,
+                    Entries = new List<MajorityElectionBallotGroupEntry>
                     {
-                        Id = Guid.Parse(BallotGroupId),
-                        Description = "BG1 long description",
-                        ShortDescription = "BG1",
-                        Position = 1,
-                        Entries = new List<MajorityElectionBallotGroupEntry>
+                        new MajorityElectionBallotGroupEntry
                         {
-                            new MajorityElectionBallotGroupEntry
+                            Id = Guid.Parse(BallotGroupPrimaryElectionEntryId),
+                            PrimaryMajorityElectionId = Guid.Parse(ElectionId),
+                            BlankRowCount = 0,
+                            IndividualCandidatesVoteCount = 1,
+                            Candidates = new List<MajorityElectionBallotGroupEntryCandidate>
                             {
-                                Id = Guid.Parse(BallotGroupPrimaryElectionEntryId),
-                                PrimaryMajorityElectionId = Guid.Parse(ElectionId),
-                                BlankRowCount = 0,
-                                IndividualCandidatesVoteCount = 1,
-                                Candidates = new List<MajorityElectionBallotGroupEntryCandidate>
+                                new MajorityElectionBallotGroupEntryCandidate
                                 {
-                                    new MajorityElectionBallotGroupEntryCandidate
-                                    {
-                                        PrimaryElectionCandidateId = Guid.Parse(CandidateId9InBallotGroup),
-                                    },
-                                    new MajorityElectionBallotGroupEntryCandidate
-                                    {
-                                        PrimaryElectionCandidateId = Guid.Parse(CandidateId10InBallotGroup),
-                                    },
+                                    PrimaryElectionCandidateId = Guid.Parse(CandidateId9InBallotGroup),
+                                },
+                                new MajorityElectionBallotGroupEntryCandidate
+                                {
+                                    PrimaryElectionCandidateId = Guid.Parse(CandidateId10InBallotGroup),
                                 },
                             },
-                            new MajorityElectionBallotGroupEntry
+                        },
+                        new MajorityElectionBallotGroupEntry
+                        {
+                            Id = Guid.Parse(BallotGroupSecondaryElectionEntryId),
+                            SecondaryMajorityElectionId = Guid.Parse(SecondaryElectionId),
+                            BlankRowCount = 0,
+                            Candidates = new List<MajorityElectionBallotGroupEntryCandidate>
                             {
-                                Id = Guid.Parse(BallotGroupSecondaryElectionEntryId),
-                                SecondaryMajorityElectionId = Guid.Parse(SecondaryElectionId),
-                                BlankRowCount = 0,
-                                Candidates = new List<MajorityElectionBallotGroupEntryCandidate>
+                                new MajorityElectionBallotGroupEntryCandidate
                                 {
-                                    new MajorityElectionBallotGroupEntryCandidate
-                                    {
-                                        SecondaryElectionCandidateId = Guid.Parse(SecondaryCandidateId4InBallotGroup),
-                                    },
+                                    SecondaryElectionCandidateId =
+                                        Guid.Parse(SecondaryCandidateId4InBallotGroup),
                                 },
                             },
                         },
                     },
                 },
-        };
+            };
+        }
+
+        return election;
     }
 
-    public static MajorityElectionCandidate BuildCandidate(string candidateId, int position, int checkDigit)
+    public static MajorityElectionCandidate BuildCandidate(string candidateId, int position, int checkDigit, string? referencedCandidateId = null)
     {
         return new MajorityElectionCandidate
         {
             Id = Guid.Parse(candidateId),
+            CandidateReferenceId = referencedCandidateId == null ? null : Guid.Parse(referencedCandidateId),
             FirstName = $"{position}firstName",
             LastName = $"{position}lastName",
             PoliticalFirstName = $"{position}pol firstName",
@@ -338,6 +378,12 @@ public static class MajorityElectionEndResultMockedData
 
     private static void SetResultMockData(MajorityElectionResult result)
     {
+        if (result.MajorityElection.PrimaryMajorityElectionId.HasValue)
+        {
+            SetSecondaryResultMockData(result, result.CandidateResults);
+            return;
+        }
+
         result.State = CountingCircleResultState.SubmissionDone;
         result.TotalCountOfVoters = 1000;
         result.ConventionalSubTotal.IndividualVoteCount = 140;
@@ -390,11 +436,15 @@ public static class MajorityElectionEndResultMockedData
         var i = 0;
         foreach (var secondaryResult in result.SecondaryMajorityElectionResults)
         {
-            SetSecondaryResultMockData(secondaryResult, i++);
+            SetSecondaryResultMockData(secondaryResult, secondaryResult.CandidateResults, i++);
         }
     }
 
-    private static void SetSecondaryResultMockData(SecondaryMajorityElectionResult result, int modifier)
+    private static void SetSecondaryResultMockData<T>(
+        T result,
+        IEnumerable<MajorityElectionCandidateResultBase> candidateResults,
+        int modifier = 0)
+        where T : IMajorityElectionResultTotal<int>, IHasSubTotals<MajorityElectionResultSubTotal, MajorityElectionResultNullableSubTotal>
     {
         result.ConventionalSubTotal.IndividualVoteCount = 140 + modifier;
         result.ConventionalSubTotal.EmptyVoteCountExclWriteIns = 10 + modifier;
@@ -421,18 +471,58 @@ public static class MajorityElectionEndResultMockedData
         // x + 6 for write-ins, x + 4 for non-write-ins
         result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => (x.Value * 2) + 10);
 
-        var candidateResults = result.CandidateResults.ToDictionary(x => x.CandidateId);
+        var candidateResultsById = candidateResults.ToDictionary(x => x.CandidateId);
         foreach (var (candidateKey, candidateVoteCount) in voteCountByCandidateId)
         {
             var candidateId = Guid.Parse(candidateKey);
 
             // all secondary election candidates in dictionary but in the result are only candidates of this secondary election.
-            if (candidateResults.TryGetValue(candidateId, out var candidateResult))
+            if (candidateResultsById.TryGetValue(candidateId, out var candidateResult))
             {
                 candidateResult.ConventionalVoteCount = candidateVoteCount;
                 candidateResult.EVotingWriteInsVoteCount = candidateVoteCount + 6;
                 candidateResult.EVotingExclWriteInsVoteCount = candidateVoteCount + 4;
             }
+        }
+    }
+
+    private static async Task SeedElectionRelatedData(IServiceProvider sp, MajorityElection election)
+    {
+        var db = sp.GetRequiredService<DataContext>();
+        var simplePbBuilder = sp.GetRequiredService<SimplePoliticalBusinessBuilder<MajorityElection>>();
+        await simplePbBuilder.Create(election);
+
+        var simplePbBuilderSecondary = sp.GetRequiredService<SimplePoliticalBusinessBuilder<SecondaryMajorityElection>>();
+        foreach (var secondaryMajorityElection in election.SecondaryMajorityElections)
+        {
+            await simplePbBuilderSecondary.Create(secondaryMajorityElection);
+            await simplePbBuilderSecondary.AdjustCountOfSecondaryBusinesses(secondaryMajorityElection.PrimaryMajorityElectionId, 1);
+        }
+
+        await sp.GetRequiredService<MajorityElectionResultBuilder>()
+            .RebuildForElection(election.Id, election.DomainOfInfluenceId, false, election.ContestId);
+
+        var endResultInitializer = sp.GetRequiredService<MajorityElectionEndResultInitializer>();
+        await endResultInitializer.RebuildForElection(election.Id, false);
+
+        var results = await db.MajorityElectionResults
+            .AsTracking()
+            .AsSplitQuery()
+            .Where(x => x.MajorityElectionId == election.Id
+                        || x.MajorityElectionId == Guid.Parse(SecondaryElectionId)
+                        || x.MajorityElectionId == Guid.Parse(SecondaryElectionId2))
+            .Include(x => x.MajorityElection.Contest.CantonDefaults)
+            .Include(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults)
+            .ThenInclude(x => x.CandidateResults)
+            .ToListAsync();
+        SetResultsMockData(results);
+        await db.SaveChangesAsync();
+
+        var endResultBuilder = sp.GetRequiredService<MajorityElectionEndResultBuilder>();
+        foreach (var result in results)
+        {
+            await endResultBuilder.AdjustEndResult(result.Id, false);
         }
     }
 }

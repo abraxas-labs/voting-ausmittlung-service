@@ -30,6 +30,7 @@ public class ExceptionMappingTest
             new SecondFactorTransactionDataChangedException(),
             new SecondFactorTransactionNotVerifiedException(),
             new VerifySecondFactorTimeoutException(),
+            new SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException(),
         };
 
         var hiddenExceptions = new HashSet<Exception>()

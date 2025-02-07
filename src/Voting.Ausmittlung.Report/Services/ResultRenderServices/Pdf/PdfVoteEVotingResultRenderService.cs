@@ -136,8 +136,6 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .OrderByCountingCircle(x => x.CountingCircle, vote.Contest.CantonDefaults)
             .ToList();
 
-        var pbType = vote.DomainOfInfluence.Type;
-
         foreach (var ccResult in vote.Results)
         {
             var ccDetail = ccResult.CountingCircle.ContestDetails.FirstOrDefault();

@@ -30,7 +30,7 @@
       "CountingMachineEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": false,
+      "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
     }
@@ -108,7 +108,7 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": false,
+        "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
       }

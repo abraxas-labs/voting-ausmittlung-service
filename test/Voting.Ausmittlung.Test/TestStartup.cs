@@ -39,7 +39,7 @@ public class TestStartup : Startup
             .AddMock<IActionIdComparer, ActionIdComparerMock>()
             .RemoveAll<EventLogBuilder>()
             .AddScoped<EventLogBuilder, StaticEventLogBuilder>()
-            .AddMockedClock()
+            .AddMockedTimeProvider()
             .AddVotingLibEventingMocks()
             .AddVotingLibIamMocks()
             .AddDokConnectorMock()

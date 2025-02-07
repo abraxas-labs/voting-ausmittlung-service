@@ -1,0 +1,298 @@
+<delivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ech.ch/xmlns/eCH-0252/2">
+  <deliveryHeader>
+    <senderId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">ABX-VOTING</senderId>
+    <messageId xmlns="http://www.ech.ch/xmlns/eCH-0058/5">mock-id</messageId>
+    <messageType xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1198</messageType>
+    <sendingApplication xmlns="http://www.ech.ch/xmlns/eCH-0058/5">
+      <manufacturer>Abraxas Informatik AG</manufacturer>
+      <product>Voting.Ausmittlung</product>
+      <productVersion>0.0.0.1</productVersion>
+    </sendingApplication>
+    <comment xmlns="http://www.ech.ch/xmlns/eCH-0058/5">Test / Testphase</comment>
+    <messageDate xmlns="http://www.ech.ch/xmlns/eCH-0058/5">2020-01-10T13:12:10.2Z</messageDate>
+    <action xmlns="http://www.ech.ch/xmlns/eCH-0058/5">1</action>
+    <testDeliveryFlag xmlns="http://www.ech.ch/xmlns/eCH-0058/5">true</testDeliveryFlag>
+  </deliveryHeader>
+  <voteBaseDelivery>
+    <cantonId>17</cantonId>
+    <pollingDay>2020-08-31</pollingDay>
+    <voteInfo>
+      <vote>
+        <voteIdentification>512bb3a2-97e2-4779-ac51-83abd039afc4_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CH</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0001</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Bund</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Bund de</voteTitle>
+          <voteTitleShort>Abst Bund de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1</countingCircleId>
+          <countingCircleName>Bund</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500</countingCircleId>
+          <countingCircleName>St. Gallen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-3</countingCircleId>
+          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-2</countingCircleId>
+          <countingCircleName>St. Gallen Haggen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-1</countingCircleId>
+          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>0ed26aad-e169-4d55-b9a9-90475ba81a02_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">CT</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">0002</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. Gallen</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">St. …</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung St. Gallen de</voteTitle>
+          <voteTitleShort>Abst SG de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500</countingCircleId>
+          <countingCircleName>St. Gallen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-3</countingCircleId>
+          <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-2</countingCircleId>
+          <countingCircleName>St. Gallen Haggen</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>5500-1</countingCircleId>
+          <countingCircleName>St. Gallen St. Fiden</countingCircleName>
+          <domainOfInfluenceType>MU</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>e6ee82f9-70d4-4ffa-a673-34d56fc47204_1</voteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3443</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Uzwil</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Uzwil de</voteTitle>
+          <voteTitleShort>Abst Uzwil de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>1234</countingCircleId>
+          <countingCircleName>Uzwil</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Gossau de - Frage 1 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 1 Gossau de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>1</voteSubType>
+        <sequence>1</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_2</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Abstimmung Gossau de - Frage 2 Gossau de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Frage 2 Gossau de</voteTitleShort>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>2</voteSubType>
+        <sequence>2</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <voteInfo>
+      <vote>
+        <voteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1_t</voteIdentification>
+        <mainVoteIdentification>154ee710-88b7-419a-ae5b-74a44c9c969e_1</mainVoteIdentification>
+        <domainOfInfluence>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </domainOfInfluence>
+        <superiorAuthority>
+          <domainOfInfluenceType xmlns="http://www.ech.ch/xmlns/eCH-0155/5">SK</domainOfInfluenceType>
+          <domainOfInfluenceIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">?</domainOfInfluenceIdentification>
+          <domainOfInfluenceName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Gossau</domainOfInfluenceName>
+          <domainOfInfluenceShortname xmlns="http://www.ech.ch/xmlns/eCH-0155/5">Goss…</domainOfInfluenceShortname>
+        </superiorAuthority>
+        <pollingDay>2020-08-31</pollingDay>
+        <voteTitleInformation>
+          <language>de</language>
+          <voteTitle>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitle>
+        </voteTitleInformation>
+        <decisiveMajority>1</decisiveMajority>
+        <voteSubType>3</voteSubType>
+        <sequence>3</sequence>
+      </vote>
+      <countingCircleInfo>
+        <countingCircle>
+          <countingCircleId>3443</countingCircleId>
+          <countingCircleName>Gossau</countingCircleName>
+          <domainOfInfluenceType>SK</domainOfInfluenceType>
+        </countingCircle>
+      </countingCircleInfo>
+    </voteInfo>
+    <numberOfEntries>6</numberOfEntries>
+  </voteBaseDelivery>
+</delivery>

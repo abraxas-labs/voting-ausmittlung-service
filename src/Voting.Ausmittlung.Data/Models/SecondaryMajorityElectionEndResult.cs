@@ -24,6 +24,8 @@ public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<Majo
     public ICollection<SecondaryMajorityElectionCandidateEndResult> CandidateEndResults { get; set; }
         = new HashSet<SecondaryMajorityElectionCandidateEndResult>();
 
+    public MajorityElectionEndResultCalculation Calculation { get; set; } = new();
+
     /// <inheritdoc />
     public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount;
 

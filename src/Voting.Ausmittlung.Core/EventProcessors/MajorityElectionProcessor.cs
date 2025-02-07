@@ -1,9 +1,12 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -36,6 +39,7 @@ public class MajorityElectionProcessor :
     private readonly IDbRepository<DataContext, MajorityElectionCandidate> _candidateRepo;
     private readonly MajorityElectionCandidateTranslationRepo _candidateTranslationRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionCandidate> _secondaryMajorityCandidateRepo;
+    private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
     private readonly SecondaryMajorityElectionCandidateTranslationRepo _secondaryMajorityCandidateTranslationRepo;
     private readonly MajorityElectionResultBuilder _resultBuilder;
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
@@ -62,7 +66,8 @@ public class MajorityElectionProcessor :
         MajorityElectionCandidateEndResultBuilder candidateEndResultBuilder,
         SimplePoliticalBusinessBuilder<MajorityElection> simplePoliticalBusinessBuilder,
         PoliticalBusinessToNewContestMover<MajorityElection, MajorityElectionRepo> politicalBusinessToNewContestMover,
-        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder,
+        SimplePoliticalBusinessRepo simplePoliticalBusinessRepo)
     {
         _logger = logger;
         _mapper = mapper;
@@ -79,14 +84,110 @@ public class MajorityElectionProcessor :
         _resultBuilder = resultBuilder;
         _politicalBusinessToNewContestMover = politicalBusinessToNewContestMover;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
-    public async Task Process(MajorityElectionCreated eventData)
+    public Task Process(MajorityElectionCreated eventData)
     {
         var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
-
         majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        return CreateElection(majorityElection);
+    }
 
+    public async Task Process(MajorityElectionUpdated eventData)
+    {
+        var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
+        majorityElection.DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        await UpdateElection(majorityElection);
+
+        // update secondary elections on the same ballot
+        await _repo.Query()
+            .Where(x => x.PrimaryMajorityElectionId == majorityElection.Id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(y => y.DomainOfInfluenceId, majorityElection.DomainOfInfluenceId)
+                .SetProperty(y => y.ReportDomainOfInfluenceLevel, majorityElection.ReportDomainOfInfluenceLevel)
+                .SetProperty(y => y.MandateAlgorithm, majorityElection.MandateAlgorithm)
+                .SetProperty(y => y.ResultEntry, majorityElection.ResultEntry)
+                .SetProperty(y => y.EnforceResultEntryForCountingCircles, majorityElection.EnforceResultEntryForCountingCircles)
+                .SetProperty(y => y.BallotBundleSize, majorityElection.BallotBundleSize)
+                .SetProperty(y => y.BallotBundleSampleSize, majorityElection.BallotBundleSampleSize)
+                .SetProperty(y => y.BallotNumberGeneration, majorityElection.BallotNumberGeneration)
+                .SetProperty(y => y.AutomaticBallotBundleNumberGeneration, majorityElection.AutomaticBallotBundleNumberGeneration)
+                .SetProperty(y => y.AutomaticEmptyVoteCounting, majorityElection.AutomaticEmptyVoteCounting)
+                .SetProperty(y => y.EnforceEmptyVoteCountingForCountingCircles, majorityElection.EnforceEmptyVoteCountingForCountingCircles)
+                .SetProperty(y => y.ReviewProcedure, majorityElection.ReviewProcedure)
+                .SetProperty(y => y.EnforceReviewProcedureForCountingCircles, majorityElection.EnforceReviewProcedureForCountingCircles));
+    }
+
+    public Task Process(MajorityElectionAfterTestingPhaseUpdated eventData)
+        => UpdateElectionAfterTestingPhase(eventData, GuidParser.Parse(eventData.Id));
+
+    public Task Process(MajorityElectionDeleted eventData)
+        => DeleteElection(GuidParser.Parse(eventData.MajorityElectionId));
+
+    public async Task Process(MajorityElectionToNewContestMoved eventData)
+    {
+        var id = GuidParser.Parse(eventData.MajorityElectionId);
+        var newContestId = GuidParser.Parse(eventData.NewContestId);
+
+        if (!await _repo.ExistsByKey(id))
+        {
+            throw new EntityNotFoundException(id);
+        }
+
+        await _politicalBusinessToNewContestMover.Move(id, newContestId);
+        await _simplePoliticalBusinessBuilder.MoveToNewContest(id, newContestId);
+
+        var secondaryElectionsOnSeparateBallot = await _repo.QueryWithResults()
+            .Include(x => x.DomainOfInfluence)
+            .Where(x => x.PrimaryMajorityElectionId == id)
+            .ToListAsync();
+        var secondaryElectionsOnSeparateBallotIds = new HashSet<Guid>();
+        foreach (var sme in secondaryElectionsOnSeparateBallot)
+        {
+            secondaryElectionsOnSeparateBallotIds.Add(sme.Id);
+            await _politicalBusinessToNewContestMover.Move(sme, newContestId);
+        }
+
+        var simpleSecondaryElectionsOnSeparateBallot = await _simplePoliticalBusinessRepo
+            .Query()
+            .Include(x => x.SimpleResults)
+            .ThenInclude(x => x.CountingCircle)
+            .Include(x => x.DomainOfInfluence)
+            .Where(x => secondaryElectionsOnSeparateBallotIds.Contains(x.Id))
+            .ToListAsync();
+        foreach (var sme in simpleSecondaryElectionsOnSeparateBallot)
+        {
+            await _simplePoliticalBusinessBuilder.MoveToNewContest(sme, newContestId);
+        }
+    }
+
+    public Task Process(MajorityElectionActiveStateUpdated eventData)
+        => UpdateActiveState(GuidParser.Parse(eventData.MajorityElectionId), eventData.Active);
+
+    public Task Process(MajorityElectionCandidateCreated eventData)
+        => CreateCandidate(eventData.MajorityElectionCandidate);
+
+    public Task Process(MajorityElectionCandidateUpdated eventData)
+        => UpdateCandidate(eventData.MajorityElectionCandidate);
+
+    public Task Process(MajorityElectionCandidateAfterTestingPhaseUpdated eventData)
+    {
+        var id = GuidParser.Parse(eventData.Id);
+        return UpdateCandidateAfterTestingPhase(id, eventData);
+    }
+
+    public Task Process(MajorityElectionCandidatesReordered eventData)
+        => ReorderCandidates(GuidParser.Parse(eventData.MajorityElectionId), eventData.CandidateOrders);
+
+    public async Task Process(MajorityElectionCandidateDeleted eventData)
+    {
+        var id = GuidParser.Parse(eventData.MajorityElectionCandidateId);
+        await DeleteCandidate(id);
+    }
+
+    internal async Task CreateElection(MajorityElection majorityElection)
+    {
         // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
         if (majorityElection.ReviewProcedure == MajorityElectionReviewProcedure.Unspecified)
         {
@@ -100,12 +201,8 @@ public class MajorityElectionProcessor :
         await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
     }
 
-    public async Task Process(MajorityElectionUpdated eventData)
+    internal async Task UpdateElection(MajorityElection majorityElection)
     {
-        var majorityElection = _mapper.Map<MajorityElection>(eventData.MajorityElection);
-        majorityElection.DomainOfInfluenceId =
-            AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
-
         // Set default review procedure value since the old eventData (before introducing the review procedure) can contain the unspecified value.
         if (majorityElection.ReviewProcedure == MajorityElectionReviewProcedure.Unspecified)
         {
@@ -113,7 +210,7 @@ public class MajorityElectionProcessor :
         }
 
         var existingMajorityElection = await _repo.GetByKey(majorityElection.Id)
-            ?? throw new EntityNotFoundException(majorityElection.Id);
+                                     ?? throw new EntityNotFoundException(majorityElection.Id);
 
         await _translationRepo.DeleteRelatedTranslations(majorityElection.Id);
         await _repo.Update(majorityElection);
@@ -133,11 +230,10 @@ public class MajorityElectionProcessor :
         }
     }
 
-    public async Task Process(MajorityElectionAfterTestingPhaseUpdated eventData)
+    internal async Task UpdateElectionAfterTestingPhase<T>(T eventData, Guid id)
     {
-        var id = GuidParser.Parse(eventData.Id);
         var majorityElection = await _repo.GetByKey(id)
-            ?? throw new EntityNotFoundException(id);
+                               ?? throw new EntityNotFoundException(id);
         _mapper.Map(eventData, majorityElection);
 
         await _translationRepo.DeleteRelatedTranslations(majorityElection.Id);
@@ -147,10 +243,8 @@ public class MajorityElectionProcessor :
         _logger.LogInformation("Majority election {MajorityElectionId} updated after testing phase ended", id);
     }
 
-    public async Task Process(MajorityElectionDeleted eventData)
+    internal async Task DeleteElection(Guid id)
     {
-        var id = GuidParser.Parse(eventData.MajorityElectionId);
-
         if (!await _repo.ExistsByKey(id))
         {
             // skip event processing to prevent race condition if majority election was deleted from other process.
@@ -162,51 +256,38 @@ public class MajorityElectionProcessor :
         await _simplePoliticalBusinessBuilder.Delete(id);
     }
 
-    public async Task Process(MajorityElectionToNewContestMoved eventData)
+    internal async Task UpdateActiveState(Guid majorityElectionId, bool isActive)
     {
-        var id = GuidParser.Parse(eventData.MajorityElectionId);
-        var newContestId = GuidParser.Parse(eventData.NewContestId);
-
-        if (!await _repo.ExistsByKey(id))
-        {
-            throw new EntityNotFoundException(id);
-        }
-
-        await _politicalBusinessToNewContestMover.Move(id, newContestId);
-        await _simplePoliticalBusinessBuilder.MoveToNewContest(id, newContestId);
-    }
-
-    public async Task Process(MajorityElectionActiveStateUpdated eventData)
-    {
-        var majorityElectionId = GuidParser.Parse(eventData.MajorityElectionId);
         var existingModel = await _repo.GetByKey(majorityElectionId)
-            ?? throw new EntityNotFoundException(majorityElectionId);
+                            ?? throw new EntityNotFoundException(majorityElectionId);
 
-        existingModel.Active = eventData.Active;
+        existingModel.Active = isActive;
         await _repo.Update(existingModel);
         await _simplePoliticalBusinessBuilder.Update(existingModel, false);
     }
 
-    public async Task Process(MajorityElectionCandidateCreated eventData)
+    internal Task CreateCandidate(MajorityElectionCandidateEventData eventData)
+        => CreateCandidate(_mapper.Map<MajorityElectionCandidate>(eventData));
+
+    internal async Task CreateCandidate(MajorityElectionCandidate candidate)
     {
-        var model = _mapper.Map<MajorityElectionCandidate>(eventData.MajorityElectionCandidate);
-        TruncateCandidateNumber(model);
+        TruncateCandidateNumber(candidate);
 
-        var majorityElection = await _repo.Query()
-                .Include(x => x.Contest)
-                .FirstOrDefaultAsync(x => x.Id == model.MajorityElectionId)
-            ?? throw new EntityNotFoundException(nameof(MajorityElection), model.MajorityElectionId);
+        var contestState = await _repo.Query()
+            .Where(x => x.Id == candidate.MajorityElectionId)
+            .Select(x => x.Contest.State)
+            .FirstOrDefaultAsync();
 
-        model.CreatedDuringActiveContest = majorityElection.Contest.State == ContestState.Active;
+        candidate.CreatedDuringActiveContest = contestState == ContestState.Active;
 
-        await _candidateRepo.Create(model);
-        await _candidateResultBuilder.Initialize(model.MajorityElectionId, model.Id);
-        await _candidateEndResultBuilder.Initialize(model.Id);
+        await _candidateRepo.Create(candidate);
+        await _candidateResultBuilder.Initialize(candidate.MajorityElectionId, candidate.Id);
+        await _candidateEndResultBuilder.Initialize(candidate.Id);
     }
 
-    public async Task Process(MajorityElectionCandidateUpdated eventData)
+    internal async Task UpdateCandidate(MajorityElectionCandidateEventData eventData)
     {
-        var candidate = _mapper.Map<MajorityElectionCandidate>(eventData.MajorityElectionCandidate);
+        var candidate = _mapper.Map<MajorityElectionCandidate>(eventData);
         TruncateCandidateNumber(candidate);
 
         if (!await _candidateRepo.ExistsByKey(candidate.Id))
@@ -219,29 +300,26 @@ public class MajorityElectionProcessor :
         await UpdateCandidateReferences(candidate);
     }
 
-    public async Task Process(MajorityElectionCandidateAfterTestingPhaseUpdated eventData)
+    internal async Task UpdateCandidateAfterTestingPhase<T>(Guid candidateId, T eventData)
     {
-        var id = GuidParser.Parse(eventData.Id);
-        var candidate = await _candidateRepo.GetByKey(id)
-            ?? throw new EntityNotFoundException(id);
+        var candidate = await _candidateRepo.GetByKey(candidateId)
+                        ?? throw new EntityNotFoundException(nameof(MajorityElectionCandidate), candidateId);
         _mapper.Map(eventData, candidate);
 
         await _candidateTranslationRepo.DeleteRelatedTranslations(candidate.Id);
         await _candidateRepo.Update(candidate);
         await UpdateCandidateReferences(candidate);
 
-        _logger.LogInformation("Majority election candidate {MajorityElectionCandidateId} updated after testing phase ended", id);
+        _logger.LogInformation("Majority election candidate {MajorityElectionCandidateId} updated after testing phase ended", candidateId);
     }
 
-    public async Task Process(MajorityElectionCandidatesReordered eventData)
+    internal async Task ReorderCandidates(Guid electionId, EntityOrdersEventData orders)
     {
-        var majorityElectionId = GuidParser.Parse(eventData.MajorityElectionId);
-
         var candidates = await _candidateRepo.Query()
-            .Where(c => c.MajorityElectionId == majorityElectionId)
+            .Where(c => c.MajorityElectionId == electionId)
             .ToListAsync();
 
-        var grouped = eventData.CandidateOrders.Orders
+        var grouped = orders.Orders
             .GroupBy(o => o.Id)
             .ToDictionary(x => GuidParser.Parse(x.Key), x => x.Single().Position);
 
@@ -253,10 +331,8 @@ public class MajorityElectionProcessor :
         await _candidateRepo.UpdateRange(candidates);
     }
 
-    public async Task Process(MajorityElectionCandidateDeleted eventData)
+    internal async Task DeleteCandidate(Guid id)
     {
-        var id = GuidParser.Parse(eventData.MajorityElectionCandidateId);
-
         var existingCandidate = await _candidateRepo.GetByKey(id);
         if (existingCandidate is null)
         {
@@ -266,40 +342,66 @@ public class MajorityElectionProcessor :
         }
 
         await _candidateRepo.DeleteByKey(id);
+        await _candidateRepo.Query()
+            .Where(c => c.MajorityElectionId == existingCandidate.MajorityElectionId && c.Position > existingCandidate.Position)
+            .ExecuteUpdateAsync(x => x.SetProperty(c => c.Position, c => c.Position - 1));
+    }
 
-        var candidatesToUpdate = await _candidateRepo.Query()
-            .Where(c => c.MajorityElectionId == existingCandidate.MajorityElectionId
-                && c.Position > existingCandidate.Position)
-            .ToListAsync();
-
-        foreach (var candidate in candidatesToUpdate)
-        {
-            candidate.Position--;
-        }
-
-        await _candidateRepo.UpdateRange(candidatesToUpdate);
+    internal async Task UpdateReferencedCandidate(MajorityElectionCandidateReferenceEventData eventData)
+    {
+        var id = GuidParser.Parse(eventData.Id);
+        await _candidateRepo.Query()
+            .Where(x => x.Id == id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(c => c.Incumbent, eventData.Incumbent)
+                .SetProperty(c => c.Number, eventData.Number)
+                .SetProperty(c => c.CheckDigit, eventData.CheckDigit));
     }
 
     private async Task UpdateCandidateReferences(MajorityElectionCandidate candidate)
     {
-        var candidateReferences = await _secondaryMajorityCandidateRepo.Query()
+        await UpdateSecondaryCandidateReferencesOnSeparateBallots(candidate);
+        await UpdateSecondaryCandidateReferences(candidate);
+    }
+
+    private async Task UpdateSecondaryCandidateReferencesOnSeparateBallots(MajorityElectionCandidate candidate)
+    {
+        var candidateReferences = await _candidateRepo.Query()
             .Where(c => c.CandidateReferenceId == candidate.Id)
             .ToListAsync();
 
         foreach (var candidateReference in candidateReferences)
         {
-            // cannot use the mapper here, since that would overwrite some fields that should be untouched (id, position, incumbent)
-            candidateReference.FirstName = candidate.FirstName;
-            candidateReference.LastName = candidate.LastName;
-            candidateReference.PoliticalFirstName = candidate.PoliticalFirstName;
-            candidateReference.PoliticalLastName = candidate.PoliticalLastName;
-            candidateReference.Locality = candidate.Locality;
-            candidateReference.Number = candidate.Number;
-            candidateReference.DateOfBirth = candidate.DateOfBirth;
-            candidateReference.Sex = candidate.Sex;
-            candidateReference.Title = candidate.Title;
-            candidateReference.ZipCode = candidate.ZipCode;
-            candidateReference.Origin = candidate.Origin;
+            UpdateCandidateReference(candidate, candidateReference);
+            candidateReference.Translations = candidate.Translations.Select(t => new MajorityElectionCandidateTranslation
+            {
+                Language = t.Language,
+                Occupation = t.Occupation,
+                OccupationTitle = t.OccupationTitle,
+                Party = t.Party,
+            }).ToList();
+        }
+
+        await _candidateTranslationRepo.Query()
+            .Where(t => t.MajorityElectionCandidate!.CandidateReferenceId == candidate.Id)
+            .ExecuteDeleteAsync();
+        await _candidateRepo.UpdateRange(candidateReferences);
+    }
+
+    private async Task UpdateSecondaryCandidateReferences(MajorityElectionCandidate candidate)
+    {
+        var candidateReferences = await _secondaryMajorityCandidateRepo.Query()
+            .Where(c => c.CandidateReferenceId == candidate.Id)
+            .ToListAsync();
+
+        if (candidateReferences.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var candidateReference in candidateReferences)
+        {
+            UpdateCandidateReference(candidate, candidateReference);
             candidateReference.Translations = candidate.Translations.Select(t => new SecondaryMajorityElectionCandidateTranslation
             {
                 Language = t.Language,
@@ -309,8 +411,27 @@ public class MajorityElectionProcessor :
             }).ToList();
         }
 
-        await _secondaryMajorityCandidateTranslationRepo.DeleteCandidateReferenceTranslations(candidate.Id);
+        await _secondaryMajorityCandidateTranslationRepo.Query()
+            .Where(t => t.SecondaryMajorityElectionCandidate!.CandidateReferenceId == candidate.Id)
+            .ExecuteDeleteAsync();
         await _secondaryMajorityCandidateRepo.UpdateRange(candidateReferences);
+    }
+
+    private void UpdateCandidateReference(
+        MajorityElectionCandidate candidate,
+        MajorityElectionCandidateBase candidateReference)
+    {
+        // cannot use the mapper here, since that would overwrite some fields that should be untouched (id, position, incumbent)
+        candidateReference.FirstName = candidate.FirstName;
+        candidateReference.LastName = candidate.LastName;
+        candidateReference.PoliticalFirstName = candidate.PoliticalFirstName;
+        candidateReference.PoliticalLastName = candidate.PoliticalLastName;
+        candidateReference.Locality = candidate.Locality;
+        candidateReference.DateOfBirth = candidate.DateOfBirth;
+        candidateReference.Sex = candidate.Sex;
+        candidateReference.Title = candidate.Title;
+        candidateReference.ZipCode = candidate.ZipCode;
+        candidateReference.Origin = candidate.Origin;
     }
 
     private void TruncateCandidateNumber(MajorityElectionCandidate candidate)

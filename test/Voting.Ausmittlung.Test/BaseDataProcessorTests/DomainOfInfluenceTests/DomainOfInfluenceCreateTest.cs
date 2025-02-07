@@ -46,6 +46,7 @@ public class DomainOfInfluenceCreateTest : DomainOfInfluenceProcessorBaseTest
                 Type = SharedProto.DomainOfInfluenceType.Bz,
                 Canton = SharedProto.DomainOfInfluenceCanton.Zh,
                 HasForeignerVoters = true,
+                HideLowerDomainOfInfluencesInReports = true,
             },
         });
 

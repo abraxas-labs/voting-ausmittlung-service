@@ -573,10 +573,13 @@
                 }
               ],
               "CandidateReferences": [],
+              "CandidateReferencesOfSecondaryElectionsOnSeparateBallot": [],
               "BallotGroupEntries": [],
               "CandidateResults": [],
               "BallotCandidatures": [],
               "EndResult": null,
+              "CandidateReferenceId": null,
+              "CandidateReference": null,
               "Party": "FDP de",
               "Occupation": "occupation de",
               "OccupationTitle": "occupation title de",

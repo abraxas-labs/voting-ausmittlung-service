@@ -45,7 +45,7 @@ public class CantonSettings : BaseEntity
 
     public bool StatePlausibilisedDisabled { get; set; }
 
-    public bool PublishResultsEnabled { get; set; }
+    public bool ManualPublishResultsEnabled { get; set; }
 
     public bool PublishResultsBeforeAuditedTentatively { get; set; }
 

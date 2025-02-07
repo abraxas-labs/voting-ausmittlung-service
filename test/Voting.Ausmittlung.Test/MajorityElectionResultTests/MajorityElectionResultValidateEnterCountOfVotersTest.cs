@@ -50,6 +50,11 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
 
             var candidateResult = result.CandidateResults.First();
             candidateResult.ConventionalVoteCount = 1500;
+
+            var secondaryResults = result.SecondaryMajorityElectionResults.ToList();
+            secondaryResults[0].ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += 5986;
+            secondaryResults[1].ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += 1994;
+            secondaryResults[2].ConventionalSubTotal.TotalCandidateVoteCountExclIndividual += 3700;
         });
     }
 
@@ -166,7 +171,16 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
     {
         var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
             x.Request.CountOfVoters.ConventionalAccountedBallots = 100));
-        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes)
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes && IsInMajorityElectionGroup(r))
+            .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsNotValidWhenNotSecondaryNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes()
+    {
+        var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
+            x.Request.CountOfVoters.ConventionalAccountedBallots = 100));
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyPlusInvalidVotes && IsInFirstSecondaryMajorityElectionGroup(r))
             .IsValid.Should().BeFalse();
     }
 
@@ -175,7 +189,20 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
     {
         var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
             x.Request.CountOfVoters.ConventionalAccountedBallots = 200));
-        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionAccountedBallotsGreaterOrEqualCandidateVotes)
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionAccountedBallotsGreaterOrEqualCandidateVotes && IsInMajorityElectionGroup(r))
+            .IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task ShouldReturnIsNotValidWhenNotSecondaryAccountedBallotsGreaterOrEqualCandidateVotes()
+    {
+        await ModifyDbEntities<SecondaryMajorityElectionCandidateResult>(
+            x => x.CandidateId == Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund),
+            x => x.ConventionalVoteCount = 100);
+
+        var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
+            x.Request.CountOfVoters.ConventionalAccountedBallots = 25));
+        result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.MajorityElectionAccountedBallotsGreaterOrEqualCandidateVotes && IsInFirstSecondaryMajorityElectionGroup(r))
             .IsValid.Should().BeFalse();
     }
 
@@ -273,7 +300,10 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
         {
             var result = db.MajorityElectionResults
                 .AsTracking()
+                .AsSplitQuery()
                 .Include(x => x.CandidateResults)
+                .Include(x => x.SecondaryMajorityElectionResults.OrderBy(y => y.SecondaryMajorityElection.PoliticalBusinessNumber))
+                .ThenInclude(x => x.CandidateResults)
                 .First(x => x.Id == MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund);
 
             customizer(result);
@@ -325,5 +355,15 @@ public class MajorityElectionResultValidateEnterCountOfVotersTest : MajorityElec
             pbResValidateResponse.ValidationResults
                 .Where(selector)
                 .ToList());
+    }
+
+    private bool IsInMajorityElectionGroup(ProtoModels.ValidationResult result)
+    {
+        return result.ValidationGroup == SharedProto.ValidationGroup.MajorityElection && result.GroupValue == "201: Mw SG de";
+    }
+
+    private bool IsInFirstSecondaryMajorityElectionGroup(ProtoModels.ValidationResult result)
+    {
+        return result.ValidationGroup == SharedProto.ValidationGroup.SecondaryMajorityElection && result.GroupValue == "n1: short de";
     }
 }

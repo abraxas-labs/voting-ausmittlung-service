@@ -41,12 +41,43 @@ public class SecondaryMajorityElectionCandidateReferenceCreateTest : BaseDataPro
                     SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
                     Position = 3,
                     Incumbent = false,
+                    Number = "1.2",
+                    CheckDigit = 4,
                     CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
                 },
             });
 
         var candidate = await RunOnDb(
             db => db.SecondaryMajorityElectionCandidates
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == id),
+            Languages.German);
+        SetDynamicIdToDefaultValue(candidate.Translations);
+        candidate.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestCreateCandidateReferenceOnSeparateBallot()
+    {
+        var id = Guid.Parse("4b585762-c6df-4d2e-ad82-d645cb421cec");
+        await TestEventPublisher.Publish(
+            new SecondaryMajorityElectionCandidateReferenceCreated
+            {
+                MajorityElectionCandidateReference = new MajorityElectionCandidateReferenceEventData
+                {
+                    Id = id.ToString(),
+                    IsOnSeparateBallot = true,
+                    SecondaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                    Position = 3,
+                    Incumbent = false,
+                    Number = "1.2",
+                    CheckDigit = 4,
+                    CandidateId = MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.MajorityElectionCandidates
                 .Include(x => x.Translations)
                 .FirstAsync(x => x.Id == id),
             Languages.German);
@@ -69,6 +100,8 @@ public class SecondaryMajorityElectionCandidateReferenceCreateTest : BaseDataPro
                     SecondaryMajorityElectionId = MajorityElectionEndResultMockedData.SecondaryElectionId,
                     Position = 5,
                     Incumbent = false,
+                    Number = "1.2",
+                    CheckDigit = 4,
                     CandidateId = MajorityElectionEndResultMockedData.CandidateId3,
                 },
             });
@@ -82,5 +115,38 @@ public class SecondaryMajorityElectionCandidateReferenceCreateTest : BaseDataPro
             Languages.German);
         SetDynamicIdToDefaultValue(candidate.Translations);
         candidate.MatchSnapshot(c => c.EndResult!.Id, c => c.EndResult!.SecondaryMajorityElectionEndResultId);
+    }
+
+    [Fact]
+    public async Task TestCreateCandidateReferenceAfterSubmissionStartedOnSeparateBallot()
+    {
+        await MajorityElectionEndResultMockedData.Seed(RunScoped, secondaryOnSeparateBallot: true);
+
+        var id = Guid.Parse("6a63829a-660d-46ac-bba7-9107334f1951");
+        await TestEventPublisher.Publish(
+            new SecondaryMajorityElectionCandidateReferenceCreated
+            {
+                MajorityElectionCandidateReference = new MajorityElectionCandidateReferenceEventData
+                {
+                    Id = id.ToString(),
+                    SecondaryMajorityElectionId = MajorityElectionEndResultMockedData.SecondaryElectionId,
+                    Position = 5,
+                    Incumbent = false,
+                    Number = "1.2",
+                    CheckDigit = 4,
+                    CandidateId = MajorityElectionEndResultMockedData.CandidateId3,
+                    IsOnSeparateBallot = true,
+                },
+            });
+
+        var candidate = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Where(x => x.Id == id)
+                .Include(x => x.EndResult)
+                .Include(x => x.Translations)
+                .FirstAsync(),
+            Languages.German);
+        SetDynamicIdToDefaultValue(candidate.Translations);
+        candidate.MatchSnapshot(c => c.EndResult!.Id, c => c.EndResult!.MajorityElectionEndResultId);
     }
 }

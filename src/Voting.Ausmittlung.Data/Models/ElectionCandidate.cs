@@ -18,7 +18,7 @@ public abstract class ElectionCandidate : BaseEntity
 
     public string PoliticalLastName { get; set; } = string.Empty;
 
-    public DateTime DateOfBirth { get; set; }
+    public DateTime? DateOfBirth { get; set; }
 
     public SexType Sex { get; set; }
 

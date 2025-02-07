@@ -29,7 +29,7 @@
       "CountingMachineEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true,
+      "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
     }
@@ -107,7 +107,7 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
       }
@@ -311,7 +311,10 @@
       "EmptyVoteCount": 0,
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "Calculation": {
+        "AbsoluteMajority": null
+      }
     },
     {
       "SecondaryMajorityElection": {
@@ -392,7 +395,10 @@
       "EmptyVoteCount": 0,
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "Calculation": {
+        "AbsoluteMajority": null
+      }
     },
     {
       "SecondaryMajorityElection": {
@@ -401,7 +407,7 @@
         "OfficialDescription": "official3 de",
         "ShortDescription": "short3 de",
         "NumberOfMandates": 2,
-        "Active": false,
+        "Active": true,
         "Title": "n3: short3 de",
         "IndividualCandidatesDisabled": false
       },
@@ -473,7 +479,10 @@
       "EmptyVoteCount": 0,
       "InvalidVoteCount": 0,
       "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "Calculation": {
+        "AbsoluteMajority": null
+      }
     }
   ],
   "EVotingSubTotal": {

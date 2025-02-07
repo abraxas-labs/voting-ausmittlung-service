@@ -50,6 +50,7 @@
         <Channel>EVoting</Channel>
         <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
       </ContestVotingCardDetail>
+      <CountingMachine>CalibratedScales</CountingMachine>
     </ContestDetails>
     <State>TestingPhase</State>
   </Contest>
@@ -76,6 +77,7 @@
     </VoteEndResult>
     <InternalDescription>Abstimmung Uzwil auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
+    <Type>Unspecified</Type>
   </Vote>
   <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
 </Voting>

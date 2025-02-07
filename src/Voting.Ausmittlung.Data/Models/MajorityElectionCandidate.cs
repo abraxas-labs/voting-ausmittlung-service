@@ -19,6 +19,8 @@ public class MajorityElectionCandidate : MajorityElectionCandidateBase
 
     public ICollection<SecondaryMajorityElectionCandidate> CandidateReferences { get; set; } = new HashSet<SecondaryMajorityElectionCandidate>();
 
+    public ICollection<MajorityElectionCandidate> CandidateReferencesOfSecondaryElectionsOnSeparateBallot { get; set; } = new HashSet<MajorityElectionCandidate>();
+
     public ICollection<MajorityElectionBallotGroupEntryCandidate> BallotGroupEntries { get; set; } = new HashSet<MajorityElectionBallotGroupEntryCandidate>();
 
     public ICollection<MajorityElectionCandidateResult> CandidateResults { get; set; } =
@@ -29,7 +31,15 @@ public class MajorityElectionCandidate : MajorityElectionCandidateBase
 
     public MajorityElectionCandidateEndResult? EndResult { get; set; }
 
-    public override string Party => Translations.GetTranslated(x => x.Party);
+    /// <summary>
+    /// Gets or sets the id of the referenced candidate.
+    /// This can only be set for secondary elections on separate ballots.
+    /// </summary>
+    public Guid? CandidateReferenceId { get; set; }
+
+    public MajorityElectionCandidate? CandidateReference { get; set; }
+
+    public override string Party => Translations.GetTranslated(x => x.Party, true);
 
     public override string Occupation => Translations.GetTranslated(x => x.Occupation, true);
 

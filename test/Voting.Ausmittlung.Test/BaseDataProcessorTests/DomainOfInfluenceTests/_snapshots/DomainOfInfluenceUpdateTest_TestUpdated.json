@@ -201,6 +201,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da"
     },
     {
@@ -246,6 +248,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "ade30989-5e28-40c7-918c-2c9408f853ba"
     },
     {
@@ -301,6 +305,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd"
     },
     {
@@ -356,6 +362,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": "d9f5e161-37f8-4c76-921d-c0237c54dc5b",
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "22949a1e-fb09-47ec-9e9f-d26675676565"
     },
     {
@@ -515,6 +523,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": true,
       "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
     },
     {
@@ -579,6 +589,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "87718a25-11e2-4ab1-b3a0-112baa11676e"
     },
     {
@@ -624,6 +636,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "6bb6e372-ffa2-45fd-9329-6c6a0bc8a752"
     },
     {
@@ -679,6 +693,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "d9f5e161-37f8-4c76-921d-c0237c54dc5b"
     }
   ]

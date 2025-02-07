@@ -12,11 +12,6 @@
         "EntityDescription": "Abst SG de"
       },
       {
-        "ExportTemplateId": "6aa42a6d-74b0-501f-b2ea-8241586e8d67",
-        "Description": "Abstimmung kantonal: Provisorische Ergebnisse",
-        "EntityDescription": "Abst SG de"
-      },
-      {
         "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
         "Description": "Protokoll E-Voting Ergebnisse",
         "EntityDescription": "Abst SG de"
@@ -40,6 +35,21 @@
         "ExportTemplateId": "c57ccfa3-e5e8-555b-bca8-473ad9797c73",
         "Description": "Majorz kantonal: Wahlprotokoll E-Voting",
         "EntityDescription": "Mw SG de"
+      },
+      {
+        "ExportTemplateId": "8fa29e4c-cbf7-592a-9128-ac132ddf0081",
+        "Description": "Majorz kantonal: Detailergebnisse",
+        "EntityDescription": "NW SG de"
+      },
+      {
+        "ExportTemplateId": "51ee9f39-8507-5ebc-b566-545c8765fbfa",
+        "Description": "Majorz kantonal: Wahlprotokoll",
+        "EntityDescription": "NW SG de"
+      },
+      {
+        "ExportTemplateId": "c1160dda-c3ff-54a0-8161-2cb9871511d9",
+        "Description": "Majorz kantonal: Wahlprotokoll E-Voting",
+        "EntityDescription": "NW SG de"
       },
       {
         "ExportTemplateId": "1c1dab0f-60f6-5930-bb66-f423a25a602d",
@@ -123,27 +133,32 @@
       {
         "ExportTemplateId": "5b120eda-86b5-5699-b733-cba31bf6a3ef",
         "Description": "WM_Gemeinden",
-        "EntityDescription": "Mw SG de"
+        "EntityDescription": "Mw SG de | NW SG de"
       },
       {
         "ExportTemplateId": "ccfdfd5f-f694-518b-bdae-685e464f6a96",
         "Description": "WM_Kandidaten",
-        "EntityDescription": "Mw SG de"
+        "EntityDescription": "Mw SG de | NW SG de"
       },
       {
         "ExportTemplateId": "9c102d41-1e93-5241-b478-64f1dc95dd12",
         "Description": "WM_KandidatenGde",
-        "EntityDescription": "Mw SG de"
+        "EntityDescription": "Mw SG de | NW SG de"
       },
       {
         "ExportTemplateId": "88803e76-69d3-516b-b137-d0e80fe1a7ba",
         "Description": "WM_Wahl",
-        "EntityDescription": "Mw SG de"
+        "EntityDescription": "Mw SG de | NW SG de"
       },
       {
         "ExportTemplateId": "7c5468cc-e49a-5b88-8a32-23473321e509",
         "Description": "WMStatic_Gemeinden",
-        "EntityDescription": "Mw SG de"
+        "EntityDescription": "Mw SG de | NW SG de"
+      },
+      {
+        "ExportTemplateId": "e34b9824-912b-5043-b84e-b8b0877bebea",
+        "Description": "CSV_Detailergebnisse",
+        "EntityDescription": "NW SG de"
       },
       {
         "ExportTemplateId": "aa66d822-7126-5207-bdd6-c46b068917a9",
@@ -310,6 +325,16 @@
         "EntityDescription": "Mw SG de"
       },
       {
+        "ExportTemplateId": "e506d386-9c05-512f-9322-a1061796cc94",
+        "Description": "Majorzwahlresultat (eCH-0110)",
+        "EntityDescription": "NW SG de"
+      },
+      {
+        "ExportTemplateId": "098f7fb6-04ff-5771-978f-c2680d492cf9",
+        "Description": "Rohdaten Majorzwahl (eCH-0222)",
+        "EntityDescription": "NW SG de"
+      },
+      {
         "ExportTemplateId": "b7f9b584-3ea5-517d-90a2-d0d46d6c2d3c",
         "Description": "Proporzwahlresultat (eCH-0110)",
         "EntityDescription": "Pw SG de"
@@ -342,6 +367,11 @@
         "ExportTemplateId": "e25c0b23-0b6f-5d4f-9d56-3d7353b46737",
         "Description": "Majorz kantonal: Gemeindeprotokoll",
         "EntityDescription": "Mw SG de"
+      },
+      {
+        "ExportTemplateId": "e611c0b4-16b8-54a5-87f2-4c318cb7831a",
+        "Description": "Majorz kantonal: Gemeindeprotokoll",
+        "EntityDescription": "NW SG de"
       },
       {
         "ExportTemplateId": "3afe9b75-78cb-5e6f-ac16-4cf68a686cf7",

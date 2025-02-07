@@ -51,6 +51,9 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
     [Fact]
     public async Task TestShouldWork()
     {
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenStFiden && x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.EVoting = true);
         var pdfTemplatesMonitoring = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf });
         var csvTemplatesMonitoring = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Csv });
         var xmlTemplatesMonitoring = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Xml });
@@ -73,6 +76,9 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
         await ModifyDbEntities<SimplePoliticalBusiness>(
             _ => true,
             pb => pb.EndResultFinalized = true);
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenStFiden && x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.EVoting = true);
         var pdfTemplatesMonitoring = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf });
         pdfTemplatesMonitoring.MatchSnapshot("PdfMonitoring");
     }
@@ -191,6 +197,52 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
     }
 
     [Fact]
+    public async Task ContestCountingCircleDetailsEVotingShouldFilter()
+    {
+        var tenantId = SecureConnectTestDefaults.MockedTenantGossau.Id;
+
+        var exportTemplateIds = new List<string>
+        {
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
+                    tenantId,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
+                    tenantId,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
+                    tenantId,
+                    countingCircleId: CountingCircleMockedData.GuidGossau,
+                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                .ToString(),
+        };
+
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.PoliticalBusinessType == PoliticalBusinessType.MajorityElection,
+            pb => pb.EndResultFinalized = true);
+
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.PoliticalBusinessType == PoliticalBusinessType.ProportionalElection,
+            pb => pb.EndResultFinalized = true);
+
+        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, tenantId: tenantId);
+        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
+
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau && x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            x => x.EVoting = false);
+
+        var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, tenantId: tenantId);
+        resultAfter.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
+    }
+
+    [Fact]
     public async Task CountingCircleEVotingShouldFilter()
     {
         var tenantId = SecureConnectTestDefaults.MockedTenantGossau.Id;
@@ -201,19 +253,19 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
                     AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: MajorityElectionMockedData.GossauMajorityElectionInContestStGallen.Id)
+                    politicalBusinessId: MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id)
                 .ToString(),
             AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
                 .ToString(),
             AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.GossauProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
                 .ToString(),
         };
 
@@ -221,11 +273,15 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
             x => x.PoliticalBusinessType == PoliticalBusinessType.MajorityElection,
             pb => pb.EndResultFinalized = true);
 
-        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, tenantId: tenantId);
-        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().NotBeEmpty();
+        await ModifyDbEntities<SimplePoliticalBusiness>(
+            x => x.PoliticalBusinessType == PoliticalBusinessType.ProportionalElection,
+            pb => pb.EndResultFinalized = true);
 
-        await ModifyDbEntities<ContestCountingCircleDetails>(
-            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau && x.ContestId == Guid.Parse(ContestMockedData.IdStGallenEvoting),
+        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, tenantId: tenantId);
+        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
+
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidGossau,
             x => x.EVoting = false);
 
         var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, tenantId: tenantId);
@@ -261,7 +317,7 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
             pb => pb.EndResultFinalized = true);
 
         var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null);
-        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().NotBeEmpty();
+        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
 
         await ModifyDbEntities<Contest>(
             x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
@@ -269,6 +325,16 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
 
         var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null);
         resultAfter.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
+
+        await ModifyDbEntities<Contest>(
+            x => x.Id == Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            x => x.EVoting = true);
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenStFiden && x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.EVoting = false);
+
+        var resultAfterSecondCase = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null);
+        resultAfterSecondCase.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
     }
 
     [Fact]
@@ -341,6 +407,12 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
                     countingCircleId: CountingCircleMockedData.GuidUzwil,
                     domainOfInfluenceType: DomainOfInfluenceMockedData.Uzwil.Type)
                 .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    politicalBusinessId: Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdUzwilMajorityElectionInContestStGallen))
+                .ToString(),
         };
 
         var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwil, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
@@ -360,10 +432,71 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
         });
 
         var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwil, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
-        foreach (var exportTemplateId in exportTemplateIds)
+        resultAfter.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
+    }
+
+    [Fact]
+    public async Task MultipleCountingCirclesShouldNotFilterForCantonZh()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Uzwil.Id && x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting,
+            x => x.Canton = DomainOfInfluenceCanton.Zh);
+
+        var exportTemplateIds = new List<string>
         {
-            resultAfter.Find(x => x.ExportTemplateId == exportTemplateId).Should().NotBeNull();
-        }
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    politicalBusinessId: MajorityElectionMockedData.UzwilMajorityElectionInContestStGallen.Id)
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    countingCircleId: CountingCircleMockedData.GuidUzwil,
+                    politicalBusinessId: Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdUzwilMajorityElectionInContestStGallen))
+                .ToString(),
+        };
+
+        var templates = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidUzwil, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        templates.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
+    }
+
+    [Fact]
+    public async Task MultipleCountingCirclesAsMonitoringElectionAdminShouldFilter()
+    {
+        var exportTemplateIds = new List<string>
+        {
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    politicalBusinessId: Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen))
+                .ToString(),
+            AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol.Key,
+                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
+                    politicalBusinessId: Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen))
+                .ToString(),
+        };
+
+        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        resultBefore.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().BeEmpty();
+
+        await TestEventPublisher.Publish(new DomainOfInfluenceCountingCircleEntriesUpdated
+        {
+            DomainOfInfluenceCountingCircleEntries = new DomainOfInfluenceCountingCircleEntriesEventData
+            {
+                Id = DomainOfInfluenceMockedData.IdUzwil,
+                CountingCircleIds =
+                {
+                    CountingCircleMockedData.IdUzwil,
+                    CountingCircleMockedData.IdUzwilKirche,
+                },
+            },
+        });
+
+        var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
+        resultAfter.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
     }
 
     private async Task<List<DataExportTemplate>> FetchExportTemplates(Guid contestId, Guid? countingCircleId = null, ExportFileFormat[]? formats = null, string? tenantId = null)

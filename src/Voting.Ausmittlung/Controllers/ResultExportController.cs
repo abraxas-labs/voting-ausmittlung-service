@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Voting.Ausmittlung.Controllers.Models;
@@ -24,18 +23,15 @@ public class ResultExportController : ControllerBase
 {
     private readonly ResultExportService _resultExportService;
     private readonly ProtocolExportService _protocolExportService;
-    private readonly IMapper _mapper;
     private readonly IClock _clock;
 
     public ResultExportController(
         ResultExportService resultExportService,
         ProtocolExportService protocolExportService,
-        IMapper mapper,
         IClock clock)
     {
         _resultExportService = resultExportService;
         _protocolExportService = protocolExportService;
-        _mapper = mapper;
         _clock = clock;
     }
 

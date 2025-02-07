@@ -115,7 +115,7 @@ public class MajorityElectionResultBundleWriter
             selectedCandidateIds.Count);
 
         EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
-        ValidateSecondaryResults(electionResult, secondaryResults);
+        ValidateSecondaryResults(electionResult, secondaryResults, selectedCandidateIds);
 
         aggregate.CreateBallot(emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
         await AggregateRepository.Save(aggregate);
@@ -147,7 +147,7 @@ public class MajorityElectionResultBundleWriter
             selectedCandidateIds.Count);
 
         EnsureNoDisabledVoteCount(individualVoteCount, electionResult.MajorityElection);
-        ValidateSecondaryResults(electionResult, secondaryResults);
+        ValidateSecondaryResults(electionResult, secondaryResults, selectedCandidateIds);
 
         aggregate.UpdateBallot(ballotNumber, emptyVoteCount.Value, individualVoteCount, invalidVoteCount, selectedCandidateIds, secondaryResults, contestId);
         await AggregateRepository.Save(aggregate);
@@ -213,7 +213,7 @@ public class MajorityElectionResultBundleWriter
                    .Include(x => x.MajorityElection.DomainOfInfluence)
                    .Include(x => x.MajorityElection.Contest)
                    .Include(x => x.CandidateResults)
-                   .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+                   .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults).ThenInclude(c => c.Candidate)
                    .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection)
                    .FirstOrDefaultAsync(x => x.Id == id)
                ?? throw new EntityNotFoundException(id);
@@ -228,7 +228,8 @@ public class MajorityElectionResultBundleWriter
 
     private void ValidateSecondaryResults(
         DataModels.MajorityElectionResult electionResult,
-        IEnumerable<SecondaryMajorityElectionResultBallot> secondaryResults)
+        IEnumerable<SecondaryMajorityElectionResultBallot> secondaryResults,
+        IReadOnlyCollection<Guid> primaryElectionSelectedCandidateIds)
     {
         var secondaryElectionResultsByElectionId = electionResult.SecondaryMajorityElectionResults
             .ToDictionary(x => x.SecondaryMajorityElectionId);
@@ -242,6 +243,12 @@ public class MajorityElectionResultBundleWriter
             EnsureValidCandidates(
                 secondaryElectionResult.CandidateResults.Select(x => x.CandidateId),
                 secondaryResult.SelectedCandidateIds);
+
+            EnsureSelectedCandidatesAreSelectedInPrimaryElection(
+                secondaryElectionResult,
+                secondaryResult,
+                primaryElectionSelectedCandidateIds);
+
             secondaryResult.EmptyVoteCount = CalculateAndValidateEmptyVoteCount(
                 secondaryResult.EmptyVoteCount,
                 secondaryElectionResult.SecondaryMajorityElection.NumberOfMandates,
@@ -251,6 +258,24 @@ public class MajorityElectionResultBundleWriter
                 secondaryResult.SelectedCandidateIds.Count);
 
             EnsureNoDisabledVoteCount(secondaryResult.IndividualVoteCount, secondaryElectionResult.SecondaryMajorityElection);
+        }
+    }
+
+    private void EnsureSelectedCandidatesAreSelectedInPrimaryElection(
+        DataModels.SecondaryMajorityElectionResult secondaryElectionResult,
+        SecondaryMajorityElectionResultBallot secondaryResult,
+        IReadOnlyCollection<Guid> primaryElectionSelectedCandidateIds)
+    {
+        var candidatesById = secondaryElectionResult.CandidateResults
+            .Select(x => x.Candidate)
+            .ToDictionary(x => x.Id, x => x);
+        foreach (var secondarySelectedCandidateId in secondaryResult.SelectedCandidateIds)
+        {
+            var refId = candidatesById[secondarySelectedCandidateId].CandidateReferenceId;
+            if (refId.HasValue && !primaryElectionSelectedCandidateIds.Contains(refId.Value))
+            {
+                throw new SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException();
+            }
         }
     }
 

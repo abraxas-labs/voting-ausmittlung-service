@@ -1,0 +1,43 @@
+{
+  "MajorityElectionId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+  "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+  "MajorityElection": null,
+  "Translations": [
+    {
+      "MajorityElectionCandidateId": "d849b362-9ae0-4a2e-a10a-033a25ed4075",
+      "Occupation": "occupation de",
+      "OccupationTitle": "occupation title de",
+      "Party": "GLP de",
+      "Language": "de",
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "CandidateReferences": [],
+  "CandidateReferencesOfSecondaryElectionsOnSeparateBallot": [],
+  "BallotGroupEntries": [],
+  "CandidateResults": [],
+  "BallotCandidatures": [],
+  "EndResult": null,
+  "CandidateReferenceId": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc",
+  "CandidateReference": null,
+  "Party": "GLP de",
+  "Occupation": "occupation de",
+  "OccupationTitle": "occupation title de",
+  "Description": "1.2 pol last name pol first name",
+  "CreatedDuringActiveContest": false,
+  "Number": "1.2",
+  "FirstName": "firstName",
+  "LastName": "lastName",
+  "PoliticalFirstName": "pol first name",
+  "PoliticalLastName": "pol last name",
+  "DateOfBirth": "1960-01-13T00:00:00Z",
+  "Sex": 2,
+  "Title": "title",
+  "Incumbent": true,
+  "ZipCode": "zip code",
+  "Locality": "locality",
+  "Position": 1,
+  "Origin": "origin",
+  "CheckDigit": 4,
+  "Id": "d849b362-9ae0-4a2e-a10a-033a25ed4075"
+}

@@ -49,7 +49,7 @@ public class WabstiCWPStaticKandidatenRenderService : WabstiCWPBaseRenderService
                 Locality = x.Locality,
                 Sex = x.Sex,
                 Title = x.Title,
-                BirthYear = x.DateOfBirth.Year,
+                BirthYear = x.DateOfBirth.HasValue ? x.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                 FirstName = x.PoliticalFirstName,
                 LastName = x.PoliticalLastName,
                 CandidateTranslations = x.Translations,

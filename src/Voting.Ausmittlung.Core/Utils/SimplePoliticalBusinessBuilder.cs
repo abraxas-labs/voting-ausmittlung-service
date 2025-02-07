@@ -86,14 +86,18 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
     public async Task MoveToNewContest(Guid politicalBusinessId, Guid newContestId)
     {
         var politicalBusiness = await _politicalBusinessRepo.Query()
-            .AsSplitQuery()
-            .Where(x => x.Id == politicalBusinessId)
-            .Include(x => x.DomainOfInfluence)
-            .Include(x => x.SimpleResults)
-            .ThenInclude(x => x.CountingCircle)
-            .FirstOrDefaultAsync()
-            ?? throw new EntityNotFoundException(politicalBusinessId);
+                                    .AsSplitQuery()
+                                    .Where(x => x.Id == politicalBusinessId)
+                                    .Include(x => x.DomainOfInfluence)
+                                    .Include(x => x.SimpleResults)
+                                    .ThenInclude(x => x.CountingCircle)
+                                    .FirstOrDefaultAsync()
+                                ?? throw new EntityNotFoundException(politicalBusinessId);
+        await MoveToNewContest(politicalBusiness, newContestId);
+    }
 
+    public async Task MoveToNewContest(SimplePoliticalBusiness politicalBusinessWithResults, Guid newContestId)
+    {
         var countingCircleMap = await _countingCircleRepo.Query()
             .Where(cc => cc.SnapshotContestId == newContestId)
             .ToDictionaryAsync(x => x.BasisCountingCircleId, x => x.Id);
@@ -102,17 +106,17 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
             .Where(x => x.SnapshotContestId == newContestId)
             .ToDictionaryAsync(x => x.BasisDomainOfInfluenceId, x => x.Id);
 
-        politicalBusiness.DomainOfInfluenceId = MapToNewId(domainOfInfluenceIdMap, politicalBusiness.DomainOfInfluence.BasisDomainOfInfluenceId);
-        politicalBusiness.DomainOfInfluence = null!;
+        politicalBusinessWithResults.DomainOfInfluenceId = MapToNewId(domainOfInfluenceIdMap, politicalBusinessWithResults.DomainOfInfluence.BasisDomainOfInfluenceId);
+        politicalBusinessWithResults.DomainOfInfluence = null!;
 
-        foreach (var countingCircleResult in politicalBusiness.SimpleResults)
+        foreach (var countingCircleResult in politicalBusinessWithResults.SimpleResults)
         {
             countingCircleResult.CountingCircleId = MapToNewId(countingCircleMap, countingCircleResult.CountingCircle!.BasisCountingCircleId);
             countingCircleResult.CountingCircle = null!;
         }
 
-        politicalBusiness.ContestId = newContestId;
-        await _politicalBusinessRepo.Update(politicalBusiness);
+        politicalBusinessWithResults.ContestId = newContestId;
+        await _politicalBusinessRepo.Update(politicalBusinessWithResults);
     }
 
     public async Task AdjustCountOfSecondaryBusinesses(Guid primaryBusinessId, int delta)

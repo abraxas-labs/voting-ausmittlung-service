@@ -112,6 +112,15 @@ public class VoteDomainOfInfluenceResultBuilder
             doiSubTotal.TotalCountOfAnswerNo += ccSubTotal.TotalCountOfAnswerNo;
             doiSubTotal.TotalCountOfAnswerUnspecified += ccSubTotal.TotalCountOfAnswerUnspecified;
         });
+
+        if (ccResult.HasMajority)
+        {
+            doiResult.CountOfCountingCircleYes++;
+        }
+        else
+        {
+            doiResult.CountOfCountingCircleNo++;
+        }
     }
 
     private void ApplyTieBreakQuestionResult(TieBreakQuestionDomainOfInfluenceResult doiResult, TieBreakQuestionResult ccResult)

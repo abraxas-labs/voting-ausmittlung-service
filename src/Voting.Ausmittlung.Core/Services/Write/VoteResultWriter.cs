@@ -27,7 +27,6 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 {
     private readonly ILogger<VoteResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.VoteResult> _voteResultRepo;
-    private readonly IDbRepository<DataContext, DataModels.Contest> _contestRepo;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
     private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
@@ -37,7 +36,6 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         PermissionService permissionService,
         ContestService contestService,
         IDbRepository<DataContext, DataModels.VoteResult> voteResultRepo,
-        IDbRepository<DataContext, DataModels.Contest> contestRepo,
         ValidationResultsEnsurer validationResultsEnsurer,
         SecondFactorTransactionWriter secondFactorTransactionWriter,
         IAuth auth)
@@ -45,7 +43,6 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     {
         _logger = logger;
         _voteResultRepo = voteResultRepo;
-        _contestRepo = contestRepo;
         _validationResultsEnsurer = validationResultsEnsurer;
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
@@ -131,9 +128,8 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid voteResultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(voteResultId);
-
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        await EnsurePoliticalBusinessPermissions(voteResult);
         if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
         {
             return default;
@@ -187,9 +183,8 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid voteResultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(voteResultId);
-
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
+        await EnsurePoliticalBusinessPermissions(voteResult);
         if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
         {
             return default;

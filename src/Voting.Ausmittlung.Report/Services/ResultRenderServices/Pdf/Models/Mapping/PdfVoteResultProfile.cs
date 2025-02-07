@@ -14,7 +14,7 @@ public class PdfVoteResultProfile : Profile
         CreateMap<VoteResult, PdfVoteResult>();
         CreateMap<BallotResult, PdfBallotResult>();
         CreateMap<BallotQuestionResult, PdfBallotQuestionResult>();
-        CreateMap<BallotQuestionDomainOfInfluenceResult, PdfBallotQuestionResult>();
+        CreateMap<BallotQuestionDomainOfInfluenceResult, PdfBallotQuestionDomainOfInfluenceResult>();
         CreateMap<BallotQuestionResultSubTotal, PdfBallotQuestionResultSubTotal>()
             .ForMember(dst => dst.CountOfAnswerTotal, opts => opts.MapFrom(src =>
                     src.TotalCountOfAnswerYes + src.TotalCountOfAnswerNo + src.TotalCountOfAnswerUnspecified))

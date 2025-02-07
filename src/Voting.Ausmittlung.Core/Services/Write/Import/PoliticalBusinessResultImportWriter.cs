@@ -26,6 +26,7 @@ public abstract class PoliticalBusinessResultImportWriter<TAggregate, TResult>
 
     internal async IAsyncEnumerable<CountingCircleResultAggregate> EnsureAllCountingCirclesInSubmissionOrCorrection(
         Guid contestId,
+        bool testingPhaseEnded,
         IReadOnlyCollection<Guid> countingCircleIds)
     {
         var resultIds = await BuildResultsQuery(contestId)
@@ -41,20 +42,7 @@ public abstract class PoliticalBusinessResultImportWriter<TAggregate, TResult>
         var aggregates = await Task.WhenAll(aggregateLoadingTasks);
         foreach (var aggregate in aggregates.WhereNotNull())
         {
-            switch (aggregate.State)
-            {
-                case CountingCircleResultState.Initial:
-                case CountingCircleResultState.SubmissionOngoing:
-                case CountingCircleResultState.ReadyForCorrection:
-                    continue;
-                case CountingCircleResultState.SubmissionDone:
-                case CountingCircleResultState.CorrectionDone:
-                    aggregate.FlagForCorrection(contestId);
-                    yield return aggregate;
-                    break;
-                default:
-                    throw new CountingCircleResultInInvalidStateForEVotingImportException(aggregate.Id);
-            }
+            yield return FlagForCorrection(aggregate, testingPhaseEnded, contestId);
         }
     }
 
@@ -62,4 +50,35 @@ public abstract class PoliticalBusinessResultImportWriter<TAggregate, TResult>
         => _aggregateRepository.TryGetById<TAggregate>(id);
 
     protected abstract IQueryable<TResult> BuildResultsQuery(Guid contestId);
+
+    private CountingCircleResultAggregate FlagForCorrection(CountingCircleResultAggregate aggregate, bool testingPhaseEnded, Guid contestId)
+    {
+        if (testingPhaseEnded && (aggregate.State == CountingCircleResultState.AuditedTentatively || aggregate.State == CountingCircleResultState.Plausibilised))
+        {
+            throw new CountingCircleResultInInvalidStateForEVotingImportException(aggregate.Id);
+        }
+
+        switch (aggregate.State)
+        {
+            case CountingCircleResultState.Initial:
+            case CountingCircleResultState.SubmissionOngoing:
+            case CountingCircleResultState.ReadyForCorrection:
+                return aggregate;
+            case CountingCircleResultState.SubmissionDone:
+            case CountingCircleResultState.CorrectionDone:
+                aggregate.FlagForCorrection(contestId);
+                return aggregate;
+            case CountingCircleResultState.AuditedTentatively:
+                aggregate.ResetToSubmissionFinished(contestId);
+                aggregate.FlagForCorrection(contestId);
+                return aggregate;
+            case CountingCircleResultState.Plausibilised:
+                aggregate.ResetToAuditedTentatively(contestId);
+                aggregate.ResetToSubmissionFinished(contestId);
+                aggregate.FlagForCorrection(contestId);
+                return aggregate;
+            default:
+                return aggregate;
+        }
+    }
 }

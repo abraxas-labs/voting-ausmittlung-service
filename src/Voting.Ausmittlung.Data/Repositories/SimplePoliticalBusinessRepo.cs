@@ -71,34 +71,15 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
     }
 
     /// <summary>
-    /// Gets accessible political businesses for a tenant (accessible = tenant has a domain of influence permission entry with
-    /// a matching counting circle id entry).
+    /// Gets accessible political businesses for a tenant (accessible = tenant is responsible for counting the result).
+    /// During the testing phase, the contest owner also has access.
     /// </summary>
     /// <param name="tenantId">Tenant id.</param>
     /// <returns>A political business queryable.</returns>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened interpolated string parameters.")]
     public IQueryable<SimplePoliticalBusiness> BuildAccessibleQuery(string tenantId)
     {
-        var permissionCcIdsColumn = _permissionRepo.GetColumnName(x => x.CountingCircleIds);
-        var permissionBasisDoiIdColumn = _permissionRepo.GetColumnName(x => x.BasisDomainOfInfluenceId);
-        var permissionTenantIdColumn = _permissionRepo.GetColumnName(x => x.TenantId);
-        var ccResultPbIdColumn = _simpleCcResultRepo.GetColumnName(x => x.PoliticalBusinessId);
-        var ccResultCcIdColumn = _simpleCcResultRepo.GetColumnName(x => x.CountingCircleId);
-        var pbIdColumn = GetDelimitedColumnName(x => x.Id);
-
-        // Access to a political business is decided by the participating counting circles.
-        // The tenant must either be the responsible authority of a participating counting circle
-        // or the responsible authority of a domain of influence which has an assigned participating counting circle.
-        return Set.FromSqlRaw(
-            $@"WITH permission_query AS (
-                SELECT ccr.{ccResultPbIdColumn}
-                FROM {_permissionRepo.DelimetedTableName} dp
-                JOIN {_simpleCcResultRepo.DelimetedTableName} ccr ON ccr.{ccResultCcIdColumn} = ANY(dp.{permissionCcIdsColumn})
-                WHERE {permissionTenantIdColumn} = {{0}}
-            )
-            SELECT pb.* FROM {DelimitedSchemaAndTableName} AS pb WHERE EXISTS (
-                SELECT 1 FROM permission_query WHERE permission_query.{ccResultPbIdColumn} = pb.{pbIdColumn}
-            )",
-            tenantId);
+        return Query()
+            .Where(pb => pb.SimpleResults.Any(ccr => ccr.CountingCircle!.ResponsibleAuthority.SecureConnectId == tenantId)
+                || (pb.Contest.DomainOfInfluence.SecureConnectId == tenantId && pb.Contest.State <= ContestState.TestingPhase));
     }
 }

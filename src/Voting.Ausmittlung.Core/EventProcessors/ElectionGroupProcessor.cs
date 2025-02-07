@@ -14,7 +14,9 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class ElectionGroupProcessor :
     IEventProcessor<ElectionGroupCreated>,
+#pragma warning disable CS0612 // Type or member is obsolete
     IEventProcessor<ElectionGroupUpdated>,
+#pragma warning restore CS0612 // Type or member is obsolete
     IEventProcessor<ElectionGroupDeleted>
 {
     private readonly IDbRepository<DataContext, ElectionGroup> _repo;
@@ -32,7 +34,9 @@ public class ElectionGroupProcessor :
         await _repo.Create(model);
     }
 
+#pragma warning disable CS0612 // Type or member is obsolete
     public async Task Process(ElectionGroupUpdated eventData)
+#pragma warning restore CS0612 // Type or member is obsolete
     {
         var id = GuidParser.Parse(eventData.ElectionGroupId);
         var model = await _repo.GetByKey(id)

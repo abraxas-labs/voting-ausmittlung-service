@@ -97,27 +97,42 @@
     {
       "ExportTemplateId": "5b120eda-86b5-5699-b733-cba31bf6a3ef",
       "Description": "WM_Gemeinden",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de | NW SG de"
     },
     {
       "ExportTemplateId": "ccfdfd5f-f694-518b-bdae-685e464f6a96",
       "Description": "WM_Kandidaten",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de | NW SG de"
     },
     {
       "ExportTemplateId": "9c102d41-1e93-5241-b478-64f1dc95dd12",
       "Description": "WM_KandidatenGde",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de | NW SG de"
     },
     {
       "ExportTemplateId": "88803e76-69d3-516b-b137-d0e80fe1a7ba",
       "Description": "WM_Wahl",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de | NW SG de"
     },
     {
       "ExportTemplateId": "7c5468cc-e49a-5b88-8a32-23473321e509",
       "Description": "WMStatic_Gemeinden",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de | NW SG de"
+    },
+    {
+      "ExportTemplateId": "e34b9824-912b-5043-b84e-b8b0877bebea",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "NW SG de"
+    },
+    {
+      "ExportTemplateId": "e506d386-9c05-512f-9322-a1061796cc94",
+      "Description": "Majorzwahlresultat (eCH-0110)",
+      "EntityDescription": "NW SG de"
+    },
+    {
+      "ExportTemplateId": "098f7fb6-04ff-5771-978f-c2680d492cf9",
+      "Description": "Rohdaten Majorzwahl (eCH-0222)",
+      "EntityDescription": "NW SG de"
     },
     {
       "ExportTemplateId": "aa66d822-7126-5207-bdd6-c46b068917a9",

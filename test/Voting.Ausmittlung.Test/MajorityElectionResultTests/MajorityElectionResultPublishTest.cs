@@ -151,7 +151,7 @@ public class MajorityElectionResultPublishTest : MajorityElectionResultBaseTest
             var cantonDefaults = await db.ContestCantonDefaults.AsSplitQuery().AsTracking().SingleAsync(x =>
                 x.ContestId == ContestMockedData.GuidBundesurnengang);
 
-            cantonDefaults.PublishResultsEnabled = false;
+            cantonDefaults.ManualPublishResultsEnabled = false;
             await db.SaveChangesAsync();
         });
 
@@ -176,6 +176,22 @@ public class MajorityElectionResultPublishTest : MajorityElectionResultBaseTest
                 NewValidRequest()),
             StatusCode.InvalidArgument,
             $"cannot publish or unpublish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowDoiPublishDisabled()
+    {
+        await RunToState(CountingCircleResultState.AuditedTentatively);
+
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.PublishResultsDisabled = true);
+
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.PublishAsync(
+                NewValidRequest()),
+            StatusCode.InvalidArgument,
+            "Cannot publish or unpublish for domain of influence with publish results disabled");
     }
 
     [Fact]

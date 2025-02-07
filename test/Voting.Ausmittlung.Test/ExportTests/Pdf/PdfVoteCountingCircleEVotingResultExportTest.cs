@@ -97,6 +97,9 @@ public class PdfVoteCountingCircleEVotingResultExportTest : PdfExportBaseTest
 
             await db.SaveChangesAsync();
         });
+        await ModifyDbEntities<CountingCircle>(
+            x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen,
+            x => x.EVoting = true);
     }
 
     protected override StartProtocolExportsRequest NewRequest()

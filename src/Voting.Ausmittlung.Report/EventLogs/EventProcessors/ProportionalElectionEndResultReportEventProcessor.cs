@@ -12,7 +12,8 @@ public class ProportionalElectionEndResultReportEventProcessor :
     IReportEventProcessor<ProportionalElectionListEndResultLotDecisionsUpdated>,
     IReportEventProcessor<ProportionalElectionEndResultFinalized>,
     IReportEventProcessor<ProportionalElectionEndResultFinalizationReverted>,
-    IReportEventProcessor<ProportionalElectionManualListEndResultEntered>
+    IReportEventProcessor<ProportionalElectionManualListEndResultEntered>,
+    IReportEventProcessor<ProportionalElectionListEndResultListLotDecisionsUpdated>
 {
     public override PoliticalBusinessType Type => PoliticalBusinessType.ProportionalElection;
 
@@ -32,6 +33,11 @@ public class ProportionalElectionEndResultReportEventProcessor :
     }
 
     public EventLog? Process(ProportionalElectionManualListEndResultEntered eventData, EventLogBuilderContext context)
+    {
+        return Process(GuidParser.Parse(eventData.ProportionalElectionId));
+    }
+
+    public EventLog? Process(ProportionalElectionListEndResultListLotDecisionsUpdated eventData, EventLogBuilderContext context)
     {
         return Process(GuidParser.Parse(eventData.ProportionalElectionId));
     }

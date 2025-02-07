@@ -53,6 +53,7 @@ public class DomainOfInfluenceUpdateTest : DomainOfInfluenceProcessorBaseTest
                     ParentId = DomainOfInfluenceMockedData.IdBund,
                     Type = SharedProto.DomainOfInfluenceType.Ct,
                     HasForeignerVoters = true,
+                    HideLowerDomainOfInfluencesInReports = true,
                 },
             });
 

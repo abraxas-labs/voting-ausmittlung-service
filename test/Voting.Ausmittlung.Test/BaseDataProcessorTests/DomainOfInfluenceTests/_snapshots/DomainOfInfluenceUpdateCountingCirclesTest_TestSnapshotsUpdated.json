@@ -45,6 +45,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "bd46adc1-b193-5fa7-b8e6-f5eca5d90af8",
@@ -158,6 +160,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "e2875b43-e2ce-5802-bcca-0777af045580",
@@ -271,6 +275,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "71f3f5bd-27a1-519f-af88-bf6ebf455964",
@@ -323,7 +329,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -384,6 +390,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "17d06690-745d-5569-a866-bab6c1f1b6d5",
@@ -497,6 +505,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "8b0a599f-2cdf-5a36-a191-57e6bed01c11",
@@ -610,6 +620,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "260f0eb2-c37e-5e2d-a18a-899554fcc8fe"
       },
       "CountingCircleId": "02a6196d-c5f0-5732-a964-aee669dcf133",
@@ -723,6 +735,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "a5ce1088-ad77-5d99-9c5a-1da5dbcf0193",
@@ -836,6 +850,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "1a54d1c8-9a6f-5ea1-bd7e-2bd3be142f8a",
@@ -949,6 +965,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "30b3dc42-d1b2-58a1-b23f-d26a9e1f4cc1",
@@ -1062,6 +1080,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "8a0bbafb-e595-57bb-8983-25fa217391c8",
@@ -1114,7 +1134,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -1175,6 +1195,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "b4e028be-cbbf-5b2e-befb-132dd4644e15",
@@ -1288,6 +1310,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "6c51a2a1-f5ad-5de5-8a69-23126629cbc7"
       },
       "CountingCircleId": "891d223c-5ddc-5e2d-aadd-201d4a68c811",
@@ -1401,6 +1425,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "9a04e7fa-0f62-5f58-b654-7bea25484a01",
@@ -1514,6 +1540,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "cfdb2fb8-4f63-5f3a-8922-a85b1f4e2584",
@@ -1627,6 +1655,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "ba5c1255-8234-5fad-9a64-4f7d4988dc25",
@@ -1740,6 +1770,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "1cfab427-5f90-5d56-8385-8c85d5ac377b",
@@ -1792,7 +1824,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -1853,6 +1885,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "dcadf613-36bd-517e-86fe-955a9cbb37f3",
@@ -1966,6 +2000,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "a385a9a0-cb29-570d-9d9b-a6b5ccb189d5"
       },
       "CountingCircleId": "558f7b24-27b4-5205-8592-873b52d55331",
@@ -2079,6 +2115,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "b38bd3dc-278d-5a33-bef2-b27f5e36d019",
@@ -2192,6 +2230,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "1aa343cd-eaec-59e9-9c78-7dff7ca26093",
@@ -2305,6 +2345,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "8aee2cdf-1cac-562f-b6c6-c8f1c496cda6",
@@ -2357,7 +2399,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -2418,6 +2460,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "db8b24c5-9206-506f-b3a1-0f8ab42eea81",
@@ -2531,6 +2575,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "58bf9c3e-d093-58be-a3fd-c3c7f7fcd7ec",
@@ -2644,6 +2690,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "dc5dad27-9ca0-58fd-8e8f-7ee0756c6424"
       },
       "CountingCircleId": "733ad7f6-d3b0-5f43-9a54-0e904b137073",
@@ -2757,6 +2805,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "0be74948-16fe-5995-ab35-3e4f84962ca4",
@@ -2870,6 +2920,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "271e57bd-e0d0-5a27-bc8c-3b5df31ba4e0",
@@ -2983,6 +3035,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "b7df1899-6f55-5b34-a01a-a6482d9da008",
@@ -3035,7 +3089,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -3096,6 +3150,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "49826ad0-fe91-5a00-8db0-62f8f72e5f23",
@@ -3209,6 +3265,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "934c5a04-ed2a-5675-887f-00c2daa4b46d",
@@ -3322,6 +3380,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "fef66b77-d147-5116-936c-7533bb665630"
       },
       "CountingCircleId": "afda85b4-3dd6-57d7-b0f8-3bdf26ec196a",
@@ -3435,6 +3495,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "12340653-a557-5b78-afe5-02a4fac295b2",
@@ -3548,6 +3610,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "4abb4d68-dd4b-5aaf-aa81-d16b5f4b791f",
@@ -3661,6 +3725,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "1db752c0-f1ec-5dc4-aeb4-a069ec412c4e",
@@ -3713,7 +3779,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -3774,6 +3840,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "63fd80b2-5cda-5156-87e9-0d3cd06b6a23",
@@ -3887,6 +3955,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "bd7df5c3-00ed-525d-b26f-42a057e68079",
@@ -4000,6 +4070,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0ce34be4-ec1e-5c0a-8a41-424d901e8f58"
       },
       "CountingCircleId": "c0655862-f565-582a-968a-ebea7a4826d2",
@@ -4113,6 +4185,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "7aea9d17-51bd-587e-b6fc-6ba16e333bf6",
@@ -4226,6 +4300,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "e709092d-34bd-533f-8c84-fbac27734a29",
@@ -4339,6 +4415,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "e81bdbe5-cb3a-5acd-bce1-c9e61cbde256",
@@ -4391,7 +4469,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -4452,6 +4530,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "00cde1e2-8c6b-514e-808b-26b56378a8e4",
@@ -4565,6 +4645,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "f0422cd3-e02d-5d33-aad1-49abf426341f",
@@ -4678,6 +4760,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "5977e0ed-26d7-5b49-a9cf-79f8e5578421"
       },
       "CountingCircleId": "96586603-ad25-5629-8eaa-b9f1338259d5",
@@ -4791,6 +4875,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "6985aa79-4b7a-5c84-bfce-e351797591a1",
@@ -4904,6 +4990,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "59516659-f6b9-5b07-974f-4bba6e407546",
@@ -5017,6 +5105,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "bea2dfb2-ce9f-5f44-aa4b-dfa17f867e78",
@@ -5069,7 +5159,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -5130,6 +5220,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "94cf6d0f-ec83-573d-8f76-d2e746c738cd",
@@ -5243,6 +5335,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "833c32c9-5b79-5252-bd79-aa4ae5acbab3",
@@ -5356,6 +5450,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "c198ec14-512e-5369-8997-bd0cc2325a04"
       },
       "CountingCircleId": "eeddd0a3-b36f-56bd-9118-af932fe7829a",
@@ -5469,6 +5565,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "961ede4d-d56f-558b-8698-efb8a19390fa",
@@ -5582,6 +5680,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "feb1d65d-b6cb-549a-aa82-82339a32138e",
@@ -5695,6 +5795,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "79242688-f567-5a46-a3c3-d93e263d615e",
@@ -5747,7 +5849,7 @@
         "IsSnapshot": true,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -5808,6 +5910,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "c06032eb-a104-5270-8415-549de10f0949",
@@ -5921,6 +6025,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "b1d6f07b-d46b-554b-8eac-d41e7b3aef9d",
@@ -6034,6 +6140,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "f362cf83-7073-5831-bd8b-30ae04c09359"
       },
       "CountingCircleId": "7dbcdc12-3025-5513-95e3-20a45123b075",
@@ -6147,6 +6255,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -6260,6 +6370,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
@@ -6373,6 +6485,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
@@ -6425,7 +6539,7 @@
         "IsSnapshot": false,
         "ContestCountingCircleContactPersonId": null,
         "MustUpdateContactPersons": false,
-        "EVoting": false,
+        "EVoting": true,
         "Electorates": [],
         "ContestElectorates": [],
         "DomainOfInfluences": [],
@@ -6486,6 +6600,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
@@ -6599,6 +6715,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
@@ -6712,6 +6830,8 @@
         "SuperiorAuthorityDomainOfInfluenceId": null,
         "SuperiorAuthorityDomainOfInfluence": null,
         "SubAuthorityDomainOfInfluences": [],
+        "PublishResultsDisabled": false,
+        "HideLowerDomainOfInfluencesInReports": false,
         "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
       },
       "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a4e",

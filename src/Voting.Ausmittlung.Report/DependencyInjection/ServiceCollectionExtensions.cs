@@ -48,6 +48,7 @@ public static class ServiceCollectionExtensions
             .AddPdfContestRenderServices()
             .AddPdfVoteResultRenderServices()
             .AddPdfMajorityElectionResultRenderServices()
+            .AddPdfSecondaryMajorityElectionResultRenderServices()
             .AddPdfProportionalElectionResultRenderServices()
             .AddPdfProportionalElectionUnionResultRenderServices()
             .AddXmlRenderServices();
@@ -114,9 +115,7 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddRendererService<PdfVoteEndResultRenderService>(AusmittlungPdfVoteTemplates.EndResultProtocol)
-            .AddRendererService<PdfVoteDomainOfInfluenceResultRenderService>(
-                AusmittlungPdfVoteTemplates.TemporaryEndResultDomainOfInfluencesProtocol,
-                AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol)
+            .AddRendererService<PdfVoteDomainOfInfluenceResultRenderService>(AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol)
             .AddRendererService<PdfVoteResultRenderService>(AusmittlungPdfVoteTemplates.ResultProtocol)
             .AddRendererService<PdfVoteEVotingDetailsResultRenderService>(AusmittlungPdfVoteTemplates.EVotingDetailsResultProtocol)
             .AddRendererService<PdfVoteCountingCircleEVotingResultRenderService>(AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol)
@@ -137,6 +136,17 @@ public static class ServiceCollectionExtensions
                 AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol,
                 AusmittlungPdfMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol)
             .AddRendererService<PdfMajorityElectionResultBundleReviewRenderService>(AusmittlungPdfMajorityElectionTemplates.ResultBundleReview);
+    }
+
+    private static IReportingServiceCollection AddPdfSecondaryMajorityElectionResultRenderServices(this IReportingServiceCollection services)
+    {
+        return services
+            .AddRendererService<PdfSecondaryMajorityElectionCountingCircleResultRenderService>(
+                AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleProtocol,
+                AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleEVotingProtocol)
+            .AddRendererService<PdfSecondaryMajorityElectionEndResultRenderService>(
+                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultProtocol,
+                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultEVotingProtocol);
     }
 
     private static IReportingServiceCollection AddPdfContestRenderServices(this IReportingServiceCollection services)

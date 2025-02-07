@@ -65,7 +65,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         OccupationTitle = y.Candidate.Translations.First().OccupationTitle,
                         Title = y.Candidate.Title,
                         Locality = y.Candidate.Locality,
-                        YearOfBirth = y.Candidate.DateOfBirth.Year,
+                        YearOfBirth = y.Candidate.DateOfBirth.HasValue ? y.Candidate.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                         Incumbent = y.Candidate.Incumbent,
                         Sex = y.Candidate.Sex,
                         ParticipationState = CandidateParticipationState.PrimaryElection,
@@ -81,6 +81,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                             .Select(z => z.MajorityElectionUnionId)
                             .OrderBy(z => z)
                             .ToList(),
+                        VoteCountPercent = y.MajorityElectionEndResult.TotalCandidateVoteCountInclIndividual != 0 ? y.VoteCount / (decimal)y.MajorityElectionEndResult.TotalCandidateVoteCountInclIndividual : null,
+                        TotalCandidateVoteCountInclIndividual = y.MajorityElectionEndResult.TotalCandidateVoteCountInclIndividual,
                     })
                     .ToList(),
                 SecondaryElectionIds = x.SecondaryMajorityElections
@@ -108,7 +110,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         OccupationTitle = y.Candidate.Translations.First().OccupationTitle,
                         Title = y.Candidate.Title,
                         Locality = y.Candidate.Locality,
-                        YearOfBirth = y.Candidate.DateOfBirth.Year,
+                        YearOfBirth = y.Candidate.DateOfBirth.HasValue ? y.Candidate.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                         Incumbent = y.Candidate.Incumbent,
                         Sex = y.Candidate.Sex,
                         Elected = !x.EndResult.Finalized || y.State == MajorityElectionCandidateEndResultState.Pending
@@ -123,7 +125,9 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                             .Select(z => z.MajorityElectionUnionId)
                             .OrderBy(z => z)
                             .ToList(),
-                        AbsoluteMajority = y.SecondaryMajorityElectionEndResult.PrimaryMajorityElectionEndResult.Calculation.AbsoluteMajority,
+                        AbsoluteMajority = y.SecondaryMajorityElectionEndResult.Calculation.AbsoluteMajority,
+                        VoteCountPercent = y.SecondaryMajorityElectionEndResult.TotalCandidateVoteCountInclIndividual != 0 ? y.VoteCount / (decimal)y.SecondaryMajorityElectionEndResult.TotalCandidateVoteCountInclIndividual : null,
+                        TotalCandidateVoteCountInclIndividual = y.SecondaryMajorityElectionEndResult.TotalCandidateVoteCountInclIndividual,
                     })
                     .ToList(),
             })
@@ -251,6 +255,10 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                 IndividualVoteCountSecondary2 = result2?.IndividualVoteCount,
                 ElectionUnionIds = result1?.ElectionUnionIds ?? result2!.ElectionUnionIds,
                 AbsoluteMajority = result1?.AbsoluteMajority ?? result2?.AbsoluteMajority,
+                AbsoluteMajoritySecondary = result1?.AbsoluteMajority,
+                AbsoluteMajoritySecondary2 = result2?.AbsoluteMajority,
+                VoteCountPercentSecondary = result1?.VoteCountPercent,
+                VoteCountPercentSecondary2 = result2?.VoteCountPercent,
             };
         }
     }
@@ -267,6 +275,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         entry.IncumbentSecondary = result.Incumbent;
         entry.VoteCountSecondary = result.VoteCount;
         entry.IndividualVoteCountSecondary = result.IndividualVoteCount;
+        entry.AbsoluteMajoritySecondary = result.AbsoluteMajority;
+        entry.VoteCountPercentSecondary = result.VoteCountPercent;
     }
 
     private void TryAddSecondary2(Data entry, Guid electionId, IReadOnlyDictionary<Guid, Data> secondaryCandidateResults)
@@ -281,6 +291,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         entry.IncumbentSecondary2 = result.Incumbent;
         entry.VoteCountSecondary2 = result.VoteCount;
         entry.IndividualVoteCountSecondary2 = result.IndividualVoteCount;
+        entry.AbsoluteMajoritySecondary2 = result.AbsoluteMajority;
+        entry.VoteCountPercentSecondary2 = result.VoteCountPercent;
     }
 
     private Data CreateIndividualCandidateData(
@@ -309,6 +321,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
             IndividualVoteCount = primaryResult.IndividualVoteCount,
             PrimaryElectionId = primaryResult.PrimaryElectionId,
             YearOfBirth = WabstiCConstants.IndividualMajorityCandidateYearOfBirth,
+            VoteCountPercent = primaryResult.TotalCandidateVoteCountInclIndividual != null && primaryResult.TotalCandidateVoteCountInclIndividual != 0 ? primaryResult.IndividualVoteCount / (decimal)primaryResult.TotalCandidateVoteCountInclIndividual : null,
         };
 
         if (secondaryResult1 != null)
@@ -318,6 +331,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
             data.IncumbentSecondary = false;
             data.VoteCountSecondary = secondaryResult1.IndividualVoteCount;
             data.IndividualVoteCountSecondary = secondaryResult1.IndividualVoteCount;
+            data.AbsoluteMajoritySecondary = secondaryResult1.AbsoluteMajority;
+            data.VoteCountPercentSecondary = secondaryResult1.TotalCandidateVoteCountInclIndividual != null && secondaryResult1.TotalCandidateVoteCountInclIndividual != 0 ? secondaryResult1.IndividualVoteCount / (decimal)secondaryResult1.TotalCandidateVoteCountInclIndividual : null;
         }
 
         if (secondaryResult2 != null)
@@ -327,6 +342,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
             data.IncumbentSecondary2 = false;
             data.VoteCountSecondary2 = secondaryResult2.IndividualVoteCount;
             data.IndividualVoteCountSecondary2 = secondaryResult2.IndividualVoteCount;
+            data.AbsoluteMajoritySecondary2 = secondaryResult2.AbsoluteMajority;
+            data.VoteCountPercentSecondary2 = secondaryResult2.TotalCandidateVoteCountInclIndividual != null && secondaryResult2.TotalCandidateVoteCountInclIndividual != 0 ? secondaryResult2.IndividualVoteCount / (decimal)secondaryResult2.TotalCandidateVoteCountInclIndividual : null;
         }
 
         return data;
@@ -385,6 +402,10 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         [Name("AbsolutesMehr")]
         public int? AbsoluteMajority { get; set; }
 
+        [Name("StimmenProz")]
+        [TypeConverter(typeof(WabstiCPercentDecimalConverter))]
+        public decimal? VoteCountPercent { get; set; }
+
         [Name("KandidatHwNw")]
         [TypeConverter(typeof(WabstiCIntEnumConverter))]
         public CandidateParticipationState ParticipationState { get; set; }
@@ -400,6 +421,13 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         [Name("StimmenNW")]
         public int? VoteCountSecondary { get; set; }
 
+        [Name("AbsolutesMehrNW")]
+        public int? AbsoluteMajoritySecondary { get; set; }
+
+        [Name("StimmenProzNW")]
+        [TypeConverter(typeof(WabstiCPercentDecimalConverter))]
+        public decimal? VoteCountPercentSecondary { get; set; }
+
         [Name("BisherNW2")]
         [TypeConverter(typeof(WabstiCBooleanConverter))]
         public bool? IncumbentSecondary2 { get; set; }
@@ -410,6 +438,13 @@ public class WabstiCWMKandidatenRenderService : IRendererService
 
         [Name("StimmenNW2")]
         public int? VoteCountSecondary2 { get; set; }
+
+        [Name("AbsolutesMehrNW2")]
+        public int? AbsoluteMajoritySecondary2 { get; set; }
+
+        [Name("StimmenProzNW2")]
+        [TypeConverter(typeof(WabstiCPercentDecimalConverter))]
+        public decimal? VoteCountPercentSecondary2 { get; set; }
 
         [Name("Geschlecht")]
         [TypeConverter(typeof(WabstiCSexConverter))]
@@ -434,5 +469,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
+
+        [Ignore]
+        public int? TotalCandidateVoteCountInclIndividual { get; set; }
     }
 }

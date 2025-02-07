@@ -185,6 +185,19 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
+    public async Task TestSelectedCandidateInSecondaryElectionNotSelectedInPrimary()
+    {
+        await AssertStatus(
+            async () => await ErfassungCreatorClient.CreateBallotAsync(NewValidRequest(x =>
+            {
+                x.SecondaryMajorityElectionResults[0].SelectedCandidateIds.Clear();
+                x.SecondaryMajorityElectionResults[0].SelectedCandidateIds.Add(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund);
+            })),
+            StatusCode.InvalidArgument,
+            "Cannot select a referenced candidate in a secondary election if the candidate is not selected in the primary election");
+    }
+
+    [Fact]
     public async Task TestShouldThrowTooManyInvalidVotes()
     {
         await AssertStatus(
@@ -410,7 +423,7 @@ public class MajorityElectionResultCreateBallotTest : MajorityElectionResultBund
                         SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
                         SelectedCandidateIds =
                         {
-                            MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund,
+                            MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
                         },
                     },
                 },

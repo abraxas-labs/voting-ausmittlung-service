@@ -29,7 +29,7 @@ public class MajorityElectionToNewContestMovedTest : BaseDataProcessorTest
     [Fact]
     public async Task TestToNewContestMoved()
     {
-        var pbId = Guid.Parse(MajorityElectionMockedData.IdBundMajorityElectionInContestStGallen);
+        var pbId = Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen);
         var newContestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
         await TestEventPublisher.Publish(
@@ -56,5 +56,24 @@ public class MajorityElectionToNewContestMovedTest : BaseDataProcessorTest
         simplePb.ContestId.Should().Be(newContestId);
         simplePb.SimpleResults.Should().NotBeEmpty();
         simplePb.SimpleResults.All(x => x.CountingCircle!.SnapshotContestId == newContestId).Should().BeTrue();
+
+        // validate secondary elections on separate ballots are moved too
+        var secondaryPbOnSeparateBallot = await RunOnDb(db => db.MajorityElections
+            .Include(x => x.Results)
+            .ThenInclude(x => x.CountingCircle)
+            .SingleAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot)));
+
+        var secondarySimplePbOnSeparateBallot = await RunOnDb(db => db.SimplePoliticalBusinesses
+            .Include(x => x.SimpleResults)
+            .ThenInclude(x => x.CountingCircle)
+            .SingleAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot)));
+
+        secondaryPbOnSeparateBallot.ContestId.Should().Be(newContestId);
+        secondaryPbOnSeparateBallot.Results.Should().NotBeEmpty();
+        secondaryPbOnSeparateBallot.Results.All(x => x.CountingCircle.SnapshotContestId == newContestId).Should().BeTrue();
+
+        secondarySimplePbOnSeparateBallot.ContestId.Should().Be(newContestId);
+        secondarySimplePbOnSeparateBallot.SimpleResults.Should().NotBeEmpty();
+        secondarySimplePbOnSeparateBallot.SimpleResults.All(x => x.CountingCircle!.SnapshotContestId == newContestId).Should().BeTrue();
     }
 }

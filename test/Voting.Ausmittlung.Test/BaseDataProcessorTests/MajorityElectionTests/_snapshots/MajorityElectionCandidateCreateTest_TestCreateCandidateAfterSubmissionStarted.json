@@ -14,6 +14,7 @@
     }
   ],
   "CandidateReferences": [],
+  "CandidateReferencesOfSecondaryElectionsOnSeparateBallot": [],
   "BallotGroupEntries": [],
   "CandidateResults": [],
   "BallotCandidatures": [],
@@ -32,6 +33,8 @@
     "LotDecisionRequired": false,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
+  "CandidateReferenceId": null,
+  "CandidateReference": null,
   "Party": "CVP de",
   "Occupation": "occupation de",
   "OccupationTitle": "occupation title de",

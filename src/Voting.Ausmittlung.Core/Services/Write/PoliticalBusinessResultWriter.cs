@@ -147,13 +147,13 @@ public abstract class PoliticalBusinessResultWriter<T>
     protected async Task<ActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
         where TResultAggregate : BaseEventSignatureAggregate
     {
-        var resultAggregate = await AggregateRepository.GetById<TResultAggregate>(resultId);
+        var resultAggregateVersion = await AggregateRepository.GetVersion<TResultAggregate>(resultId);
 
         var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, countingCircleId, testingPhaseEnded);
-        var detailsAggregate = await AggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(id)
+        var detailsAggregate = await AggregateRepository.TryGetVersion<ContestCountingCircleDetailsAggregate>(id)
                                ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
 
-        return new ActionId(action, resultAggregate, detailsAggregate);
+        return new ActionId(action, resultAggregateVersion, detailsAggregate);
     }
 
     protected bool IsSelfOwnedPoliticalBusiness(PoliticalBusiness politicalBusiness)
@@ -188,12 +188,12 @@ public abstract class PoliticalBusinessResultWriter<T>
             : aggregate.State is CountingCircleResultState.SubmissionDone or CountingCircleResultState.CorrectionDone or CountingCircleResultState.AuditedTentatively;
 
         // publish results if not enabled or for all results which have domain of influence type MU or lower
-        return validCcResultState && (!contest.CantonDefaults.PublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu);
+        return validCcResultState && !domainOfInfluence.PublishResultsDisabled && (!contest.CantonDefaults.ManualPublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu);
     }
 
     protected void EnsureCanManuallyPublishResults(Contest contest, DomainOfInfluence domainOfInfluence, CountingCircleResultAggregate aggregate)
     {
-        if (!contest.CantonDefaults.PublishResultsEnabled)
+        if (!contest.CantonDefaults.ManualPublishResultsEnabled)
         {
             throw new ValidationException("publish results is not enabled for contest");
         }
@@ -217,6 +217,11 @@ public abstract class PoliticalBusinessResultWriter<T>
         if (domainOfInfluence.Type >= DomainOfInfluenceType.Mu)
         {
             throw new ValidationException($"cannot publish or unpublish results for domain of influence type {DomainOfInfluenceType.Mu} or lower");
+        }
+
+        if (domainOfInfluence.PublishResultsDisabled)
+        {
+            throw new ValidationException("Cannot publish or unpublish for domain of influence with publish results disabled");
         }
     }
 

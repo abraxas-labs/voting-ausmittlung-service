@@ -49,7 +49,6 @@ public class ResultExportService
     private readonly IAuth _auth;
     private readonly IDbRepository<DataContext, SimplePoliticalBusiness> _simplePoliticalBusinessRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
-    private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBundle> _majorityElectionResultBundleRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _proportionalElectionResultBundleRepo;
     private readonly IDbRepository<DataContext, VoteResultBundle> _voteResultBundleRepo;
@@ -74,7 +73,6 @@ public class ResultExportService
         ResultExportConfigurationRepo resultExportConfigurationRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         IDbRepository<DataContext, Contest> contestRepo,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, MajorityElectionResultBundle> majorityElectionResultBundleRepo,
         IDbRepository<DataContext, ProportionalElectionResultBundle> proportionalElectionResultBundleRepo,
         IDbRepository<DataContext, VoteResultBundle> voteResultBundleRepo,
@@ -101,7 +99,6 @@ public class ResultExportService
         _publisherConfig = publisherConfig;
         _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
         _contestRepo = contestRepo;
-        _countingCircleRepo = countingCircleRepo;
         _majorityElectionResultBundleRepo = majorityElectionResultBundleRepo;
         _proportionalElectionResultBundleRepo = proportionalElectionResultBundleRepo;
         _voteResultBundleRepo = voteResultBundleRepo;
@@ -379,6 +376,12 @@ public class ResultExportService
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> exportTemplateIds)
     {
+        var canReadOwnedPbs = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
+        if (!canReadOwnedPbs)
+        {
+            _auth.EnsurePermission(Permissions.PoliticalBusiness.ReadAccessible);
+        }
+
         var exportTemplates = await _resultExportTemplateReader.FetchExportTemplates(contestId, basisCountingCircleId);
 
         var idsSet = exportTemplateIds.ToHashSet();
@@ -389,12 +392,6 @@ public class ResultExportService
         if (resolvedTemplates.Count != exportTemplateIds.Count)
         {
             throw new ValidationException("Invalid export template IDs provided, could not find all matching templates");
-        }
-
-        var canReadOwnedPbs = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
-        if (!canReadOwnedPbs)
-        {
-            _auth.EnsurePermission(Permissions.PoliticalBusiness.ReadAccessible);
         }
 
         var accessiblePbIds = canReadOwnedPbs

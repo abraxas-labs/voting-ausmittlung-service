@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+#if !DEBUG
+using Microsoft.Extensions.Logging;
+#endif
 using Prometheus;
 using Voting.Ausmittlung.Converters;
 using Voting.Ausmittlung.Core.Configuration;
@@ -65,7 +68,7 @@ public class Startup
         services.AddCore(_appConfig);
         services.AddData(_appConfig.Database, ConfigureDatabase);
         services.AddVotingLibPrometheusAdapter(new() { Interval = _appConfig.PrometheusAdapterInterval });
-        ConfigureAuthentication(services.AddVotingLibIam(_appConfig.SecureConnectApi));
+        ConfigureAuthentication(services.AddVotingLibIam(_appConfig.SecureConnectApi, _appConfig.AuthStore));
         services.AddMalwareScanner(_appConfig.MalwareScanner);
         if (_appConfig.PublisherModeEnabled)
         {
@@ -117,6 +120,10 @@ public class Startup
 #if DEBUG
         // The warning for the missing query split behavior should throw an exception.
         db.ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning));
+#else
+        // Duplicated tracked entities can be effectively ignored in Release build, as we only have few places of them which
+        // already are in production for several years (mostly PoliticalBusinessNullableCountOfVoters entities)
+        db.ConfigureWarnings(w => w.Log((CoreEventId.DuplicateDependentEntityTypeInstanceWarning, LogLevel.Debug)));
 #endif
     }
 

@@ -1,19 +1,19 @@
-Art;SortGeschaeft;KNR;Nachname;Vorname;Partei;Beruf;Titel und Berufsbezeichnung;Titel;Wohnort;Jahrgang;Bisher;Gewaehlt;Stimmen;AbsolutesMehr;KandidatHwNw;BisherNW;GewaehltNW;StimmenNW;BisherNW2;GewaehltNW2;StimmenNW2;Geschlecht;StimTotVereinzelteHW;StimTotVereinzelteNW;StimTotVereinzelteNW2;GeLfNr;GeVerbNr
-CT;201;number1;1pol last name;1pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1680;1981;1;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number2;2pol last name;2pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;2760;1981;1;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number3;3pol last name;3pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1860;1981;1;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number4;4pol last name;4pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;3660;1981;1;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number5;5pol last name;5pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1500;1981;1;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number6;6pol last name;6pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;1320;1981;1;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number7;7pol last name;7pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1140;1981;1;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number8;8pol last name;8pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;1050;1981;1;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number9;9pol last name;9pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;960;1981;1;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;number10;10pol last name;10pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;60;1981;1;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;201;999;Vereinzelte;;;;;;;1950;0;;1680;1981;7;0;;1680;0;;1692;;1680;1680;1692;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
-CT;n1;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;locality1;1960;;;;1981;6;0;;240;0;;3660;W;;1680;1692;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
-CT;n2;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;number1;1960;;;;1981;4;;;;0;;1500;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
-CT;n1;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;locality2;1960;;;;1981;2;1;;2760;;;;;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
-CT;n2;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;number2;1960;;;;1981;4;;;;1;;1320;;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
-CT;n1;number3;3pol last name;3pol firstName;Test3 de;occupation de;occupation title de;title;locality3;1960;;;;1981;2;0;;2760;;;;M;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
-CT;n1;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;locality4;1960;;;;1981;2;1;;1680;;;;W;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
-CT;n2;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;number4;1960;;;;1981;4;;;;1;;1050;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
+Art;SortGeschaeft;KNR;Nachname;Vorname;Partei;Beruf;Titel und Berufsbezeichnung;Titel;Wohnort;Jahrgang;Bisher;Gewaehlt;Stimmen;AbsolutesMehr;StimmenProz;KandidatHwNw;BisherNW;GewaehltNW;StimmenNW;AbsolutesMehrNW;StimmenProzNW;BisherNW2;GewaehltNW2;StimmenNW2;AbsolutesMehrNW2;StimmenProzNW2;Geschlecht;StimTotVereinzelteHW;StimTotVereinzelteNW;StimTotVereinzelteNW2;GeLfNr;GeVerbNr
+CT;201;number1;1pol last name;1pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1680;1981;13.40;1;;;;;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number2;2pol last name;2pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;2760;1981;22.01;1;;;;;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number3;3pol last name;3pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1860;1981;14.83;1;;;;;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number4;4pol last name;4pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;3660;1981;29.19;1;;;;;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number5;5pol last name;5pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1500;1981;11.96;1;;;;;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number6;6pol last name;6pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;1320;1981;10.53;1;;;;;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number7;7pol last name;7pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;1140;1981;9.09;1;;;;;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number8;8pol last name;8pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;1050;1981;8.37;1;;;;;;;;;;;;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number9;9pol last name;9pol firstName;Test de;occupation de;occupation title de;title;locality;1960;0;;960;1981;7.66;1;;;;;;;;;;;M;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;number10;10pol last name;10pol firstName;Test de;occupation de;occupation title de;title;locality;1960;1;;60;1981;0.48;1;;;;;;;;;;;W;1680;;;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;201;999;Vereinzelte;;;;;;;1950;0;;1680;1981;13.40;7;0;;1680;1981;10.09;0;;1692;1981;10.15;;1680;1680;1692;7a7f337e-78c8-44f4-83eb-507d383fc8bf;
+CT;n1;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;locality1;1960;;;;1981;;6;0;;240;1981;1.44;0;;3660;1981;21.97;W;;1680;1692;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n2;number1;1pol last name;1pol firstName;Test1 de;occupation de;occupation title de;title;number1;1960;;;;1981;;4;;;;;;0;;1500;1981;9.00;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
+CT;n1;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;locality2;1960;;;;1981;;2;1;;2760;1981;16.58;;;;;;;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n2;number2;2pol last name;2pol firstName;Test2 de;occupation de;occupation title de;title;number2;1960;;;;1981;;4;;;;;;1;;1320;1981;7.92;;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;
+CT;n1;number3;3pol last name;3pol firstName;Test3 de;occupation de;occupation title de;title;locality3;1960;;;;1981;;2;0;;2760;1981;16.58;;;;;;M;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n1;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;locality4;1960;;;;1981;;2;1;;1680;1981;10.09;;;;;;W;;1680;;8cfaec6d-6e37-472e-b63e-073f6fd980fe;
+CT;n2;number4;4pol last name;4pol firstName;Test4 de;occupation de;occupation title de;title;number4;1960;;;;1981;;4;;;;;;1;;1050;1981;6.30;W;;;1692;f78a229e-0790-4e69-b212-7c5fd960cd98;

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv;
@@ -37,7 +38,7 @@ public class CsvProportionalElectionCandidatesAlphabeticalRenderService : IRende
                 Nachname = c.PoliticalLastName,
                 Vorname = c.PoliticalFirstName,
                 Wohnort = c.Locality,
-                Jahrgang = c.DateOfBirth.Year,
+                Jahrgang = c.DateOfBirth.HasValue ? c.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
             })
             .AsAsyncEnumerable();
 

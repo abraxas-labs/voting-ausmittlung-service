@@ -135,9 +135,8 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId);
-
         var result = await LoadPoliticalBusinessResult(resultId);
+        await EnsurePoliticalBusinessPermissions(result);
         if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
             return default;
@@ -155,7 +154,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task SubmissionFinished(Guid resultId, Guid? secondFactorTransactionId, CancellationToken ct)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId, true);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result);
 
@@ -193,9 +192,8 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid resultId, string message)
     {
-        await EnsurePoliticalBusinessPermissions(resultId);
-
         var result = await LoadPoliticalBusinessResult(resultId);
+        await EnsurePoliticalBusinessPermissions(result);
         if (IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
             return default;
@@ -212,7 +210,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task CorrectionFinished(Guid resultId, string comment, Guid? secondFactorTransactionId, CancellationToken ct)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId, true);
 
         var contestId = await EnsurePoliticalBusinessPermissions(result);
 
@@ -322,7 +320,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId, true);
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
             throw new ValidationException("finish submission and audit tentatively is not allowed for a non self owned political business");
@@ -352,7 +350,7 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
 
     public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId, true);
         if (!IsSelfOwnedPoliticalBusiness(result.MajorityElection))
         {
             throw new ValidationException("finish correction and audit tentatively is not allowed for a non self owned political business");
@@ -426,18 +424,31 @@ public class MajorityElectionResultWriter : PoliticalBusinessResultWriter<DataMo
         _logger.LogInformation("Majority election result {MajorityElectionResultId} reset to submission finished and flagged for correction", aggregate.Id);
     }
 
-    protected override async Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId)
+    protected override Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId)
+        => LoadPoliticalBusinessResult(resultId, false);
+
+    private async Task<DataModels.MajorityElectionResult> LoadPoliticalBusinessResult(Guid resultId, bool includeCandidates)
     {
-        return await _resultRepo.Query()
-            .AsSplitQuery()
-            .Include(vr => vr.MajorityElection.Contest.CantonDefaults)
-            .Include(vr => vr.MajorityElection.DomainOfInfluence)
-            .Include(vr => vr.CountingCircle.ResponsibleAuthority)
-            .Include(vr => vr.CandidateResults)
-            .Include(vr => vr.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
-            .Include(vr => vr.BallotGroupResults)
-            .FirstOrDefaultAsync(x => x.Id == resultId)
-            ?? throw new EntityNotFoundException(resultId);
+        IQueryable<DataModels.MajorityElectionResult> query = _resultRepo.Query()
+                   .AsSplitQuery()
+                   .Include(vr => vr.MajorityElection.Contest.CantonDefaults)
+                   .Include(vr => vr.MajorityElection.DomainOfInfluence)
+                   .Include(vr => vr.MajorityElection.Translations)
+                   .Include(vr => vr.CountingCircle.ResponsibleAuthority)
+                   .Include(vr => vr.CandidateResults)
+                   .Include(vr => vr.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+                   .Include(vr => vr.SecondaryMajorityElectionResults).ThenInclude(x => x.SecondaryMajorityElection.Translations)
+                   .Include(vr => vr.BallotGroupResults);
+
+        if (includeCandidates)
+        {
+            query = query.Include(vr => vr.SecondaryMajorityElectionResults)
+                .ThenInclude(x => x.CandidateResults)
+                .ThenInclude(x => x.Candidate);
+        }
+
+        return await query.FirstOrDefaultAsync(x => x.Id == resultId)
+               ?? throw new EntityNotFoundException(resultId);
     }
 
     private void EnsureResultEntryRespectSettings(

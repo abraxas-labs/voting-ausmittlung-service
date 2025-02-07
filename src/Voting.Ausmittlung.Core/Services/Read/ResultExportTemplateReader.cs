@@ -26,7 +26,7 @@ using Voting.Lib.Messaging;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
-using DomainOfInfluenceType = Voting.Lib.VotingExports.Models.DomainOfInfluenceType;
+using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
@@ -40,6 +40,7 @@ public class ResultExportTemplateReader
     private static readonly IReadOnlySet<string> _templateKeysCountingCircleEVoting = new HashSet<string>
     {
         AusmittlungPdfMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
+        AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
         AusmittlungPdfVoteTemplates.EVotingCountingCircleResultProtocol.Key,
@@ -48,6 +49,7 @@ public class ResultExportTemplateReader
     private static readonly IReadOnlySet<string> _templateKeysPoliticalBusinessEVoting = new HashSet<string>
     {
         AusmittlungPdfMajorityElectionTemplates.EndResultEVotingProtocol.Key,
+        AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultEVotingProtocol.Key,
         AusmittlungPdfProportionalElectionTemplates.EndResultListUnionsEVoting.Key,
         AusmittlungPdfProportionalElectionTemplates.ListCandidateEndResultsEVoting.Key,
         AusmittlungPdfVoteTemplates.EVotingDetailsResultProtocol.Key,
@@ -71,6 +73,7 @@ public class ResultExportTemplateReader
 
     private readonly ContestReader _contestReader;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepository;
+    private readonly IDbRepository<DataContext, DomainOfInfluenceCountingCircle> _domainOfInfluenceCountingCircleRepository;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepository;
     private readonly IDbRepository<DataContext, Contest> _contestRepository;
     private readonly PermissionService _permissionService;
@@ -87,6 +90,7 @@ public class ResultExportTemplateReader
         IDbRepository<DataContext, CountingCircle> countingCircleRepository,
         IDbRepository<DataContext, ProtocolExport> protocolExportRepository,
         IDbRepository<DataContext, Contest> contestRepository,
+        IDbRepository<DataContext, DomainOfInfluenceCountingCircle> domainOfInfluenceCountingCircleRepository,
         IMapper mapper,
         PublisherConfig config,
         ILogger<ResultExportTemplateReader> logger,
@@ -102,6 +106,7 @@ public class ResultExportTemplateReader
         _protocolExportStateChangedConsumer = protocolExportStateChangedConsumer;
         _countingCircleRepository = countingCircleRepository;
         _protocolExportRepository = protocolExportRepository;
+        _domainOfInfluenceCountingCircleRepository = domainOfInfluenceCountingCircleRepository;
         _contestRepository = contestRepository;
         _auth = auth;
         _proportionalElectionReader = proportionalElectionReader;
@@ -197,13 +202,14 @@ public class ResultExportTemplateReader
         // counting circle eVoting exports should only be available if eVoting is active for the counting circle
         var countingCircle = await GetCountingCircle(contestId, basisCountingCircleId);
         var ccDetails = countingCircle?.ContestDetails.FirstOrDefault();
-        if (ccDetails?.EVoting == false)
+        if (ccDetails?.EVoting == false || countingCircle?.EVoting == false)
         {
             templates = templates.Where(t => !_templateKeysCountingCircleEVoting.Contains(t.Key));
         }
 
-        // political business eVoting exports should only be available if eVoting is active for contest
-        if (!contest.EVoting)
+        // political business eVoting exports should only be available if eVoting is active for contest and in case of communal domain of influence when its counting circle has e-voting
+        var doiHasEVoting = await HasEVotingForDoiOnCountingCircle(contestId);
+        if (!contest.EVoting || !doiHasEVoting)
         {
             templates = templates.Where(t => !_templateKeysPoliticalBusinessEVoting.Contains(t.Key));
         }
@@ -222,6 +228,41 @@ public class ResultExportTemplateReader
             .OrderBy(x => x.EntityDescription)
             .ThenBy(x => x.Description)
             .ToList();
+    }
+
+    /// <summary>
+    /// Checks if there is any counting circle associated with the current tenant's domain of influence
+    /// that has e-voting enabled, excluding certain higher authority domain of influence types.
+    /// This fuction is for monitoring context only, because counting circle will be empty in this case.
+    /// </summary>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains a boolean value:
+    /// true if there is at least one counting circle with e-voting enabled or domain of influence type is higher authority, otherwise false.
+    /// </returns>
+    private async Task<bool> HasEVotingForDoiOnCountingCircle(Guid contestId)
+    {
+        var doiTypesHigherAuthorities = new List<DomainOfInfluenceType>
+        {
+            DomainOfInfluenceType.Ch,
+            DomainOfInfluenceType.Ct,
+            DomainOfInfluenceType.Bz,
+        };
+
+        var countingCirles = await _domainOfInfluenceCountingCircleRepository
+            .Query()
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.CountingCircle)
+            .Where(x => x.CountingCircle.SnapshotContestId == contestId
+                && x.DomainOfInfluence.SecureConnectId == _auth.Tenant!.Id
+                && x.DomainOfInfluence.Type >= DomainOfInfluenceType.Mu)
+            .Select(x => x.CountingCircle)
+            .ToListAsync();
+        if (countingCirles.Count == 0)
+        {
+            return true;
+        }
+
+        return countingCirles.Any(cc => cc.EVoting);
     }
 
     private async Task<IReadOnlyCollection<ProtocolExportTemplate>> AttachProtocolExportInfos(
@@ -402,7 +443,7 @@ public class ResultExportTemplateReader
         }
 
         return politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.Type)
-            .Where(x => template.MatchesDomainOfInfluenceType(_mapper.Map<DomainOfInfluenceType>(x.Key)))
+            .Where(x => template.MatchesDomainOfInfluenceType(_mapper.Map<Voting.Lib.VotingExports.Models.DomainOfInfluenceType>(x.Key)))
             .Select(g => new ResultExportTemplate(
                 template,
                 _permissionService.TenantId,
@@ -418,6 +459,7 @@ public class ResultExportTemplateReader
         {
             EntityType.Vote => PoliticalBusinessType.Vote,
             EntityType.MajorityElection => PoliticalBusinessType.MajorityElection,
+            EntityType.SecondaryMajorityElection => PoliticalBusinessType.SecondaryMajorityElection,
             EntityType.ProportionalElection => PoliticalBusinessType.ProportionalElection,
             _ => PoliticalBusinessType.Unspecified,
         };
@@ -435,15 +477,24 @@ public class ResultExportTemplateReader
     }
 
     private IEnumerable<SimplePoliticalBusiness> FilterDomainOfInfluenceType(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
-        => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
+        => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<Voting.Lib.VotingExports.Models.DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
 
     private IEnumerable<SimplePoliticalBusiness> FilterMultipleCountingCircleResults(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
     {
-        // These two templates should only be displayed in Ausmittlung Erfassung for political businesses with multiple counting circle results.
+        // These templates should only be displayed for political businesses with multiple counting circle results.
         // e.g. counting circle of a normal federal political business or communal political business as a "Stadtkreis" can view these protocols
-        if (template.Key == AusmittlungPdfVoteTemplates.ResultProtocol.Key || template.Key == AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key)
+        if (template.Key == AusmittlungPdfVoteTemplates.ResultProtocol.Key ||
+            template.Key == AusmittlungPdfVoteTemplates.EndResultDomainOfInfluencesProtocol.Key ||
+            template.Key == AusmittlungPdfMajorityElectionTemplates.EndResultDetailProtocol.Key)
         {
             return politicalBusinesses.Where(x => x.SimpleResults.Count > 1);
+        }
+
+        // These templates should always be displayed for canton ZH (VOTING-5358).
+        if (template.Key == AusmittlungPdfMajorityElectionTemplates.CountingCircleProtocol.Key ||
+            template.Key == AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleProtocol.Key)
+        {
+            return politicalBusinesses.Where(x => x.SimpleResults.Count > 1 || x.DomainOfInfluence.Canton == DomainOfInfluenceCanton.Zh);
         }
 
         return politicalBusinesses;

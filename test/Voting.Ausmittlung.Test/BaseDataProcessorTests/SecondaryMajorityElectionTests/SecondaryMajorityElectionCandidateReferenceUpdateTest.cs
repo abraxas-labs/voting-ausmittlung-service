@@ -39,6 +39,8 @@ public class SecondaryMajorityElectionCandidateReferenceUpdateTest : BaseDataPro
                     SecondaryMajorityElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
                     CandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
                     Incumbent = true,
+                    Number = "1.2",
+                    CheckDigit = 4,
                     Position = 1,
                 },
             });
@@ -46,6 +48,33 @@ public class SecondaryMajorityElectionCandidateReferenceUpdateTest : BaseDataPro
             db => db.SecondaryMajorityElectionCandidates
                 .Include(x => x.Translations)
                 .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.SecondaryElectionCandidateId1StGallenMajorityElectionInContestBund)),
+            Languages.German);
+        SetDynamicIdToDefaultValue(candidate.Translations);
+        candidate.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestUpdateCandidateReferenceOnSeparateBallot()
+    {
+        await TestEventPublisher.Publish(
+            new SecondaryMajorityElectionCandidateReferenceUpdated
+            {
+                MajorityElectionCandidateReference = new MajorityElectionCandidateReferenceEventData
+                {
+                    Id = MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                    SecondaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                    CandidateId = MajorityElectionMockedData.CandidateId1StGallenMajorityElectionInContestBund,
+                    Incumbent = true,
+                    Position = 1,
+                    Number = "1.2",
+                    CheckDigit = 4,
+                    IsOnSeparateBallot = true,
+                },
+            });
+        var candidate = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Include(x => x.Translations)
+                .FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot)),
             Languages.German);
         SetDynamicIdToDefaultValue(candidate.Translations);
         candidate.MatchSnapshot();

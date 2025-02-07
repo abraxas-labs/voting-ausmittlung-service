@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using Rationals;
+using Voting.Ausmittlung.BiproportionalApportionment.Extensions;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils.DoubleProportional.Models;

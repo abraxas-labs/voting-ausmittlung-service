@@ -37,6 +37,15 @@
       "Started": null
     },
     {
+      "ExportTemplateId": "e611c0b4-16b8-54a5-87f2-4c318cb7831a",
+      "Description": "Majorz kantonal: Gemeindeprotokoll",
+      "EntityDescription": "NW SG de",
+      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
+      "State": 0,
+      "FileName": "",
+      "Started": null
+    },
+    {
       "ExportTemplateId": "3afe9b75-78cb-5e6f-ac16-4cf68a686cf7",
       "Description": "Proporz eidg: 1 - Wahlzettelrapport",
       "EntityDescription": "Pw Bund de",
@@ -163,7 +172,7 @@
       "CountingMachineEnabled": false,
       "MajorityElectionUseCandidateCheckDigit": true,
       "ProportionalElectionUseCandidateCheckDigit": false,
-      "PublishResultsEnabled": true,
+      "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
     }

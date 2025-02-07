@@ -121,8 +121,9 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
     }
 
     [Fact]
-    public async Task ShouldThrowCountingCirclesAudited()
+    public async Task CountingCirclesAuditedAfterTestingPhaseEndedShouldThrow()
     {
+        await SetContestState(ContestMockedData.IdUzwilEvoting, ContestState.Active);
         await SetProportionalElectionResultState(
             ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil,
             CountingCircleResultState.AuditedTentatively);
@@ -130,6 +131,24 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
             async () => await MonitoringElectionAdminClient.DeleteImportDataAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             $"A result is in an invalid state for an eVoting import to be possible ({ProportionalElectionResultMockedData.IdUzwilElectionResultInContestUzwil})");
+    }
+
+    [Fact]
+    public async Task CountingCircleResultAuditedTentativelyInTestingPhaseShouldWork()
+    {
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.AuditedTentatively);
+
+        await MonitoringElectionAdminClient.DeleteImportDataAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<ResultImportDataDeleted>().Should().HaveCount(1);
+    }
+
+    [Fact]
+    public async Task CountingCircleResultPlausibilisedInTestingPhaseShouldWork()
+    {
+        await SetProportionalElectionResultState(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen, CountingCircleResultState.Plausibilised);
+
+        await MonitoringElectionAdminClient.DeleteImportDataAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<ResultImportDataDeleted>().Should().HaveCount(1);
     }
 
     [Fact]
@@ -249,6 +268,11 @@ public class ResultImportDeleteImportedDataTest : BaseTest<ResultImportService.R
             case CountingCircleResultState.AuditedTentatively:
                 resultAgg.SubmissionFinished(contestId);
                 resultAgg.AuditedTentatively(contestId);
+                break;
+            case CountingCircleResultState.Plausibilised:
+                resultAgg.SubmissionFinished(contestId);
+                resultAgg.AuditedTentatively(contestId);
+                resultAgg.Plausibilise(contestId);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);

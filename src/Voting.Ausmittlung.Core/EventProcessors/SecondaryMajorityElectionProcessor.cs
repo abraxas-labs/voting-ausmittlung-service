@@ -45,6 +45,7 @@ public class SecondaryMajorityElectionProcessor :
     private readonly MajorityElectionEndResultInitializer _endResultInitializer;
     private readonly MajorityElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly SimplePoliticalBusinessBuilder<SecondaryMajorityElection> _simplePoliticalBusinessBuilder;
+    private readonly MajorityElectionProcessor _primaryMajorityElectionProcessor;
     private readonly IMapper _mapper;
 
     public SecondaryMajorityElectionProcessor(
@@ -61,7 +62,8 @@ public class SecondaryMajorityElectionProcessor :
         MajorityElectionEndResultInitializer endResultInitializer,
         MajorityElectionCandidateEndResultBuilder candidateEndResultBuilder,
         SimplePoliticalBusinessBuilder<SecondaryMajorityElection> simplePoliticalBusinessBuilder,
-        IMapper mapper)
+        IMapper mapper,
+        MajorityElectionProcessor primaryMajorityElectionProcessor)
     {
         _logger = logger;
         _repo = repo;
@@ -76,11 +78,18 @@ public class SecondaryMajorityElectionProcessor :
         _endResultInitializer = endResultInitializer;
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _mapper = mapper;
+        _primaryMajorityElectionProcessor = primaryMajorityElectionProcessor;
         _simplePoliticalBusinessBuilder = simplePoliticalBusinessBuilder;
     }
 
     public async Task Process(SecondaryMajorityElectionCreated eventData)
     {
+        if (eventData.SecondaryMajorityElection.IsOnSeparateBallot)
+        {
+            await CreateMajorityElectionOnSeparateBallot(eventData);
+            return;
+        }
+
         var model = _mapper.Map<SecondaryMajorityElection>(eventData.SecondaryMajorityElection);
 
         var primaryElection = await _majorityElectionRepo.Query()
@@ -103,6 +112,12 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionUpdated eventData)
     {
+        if (eventData.SecondaryMajorityElection.IsOnSeparateBallot)
+        {
+            await UpdateMajorityElectionOnSeparateBallot(eventData);
+            return;
+        }
+
         var model = _mapper.Map<SecondaryMajorityElection>(eventData.SecondaryMajorityElection);
 
         var existing = await _repo.Query()
@@ -128,6 +143,12 @@ public class SecondaryMajorityElectionProcessor :
     public async Task Process(SecondaryMajorityElectionAfterTestingPhaseUpdated eventData)
     {
         var id = GuidParser.Parse(eventData.Id);
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.UpdateElectionAfterTestingPhase(eventData, id);
+            return;
+        }
+
         var sme = await _repo.GetByKey(id)
             ?? throw new EntityNotFoundException(id);
 
@@ -153,6 +174,11 @@ public class SecondaryMajorityElectionProcessor :
     public async Task Process(SecondaryMajorityElectionDeleted eventData)
     {
         var id = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.DeleteElection(GuidParser.Parse(eventData.SecondaryMajorityElectionId));
+            return;
+        }
 
         var electionGroup = await _repo.Query()
             .Where(e => e.Id == id)
@@ -168,6 +194,14 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionActiveStateUpdated eventData)
     {
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.UpdateActiveState(
+                GuidParser.Parse(eventData.SecondaryMajorityElectionId),
+                eventData.Active);
+            return;
+        }
+
         var smeId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
         var existingModel = await _repo.Query()
                                 .Include(x => x.PrimaryMajorityElection)
@@ -181,6 +215,12 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionCandidateCreated eventData)
     {
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.CreateCandidate(eventData.SecondaryMajorityElectionCandidate);
+            return;
+        }
+
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
         TruncateCandidateNumber(model);
 
@@ -198,6 +238,12 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionCandidateUpdated eventData)
     {
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.UpdateCandidate(eventData.SecondaryMajorityElectionCandidate);
+            return;
+        }
+
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
         TruncateCandidateNumber(model);
 
@@ -212,6 +258,14 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionCandidateAfterTestingPhaseUpdated eventData)
     {
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.UpdateCandidateAfterTestingPhase(
+                GuidParser.Parse(eventData.Id),
+                eventData);
+            return;
+        }
+
         var id = GuidParser.Parse(eventData.Id);
         var candidate = await _candidateRepo.GetByKey(id)
             ?? throw new EntityNotFoundException(id);
@@ -224,12 +278,16 @@ public class SecondaryMajorityElectionProcessor :
     }
 
     public Task Process(SecondaryMajorityElectionCandidateDeleted eventData)
-    {
-        return DeleteCandidate(eventData.SecondaryMajorityElectionCandidateId);
-    }
+        => DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateId);
 
     public async Task Process(SecondaryMajorityElectionCandidatesReordered eventData)
     {
+        if (eventData.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.ReorderCandidates(GuidParser.Parse(eventData.SecondaryMajorityElectionId), eventData.CandidateOrders);
+            return;
+        }
+
         var secondaryMajorityElectionId = GuidParser.Parse(eventData.SecondaryMajorityElectionId);
 
         var candidates = await _candidateRepo.Query()
@@ -254,13 +312,32 @@ public class SecondaryMajorityElectionProcessor :
         var referencedCandidate = await _majorityElectionCandidateRepo.Query()
             .IgnoreQueryFilters() // do not filter translations
             .Include(x => x.Translations)
-            .Include(x => x.MajorityElection.Contest)
             .FirstAsync(x => x.Id == referencedCandidateId);
 
+        if (eventData.MajorityElectionCandidateReference.IsOnSeparateBallot)
+        {
+            var referencedCandidateCopy = _mapper.Map<MajorityElectionCandidate>(referencedCandidate);
+
+            // reset translation ids
+            referencedCandidateCopy.Translations = referencedCandidateCopy.Translations.Select(t => new MajorityElectionCandidateTranslation
+            {
+                Language = t.Language,
+                Occupation = t.Occupation,
+                OccupationTitle = t.OccupationTitle,
+                Party = t.Party,
+            }).ToList();
+            _mapper.Map(eventData.MajorityElectionCandidateReference, referencedCandidateCopy);
+            await _primaryMajorityElectionProcessor.CreateCandidate(referencedCandidateCopy);
+            return;
+        }
+
+        var contestState = await _repo.Query()
+            .Where(x => x.Id == referencedCandidate.MajorityElectionId)
+            .Select(x => x.Contest.State)
+            .FirstOrDefaultAsync();
         var candidateReference = _mapper.Map<SecondaryMajorityElectionCandidate>(referencedCandidate);
         _mapper.Map(eventData.MajorityElectionCandidateReference, candidateReference);
-
-        candidateReference.CreatedDuringActiveContest = referencedCandidate.MajorityElection.Contest.State == ContestState.Active;
+        candidateReference.CreatedDuringActiveContest = contestState == ContestState.Active;
 
         await _candidateRepo.Create(candidateReference);
         await _candidateResultBuilder.InitializeSecondaryMajorityElectionCandidate(candidateReference.SecondaryMajorityElectionId, candidateReference.Id);
@@ -269,39 +346,42 @@ public class SecondaryMajorityElectionProcessor :
 
     public async Task Process(SecondaryMajorityElectionCandidateReferenceUpdated eventData)
     {
+        if (eventData.MajorityElectionCandidateReference.IsOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.UpdateReferencedCandidate(eventData.MajorityElectionCandidateReference);
+            return;
+        }
+
         var id = GuidParser.Parse(eventData.MajorityElectionCandidateReference.Id);
-
-        var existingCandidate = await _candidateRepo.GetByKey(id)
-            ?? throw new EntityNotFoundException(id);
-
-        existingCandidate.Incumbent = eventData.MajorityElectionCandidateReference.Incumbent;
-        await _candidateRepo.Update(existingCandidate);
+        await _candidateRepo.Query()
+            .Where(x => x.Id == id)
+            .ExecuteUpdateAsync(x => x
+                .SetProperty(c => c.Incumbent, eventData.MajorityElectionCandidateReference.Incumbent)
+                .SetProperty(c => c.Number, eventData.MajorityElectionCandidateReference.Number)
+                .SetProperty(c => c.CheckDigit, eventData.MajorityElectionCandidateReference.CheckDigit));
     }
 
     public async Task Process(SecondaryMajorityElectionCandidateReferenceDeleted eventData)
     {
-        await DeleteCandidate(eventData.SecondaryMajorityElectionCandidateReferenceId);
+        await DeleteCandidate(eventData.IsOnSeparateBallot, eventData.SecondaryMajorityElectionCandidateReferenceId);
     }
 
-    private async Task DeleteCandidate(string candidateId)
+    private async Task DeleteCandidate(bool isOnSeparateBallot, string candidateId)
     {
         var id = GuidParser.Parse(candidateId);
+        if (isOnSeparateBallot)
+        {
+            await _primaryMajorityElectionProcessor.DeleteCandidate(id);
+            return;
+        }
 
         var existingCandidate = await _candidateRepo.GetByKey(id)
             ?? throw new EntityNotFoundException(id);
-
         await _candidateRepo.DeleteByKey(id);
-
-        var candidatesToUpdate = await _candidateRepo.Query()
+        await _candidateRepo.Query()
             .Where(c => c.SecondaryMajorityElectionId == existingCandidate.SecondaryMajorityElectionId
                 && c.Position > existingCandidate.Position)
-            .ToListAsync();
-        foreach (var candidate in candidatesToUpdate)
-        {
-            candidate.Position--;
-        }
-
-        await _candidateRepo.UpdateRange(candidatesToUpdate);
+            .ExecuteUpdateAsync(x => x.SetProperty(c => c.Position, c => c.Position - 1));
     }
 
     private void TruncateCandidateNumber(SecondaryMajorityElectionCandidate candidate)
@@ -313,5 +393,25 @@ public class SecondaryMajorityElectionProcessor :
 
         // old events can contain a number which is longer than 10 chars
         candidate.Number = candidate.Number[..10];
+    }
+
+    private async Task CreateMajorityElectionOnSeparateBallot(SecondaryMajorityElectionCreated eventData)
+    {
+        var primaryElectionId = GuidParser.Parse(eventData.SecondaryMajorityElection.PrimaryMajorityElectionId);
+        var primaryElection = await _majorityElectionRepo.GetByKey(primaryElectionId)
+                              ?? throw new EntityNotFoundException(nameof(MajorityElection), primaryElectionId);
+        var majorityElection = _mapper.Map<MajorityElection>(primaryElection);
+        _mapper.Map(eventData.SecondaryMajorityElection, majorityElection);
+        await _primaryMajorityElectionProcessor.CreateElection(majorityElection);
+    }
+
+    private async Task UpdateMajorityElectionOnSeparateBallot(SecondaryMajorityElectionUpdated eventData)
+    {
+        var primaryElectionId = GuidParser.Parse(eventData.SecondaryMajorityElection.PrimaryMajorityElectionId);
+        var primaryElection = await _majorityElectionRepo.GetByKey(primaryElectionId)
+                              ?? throw new EntityNotFoundException(nameof(MajorityElection), primaryElectionId);
+        var majorityElection = _mapper.Map<MajorityElection>(primaryElection);
+        _mapper.Map(eventData.SecondaryMajorityElection, majorityElection);
+        await _primaryMajorityElectionProcessor.UpdateElection(majorityElection);
     }
 }

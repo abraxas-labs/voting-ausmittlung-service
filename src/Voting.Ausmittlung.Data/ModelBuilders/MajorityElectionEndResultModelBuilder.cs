@@ -96,6 +96,9 @@ public class MajorityElectionEndResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.Calculation);
+        builder.Navigation(x => x.Calculation).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<MajorityElectionCandidateEndResult> builder)

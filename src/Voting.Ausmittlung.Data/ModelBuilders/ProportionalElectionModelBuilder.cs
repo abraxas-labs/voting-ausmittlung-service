@@ -150,7 +150,8 @@ public class ProportionalElectionModelBuilder :
         builder
             .Property(d => d.DateOfBirth)
             .HasDateType()
-            .HasUtcConversion();
+            .HasUtcConversion()
+            .IsRequired();
 
         builder
             .HasOne(x => x.Party)

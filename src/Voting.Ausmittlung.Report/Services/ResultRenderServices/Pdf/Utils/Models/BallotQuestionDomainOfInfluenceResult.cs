@@ -40,4 +40,8 @@ public class BallotQuestionDomainOfInfluenceResult :
     public decimal PercentageNo => 1 - PercentageYes;
 
     public int CountOfAnswerTotal => TotalCountOfAnswerYes + TotalCountOfAnswerNo + TotalCountOfAnswerUnspecified;
+
+    public int CountOfCountingCircleYes { get; set; }
+
+    public int CountOfCountingCircleNo { get; set; }
 }

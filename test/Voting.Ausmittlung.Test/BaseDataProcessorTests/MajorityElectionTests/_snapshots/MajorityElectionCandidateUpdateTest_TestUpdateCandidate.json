@@ -13,10 +13,13 @@
     }
   ],
   "CandidateReferences": [],
+  "CandidateReferencesOfSecondaryElectionsOnSeparateBallot": [],
   "BallotGroupEntries": [],
   "CandidateResults": [],
   "BallotCandidatures": [],
   "EndResult": null,
+  "CandidateReferenceId": null,
+  "CandidateReference": null,
   "Party": "SVP de",
   "Occupation": "new occupation de",
   "OccupationTitle": "new occupation title de",

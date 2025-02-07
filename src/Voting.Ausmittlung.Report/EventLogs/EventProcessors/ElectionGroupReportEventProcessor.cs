@@ -7,7 +7,9 @@ namespace Voting.Ausmittlung.Report.EventLogs.EventProcessors;
 
 public class ElectionGroupReportEventProcessor :
     IReportEventProcessor<ElectionGroupCreated>,
+#pragma warning disable CS0612 // Type or member is obsolete
     IReportEventProcessor<ElectionGroupUpdated>,
+#pragma warning restore CS0612 // Type or member is obsolete
     IReportEventProcessor<ElectionGroupDeleted>
 {
     public EventLog? Process(ElectionGroupCreated eventData, EventLogBuilderContext context)
@@ -15,7 +17,9 @@ public class ElectionGroupReportEventProcessor :
         return new();
     }
 
+#pragma warning disable CS0612 // Type or member is obsolete
     public EventLog? Process(ElectionGroupUpdated eventData, EventLogBuilderContext context)
+#pragma warning restore CS0612 // Type or member is obsolete
     {
         return new();
     }

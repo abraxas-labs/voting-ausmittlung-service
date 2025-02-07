@@ -96,7 +96,6 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
     public async Task ShouldWorkWithCcResultStateFilterAndElections()
     {
         var electionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen);
-        var ccId = CountingCircleMockedData.GuidStGallen;
 
         var filter = new Ech0252FilterModel
         {
@@ -106,17 +105,8 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
         };
 
         var result = await LoadContests(filter);
-        result[0].Results.Any(r => r.PoliticalBusinessId == electionId).Should().BeFalse();
 
-        await ModifyDbEntities<ProportionalElectionResult>(
-            x => x.ProportionalElectionId == electionId && x.CountingCircle.BasisCountingCircleId == ccId,
-            v =>
-            {
-                v.State = CountingCircleResultState.Plausibilised;
-                v.Published = true;
-            });
-
-        result = await LoadContests(filter);
+        // Should be included, CC state filter will be applied later on
         result[0].Results.Any(r => r.PoliticalBusinessId == electionId).Should().BeTrue();
     }
 

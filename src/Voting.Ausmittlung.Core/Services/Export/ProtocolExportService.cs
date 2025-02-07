@@ -137,6 +137,7 @@ public class ProtocolExportService
             .FirstOrDefaultAsync(x => x.Id == contestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), contestId);
 
+        var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId, ct);
         var requestId = Guid.NewGuid();
         var protocolExportIds = new HashSet<Guid>();
 
@@ -160,7 +161,6 @@ public class ProtocolExportService
                 ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
                 : string.Empty;
 
-            var viewablePartialResultsCountingCircleIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(contestId, ct);
             var file = await _exportService.GenerateResultExport(
                 contestId,
                 exportTemplate,

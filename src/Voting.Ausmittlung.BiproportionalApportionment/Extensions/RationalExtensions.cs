@@ -3,6 +3,8 @@
 
 using Rationals;
 
+namespace Voting.Ausmittlung.BiproportionalApportionment.Extensions;
+
 public static class RationalExtensions
 {
     private static readonly Rational _half = new Rational(1, 2);

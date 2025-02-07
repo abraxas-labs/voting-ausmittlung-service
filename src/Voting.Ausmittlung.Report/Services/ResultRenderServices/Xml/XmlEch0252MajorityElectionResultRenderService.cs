@@ -47,6 +47,10 @@ public class XmlEch0252MajorityElectionResultRenderService : IRendererService
                 .ThenInclude(x => x.VotingCards)
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.Results)
+                .ThenInclude(x => x.CountingCircle.ContestDetails)
+                .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.MajorityElections)
+                .ThenInclude(x => x.Results)
                 .ThenInclude(x => x.CountOfVoters)
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.Results)
@@ -60,12 +64,12 @@ public class XmlEch0252MajorityElectionResultRenderService : IRendererService
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.EndResult!)
                 .ThenInclude(x => x.CandidateEndResults)
-                .ThenInclude(x => x.Candidate)
+                .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.SecondaryMajorityElections)
                 .ThenInclude(x => x.EndResult!)
                 .ThenInclude(x => x.CandidateEndResults.OrderBy(y => y.CandidateId))
-                .ThenInclude(x => x.Candidate)
+                .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.MajorityElections)
                 .ThenInclude(x => x.SecondaryMajorityElections)
                 .ThenInclude(x => x.EndResult!)
@@ -83,7 +87,7 @@ public class XmlEch0252MajorityElectionResultRenderService : IRendererService
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
 
-        var eventDelivery = _ech0252Serializer.ToMajorityElectionResultDelivery(contest);
+        var eventDelivery = _ech0252Serializer.ToMajorityElectionResultDelivery(contest, null);
         return _templateService.RenderToXml(ctx, eventDelivery.DeliveryHeader.MessageId, eventDelivery, contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture));
     }
 }

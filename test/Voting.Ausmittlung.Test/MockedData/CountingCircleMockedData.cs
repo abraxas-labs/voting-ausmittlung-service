@@ -104,6 +104,7 @@ public static class CountingCircleMockedData
                 SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
             },
             ContactPersonAfterEvent = new CountingCircleContactPerson(),
+            EVoting = true,
         };
 
     public static CountingCircle StGallenHaggen

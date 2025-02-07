@@ -265,9 +265,9 @@ public class ResultImportWriter
             .Where(x => x.EVoting)
             .Select(x => x.CountingCircleId)
             .ToList();
-        return _majorityElectionResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, ccIds)
-            .Concat(_proportionalElectionResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, ccIds))
-            .Concat(_voteResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, ccIds))
+        return _majorityElectionResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, contest.TestingPhaseEnded, ccIds)
+            .Concat(_proportionalElectionResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, contest.TestingPhaseEnded, ccIds))
+            .Concat(_voteResultImportWriter.EnsureAllCountingCirclesInSubmissionOrCorrection(contest.Id, contest.TestingPhaseEnded, ccIds))
             .ToList();
     }
 

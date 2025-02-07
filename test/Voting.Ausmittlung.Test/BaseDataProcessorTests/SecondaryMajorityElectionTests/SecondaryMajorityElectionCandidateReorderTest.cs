@@ -72,4 +72,40 @@ public class SecondaryMajorityElectionCandidateReorderTest : BaseDataProcessorTe
         SetDynamicIdToDefaultValue(candidates.SelectMany(x => x.Translations));
         candidates.MatchSnapshot();
     }
+
+    [Fact]
+    public async Task TestAggregateOnSeparateBallot()
+    {
+        await TestEventPublisher.Publish(new SecondaryMajorityElectionCandidatesReordered
+        {
+            SecondaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+            IsOnSeparateBallot = true,
+            CandidateOrders = new EntityOrdersEventData
+            {
+                Orders =
+                    {
+                        new EntityOrderEventData
+                        {
+                            Id = MajorityElectionMockedData.CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                            Position = 2,
+                        },
+                        new EntityOrderEventData
+                        {
+                            Id = MajorityElectionMockedData.CandidateIdReferencedStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot,
+                            Position = 1,
+                        },
+                    },
+            },
+        });
+
+        var candidates = await RunOnDb(
+            db => db.MajorityElectionCandidates
+                .Include(x => x.Translations)
+                .Where(x => x.MajorityElectionId == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot))
+                .OrderBy(x => x.Position)
+                .ToListAsync(),
+            Languages.German);
+        SetDynamicIdToDefaultValue(candidates.SelectMany(x => x.Translations));
+        candidates.MatchSnapshot();
+    }
 }

@@ -1,10 +1,11 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ech0010_6_0;
-using Ech0155_5_0;
+using Ech0155_5_1;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
@@ -19,6 +20,8 @@ internal static class VoteInfoCandidateMapping
     private const string SwissCountryIso = "CH";
     private const string SwissCountryNameShort = "Schweiz";
     private const string IncumbentText = "bisher";
+
+    private static readonly DateTime DefaultDateOfBirth = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     internal static CandidatePositionInformationType ToEchCandidatePosition(this ProportionalElectionCandidate candidate, bool accumulatedPosition, DomainOfInfluenceCanton canton)
     {
@@ -90,14 +93,14 @@ internal static class VoteInfoCandidateMapping
             CallName = candidate.PoliticalFirstName,
             CandidateReference = candidate.Number,
             CandidateText = candidateText.CandidateTextInfo,
-            DateOfBirth = candidate.DateOfBirth,
+            DateOfBirth = candidate.DateOfBirth ?? DefaultDateOfBirth,
             Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos?.Count == 0 ? null : occupationInfos,
             DwellingAddress = new AddressInformationType
             {
                 SwissZipCode = zipCodeIsSwiss ? (uint?)zipCode : null,
                 ForeignZipCode = zipCodeIsSwiss ? null : candidate.ZipCode,
-                Town = candidate.Locality != string.Empty ? candidate.Locality : UnknownMapping.UnknownValue,
+                Town = candidate.Locality,
                 Country = new CountryType
                 {
                     CountryId = SwissCountryId,
@@ -120,15 +123,16 @@ internal static class VoteInfoCandidateMapping
         Dictionary<string, string> occupationTitleTranslations,
         Dictionary<string, string>? partyTranslations = null)
     {
-        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(canton, candidate.DateOfBirth);
-        var candidateTextBase = $"{dateOfBirthText}, {{0}}{candidate.Locality}{{1}}{{2}}";
+        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(canton, candidate.DateOfBirth ?? DefaultDateOfBirth);
+        var localityText = string.IsNullOrEmpty(candidate.Locality) ? string.Empty : $", {candidate.Locality}";
+        var candidateTextBase = $"{dateOfBirthText}{{0}}{localityText}{{1}}{{2}}";
         var textInfos = new CandidateTextInformationType();
         foreach (var language in Languages.All.OrderBy(l => l))
         {
             var occupationTitleText = string.Empty;
             if (occupationTitleTranslations.TryGetValue(language, out var occupationTitle))
             {
-                occupationTitleText = !string.IsNullOrEmpty(occupationTitle) ? $"{occupationTitle}, " : null;
+                occupationTitleText = !string.IsNullOrEmpty(occupationTitle) ? $", {occupationTitle}" : null;
             }
 
             var partyText = string.Empty;
@@ -175,8 +179,8 @@ internal static class VoteInfoCandidateMapping
         Dictionary<string, string> partyTranslations)
     {
         var occupationInfos = occupationTranslations
-            .OrderBy(t => t.Key)
             .Where(x => !string.IsNullOrEmpty(x.Value))
+            .OrderBy(t => t.Key)
             .Select(x => new OccupationalTitleInformationTypeOccupationalTitleInfo
             {
                 Language = x.Key,
@@ -193,33 +197,47 @@ internal static class VoteInfoCandidateMapping
             })
             .ToList();
 
-        var zipCodeIsSwiss = int.TryParse(candidate.ZipCode, out var zipCode) && zipCode is > 1000 and <= 9999;
-
-        return new WriteInCandidateType
+        var writeInCandidate = new WriteInCandidateType
         {
             CandidateIdentification = candidate.Id.ToString(),
             FamilyName = candidate.LastName,
             FirstName = candidate.FirstName,
             CallName = candidate.PoliticalFirstName,
             Title = candidate.Title,
-            DateOfBirth = candidate.DateOfBirth,
-            Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos.Count == 0 ? null : occupationInfos,
-            DwellingAddress = new AddressInformationType
+            Swiss = string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
+            PartyAffiliation = partyInfos.Count == 0 ? null : partyInfos,
+        };
+
+        if (candidate.DateOfBirth.HasValue)
+        {
+            writeInCandidate.DateOfBirth = candidate.DateOfBirth.Value;
+        }
+
+        var zipCodeIsSwiss = int.TryParse(candidate.ZipCode, out var zipCode) && zipCode is > 1000 and <= 9999;
+        if (zipCodeIsSwiss || !string.IsNullOrEmpty(candidate.Locality))
+        {
+            writeInCandidate.DwellingAddress = new AddressInformationType
             {
                 SwissZipCode = zipCodeIsSwiss ? (uint?)zipCode : null,
                 ForeignZipCode = zipCodeIsSwiss ? null : candidate.ZipCode,
-                Town = candidate.Locality != string.Empty ? candidate.Locality : UnknownMapping.UnknownValue,
+                Town = candidate.Locality,
                 Country = new CountryType
                 {
                     CountryId = SwissCountryId,
                     CountryIdIso2 = SwissCountryIso,
                     CountryNameShort = SwissCountryNameShort,
                 },
-            },
-            MrMrs = candidate.Sex.ToEchMrMrsType(),
-            PartyAffiliation = partyInfos.Count == 0 ? null : partyInfos,
-        };
+            };
+        }
+
+        if (candidate.Sex != Data.Models.SexType.Unspecified)
+        {
+            writeInCandidate.Sex = candidate.Sex.ToEchSexType();
+            writeInCandidate.MrMrs = candidate.Sex.ToEchMrMrsType();
+        }
+
+        return writeInCandidate;
     }
 
     private static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)

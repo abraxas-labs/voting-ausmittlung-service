@@ -164,6 +164,8 @@
       "SuperiorAuthorityDomainOfInfluenceId": null,
       "SuperiorAuthorityDomainOfInfluence": null,
       "SubAuthorityDomainOfInfluences": [],
+      "PublishResultsDisabled": false,
+      "HideLowerDomainOfInfluencesInReports": false,
       "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79"
     }
   ]

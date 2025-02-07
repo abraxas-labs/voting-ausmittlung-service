@@ -42,9 +42,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "Name": "St. Gallen",
+        "ShortName": "St. Gallen",
+        "AuthorityName": "",
+        "SecureConnectId": "200200200200200200",
+        "Type": 2,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "Hans",
+          "FamilyName": "Muster",
+          "Phone": "071 123 12 12",
+          "MobilePhone": "079 123 12 12",
+          "Email": "hans@sg.ch"
+        }
       }
     },
     {
@@ -83,9 +101,27 @@
         "CountingMachineEnabled": false,
         "MajorityElectionUseCandidateCheckDigit": true,
         "ProportionalElectionUseCandidateCheckDigit": false,
-        "PublishResultsEnabled": true,
+        "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
+      },
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
       }
     }
   ]

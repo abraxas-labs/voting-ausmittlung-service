@@ -12,7 +12,6 @@ using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
 using Xunit;
-using SharedProto = Abraxas.Voting.Basis.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests.SecondaryMajorityElectionTests;
 
@@ -59,7 +58,6 @@ public class SecondaryMajorityElectionCreateTest : BaseDataProcessorTest
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Neben-Majorzwahl") },
                     Active = true,
                     NumberOfMandates = 2,
-                    AllowedCandidates = SharedProto.SecondaryMajorityElectionAllowedCandidates.MustExistInPrimaryElection,
                     PrimaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
                 },
             },
@@ -73,33 +71,47 @@ public class SecondaryMajorityElectionCreateTest : BaseDataProcessorTest
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Neben-Majorzwahl 2") },
                     Active = false,
                     NumberOfMandates = 4,
-                    AllowedCandidates = SharedProto.SecondaryMajorityElectionAllowedCandidates.MustNotExistInPrimaryElection,
                     PrimaryMajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
+                    IsOnSeparateBallot = true,
                 },
             });
 
-        var group = await RunOnDb(db => db.ElectionGroups
-            .FirstAsync(x => x.Id == idElectionGroup));
+        var group = await RunOnDb(
+            db => db.ElectionGroups
+                .OrderBy(x => x.Description)
+                .FirstAsync(x => x.Id == idElectionGroup),
+            Languages.German);
         group.MatchSnapshot("group");
 
-        var elections = await RunOnDb(db => db.ElectionGroups
-            .Where(x => x.Id == idElection1 || x.Id == idElection2)
-            .Include(x => x.SecondaryMajorityElections)
-            .OrderBy(x => x.Description)
-            .ToListAsync());
-        elections.MatchSnapshot("elections");
+        var elections = await RunOnDb(
+            db => db.MajorityElections
+                .AsSplitQuery()
+                .Where(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen))
+                .Include(x => x.SecondaryMajorityElections)
+                .ThenInclude(x => x.Translations)
+                .Include(x => x.SecondaryMajorityElectionsOnSeparateBallots)
+                .ThenInclude(x => x.Translations)
+                .Include(x => x.Translations)
+                .OrderBy(x => x.PoliticalBusinessNumber)
+                .ToListAsync(),
+            Languages.German);
+        RemoveDynamicData(elections);
+        elections.MatchSnapshot("majorityElections");
 
         var simpleElections = await RunOnDb(
             db => db.SimplePoliticalBusinesses
                 .Include(x => x.Translations)
-                .Where(x => x.Id == idElection1 || x.Id == idElection2)
+                .Where(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen)
+                            || x.Id == idElection1
+                            || x.Id == idElection2)
                 .ToListAsync(),
             Languages.German);
 
         RemoveDynamicData(simpleElections);
         simpleElections.MatchSnapshot("simpleElections");
 
+        // on separate ballot should not be included
         var primarySimpleElection = await RunOnDb(db => db.SimplePoliticalBusinesses.FirstAsync(x => x.Id == Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen)));
-        primarySimpleElection.CountOfSecondaryBusinesses.Should().Be(2);
+        primarySimpleElection.CountOfSecondaryBusinesses.Should().Be(1);
     }
 }

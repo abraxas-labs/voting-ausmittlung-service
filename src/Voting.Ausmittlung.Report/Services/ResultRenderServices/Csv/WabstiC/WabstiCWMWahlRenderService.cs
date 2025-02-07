@@ -66,6 +66,9 @@ public class WabstiCWMWahlRenderService : IRendererService
                     .OrderBy(y => y)
                     .ToList(),
                 AbsoluteMajority = x.EndResult!.Calculation.AbsoluteMajority,
+                NumberOfMandates = x.NumberOfMandates,
+                SuperiorAuthorityDomainOfInfluenceName = x.DomainOfInfluence.SuperiorAuthorityDomainOfInfluence != null ? x.DomainOfInfluence.SuperiorAuthorityDomainOfInfluence.Name : string.Empty,
+                Type = "1",
             })
             .ToListAsync(ct);
 
@@ -101,6 +104,9 @@ public class WabstiCWMWahlRenderService : IRendererService
             result.SecondaryElectionShortDescription = secondaryElection1.ShortDescription;
             result.SecondaryElectionTotalCountOfVotes = secondaryElection1.EndResult?.TotalCandidateVoteCountInclIndividual;
             result.SecondaryElectionCountOfVotesPerMandate = secondaryElection1.EndResult?.TotalCandidateVoteCountInclIndividual / secondaryElection1.NumberOfMandates;
+            result.SecondaryElectionAbsoluteMajority = secondaryElection1.EndResult!.Calculation.AbsoluteMajority;
+            result.SecondaryElectionNumberOfMandates = secondaryElection1.NumberOfMandates;
+            result.Type = "2";
 
             var secondaryElection2 = selectedSecondaryElections.ElementAtOrDefault(1);
             if (secondaryElection2 == null)
@@ -112,6 +118,9 @@ public class WabstiCWMWahlRenderService : IRendererService
             result.SecondaryElection2ShortDescription = secondaryElection2.ShortDescription;
             result.SecondaryElection2TotalCountOfVotes = secondaryElection2.EndResult?.TotalCandidateVoteCountInclIndividual;
             result.SecondaryElection2CountOfVotesPerMandate = secondaryElection2.EndResult?.TotalCandidateVoteCountInclIndividual / secondaryElection2.NumberOfMandates;
+            result.SecondaryElection2NumberOfMandates = secondaryElection2.NumberOfMandates;
+            result.SecondaryElection2AbsoluteMajority = secondaryElection2.EndResult!.Calculation.AbsoluteMajority;
+            result.Type = "3";
         }
     }
 
@@ -175,6 +184,12 @@ public class WabstiCWMWahlRenderService : IRendererService
         [Name("Wahlkreis-Code")]
         public string DomainOfInfluenceCode { get; set; } = string.Empty;
 
+        [Name("WahlkreisChef")]
+        public string SuperiorAuthorityDomainOfInfluenceName { get; set; } = string.Empty;
+
+        [Name("Mandate")]
+        public int? NumberOfMandates { get; set; }
+
         [Name("GeBezKurzNW")]
         public string SecondaryElectionShortDescription { get; set; } = string.Empty;
 
@@ -186,6 +201,12 @@ public class WabstiCWMWahlRenderService : IRendererService
 
         [Name("EinfacheStimmenNW")]
         public int? SecondaryElectionCountOfVotesPerMandate { get; set; }
+
+        [Name("AbsolutesMehrNW")]
+        public int? SecondaryElectionAbsoluteMajority { get; set; }
+
+        [Name("MandateNW")]
+        public int? SecondaryElectionNumberOfMandates { get; set; }
 
         [Name("GeBezKurzNW2")]
         public string SecondaryElection2ShortDescription { get; set; } = string.Empty;
@@ -199,11 +220,20 @@ public class WabstiCWMWahlRenderService : IRendererService
         [Name("EinfacheStimmenNW2")]
         public int? SecondaryElection2CountOfVotesPerMandate { get; set; }
 
+        [Name("AbsolutesMehrNW2")]
+        public int? SecondaryElection2AbsoluteMajority { get; set; }
+
+        [Name("MandateNW2")]
+        public int? SecondaryElection2NumberOfMandates { get; set; }
+
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }
 
         [Name("GeVerbNr")]
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
+
+        [Name("GeTyp")]
+        public string Type { get; set; } = string.Empty;
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
     }

@@ -18,7 +18,7 @@
     "ProportionalElectionUseCandidateCheckDigit": false,
     "CountingCircleResultStateDescriptions": [],
     "StatePlausibilisedDisabled": false,
-    "PublishResultsEnabled": false,
+    "ManualPublishResultsEnabled": false,
     "PublishResultsBeforeAuditedTentatively": false,
     "EndResultFinalizeDisabled": true,
     "Id": "2d203a3c-40ba-4b53-a57e-38909d71390c"
@@ -73,6 +73,8 @@
           "SuperiorAuthorityDomainOfInfluenceId": null,
           "SuperiorAuthorityDomainOfInfluence": null,
           "SubAuthorityDomainOfInfluences": [],
+          "PublishResultsDisabled": false,
+          "HideLowerDomainOfInfluencesInReports": false,
           "Id": "e84a3f1e-c2ea-422c-904e-130b822aad64"
         },
         "EVotingResultsImported": false,
@@ -114,7 +116,7 @@
           "CountingMachineEnabled": true,
           "MajorityElectionUseCandidateCheckDigit": false,
           "ProportionalElectionUseCandidateCheckDigit": false,
-          "PublishResultsEnabled": false,
+          "ManualPublishResultsEnabled": false,
           "PublishResultsBeforeAuditedTentatively": false,
           "EndResultFinalizeDisabled": true,
           "Id": "00000000-0000-0000-0000-000000000000"

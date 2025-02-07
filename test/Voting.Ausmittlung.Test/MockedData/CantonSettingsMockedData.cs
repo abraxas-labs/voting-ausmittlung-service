@@ -74,7 +74,7 @@ public static class CantonSettingsMockedData
                     Description = "Erfassung beendet",
                 },
             },
-            PublishResultsEnabled = true,
+            ManualPublishResultsEnabled = true,
         };
 
     public static CantonSettings Zurich

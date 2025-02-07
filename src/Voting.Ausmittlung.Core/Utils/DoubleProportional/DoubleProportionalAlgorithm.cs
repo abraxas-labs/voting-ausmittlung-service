@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Rationals;
 using Voting.Ausmittlung.BiproportionalApportionment;
+using Voting.Ausmittlung.BiproportionalApportionment.Extensions;
 using Voting.Ausmittlung.BiproportionalApportionment.TieAndTransfer;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Exceptions;

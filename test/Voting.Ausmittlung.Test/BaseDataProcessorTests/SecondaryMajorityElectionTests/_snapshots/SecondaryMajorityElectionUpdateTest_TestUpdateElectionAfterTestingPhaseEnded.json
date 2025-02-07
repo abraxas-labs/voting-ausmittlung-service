@@ -1,5 +1,4 @@
 {
-  "AllowedCandidates": 2,
   "PrimaryMajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
   "PrimaryMajorityElection": {
     "MandateAlgorithm": 2,
@@ -35,6 +34,9 @@
     "EnforceReviewProcedureForCountingCircles": true,
     "EnforceCandidateCheckDigitForCountingCircles": false,
     "FederalIdentification": null,
+    "PrimaryMajorityElectionId": null,
+    "PrimaryMajorityElection": null,
+    "SecondaryMajorityElectionsOnSeparateBallots": [],
     "IndividualCandidatesDisabled": false,
     "NumberOfMandates": 1,
     "PoliticalBusinessNumber": "201",
