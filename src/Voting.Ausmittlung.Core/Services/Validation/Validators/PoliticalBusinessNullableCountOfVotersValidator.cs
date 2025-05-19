@@ -56,7 +56,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
     {
         return new ValidationResult(
             SharedProto.Validation.PoliticalBusinessCountOfVotersNotNull,
-            countOfVoters.ConventionalAccountedBallots.HasValue && countOfVoters.ConventionalBlankBallots.HasValue && countOfVoters.ConventionalInvalidBallots.HasValue && countOfVoters.ConventionalReceivedBallots.HasValue,
+            countOfVoters.ConventionalSubTotal is { AccountedBallots: not null, BlankBallots: not null, InvalidBallots: not null, ReceivedBallots: not null },
             new ValidationPoliticalBusinessData
             {
                 PoliticalBusinessType = pbType,

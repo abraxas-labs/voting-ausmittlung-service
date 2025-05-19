@@ -12,4 +12,10 @@ public interface IHasNullableConventionalVoteCounts
     int EVotingWriteInsVoteCount { get; set; }
 
     int EVotingInclWriteInsVoteCount { get; }
+
+    int ECountingExclWriteInsVoteCount { get; set; }
+
+    int ECountingWriteInsVoteCount { get; set; }
+
+    int ECountingInclWriteInsVoteCount { get; }
 }

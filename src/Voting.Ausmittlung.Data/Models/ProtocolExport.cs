@@ -16,6 +16,10 @@ public class ProtocolExport : BaseEntity
 
     public CountingCircle? CountingCircle { get; set; }
 
+    public Guid? PoliticalBusinessId { get; set; }
+
+    public Guid? PoliticalBusinessResultBundleId { get; set; }
+
     /// <summary>
     /// Gets or sets the export template ID which uniquely identifies the export template.
     /// This includes information about which political business, counting circle etc.

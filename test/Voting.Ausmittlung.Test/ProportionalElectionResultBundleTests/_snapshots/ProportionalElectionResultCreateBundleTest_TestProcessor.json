@@ -81,7 +81,8 @@
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -101,14 +102,24 @@
     "TotalCountOfVoters": 15000,
     "CountOfVoters": {
       "VoterParticipation": 0.0,
-      "ConventionalReceivedBallots": null,
-      "ConventionalInvalidBallots": null,
-      "ConventionalBlankBallots": null,
-      "ConventionalAccountedBallots": null,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
+      "ConventionalSubTotal": {
+        "ReceivedBallots": null,
+        "InvalidBallots": null,
+        "BlankBallots": null,
+        "AccountedBallots": null
+      },
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
       "TotalReceivedBallots": 0,
       "TotalAccountedBallots": 0,
       "TotalUnaccountedBallots": 0,
@@ -137,9 +148,19 @@
         "Email": ""
       },
       "ContactPersonSameDuringEventAsAfter": false,
-      "ContactPersonAfterEvent": null
+      "ContactPersonAfterEvent": null,
+      "ECounting": false
     },
     "EVotingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
+    "ECountingSubTotal": {
       "TotalCountOfUnmodifiedLists": 0,
       "TotalCountOfModifiedLists": 0,
       "TotalCountOfListsWithoutParty": 0,
@@ -182,7 +203,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "",
+            "LastName": "",
+            "FullName": " "
+          },
+          "Timestamp": {
+            "Seconds": 1594980476,
+            "Nanos": 0
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
@@ -196,7 +232,7 @@
         "ShortDescription": "Liste 1 de",
         "BlankRowCount": 0,
         "Position": 1,
-        "Description": ""
+        "Description": "Liste 1 de"
       },
       "CreatedBy": {
         "SecureConnectId": "default-user-id",
@@ -206,7 +242,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "Hans",
+            "LastName": "Muster",
+            "FullName": "Hans Muster"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "b1e326d7-2f47-43d7-8430-cf150401337c",
@@ -222,7 +273,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "",
+            "LastName": "",
+            "FullName": " "
+          },
+          "Timestamp": {
+            "Seconds": 1594980500,
+            "Nanos": 0
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "e6be0892-eb02-41a7-a32b-d5b71de926f3",
@@ -238,7 +304,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "Hans",
+            "LastName": "Muster",
+            "FullName": "Hans Muster"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "ce73c633-8689-4e8d-bb77-612f354b4ad6",
@@ -252,7 +333,7 @@
         "ShortDescription": "Liste 1 de",
         "BlankRowCount": 0,
         "Position": 1,
-        "Description": ""
+        "Description": "Liste 1 de"
       },
       "CreatedBy": {
         "SecureConnectId": "someones-user-id",
@@ -262,7 +343,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "someones-user-id",
+            "FirstName": "Someone",
+            "LastName": "Else",
+            "FullName": "Someone Else"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "e9590e17-abae-4e41-a575-08d1f5d79db3",
@@ -278,7 +374,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "service-user-id",
+            "FirstName": "",
+            "LastName": "",
+            "FullName": " "
+          },
+          "Timestamp": {
+            "Seconds": 1594980600,
+            "Nanos": 0
+          },
+          "State": 1
+        }
+      ]
     }
   ]
 }

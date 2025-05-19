@@ -96,7 +96,8 @@ public class MajorityElectionBallotGroupResultBuilder
 
     internal async Task UpdateCandidates(
         Guid ballotGroupId,
-        IReadOnlyDictionary<Guid, int> individualVoteCountsByEntryId,
+        IReadOnlyDictionary<Guid, int> individualVoteCountByEntryId,
+        IReadOnlyDictionary<Guid, int?> blankRowCountByEntryId,
         IReadOnlyDictionary<Guid, List<Guid>> candidatesByEntryId)
     {
         var ballotGroupEntries = await _dataContext
@@ -108,7 +109,12 @@ public class MajorityElectionBallotGroupResultBuilder
 
         foreach (var ballotGroupEntry in ballotGroupEntries)
         {
-            ballotGroupEntry.IndividualCandidatesVoteCount = individualVoteCountsByEntryId.GetValueOrDefault(ballotGroupEntry.Id, 0);
+            ballotGroupEntry.IndividualCandidatesVoteCount = individualVoteCountByEntryId.GetValueOrDefault(ballotGroupEntry.Id, 0);
+
+            if (blankRowCountByEntryId.TryGetValue(ballotGroupEntry.Id, out var blankRowCount) && blankRowCount.HasValue)
+            {
+                ballotGroupEntry.BlankRowCount = blankRowCount!.Value;
+            }
 
             if (!candidatesByEntryId.TryGetValue(ballotGroupEntry.Id, out var candidates))
             {

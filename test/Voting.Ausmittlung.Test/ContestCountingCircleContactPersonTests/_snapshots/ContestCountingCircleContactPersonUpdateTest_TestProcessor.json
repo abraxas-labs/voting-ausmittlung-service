@@ -48,6 +48,7 @@
   "ContestCountingCircleContactPersonId": null,
   "MustUpdateContactPersons": false,
   "EVoting": true,
+  "ECounting": false,
   "Electorates": [],
   "ContestElectorates": [],
   "DomainOfInfluences": [],
@@ -56,5 +57,6 @@
   "MajorityElectionResults": [],
   "ContestDetails": [],
   "SimpleResults": [],
+  "ResultImports": [],
   "Id": "00000000-0000-0000-0000-000000000000"
 }

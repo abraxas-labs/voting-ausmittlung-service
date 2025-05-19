@@ -79,6 +79,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
+            VoteResultId = PoliticalBusinessResultId.ToString(),
             BallotResultId = BallotResultId.ToString(),
             BallotNumber = CurrentBallotNumber + 1,
         };
@@ -102,6 +103,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
+            VoteResultId = PoliticalBusinessResultId.ToString(),
             BallotResultId = BallotResultId.ToString(),
             BallotNumber = ballotNumber,
         };
@@ -123,6 +125,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
+                VoteResultId = PoliticalBusinessResultId.ToString(),
                 BallotResultId = BallotResultId.ToString(),
                 BallotNumber = ballotNumber,
             },
@@ -141,6 +144,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
+            VoteResultId = PoliticalBusinessResultId.ToString(),
             BallotResultId = BallotResultId.ToString(),
         };
         ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
@@ -159,6 +163,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
         {
             EventInfo = _eventInfoProvider.NewEventInfo(),
             BundleId = Id.ToString(),
+            VoteResultId = PoliticalBusinessResultId.ToString(),
             BallotResultId = BallotResultId.ToString(),
         };
         ev.SampleBallotNumbers.AddRange(GenerateBallotNumberSamples());
@@ -173,6 +178,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
+                VoteResultId = PoliticalBusinessResultId.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
     }
@@ -185,6 +191,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
+                VoteResultId = PoliticalBusinessResultId.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
     }
@@ -201,6 +208,7 @@ public class VoteResultBundleAggregate : PoliticalBusinessResultBundleAggregate
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
                 BundleId = Id.ToString(),
+                VoteResultId = PoliticalBusinessResultId.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
     }

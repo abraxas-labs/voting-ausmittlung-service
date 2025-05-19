@@ -33,12 +33,12 @@ public class MajorityElectionResultResetTest : BaseIntegrationTest
             r =>
             {
                 r.State = CountingCircleResultState.ReadyForCorrection;
-                r.CountOfVoters.EVotingReceivedBallots = 1;
-                r.CountOfVoters.EVotingAccountedBallots = 1;
+                r.CountOfVoters.EVotingSubTotal.ReceivedBallots = 1;
+                r.CountOfVoters.EVotingSubTotal.AccountedBallots = 1;
                 r.ConventionalCountOfBallotGroupVotes = 2;
                 r.ConventionalCountOfDetailedEnteredBallots = 2;
                 r.CountOfBundlesNotReviewedOrDeleted = 1;
-                r.CountOfElectionsWithUnmappedWriteIns = 1;
+                r.CountOfElectionsWithUnmappedEVotingWriteIns = 1;
                 r.ConventionalSubTotal = new()
                 {
                     EmptyVoteCountExclWriteIns = null,

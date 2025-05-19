@@ -166,6 +166,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
             new ProportionalElectionResultBundleReviewRejected
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = PoliticalBusinessResultId.ToString(),
                 BundleId = Id.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
@@ -178,6 +179,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
             new ProportionalElectionResultBundleReviewSucceeded
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = PoliticalBusinessResultId.ToString(),
                 BundleId = Id.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));
@@ -194,6 +196,7 @@ public class ProportionalElectionResultBundleAggregate : PoliticalBusinessResult
             new ProportionalElectionResultBundleDeleted
             {
                 EventInfo = _eventInfoProvider.NewEventInfo(),
+                ElectionResultId = PoliticalBusinessResultId.ToString(),
                 BundleId = Id.ToString(),
             },
             new EventSignatureBusinessDomainData(contestId));

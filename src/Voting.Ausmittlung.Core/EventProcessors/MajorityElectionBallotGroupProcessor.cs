@@ -72,7 +72,11 @@ public class MajorityElectionBallotGroupProcessor :
             }
             else
             {
-                existingEntry.BlankRowCount = entry.BlankRowCount;
+                // When the blank row count is used (old version) this field is set in the BallotGroupUpdated event instead of the BallotGroupCandidatesUpdated event.
+                if (!eventData.BallotGroup.BlankRowCountUnused)
+                {
+                    existingEntry.BlankRowCount = entry.BlankRowCount;
+                }
             }
         }
 
@@ -111,10 +115,13 @@ public class MajorityElectionBallotGroupProcessor :
         var entryCandidates = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
             e => GuidParser.Parse(e.BallotGroupEntryId),
             e => e.CandidateIds.Select(GuidParser.Parse).ToList());
-        var entryHasIndividualCandidate = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
+        var individualCandidatesVoteCountByEntryId = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
             e => GuidParser.Parse(e.BallotGroupEntryId),
             e => e.IndividualCandidatesVoteCount);
-        await _ballotGroupResultBuilder.UpdateCandidates(ballotGroupId, entryHasIndividualCandidate, entryCandidates);
+        var blankRowCountByEntryId = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
+            e => GuidParser.Parse(e.BallotGroupEntryId),
+            e => e.BlankRowCount);
+        await _ballotGroupResultBuilder.UpdateCandidates(ballotGroupId, individualCandidatesVoteCountByEntryId, blankRowCountByEntryId, entryCandidates);
         await UpdateAllCandidateCountsOk(ballotGroupId);
     }
 

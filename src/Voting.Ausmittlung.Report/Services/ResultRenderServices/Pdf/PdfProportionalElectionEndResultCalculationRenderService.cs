@@ -54,6 +54,8 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
             .FirstOrDefaultAsync(x => x.ProportionalElectionId == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
 
+        data.MoveECountingToConventional();
+
         // can be inlined with ef5
         SortData(data);
         data.ProportionalElection.DomainOfInfluence.Details?.OrderVotingCardsAndSubTotals();
@@ -85,6 +87,7 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = contest,
             ProportionalElections = new List<PdfProportionalElection>
                 {

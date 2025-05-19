@@ -51,4 +51,19 @@ public class BallotEndResult : BaseEntity
         QuestionEndResults = QuestionEndResults.OrderBy(x => x.Question.Number).ToList();
         TieBreakQuestionEndResults = TieBreakQuestionEndResults.OrderBy(x => x.Question.Number).ToList();
     }
+
+    public void MoveECountingToConventional()
+    {
+        CountOfVoters.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in QuestionEndResults)
+        {
+            result.MoveECountingSubTotalsToConventional();
+        }
+
+        foreach (var result in TieBreakQuestionEndResults)
+        {
+            result.MoveECountingSubTotalsToConventional();
+        }
+    }
 }

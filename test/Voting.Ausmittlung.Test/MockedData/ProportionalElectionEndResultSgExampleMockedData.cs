@@ -137,14 +137,20 @@ public static class ProportionalElectionEndResultSgExampleMockedData
             result.TotalCountOfVoters = TotalCountOfVoters;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 110_812,
-                ConventionalInvalidBallots = 1498,
-                ConventionalBlankBallots = 80,
-                ConventionalAccountedBallots = 109_224,
-                EVotingReceivedBallots = 36937,
-                EVotingInvalidBallots = 500,
-                EVotingBlankBallots = 40,
-                EVotingAccountedBallots = 36407,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 110_812,
+                    InvalidBallots = 1498,
+                    BlankBallots = 80,
+                    AccountedBallots = 109_224,
+                },
+                EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+                {
+                    ReceivedBallots = 36937,
+                    InvalidBallots = 500,
+                    BlankBallots = 40,
+                    AccountedBallots = 36407,
+                },
                 VoterParticipation = .4647m,
             };
 

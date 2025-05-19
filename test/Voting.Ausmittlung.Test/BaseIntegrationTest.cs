@@ -17,7 +17,9 @@ using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.Utils;
 using Voting.Lib.Database.Models;
 using Voting.Lib.Eventing.Testing.Mocks;
+using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Iam.Models;
+using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Xunit;
@@ -110,6 +112,21 @@ public abstract class BaseIntegrationTest : BaseTest<TestApplicationFactory, Tes
             Tenant = ToEventInfoTenant(SecureConnectTestDefaults.MockedTenantDefault),
             User = ToEventInfoUser(SecureConnectTestDefaults.MockedUserDefault),
         };
+    }
+
+    protected void TrySetFakeAuth(string tenantId, params string[] roles)
+    {
+        if (GetService<IAuth>().IsAuthenticated)
+        {
+            return;
+        }
+
+        GetService<IAuthStore>().SetValues(
+            "mock-token",
+            "fake",
+            tenantId,
+            roles,
+            GetService<IPermissionProvider>().GetPermissionsForRoles(roles));
     }
 
     protected async Task<T> AssertException<T>(

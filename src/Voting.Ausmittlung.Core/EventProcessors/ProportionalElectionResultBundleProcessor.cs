@@ -11,13 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -37,7 +35,7 @@ public class ProportionalElectionResultBundleProcessor :
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
     private readonly ProportionalElectionResultBallotBuilder _ballotBuilder;
     private readonly ProportionalElectionResultBuilder _resultBuilder;
-    private readonly MessageProducerBuffer _bundleChangedMessageProducer;
+    private readonly EventLogger _eventLogger;
     private readonly ILogger<ProportionalElectionResultBundleProcessor> _logger;
 
     public ProportionalElectionResultBundleProcessor(
@@ -46,7 +44,7 @@ public class ProportionalElectionResultBundleProcessor :
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
         ProportionalElectionResultBallotBuilder ballotBuilder,
         ProportionalElectionResultBuilder resultBuilder,
-        MessageProducerBuffer bundleChangedMessageProducer,
+        EventLogger eventLogger,
         ILogger<ProportionalElectionResultBundleProcessor> logger)
     {
         _bundleRepo = bundleRepo;
@@ -54,24 +52,29 @@ public class ProportionalElectionResultBundleProcessor :
         _resultRepo = resultRepo;
         _ballotBuilder = ballotBuilder;
         _resultBuilder = resultBuilder;
-        _bundleChangedMessageProducer = bundleChangedMessageProducer;
+        _eventLogger = eventLogger;
         _logger = logger;
     }
 
     public async Task Process(ProportionalElectionResultBundleCreated eventData)
     {
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var state = BallotBundleState.InProcess;
+        var log = new ProportionalElectionResultBundleLog { User = user, Timestamp = timestamp, State = state };
         var bundle = new ProportionalElectionResultBundle
         {
             Id = GuidParser.Parse(eventData.BundleId),
             ElectionResultId = GuidParser.Parse(eventData.ElectionResultId),
             ListId = GuidParser.ParseNullable(eventData.ListId),
             Number = eventData.BundleNumber,
-            CreatedBy = eventData.EventInfo.User.ToDataUser(),
-            State = BallotBundleState.InProcess,
+            CreatedBy = user,
+            State = state,
+            Logs = [log],
         };
         await _bundleRepo.Create(bundle);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.ElectionResultId, 1);
-        PublishBundleChangeMessage(bundle);
+        _eventLogger.LogBundleEvent(eventData, bundle.Id, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
     public async Task Process(ProportionalElectionResultBallotCreated eventData)
@@ -92,7 +95,8 @@ public class ProportionalElectionResultBundleProcessor :
             return;
         }
 
-        await UpdateCountOfBallots(bundleId, 1, GuidParser.Parse(eventData.ElectionResultId));
+        await UpdateCountOfBallots(bundleId, 1);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
     public async Task Process(ProportionalElectionResultBallotUpdated eventData)
@@ -103,6 +107,7 @@ public class ProportionalElectionResultBundleProcessor :
             eventData.BallotNumber,
             eventData.EmptyVoteCount,
             eventData.Candidates);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
     public async Task Process(ProportionalElectionResultBallotDeleted eventData)
@@ -113,18 +118,33 @@ public class ProportionalElectionResultBundleProcessor :
             .FirstOrDefaultAsync(x => x.Number == eventData.BallotNumber && x.BundleId == bundleId)
             ?? throw new EntityNotFoundException(new { bundleId, eventData.BallotNumber });
         await _ballotRepo.DeleteByKey(ballot.Id);
-        await UpdateCountOfBallots(bundleId, -1, GuidParser.Parse(eventData.ElectionResultId));
+        await UpdateCountOfBallots(bundleId, -1);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId));
     }
 
-    public Task Process(ProportionalElectionResultBundleSubmissionFinished eventData)
-        => ProcessBundleToReadyForReview(eventData.BundleId, eventData.SampleBallotNumbers);
+    public async Task Process(ProportionalElectionResultBundleSubmissionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
+    }
 
-    public Task Process(ProportionalElectionResultBundleCorrectionFinished eventData)
-        => ProcessBundleToReadyForReview(eventData.BundleId, eventData.SampleBallotNumbers);
+    public async Task Process(ProportionalElectionResultBundleCorrectionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
+    }
 
     public async Task Process(ProportionalElectionResultBundleDeleted eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
 
@@ -137,7 +157,8 @@ public class ProportionalElectionResultBundleProcessor :
             await RemoveVotesFromResults(bundle);
         }
 
-        await UpdateBundleState(bundle, BallotBundleState.Deleted);
+        var log = await UpdateBundleState(bundle, BallotBundleState.Deleted, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
     public async Task Process(ProportionalElectionResultBundleReviewRejected eventData)
@@ -146,7 +167,9 @@ public class ProportionalElectionResultBundleProcessor :
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
         var user = eventData.EventInfo.User.ToDataUser();
-        await UpdateBundleState(bundle, BallotBundleState.InCorrection, user);
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var log = await UpdateBundleState(bundle, BallotBundleState.InCorrection, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
     public async Task Process(ProportionalElectionResultBundleReviewSucceeded eventData)
@@ -155,9 +178,11 @@ public class ProportionalElectionResultBundleProcessor :
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
         var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         await AddVotesToResults(bundle);
-        await UpdateBundleState(bundle, BallotBundleState.Reviewed, user);
+        var log = await UpdateBundleState(bundle, BallotBundleState.Reviewed, user, timestamp);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.ElectionResultId, -1);
+        _eventLogger.LogBundleEvent(eventData, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.ElectionResultId), log);
     }
 
     private async Task AddVotesToResults(ProportionalElectionResultBundle bundle)
@@ -172,27 +197,36 @@ public class ProportionalElectionResultBundleProcessor :
         await UpdateTotalCountOfBallots(bundle, -1);
     }
 
-    private async Task UpdateCountOfBallots(Guid bundleId, int delta, Guid electionResultId)
+    private async Task UpdateCountOfBallots(Guid bundleId, int delta)
     {
         await _bundleRepo.Query()
             .Where(x => x.Id == bundleId)
             .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountOfBallots, x => x.CountOfBallots + delta));
-        PublishBundleChangeMessage(bundleId, electionResultId);
     }
 
-    private async Task UpdateBundleState(
+    private async Task<ProportionalElectionResultBundleLog> UpdateBundleState(
         ProportionalElectionResultBundle bundle,
         BallotBundleState newState,
-        User? reviewer = null)
+        User user,
+        DateTime timestamp)
     {
         bundle.State = newState;
-        if (reviewer != null)
+        if (newState is BallotBundleState.Reviewed or BallotBundleState.InCorrection)
         {
-            bundle.ReviewedBy = reviewer;
+            // Create new user since owned entity instances cannot be used by multiple owners
+            bundle.ReviewedBy = new User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecureConnectId = user.SecureConnectId,
+            };
         }
 
+        var log = new ProportionalElectionResultBundleLog { User = user, Timestamp = timestamp, State = newState };
+        bundle.Logs.Add(log);
+
         await _bundleRepo.Update(bundle);
-        PublishBundleChangeMessage(bundle);
+        return log;
     }
 
     private async Task UpdateCountOfBundlesNotReviewedOrDeleted(Guid electionResultId, int delta)
@@ -224,21 +258,20 @@ public class ProportionalElectionResultBundleProcessor :
         await _resultRepo.Update(result);
     }
 
-    private async Task ProcessBundleToReadyForReview(string bundleId, IList<int> sampleBallotNumbers)
+    private async Task<ProportionalElectionResultBundleLog> ProcessBundleToReadyForReview(Guid bundleId, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
     {
-        var bundleGuid = GuidParser.Parse(bundleId);
-        var bundle = await _bundleRepo.GetByKey(bundleGuid)
-                     ?? throw new EntityNotFoundException(bundleGuid);
-        await UpdateBundleState(bundle, BallotBundleState.ReadyForReview);
+        var bundle = await _bundleRepo.GetByKey(bundleId)
+                     ?? throw new EntityNotFoundException(bundleId);
+        var log = await UpdateBundleState(bundle, BallotBundleState.ReadyForReview, user, timestamp);
 
         if (sampleBallotNumbers.Count == 0)
         {
-            return;
+            return log;
         }
 
         var ballots = await _ballotRepo.Query()
             .Where(b =>
-                b.BundleId == bundleGuid
+                b.BundleId == bundleId
                 && (sampleBallotNumbers.Contains(b.Number) || b.MarkedForReview))
             .ToListAsync();
         foreach (var ballot in ballots)
@@ -247,14 +280,6 @@ public class ProportionalElectionResultBundleProcessor :
         }
 
         await _ballotRepo.UpdateRange(ballots);
-        PublishBundleChangeMessage(bundle);
+        return log;
     }
-
-    private void PublishBundleChangeMessage(ProportionalElectionResultBundle bundle)
-        => PublishBundleChangeMessage(bundle.Id, bundle.ElectionResultId);
-
-    private void PublishBundleChangeMessage(Guid bundleId, Guid electionResultId)
-        => _bundleChangedMessageProducer.Add(new ProportionalElectionBundleChanged(
-            bundleId,
-            electionResultId));
 }

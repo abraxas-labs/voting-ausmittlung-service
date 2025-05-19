@@ -52,7 +52,7 @@ public class XmlEch0222ProportionalElectionTest : XmlExportBaseTest<Delivery>
     {
         return new GenerateResultExportsRequest
         {
-            ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting),
             ExportTemplateIds = new List<Guid>
             {
                 AusmittlungUuidV5.BuildExportTemplate(

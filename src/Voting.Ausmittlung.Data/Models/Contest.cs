@@ -22,6 +22,10 @@ public class Contest : BaseEntity
 
     public DomainOfInfluence DomainOfInfluence { get; set; } = null!; // set by ef
 
+    public int NumberOfCountingCirclesWithECountingImported { get; set; }
+
+    public bool ECountingResultsImported => NumberOfCountingCirclesWithECountingImported > 0;
+
     public bool EVotingResultsImported { get; set; }
 
     public bool EVoting { get; set; }
@@ -134,4 +138,12 @@ public class Contest : BaseEntity
     public bool TestingPhaseEnded => State.TestingPhaseEnded();
 
     public string Description => Translations.GetTranslated(t => t.Description);
+
+    public void MoveECountingToConventional()
+    {
+        foreach (var business in PoliticalBusinesses)
+        {
+            business.MoveECountingToConventional();
+        }
+    }
 }

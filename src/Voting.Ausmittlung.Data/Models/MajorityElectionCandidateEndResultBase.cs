@@ -9,14 +9,22 @@ public abstract class MajorityElectionCandidateEndResultBase : ElectionCandidate
 
     public int ConventionalVoteCount { get; set; }
 
+    public int ECountingVoteCount { get; set; }
+
     public int EVotingVoteCount { get; set; }
 
     public override int VoteCount
     {
-        get => ConventionalVoteCount + EVotingVoteCount;
+        get => ConventionalVoteCount + EVotingVoteCount + ECountingVoteCount;
         set
         {
             // empty setter to store the value in the database...
         }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        ConventionalVoteCount += ECountingVoteCount;
+        ECountingVoteCount = 0;
     }
 }

@@ -32,7 +32,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "ProportionalElectionUnion": null,
   "ProportionalElection": {
@@ -88,7 +89,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,

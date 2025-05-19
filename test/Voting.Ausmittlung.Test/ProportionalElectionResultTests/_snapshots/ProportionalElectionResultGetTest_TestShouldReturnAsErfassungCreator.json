@@ -80,7 +80,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
@@ -100,14 +101,24 @@
   "TotalCountOfVoters": 15000,
   "CountOfVoters": {
     "VoterParticipation": 0.0,
-    "ConventionalReceivedBallots": null,
-    "ConventionalInvalidBallots": null,
-    "ConventionalBlankBallots": null,
-    "ConventionalAccountedBallots": null,
-    "EVotingReceivedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingBlankBallots": 0,
-    "EVotingAccountedBallots": 0,
+    "ConventionalSubTotal": {
+      "ReceivedBallots": null,
+      "InvalidBallots": null,
+      "BlankBallots": null,
+      "AccountedBallots": null
+    },
+    "EVotingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
+    "ECountingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
     "TotalUnaccountedBallots": 0,
@@ -136,9 +147,19 @@
       "Email": ""
     },
     "ContactPersonSameDuringEventAsAfter": false,
-    "ContactPersonAfterEvent": null
+    "ContactPersonAfterEvent": null,
+    "ECounting": false
   },
   "EVotingSubTotal": {
+    "TotalCountOfUnmodifiedLists": 0,
+    "TotalCountOfModifiedLists": 0,
+    "TotalCountOfListsWithoutParty": 0,
+    "TotalCountOfBallots": 0,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+    "TotalCountOfListsWithParty": 0,
+    "TotalCountOfLists": 0
+  },
+  "ECountingSubTotal": {
     "TotalCountOfUnmodifiedLists": 0,
     "TotalCountOfModifiedLists": 0,
     "TotalCountOfListsWithoutParty": 0,

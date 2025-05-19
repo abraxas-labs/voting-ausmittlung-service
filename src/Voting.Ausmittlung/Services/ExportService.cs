@@ -74,19 +74,6 @@ public class ExportService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.Export.ExportData)]
-    public override Task GetProtocolExportStateChanges(
-        GetProtocolExportStateChangesRequest request,
-        IServerStreamWriter<ProtoModels.ProtocolExportStateChange> responseStream,
-        ServerCallContext context)
-    {
-        return _templateReader.ListenToProtocolExportStateChanges(
-            GuidParser.Parse(request.ContestId),
-            GuidParser.ParseNullable(request.CountingCircleId),
-            e => responseStream.WriteAsync(_mapper.Map<ProtoModels.ProtocolExportStateChange>(e)),
-            context.CancellationToken);
-    }
-
-    [AuthorizePermission(Permissions.Export.ExportData)]
     public override async Task<Empty> StartProtocolExports(
         StartProtocolExportsRequest request,
         ServerCallContext context)
@@ -96,7 +83,7 @@ public class ExportService : ServiceBase
             GuidParser.ParseNullable(request.CountingCircleId),
             _mapper.Map<List<Guid>>(request.ExportTemplateIds),
             false,
-            context.CancellationToken);
+            ct: context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 
@@ -142,18 +129,5 @@ public class ExportService : ServiceBase
         {
             ProtocolExportId = protocolExportId.ToString(),
         };
-    }
-
-    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Review)]
-    public override Task GetBundleReviewExportStateChanges(
-        GetBundleReviewExportStateChangesRequest request,
-        IServerStreamWriter<ProtoModels.ProtocolExportStateChange> responseStream,
-        ServerCallContext context)
-    {
-        return _resultExportService.ListenToBundleReviewExportStateChanges(
-            GuidParser.Parse(request.PoliticalBusinessResultId),
-            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType),
-            e => responseStream.WriteAsync(_mapper.Map<ProtoModels.ProtocolExportStateChange>(e)),
-            context.CancellationToken);
     }
 }

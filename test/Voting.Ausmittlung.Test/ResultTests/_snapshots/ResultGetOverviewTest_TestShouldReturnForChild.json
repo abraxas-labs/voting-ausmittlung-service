@@ -38,7 +38,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "PoliticalBusinesses": [
     {
@@ -132,27 +133,74 @@
   "CountingCircleResults": [
     {
       "CountingCircle": {
-        "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-        "Name": "Uzwil",
-        "Bfs": "1234",
-        "ResponsibleAuthority": {
-          "SecureConnectId": "",
-          "Name": "",
-          "Street": "",
-          "Zip": "",
-          "City": "",
-          "Phone": "",
-          "Email": ""
+        "CountingCircle": {
+          "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "Name": "Uzwil",
+          "Bfs": "1234",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": true
         },
-        "ContactPersonDuringEvent": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        },
-        "ContactPersonSameDuringEventAsAfter": false,
-        "ContactPersonAfterEvent": null
+        "Details": {
+          "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 3210,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [
+            {
+              "CountOfReceivedVotingCards": 150,
+              "Valid": false,
+              "Channel": 2,
+              "DomainOfInfluenceType": 4
+            },
+            {
+              "CountOfReceivedVotingCards": 400,
+              "Valid": true,
+              "Channel": 1,
+              "DomainOfInfluenceType": 4
+            },
+            {
+              "CountOfReceivedVotingCards": 2000,
+              "Valid": true,
+              "Channel": 2,
+              "DomainOfInfluenceType": 4
+            },
+            {
+              "CountOfReceivedVotingCards": 150,
+              "Valid": true,
+              "Channel": 3,
+              "DomainOfInfluenceType": 4
+            },
+            {
+              "CountOfReceivedVotingCards": 200,
+              "Valid": true,
+              "Channel": 4,
+              "DomainOfInfluenceType": 4
+            }
+          ],
+          "EVoting": true,
+          "ECounting": true,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
       },
       "Results": [
         {
@@ -165,14 +213,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -180,7 +238,8 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
@@ -192,14 +251,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -207,7 +276,8 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
@@ -219,14 +289,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -234,7 +314,78 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "f7114585-1fd6-586b-8c02-4fab17663cda",
+              "Ballot": {
+                "Id": "7ad05ec9-0ad9-4490-8b97-368f7175a7f0",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "7de846be-9e60-45c7-81e3-51441ff37592",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 Uzwil de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
         }
       ]
     }

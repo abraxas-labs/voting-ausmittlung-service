@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,6 +65,63 @@ public class ContestListSummariesTest : BaseTest<ContestService.ContestServiceCl
     {
         var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
         response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsErfassungAdminShouldReturnNoContestsWithoutAnyAccessiblePoliticalBusiness()
+    {
+        var contestId = ContestMockedData.GuidBundesurnengang;
+
+        await ModifyDbEntities<Data.Models.SimpleCountingCircleResult>(
+            x => x.CountingCircle!.SnapshotContestId == contestId,
+            x => x.CountingCircleId = CountingCircleMockedData.GuidUzwilKirche);
+
+        var response = await ErfassungElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
+        var contest = response.ContestSummaries_.FirstOrDefault(s => s.Id == contestId.ToString());
+        contest.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminShouldReturnContestsWithoutAnyOwnedPoliticalBusiness()
+    {
+        var contestId = ContestMockedData.GuidStGallenEvoting;
+
+        await ModifyDbEntities<Data.Models.SimplePoliticalBusiness>(
+            x => x.ContestId == contestId,
+            x => x.DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGenf));
+
+        // update the current user to the contest owner
+        await ModifyDbEntities<Data.Models.DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id);
+
+        var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
+        var contest = response.ContestSummaries_.FirstOrDefault(s => s.Id == contestId.ToString());
+        contest.Should().NotBeNull();
+        contest!.ContestEntriesDetails.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminFilterByStateShouldNotReturnOwnedContestsWithInvalidState()
+    {
+        var contestId = ContestMockedData.GuidStGallenEvoting;
+
+        await ModifyDbEntities<Data.Models.SimplePoliticalBusiness>(
+            x => x.ContestId == contestId,
+            x => x.DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGenf));
+
+        // update the current user to the contest owner
+        await ModifyDbEntities<Data.Models.DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id);
+
+        var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest
+        {
+            States = { ProtoModels.ContestState.Active },
+        });
+
+        var contest = response.ContestSummaries_.FirstOrDefault(s => s.Id == contestId.ToString());
+        contest.Should().BeNull();
     }
 
     [Fact]

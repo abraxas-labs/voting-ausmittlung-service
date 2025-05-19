@@ -22,19 +22,21 @@ public class ProportionalElectionCandidateResult : BaseEntity, IHasSubTotals<Pro
 
     public ProportionalElectionCandidateResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public ProportionalElectionCandidateResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public ProportionalElectionCandidateResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <inheritdoc />
-    public int UnmodifiedListVotesCount => EVotingSubTotal.UnmodifiedListVotesCount + ConventionalSubTotal.UnmodifiedListVotesCount;
+    public int UnmodifiedListVotesCount => EVotingSubTotal.UnmodifiedListVotesCount + ECountingSubTotal.UnmodifiedListVotesCount + ConventionalSubTotal.UnmodifiedListVotesCount;
 
     /// <inheritdoc />
-    public int ModifiedListVotesCount => EVotingSubTotal.ModifiedListVotesCount + ConventionalSubTotal.ModifiedListVotesCount;
+    public int ModifiedListVotesCount => EVotingSubTotal.ModifiedListVotesCount + ECountingSubTotal.ModifiedListVotesCount + ConventionalSubTotal.ModifiedListVotesCount;
 
     /// <inheritdoc />
-    public int CountOfVotesOnOtherLists => EVotingSubTotal.CountOfVotesOnOtherLists + ConventionalSubTotal.CountOfVotesOnOtherLists;
+    public int CountOfVotesOnOtherLists => EVotingSubTotal.CountOfVotesOnOtherLists + ECountingSubTotal.CountOfVotesOnOtherLists + ConventionalSubTotal.CountOfVotesOnOtherLists;
 
     /// <inheritdoc />
-    public int CountOfVotesFromAccumulations => EVotingSubTotal.CountOfVotesFromAccumulations + ConventionalSubTotal.CountOfVotesFromAccumulations;
+    public int CountOfVotesFromAccumulations => EVotingSubTotal.CountOfVotesFromAccumulations + ECountingSubTotal.CountOfVotesFromAccumulations + ConventionalSubTotal.CountOfVotesFromAccumulations;
 
     /// <inheritdoc />
     public int VoteCount => UnmodifiedListVotesCount + ModifiedListVotesCount;
@@ -56,6 +58,16 @@ public class ProportionalElectionCandidateResult : BaseEntity, IHasSubTotals<Pro
         foreach (var voteSource in VoteSources)
         {
             voteSource.ResetSubTotal(dataSource);
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var voteSource in VoteSources)
+        {
+            voteSource.MoveECountingToConventional();
         }
     }
 }

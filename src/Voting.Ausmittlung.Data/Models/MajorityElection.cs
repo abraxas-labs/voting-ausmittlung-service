@@ -81,4 +81,14 @@ public class MajorityElection : MajorityElectionBase, IHasResults, IPoliticalBus
 
     public ICollection<MajorityElection> SecondaryMajorityElectionsOnSeparateBallots { get; set; } =
         new HashSet<MajorityElection>();
+
+    public override void MoveECountingToConventional()
+    {
+        EndResult?.MoveECountingToConventional();
+
+        foreach (var result in Results)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
 }

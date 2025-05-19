@@ -23,6 +23,17 @@
     "EmptyVoteCountWriteIns": 0,
     "EmptyVoteCountExclWriteIns": 0
   },
+  "ECountingSubTotal": {
+    "IndividualVoteCount": 0,
+    "EmptyVoteCountInclWriteIns": 0,
+    "InvalidVoteCount": 0,
+    "TotalEmptyAndInvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0,
+    "TotalVoteCount": 0,
+    "EmptyVoteCountWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": 0
+  },
   "ConventionalSubTotal": {
     "IndividualVoteCount": 0,
     "EmptyVoteCountInclWriteIns": 0,
@@ -49,20 +60,33 @@
   "WriteInMappings": [],
   "WriteInBallots": [],
   "HasUnmappedWriteIns": false,
-  "CountOfElectionsWithUnmappedWriteIns": 0,
+  "HasUnmappedEVotingWriteIns": false,
+  "HasUnmappedECountingWriteIns": false,
+  "CountOfElectionsWithUnmappedEVotingWriteIns": 0,
+  "CountOfElectionsWithUnmappedECountingWriteIns": 0,
   "HasBallotGroups": false,
   "PoliticalBusiness": null,
   "PoliticalBusinessId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
   "CountOfVoters": {
     "VoterParticipation": 0.666667,
-    "EVotingReceivedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingBlankBallots": 0,
-    "EVotingAccountedBallots": 0,
-    "ConventionalReceivedBallots": 10000,
-    "ConventionalInvalidBallots": 500,
-    "ConventionalBlankBallots": 1000,
-    "ConventionalAccountedBallots": 2000,
+    "EVotingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
+    "ECountingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
+    "ConventionalSubTotal": {
+      "ReceivedBallots": 10000,
+      "InvalidBallots": 500,
+      "BlankBallots": 1000,
+      "AccountedBallots": 2000
+    },
     "TotalReceivedBallots": 10000,
     "TotalAccountedBallots": 2000,
     "TotalUnaccountedBallots": 1500,

@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>proportional_election_list_candidate_votes_end_results</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -27,7 +28,7 @@
       <TotalCountOfCountingCircles>1</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.077882</VoterParticipation>
+        <VoterParticipation>0.0779</VoterParticipation>
         <TotalReceivedBallots>250</TotalReceivedBallots>
         <TotalUnaccountedBallots>140</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -72,6 +73,9 @@
             <Locality>locality</Locality>
             <Position>1</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1a.01</NumberIncludingList>
@@ -118,6 +122,9 @@
             <Locality>locality</Locality>
             <Position>2</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1a.02</NumberIncludingList>
@@ -214,6 +221,9 @@
             <Locality>locality</Locality>
             <Position>1</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1b.01</NumberIncludingList>
@@ -260,6 +270,9 @@
             <Locality>locality</Locality>
             <Position>2</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>1b.02</NumberIncludingList>
@@ -356,6 +369,9 @@
             <Locality>Uzwil</Locality>
             <Position>1</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>2.01</NumberIncludingList>
@@ -402,6 +418,9 @@
             <Locality>Uzwil</Locality>
             <Position>2</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>2.02</NumberIncludingList>
@@ -498,6 +517,9 @@
             <Locality>Uzwil</Locality>
             <Position>1</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
             <NumberIncludingList>3.01</NumberIncludingList>

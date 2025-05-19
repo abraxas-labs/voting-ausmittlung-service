@@ -20,14 +20,17 @@ using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
-public class MajorityElectionResultBuilder
+public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<MajorityElectionResult>
 {
     private readonly MajorityElectionResultRepo _resultRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _secondaryResultRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryMajorityElectionRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityElectionWriteInsRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityElectionWriteInsRepo;
+    private readonly IDbRepository<DataContext, MajorityElectionWriteInBallot> _majorityElectionWriteInBallotsRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> _secondaryMajorityElectionWriteInBallotsRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResultBallot> _ballotRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> _secondaryBallotRepo;
-    private readonly SimpleCountingCircleResultRepo _simpleResultRepo;
     private readonly MajorityElectionBallotGroupResultBuilder _ballotGroupResultBuilder;
     private readonly MajorityElectionCandidateResultBuilder _candidateResultBuilder;
     private readonly DataContext _dataContext;
@@ -37,20 +40,29 @@ public class MajorityElectionResultBuilder
         MajorityElectionResultRepo resultRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionResult> secondaryResultRepo,
         IDbRepository<DataContext, SecondaryMajorityElection> secondaryMajorityElectionRepo,
+        IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityElectionWriteInsRepo,
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityElectionWriteInsRepo,
+        IDbRepository<DataContext, MajorityElectionWriteInBallot> majorityElectionWriteInBallotsRepo,
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInBallot> secondaryMajorityElectionWriteInBallotsRepo,
         IDbRepository<DataContext, MajorityElectionResultBallot> ballotRepo,
         IDbRepository<DataContext, SecondaryMajorityElectionResultBallot> secondaryBallotRepo,
+        IDbRepository<DataContext, CountingCircleResultComment> resultCommentRepo,
         SimpleCountingCircleResultRepo simpleResultRepo,
         MajorityElectionBallotGroupResultBuilder ballotGroupResultBuilder,
         MajorityElectionCandidateResultBuilder candidateResultBuilder,
         DataContext dataContext,
         IMapper mapper)
+    : base(simpleResultRepo, resultCommentRepo)
     {
         _resultRepo = resultRepo;
         _secondaryResultRepo = secondaryResultRepo;
         _secondaryMajorityElectionRepo = secondaryMajorityElectionRepo;
+        _majorityElectionWriteInsRepo = majorityElectionWriteInsRepo;
+        _secondaryMajorityElectionWriteInsRepo = secondaryMajorityElectionWriteInsRepo;
+        _majorityElectionWriteInBallotsRepo = majorityElectionWriteInBallotsRepo;
+        _secondaryMajorityElectionWriteInBallotsRepo = secondaryMajorityElectionWriteInBallotsRepo;
         _ballotRepo = ballotRepo;
         _secondaryBallotRepo = secondaryBallotRepo;
-        _simpleResultRepo = simpleResultRepo;
         _ballotGroupResultBuilder = ballotGroupResultBuilder;
         _candidateResultBuilder = candidateResultBuilder;
         _dataContext = dataContext;
@@ -66,6 +78,7 @@ public class MajorityElectionResultBuilder
             .Select(x => new
             {
                 x.Id,
+                x.CountingCircle.BasisCountingCircleId,
                 BallotGroupIds = x.BallotGroupResults.Select(r => r.BallotGroupId),
                 CandidateIds = x.CandidateResults.Select(r => r.CandidateId),
                 SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
@@ -86,8 +99,8 @@ public class MajorityElectionResultBuilder
 
         var existingSecondaryResultByResultId = results.ToDictionary(
             x => x.Id,
-            x => x.SecondaryResults.ConvertAll(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)));
-        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, existingSecondaryResultByResultId);
+            x => new SecondaryDetails(x.BasisCountingCircleId, x.SecondaryResults.ConvertAll(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds))));
+        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, testingPhaseEnded, existingSecondaryResultByResultId);
         _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
         _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
 
@@ -106,11 +119,11 @@ public class MajorityElectionResultBuilder
 
         foreach (var secondaryMajorityElection in secondaryMajorityElections)
         {
-            await _simpleResultRepo.Sync(secondaryMajorityElection.Id, secondaryMajorityElection.DomainOfInfluenceId, false);
+            await SimpleResultRepo.Sync(secondaryMajorityElection.Id, secondaryMajorityElection.DomainOfInfluenceId, false);
         }
     }
 
-    internal async Task InitializeSecondaryElection(Guid electionId, Guid secondaryElectionId)
+    internal async Task InitializeSecondaryElection(Guid electionId, Guid secondaryElectionId, bool testingPhaseEnded)
     {
         var resultsToUpdate = await _resultRepo.Query()
             .AsSplitQuery()
@@ -119,6 +132,7 @@ public class MajorityElectionResultBuilder
             .Select(x => new
             {
                 x.Id,
+                x.CountingCircle.BasisCountingCircleId,
                 SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
                 {
                     r.Id,
@@ -130,8 +144,8 @@ public class MajorityElectionResultBuilder
 
         var existingSecondaryResultByResultId = resultsToUpdate.ToDictionary(
             x => x.Id,
-            x => x.SecondaryResults.Select(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)).ToList());
-        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, existingSecondaryResultByResultId);
+            x => new SecondaryDetails(x.BasisCountingCircleId, x.SecondaryResults.Select(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)).ToList()));
+        var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, testingPhaseEnded, existingSecondaryResultByResultId);
         _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
         _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
         await _dataContext.SaveChangesAsync();
@@ -168,7 +182,7 @@ public class MajorityElectionResultBuilder
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
 
-        await ResetConventionalResult(result, true);
+        await ResetResult(result, VotingDataSource.Conventional, true, true);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -205,13 +219,12 @@ public class MajorityElectionResultBuilder
             }
         }
 
-        await ResetConventionalResult(electionResult, false);
+        await ResetResult(electionResult, VotingDataSource.Conventional, true, false);
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task UpdateConventionalResults(MajorityElectionCandidateResultsEntered data)
+    internal async Task UpdateConventionalResults(Guid resultId, MajorityElectionCandidateResultsEntered data)
     {
-        var resultId = GuidParser.Parse(data.ElectionResultId);
         var electionResult = await _resultRepo.Query()
                                  .AsSplitQuery()
                                  .AsTracking()
@@ -221,7 +234,6 @@ public class MajorityElectionResultBuilder
                              ?? throw new EntityNotFoundException(resultId);
         UpdateConventionalResults(electionResult, data);
         await _dataContext.SaveChangesAsync();
-
         await UpdateSimpleResult(electionResult.Id, electionResult.CountOfVoters);
     }
 
@@ -295,6 +307,7 @@ public class MajorityElectionResultBuilder
         {
             ccResult.ConventionalSubTotal.IndividualVoteCount = null;
             ccResult.EVotingSubTotal.IndividualVoteCount = 0;
+            ccResult.ECountingSubTotal.IndividualVoteCount = 0;
         }
 
         foreach (var ballot in ccResults.SelectMany(r => r.ResultBallots))
@@ -303,6 +316,40 @@ public class MajorityElectionResultBuilder
         }
 
         await _dataContext.SaveChangesAsync();
+    }
+
+    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource)
+    {
+        var electionResults = await _resultRepo
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.BallotGroupResults)
+            .Include(x => x.Bundles)
+            .Include(x => x.CandidateResults)
+            .Include(x => x.SecondaryMajorityElectionResults).ThenInclude(x => x.CandidateResults)
+            .Where(x => x.CountingCircleId == countingCircleId && x.MajorityElection.ContestId == contestId)
+            .ToListAsync();
+
+        foreach (var electionResult in electionResults)
+        {
+            await ResetResult(electionResult, dataSource, false, true);
+            electionResult.UpdateVoterParticipation();
+        }
+
+        await ResetSimpleResults(electionResults, dataSource);
+        await _dataContext.SaveChangesAsync();
+    }
+
+    protected override Task ResetSimpleResult(
+        SimpleCountingCircleResult simpleResult,
+        VotingDataSource dataSource,
+        bool includeCountOfVoters,
+        MajorityElectionResult result)
+    {
+        simpleResult.CountOfElectionsWithUnmappedEVotingWriteIns = result.CountOfElectionsWithUnmappedEVotingWriteIns;
+        simpleResult.CountOfElectionsWithUnmappedECountingWriteIns = result.CountOfElectionsWithUnmappedECountingWriteIns;
+        return base.ResetSimpleResult(simpleResult, dataSource, includeCountOfVoters, result);
     }
 
     private async Task AdjustConventionalVoteCountsForBundle(Guid electionResultId, Guid bundleId, int factor)
@@ -393,29 +440,54 @@ public class MajorityElectionResultBuilder
         }
     }
 
-    private async Task ResetConventionalResult(MajorityElectionResult electionResult, bool includeCountOfVoters)
+    private async Task ResetResult(MajorityElectionResult electionResult, VotingDataSource dataSource, bool includeSimpleResult, bool includeCountOfVoters)
     {
+        electionResult.ResetAllSubTotals(dataSource, includeCountOfVoters);
+        electionResult.UpdateVoterParticipation();
+
+        if (dataSource is VotingDataSource.EVoting or VotingDataSource.ECounting)
+        {
+            var importType = dataSource.GetImportType();
+            await _majorityElectionWriteInsRepo.Query()
+                .Where(x => x.ResultId == electionResult.Id && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _majorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.ResultId == electionResult.Id && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _secondaryMajorityElectionWriteInsRepo.Query()
+                .Where(x => x.Result.PrimaryResultId == electionResult.Id && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _secondaryMajorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.Result.PrimaryResultId == electionResult.Id && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+
+            if (includeSimpleResult)
+            {
+                await ResetSimpleResult(electionResult.Id, dataSource, includeCountOfVoters, electionResult);
+            }
+
+            return;
+        }
+
         electionResult.ConventionalCountOfDetailedEnteredBallots = 0;
         electionResult.ConventionalCountOfBallotGroupVotes = 0;
         electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
         electionResult.Bundles.Clear();
-        electionResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
-        electionResult.UpdateVoterParticipation();
-
         foreach (var ballotGroupResult in electionResult.BallotGroupResults)
         {
             ballotGroupResult.VoteCount = 0;
         }
 
-        if (includeCountOfVoters)
+        if (includeSimpleResult)
         {
-            await ResetSimpleResult(electionResult.Id);
+            await ResetSimpleResult(electionResult.Id, dataSource, includeCountOfVoters, electionResult);
         }
     }
 
     private async Task<MissingSecondaryResults> BuildMissingSecondaryMajorityElectionResults(
         Guid electionId,
-        Dictionary<Guid, List<SecondaryResultIds>> secondaryResultIdsByResultId)
+        bool testingPhaseEnded,
+        Dictionary<Guid, SecondaryDetails> secondaryDetailsIdsByResultId)
     {
         var secondaryElectionIds = await _secondaryMajorityElectionRepo.Query()
             .Where(e => e.PrimaryMajorityElectionId == electionId)
@@ -435,10 +507,16 @@ public class MajorityElectionResultBuilder
 
         var secondaryCandidateIdsByElectionId =
             secondaryElectionIds.ToDictionary(x => x.ElectionId, x => x.CandidateIds);
-        foreach (var (resultId, secondaryResultIdList) in secondaryResultIdsByResultId)
+        foreach (var (resultId, details) in secondaryDetailsIdsByResultId)
         {
+            var secondaryResultIdList = details.SecondaryIds;
             var secondaryResultsToAdd = secondaryElectionIds.Select(x => x.ElectionId).Except(secondaryResultIdList.Select(x => x.SecondaryElectionId))
-                .Select(x => new SecondaryMajorityElectionResult { SecondaryMajorityElectionId = x, PrimaryResultId = resultId, Id = Guid.NewGuid() })
+                .Select(x => new SecondaryMajorityElectionResult
+                {
+                    SecondaryMajorityElectionId = x,
+                    PrimaryResultId = resultId,
+                    Id = AusmittlungUuidV5.BuildPoliticalBusinessResult(x, details.BasisCountingCircleId, testingPhaseEnded),
+                })
                 .ToList();
             missingSecondaryResults.AddRange(secondaryResultsToAdd);
             secondaryResultIdList.AddRange(secondaryResultsToAdd.Select(x => new SecondaryResultIds(x.SecondaryMajorityElectionId, x.Id, new List<Guid>())));
@@ -454,34 +532,12 @@ public class MajorityElectionResultBuilder
         return new MissingSecondaryResults(missingSecondaryResults, missingSecondaryCandidateResults);
     }
 
-    private async Task UpdateSimpleResult(Guid resultId, PoliticalBusinessNullableCountOfVoters countOfVoters)
-    {
-        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
-                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
+    private record SecondaryDetails(Guid BasisCountingCircleId, List<SecondaryResultIds> SecondaryIds);
 
-        simpleResult.CountOfVoters = countOfVoters;
-        await _simpleResultRepo.Update(simpleResult);
-    }
-
-    private async Task ResetSimpleResult(Guid resultId)
-    {
-        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
-                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
-
-        if (simpleResult.CountOfVoters == null)
-        {
-            return;
-        }
-
-        simpleResult.CountOfVoters.ConventionalReceivedBallots = 0;
-        simpleResult.CountOfVoters.ConventionalBlankBallots = 0;
-        simpleResult.CountOfVoters.ConventionalInvalidBallots = 0;
-        simpleResult.CountOfVoters.ConventionalAccountedBallots = 0;
-
-        await _simpleResultRepo.Update(simpleResult);
-    }
-
-    private record SecondaryResultIds(Guid SecondaryElectionId, Guid SecondaryResultId, IEnumerable<Guid> CandidateIds);
+    private record SecondaryResultIds(
+        Guid SecondaryElectionId,
+        Guid SecondaryResultId,
+        IEnumerable<Guid> CandidateIds);
 
     private record MissingSecondaryResults(
         List<SecondaryMajorityElectionResult> SecondaryResults,

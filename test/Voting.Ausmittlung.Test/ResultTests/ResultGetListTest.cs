@@ -129,7 +129,7 @@ public class ResultGetListTest : BaseTest<ResultService.ResultServiceClient>
             RolesMockedData.ErfassungElectionAdmin);
         var response = await client.GetListAsync(new GetResultListRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         });
         response.State.Should().HaveSameValueAs(CountingCircleResultState.SubmissionOngoing);

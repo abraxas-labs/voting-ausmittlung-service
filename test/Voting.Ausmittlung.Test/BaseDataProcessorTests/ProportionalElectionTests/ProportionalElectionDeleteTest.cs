@@ -136,4 +136,22 @@ public class ProportionalElectionDeleteTest : BaseDataProcessorTest
         contestRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 0, 0, 0 }).Should().BeTrue();
         doiRelatedCountOfReceivedVotingCards.SequenceEqual(new[] { 0, 0, 0 }).Should().BeTrue();
     }
+
+    [Fact]
+    public async Task TestAdjustElectionsCountOnUnionEndResults()
+    {
+        await ZhMockedData.Seed(RunScoped);
+
+        await TestEventPublisher.Publish(
+            new ProportionalElectionDeleted
+            {
+                ProportionalElectionId = ZhMockedData.ProportionalElectionGuidKtratWinterthur.ToString(),
+            });
+
+        var unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+
+        unionEndResult.TotalCountOfElections.Should().Be(2);
+        unionEndResult.CountOfDoneElections.Should().Be(2);
+    }
 }

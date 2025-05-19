@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.EventLogs;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -27,19 +29,22 @@ public class PdfContestActivityProtocolRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly EventLogsBuilder _eventLogsBuilder;
     private readonly EventLogBuilderContextBuilder _eventLogBuilderContextBuilder;
+    private readonly IClock _clock;
 
     public PdfContestActivityProtocolRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, Contest> contestRepo,
         IMapper mapper,
         EventLogsBuilder eventLogsBuilder,
-        EventLogBuilderContextBuilder eventLogBuilderContextBuilder)
+        EventLogBuilderContextBuilder eventLogBuilderContextBuilder,
+        IClock clock)
     {
         _templateService = templateService;
         _contestRepo = contestRepo;
         _mapper = mapper;
         _eventLogsBuilder = eventLogsBuilder;
         _eventLogBuilderContextBuilder = eventLogBuilderContextBuilder;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -58,6 +63,7 @@ public class PdfContestActivityProtocolRenderService : IRendererService
         var pdfActivityProtocol = new PdfActivityProtocol
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(contest),
         };
 

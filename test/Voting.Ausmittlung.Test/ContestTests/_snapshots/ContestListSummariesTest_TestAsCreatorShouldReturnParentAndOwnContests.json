@@ -61,7 +61,8 @@
           "MobilePhone": "",
           "Email": "email@example.com"
         }
-      }
+      },
+      "ECountingResultsImported": false
     },
     {
       "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
@@ -86,10 +87,6 @@
         "Nanos": 0
       },
       "ContestEntriesDetails": [
-        {
-          "DomainOfInfluenceType": 1,
-          "ContestEntriesCount": 3
-        },
         {
           "DomainOfInfluenceType": 2,
           "ContestEntriesCount": 4
@@ -134,7 +131,8 @@
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
         }
-      }
+      },
+      "ECountingResultsImported": false
     },
     {
       "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
@@ -193,7 +191,8 @@
           "MobilePhone": "",
           "Email": ""
         }
-      }
+      },
+      "ECountingResultsImported": false
     },
     {
       "Id": "40e66d0c-ebab-44a9-9567-5cd9b83f960b",
@@ -247,7 +246,8 @@
           "MobilePhone": "",
           "Email": "email@example.com"
         }
-      }
+      },
+      "ECountingResultsImported": false
     },
     {
       "Id": "4b1513ce-89fd-4ce8-bf71-7b55a50b8943",
@@ -301,7 +301,8 @@
           "MobilePhone": "",
           "Email": "email@example.com"
         }
-      }
+      },
+      "ECountingResultsImported": false
     }
   ]
 }

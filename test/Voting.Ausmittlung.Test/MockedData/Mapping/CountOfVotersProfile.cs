@@ -11,6 +11,10 @@ public class CountOfVotersProfile : Profile
 {
     public CountOfVotersProfile()
     {
-        CreateMap<EnterPoliticalBusinessCountOfVotersRequest, PoliticalBusinessNullableCountOfVoters>();
+        CreateMap<EnterPoliticalBusinessCountOfVotersRequest, PoliticalBusinessNullableCountOfVoters>()
+            .ForPath(dst => dst.ConventionalSubTotal.AccountedBallots, opt => opt.MapFrom(src => src.ConventionalAccountedBallots))
+            .ForPath(dst => dst.ConventionalSubTotal.BlankBallots, opt => opt.MapFrom(src => src.ConventionalBlankBallots))
+            .ForPath(dst => dst.ConventionalSubTotal.InvalidBallots, opt => opt.MapFrom(src => src.ConventionalInvalidBallots))
+            .ForPath(dst => dst.ConventionalSubTotal.ReceivedBallots, opt => opt.MapFrom(src => src.ConventionalReceivedBallots));
     }
 }

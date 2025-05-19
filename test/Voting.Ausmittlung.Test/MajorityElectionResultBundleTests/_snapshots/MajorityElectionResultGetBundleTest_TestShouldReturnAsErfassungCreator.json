@@ -78,7 +78,8 @@
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -99,6 +100,15 @@
         },
         "CandidateResults": [],
         "EVotingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
+        "ECountingSubTotal": {
           "IndividualVoteCount": 0,
           "EmptyVoteCountInclWriteIns": 0,
           "EmptyVoteCountExclWriteIns": 0,
@@ -143,6 +153,15 @@
           "TotalCandidateVoteCountExclIndividual": 0,
           "TotalCandidateVoteCountInclIndividual": 0
         },
+        "ECountingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
         "ConventionalSubTotal": {
           "IndividualVoteCount": 7,
           "EmptyVoteCountInclWriteIns": 5,
@@ -171,6 +190,15 @@
         },
         "CandidateResults": [],
         "EVotingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
+        "ECountingSubTotal": {
           "IndividualVoteCount": 0,
           "EmptyVoteCountInclWriteIns": 0,
           "EmptyVoteCountExclWriteIns": 0,
@@ -210,14 +238,24 @@
     "TotalCountOfVoters": 15000,
     "CountOfVoters": {
       "VoterParticipation": 0.6,
-      "ConventionalReceivedBallots": 9000,
-      "ConventionalInvalidBallots": 500,
-      "ConventionalBlankBallots": 500,
-      "ConventionalAccountedBallots": 8000,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 9000,
+        "InvalidBallots": 500,
+        "BlankBallots": 500,
+        "AccountedBallots": 8000
+      },
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
       "TotalReceivedBallots": 9000,
       "TotalAccountedBallots": 8000,
       "TotalUnaccountedBallots": 1000,
@@ -229,6 +267,15 @@
     "ConventionalCountOfBallotGroupVotes": 0,
     "ConventionalCountOfDetailedEnteredBallots": 0,
     "EVotingSubTotal": {
+      "IndividualVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0,
+      "EmptyVoteCountWriteIns": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    "ECountingSubTotal": {
       "IndividualVoteCount": 0,
       "EmptyVoteCountInclWriteIns": 0,
       "EmptyVoteCountExclWriteIns": 0,
@@ -272,8 +319,11 @@
         "Email": ""
       },
       "ContactPersonSameDuringEventAsAfter": false,
-      "ContactPersonAfterEvent": null
+      "ContactPersonAfterEvent": null,
+      "ECounting": true
     },
+    "HasUnmappedEVotingWriteIns": false,
+    "HasUnmappedECountingWriteIns": false,
     "HasUnmappedWriteIns": false,
     "Published": false,
     "ReadyForCorrectionTimestamp": null,
@@ -292,6 +342,21 @@
     },
     "ReviewedBy": null,
     "BallotNumbersToReview": [],
-    "ProtocolExport": null
+    "ProtocolExport": null,
+    "Logs": [
+      {
+        "User": {
+          "SecureConnectId": "default-user-id",
+          "FirstName": "Hans",
+          "LastName": "Muster",
+          "FullName": "Hans Muster"
+        },
+        "Timestamp": {
+          "Seconds": 1578661930,
+          "Nanos": 200000000
+        },
+        "State": 1
+      }
+    ]
   }
 }

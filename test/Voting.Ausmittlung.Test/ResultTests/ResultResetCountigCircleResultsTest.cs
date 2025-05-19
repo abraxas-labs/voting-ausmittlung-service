@@ -11,6 +11,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
@@ -247,6 +248,29 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
             "Counting circle details aggregate is not initialized yet");
     }
 
+    [Fact]
+    public async Task ShouldResetComments()
+    {
+        await SetResultState(CountingCircleResultState.ReadyForCorrection, "please enter valid numbers");
+
+        var resultBefore = await RunOnDb(db => db.SimpleCountingCircleResults
+            .Include(x => x.Comments)
+            .SingleAsync(x => x.Id == MajorityElectionResultId));
+
+        resultBefore.HasComments.Should().BeTrue();
+        resultBefore.Comments.Should().HaveCount(1);
+
+        await ErfassungElectionAdminClient.ResetCountingCircleResultsAsync(NewValidRequest());
+        await RunEvents<MajorityElectionResultResetted>();
+
+        var resultAfter = await RunOnDb(db => db.SimpleCountingCircleResults
+            .Include(x => x.Comments)
+            .SingleAsync(x => x.Id == MajorityElectionResultId));
+
+        resultAfter.HasComments.Should().BeFalse();
+        resultAfter.Comments.Should().BeEmpty();
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
@@ -264,7 +288,7 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
     {
         var request = new ResetCountingCircleResultsRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         };
 

@@ -61,7 +61,6 @@ internal static class VoteInfoProportionalElectionResultMapping
             }
             : null,
             CountingCircleResult = proportionalElection.Results
-                .Where(r => r.Published)
                 .OrderBy(r => r.CountingCircle.Name)
                 .Select(r => ToCountingCircleResult(r, enabledResultStates))
                 .ToList(),
@@ -126,7 +125,7 @@ internal static class VoteInfoProportionalElectionResultMapping
             : null;
         return new CountingCircleResultType
         {
-            CountingCircle = result.CountingCircle.ToEch0252CountingCircle(result.ProportionalElection.Contest.DomainOfInfluenceId),
+            CountingCircle = result.CountingCircle.ToEch0252CountingCircle(),
             ResultData = resultData,
         };
     }

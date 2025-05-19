@@ -47,6 +47,12 @@ public static class PdfMajorityElectionEndResultUtil
                 case MajorityElectionCandidateEndResultState.NotElected:
                     endResult.CandidateEndResultsNotElected = candidateEndResults;
                     break;
+                case MajorityElectionCandidateEndResultState.NotElectedInPrimaryElectionNotEligible:
+                    endResult.CandidateEndResultsNotElectedInPrimaryElectionNotEligible = candidateEndResults;
+                    break;
+                case MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible:
+                    endResult.CandidateEndResultsAbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible = candidateEndResults;
+                    break;
                 default:
                     throw new InvalidOperationException($"bad candidate end result state: {state}");
             }

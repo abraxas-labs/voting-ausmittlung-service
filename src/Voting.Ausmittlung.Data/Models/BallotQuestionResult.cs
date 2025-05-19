@@ -20,22 +20,24 @@ public class BallotQuestionResult : BaseEntity,
 
     public BallotQuestionResultSubTotal EVotingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
 
+    public BallotQuestionResultSubTotal ECountingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
+
     public BallotQuestionResultNullableSubTotal ConventionalSubTotal { get; set; } = new BallotQuestionResultNullableSubTotal();
 
     /// <summary>
     /// Gets the total count of the answer yes.
     /// </summary>
-    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault();
+    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ECountingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault();
 
     /// <summary>
     /// Gets the total count of the answer no.
     /// </summary>
-    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault();
+    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ECountingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault();
 
     /// <summary>
     /// Gets the total count of the answer unspecified.
     /// </summary>
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
 
     public bool HasMajority => TotalCountOfAnswerYes > TotalCountOfAnswerNo;
 

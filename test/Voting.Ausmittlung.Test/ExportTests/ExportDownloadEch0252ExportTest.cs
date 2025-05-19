@@ -49,10 +49,6 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
             x.State = CountingCircleResultState.AuditedTentatively;
         });
 
-        await ModifyDbEntities<Vote>(
-            x => x.Id == Guid.Parse(VoteMockedData.IdBundVoteInContestStGallen),
-            x => x.Active = false);
-
         await TestExport(NewValidRequest(), StGallenReportExporterApiClient, archive =>
         {
             archive.Entries.Count.Should().Be(9);
@@ -123,6 +119,29 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
     }
 
     [Fact]
+    public async Task ValidContestButInvalidVotingIdentificationsShouldReturnEmptyFiles()
+    {
+        var request = new DownloadEch0252ExportRequest
+        {
+            PollingDate = new DateOnly(2020, 8, 31),
+            VotingIdentifications = [Guid.Empty],
+        };
+
+        await TestExport(request, StGallenReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(3);
+            var formattedXmlVotes = ValidateAndFormat(archive, "eCH-0252_vote-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlVotes.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252VotesApiEmptyFile.xml");
+
+            var formattedXmlProportionalElections = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiEmptyFile.xml");
+
+            var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApiEmptyFile.xml");
+        });
+    }
+
+    [Fact]
     public async Task NonCantonSettingsAdminShouldReturnEmpty()
     {
         var request = new DownloadEch0252ExportRequest
@@ -163,7 +182,7 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
                 Id = Guid.Parse("8cdc91a4-5ec5-46e1-8872-cad60b907300"),
                 ProportionalElectionUnionEntries = new List<ProportionalElectionUnionEntry>
                 {
-                    new() { ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen) },
+                    new() { ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen) },
                 },
                 ContestId = ContestMockedData.GuidStGallenEvoting,
                 Description = "Kantonratswahl 2020",
@@ -173,8 +192,13 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
         });
 
         await ModifyDbEntities<ProportionalElectionCandidate>(
-            x => x.Id == Guid.Parse(ProportionalElectionMockedData.CandidateId1BundProportionalElectionInContestStGallen),
+            x => x.Id == Guid.Parse(ProportionalElectionMockedData.CandidateIdStGallenProportionalElectionInContestStGallen),
             x => x.PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere));
+
+        // Patch long descriptions since otherwise the eCH would be invalid
+        await ModifyDbEntities<ProportionalElectionListTranslation>(
+            x => x.Description == string.Empty,
+            x => x.Description = "long description");
 
         var request = new DownloadEch0252ExportRequest
         {

@@ -22,6 +22,8 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
 
     public MajorityElectionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public MajorityElectionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public MajorityElectionResultNullableSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <summary>
@@ -39,24 +41,24 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     public int ConventionalCountOfDetailedEnteredBallots { get; set; }
 
     /// <inheritdoc />
-    public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount.GetValueOrDefault();
+    public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ECountingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ECountingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns.GetValueOrDefault();
 
     /// <inheritdoc />
-    public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
+    public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ECountingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount.GetValueOrDefault();
 
     /// <inheritdoc />
-    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
+    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ECountingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
 
     /// <inheritdoc />
-    public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
+    public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ECountingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
 
-    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
+    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ECountingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
     public ICollection<SecondaryMajorityElectionResult> SecondaryMajorityElectionResults { get; set; } =
         new HashSet<SecondaryMajorityElectionResult>();
@@ -76,14 +78,25 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     /// <summary>
     /// Gets a value indicating whether this result or any secondary result has write ins which are not mapped by a user yet.
     /// </summary>
-    public bool HasUnmappedWriteIns => CountOfElectionsWithUnmappedWriteIns > 0;
+    public bool HasUnmappedWriteIns => HasUnmappedEVotingWriteIns || HasUnmappedECountingWriteIns;
+
+    public bool HasUnmappedEVotingWriteIns => CountOfElectionsWithUnmappedEVotingWriteIns > 0;
+
+    public bool HasUnmappedECountingWriteIns => CountOfElectionsWithUnmappedECountingWriteIns > 0;
 
     /// <summary>
-    /// Gets or sets the count of elections with unmapped write ins.
+    /// Gets or sets the count of elections with unmapped e-voting write ins.
     /// This includes the primary and all secondary elections.
     /// When this property is updated also update the same property in <see cref="SimpleCountingCircleResult"/>.
     /// </summary>
-    public int CountOfElectionsWithUnmappedWriteIns { get; set; }
+    public int CountOfElectionsWithUnmappedEVotingWriteIns { get; set; }
+
+    /// <summary>
+    /// Gets or sets the count of elections with unmapped e-voting write ins.
+    /// This includes the primary and all secondary elections.
+    /// When this property is updated also update the same property in <see cref="SimpleCountingCircleResult"/>.
+    /// </summary>
+    public int CountOfElectionsWithUnmappedECountingWriteIns { get; set; }
 
     public bool HasBallotGroups => BallotGroupResults.Count != 0;
 
@@ -95,6 +108,30 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
     {
         get => MajorityElectionId;
         set => MajorityElectionId = value;
+    }
+
+    public void MoveECountingToConventional()
+    {
+        CountOfVoters.MoveECountingSubTotalsToConventional();
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in CandidateResults)
+        {
+            result.MoveECountingToConventional();
+        }
+
+        foreach (var result in SecondaryMajorityElectionResults)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
+
+    public void ResetAllSubTotals(bool includeCountOfVoters = false)
+    {
+        foreach (var dataSource in Enum.GetValues<VotingDataSource>())
+        {
+            ResetAllSubTotals(dataSource, includeCountOfVoters);
+        }
     }
 
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
@@ -118,9 +155,40 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
             CountOfVoters.ResetSubTotal(dataSource, TotalCountOfVoters);
         }
 
-        if (dataSource == VotingDataSource.EVoting)
+        switch (dataSource)
         {
-            CountOfElectionsWithUnmappedWriteIns = 0;
+            case VotingDataSource.EVoting:
+                CountOfElectionsWithUnmappedEVotingWriteIns = 0;
+                break;
+            case VotingDataSource.ECounting:
+                CountOfElectionsWithUnmappedECountingWriteIns = 0;
+                break;
+        }
+    }
+
+    public void RemoveElectionWithUnmappedWriteIns(VotingDataSource dataSource)
+    {
+        switch (dataSource)
+        {
+            case VotingDataSource.EVoting:
+                CountOfElectionsWithUnmappedEVotingWriteIns--;
+                break;
+            case VotingDataSource.ECounting:
+                CountOfElectionsWithUnmappedECountingWriteIns--;
+                break;
+        }
+    }
+
+    public void AddElectionWithUnmappedWriteIns(VotingDataSource dataSource)
+    {
+        switch (dataSource)
+        {
+            case VotingDataSource.EVoting:
+                CountOfElectionsWithUnmappedEVotingWriteIns++;
+                break;
+            case VotingDataSource.ECounting:
+                CountOfElectionsWithUnmappedECountingWriteIns++;
+                break;
         }
     }
 }

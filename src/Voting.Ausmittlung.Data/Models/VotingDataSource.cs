@@ -17,4 +17,9 @@ public enum VotingDataSource
     /// EVoting source.
     /// </summary>
     EVoting,
+
+    /// <summary>
+    /// ECounting source.
+    /// </summary>
+    ECounting,
 }

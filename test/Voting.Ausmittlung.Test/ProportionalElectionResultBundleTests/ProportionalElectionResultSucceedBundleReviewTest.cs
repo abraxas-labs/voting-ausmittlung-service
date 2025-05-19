@@ -13,7 +13,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
@@ -181,8 +180,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
                 EventInfo = GetMockedEventInfo(),
             });
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleReviewSucceeded.Descriptor, bundle1Id);
 
         var bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Reviewed);
@@ -204,8 +202,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
                 EventInfo = GetMockedEventInfo(),
             });
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle2Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleReviewSucceeded.Descriptor, bundle2Id);
 
         await ShouldHaveCandidateResults(true);
         await ShouldHaveListResults(true);
@@ -241,7 +238,7 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
             SetDynamicIdToDefaultValue(listResult.List.Translations);
         }
 
-        listResults.MatchSnapshot(x => x.Id);
+        listResults.MatchSnapshot("listResults", x => x.Id);
 
         bundle = await GetBundle();
         bundle.State.Should().Be(BallotBundleState.Reviewed);
@@ -254,6 +251,13 @@ public class ProportionalElectionResultSucceedBundleReviewTest : ProportionalEle
         bundle.ElectionResult.TotalCountOfListsWithoutParty.Should().Be(3);
         bundle.ElectionResult.TotalCountOfListsWithParty.Should().Be(2);
         bundle.ElectionResult.TotalCountOfBlankRowsOnListsWithoutParty.Should().Be(3);
+
+        foreach (var log in bundle.Logs)
+        {
+            log.Id = Guid.Empty;
+        }
+
+        bundle.MatchSnapshot("bundle", x => x.ElectionResult.CountingCircleId);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

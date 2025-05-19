@@ -1,0 +1,104 @@
+{
+  "PrimaryCandidateEndResults": [
+    {
+      "CandidateNumber": "K001",
+      "VoteCount": 2000,
+      "Rank": 1,
+      "State": "AbsoluteMajorityAndElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K002",
+      "VoteCount": 1900,
+      "Rank": 2,
+      "State": "AbsoluteMajorityAndElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K003",
+      "VoteCount": 1800,
+      "Rank": 3,
+      "State": "AbsoluteMajorityAndElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K004",
+      "VoteCount": 1700,
+      "Rank": 4,
+      "State": "AbsoluteMajorityAndElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K005",
+      "VoteCount": 1600,
+      "Rank": 5,
+      "State": "AbsoluteMajorityAndNotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K006",
+      "VoteCount": 1600,
+      "Rank": 6,
+      "State": "AbsoluteMajorityAndNotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K007",
+      "VoteCount": 1600,
+      "Rank": 7,
+      "State": "AbsoluteMajorityAndNotElected",
+      "LotDecisionRequired": false
+    }
+  ],
+  "SecondaryCandidateEndResults": [
+    {
+      "CandidateNumber": "K001",
+      "VoteCount": 1001,
+      "Rank": 1,
+      "State": "AbsoluteMajorityAndElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K777",
+      "VoteCount": 999,
+      "Rank": 2,
+      "State": "NoAbsoluteMajorityAndNotElectedButRankOk",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K006",
+      "VoteCount": 800,
+      "Rank": 3,
+      "State": "AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K007",
+      "VoteCount": 700,
+      "Rank": 4,
+      "State": "AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K002",
+      "VoteCount": 500,
+      "Rank": 5,
+      "State": "NoAbsoluteMajorityAndNotElectedButRankOk",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K003",
+      "VoteCount": 400,
+      "Rank": 6,
+      "State": "NoAbsoluteMajorityAndNotElectedButRankOk",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K004",
+      "VoteCount": 300,
+      "Rank": 6,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    }
+  ]
+}

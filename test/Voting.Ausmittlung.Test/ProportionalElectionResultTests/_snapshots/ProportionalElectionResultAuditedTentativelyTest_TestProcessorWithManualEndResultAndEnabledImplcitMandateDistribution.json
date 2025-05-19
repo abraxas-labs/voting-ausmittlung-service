@@ -38,7 +38,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "ProportionalElection": {
     "Id": "fa69e964-0a02-4d16-b417-247e8987021a",
@@ -119,7 +120,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "ReviewProcedure": 1,
     "EnforceReviewProcedureForCountingCircles": true,
@@ -211,14 +213,24 @@
   "AllCountingCirclesDone": true,
   "CountOfVoters": {
     "VoterParticipation": 0.0,
-    "ConventionalReceivedBallots": 0,
-    "ConventionalInvalidBallots": 0,
-    "ConventionalBlankBallots": 0,
-    "ConventionalAccountedBallots": 0,
-    "EVotingReceivedBallots": 0,
-    "EVotingInvalidBallots": 0,
-    "EVotingBlankBallots": 0,
-    "EVotingAccountedBallots": 0,
+    "ConventionalSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
+    "EVotingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
+    "ECountingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
     "TotalReceivedBallots": 0,
     "TotalAccountedBallots": 0,
     "TotalUnaccountedBallots": 0,
@@ -234,7 +246,7 @@
         "ShortDescription": "Liste 1 de",
         "BlankRowCount": 0,
         "Position": 1,
-        "Description": ""
+        "Description": "Liste 1 de"
       },
       "NumberOfMandates": 0,
       "CandidateEndResults": [
@@ -251,7 +263,7 @@
             "Accumulated": true,
             "AccumulatedPosition": 2,
             "NumberIncludingList": "1a.number1",
-            "ListDescription": "",
+            "ListDescription": "Liste 1 de",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
             "CheckDigit": 6
@@ -263,6 +275,13 @@
           "LotDecisionRequired": true,
           "State": 3,
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -290,7 +309,7 @@
             "Accumulated": false,
             "AccumulatedPosition": 0,
             "NumberIncludingList": "1a.number2",
-            "ListDescription": "",
+            "ListDescription": "Liste 1 de",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
             "CheckDigit": 4
@@ -302,6 +321,13 @@
           "LotDecisionRequired": true,
           "State": 3,
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -333,6 +359,21 @@
       },
       "HasOpenRequiredLotDecisions": true,
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
@@ -384,7 +425,7 @@
         "ShortDescription": "Liste 2 de",
         "BlankRowCount": 0,
         "Position": 2,
-        "Description": ""
+        "Description": "Liste 2 de"
       },
       "NumberOfMandates": 0,
       "CandidateEndResults": [
@@ -401,7 +442,7 @@
             "Accumulated": false,
             "AccumulatedPosition": 0,
             "NumberIncludingList": "2.number3",
-            "ListDescription": "",
+            "ListDescription": "Liste 2 de",
             "ListShortDescription": "Liste 2 de",
             "ListPosition": 2,
             "CheckDigit": 0
@@ -413,6 +454,13 @@
           "LotDecisionRequired": false,
           "State": 3,
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -444,6 +492,21 @@
       },
       "HasOpenRequiredLotDecisions": false,
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
@@ -495,15 +558,15 @@
         "ShortDescription": "Liste 3 de",
         "BlankRowCount": 3,
         "Position": 3,
-        "Description": ""
+        "Description": "Liste 3 de"
       },
       "NumberOfMandates": 0,
       "CandidateEndResults": [],
       "ListUnion": {
-        "Id": "6a8913a3-bd03-4cb3-a0f9-317db5de8959",
+        "Id": "687970fd-aeae-48d0-b291-7b6333912907",
         "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
-        "Description": "Listenverbindung 2 de",
-        "Position": 2,
+        "Description": "Listenverbindung 3 de",
+        "Position": 3,
         "ProportionalElectionRootListUnionId": ""
       },
       "SubListUnion": {
@@ -515,6 +578,21 @@
       },
       "HasOpenRequiredLotDecisions": false,
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,

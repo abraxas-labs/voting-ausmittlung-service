@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
+using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -28,6 +29,15 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
     {
         var voteId = GuidParser.Parse(eventData.VoteId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // all legacy events are evoting events
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        var dataSource = importType.GetDataSource();
         var voteResult = await _voteResultRepo.Query()
             .AsSplitQuery()
             .Include(x => x.Results).ThenInclude(x => x.QuestionResults).ThenInclude(x => x.Question)
@@ -41,34 +51,47 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
             var ballotId = GuidParser.Parse(importedBallotResult.BallotId);
             var ballotResult = ballotResultsByBallotId[ballotId];
 
-            ballotResult.CountOfVoters.EVotingReceivedBallots = importedBallotResult.CountOfVoters;
-            ballotResult.CountOfVoters.EVotingBlankBallots = importedBallotResult.BlankBallotCount;
-            ballotResult.CountOfVoters.EVotingAccountedBallots = importedBallotResult.CountOfVoters - importedBallotResult.BlankBallotCount;
+            SetCountOfVoters(importType, ballotResult, importedBallotResult);
             ballotResult.CountOfVoters.UpdateVoterParticipation(voteResult.TotalCountOfVoters);
 
-            ProcessBallotQuestionResults(ballotResult, importedBallotResult.QuestionResults);
-            ProcessTieBreakQuestionResults(ballotResult, importedBallotResult.TieBreakQuestionResults);
+            ProcessBallotQuestionResults(dataSource, ballotResult, importedBallotResult.QuestionResults);
+            ProcessTieBreakQuestionResults(dataSource, ballotResult, importedBallotResult.TieBreakQuestionResults);
         }
 
-        voteResult.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        if (importType == ResultImportType.EVoting)
+        {
+            voteResult.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        }
+
         await _voteResultRepo.Update(voteResult);
     }
 
-    private void ProcessBallotQuestionResults(BallotResult ballotResult, IEnumerable<BallotQuestionResultImportEventData> importedQuestionResults)
+    private static void SetCountOfVoters(
+        ResultImportType importType,
+        BallotResult ballotResult,
+        VoteBallotResultImportEventData importedBallotResult)
+    {
+        var subTotal = ballotResult.CountOfVoters.GetNonNullableSubTotal(importType.GetDataSource());
+        subTotal.ReceivedBallots = importedBallotResult.CountOfVoters;
+        subTotal.BlankBallots = importedBallotResult.BlankBallotCount;
+        subTotal.AccountedBallots = importedBallotResult.CountOfVoters - importedBallotResult.BlankBallotCount;
+    }
+
+    private void ProcessBallotQuestionResults(VotingDataSource dataSource, BallotResult ballotResult, IEnumerable<BallotQuestionResultImportEventData> importedQuestionResults)
     {
         var questionResultsByNumber = ballotResult.QuestionResults.ToDictionary(x => x.Question.Number);
 
         foreach (var importedQuestionResult in importedQuestionResults)
         {
             var questionResult = questionResultsByNumber[importedQuestionResult.QuestionNumber];
-
-            questionResult.EVotingSubTotal.TotalCountOfAnswerYes = importedQuestionResult.CountYes;
-            questionResult.EVotingSubTotal.TotalCountOfAnswerNo = importedQuestionResult.CountNo;
-            questionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = importedQuestionResult.CountUnspecified;
+            var subTotal = questionResult.GetNonNullableSubTotal(dataSource);
+            subTotal.TotalCountOfAnswerYes = importedQuestionResult.CountYes;
+            subTotal.TotalCountOfAnswerNo = importedQuestionResult.CountNo;
+            subTotal.TotalCountOfAnswerUnspecified = importedQuestionResult.CountUnspecified;
         }
     }
 
-    private void ProcessTieBreakQuestionResults(BallotResult ballotResult, IEnumerable<TieBreakQuestionResultImportEventData> importedTieBreakQuestionResults)
+    private void ProcessTieBreakQuestionResults(VotingDataSource dataSource, BallotResult ballotResult, IEnumerable<TieBreakQuestionResultImportEventData> importedTieBreakQuestionResults)
     {
         var tieBreakQuestionResultsByNumber = ballotResult.TieBreakQuestionResults.ToDictionary(x => x.Question.Number);
 
@@ -76,9 +99,10 @@ public class VoteResultImportProcessor : IEventProcessor<VoteResultImported>
         {
             var tieBreakQuestionResult = tieBreakQuestionResultsByNumber[importedTieBreakQuestionResult.QuestionNumber];
 
-            tieBreakQuestionResult.EVotingSubTotal.TotalCountOfAnswerQ1 = importedTieBreakQuestionResult.CountQ1;
-            tieBreakQuestionResult.EVotingSubTotal.TotalCountOfAnswerQ2 = importedTieBreakQuestionResult.CountQ2;
-            tieBreakQuestionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = importedTieBreakQuestionResult.CountUnspecified;
+            var subTotal = tieBreakQuestionResult.GetNonNullableSubTotal(dataSource);
+            subTotal.TotalCountOfAnswerQ1 = importedTieBreakQuestionResult.CountQ1;
+            subTotal.TotalCountOfAnswerQ2 = importedTieBreakQuestionResult.CountQ2;
+            subTotal.TotalCountOfAnswerUnspecified = importedTieBreakQuestionResult.CountUnspecified;
         }
     }
 }

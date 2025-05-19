@@ -12,7 +12,6 @@ using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -160,7 +159,6 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestProcessor()
     {
-        var ballotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult);
         var bundle1Id = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1);
 
         for (var i = 0; i < 5; i++)
@@ -192,8 +190,7 @@ public class VoteResultBundleSubmissionFinishedTest : VoteResultBundleBaseTest
         // these results are only calculated when the bundle is reviewed
         await ShouldHaveQuestionResults(false);
 
-        await AssertHasPublishedMessage<VoteBundleChanged>(
-            x => x.Id == bundle1Id && x.BallotResultId == ballotResultId);
+        await AssertHasPublishedEventProcessedMessage(VoteResultBundleSubmissionFinished.Descriptor, bundle1Id);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

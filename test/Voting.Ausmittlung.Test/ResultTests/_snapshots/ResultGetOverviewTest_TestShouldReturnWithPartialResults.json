@@ -38,96 +38,10 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "PoliticalBusinesses": [
-    {
-      "Id": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
-      "BusinessType": 2,
-      "Title": "100: Mw Bund de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-        "Name": "Bund",
-        "ShortName": "Bund",
-        "AuthorityName": "",
-        "SecureConnectId": "999999999999999999",
-        "Type": 1,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "Firstname contact",
-          "FamilyName": "Lastname contact",
-          "Phone": "0799999999",
-          "MobilePhone": "",
-          "Email": "email@example.com"
-        }
-      },
-      "NumberOfMandates": 5,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "100",
-      "ShortDescription": "Mw Bund de",
-      "BusinessSubType": 0
-    },
-    {
-      "Id": "30e170ba-ed97-4886-93c9-ee35b106a22e",
-      "BusinessType": 3,
-      "Title": "100: Pw Bund de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-        "Name": "Bund",
-        "ShortName": "Bund",
-        "AuthorityName": "",
-        "SecureConnectId": "999999999999999999",
-        "Type": 1,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "Firstname contact",
-          "FamilyName": "Lastname contact",
-          "Phone": "0799999999",
-          "MobilePhone": "",
-          "Email": "email@example.com"
-        }
-      },
-      "NumberOfMandates": 5,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "100",
-      "ShortDescription": "Pw Bund de",
-      "BusinessSubType": 0
-    },
-    {
-      "Id": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-      "BusinessType": 1,
-      "Title": "100: Abst Bund de",
-      "Active": true,
-      "DomainOfInfluence": {
-        "Id": "eae2cfaf-c787-48b9-a108-c975b0a580da",
-        "Name": "Bund",
-        "ShortName": "Bund",
-        "AuthorityName": "",
-        "SecureConnectId": "999999999999999999",
-        "Type": 1,
-        "ParentId": "",
-        "Children": [],
-        "Canton": 1,
-        "ContactPerson": {
-          "FirstName": "Firstname contact",
-          "FamilyName": "Lastname contact",
-          "Phone": "0799999999",
-          "MobilePhone": "",
-          "Email": "email@example.com"
-        }
-      },
-      "NumberOfMandates": null,
-      "CountOfSecondaryBusinesses": 0,
-      "PoliticalBusinessNumber": "100",
-      "ShortDescription": "Abst Bund de",
-      "BusinessSubType": 0
-    },
     {
       "Id": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
       "BusinessType": 3,
@@ -422,128 +336,128 @@
   "CountingCircleResults": [
     {
       "CountingCircle": {
-        "Id": "46adab98-9114-4503-9000-b02842640650",
-        "Name": "St. Gallen Haggen",
-        "Bfs": "5500-2",
-        "ResponsibleAuthority": {
-          "SecureConnectId": "",
-          "Name": "",
-          "Street": "",
-          "Zip": "",
-          "City": "",
-          "Phone": "",
-          "Email": ""
+        "CountingCircle": {
+          "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "Name": "Gossau",
+          "Bfs": "3443",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": false
         },
-        "ContactPersonDuringEvent": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        },
-        "ContactPersonSameDuringEventAsAfter": false,
-        "ContactPersonAfterEvent": null
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 15800,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [
+            {
+              "CountOfReceivedVotingCards": 3000,
+              "Valid": false,
+              "Channel": 2,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "CountOfReceivedVotingCards": 2000,
+              "Valid": true,
+              "Channel": 1,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "CountOfReceivedVotingCards": 1000,
+              "Valid": true,
+              "Channel": 2,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "CountOfReceivedVotingCards": 3000,
+              "Valid": false,
+              "Channel": 2,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "CountOfReceivedVotingCards": 2000,
+              "Valid": true,
+              "Channel": 1,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "CountOfReceivedVotingCards": 1000,
+              "Valid": true,
+              "Channel": 2,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "CountOfReceivedVotingCards": 500,
+              "Valid": false,
+              "Channel": 2,
+              "DomainOfInfluenceType": 5
+            },
+            {
+              "CountOfReceivedVotingCards": 2500,
+              "Valid": true,
+              "Channel": 1,
+              "DomainOfInfluenceType": 5
+            },
+            {
+              "CountOfReceivedVotingCards": 3500,
+              "Valid": true,
+              "Channel": 2,
+              "DomainOfInfluenceType": 5
+            }
+          ],
+          "EVoting": true,
+          "ECounting": false,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
       },
       "Results": [
         {
           "Id": "",
-          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
-          "State": 1,
-          "SubmissionDoneTimestamp": null,
-          "AuditedTentativelyTimestamp": null,
-          "PlausibilisedTimestamp": null,
-          "CountOfVoters": {
-            "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
-            "TotalReceivedBallots": 0,
-            "TotalAccountedBallots": 0,
-            "TotalUnaccountedBallots": 0,
-            "TotalInvalidBallots": 0,
-            "TotalBlankBallots": 0
-          },
-          "Published": false,
-          "ReadyForCorrectionTimestamp": null
-        },
-        {
-          "Id": "",
-          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
-          "State": 1,
-          "SubmissionDoneTimestamp": null,
-          "AuditedTentativelyTimestamp": null,
-          "PlausibilisedTimestamp": null,
-          "CountOfVoters": {
-            "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
-            "TotalReceivedBallots": 0,
-            "TotalAccountedBallots": 0,
-            "TotalUnaccountedBallots": 0,
-            "TotalInvalidBallots": 0,
-            "TotalBlankBallots": 0
-          },
-          "Published": false,
-          "ReadyForCorrectionTimestamp": null
-        },
-        {
-          "Id": "",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
-          "State": 1,
-          "SubmissionDoneTimestamp": null,
-          "AuditedTentativelyTimestamp": null,
-          "PlausibilisedTimestamp": null,
-          "CountOfVoters": {
-            "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
-            "TotalReceivedBallots": 0,
-            "TotalAccountedBallots": 0,
-            "TotalUnaccountedBallots": 0,
-            "TotalInvalidBallots": 0,
-            "TotalBlankBallots": 0
-          },
-          "Published": false,
-          "ReadyForCorrectionTimestamp": null
-        },
-        {
-          "Id": "",
           "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -551,26 +465,37 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -578,26 +503,107 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "eb4e1458-deee-5992-92b9-154f95f82173",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
         },
         {
           "Id": "",
           "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -605,26 +611,37 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
           "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -632,53 +649,80 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         }
       ]
     },
     {
       "CountingCircle": {
-        "Id": "44a75721-f192-461c-816f-9f46a00d274a",
-        "Name": "St. Gallen St. Fiden",
-        "Bfs": "5500-1",
-        "ResponsibleAuthority": {
-          "SecureConnectId": "",
-          "Name": "",
-          "Street": "",
-          "Zip": "",
-          "City": "",
-          "Phone": "",
-          "Email": ""
+        "CountingCircle": {
+          "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "Name": "St. Gallen",
+          "Bfs": "5500",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": true
         },
-        "ContactPersonDuringEvent": {
-          "FirstName": "",
-          "FamilyName": "",
-          "Phone": "",
-          "MobilePhone": "",
-          "Email": ""
-        },
-        "ContactPersonSameDuringEventAsAfter": false,
-        "ContactPersonAfterEvent": null
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 0,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [],
+          "EVoting": false,
+          "ECounting": true,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
       },
       "Results": [
         {
           "Id": "",
-          "PoliticalBusinessId": "0fee4b4e-f16d-46a3-9f7a-2776ee5785db",
-          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -686,26 +730,37 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
-          "PoliticalBusinessId": "30e170ba-ed97-4886-93c9-ee35b106a22e",
-          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -713,26 +768,107 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "eabc4294-7558-51c2-b739-9ffcd3e3a157",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
         },
         {
           "Id": "",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
           "State": 1,
           "SubmissionDoneTimestamp": null,
           "AuditedTentativelyTimestamp": null,
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -740,8 +876,620 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        }
+      ]
+    },
+    {
+      "CountingCircle": {
+        "CountingCircle": {
+          "Id": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "Name": "St. Gallen Auslandschweizer",
+          "Bfs": "5500-3",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": false
+        },
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 0,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [],
+          "EVoting": false,
+          "ECounting": false,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "0bb2314c-fed4-564f-90ee-5202a2630fd4",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        }
+      ]
+    },
+    {
+      "CountingCircle": {
+        "CountingCircle": {
+          "Id": "46adab98-9114-4503-9000-b02842640650",
+          "Name": "St. Gallen Haggen",
+          "Bfs": "5500-2",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": false
+        },
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 0,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [],
+          "EVoting": false,
+          "ECounting": false,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "e5db312c-ed11-520c-84e3-a0efad41c972",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        }
+      ]
+    },
+    {
+      "CountingCircle": {
+        "CountingCircle": {
+          "Id": "44a75721-f192-461c-816f-9f46a00d274a",
+          "Name": "St. Gallen St. Fiden",
+          "Bfs": "5500-1",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": false
+        },
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 0,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [],
+          "EVoting": true,
+          "ECounting": false,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
+      },
+      "Results": [
         {
           "Id": "",
           "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
@@ -752,14 +1500,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -767,7 +1525,8 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
@@ -779,14 +1538,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -794,7 +1563,78 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "d5115c4f-b122-541b-b4b7-d770c3e7ba28",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
         },
         {
           "Id": "",
@@ -806,14 +1646,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -821,7 +1671,8 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         },
         {
           "Id": "",
@@ -833,14 +1684,24 @@
           "PlausibilisedTimestamp": null,
           "CountOfVoters": {
             "VoterParticipation": 0.0,
-            "ConventionalReceivedBallots": null,
-            "ConventionalInvalidBallots": null,
-            "ConventionalBlankBallots": null,
-            "ConventionalAccountedBallots": null,
-            "EVotingReceivedBallots": 0,
-            "EVotingInvalidBallots": 0,
-            "EVotingBlankBallots": 0,
-            "EVotingAccountedBallots": 0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
             "TotalReceivedBallots": 0,
             "TotalAccountedBallots": 0,
             "TotalUnaccountedBallots": 0,
@@ -848,7 +1709,273 @@
             "TotalBlankBallots": 0
           },
           "Published": false,
-          "ReadyForCorrectionTimestamp": null
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        }
+      ]
+    },
+    {
+      "CountingCircle": {
+        "CountingCircle": {
+          "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "Name": "Uzwil",
+          "Bfs": "1234",
+          "ResponsibleAuthority": {
+            "SecureConnectId": "",
+            "Name": "",
+            "Street": "",
+            "Zip": "",
+            "City": "",
+            "Phone": "",
+            "Email": ""
+          },
+          "ContactPersonDuringEvent": {
+            "FirstName": "",
+            "FamilyName": "",
+            "Phone": "",
+            "MobilePhone": "",
+            "Email": ""
+          },
+          "ContactPersonSameDuringEventAsAfter": false,
+          "ContactPersonAfterEvent": null,
+          "ECounting": true
+        },
+        "Details": {
+          "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "CountOfVotersInformation": {
+            "TotalCountOfVoters": 0,
+            "SubTotalInfo": []
+          },
+          "VotingCards": [],
+          "EVoting": true,
+          "ECounting": true,
+          "ECountingResultsImported": false,
+          "CountingMachine": 0
+        }
+      },
+      "Results": [
+        {
+          "Id": "",
+          "PoliticalBusinessId": "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": [
+            {
+              "Id": "7b7d891d-74f2-5d73-ac2a-c488ddf6ad0d",
+              "Ballot": {
+                "Id": "0ed26aad-e169-4d55-b9a9-90475ba81a02",
+                "Position": 1,
+                "BallotType": 1,
+                "BallotSubType": 0,
+                "VoteId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
+                "BallotQuestions": [],
+                "TieBreakQuestions": []
+              },
+              "CountOfVoters": {
+                "VoterParticipation": 0.0,
+                "ConventionalSubTotal": {
+                  "ReceivedBallots": null,
+                  "InvalidBallots": null,
+                  "BlankBallots": null,
+                  "AccountedBallots": null
+                },
+                "EVotingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "ECountingSubTotal": {
+                  "ReceivedBallots": 0,
+                  "InvalidBallots": 0,
+                  "BlankBallots": 0,
+                  "AccountedBallots": 0
+                },
+                "TotalReceivedBallots": 0,
+                "TotalAccountedBallots": 0,
+                "TotalUnaccountedBallots": 0,
+                "TotalInvalidBallots": 0,
+                "TotalBlankBallots": 0
+              },
+              "QuestionResults": [
+                {
+                  "Id": "",
+                  "Question": {
+                    "Number": 1,
+                    "Question": "Frage 1 St. Gallen de",
+                    "Type": 1
+                  },
+                  "EVotingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ECountingSubTotal": {
+                    "TotalCountOfAnswerYes": 0,
+                    "TotalCountOfAnswerNo": 0,
+                    "TotalCountOfAnswerUnspecified": 0
+                  },
+                  "ConventionalSubTotal": {
+                    "TotalCountOfAnswerYes": null,
+                    "TotalCountOfAnswerNo": null,
+                    "TotalCountOfAnswerUnspecified": null
+                  },
+                  "TotalCountOfAnswerYes": 0,
+                  "TotalCountOfAnswerNo": 0,
+                  "TotalCountOfAnswerUnspecified": 0
+                }
+              ],
+              "TieBreakQuestionResults": [],
+              "AllBundlesReviewedOrDeleted": true,
+              "ConventionalCountOfDetailedEnteredBallots": 0
+            }
+          ]
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
+        },
+        {
+          "Id": "",
+          "PoliticalBusinessId": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
+          "State": 1,
+          "SubmissionDoneTimestamp": null,
+          "AuditedTentativelyTimestamp": null,
+          "PlausibilisedTimestamp": null,
+          "CountOfVoters": {
+            "VoterParticipation": 0.0,
+            "ConventionalSubTotal": {
+              "ReceivedBallots": null,
+              "InvalidBallots": null,
+              "BlankBallots": null,
+              "AccountedBallots": null
+            },
+            "EVotingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "ECountingSubTotal": {
+              "ReceivedBallots": 0,
+              "InvalidBallots": 0,
+              "BlankBallots": 0,
+              "AccountedBallots": 0
+            },
+            "TotalReceivedBallots": 0,
+            "TotalAccountedBallots": 0,
+            "TotalUnaccountedBallots": 0,
+            "TotalInvalidBallots": 0,
+            "TotalBlankBallots": 0
+          },
+          "Published": false,
+          "ReadyForCorrectionTimestamp": null,
+          "BallotResults": []
         }
       ]
     }

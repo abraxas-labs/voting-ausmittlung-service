@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Voting.Ausmittlung.Core.Messaging;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Validation.Utils;
 using Voting.Ausmittlung.Core.Utils;
@@ -39,7 +38,7 @@ public class TestStartup : Startup
             .AddMock<IActionIdComparer, ActionIdComparerMock>()
             .RemoveAll<EventLogBuilder>()
             .AddScoped<EventLogBuilder, StaticEventLogBuilder>()
-            .AddMockedTimeProvider()
+            .AddMockedClock()
             .AddVotingLibEventingMocks()
             .AddVotingLibIamMocks()
             .AddDokConnectorMock()
@@ -55,15 +54,6 @@ public class TestStartup : Startup
 
     protected override void AddMessaging(IServiceCollection services)
     {
-        services.AddVotingLibMessagingMocks(cfg =>
-        {
-            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ResultStateChanged>>();
-            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ResultImportChanged>>();
-            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<WriteInMappingsChanged>>();
-            cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<ProtocolExportStateChanged>>();
-            cfg.AddConsumerAndConsumerTestHarness<MajorityElectionBundleChangedMessageConsumer>();
-            cfg.AddConsumerAndConsumerTestHarness<ProportionalElectionBundleChangedMessageConsumer>();
-            cfg.AddConsumerAndConsumerTestHarness<VoteBundleChangedMessageConsumer>();
-        });
+        services.AddVotingLibMessagingMocks(cfg => cfg.AddConsumerAndConsumerTestHarness<MessageConsumer<EventProcessedMessage>>());
     }
 }

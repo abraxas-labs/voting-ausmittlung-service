@@ -22,6 +22,8 @@ public static class AusmittlungUuidV5
     private const string VotingAusmittlungSeparator = ":";
 
     private static readonly Guid VotingAusmittlungContestCountingCircleDetailsNamespace = Guid.Parse("e843c2dc-226f-4c84-b324-7aa02d3dfc7c");
+    private static readonly Guid VotingAusmittlungContestCountingCircleImportsNamespace = Guid.Parse("505a4c60-bfb1-4884-acd3-0e9d5ea70928");
+    private static readonly Guid VotingAusmittlungContestImportsNamespace = Guid.Parse("b4164784-6088-40fc-9c2d-053373ce8719");
     private static readonly Guid VotingAusmittlungVoteBallotResultNamespace = Guid.Parse("90e9edff-c0d2-4823-91c1-0d386c06a0ad");
     private static readonly Guid VotingAusmittlungResultExportConfigurationNamespace = Guid.Parse("8b09d497-9b95-4b06-bf00-673b55d03c1c");
     private static readonly Guid VotingAusmittlungDomainOfInfluencePartyNamespace = Guid.Parse("f7f443a0-2d6e-4fd2-be2e-e277ae3e3758");
@@ -42,6 +44,12 @@ public static class AusmittlungUuidV5
 
     public static Guid BuildContestCountingCircleDetails(Guid contestId, Guid basisCountingCircleId, bool testingPhaseEnded)
         => Create(VotingAusmittlungContestCountingCircleDetailsNamespace, testingPhaseEnded, contestId, basisCountingCircleId);
+
+    public static Guid BuildContestImports(Guid contestId, bool testingPhaseEnded)
+        => Create(VotingAusmittlungContestImportsNamespace, testingPhaseEnded, contestId);
+
+    public static Guid BuildContestCountingCircleImports(Guid contestId, Guid basisCountingCircleId, bool testingPhaseEnded)
+        => Create(VotingAusmittlungContestCountingCircleImportsNamespace, testingPhaseEnded, contestId, basisCountingCircleId);
 
     public static Guid BuildCountingCircleElectorateSnapshot(Guid contestId, Guid basisCountingCircleId, Guid electorateId)
         => Create(VotingAusmittlungCountingCircleElectorateSnapshotNamespace, contestId, basisCountingCircleId, electorateId);
@@ -95,34 +103,33 @@ public static class AusmittlungUuidV5
         Guid? politicalBusinessId = null,
         Guid? politicalBusinessUnionId = null,
         DomainOfInfluenceType domainOfInfluenceType = DomainOfInfluenceType.Unspecified,
-        Guid? politicalBusinessResultBundleId = null)
+        Guid? politicalBusinessResultBundleId = null,
+        Guid? domainOfInfluenceId = null)
     {
+        var idParts = new List<object?>
+        {
+            exportKey,
+            tenantId,
+            countingCircleId,
+            politicalBusinessId,
+            politicalBusinessUnionId,
+        };
+
         // this is necessary for backwards compatibility
         if (politicalBusinessResultBundleId.HasValue)
         {
-            return UuidV5.Create(
-                VotingAusmittlungExportTemplateNamespace,
-                string.Join(
-                    VotingAusmittlungSeparator,
-                    exportKey,
-                    tenantId,
-                    countingCircleId,
-                    politicalBusinessId,
-                    politicalBusinessUnionId,
-                    politicalBusinessResultBundleId,
-                    (int)domainOfInfluenceType));
+            idParts.Add(politicalBusinessResultBundleId);
         }
 
-        return UuidV5.Create(
-            VotingAusmittlungExportTemplateNamespace,
-            string.Join(
-                VotingAusmittlungSeparator,
-                exportKey,
-                tenantId,
-                countingCircleId,
-                politicalBusinessId,
-                politicalBusinessUnionId,
-                (int)domainOfInfluenceType));
+        idParts.Add((int)domainOfInfluenceType);
+
+        // This was added later on, existing templates should not be affected by this
+        if (domainOfInfluenceId.HasValue)
+        {
+            idParts.Add(domainOfInfluenceId);
+        }
+
+        return UuidV5.Create(VotingAusmittlungExportTemplateNamespace, string.Join(VotingAusmittlungSeparator, idParts));
     }
 
     public static Guid BuildProtocolExport(Guid contestId, bool testingPhaseEnded, Guid exportTemplateId)

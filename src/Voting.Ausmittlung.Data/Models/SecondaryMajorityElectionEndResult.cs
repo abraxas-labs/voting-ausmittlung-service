@@ -19,6 +19,8 @@ public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<Majo
 
     public MajorityElectionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public MajorityElectionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public MajorityElectionResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     public ICollection<SecondaryMajorityElectionCandidateEndResult> CandidateEndResults { get; set; }
@@ -27,24 +29,24 @@ public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<Majo
     public MajorityElectionEndResultCalculation Calculation { get; set; } = new();
 
     /// <inheritdoc />
-    public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount;
+    public int IndividualVoteCount => EVotingSubTotal.IndividualVoteCount + ECountingSubTotal.IndividualVoteCount + ConventionalSubTotal.IndividualVoteCount;
 
     /// <inheritdoc />
-    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns;
+    public int EmptyVoteCount => EVotingSubTotal.EmptyVoteCountInclWriteIns + ECountingSubTotal.EmptyVoteCountInclWriteIns + ConventionalSubTotal.EmptyVoteCountInclWriteIns;
 
     /// <inheritdoc />
-    public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount;
+    public int InvalidVoteCount => EVotingSubTotal.InvalidVoteCount + ECountingSubTotal.InvalidVoteCount + ConventionalSubTotal.InvalidVoteCount;
 
     /// <inheritdoc />
-    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
+    public int TotalEmptyAndInvalidVoteCount => EVotingSubTotal.TotalEmptyAndInvalidVoteCount + ECountingSubTotal.TotalEmptyAndInvalidVoteCount + ConventionalSubTotal.TotalEmptyAndInvalidVoteCount;
 
     /// <inheritdoc />
-    public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
+    public int TotalCandidateVoteCountExclIndividual => EVotingSubTotal.TotalCandidateVoteCountExclIndividual + ECountingSubTotal.TotalCandidateVoteCountExclIndividual + ConventionalSubTotal.TotalCandidateVoteCountExclIndividual;
 
     /// <inheritdoc />
     public int TotalCandidateVoteCountInclIndividual => TotalCandidateVoteCountExclIndividual + IndividualVoteCount;
 
-    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
+    public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ECountingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
     public void ResetAllSubTotals(VotingDataSource dataSource)
     {
@@ -53,6 +55,16 @@ public class SecondaryMajorityElectionEndResult : BaseEntity, IHasSubTotals<Majo
         foreach (var candidateEndResult in CandidateEndResults)
         {
             candidateEndResult.ResetSubTotal(dataSource);
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in CandidateEndResults)
+        {
+            result.MoveECountingToConventional();
         }
     }
 }

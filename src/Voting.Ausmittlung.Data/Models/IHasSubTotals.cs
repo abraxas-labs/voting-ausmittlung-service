@@ -7,6 +7,8 @@ public interface IHasSubTotals<TSubTotal>
 {
     TSubTotal EVotingSubTotal { get; set; }
 
+    TSubTotal ECountingSubTotal { get; set; }
+
     TSubTotal ConventionalSubTotal { get; set; }
 }
 
@@ -14,6 +16,8 @@ public interface IHasSubTotals<TSubTotal, TNullableSubTotal>
     where TNullableSubTotal : INullableSubTotal<TSubTotal>
 {
     TSubTotal EVotingSubTotal { get; set; }
+
+    TSubTotal ECountingSubTotal { get; set; }
 
     TNullableSubTotal ConventionalSubTotal { get; set; }
 }

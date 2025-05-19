@@ -1,7 +1,6 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,50 +13,58 @@ using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
+using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
 public class ResultImportProcessor :
     IEventProcessor<ResultImportStarted>,
     IEventProcessor<ResultImportCompleted>,
+    IEventProcessor<ResultImportCountingCircleCompleted>,
     IEventProcessor<ResultImportDataDeleted>
 {
     private readonly IDbRepository<DataContext, ResultImport> _importsRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
-    private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityWriteInMappingRepo;
-    private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _secondaryMajorityWriteInMappingRepo;
+    private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _contestCountingCircleDetailsRepo;
     private readonly ProportionalElectionEndResultBuilder _proportionalElectionEndResultBuilder;
+    private readonly ProportionalElectionResultBuilder _proportionalElectionResultBuilder;
     private readonly MajorityElectionEndResultBuilder _majorityElectionEndResultBuilder;
+    private readonly MajorityElectionResultBuilder _majorityElectionResultBuilder;
+    private readonly VoteEndResultBuilder _voteEndResultBuilder;
+    private readonly VoteResultBuilder _voteResultBuilder;
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
     private readonly IMapper _mapper;
-    private readonly VoteEndResultBuilder _voteEndResultBuilder;
-    private readonly MessageProducerBuffer _resultImportChangeMessageProducerBuffer;
+    private readonly EventLogger _eventLogger;
 
     public ResultImportProcessor(
+        IMapper mapper,
+        EventLogger eventLogger,
         IDbRepository<DataContext, ResultImport> importsRepo,
         IDbRepository<DataContext, Contest> contestRepo,
-        IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityWriteInMappingRepo,
-        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> secondaryMajorityWriteInMappingRepo,
         ProportionalElectionEndResultBuilder proportionalElectionEndResultBuilder,
         VoteEndResultBuilder voteEndResultBuilder,
         MajorityElectionEndResultBuilder majorityElectionEndResultBuilder,
         ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder,
-        MessageProducerBuffer resultImportChangeMessageProducerBuffer,
-        IMapper mapper)
+        ProportionalElectionResultBuilder proportionalElectionResultBuilder,
+        MajorityElectionResultBuilder majorityElectionResultBuilder,
+        VoteResultBuilder voteResultBuilder,
+        IDbRepository<DataContext, ContestCountingCircleDetails> contestCountingCircleDetailsRepo)
     {
         _importsRepo = importsRepo;
         _contestRepo = contestRepo;
-        _majorityWriteInMappingRepo = majorityWriteInMappingRepo;
-        _secondaryMajorityWriteInMappingRepo = secondaryMajorityWriteInMappingRepo;
         _proportionalElectionEndResultBuilder = proportionalElectionEndResultBuilder;
         _voteEndResultBuilder = voteEndResultBuilder;
         _majorityElectionEndResultBuilder = majorityElectionEndResultBuilder;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
         _mapper = mapper;
-        _resultImportChangeMessageProducerBuffer = resultImportChangeMessageProducerBuffer;
+        _eventLogger = eventLogger;
+        _proportionalElectionResultBuilder = proportionalElectionResultBuilder;
+        _majorityElectionResultBuilder = majorityElectionResultBuilder;
+        _voteResultBuilder = voteResultBuilder;
+        _contestCountingCircleDetailsRepo = contestCountingCircleDetailsRepo;
     }
 
     public async Task Process(ResultImportStarted eventData)
@@ -67,13 +74,21 @@ public class ResultImportProcessor :
             Id = GuidParser.Parse(eventData.ImportId),
             Started = eventData.EventInfo.Timestamp.ToDateTime(),
             ContestId = GuidParser.Parse(eventData.ContestId),
+            CountingCircleId = GuidParser.ParseNullable(eventData.CountingCircleId),
             StartedBy = eventData.EventInfo.User.ToDataUser(),
             FileName = eventData.FileName,
             IgnoredCountingCircles = _mapper.Map<List<IgnoredImportCountingCircle>>(eventData.IgnoredCountingCircles),
+            ImportType = (ResultImportType)eventData.ImportType,
         };
+        import.FixImportType();
+
+        if (import.CountingCircleId.HasValue)
+        {
+            import.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(import.ContestId, import.CountingCircleId.Value);
+        }
 
         await _importsRepo.Create(import);
-        await DeleteEVotingData(import.ContestId);
+        await DeleteImportedData(import);
     }
 
     public async Task Process(ResultImportDataDeleted eventData)
@@ -85,11 +100,19 @@ public class ResultImportProcessor :
             Deleted = true,
             Completed = true,
             ContestId = GuidParser.Parse(eventData.ContestId),
+            CountingCircleId = GuidParser.ParseNullable(eventData.CountingCircleId),
             StartedBy = eventData.EventInfo.User.ToDataUser(),
+            ImportType = (ResultImportType)eventData.ImportType,
         };
 
+        import.FixImportType();
+        if (import.CountingCircleId.HasValue)
+        {
+            import.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(import.ContestId, import.CountingCircleId.Value);
+        }
+
         await _importsRepo.Create(import);
-        await DeleteEVotingData(import.ContestId);
+        await DeleteImportedData(import);
     }
 
     public async Task Process(ResultImportCompleted eventData)
@@ -100,61 +123,94 @@ public class ResultImportProcessor :
 
         import.Completed = true;
         await _importsRepo.Update(import);
-        await SetContestEVotingImported(import.ContestId, true);
+        await SetImported(import, true);
+    }
 
-        var countingCircleIdsWithMajorityElectionWriteIns = await _majorityWriteInMappingRepo.Query()
-            .Include(x => x.Result.CountingCircle)
-            .Where(x =>
-                x.Result.CountingCircle.SnapshotContestId == import.ContestId &&
-                eventData.ImportedMajorityElectionIds.Contains(x.Result.MajorityElectionId.ToString()))
-            .Select(x => x.Result.CountingCircle.BasisCountingCircleId)
-            .Distinct()
-            .ToListAsync();
+    public Task Process(ResultImportCountingCircleCompleted eventData)
+    {
+        var importId = GuidParser.Parse(eventData.ImportId);
+        var contestId = GuidParser.Parse(eventData.ContestId);
+        var basisCountingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+        var eventDetails = new ResultImportCountingCircleCompletedMessageDetail(importType, eventData.HasWriteIns);
+        _eventLogger.LogEvent(
+            eventData,
+            importId,
+            importId,
+            contestId: contestId,
+            basisCountingCircleId: basisCountingCircleId,
+            details: new EventProcessedMessageDetails(CountingCircleImportCompleted: eventDetails));
+        return Task.CompletedTask;
+    }
 
-        var countingCircleIdsWithSecondaryMajorityElectionWriteIns = await _secondaryMajorityWriteInMappingRepo.Query()
-            .Include(x => x.Result.PrimaryResult.CountingCircle)
-            .Where(x =>
-                x.Result.PrimaryResult.CountingCircle.SnapshotContestId == import.ContestId &&
-                eventData.ImportedSecondaryMajorityElectionIds.Contains(x.Result.SecondaryMajorityElectionId.ToString()))
-            .Select(x => x.Result.PrimaryResult.CountingCircle.BasisCountingCircleId)
-            .Distinct()
-            .ToListAsync();
-
-        var countingCircleIdsWithWriteIns = countingCircleIdsWithMajorityElectionWriteIns
-            .Concat(countingCircleIdsWithSecondaryMajorityElectionWriteIns)
-            .ToHashSet();
-
-        var contest = await _contestRepo.Query()
-            .Include(x => x.CountingCircleDetails)
-            .ThenInclude(x => x.CountingCircle)
-            .FirstOrDefaultAsync(x => x.Id == import.ContestId)
-            ?? throw new EntityNotFoundException(nameof(Contest), import.ContestId);
-
-        foreach (var ccDetails in contest.CountingCircleDetails)
+    private async Task DeleteImportedData(ResultImport import)
+    {
+        switch (import.ImportType)
         {
-            var hasWriteIns = countingCircleIdsWithWriteIns.Contains(ccDetails.CountingCircle.BasisCountingCircleId);
-            _resultImportChangeMessageProducerBuffer.Add(new ResultImportChanged(contest.Id, ccDetails.CountingCircle.BasisCountingCircleId, hasWriteIns));
+            case ResultImportType.EVoting:
+                await DeleteEVotingData(import);
+                await SetEVotingImported(import, false);
+                break;
+            case ResultImportType.ECounting:
+                await DeleteECountingData(import);
+                await SetECountingImported(import, false);
+                break;
         }
     }
 
-    private async Task DeleteEVotingData(Guid contestId)
+    private async Task DeleteECountingData(ResultImport import)
     {
-        await SetContestEVotingImported(contestId, false);
-        await _proportionalElectionEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
-        await _majorityElectionEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
-        await _voteEndResultBuilder.ResetAllResults(contestId, VotingDataSource.EVoting);
-        await _contestCountingCircleDetailsBuilder.ResetEVotingVotingCards(contestId);
+        await _proportionalElectionResultBuilder.ResetAllResults(import.ContestId, import.CountingCircleId!.Value, VotingDataSource.ECounting);
+        await _majorityElectionResultBuilder.ResetAllResults(import.ContestId, import.CountingCircleId!.Value, VotingDataSource.ECounting);
+        await _voteResultBuilder.ResetAllResults(import.ContestId, import.CountingCircleId!.Value, VotingDataSource.ECounting);
     }
 
-    private async Task SetContestEVotingImported(Guid contestId, bool imported)
+    private async Task DeleteEVotingData(ResultImport import)
     {
-        var contest = await _contestRepo
-                .Query()
-                .AsSplitQuery()
-                .Include(x => x.CantonDefaults)
-                .FirstOrDefaultAsync(x => x.Id == contestId)
-                      ?? throw new EntityNotFoundException(nameof(Contest), contestId);
-        contest.EVotingResultsImported = imported;
-        await _contestRepo.Update(contest);
+        await _proportionalElectionEndResultBuilder.ResetAllResults(import.ContestId, VotingDataSource.EVoting);
+        await _majorityElectionEndResultBuilder.ResetAllResults(import.ContestId, VotingDataSource.EVoting);
+        await _voteEndResultBuilder.ResetAllResults(import.ContestId, VotingDataSource.EVoting);
+        await _contestCountingCircleDetailsBuilder.ResetVotingCards(import.ContestId, null, VotingChannel.EVoting);
+    }
+
+    private async Task SetImported(ResultImport import, bool imported)
+    {
+        switch (import.ImportType)
+        {
+            case ResultImportType.EVoting:
+                await SetEVotingImported(import, imported);
+                break;
+            case ResultImportType.ECounting:
+                await SetECountingImported(import, imported);
+                break;
+        }
+    }
+
+    private async Task SetEVotingImported(ResultImport import, bool imported)
+    {
+        await _contestRepo.Query()
+            .Where(x => x.Id == import.ContestId)
+            .ExecuteUpdateAsync(x => x.SetProperty(c => c.EVotingResultsImported, imported));
+    }
+
+    private async Task SetECountingImported(ResultImport import, bool imported)
+    {
+        var wasImported = await _contestCountingCircleDetailsRepo.Query()
+                              .Where(x => x.ContestId == import.ContestId && x.CountingCircleId == import.CountingCircleId)
+                              .AnyAsync(x => x.ECountingResultsImported);
+        if (wasImported == imported)
+        {
+            return;
+        }
+
+        var delta = imported ? 1 : -1;
+        await _contestRepo.Query()
+            .Where(x => x.Id == import.ContestId)
+            .ExecuteUpdateAsync(x => x.SetProperty(
+                c => c.NumberOfCountingCirclesWithECountingImported,
+                c => c.NumberOfCountingCirclesWithECountingImported + delta));
+        await _contestCountingCircleDetailsRepo.Query()
+            .Where(x => x.ContestId == import.ContestId && x.CountingCircleId == import.CountingCircleId)
+            .ExecuteUpdateAsync(x => x.SetProperty(c => c.ECountingResultsImported, imported));
     }
 }

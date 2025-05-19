@@ -9,7 +9,7 @@ public class ResultOverview
 {
     public ResultOverview(
         Contest contest,
-        IDictionary<CountingCircle, List<SimpleCountingCircleResult>> countingCircleResults,
+        IDictionary<CountingCircle, List<ResultOverviewCountingCircleResult>> countingCircleResults,
         bool currentTenantIsContestManager,
         bool hasPartialResults)
     {
@@ -25,7 +25,7 @@ public class ResultOverview
 
     public IEnumerable<PoliticalBusinessUnion> PoliticalBusinessUnions => Contest.PoliticalBusinessUnions;
 
-    public IDictionary<CountingCircle, List<SimpleCountingCircleResult>> CountingCircleResults { get; }
+    public IDictionary<CountingCircle, List<ResultOverviewCountingCircleResult>> CountingCircleResults { get; }
 
     public bool CurrentTenantIsContestManager { get; }
 

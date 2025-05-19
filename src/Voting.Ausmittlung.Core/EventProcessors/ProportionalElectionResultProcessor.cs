@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
@@ -14,7 +13,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -35,24 +33,23 @@ public class ProportionalElectionResultProcessor :
     IEventProcessor<ProportionalElectionResultPublished>,
     IEventProcessor<ProportionalElectionResultUnpublished>
 {
-    private readonly IMapper _mapper;
+    private readonly EventLogger _eventLogger;
     private readonly ProportionalElectionResultRepo _electionResultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionUnmodifiedListResult> _unmodifiedListResultRepo;
     private readonly ProportionalElectionResultBuilder _resultBuilder;
     private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
 
     public ProportionalElectionResultProcessor(
-        IMapper mapper,
+        EventLogger eventLogger,
         ProportionalElectionResultRepo electionResultRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         IDbRepository<DataContext, ProportionalElectionUnmodifiedListResult> unmodifiedListResultRepo,
         IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
         ProportionalElectionResultBuilder resultBuilder,
-        ProportionalElectionEndResultBuilder endResultBuilder,
-        MessageProducerBuffer messageProducerBuffer)
-        : base(electionResultRepo, simpleResultRepo, commentRepo, messageProducerBuffer)
+        ProportionalElectionEndResultBuilder endResultBuilder)
+        : base(electionResultRepo, simpleResultRepo, commentRepo)
     {
-        _mapper = mapper;
+        _eventLogger = eventLogger;
         _electionResultRepo = electionResultRepo;
         _unmodifiedListResultRepo = unmodifiedListResultRepo;
         _resultBuilder = resultBuilder;
@@ -63,12 +60,14 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultEntryDefined eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await _resultBuilder.UpdateResultEntryAndResetConventionalResults(electionResultId, eventData.ResultEntryParams);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultCountOfVotersEntered eventData)
@@ -77,10 +76,18 @@ public class ProportionalElectionResultProcessor :
         var electionResult = await _electionResultRepo.GetByKey(electionResultId)
                              ?? throw new EntityNotFoundException(electionResultId);
 
-        _mapper.Map(eventData.CountOfVoters, electionResult.CountOfVoters);
+        electionResult.CountOfVoters.ConventionalSubTotal.AccountedBallots
+            = eventData.CountOfVoters.ConventionalAccountedBallots;
+        electionResult.CountOfVoters.ConventionalSubTotal.BlankBallots
+            = eventData.CountOfVoters.ConventionalBlankBallots;
+        electionResult.CountOfVoters.ConventionalSubTotal.InvalidBallots
+            = eventData.CountOfVoters.ConventionalInvalidBallots;
+        electionResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots
+            = eventData.CountOfVoters.ConventionalReceivedBallots;
         electionResult.UpdateVoterParticipation();
         await _electionResultRepo.Update(electionResult);
         await UpdateSimpleResult(electionResult.Id, electionResult.CountOfVoters);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionUnmodifiedListResultsEntered eventData)
@@ -121,12 +128,14 @@ public class ProportionalElectionResultProcessor :
 
         electionResult.ConventionalSubTotal.TotalCountOfUnmodifiedLists = electionResult.UnmodifiedListResults.Sum(x => x.ConventionalVoteCount);
         await _electionResultRepo.Update(electionResult);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultSubmissionFinished eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultCorrectionFinished eventData)
@@ -134,6 +143,7 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, false, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.CorrectionDone, eventData.EventInfo, createdComment);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultFlaggedForCorrection eventData)
@@ -141,6 +151,7 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, true, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.ReadyForCorrection, eventData.EventInfo, createdComment);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultAuditedTentatively eventData)
@@ -148,12 +159,14 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
         await _endResultBuilder.AdjustEndResult(electionResultId, false, eventData.ImplicitMandateDistributionDisabled);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultPlausibilised eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.Plausibilised, eventData.EventInfo);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultResettedToSubmissionFinished eventData)
@@ -161,12 +174,14 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
         await _endResultBuilder.AdjustEndResult(electionResultId, true, false);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultResettedToAuditedTentatively eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultResetted eventData)
@@ -174,17 +189,20 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultPublished eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdatePublished(electionResultId, true);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
     public async Task Process(ProportionalElectionResultUnpublished eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdatePublished(electionResultId, false);
+        _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 }

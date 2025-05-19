@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
@@ -15,7 +16,8 @@ public class ProportionalElectionResultModelBuilder :
     IEntityTypeConfiguration<ProportionalElectionResultBundle>,
     IEntityTypeConfiguration<ProportionalElectionResultBallot>,
     IEntityTypeConfiguration<ProportionalElectionResultBallotCandidate>,
-    IEntityTypeConfiguration<ProportionalElectionCandidateVoteSourceResult>
+    IEntityTypeConfiguration<ProportionalElectionCandidateVoteSourceResult>,
+    IEntityTypeConfiguration<ProportionalElectionResultBundleLog>
 {
     public void Configure(EntityTypeBuilder<ProportionalElectionResult> builder)
     {
@@ -50,11 +52,13 @@ public class ProportionalElectionResultModelBuilder :
         builder.OwnsOne(x => x.EntryParams);
         builder.Navigation(x => x.EntryParams).IsRequired();
 
-        builder.OwnsOne(x => x.CountOfVoters);
-        builder.Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
 
         builder.OwnsOne(x => x.ConventionalSubTotal);
         builder.Navigation(x => x.ConventionalSubTotal).IsRequired();
@@ -102,6 +106,9 @@ public class ProportionalElectionResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionCandidateResult> builder)
@@ -131,6 +138,9 @@ public class ProportionalElectionResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionResultBundle> builder)
@@ -210,5 +220,26 @@ public class ProportionalElectionResultModelBuilder :
         builder
             .HasIndex(x => new { x.CandidateResultId, x.ListId })
             .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<ProportionalElectionResultBundleLog> builder)
+    {
+        builder
+            .HasOne(x => x.Bundle)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
     }
 }

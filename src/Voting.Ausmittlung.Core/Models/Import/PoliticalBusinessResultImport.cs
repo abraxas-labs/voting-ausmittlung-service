@@ -7,11 +7,11 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public abstract class PoliticalBusinessResultImport
 {
-    protected PoliticalBusinessResultImport(Guid politicalBusinessId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformation)
+    protected PoliticalBusinessResultImport(Guid politicalBusinessId, Guid basisCountingCircleId, int totalCountOfVoters)
     {
         PoliticalBusinessId = politicalBusinessId;
         BasisCountingCircleId = basisCountingCircleId;
-        CountOfVotersInformation = countOfVotersInformation;
+        CountOfVotersInformation = new CountingCircleResultCountOfVotersInformationImport(totalCountOfVoters);
     }
 
     public Guid PoliticalBusinessId { get; }

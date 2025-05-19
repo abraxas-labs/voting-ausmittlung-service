@@ -114,7 +114,7 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
             selector);
 
         res2.Should().HaveCount(1);
-        res2.MatchSnapshot("result2");
+        res2.MatchSnapshot();
     }
 
     [Fact]

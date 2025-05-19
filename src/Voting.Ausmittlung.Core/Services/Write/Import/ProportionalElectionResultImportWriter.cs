@@ -33,7 +33,7 @@ public class ProportionalElectionResultImportWriter
 
     internal async IAsyncEnumerable<ProportionalElectionResultImport> BuildImports(
         Guid contestId,
-        IReadOnlyCollection<EVotingElectionResult> results)
+        IReadOnlyCollection<VotingImportElectionResult> results)
     {
         var electionIds = results.Select(x => x.PoliticalBusinessId).ToHashSet();
         var elections = await _proportionalElectionRepo.Query()
@@ -64,12 +64,12 @@ public class ProportionalElectionResultImportWriter
             .SelectMany(x => x.Results);
 
     private ProportionalElectionResultImport ProcessResult(
-        EVotingElectionResult result,
+        VotingImportElectionResult result,
         ProportionalElection election,
         IReadOnlyDictionary<Guid, ProportionalElectionList> listsById,
         IReadOnlyDictionary<Guid, ProportionalElectionCandidate> candidatesById)
     {
-        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
+        var importResult = new ProportionalElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), result.TotalCountOfVoters);
         importResult.CountOfVoters = result.Ballots.Count;
 
         foreach (var ballot in result.Ballots)
@@ -119,7 +119,7 @@ public class ProportionalElectionResultImportWriter
 
     private (ProportionalElectionList? List, ProportionalElectionListResultImport? ListResult) GetList(
         ProportionalElectionResultImport importData,
-        EVotingElectionBallot electionBallot,
+        VotingElectionBallot electionBallot,
         IReadOnlyDictionary<Guid, ProportionalElectionList> listsById)
     {
         var emptyListId = AusmittlungUuidV5.BuildProportionalElectionEmptyList(importData.ProportionalElectionId);
@@ -142,7 +142,7 @@ public class ProportionalElectionResultImportWriter
         int missingPositions,
         ProportionalElectionResultImport importData,
         ProportionalElectionListResultImport? listResult,
-        EVotingElectionBallot electionBallot,
+        VotingElectionBallot electionBallot,
         IReadOnlyDictionary<Guid, ProportionalElectionCandidate> candidatesById)
     {
         var candidatesVoteCountOnThisBallot = new Dictionary<Guid, int>();
@@ -177,8 +177,8 @@ public class ProportionalElectionResultImportWriter
 
     private void ProcessModifiedBallotPosition(
         ProportionalElectionResultImport importData,
-        EVotingElectionBallot electionBallot,
-        EVotingElectionBallotPosition position,
+        VotingElectionBallot electionBallot,
+        VotingImportElectionBallotPosition position,
         IDictionary<Guid, int> candidatesVoteCountOnThisBallot,
         IReadOnlyDictionary<Guid, ProportionalElectionCandidate> candidatesById)
     {

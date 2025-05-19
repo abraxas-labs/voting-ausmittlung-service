@@ -9,14 +9,19 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using FluentAssertions;
 using Google.Protobuf;
+using Google.Protobuf.Reflection;
+using Google.Protobuf.WellKnownTypes;
 using MassTransit.Testing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Extensions;
+using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -171,6 +176,16 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         return problemDetails!;
     }
 
+    protected T AssertException<T>(
+        Action testCode,
+        string messageContains)
+        where T : Exception
+    {
+        var ex = Assert.Throws<T>(testCode);
+        ex.Message.Should().Contain(messageContains);
+        return ex;
+    }
+
     protected async Task<T> AssertException<T>(
         Func<Task> testCode,
         string messageContains)
@@ -193,7 +208,7 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         string contestId,
         Func<Task<EventWithMetadata>> testAction)
     {
-        await TestEventsWithSignature(contestId, async () => new[] { await testAction() });
+        await TestEventsWithSignature(contestId, async () => [await testAction()]);
     }
 
     protected async Task TestEventsWithSignature(string contestId, Func<Task<EventWithMetadata[]>> testAction)
@@ -231,6 +246,12 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
         }
     }
 
+    protected async Task AssertHasPublishedEventProcessedMessage(MessageDescriptor eventDescriptor, Guid entityId)
+    {
+        await AssertHasPublishedMessage<EventProcessedMessage>(
+            x => eventDescriptor.FullName == x.EventType && x.EntityId == entityId);
+    }
+
     protected async Task AssertHasPublishedMessage<T>(Func<T, bool> predicate, bool hasMessage = true)
         where T : class
     {
@@ -241,6 +262,19 @@ public abstract class BaseRestTest : RestAuthorizationBaseTest<TestApplicationFa
     protected int GetNextEventNumber()
     {
         return _currentEventNumber++;
+    }
+
+    protected EventInfo GetMockedEventInfo()
+    {
+        return new EventInfo
+        {
+            Timestamp = new Timestamp
+            {
+                Seconds = 1594980476,
+            },
+            Tenant = SecureConnectTestDefaults.MockedTenantDefault.ToEventInfoTenant(),
+            User = SecureConnectTestDefaults.MockedUserDefault.ToEventInfoUser(),
+        };
     }
 
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)

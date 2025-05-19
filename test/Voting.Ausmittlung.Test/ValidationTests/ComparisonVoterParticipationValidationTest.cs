@@ -103,7 +103,16 @@ public class ComparisonVoterParticipationValidationTest : BaseValidationTest<Pol
             },
             Results = new List<BallotResult>
             {
-                new() { CountOfVoters = new PoliticalBusinessNullableCountOfVoters { ConventionalReceivedBallots = conventionalReceivedBallots } },
+                new()
+                {
+                    CountOfVoters = new PoliticalBusinessNullableCountOfVoters
+                    {
+                        ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                        {
+                            ReceivedBallots = conventionalReceivedBallots,
+                        },
+                    },
+                },
             },
         };
     }

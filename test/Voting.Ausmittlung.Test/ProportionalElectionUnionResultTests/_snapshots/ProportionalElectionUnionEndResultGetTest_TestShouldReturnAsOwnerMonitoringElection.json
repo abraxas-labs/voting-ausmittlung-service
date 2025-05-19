@@ -27,7 +27,8 @@
       "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": true,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "ProportionalElectionUnion": {
     "Id": "ea79e680-1848-43c6-91a3-a3f507010d12",
@@ -182,14 +183,24 @@
       "AllCountingCirclesDone": true,
       "CountOfVoters": {
         "VoterParticipation": 0.49999,
-        "ConventionalReceivedBallots": 24742,
-        "ConventionalInvalidBallots": 2474,
-        "ConventionalBlankBallots": 2474,
-        "ConventionalAccountedBallots": 19794,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 24742,
+          "InvalidBallots": 2474,
+          "BlankBallots": 2474,
+          "AccountedBallots": 19794
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
         "TotalReceivedBallots": 24742,
         "TotalAccountedBallots": 19794,
         "TotalUnaccountedBallots": 4948,
@@ -259,14 +270,24 @@
       "AllCountingCirclesDone": true,
       "CountOfVoters": {
         "VoterParticipation": 0.5,
-        "ConventionalReceivedBallots": 53915,
-        "ConventionalInvalidBallots": 5392,
-        "ConventionalBlankBallots": 5391,
-        "ConventionalAccountedBallots": 43132,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 53915,
+          "InvalidBallots": 5392,
+          "BlankBallots": 5391,
+          "AccountedBallots": 43132
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
         "TotalReceivedBallots": 53915,
         "TotalAccountedBallots": 43132,
         "TotalUnaccountedBallots": 10783,
@@ -336,14 +357,24 @@
       "AllCountingCirclesDone": true,
       "CountOfVoters": {
         "VoterParticipation": 0.5,
-        "ConventionalReceivedBallots": 44185,
-        "ConventionalInvalidBallots": 4419,
-        "ConventionalBlankBallots": 4418,
-        "ConventionalAccountedBallots": 35348,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 44185,
+          "InvalidBallots": 4419,
+          "BlankBallots": 4418,
+          "AccountedBallots": 35348
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
         "TotalReceivedBallots": 44185,
         "TotalAccountedBallots": 35348,
         "TotalUnaccountedBallots": 8837,

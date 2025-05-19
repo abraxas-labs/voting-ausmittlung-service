@@ -7,8 +7,8 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public class ElectionResultImport : PoliticalBusinessResultImport
 {
-    internal ElectionResultImport(Guid politicalBusinessId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
-        : base(politicalBusinessId, basisCountingCircleId, countOfVotersInformationImport)
+    internal ElectionResultImport(Guid politicalBusinessId, Guid basisCountingCircleId, int totalCountOfVoters)
+        : base(politicalBusinessId, basisCountingCircleId, totalCountOfVoters)
     {
     }
 

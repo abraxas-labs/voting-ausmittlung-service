@@ -1,0 +1,58 @@
+{
+  "Imports": [
+    {
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "StartedBy": {
+        "SecureConnectId": "fc8e9579-baee-46c1-8c61-46ac30f1b733",
+        "FirstName": "Hans",
+        "LastName": "Meier",
+        "FullName": "Hans Meier"
+      },
+      "Started": {
+        "Seconds": 1578489130,
+        "Nanos": 200000000
+      },
+      "Completed": false,
+      "Deleted": false,
+      "FileName": "import_uzwil_2.xml",
+      "ImportedCountingCircles": [],
+      "IgnoredCountingCircles": []
+    },
+    {
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "StartedBy": {
+        "SecureConnectId": "66c5e9ff-efd5-4d5e-90fc-1ff54505802e",
+        "FirstName": "Hans",
+        "LastName": "Meier",
+        "FullName": "Hans Meier"
+      },
+      "Started": {
+        "Seconds": 1578229930,
+        "Nanos": 200000000
+      },
+      "Completed": false,
+      "Deleted": true,
+      "FileName": "",
+      "ImportedCountingCircles": [],
+      "IgnoredCountingCircles": []
+    },
+    {
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "StartedBy": {
+        "SecureConnectId": "973ed91e-9d22-4f4e-ae32-7b58c7ed25fb",
+        "FirstName": "Hans",
+        "LastName": "Meier",
+        "FullName": "Hans Meier"
+      },
+      "Started": {
+        "Seconds": 1577797930,
+        "Nanos": 200000000
+      },
+      "Completed": true,
+      "Deleted": false,
+      "FileName": "import_uzwil_1.xml",
+      "ImportedCountingCircles": [],
+      "IgnoredCountingCircles": []
+    }
+  ]
+}

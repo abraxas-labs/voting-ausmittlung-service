@@ -193,7 +193,7 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             {
                 ProportionalElection = new ProportionalElectionEventData
                 {
-                    Id = ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen,
+                    Id = ProportionalElectionMockedData.IdUzwilProportionalElectionInContestBundWithoutChilds,
                     PoliticalBusinessNumber = "6001",
                     OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
@@ -340,9 +340,6 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                 await db.SaveChangesAsync();
             });
 
-        var ccDetailsBefore = await RunOnDb(db => db.ContestCountingCircleDetails.Include(x => x.CountOfVotersInformationSubTotals)
-            .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
-
         var contestDetailsBefore = await RunOnDb(
             db => db.ContestDetails
                 .Include(x => x.CountOfVotersInformationSubTotals)
@@ -353,7 +350,7 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             {
                 ProportionalElection = new ProportionalElectionEventData
                 {
-                    Id = ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen,
+                    Id = ProportionalElectionMockedData.IdBundProportionalElectionInContestBund,
                     PoliticalBusinessNumber = "6001",
                     OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Proporzwahl 2") },
@@ -363,11 +360,6 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                     MandateAlgorithm = SharedProto.ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
                 },
             });
-
-        var detailsAfter = await RunOnDb(
-            db => db.ContestCountingCircleDetails
-                .Include(x => x.CountOfVotersInformationSubTotals)
-                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
 
         var contestDetailsAfter = await RunOnDb(
             db => db.ContestDetails

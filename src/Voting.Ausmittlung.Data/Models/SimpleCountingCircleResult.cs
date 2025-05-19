@@ -31,9 +31,25 @@ public class SimpleCountingCircleResult : BaseEntity
 
     public ICollection<CountingCircleResultComment>? Comments { get; set; }
 
-    public bool HasUnmappedWriteIns => CountOfElectionsWithUnmappedWriteIns > 0;
+    public bool HasUnmappedEVotingWriteIns => CountOfElectionsWithUnmappedEVotingWriteIns > 0;
 
-    public int CountOfElectionsWithUnmappedWriteIns { get; set; }
+    public bool HasUnmappedECountingWriteIns => CountOfElectionsWithUnmappedECountingWriteIns > 0;
+
+    public bool HasUnmappedWriteIns => HasUnmappedEVotingWriteIns || HasUnmappedECountingWriteIns;
+
+    /// <summary>
+    /// Gets or sets the count of elections with unmapped e-voting write ins.
+    /// This includes the primary and all secondary elections.
+    /// When this property is updated also update the same property in <see cref="MajorityElectionResult"/>.
+    /// </summary>
+    public int CountOfElectionsWithUnmappedEVotingWriteIns { get; set; }
+
+    /// <summary>
+    /// Gets or sets the count of elections with unmapped e-voting write ins.
+    /// This includes the primary and all secondary elections.
+    /// When this property is updated also update the same property in <see cref="MajorityElectionResult"/>.
+    /// </summary>
+    public int CountOfElectionsWithUnmappedECountingWriteIns { get; set; }
 
     public PoliticalBusinessNullableCountOfVoters CountOfVoters { get; set; } = new();
 

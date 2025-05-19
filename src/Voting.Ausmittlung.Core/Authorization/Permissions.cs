@@ -184,10 +184,13 @@ public static class Permissions
 
     public static class Import
     {
-        public const string ImportData = Prefix + ":import";
-        public const string Read = Prefix + ReadSuffix;
-        public const string Delete = Prefix + DeleteSuffix;
-        public const string ListenToImportChanges = Prefix + ":listen-import-changes";
+        public const string ImportECounting = Prefix + ":import-ecounting";
+        public const string ReadECounting = Prefix + ":read-ecounting";
+        public const string DeleteECounting = Prefix + ":delete-ecounting";
+
+        public const string ImportEVoting = Prefix + ":import-evoting";
+        public const string ReadEVoting = Prefix + ":read-evoting";
+        public const string DeleteEVoting = Prefix + ":delete-evoting";
 
         private const string Prefix = "Import";
     }
@@ -217,5 +220,12 @@ public static class Permissions
         public const string Trigger = Prefix + ":trigger";
 
         private const string Prefix = "ExportConfiguration";
+    }
+
+    public static class EventLog
+    {
+        public const string Watch = Prefix + ":watch";
+
+        private const string Prefix = "EventLog";
     }
 }

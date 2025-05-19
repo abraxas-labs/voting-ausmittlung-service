@@ -330,15 +330,15 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
         countOfVotingCards.Should().Be(47);
 
         // Check ballots ("Wahlzettel")
-        endResult.CountOfVoters.ConventionalReceivedBallots.Should().Be(44);
-        endResult.CountOfVoters.ConventionalBlankBallots.Should().Be(17);
-        endResult.CountOfVoters.ConventionalInvalidBallots.Should().Be(5);
-        endResult.CountOfVoters.ConventionalAccountedBallots.Should().Be(22);
+        endResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots.Should().Be(44);
+        endResult.CountOfVoters.ConventionalSubTotal.BlankBallots.Should().Be(17);
+        endResult.CountOfVoters.ConventionalSubTotal.InvalidBallots.Should().Be(5);
+        endResult.CountOfVoters.ConventionalSubTotal.AccountedBallots.Should().Be(22);
 
-        endResult.CountOfVoters.EVotingReceivedBallots.Should().Be(20);
-        endResult.CountOfVoters.EVotingBlankBallots.Should().Be(3);
-        endResult.CountOfVoters.EVotingInvalidBallots.Should().Be(1);
-        endResult.CountOfVoters.EVotingAccountedBallots.Should().Be(16);
+        endResult.CountOfVoters.EVotingSubTotal.ReceivedBallots.Should().Be(20);
+        endResult.CountOfVoters.EVotingSubTotal.BlankBallots.Should().Be(3);
+        endResult.CountOfVoters.EVotingSubTotal.InvalidBallots.Should().Be(1);
+        endResult.CountOfVoters.EVotingSubTotal.AccountedBallots.Should().Be(16);
 
         endResult.CountOfVoters.TotalReceivedBallots.Should().Be(64);
         endResult.CountOfVoters.TotalBlankBallots.Should().Be(20);
@@ -664,7 +664,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
 
     private async Task ImportEVotingResults()
     {
-        var uri = new Uri($"api/result_import/{ContestId}", UriKind.RelativeOrAbsolute);
+        var uri = new Uri($"api/result_import/e-voting/{ContestId}", UriKind.RelativeOrAbsolute);
         using var httpClient = CreateHttpClient(RolesMockedData.MonitoringElectionAdmin);
         using var resp = await httpClient.PostFiles(
             uri,
@@ -672,7 +672,7 @@ public class ProportionalElectionE2ETest : BaseTest<ProportionalElectionResultSe
             ("ech0110File", EVotingEch0110File));
         resp.EnsureSuccessStatusCode();
 
-        EventPublisherMock.AllPublishedEvents.Should().HaveCount(5);
+        EventPublisherMock.AllPublishedEvents.Should().HaveCount(6);
         EventPublisherMock.GetPublishedEvents<ResultImportCreated>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ResultImportStarted>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().Should().HaveCount(1);

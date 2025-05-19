@@ -30,7 +30,7 @@ public class ProportionalElectionToNewContestMovedTest : BaseDataProcessorTest
     [Fact]
     public async Task TestToNewContestMoved()
     {
-        var pbId = Guid.Parse(ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen);
+        var pbId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen);
         var newContestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
         await TestEventPublisher.Publish(

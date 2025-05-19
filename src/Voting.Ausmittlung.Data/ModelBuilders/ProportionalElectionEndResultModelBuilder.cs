@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
@@ -38,14 +39,16 @@ public class ProportionalElectionEndResultModelBuilder :
             .HasForeignKey(x => x.ProportionalElectionEndResultId)
             .IsRequired();
 
-        builder.OwnsOne(x => x.CountOfVoters);
-        builder.Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
 
         builder.OwnsOne(x => x.ConventionalSubTotal);
         builder.Navigation(x => x.ConventionalSubTotal).IsRequired();
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionCandidateEndResult> builder)
@@ -77,6 +80,9 @@ public class ProportionalElectionEndResultModelBuilder :
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
 
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
+
         builder.OwnsOne(x => x.ConventionalSubTotal);
         builder.Navigation(x => x.ConventionalSubTotal).IsRequired();
     }
@@ -104,6 +110,9 @@ public class ProportionalElectionEndResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<ProportionalElectionCandidateVoteSourceEndResult> builder)

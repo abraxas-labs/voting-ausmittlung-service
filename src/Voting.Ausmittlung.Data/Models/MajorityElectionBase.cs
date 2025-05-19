@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElectionBase : Election
+public abstract class MajorityElectionBase : Election
 {
     public bool IndividualCandidatesDisabled { get; set; }
 }

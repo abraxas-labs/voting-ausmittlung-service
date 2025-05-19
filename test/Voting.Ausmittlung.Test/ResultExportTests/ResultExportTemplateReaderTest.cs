@@ -213,13 +213,13 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
                     AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
                 .ToString(),
             AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
                 .ToString(),
         };
 
@@ -259,13 +259,13 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
                     AusmittlungPdfProportionalElectionTemplates.ListVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
                 .ToString(),
             AusmittlungUuidV5.BuildExportTemplate(
                     AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key,
                     tenantId,
                     countingCircleId: CountingCircleMockedData.GuidGossau,
-                    politicalBusinessId: ProportionalElectionMockedData.BundProportionalElectionInContestStGallen.Id)
+                    politicalBusinessId: ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id)
                 .ToString(),
         };
 

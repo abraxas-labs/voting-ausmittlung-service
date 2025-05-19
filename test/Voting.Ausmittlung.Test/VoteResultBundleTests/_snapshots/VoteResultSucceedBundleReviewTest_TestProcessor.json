@@ -6,14 +6,24 @@
     "VoteResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
     "CountOfVoters": {
       "VoterParticipation": 0.75,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
-      "ConventionalReceivedBallots": 20000,
-      "ConventionalInvalidBallots": 3000,
-      "ConventionalBlankBallots": 2000,
-      "ConventionalAccountedBallots": 12000,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 20000,
+        "InvalidBallots": 3000,
+        "BlankBallots": 2000,
+        "AccountedBallots": 12000
+      },
       "TotalReceivedBallots": 20000,
       "TotalAccountedBallots": 12000,
       "TotalUnaccountedBallots": 5000,
@@ -30,6 +40,34 @@
   },
   "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
   "Ballots": [],
+  "Logs": [
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 1,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "cc757c66-e78c-4f56-907b-6afb27d723d5",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname",
+        "FullName": "default user firstname default user lastname"
+      },
+      "Timestamp": "2020-07-17T10:07:56Z",
+      "State": 4,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
   "Number": 1,
   "State": 4,
   "CreatedBy": {

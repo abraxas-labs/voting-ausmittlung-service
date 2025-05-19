@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1;
 using FluentAssertions;
@@ -69,5 +70,58 @@ public class ProportionalElectionActiveStateUpdateTest : BaseDataProcessorTest
             Languages.Italian);
         simpleResult!.Active.Should().BeFalse();
         simpleResult.ShortDescription.Should().Be("Pw Gossau it");
+    }
+
+    [Fact]
+    public async Task TestAdjustElectionsCountOnUnionEndResults()
+    {
+        await ZhMockedData.Seed(RunScoped);
+
+        var electionId = ZhMockedData.ProportionalElectionGuidKtratDietikon.ToString();
+
+        // Deactivate should decrease the counts.
+        await TestEventPublisher.Publish(
+            1,
+            new ProportionalElectionActiveStateUpdated
+            {
+                ProportionalElectionId = electionId,
+                Active = false,
+            });
+
+        var unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+
+        unionEndResult.TotalCountOfElections.Should().Be(2);
+        unionEndResult.CountOfDoneElections.Should().Be(2);
+
+        // Activate should increase the counts.
+        await TestEventPublisher.Publish(
+            2,
+            new ProportionalElectionActiveStateUpdated
+            {
+                ProportionalElectionId = electionId,
+                Active = true,
+            });
+
+        unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+
+        unionEndResult.TotalCountOfElections.Should().Be(3);
+        unionEndResult.CountOfDoneElections.Should().Be(3);
+
+        // Unchanged active state should not change the counts.
+        await TestEventPublisher.Publish(
+            3,
+            new ProportionalElectionActiveStateUpdated
+            {
+                ProportionalElectionId = electionId,
+                Active = true,
+            });
+
+        unionEndResult = await RunOnDb(db => db.ProportionalElectionUnionEndResults
+            .SingleAsync(c => c.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat));
+
+        unionEndResult.TotalCountOfElections.Should().Be(3);
+        unionEndResult.CountOfDoneElections.Should().Be(3);
     }
 }

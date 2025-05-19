@@ -19,5 +19,9 @@ public class MajorityElectionWriteInMapping : MajorityElectionWriteInMappingBase
     public ICollection<MajorityElectionWriteInBallotPosition> BallotPositions { get; set; }
         = new HashSet<MajorityElectionWriteInBallotPosition>();
 
+    public ResultImport? Import { get; set; }
+
     public override Guid? CandidateId => CandidateResult?.CandidateId;
+
+    public override Guid PoliticalBusinessId => Result.PoliticalBusinessId;
 }

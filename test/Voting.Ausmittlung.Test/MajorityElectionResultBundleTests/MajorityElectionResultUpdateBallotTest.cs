@@ -12,8 +12,10 @@ using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Database.Repositories;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -401,12 +403,26 @@ public class MajorityElectionResultUpdateBallotTest : MajorityElectionResultBund
     }
 
     [Fact]
-    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandate()
+    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandateAndNoOtherElectionsOnSameBallot()
     {
+        await RunScoped<IDbRepository<DataContext, SecondaryMajorityElection>>(repo => repo.DeleteRangeByKey(new[]
+        {
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund2),
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund3),
+        }));
+
         await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 0)),
-            StatusCode.InvalidArgument,
-            "empty vote count provided with single mandate");
+        async () => await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 0)),
+        StatusCode.InvalidArgument,
+        "empty vote count provided with single mandate and no other elections on the same ballot");
+    }
+
+    [Fact]
+    public async Task TestShouldWorkEmptyVoteCountProvideWithSingleMandateAndOtherElectionsOnSameBallot()
+    {
+        await ErfassungElectionAdminClient.UpdateBallotAsync(NewValidRequest(x => x.EmptyVoteCount = 0));
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultBallotUpdated>().Should().NotBeNull();
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

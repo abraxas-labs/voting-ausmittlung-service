@@ -38,7 +38,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "CountingCircle": {
     "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
@@ -67,7 +68,8 @@
       "Phone": "071 123 12 22",
       "MobilePhone": "071 123 12 33",
       "Email": "uzwil-test2@abraxas.ch"
-    }
+    },
+    "ECounting": true
   },
   "Details": {
     "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
@@ -130,6 +132,8 @@
       }
     ],
     "EVoting": true,
+    "ECounting": true,
+    "ECountingResultsImported": false,
     "CountingMachine": 0
   },
   "Results": [
@@ -257,6 +261,8 @@
   "ContestCountingCircleContactPersonId": "",
   "MustUpdateContactPersons": false,
   "HasUnmappedEVotingWriteIns": false,
+  "HasUnmappedECountingWriteIns": false,
+  "HasUnmappedWriteIns": false,
   "EnabledVotingCardChannels": [
     {
       "Valid": true,

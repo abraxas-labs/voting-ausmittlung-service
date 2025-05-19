@@ -31,6 +31,11 @@
           "TotalCountOfAnswerNo": 0,
           "TotalCountOfAnswerUnspecified": 0
         },
+        "ECountingSubTotal": {
+          "TotalCountOfAnswerYes": 0,
+          "TotalCountOfAnswerNo": 0,
+          "TotalCountOfAnswerUnspecified": 0
+        },
         "ConventionalSubTotal": {
           "TotalCountOfAnswerYes": 0,
           "TotalCountOfAnswerNo": 2,
@@ -72,6 +77,11 @@
         "BallotResult": null,
         "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
         "EVotingSubTotal": {
+          "TotalCountOfAnswerYes": 0,
+          "TotalCountOfAnswerNo": 0,
+          "TotalCountOfAnswerUnspecified": 0
+        },
+        "ECountingSubTotal": {
           "TotalCountOfAnswerYes": 0,
           "TotalCountOfAnswerNo": 0,
           "TotalCountOfAnswerUnspecified": 0
@@ -122,6 +132,11 @@
         "BallotResult": null,
         "BallotResultId": "082c7c7a-8f1d-555f-be18-54f5673412e1",
         "EVotingSubTotal": {
+          "TotalCountOfAnswerQ1": 0,
+          "TotalCountOfAnswerQ2": 0,
+          "TotalCountOfAnswerUnspecified": 0
+        },
+        "ECountingSubTotal": {
           "TotalCountOfAnswerQ1": 0,
           "TotalCountOfAnswerQ2": 0,
           "TotalCountOfAnswerUnspecified": 0

@@ -1,0 +1,83 @@
+{
+  "PrimaryCandidateEndResults": [
+    {
+      "CandidateNumber": "K001",
+      "VoteCount": 2000,
+      "Rank": 1,
+      "State": "Elected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K002",
+      "VoteCount": 1500,
+      "Rank": 2,
+      "State": "Elected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K003",
+      "VoteCount": 1000,
+      "Rank": 3,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K004",
+      "VoteCount": 1000,
+      "Rank": 3,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K005",
+      "VoteCount": 750,
+      "Rank": 5,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    }
+  ],
+  "SecondaryCandidateEndResults": [
+    {
+      "CandidateNumber": "K001",
+      "VoteCount": 1000,
+      "Rank": 1,
+      "State": "Elected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K002",
+      "VoteCount": 750,
+      "Rank": 2,
+      "State": "Elected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K003",
+      "VoteCount": 500,
+      "Rank": 3,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K004",
+      "VoteCount": 500,
+      "Rank": 3,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K777",
+      "VoteCount": 500,
+      "Rank": 3,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    },
+    {
+      "CandidateNumber": "K005",
+      "VoteCount": 375,
+      "Rank": 5,
+      "State": "NotElected",
+      "LotDecisionRequired": false
+    }
+  ]
+}

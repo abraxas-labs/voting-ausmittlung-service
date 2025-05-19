@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -26,6 +28,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
     private readonly IMapper _mapper;
     private readonly VoteDomainOfInfluenceResultBuilder _doiResultBuilder;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
+    private readonly IClock _clock;
 
     public PdfVoteDomainOfInfluenceResultRenderService(
         TemplateService templateService,
@@ -33,7 +36,8 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         IDbRepository<DataContext, VoteResult> resultRepo,
         IMapper mapper,
         VoteDomainOfInfluenceResultBuilder doiResultBuilder,
-        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo)
+        IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
@@ -41,6 +45,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         _mapper = mapper;
         _doiResultBuilder = doiResultBuilder;
         _ccDetailsRepo = ccDetailsRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -99,6 +104,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         }
 
         vote.Results = results;
+        vote.MoveECountingToConventional();
 
         if (isPartialResult)
         {
@@ -115,7 +121,11 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             .Where(x => x.ContestId == vote.ContestId)
             .ToListAsync(ct);
 
-        var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResultsGroupedByBallot(vote, ccDetailsList);
+        var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResultsGroupedByBallot(
+                vote,
+                ccDetailsList,
+                ctx.TenantId ?? vote.DomainOfInfluence.SecureConnectId);
+
         var ballots = vote.EndResult.BallotEndResults.Select(x => x.Ballot).ToList();
 
         // we don't need this data in the xml
@@ -186,6 +196,7 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = contest,
             DomainOfInfluence = domainOfInfluence,
             Votes = new List<PdfVote>

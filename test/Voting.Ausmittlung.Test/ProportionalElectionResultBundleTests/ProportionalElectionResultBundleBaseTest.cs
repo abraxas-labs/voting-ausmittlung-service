@@ -223,6 +223,7 @@ public abstract class ProportionalElectionResultBundleBaseTest
         id ??= Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
         return RunOnDb(db =>
             db.ProportionalElectionBundles
+                .Include(x => x.Logs)
                 .Include(x => x.ElectionResult)
                 .Where(x => x.Id == id)
                 .FirstAsync());

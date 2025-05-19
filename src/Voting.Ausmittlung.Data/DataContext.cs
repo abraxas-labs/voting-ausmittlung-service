@@ -273,6 +273,12 @@ public class DataContext : DbContext
 
     public DbSet<DomainOfInfluenceCountOfVotersInformationSubTotal> DomainOfInfluenceCountOfVotersInformationSubTotals { get; set; } = null!;
 
+    public DbSet<VoteResultBundleLog> VoteResultBundleLogs { get; set; } = null!;
+
+    public DbSet<MajorityElectionResultBundleLog> MajorityElectionResultBundleLogs { get; set; } = null!;
+
+    public DbSet<ProportionalElectionResultBundleLog> ProportionalElectionResultBundleLogs { get; set; } = null!;
+
     public DbSet<ProtocolExport> ProtocolExports { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -30,6 +30,42 @@ public class AusmittlungUuidV5Test
     }
 
     [Fact]
+    public void TestBuildContestImportsTestingPhase()
+    {
+        AusmittlungUuidV5.BuildContestImports(
+                Guid.Parse("b2128787-27fb-4861-89b9-58af47dfd2e2"), false)
+            .Should()
+            .Be(Guid.Parse("84368243-5fd7-58c1-a2be-32a6b5604928"));
+    }
+
+    [Fact]
+    public void BuildContestImports()
+    {
+        AusmittlungUuidV5.BuildContestImports(
+                Guid.Parse("b2128787-27fb-4861-89b9-58af47dfd2e2"), true)
+            .Should()
+            .Be(Guid.Parse("e1bdbf8c-49e9-59f4-9f61-edabaff80dad"));
+    }
+
+    [Fact]
+    public void TestBuildContestCountingCircleImportsTestingPhase()
+    {
+        AusmittlungUuidV5.BuildContestCountingCircleImports(
+                Guid.Parse("b2128787-27fb-4861-89b9-58af47dfd2e2"), Guid.Parse("db5f1dd5-69d2-4f45-9d42-a63f2ca2a953"), false)
+            .Should()
+            .Be(Guid.Parse("099847c2-076c-5d35-9a72-02440724e07a"));
+    }
+
+    [Fact]
+    public void TestBuildContestCountingCircleImportsTestingPhaseEnded()
+    {
+        AusmittlungUuidV5.BuildContestCountingCircleImports(
+                Guid.Parse("b2128787-27fb-4861-89b9-58af47dfd2e2"), Guid.Parse("db5f1dd5-69d2-4f45-9d42-a63f2ca2a953"), true)
+            .Should()
+            .Be(Guid.Parse("843b1bf2-0d3e-5abb-91f1-d6d0bd3dc4e3"));
+    }
+
+    [Fact]
     public void TestBuildVoteBallotResult()
     {
         AusmittlungUuidV5.BuildVoteBallotResult(

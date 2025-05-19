@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class TieBreakQuestionResultNullableSubTotal : ITieBreakQuestionResultTotal<int?>, INullableSubTotal<TieBreakQuestionResultSubTotal>
+public class TieBreakQuestionResultNullableSubTotal : ITieBreakQuestionResultTotal<int?>, INullableSubTotal<TieBreakQuestionResultSubTotal>, ISummableSubTotal<TieBreakQuestionResultSubTotal>
 {
     public int? TotalCountOfAnswerQ1 { get; set; }
 
@@ -28,5 +28,13 @@ public class TieBreakQuestionResultNullableSubTotal : ITieBreakQuestionResultTot
         TotalCountOfAnswerQ1 ??= 0;
         TotalCountOfAnswerQ2 ??= 0;
         TotalCountOfAnswerUnspecified ??= 0;
+    }
+
+    public void Add(TieBreakQuestionResultSubTotal other, int deltaFactor = 1)
+    {
+        ReplaceNullValuesWithZero();
+        TotalCountOfAnswerQ1 += other.TotalCountOfAnswerQ1 * deltaFactor;
+        TotalCountOfAnswerQ2 += other.TotalCountOfAnswerQ2 * deltaFactor;
+        TotalCountOfAnswerUnspecified += other.TotalCountOfAnswerUnspecified * deltaFactor;
     }
 }

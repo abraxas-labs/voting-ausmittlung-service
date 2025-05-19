@@ -19,31 +19,32 @@ using Voting.Lib.Iam.Authorization;
 
 namespace Voting.Ausmittlung.Controllers;
 
+// Controller for external api calls to export protocolls and data for result-updates and end results
 [ApiController]
 [Route("api/export")]
 public class ExportController
 {
-    private readonly ResultExportTemplateReader _templateReader;
     private readonly ResultExportService _resultExportService;
     private readonly ProtocolExportService _protocolExportService;
+    private readonly ResultExportTemplateReader _templateReader;
     private readonly Ech0252ExportService _ech0252ExportService;
     private readonly IClock _clock;
     private readonly IMapper _mapper;
 
     public ExportController(
-        ResultExportTemplateReader templateReader,
         IMapper mapper,
         ResultExportService resultExportService,
         ProtocolExportService protocolExportService,
+        ResultExportTemplateReader templateReader,
         Ech0252ExportService ech0252ExportService,
         IClock clock)
     {
-        _templateReader = templateReader;
-        _mapper = mapper;
         _resultExportService = resultExportService;
         _protocolExportService = protocolExportService;
+        _templateReader = templateReader;
         _ech0252ExportService = ech0252ExportService;
         _clock = clock;
+        _mapper = mapper;
     }
 
     [AuthorizePermission(Permissions.ReportExportApi.ExportData)]
@@ -52,7 +53,8 @@ public class ExportController
     {
         var container = await _templateReader.ListDataExportTemplates(
             request.ContestId,
-            request.CountingCircleId);
+            request.CountingCircleId,
+            true);
         return _mapper.Map<ListDataExportsResponse>(container);
     }
 
@@ -62,7 +64,8 @@ public class ExportController
     {
         var container = await _templateReader.ListProtocolExports(
             request.ContestId,
-            request.CountingCircleId);
+            request.CountingCircleId,
+            true);
         return _mapper.Map<ListProtocolExportsResponse>(container);
     }
 
@@ -74,6 +77,7 @@ public class ExportController
                 request.ContestId,
                 request.CountingCircleId,
                 [request.ExportTemplateId],
+                true,
                 true,
                 ct)
                 .Select(f => new FileModelWrapper(f), ct);
@@ -89,6 +93,7 @@ public class ExportController
             request.ContestId,
             request.CountingCircleId,
             [request.ExportTemplateId],
+            true,
             true);
 
         return new GenerateProtocolExportResponse { ProtocolExportId = protocolExportIds.Single(), };
@@ -100,7 +105,8 @@ public class ExportController
     {
         var container = await _templateReader.ListProtocolExports(
             request.ContestId,
-            request.CountingCircleId);
+            request.CountingCircleId,
+            true);
         return _mapper.Map<ListProtocolExportStatesResponse>(container);
     }
 
@@ -113,6 +119,7 @@ public class ExportController
                 request.CountingCircleId,
                 [request.ProtocolExportId],
                 false,
+                true,
                 ct)
             .Select(f => new FileModelWrapper(f), ct);
 

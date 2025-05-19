@@ -1,7 +1,103 @@
 {
-  "ImportId": "",
-  "ElectionWriteInMappings": [
+  "WriteInMappings": [
     {
+      "ImportId": "",
+      "ImportType": 2,
+      "Election": {
+        "Id": "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "BusinessType": 2,
+        "Title": "155: Mw SG de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "NumberOfMandates": 5,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "155",
+        "ShortDescription": "Mw SG de",
+        "BusinessSubType": 0
+      },
+      "InvalidVotes": true,
+      "IndividualVotes": true,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Muster",
+          "VoteCount": 1,
+          "Target": 4,
+          "CandidateId": ""
+        }
+      ]
+    },
+    {
+      "ImportId": "",
+      "ImportType": 2,
+      "Election": {
+        "Id": "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "BusinessType": 2,
+        "Title": "155.1: NW SG de",
+        "Active": true,
+        "DomainOfInfluence": {
+          "Id": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+          "Name": "St. Gallen",
+          "ShortName": "St. Gallen",
+          "AuthorityName": "",
+          "SecureConnectId": "200200200200200200",
+          "Type": 2,
+          "ParentId": "",
+          "Children": [],
+          "Canton": 1,
+          "ContactPerson": {
+            "FirstName": "Hans",
+            "FamilyName": "Muster",
+            "Phone": "071 123 12 12",
+            "MobilePhone": "079 123 12 12",
+            "Email": "hans@sg.ch"
+          }
+        },
+        "NumberOfMandates": 1,
+        "CountOfSecondaryBusinesses": 0,
+        "PoliticalBusinessNumber": "155.1",
+        "ShortDescription": "NW SG de",
+        "BusinessSubType": 0
+      },
+      "InvalidVotes": true,
+      "IndividualVotes": true,
+      "WriteInMappings": [
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Muster",
+          "VoteCount": 1,
+          "Target": 4,
+          "CandidateId": ""
+        },
+        {
+          "Id": "",
+          "WriteInCandidateName": "Hans Muster2",
+          "VoteCount": 1,
+          "Target": 0,
+          "CandidateId": ""
+        }
+      ]
+    },
+    {
+      "ImportId": "",
+      "ImportType": 1,
       "Election": {
         "Id": "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
         "BusinessType": 2,
@@ -65,6 +161,8 @@
       ]
     },
     {
+      "ImportId": "",
+      "ImportType": 1,
       "Election": {
         "Id": "5ec8cf85-229a-4dc7-a601-1bb6980fee78",
         "BusinessType": 4,

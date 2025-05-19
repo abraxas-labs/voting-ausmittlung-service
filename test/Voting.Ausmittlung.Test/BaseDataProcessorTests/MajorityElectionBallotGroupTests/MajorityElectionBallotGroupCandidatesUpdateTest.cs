@@ -41,10 +41,7 @@ public class MajorityElectionBallotGroupCandidatesUpdateTest : BaseDataProcessor
                         new MajorityElectionBallotGroupEntryCandidatesEventData
                         {
                             BallotGroupEntryId = MajorityElectionMockedData.BallotGroupEntryId1StGallenMajorityElectionInContestBund,
-                            CandidateIds =
-                            {
-                                MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
-                            },
+                            BlankRowCount = 1,
                         },
                         new MajorityElectionBallotGroupEntryCandidatesEventData
                         {
@@ -53,11 +50,14 @@ public class MajorityElectionBallotGroupCandidatesUpdateTest : BaseDataProcessor
                             {
                                 MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
                             },
+                            BlankRowCount = 1,
+                            IndividualCandidatesVoteCount = 1,
                         },
                         new MajorityElectionBallotGroupEntryCandidatesEventData
                         {
                             BallotGroupEntryId = MajorityElectionMockedData.BallotGroupEntryId3StGallenMajorityElectionInContestBund,
                             IndividualCandidatesVoteCount = 1,
+                            BlankRowCount = 0,
                         },
                     },
             },
@@ -131,5 +131,66 @@ public class MajorityElectionBallotGroupCandidatesUpdateTest : BaseDataProcessor
                 x.Id == Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund)));
 
         group.AllCandidateCountsOk.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task TestUpdateCandidateDeprecatedEventWithNoBlankRowCount()
+    {
+        await TestEventPublisher.Publish(new MajorityElectionBallotGroupCandidatesUpdated
+        {
+            BallotGroupCandidates = new MajorityElectionBallotGroupCandidatesEventData
+            {
+                BallotGroupId = MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund,
+                EntryCandidates =
+                    {
+                        new MajorityElectionBallotGroupEntryCandidatesEventData
+                        {
+                            BallotGroupEntryId = MajorityElectionMockedData.BallotGroupEntryId1StGallenMajorityElectionInContestBund,
+                            CandidateIds =
+                            {
+                                MajorityElectionMockedData.CandidateId2StGallenMajorityElectionInContestBund,
+                            },
+                        },
+                        new MajorityElectionBallotGroupEntryCandidatesEventData
+                        {
+                            BallotGroupEntryId = MajorityElectionMockedData.BallotGroupEntryId2StGallenMajorityElectionInContestBund,
+                            CandidateIds =
+                            {
+                                MajorityElectionMockedData.SecondaryElectionCandidateId2StGallenMajorityElectionInContestBund,
+                            },
+                        },
+                        new MajorityElectionBallotGroupEntryCandidatesEventData
+                        {
+                            BallotGroupEntryId = MajorityElectionMockedData.BallotGroupEntryId3StGallenMajorityElectionInContestBund,
+                            IndividualCandidatesVoteCount = 1,
+                        },
+                    },
+            },
+        });
+
+        var group = await RunOnDb(db => db.MajorityElectionBallotGroups
+            .AsSplitQuery()
+            .Include(x => x.Entries)
+            .ThenInclude(x => x.Candidates)
+            .FirstAsync(x =>
+                x.Id == Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund)));
+
+        foreach (var entry in group.Entries)
+        {
+            entry.Id = Guid.Empty;
+
+            foreach (var candidate in entry.Candidates)
+            {
+                candidate.Id = Guid.Empty;
+            }
+        }
+
+        group.Entries = group.Entries
+            .OrderBy(x => x.Candidates.Count == 0 ? null : x.Candidates.First().PrimaryElectionCandidateId)
+            .ThenBy(x => x.IndividualCandidatesVoteCount)
+            .ToList();
+
+        group.AllCandidateCountsOk.Should().BeTrue();
+        group.MatchSnapshot();
     }
 }

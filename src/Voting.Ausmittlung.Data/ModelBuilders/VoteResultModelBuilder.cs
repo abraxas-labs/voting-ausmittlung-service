@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
@@ -15,7 +16,8 @@ public class VoteResultModelBuilder :
     IEntityTypeConfiguration<VoteResultBallot>,
     IEntityTypeConfiguration<VoteResultBundle>,
     IEntityTypeConfiguration<VoteResultBallotQuestionAnswer>,
-    IEntityTypeConfiguration<VoteResultBallotTieBreakQuestionAnswer>
+    IEntityTypeConfiguration<VoteResultBallotTieBreakQuestionAnswer>,
+    IEntityTypeConfiguration<VoteResultBundleLog>
 {
     public void Configure(EntityTypeBuilder<BallotResult> builder)
     {
@@ -35,10 +37,7 @@ public class VoteResultModelBuilder :
             .HasForeignKey(br => br.VoteResultId)
             .IsRequired();
 
-        builder
-            .OwnsOne(x => x.CountOfVoters);
-        builder
-            .Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
     }
 
     public void Configure(EntityTypeBuilder<VoteResult> builder)
@@ -93,6 +92,9 @@ public class VoteResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<TieBreakQuestionResult> builder)
@@ -114,6 +116,9 @@ public class VoteResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<VoteResultBallot> builder)
@@ -190,5 +195,26 @@ public class VoteResultModelBuilder :
         builder
             .HasIndex(x => new { x.BallotId, x.QuestionId })
             .IsUnique();
+    }
+
+    public void Configure(EntityTypeBuilder<VoteResultBundleLog> builder)
+    {
+        builder
+            .HasOne(x => x.Bundle)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
     }
 }

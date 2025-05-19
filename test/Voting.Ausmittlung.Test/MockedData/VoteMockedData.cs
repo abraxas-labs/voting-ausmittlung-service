@@ -22,7 +22,6 @@ public static class VoteMockedData
     public const string IdBundVote2InContestBund = "0ec1d911-3157-452b-9056-f98b6c481d6f";
     public const string IdStGallenVoteInContestBund = "903a47bf-6b7b-4460-8475-b7bd89ea2ac9";
     public const string IdUzwilVoteInContestBundWithoutChilds = "6b4c7f11-9860-4468-ace9-78baec913a8d";
-    public const string IdBundVoteInContestStGallen = "f69b3543-ccee-467d-9cde-56941f6e4bad";
     public const string IdGossauVoteInContestStGallen = "8076dee2-f19b-4af9-80b1-69b0c7b1402b";
     public const string IdUzwilVoteInContestStGallen = "da65e354-f668-4ae4-b3ef-c1a74764e99d";
     public const string IdStGallenVoteInContestStGallen = "96d8275f-f1f8-4933-a097-5c0c19f54567";
@@ -38,7 +37,6 @@ public static class VoteMockedData
     public const string BallotId1BundVote2InContestBund = "be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2";
     public const string BallotId2BundVote2InContestBund = "f27ceb14-c255-44be-84ce-0b82047f230d";
     public const string BallotIdStGallenVoteInContestBund = "60dd6c2c-e73a-467e-99e1-902f973a5d8e";
-    public const string BallotIdBundVoteInContestStGallen = "512bb3a2-97e2-4779-ac51-83abd039afc4";
     public const string BallotIdGossauVoteInContestStGallen = "154ee710-88b7-419a-ae5b-74a44c9c969e";
     public const string BallotIdUzwilVoteInContestStGallen = "e6ee82f9-70d4-4ffa-a673-34d56fc47204";
     public const string BallotIdStGallenVoteInContestStGallen = "0ed26aad-e169-4d55-b9a9-90475ba81a02";
@@ -361,51 +359,6 @@ public static class VoteMockedData
             },
         };
 
-    public static Vote BundVoteInContestStGallen
-        => new Vote
-        {
-            Id = Guid.Parse(IdBundVoteInContestStGallen),
-            PoliticalBusinessNumber = "100",
-            Translations = TranslationUtil.CreateTranslations<VoteTranslation>(
-                (t, o) => t.OfficialDescription = o,
-                "Abstimmung Bund",
-                (t, s) => t.ShortDescription = s,
-                "Abst Bund"),
-            InternalDescription = "Abstimmung Bund auf Urnengang St.Gallen",
-            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
-            ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            Active = true,
-            BallotBundleSampleSizePercent = 0,
-            AutomaticBallotBundleNumberGeneration = false,
-            ResultEntry = VoteResultEntry.FinalResults,
-            ResultAlgorithm = VoteResultAlgorithm.PopularMajority,
-            EnforceResultEntryForCountingCircles = false,
-            ReviewProcedure = VoteReviewProcedure.Electronically,
-            EnforceReviewProcedureForCountingCircles = false,
-            Type = VoteType.QuestionsOnSingleBallot,
-            Ballots = new List<Ballot>
-            {
-                    new Ballot
-                    {
-                        Id = Guid.Parse(BallotIdBundVoteInContestStGallen),
-                        Position = 1,
-                        BallotType = BallotType.StandardBallot,
-                        BallotQuestions = new List<BallotQuestion>
-                        {
-                            new BallotQuestion
-                            {
-                                Number = 1,
-                                Id = Guid.Parse("b86d3fb0-0a01-46cd-a616-c559bb17c57b"),
-                                Translations = TranslationUtil.CreateTranslations<BallotQuestionTranslation>(
-                                    (t, o) => t.Question = o,
-                                    "Frage 1 St. Gallen"),
-                                Type = BallotQuestionType.MainBallot,
-                            },
-                        },
-                    },
-            },
-        };
-
     public static Vote UzwilVoteInContestStGallen
         => new Vote
         {
@@ -644,7 +597,7 @@ public static class VoteMockedData
                 "Abst Uzwil"),
             InternalDescription = "Abstimmung Uzwil auf Urnengang Uzwil",
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
-            ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting),
             Active = true,
             BallotBundleSampleSizePercent = 30,
             AutomaticBallotBundleNumberGeneration = true,
@@ -754,7 +707,6 @@ public static class VoteMockedData
             yield return BundVoteInContestVergangenBund;
             yield return BundVoteInContestBund;
             yield return BundVote2InContestBund;
-            yield return BundVoteInContestStGallen;
             yield return UzwilVoteInContestStGallen;
             yield return StGallenVoteInContestBund;
             yield return StGallenVoteInContestStGallen;

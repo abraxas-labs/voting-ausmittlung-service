@@ -294,9 +294,6 @@ public class VoteUpdateTest : VoteProcessorBaseTest
                 await db.SaveChangesAsync();
             });
 
-        var ccDetailsBefore = await RunOnDb(db => db.ContestCountingCircleDetails.Include(x => x.CountOfVotersInformationSubTotals)
-            .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
-
         var contestDetailsBefore = await RunOnDb(
             db => db.ContestDetails
                 .Include(x => x.CountOfVotersInformationSubTotals)
@@ -315,11 +312,6 @@ public class VoteUpdateTest : VoteProcessorBaseTest
                     ContestId = ContestMockedData.IdBundesurnengang,
                 },
             });
-
-        var detailsAfter = await RunOnDb(
-            db => db.ContestCountingCircleDetails
-                .Include(x => x.CountOfVotersInformationSubTotals)
-                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
 
         var contestDetailsAfter = await RunOnDb(
             db => db.ContestDetails

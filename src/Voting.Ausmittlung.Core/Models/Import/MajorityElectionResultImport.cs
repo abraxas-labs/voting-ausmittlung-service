@@ -8,17 +8,15 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public class MajorityElectionResultImport : ElectionResultImport
 {
-    internal static readonly IEqualityComparer<string> WriteInComparer = StringComparer.OrdinalIgnoreCase; // write ins should be case-insensitive
-
     private readonly Dictionary<Guid, int> _candidateVoteCounts = new();
-    private readonly Dictionary<string, WriteInMapping> _writeIns = new(WriteInComparer);
+    private readonly Dictionary<string, WriteInMapping> _writeIns = new(Data.Models.MajorityElectionWriteInMappingBase.NameComparer);
     private readonly List<MajorityElectionBallot> _writeInBallots = new();
 
     public MajorityElectionResultImport(
         Guid politicalBusinessId,
         Guid basisCountingCircleId,
-        CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
-        : base(politicalBusinessId, basisCountingCircleId, countOfVotersInformationImport)
+        int totalCountOfVoters)
+        : base(politicalBusinessId, basisCountingCircleId, totalCountOfVoters)
     {
     }
 

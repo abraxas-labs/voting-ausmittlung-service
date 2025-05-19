@@ -14,7 +14,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -126,11 +125,9 @@ public class ProportionalElectionResultCreateBundleTest : ProportionalElectionRe
         result.TotalCountOfUnmodifiedLists.Should().Be(0);
         result.TotalCountOfListsWithoutParty.Should().Be(0);
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
-
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle2Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleCreated.Descriptor, bundle1Id);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleCreated.Descriptor, bundle2Id);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleCreated.Descriptor, bundle3Id);
     }
 
     [Fact]

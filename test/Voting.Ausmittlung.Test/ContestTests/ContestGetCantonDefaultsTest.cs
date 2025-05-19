@@ -90,7 +90,7 @@ public class ContestGetCantonDefaultsTest : BaseTest<ContestService.ContestServi
         await AssertStatus(
             async () => await ErfassungCreatorClient.GetCantonDefaultsAsync(new()
             {
-                ContestId = ContestMockedData.IdUzwilEvoting,
+                ContestId = ContestMockedData.IdUzwilEVoting,
             }),
             StatusCode.NotFound);
     }

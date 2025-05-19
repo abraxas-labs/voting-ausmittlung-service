@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Voting.Ausmittlung.Data.Models;
@@ -13,7 +14,69 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
 
     public virtual CantonMajorityElectionAbsoluteMajorityAlgorithm? AbsoluteMajorityAlgorithm => null;
 
-    public abstract void RecalculateCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
+    public abstract void RecalculatePrimaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
+
+    public abstract void RecalculateSecondaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
+
+    public abstract void SetCandidateElected<TMajorityElectionCandidateEndResultBase>(
+        TMajorityElectionCandidateEndResultBase candidateEndResult,
+        MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
+        where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase;
+
+    public abstract void SetCandidateNotElected<TMajorityElectionCandidateEndResultBase>(
+        TMajorityElectionCandidateEndResultBase candidateEndResult,
+        MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
+        where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase;
+
+    protected void SetCandidateEndResultStateAfterAllSubmissionsDone<TMajorityElectionCandidateEndResultBase>(
+        TMajorityElectionCandidateEndResultBase candidateEndResult,
+        MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
+        where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
+    {
+        var hasAbsoluteMajority = candidateEndResult.VoteCount >= context.AbsoluteMajority;
+
+        if (context.AllNumberOfMandatesDistributed)
+        {
+            if (context.VoteCountWithRestMandatesInUncompletedLotDecision.HasValue &&
+                context.VoteCountWithRestMandatesInUncompletedLotDecision == candidateEndResult.VoteCount &&
+                candidateEndResult.State.IsEligible())
+            {
+                candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
+                candidateEndResult.LotDecisionRequired = true;
+                return;
+            }
+
+            SetCandidateNotElected(candidateEndResult, context);
+            return;
+        }
+
+        if (!candidateEndResult.State.IsEligible())
+        {
+            return;
+        }
+
+        var eligibleAndPendingCandidateEndResultsVoteCountGroup = context.SortedCandidateEndResultsByVoteCount[candidateEndResult.VoteCount]
+            .Where(x => x.State == MajorityElectionCandidateEndResultState.Pending && x.State.IsEligible())
+            .ToList();
+
+        if (eligibleAndPendingCandidateEndResultsVoteCountGroup.Count == 1
+            || context.RestMandates >= eligibleAndPendingCandidateEndResultsVoteCountGroup.Count
+            || context.RestMandates >= eligibleAndPendingCandidateEndResultsVoteCountGroup.Count(x => x.Rank == candidateEndResult.Rank))
+        {
+            SetCandidateElected(candidateEndResult, context);
+            return;
+        }
+
+        // If not all mandates can be distributed to all candidates in the same lot decision vote count group.
+        candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
+        candidateEndResult.LotDecisionRequired = true;
+        while (!context.AllNumberOfMandatesDistributed)
+        {
+            context.IncreaseDistributedNumberOfMandates();
+        }
+
+        context.VoteCountWithRestMandatesInUncompletedLotDecision = candidateEndResult.VoteCount;
+    }
 
     protected void SetCandidateEndResultStatesToPending(MajorityElectionEndResult majorityElectionEndResult)
     {
@@ -23,9 +86,16 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
         }
     }
 
-    protected void RecalculateLotDecisionState<TMajorityElectionCandidateEndResultBase>(
-        IEnumerable<TMajorityElectionCandidateEndResultBase> candidateEndResults,
-        int numberOfMandates)
+    protected void SetSecondaryCandidateEndResultStatesToPending(MajorityElectionEndResult majorityElectionEndResult)
+    {
+        foreach (var candidateEndResult in majorityElectionEndResult.SecondaryMajorityElectionEndResults.SelectMany(x => x.CandidateEndResults))
+        {
+            candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
+        }
+    }
+
+    protected void RecalculateRankIfLotDecisionPending<TMajorityElectionCandidateEndResultBase>(
+        IEnumerable<TMajorityElectionCandidateEndResultBase> candidateEndResults)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
     {
         var enabledCandidateEndResults = candidateEndResults.Where(x => x.LotDecisionEnabled);
@@ -46,18 +116,36 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
             {
                 candidateEndResult.Rank = candidateEndResultMinMaxRank.MinRank;
             }
+        }
+    }
 
-            // lot decision is required when there are candidates with the same vote count
-            // and the elected candidates is dependent of this candidate rank
-            candidateEndResult.LotDecisionRequired =
-                candidateEndResultMinMaxRank.MinRank <= numberOfMandates
-                && candidateEndResultMinMaxRank.MaxRank > numberOfMandates
-                && candidateEndResult.State != MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
+    protected void SetSecondaryCandidateResultStatesDependentOfPrimaryElection(
+        IEnumerable<MajorityElectionCandidateEndResult> candidateEndResults,
+        IEnumerable<SecondaryMajorityElectionCandidateEndResult> secondaryCandidateEndResults)
+    {
+        var primaryCandidateEndResultStateByRefId = candidateEndResults.ToDictionary(x => x.CandidateId, x => x.State);
 
-            if (candidateEndResult.LotDecisionRequired && !candidateEndResult.LotDecision)
+        foreach (var secondaryCandidateEndResult in secondaryCandidateEndResults)
+        {
+            var refId = secondaryCandidateEndResult.Candidate.CandidateReferenceId;
+
+            if (!refId.HasValue)
             {
-                candidateEndResult.State = MajorityElectionCandidateEndResultState.Pending;
+                continue;
             }
+
+            if (!primaryCandidateEndResultStateByRefId.TryGetValue(refId.Value, out var primaryCandidateEndResultState))
+            {
+                throw new InvalidOperationException("Secondary majority election candidate with a reference id which does not exist in the primary election found");
+            }
+
+            secondaryCandidateEndResult.State = primaryCandidateEndResultState switch
+            {
+                MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElected => MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible,
+                MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk => MajorityElectionCandidateEndResultState.NotElectedInPrimaryElectionNotEligible,
+                MajorityElectionCandidateEndResultState.NotElected => MajorityElectionCandidateEndResultState.NotElectedInPrimaryElectionNotEligible,
+                _ => secondaryCandidateEndResult.State,
+            };
         }
     }
 }

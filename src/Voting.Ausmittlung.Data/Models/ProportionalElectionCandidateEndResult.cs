@@ -22,6 +22,8 @@ public class ProportionalElectionCandidateEndResult : ElectionCandidateEndResult
 
     public ProportionalElectionCandidateResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public ProportionalElectionCandidateResultSubTotal ECountingSubTotal { get; set; } = new();
+
     /// <inheritdoc cref="IProportionalElectionCandidateResultTotal.VoteCount"/>
     public override int VoteCount
     {
@@ -33,16 +35,16 @@ public class ProportionalElectionCandidateEndResult : ElectionCandidateEndResult
     }
 
     /// <inheritdoc />
-    public int UnmodifiedListVotesCount => ConventionalSubTotal.UnmodifiedListVotesCount + EVotingSubTotal.UnmodifiedListVotesCount;
+    public int UnmodifiedListVotesCount => ConventionalSubTotal.UnmodifiedListVotesCount + EVotingSubTotal.UnmodifiedListVotesCount + ECountingSubTotal.UnmodifiedListVotesCount;
 
     /// <inheritdoc />
-    public int ModifiedListVotesCount => ConventionalSubTotal.ModifiedListVotesCount + EVotingSubTotal.ModifiedListVotesCount;
+    public int ModifiedListVotesCount => ConventionalSubTotal.ModifiedListVotesCount + EVotingSubTotal.ModifiedListVotesCount + ECountingSubTotal.ModifiedListVotesCount;
 
     /// <inheritdoc />
-    public int CountOfVotesOnOtherLists => ConventionalSubTotal.CountOfVotesOnOtherLists + EVotingSubTotal.CountOfVotesOnOtherLists;
+    public int CountOfVotesOnOtherLists => ConventionalSubTotal.CountOfVotesOnOtherLists + EVotingSubTotal.CountOfVotesOnOtherLists + ECountingSubTotal.CountOfVotesOnOtherLists;
 
     /// <inheritdoc />
-    public int CountOfVotesFromAccumulations => ConventionalSubTotal.CountOfVotesFromAccumulations + EVotingSubTotal.CountOfVotesFromAccumulations;
+    public int CountOfVotesFromAccumulations => ConventionalSubTotal.CountOfVotesFromAccumulations + EVotingSubTotal.CountOfVotesFromAccumulations + ECountingSubTotal.CountOfVotesFromAccumulations;
 
     /// <summary>
     /// Gets or sets sources of votes for this candidate (only modified list votes are counted!).
@@ -61,6 +63,16 @@ public class ProportionalElectionCandidateEndResult : ElectionCandidateEndResult
         foreach (var voteSource in VoteSources)
         {
             voteSource.ResetSubTotal(dataSource);
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var voteSource in VoteSources)
+        {
+            voteSource.MoveECountingToConventional();
         }
     }
 }

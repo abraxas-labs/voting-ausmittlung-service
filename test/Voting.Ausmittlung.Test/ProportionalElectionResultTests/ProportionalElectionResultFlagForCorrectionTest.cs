@@ -13,7 +13,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -153,9 +152,7 @@ public class ProportionalElectionResultFlagForCorrectionTest : ProportionalElect
             .ToListAsync());
         comments.MatchSnapshot(x => x.Id);
 
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen
-            && x.NewState == CountingCircleResultState.ReadyForCorrection);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultFlaggedForCorrection.Descriptor, ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen);
     }
 
     [Fact]

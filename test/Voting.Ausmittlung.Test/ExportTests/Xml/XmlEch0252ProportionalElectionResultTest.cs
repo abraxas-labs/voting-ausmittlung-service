@@ -57,10 +57,13 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
 
             result.CountOfVoters = new()
             {
-                ConventionalReceivedBallots = 900,
-                ConventionalBlankBallots = 240,
-                ConventionalInvalidBallots = 300,
-                ConventionalAccountedBallots = 360,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 900,
+                    BlankBallots = 240,
+                    InvalidBallots = 300,
+                    AccountedBallots = 360,
+                },
             };
 
             result.TotalCountOfVoters = 1000;

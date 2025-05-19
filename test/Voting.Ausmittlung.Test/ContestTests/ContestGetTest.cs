@@ -1,12 +1,16 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
 using Voting.Ausmittlung.Test.MockedData;
@@ -43,7 +47,7 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
     {
         var response = await ErfassungElectionAdminClient.GetAsync(new GetContestRequest
         {
-            Id = ContestMockedData.IdUzwilEvoting,
+            Id = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
     }
@@ -53,9 +57,31 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
     {
         var response = await MonitoringElectionAdminClient.GetAsync(new GetContestRequest
         {
-            Id = ContestMockedData.IdUzwilEvoting,
+            Id = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsonitoringAdminShouldReturnContestsWithoutPoliticalBusinesses()
+    {
+        var contestId = ContestMockedData.GuidUzwilEvoting;
+
+        await RunOnDb(async db =>
+        {
+            var pbs = await db.SimplePoliticalBusinesses
+                .Where(pb => pb.ContestId == contestId)
+                .ToListAsync();
+
+            db.SimplePoliticalBusinesses.RemoveRange(pbs);
+            await db.SaveChangesAsync();
+        });
+
+        var response = await MonitoringElectionAdminClient.GetAsync(new GetContestRequest
+        {
+            Id = contestId.ToString(),
+        });
+        response.Should().NotBeNull();
     }
 
     [Fact]
@@ -63,7 +89,7 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
     {
         var response = await ErfassungCreatorClient.GetAsync(new GetContestRequest
         {
-            Id = ContestMockedData.IdUzwilEvoting,
+            Id = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
     }
@@ -76,6 +102,45 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
             Id = ContestMockedData.IdStGallenEvoting,
         });
         response.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestAsErfassungAdminShouldThrowWithoutAnyAccessiblePoliticalBusiness()
+    {
+        var contestId = ContestMockedData.GuidBundesurnengang;
+
+        await ModifyDbEntities<Data.Models.SimpleCountingCircleResult>(
+            x => x.CountingCircle!.SnapshotContestId == contestId,
+            x => x.CountingCircleId = CountingCircleMockedData.GuidRorschach);
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.GetAsync(new GetContestRequest
+            {
+                Id = contestId.ToString(),
+            }),
+            StatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminShouldReturnWithoutAnyOwnedPoliticalBusiness()
+    {
+        var contestId = ContestMockedData.GuidStGallenEvoting;
+
+        await ModifyDbEntities<Data.Models.SimplePoliticalBusiness>(
+            x => x.ContestId == contestId,
+            x => x.DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGenf));
+
+        // update the current user to the contest owner
+        await ModifyDbEntities<Data.Models.DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.SecureConnectId = SecureConnectTestDefaults.MockedTenantUzwil.Id);
+
+        var response = await MonitoringElectionAdminClient.GetAsync(new GetContestRequest
+        {
+            Id = contestId.ToString(),
+        });
+
+        response.Should().NotBeNull();
     }
 
     [Fact]
@@ -127,7 +192,7 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
         await new ContestService.ContestServiceClient(channel)
             .GetAsync(new GetContestRequest
             {
-                Id = ContestMockedData.IdUzwilEvoting,
+                Id = ContestMockedData.IdUzwilEVoting,
             });
     }
 

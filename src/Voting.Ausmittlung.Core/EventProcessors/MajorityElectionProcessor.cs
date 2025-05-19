@@ -16,6 +16,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -273,6 +274,12 @@ public class MajorityElectionProcessor :
     {
         TruncateCandidateNumber(candidate);
 
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(candidate.Country))
+        {
+            candidate.Country = CountryUtils.SwissCountryIso;
+        }
+
         var contestState = await _repo.Query()
             .Where(x => x.Id == candidate.MajorityElectionId)
             .Select(x => x.Contest.State)
@@ -289,6 +296,12 @@ public class MajorityElectionProcessor :
     {
         var candidate = _mapper.Map<MajorityElectionCandidate>(eventData);
         TruncateCandidateNumber(candidate);
+
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(candidate.Country))
+        {
+            candidate.Country = CountryUtils.SwissCountryIso;
+        }
 
         if (!await _candidateRepo.ExistsByKey(candidate.Id))
         {
@@ -432,6 +445,9 @@ public class MajorityElectionProcessor :
         candidateReference.Title = candidate.Title;
         candidateReference.ZipCode = candidate.ZipCode;
         candidateReference.Origin = candidate.Origin;
+        candidateReference.Street = candidate.Street;
+        candidateReference.HouseNumber = candidate.HouseNumber;
+        candidateReference.Country = candidate.Country;
     }
 
     private void TruncateCandidateNumber(MajorityElectionCandidate candidate)

@@ -20,7 +20,6 @@ public static class ProportionalElectionMockedData
     public const string IdBundProportionalElectionInContestBund = "053d1197-ddb2-4906-8c90-b9baa45a40fb";
     public const string IdStGallenProportionalElectionInContestBund = "3a832f45-34c0-47ce-b1e3-db27b97948ba";
     public const string IdUzwilProportionalElectionInContestBundWithoutChilds = "a73b1bf3-7bbe-44fb-9b65-8f5e1734ad72";
-    public const string IdBundProportionalElectionInContestStGallen = "30e170ba-ed97-4886-93c9-ee35b106a22e";
     public const string IdGossauProportionalElectionInContestStGallen = "fa69e964-0a02-4d16-b417-247e8987021a";
     public const string IdUzwilProportionalElectionInContestStGallen = "da091f50-9f11-4deb-9621-948fbfbdc322";
     public const string IdStGallenProportionalElectionInContestStGallen = "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f";
@@ -34,7 +33,6 @@ public static class ProportionalElectionMockedData
     public const string ListIdBundProportionalElectionInContestBund = "5af18d6d-83b7-40c6-997f-248359817a0d";
     public const string List1IdStGallenProportionalElectionInContestBund = "6fa5262f-bf27-4eb9-81d4-23bb1a49d031";
     public const string List2IdStGallenProportionalElectionInContestBund = "05b72caf-23a9-411d-bac3-7d587666b48a";
-    public const string ListIdBundProportionalElectionInContestStGallen = "ead283f5-5b06-4d94-b23a-1ddf8fa9079f";
     public const string ListIdUzwilProportionalElectionInContestStGallen = "66dbbea3-0c99-469f-94c5-4314c32e8eab";
     public const string ListIdStGallenProportionalElectionInContestStGallen = "6eedf849-0ecc-4a02-a43b-99ef4b11d795";
     public const string ListId1GossauProportionalElectionInContestStGallen = "9091a3b6-3785-4adc-a486-f486e686503e";
@@ -53,15 +51,12 @@ public static class ProportionalElectionMockedData
     public const string SubListUnion21IdGossauProportionalElectionInContestStGallen = "49715fbf-5399-4981-bee5-01705469ec8c";
     public const string SubListUnion22IdGossauProportionalElectionInContestStGallen = "6a839c1a-c94a-4b5a-b59b-4c0edea82307";
     public const string ListUnionIdStGallenProportionalElectionInContestBund = "007ff21f-e61a-48f0-ab1f-6b3aa2c04c53";
-    public const string ListUnionIdBundProportionalElectionInContestStGallen = "c0938e89-e5a4-4ee9-bd78-4ca972ddd68e";
     public const string ListUnionIdUzwilProportionalElectionInContestStGallen = "9d5cb38e-0a75-445f-970d-f97ae129f054";
     public const string ListUnionIdKircheProportionalElectionInContestKirche = "9cb1bb16-d284-427b-841c-6e04cea35b2d";
     public const string ListUnionIdGossauProportionalElectionInContestGossau = "0a8f4968-5546-4198-8c2f-b98b154fd0c6";
 
     public const string CandidateIdBundProportionalElectionInContestBund = "8ad43b77-2ef2-4241-bd66-8d87de236a74";
     public const string CandidateIdStGallenProportionalElectionInContestBund = "bba39596-a5f6-4729-a56f-e63871b30acc";
-    public const string CandidateId1BundProportionalElectionInContestStGallen = "a31bf965-4824-4a05-a4fe-a43a7605b1f8";
-    public const string CandidateId2BundProportionalElectionInContestStGallen = "7eaa113f-4273-4a06-b6b2-ee65919249d6";
     public const string CandidateIdUzwilProportionalElectionInContestStGallen = "d009d110-6269-4b6e-b9d1-84508de08d42";
     public const string CandidateIdStGallenProportionalElectionInContestStGallen = "9e131f21-4483-4375-b014-484c272615ee";
     public const string CandidateId1GossauProportionalElectionInContestStGallen = "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9";
@@ -142,6 +137,9 @@ public static class ProportionalElectionMockedData
                                     Guid.Parse(ContestMockedData.IdBundesurnengang),
                                     Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere)),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -183,6 +181,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -210,6 +210,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -221,6 +224,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "2a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 2",
+                            (t, s) => t.Description = s,
                             "Liste 2"),
                     },
             },
@@ -233,116 +238,17 @@ public static class ProportionalElectionMockedData
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
                             (t, o) => t.Description = o,
                             "Listenverbindung 1"),
-                    },
-            },
-        };
-
-    public static ProportionalElection BundProportionalElectionInContestStGallen
-        => new ProportionalElection
-        {
-            Id = Guid.Parse(IdBundProportionalElectionInContestStGallen),
-            PoliticalBusinessNumber = "100",
-            Translations = TranslationUtil.CreateTranslations<ProportionalElectionTranslation>(
-                (t, o) => t.OfficialDescription = o,
-                "Proporzwahl Bund",
-                (t, s) => t.ShortDescription = s,
-                "Pw Bund"),
-            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
-            ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            Active = true,
-            AutomaticEmptyVoteCounting = true,
-            EnforceEmptyVoteCountingForCountingCircles = true,
-            BallotBundleSize = 0,
-            AutomaticBallotBundleNumberGeneration = false,
-            BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
-            CandidateCheckDigit = true,
-            MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportionalNDois5DoiOr3TotQuorum,
-            NumberOfMandates = 5,
-            ReviewProcedure = ProportionalElectionReviewProcedure.Electronically,
-            EnforceReviewProcedureForCountingCircles = true,
-            EnforceCandidateCheckDigitForCountingCircles = false,
-            ProportionalElectionLists = new List<ProportionalElectionList>
-            {
-                    new ProportionalElectionList
-                    {
-                        Id = Guid.Parse(ListIdBundProportionalElectionInContestStGallen),
-                        Position = 1,
-                        BlankRowCount = 2,
-                        OrderNumber = "1a",
-                        Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
-                            (t, s) => t.ShortDescription = s,
-                            "Liste 1"),
-                        ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
-                        {
-                            new ProportionalElectionCandidate
-                            {
-                                Id = Guid.Parse(CandidateId1BundProportionalElectionInContestStGallen),
-                                FirstName = "firstName",
-                                LastName = "lastName",
-                                PoliticalFirstName = "pol first name",
-                                PoliticalLastName = "pol last name",
-                                DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc),
-                                Incumbent = true,
-                                Position = 1,
-                                Accumulated = true,
-                                AccumulatedPosition = 2,
-                                Locality = "locality",
-                                Number = "number1",
-                                Sex = SexType.Female,
-                                Title = "title",
-                                ZipCode = "zip code",
-                                Origin = "origin",
-                                Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
-                                    (t, o) => t.Occupation = o,
-                                    "occupation",
-                                    (t, o) => t.OccupationTitle = o,
-                                    "occupation title"),
-                                PartyId = AusmittlungUuidV5.BuildDomainOfInfluenceParty(
-                                    Guid.Parse(ContestMockedData.IdStGallenEvoting),
-                                    Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundAndere)),
-                                CheckDigit = 6,
-                            },
-                            new ProportionalElectionCandidate
-                            {
-                                Id = Guid.Parse(CandidateId2BundProportionalElectionInContestStGallen),
-                                FirstName = "firstName 2",
-                                LastName = "lastName 2",
-                                PoliticalFirstName = "pol first name 2",
-                                PoliticalLastName = "pol last name 2",
-                                DateOfBirth = new DateTime(1980, 3, 27, 0, 0, 0, DateTimeKind.Utc),
-                                Incumbent = false,
-                                Position = 3,
-                                Locality = "locality 2",
-                                Number = "number2",
-                                Sex = SexType.Undefined,
-                                Title = "title2",
-                                ZipCode = "zip code2",
-                                Origin = "origin 2",
-                                Translations = TranslationUtil.CreateTranslations<ProportionalElectionCandidateTranslation>(
-                                    (t, o) => t.Occupation = o,
-                                    "occupation 2",
-                                    (t, o) => t.OccupationTitle = o,
-                                    "occupation title 2"),
-                                CheckDigit = 4,
-                            },
-                        },
-                    },
-            },
-            ProportionalElectionListUnions = new List<ProportionalElectionListUnion>
-            {
-                    new ProportionalElectionListUnion
-                    {
-                        Id = Guid.Parse(ListUnionIdBundProportionalElectionInContestStGallen),
-                        Position = 1,
-                        Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
-                            (t, o) => t.Description = o,
-                            "Listenverbindung 1"),
                         ProportionalElectionListUnionEntries = new List<ProportionalElectionListUnionEntry>
                         {
                             new ProportionalElectionListUnionEntry
                             {
                                 ProportionalElectionListId =
-                                    Guid.Parse(ListIdBundProportionalElectionInContestStGallen),
+                                    Guid.Parse(List1IdStGallenProportionalElectionInContestBund),
+                            },
+                            new ProportionalElectionListUnionEntry
+                            {
+                                ProportionalElectionListId =
+                                    Guid.Parse(List2IdStGallenProportionalElectionInContestBund),
                             },
                         },
                     },
@@ -384,6 +290,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -411,6 +319,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -424,6 +335,14 @@ public static class ProportionalElectionMockedData
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
                             (t, o) => t.Description = o,
                             "Listenverbindung 1"),
+                        ProportionalElectionListUnionEntries = new List<ProportionalElectionListUnionEntry>
+                        {
+                            new ProportionalElectionListUnionEntry
+                            {
+                                ProportionalElectionListId =
+                                    Guid.Parse(ListIdUzwilProportionalElectionInContestStGallen),
+                            },
+                        },
                     },
             },
         };
@@ -463,6 +382,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -490,6 +411,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -531,6 +455,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -558,6 +484,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -581,6 +510,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title 2"),
                                 CheckDigit = 4,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -592,6 +524,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "2",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 2",
+                            (t, s) => t.Description = s,
                             "Liste 2"),
                         ProportionalElectionCandidates =
                         {
@@ -617,6 +551,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title 3"),
                                 CheckDigit = 0,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -628,6 +565,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "3a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 3",
+                            (t, s) => t.Description = s,
                             "Liste 3"),
                     },
             },
@@ -687,6 +626,14 @@ public static class ProportionalElectionMockedData
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
                             (t, o) => t.Description = o,
                             "Listenverbindung 3"),
+                        ProportionalElectionListUnionEntries = new List<ProportionalElectionListUnionEntry>
+                        {
+                            new ProportionalElectionListUnionEntry
+                            {
+                                ProportionalElectionListId =
+                                    Guid.Parse(ListId3GossauProportionalElectionInContestStGallen),
+                            },
+                        },
                     },
                     new ProportionalElectionListUnion
                     {
@@ -844,6 +791,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -874,6 +823,9 @@ public static class ProportionalElectionMockedData
                                     Guid.Parse(ContestMockedData.IdGossau),
                                     Guid.Parse(DomainOfInfluenceMockedData.PartyIdGossauFLiG)),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -887,6 +839,14 @@ public static class ProportionalElectionMockedData
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
                             (t, o) => t.Description = o,
                             "Listenverbindung 1"),
+                        ProportionalElectionListUnionEntries = new List<ProportionalElectionListUnionEntry>
+                        {
+                            new ProportionalElectionListUnionEntry
+                            {
+                                ProportionalElectionListId =
+                                    Guid.Parse(ListIdGossauProportionalElectionInContestGossau),
+                            },
+                        },
                     },
             },
         };
@@ -902,7 +862,7 @@ public static class ProportionalElectionMockedData
                 (t, s) => t.ShortDescription = s,
                 "Pw Uzwil"),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
-            ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting),
             Active = true,
             AutomaticEmptyVoteCounting = true,
             EnforceEmptyVoteCountingForCountingCircles = true,
@@ -926,6 +886,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -953,6 +915,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 2,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -975,6 +940,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 0,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -999,6 +967,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -1010,6 +981,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "2a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 2",
+                            (t, s) => t.Description = s,
                             "Liste 2"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -1037,6 +1010,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -1062,6 +1038,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 4,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -1155,6 +1134,8 @@ public static class ProportionalElectionMockedData
                         OrderNumber = "1a",
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListTranslation>(
                             (t, s) => t.ShortDescription = s,
+                            "Liste 1",
+                            (t, s) => t.Description = s,
                             "Liste 1"),
                         ProportionalElectionCandidates = new List<ProportionalElectionCandidate>
                         {
@@ -1181,6 +1162,9 @@ public static class ProportionalElectionMockedData
                                     (t, o) => t.OccupationTitle = o,
                                     "occupation title"),
                                 CheckDigit = 6,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -1194,6 +1178,14 @@ public static class ProportionalElectionMockedData
                         Translations = TranslationUtil.CreateTranslations<ProportionalElectionListUnionTranslation>(
                             (t, o) => t.Description = o,
                             "Listenverbindung 1 Kirche"),
+                        ProportionalElectionListUnionEntries = new List<ProportionalElectionListUnionEntry>
+                        {
+                            new ProportionalElectionListUnionEntry
+                            {
+                                ProportionalElectionListId =
+                                    Guid.Parse(ListIdKircheProportionalElectionInContestKirche),
+                            },
+                        },
                     },
             },
         };
@@ -1230,7 +1222,6 @@ public static class ProportionalElectionMockedData
         get
         {
             yield return BundProportionalElectionInContestBund;
-            yield return BundProportionalElectionInContestStGallen;
             yield return UzwilProportionalElectionInContestStGallen;
             yield return StGallenProportionalElectionInContestBund;
             yield return StGallenProportionalElectionInContestStGallen;

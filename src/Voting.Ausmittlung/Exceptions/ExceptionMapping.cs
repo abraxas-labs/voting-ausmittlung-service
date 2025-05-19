@@ -41,7 +41,8 @@ internal readonly struct ExceptionMapping
         => ex switch
         {
             EVotingNotActiveException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
-            CountingCircleResultInInvalidStateForEVotingImportException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
+            ECountingImportDisabledException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
+            CountingCircleResultInInvalidStateForImportException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             SecondFactorTransactionDataChangedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             SecondFactorTransactionNotVerifiedException _ => new ExceptionMapping(StatusCode.FailedPrecondition, StatusCodes.Status424FailedDependency, true),
             SecondaryMajorityElectionCandidateNotSelectedInPrimaryElectionException _ => new ExceptionMapping(StatusCode.InvalidArgument, StatusCodes.Status400BadRequest, true),

@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Voting.Ausmittlung.EventSig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Voting.Ausmittlung.BiproportionalApportionment", "src\Voting.Ausmittlung.BiproportionalApportionment\Voting.Ausmittlung.BiproportionalApportionment.csproj", "{39050D5B-CC28-423A-A7DF-19C610472BB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voting.Ausmittlung.PdfDiff", "test\Voting.Ausmittlung.PdfDiff\Voting.Ausmittlung.PdfDiff.csproj", "{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,12 @@ Global
 		{39050D5B-CC28-423A-A7DF-19C610472BB1}.DebugUpdateSnapshots|Any CPU.Build.0 = Debug|Any CPU
 		{39050D5B-CC28-423A-A7DF-19C610472BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39050D5B-CC28-423A-A7DF-19C610472BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.DebugUpdateSnapshots|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.DebugUpdateSnapshots|Any CPU.Build.0 = Debug|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +130,7 @@ Global
 		{E61CD5D5-6275-4C04-ACF9-B99190305A6C} = {3663B411-F818-45C6-92FB-90407694C5F0}
 		{CD5C1208-52BF-4BF2-973C-EE1EDFC851A9} = {3663B411-F818-45C6-92FB-90407694C5F0}
 		{39050D5B-CC28-423A-A7DF-19C610472BB1} = {3663B411-F818-45C6-92FB-90407694C5F0}
+		{DD96EC31-D3C4-4F69-821C-D81CE9C35F3D} = {D8339021-3544-4C38-A832-231D642FF235}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82F88F25-4FCC-4B5C-BE6E-CEA915E13A63}

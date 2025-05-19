@@ -168,15 +168,15 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
             // Check ballots ("Wahlzettel")
             endResult.BallotEndResults.Should().HaveCount(1);
             var ballotEndResult = endResult.BallotEndResults[0];
-            ballotEndResult.CountOfVoters.ConventionalReceivedBallots.Should().Be(expectedData.ConventionalCountOfVoters.ReceivedBallots);
-            ballotEndResult.CountOfVoters.ConventionalBlankBallots.Should().Be(expectedData.ConventionalCountOfVoters.BlankBallots);
-            ballotEndResult.CountOfVoters.ConventionalInvalidBallots.Should().Be(expectedData.ConventionalCountOfVoters.InvalidBallots);
-            ballotEndResult.CountOfVoters.ConventionalAccountedBallots.Should().Be(expectedData.ConventionalCountOfVoters.AccountedBallots);
+            ballotEndResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots.Should().Be(expectedData.ConventionalCountOfVoters.ReceivedBallots);
+            ballotEndResult.CountOfVoters.ConventionalSubTotal.BlankBallots.Should().Be(expectedData.ConventionalCountOfVoters.BlankBallots);
+            ballotEndResult.CountOfVoters.ConventionalSubTotal.InvalidBallots.Should().Be(expectedData.ConventionalCountOfVoters.InvalidBallots);
+            ballotEndResult.CountOfVoters.ConventionalSubTotal.AccountedBallots.Should().Be(expectedData.ConventionalCountOfVoters.AccountedBallots);
 
-            ballotEndResult.CountOfVoters.EVotingReceivedBallots.Should().Be(expectedData.EVotingCountOfVoters.ReceivedBallots);
-            ballotEndResult.CountOfVoters.EVotingBlankBallots.Should().Be(expectedData.EVotingCountOfVoters.BlankBallots);
-            ballotEndResult.CountOfVoters.EVotingInvalidBallots.Should().Be(expectedData.EVotingCountOfVoters.InvalidBallots);
-            ballotEndResult.CountOfVoters.EVotingAccountedBallots.Should().Be(expectedData.EVotingCountOfVoters.AccountedBallots);
+            ballotEndResult.CountOfVoters.EVotingSubTotal.ReceivedBallots.Should().Be(expectedData.EVotingCountOfVoters.ReceivedBallots);
+            ballotEndResult.CountOfVoters.EVotingSubTotal.BlankBallots.Should().Be(expectedData.EVotingCountOfVoters.BlankBallots);
+            ballotEndResult.CountOfVoters.EVotingSubTotal.InvalidBallots.Should().Be(expectedData.EVotingCountOfVoters.InvalidBallots);
+            ballotEndResult.CountOfVoters.EVotingSubTotal.AccountedBallots.Should().Be(expectedData.EVotingCountOfVoters.AccountedBallots);
 
             ballotEndResult.CountOfVoters.TotalReceivedBallots.Should().Be(expectedData.TotalCountOfVoters.ReceivedBallots);
             ballotEndResult.CountOfVoters.TotalBlankBallots.Should().Be(expectedData.TotalCountOfVoters.BlankBallots);
@@ -576,7 +576,7 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
 
     private async Task ImportEVotingResults()
     {
-        var uri = new Uri($"api/result_import/{ContestId}", UriKind.RelativeOrAbsolute);
+        var uri = new Uri($"api/result_import/e-voting/{ContestId}", UriKind.RelativeOrAbsolute);
         using var httpClient = CreateHttpClient(RolesMockedData.MonitoringElectionAdmin);
         using var resp = await httpClient.PostFiles(
             uri,
@@ -584,7 +584,7 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
             ("ech0110File", EVotingEch0110File));
         resp.EnsureSuccessStatusCode();
 
-        EventPublisherMock.AllPublishedEvents.Should().HaveCount(7);
+        EventPublisherMock.AllPublishedEvents.Should().HaveCount(8);
         EventPublisherMock.GetPublishedEvents<ResultImportCreated>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ResultImportStarted>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().Should().HaveCount(1);

@@ -50,6 +50,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "e16124c9-8c0f-5e81-92c5-e5c5bafb498c",
@@ -75,6 +76,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -127,6 +129,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "53f84aa8-18e2-59f4-a912-a0a5d265ddc8",
@@ -152,6 +155,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -204,6 +208,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "6bf6829b-a709-5b36-b191-db6a7305dbe4",
@@ -229,6 +234,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -281,6 +287,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "8c4e3f0c-d720-5794-98a5-8257b34a0f76",
@@ -306,6 +313,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -358,6 +366,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "21ecf81e-c6f6-59a9-b947-0197f7da7423",
@@ -383,6 +392,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -435,6 +445,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "2d9d52ce-29a9-516b-8b2c-ae79815e581c",
@@ -460,6 +471,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -512,6 +524,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "10c2b69a-3fb0-5283-9dbb-bc2ea199fe91",
@@ -537,6 +550,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     },
     {
@@ -589,6 +603,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "eae2cfaf-c787-48b9-a108-c975b0a580da",
@@ -614,6 +629,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "00000000-0000-0000-0000-000000000000"
     }
   ]

@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -64,6 +65,7 @@ public class PdfProportionalElectionUnionRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(data.Contest),
             ProportionalElectionUnions = new List<PdfProportionalElectionUnion>
                 {

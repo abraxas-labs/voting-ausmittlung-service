@@ -12,11 +12,12 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Messaging.Messages;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
+using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -26,57 +27,80 @@ public class MajorityElectionResultImportProcessor :
     IEventProcessor<MajorityElectionWriteInsReset>,
     IEventProcessor<MajorityElectionWriteInsMapped>
 {
+    private readonly EventLogger _eventLogger;
+    private readonly IDbRepository<DataContext, ResultImport> _importRepo;
     private readonly IDbRepository<DataContext, MajorityElectionResult> _majorityElectionResultRepo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
-    private readonly MessageProducerBuffer _messageProducerBuffer;
 
     public MajorityElectionResultImportProcessor(
+        EventLogger eventLogger,
+        IDbRepository<DataContext, ResultImport> importRepo,
         IDbRepository<DataContext, MajorityElectionResult> majorityElectionResultRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         DataContext dataContext,
-        IMapper mapper,
-        MessageProducerBuffer messageProducerBuffer)
+        IMapper mapper)
     {
+        _eventLogger = eventLogger;
+        _importRepo = importRepo;
         _majorityElectionResultRepo = majorityElectionResultRepo;
         _simpleResultRepo = simpleResultRepo;
         _dataContext = dataContext;
         _mapper = mapper;
-        _messageProducerBuffer = messageProducerBuffer;
     }
 
     public async Task Process(MajorityElectionResultImported eventData)
     {
+        var contestId = GuidParser.Parse(eventData.ContestId);
         var electionId = GuidParser.Parse(eventData.MajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // legacy events don't specify the import type but are all evoting events
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        // legacy events don't have the import id set
+        var importId = GuidParser.ParseNullable(eventData.ImportId) ??
+                       await GetLatestImportId(contestId, countingCircleId, importType);
+        var dataSource = importType.GetDataSource();
         var result = await _majorityElectionResultRepo.Query()
             .AsTracking()
             .AsSplitQuery()
             .Include(x => x.CandidateResults)
-            .Include(x => x.WriteInMappings)
+            .Include(x => x.WriteInMappings.Where(y => y.ImportType == importType))
             .FirstOrDefaultAsync(x =>
                 x.CountingCircle.BasisCountingCircleId == countingCircleId && x.MajorityElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
 
-        result.EVotingSubTotal.InvalidVoteCount = eventData.InvalidVoteCount;
-        result.EVotingSubTotal.EmptyVoteCountExclWriteIns = eventData.EmptyVoteCount;
-        result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = eventData.TotalCandidateVoteCountExclIndividual;
-        result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
-        result.CountOfVoters.EVotingBlankBallots = eventData.BlankBallotCount;
-        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount;
-        result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        var subTotal = result.GetNonNullableSubTotal(dataSource);
+        subTotal.InvalidVoteCount = eventData.InvalidVoteCount;
+        subTotal.EmptyVoteCountExclWriteIns = eventData.EmptyVoteCount;
+        subTotal.TotalCandidateVoteCountExclIndividual = eventData.TotalCandidateVoteCountExclIndividual;
+
+        var countOfVoters = result.CountOfVoters.GetNonNullableSubTotal(dataSource);
+        countOfVoters.ReceivedBallots = eventData.CountOfVoters;
+        countOfVoters.BlankBallots = eventData.BlankBallotCount;
+        countOfVoters.AccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount;
+
+        if (importType == ResultImportType.EVoting)
+        {
+            result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        }
 
         if (eventData.WriteIns.Count > 0)
         {
-            result.CountOfElectionsWithUnmappedWriteIns++;
-            await UpdateSimpleResult(result);
+            result.AddElectionWithUnmappedWriteIns(dataSource);
+            await UpdateSimpleResult(result, importType);
         }
 
         result.UpdateVoterParticipation();
 
-        ProcessCandidates(result, eventData.CandidateResults);
-        ProcessWriteIns(result, eventData.WriteIns);
+        ProcessCandidates(dataSource, result, eventData.CandidateResults);
+        ProcessWriteIns(importId, importType, result, eventData.WriteIns);
 
         await _dataContext.SaveChangesAsync();
     }
@@ -84,8 +108,20 @@ public class MajorityElectionResultImportProcessor :
     // Note: This event was not emitted in earlier versions of VOTING Ausmittlung.
     public async Task Process(MajorityElectionWriteInBallotImported eventData)
     {
+        var contestId = GuidParser.Parse(eventData.ContestId);
         var electionId = GuidParser.Parse(eventData.MajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // legacy events don't specify the import type but are all evoting events
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        // legacy events don't have the import id set
+        var importId = GuidParser.ParseNullable(eventData.ImportId) ??
+                       await GetLatestImportId(contestId, countingCircleId, importType);
         var result = await _majorityElectionResultRepo.Query()
             .AsTracking()
             .FirstOrDefaultAsync(x =>
@@ -93,19 +129,30 @@ public class MajorityElectionResultImportProcessor :
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
 
         var writeInBallot = _mapper.Map<MajorityElectionWriteInBallot>(eventData);
+        writeInBallot.ImportId = importId;
         result.WriteInBallots.Add(writeInBallot);
         await _dataContext.SaveChangesAsync();
     }
 
     public async Task Process(MajorityElectionWriteInsMapped eventData)
     {
+        var importId = GuidParser.ParseNullable(eventData.ImportId); // was not present in earlier events
         var electionId = GuidParser.Parse(eventData.MajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // legacy events don't provide the import type.
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        var dataSource = importType.GetDataSource();
         var result = await _majorityElectionResultRepo.Query()
             .AsTracking()
             .AsSplitQuery()
             .Include(x => x.CandidateResults)
-            .Include(x => x.WriteInMappings.OrderBy(m => m.WriteInCandidateName))
+            .Include(x => x.WriteInMappings.Where(y => y.ImportType == importType).OrderBy(m => m.WriteInCandidateName))
             .ThenInclude(x => x.CandidateResult)
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.BallotPositions)
@@ -117,10 +164,10 @@ public class MajorityElectionResultImportProcessor :
         var supportsInvalidVotes = result.MajorityElection.Contest.CantonDefaults.MajorityElectionInvalidVotes;
 
         // we remove this election from the count, we may re-add it later, if there are still unspecified write-ins
-        if (result.WriteInMappings.HasUnspecifiedMappings())
+        if (result.WriteInMappings.HasUnspecifiedMappings(importType))
         {
-            result.CountOfElectionsWithUnmappedWriteIns--;
-            await UpdateSimpleResult(result);
+            result.RemoveElectionWithUnmappedWriteIns(dataSource);
+            await UpdateSimpleResult(result, importType);
         }
 
         // Write ins may be mapped multiple times, for example
@@ -129,26 +176,41 @@ public class MajorityElectionResultImportProcessor :
         ResetWriteIns(result, candidateResultsByCandidateId);
         var (duplicatedCandidates, invalidDueToEmptyBallot) = ApplyWriteIns(result, eventData, candidateResultsByCandidateId, supportsInvalidVotes);
 
-        if (result.WriteInMappings.HasUnspecifiedMappings())
+        if (result.WriteInMappings.HasUnspecifiedMappings(importType))
         {
-            result.CountOfElectionsWithUnmappedWriteIns++;
-            await UpdateSimpleResult(result);
+            result.AddElectionWithUnmappedWriteIns(dataSource);
+            await UpdateSimpleResult(result, importType);
         }
 
         await _dataContext.SaveChangesAsync();
 
-        _messageProducerBuffer.Add(new WriteInMappingsChanged(result.Id, false, duplicatedCandidates, invalidDueToEmptyBallot));
+        var eventDetails = new WriteInsMappedMessageDetail(importType, result.Id, duplicatedCandidates, invalidDueToEmptyBallot);
+        _eventLogger.LogEvent(
+            eventData,
+            importId ?? Guid.Empty,
+            importId ?? Guid.Empty,
+            politicalBusinessResultId: result.Id,
+            details: new EventProcessedMessageDetails(WriteInsMapped: eventDetails));
     }
 
     public async Task Process(MajorityElectionWriteInsReset eventData)
     {
         var electionId = GuidParser.Parse(eventData.MajorityElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // legacy events don't specify the import type but are all evoting events
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        var dataSource = importType.GetDataSource();
         var result = await _majorityElectionResultRepo.Query()
              .AsTracking()
              .AsSplitQuery()
              .Include(x => x.CandidateResults)
-             .Include(x => x.WriteInMappings)
+             .Include(x => x.WriteInMappings.Where(y => y.ImportType == importType))
              .ThenInclude(x => x.CandidateResult)
              .Include(x => x.WriteInMappings)
              .ThenInclude(x => x.BallotPositions)
@@ -158,20 +220,18 @@ public class MajorityElectionResultImportProcessor :
              .FirstOrDefaultAsync(x => x.CountingCircle.BasisCountingCircleId == countingCircleId && x.MajorityElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(MajorityElectionResult), new { countingCircleId, electionId });
 
-        var hadUnmappedWriteIns = result.WriteInMappings.HasUnspecifiedMappings();
+        var hadUnmappedWriteIns = result.WriteInMappings.HasUnspecifiedMappings(importType);
         var candidateResultsByCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
         ResetWriteIns(result, candidateResultsByCandidateId);
 
         // WriteIns were correctly mapped before the reset -> only increase count in this case
         if (!hadUnmappedWriteIns)
         {
-            result.CountOfElectionsWithUnmappedWriteIns++;
-            await UpdateSimpleResult(result);
+            result.AddElectionWithUnmappedWriteIns(dataSource);
+            await UpdateSimpleResult(result, importType);
         }
 
         await _dataContext.SaveChangesAsync();
-
-        _messageProducerBuffer.Add(new WriteInMappingsChanged(result.Id, true, 0, 0));
     }
 
     private void ResetWriteIns(MajorityElectionResult result, Dictionary<Guid, MajorityElectionCandidateResult> candidateResultsByCandidateId)
@@ -286,13 +346,18 @@ public class MajorityElectionResultImportProcessor :
         Dictionary<Guid, MajorityElectionCandidateResult> candidateResultsByCandidateId,
         int deltaFactor)
     {
+        var dataSource = writeIn.ImportType.GetDataSource();
+        var subTotal = result.GetNonNullableSubTotal(dataSource);
+
         // Old logic for past contests, which we need to keep around for backward compatibility
         if (writeIn.BallotPositions.Count == 0)
         {
             var deltaVoteCount = writeIn.VoteCount * deltaFactor;
-            ApplyWriteInToResult(result, writeIn.Target, writeIn.CandidateResult, deltaVoteCount);
+            ApplyWriteInToResult(dataSource, subTotal, writeIn.Target, writeIn.CandidateResult, deltaVoteCount);
             return;
         }
+
+        var countOfVoters = result.CountOfVoters.GetNonNullableSubTotal(dataSource);
 
         // With the newer logic, we need to examine each write in on each ballot separately
         foreach (var position in writeIn.BallotPositions)
@@ -306,11 +371,11 @@ public class MajorityElectionResultImportProcessor :
                 // Note for the future: A mapping to an invalid ballot should also mark secondary election ballots as invalid,
                 // but this is not yet supported by the deliverer of the eCH file.
                 // There, primary and secondary election results should be in the same ballot/ballotRawData, but this isn't the case yet.
-                result.CountOfVoters.EVotingInvalidBallots += deltaFactor;
-                result.CountOfVoters.EVotingAccountedBallots -= deltaFactor;
+                countOfVoters.InvalidBallots += deltaFactor;
+                countOfVoters.AccountedBallots -= deltaFactor;
 
-                result.EVotingSubTotal.InvalidVoteCount -= position.Ballot!.InvalidVoteCount * deltaFactor;
-                result.EVotingSubTotal.EmptyVoteCountExclWriteIns -= position.Ballot!.EmptyVoteCount * deltaFactor;
+                subTotal.InvalidVoteCount -= position.Ballot!.InvalidVoteCount * deltaFactor;
+                subTotal.EmptyVoteCountExclWriteIns -= position.Ballot!.EmptyVoteCount * deltaFactor;
 
                 foreach (var candidateId in position.Ballot.CandidateIds)
                 {
@@ -319,8 +384,8 @@ public class MajorityElectionResultImportProcessor :
                         throw new ValidationException("Candidate result not found");
                     }
 
-                    candidateResult.EVotingExclWriteInsVoteCount -= deltaFactor;
-                    result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual -= deltaFactor;
+                    candidateResult.AddVoteCountExclWriteIns(dataSource, -deltaFactor);
+                    subTotal.TotalCandidateVoteCountExclIndividual -= deltaFactor;
                 }
 
                 continue;
@@ -333,12 +398,13 @@ public class MajorityElectionResultImportProcessor :
                 continue;
             }
 
-            ApplyWriteInToResult(result, position.Target, writeIn.CandidateResult, deltaFactor);
+            ApplyWriteInToResult(dataSource, subTotal, position.Target, writeIn.CandidateResult, deltaFactor);
         }
     }
 
     private void ApplyWriteInToResult(
-        MajorityElectionResult result,
+        VotingDataSource dataSource,
+        MajorityElectionResultSubTotal subTotal,
         MajorityElectionWriteInMappingTarget target,
         MajorityElectionCandidateResult? candidateResult,
         int deltaVoteCount)
@@ -346,22 +412,24 @@ public class MajorityElectionResultImportProcessor :
         switch (target)
         {
             case MajorityElectionWriteInMappingTarget.Individual:
-                result.EVotingSubTotal.IndividualVoteCount += deltaVoteCount;
+                subTotal.IndividualVoteCount += deltaVoteCount;
                 break;
             case MajorityElectionWriteInMappingTarget.Candidate:
-                candidateResult!.EVotingWriteInsVoteCount += deltaVoteCount;
-                result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual += deltaVoteCount;
+                candidateResult!.AddWriteInsVoteCount(dataSource, deltaVoteCount);
+                subTotal.TotalCandidateVoteCountExclIndividual += deltaVoteCount;
                 break;
             case MajorityElectionWriteInMappingTarget.Empty:
-                result.EVotingSubTotal.EmptyVoteCountWriteIns += deltaVoteCount;
+                subTotal.EmptyVoteCountWriteIns += deltaVoteCount;
                 break;
             case MajorityElectionWriteInMappingTarget.Invalid:
-                result.EVotingSubTotal.InvalidVoteCount += deltaVoteCount;
+                subTotal.InvalidVoteCount += deltaVoteCount;
                 break;
         }
     }
 
     private void ProcessWriteIns(
+        Guid importId,
+        ResultImportType importType,
         MajorityElectionResult result,
         IEnumerable<MajorityElectionWriteInEventData> writeIns)
     {
@@ -373,6 +441,8 @@ public class MajorityElectionResultImportProcessor :
                 Id = GuidParser.Parse(writeIn.WriteInMappingId),
                 VoteCount = writeIn.VoteCount,
                 WriteInCandidateName = writeIn.WriteInCandidateName,
+                ImportType = importType,
+                ImportId = importId,
             };
             result.WriteInMappings.Add(newMapping);
 
@@ -383,22 +453,45 @@ public class MajorityElectionResultImportProcessor :
     }
 
     private void ProcessCandidates(
+        VotingDataSource dataSource,
         MajorityElectionResult result,
         IEnumerable<MajorityElectionCandidateResultImportEventData> importCandidateResults)
     {
         var byCandidateId = result.CandidateResults.ToDictionary(x => x.CandidateId);
         foreach (var importCandidateResult in importCandidateResults)
         {
-            byCandidateId[GuidParser.Parse(importCandidateResult.CandidateId)].EVotingExclWriteInsVoteCount = importCandidateResult.VoteCount;
+            var candidateResult = byCandidateId[GuidParser.Parse(importCandidateResult.CandidateId)];
+            candidateResult.SetVoteCountExclWriteIns(dataSource, importCandidateResult.VoteCount);
         }
     }
 
-    private async Task UpdateSimpleResult(MajorityElectionResult result)
+    private async Task UpdateSimpleResult(MajorityElectionResult result, ResultImportType importType)
     {
-        var simpleResult = await _simpleResultRepo.GetByKey(result.Id)
-            ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), result.Id);
+        switch (importType)
+        {
+            case ResultImportType.EVoting:
+                await _simpleResultRepo.Query()
+                    .Where(x => x.Id == result.Id)
+                    .ExecuteUpdateAsync(x => x.SetProperty(
+                        y => y.CountOfElectionsWithUnmappedEVotingWriteIns,
+                        result.CountOfElectionsWithUnmappedEVotingWriteIns));
+                break;
+            case ResultImportType.ECounting:
+                await _simpleResultRepo.Query()
+                    .Where(x => x.Id == result.Id)
+                    .ExecuteUpdateAsync(x => x.SetProperty(
+                        y => y.CountOfElectionsWithUnmappedECountingWriteIns,
+                        result.CountOfElectionsWithUnmappedECountingWriteIns));
+                break;
+        }
+    }
 
-        simpleResult.CountOfElectionsWithUnmappedWriteIns = result.CountOfElectionsWithUnmappedWriteIns;
-        await _simpleResultRepo.Update(simpleResult);
+    private async Task<Guid> GetLatestImportId(Guid contestId, Guid? countingCircleId, ResultImportType type)
+    {
+        return await _importRepo.Query()
+            .Where(x => x.ImportType == type && x.ContestId == contestId && x.CountingCircleId == countingCircleId)
+            .OrderByDescending(x => x.Started)
+            .Select(x => x.Id)
+            .FirstAsync();
     }
 }

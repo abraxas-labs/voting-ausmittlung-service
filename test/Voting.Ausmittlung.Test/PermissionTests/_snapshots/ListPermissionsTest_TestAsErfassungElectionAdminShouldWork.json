@@ -32,7 +32,10 @@
     "CountingCircleContactPerson:update",
     "ContestCountingCircleDetails:update",
     "ContestCountingCircleElectorate:update",
-    "Import:listen-import-changes",
-    "Export:export"
+    "Import:read-ecounting",
+    "Import:delete-ecounting",
+    "Import:import-ecounting",
+    "Export:export",
+    "EventLog:watch"
   ]
 }

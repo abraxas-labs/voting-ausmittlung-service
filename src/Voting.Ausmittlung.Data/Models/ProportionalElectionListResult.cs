@@ -27,42 +27,44 @@ public class ProportionalElectionListResult : BaseEntity,
 
     public ProportionalElectionListResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public ProportionalElectionListResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public ProportionalElectionListResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <summary>
     /// Gets the count of unmodified lists that were handed in for this list.
     /// </summary>
-    public int UnmodifiedListsCount => EVotingSubTotal.UnmodifiedListsCount + ConventionalSubTotal.UnmodifiedListsCount;
+    public int UnmodifiedListsCount => EVotingSubTotal.UnmodifiedListsCount + ECountingSubTotal.UnmodifiedListsCount + ConventionalSubTotal.UnmodifiedListsCount;
 
     /// <summary>
     /// Gets the count of candidate votes gained from unmodified lists.
     /// </summary>
-    public int UnmodifiedListVotesCount => EVotingSubTotal.UnmodifiedListVotesCount + ConventionalSubTotal.UnmodifiedListVotesCount;
+    public int UnmodifiedListVotesCount => EVotingSubTotal.UnmodifiedListVotesCount + ECountingSubTotal.UnmodifiedListVotesCount + ConventionalSubTotal.UnmodifiedListVotesCount;
 
     /// <summary>
     /// Gets the count of votes gained from blank rows from unmodified lists.
     /// </summary>
-    public int UnmodifiedListBlankRowsCount => EVotingSubTotal.UnmodifiedListBlankRowsCount + ConventionalSubTotal.UnmodifiedListBlankRowsCount;
+    public int UnmodifiedListBlankRowsCount => EVotingSubTotal.UnmodifiedListBlankRowsCount + ECountingSubTotal.UnmodifiedListBlankRowsCount + ConventionalSubTotal.UnmodifiedListBlankRowsCount;
 
     /// <summary>
     /// Gets the count of modified lists that were handed in for this list.
     /// </summary>
-    public int ModifiedListsCount => EVotingSubTotal.ModifiedListsCount + ConventionalSubTotal.ModifiedListsCount;
+    public int ModifiedListsCount => EVotingSubTotal.ModifiedListsCount + ECountingSubTotal.ModifiedListsCount + ConventionalSubTotal.ModifiedListsCount;
 
     /// <summary>
     /// Gets the count of candidate votes gained from modified lists.
     /// </summary>
-    public int ModifiedListVotesCount => EVotingSubTotal.ModifiedListVotesCount + ConventionalSubTotal.ModifiedListVotesCount;
+    public int ModifiedListVotesCount => EVotingSubTotal.ModifiedListVotesCount + ECountingSubTotal.ModifiedListVotesCount + ConventionalSubTotal.ModifiedListVotesCount;
 
     /// <summary>
     /// Gets the count of candidate votes gained from lists assigned to another list.
     /// </summary>
-    public int ListVotesCountOnOtherLists => EVotingSubTotal.ListVotesCountOnOtherLists + ConventionalSubTotal.ListVotesCountOnOtherLists;
+    public int ListVotesCountOnOtherLists => EVotingSubTotal.ListVotesCountOnOtherLists + ECountingSubTotal.ListVotesCountOnOtherLists + ConventionalSubTotal.ListVotesCountOnOtherLists;
 
     /// <summary>
     /// Gets the count of votes gained from blank rows from modified lists.
     /// </summary>
-    public int ModifiedListBlankRowsCount => EVotingSubTotal.ModifiedListBlankRowsCount + ConventionalSubTotal.ModifiedListBlankRowsCount;
+    public int ModifiedListBlankRowsCount => EVotingSubTotal.ModifiedListBlankRowsCount + ECountingSubTotal.ModifiedListBlankRowsCount + ConventionalSubTotal.ModifiedListBlankRowsCount;
 
     /// <summary>
     /// Gets the count of votes gained from unmodified lists and from blank rows on unmodified lists.
@@ -101,6 +103,16 @@ public class ProportionalElectionListResult : BaseEntity,
         foreach (var candidateResult in CandidateResults)
         {
             candidateResult.ResetAllSubTotals(dataSource);
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in CandidateResults)
+        {
+            result.MoveECountingToConventional();
         }
     }
 }

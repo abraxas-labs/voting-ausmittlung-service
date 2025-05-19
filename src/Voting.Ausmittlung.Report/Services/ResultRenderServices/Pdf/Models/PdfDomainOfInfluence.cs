@@ -2,11 +2,13 @@
 // For license information see LICENSE file
 
 using System;
+using System.Diagnostics;
 using System.Xml.Serialization;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
+[DebuggerDisplay("{Name}")]
 public class PdfDomainOfInfluence
 {
     [XmlIgnore]

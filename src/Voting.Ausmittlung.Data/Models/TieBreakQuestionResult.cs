@@ -20,22 +20,24 @@ public class TieBreakQuestionResult : BaseEntity,
 
     public TieBreakQuestionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public TieBreakQuestionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public TieBreakQuestionResultNullableSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <summary>
     /// Gets the total count of the answer yes.
     /// </summary>
-    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault();
+    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ECountingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault();
 
     /// <summary>
     /// Gets the total count of the answer no.
     /// </summary>
-    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault();
+    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ECountingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault();
 
     /// <summary>
     /// Gets the total count of the answer unspecified.
     /// </summary>
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
 
     public bool HasQ1Majority => TotalCountOfAnswerQ1 > TotalCountOfAnswerQ2;
 

@@ -18,12 +18,14 @@
     "ProportionalElectionListResult:read",
     "MajorityElectionCandidate:read",
     "MajorityElectionBallotGroupResult:read",
-    "Import:read",
+    "Import:read-ecounting",
+    "Import:read-evoting",
     "Export:export",
     "Export:export-monitoring",
     "Export:export-activity-protocol",
     "ExportConfiguration:read",
     "ExportConfiguration:update",
-    "ExportConfiguration:trigger"
+    "ExportConfiguration:trigger",
+    "EventLog:watch"
   ]
 }

@@ -79,7 +79,7 @@ public class MajorityElectionListCandidatesTest : BaseTest<MajorityElectionServi
     {
         var response = await ErfassungElectionAdminClient.ListCandidatesAsync(new ListMajorityElectionCandidatesRequest
         {
-            ElectionId = MajorityElectionMockedData.IdBundMajorityElectionInContestStGallen,
+            ElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen,
         });
         response.MatchSnapshot();
     }

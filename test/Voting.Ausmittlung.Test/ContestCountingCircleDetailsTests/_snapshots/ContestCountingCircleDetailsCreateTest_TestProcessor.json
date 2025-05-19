@@ -119,6 +119,8 @@
         }
       ],
       "EVoting": false,
+      "ECounting": false,
+      "ECountingResultsImported": false,
       "TotalCountOfVoters": 12200,
       "CountingMachine": 2,
       "Id": "452de2e5-6e23-545d-b533-195f3a2435ad"

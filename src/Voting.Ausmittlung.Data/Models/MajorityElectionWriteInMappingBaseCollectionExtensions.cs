@@ -8,6 +8,6 @@ namespace Voting.Ausmittlung.Data.Models;
 
 public static class MajorityElectionWriteInMappingBaseCollectionExtensions
 {
-    public static bool HasUnspecifiedMappings(this IEnumerable<MajorityElectionWriteInMappingBase> mappings)
-        => mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified);
+    public static bool HasUnspecifiedMappings(this IEnumerable<MajorityElectionWriteInMappingBase> mappings, ResultImportType importType)
+        => mappings.Any(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified && x.ImportType == importType);
 }

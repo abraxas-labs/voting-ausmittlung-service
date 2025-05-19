@@ -111,7 +111,7 @@ public class ContestUpdateTest : ContestProcessorBaseTest
         {
             Contest = new ContestEventData
             {
-                Id = ContestMockedData.IdUzwilEvoting,
+                Id = ContestMockedData.IdUzwilEVoting,
                 Date = new DateTime(2020, 3, 2, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 Description = { LanguageUtil.MockAllLanguages("test-UPDATED") },
                 DomainOfInfluenceId = DomainOfInfluenceMockedData.IdUzwil,

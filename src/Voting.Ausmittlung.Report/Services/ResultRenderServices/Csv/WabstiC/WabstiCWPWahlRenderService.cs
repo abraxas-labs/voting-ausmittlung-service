@@ -53,6 +53,7 @@ public class WabstiCWPWahlRenderService : WabstiCWPBaseRenderService
                 TotalCountOfCountingCircles = x.EndResult!.TotalCountOfCountingCircles,
                 Finalized = x.EndResult!.Finalized,
                 DomainOfInfluenceSortNumber = x.DomainOfInfluence.SortNumber,
+                NumberOfMandates = x.NumberOfMandates,
                 ElectionUnionIds = x.ProportionalElectionUnionEntries
                     .Select(y => y.ProportionalElectionUnionId)
                     .OrderBy(y => y)
@@ -121,6 +122,9 @@ public class WabstiCWPWahlRenderService : WabstiCWPBaseRenderService
 
         [Name("GeVerbNr")]
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
+
+        [Name("Mandate")]
+        public int NumberOfMandates { get; set; }
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
     }

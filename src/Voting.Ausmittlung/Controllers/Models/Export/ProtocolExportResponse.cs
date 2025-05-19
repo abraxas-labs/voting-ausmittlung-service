@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Controllers.Models.Export;
@@ -21,4 +22,8 @@ public class ProtocolExportResponse
     public string FileName { get; set; } = string.Empty;
 
     public DateTime? Started { get; set; }
+
+    public IReadOnlyCollection<Guid> PoliticalBusinessIds { get; set; } = Array.Empty<Guid>();
+
+    public string TemplateKey { get; set; } = string.Empty;
 }

@@ -282,43 +282,94 @@ public static class VoteEndResultMockedData
 
         ballotResult1.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 500,
-            ConventionalInvalidBallots = 200,
-            ConventionalBlankBallots = 80,
-            ConventionalAccountedBallots = 220,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 500,
+                InvalidBallots = 200,
+                BlankBallots = 80,
+                AccountedBallots = 220,
+            },
+            EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 330,
+                InvalidBallots = 25,
+                BlankBallots = 17,
+                AccountedBallots = 288,
+            },
+            ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 333,
+                InvalidBallots = 26,
+                BlankBallots = 18,
+                AccountedBallots = 289,
+            },
             VoterParticipation = .5m,
         };
 
         ballotResult2.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 450,
-            ConventionalInvalidBallots = 180,
-            ConventionalBlankBallots = 80,
-            ConventionalAccountedBallots = 200,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 450,
+                InvalidBallots = 180,
+                BlankBallots = 80,
+                AccountedBallots = 200,
+            },
+            EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 315,
+                InvalidBallots = 20,
+                BlankBallots = 12,
+                AccountedBallots = 283,
+            },
+            ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 318,
+                InvalidBallots = 21,
+                BlankBallots = 13,
+                AccountedBallots = 284,
+            },
             VoterParticipation = .5m,
         };
 
         ballotResult3.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 400,
-            ConventionalInvalidBallots = 20,
-            ConventionalBlankBallots = 10,
-            ConventionalAccountedBallots = 370,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 400,
+                InvalidBallots = 20,
+                BlankBallots = 10,
+                AccountedBallots = 370,
+            },
+            EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 300,
+                InvalidBallots = 15,
+                BlankBallots = 7,
+                AccountedBallots = 278,
+            },
+            ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 303,
+                InvalidBallots = 16,
+                BlankBallots = 8,
+                AccountedBallots = 279,
+            },
             VoterParticipation = .45m,
         };
 
-        var questionAnswerCountsByQuestionId = new Dictionary<string, (int, int, int, int, int, int)>
+        var questionAnswerCountsByQuestionId = new Dictionary<string, (int, int, int, int, int, int, int, int, int)>
             {
-                { Ballot1QuestionId, (190, 95, 19, 10, 5, 1) },
-                { Ballot2QuestionId1, (38, 90, 20, 2, 10, 3) },
-                { Ballot2QuestionId2, (75, 50, 13, 25, 0, 0) },
-                { Ballot2TieBreakQuestionId, (20, 27, 113, 0, 3, 0) },
-                { Ballot3QuestionId1, (10, 200, 170, 0, 0, 0) },
-                { Ballot3QuestionId2, (5, 205, 150, 15, 5, 0) },
-                { Ballot3QuestionId3, (80, 90, 190, 0, 0, 10) },
-                { Ballot3TieBreakQuestionId12, (100, 150, 120, 0, 0, 0) },
-                { Ballot3TieBreakQuestionId13, (160, 100, 105, 0, 0, 5) },
-                { Ballot3TieBreakQuestionId23, (67, 210, 90, 13, 0, 0) },
+                { Ballot1QuestionId, (190, 95, 19, 10, 5, 1, 11, 6, 2) },
+                { Ballot2QuestionId1, (38, 90, 20, 2, 10, 3, 3, 11, 4) },
+                { Ballot2QuestionId2, (75, 50, 13, 25, 0, 0, 26, 0, 0) },
+                { Ballot2TieBreakQuestionId, (20, 27, 113, 0, 3, 0, 0, 4, 0) },
+                { Ballot3QuestionId1, (10, 200, 170, 0, 0, 0, 0, 0, 0) },
+                { Ballot3QuestionId2, (5, 205, 150, 15, 5, 0, 16, 6, 0) },
+                { Ballot3QuestionId3, (80, 90, 190, 0, 0, 10, 0, 0, 11) },
+                { Ballot3TieBreakQuestionId12, (100, 150, 120, 0, 0, 0, 0, 0, 0) },
+                { Ballot3TieBreakQuestionId13, (160, 100, 105, 0, 0, 5, 0, 0, 6) },
+                { Ballot3TieBreakQuestionId23, (67, 210, 90, 13, 0, 0, 14, 0, 0) },
             };
 
         foreach (var questionAnswerCountsKvp in questionAnswerCountsByQuestionId)
@@ -340,6 +391,9 @@ public static class VoteEndResultMockedData
             questionResult.EVotingSubTotal.TotalCountOfAnswerYes = questionAnswerCountsKvp.Value.Item4;
             questionResult.EVotingSubTotal.TotalCountOfAnswerNo = questionAnswerCountsKvp.Value.Item5;
             questionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item6;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerYes = questionAnswerCountsKvp.Value.Item7;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerNo = questionAnswerCountsKvp.Value.Item8;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item9;
         }
 
         foreach (var questionAnswerCountsKvp in questionAnswerCountsByQuestionId)
@@ -361,6 +415,9 @@ public static class VoteEndResultMockedData
             questionResult.EVotingSubTotal.TotalCountOfAnswerQ1 = questionAnswerCountsKvp.Value.Item4;
             questionResult.EVotingSubTotal.TotalCountOfAnswerQ2 = questionAnswerCountsKvp.Value.Item5;
             questionResult.EVotingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item6;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerQ1 = questionAnswerCountsKvp.Value.Item5;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerQ2 = questionAnswerCountsKvp.Value.Item6;
+            questionResult.ECountingSubTotal.TotalCountOfAnswerUnspecified = questionAnswerCountsKvp.Value.Item7;
         }
     }
 }

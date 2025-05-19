@@ -57,6 +57,9 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("NEW") },
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -97,6 +100,9 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("NEW") },
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -132,6 +138,9 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                 ZipCode = "new zip code",
                 Party = { LanguageUtil.MockAllLanguages("NEW") },
                 Origin = "origin",
+                Street = "street",
+                HouseNumber = "1a",
+                Country = "CH",
             });
 
         var candidate = await RunOnDb(
@@ -170,6 +179,9 @@ public class SecondaryMajorityElectionCandidateUpdateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("NEW") },
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 

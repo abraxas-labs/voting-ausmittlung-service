@@ -46,4 +46,12 @@ public class VoteEndResult : PoliticalBusinessEndResultBase,
             ballotEndResult.OrderQuestionResults();
         }
     }
+
+    public void MoveECountingToConventional()
+    {
+        foreach (var result in BallotEndResults)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
 }

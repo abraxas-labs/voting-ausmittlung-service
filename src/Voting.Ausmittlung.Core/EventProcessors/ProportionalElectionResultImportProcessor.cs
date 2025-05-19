@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
+using ResultImportType = Voting.Ausmittlung.Data.Models.ResultImportType;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -29,6 +30,15 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
     {
         var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
         var countingCircleId = GuidParser.Parse(eventData.CountingCircleId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // all legacy events are evoting events
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        var dataSource = importType.GetDataSource();
         var result = await _proportionalElectionResultRepo.Query()
             .AsSplitQuery()
             .Include(x => x.ListResults)
@@ -37,26 +47,41 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             .Include(x => x.UnmodifiedListResults)
             .FirstOrDefaultAsync(x => x.CountingCircle.BasisCountingCircleId == countingCircleId && x.ProportionalElectionId == electionId)
             ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), new { countingCircleId, electionId });
-        result.EVotingSubTotal.TotalCountOfUnmodifiedLists = eventData.CountOfUnmodifiedLists;
 
         // The event.CountOfModifiedLists also includes lists without a party. But TotalCountOfModifiedLists only counts lists with a party.
-        result.EVotingSubTotal.TotalCountOfModifiedLists = eventData.CountOfModifiedLists - eventData.CountOfListsWithoutParty;
-        result.EVotingSubTotal.TotalCountOfListsWithoutParty = eventData.CountOfListsWithoutParty;
-        result.EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty = eventData.CountOfBlankRowsOnListsWithoutParty;
-        result.CountOfVoters.EVotingReceivedBallots = eventData.CountOfVoters;
-        result.CountOfVoters.EVotingBlankBallots = eventData.BlankBallotCount;
-        result.CountOfVoters.EVotingInvalidBallots = eventData.InvalidBallotCount;
-        result.CountOfVoters.EVotingAccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount - eventData.InvalidBallotCount;
-        result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        var subTotal = result.GetSubTotal(dataSource);
+        subTotal.TotalCountOfUnmodifiedLists = eventData.CountOfUnmodifiedLists;
+        subTotal.TotalCountOfModifiedLists = eventData.CountOfModifiedLists - eventData.CountOfListsWithoutParty;
+        subTotal.TotalCountOfListsWithoutParty = eventData.CountOfListsWithoutParty;
+        subTotal.TotalCountOfBlankRowsOnListsWithoutParty = eventData.CountOfBlankRowsOnListsWithoutParty;
+        UpdateCountOfVoters(importType, eventData, result);
         result.UpdateVoterParticipation();
 
-        ProcessCandidates(result, eventData.CandidateResults);
-        ProcessLists(result, eventData.ListResults);
+        if (importType == ResultImportType.EVoting)
+        {
+            result.TotalSentEVotingVotingCards = eventData.CountOfVotersInformation?.TotalCountOfVoters;
+        }
+
+        ProcessCandidates(dataSource, result, eventData.CandidateResults);
+        ProcessLists(dataSource, result, eventData.ListResults);
 
         await _proportionalElectionResultRepo.Update(result);
     }
 
+    private static void UpdateCountOfVoters(
+        ResultImportType importType,
+        ProportionalElectionResultImported eventData,
+        ProportionalElectionResult result)
+    {
+        var subTotal = result.CountOfVoters.GetNonNullableSubTotal(importType.GetDataSource());
+        subTotal.ReceivedBallots = eventData.CountOfVoters;
+        subTotal.BlankBallots = eventData.BlankBallotCount;
+        subTotal.InvalidBallots = eventData.InvalidBallotCount;
+        subTotal.AccountedBallots = eventData.CountOfVoters - eventData.BlankBallotCount - eventData.InvalidBallotCount;
+    }
+
     private void ProcessLists(
+        VotingDataSource dataSource,
         ProportionalElectionResult result,
         IEnumerable<ProportionalElectionListResultImportEventData> importedListResults)
     {
@@ -69,18 +94,21 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             var listResult = listResultsById[listId];
             var unmodifiedListResult = unmodifiedListResultsById[listId];
 
-            unmodifiedListResult.EVotingVoteCount = importedListResult.UnmodifiedListsCount;
-            listResult.EVotingSubTotal.UnmodifiedListsCount = importedListResult.UnmodifiedListsCount;
-            listResult.EVotingSubTotal.UnmodifiedListVotesCount = importedListResult.UnmodifiedListVotesCount;
-            listResult.EVotingSubTotal.UnmodifiedListBlankRowsCount = importedListResult.UnmodifiedListBlankRowsCount;
-            listResult.EVotingSubTotal.ModifiedListsCount = importedListResult.ModifiedListsCount;
-            listResult.EVotingSubTotal.ModifiedListVotesCount = importedListResult.ModifiedListVotesCount;
-            listResult.EVotingSubTotal.ListVotesCountOnOtherLists = importedListResult.ListVotesCountOnOtherLists;
-            listResult.EVotingSubTotal.ModifiedListBlankRowsCount = importedListResult.ModifiedListBlankRowsCount;
+            unmodifiedListResult.SetVoteCountOfDataSource(dataSource, importedListResult.UnmodifiedListsCount);
+
+            var subTotal = listResult.GetSubTotal(dataSource);
+            subTotal.UnmodifiedListsCount = importedListResult.UnmodifiedListsCount;
+            subTotal.UnmodifiedListVotesCount = importedListResult.UnmodifiedListVotesCount;
+            subTotal.UnmodifiedListBlankRowsCount = importedListResult.UnmodifiedListBlankRowsCount;
+            subTotal.ModifiedListsCount = importedListResult.ModifiedListsCount;
+            subTotal.ModifiedListVotesCount = importedListResult.ModifiedListVotesCount;
+            subTotal.ListVotesCountOnOtherLists = importedListResult.ListVotesCountOnOtherLists;
+            subTotal.ModifiedListBlankRowsCount = importedListResult.ModifiedListBlankRowsCount;
         }
     }
 
     private void ProcessCandidates(
+        VotingDataSource dataSource,
         ProportionalElectionResult result,
         IEnumerable<ProportionalElectionCandidateResultImportEventData> importedCandidateResults)
     {
@@ -91,15 +119,17 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
         foreach (var importedCandidateResult in importedCandidateResults)
         {
             var candidateResult = candidateResultsById[GuidParser.Parse(importedCandidateResult.CandidateId)];
-            candidateResult.EVotingSubTotal.UnmodifiedListVotesCount = importedCandidateResult.UnmodifiedListVotesCount;
-            candidateResult.EVotingSubTotal.ModifiedListVotesCount = importedCandidateResult.ModifiedListVotesCount;
-            candidateResult.EVotingSubTotal.CountOfVotesOnOtherLists = importedCandidateResult.CountOfVotesOnOtherLists;
-            candidateResult.EVotingSubTotal.CountOfVotesFromAccumulations = importedCandidateResult.CountOfVotesFromAccumulations;
-            ProcessCandidateVoteSources(candidateResult, importedCandidateResult.VoteSources);
+            var subTotal = candidateResult.GetSubTotal(dataSource);
+            subTotal.UnmodifiedListVotesCount = importedCandidateResult.UnmodifiedListVotesCount;
+            subTotal.ModifiedListVotesCount = importedCandidateResult.ModifiedListVotesCount;
+            subTotal.CountOfVotesOnOtherLists = importedCandidateResult.CountOfVotesOnOtherLists;
+            subTotal.CountOfVotesFromAccumulations = importedCandidateResult.CountOfVotesFromAccumulations;
+            ProcessCandidateVoteSources(dataSource, candidateResult, importedCandidateResult.VoteSources);
         }
     }
 
     private void ProcessCandidateVoteSources(
+        VotingDataSource dataSource,
         ProportionalElectionCandidateResult candidateResult,
         IEnumerable<ProportionalElectionCandidateVoteSourceResultImportEventData> importedVoteSources)
     {
@@ -109,7 +139,7 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             var listId = GuidParser.ParseNullable(voteSource.ListId);
             if (candidateResultVoteSources.TryGetValue(listId ?? Guid.Empty, out var endResultVoteSource))
             {
-                endResultVoteSource.EVotingVoteCount = voteSource.VoteCount;
+                endResultVoteSource.SetVoteCountOfDataSource(dataSource, voteSource.VoteCount);
                 continue;
             }
 
@@ -117,8 +147,8 @@ public class ProportionalElectionResultImportProcessor : IEventProcessor<Proport
             {
                 ListId = listId == Guid.Empty ? null : listId,
                 CandidateResultId = candidateResult.Id,
-                EVotingVoteCount = voteSource.VoteCount,
             };
+            endResultVoteSource.SetVoteCountOfDataSource(dataSource, voteSource.VoteCount);
             candidateResult.VoteSources.Add(endResultVoteSource);
         }
     }

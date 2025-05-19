@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -148,7 +147,6 @@ public class ProportionalElectionResultDeleteBallotTest : ProportionalElectionRe
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = Guid.Parse(ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen);
         var bundle1Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
 
         await TestEventPublisher.Publish(
@@ -168,8 +166,7 @@ public class ProportionalElectionResultDeleteBallotTest : ProportionalElectionRe
         bundle.CountOfBallots.Should().Be(1);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(0);
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBallotDeleted.Descriptor, bundle1Id);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

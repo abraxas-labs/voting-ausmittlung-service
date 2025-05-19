@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class ProportionalElectionResultSubTotal : IProportionalElectionResultTotal
+public class ProportionalElectionResultSubTotal : IProportionalElectionResultTotal, ISummableSubTotal<ProportionalElectionResultSubTotal>
 {
     /// <summary>
     /// Gets or sets the total count of unmodified lists with a party.
@@ -39,4 +39,12 @@ public class ProportionalElectionResultSubTotal : IProportionalElectionResultTot
     /// Gets the total count of lists (without and with a party).
     /// </summary>
     public int TotalCountOfLists => TotalCountOfListsWithParty + TotalCountOfListsWithoutParty;
+
+    public void Add(ProportionalElectionResultSubTotal other, int deltaFactor = 1)
+    {
+        TotalCountOfUnmodifiedLists += other.TotalCountOfUnmodifiedLists;
+        TotalCountOfModifiedLists += other.TotalCountOfModifiedLists;
+        TotalCountOfListsWithoutParty += other.TotalCountOfListsWithoutParty;
+        TotalCountOfBlankRowsOnListsWithoutParty += other.TotalCountOfBlankRowsOnListsWithoutParty;
+    }
 }

@@ -39,4 +39,10 @@ public abstract class ElectionCandidate : BaseEntity
     public string Origin { get; set; } = string.Empty;
 
     public int CheckDigit { get; set; }
+
+    public string Street { get; set; } = string.Empty;
+
+    public string HouseNumber { get; set; } = string.Empty;
+
+    public string Country { get; set; } = string.Empty;
 }

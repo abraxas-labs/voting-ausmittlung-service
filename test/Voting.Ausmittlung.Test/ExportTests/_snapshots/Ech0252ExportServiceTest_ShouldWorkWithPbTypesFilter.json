@@ -10,21 +10,6 @@
           "PoliticalBusinessType": 1
         },
         {
-          "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "PoliticalBusinessType": 1
-        },
-        {
-          "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "PoliticalBusinessType": 1
-        },
-        {
-          "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "PoliticalBusinessType": 1
-        },
-        {
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
           "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
           "PoliticalBusinessType": 1
@@ -40,18 +25,8 @@
           "PoliticalBusinessType": 1
         },
         {
-          "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "PoliticalBusinessType": 1
-        },
-        {
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
-          "PoliticalBusinessType": 1
-        },
-        {
-          "CountingCircleId": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
           "PoliticalBusinessType": 1
         },
         {
@@ -85,11 +60,6 @@
           "PoliticalBusinessType": 1
         },
         {
-          "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
-          "PoliticalBusinessType": 1
-        },
-        {
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
           "PoliticalBusinessId": "96d8275f-f1f8-4933-a097-5c0c19f54567",
           "PoliticalBusinessType": 1
@@ -102,11 +72,6 @@
         {
           "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
           "PoliticalBusinessId": "607a9dbc-250a-4bbf-ab31-73c81f6556ba",
-          "PoliticalBusinessType": 1
-        },
-        {
-          "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
-          "PoliticalBusinessId": "f69b3543-ccee-467d-9cde-56941f6e4bad",
           "PoliticalBusinessType": 1
         }
       ]

@@ -81,6 +81,24 @@ public class MajorityElectionEndResultAggregate : BaseEventSignatureAggregate, I
             new EventSignatureBusinessDomainData(contestId));
     }
 
+    public void UpdateSecondaryLotDecisions(
+        Guid majorityElectionId,
+        IEnumerable<ElectionEndResultLotDecision> lotDecisions,
+        Guid contestId,
+        bool testingPhaseEnded)
+    {
+        Id = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(majorityElectionId, testingPhaseEnded);
+        RaiseEvent(
+            new MajorityElectionEndResultSecondaryLotDecisionsUpdated
+            {
+                MajorityElectionEndResultId = Id.ToString(),
+                MajorityElectionId = majorityElectionId.ToString(),
+                LotDecisions = { _mapper.Map<IEnumerable<MajorityElectionEndResultLotDecisionEventData>>(lotDecisions) },
+                EventInfo = _eventInfoProvider.NewEventInfo(),
+            },
+            new EventSignatureBusinessDomainData(contestId));
+    }
+
     protected override void Apply(IMessage eventData)
     {
         switch (eventData)
@@ -90,6 +108,9 @@ public class MajorityElectionEndResultAggregate : BaseEventSignatureAggregate, I
                 break;
             case MajorityElectionEndResultFinalizationReverted _: break;
             case MajorityElectionEndResultLotDecisionsUpdated ev:
+                Apply(ev);
+                break;
+            case MajorityElectionEndResultSecondaryLotDecisionsUpdated ev:
                 Apply(ev);
                 break;
             default: throw new EventNotAppliedException(eventData?.GetType());
@@ -103,6 +124,12 @@ public class MajorityElectionEndResultAggregate : BaseEventSignatureAggregate, I
     }
 
     private void Apply(MajorityElectionEndResultLotDecisionsUpdated ev)
+    {
+        Id = Guid.Parse(ev.MajorityElectionEndResultId);
+        MajorityElectionId = Guid.Parse(ev.MajorityElectionId);
+    }
+
+    private void Apply(MajorityElectionEndResultSecondaryLotDecisionsUpdated ev)
     {
         Id = Guid.Parse(ev.MajorityElectionEndResultId);
         MajorityElectionId = Guid.Parse(ev.MajorityElectionId);

@@ -10,8 +10,8 @@ public class VoteResultImport : PoliticalBusinessResultImport
 {
     private readonly Dictionary<Guid, VoteBallotResultImport> _ballotResults = new();
 
-    public VoteResultImport(Guid voteId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
-        : base(voteId, basisCountingCircleId, countOfVotersInformationImport)
+    public VoteResultImport(Guid voteId, Guid basisCountingCircleId, int totalCountOfVoters)
+        : base(voteId, basisCountingCircleId, totalCountOfVoters)
     {
     }
 

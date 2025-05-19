@@ -27,6 +27,7 @@ public class MajorityElectionResultProfile : Profile
         CreateMap<IEnumerable<DataModels.MajorityElectionResultBundle>, ProtoModels.MajorityElectionResultBundles>()
             .ForMember(dst => dst.Bundles, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.MajorityElectionResultBundle, ProtoModels.MajorityElectionResultBundle>();
+        CreateMap<DataModels.MajorityElectionResultBundleLog, ProtoModels.PoliticalBusinessResultBundleLog>();
 
         CreateMap<DataModels.MajorityElectionResultBundle, GetMajorityElectionResultBundleResponse>()
             .ForMember(dst => dst.Bundle, opts => opts.MapFrom(src => src));

@@ -4,14 +4,24 @@
     "Ballot": null,
     "CountOfVoters": {
       "VoterParticipation": 0.75,
-      "ConventionalReceivedBallots": 20000,
-      "ConventionalInvalidBallots": 3000,
-      "ConventionalBlankBallots": 2000,
-      "ConventionalAccountedBallots": 12000,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 20000,
+        "InvalidBallots": 3000,
+        "BlankBallots": 2000,
+        "AccountedBallots": 12000
+      },
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
       "TotalReceivedBallots": 20000,
       "TotalAccountedBallots": 12000,
       "TotalUnaccountedBallots": 5000,
@@ -98,7 +108,8 @@
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "BallotBundleSampleSizePercent": 30,
       "AutomaticBallotBundleNumberGeneration": true,
@@ -118,14 +129,24 @@
         "Ballot": null,
         "CountOfVoters": {
           "VoterParticipation": 0.75,
-          "ConventionalReceivedBallots": 20000,
-          "ConventionalInvalidBallots": 3000,
-          "ConventionalBlankBallots": 2000,
-          "ConventionalAccountedBallots": 12000,
-          "EVotingReceivedBallots": 0,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 0,
-          "EVotingAccountedBallots": 0,
+          "ConventionalSubTotal": {
+            "ReceivedBallots": 20000,
+            "InvalidBallots": 3000,
+            "BlankBallots": 2000,
+            "AccountedBallots": 12000
+          },
+          "EVotingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
           "TotalReceivedBallots": 20000,
           "TotalAccountedBallots": 12000,
           "TotalUnaccountedBallots": 5000,
@@ -164,7 +185,8 @@
         "Email": ""
       },
       "ContactPersonSameDuringEventAsAfter": false,
-      "ContactPersonAfterEvent": null
+      "ContactPersonAfterEvent": null,
+      "ECounting": false
     },
     "Published": false,
     "ReadyForCorrectionTimestamp": null
@@ -183,7 +205,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "Hans",
+            "LastName": "Muster",
+            "FullName": "Hans Muster"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "27d9ee7e-de18-4c95-af40-7d6deee61197",
@@ -198,7 +235,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "Hans",
+            "LastName": "Muster",
+            "FullName": "Hans Muster"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "a2249597-4a74-4d27-a66b-e5159eb470a4",
@@ -213,7 +265,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "someones-user-id",
+            "FirstName": "Someone",
+            "LastName": "Else",
+            "FullName": "Someone Else"
+          },
+          "Timestamp": {
+            "Seconds": 1578661930,
+            "Nanos": 200000000
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "13351714-0973-41be-992d-d2b32605db5d",
@@ -228,7 +295,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "",
+            "LastName": "",
+            "FullName": " "
+          },
+          "Timestamp": {
+            "Seconds": 1594980476,
+            "Nanos": 0
+          },
+          "State": 1
+        }
+      ]
     },
     {
       "Id": "cdaea8af-9455-46cb-8437-1c29eea8db43",
@@ -243,7 +325,22 @@
       },
       "ReviewedBy": null,
       "BallotNumbersToReview": [],
-      "ProtocolExport": null
+      "ProtocolExport": null,
+      "Logs": [
+        {
+          "User": {
+            "SecureConnectId": "default-user-id",
+            "FirstName": "",
+            "LastName": "",
+            "FullName": " "
+          },
+          "Timestamp": {
+            "Seconds": 1594980500,
+            "Nanos": 0
+          },
+          "State": 1
+        }
+      ]
     }
   ]
 }

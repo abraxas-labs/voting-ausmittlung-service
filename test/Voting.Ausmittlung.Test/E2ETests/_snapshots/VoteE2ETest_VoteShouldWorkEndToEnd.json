@@ -34,7 +34,8 @@
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "Vote": {
       "Id": "90db57b6-5947-4623-b1d6-f5323f1ff881",
@@ -102,7 +103,8 @@
           "ManualPublishResultsEnabled": false,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "BallotBundleSampleSizePercent": 0,
       "AutomaticBallotBundleNumberGeneration": false,
@@ -172,14 +174,24 @@
         },
         "CountOfVoters": {
           "VoterParticipation": 0.00332,
-          "ConventionalReceivedBallots": 22,
-          "ConventionalInvalidBallots": 1,
-          "ConventionalBlankBallots": 3,
-          "ConventionalAccountedBallots": 18,
-          "EVotingReceivedBallots": 19,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 3,
-          "EVotingAccountedBallots": 16,
+          "ConventionalSubTotal": {
+            "ReceivedBallots": 22,
+            "InvalidBallots": 1,
+            "BlankBallots": 3,
+            "AccountedBallots": 18
+          },
+          "EVotingSubTotal": {
+            "ReceivedBallots": 19,
+            "InvalidBallots": 0,
+            "BlankBallots": 3,
+            "AccountedBallots": 16
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
           "TotalReceivedBallots": 41,
           "TotalAccountedBallots": 34,
           "TotalUnaccountedBallots": 7,
@@ -197,6 +209,11 @@
               "TotalCountOfAnswerYes": 7,
               "TotalCountOfAnswerNo": 6,
               "TotalCountOfAnswerUnspecified": 3
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
             },
             "ConventionalSubTotal": {
               "TotalCountOfAnswerYes": 15,
@@ -222,6 +239,11 @@
               "TotalCountOfAnswerYes": 5,
               "TotalCountOfAnswerNo": 10,
               "TotalCountOfAnswerUnspecified": 1
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
             },
             "ConventionalSubTotal": {
               "TotalCountOfAnswerYes": 5,
@@ -250,6 +272,11 @@
               "TotalCountOfAnswerQ1": 8,
               "TotalCountOfAnswerQ2": 4,
               "TotalCountOfAnswerUnspecified": 4
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
             },
             "ConventionalSubTotal": {
               "TotalCountOfAnswerQ1": 12,
@@ -309,7 +336,8 @@
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "Vote": {
       "Id": "c9963428-985d-4668-8704-15c3067ab675",
@@ -377,7 +405,8 @@
           "ManualPublishResultsEnabled": false,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "BallotBundleSampleSizePercent": 0,
       "AutomaticBallotBundleNumberGeneration": false,
@@ -447,14 +476,24 @@
         },
         "CountOfVoters": {
           "VoterParticipation": 0.003239,
-          "ConventionalReceivedBallots": 21,
-          "ConventionalInvalidBallots": 2,
-          "ConventionalBlankBallots": 1,
-          "ConventionalAccountedBallots": 18,
-          "EVotingReceivedBallots": 19,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 5,
-          "EVotingAccountedBallots": 14,
+          "ConventionalSubTotal": {
+            "ReceivedBallots": 21,
+            "InvalidBallots": 2,
+            "BlankBallots": 1,
+            "AccountedBallots": 18
+          },
+          "EVotingSubTotal": {
+            "ReceivedBallots": 19,
+            "InvalidBallots": 0,
+            "BlankBallots": 5,
+            "AccountedBallots": 14
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
           "TotalReceivedBallots": 40,
           "TotalAccountedBallots": 32,
           "TotalUnaccountedBallots": 8,
@@ -471,6 +510,11 @@
             "EVotingSubTotal": {
               "TotalCountOfAnswerYes": 10,
               "TotalCountOfAnswerNo": 4,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
               "TotalCountOfAnswerUnspecified": 0
             },
             "ConventionalSubTotal": {
@@ -532,7 +576,8 @@
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "Vote": {
       "Id": "6cec9d52-7b2f-4c9e-b009-02812d537d57",
@@ -600,7 +645,8 @@
           "ManualPublishResultsEnabled": false,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "BallotBundleSampleSizePercent": 0,
       "AutomaticBallotBundleNumberGeneration": false,
@@ -670,14 +716,24 @@
         },
         "CountOfVoters": {
           "VoterParticipation": 0.003077,
-          "ConventionalReceivedBallots": 19,
-          "ConventionalInvalidBallots": 4,
-          "ConventionalBlankBallots": 0,
-          "ConventionalAccountedBallots": 15,
-          "EVotingReceivedBallots": 19,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 4,
-          "EVotingAccountedBallots": 15,
+          "ConventionalSubTotal": {
+            "ReceivedBallots": 19,
+            "InvalidBallots": 4,
+            "BlankBallots": 0,
+            "AccountedBallots": 15
+          },
+          "EVotingSubTotal": {
+            "ReceivedBallots": 19,
+            "InvalidBallots": 0,
+            "BlankBallots": 4,
+            "AccountedBallots": 15
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
           "TotalReceivedBallots": 38,
           "TotalAccountedBallots": 30,
           "TotalUnaccountedBallots": 8,
@@ -694,6 +750,11 @@
             "EVotingSubTotal": {
               "TotalCountOfAnswerYes": 7,
               "TotalCountOfAnswerNo": 8,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
               "TotalCountOfAnswerUnspecified": 0
             },
             "ConventionalSubTotal": {

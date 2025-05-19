@@ -33,7 +33,8 @@
       "ManualPublishResultsEnabled": false,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "MajorityElection": {
     "Id": "2b5a668c-1456-4df5-ba4c-7eef8c84a8b3",
@@ -111,7 +112,8 @@
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "ReviewProcedure": 2,
     "EnforceReviewProcedureForCountingCircles": false,
@@ -170,14 +172,24 @@
   "AllCountingCirclesDone": true,
   "CountOfVoters": {
     "VoterParticipation": 0.002753,
-    "ConventionalReceivedBallots": 22,
-    "ConventionalInvalidBallots": 1,
-    "ConventionalBlankBallots": 4,
-    "ConventionalAccountedBallots": 17,
-    "EVotingReceivedBallots": 12,
-    "EVotingInvalidBallots": 3,
-    "EVotingBlankBallots": 2,
-    "EVotingAccountedBallots": 7,
+    "ConventionalSubTotal": {
+      "ReceivedBallots": 22,
+      "InvalidBallots": 1,
+      "BlankBallots": 4,
+      "AccountedBallots": 17
+    },
+    "EVotingSubTotal": {
+      "ReceivedBallots": 12,
+      "InvalidBallots": 3,
+      "BlankBallots": 2,
+      "AccountedBallots": 7
+    },
+    "ECountingSubTotal": {
+      "ReceivedBallots": 0,
+      "InvalidBallots": 0,
+      "BlankBallots": 0,
+      "AccountedBallots": 0
+    },
     "TotalReceivedBallots": 34,
     "TotalAccountedBallots": 24,
     "TotalUnaccountedBallots": 10,
@@ -200,6 +212,7 @@
       },
       "VoteCount": 11,
       "EVotingVoteCount": 3,
+      "ECountingVoteCount": 0,
       "ConventionalVoteCount": 8,
       "Rank": 1,
       "LotDecision": false,
@@ -222,6 +235,7 @@
       },
       "VoteCount": 6,
       "EVotingVoteCount": 2,
+      "ECountingVoteCount": 0,
       "ConventionalVoteCount": 4,
       "Rank": 2,
       "LotDecision": false,
@@ -239,6 +253,15 @@
     "InvalidVoteCount": 0,
     "TotalCandidateVoteCountExclIndividual": 5,
     "TotalCandidateVoteCountInclIndividual": 7
+  },
+  "ECountingSubTotal": {
+    "IndividualVoteCount": 0,
+    "EmptyVoteCountInclWriteIns": 0,
+    "EmptyVoteCountExclWriteIns": 0,
+    "EmptyVoteCountWriteIns": 0,
+    "InvalidVoteCount": 0,
+    "TotalCandidateVoteCountExclIndividual": 0,
+    "TotalCandidateVoteCountInclIndividual": 0
   },
   "ConventionalSubTotal": {
     "IndividualVoteCount": 5,

@@ -17,8 +17,9 @@
         "List": null,
         "ListId": "5af18d6d-83b7-40c6-997f-248359817a0d",
         "EVotingVoteCount": 3,
+        "ECountingVoteCount": 4,
         "ConventionalVoteCount": 10,
-        "VoteCount": 13,
+        "VoteCount": 17,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -39,6 +40,13 @@
               "CountOfVotesFromAccumulations": 1,
               "VoteCount": 2
             },
+            "ECountingSubTotal": {
+              "UnmodifiedListVotesCount": 2,
+              "ModifiedListVotesCount": 3,
+              "CountOfVotesOnOtherLists": 5,
+              "CountOfVotesFromAccumulations": 4,
+              "VoteCount": 5
+            },
             "ConventionalSubTotal": {
               "UnmodifiedListVotesCount": 5,
               "ModifiedListVotesCount": 4,
@@ -46,11 +54,11 @@
               "CountOfVotesFromAccumulations": 3,
               "VoteCount": 9
             },
-            "UnmodifiedListVotesCount": 6,
-            "ModifiedListVotesCount": 5,
-            "CountOfVotesOnOtherLists": 3,
-            "CountOfVotesFromAccumulations": 4,
-            "VoteCount": 11,
+            "UnmodifiedListVotesCount": 8,
+            "ModifiedListVotesCount": 8,
+            "CountOfVotesOnOtherLists": 8,
+            "CountOfVotesFromAccumulations": 8,
+            "VoteCount": 16,
             "VoteSources": [],
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -70,6 +78,21 @@
           "BlankRowsCount": 9,
           "TotalVoteCount": 38
         },
+        "ECountingSubTotal": {
+          "UnmodifiedListsCount": 9,
+          "UnmodifiedListVotesCount": 15,
+          "UnmodifiedListBlankRowsCount": 5,
+          "ModifiedListsCount": 5,
+          "ModifiedListVotesCount": 16,
+          "ListVotesCountOnOtherLists": 2,
+          "ModifiedListBlankRowsCount": 6,
+          "UnmodifiedListVotesCountInclBlankRows": 20,
+          "ModifiedListVotesCountInclBlankRows": 22,
+          "ListVotesCount": 31,
+          "ListCount": 14,
+          "BlankRowsCount": 11,
+          "TotalVoteCount": 42
+        },
         "ConventionalSubTotal": {
           "UnmodifiedListsCount": 80,
           "UnmodifiedListVotesCount": 140,
@@ -85,19 +108,19 @@
           "BlankRowsCount": 90,
           "TotalVoteCount": 380
         },
-        "UnmodifiedListsCount": 88,
-        "UnmodifiedListVotesCount": 154,
-        "UnmodifiedListBlankRowsCount": 44,
-        "ModifiedListsCount": 44,
-        "ModifiedListVotesCount": 165,
-        "ListVotesCountOnOtherLists": 11,
-        "ModifiedListBlankRowsCount": 55,
-        "UnmodifiedListVotesCountInclBlankRows": 198,
-        "ModifiedListVotesCountInclBlankRows": 220,
-        "ListVotesCount": 319,
-        "ListCount": 132,
-        "BlankRowsCount": 99,
-        "TotalVoteCount": 418,
+        "UnmodifiedListsCount": 97,
+        "UnmodifiedListVotesCount": 169,
+        "UnmodifiedListBlankRowsCount": 49,
+        "ModifiedListsCount": 49,
+        "ModifiedListVotesCount": 181,
+        "ListVotesCountOnOtherLists": 13,
+        "ModifiedListBlankRowsCount": 61,
+        "UnmodifiedListVotesCountInclBlankRows": 218,
+        "ModifiedListVotesCountInclBlankRows": 242,
+        "ListVotesCount": 350,
+        "ListCount": 146,
+        "BlankRowsCount": 110,
+        "TotalVoteCount": 460,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -113,6 +136,15 @@
       "TotalCountOfListsWithParty": 3,
       "TotalCountOfLists": 7
     },
+    "ECountingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 3,
+      "TotalCountOfModifiedLists": 2,
+      "TotalCountOfListsWithoutParty": 5,
+      "TotalCountOfBallots": 7,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 6,
+      "TotalCountOfListsWithParty": 5,
+      "TotalCountOfLists": 10
+    },
     "ConventionalSubTotal": {
       "TotalCountOfUnmodifiedLists": 5,
       "TotalCountOfModifiedLists": 10,
@@ -122,25 +154,35 @@
       "TotalCountOfListsWithParty": 15,
       "TotalCountOfLists": 30
     },
-    "TotalCountOfUnmodifiedLists": 7,
-    "TotalCountOfModifiedLists": 11,
-    "TotalCountOfListsWithoutParty": 19,
-    "TotalCountOfBallots": 30,
-    "TotalCountOfBlankRowsOnListsWithoutParty": 35,
-    "TotalCountOfListsWithParty": 18,
-    "TotalCountOfLists": 37,
+    "TotalCountOfUnmodifiedLists": 10,
+    "TotalCountOfModifiedLists": 13,
+    "TotalCountOfListsWithoutParty": 24,
+    "TotalCountOfBallots": 37,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 41,
+    "TotalCountOfListsWithParty": 23,
+    "TotalCountOfLists": 47,
     "CountOfVoters": {
       "VoterParticipation": 0.5,
-      "EVotingReceivedBallots": 5,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 5,
-      "ConventionalReceivedBallots": 500,
-      "ConventionalInvalidBallots": 30,
-      "ConventionalBlankBallots": null,
-      "ConventionalAccountedBallots": 200,
-      "TotalReceivedBallots": 505,
-      "TotalAccountedBallots": 205,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 5,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 5
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 6,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 7
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 500,
+        "InvalidBallots": 30,
+        "BlankBallots": null,
+        "AccountedBallots": 200
+      },
+      "TotalReceivedBallots": 511,
+      "TotalAccountedBallots": 212,
       "TotalUnaccountedBallots": 30,
       "TotalInvalidBallots": 30,
       "TotalBlankBallots": 0
@@ -177,8 +219,9 @@
         "List": null,
         "ListId": "5af18d6d-83b7-40c6-997f-248359817a0d",
         "EVotingVoteCount": 3,
+        "ECountingVoteCount": 4,
         "ConventionalVoteCount": 0,
-        "VoteCount": 3,
+        "VoteCount": 7,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -199,6 +242,13 @@
               "CountOfVotesFromAccumulations": 1,
               "VoteCount": 2
             },
+            "ECountingSubTotal": {
+              "UnmodifiedListVotesCount": 2,
+              "ModifiedListVotesCount": 3,
+              "CountOfVotesOnOtherLists": 5,
+              "CountOfVotesFromAccumulations": 4,
+              "VoteCount": 5
+            },
             "ConventionalSubTotal": {
               "UnmodifiedListVotesCount": 0,
               "ModifiedListVotesCount": 0,
@@ -206,11 +256,11 @@
               "CountOfVotesFromAccumulations": 0,
               "VoteCount": 0
             },
-            "UnmodifiedListVotesCount": 1,
-            "ModifiedListVotesCount": 1,
-            "CountOfVotesOnOtherLists": 1,
-            "CountOfVotesFromAccumulations": 1,
-            "VoteCount": 2,
+            "UnmodifiedListVotesCount": 3,
+            "ModifiedListVotesCount": 4,
+            "CountOfVotesOnOtherLists": 6,
+            "CountOfVotesFromAccumulations": 5,
+            "VoteCount": 7,
             "VoteSources": [],
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -230,6 +280,21 @@
           "BlankRowsCount": 9,
           "TotalVoteCount": 38
         },
+        "ECountingSubTotal": {
+          "UnmodifiedListsCount": 9,
+          "UnmodifiedListVotesCount": 15,
+          "UnmodifiedListBlankRowsCount": 5,
+          "ModifiedListsCount": 5,
+          "ModifiedListVotesCount": 16,
+          "ListVotesCountOnOtherLists": 2,
+          "ModifiedListBlankRowsCount": 6,
+          "UnmodifiedListVotesCountInclBlankRows": 20,
+          "ModifiedListVotesCountInclBlankRows": 22,
+          "ListVotesCount": 31,
+          "ListCount": 14,
+          "BlankRowsCount": 11,
+          "TotalVoteCount": 42
+        },
         "ConventionalSubTotal": {
           "UnmodifiedListsCount": 0,
           "UnmodifiedListVotesCount": 0,
@@ -245,19 +310,19 @@
           "BlankRowsCount": 0,
           "TotalVoteCount": 0
         },
-        "UnmodifiedListsCount": 8,
-        "UnmodifiedListVotesCount": 14,
-        "UnmodifiedListBlankRowsCount": 4,
-        "ModifiedListsCount": 4,
-        "ModifiedListVotesCount": 15,
-        "ListVotesCountOnOtherLists": 1,
-        "ModifiedListBlankRowsCount": 5,
-        "UnmodifiedListVotesCountInclBlankRows": 18,
-        "ModifiedListVotesCountInclBlankRows": 20,
-        "ListVotesCount": 29,
-        "ListCount": 12,
-        "BlankRowsCount": 9,
-        "TotalVoteCount": 38,
+        "UnmodifiedListsCount": 17,
+        "UnmodifiedListVotesCount": 29,
+        "UnmodifiedListBlankRowsCount": 9,
+        "ModifiedListsCount": 9,
+        "ModifiedListVotesCount": 31,
+        "ListVotesCountOnOtherLists": 3,
+        "ModifiedListBlankRowsCount": 11,
+        "UnmodifiedListVotesCountInclBlankRows": 38,
+        "ModifiedListVotesCountInclBlankRows": 42,
+        "ListVotesCount": 60,
+        "ListCount": 26,
+        "BlankRowsCount": 20,
+        "TotalVoteCount": 80,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -273,6 +338,15 @@
       "TotalCountOfListsWithParty": 3,
       "TotalCountOfLists": 7
     },
+    "ECountingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 3,
+      "TotalCountOfModifiedLists": 2,
+      "TotalCountOfListsWithoutParty": 5,
+      "TotalCountOfBallots": 7,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 6,
+      "TotalCountOfListsWithParty": 5,
+      "TotalCountOfLists": 10
+    },
     "ConventionalSubTotal": {
       "TotalCountOfUnmodifiedLists": 0,
       "TotalCountOfModifiedLists": 0,
@@ -282,25 +356,35 @@
       "TotalCountOfListsWithParty": 0,
       "TotalCountOfLists": 0
     },
-    "TotalCountOfUnmodifiedLists": 2,
-    "TotalCountOfModifiedLists": 1,
-    "TotalCountOfListsWithoutParty": 4,
-    "TotalCountOfBallots": 5,
-    "TotalCountOfBlankRowsOnListsWithoutParty": 5,
-    "TotalCountOfListsWithParty": 3,
-    "TotalCountOfLists": 7,
+    "TotalCountOfUnmodifiedLists": 5,
+    "TotalCountOfModifiedLists": 3,
+    "TotalCountOfListsWithoutParty": 9,
+    "TotalCountOfBallots": 12,
+    "TotalCountOfBlankRowsOnListsWithoutParty": 11,
+    "TotalCountOfListsWithParty": 8,
+    "TotalCountOfLists": 17,
     "CountOfVoters": {
-      "VoterParticipation": 0.0005,
-      "EVotingReceivedBallots": 5,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 5,
-      "ConventionalReceivedBallots": 0,
-      "ConventionalInvalidBallots": 0,
-      "ConventionalBlankBallots": 0,
-      "ConventionalAccountedBallots": 0,
-      "TotalReceivedBallots": 5,
-      "TotalAccountedBallots": 5,
+      "VoterParticipation": 0.0011,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 5,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 5
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 6,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 7
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": null,
+        "InvalidBallots": null,
+        "BlankBallots": null,
+        "AccountedBallots": null
+      },
+      "TotalReceivedBallots": 11,
+      "TotalAccountedBallots": 12,
       "TotalUnaccountedBallots": 0,
       "TotalInvalidBallots": 0,
       "TotalBlankBallots": 0

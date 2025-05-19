@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -21,6 +22,7 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
 {
     private readonly IDbRepository<DataContext, MajorityElectionResultBundle> _majorityElectionResultBundleRepo;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
 
@@ -28,12 +30,14 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         IDbRepository<DataContext, MajorityElectionResultBundle> majorityElectionResultBundleRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo)
+        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
+        IClock clock)
     {
         _majorityElectionResultBundleRepo = majorityElectionResultBundleRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -49,7 +53,8 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
             .ThenInclude(x => x.BallotCandidates.Where(c => c.Selected))
             .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.Ballots.Where(b => b.MarkedForReview))
-            .ThenInclude(x => x.SecondaryMajorityElectionBallots)
+            .ThenInclude(x => x.SecondaryMajorityElectionBallots
+                .OrderBy(y => y.SecondaryMajorityElectionResult.SecondaryMajorityElection.PoliticalBusinessNumber))
             .ThenInclude(x => x.BallotCandidates.Where(c => c.Selected))
             .ThenInclude(x => x.Candidate.Translations)
             .Include(x => x.ElectionResult.MajorityElection.Translations)
@@ -93,6 +98,7 @@ public class PdfMajorityElectionResultBundleReviewRenderService : IRendererServi
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             CountingCircle = pdfCountingCircle,
             MajorityElectionResultBundle = _mapper.Map<PdfMajorityElectionResultBundle>(bundle),
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.MajorityElection),

@@ -16,6 +16,8 @@ public class CountOfVotersProfile : Profile
         // read
         CreateMap<DataModels.PoliticalBusinessCountOfVoters, ProtoModels.PoliticalBusinessCountOfVoters>();
         CreateMap<DataModels.PoliticalBusinessNullableCountOfVoters, ProtoModels.PoliticalBusinessNullableCountOfVoters>();
+        CreateMap<DataModels.PoliticalBusinessCountOfVotersNullableSubTotal, ProtoModels.PoliticalBusinessNullableCountOfVotersSubTotal>();
+        CreateMap<DataModels.PoliticalBusinessCountOfVotersSubTotal, ProtoModels.PoliticalBusinessCountOfVotersSubTotal>();
         CreateMap<DataModels.VotingCardResultDetail, ProtoModels.VotingCardResultDetail>();
         CreateMap<DataModels.CountOfVotersInformationSubTotal, ProtoModels.CountOfVotersInformationSubTotal>();
 

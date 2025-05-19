@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
@@ -47,14 +48,14 @@ public class AggregatedContestCountingCircleDetailsBuilder
 
         foreach (var ccDetail in countingCircleDetails)
         {
-            AdjustAggregatedDetails<ContestDetails, ContestCountOfVotersInformationSubTotal, ContestVotingCardResultDetail>(
+            AggregatedContestCountingCircleDetailsUtil.AdjustAggregatedDetails<ContestDetails, ContestCountOfVotersInformationSubTotal, ContestVotingCardResultDetail>(
                 contestDetails,
                 ccDetail,
                 deltaFactor);
 
             foreach (var doiDetail in doiDetailsByCcId[ccDetail.CountingCircleId])
             {
-                AdjustAggregatedDetails<ContestDomainOfInfluenceDetails, DomainOfInfluenceCountOfVotersInformationSubTotal, DomainOfInfluenceVotingCardResultDetail>(
+                AggregatedContestCountingCircleDetailsUtil.AdjustAggregatedDetails<ContestDomainOfInfluenceDetails, DomainOfInfluenceCountOfVotersInformationSubTotal, DomainOfInfluenceVotingCardResultDetail>(
                     doiDetail,
                     ccDetail,
                     deltaFactor);
@@ -81,14 +82,14 @@ public class AggregatedContestCountingCircleDetailsBuilder
 
         foreach (var ccDetail in countingCircleDetails)
         {
-            AdjustContestDetailsVotingCards(
+            AggregatedContestCountingCircleDetailsUtil.AdjustContestDetailsVotingCards(
                 contestDetails.VotingCards,
                 ccDetail.VotingCards,
                 deltaFactor);
 
             foreach (var doiDetail in doiDetailsByCcId[ccDetail.CountingCircleId])
             {
-                AdjustContestDetailsVotingCards(
+                AggregatedContestCountingCircleDetailsUtil.AdjustContestDetailsVotingCards(
                     doiDetail.VotingCards,
                     ccDetail.VotingCards,
                     deltaFactor);
@@ -101,77 +102,6 @@ public class AggregatedContestCountingCircleDetailsBuilder
         }
 
         await _dataContext.SaveChangesAsync();
-    }
-
-    private void AdjustAggregatedDetails<TAggregatedDetails, TCountOfVotersInformationSubTotal, TVotingCardResultDetail>(
-        TAggregatedDetails aggregatedDetails,
-        ContestCountingCircleDetails countingCircleDetails,
-        int deltaFactor)
-        where TAggregatedDetails : AggregatedContestCountingCircleDetails<TCountOfVotersInformationSubTotal, TVotingCardResultDetail>
-        where TCountOfVotersInformationSubTotal : AggregatedCountOfVotersInformationSubTotal, new()
-        where TVotingCardResultDetail : AggregatedVotingCardResultDetail, new()
-    {
-        aggregatedDetails.TotalCountOfVoters += countingCircleDetails.TotalCountOfVoters * deltaFactor;
-
-        AdjustCountOfVotersInfo(
-            aggregatedDetails.CountOfVotersInformationSubTotals,
-            countingCircleDetails.CountOfVotersInformationSubTotals,
-            deltaFactor);
-        AdjustContestDetailsVotingCards(
-            aggregatedDetails.VotingCards,
-            countingCircleDetails.VotingCards,
-            deltaFactor);
-    }
-
-    private void AdjustCountOfVotersInfo<TAggregatedCountOfVotersInformationSubTotal>(
-        ICollection<TAggregatedCountOfVotersInformationSubTotal> aggregatedCountOfVotersInformationSubTotals,
-        ICollection<CountOfVotersInformationSubTotal> countOfVotersInformationSubTotals,
-        int deltaFactor)
-        where TAggregatedCountOfVotersInformationSubTotal : AggregatedCountOfVotersInformationSubTotal, new()
-    {
-        var subTotalsBySexAndVoterType = aggregatedCountOfVotersInformationSubTotals.ToDictionary(x => (x.Sex, x.VoterType));
-        foreach (var countOfVotersInfoSubTotal in countOfVotersInformationSubTotals)
-        {
-            subTotalsBySexAndVoterType.TryGetValue((countOfVotersInfoSubTotal.Sex, countOfVotersInfoSubTotal.VoterType), out var matchingSubTotal);
-            if (matchingSubTotal == null)
-            {
-                matchingSubTotal = new()
-                {
-                    VoterType = countOfVotersInfoSubTotal.VoterType,
-                    Sex = countOfVotersInfoSubTotal.Sex,
-                };
-
-                aggregatedCountOfVotersInformationSubTotals.Add(matchingSubTotal);
-            }
-
-            matchingSubTotal.CountOfVoters += countOfVotersInfoSubTotal.CountOfVoters.GetValueOrDefault() * deltaFactor;
-        }
-    }
-
-    private void AdjustContestDetailsVotingCards<TVotingCardResultDetail>(
-        ICollection<TVotingCardResultDetail> aggregatedVotingCards,
-        ICollection<VotingCardResultDetail> votingCards,
-        int deltaFactor)
-        where TVotingCardResultDetail : AggregatedVotingCardResultDetail, new()
-    {
-        var votingCardsByUniqueKey = aggregatedVotingCards.ToDictionary(x => (x.Channel, x.Valid, x.DomainOfInfluenceType));
-        foreach (var votingCard in votingCards)
-        {
-            votingCardsByUniqueKey.TryGetValue((votingCard.Channel, votingCard.Valid, votingCard.DomainOfInfluenceType), out var matchingVotingCard);
-            if (matchingVotingCard == null)
-            {
-                matchingVotingCard = new()
-                {
-                    Channel = votingCard.Channel,
-                    Valid = votingCard.Valid,
-                    DomainOfInfluenceType = votingCard.DomainOfInfluenceType,
-                };
-
-                aggregatedVotingCards.Add(matchingVotingCard);
-            }
-
-            matchingVotingCard.CountOfReceivedVotingCards += votingCard.CountOfReceivedVotingCards.GetValueOrDefault() * deltaFactor;
-        }
     }
 
     private async Task<ContestDetails> GetContestDetails(Guid contestId)

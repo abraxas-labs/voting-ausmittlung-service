@@ -1,28 +1,16 @@
 {
   "Candidates": [
     {
-      "Id": "665f752b-6248-4f06-a232-6c7af148e550",
+      "Id": "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc",
       "Number": "number1",
       "PoliticalFirstName": "pol first name",
       "PoliticalLastName": "pol last name",
       "FirstName": "firstName",
       "LastName": "lastName",
-      "Party": "SP de",
+      "Party": "GLP de",
       "Position": 1,
       "Description": "number1 pol last name pol first name",
       "CheckDigit": 9
-    },
-    {
-      "Id": "c966085a-5cba-499b-bcf0-788e13ad0984",
-      "Number": "number2",
-      "PoliticalFirstName": "pol first name 2",
-      "PoliticalLastName": "pol last name 2",
-      "FirstName": "firstName 2",
-      "LastName": "lastName 2",
-      "Party": "SVP de",
-      "Position": 2,
-      "Description": "number2 pol last name 2 pol first name 2",
-      "CheckDigit": 7
     }
   ],
   "SecondaryElectionCandidates": []

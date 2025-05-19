@@ -83,7 +83,7 @@ public static class ProportionalElectionEndResultMockedData
     {
         return new ProportionalElection
         {
-            Id = Guid.Parse(ElectionId),
+            Id = ElectionGuid,
             PoliticalBusinessNumber = "201",
             Translations = TranslationUtil.CreateTranslations<ProportionalElectionTranslation>(
                 (t, o) => t.OfficialDescription = o,
@@ -268,6 +268,9 @@ public static class ProportionalElectionEndResultMockedData
                 (t, o) => t.OccupationTitle = o,
                 "occupation title"),
             CheckDigit = checkDigit,
+            Street = "street",
+            HouseNumber = "1a",
+            Country = "CH",
         };
     }
 }

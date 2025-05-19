@@ -42,6 +42,13 @@
           "CountOfVotesFromAccumulations": 0,
           "VoteCount": 0
         },
+        "ECountingSubTotal": {
+          "UnmodifiedListVotesCount": 0,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 0
+        },
         "ConventionalSubTotal": {
           "UnmodifiedListVotesCount": 6000,
           "ModifiedListVotesCount": 0,
@@ -81,6 +88,13 @@
           "CountOfVotesFromAccumulations": 0,
           "VoteCount": 0
         },
+        "ECountingSubTotal": {
+          "UnmodifiedListVotesCount": 0,
+          "ModifiedListVotesCount": 0,
+          "CountOfVotesOnOtherLists": 0,
+          "CountOfVotesFromAccumulations": 0,
+          "VoteCount": 0
+        },
         "ConventionalSubTotal": {
           "UnmodifiedListVotesCount": 6000,
           "ModifiedListVotesCount": 0,
@@ -106,6 +120,21 @@
     },
     "HasOpenRequiredLotDecisions": true,
     "EVotingSubTotal": {
+      "UnmodifiedListsCount": 0,
+      "UnmodifiedListVotesCount": 0,
+      "UnmodifiedListBlankRowsCount": 0,
+      "ModifiedListsCount": 0,
+      "ModifiedListVotesCount": 0,
+      "ModifiedListBlankRowsCount": 0,
+      "ListVotesCountOnOtherLists": 0,
+      "UnmodifiedListVotesCountInclBlankRows": 0,
+      "ModifiedListVotesCountInclBlankRows": 0,
+      "ListVotesCount": 0,
+      "ListCount": 0,
+      "BlankRowsCount": 0,
+      "TotalVoteCount": 0
+    },
+    "ECountingSubTotal": {
       "UnmodifiedListsCount": 0,
       "UnmodifiedListVotesCount": 0,
       "UnmodifiedListBlankRowsCount": 0,

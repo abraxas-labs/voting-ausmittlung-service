@@ -51,4 +51,10 @@ public class PdfMajorityElectionEndResult : PdfPoliticalBusinessEndResult
 
     [XmlElement("MajorityElectionCandidateEndResultNotElected")]
     public List<PdfMajorityElectionCandidateEndResult>? CandidateEndResultsNotElected { get; set; }
+
+    [XmlElement("MajorityElectionCandidateEndResultNotElectedInPrimaryElectionNotEligible")]
+    public List<PdfMajorityElectionCandidateEndResult>? CandidateEndResultsNotElectedInPrimaryElectionNotEligible { get; set; }
+
+    [XmlElement("MajorityElectionCandidateEndResultAbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible")]
+    public List<PdfMajorityElectionCandidateEndResult>? CandidateEndResultsAbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible { get; set; }
 }

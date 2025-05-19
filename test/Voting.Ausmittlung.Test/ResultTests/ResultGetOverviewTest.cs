@@ -53,7 +53,7 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
     {
         var response = await MonitoringElectionAdminClient.GetOverviewAsync(new GetResultOverviewRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
         });
         ResetResultIds(response);
         response.MatchSnapshot();
@@ -89,7 +89,7 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
         await new ResultService.ResultServiceClient(channel)
             .GetOverviewAsync(new GetResultOverviewRequest
             {
-                ContestId = ContestMockedData.IdUzwilEvoting,
+                ContestId = ContestMockedData.IdUzwilEVoting,
             });
     }
 
@@ -109,6 +109,19 @@ public class ResultGetOverviewTest : BaseTest<ResultService.ResultServiceClient>
             foreach (var result in ccResult.Results)
             {
                 result.Id = string.Empty;
+
+                foreach (var ballotResult in result.BallotResults)
+                {
+                    foreach (var questionResult in ballotResult.QuestionResults)
+                    {
+                        questionResult.Id = string.Empty;
+                    }
+
+                    foreach (var tieBreakResult in ballotResult.TieBreakQuestionResults)
+                    {
+                        tieBreakResult.Id = string.Empty;
+                    }
+                }
             }
         }
     }

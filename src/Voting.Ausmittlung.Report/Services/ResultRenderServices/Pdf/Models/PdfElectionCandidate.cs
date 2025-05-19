@@ -39,4 +39,10 @@ public class PdfElectionCandidate
     public int Position { get; set; }
 
     public string Origin { get; set; } = string.Empty;
+
+    public string Street { get; set; } = string.Empty;
+
+    public string HouseNumber { get; set; } = string.Empty;
+
+    public string Country { get; set; } = string.Empty;
 }

@@ -8,14 +8,12 @@ namespace Voting.Ausmittlung.Core.Models.Import;
 
 public class ProportionalElectionResultImport : ElectionResultImport
 {
-    private readonly Dictionary<Guid, ProportionalElectionCandidateResultImport> _candidateResults =
-        new Dictionary<Guid, ProportionalElectionCandidateResultImport>();
+    private readonly Dictionary<Guid, ProportionalElectionCandidateResultImport> _candidateResults = new();
 
-    private readonly Dictionary<Guid, ProportionalElectionListResultImport> _listResults =
-        new Dictionary<Guid, ProportionalElectionListResultImport>();
+    private readonly Dictionary<Guid, ProportionalElectionListResultImport> _listResults = new();
 
-    public ProportionalElectionResultImport(Guid proportionalElectionId, Guid basisCountingCircleId, CountingCircleResultCountOfVotersInformationImport countOfVotersInformationImport)
-        : base(proportionalElectionId, basisCountingCircleId, countOfVotersInformationImport)
+    public ProportionalElectionResultImport(Guid proportionalElectionId, Guid basisCountingCircleId, int totalCountOfVoters)
+        : base(proportionalElectionId, basisCountingCircleId, totalCountOfVoters)
     {
     }
 

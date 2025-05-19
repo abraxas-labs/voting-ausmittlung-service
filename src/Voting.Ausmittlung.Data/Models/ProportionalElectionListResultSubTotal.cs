@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class ProportionalElectionListResultSubTotal : IProportionalElectionListResultTotal
+public class ProportionalElectionListResultSubTotal : IProportionalElectionListResultTotal, ISummableSubTotal<ProportionalElectionListResultSubTotal>
 {
     /// <summary>
     /// Gets or sets the count of unmodified lists that were handed in for this list.
@@ -69,4 +69,15 @@ public class ProportionalElectionListResultSubTotal : IProportionalElectionListR
     /// Gets the sum list votes count and blank rows count.
     /// </summary>
     public int TotalVoteCount => ListVotesCount + BlankRowsCount;
+
+    public void Add(ProportionalElectionListResultSubTotal other, int deltaFactor = 1)
+    {
+        UnmodifiedListsCount += other.UnmodifiedListsCount;
+        UnmodifiedListVotesCount += other.UnmodifiedListVotesCount;
+        UnmodifiedListBlankRowsCount += other.UnmodifiedListBlankRowsCount;
+        ModifiedListsCount += other.ModifiedListsCount;
+        ModifiedListVotesCount += other.ModifiedListVotesCount;
+        ListVotesCountOnOtherLists += other.ListVotesCountOnOtherLists;
+        ModifiedListBlankRowsCount += other.ModifiedListBlankRowsCount;
+    }
 }

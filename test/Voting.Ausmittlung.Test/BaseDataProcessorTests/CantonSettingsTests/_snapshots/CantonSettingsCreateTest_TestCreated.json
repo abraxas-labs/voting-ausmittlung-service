@@ -77,6 +77,8 @@
           "HideLowerDomainOfInfluencesInReports": false,
           "Id": "e84a3f1e-c2ea-422c-904e-130b822aad64"
         },
+        "NumberOfCountingCirclesWithECountingImported": 0,
+        "ECountingResultsImported": false,
         "EVotingResultsImported": false,
         "EVoting": false,
         "EVotingFrom": null,

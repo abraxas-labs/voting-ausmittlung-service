@@ -49,4 +49,6 @@ public abstract class PoliticalBusiness : BaseEntity
     public string OfficialDescription => PoliticalBusinessTranslations.GetTranslated(x => x.OfficialDescription);
 
     public string Title => $"{PoliticalBusinessNumber}: {ShortDescription}";
+
+    public abstract void MoveECountingToConventional();
 }

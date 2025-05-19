@@ -14,12 +14,12 @@ using Microsoft.EntityFrameworkCore;
 using Snapper;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Xunit;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
+using ResultImportType = Abraxas.Voting.Ausmittlung.Shared.V1.ResultImportType;
 
 namespace Voting.Ausmittlung.Test.ImportTests;
 
@@ -37,14 +37,29 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
         await VoteMockedData.Seed(RunScoped);
         await MajorityElectionMockedData.Seed(RunScoped);
         await ProportionalElectionMockedData.Seed(RunScoped);
-        await ResultImportMockedData.Seed(RunScoped);
+        await ResultImportEVotingMockedData.Seed(RunScoped);
         await PermissionMockedData.Seed(RunScoped);
 
         // activate e voting for all for easier testing
         await ModifyDbEntities((ContestCountingCircleDetails _) => true, details => details.EVoting = true);
+        await ModifyDbEntities((CountingCircle _) => true, cc => cc.EVoting = true);
         await ModifyDbEntities((Contest _) => true, contest => contest.EVoting = true);
 
-        await EVotingMockedData.Seed(RunScoped, CreateHttpClient);
+        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+
+        await ResultImportECountingMockedData.Seed(RunScoped);
+        await ResultImportECountingMockedData.SeedUzwilAggregates(RunScoped);
+
+        // start submission and set result states
+        await new ResultService.ResultServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin))
+            .GetListAsync(new GetResultListRequest
+            {
+                ContestId = ContestMockedData.IdStGallenEvoting,
+                CountingCircleId = CountingCircleMockedData.IdUzwil,
+            });
+
+        EventPublisherMock.Clear();
+        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
     }
 
     [Fact]
@@ -55,15 +70,64 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             ContestId = ContestMockedData.IdStGallenEvoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         });
-        resp.ElectionWriteInMappings.Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection).InvalidVotes.Should().BeFalse();
+        resp.WriteInMappings
+            .Where(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
+            .All(x => x.InvalidVotes)
+            .Should()
+            .BeFalse();
         CleanIds(resp);
         resp.ShouldMatchSnapshot();
     }
 
     [Fact]
+    public async Task ShouldWorkWithImportTypeFilter()
+    {
+        var resp = await ErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(new GetMajorityElectionWriteInMappingsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+            ImportType = ResultImportType.Evoting,
+        });
+        resp.WriteInMappings
+            .All(x => x.ImportType == ResultImportType.Evoting)
+            .Should()
+            .BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithElectionIdFilter()
+    {
+        var resp = await ErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(new GetMajorityElectionWriteInMappingsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+            ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+        });
+        resp.WriteInMappings
+            .All(x => x.Election.Id == MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen)
+            .Should()
+            .BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithElectionIdAndImportTypeFilter()
+    {
+        var resp = await ErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(new GetMajorityElectionWriteInMappingsRequest
+        {
+            ContestId = ContestMockedData.IdStGallenEvoting,
+            CountingCircleId = CountingCircleMockedData.IdUzwil,
+            ElectionId = MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen,
+            ImportType = ResultImportType.Evoting,
+        });
+        resp.WriteInMappings
+            .All(x => x.ImportType == ResultImportType.Evoting && x.Election.Id == MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen)
+            .Should()
+            .BeTrue();
+    }
+
+    [Fact]
     public async Task ShouldWorkAsElectionAdminWithMappingsAndInvalidVotes()
     {
-        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
         await ModifyDbEntities<ContestCantonDefaults>(
             x => x.ContestId == ContestMockedData.GuidStGallenEvoting,
             x => x.MajorityElectionInvalidVotes = true,
@@ -97,9 +161,9 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             ContestId = ContestMockedData.IdStGallenEvoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         });
-        resp.ElectionWriteInMappings
-            .Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
-            .InvalidVotes
+        resp.WriteInMappings
+            .Where(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
+            .All(x => x.InvalidVotes)
             .Should()
             .BeTrue();
         CleanIds(resp);
@@ -109,7 +173,6 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
     [Fact]
     public async Task ShouldWorkAsElectionAdminWithMappingsAndDisabledIndividualVotes()
     {
-        var id = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(Guid.Parse(ContestMockedData.IdStGallenEvoting), Guid.Parse(DomainOfInfluenceMockedData.IdUzwil));
         await ModifyDbEntities<MajorityElection>(
             x => x.Id == Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestStGallen),
             x => x.IndividualCandidatesDisabled = true,
@@ -120,9 +183,9 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             ContestId = ContestMockedData.IdStGallenEvoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         });
-        resp.ElectionWriteInMappings
-            .Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
-            .IndividualVotes
+        resp.WriteInMappings
+            .Where(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
+            .All(x => x.InvalidVotes)
             .Should()
             .BeFalse();
     }
@@ -135,7 +198,11 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
             ContestId = ContestMockedData.IdStGallenEvoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
         });
-        resp.ElectionWriteInMappings.Single(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection).InvalidVotes.Should().BeFalse();
+        resp.WriteInMappings
+            .Where(x => x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection)
+            .All(x => x.InvalidVotes)
+            .Should()
+            .BeFalse();
         CleanIds(resp);
         resp.ShouldMatchSnapshot();
     }
@@ -189,10 +256,10 @@ public class ResultImportGetMajorityElectionWriteInMappingsTest : BaseTest<Resul
 
     private void CleanIds(ProtoModels.MajorityElectionContestWriteInMappings resp)
     {
-        resp.ImportId.Should().NotBeEmpty();
-        resp.ImportId = string.Empty;
-        foreach (var mappingGroup in resp.ElectionWriteInMappings)
+        foreach (var mappingGroup in resp.WriteInMappings)
         {
+            mappingGroup.ImportId.Should().NotBeEmpty();
+            mappingGroup.ImportId = string.Empty;
             foreach (var mapping in mappingGroup.WriteInMappings)
             {
                 mapping.Id.Should().NotBeEmpty();

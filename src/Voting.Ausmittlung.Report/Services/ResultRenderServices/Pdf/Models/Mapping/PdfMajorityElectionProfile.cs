@@ -15,6 +15,7 @@ public class PdfMajorityElectionProfile : Profile
         CreateMap<MajorityElectionCandidateBase, PdfMajorityElectionCandidate>();
 
         CreateMap<SecondaryMajorityElection, PdfMajorityElection>()
-            .ForMember(dst => dst.MandateAlgorithm, opt => opt.MapFrom(src => src.PrimaryMajorityElection.MandateAlgorithm));
+            .ForMember(dst => dst.MandateAlgorithm, opt => opt.MapFrom(src => src.PrimaryMajorityElection.MandateAlgorithm))
+            .ForMember(dst => dst.EmptyVoteCountDisabled, opt => opt.MapFrom(_ => false));
     }
 }

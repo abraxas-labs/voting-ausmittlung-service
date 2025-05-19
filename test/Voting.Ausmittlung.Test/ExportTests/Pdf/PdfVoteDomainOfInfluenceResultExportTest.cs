@@ -42,6 +42,34 @@ public class PdfVoteDomainOfInfluenceResultExportTest : PdfExportBaseTest
         await TestPdfReport("_with_partial_result", TestClient, request);
     }
 
+    [Fact]
+    public async Task TestPdfWithHideLowerDoisFlag()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId ==
+                DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId,
+            x =>
+            {
+                x.HideLowerDomainOfInfluencesInReports = true;
+                x.SecureConnectId = "abc";
+            });
+
+        var request = NewRequest();
+        await TestPdfReport("_hide_lower_dois", TestClient, request);
+    }
+
+    [Fact]
+    public async Task TestPdfWithHideLowerDoisFlagAndSameTenant()
+    {
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId ==
+                DomainOfInfluenceMockedData.StGallenStadt.BasisDomainOfInfluenceId,
+            x => x.HideLowerDomainOfInfluencesInReports = true);
+
+        var request = NewRequest();
+        await TestPdfReport("_hide_lower_dois_same_tenant", TestClient, request);
+    }
+
     protected override async Task SeedData()
     {
         await VoteMockedData.Seed(RunScoped);

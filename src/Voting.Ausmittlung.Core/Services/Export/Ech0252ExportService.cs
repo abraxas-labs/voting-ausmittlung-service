@@ -9,6 +9,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Schema;
+using Ech0252_2_0;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Services.Export.Models;
 using Voting.Ausmittlung.Data;
@@ -21,6 +23,7 @@ using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Ech;
+using Voting.Lib.Ech.Ech0252_2_0.Schemas;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.VotingExports.Models;
 
@@ -41,6 +44,7 @@ public class Ech0252ExportService
     private readonly IAuth _auth;
     private readonly ExportRateLimitService _rateLimitService;
     private readonly IDbRepository<DataContext, CantonSettings> _cantonSettingsRepo;
+    private XmlSchemaSet? _ech0252SchemaSet;
 
     public Ech0252ExportService(
         Ech0252Serializer ech0252Serializer,
@@ -73,40 +77,25 @@ public class Ech0252ExportService
         {
             ct.ThrowIfCancellationRequested();
 
-            if (PrepareContestDataAndCheckIsEmpty(contest))
-            {
-                continue;
-            }
-
+            PrepareContestData(contest);
             var ctx = new Ech0252MappingContext(doisByContestId[contest.Id]);
             var enabledCountingCircleStates = filter.CountingCircleResultStates.Count > 0 ? filter.CountingCircleResultStates : null;
 
-            if (contest.Votes.Count > 0)
-            {
-                var voteDelivery = _ech0252Serializer.ToVoteDelivery(
-                    contest,
-                    ctx,
-                    enabledCountingCircleStates);
+            var voteDelivery = _ech0252Serializer.ToVoteDelivery(
+                contest,
+                ctx,
+                enabledCountingCircleStates);
+            yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
 
-                yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
-            }
+            var proportionalElectionDelivery = filter.InformationOnly
+                ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
+                : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates);
+            yield return RenderToXml(contest, proportionalElectionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
 
-            if (contest.ProportionalElections.Count > 0)
-            {
-                var electionDelivery = filter.InformationOnly
-                    ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates);
-
-                yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
-            }
-
-            if (contest.MajorityElections.Count > 0)
-            {
-                var electionDelivery = filter.InformationOnly
-                    ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
-                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, enabledCountingCircleStates);
-                yield return RenderToXml(contest, electionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
-            }
+            var majorityElectionDelivery = filter.InformationOnly
+                ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
+                : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, enabledCountingCircleStates);
+            yield return RenderToXml(contest, majorityElectionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
         }
     }
 
@@ -149,10 +138,8 @@ public class Ech0252ExportService
         return query.ToAsyncEnumerable();
     }
 
-    internal bool PrepareContestDataAndCheckIsEmpty(Contest contest)
+    internal void PrepareContestData(Contest contest)
     {
-        contest.Votes = contest.Votes.Where(v => v.Results.Count != 0).ToList();
-
         foreach (var vote in contest.Votes)
         {
             var voteResultById = vote.Results.ToDictionary(v => v.Id);
@@ -183,13 +170,11 @@ public class Ech0252ExportService
                 }
             }
         }
-
-        return !contest.PoliticalBusinesses.Any() || !contest.PoliticalBusinesses.SelectMany(pb => pb.CountingCircleResults).Any();
     }
 
     private FileModel RenderToXml(
         Contest contest,
-        Ech0252_2_0.Delivery data,
+        Delivery data,
         string type)
     {
         var fileName = FileNameBuilder.GenerateFileName(
@@ -202,10 +187,12 @@ public class Ech0252ExportService
                 contest.Id.ToString(),
             });
 
-        return new FileModel(null, fileName, ExportFileFormat.Xml, data.DeliveryHeader.MessageId, (w, _) =>
+        return new FileModel(null, fileName, ExportFileFormat.Xml, data.DeliveryHeader.MessageId, async (w, _) =>
         {
-            _echSerializer.WriteXml(w, data);
-            return Task.CompletedTask;
+            _ech0252SchemaSet ??= Ech0252Schemas.LoadEch0252Schemas();
+            await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), _ech0252SchemaSet);
+            _echSerializer.WriteXml(xmlValidationStream, data, leaveStreamOpen: true);
+            await xmlValidationStream.WaitForValidation();
         });
     }
 
@@ -290,6 +277,10 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.CountingCircle.ContestDetails)
                         .ThenInclude(x => x.CountOfVotersInformationSubTotals)
                     .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
+                        .ThenInclude(x => x.DomainOfInfluence)
+                    .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.DomainOfInfluence)
                     .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.Results)
@@ -343,7 +334,13 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.Translations)
                     .Include(x => x.ProportionalElectionUnions)
                         .ThenInclude(x => x.ProportionalElectionUnionEntries)
-                        .ThenInclude(x => x.ProportionalElection);
+                        .ThenInclude(x => x.ProportionalElection)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionListUnions)
+                        .ThenInclude(x => x.Translations)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.ProportionalElectionListUnions)
+                        .ThenInclude(x => x.ProportionalElectionListUnionEntries);
             }
         }
 
@@ -356,6 +353,10 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.Results)
                         .ThenInclude(x => x.CountingCircle.ContestDetails)
                         .ThenInclude(x => x.VotingCards)
+                    .Include(x => x.MajorityElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.CountingCircle.DomainOfInfluences)
+                        .ThenInclude(x => x.DomainOfInfluence)
                     .Include(x => x.MajorityElections)
                         .ThenInclude(x => x.Results)
                         .ThenInclude(x => x.CountingCircle.ContestDetails)

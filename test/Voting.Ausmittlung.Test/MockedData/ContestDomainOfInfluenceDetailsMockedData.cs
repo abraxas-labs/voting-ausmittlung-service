@@ -19,6 +19,7 @@ public static class ContestDomainOfInfluenceDetailsMockedData
     public const string IdBundUrnengangGossauContestDomainOfInfluenceDetails = "56ba1642-abbb-4e9b-9845-9fe2e29f9af3";
     public const string IdBundUrnengangUzwilContestDomainOfInfluenceDetails = "574c98c8-8610-4929-9a22-3e89672625ca";
     public const string IdStGallenUrnengangStGallenContestDomainOfInfluenceDetails = "7ac5d3af-38f2-43ec-8395-5d95d0c285b1";
+    public const string IdGossauUrnengangStGallenContestDomainOfInfluenceDetails = "1a91a016-903f-485e-8847-8990c7cbc718";
 
     public static ContestDomainOfInfluenceDetails BundUrnengangBundContestDomainOfInfluenceDetails
         => new()
@@ -75,6 +76,17 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
         };
 
+    public static ContestDomainOfInfluenceDetails GossauUrnengangStGallenContestDomainOfInfluenceDetails
+        => new()
+        {
+            Id = Guid.Parse(IdGossauUrnengangStGallenContestDomainOfInfluenceDetails),
+            ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
+            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
+            TotalCountOfVoters = 15800,
+            VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
+            CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
+        };
+
     public static IEnumerable<ContestDomainOfInfluenceDetails> All
     {
         get
@@ -84,6 +96,7 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             yield return BundUrnengangGossauContestDomainOfInfluenceDetails;
             yield return BundUrnengangUzwilContestDomainOfInfluenceDetails;
             yield return StGallenUrnengangStGallenContestDomainOfInfluenceDetails;
+            yield return GossauUrnengangStGallenContestDomainOfInfluenceDetails;
         }
     }
 

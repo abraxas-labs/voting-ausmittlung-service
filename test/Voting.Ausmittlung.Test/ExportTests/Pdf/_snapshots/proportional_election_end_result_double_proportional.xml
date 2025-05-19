@@ -1,5 +1,6 @@
 <Voting>
-  <TemplateKey />
+  <TemplateKey>proportional_election_end_result_double_proportional</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>

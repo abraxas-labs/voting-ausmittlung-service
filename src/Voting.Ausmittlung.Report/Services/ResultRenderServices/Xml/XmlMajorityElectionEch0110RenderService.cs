@@ -11,6 +11,7 @@ using Voting.Ausmittlung.Ech.Converters;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.Ech.Ech0110_4_0.Schemas;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Xml;
 
@@ -48,9 +49,15 @@ public class XmlMajorityElectionEch0110RenderService : IRendererService
             .Include(me => me.Results).ThenInclude(sr => sr.CandidateResults).ThenInclude(cr => cr.Candidate).ThenInclude(x => x.Translations.OrderBy(t => t.Language))
             .FirstOrDefaultAsync(me => me.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new EntityNotFoundException(nameof(MajorityElection), ctx.PoliticalBusinessId);
+        election.MoveECountingToConventional();
 
         var eventDelivery = _ech0110Serializer.ToDelivery(election);
         var electionShortDescription = _multiLanguageTranslationUtil.GetShortDescription(election);
-        return _templateService.RenderToXml(ctx, eventDelivery.DeliveryHeader.MessageId, eventDelivery, electionShortDescription);
+        return _templateService.RenderToXml(
+            ctx,
+            eventDelivery.DeliveryHeader.MessageId,
+            eventDelivery,
+            Ech0110Schemas.LoadEch0110Schemas(),
+            electionShortDescription);
     }
 }

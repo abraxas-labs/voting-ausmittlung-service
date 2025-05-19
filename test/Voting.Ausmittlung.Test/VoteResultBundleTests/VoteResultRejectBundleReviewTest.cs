@@ -11,7 +11,6 @@ using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -139,9 +138,6 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
     [Fact]
     public async Task TestProcessor()
     {
-        var ballotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult);
-        var bundle1Id = Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1);
-
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new VoteResultBundleReviewRejected
@@ -154,10 +150,14 @@ public class VoteResultRejectBundleReviewTest : VoteResultBundleBaseTest
         bundle.BallotResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
         bundle.BallotResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
         bundle.BallotResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
-        bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
 
-        await AssertHasPublishedMessage<VoteBundleChanged>(
-            x => x.Id == bundle1Id && x.BallotResultId == ballotResultId);
+        foreach (var log in bundle.Logs)
+        {
+            log.Id = Guid.Empty;
+        }
+
+        bundle.MatchSnapshot(x => x.BallotResult.VoteResult.CountingCircleId);
+        await AssertHasPublishedEventProcessedMessage(VoteResultBundleReviewRejected.Descriptor, bundle.Id);
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>proportional_election_list_candidate_empty_votes_counting_circle_e_voting_protocol</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -37,7 +38,7 @@
       <State>Initial</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <CountOfVoters>
-        <VoterParticipation>0.000000</VoterParticipation>
+        <VoterParticipation>0.0000</VoterParticipation>
         <TotalReceivedBallots>0</TotalReceivedBallots>
         <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
         <EVotingReceivedBallots>0</EVotingReceivedBallots>
@@ -58,7 +59,7 @@
         <ProportionalElectionList>
           <OrderNumber>1a</OrderNumber>
           <ShortDescription>Liste 1 de</ShortDescription>
-          <Description />
+          <Description>Liste 1 de</Description>
         </ProportionalElectionList>
         <ProportionalElectionCandidateResult>
           <ProportionalElectionCandidate>
@@ -78,6 +79,9 @@
             <Locality>locality</Locality>
             <Position>1</Position>
             <Origin>origin</Origin>
+            <Street>street</Street>
+            <HouseNumber>1a</HouseNumber>
+            <Country>CH</Country>
             <Accumulated>true</Accumulated>
             <AccumulatedPosition>2</AccumulatedPosition>
             <NumberIncludingList>1a.number1</NumberIncludingList>
@@ -149,7 +153,7 @@
         <ProportionalElectionList>
           <OrderNumber>2a</OrderNumber>
           <ShortDescription>Liste 2 de</ShortDescription>
-          <Description />
+          <Description>Liste 2 de</Description>
         </ProportionalElectionList>
         <ConventionalSubTotal>
           <UnmodifiedListsCount>0</UnmodifiedListsCount>

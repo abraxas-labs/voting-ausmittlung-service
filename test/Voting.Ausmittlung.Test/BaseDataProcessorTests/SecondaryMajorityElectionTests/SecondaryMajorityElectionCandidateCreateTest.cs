@@ -61,6 +61,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             },
             new SecondaryMajorityElectionCandidateCreated
@@ -86,6 +89,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             },
             new SecondaryMajorityElectionCandidateCreated
@@ -112,6 +118,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -166,6 +175,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -211,6 +223,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -253,6 +268,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -298,6 +316,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -347,6 +368,9 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
         var candidate = await RunOnDb(

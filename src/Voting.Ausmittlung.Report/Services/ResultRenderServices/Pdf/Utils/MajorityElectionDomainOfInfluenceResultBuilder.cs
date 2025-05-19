@@ -21,9 +21,10 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
 
     public override async Task<(List<MajorityElectionDomainOfInfluenceResult> Results, MajorityElectionDomainOfInfluenceResult NotAssignableResult, MajorityElectionDomainOfInfluenceResult AggregatedResult)> BuildResults(
         MajorityElection politicalBusiness,
-        List<ContestCountingCircleDetails> ccDetails)
+        List<ContestCountingCircleDetails> ccDetails,
+        string tenantId)
     {
-        var (doiResults, notAssignableResult, aggregatedResult) = await base.BuildResults(politicalBusiness, ccDetails);
+        var (doiResults, notAssignableResult, aggregatedResult) = await base.BuildResults(politicalBusiness, ccDetails, tenantId);
         OrderCountingCircleAndCandidateResults(doiResults);
         OrderCountingCircleAndCandidateResult(notAssignableResult);
         OrderCountingCircleAndCandidateResult(aggregatedResult);
@@ -36,14 +37,92 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
 
     protected override void ApplyCountingCircleResult(MajorityElectionDomainOfInfluenceResult doiResult, MajorityElectionResult ccResult)
     {
+        ApplyCountingCircleResult(doiResult, ccResult, 1);
+        doiResult.Results.Add(ccResult);
+    }
+
+    protected override void ApplyCountingCircleResultToVirtualResult(MajorityElectionResult target, MajorityElectionResult ccResult)
+    {
+        if (ccResult.State < target.State)
+        {
+            target.State = ccResult.State;
+        }
+
+        target.Published &= ccResult.Published;
+
+        if (target.TotalSentEVotingVotingCards == null && ccResult.TotalSentEVotingVotingCards != null)
+        {
+            target.TotalSentEVotingVotingCards = ccResult.TotalSentEVotingVotingCards;
+        }
+        else if (target.TotalSentEVotingVotingCards != null)
+        {
+            target.TotalSentEVotingVotingCards += ccResult.TotalSentEVotingVotingCards ?? 0;
+        }
+
+        target.CountOfVoters.AddForAllSubTotals(ccResult.CountOfVoters);
+        target.TotalCountOfVoters += ccResult.TotalCountOfVoters;
+        target.AddForAllSubTotals(ccResult);
+
+        var targetCandidateResultsById = target.CandidateResults.ToDictionary(x => x.CandidateId);
+        foreach (var ccCandidateResult in ccResult.CandidateResults)
+        {
+            if (!targetCandidateResultsById.TryGetValue(ccCandidateResult.CandidateId, out var targetCandidateResult))
+            {
+                targetCandidateResult = targetCandidateResultsById[ccCandidateResult.CandidateId] = new MajorityElectionCandidateResult
+                {
+                    Candidate = ccCandidateResult.Candidate,
+                    CandidateId = ccCandidateResult.CandidateId,
+                    ConventionalVoteCount = 0,
+                };
+
+                targetCandidateResult.ElectionResult = target;
+                target.CandidateResults.Add(targetCandidateResult);
+            }
+
+            targetCandidateResult.ConventionalVoteCount += ccCandidateResult.ConventionalVoteCount ?? 0;
+            targetCandidateResult.EVotingWriteInsVoteCount += ccCandidateResult.EVotingWriteInsVoteCount;
+            targetCandidateResult.EVotingExclWriteInsVoteCount += ccCandidateResult.EVotingExclWriteInsVoteCount;
+            targetCandidateResult.ECountingWriteInsVoteCount += ccCandidateResult.ECountingWriteInsVoteCount;
+            targetCandidateResult.ECountingExclWriteInsVoteCount += ccCandidateResult.ECountingExclWriteInsVoteCount;
+        }
+
+        target.UpdateVoterParticipation();
+    }
+
+    protected override IEnumerable<MajorityElectionResult> GetCountingCircleResults(MajorityElectionDomainOfInfluenceResult doiResult)
+        => doiResult.Results;
+
+    protected override void RemoveCountingCircleResult(MajorityElectionDomainOfInfluenceResult doiResult, MajorityElectionResult result)
+    {
+        ApplyCountingCircleResult(doiResult, result, -1);
+        doiResult.Results.Remove(result);
+    }
+
+    protected override void ResetCountingCircleResult(MajorityElectionResult ccResult)
+    {
+        ccResult.TotalCountOfVoters = 0;
+
+        ccResult.ResetAllSubTotals(true);
+
+        ccResult.ConventionalCountOfDetailedEnteredBallots = 0;
+        ccResult.ConventionalCountOfBallotGroupVotes = 0;
+        ccResult.CountOfBundlesNotReviewedOrDeleted = 0;
+    }
+
+    private void ApplyCountingCircleResult(
+        MajorityElectionDomainOfInfluenceResult doiResult,
+        MajorityElectionResult ccResult,
+        int deltaFactor)
+    {
         PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
             doiResult.CountOfVoters,
             ccResult.CountOfVoters,
-            doiResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters);
+            doiResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters,
+            deltaFactor);
 
-        doiResult.IndividualVoteCount += ccResult.IndividualVoteCount;
-        doiResult.InvalidVoteCount += ccResult.InvalidVoteCount;
-        doiResult.EmptyVoteCount += ccResult.EmptyVoteCount;
+        doiResult.IndividualVoteCount += ccResult.IndividualVoteCount * deltaFactor;
+        doiResult.InvalidVoteCount += ccResult.InvalidVoteCount * deltaFactor;
+        doiResult.EmptyVoteCount += ccResult.EmptyVoteCount * deltaFactor;
 
         foreach (var candidateResult in ccResult.CandidateResults)
         {
@@ -53,22 +132,8 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
                     new MajorityElectionCandidateDomainOfInfluenceResult(candidateResult.Candidate);
             }
 
-            doiCandidateResult.VoteCount += candidateResult.VoteCount;
+            doiCandidateResult.VoteCount += candidateResult.VoteCount * deltaFactor;
         }
-
-        doiResult.Results.Add(ccResult);
-    }
-
-    protected override void ResetCountingCircleResult(MajorityElectionResult ccResult)
-    {
-        ccResult.TotalCountOfVoters = 0;
-
-        ccResult.ResetAllSubTotals(VotingDataSource.EVoting, true);
-        ccResult.ResetAllSubTotals(VotingDataSource.Conventional, true);
-
-        ccResult.ConventionalCountOfDetailedEnteredBallots = 0;
-        ccResult.ConventionalCountOfBallotGroupVotes = 0;
-        ccResult.CountOfBundlesNotReviewedOrDeleted = 0;
     }
 
     private void OrderCountingCircleAndCandidateResults(IEnumerable<MajorityElectionDomainOfInfluenceResult> doiResults)

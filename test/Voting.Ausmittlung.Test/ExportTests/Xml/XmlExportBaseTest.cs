@@ -93,11 +93,13 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
         MatchXmlSnapshot(xml, $"{GetType().Name}{snapshotSuffix}");
     }
 
-    protected async Task<string> GetXml()
+    protected Task<string> GetXml()
+        => GetXml(TestClient, NewRequest());
+
+    protected async Task<string> GetXml(HttpClient client, GenerateResultExportsRequest request)
     {
-        var request = NewRequest();
         var response = await AssertStatus(
-            () => TestClient.PostAsJsonAsync(ResultExportEndpoint, request),
+            () => client.PostAsJsonAsync(ResultExportEndpoint, request),
             HttpStatusCode.OK);
         response.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Xml);
 
@@ -134,7 +136,7 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
         return httpClient.PostAsJsonAsync(ResultExportEndpoint, NewRequest());
     }
 
-    private void MatchXmlSnapshot(string xml, string fileName)
+    protected void MatchXmlSnapshot(string xml, string fileName)
     {
         xml = XmlUtil.FormatTestXml(xml);
         xml.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", fileName + ".xml");

@@ -23,7 +23,7 @@ public static class ContestMockedData
     public const string IdStGallenEvoting = "95825eb0-0f52-461a-a5f8-23fb35fa69e1";
     public const string IdStGallenStadt = "df660313-ab05-4b17-9826-492c34432098";
     public const string IdGossau = "bfd88d88-77f2-4172-a73d-56b1ca5442b3";
-    public const string IdUzwilEvoting = "cc70fe43-8f4e-4bc6-a461-b808907bc996";
+    public const string IdUzwilEVoting = "cc70fe43-8f4e-4bc6-a461-b808907bc996";
     public const string IdKirche = "a091a5cc-735b-4bf4-a30d-f4c907c9fc10";
     public const string IdThurgauNoPoliticalBusinesses = "dc0f4940-10c2-4a33-b752-3e5d761c0009";
 
@@ -33,7 +33,7 @@ public static class ContestMockedData
     public static readonly Guid GuidStGallenEvoting = Guid.Parse(IdStGallenEvoting);
     public static readonly Guid GuidStGallenStadt = Guid.Parse(IdStGallenStadt);
     public static readonly Guid GuidGossau = Guid.Parse(IdGossau);
-    public static readonly Guid GuidUzwilEvoting = Guid.Parse(IdUzwilEvoting);
+    public static readonly Guid GuidUzwilEvoting = Guid.Parse(IdUzwilEVoting);
     public static readonly Guid GuidKirche = Guid.Parse(IdKirche);
     public static readonly Guid GuidThurgauNoPoliticalBusinesses = Guid.Parse(IdThurgauNoPoliticalBusinesses);
 

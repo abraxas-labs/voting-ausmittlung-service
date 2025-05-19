@@ -55,18 +55,6 @@ public class ProportionalElectionResultBundleService : ServiceBase
         return _mapper.Map<GetProportionalElectionResultBundleResponse>(bundle);
     }
 
-    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
-    public override Task GetBundleChanges(
-        GetProportionalElectionResultBundleChangesRequest request,
-        IServerStreamWriter<ProtoModels.ProportionalElectionResultBundle> responseStream,
-        ServerCallContext context)
-    {
-        return _proportionalElectionResultBundleReader.ListenToBundleChanges(
-            GuidParser.Parse(request.ElectionResultId),
-            b => responseStream.WriteAsync(_mapper.Map<ProtoModels.ProportionalElectionResultBundle>(b)),
-            context.CancellationToken);
-    }
-
     [AuthorizePermission(Permissions.PoliticalBusinessResultBallot.Read)]
     public override async Task<ProtoModels.ProportionalElectionResultBallot> GetBallot(
         GetProportionalElectionResultBallotRequest request,

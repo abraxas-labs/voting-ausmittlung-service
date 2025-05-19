@@ -19,31 +19,17 @@
   },
   "ProtocolExports": [
     {
-      "ExportTemplateId": "869c8445-b899-5b58-b48c-3a27f7cee150",
-      "Description": "Abstimmung eidg: Protokoll",
-      "EntityDescription": "Abst Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
       "ExportTemplateId": "6f8a182f-d5d8-54d6-81f3-cbbd01281d40",
       "Description": "Abstimmung kantonal: Protokoll",
       "EntityDescription": "Abst SG de",
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "5bb8f061-8006-55d1-a0ab-dfdd98e0b5ac",
-      "Description": "Majorz eidg: Gemeindeprotokoll",
-      "EntityDescription": "Mw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_result"
     },
     {
       "ExportTemplateId": "e25c0b23-0b6f-5d4f-9d56-3d7353b46737",
@@ -52,7 +38,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "e611c0b4-16b8-54a5-87f2-4c318cb7831a",
@@ -61,52 +51,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "3afe9b75-78cb-5e6f-ac16-4cf68a686cf7",
-      "Description": "Proporz eidg: 1 - Wahlzettelrapport",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "aba605a2-d13e-54b9-863b-fee7a45441b2",
-      "Description": "Proporz eidg: 2 - Kandidierenden- und Parteistimmen",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "c2d53121-6e9e-5325-9336-279166e1c0bb",
-      "Description": "Proporz eidg: 2a - Kandidierendenstimmen",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "a6ed0e32-d86e-547f-9976-c95178d69557",
-      "Description": "Proporz eidg: 3b - Stimmenherkunft inkl. KumPan",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "b5451734-6829-50b0-887f-48f5fc755bac",
-      "Description": "Proporz eidg: 4 - Gemeindeprotokoll",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "25ddbc28-e82c-5355-bdce-4fe90da6bc12",
@@ -115,7 +64,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_lists_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "9f43022e-dc61-5b22-9b52-c65e4c50c5ea",
@@ -124,7 +77,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_empty_votes_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "b1c3c784-2dd8-51f4-8b5d-44aaf64cceaa",
@@ -133,7 +90,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_votes_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "d00991e0-b46c-59e4-aaca-9e39e32bba2f",
@@ -142,7 +103,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_vote_sources_counting_circle_protocol"
     },
     {
       "ExportTemplateId": "5f4023a3-ba12-585c-b93a-be5b2270695f",
@@ -151,7 +116,11 @@
       "ProtocolExportId": "96b735ba-545a-56d4-bd72-f5154ba1d149",
       "State": 2,
       "FileName": "erfassung-mock-file.pdf",
-      "Started": "2022-02-10T09:15:00Z"
+      "Started": "2022-02-10T09:15:00Z",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_votes_counting_circle_protocol"
     }
   ]
 }

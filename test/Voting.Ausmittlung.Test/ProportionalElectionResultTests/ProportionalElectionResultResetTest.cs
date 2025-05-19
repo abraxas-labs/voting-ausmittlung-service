@@ -39,11 +39,22 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
                 r.State = CountingCircleResultState.SubmissionDone;
                 r.CountOfVoters = new()
                 {
-                    ConventionalAccountedBallots = 200,
-                    ConventionalInvalidBallots = 30,
-                    ConventionalReceivedBallots = 500,
-                    EVotingReceivedBallots = 5,
-                    EVotingAccountedBallots = 5,
+                    ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                    {
+                        AccountedBallots = 200,
+                        InvalidBallots = 30,
+                        ReceivedBallots = 500,
+                    },
+                    EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+                    {
+                        ReceivedBallots = 5,
+                        AccountedBallots = 5,
+                    },
+                    ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+                    {
+                        ReceivedBallots = 6,
+                        AccountedBallots = 7,
+                    },
                     VoterParticipation = 0.5M,
                 };
                 r.CountOfBundlesNotReviewedOrDeleted = 2;
@@ -61,6 +72,13 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
                     TotalCountOfModifiedLists = 1,
                     TotalCountOfUnmodifiedLists = 2,
                 };
+                r.ECountingSubTotal = new()
+                {
+                    TotalCountOfBlankRowsOnListsWithoutParty = 6,
+                    TotalCountOfListsWithoutParty = 5,
+                    TotalCountOfModifiedLists = 2,
+                    TotalCountOfUnmodifiedLists = 3,
+                };
                 r.TotalCountOfVoters = 10000;
             });
 
@@ -70,6 +88,7 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
             {
                 r.ConventionalVoteCount = 10;
                 r.EVotingVoteCount = 3;
+                r.ECountingVoteCount = 4;
             });
 
         await ModifyDbEntities<ProportionalElectionListResult>(
@@ -96,6 +115,16 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
                     UnmodifiedListVotesCount = 14,
                     ListVotesCountOnOtherLists = 1,
                 };
+                r.ECountingSubTotal = new()
+                {
+                    ModifiedListBlankRowsCount = 6,
+                    ModifiedListsCount = 5,
+                    ModifiedListVotesCount = 16,
+                    UnmodifiedListBlankRowsCount = 5,
+                    UnmodifiedListsCount = 9,
+                    UnmodifiedListVotesCount = 15,
+                    ListVotesCountOnOtherLists = 2,
+                };
             });
 
         await ModifyDbEntities<ProportionalElectionCandidateResult>(
@@ -116,6 +145,13 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
                     CountOfVotesFromAccumulations = 1,
                     CountOfVotesOnOtherLists = 1,
                 };
+                r.ECountingSubTotal = new()
+                {
+                    UnmodifiedListVotesCount = 2,
+                    ModifiedListVotesCount = 3,
+                    CountOfVotesFromAccumulations = 4,
+                    CountOfVotesOnOtherLists = 5,
+                };
             });
 
         await RunOnDb(async db =>
@@ -125,7 +161,7 @@ public class ProportionalElectionResultResetTest : BaseIntegrationTest
                 Id = Guid.Parse("1fe63a07-a6dd-4871-bc78-70e7829a07a3"),
                 ElectionResultId = ResultId,
                 CountOfBallots = 2,
-                BallotNumbersToReview = new() { 1 },
+                BallotNumbersToReview = [1],
             });
             await db.SaveChangesAsync();
         });

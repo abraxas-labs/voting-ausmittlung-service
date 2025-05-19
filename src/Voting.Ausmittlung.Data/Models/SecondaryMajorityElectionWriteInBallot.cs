@@ -14,4 +14,6 @@ public class SecondaryMajorityElectionWriteInBallot : MajorityElectionWriteInBal
 
     public ICollection<SecondaryMajorityElectionWriteInBallotPosition> WriteInPositions { get; set; } =
         new HashSet<SecondaryMajorityElectionWriteInBallotPosition>();
+
+    public ResultImport? Import { get; set; }
 }

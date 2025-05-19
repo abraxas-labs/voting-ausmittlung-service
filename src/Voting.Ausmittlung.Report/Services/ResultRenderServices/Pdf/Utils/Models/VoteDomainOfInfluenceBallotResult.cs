@@ -10,7 +10,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils.Mode
 
 public class VoteDomainOfInfluenceBallotResult : DomainOfInfluenceResult
 {
-    private readonly List<VoteCountingCircleBallotResult> _results = new();
+    private List<VoteCountingCircleBallotResult> _results = new();
 
     public VoteDomainOfInfluenceBallotResult(Ballot ballot, DomainOfInfluence? doi)
     {
@@ -47,4 +47,20 @@ public class VoteDomainOfInfluenceBallotResult : DomainOfInfluenceResult
     internal IReadOnlyDictionary<Guid, TieBreakQuestionDomainOfInfluenceResult> TieBreakQuestionResultsByQuestionId { get; }
 
     public void AddResult(BallotResult result) => _results.Add(new VoteCountingCircleBallotResult(result));
+
+    public void RemoveResult(BallotResult result)
+    {
+        var toRemove = _results.FindIndex(x => x.CountingCircle == result.VoteResult.CountingCircle);
+        if (toRemove >= 0)
+        {
+            _results.RemoveAt(toRemove);
+        }
+    }
+
+    public override void OrderCountingCircleResults(ContestCantonDefaults cantonDefaults)
+    {
+        _results = _results
+            .OrderByCountingCircle(x => x.CountingCircle, cantonDefaults)
+            .ToList();
+    }
 }

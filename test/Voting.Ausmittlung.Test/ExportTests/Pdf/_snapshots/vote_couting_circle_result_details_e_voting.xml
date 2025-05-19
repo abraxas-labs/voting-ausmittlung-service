@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>vote_couting_circle_result_details_e_voting</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -49,7 +50,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -168,7 +169,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -383,7 +384,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -469,22 +470,22 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>10.400000</VoterParticipation>
-          <TotalReceivedBallots>520</TotalReceivedBallots>
-          <TotalUnaccountedBallots>285</TotalUnaccountedBallots>
+          <VoterParticipation>17.0600</VoterParticipation>
+          <TotalReceivedBallots>853</TotalReceivedBallots>
+          <TotalUnaccountedBallots>329</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
           <EVotingInvalidBallots>2</EVotingInvalidBallots>
           <EVotingBlankBallots>3</EVotingBlankBallots>
           <EVotingAccountedBallots>15</EVotingAccountedBallots>
           <EVotingTotalUnaccountedBallots>5</EVotingTotalUnaccountedBallots>
-          <ConventionalReceivedBallots>500</ConventionalReceivedBallots>
-          <ConventionalInvalidBallots>200</ConventionalInvalidBallots>
-          <ConventionalBlankBallots>80</ConventionalBlankBallots>
-          <ConventionalAccountedBallots>220</ConventionalAccountedBallots>
-          <ConventionalTotalUnaccountedBallots>280</ConventionalTotalUnaccountedBallots>
-          <CountOfAccountedBallots>235</CountOfAccountedBallots>
-          <CountOfInvalidBallots>202</CountOfInvalidBallots>
-          <CountOfBlankBallots>83</CountOfBlankBallots>
+          <ConventionalReceivedBallots>833</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>226</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>98</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>509</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>324</ConventionalTotalUnaccountedBallots>
+          <CountOfAccountedBallots>524</CountOfAccountedBallots>
+          <CountOfInvalidBallots>228</CountOfInvalidBallots>
+          <CountOfBlankBallots>101</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -493,12 +494,12 @@
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>16</CountOfAnswerTotal>
-          <PercentageYes>0.5714285714285714285714285714</PercentageYes>
-          <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfAnswerTotalYes>19</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>12</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>4</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>35</CountOfAnswerTotal>
+          <PercentageYes>0.6129032258064516129032258065</PercentageYes>
+          <PercentageNo>0.3870967741935483870967741935</PercentageNo>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>3</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>2</CountOfAnswerTotalNo>
@@ -508,12 +509,12 @@
             <PercentageNo>0.4</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
-            <CountOfAnswerTotalYes>5</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>4</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>10</CountOfAnswerTotal>
-            <PercentageYes>0.5555555555555555555555555556</PercentageYes>
-            <PercentageNo>0.4444444444444444444444444444</PercentageNo>
+            <CountOfAnswerTotalYes>16</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>10</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>3</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>29</CountOfAnswerTotal>
+            <PercentageYes>0.6153846153846153846153846154</PercentageYes>
+            <PercentageNo>0.3846153846153846153846153846</PercentageNo>
           </ConventionalSubTotal>
         </BallotQuestionResult>
       </BallotResult>
@@ -544,22 +545,22 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>9.400000</VoterParticipation>
-          <TotalReceivedBallots>470</TotalReceivedBallots>
-          <TotalUnaccountedBallots>265</TotalUnaccountedBallots>
+          <VoterParticipation>15.7600</VoterParticipation>
+          <TotalReceivedBallots>788</TotalReceivedBallots>
+          <TotalUnaccountedBallots>299</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
           <EVotingInvalidBallots>2</EVotingInvalidBallots>
           <EVotingBlankBallots>3</EVotingBlankBallots>
           <EVotingAccountedBallots>15</EVotingAccountedBallots>
           <EVotingTotalUnaccountedBallots>5</EVotingTotalUnaccountedBallots>
-          <ConventionalReceivedBallots>450</ConventionalReceivedBallots>
-          <ConventionalInvalidBallots>180</ConventionalInvalidBallots>
-          <ConventionalBlankBallots>80</ConventionalBlankBallots>
-          <ConventionalAccountedBallots>200</ConventionalAccountedBallots>
-          <ConventionalTotalUnaccountedBallots>260</ConventionalTotalUnaccountedBallots>
-          <CountOfAccountedBallots>215</CountOfAccountedBallots>
-          <CountOfInvalidBallots>182</CountOfInvalidBallots>
-          <CountOfBlankBallots>83</CountOfBlankBallots>
+          <ConventionalReceivedBallots>768</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>201</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>93</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>484</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>294</ConventionalTotalUnaccountedBallots>
+          <CountOfAccountedBallots>499</CountOfAccountedBallots>
+          <CountOfInvalidBallots>203</CountOfInvalidBallots>
+          <CountOfBlankBallots>96</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -568,12 +569,12 @@
             <Question>Frage 1 de</Question>
             <Type>MainBallot</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>16</CountOfAnswerTotal>
-          <PercentageYes>0.5714285714285714285714285714</PercentageYes>
-          <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfAnswerTotalYes>11</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>17</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalUnspecified>6</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>34</CountOfAnswerTotal>
+          <PercentageYes>0.3928571428571428571428571429</PercentageYes>
+          <PercentageNo>0.6071428571428571428571428571</PercentageNo>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>3</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>2</CountOfAnswerTotalNo>
@@ -583,12 +584,12 @@
             <PercentageNo>0.4</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
-            <CountOfAnswerTotalYes>5</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>4</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>10</CountOfAnswerTotal>
-            <PercentageYes>0.5555555555555555555555555556</PercentageYes>
-            <PercentageNo>0.4444444444444444444444444444</PercentageNo>
+            <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>15</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>28</CountOfAnswerTotal>
+            <PercentageYes>0.3478260869565217391304347826</PercentageYes>
+            <PercentageNo>0.6521739130434782608695652174</PercentageNo>
           </ConventionalSubTotal>
         </BallotQuestionResult>
         <BallotQuestionResult>
@@ -598,12 +599,12 @@
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalYes>34</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
           <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>16</CountOfAnswerTotal>
-          <PercentageYes>0.5714285714285714285714285714</PercentageYes>
-          <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfAnswerTotal>42</CountOfAnswerTotal>
+          <PercentageYes>0.85</PercentageYes>
+          <PercentageNo>0.15</PercentageNo>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>3</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>2</CountOfAnswerTotalNo>
@@ -613,12 +614,12 @@
             <PercentageNo>0.4</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
-            <CountOfAnswerTotalYes>5</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalYes>31</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>4</CountOfAnswerTotalNo>
             <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>10</CountOfAnswerTotal>
-            <PercentageYes>0.5555555555555555555555555556</PercentageYes>
-            <PercentageNo>0.4444444444444444444444444444</PercentageNo>
+            <CountOfAnswerTotal>36</CountOfAnswerTotal>
+            <PercentageYes>0.8857142857142857142857142857</PercentageYes>
+            <PercentageNo>0.1142857142857142857142857143</PercentageNo>
           </ConventionalSubTotal>
         </BallotQuestionResult>
         <BallotTieBreakQuestionResult>
@@ -629,12 +630,12 @@
             <Question1Number>1</Question1Number>
             <Question2Number>2</Question2Number>
           </TieBreakQuestion>
-          <CountOfAnswerTotalQ1>5</CountOfAnswerTotalQ1>
+          <CountOfAnswerTotalQ1>8</CountOfAnswerTotalQ1>
           <CountOfAnswerTotalQ2>4</CountOfAnswerTotalQ2>
           <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>11</CountOfAnswerTotal>
-          <PercentageQ1>0.5555555555555555555555555556</PercentageQ1>
-          <PercentageQ2>0.4444444444444444444444444444</PercentageQ2>
+          <CountOfAnswerTotal>14</CountOfAnswerTotal>
+          <PercentageQ1>0.6666666666666666666666666667</PercentageQ1>
+          <PercentageQ2>0.3333333333333333333333333333</PercentageQ2>
           <EVotingSubTotal>
             <CountOfAnswerTotalQ1>1</CountOfAnswerTotalQ1>
             <CountOfAnswerTotalQ2>2</CountOfAnswerTotalQ2>
@@ -644,12 +645,12 @@
             <PercentageQ2>0.6666666666666666666666666667</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
-            <CountOfAnswerTotalQ1>4</CountOfAnswerTotalQ1>
+            <CountOfAnswerTotalQ1>7</CountOfAnswerTotalQ1>
             <CountOfAnswerTotalQ2>2</CountOfAnswerTotalQ2>
             <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>7</CountOfAnswerTotal>
-            <PercentageQ1>0.6666666666666666666666666667</PercentageQ1>
-            <PercentageQ2>0.3333333333333333333333333333</PercentageQ2>
+            <CountOfAnswerTotal>10</CountOfAnswerTotal>
+            <PercentageQ1>0.7777777777777777777777777778</PercentageQ1>
+            <PercentageQ2>0.2222222222222222222222222222</PercentageQ2>
           </ConventionalSubTotal>
         </BallotTieBreakQuestionResult>
       </BallotResult>
@@ -700,22 +701,22 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>8.400000</VoterParticipation>
-          <TotalReceivedBallots>420</TotalReceivedBallots>
-          <TotalUnaccountedBallots>35</TotalUnaccountedBallots>
+          <VoterParticipation>14.4600</VoterParticipation>
+          <TotalReceivedBallots>723</TotalReceivedBallots>
+          <TotalUnaccountedBallots>59</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
           <EVotingInvalidBallots>2</EVotingInvalidBallots>
           <EVotingBlankBallots>3</EVotingBlankBallots>
           <EVotingAccountedBallots>15</EVotingAccountedBallots>
           <EVotingTotalUnaccountedBallots>5</EVotingTotalUnaccountedBallots>
-          <ConventionalReceivedBallots>400</ConventionalReceivedBallots>
-          <ConventionalInvalidBallots>20</ConventionalInvalidBallots>
-          <ConventionalBlankBallots>10</ConventionalBlankBallots>
-          <ConventionalAccountedBallots>370</ConventionalAccountedBallots>
-          <ConventionalTotalUnaccountedBallots>30</ConventionalTotalUnaccountedBallots>
-          <CountOfAccountedBallots>385</CountOfAccountedBallots>
-          <CountOfInvalidBallots>22</CountOfInvalidBallots>
-          <CountOfBlankBallots>13</CountOfBlankBallots>
+          <ConventionalReceivedBallots>703</ConventionalReceivedBallots>
+          <ConventionalInvalidBallots>36</ConventionalInvalidBallots>
+          <ConventionalBlankBallots>18</ConventionalBlankBallots>
+          <ConventionalAccountedBallots>649</ConventionalAccountedBallots>
+          <ConventionalTotalUnaccountedBallots>54</ConventionalTotalUnaccountedBallots>
+          <CountOfAccountedBallots>664</CountOfAccountedBallots>
+          <CountOfInvalidBallots>38</CountOfInvalidBallots>
+          <CountOfBlankBallots>21</CountOfBlankBallots>
         </CountOfVoters>
         <BallotQuestionResult>
           <BallotQuestion>
@@ -754,12 +755,12 @@
             <Question>Frage 2 de</Question>
             <Type>CounterProposal</Type>
           </BallotQuestion>
-          <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
-          <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
+          <CountOfAnswerTotalYes>24</CountOfAnswerTotalYes>
+          <CountOfAnswerTotalNo>12</CountOfAnswerTotalNo>
           <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>16</CountOfAnswerTotal>
-          <PercentageYes>0.5714285714285714285714285714</PercentageYes>
-          <PercentageNo>0.4285714285714285714285714286</PercentageNo>
+          <CountOfAnswerTotal>38</CountOfAnswerTotal>
+          <PercentageYes>0.6666666666666666666666666667</PercentageYes>
+          <PercentageNo>0.3333333333333333333333333333</PercentageNo>
           <EVotingSubTotal>
             <CountOfAnswerTotalYes>3</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>2</CountOfAnswerTotalNo>
@@ -769,12 +770,12 @@
             <PercentageNo>0.4</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
-            <CountOfAnswerTotalYes>5</CountOfAnswerTotalYes>
-            <CountOfAnswerTotalNo>4</CountOfAnswerTotalNo>
+            <CountOfAnswerTotalYes>21</CountOfAnswerTotalYes>
+            <CountOfAnswerTotalNo>10</CountOfAnswerTotalNo>
             <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>10</CountOfAnswerTotal>
-            <PercentageYes>0.5555555555555555555555555556</PercentageYes>
-            <PercentageNo>0.4444444444444444444444444444</PercentageNo>
+            <CountOfAnswerTotal>32</CountOfAnswerTotal>
+            <PercentageYes>0.6774193548387096774193548387</PercentageYes>
+            <PercentageNo>0.3225806451612903225806451613</PercentageNo>
           </ConventionalSubTotal>
         </BallotQuestionResult>
         <BallotQuestionResult>
@@ -786,8 +787,8 @@
           </BallotQuestion>
           <CountOfAnswerTotalYes>8</CountOfAnswerTotalYes>
           <CountOfAnswerTotalNo>6</CountOfAnswerTotalNo>
-          <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>16</CountOfAnswerTotal>
+          <CountOfAnswerTotalUnspecified>13</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>27</CountOfAnswerTotal>
           <PercentageYes>0.5714285714285714285714285714</PercentageYes>
           <PercentageNo>0.4285714285714285714285714286</PercentageNo>
           <EVotingSubTotal>
@@ -801,8 +802,8 @@
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>5</CountOfAnswerTotalYes>
             <CountOfAnswerTotalNo>4</CountOfAnswerTotalNo>
-            <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>10</CountOfAnswerTotal>
+            <CountOfAnswerTotalUnspecified>12</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>21</CountOfAnswerTotal>
             <PercentageYes>0.5555555555555555555555555556</PercentageYes>
             <PercentageNo>0.4444444444444444444444444444</PercentageNo>
           </ConventionalSubTotal>
@@ -847,11 +848,11 @@
             <Question2Number>3</Question2Number>
           </TieBreakQuestion>
           <CountOfAnswerTotalQ1>5</CountOfAnswerTotalQ1>
-          <CountOfAnswerTotalQ2>4</CountOfAnswerTotalQ2>
+          <CountOfAnswerTotalQ2>9</CountOfAnswerTotalQ2>
           <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>11</CountOfAnswerTotal>
-          <PercentageQ1>0.5555555555555555555555555556</PercentageQ1>
-          <PercentageQ2>0.4444444444444444444444444444</PercentageQ2>
+          <CountOfAnswerTotal>16</CountOfAnswerTotal>
+          <PercentageQ1>0.3571428571428571428571428571</PercentageQ1>
+          <PercentageQ2>0.6428571428571428571428571429</PercentageQ2>
           <EVotingSubTotal>
             <CountOfAnswerTotalQ1>1</CountOfAnswerTotalQ1>
             <CountOfAnswerTotalQ2>2</CountOfAnswerTotalQ2>
@@ -862,11 +863,11 @@
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>4</CountOfAnswerTotalQ1>
-            <CountOfAnswerTotalQ2>2</CountOfAnswerTotalQ2>
+            <CountOfAnswerTotalQ2>7</CountOfAnswerTotalQ2>
             <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>7</CountOfAnswerTotal>
-            <PercentageQ1>0.6666666666666666666666666667</PercentageQ1>
-            <PercentageQ2>0.3333333333333333333333333333</PercentageQ2>
+            <CountOfAnswerTotal>12</CountOfAnswerTotal>
+            <PercentageQ1>0.3636363636363636363636363636</PercentageQ1>
+            <PercentageQ2>0.6363636363636363636363636364</PercentageQ2>
           </ConventionalSubTotal>
         </BallotTieBreakQuestionResult>
         <BallotTieBreakQuestionResult>
@@ -879,8 +880,8 @@
           </TieBreakQuestion>
           <CountOfAnswerTotalQ1>5</CountOfAnswerTotalQ1>
           <CountOfAnswerTotalQ2>4</CountOfAnswerTotalQ2>
-          <CountOfAnswerTotalUnspecified>2</CountOfAnswerTotalUnspecified>
-          <CountOfAnswerTotal>11</CountOfAnswerTotal>
+          <CountOfAnswerTotalUnspecified>16</CountOfAnswerTotalUnspecified>
+          <CountOfAnswerTotal>25</CountOfAnswerTotal>
           <PercentageQ1>0.5555555555555555555555555556</PercentageQ1>
           <PercentageQ2>0.4444444444444444444444444444</PercentageQ2>
           <EVotingSubTotal>
@@ -894,8 +895,8 @@
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>4</CountOfAnswerTotalQ1>
             <CountOfAnswerTotalQ2>2</CountOfAnswerTotalQ2>
-            <CountOfAnswerTotalUnspecified>1</CountOfAnswerTotalUnspecified>
-            <CountOfAnswerTotal>7</CountOfAnswerTotal>
+            <CountOfAnswerTotalUnspecified>15</CountOfAnswerTotalUnspecified>
+            <CountOfAnswerTotal>21</CountOfAnswerTotal>
             <PercentageQ1>0.6666666666666666666666666667</PercentageQ1>
             <PercentageQ2>0.3333333333333333333333333333</PercentageQ2>
           </ConventionalSubTotal>
@@ -939,7 +940,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>

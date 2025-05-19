@@ -182,6 +182,7 @@ public abstract class MajorityElectionResultBundleBaseTest
         id ??= Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1);
         return RunOnDb(db =>
             db.MajorityElectionResultBundles
+                .Include(x => x.Logs)
                 .Include(x => x.ElectionResult)
                 .Where(x => x.Id == id)
                 .FirstAsync());

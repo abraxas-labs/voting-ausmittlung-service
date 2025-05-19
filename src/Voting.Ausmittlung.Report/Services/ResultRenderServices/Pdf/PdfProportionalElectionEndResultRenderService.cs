@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -43,6 +44,8 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
             .FirstOrDefaultAsync(x => x.ProportionalElectionId == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
 
+        data.MoveECountingToConventional();
+
         // with ef core 5 this could be inlined
         PrepareAndSortData(data);
 
@@ -59,6 +62,7 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(data.ProportionalElection.Contest),
             ProportionalElections = new List<PdfProportionalElection>
             {

@@ -42,6 +42,15 @@ public class CountingCircleVotingCardsImportProcessor : IEventProcessor<Counting
     public async Task Process(CountingCircleVotingCardsImported eventData)
     {
         var contestId = GuidParser.Parse(eventData.ContestId);
+        var importType = (ResultImportType)eventData.ImportType;
+
+        // legacy event don't contain the field import type
+        if (importType == ResultImportType.Unspecified)
+        {
+            importType = ResultImportType.EVoting;
+        }
+
+        var channel = importType.GetChannel();
 
         var testingPhaseEnded = await _contestRepo
             .Query()
@@ -56,7 +65,7 @@ public class CountingCircleVotingCardsImportProcessor : IEventProcessor<Counting
         // The counting circle details are guaranteed to always exist, as they are initialized with empty values
         var existingCcDetails = await _repo.Query()
             .AsSplitQuery()
-            .Include(x => x.VotingCards.Where(vc => vc.Channel == VotingChannel.EVoting))
+            .Include(x => x.VotingCards.Where(vc => vc.Channel == channel))
             .Where(x => votingCardDetailIds.Contains(x.Id))
             .ToListAsync();
 
@@ -82,8 +91,8 @@ public class CountingCircleVotingCardsImportProcessor : IEventProcessor<Counting
         foreach (var details in existingCcDetails)
         {
             var receivedVotingCards = votingCardsByCcDetailsId[details.Id].CountOfReceivedVotingCards;
-            var eVotingVotingCardsByDoiType = details.VotingCards
-                .Where(x => x.Channel == VotingChannel.EVoting)
+            var votingCardsByDoiType = details.VotingCards
+                .Where(x => x.Channel == channel)
                 .ToDictionary(x => x.DomainOfInfluenceType);
 
             if (!domainOfInfluenceTypesByCcId.TryGetValue(details.CountingCircleId, out var domainOfInfluenceTypes))
@@ -93,7 +102,7 @@ public class CountingCircleVotingCardsImportProcessor : IEventProcessor<Counting
 
             foreach (var domainOfInfluenceType in domainOfInfluenceTypes)
             {
-                if (eVotingVotingCardsByDoiType.TryGetValue(domainOfInfluenceType, out var votingCards))
+                if (votingCardsByDoiType.TryGetValue(domainOfInfluenceType, out var votingCards))
                 {
                     votingCards.CountOfReceivedVotingCards = receivedVotingCards;
                 }
@@ -101,7 +110,7 @@ public class CountingCircleVotingCardsImportProcessor : IEventProcessor<Counting
                 {
                     details.VotingCards.Add(new VotingCardResultDetail
                     {
-                        Channel = VotingChannel.EVoting,
+                        Channel = channel,
                         Valid = true,
                         DomainOfInfluenceType = domainOfInfluenceType,
                         CountOfReceivedVotingCards = receivedVotingCards,

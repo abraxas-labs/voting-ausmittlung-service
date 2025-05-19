@@ -542,10 +542,10 @@ public static class ZhMockedData
 
                 endResult.CountOfDoneCountingCircles = 1;
                 endResult.TotalCountOfVoters = (int)(listVoteCountSum * 0.5);
-                endResult.CountOfVoters.ConventionalReceivedBallots = (int)(listVoteCountSum * 0.25);
-                endResult.CountOfVoters.ConventionalAccountedBallots = (int)(listVoteCountSum * 0.2);
-                endResult.CountOfVoters.ConventionalBlankBallots = (int)(listVoteCountSum * 0.025);
-                endResult.CountOfVoters.ConventionalInvalidBallots = endResult.CountOfVoters.ConventionalReceivedBallots - endResult.CountOfVoters.ConventionalAccountedBallots - endResult.CountOfVoters.ConventionalBlankBallots;
+                endResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots = (int)(listVoteCountSum * 0.25);
+                endResult.CountOfVoters.ConventionalSubTotal.AccountedBallots = (int)(listVoteCountSum * 0.2);
+                endResult.CountOfVoters.ConventionalSubTotal.BlankBallots = (int)(listVoteCountSum * 0.025);
+                endResult.CountOfVoters.ConventionalSubTotal.InvalidBallots = endResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots - endResult.CountOfVoters.ConventionalSubTotal.AccountedBallots - endResult.CountOfVoters.ConventionalSubTotal.BlankBallots;
                 endResult.CountOfVoters.UpdateVoterParticipation(endResult.TotalCountOfVoters);
 
                 foreach (var listEndResult in endResult.ListEndResults)

@@ -14,4 +14,6 @@ public class ProportionalElectionResultBundle : ElectionBundle<ProportionalElect
 
     public ICollection<ProportionalElectionResultBallot> Ballots { get; set; } =
         new HashSet<ProportionalElectionResultBallot>();
+
+    public List<ProportionalElectionResultBundleLog> Logs { get; set; } = new();
 }

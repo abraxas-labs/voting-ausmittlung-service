@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ using AutoMapper;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
 
@@ -18,15 +20,18 @@ public class PdfProportionalElectionDoubleProportionalResultRenderService : IRen
     private readonly DoubleProportionalResultRepo _dpResultRepo;
     private readonly TemplateService _templateService;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfProportionalElectionDoubleProportionalResultRenderService(
         DoubleProportionalResultRepo dpResultRepo,
         TemplateService templateService,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _dpResultRepo = dpResultRepo;
         _templateService = templateService;
         _mapper = mapper;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -40,6 +45,8 @@ public class PdfProportionalElectionDoubleProportionalResultRenderService : IRen
 
         var templateBag = new PdfTemplateBag
         {
+            TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             ProportionalElections = new List<PdfProportionalElection> { pdfProportionalElection },
             Contest = _mapper.Map<PdfContest>(dpResult.ProportionalElection!.Contest),
         };

@@ -96,6 +96,8 @@
     "HideLowerDomainOfInfluencesInReports": false,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
+  "NumberOfCountingCirclesWithECountingImported": 0,
+  "ECountingResultsImported": false,
   "EVotingResultsImported": false,
   "EVoting": false,
   "EVotingFrom": null,

@@ -37,6 +37,14 @@ public class VoteResult : CountingCircleResult
         }
     }
 
+    public void ResetAllSubTotals(bool includeCountOfVoters = false)
+    {
+        foreach (var dataSource in Enum.GetValues<VotingDataSource>())
+        {
+            ResetAllSubTotals(dataSource, includeCountOfVoters);
+        }
+    }
+
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
     {
         foreach (var result in Results)
@@ -47,6 +55,14 @@ public class VoteResult : CountingCircleResult
             {
                 result.ResetCountOfVoters(dataSource, TotalCountOfVoters);
             }
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        foreach (var result in Results)
+        {
+            result.MoveECountingToConventional();
         }
     }
 }

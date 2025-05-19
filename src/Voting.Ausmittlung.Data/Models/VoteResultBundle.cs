@@ -13,4 +13,6 @@ public class VoteResultBundle : PoliticalBusinessBundle
     public Guid BallotResultId { get; set; }
 
     public ICollection<VoteResultBallot> Ballots { get; set; } = new HashSet<VoteResultBallot>();
+
+    public List<VoteResultBundleLog> Logs { get; set; } = new();
 }

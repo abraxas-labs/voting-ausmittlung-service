@@ -2,32 +2,25 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class PoliticalBusinessCountOfVoters
+public class PoliticalBusinessCountOfVoters : IHasSubTotals<PoliticalBusinessCountOfVotersSubTotal>
 {
     public decimal VoterParticipation { get; set; }
 
-    public int EVotingReceivedBallots { get; set; }
+    public PoliticalBusinessCountOfVotersSubTotal EVotingSubTotal { get; set; } = new();
 
-    public int EVotingInvalidBallots { get; set; }
+    public PoliticalBusinessCountOfVotersSubTotal ECountingSubTotal { get; set; } = new();
 
-    public int EVotingBlankBallots { get; set; }
-
-    public int EVotingAccountedBallots { get; set; }
-
-    public int ConventionalReceivedBallots { get; set; }
-
-    public int ConventionalInvalidBallots { get; set; }
-
-    public int ConventionalBlankBallots { get; set; }
-
-    public int ConventionalAccountedBallots { get; set; }
+    public PoliticalBusinessCountOfVotersSubTotal ConventionalSubTotal { get; set; } = new();
 
     public int TotalReceivedBallots
     {
-        get => ConventionalReceivedBallots + EVotingReceivedBallots;
+        get => ConventionalSubTotal.ReceivedBallots
+               + EVotingSubTotal.ReceivedBallots
+               + ECountingSubTotal.ReceivedBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -36,7 +29,9 @@ public class PoliticalBusinessCountOfVoters
 
     public int TotalAccountedBallots
     {
-        get => ConventionalAccountedBallots + EVotingAccountedBallots;
+        get => ConventionalSubTotal.AccountedBallots
+               + EVotingSubTotal.AccountedBallots
+               + ECountingSubTotal.AccountedBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -45,7 +40,12 @@ public class PoliticalBusinessCountOfVoters
 
     public int TotalUnaccountedBallots
     {
-        get => ConventionalBlankBallots + ConventionalInvalidBallots + EVotingBlankBallots + EVotingInvalidBallots;
+        get => ConventionalSubTotal.BlankBallots
+               + ConventionalSubTotal.InvalidBallots
+               + EVotingSubTotal.BlankBallots
+               + EVotingSubTotal.InvalidBallots
+               + ECountingSubTotal.BlankBallots
+               + ECountingSubTotal.InvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -54,7 +54,9 @@ public class PoliticalBusinessCountOfVoters
 
     public int TotalInvalidBallots
     {
-        get => ConventionalInvalidBallots + EVotingInvalidBallots;
+        get => ConventionalSubTotal.InvalidBallots
+               + EVotingSubTotal.InvalidBallots
+               + ECountingSubTotal.InvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -63,11 +65,29 @@ public class PoliticalBusinessCountOfVoters
 
     public int TotalBlankBallots
     {
-        get => ConventionalBlankBallots + EVotingBlankBallots;
+        get => ConventionalSubTotal.BlankBallots + EVotingSubTotal.BlankBallots;
         private set
         {
             // empty setter to store the value in the database...
         }
+    }
+
+    public static PoliticalBusinessCountOfVoters CreateSum(IEnumerable<PoliticalBusinessCountOfVoters> items)
+    {
+        var sum = new PoliticalBusinessCountOfVoters();
+        foreach (var item in items)
+        {
+            foreach (var (dataSource, subTotal) in sum.SubTotalAsEnumerable())
+            {
+                var otherSubTotal = item.GetSubTotal(dataSource);
+                subTotal.AccountedBallots += otherSubTotal.AccountedBallots;
+                subTotal.ReceivedBallots += otherSubTotal.ReceivedBallots;
+                subTotal.InvalidBallots += otherSubTotal.InvalidBallots;
+                subTotal.BlankBallots += otherSubTotal.BlankBallots;
+            }
+        }
+
+        return sum;
     }
 
     public void UpdateVoterParticipation(int totalCountOfVoters)
@@ -85,22 +105,7 @@ public class PoliticalBusinessCountOfVoters
 
     public void ResetSubTotal(VotingDataSource dataSource, int totalCountOfVoters)
     {
-        switch (dataSource)
-        {
-            case VotingDataSource.Conventional:
-                ConventionalAccountedBallots = 0;
-                ConventionalBlankBallots = 0;
-                ConventionalInvalidBallots = 0;
-                ConventionalReceivedBallots = 0;
-                break;
-            case VotingDataSource.EVoting:
-                EVotingReceivedBallots = 0;
-                EVotingInvalidBallots = 0;
-                EVotingBlankBallots = 0;
-                EVotingAccountedBallots = 0;
-                break;
-        }
-
+        this.ResetSubTotal(dataSource);
         UpdateVoterParticipation(totalCountOfVoters);
     }
 }

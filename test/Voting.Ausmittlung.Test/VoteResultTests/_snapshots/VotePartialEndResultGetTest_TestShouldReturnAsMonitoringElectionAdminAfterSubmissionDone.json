@@ -32,7 +32,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "Vote": {
     "Id": "903a47bf-6b7b-4460-8475-b7bd89ea2ac9",
@@ -100,7 +101,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "BallotBundleSampleSizePercent": 30,
     "AutomaticBallotBundleNumberGeneration": true,
@@ -128,14 +130,24 @@
       },
       "CountOfVoters": {
         "VoterParticipation": 0.0,
-        "ConventionalReceivedBallots": 100,
-        "ConventionalInvalidBallots": 6,
-        "ConventionalBlankBallots": 14,
-        "ConventionalAccountedBallots": 80,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 100,
+          "InvalidBallots": 6,
+          "BlankBallots": 14,
+          "AccountedBallots": 80
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
         "TotalReceivedBallots": 100,
         "TotalAccountedBallots": 80,
         "TotalUnaccountedBallots": 20,
@@ -150,6 +162,11 @@
             "Type": 1
           },
           "EVotingSubTotal": {
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0
+          },
+          "ECountingSubTotal": {
             "TotalCountOfAnswerYes": 0,
             "TotalCountOfAnswerNo": 0,
             "TotalCountOfAnswerUnspecified": 0

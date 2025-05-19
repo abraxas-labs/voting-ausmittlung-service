@@ -24,6 +24,10 @@ public class ContestCountingCircleDetails : BaseEntity
 
     public bool EVoting { get; set; }
 
+    public bool ECounting { get; set; }
+
+    public bool ECountingResultsImported { get; set; }
+
     public int TotalCountOfVoters { get; set; }
 
     public CountingMachine CountingMachine { get; set; }

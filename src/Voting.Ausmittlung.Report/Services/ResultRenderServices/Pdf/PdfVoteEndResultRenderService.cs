@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -23,10 +25,10 @@ public class PdfVoteEndResultRenderService : IRendererService
 {
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
+    private readonly IClock _clock;
     private readonly IDbRepository<DataContext, VoteResult> _voteResultRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IMapper _mapper;
-    private readonly IClock _clock;
 
     public PdfVoteEndResultRenderService(
         TemplateService templateService,
@@ -62,31 +64,90 @@ public class PdfVoteEndResultRenderService : IRendererService
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
-            .Where(x => ctx.PoliticalBusinessIds.Contains(x.Id) && x.DomainOfInfluence.Type == ctx.DomainOfInfluenceType)
+            .Where(x => ctx.PoliticalBusinessIds.Contains(x.Id) && x.DomainOfInfluence.BasisDomainOfInfluenceId == ctx.BasisDomainOfInfluenceId)
             .OrderBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
 
-        var domainOfInfluence = GetDomainOfInfluenceAndEnsureIsSingle(votes);
+        if (votes.Count == 0)
+        {
+            throw new ValidationException("Cannot export this report with zero votes");
+        }
 
         // Bugfix for VOTING-2833, where the protocol expects ContestDetails, even though that is not correct
-        // For example, when ctx.DomainOfInfluenceType is a communal type (ex. municipality), the ContestDetails do not work.
-        // It contains the voting cards for all counting circles in the contest, but we only want the voting cards for the
-        // domain of influence of the votes.
-        // This should be fixed in the future by no longer sending the contest details, but individual domain of influence details.
+        // This should be fixed in the future by no longer sending the contest details, but the domain of influence detail.
+        var domainOfInfluence = votes[0].DomainOfInfluence;
         contest.Details = BuildContestDetails(domainOfInfluence);
+
+        // All votes are from the same domain of influence, so all or none are partial results.
+        var isPartialResult = votes[0].DomainOfInfluence.SecureConnectId != ctx.TenantId;
+
+        if (isPartialResult)
+        {
+            var voteIds = votes.ConvertAll(v => v.Id);
+            var results = await _voteResultRepo.Query()
+                .AsSplitQuery()
+                .Include(x => x.CountingCircle.ContestDetails)
+                    .ThenInclude(x => x.VotingCards)
+                .Include(x => x.CountingCircle.ContestDetails)
+                    .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.Ballot.Translations)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.QuestionResults.OrderBy(q => q.Question.Number))
+                        .ThenInclude(x => x.Question.Translations)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.TieBreakQuestionResults.OrderBy(q => q.Question.Number))
+                    .ThenInclude(x => x.Question.Translations)
+                .Where(x => voteIds.Contains(x.VoteId) && ctx.ViewablePartialResultsCountingCircleIds!.Contains(x.CountingCircleId))
+                .ToListAsync();
+
+            var resultsByVoteId = results
+                .GroupBy(x => x.VoteId)
+                .ToDictionary(x => x.Key, x => x.ToList());
+
+            foreach (var vote in votes)
+            {
+                var voteResults = resultsByVoteId.GetValueOrDefault(vote.Id)
+                    ?? throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {vote.Id}");
+
+                vote.EndResult = PartialEndResultUtils.MergeIntoPartialEndResult(
+                    vote,
+                    results);
+            }
+
+            contest.Details = AggregatedContestCountingCircleDetailsBuilder.BuildContestDetails(results
+                .SelectMany(x => x.CountingCircle!.ContestDetails)
+                .DistinctBy(x => x.CountingCircleId)
+                .ToList());
+        }
+
+        foreach (var vote in votes)
+        {
+            vote.MoveECountingToConventional();
+        }
 
         contest.Details?.OrderVotingCardsAndSubTotals();
         var pdfContest = _mapper.Map<PdfContest>(contest);
         pdfContest.Details ??= new PdfContestDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details, ctx.DomainOfInfluenceType);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details, domainOfInfluence.Type);
 
+        PdfCountingCircle? countingCircle = null;
         if (votes[0].EndResult!.TotalCountOfCountingCircles == 1)
         {
-            pdfContest.Details.CountingMachine = await _voteResultRepo.Query()
+            var cc = await _voteResultRepo.Query()
+                .Include(x => x.CountingCircle)
+                    .ThenInclude(x => x.ResponsibleAuthority)
+                .Include(x => x.CountingCircle)
+                    .ThenInclude(x => x.ContactPersonDuringEvent)
+                .Include(x => x.CountingCircle)
+                    .ThenInclude(x => x.ContactPersonAfterEvent)
+                .Include(x => x.CountingCircle)
+                    .ThenInclude(x => x.ContestDetails)
                 .Where(x => x.VoteId == votes[0].Id)
-                .SelectMany(x => x.CountingCircle.ContestDetails)
-                .Select(x => x.CountingMachine)
+                .Select(x => x.CountingCircle)
                 .FirstAsync(ct);
+            pdfContest.Details.CountingMachine = cc.ContestDetails.First().CountingMachine;
+            countingCircle = _mapper.Map<PdfCountingCircle>(cc);
         }
 
         // Do not need this in the report, since we fill out the contest details for the time being
@@ -101,31 +162,18 @@ public class PdfVoteEndResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = pdfContest,
             Votes = pdfVotes,
-            DomainOfInfluenceType = ctx.DomainOfInfluenceType,
+            DomainOfInfluenceType = domainOfInfluence.Type,
+            CountingCircle = countingCircle,
         };
 
         return await _templateService.RenderToPdf(
             ctx,
             templateBag,
-            PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(ctx.DomainOfInfluenceType),
+            votes[0].DomainOfInfluence.ShortName,
             PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
-    }
-
-    private DomainOfInfluence GetDomainOfInfluenceAndEnsureIsSingle(IReadOnlyCollection<Vote> votes)
-    {
-        var domainOfInfluences = votes
-            .Select(x => x.DomainOfInfluence)
-            .DistinctBy(x => x.Id)
-            .ToList();
-
-        if (domainOfInfluences.Count != 1)
-        {
-            throw new ValidationException("Cannot export votes with none or more than one domain of influence");
-        }
-
-        return domainOfInfluences[0];
     }
 
     private ContestDetails? BuildContestDetails(DomainOfInfluence domainOfInfluence)

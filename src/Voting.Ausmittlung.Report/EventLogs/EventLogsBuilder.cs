@@ -42,8 +42,7 @@ public class EventLogsBuilder
         var events = _eventReader
             .ReadEventsFromAll(
                 context.StartPosition,
-                ev => (ev.Data as ContestArchived)?.ContestId == contest.Id.ToString(),
-                data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
+                ev => (ev.Data as ContestArchived)?.ContestId == contest.Id.ToString())
             .Where(ev => IsInContestOrRelated(ev, contest.Id.ToString()));
 
         if (context.TestingPhaseEnded)

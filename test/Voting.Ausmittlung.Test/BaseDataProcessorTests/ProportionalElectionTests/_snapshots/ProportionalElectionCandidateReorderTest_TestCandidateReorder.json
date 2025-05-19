@@ -14,7 +14,7 @@
           {
             "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
             "ShortDescription": "Liste 1 de",
-            "Description": "",
+            "Description": "Liste 1 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -35,7 +35,7 @@
         "ListLotDecisionEntries": [],
         "ProportionalElectionListUnion": null,
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 1 de",
         "ShortDescription": "Liste 1 de",
         "Id": "9091a3b6-3785-4adc-a486-f486e686503e"
       },
@@ -71,6 +71,9 @@
       "Position": 1,
       "Origin": "origin 2",
       "CheckDigit": 4,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "9efe090f-883b-4e86-89c2-cd132ea84cbd"
     },
     {
@@ -87,7 +90,7 @@
           {
             "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
             "ShortDescription": "Liste 1 de",
-            "Description": "",
+            "Description": "Liste 1 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -108,7 +111,7 @@
         "ListLotDecisionEntries": [],
         "ProportionalElectionListUnion": null,
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 1 de",
         "ShortDescription": "Liste 1 de",
         "Id": "9091a3b6-3785-4adc-a486-f486e686503e"
       },
@@ -144,6 +147,9 @@
       "Position": 2,
       "Origin": "origin",
       "CheckDigit": 6,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "8b4837a9-c3ba-4ec5-9e50-536a9b4347a9"
     }
   ]

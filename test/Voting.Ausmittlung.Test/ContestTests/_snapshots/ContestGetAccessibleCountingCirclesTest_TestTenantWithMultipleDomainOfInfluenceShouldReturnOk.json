@@ -27,7 +27,8 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      }
+      },
+      "ECounting": false
     },
     {
       "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
@@ -56,7 +57,8 @@
         "Phone": "071 123 12 22",
         "MobilePhone": "071 123 12 33",
         "Email": "sg@abraxas.ch"
-      }
+      },
+      "ECounting": true
     },
     {
       "Id": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
@@ -85,7 +87,8 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      }
+      },
+      "ECounting": false
     },
     {
       "Id": "46adab98-9114-4503-9000-b02842640650",
@@ -114,7 +117,8 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      }
+      },
+      "ECounting": false
     },
     {
       "Id": "44a75721-f192-461c-816f-9f46a00d274a",
@@ -143,7 +147,8 @@
         "Phone": "",
         "MobilePhone": "",
         "Email": ""
-      }
+      },
+      "ECounting": false
     },
     {
       "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
@@ -172,7 +177,8 @@
         "Phone": "071 123 12 22",
         "MobilePhone": "071 123 12 33",
         "Email": "uzwil-test2@abraxas.ch"
-      }
+      },
+      "ECounting": true
     }
   ]
 }

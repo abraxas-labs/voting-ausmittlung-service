@@ -20,22 +20,24 @@ public class TieBreakQuestionEndResult : BaseEntity,
 
     public TieBreakQuestionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public TieBreakQuestionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public TieBreakQuestionResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <summary>
     /// Gets the total count of the answer yes.
     /// </summary>
-    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1;
+    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ECountingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1;
 
     /// <summary>
     /// Gets the total count of the answer no.
     /// </summary>
-    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2;
+    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ECountingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2;
 
     /// <summary>
     /// Gets the total count of the answer unspecified.
     /// </summary>
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
 
     // This value is updated when the state of a counting circle result changes according to to AuditedTentatively or ResettedToSubmissionFinished.
     // This value is not updated after eVoting imports (eVoting need the counting circle result state to be in correction or in submission)

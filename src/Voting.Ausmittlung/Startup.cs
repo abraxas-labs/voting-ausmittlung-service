@@ -20,7 +20,6 @@ using Prometheus;
 using Voting.Ausmittlung.Converters;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Mapping;
-using Voting.Ausmittlung.Core.Messaging;
 using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Ech.DependencyInjection;
@@ -158,6 +157,7 @@ public class Startup
     {
         endpoints.MapControllers();
         endpoints.MapGrpcReflectionService();
+        endpoints.MapGrpcService<EventLogService>();
         endpoints.MapGrpcService<ContestService>();
         endpoints.MapGrpcService<ResultService>();
         endpoints.MapGrpcService<ResultImportService>();
@@ -184,13 +184,7 @@ public class Startup
             return;
         }
 
-        cfg.AddConsumer<MessageConsumer<ResultStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<MessageConsumer<ResultImportChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<MessageConsumer<WriteInMappingsChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<MessageConsumer<ProtocolExportStateChanged>>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<MajorityElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<ProportionalElectionBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
-        cfg.AddConsumer<VoteBundleChangedMessageConsumer>().Endpoint(ConfigureMessagingConsumerEndpoint);
+        cfg.AddConsumer<MessageConsumer<EventProcessedMessage>>().Endpoint(ConfigureMessagingConsumerEndpoint);
     }
 
     private void ConfigureMessagingConsumerEndpoint(IConsumerEndpointRegistrationConfigurator config)

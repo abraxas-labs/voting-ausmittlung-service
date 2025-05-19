@@ -213,6 +213,15 @@ public class MajorityElectionResultService : ServiceBase
         return ProtobufEmpty.Instance;
     }
 
+    [AuthorizePermission(Permissions.PoliticalBusinessEndResultLotDecision.Update)]
+    public override async Task<Empty> UpdateEndResultSecondaryLotDecisions(UpdateMajorityElectionEndResultSecondaryLotDecisionsRequest request, ServerCallContext context)
+    {
+        await _majorityElectionEndResultWriter.UpdateEndResultSecondaryLotDecisions(
+            GuidParser.Parse(request.MajorityElectionId),
+            _mapper.Map<List<ElectionEndResultLotDecision>>(request.LotDecisions));
+        return ProtobufEmpty.Instance;
+    }
+
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeMajorityElectionEndResultRequest request, ServerCallContext context)
     {

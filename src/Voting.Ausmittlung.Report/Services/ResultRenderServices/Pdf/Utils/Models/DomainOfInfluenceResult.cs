@@ -12,4 +12,6 @@ public abstract class DomainOfInfluenceResult
     public PoliticalBusinessCountOfVoters CountOfVoters { get; } = new PoliticalBusinessCountOfVoters();
 
     public ContestDomainOfInfluenceDetails ContestDomainOfInfluenceDetails { get; } = new ContestDomainOfInfluenceDetails();
+
+    public abstract void OrderCountingCircleResults(ContestCantonDefaults cantonDefaults);
 }

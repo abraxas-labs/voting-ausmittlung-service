@@ -12,6 +12,8 @@ public class PdfSecondaryMajorityElectionResultBallot
 
     public int IndividualVoteCount { get; set; }
 
+    public int InvalidVoteCount { get; set; }
+
     [XmlElement("SecondaryMajorityElectionCandidate")]
     public List<PdfMajorityElectionCandidate> Candidates { get; set; } = new();
 }

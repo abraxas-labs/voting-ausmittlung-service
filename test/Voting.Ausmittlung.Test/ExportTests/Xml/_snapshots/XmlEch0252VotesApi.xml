@@ -432,7 +432,8 @@
         <pollingDay>2020-08-31</pollingDay>
         <voteTitleInformation>
           <language>de</language>
-          <voteTitle>Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitle>
+          <voteTitle>Abstimmung Gossau de - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitle>
+          <voteTitleShort>Abst Gossau de - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitleShort>
         </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>3</voteSubType>

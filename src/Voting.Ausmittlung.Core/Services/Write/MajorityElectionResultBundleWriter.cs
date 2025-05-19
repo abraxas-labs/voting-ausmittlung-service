@@ -338,9 +338,9 @@ public class MajorityElectionResultBundleWriter
 
     private void EnsureNoEmptyVoteCountForSingleMandate(DataModels.MajorityElectionResult electionResult, int? emptyVoteCount)
     {
-        if (electionResult.MajorityElection.NumberOfMandates == 1 && emptyVoteCount != null)
+        if (electionResult.MajorityElection.NumberOfMandates == 1 && emptyVoteCount != null && !electionResult.SecondaryMajorityElectionResults.Any())
         {
-            throw new ValidationException("empty vote count provided with single mandate");
+            throw new ValidationException("empty vote count provided with single mandate and no other elections on the same ballot");
         }
     }
 }

@@ -136,7 +136,7 @@ internal static class VoteInfoMajorityElectionResultMapping
             : null;
         return new CountingCircleResultType
         {
-            CountingCircle = electionResult.CountingCircle.ToEch0252CountingCircle(electionResult.PoliticalBusiness.Contest.DomainOfInfluenceId),
+            CountingCircle = electionResult.CountingCircle.ToEch0252CountingCircle(),
             ResultData = resultData,
         };
     }
@@ -197,6 +197,7 @@ internal static class VoteInfoMajorityElectionResultMapping
             {
                 WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Party)),
             };
         }
@@ -216,6 +217,7 @@ internal static class VoteInfoMajorityElectionResultMapping
             {
                 WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Party)),
             };
         }

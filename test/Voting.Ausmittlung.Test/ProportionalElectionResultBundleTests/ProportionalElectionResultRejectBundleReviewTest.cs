@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -148,9 +147,6 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
-        var bundle1Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1);
-
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new ProportionalElectionResultBundleReviewRejected
@@ -163,10 +159,15 @@ public class ProportionalElectionResultRejectBundleReviewTest : ProportionalElec
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(0);
         bundle.ElectionResult.AllBundlesReviewedOrDeleted.Should().BeFalse();
         bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(3);
+
+        foreach (var log in bundle.Logs)
+        {
+            log.Id = Guid.Empty;
+        }
+
         bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleReviewRejected.Descriptor, bundle.Id);
     }
 
     [Fact]

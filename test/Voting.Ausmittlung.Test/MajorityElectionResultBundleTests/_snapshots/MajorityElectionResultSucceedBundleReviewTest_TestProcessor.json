@@ -1,5 +1,33 @@
 {
   "Ballots": [],
+  "Logs": [
+    {
+      "Bundle": null,
+      "BundleId": "6c73b736-cc42-4325-a8be-7e5233f3d54e",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 1,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "6c73b736-cc42-4325-a8be-7e5233f3d54e",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname",
+        "FullName": "default user firstname default user lastname"
+      },
+      "Timestamp": "2020-07-17T10:07:56Z",
+      "State": 4,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
   "ElectionResult": {
     "MajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
     "MajorityElection": null,
@@ -15,6 +43,17 @@
     },
     "CandidateResults": [],
     "EVotingSubTotal": {
+      "IndividualVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
+      "InvalidVoteCount": 0,
+      "TotalEmptyAndInvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0,
+      "TotalVoteCount": 0,
+      "EmptyVoteCountWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0
+    },
+    "ECountingSubTotal": {
       "IndividualVoteCount": 0,
       "EmptyVoteCountInclWriteIns": 0,
       "InvalidVoteCount": 0,
@@ -51,20 +90,33 @@
     "WriteInMappings": [],
     "WriteInBallots": [],
     "HasUnmappedWriteIns": false,
-    "CountOfElectionsWithUnmappedWriteIns": 0,
+    "HasUnmappedEVotingWriteIns": false,
+    "HasUnmappedECountingWriteIns": false,
+    "CountOfElectionsWithUnmappedEVotingWriteIns": 0,
+    "CountOfElectionsWithUnmappedECountingWriteIns": 0,
     "HasBallotGroups": false,
     "PoliticalBusiness": null,
     "PoliticalBusinessId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
     "CountOfVoters": {
       "VoterParticipation": 0.6,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
-      "ConventionalReceivedBallots": 9000,
-      "ConventionalInvalidBallots": 500,
-      "ConventionalBlankBallots": 500,
-      "ConventionalAccountedBallots": 8000,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 9000,
+        "InvalidBallots": 500,
+        "BlankBallots": 500,
+        "AccountedBallots": 8000
+      },
       "TotalReceivedBallots": 9000,
       "TotalAccountedBallots": 8000,
       "TotalUnaccountedBallots": 1000,

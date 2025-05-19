@@ -4,14 +4,14 @@
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Voting.Ausmittlung.Core.Messaging.Messages;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -23,25 +23,25 @@ public class ProtocolExportProcessor :
     private readonly IDbRepository<DataContext, ProtocolExport> _repo;
     private readonly ILogger<ProtocolExportProcessor> _logger;
     private readonly IMapper _mapper;
-    private readonly MessageProducerBuffer _messageProducerBuffer;
+    private readonly EventLogger _eventLogger;
 
     public ProtocolExportProcessor(
         IDbRepository<DataContext, ProtocolExport> repo,
         ILogger<ProtocolExportProcessor> logger,
         IMapper mapper,
-        MessageProducerBuffer messageProducerBuffer,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo)
+        EventLogger eventLogger)
     {
         _repo = repo;
         _logger = logger;
         _mapper = mapper;
-        _messageProducerBuffer = messageProducerBuffer;
+        _eventLogger = eventLogger;
     }
 
     public async Task Process(ProtocolExportStarted eventData)
     {
         var protocolExport = _mapper.Map<ProtocolExport>(eventData);
 
+        var basisCountingCircleId = protocolExport.CountingCircleId;
         if (protocolExport.CountingCircleId.HasValue)
         {
             protocolExport.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(protocolExport.ContestId, protocolExport.CountingCircleId.Value);
@@ -54,14 +54,15 @@ public class ProtocolExportProcessor :
         protocolExport.Started = eventData.EventInfo.Timestamp.ToDateTime();
 
         await _repo.Create(protocolExport);
-
-        PublishProtocolExportStateChangeMessage(protocolExport);
+        _eventLogger.LogProtocolEvent(eventData, protocolExport, basisCountingCircleId);
     }
 
     public async Task Process(ProtocolExportCompleted eventData)
     {
         var id = GuidParser.Parse(eventData.ProtocolExportId);
-        var protocolExport = await _repo.GetByKey(id);
+        var protocolExport = await _repo.Query()
+            .Include(x => x.CountingCircle)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         if (protocolExport == null)
         {
@@ -72,15 +73,16 @@ public class ProtocolExportProcessor :
 
         protocolExport.State = ProtocolExportState.Completed;
         protocolExport.PrintJobId = eventData.PrintJobId;
-        await _repo.Update(protocolExport);
-
-        PublishProtocolExportStateChangeMessage(protocolExport);
+        await _repo.UpdateIgnoreRelations(protocolExport);
+        _eventLogger.LogProtocolEvent(eventData, protocolExport);
     }
 
     public async Task Process(ProtocolExportFailed eventData)
     {
         var id = GuidParser.Parse(eventData.ProtocolExportId);
-        var protocolExport = await _repo.GetByKey(id);
+        var protocolExport = await _repo.Query()
+            .Include(x => x.CountingCircle)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         if (protocolExport == null)
         {
@@ -90,16 +92,7 @@ public class ProtocolExportProcessor :
         }
 
         protocolExport.State = ProtocolExportState.Failed;
-        await _repo.Update(protocolExport);
-
-        PublishProtocolExportStateChangeMessage(protocolExport);
+        await _repo.UpdateIgnoreRelations(protocolExport);
+        _eventLogger.LogProtocolEvent(eventData, protocolExport);
     }
-
-    private void PublishProtocolExportStateChangeMessage(ProtocolExport protocolExport)
-        => _messageProducerBuffer.Add(new ProtocolExportStateChanged(
-            protocolExport.Id,
-            protocolExport.ExportTemplateId,
-            protocolExport.State,
-            protocolExport.FileName,
-            protocolExport.Started));
 }

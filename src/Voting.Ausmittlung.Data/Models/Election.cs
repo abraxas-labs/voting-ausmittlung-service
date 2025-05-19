@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class Election : PoliticalBusiness
+public abstract class Election : PoliticalBusiness
 {
     public int NumberOfMandates { get; set; }
 }

@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>vote_result_details_e_voting</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -216,7 +217,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>40</TotalReceivedBallots>
           <TotalUnaccountedBallots>10</TotalUnaccountedBallots>
           <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -321,7 +322,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -450,7 +451,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>60</TotalReceivedBallots>
           <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
           <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -927,7 +928,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>100.400000</VoterParticipation>
+          <VoterParticipation>100.4000</VoterParticipation>
           <TotalReceivedBallots>10040</TotalReceivedBallots>
           <TotalUnaccountedBallots>5010</TotalUnaccountedBallots>
           <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -1142,7 +1143,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>32.340000</VoterParticipation>
+          <VoterParticipation>32.3400</VoterParticipation>
           <TotalReceivedBallots>3234</TotalReceivedBallots>
           <TotalUnaccountedBallots>1510</TotalUnaccountedBallots>
           <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -1280,7 +1281,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -1495,7 +1496,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>20</TotalReceivedBallots>
           <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
           <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -1657,7 +1658,7 @@
           </TieBreakQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>60</TotalReceivedBallots>
           <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
           <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -1872,7 +1873,7 @@
           </BallotQuestion>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.400000</VoterParticipation>
+          <VoterParticipation>0.4000</VoterParticipation>
           <TotalReceivedBallots>60</TotalReceivedBallots>
           <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
           <EVotingReceivedBallots>60</EVotingReceivedBallots>

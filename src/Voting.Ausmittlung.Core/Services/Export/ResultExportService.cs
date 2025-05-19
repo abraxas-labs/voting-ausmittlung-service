@@ -19,7 +19,6 @@ using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Utils;
@@ -32,7 +31,6 @@ using Voting.Ausmittlung.Report.Services;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.Messaging;
 using Voting.Lib.VotingExports.Repository;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
@@ -60,10 +58,6 @@ public class ResultExportService
     private readonly IAggregateRepository _aggregateRepository;
     private readonly Dictionary<ExportProvider, IExportProviderUploader> _uploaders;
     private readonly ExportRateLimitService _exportRateLimitService;
-    private readonly MessageConsumerHub<ProtocolExportStateChanged> _protocolExportStateChangedConsumer;
-    private readonly VoteResultBundleReader _voteResultBundleReader;
-    private readonly MajorityElectionResultBundleReader _majorityElectionResultBundleReader;
-    private readonly ProportionalElectionResultBundleReader _proportionalElectionResultBundleReader;
 
     public ResultExportService(
         ExportService exportService,
@@ -83,11 +77,7 @@ public class ResultExportService
         ResultExportTemplateReader resultExportTemplateReader,
         IAggregateRepository aggregateRepository,
         IEnumerable<IExportProviderUploader> uploaders,
-        ExportRateLimitService exportRateLimitService,
-        MessageConsumerHub<ProtocolExportStateChanged> protocolExportStateChangedConsumer,
-        VoteResultBundleReader voteResultBundleReader,
-        MajorityElectionResultBundleReader majorityElectionResultBundleReader,
-        ProportionalElectionResultBundleReader proportionalElectionResultBundleReader)
+        ExportRateLimitService exportRateLimitService)
     {
         _exportService = exportService;
         _contestReader = contestReader;
@@ -107,10 +97,6 @@ public class ResultExportService
         _aggregateRepository = aggregateRepository;
         _uploaders = uploaders.ToDictionary(x => x.Provider);
         _exportRateLimitService = exportRateLimitService;
-        _protocolExportStateChangedConsumer = protocolExportStateChangedConsumer;
-        _voteResultBundleReader = voteResultBundleReader;
-        _majorityElectionResultBundleReader = majorityElectionResultBundleReader;
-        _proportionalElectionResultBundleReader = proportionalElectionResultBundleReader;
     }
 
     public async IAsyncEnumerable<FileModel> GenerateExports(
@@ -118,9 +104,10 @@ public class ResultExportService
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> exportTemplateIds,
         bool internalRateLimit,
+        bool accessiblePbs = false,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
-        var resolvedTemplates = await ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+        var resolvedTemplates = await ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds, accessiblePbs);
 
         if (internalRateLimit)
         {
@@ -221,7 +208,7 @@ public class ResultExportService
             _permissionService.TenantId,
             politicalBusinessId,
             countingCircleId: basisCountingCircleId,
-            politicalBusinesses: new[] { pb },
+            politicalBusinesses: [pb],
             politicalBusinessResultBundleId: bundleId);
 
         var protocolExportId = AusmittlungUuidV5.BuildProtocolExport(
@@ -262,43 +249,6 @@ public class ResultExportService
         await _aggregateRepository.Save(aggregate);
 
         return protocolExportId;
-    }
-
-    public async Task ListenToBundleReviewExportStateChanges(
-        Guid politicalBusinessResultId,
-        PoliticalBusinessType politicalBusinessType,
-        Func<ProtocolExportStateChanged, Task> listener,
-        CancellationToken cancellationToken)
-    {
-        _logger.LogDebug("Listening to bundle review export state changes for political business result with id {PoliticalBusinessResultId}", politicalBusinessResultId);
-
-        var (bundleIds, contestId, basisCountingCircleId, politicalBusinessId, templateKey) =
-            await LoadBundleIdsWithProperties(politicalBusinessResultId, politicalBusinessType);
-
-        var contest = await _contestReader.Get(contestId);
-
-        var protocolExportIds = new HashSet<Guid>();
-        foreach (var bundleId in bundleIds)
-        {
-            var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
-                templateKey,
-                _permissionService.TenantId,
-                basisCountingCircleId,
-                politicalBusinessId,
-                politicalBusinessResultBundleId: bundleId);
-
-            var protocolExportId = AusmittlungUuidV5.BuildProtocolExport(
-                contestId,
-                contest.TestingPhaseEnded,
-                exportTemplateId);
-
-            protocolExportIds.Add(protocolExportId);
-        }
-
-        await _protocolExportStateChangedConsumer.Listen(
-            e => protocolExportIds.Contains(e.ProtocolExportId),
-            listener,
-            cancellationToken);
     }
 
     internal async Task GenerateAutomaticExportsFromConfiguration(Guid id, CancellationToken ct)
@@ -374,7 +324,8 @@ public class ResultExportService
     internal async Task<List<ResultExportTemplate>> ResolveTemplates(
         Guid contestId,
         Guid? basisCountingCircleId,
-        IReadOnlyCollection<Guid> exportTemplateIds)
+        IReadOnlyCollection<Guid> exportTemplateIds,
+        bool accessiblePbs = false)
     {
         var canReadOwnedPbs = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
         if (!canReadOwnedPbs)
@@ -382,7 +333,7 @@ public class ResultExportService
             _auth.EnsurePermission(Permissions.PoliticalBusiness.ReadAccessible);
         }
 
-        var exportTemplates = await _resultExportTemplateReader.FetchExportTemplates(contestId, basisCountingCircleId);
+        var exportTemplates = await _resultExportTemplateReader.FetchExportTemplates(contestId, basisCountingCircleId, accessiblePbs: accessiblePbs);
 
         var idsSet = exportTemplateIds.ToHashSet();
         var resolvedTemplates = exportTemplates
@@ -542,47 +493,6 @@ public class ResultExportService
                     var basisCountingCircleId = bundle.ElectionResult.CountingCircle.BasisCountingCircleId;
                     var politicalBusinessId = bundle.ElectionResult.PoliticalBusinessId;
                     return (contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key);
-                }
-
-            default:
-                throw new ArgumentException($"political business type {politicalBusinessType} is not valid");
-        }
-    }
-
-    private async Task<(HashSet<Guid> BundleIds, Guid ContestId, Guid BasisCountingCircleId, Guid PoliticalBusinessId, string TemplateKey)> LoadBundleIdsWithProperties(
-        Guid politicalBusinessResultId,
-        PoliticalBusinessType politicalBusinessType)
-    {
-        switch (politicalBusinessType)
-        {
-            case PoliticalBusinessType.Vote:
-                {
-                    var ballotResult = await _voteResultBundleReader.GetBallotResultWithBundles(politicalBusinessResultId);
-                    var bundleIds = ballotResult.Bundles.Select(x => x.Id).ToHashSet();
-                    var contestId = ballotResult.VoteResult.Vote.ContestId;
-                    var basisCountingCircleId = ballotResult.VoteResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = ballotResult.VoteResult.PoliticalBusinessId;
-                    return (bundleIds, contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfVoteTemplates.ResultBundleReview.Key);
-                }
-
-            case PoliticalBusinessType.MajorityElection:
-                {
-                    var majorityElectionResult = await _majorityElectionResultBundleReader.GetElectionResultWithBundles(politicalBusinessResultId);
-                    var bundleIds = majorityElectionResult.Bundles.Select(x => x.Id).ToHashSet();
-                    var contestId = majorityElectionResult.MajorityElection.ContestId;
-                    var basisCountingCircleId = majorityElectionResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = majorityElectionResult.PoliticalBusinessId;
-                    return (bundleIds, contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfMajorityElectionTemplates.ResultBundleReview.Key);
-                }
-
-            case PoliticalBusinessType.ProportionalElection:
-                {
-                    var proportionalElectionResult = await _proportionalElectionResultBundleReader.GetElectionResultWithBundles(politicalBusinessResultId);
-                    var bundleIds = proportionalElectionResult.Bundles.Select(x => x.Id).ToHashSet();
-                    var contestId = proportionalElectionResult.ProportionalElection.ContestId;
-                    var basisCountingCircleId = proportionalElectionResult.CountingCircle.BasisCountingCircleId;
-                    var politicalBusinessId = proportionalElectionResult.PoliticalBusinessId;
-                    return (bundleIds, contestId, basisCountingCircleId, politicalBusinessId, AusmittlungPdfProportionalElectionTemplates.ResultBundleReview.Key);
                 }
 
             default:

@@ -52,9 +52,8 @@ public class EventLogBuilderContextBuilder
         var createdOrTestingPhaseEndedEvents = await _eventReader
             .ReadEventsFromAll(
                 Position.Start,
-                new[] { typeof(ContestCreated), typeof(ContestTestingPhaseEnded) },
-                r => (r.Data as ContestTestingPhaseEnded)?.ContestId == protoContestId,
-                data => AppDescriptorProvider.GetBusinessMetadataDescriptor(data))
+                [typeof(ContestCreated), typeof(ContestTestingPhaseEnded)],
+                r => (r.Data as ContestTestingPhaseEnded)?.ContestId == protoContestId)
             .Where(r => (r.Metadata as BasisEventSignatureBusinessMetadata)?.ContestId == protoContestId)
             .ToListAsync();
 
@@ -74,11 +73,11 @@ public class EventLogBuilderContextBuilder
         {
             // loads to simplify the public keys of basis and ausmittlung into the same report aggregate, although they are from different streams.
             var publicKeySignatureBasisEvents = _eventReader
-                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureBasis, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
+                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureBasis, contestId))
                 .Select(ev => new { ev.Data, ev.Metadata });
 
             var publicKeySignatureAusmittlungEvents = _eventReader
-                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureAusmittlung, contestId), data => AppDescriptorProvider.GetPublicKeyMetadataDescriptor(data))
+                .ReadEvents(AggregateNames.Build(AggregateNames.ContestEventSignatureAusmittlung, contestId))
                 .Select(ev => new { ev.Data, ev.Metadata });
 
             await foreach (var publicKeySignatureEvent in publicKeySignatureBasisEvents)

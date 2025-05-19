@@ -120,10 +120,10 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
 
             foreach (var ballotResult in ballotResults)
             {
-                ballotResult.CountOfVoters.EVotingReceivedBallots = 20 * modifier;
-                ballotResult.CountOfVoters.EVotingInvalidBallots = 2 * modifier;
-                ballotResult.CountOfVoters.EVotingBlankBallots = 3 * modifier;
-                ballotResult.CountOfVoters.EVotingAccountedBallots = 15 * modifier;
+                ballotResult.CountOfVoters.EVotingSubTotal.ReceivedBallots = 20 * modifier;
+                ballotResult.CountOfVoters.EVotingSubTotal.InvalidBallots = 2 * modifier;
+                ballotResult.CountOfVoters.EVotingSubTotal.BlankBallots = 3 * modifier;
+                ballotResult.CountOfVoters.EVotingSubTotal.AccountedBallots = 15 * modifier;
                 ballotResult.CountOfVoters.UpdateVoterParticipation(50 * modifier);
 
                 foreach (var bqr in ballotResult.QuestionResults)

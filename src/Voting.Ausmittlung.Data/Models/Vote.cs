@@ -58,6 +58,16 @@ public class Vote : PoliticalBusiness, IHasResults, IPoliticalBusinessHasTransla
 
     public string InternalDescription { get; set; } = string.Empty;
 
+    public override void MoveECountingToConventional()
+    {
+        EndResult?.MoveECountingToConventional();
+
+        foreach (var result in Results)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
+
     public void UpdateSubTypeManually(bool hasBallotWithVariantBallotType)
     {
         _politicalBusinessSubType = CalculateSubType(hasBallotWithVariantBallotType);

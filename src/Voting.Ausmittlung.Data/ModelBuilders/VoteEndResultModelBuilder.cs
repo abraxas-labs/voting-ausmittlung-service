@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
@@ -52,10 +53,7 @@ public class VoteEndResultModelBuilder :
             .HasForeignKey(br => br.VoteEndResultId)
             .IsRequired();
 
-        builder
-            .OwnsOne(x => x.CountOfVoters);
-        builder
-            .Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
     }
 
     public void Configure(EntityTypeBuilder<BallotQuestionEndResult> builder)
@@ -81,6 +79,9 @@ public class VoteEndResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<TieBreakQuestionEndResult> builder)
@@ -102,5 +103,8 @@ public class VoteEndResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 }

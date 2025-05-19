@@ -27,7 +27,8 @@
     "CountingCircleContactPerson:create",
     "CountingCircleContactPerson:update",
     "ContestCountingCircleDetails:update",
-    "Import:listen-import-changes",
-    "Export:export"
+    "Import:read-ecounting",
+    "Export:export",
+    "EventLog:watch"
   ]
 }

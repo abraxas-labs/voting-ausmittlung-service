@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,9 +24,9 @@ public class PdfVoteCountingCircleEVotingResultRenderService : IRendererService
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
-    private readonly IClock _clock;
 
     public PdfVoteCountingCircleEVotingResultRenderService(
         IDbRepository<DataContext, Vote> voteRepo,
@@ -83,6 +84,11 @@ public class PdfVoteCountingCircleEVotingResultRenderService : IRendererService
             .ThenBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
 
+        foreach (var vote in votes)
+        {
+            vote.MoveECountingToConventional();
+        }
+
         var countingCircle = await _countingCircleRepo.Query()
             .AsSplitQuery()
             .Include(x => x.ContestDetails.Where(co => co.ContestId == ctx.ContestId))
@@ -104,6 +110,7 @@ public class PdfVoteCountingCircleEVotingResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(contest),
             Votes = pdfVotes,
             CountingCircle = pdfCountingCircle,

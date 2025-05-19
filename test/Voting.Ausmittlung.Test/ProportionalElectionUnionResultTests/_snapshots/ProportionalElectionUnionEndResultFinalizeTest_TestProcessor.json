@@ -28,7 +28,8 @@
         "ManualPublishResultsEnabled": false,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "ProportionalElectionUnion": {
       "Id": "ea79e680-1848-43c6-91a3-a3f507010d12",

@@ -290,6 +290,7 @@ public class DoubleProportionalResultBuilder
         if (!dpResult.AllNumberOfMandatesDistributed)
         {
             electionEndResult.Reset();
+            electionEndResult.MandateDistributionTriggered = dpResult.SuperApportionmentState == DoubleProportionalResultApportionmentState.HasOpenLotDecision;
             return;
         }
 

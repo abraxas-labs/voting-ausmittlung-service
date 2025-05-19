@@ -8,7 +8,6 @@ using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using AutoMapper;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Domain;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Export.Models;
 using Voting.Ausmittlung.Report.Models;
 using DataModels = Voting.Ausmittlung.Data.Models;
@@ -40,8 +39,6 @@ public class ExportProfile : Profile
         CreateMap<ExportTemplateContainer<ProtocolExportTemplate>, ProtoModels.ProtocolExports>()
             .ForMember(dst => dst.ProtocolExports_, opts => opts.MapFrom(src => src.Templates));
 
-        CreateMap<ProtocolExportStateChanged, ProtoModels.ProtocolExportStateChange>();
-
         CreateMap<DataModels.ResultExportConfiguration, ProtoModels.ResultExportConfiguration>()
             .ForMember(dst => dst.PoliticalBusinessIds, opts => opts.MapFrom(src => src.PoliticalBusinesses!.Select(x => x.PoliticalBusinessId)))
             .ForMember(dst => dst.PoliticalBusinessMetadata, opts => opts.MapFrom(src => src.PoliticalBusinessMetadata!.ToDictionary(x => x.PoliticalBusinessId)));
@@ -62,10 +59,12 @@ public class ExportProfile : Profile
         CreateMap<DataModels.ProtocolExport, ProtocolExportResponse>();
         CreateMap<DataModels.ProtocolExport, ProtocolExportStateResponse>()
             .ForMember(dst => dst.ProtocolExportId, opts => opts.MapFrom(src => src.Id));
-        CreateMap<ResultExportTemplate, DataExportTemplate>();
+        CreateMap<ResultExportTemplate, DataExportTemplate>()
+            .ForMember(dst => dst.TemplateKey, opts => opts.MapFrom(src => src.Template.Key));
         CreateMap<ResultExportTemplate, ProtocolExportResponse>();
         CreateMap<ProtocolExportTemplate, ProtocolExportResponse>()
             .ForMember(dst => dst.ProtocolExportId, opts => opts.MapFrom(src => src.ProtocolExport != null ? (Guid?)src.ProtocolExport.Id : null))
+            .ForMember(dst => dst.TemplateKey, opts => opts.MapFrom(src => src.Template.Template.Key))
             .IncludeMembers(src => src.Template)
             .AfterMap((src, dst, ctx) =>
             {

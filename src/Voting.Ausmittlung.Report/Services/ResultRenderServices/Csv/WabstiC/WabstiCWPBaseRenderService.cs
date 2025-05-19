@@ -21,7 +21,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 public abstract class WabstiCWPBaseRenderService : IRendererService
 {
     private const string FileNameParamReplacement = "_";
-    private static readonly Regex _validFileNameParam = new("[. ]+", RegexOptions.Compiled);
+    private static readonly Regex _validFileNameParam = new("[. ]+", RegexOptions.Compiled, TimeSpan.FromMicroseconds(100));
 
     private readonly TemplateService _templateService;
 

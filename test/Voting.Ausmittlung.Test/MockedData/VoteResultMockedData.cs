@@ -84,10 +84,13 @@ public static class VoteResultMockedData
                         BallotId = Guid.Parse(VoteMockedData.BallotId1BundVote2InContestBund),
                         CountOfVoters = new PoliticalBusinessNullableCountOfVoters
                         {
-                            ConventionalReceivedBallots = 10000,
-                            ConventionalInvalidBallots = 3000,
-                            ConventionalAccountedBallots = 2000,
-                            ConventionalBlankBallots = 2000,
+                            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                            {
+                                ReceivedBallots = 10000,
+                                InvalidBallots = 3000,
+                                AccountedBallots = 2000,
+                                BlankBallots = 2000,
+                            },
                             VoterParticipation = .5m,
                         },
                         QuestionResults =
@@ -183,10 +186,13 @@ public static class VoteResultMockedData
                         BallotId = Guid.Parse(VoteMockedData.BallotId2BundVote2InContestBund),
                         CountOfVoters = new PoliticalBusinessNullableCountOfVoters
                         {
-                            ConventionalReceivedBallots = 3194,
-                            ConventionalInvalidBallots = 500,
-                            ConventionalAccountedBallots = 1694,
-                            ConventionalBlankBallots = 1000,
+                            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                            {
+                                ReceivedBallots = 3194,
+                                InvalidBallots = 500,
+                                AccountedBallots = 1694,
+                                BlankBallots = 1000,
+                            },
                             VoterParticipation = 3194m / 40_000,
                         },
                         QuestionResults =
@@ -231,10 +237,13 @@ public static class VoteResultMockedData
                         BallotId = Guid.Parse(VoteMockedData.BallotIdGossauVoteInContestGossau),
                         CountOfVoters = new PoliticalBusinessNullableCountOfVoters
                         {
-                            ConventionalReceivedBallots = 10000,
-                            ConventionalInvalidBallots = 3000,
-                            ConventionalAccountedBallots = 2000,
-                            ConventionalBlankBallots = 2000,
+                            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                            {
+                                ReceivedBallots = 10000,
+                                InvalidBallots = 3000,
+                                AccountedBallots = 2000,
+                                BlankBallots = 2000,
+                            },
                             VoterParticipation = .5m,
                         },
                         QuestionResults =
@@ -283,10 +292,13 @@ public static class VoteResultMockedData
                         BallotId = Guid.Parse(VoteMockedData.BallotIdGossauVoteInContestStGallen),
                         CountOfVoters = new PoliticalBusinessNullableCountOfVoters
                         {
-                            ConventionalReceivedBallots = 20000,
-                            ConventionalInvalidBallots = 3000,
-                            ConventionalAccountedBallots = 12000,
-                            ConventionalBlankBallots = 2000,
+                            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                            {
+                                ReceivedBallots = 20000,
+                                InvalidBallots = 3000,
+                                AccountedBallots = 12000,
+                                BlankBallots = 2000,
+                            },
                             VoterParticipation = .75m,
                         },
                         QuestionResults =
@@ -353,10 +365,13 @@ public static class VoteResultMockedData
                         BallotId = Guid.Parse(VoteMockedData.BallotIdUzwilVoteInContestStGallen),
                         CountOfVoters = new PoliticalBusinessNullableCountOfVoters
                         {
-                            ConventionalReceivedBallots = 20000,
-                            ConventionalInvalidBallots = 3000,
-                            ConventionalAccountedBallots = 12000,
-                            ConventionalBlankBallots = 2000,
+                            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                            {
+                                ReceivedBallots = 20000,
+                                InvalidBallots = 3000,
+                                AccountedBallots = 12000,
+                                BlankBallots = 2000,
+                            },
                             VoterParticipation = .75m,
                         },
                         QuestionResults =

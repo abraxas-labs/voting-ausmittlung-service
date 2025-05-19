@@ -36,6 +36,7 @@ public class ExportService
         {
             PoliticalBusinessIds = exportTemplate.PoliticalBusinessIds,
             BasisCountingCircleId = exportTemplate.CountingCircleId,
+            BasisDomainOfInfluenceId = exportTemplate.DomainOfInfluenceId,
             DomainOfInfluenceType = exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
             PoliticalBusinessUnionId = exportTemplate.PoliticalBusinessUnionId,
             PoliticalBusinessResultBundleId = exportTemplate.PoliticalBusinessResultBundleId,

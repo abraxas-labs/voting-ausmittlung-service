@@ -3,10 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
 
+[DebuggerDisplay("{Name}")]
 public class CountingCircle : BaseEntity, IHasSnapshotContest
 {
     public string Name { get; set; } = string.Empty;
@@ -43,6 +45,8 @@ public class CountingCircle : BaseEntity, IHasSnapshotContest
 
     public bool EVoting { get; set; }
 
+    public bool ECounting { get; set; }
+
     public ICollection<CountingCircleElectorate> Electorates { get; set; } = new HashSet<CountingCircleElectorate>();
 
     public ICollection<ContestCountingCircleElectorate> ContestElectorates { get; set; } = new HashSet<ContestCountingCircleElectorate>();
@@ -58,4 +62,6 @@ public class CountingCircle : BaseEntity, IHasSnapshotContest
     public ICollection<ContestCountingCircleDetails> ContestDetails { get; set; } = new HashSet<ContestCountingCircleDetails>();
 
     public ICollection<SimpleCountingCircleResult> SimpleResults { get; set; } = new HashSet<SimpleCountingCircleResult>();
+
+    public ICollection<ResultImport> ResultImports { get; set; } = new HashSet<ResultImport>();
 }

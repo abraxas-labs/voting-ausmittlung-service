@@ -48,4 +48,10 @@ public class SimplePoliticalBusiness : PoliticalBusiness, IPoliticalBusinessHasT
         get => Translations;
         set => Translations = value.Cast<SimplePoliticalBusinessTranslation>().ToList();
     }
+
+    public override void MoveECountingToConventional()
+    {
+        // simple results do not have result voting data
+        // only status datat etc.
+    }
 }

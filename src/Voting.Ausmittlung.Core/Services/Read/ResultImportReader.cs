@@ -4,18 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
 
@@ -24,165 +19,162 @@ public class ResultImportReader
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, ResultImport> _resultImportRepo;
     private readonly IDbRepository<DataContext, MajorityElection> _majorityElectionRepo;
-    private readonly IDbRepository<DataContext, MajorityElectionResult> _majorityElectionResultRepo;
+    private readonly IDbRepository<DataContext, SecondaryMajorityElection> _secondaryMajorityElectionRepo;
     private readonly IDbRepository<DataContext, MajorityElectionWriteInMapping> _majorityWriteInMappingRepo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> _majoritySecondaryWriteInMappingRepo;
-    private readonly ILogger<ResultImportReader> _logger;
-    private readonly MessageConsumerHub<ResultImportChanged> _resultImportChangeConsumer;
-    private readonly MessageConsumerHub<WriteInMappingsChanged> _writeInMappingChangeConsumer;
 
     public ResultImportReader(
         PermissionService permissionService,
         IDbRepository<DataContext, ResultImport> resultImportRepo,
         IDbRepository<DataContext, MajorityElection> majorityElectionRepo,
-        IDbRepository<DataContext, MajorityElectionResult> majorityElectionResultRepo,
+        IDbRepository<DataContext, SecondaryMajorityElection> secondaryMajorityElectionRepo,
         IDbRepository<DataContext, MajorityElectionWriteInMapping> majorityWriteInMappingRepo,
-        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> majoritySecondaryWriteInMappingRepo,
-        ILogger<ResultImportReader> logger,
-        MessageConsumerHub<ResultImportChanged> resultImportChangeConsumer,
-        MessageConsumerHub<WriteInMappingsChanged> writeInMappingChangeConsumer)
+        IDbRepository<DataContext, SecondaryMajorityElectionWriteInMapping> majoritySecondaryWriteInMappingRepo)
     {
         _permissionService = permissionService;
         _resultImportRepo = resultImportRepo;
         _majorityElectionRepo = majorityElectionRepo;
-        _majorityElectionResultRepo = majorityElectionResultRepo;
+        _secondaryMajorityElectionRepo = secondaryMajorityElectionRepo;
         _majorityWriteInMappingRepo = majorityWriteInMappingRepo;
         _majoritySecondaryWriteInMappingRepo = majoritySecondaryWriteInMappingRepo;
-        _logger = logger;
-        _resultImportChangeConsumer = resultImportChangeConsumer;
-        _writeInMappingChangeConsumer = writeInMappingChangeConsumer;
     }
 
-    public async Task<List<ResultImport>> GetResultImports(Guid contestId)
+    public async Task<List<ResultImport>> ListEVotingImports(Guid contestId)
     {
         await _permissionService.EnsureIsContestManager(contestId);
-        return await _resultImportRepo.Query()
+        return await GetResultImports(ResultImportType.EVoting, contestId, null);
+    }
+
+    public async Task<List<ResultImport>> ListECountingImports(Guid contestId, Guid countingCircleId)
+    {
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircle(countingCircleId, contestId);
+        return await GetResultImports(ResultImportType.ECounting, contestId, countingCircleId);
+    }
+
+    public async Task<List<MajorityElectionGroupedWriteInMappings>> GetMajorityElectionWriteInMappings(
+        Guid contestId,
+        Guid countingCircleBasisId,
+        Guid? electionId,
+        ResultImportType? importType)
+    {
+        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleBasisId, contestId);
+
+        Dictionary<Guid, MajorityElectionBase> politicalBusinessesById;
+        if (electionId.HasValue)
+        {
+            MajorityElectionBase? election = await _majorityElectionRepo.Query()
+                .AsSplitQuery()
+                .Include(x => x.Translations)
+                .Include(x => x.DomainOfInfluence)
+                .Include(x => x.Contest.CantonDefaults)
+                .FirstOrDefaultAsync(x =>
+                    x.Id == electionId
+                    && x.ContestId == contestId
+                    && x.Active
+                    && x.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId));
+            election ??= await _secondaryMajorityElectionRepo.Query()
+                .AsSplitQuery()
+                .Include(x => x.Translations)
+                .Include(x => x.PrimaryMajorityElection.DomainOfInfluence)
+                .Include(x => x.PrimaryMajorityElection.Contest.CantonDefaults)
+                .FirstOrDefaultAsync(x =>
+                    x.Id == electionId
+                    && x.PrimaryMajorityElection.ContestId == contestId
+                    && x.Active
+                    && x.PrimaryMajorityElection.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId));
+            if (election == null)
+            {
+                return [];
+            }
+
+            politicalBusinessesById = new Dictionary<Guid, MajorityElectionBase> { { election.Id, election } };
+        }
+        else
+        {
+            var elections = await _majorityElectionRepo.Query()
+                .AsSplitQuery()
+                .Include(x => x.Translations)
+                .Include(x => x.SecondaryMajorityElections.Where(y => y.Active))
+                .ThenInclude(x => x.Translations)
+                .Include(x => x.DomainOfInfluence)
+                .Include(x => x.Contest.CantonDefaults)
+                .Where(x => x.ContestId == contestId &&
+                            x.Active &&
+                            x.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId))
+                .ToListAsync();
+
+            politicalBusinessesById = elections
+                .SelectMany(e => e.SecondaryMajorityElections.Cast<MajorityElectionBase>().Prepend(e))
+                .ToDictionary(x => x.Id);
+        }
+
+        var writeInMappingsQuery = _majorityWriteInMappingRepo.Query()
+            .Include(x => x.Result)
+            .Include(x => x.CandidateResult)
+            .Where(x => politicalBusinessesById.Keys.Contains(x.Result.MajorityElectionId) && x.Result.CountingCircle.BasisCountingCircleId == countingCircleBasisId);
+
+        if (importType.HasValue)
+        {
+            writeInMappingsQuery = writeInMappingsQuery.Where(x => x.ImportType == importType.Value);
+        }
+
+        var writeInMappings = await writeInMappingsQuery
+            .OrderBy(x => x.Result.MajorityElection.DomainOfInfluence.Type)
+            .ThenBy(x => x.Result.MajorityElection.PoliticalBusinessNumber)
+            .ThenBy(x => x.ImportType)
+            .ThenByDescending(x => x.VoteCount)
+            .ThenBy(x => x.WriteInCandidateName)
+            .ToListAsync();
+
+        var secondaryWriteInMappingsQuery = _majoritySecondaryWriteInMappingRepo.Query()
+            .Include(x => x.Result)
+            .Include(x => x.CandidateResult)
+            .Where(x => politicalBusinessesById.Keys.Contains(x.Result.SecondaryMajorityElectionId) && x.Result.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleBasisId);
+
+        if (importType.HasValue)
+        {
+            secondaryWriteInMappingsQuery = secondaryWriteInMappingsQuery.Where(x => x.ImportType == importType.Value);
+        }
+
+        var secondaryWriteInMappings = await secondaryWriteInMappingsQuery
+            .OrderBy(x => x.Result.SecondaryMajorityElection.PrimaryMajorityElection.DomainOfInfluence.Type)
+            .ThenBy(x => x.Result.SecondaryMajorityElection.PoliticalBusinessNumber)
+            .ThenBy(x => x.ImportType)
+            .ThenByDescending(x => x.VoteCount)
+            .ThenBy(x => x.WriteInCandidateName)
+            .ToListAsync();
+
+        return writeInMappings.Cast<MajorityElectionWriteInMappingBase>()
+            .Concat(secondaryWriteInMappings)
+            .Where(x => !electionId.HasValue || x.PoliticalBusinessId == electionId)
+            .GroupBy(x => (x.ImportType, x.ImportId, x.PoliticalBusinessId))
+            .Select(writeInGroup => new MajorityElectionGroupedWriteInMappings(
+                writeInGroup.Key.ImportId,
+                writeInGroup.Key.ImportType,
+                politicalBusinessesById[writeInGroup.Key.PoliticalBusinessId],
+                writeInGroup.ToList()))
+            .ToList();
+    }
+
+    private async Task<List<ResultImport>> GetResultImports(
+        ResultImportType importType,
+        Guid contestId,
+        Guid? basisCountingCircleId)
+    {
+        var query = _resultImportRepo.Query()
             .AsSplitQuery()
             .Include(x => x.IgnoredCountingCircles.OrderBy(cc => cc.CountingCircleId))
             .Include(x => x.ImportedCountingCircles.OrderBy(cc => cc.CountingCircle!.Name))
             .ThenInclude(x => x.CountingCircle)
-            .Where(x => x.ContestId == contestId)
-            .OrderByDescending(x => x.Started)
-            .ToListAsync();
-    }
+            .Where(x => x.ImportType == importType && x.ContestId == contestId);
 
-    public async Task<ImportMajorityElectionWriteInMappings> GetMajorityElectionWriteInMappings(Guid contestId, Guid countingCircleBasisId)
-    {
-        await _permissionService.EnsureIsContestManagerAndInTestingPhaseOrHasPermissionsOnCountingCircleWithBasisId(countingCircleBasisId, contestId);
-
-        var importId = await GetLatestResultImportId(contestId)
-                       ?? throw new EntityNotFoundException(nameof(ResultImport), new { contestId });
-
-        var elections = await _majorityElectionRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.Translations)
-            .Include(x => x.SecondaryMajorityElections.Where(y => y.Active).OrderBy(y => y.PoliticalBusinessNumber))
-            .ThenInclude(x => x.Translations)
-            .Include(x => x.DomainOfInfluence)
-            .Include(x => x.Contest.CantonDefaults)
-            .Where(x => x.ContestId == contestId &&
-                        x.Active &&
-                        x.Results.Any(cc => cc.CountingCircle.BasisCountingCircleId == countingCircleBasisId))
-            .OrderBy(x => x.DomainOfInfluence.Type)
-            .ThenBy(x => x.PoliticalBusinessNumber)
-            .ToListAsync();
-
-        var majorityElectionIds = elections
-            .Select(x => x.Id)
-            .ToHashSet();
-
-        var secondaryMajorityElectionIds = elections
-            .SelectMany(x => x.SecondaryMajorityElections)
-            .Select(x => x.Id)
-            .ToHashSet();
-
-        var writeInMappings = await _majorityWriteInMappingRepo.Query()
-            .Include(x => x.Result)
-            .Include(x => x.CandidateResult)
-            .Where(x => majorityElectionIds.Contains(x.Result.MajorityElectionId) && x.Result.CountingCircle.BasisCountingCircleId == countingCircleBasisId)
-            .OrderByDescending(x => x.VoteCount)
-            .ThenBy(x => x.WriteInCandidateName)
-            .ToListAsync();
-        var writeInMappingsByMajorityElectionId = writeInMappings
-            .GroupBy(x => x.Result.MajorityElectionId)
-            .ToDictionary(x => x.Key, x => x.ToList());
-
-        var secondaryWriteInMappings = await _majoritySecondaryWriteInMappingRepo.Query()
-            .Include(x => x.Result)
-            .Include(x => x.CandidateResult)
-            .Where(x => secondaryMajorityElectionIds.Contains(x.Result.SecondaryMajorityElectionId) && x.Result.PrimaryResult.CountingCircle.BasisCountingCircleId == countingCircleBasisId)
-            .OrderByDescending(x => x.VoteCount)
-            .ThenBy(x => x.WriteInCandidateName)
-            .ToListAsync();
-        var secondaryWriteInMappingsByMajorityElectionId = secondaryWriteInMappings
-            .GroupBy(x => x.Result.SecondaryMajorityElectionId)
-            .ToDictionary(x => x.Key, x => x.ToList());
-
-        var politicalBusinesses = elections.SelectMany(e => e.SecondaryMajorityElections.Cast<MajorityElectionBase>().Prepend(e));
-        var mappingGroups = new List<MajorityElectionGroupedWriteInMappings>();
-        foreach (var politicalBusiness in politicalBusinesses)
+        if (basisCountingCircleId.HasValue)
         {
-            IReadOnlyCollection<MajorityElectionWriteInMappingBase>? writeIns = writeInMappingsByMajorityElectionId.GetValueOrDefault(politicalBusiness.Id);
-            writeIns ??= secondaryWriteInMappingsByMajorityElectionId.GetValueOrDefault(politicalBusiness.Id);
-            if (writeIns == null)
-            {
-                continue;
-            }
-
-            mappingGroups.Add(new MajorityElectionGroupedWriteInMappings(
-                politicalBusiness,
-                writeIns));
+            query = query.Where(x => x.CountingCircle!.BasisCountingCircleId == basisCountingCircleId.Value);
         }
 
-        return new ImportMajorityElectionWriteInMappings(importId, mappingGroups);
-    }
-
-    public async Task ListenToWriteInMappingChanges(
-        Guid contestId,
-        Guid countingCircleId,
-        Func<WriteInMappingsChanged, Task> listener,
-        CancellationToken cancellationToken)
-    {
-        _logger.LogDebug("Listening to write in mapping changes for counting circle with id {CountingCircleId}", countingCircleId);
-        await _permissionService.EnsureCanReadBasisCountingCircle(countingCircleId, contestId);
-        _logger.LogDebug("Listening permission is assured.");
-
-        var resultIds = await _majorityElectionResultRepo.Query()
-            .Where(x => x.MajorityElection.ContestId == contestId && x.CountingCircle.BasisCountingCircleId == countingCircleId)
-            .Select(x => x.Id)
-            .ToListAsync(cancellationToken);
-        var resultIdSet = new HashSet<Guid>(resultIds);
-
-        await _writeInMappingChangeConsumer.Listen(
-            b => resultIdSet.Contains(b.ElectionResultId),
-            listener,
-            cancellationToken);
-    }
-
-    public async Task ListenToResultImportChanges(
-        Guid contestId,
-        Guid countingCircleId,
-        Func<ResultImportChanged, Task> listener,
-        CancellationToken cancellationToken)
-    {
-        _logger.LogDebug("Listening to result import changes for counting circle with id {CountingCircleId}", countingCircleId);
-
-        await _permissionService.EnsureCanReadBasisCountingCircle(countingCircleId, contestId);
-
-        _logger.LogDebug("Listening permission is assured.");
-
-        await _resultImportChangeConsumer.Listen(
-            e => contestId == e.ContestId && countingCircleId == e.CountingCircleId,
-            listener,
-            cancellationToken);
-    }
-
-    private async Task<Guid?> GetLatestResultImportId(Guid contestId)
-    {
-        return await _resultImportRepo.Query()
-            .Where(x => x.ContestId == contestId)
+        return await query
             .OrderByDescending(x => x.Started)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
+            .ToListAsync();
     }
 }

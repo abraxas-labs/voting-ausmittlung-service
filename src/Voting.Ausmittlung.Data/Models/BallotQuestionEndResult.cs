@@ -20,22 +20,24 @@ public class BallotQuestionEndResult : BaseEntity,
 
     public BallotQuestionResultSubTotal EVotingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
 
+    public BallotQuestionResultSubTotal ECountingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
+
     public BallotQuestionResultSubTotal ConventionalSubTotal { get; set; } = new BallotQuestionResultSubTotal();
 
     /// <summary>
     /// Gets the total count of the answer yes.
     /// </summary>
-    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes;
+    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ECountingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes;
 
     /// <summary>
     /// Gets the total count of the answer no.
     /// </summary>
-    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo;
+    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ECountingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo;
 
     /// <summary>
     /// Gets the total count of the answer unspecified.
     /// </summary>
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
 
     // This value is updated when the state of a counting circle result changes according to to AuditedTentatively or ResettedToSubmissionFinished.
     // This value is not updated after eVoting imports (eVoting need the counting circle result state to be in correction or in submission)

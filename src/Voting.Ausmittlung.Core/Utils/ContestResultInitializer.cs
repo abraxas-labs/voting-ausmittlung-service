@@ -114,6 +114,7 @@ public class ContestResultInitializer
             ContestId = contestId,
             CountingCircleId = x.CountingCircleId,
             EVoting = x.EVoting,
+            ECounting = x.ECounting,
         }));
     }
 

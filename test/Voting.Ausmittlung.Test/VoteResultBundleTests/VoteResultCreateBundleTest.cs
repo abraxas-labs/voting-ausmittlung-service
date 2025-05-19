@@ -14,7 +14,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -106,11 +105,7 @@ public class VoteResultCreateBundleTest : VoteResultBundleBaseTest
         result.AllBundlesReviewedOrDeleted.Should().BeFalse();
         result.CountOfBundlesNotReviewedOrDeleted.Should().Be(5);
 
-        await AssertHasPublishedMessage<VoteBundleChanged>(
-            x => x.Id == bundle3Id && x.BallotResultId == ballotResultId);
-
-        await AssertHasPublishedMessage<VoteBundleChanged>(
-            x => x.Id == bundle4Id && x.BallotResultId == ballotResultId);
+        await AssertHasPublishedEventProcessedMessage(VoteResultBundleCreated.Descriptor, bundle3Id);
     }
 
     [Fact]

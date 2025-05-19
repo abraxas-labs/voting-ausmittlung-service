@@ -80,6 +80,7 @@ public class ProtocolExportService
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> protocolExportIds,
         bool isBundleReview,
+        bool accessiblePbs = false,
         [EnumeratorCancellation] CancellationToken ct = default)
     {
         var protocolExports = await _protocolExportRepo
@@ -98,7 +99,7 @@ public class ProtocolExportService
         // Bundle review templates cannot be resolved since they aren't listed in the template repository, so we bypass them.
         if (!isBundleReview)
         {
-            await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+            await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds, accessiblePbs);
         }
 
         foreach (var protocolExport in protocolExports)
@@ -123,9 +124,10 @@ public class ProtocolExportService
         Guid? basisCountingCircleId,
         IReadOnlyCollection<Guid> exportTemplateIds,
         bool internalRateLimit,
+        bool accessiblePbs = false,
         CancellationToken ct = default)
     {
-        var exportTemplates = await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds);
+        var exportTemplates = await _resultExportService.ResolveTemplates(contestId, basisCountingCircleId, exportTemplateIds, accessiblePbs);
 
         if (internalRateLimit)
         {

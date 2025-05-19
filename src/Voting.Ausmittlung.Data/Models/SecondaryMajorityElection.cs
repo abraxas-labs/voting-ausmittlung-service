@@ -72,4 +72,14 @@ public class SecondaryMajorityElection : MajorityElectionBase, IPoliticalBusines
         get => Enumerable.Empty<CountingCircleResult>();
         set => throw new InvalidOperationException($"{nameof(CountingCircleResults)} is read only.");
     }
+
+    public override void MoveECountingToConventional()
+    {
+        EndResult?.MoveECountingToConventional();
+
+        foreach (var result in Results)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
 }

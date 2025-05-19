@@ -16,6 +16,7 @@
     "MajorityElectionCandidate:read",
     "ProportionalElectionCandidate:read",
     "ProportionalElectionList:read",
-    "Export:export"
+    "Export:export",
+    "EventLog:watch"
   ]
 }

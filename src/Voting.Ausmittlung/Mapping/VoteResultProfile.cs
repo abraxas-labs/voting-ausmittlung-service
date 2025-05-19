@@ -43,6 +43,7 @@ public class VoteResultProfile : Profile
         CreateMap<DataModels.BallotResult, ProtoModels.VoteResultBundles>()
             .ForMember(dst => dst.BallotResult, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.VoteResultBundle, ProtoModels.VoteResultBundle>();
+        CreateMap<DataModels.VoteResultBundleLog, ProtoModels.PoliticalBusinessResultBundleLog>();
         CreateMap<DataModels.VoteResultBundle, GetVoteResultBundleResponse>()
             .ForMember(dst => dst.Bundle, opts => opts.MapFrom(src => src))
             .ForMember(dst => dst.VoteResult, opts => opts.MapFrom(src => src.BallotResult.VoteResult));

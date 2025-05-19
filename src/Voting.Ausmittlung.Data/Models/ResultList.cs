@@ -49,7 +49,11 @@ public class ResultList
 
     public bool MustUpdateContactPersons { get; }
 
-    public bool HasUnmappedEVotingWriteIns => Results.Any(x => x.HasUnmappedWriteIns);
+    public bool HasUnmappedEVotingWriteIns => Results.Any(x => x.HasUnmappedEVotingWriteIns);
+
+    public bool HasUnmappedECountingWriteIns => Results.Any(x => x.HasUnmappedECountingWriteIns);
+
+    public bool HasUnmappedWriteIns => HasUnmappedEVotingWriteIns || HasUnmappedECountingWriteIns;
 
     public CountingCircleResultState State =>
         Results.Count == 0

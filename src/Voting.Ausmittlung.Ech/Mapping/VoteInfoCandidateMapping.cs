@@ -8,6 +8,7 @@ using Ech0010_6_0;
 using Ech0155_5_1;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using CandidateType = Ech0252_2_0.CandidateType;
 using SexType = Ech0044_4_1.SexType;
@@ -16,9 +17,6 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteInfoCandidateMapping
 {
-    private const int SwissCountryId = 8100;
-    private const string SwissCountryIso = "CH";
-    private const string SwissCountryNameShort = "Schweiz";
     private const string IncumbentText = "bisher";
 
     private static readonly DateTime DefaultDateOfBirth = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -62,27 +60,6 @@ internal static class VoteInfoCandidateMapping
             })
             .ToList();
 
-        var partyInfos = partyShortTranslations?
-            .Where(t => !string.IsNullOrEmpty(t.Value))
-            .OrderBy(t => t.Key)
-            .Select(x => new PartyAffiliationInformationTypePartyAffiliationInfo
-            {
-                Language = x.Key,
-                PartyAffiliationShort = x.Value,
-            })
-            .ToList()
-            ?? [];
-
-        foreach (var partyInfo in partyInfos)
-        {
-            if (partyLongTranslations != null && partyLongTranslations.TryGetValue(partyInfo.Language, out var partyLong))
-            {
-                partyInfo.PartyAffiliationLong = partyLong;
-            }
-        }
-
-        var zipCodeIsSwiss = int.TryParse(candidate.ZipCode, out var zipCode) && zipCode is > 1000 and <= 9999;
-
         return new CandidateType
         {
             CandidateIdentification = candidate.Id.ToString(),
@@ -96,21 +73,11 @@ internal static class VoteInfoCandidateMapping
             DateOfBirth = candidate.DateOfBirth ?? DefaultDateOfBirth,
             Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos?.Count == 0 ? null : occupationInfos,
-            DwellingAddress = new AddressInformationType
-            {
-                SwissZipCode = zipCodeIsSwiss ? (uint?)zipCode : null,
-                ForeignZipCode = zipCodeIsSwiss ? null : candidate.ZipCode,
-                Town = candidate.Locality,
-                Country = new CountryType
-                {
-                    CountryId = SwissCountryId,
-                    CountryIdIso2 = SwissCountryIso,
-                    CountryNameShort = SwissCountryNameShort,
-                },
-            },
+            Title = candidate.Title,
+            DwellingAddress = BuildDwellingAddress(candidate, out _),
             MrMrs = candidate.Sex.ToEchMrMrsType(),
             LanguageOfCorrespondence = Languages.German,
-            PartyAffiliation = partyInfos.Count == 0 ? null : partyInfos,
+            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations),
             IncumbentYesNo = candidate.Incumbent,
             Role = null,
         };
@@ -176,7 +143,8 @@ internal static class VoteInfoCandidateMapping
     internal static WriteInCandidateType ToVoteInfoEchWriteInCandidate(
         this MajorityElectionCandidateBase candidate,
         Dictionary<string, string> occupationTranslations,
-        Dictionary<string, string> partyTranslations)
+        Dictionary<string, string>? partyShortTranslations,
+        Dictionary<string, string>? partyLongTranslations)
     {
         var occupationInfos = occupationTranslations
             .Where(x => !string.IsNullOrEmpty(x.Value))
@@ -188,15 +156,7 @@ internal static class VoteInfoCandidateMapping
             })
             .ToList();
 
-        var partyInfos = partyTranslations
-            .OrderBy(t => t.Key)
-            .Select(x => new PartyAffiliationInformationTypePartyAffiliationInfo
-            {
-                Language = x.Key,
-                PartyAffiliationShort = x.Value,
-            })
-            .ToList();
-
+        var dwellingAddress = BuildDwellingAddress(candidate, out var isSwiss);
         var writeInCandidate = new WriteInCandidateType
         {
             CandidateIdentification = candidate.Id.ToString(),
@@ -205,8 +165,9 @@ internal static class VoteInfoCandidateMapping
             CallName = candidate.PoliticalFirstName,
             Title = candidate.Title,
             OccupationalTitle = occupationInfos.Count == 0 ? null : occupationInfos,
-            Swiss = string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
-            PartyAffiliation = partyInfos.Count == 0 ? null : partyInfos,
+            Swiss = isSwiss && string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
+            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations),
+            IncumbentYesNo = candidate.Incumbent,
         };
 
         if (candidate.DateOfBirth.HasValue)
@@ -214,21 +175,9 @@ internal static class VoteInfoCandidateMapping
             writeInCandidate.DateOfBirth = candidate.DateOfBirth.Value;
         }
 
-        var zipCodeIsSwiss = int.TryParse(candidate.ZipCode, out var zipCode) && zipCode is > 1000 and <= 9999;
-        if (zipCodeIsSwiss || !string.IsNullOrEmpty(candidate.Locality))
+        if (isSwiss || !string.IsNullOrEmpty(candidate.Locality))
         {
-            writeInCandidate.DwellingAddress = new AddressInformationType
-            {
-                SwissZipCode = zipCodeIsSwiss ? (uint?)zipCode : null,
-                ForeignZipCode = zipCodeIsSwiss ? null : candidate.ZipCode,
-                Town = candidate.Locality,
-                Country = new CountryType
-                {
-                    CountryId = SwissCountryId,
-                    CountryIdIso2 = SwissCountryIso,
-                    CountryNameShort = SwissCountryNameShort,
-                },
-            };
+            writeInCandidate.DwellingAddress = dwellingAddress;
         }
 
         if (candidate.Sex != Data.Models.SexType.Unspecified)
@@ -238,6 +187,54 @@ internal static class VoteInfoCandidateMapping
         }
 
         return writeInCandidate;
+    }
+
+    private static List<PartyAffiliationInformationTypePartyAffiliationInfo>? ToPartyInfos(
+        Dictionary<string, string>? partyShortTranslations,
+        Dictionary<string, string>? partyLongTranslations)
+    {
+        var partyInfos = partyShortTranslations?
+            .Where(t => !string.IsNullOrEmpty(t.Value))
+            .OrderBy(t => t.Key)
+            .Select(x => new PartyAffiliationInformationTypePartyAffiliationInfo
+            {
+                Language = x.Key,
+                PartyAffiliationShort = x.Value,
+            })
+            .ToList()
+            ?? [];
+
+        foreach (var partyInfo in partyInfos)
+        {
+            if (partyLongTranslations != null && partyLongTranslations.TryGetValue(partyInfo.Language, out var partyLong))
+            {
+                partyInfo.PartyAffiliationLong = partyLong;
+            }
+        }
+
+        return partyInfos.Count == 0 ? null : partyInfos;
+    }
+
+    private static AddressInformationType BuildDwellingAddress(ElectionCandidate candidate, out bool isSwiss)
+    {
+        var zipCodeIsSwiss = int.TryParse(candidate.ZipCode, out var zipCode) && zipCode is > 1000 and <= 9999;
+        var country = CountryUtils.GetCountryFromIsoId(candidate.Country);
+        isSwiss = zipCodeIsSwiss && (country == null || country.IsoId == CountryUtils.SwissCountryIso);
+
+        return new AddressInformationType
+        {
+            SwissZipCode = isSwiss ? (uint?)zipCode : null,
+            ForeignZipCode = isSwiss ? null : candidate.ZipCode,
+            Town = candidate.Locality,
+            Street = candidate.Street,
+            HouseNumber = candidate.HouseNumber,
+            Country = new CountryType
+            {
+                CountryId = (ushort)(country?.Id ?? CountryUtils.SwissCountryId),
+                CountryIdIso2 = country?.IsoId ?? CountryUtils.SwissCountryIso,
+                CountryNameShort = country?.Description ?? CountryUtils.SwissCountryNameShort,
+            },
+        };
     }
 
     private static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)

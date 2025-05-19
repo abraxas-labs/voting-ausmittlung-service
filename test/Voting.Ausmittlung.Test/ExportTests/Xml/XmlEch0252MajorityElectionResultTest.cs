@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Ech.Ech0252_2_0.Schemas;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
+using Voting.Lib.Testing.Utils;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 using Xunit;
 
@@ -36,6 +37,31 @@ public class XmlEch0252MajorityElectionResultTest : XmlExportBaseTest<Delivery>
     {
         await ModifyDbEntities<MajorityElectionResult>(x => x.Id == MajorityElectionEndResultMockedData.StGallenResultGuid, x => x.Published = false);
         await TestXmlWithSnapshot("WithoutPublished");
+    }
+
+    [Fact]
+    public async Task TestOwnedContestForeignMajorityElectionShouldBeIncluded()
+    {
+        // The contest belongs to the DoI/tenant "Bund", but the majority elections
+        // belong to a different tenant. This should still work.
+        var request = new GenerateResultExportsRequest
+        {
+            ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
+            ExportTemplateIds =
+            [
+                AusmittlungUuidV5.BuildExportTemplate(
+                    AusmittlungXmlContestTemplates.MajorityElectionResultsEch0252.Key,
+                    SecureConnectTestDefaults.MockedTenantBund.Id)
+
+            ],
+        };
+        var httpClient = CreateHttpClient(
+            tenant: SecureConnectTestDefaults.MockedTenantBund.Id,
+            roles: RolesMockedData.MonitoringElectionAdmin);
+
+        var xml = await GetXml(httpClient, request);
+        XmlUtil.ValidateSchema(xml, GetSchemaSet());
+        MatchXmlSnapshot(xml, $"{GetType().Name}TestOwnedContestForeignMajorityElectionShouldBeIncluded");
     }
 
     protected override async Task SeedData()

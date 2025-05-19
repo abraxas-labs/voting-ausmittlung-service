@@ -116,16 +116,16 @@ public class PdfVoteEVotingDetailsResultExportTest : PdfExportBaseTest
 
             foreach (var result in results)
             {
-                result.CountOfVoters.EVotingReceivedBallots = 20 * modifier;
-                result.CountOfVoters.EVotingInvalidBallots = 2 * modifier;
-                result.CountOfVoters.EVotingBlankBallots = 3 * modifier;
-                result.CountOfVoters.EVotingAccountedBallots = 15 * modifier;
+                result.CountOfVoters.EVotingSubTotal.ReceivedBallots = 20 * modifier;
+                result.CountOfVoters.EVotingSubTotal.InvalidBallots = 2 * modifier;
+                result.CountOfVoters.EVotingSubTotal.BlankBallots = 3 * modifier;
+                result.CountOfVoters.EVotingSubTotal.AccountedBallots = 15 * modifier;
                 result.CountOfVoters.UpdateVoterParticipation(50 * modifier);
 
-                result.Ballot.EndResult!.CountOfVoters.EVotingReceivedBallots = 20 * modifier;
-                result.Ballot.EndResult.CountOfVoters.EVotingInvalidBallots = 2 * modifier;
-                result.Ballot.EndResult.CountOfVoters.EVotingBlankBallots = 3 * modifier;
-                result.Ballot.EndResult.CountOfVoters.EVotingAccountedBallots = 15 * modifier;
+                result.Ballot.EndResult!.CountOfVoters.EVotingSubTotal.ReceivedBallots = 20 * modifier;
+                result.Ballot.EndResult.CountOfVoters.EVotingSubTotal.InvalidBallots = 2 * modifier;
+                result.Ballot.EndResult.CountOfVoters.EVotingSubTotal.BlankBallots = 3 * modifier;
+                result.Ballot.EndResult.CountOfVoters.EVotingSubTotal.AccountedBallots = 15 * modifier;
                 result.Ballot.EndResult.CountOfVoters.UpdateVoterParticipation(50 * modifier);
 
                 foreach (var bqr in result.QuestionResults)

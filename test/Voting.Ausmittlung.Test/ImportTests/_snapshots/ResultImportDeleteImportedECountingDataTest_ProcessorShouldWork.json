@@ -1,0 +1,24 @@
+{
+  "Contest": null,
+  "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+  "CountingCircleId": "58bf9c3e-d093-58be-a3fd-c3c7f7fcd7ec",
+  "CountingCircle": null,
+  "Started": "2020-07-17T10:07:56Z",
+  "Completed": true,
+  "Deleted": true,
+  "StartedBy": {
+    "SecureConnectId": "default-user-id",
+    "FirstName": "default user firstname",
+    "LastName": "default user lastname",
+    "FullName": "default user firstname default user lastname"
+  },
+  "FileName": "",
+  "ImportType": 2,
+  "ImportedCountingCircles": [],
+  "IgnoredCountingCircles": [],
+  "MajorityElectionWriteInMappings": [],
+  "SecondaryMajorityElectionWriteInMappings": [],
+  "MajorityElectionWriteInBallots": [],
+  "SecondaryMajorityElectionWriteInBallots": [],
+  "Id": "759b344f-511a-41f6-8836-43870949e52c"
+}

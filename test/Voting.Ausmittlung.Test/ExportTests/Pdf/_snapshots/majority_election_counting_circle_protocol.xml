@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>majority_election_counting_circle_protocol</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -34,6 +35,8 @@
     <NumberOfMandates>1</NumberOfMandates>
     <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
     <IndividualCandidatesDisabled>false</IndividualCandidatesDisabled>
+    <EmptyVoteCountDisabled>false</EmptyVoteCountDisabled>
+    <ReportingLevelName>Kanton St. Gallen</ReportingLevelName>
     <MajorityElectionResult>
       <TotalCountOfVoters>15000</TotalCountOfVoters>
       <State>Initial</State>
@@ -63,6 +66,9 @@
           <Locality>locality</Locality>
           <Position>1</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Party>Test de</Party>
         </Candidate>
         <ConventionalVoteCount>50</ConventionalVoteCount>
@@ -89,6 +95,9 @@
           <Locality>locality</Locality>
           <Position>2</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Party>Test de</Party>
         </Candidate>
         <ConventionalVoteCount>0</ConventionalVoteCount>
@@ -98,7 +107,7 @@
         <VoteCount>0</VoteCount>
       </MajorityElectionCandidateResult>
       <CountOfVoters>
-        <VoterParticipation>0.800000</VoterParticipation>
+        <VoterParticipation>0.8000</VoterParticipation>
         <TotalReceivedBallots>100</TotalReceivedBallots>
         <TotalUnaccountedBallots>20</TotalUnaccountedBallots>
         <EVotingReceivedBallots>0</EVotingReceivedBallots>

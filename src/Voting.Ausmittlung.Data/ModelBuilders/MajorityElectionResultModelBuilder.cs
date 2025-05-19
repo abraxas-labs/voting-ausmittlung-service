@@ -3,6 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Data.ModelBuilders;
@@ -21,7 +22,8 @@ public class MajorityElectionResultModelBuilder :
     IEntityTypeConfiguration<MajorityElectionWriteInBallot>,
     IEntityTypeConfiguration<MajorityElectionWriteInBallotPosition>,
     IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallot>,
-    IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallotPosition>
+    IEntityTypeConfiguration<SecondaryMajorityElectionWriteInBallotPosition>,
+    IEntityTypeConfiguration<MajorityElectionResultBundleLog>
 {
     public void Configure(EntityTypeBuilder<MajorityElectionResult> builder)
     {
@@ -54,15 +56,16 @@ public class MajorityElectionResultModelBuilder :
             .IsRequired();
 
         builder.OwnsOne(x => x.EntryParams);
-
-        builder.OwnsOne(x => x.CountOfVoters);
-        builder.Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
 
         builder.OwnsOne(x => x.ConventionalSubTotal);
         builder.Navigation(x => x.ConventionalSubTotal).IsRequired();
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<SecondaryMajorityElectionResult> builder)
@@ -84,6 +87,9 @@ public class MajorityElectionResultModelBuilder :
 
         builder.OwnsOne(x => x.EVotingSubTotal);
         builder.Navigation(x => x.EVotingSubTotal).IsRequired();
+
+        builder.OwnsOne(x => x.ECountingSubTotal);
+        builder.Navigation(x => x.ECountingSubTotal).IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<MajorityElectionCandidateResult> builder)
@@ -278,5 +284,26 @@ public class MajorityElectionResultModelBuilder :
             .WithMany(x => x.BallotPositions)
             .HasForeignKey(x => x.WriteInMappingId)
             .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<MajorityElectionResultBundleLog> builder)
+    {
+        builder
+            .HasOne(x => x.Bundle)
+            .WithMany(x => x.Logs)
+            .HasForeignKey(x => x.BundleId)
+            .IsRequired();
+
+        builder
+            .OwnsOne(
+                x => x.User,
+                u =>
+                {
+                    u.Property(uu => uu.SecureConnectId).IsRequired();
+                    u.Property(uu => uu.FirstName).IsRequired();
+                    u.Property(uu => uu.LastName).IsRequired();
+                });
+        builder
+            .Navigation(x => x.User).IsRequired();
     }
 }

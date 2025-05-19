@@ -52,25 +52,29 @@ public class ContestReader
 
     public async Task<Contest> Get(Guid id)
     {
+        var tenantId = _permissionService.TenantId;
         var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(id);
+        var readAllOwnedContests = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
 
         var query = _repo.Query()
             .AsSplitQuery()
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.CantonDefaults)
-            .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
-                pb.Active
-                && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
-                && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId))));
+            .Where(x => (readAllOwnedContests && x.DomainOfInfluence.SecureConnectId == tenantId)
+                || x.SimplePoliticalBusinesses.Any(pb =>
+                    pb.Active
+                    && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
+                    && pb.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId))));
 
         if (_auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned))
         {
             var viewablePartialResultsCcIds = await _permissionService.GetViewablePartialResultsCountingCircleIds(id);
             query = query
-                .Where(x => x.SimplePoliticalBusinesses.Any(pb =>
-                    pb.DomainOfInfluence.SecureConnectId == _permissionService.TenantId
-                    || pb.SimpleResults.Any(cc => viewablePartialResultsCcIds.Contains(cc.CountingCircleId))));
+                .Where(x => x.DomainOfInfluence.SecureConnectId == tenantId
+                    || x.SimplePoliticalBusinesses.Any(pb =>
+                        pb.DomainOfInfluence.SecureConnectId == tenantId
+                        || pb.SimpleResults.Any(cc => viewablePartialResultsCcIds.Contains(cc.CountingCircleId))));
         }
 
         return await query
@@ -126,6 +130,7 @@ public class ContestReader
     public async Task<List<ContestSummary>> ListSummaries(IReadOnlyCollection<ContestState> states)
     {
         var tenantId = _permissionService.TenantId;
+        var readAllOwnedContests = _auth.HasPermission(Permissions.PoliticalBusiness.ReadOwned);
 
         // Careful! ListSummaries lists all accessible contests that were ever created.
         // To find out which contests are accessible, we need to access the counting circles, domain of influences and permissions.
@@ -157,22 +162,22 @@ public class ContestReader
             .Include(c => c.DomainOfInfluence)
             .Include(c => c.Translations)
             .Include(c => c.CantonDefaults)
-            .Where(c => countsByContestId.Keys.Contains(c.Id))
+            .Where(c => countsByContestId.Keys.Contains(c.Id) || (readAllOwnedContests && c.DomainOfInfluence.SecureConnectId == tenantId && (states.Count == 0 || states.Contains(c.State))))
             .Order(states)
             .Select(c => new ContestSummary { Contest = c })
             .ToListAsync();
 
         foreach (var summary in summaries)
         {
-            var counts = countsByContestId[summary.Contest.Id];
-            summary.ContestEntriesDetails = counts
+            var counts = countsByContestId.GetValueOrDefault(summary.Contest.Id);
+            summary.ContestEntriesDetails = counts?
                 .OrderBy(x => x.DoiType)
                 .Select(c => new ContestSummaryEntryDetails
                 {
                     DomainOfInfluenceType = c.DoiType,
                     ContestEntriesCount = c.Count,
                 })
-                .ToList();
+                .ToList() ?? new();
         }
 
         return summaries;
@@ -218,6 +223,24 @@ public class ContestReader
             .Select(x => x.Id)
             .ToListAsync();
         return ids.ToHashSet();
+    }
+
+    internal async Task<List<SimplePoliticalBusiness>> GetAccessiblePoliticalBusinesses(Guid contestId)
+    {
+        var countingCircleIds = await _permissionService.GetReadableCountingCircleIds(contestId);
+        return await _repo.Query()
+            .AsSingleQuery()
+            .Where(x => x.Id == contestId)
+            .SelectMany(x => x.SimplePoliticalBusinesses)
+            .Where(x => x.Active && x.SimpleResults.Any(cc => countingCircleIds.Contains(cc.CountingCircleId)))
+            .OrderBy(x => x.PoliticalBusinessNumber)
+            .ThenBy(x => x.DomainOfInfluence.Type)
+            .ThenBy(x => x.PoliticalBusinessType)
+            .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Translations)
+            .Include(x => x.Contest.CantonDefaults)
+            .Include(x => x.SimpleResults)
+            .ToListAsync();
     }
 
     internal async Task<List<SimplePoliticalBusiness>> GetAccessiblePoliticalBusinesses(Guid basisCountingCircleId, Guid contestId)

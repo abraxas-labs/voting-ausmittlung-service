@@ -24,6 +24,7 @@
     "Candidate": null,
     "State": 1,
     "ConventionalVoteCount": 0,
+    "ECountingVoteCount": 0,
     "EVotingVoteCount": 0,
     "VoteCount": 0,
     "CandidateId": "6a63829a-660d-46ac-bba7-9107334f1951",
@@ -54,5 +55,8 @@
   "Position": 5,
   "Origin": "origin",
   "CheckDigit": 4,
+  "Street": "street",
+  "HouseNumber": "1a",
+  "Country": "CH",
   "Id": "6a63829a-660d-46ac-bba7-9107334f1951"
 }

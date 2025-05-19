@@ -3,119 +3,114 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data;
-using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Testing.Mocks;
-using ResultImport = Voting.Ausmittlung.Data.Models.ResultImport;
-using User = Voting.Ausmittlung.Data.Models.User;
+using Voting.Ausmittlung.Test.Utils;
+using Voting.Lib.Eventing.Testing.Mocks;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 
 namespace Voting.Ausmittlung.Test.MockedData;
 
 public static class ResultImportMockedData
 {
-    public static ResultImport Uzwil1 => new ResultImport
+    public static Task SeedEVoting(
+        Func<Func<IServiceProvider, Task>, Task> runScoped,
+        Func<bool, string, string, string[], HttpClient> createClient)
     {
-        Completed = true,
-        Id = Guid.Parse("d02ad8dc-2372-4f4e-afb7-9b55c6a512ae"),
-        Started = MockedClock.GetDate(-10),
-        ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
-        FileName = "import_uzwil_1.xml",
-        StartedBy = new User
-        {
-            FirstName = "Hans",
-            LastName = "Meier",
-            SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
-        },
-        ImportedCountingCircles = new List<ResultImportCountingCircle>
-        {
-            new ResultImportCountingCircle
-            {
-                CountingCircleId = CountingCircleMockedData.Uzwil.Id,
-            },
-        },
-    };
+        var uri = new Uri(
+            $"api/result_import/e-voting/{ContestMockedData.IdStGallenEvoting}",
+            UriKind.RelativeOrAbsolute);
 
-    public static ResultImport UzwilDeleted => new ResultImport
-    {
-        Id = Guid.Parse("57fdd782-3185-435d-8d84-95bc9f0b378d"),
-        Started = MockedClock.GetDate(-5),
-        Deleted = true,
-        ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
-        StartedBy = new User
-        {
-            FirstName = "Hans",
-            LastName = "Meier",
-            SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
-        },
-    };
-
-    public static ResultImport Uzwil2 => new ResultImport
-    {
-        Id = Guid.Parse("e45540a9-d412-4cc2-a219-12b052a2b58e"),
-        Started = MockedClock.GetDate(-2),
-        ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
-        FileName = "import_uzwil_2.xml",
-        StartedBy = new User
-        {
-            FirstName = "Hans",
-            LastName = "Meier",
-            SecureConnectId = "c94eb4da-cf1a-4fb1-bad3-113fd9750579",
-        },
-        IgnoredCountingCircles = new List<IgnoredImportCountingCircle>
-        {
-            new()
-            {
-                CountingCircleId = "13297",
-                CountingCircleDescription = "SU_2_Vilters",
-                IsTestCountingCircle = true,
-            },
-            new()
-            {
-                CountingCircleId = "unknown",
-            },
-        },
-    };
-
-    public static ResultImport Gossau1 => new ResultImport
-    {
-        Id = Guid.Parse("17718f28-22bc-4dc4-b979-e3f4bf22c574"),
-        Started = MockedClock.GetDate(-5),
-        ContestId = Guid.Parse(ContestMockedData.IdGossau),
-        FileName = "import_gossau_1.xml",
-        StartedBy = new User
-        {
-            FirstName = "Hans",
-            LastName = "Meier",
-            SecureConnectId = "9f53f1aa-dd60-40b8-b028-3c7686799215",
-        },
-        ImportedCountingCircles = new List<ResultImportCountingCircle>
-        {
-            new ResultImportCountingCircle
-            {
-                CountingCircleId = CountingCircleMockedData.Gossau.Id,
-            },
-        },
-    };
-
-    public static IEnumerable<ResultImport> All
-    {
-        get
-        {
-            yield return Uzwil1;
-            yield return Uzwil2;
-            yield return Gossau1;
-        }
+        var ech0222File = "ImportTests/ExampleFiles/ech0222_import_ok.xml";
+        var ech0110File = "ImportTests/ExampleFiles/ech0110_import_ok.xml";
+        return Seed(runScoped, createClient, RolesMockedData.MonitoringElectionAdmin, SecureConnectTestDefaults.MockedTenantStGallen.Id, uri, ech0222File, ech0110File);
     }
 
-    public static Task Seed(Func<Func<IServiceProvider, Task>, Task> runScoped)
+    public static Task SeedECounting(
+        Func<Func<IServiceProvider, Task>, Task> runScoped,
+        Func<bool, string, string, string[], HttpClient> createClient)
     {
-        return runScoped(sp =>
+        var uri = new Uri(
+            $"api/result_import/e-counting/{ContestMockedData.IdStGallenEvoting}/{CountingCircleMockedData.IdUzwil}",
+            UriKind.RelativeOrAbsolute);
+
+        var ech0222File = "ImportTests/ExampleFiles/ech0222_e_counting_import_ok.xml";
+        return Seed(runScoped, createClient, RolesMockedData.ErfassungElectionAdmin, SecureConnectTestDefaults.MockedTenantUzwil.Id, uri, ech0222File);
+    }
+
+    private static Task Seed(
+        Func<Func<IServiceProvider, Task>, Task> runScoped,
+        Func<bool, string, string, string[], HttpClient> createClient,
+        string role,
+        string tenantId,
+        Uri endpoint,
+        string ech0222File,
+        string? ech0110File = null)
+    {
+        return runScoped(async sp =>
         {
+            var client = createClient(
+                true,
+                tenantId,
+                "default-user-id",
+                [role]);
+
+            List<(string, string)> files = [("ech0222File", ech0222File)];
+            if (ech0110File != null)
+            {
+                files.Add(("ech0110File", ech0110File));
+            }
+
+            using var resp = await client.PostFiles(endpoint, files.ToArray());
+            resp.EnsureSuccessStatusCode();
+
+            var publisherMock = sp.GetRequiredService<EventPublisherMock>();
+            var testPublisher = sp.GetRequiredService<TestEventPublisher>();
+            var eventIdCounter = 0;
+            await testPublisher.Publish(eventIdCounter++, publisherMock.GetSinglePublishedEvent<ResultImportCreated>());
+            await testPublisher.Publish(eventIdCounter++, publisherMock.GetSinglePublishedEvent<ResultImportStarted>());
+
+            var propImportEvents = publisherMock.GetPublishedEvents<ProportionalElectionResultImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, propImportEvents);
+            eventIdCounter += propImportEvents.Length;
+
+            var majorityImportEvents = publisherMock.GetPublishedEvents<MajorityElectionResultImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, majorityImportEvents);
+            eventIdCounter += majorityImportEvents.Length;
+
+            var majorityElectionWriteInBallotEvents =
+                publisherMock.GetPublishedEvents<MajorityElectionWriteInBallotImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, majorityElectionWriteInBallotEvents);
+            eventIdCounter += majorityElectionWriteInBallotEvents.Length;
+
+            var secMajorityImportEvents =
+                publisherMock.GetPublishedEvents<SecondaryMajorityElectionResultImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, secMajorityImportEvents);
+            eventIdCounter += secMajorityImportEvents.Length;
+
+            var secMajorityElectionWriteInBallotEvents = publisherMock
+                .GetPublishedEvents<SecondaryMajorityElectionWriteInBallotImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, secMajorityElectionWriteInBallotEvents);
+            eventIdCounter += secMajorityElectionWriteInBallotEvents.Length;
+
+            var voteImportEvents = publisherMock.GetPublishedEvents<VoteResultImported>().ToArray();
+            await testPublisher.Publish(eventIdCounter, voteImportEvents);
+            eventIdCounter += voteImportEvents.Length;
+
+            await testPublisher.Publish(eventIdCounter, publisherMock.GetSinglePublishedEvent<ResultImportCompleted>());
+
+            publisherMock.Clear();
+
+            // reset event counter
             var db = sp.GetRequiredService<DataContext>();
-            db.AddRange(All);
-            return db.SaveChangesAsync();
+            db.EventProcessingStates.Remove(await db.EventProcessingStates.SingleAsync());
+            await db.SaveChangesAsync();
         });
     }
 }

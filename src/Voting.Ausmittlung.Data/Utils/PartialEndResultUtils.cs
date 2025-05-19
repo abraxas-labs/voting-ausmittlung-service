@@ -42,21 +42,12 @@ public static class PartialEndResultUtils
             BallotEndResults = results
                 .SelectMany(r => r.Results)
                 .GroupBy(r => r.BallotId)
+                .Select(g => g.ToList()) // collect to list to reduce grouping efforts
                 .Select(g => new BallotEndResult
                 {
                     Ballot = g.First().Ballot,
-                    BallotId = g.Key,
-                    CountOfVoters = new PoliticalBusinessCountOfVoters
-                    {
-                        ConventionalAccountedBallots = g.Sum(r => r.CountOfVoters.ConventionalAccountedBallots ?? 0),
-                        ConventionalBlankBallots = g.Sum(r => r.CountOfVoters.ConventionalBlankBallots ?? 0),
-                        ConventionalInvalidBallots = g.Sum(r => r.CountOfVoters.ConventionalInvalidBallots ?? 0),
-                        ConventionalReceivedBallots = g.Sum(r => r.CountOfVoters.ConventionalReceivedBallots ?? 0),
-                        EVotingAccountedBallots = g.Sum(r => r.CountOfVoters.EVotingAccountedBallots),
-                        EVotingBlankBallots = g.Sum(r => r.CountOfVoters.EVotingBlankBallots),
-                        EVotingInvalidBallots = g.Sum(r => r.CountOfVoters.EVotingInvalidBallots),
-                        EVotingReceivedBallots = g.Sum(r => r.CountOfVoters.EVotingReceivedBallots),
-                    },
+                    BallotId = g.First().BallotId,
+                    CountOfVoters = PoliticalBusinessCountOfVoters.CreateSum(g.Select(x => x.CountOfVoters.MapToNonNullableSubTotal())),
                     QuestionEndResults = g
                         .SelectMany(x => x.QuestionResults)
                         .GroupBy(x => x.QuestionId)
@@ -145,17 +136,7 @@ public static class PartialEndResultUtils
                     CountOfVoters = g.Sum(x => x.CountOfVoters),
                 })
                 .ToList(),
-            CountOfVoters = new PoliticalBusinessCountOfVoters
-            {
-                ConventionalAccountedBallots = results.Sum(r => r.CountOfVoters.ConventionalAccountedBallots ?? 0),
-                ConventionalBlankBallots = results.Sum(r => r.CountOfVoters.ConventionalBlankBallots ?? 0),
-                ConventionalInvalidBallots = results.Sum(r => r.CountOfVoters.ConventionalInvalidBallots ?? 0),
-                ConventionalReceivedBallots = results.Sum(r => r.CountOfVoters.ConventionalReceivedBallots ?? 0),
-                EVotingAccountedBallots = results.Sum(r => r.CountOfVoters.EVotingAccountedBallots),
-                EVotingBlankBallots = results.Sum(r => r.CountOfVoters.EVotingBlankBallots),
-                EVotingInvalidBallots = results.Sum(r => r.CountOfVoters.EVotingInvalidBallots),
-                EVotingReceivedBallots = results.Sum(r => r.CountOfVoters.EVotingReceivedBallots),
-            },
+            CountOfVoters = PoliticalBusinessCountOfVoters.CreateSum(results.Select(x => x.CountOfVoters.MapToNonNullableSubTotal())),
             ConventionalSubTotal = new MajorityElectionResultSubTotal
             {
                 IndividualVoteCount = results.Sum(r => r.ConventionalSubTotal.IndividualVoteCount ?? 0),
@@ -186,6 +167,7 @@ public static class PartialEndResultUtils
                     VoteCount = g.Sum(c => c.VoteCount),
                     ConventionalVoteCount = g.Sum(c => c.ConventionalVoteCount ?? 0),
                     EVotingVoteCount = g.Sum(c => c.EVotingInclWriteInsVoteCount),
+                    ECountingVoteCount = g.Sum(c => c.ECountingInclWriteInsVoteCount),
                 })
                 .OrderByDescending(x => x.VoteCount)
                 .ThenBy(x => x.Candidate.Position)
@@ -227,6 +209,7 @@ public static class PartialEndResultUtils
                     VoteCount = g.Sum(c => c.VoteCount),
                     ConventionalVoteCount = g.Sum(c => c.ConventionalVoteCount ?? 0),
                     EVotingVoteCount = g.Sum(c => c.EVotingInclWriteInsVoteCount),
+                    ECountingVoteCount = g.Sum(c => c.ECountingInclWriteInsVoteCount),
                 })
                 .OrderByDescending(x => x.VoteCount)
                 .ThenBy(x => x.Candidate.Position)

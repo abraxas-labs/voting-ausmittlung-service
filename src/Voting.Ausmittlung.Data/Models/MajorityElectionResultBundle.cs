@@ -9,4 +9,6 @@ public class MajorityElectionResultBundle : ElectionBundle<MajorityElectionResul
 {
     public ICollection<MajorityElectionResultBallot> Ballots { get; set; } =
         new HashSet<MajorityElectionResultBallot>();
+
+    public List<MajorityElectionResultBundleLog> Logs { get; set; } = new();
 }

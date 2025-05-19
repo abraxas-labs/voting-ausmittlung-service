@@ -349,15 +349,15 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
         countOfVotingCards.Should().Be(testData.ExpectedResult.VotingCardsTotal);
 
         // Check ballots ("Wahlzettel")
-        endResult.CountOfVoters.ConventionalReceivedBallots.Should().Be(testData.ConventionalReceivedBallots);
-        endResult.CountOfVoters.ConventionalBlankBallots.Should().Be(testData.ConventionalBlankBallots);
-        endResult.CountOfVoters.ConventionalInvalidBallots.Should().Be(testData.ConventionalInvalidBallots);
-        endResult.CountOfVoters.ConventionalAccountedBallots.Should().Be(testData.ConventionalAccountedBallots);
+        endResult.CountOfVoters.ConventionalSubTotal.ReceivedBallots.Should().Be(testData.ConventionalReceivedBallots);
+        endResult.CountOfVoters.ConventionalSubTotal.BlankBallots.Should().Be(testData.ConventionalBlankBallots);
+        endResult.CountOfVoters.ConventionalSubTotal.InvalidBallots.Should().Be(testData.ConventionalInvalidBallots);
+        endResult.CountOfVoters.ConventionalSubTotal.AccountedBallots.Should().Be(testData.ConventionalAccountedBallots);
 
-        endResult.CountOfVoters.EVotingReceivedBallots.Should().Be(testData.ExpectedResult.EVotingReceivedBallots);
-        endResult.CountOfVoters.EVotingBlankBallots.Should().Be(testData.ExpectedResult.EVotingBlankBallots);
-        endResult.CountOfVoters.EVotingInvalidBallots.Should().Be(testData.ExpectedResult.EVotingInvalidBallots);
-        endResult.CountOfVoters.EVotingAccountedBallots.Should().Be(testData.ExpectedResult.EVotingAccountedBallots);
+        endResult.CountOfVoters.EVotingSubTotal.ReceivedBallots.Should().Be(testData.ExpectedResult.EVotingReceivedBallots);
+        endResult.CountOfVoters.EVotingSubTotal.BlankBallots.Should().Be(testData.ExpectedResult.EVotingBlankBallots);
+        endResult.CountOfVoters.EVotingSubTotal.InvalidBallots.Should().Be(testData.ExpectedResult.EVotingInvalidBallots);
+        endResult.CountOfVoters.EVotingSubTotal.AccountedBallots.Should().Be(testData.ExpectedResult.EVotingAccountedBallots);
 
         endResult.CountOfVoters.TotalReceivedBallots.Should().Be(testData.ExpectedResult.TotalReceivedBallots);
         endResult.CountOfVoters.TotalBlankBallots.Should().Be(testData.ExpectedResult.TotalBlankBallots);
@@ -623,7 +623,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
 
     private async Task ImportEVotingResults(ElectionTestData electionTestData)
     {
-        var uri = new Uri($"api/result_import/{ContestId}", UriKind.RelativeOrAbsolute);
+        var uri = new Uri($"api/result_import/e-voting/{ContestId}", UriKind.RelativeOrAbsolute);
         using var httpClient = CreateHttpClient(RolesMockedData.MonitoringElectionAdmin);
         using var resp = await httpClient.PostFiles(
             uri,
@@ -633,7 +633,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
 
         EventPublisherMock.AllPublishedEvents.Should()
             .HaveCountGreaterOrEqualTo(11)
-            .And.HaveCountLessOrEqualTo(15);
+            .And.HaveCountLessOrEqualTo(16);
         EventPublisherMock.GetPublishedEvents<ResultImportCreated>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<ResultImportStarted>().Should().HaveCount(1);
         EventPublisherMock.GetPublishedEvents<CountingCircleVotingCardsImported>().Should().HaveCount(1);
@@ -703,10 +703,10 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
             ContestId = ContestId,
             CountingCircleId = CountingCircleId,
         });
-        var electionMapping = mappings.ElectionWriteInMappings[0];
+        var electionMapping = mappings.WriteInMappings[0];
         await resultImportService.MapMajorityElectionWriteInsAsync(new MapMajorityElectionWriteInsRequest
         {
-            ImportId = mappings.ImportId,
+            ImportId = electionMapping.ImportId,
             ElectionId = electionMapping.Election.Id,
             CountingCircleId = CountingCircleId,
             PoliticalBusinessType = electionMapping.Election.BusinessType,

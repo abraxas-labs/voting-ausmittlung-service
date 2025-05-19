@@ -23,4 +23,8 @@ public class PdfVote : PdfPoliticalBusiness
     public VoteResultAlgorithm ResultAlgorithm { get; set; }
 
     public VoteType Type { get; set; }
+
+    // The name of the domain of influence at the specified reporting level.
+    // Only makes sense if the report is specific to a counting circle.
+    public string? ReportingLevelName { get; set; }
 }

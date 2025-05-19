@@ -21,6 +21,7 @@ public static class VoteCountExtensions
         {
             VotingDataSource.Conventional => counts.ConventionalVoteCount,
             VotingDataSource.EVoting => counts.EVotingVoteCount,
+            VotingDataSource.ECounting => counts.ECountingVoteCount,
             _ => throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null),
         };
     }
@@ -31,6 +32,7 @@ public static class VoteCountExtensions
         {
             VotingDataSource.Conventional => counts.ConventionalVoteCount.GetValueOrDefault(),
             VotingDataSource.EVoting => counts.EVotingInclWriteInsVoteCount,
+            VotingDataSource.ECounting => counts.ECountingInclWriteInsVoteCount,
             _ => throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null),
         };
     }
@@ -44,6 +46,24 @@ public static class VoteCountExtensions
                 return;
             case VotingDataSource.EVoting:
                 counts.EVotingVoteCount = value;
+                return;
+            case VotingDataSource.ECounting:
+                counts.ECountingVoteCount = value;
+                return;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null);
+        }
+    }
+
+    public static void AddWriteInsVoteCount(this IHasNullableConventionalVoteCounts counts, VotingDataSource dataSource, int value)
+    {
+        switch (dataSource)
+        {
+            case VotingDataSource.EVoting:
+                counts.EVotingWriteInsVoteCount += value;
+                return;
+            case VotingDataSource.ECounting:
+                counts.ECountingWriteInsVoteCount += value;
                 return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null);
@@ -61,6 +81,10 @@ public static class VoteCountExtensions
                 counts.EVotingExclWriteInsVoteCount = value.GetValueOrDefault();
                 counts.EVotingWriteInsVoteCount = writeInVoteCount.GetValueOrDefault();
                 return;
+            case VotingDataSource.ECounting:
+                counts.ECountingExclWriteInsVoteCount = value.GetValueOrDefault();
+                counts.ECountingWriteInsVoteCount = writeInVoteCount.GetValueOrDefault();
+                return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null);
         }
@@ -75,6 +99,9 @@ public static class VoteCountExtensions
                 return;
             case VotingDataSource.EVoting:
                 counts.EVotingVoteCount += value;
+                return;
+            case VotingDataSource.ECounting:
+                counts.ECountingVoteCount += value;
                 return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(dataSource), dataSource, null);

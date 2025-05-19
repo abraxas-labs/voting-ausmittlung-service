@@ -37,6 +37,7 @@ public class ProportionalElectionResultProfile : Profile
         CreateMap<IEnumerable<DataModels.ProportionalElectionResultBundle>, ProtoModels.ProportionalElectionResultBundles>()
             .ForMember(dst => dst.Bundles, opts => opts.MapFrom(src => src));
         CreateMap<DataModels.ProportionalElectionResultBundle, ProtoModels.ProportionalElectionResultBundle>();
+        CreateMap<DataModels.ProportionalElectionResultBundleLog, ProtoModels.PoliticalBusinessResultBundleLog>();
 
         CreateMap<DataModels.ProportionalElectionResultBundle, GetProportionalElectionResultBundleResponse>()
             .ForMember(dst => dst.Bundle, opts => opts.MapFrom(src => src));

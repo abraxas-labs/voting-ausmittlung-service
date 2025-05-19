@@ -25,14 +25,16 @@
     "ProportionalElectionEndResult:trigger-mandate-distribution",
     "MajorityElectionCandidate:read",
     "MajorityElectionBallotGroupResult:read",
-    "Import:import",
-    "Import:read",
-    "Import:delete",
+    "Import:import-evoting",
+    "Import:read-evoting",
+    "Import:delete-evoting",
+    "Import:read-ecounting",
     "Export:export",
     "Export:export-monitoring",
     "Export:export-activity-protocol",
     "ExportConfiguration:read",
     "ExportConfiguration:update",
-    "ExportConfiguration:trigger"
+    "ExportConfiguration:trigger",
+    "EventLog:watch"
   ]
 }

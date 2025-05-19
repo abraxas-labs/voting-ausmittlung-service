@@ -13,6 +13,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -24,6 +25,7 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
 
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _proportionalElectionResultBundleRepo;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
 
@@ -31,12 +33,14 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         IDbRepository<DataContext, ProportionalElectionResultBundle> proportionalElectionResultBundleRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo)
+        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
+        IClock clock)
     {
         _proportionalElectionResultBundleRepo = proportionalElectionResultBundleRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -103,6 +107,7 @@ public class PdfProportionalElectionResultBundleReviewRenderService : IRendererS
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             CountingCircle = pdfCountingCircle,
             ProportionalElectionResultBundle = pdfBundle,
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.ElectionResult.ProportionalElection),

@@ -24,7 +24,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -59,10 +59,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
               <majorityElection>
@@ -71,21 +71,21 @@
                     <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>310</countOfVotesTotal>
+                  <countOfVotesTotal>522</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
@@ -96,6 +96,7 @@
                       <callName>1pol firstName</callName>
                       <dateOfBirth>1960-01-13</dateOfBirth>
                       <sex>2</sex>
+                      <incumbentYesNo>false</incumbentYesNo>
                       <occupationalTitle>
                         <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
@@ -115,6 +116,8 @@
                         </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
+                        <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+                        <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
                         <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
                         <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -132,69 +135,73 @@
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
+                          <partyAffiliationLong>Test de</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>fr</language>
                           <partyAffiliationShort>Test fr</partyAffiliationShort>
+                          <partyAffiliationLong>Test fr</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>it</language>
                           <partyAffiliationShort>Test it</partyAffiliationShort>
+                          <partyAffiliationLong>Test it</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>rm</language>
                           <partyAffiliationShort>Test rm</partyAffiliationShort>
+                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
                     <candidateReference>number5</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
                     <candidateReference>number6</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
                     <candidateReference>number7</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>190</countOfVotesTotal>
+                  <countOfVotesTotal>322</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
                     <candidateReference>number8</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>160</countOfVotesTotal>
+                  <countOfVotesTotal>272</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
                     <candidateReference>number10</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>10</countOfVotesTotal>
+                  <countOfVotesTotal>22</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>27</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -223,10 +230,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
               <majorityElection>
@@ -235,21 +242,21 @@
                     <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>310</countOfVotesTotal>
+                  <countOfVotesTotal>522</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
@@ -260,6 +267,7 @@
                       <callName>1pol firstName</callName>
                       <dateOfBirth>1960-01-13</dateOfBirth>
                       <sex>2</sex>
+                      <incumbentYesNo>false</incumbentYesNo>
                       <occupationalTitle>
                         <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
@@ -279,6 +287,8 @@
                         </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
+                        <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+                        <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
                         <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
                         <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -296,69 +306,73 @@
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
+                          <partyAffiliationLong>Test de</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>fr</language>
                           <partyAffiliationShort>Test fr</partyAffiliationShort>
+                          <partyAffiliationLong>Test fr</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>it</language>
                           <partyAffiliationShort>Test it</partyAffiliationShort>
+                          <partyAffiliationLong>Test it</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>rm</language>
                           <partyAffiliationShort>Test rm</partyAffiliationShort>
+                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
                     <candidateReference>number5</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
                     <candidateReference>number6</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
                     <candidateReference>number7</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>190</countOfVotesTotal>
+                  <countOfVotesTotal>322</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
                     <candidateReference>number8</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>160</countOfVotesTotal>
+                  <countOfVotesTotal>272</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
                     <candidateReference>number10</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>10</countOfVotesTotal>
+                  <countOfVotesTotal>22</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>27</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -380,10 +394,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
               <majorityElection>
@@ -392,21 +406,21 @@
                     <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>310</countOfVotesTotal>
+                  <countOfVotesTotal>522</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
@@ -417,6 +431,7 @@
                       <callName>1pol firstName</callName>
                       <dateOfBirth>1960-01-13</dateOfBirth>
                       <sex>2</sex>
+                      <incumbentYesNo>false</incumbentYesNo>
                       <occupationalTitle>
                         <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
@@ -436,6 +451,8 @@
                         </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
+                        <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+                        <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
                         <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
                         <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -453,69 +470,73 @@
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
+                          <partyAffiliationLong>Test de</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>fr</language>
                           <partyAffiliationShort>Test fr</partyAffiliationShort>
+                          <partyAffiliationLong>Test fr</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>it</language>
                           <partyAffiliationShort>Test it</partyAffiliationShort>
+                          <partyAffiliationLong>Test it</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>rm</language>
                           <partyAffiliationShort>Test rm</partyAffiliationShort>
+                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
                     <candidateReference>number5</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
                     <candidateReference>number6</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
                     <candidateReference>number7</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>190</countOfVotesTotal>
+                  <countOfVotesTotal>322</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
                     <candidateReference>number8</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>160</countOfVotesTotal>
+                  <countOfVotesTotal>272</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
                     <candidateReference>number10</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>10</countOfVotesTotal>
+                  <countOfVotesTotal>22</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>27</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -537,10 +558,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
               <majorityElection>
@@ -549,21 +570,21 @@
                     <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>310</countOfVotesTotal>
+                  <countOfVotesTotal>522</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
@@ -574,6 +595,7 @@
                       <callName>1pol firstName</callName>
                       <dateOfBirth>1960-01-13</dateOfBirth>
                       <sex>2</sex>
+                      <incumbentYesNo>false</incumbentYesNo>
                       <occupationalTitle>
                         <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
@@ -593,6 +615,8 @@
                         </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
+                        <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+                        <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
                         <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
                         <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -610,69 +634,73 @@
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
+                          <partyAffiliationLong>Test de</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>fr</language>
                           <partyAffiliationShort>Test fr</partyAffiliationShort>
+                          <partyAffiliationLong>Test fr</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>it</language>
                           <partyAffiliationShort>Test it</partyAffiliationShort>
+                          <partyAffiliationLong>Test it</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>rm</language>
                           <partyAffiliationShort>Test rm</partyAffiliationShort>
+                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
                     <candidateReference>number5</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
                     <candidateReference>number6</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
                     <candidateReference>number7</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>190</countOfVotesTotal>
+                  <countOfVotesTotal>322</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
                     <candidateReference>number8</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>160</countOfVotesTotal>
+                  <countOfVotesTotal>272</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
                     <candidateReference>number10</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>10</countOfVotesTotal>
+                  <countOfVotesTotal>22</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>27</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -685,7 +713,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -720,10 +748,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>7a7f337e-78c8-44f4-83eb-507d383fc8bf</electionIdentification>
               <majorityElection>
@@ -732,21 +760,21 @@
                     <candidateIdentification>bf683ec2-27c1-44b9-b56b-6e4c82e4dd60</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>a9df7271-04d8-4bea-b654-499de0a99942</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>b5e78bac-1f72-4699-bcb5-e132fe25f94e</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>310</countOfVotesTotal>
+                  <countOfVotesTotal>522</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
@@ -757,6 +785,7 @@
                       <callName>1pol firstName</callName>
                       <dateOfBirth>1960-01-13</dateOfBirth>
                       <sex>2</sex>
+                      <incumbentYesNo>false</incumbentYesNo>
                       <occupationalTitle>
                         <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
@@ -776,6 +805,8 @@
                         </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
+                        <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+                        <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
                         <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
                         <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -793,69 +824,73 @@
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
+                          <partyAffiliationLong>Test de</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>fr</language>
                           <partyAffiliationShort>Test fr</partyAffiliationShort>
+                          <partyAffiliationLong>Test fr</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>it</language>
                           <partyAffiliationShort>Test it</partyAffiliationShort>
+                          <partyAffiliationLong>Test it</partyAffiliationLong>
                         </partyAffiliationInfo>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>rm</language>
                           <partyAffiliationShort>Test rm</partyAffiliationShort>
+                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>5e0e84f0-4164-4201-99a2-521528203ceb</candidateIdentification>
                     <candidateReference>number5</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>48df4e61-6016-40fb-b718-6ce8a3bbac85</candidateIdentification>
                     <candidateReference>number6</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>9457a86d-d004-49f2-95e6-a9f3b8182d8f</candidateIdentification>
                     <candidateReference>number7</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>190</countOfVotesTotal>
+                  <countOfVotesTotal>322</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
                     <candidateReference>number8</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>160</countOfVotesTotal>
+                  <countOfVotesTotal>272</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
                     <candidateReference>number10</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>10</countOfVotesTotal>
+                  <countOfVotesTotal>22</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>27</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -871,7 +906,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -906,10 +941,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
               <majorityElection>
@@ -918,32 +953,32 @@
                     <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>40</countOfVotesTotal>
+                  <countOfVotesTotal>72</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>32</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -972,10 +1007,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
               <majorityElection>
@@ -984,32 +1019,32 @@
                     <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>40</countOfVotesTotal>
+                  <countOfVotesTotal>72</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>32</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1031,10 +1066,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
               <majorityElection>
@@ -1043,32 +1078,32 @@
                     <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>40</countOfVotesTotal>
+                  <countOfVotesTotal>72</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>32</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1090,10 +1125,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
               <majorityElection>
@@ -1102,32 +1137,32 @@
                     <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>40</countOfVotesTotal>
+                  <countOfVotesTotal>72</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>32</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1140,7 +1175,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1175,10 +1210,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>8cfaec6d-6e37-472e-b63e-073f6fd980fe</electionIdentification>
               <majorityElection>
@@ -1187,32 +1222,32 @@
                     <candidateIdentification>5ee6f477-660a-4832-9bd0-d4f6c5cd91ee</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>bb79e109-3b25-41d2-af1d-c7e4468c24e8</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>460</countOfVotesTotal>
+                  <countOfVotesTotal>772</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>280</countOfVotesTotal>
+                  <countOfVotesTotal>472</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>40</countOfVotesTotal>
+                  <countOfVotesTotal>72</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>40</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>32</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>280</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1228,7 +1263,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1263,10 +1298,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
               <majorityElection>
@@ -1275,32 +1310,32 @@
                     <candidateIdentification>5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6cc4eccf-c548-4362-96cb-c8e45e9a037e</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>42</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>35</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>282</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1329,10 +1364,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
               <majorityElection>
@@ -1341,32 +1376,32 @@
                     <candidateIdentification>5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6cc4eccf-c548-4362-96cb-c8e45e9a037e</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>42</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>35</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>282</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1388,10 +1423,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
               <majorityElection>
@@ -1400,32 +1435,32 @@
                     <candidateIdentification>5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6cc4eccf-c548-4362-96cb-c8e45e9a037e</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>42</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>35</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>282</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1447,10 +1482,10 @@
             <votingCardInformation />
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
               <majorityElection>
@@ -1459,32 +1494,32 @@
                     <candidateIdentification>5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6cc4eccf-c548-4362-96cb-c8e45e9a037e</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>42</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>35</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>282</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1497,7 +1532,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1532,10 +1567,10 @@
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>50.00</voterTurnout>
-            <countOfReceivedBallots>1500</countOfReceivedBallots>
-            <countOfBlankBallots>240</countOfBlankBallots>
-            <countOfInvalidBallots>600</countOfInvalidBallots>
-            <countOfValidBallots>660</countOfValidBallots>
+            <countOfReceivedBallots>2501</countOfReceivedBallots>
+            <countOfBlankBallots>401</countOfBlankBallots>
+            <countOfInvalidBallots>1001</countOfInvalidBallots>
+            <countOfValidBallots>1101</countOfValidBallots>
             <electionResult>
               <electionIdentification>f78a229e-0790-4e69-b212-7c5fd960cd98</electionIdentification>
               <majorityElection>
@@ -1544,32 +1579,32 @@
                     <candidateIdentification>5e8da5c9-7bd9-4389-b23a-d9dd67aa1b33</candidateIdentification>
                     <candidateReference>number3</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>610</countOfVotesTotal>
+                  <countOfVotesTotal>1022</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6cc4eccf-c548-4362-96cb-c8e45e9a037e</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>250</countOfVotesTotal>
+                  <countOfVotesTotal>422</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>c2b6af61-0e09-4f27-85a9-2305f24d48b2</candidateIdentification>
                     <candidateReference>number2</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>220</countOfVotesTotal>
+                  <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
                     <candidateReference>number4</candidateReference>
                   </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>175</countOfVotesTotal>
+                  <countOfVotesTotal>297</countOfVotesTotal>
                 </candidateResult>
-                <countOfInvalidVotesTotal>42</countOfInvalidVotesTotal>
-                <countOfBlankVotesTotal>35</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>282</countOfIndividualVotesTotal>
+                <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
+                <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
+                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1588,7 +1623,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1863,7 +1898,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1940,7 +1975,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -2285,7 +2320,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -2376,7 +2411,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -2651,7 +2686,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -2728,7 +2763,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -3003,7 +3038,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>

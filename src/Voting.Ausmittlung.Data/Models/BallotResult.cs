@@ -70,4 +70,19 @@ public class BallotResult : BaseEntity
     {
         CountOfVoters.ResetSubTotal(dataSource, totalCountOfVoters);
     }
+
+    public void MoveECountingToConventional()
+    {
+        CountOfVoters.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in QuestionResults)
+        {
+            result.MoveECountingSubTotalsToConventional();
+        }
+
+        foreach (var result in TieBreakQuestionResults)
+        {
+            result.MoveECountingSubTotalsToConventional();
+        }
+    }
 }

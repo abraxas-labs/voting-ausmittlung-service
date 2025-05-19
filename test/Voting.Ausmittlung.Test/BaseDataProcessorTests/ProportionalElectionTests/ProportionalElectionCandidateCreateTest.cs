@@ -61,6 +61,9 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
                     Origin = "origin",
                     CheckDigit = 6,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             },
             new ProportionalElectionCandidateCreated
@@ -86,6 +89,9 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
                     ZipCode = "zip code",
                     Origin = "origin",
                     CheckDigit = 6,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -150,6 +156,9 @@ public class ProportionalElectionCandidateCreateTest : BaseDataProcessorTest
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
                     Origin = "origin",
                     CheckDigit = 6,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 

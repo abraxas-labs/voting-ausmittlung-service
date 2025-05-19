@@ -155,6 +155,11 @@ csharp_space_between_square_brackets = false
 # unused imports
 dotnet_diagnostic.IDE0005.severity = error
 
+# disable primary constructor recommendations
+dotnet_diagnostic.IDE0290.severity = none
+csharp_style_prefer_primary_constructors = false
+resharper_convert_to_primary_constructor_highlighting = none
+
 # copyright
 file_header_template = (c) Copyright by Abraxas Informatik AG\nFor license information see LICENSE file
 

@@ -68,22 +68,6 @@ public class ResultService : ServiceBase
         return _mapper.Map<ProtoModels.Comments>(comments);
     }
 
-    [AuthorizePermission(Permissions.PoliticalBusinessResult.Read)]
-    public override Task GetStateChanges(
-        GetResultStateChangesRequest request,
-        IServerStreamWriter<ProtoModels.ResultStateChange> responseStream,
-        ServerCallContext context)
-    {
-        return _resultReader.ListenToResultStateChanges(
-            GuidParser.Parse(request.ContestId),
-            e => responseStream.WriteAsync(new ProtoModels.ResultStateChange
-            {
-                Id = e.Id.ToString(),
-                NewState = _mapper.Map<ProtoModels.CountingCircleResultState>(e.NewState),
-            }),
-            context.CancellationToken);
-    }
-
     [AuthorizePermission(Permissions.PoliticalBusinessResult.ResetResults)]
     public override async Task<Empty> ResetCountingCircleResults(ResetCountingCircleResultsRequest request, ServerCallContext context)
     {

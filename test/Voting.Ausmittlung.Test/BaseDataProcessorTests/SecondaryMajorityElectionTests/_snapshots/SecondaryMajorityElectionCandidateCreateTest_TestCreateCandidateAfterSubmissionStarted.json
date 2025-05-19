@@ -24,6 +24,7 @@
     "SecondaryMajorityElectionEndResult": null,
     "State": 1,
     "ConventionalVoteCount": 0,
+    "ECountingVoteCount": 0,
     "EVotingVoteCount": 0,
     "VoteCount": 0,
     "CandidateId": "94f728b7-a0f1-4df3-8300-cd0f18155a1c",
@@ -52,5 +53,8 @@
   "Position": 5,
   "Origin": "origin",
   "CheckDigit": 9,
+  "Street": "street",
+  "HouseNumber": "1a",
+  "Country": "CH",
   "Id": "94f728b7-a0f1-4df3-8300-cd0f18155a1c"
 }

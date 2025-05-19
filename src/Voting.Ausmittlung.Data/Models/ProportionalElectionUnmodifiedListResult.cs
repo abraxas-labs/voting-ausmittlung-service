@@ -18,14 +18,22 @@ public class ProportionalElectionUnmodifiedListResult : BaseEntity, IHasVoteCoun
 
     public int EVotingVoteCount { get; set; }
 
+    public int ECountingVoteCount { get; set; }
+
     public int ConventionalVoteCount { get; set; }
 
     public int VoteCount
     {
-        get => EVotingVoteCount + ConventionalVoteCount;
+        get => EVotingVoteCount + ECountingVoteCount + ConventionalVoteCount;
         private set
         {
             // empty setter to store the value in the database...
         }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        ConventionalVoteCount += ECountingVoteCount;
+        ECountingVoteCount = 0;
     }
 }

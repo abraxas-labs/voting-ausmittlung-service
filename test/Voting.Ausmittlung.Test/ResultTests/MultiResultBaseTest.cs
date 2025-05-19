@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
@@ -25,7 +26,7 @@ namespace Voting.Ausmittlung.Test.ResultTests;
 
 public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultServiceClient>
 {
-    protected static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting);
+    protected static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting);
     protected static readonly Guid CountingCircleId = CountingCircleMockedData.GuidUzwil;
 
     protected static readonly Guid VoteId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestUzwilWithoutChilds);
@@ -52,7 +53,7 @@ public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultService
             permissionBuilder.RebuildPermissionTree());
     }
 
-    protected async Task SetResultState(CountingCircleResultState state)
+    protected async Task SetResultState(CountingCircleResultState state, string comment = "")
     {
         await RunScoped<IServiceProvider>(async sp =>
         {
@@ -64,23 +65,38 @@ public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultService
             var aggregateFactory = sp.GetRequiredService<IAggregateFactory>();
             var aggregateRepo = sp.GetRequiredService<AggregateRepositoryMock>();
 
-            await SetResultState(aggregateRepo, aggregateFactory, state);
+            await SetResultState(aggregateRepo, aggregateFactory, state, comment);
 
             var ccResults = await db.SimpleCountingCircleResults
                 .AsTracking()
+                .Include(x => x.Comments)
                 .Where(cc => cc.CountingCircle!.SnapshotContestId == ContestId)
                 .ToListAsync();
 
             foreach (var ccResult in ccResults)
             {
                 ccResult.State = state;
+                if (string.IsNullOrEmpty(comment))
+                {
+                    continue;
+                }
+
+                ccResult.HasComments = true;
+                ccResult.Comments ??= new List<CountingCircleResultComment>();
+                ccResult.Comments.Add(new()
+                {
+                    Content = comment,
+                    CreatedAt = DateTime.SpecifyKind(new DateTime(2020, 2, 3), DateTimeKind.Utc),
+                    CreatedBy = new() { FirstName = "Hans", LastName = "Muster", SecureConnectId = "123" },
+                    CreatedByMonitoringAuthority = true,
+                });
             }
 
             await db.SaveChangesAsync();
         });
     }
 
-    protected async Task SetResultState(IAggregateRepository aggregateRepo, IAggregateFactory aggregateFactory, CountingCircleResultState state)
+    protected async Task SetResultState(IAggregateRepository aggregateRepo, IAggregateFactory aggregateFactory, CountingCircleResultState state, string comment = "")
     {
         switch (state)
         {
@@ -115,15 +131,15 @@ public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultService
                 break;
             case CountingCircleResultState.ReadyForCorrection:
                 await SetResultState(aggregateRepo, aggregateFactory, CountingCircleResultState.SubmissionDone);
-                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x => x.FlagForCorrection(ContestId));
-                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x => x.FlagForCorrection(ContestId));
-                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x => x.FlagForCorrection(ContestId));
+                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x => x.FlagForCorrection(ContestId, comment));
+                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x => x.FlagForCorrection(ContestId, comment));
+                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x => x.FlagForCorrection(ContestId, comment));
                 break;
             case CountingCircleResultState.CorrectionDone:
                 await SetResultState(aggregateRepo, aggregateFactory, CountingCircleResultState.ReadyForCorrection);
-                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x => x.CorrectionFinished(string.Empty, ContestId));
-                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x => x.CorrectionFinished(string.Empty, ContestId));
-                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x => x.CorrectionFinished(string.Empty, ContestId));
+                await ExecuteOnAggregate<VoteResultAggregate>(aggregateRepo, aggregateFactory, VoteResultId, x => x.CorrectionFinished(comment, ContestId));
+                await ExecuteOnAggregate<ProportionalElectionResultAggregate>(aggregateRepo, aggregateFactory, ProportionalElectionResultId, x => x.CorrectionFinished(comment, ContestId));
+                await ExecuteOnAggregate<MajorityElectionResultAggregate>(aggregateRepo, aggregateFactory, MajorityElectionResultId, x => x.CorrectionFinished(comment, ContestId));
                 break;
             case CountingCircleResultState.AuditedTentatively:
                 await SetResultState(aggregateRepo, aggregateFactory, CountingCircleResultState.SubmissionDone);

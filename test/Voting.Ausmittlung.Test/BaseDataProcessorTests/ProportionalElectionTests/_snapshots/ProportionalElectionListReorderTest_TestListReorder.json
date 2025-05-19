@@ -10,7 +10,7 @@
         {
           "ProportionalElectionListId": "afebb285-599d-415f-89ac-04ebcbc4eaeb",
           "ShortDescription": "Liste 3 it",
-          "Description": "",
+          "Description": "Liste 3 it",
           "Language": "it",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -31,7 +31,7 @@
       "ListLotDecisionEntries": [],
       "ProportionalElectionListUnion": null,
       "ProportionalElectionSubListUnion": null,
-      "Description": "",
+      "Description": "Liste 3 it",
       "ShortDescription": "Liste 3 it",
       "Id": "afebb285-599d-415f-89ac-04ebcbc4eaeb"
     },
@@ -45,7 +45,7 @@
         {
           "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
           "ShortDescription": "Liste 1 it",
-          "Description": "",
+          "Description": "Liste 1 it",
           "Language": "it",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -66,7 +66,7 @@
       "ListLotDecisionEntries": [],
       "ProportionalElectionListUnion": null,
       "ProportionalElectionSubListUnion": null,
-      "Description": "",
+      "Description": "Liste 1 it",
       "ShortDescription": "Liste 1 it",
       "Id": "9091a3b6-3785-4adc-a486-f486e686503e"
     },
@@ -80,7 +80,7 @@
         {
           "ProportionalElectionListId": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
           "ShortDescription": "Liste 2 it",
-          "Description": "",
+          "Description": "Liste 2 it",
           "Language": "it",
           "Id": "00000000-0000-0000-0000-000000000000"
         }
@@ -101,7 +101,7 @@
       "ListLotDecisionEntries": [],
       "ProportionalElectionListUnion": null,
       "ProportionalElectionSubListUnion": null,
-      "Description": "",
+      "Description": "Liste 2 it",
       "ShortDescription": "Liste 2 it",
       "Id": "bfe54c2a-6bdf-41a3-bf11-321203c380d3"
     }

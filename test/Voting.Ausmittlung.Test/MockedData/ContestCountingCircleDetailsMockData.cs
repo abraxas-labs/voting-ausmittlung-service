@@ -60,7 +60,7 @@ public static class ContestCountingCircleDetailsMockData
 
     public static readonly Guid GuidUzwilUrnengangUzwilContestCountingCircleDetails =
         AusmittlungUuidV5.BuildContestCountingCircleDetails(
-            Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            Guid.Parse(ContestMockedData.IdUzwilEVoting),
             CountingCircleMockedData.GuidUzwil,
             false);
 
@@ -655,9 +655,11 @@ public static class ContestCountingCircleDetailsMockData
         => new ContestCountingCircleDetails
         {
             Id = GuidUzwilUrnengangUzwilContestCountingCircleDetails,
-            ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting),
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
             EVoting = true,
+            ECounting = true,
+            ECountingResultsImported = false,
             TotalCountOfVoters = 1400 + 1600 + 100 + 110,
             VotingCards =
             {

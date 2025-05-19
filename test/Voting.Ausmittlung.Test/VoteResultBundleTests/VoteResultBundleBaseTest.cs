@@ -168,6 +168,7 @@ public abstract class VoteResultBundleBaseTest : PoliticalBusinessResultBaseTest
         id ??= Guid.Parse(VoteResultBundleMockedData.IdGossauBundle1);
         return RunOnDb(db =>
             db.VoteResultBundles
+                .Include(x => x.Logs)
                 .Include(x => x.BallotResult)
                 .Where(x => x.Id == id)
                 .FirstAsync());

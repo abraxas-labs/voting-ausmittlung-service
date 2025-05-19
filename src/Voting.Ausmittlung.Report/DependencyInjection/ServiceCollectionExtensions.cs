@@ -32,6 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<VoteDomainOfInfluenceResultBuilder>();
         services.AddScoped<ProportionalElectionUnionEndResultBuilder>();
         services.AddScoped<WabstiCContestDetailsAttacher>();
+        services.AddScoped<PdfMajorityElectionUtil>();
         services.AddScoped<MultiLanguageTranslationUtil>();
 
         services.AddDmDoc(dmDocConfig);
@@ -146,7 +147,10 @@ public static class ServiceCollectionExtensions
                 AusmittlungPdfSecondaryMajorityElectionTemplates.CountingCircleEVotingProtocol)
             .AddRendererService<PdfSecondaryMajorityElectionEndResultRenderService>(
                 AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultProtocol,
-                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultEVotingProtocol);
+                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultEVotingProtocol)
+            .AddRendererService<PdfSecondaryMajorityElectionEndResultDetailRenderService>(
+                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultDetailProtocol,
+                AusmittlungPdfSecondaryMajorityElectionTemplates.EndResultDetailWithoutEmptyAndInvalidVotesProtocol);
     }
 
     private static IReportingServiceCollection AddPdfContestRenderServices(this IReportingServiceCollection services)

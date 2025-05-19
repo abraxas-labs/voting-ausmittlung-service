@@ -81,10 +81,13 @@ public static class MajorityElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 9000,
-                ConventionalAccountedBallots = 8000,
-                ConventionalBlankBallots = 500,
-                ConventionalInvalidBallots = 500,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 9000,
+                    AccountedBallots = 8000,
+                    BlankBallots = 500,
+                    InvalidBallots = 500,
+                },
                 VoterParticipation = 0.6m,
             },
             SecondaryMajorityElectionResults = new List<SecondaryMajorityElectionResult>
@@ -145,10 +148,13 @@ public static class MajorityElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 9000,
-                ConventionalAccountedBallots = 8000,
-                ConventionalBlankBallots = 500,
-                ConventionalInvalidBallots = 500,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 9000,
+                    AccountedBallots = 8000,
+                    BlankBallots = 500,
+                    InvalidBallots = 500,
+                },
                 VoterParticipation = 0.6m,
             },
         };
@@ -203,10 +209,13 @@ public static class MajorityElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 9000,
-                ConventionalAccountedBallots = 8000,
-                ConventionalBlankBallots = 500,
-                ConventionalInvalidBallots = 500,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 9000,
+                    AccountedBallots = 8000,
+                    BlankBallots = 500,
+                    InvalidBallots = 500,
+                },
                 VoterParticipation = 0.6m,
             },
         };
@@ -231,10 +240,13 @@ public static class MajorityElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 6000,
-                ConventionalAccountedBallots = 5000,
-                ConventionalBlankBallots = 500,
-                ConventionalInvalidBallots = 500,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 6000,
+                    AccountedBallots = 5000,
+                    BlankBallots = 500,
+                    InvalidBallots = 500,
+                },
                 VoterParticipation = 0.7m,
             },
         };
@@ -259,10 +271,13 @@ public static class MajorityElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 6000,
-                ConventionalAccountedBallots = 5000,
-                ConventionalBlankBallots = 500,
-                ConventionalInvalidBallots = 500,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 6000,
+                    AccountedBallots = 5000,
+                    BlankBallots = 500,
+                    InvalidBallots = 500,
+                },
                 VoterParticipation = 0.7m,
             },
         };
@@ -361,10 +376,13 @@ public static class MajorityElectionResultMockedData
             result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 3;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 100,
-                ConventionalAccountedBallots = 80,
-                ConventionalInvalidBallots = 10,
-                ConventionalBlankBallots = 10,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 100,
+                    AccountedBallots = 80,
+                    InvalidBallots = 10,
+                    BlankBallots = 10,
+                },
                 VoterParticipation = .8m,
             };
 

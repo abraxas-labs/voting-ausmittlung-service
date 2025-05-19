@@ -19,7 +19,6 @@ public static class MajorityElectionMockedData
     public const string IdBundMajorityElectionInContestBund = "7566c420-3774-4c57-9b31-9702fac37543";
     public const string IdStGallenMajorityElectionInContestBund = "b0da46f8-a721-4e1a-ac36-25284d68f34b";
     public const string IdUzwilMajorityElectionInContestBundWithoutChilds = "7ae77f44-1083-470a-bb66-64f921bc6945";
-    public const string IdBundMajorityElectionInContestStGallen = "0fee4b4e-f16d-46a3-9f7a-2776ee5785db";
     public const string IdGossauMajorityElectionInContestStGallen = "50415df8-6ee9-4eb4-9e31-68c0d3021e76";
     public const string IdUzwilMajorityElectionInContestStGallen = "d66ced3e-a2e4-4178-932b-ac91ee6a9d85";
     public const string IdStGallenMajorityElectionInContestStGallen = "cd464c26-24d4-4cfc-95d9-e7c930b1784e";
@@ -34,8 +33,6 @@ public static class MajorityElectionMockedData
     public const string CandidateIdBundMajorityElectionInContestBund = "94a02a0c-b654-4917-92a0-f6fe3fa05799";
     public const string CandidateId1StGallenMajorityElectionInContestBund = "81a11b8e-51b8-40c5-aa94-b7a854e2c726";
     public const string CandidateId2StGallenMajorityElectionInContestBund = "efdbb5e3-16bf-4a53-95c3-a35ed6371819";
-    public const string CandidateId1BundMajorityElectionInContestStGallen = "665f752b-6248-4f06-a232-6c7af148e550";
-    public const string CandidateId2BundMajorityElectionInContestStGallen = "c966085a-5cba-499b-bcf0-788e13ad0984";
     public const string CandidateIdUzwilMajorityElectionInContestStGallen = "be81a3f3-5a9e-4a69-8f19-4f0598a32955";
     public const string CandidateIdStGallenMajorityElectionInContestStGallen = "1228f95d-8b39-44b1-8cc3-84a93f5e3bbc";
     public const string CandidateIdStGallenMajorityElectionInContestStGallenSecondaryOnSeparateBallot = "a41d3778-f9e6-4447-ae59-46ea77419efd";
@@ -129,6 +126,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "CVP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -186,6 +186,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "Test"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
                     new MajorityElectionCandidate
                     {
@@ -211,6 +214,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "Test"),
                         CheckDigit = 1,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -254,6 +260,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "Test"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -279,6 +288,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "CVP"),
                                 CheckDigit = 7,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -304,6 +316,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "SVP"),
                                 CheckDigit = 5,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -329,6 +344,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "CVP"),
                                 CheckDigit = 3,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -371,6 +389,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "Test"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -396,6 +417,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "CVP"),
                                 CheckDigit = 7,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -438,6 +462,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "Test"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new SecondaryMajorityElectionCandidate
                             {
@@ -463,6 +490,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "CVP"),
                                 CheckDigit = 7,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -529,88 +559,6 @@ public static class MajorityElectionMockedData
             },
         };
 
-    public static MajorityElection BundMajorityElectionInContestStGallen
-        => new MajorityElection
-        {
-            Id = Guid.Parse(IdBundMajorityElectionInContestStGallen),
-            PoliticalBusinessNumber = "100",
-            Translations = TranslationUtil.CreateTranslations<MajorityElectionTranslation>(
-                (t, o) => t.OfficialDescription = o,
-                "Majorzwahl Bund",
-                (t, s) => t.ShortDescription = s,
-                "Mw Bund"),
-            DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
-            ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            Active = true,
-            AutomaticEmptyVoteCounting = true,
-            EnforceEmptyVoteCountingForCountingCircles = true,
-            BallotBundleSize = 0,
-            BallotBundleSampleSize = 0,
-            AutomaticBallotBundleNumberGeneration = false,
-            BallotNumberGeneration = BallotNumberGeneration.RestartForEachBundle,
-            ResultEntry = MajorityElectionResultEntry.FinalResults,
-            EnforceResultEntryForCountingCircles = true,
-            CandidateCheckDigit = true,
-            MandateAlgorithm = MajorityElectionMandateAlgorithm.AbsoluteMajority,
-            NumberOfMandates = 5,
-            ReviewProcedure = MajorityElectionReviewProcedure.Electronically,
-            EnforceReviewProcedureForCountingCircles = true,
-            EnforceCandidateCheckDigitForCountingCircles = false,
-            MajorityElectionCandidates = new List<MajorityElectionCandidate>
-            {
-                    new MajorityElectionCandidate
-                    {
-                        Id = Guid.Parse(CandidateId1BundMajorityElectionInContestStGallen),
-                        FirstName = "firstName",
-                        LastName = "lastName",
-                        PoliticalFirstName = "pol first name",
-                        PoliticalLastName = "pol last name",
-                        DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc),
-                        Incumbent = true,
-                        Position = 1,
-                        Locality = "locality",
-                        Number = "number1",
-                        Sex = SexType.Female,
-                        Title = "title",
-                        ZipCode = "zip code",
-                        Origin = "origin",
-                        Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
-                            (t, o) => t.Occupation = o,
-                            "occupation",
-                            (t, o) => t.OccupationTitle = o,
-                            "occupation title",
-                            (t, s) => t.Party = s,
-                            "SP"),
-                        CheckDigit = 9,
-                    },
-                    new MajorityElectionCandidate
-                    {
-                        Id = Guid.Parse(CandidateId2BundMajorityElectionInContestStGallen),
-                        FirstName = "firstName 2",
-                        LastName = "lastName 2",
-                        PoliticalFirstName = "pol first name 2",
-                        PoliticalLastName = "pol last name 2",
-                        DateOfBirth = new DateTime(1980, 3, 27, 0, 0, 0, DateTimeKind.Utc),
-                        Incumbent = false,
-                        Position = 2,
-                        Locality = "locality 2",
-                        Number = "number2",
-                        Sex = SexType.Undefined,
-                        Title = "title2",
-                        ZipCode = "zip code2",
-                        Origin = "origin 2",
-                        Translations = TranslationUtil.CreateTranslations<MajorityElectionCandidateTranslation>(
-                            (t, o) => t.Occupation = o,
-                            "occupation 2",
-                            (t, o) => t.OccupationTitle = o,
-                            "occupation title 2",
-                            (t, s) => t.Party = s,
-                            "SVP"),
-                        CheckDigit = 7,
-                    },
-            },
-        };
-
     public static MajorityElection UzwilMajorityElectionInContestStGallen
         => new MajorityElection
         {
@@ -664,6 +612,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "FDP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -707,6 +658,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "Test"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -816,6 +770,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "GLP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -874,6 +831,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "GLP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                         CandidateReferenceId = Guid.Parse(CandidateIdStGallenMajorityElectionInContestStGallen),
                     },
                     new MajorityElectionCandidate
@@ -900,6 +860,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "SVP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -956,6 +919,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "CVP"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
                     new MajorityElectionCandidate
                     {
@@ -980,6 +946,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "CVP"),
                         CheckDigit = 7,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -1065,6 +1034,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "Test"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -1080,7 +1052,7 @@ public static class MajorityElectionMockedData
                 (t, s) => t.ShortDescription = s,
                 "Mw Uzwil"),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
-            ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting),
+            ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting),
             Active = true,
             AutomaticEmptyVoteCounting = true,
             EnforceEmptyVoteCountingForCountingCircles = true,
@@ -1122,6 +1094,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "None"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
         };
@@ -1235,6 +1210,9 @@ public static class MajorityElectionMockedData
                             (t, s) => t.Party = s,
                             "test"),
                         CheckDigit = 9,
+                        Street = "street",
+                        HouseNumber = "1a",
+                        Country = "CH",
                     },
             },
             SecondaryMajorityElections = new List<SecondaryMajorityElection>
@@ -1277,6 +1255,9 @@ public static class MajorityElectionMockedData
                                     (t, s) => t.Party = s,
                                     "Test"),
                                 CheckDigit = 9,
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -1365,7 +1346,6 @@ public static class MajorityElectionMockedData
         get
         {
             yield return BundMajorityElectionInContestBund;
-            yield return BundMajorityElectionInContestStGallen;
             yield return UzwilMajorityElectionInContestStGallen;
             yield return StGallenMajorityElectionInContestBund;
             yield return StGallenMajorityElectionInContestStGallen;

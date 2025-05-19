@@ -76,7 +76,13 @@ public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseV
                     Type = DomainOfInfluenceType.Ch,
                 },
             },
-            CountOfVoters = new PoliticalBusinessNullableCountOfVoters { ConventionalAccountedBallots = accountedBallots },
+            CountOfVoters = new PoliticalBusinessNullableCountOfVoters
+            {
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    AccountedBallots = accountedBallots,
+                },
+            },
         };
     }
 }

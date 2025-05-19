@@ -24,7 +24,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -289,7 +289,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -372,7 +372,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -1245,7 +1245,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>

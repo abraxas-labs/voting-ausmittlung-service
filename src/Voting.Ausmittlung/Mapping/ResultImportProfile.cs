@@ -24,7 +24,8 @@ public class ResultImportProfile : Profile
             .IncludeMembers(x => x.CountingCircle)
             .ForMember(dst => dst.Id, opts => opts.MapFrom(x => x.CountingCircle!.BasisCountingCircleId));
 
-        CreateMap<ImportModels.ImportMajorityElectionWriteInMappings, ProtoModels.MajorityElectionContestWriteInMappings>();
+        CreateMap<List<ImportModels.MajorityElectionGroupedWriteInMappings>, ProtoModels.MajorityElectionContestWriteInMappings>()
+            .ForMember(dst => dst.WriteInMappings, opts => opts.MapFrom(src => src));
         CreateMap<ImportModels.MajorityElectionGroupedWriteInMappings, ProtoModels.MajorityElectionWriteInMappings>()
             .ForMember(dst => dst.InvalidVotes, opts => opts.MapFrom(x => x.Election.Contest.CantonDefaults.MajorityElectionInvalidVotes))
             .ForMember(dst => dst.IndividualVotes, opts => opts.MapFrom(x => !x.Election.IndividualCandidatesDisabled));

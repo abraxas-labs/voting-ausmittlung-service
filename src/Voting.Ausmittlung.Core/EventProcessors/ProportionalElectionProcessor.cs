@@ -15,6 +15,7 @@ using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -66,6 +67,7 @@ public class ProportionalElectionProcessor :
     private readonly ProportionalElectionCandidateRepo _proportionalElectionCandidateRepo;
     private readonly ProportionalElectionEndResultBuilder _endResultBuilder;
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
+    private readonly ProportionalElectionUnionEndResultBuilder _unionEndResultBuilder;
 
     public ProportionalElectionProcessor(
         ILogger<ProportionalElectionProcessor> logger,
@@ -88,7 +90,8 @@ public class ProportionalElectionProcessor :
         PoliticalBusinessToNewContestMover<ProportionalElection, ProportionalElectionRepo> politicalBusinessToNewContestMover,
         ProportionalElectionCandidateRepo proportionalElectionCandidateRepo,
         ProportionalElectionEndResultBuilder endResultBuilder,
-        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
+        ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder,
+        ProportionalElectionUnionEndResultBuilder unionEndResultBuilder)
     {
         _logger = logger;
         _mapper = mapper;
@@ -111,6 +114,7 @@ public class ProportionalElectionProcessor :
         _proportionalElectionCandidateRepo = proportionalElectionCandidateRepo;
         _endResultBuilder = endResultBuilder;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
+        _unionEndResultBuilder = unionEndResultBuilder;
     }
 
     public async Task Process(ProportionalElectionCreated eventData)
@@ -177,17 +181,22 @@ public class ProportionalElectionProcessor :
     public async Task Process(ProportionalElectionDeleted eventData)
     {
         var id = GuidParser.Parse(eventData.ProportionalElectionId);
+        var existing = await _repo.GetByKey(id);
 
-        if (!await _repo.ExistsByKey(id))
+        if (existing == null)
         {
             // skip event processing to prevent race condition if proportional election was deleted from other process.
             _logger.LogWarning("event 'ProportionalElectionDeleted' skipped. proportional election {id} has already been deleted", id);
             return;
         }
 
+        if (existing.Active)
+        {
+            await _unionEndResultBuilder.AdjustElectionsCount(id, -1);
+        }
+
         await _repo.DeleteByKey(id);
         await _unionListBuilder.RemoveListsWithNoEntries();
-
         await _simplePoliticalBusinessBuilder.Delete(id);
     }
 
@@ -212,10 +221,15 @@ public class ProportionalElectionProcessor :
         var existingModel = await _repo.GetByKey(proportionalElectionId)
             ?? throw new EntityNotFoundException(proportionalElectionId);
 
+        if (existingModel.Active == eventData.Active)
+        {
+            return;
+        }
+
         existingModel.Active = eventData.Active;
         await _repo.Update(existingModel);
-
         await _simplePoliticalBusinessBuilder.Update(existingModel, false);
+        await _unionEndResultBuilder.AdjustElectionsCount(proportionalElectionId, eventData.Active ? 1 : -1);
     }
 
     public async Task Process(ProportionalElectionListCreated eventData)
@@ -416,6 +430,12 @@ public class ProportionalElectionProcessor :
         var model = _mapper.Map<ProportionalElectionCandidate>(eventData.ProportionalElectionCandidate);
         TruncateCandidateNumber(model);
 
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(model.Country))
+        {
+            model.Country = CountryUtils.SwissCountryIso;
+        }
+
         var contestId = await _listRepo.Query()
                 .Where(l => l.Id == model.ProportionalElectionListId)
                 .Select(l => (Guid?)l.ProportionalElection.ContestId)
@@ -438,6 +458,12 @@ public class ProportionalElectionProcessor :
     {
         var model = _mapper.Map<ProportionalElectionCandidate>(eventData.ProportionalElectionCandidate);
         TruncateCandidateNumber(model);
+
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(model.Country))
+        {
+            model.Country = CountryUtils.SwissCountryIso;
+        }
 
         var (existingCandidate, contestId) = await _candidateRepo
             .Query()

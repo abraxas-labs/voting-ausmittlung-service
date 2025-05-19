@@ -170,9 +170,15 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
             {
                 var details = await db.ContestCountingCircleDetails
                     .AsTracking()
+                    .AsSplitQuery()
                     .Include(x => x.VotingCards)
+                    .Include(x => x.CountOfVotersInformationSubTotals)
                     .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails);
                 details.VotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType != DomainOfInfluenceType.Ct).ToList();
+                details.CountOfVotersInformationSubTotals.Add(new CountOfVotersInformationSubTotal
+                {
+                    VoterType = VoterType.Foreigner,
+                });
                 await db.SaveChangesAsync();
             });
 
@@ -205,8 +211,12 @@ public class ProportionalElectionCreateTest : BaseDataProcessorTest
 
         var details = await RunOnDb(
             db => db.ContestCountingCircleDetails
+                .AsSplitQuery()
                 .Include(x => x.VotingCards)
+                .Include(x => x.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
+
+        details.CountOfVotersInformationSubTotals.Any(st => st.VoterType == VoterType.Foreigner).Should().BeFalse();
 
         var newCreatedVotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).ToList();
         newCreatedVotingCards.Single(x => x.Valid && x.Channel == VotingChannel.BallotBox).CountOfReceivedVotingCards.Should().Be(2000);

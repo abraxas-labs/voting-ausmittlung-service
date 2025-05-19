@@ -22,7 +22,7 @@ public class VoteToNewContestMovedTest : VoteProcessorBaseTest
     [Fact]
     public async Task TestToNewContestMoved()
     {
-        var pbId = Guid.Parse(VoteMockedData.IdBundVoteInContestStGallen);
+        var pbId = Guid.Parse(VoteMockedData.IdStGallenVoteInContestStGallen);
         var newContestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
         await TestEventPublisher.Publish(

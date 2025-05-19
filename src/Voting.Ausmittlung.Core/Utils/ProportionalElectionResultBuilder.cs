@@ -17,13 +17,12 @@ using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Core.Utils;
 
-public class ProportionalElectionResultBuilder
+public class ProportionalElectionResultBuilder : PoliticalBusinessResultBuilder<ProportionalElectionResult>
 {
     private readonly ProportionalElectionResultRepo _resultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionList> _listRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionListResult> _listResultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBallot> _resultBallotRepo;
-    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly IMapper _mapper;
     private readonly DataContext _dataContext;
     private readonly ProportionalElectionCandidateResultBuilder _candidateResultBuilder;
@@ -33,16 +32,17 @@ public class ProportionalElectionResultBuilder
         IDbRepository<DataContext, ProportionalElectionList> listRepo,
         IDbRepository<DataContext, ProportionalElectionListResult> listResultRepo,
         IDbRepository<DataContext, ProportionalElectionResultBallot> resultBallotRepo,
-        IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
+        SimpleCountingCircleResultRepo simpleResultRepo,
+        IDbRepository<DataContext, CountingCircleResultComment> resultCommentRepo,
         ProportionalElectionCandidateResultBuilder candidateResultBuilder,
         DataContext dataContext,
         IMapper mapper)
+        : base(simpleResultRepo, resultCommentRepo)
     {
         _resultRepo = resultRepo;
         _listRepo = listRepo;
         _listResultRepo = listResultRepo;
         _resultBallotRepo = resultBallotRepo;
-        _simpleResultRepo = simpleResultRepo;
         _candidateResultBuilder = candidateResultBuilder;
         _dataContext = dataContext;
         _mapper = mapper;
@@ -162,7 +162,7 @@ public class ProportionalElectionResultBuilder
             .FirstOrDefaultAsync(x => x.Id == resultId)
             ?? throw new EntityNotFoundException(resultId);
 
-        await ResetConventionalResult(electionResult, true);
+        await ResetResult(electionResult, VotingDataSource.Conventional, true, true);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -188,7 +188,7 @@ public class ProportionalElectionResultBuilder
             electionResult.EntryParams.ReviewProcedure = ProportionalElectionReviewProcedure.Electronically;
         }
 
-        await ResetConventionalResult(electionResult, false);
+        await ResetResult(electionResult, VotingDataSource.Conventional, true, false);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -226,16 +226,45 @@ public class ProportionalElectionResultBuilder
         await AdjustListResultForBundle(resultBundle, -1);
     }
 
-    private async Task ResetConventionalResult(ProportionalElectionResult electionResult, bool includeCountOfVoters)
+    internal async Task ResetAllResults(Guid contestId, Guid countingCircleId, VotingDataSource dataSource)
     {
-        electionResult.ResetAllSubTotals(VotingDataSource.Conventional, includeCountOfVoters);
-        electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
-        electionResult.Bundles.Clear();
-        electionResult.UpdateVoterParticipation();
+        var electionResults = await _resultRepo
+            .Query()
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(x => x.UnmodifiedListResults)
+            .Include(x => x.ListResults).ThenInclude(x => x.CandidateResults).ThenInclude(x => x.VoteSources)
+            .Include(x => x.Bundles)
+            .Where(x => x.CountingCircleId == countingCircleId && x.ProportionalElection.ContestId == contestId)
+            .ToListAsync();
 
-        if (includeCountOfVoters)
+        foreach (var electionResult in electionResults)
         {
-            await ResetSimpleResult(electionResult.Id);
+            await ResetResult(electionResult, dataSource, false, true);
+            electionResult.UpdateVoterParticipation();
+        }
+
+        await ResetSimpleResults(electionResults, dataSource);
+        await _dataContext.SaveChangesAsync();
+    }
+
+    private async Task ResetResult(
+        ProportionalElectionResult electionResult,
+        VotingDataSource dataSource,
+        bool includeSimpleResult,
+        bool includeCountOfVoters)
+    {
+        electionResult.ResetAllSubTotals(dataSource, includeCountOfVoters);
+        electionResult.UpdateVoterParticipation();
+        if (dataSource == VotingDataSource.Conventional)
+        {
+            electionResult.CountOfBundlesNotReviewedOrDeleted = 0;
+            electionResult.Bundles.Clear();
+        }
+
+        if (includeSimpleResult)
+        {
+            await ResetSimpleResult(electionResult.Id, dataSource, includeCountOfVoters, electionResult);
         }
     }
 
@@ -266,23 +295,5 @@ public class ProportionalElectionResultBuilder
         listResult.ConventionalSubTotal.ModifiedListBlankRowsCount += blankRowCounts * deltaFactor;
 
         await _listResultRepo.Update(listResult);
-    }
-
-    private async Task ResetSimpleResult(Guid resultId)
-    {
-        var simpleResult = await _simpleResultRepo.GetByKey(resultId)
-                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), resultId);
-
-        if (simpleResult.CountOfVoters == null)
-        {
-            return;
-        }
-
-        simpleResult.CountOfVoters.ConventionalReceivedBallots = 0;
-        simpleResult.CountOfVoters.ConventionalBlankBallots = 0;
-        simpleResult.CountOfVoters.ConventionalInvalidBallots = 0;
-        simpleResult.CountOfVoters.ConventionalAccountedBallots = 0;
-
-        await _simpleResultRepo.Update(simpleResult);
     }
 }

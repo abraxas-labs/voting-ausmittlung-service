@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>proportional_election_list_votes_political_business_union_end_results</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -9,7 +10,7 @@
     <Description>Kantonratswahl</Description>
     <ProportionalElectionUnionEndResult>
       <CountOfVoters>
-        <VoterParticipation>0.039453</VoterParticipation>
+        <VoterParticipation>0.0395</VoterParticipation>
         <TotalReceivedBallots>750</TotalReceivedBallots>
         <TotalUnaccountedBallots>420</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>

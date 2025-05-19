@@ -16,6 +16,7 @@ using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Testing;
+using Voting.Lib.Testing.Mocks;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.MockedData;
@@ -39,6 +40,20 @@ public static class MajorityElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static MajorityElectionResultBundle StGallenBundle2
@@ -53,6 +68,20 @@ public static class MajorityElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static MajorityElectionResultBundle StGallenBundle3
@@ -67,6 +96,20 @@ public static class MajorityElectionResultBundleMockedData
                 SecureConnectId = "someones-user-id",
             },
             ElectionResultId = Guid.Parse(MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Someone",
+                        LastName = "Else",
+                        SecureConnectId = "someones-user-id",
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static MajorityElectionResultBundle KircheBundle1
@@ -81,6 +124,20 @@ public static class MajorityElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = Guid.Parse(MajorityElectionResultMockedData.IdKircheElectionResultInContestKirche),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static IEnumerable<MajorityElectionResultBundle> All

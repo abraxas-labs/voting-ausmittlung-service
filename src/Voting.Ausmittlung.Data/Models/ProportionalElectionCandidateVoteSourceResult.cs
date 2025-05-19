@@ -16,9 +16,17 @@ public class ProportionalElectionCandidateVoteSourceResult : BaseEntity, IHasVot
 
     public Guid? ListId { get; set; }
 
+    public int ECountingVoteCount { get; set; }
+
     public int EVotingVoteCount { get; set; }
 
     public int ConventionalVoteCount { get; set; }
 
-    public int VoteCount => ConventionalVoteCount + EVotingVoteCount;
+    public int VoteCount => ConventionalVoteCount + EVotingVoteCount + ECountingVoteCount;
+
+    public void MoveECountingToConventional()
+    {
+        ConventionalVoteCount += ECountingVoteCount;
+        ECountingVoteCount = 0;
+    }
 }

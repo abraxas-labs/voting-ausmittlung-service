@@ -14,7 +14,6 @@ using Grpc.Net.Client;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
@@ -173,9 +172,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == id
-            && x.NewState == CountingCircleResultState.AuditedTentatively);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultAuditedTentatively.Descriptor, id);
     }
 
     [Fact]
@@ -367,9 +364,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeFalse();
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == id
-            && x.NewState == CountingCircleResultState.AuditedTentatively);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultAuditedTentatively.Descriptor, id);
     }
 
     [Fact]

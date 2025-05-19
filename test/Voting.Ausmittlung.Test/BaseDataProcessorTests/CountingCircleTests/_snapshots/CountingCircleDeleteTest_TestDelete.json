@@ -50,6 +50,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -58,6 +59,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723"
     },
     {
@@ -110,6 +112,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -118,6 +121,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a4e"
     },
     {
@@ -170,6 +174,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -178,6 +183,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab"
     },
     {
@@ -230,6 +236,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -238,6 +245,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "46adab98-9114-4503-9000-b02842640650"
     },
     {
@@ -290,6 +298,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": true,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -298,6 +307,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "44a75721-f192-461c-816f-9f46a00d274a"
     }
   ]

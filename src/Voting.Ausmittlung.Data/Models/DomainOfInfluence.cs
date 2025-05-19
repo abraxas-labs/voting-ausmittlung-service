@@ -3,10 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
 
+[DebuggerDisplay("{Name}")]
 public class DomainOfInfluence : BaseEntity, IHasSnapshotContest
 {
     public string Name { get; set; } = string.Empty;

@@ -47,18 +47,6 @@ public class VoteResultBundleService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
-    public override Task GetBundleChanges(
-        GetVoteResultBundleChangesRequest request,
-        IServerStreamWriter<ProtoModels.VoteResultBundle> responseStream,
-        ServerCallContext context)
-    {
-        return _voteResultBundleReader.ListenToBundleChanges(
-            GuidParser.Parse(request.BallotResultId),
-            b => responseStream.WriteAsync(_mapper.Map<ProtoModels.VoteResultBundle>(b)),
-            context.CancellationToken);
-    }
-
-    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<GetVoteResultBundleResponse> GetBundle(
         GetVoteResultBundleRequest request,
         ServerCallContext context)

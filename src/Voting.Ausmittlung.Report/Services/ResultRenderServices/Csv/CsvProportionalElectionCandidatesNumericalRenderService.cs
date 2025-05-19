@@ -29,6 +29,7 @@ public class CsvProportionalElectionCandidatesNumericalRenderService : IRenderer
     public Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
         var candidates = _candidatesRepo.Query()
+            .Include(c => c.Translations)
             .Where(c => c.ProportionalElectionList.ProportionalElectionId == ctx.PoliticalBusinessId)
             .OrderBy(c => c.ProportionalElectionList.OrderNumber)
             .ThenBy(c => c.Position)
@@ -40,6 +41,8 @@ public class CsvProportionalElectionCandidatesNumericalRenderService : IRenderer
                 Wohnort = c.Locality,
                 Jahrgang = c.DateOfBirth.HasValue ? c.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                 Listenbezeichnung = c.ProportionalElectionList.Translations.First().ShortDescription,
+                Beruf = c.Occupation,
+                Bisher = c.Incumbent ? "1" : "0",
             })
             .AsAsyncEnumerable();
 

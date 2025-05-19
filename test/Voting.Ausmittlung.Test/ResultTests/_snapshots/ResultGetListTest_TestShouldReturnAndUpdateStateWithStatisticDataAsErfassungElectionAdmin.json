@@ -32,7 +32,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "CountingCircle": {
     "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -61,7 +62,8 @@
       "Phone": "",
       "MobilePhone": "",
       "Email": ""
-    }
+    },
+    "ECounting": false
   },
   "Details": {
     "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
@@ -120,6 +122,8 @@
       }
     ],
     "EVoting": false,
+    "ECounting": false,
+    "ECountingResultsImported": false,
     "CountingMachine": 0
   },
   "Results": [
@@ -247,6 +251,8 @@
   "ContestCountingCircleContactPersonId": "",
   "MustUpdateContactPersons": false,
   "HasUnmappedEVotingWriteIns": false,
+  "HasUnmappedECountingWriteIns": false,
+  "HasUnmappedWriteIns": false,
   "EnabledVotingCardChannels": [
     {
       "Valid": true,

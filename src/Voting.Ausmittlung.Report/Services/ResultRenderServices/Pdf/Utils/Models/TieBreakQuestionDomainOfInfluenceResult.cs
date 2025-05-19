@@ -20,13 +20,15 @@ public class TieBreakQuestionDomainOfInfluenceResult :
 
     public TieBreakQuestionResultSubTotal EVotingSubTotal { get; set; } = new TieBreakQuestionResultSubTotal();
 
+    public TieBreakQuestionResultSubTotal ECountingSubTotal { get; set; } = new TieBreakQuestionResultSubTotal();
+
     public TieBreakQuestionResultSubTotal ConventionalSubTotal { get; set; } = new TieBreakQuestionResultSubTotal();
 
-    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1;
+    public int TotalCountOfAnswerQ1 => EVotingSubTotal.TotalCountOfAnswerQ1 + ECountingSubTotal.TotalCountOfAnswerQ1 + ConventionalSubTotal.TotalCountOfAnswerQ1;
 
-    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2;
+    public int TotalCountOfAnswerQ2 => EVotingSubTotal.TotalCountOfAnswerQ2 + ECountingSubTotal.TotalCountOfAnswerQ2 + ConventionalSubTotal.TotalCountOfAnswerQ2;
 
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
 
     public bool HasQ1Majority => TotalCountOfAnswerQ1 > TotalCountOfAnswerQ2;
 

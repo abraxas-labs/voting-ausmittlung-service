@@ -9,6 +9,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -63,6 +64,8 @@ public class PdfVoteResultExportTest : PdfExportBaseTest
             tqr.EVotingSubTotal.TotalCountOfAnswerUnspecified = 1;
             await db.SaveChangesAsync();
         });
+
+        await ModifyDbEntities<Vote>(v => v.Id == VoteMockedData.BundVoteInContestBund.Id, v => v.ReportDomainOfInfluenceLevel = 1);
     }
 
     protected override StartProtocolExportsRequest NewRequest()

@@ -7,6 +7,7 @@
     <PackageReference Include="Voting.Lib.Eventing" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.VotingExports" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DmDoc" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Ausmittlung.Eventing.Proto" Version="$(VotingAusmittlungProtoVersion)" />
     <PackageReference Include="Voting.Basis.Eventing.Proto" Version="$(VotingBasisProtoVersion)" />
   </ItemGroup>

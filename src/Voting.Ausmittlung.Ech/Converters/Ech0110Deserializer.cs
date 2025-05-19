@@ -1,9 +1,10 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using Ech0110_4_0;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Common;
@@ -21,33 +22,39 @@ public class Ech0110Deserializer
         _echDeserializer = echDeserializer;
     }
 
-    public (EVotingVotingCardImport EVotingVotingCardImport, EVotingCountOfVotersInformationImport EVotingCountOfVotersInformationImport) DeserializeXml(Stream stream)
+    public void DeserializeXml(Stream stream, Guid contestId, VotingImport importData)
     {
         var schemaSet = Ech0110Schemas.LoadEch0110Schemas();
         var delivery = _echDeserializer.DeserializeXml<Delivery>(stream, schemaSet);
-        return (EVotingVotingCardImportFromDelivery(delivery), EVotingCountOfVotersInformationImportFromDelivery(delivery));
+        var deliveryContestId = GuidParser.Parse(delivery.ResultDelivery.ContestInformation.ContestIdentification);
+        if (deliveryContestId != contestId)
+        {
+            throw new ValidationException("contestIds do not match");
+        }
+
+        importData.AddEchMessageId(delivery.DeliveryHeader.MessageId);
+        importData.VotingCards = EVotingVotingCardImportFromDelivery(delivery);
+        AddEVotingCountOfVotersInformationImportFromDelivery(delivery, importData);
     }
 
-    private static EVotingVotingCardImport EVotingVotingCardImportFromDelivery(Delivery delivery)
+    private static List<VotingImportCountingCircleVotingCards> EVotingVotingCardImportFromDelivery(Delivery delivery)
     {
-        var contestId = GuidParser.Parse(delivery.ResultDelivery.ContestInformation.ContestIdentification);
-
-        var votingCards = new List<EVotingCountingCircleVotingCards>();
+        var votingCards =
+            new List<VotingImportCountingCircleVotingCards>(delivery.ResultDelivery.CountingCircleResults.Count);
         foreach (var ccData in delivery.ResultDelivery.CountingCircleResults)
         {
             var countingCircleId = ccData.CountingCircle.CountingCircleId;
             var receivedVotingCards = int.Parse(ccData.VotingCardsInformation.CountOfReceivedValidVotingCardsTotal);
-            votingCards.Add(new EVotingCountingCircleVotingCards(countingCircleId, receivedVotingCards));
+            votingCards.Add(new VotingImportCountingCircleVotingCards(countingCircleId, receivedVotingCards));
         }
 
-        return new EVotingVotingCardImport(delivery.DeliveryHeader.MessageId, contestId, votingCards);
+        return votingCards;
     }
 
-    private static EVotingCountOfVotersInformationImport EVotingCountOfVotersInformationImportFromDelivery(Delivery delivery)
+    private static void AddEVotingCountOfVotersInformationImportFromDelivery(
+        Delivery delivery,
+        VotingImport importData)
     {
-        var contestId = GuidParser.Parse(delivery.ResultDelivery.ContestInformation.ContestIdentification);
-        var countingCircleResultsCountOfVotersInformations = new List<EVotingCountingCircleResultCountOfVotersInformation>();
-
         foreach (var countingCircleResult in delivery.ResultDelivery.CountingCircleResults)
         {
             var countingCircleId = countingCircleResult.CountingCircle.CountingCircleId;
@@ -56,15 +63,17 @@ public class Ech0110Deserializer
             {
                 foreach (var voteResult in countingCircleResult.VoteResults)
                 {
-                    if (!int.TryParse(voteResult.CountOfVotersInformation.CountOfVotersTotal, out var countOfVotersTotal))
+                    if (!int.TryParse(
+                            voteResult.CountOfVotersInformation.CountOfVotersTotal,
+                            out var countOfVotersTotal))
                     {
                         continue;
                     }
 
-                    countingCircleResultsCountOfVotersInformations.Add(new EVotingCountingCircleResultCountOfVotersInformation(
-                        countingCircleId,
+                    importData.SetTotalCountOfVoters(
                         GuidParser.Parse(voteResult.Vote.VoteIdentification),
-                        countOfVotersTotal));
+                        countingCircleId,
+                        countOfVotersTotal);
                 }
             }
 
@@ -72,30 +81,22 @@ public class Ech0110Deserializer
             {
                 foreach (var electionGroupResult in countingCircleResult.ElectionGroupResults)
                 {
-                    if (!int.TryParse(electionGroupResult.CountOfVotersInformation.CountOfVotersTotal, out var countOfVotersTotal))
+                    if (!int.TryParse(
+                            electionGroupResult.CountOfVotersInformation.CountOfVotersTotal,
+                            out var countOfVotersTotal))
                     {
                         continue;
                     }
 
-                    countingCircleResultsCountOfVotersInformations.AddRange(electionGroupResult.ElectionResults
-                        .Where(er => er.ProportionalElection != null)
-                        .Select(er => new EVotingCountingCircleResultCountOfVotersInformation(
+                    foreach (var result in electionGroupResult.ElectionResults)
+                    {
+                        importData.SetTotalCountOfVoters(
+                            GuidParser.Parse(result.Election.ElectionIdentification),
                             countingCircleId,
-                            GuidParser.Parse(er.Election.ElectionIdentification),
-                            countOfVotersTotal)));
-
-                    countingCircleResultsCountOfVotersInformations.AddRange(electionGroupResult.ElectionResults
-                        .Where(er => er.MajoralElection != null)
-                        .Select(er => new EVotingCountingCircleResultCountOfVotersInformation(
-                            countingCircleId,
-                            GuidParser.Parse(er.Election.ElectionIdentification),
-                            countOfVotersTotal)));
+                            countOfVotersTotal);
+                    }
                 }
             }
         }
-
-        return new EVotingCountOfVotersInformationImport(
-            contestId,
-            countingCircleResultsCountOfVotersInformations);
     }
 }

@@ -7,7 +7,20 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
 public class PdfPoliticalBusinessCountOfVoters
 {
-    public decimal VoterParticipation { get; set; }
+    private decimal _voterParticipation;
+
+    public decimal VoterParticipation
+    {
+        get
+        {
+            return _voterParticipation;
+        }
+
+        set
+        {
+            _voterParticipation = decimal.Round(value, 4);
+        }
+    }
 
     public int TotalReceivedBallots { get; set; }
 

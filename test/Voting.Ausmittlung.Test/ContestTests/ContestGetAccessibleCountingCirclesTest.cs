@@ -40,7 +40,7 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
     {
         var response = await ErfassungElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
     }
@@ -50,7 +50,7 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
     {
         var response = await MonitoringElectionAdminClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
     }
@@ -60,7 +60,7 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
     {
         var response = await ErfassungCreatorClient.GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
         {
-            ContestId = ContestMockedData.IdUzwilEvoting,
+            ContestId = ContestMockedData.IdUzwilEVoting,
         });
         response.MatchSnapshot();
     }
@@ -111,7 +111,7 @@ public class ContestGetAccessibleCountingCirclesTest : BaseTest<ContestService.C
         await new ContestService.ContestServiceClient(channel)
             .GetAccessibleCountingCirclesAsync(new GetAccessibleCountingCirclesRequest
             {
-                ContestId = ContestMockedData.IdUzwilEvoting,
+                ContestId = ContestMockedData.IdUzwilEVoting,
             });
     }
 

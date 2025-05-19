@@ -1,78 +1,5 @@
 {
-  "Contest": {
-    "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
-    "Date": {
-      "Seconds": 1598832000,
-      "Nanos": 0
-    },
-    "Description": "Kantonsurnengang de",
-    "EndOfTestingPhase": {
-      "Seconds": 1545264000,
-      "Nanos": 0
-    },
-    "TestingPhaseEnded": false,
-    "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
-    "EVoting": true,
-    "EVotingFrom": {
-      "Seconds": 1582156800,
-      "Nanos": 0
-    },
-    "EVotingTo": {
-      "Seconds": 1583020800,
-      "Nanos": 0
-    },
-    "State": 1,
-    "EVotingResultsImported": false,
-    "CantonDefaults": {
-      "CountingCircleResultStateDescriptions": [
-        {
-          "State": 4,
-          "Description": "Erfassung beendet"
-        }
-      ],
-      "StatePlausibilisedDisabled": false,
-      "MajorityElectionInvalidVotes": false,
-      "CountingMachineEnabled": false,
-      "MajorityElectionUseCandidateCheckDigit": true,
-      "ProportionalElectionUseCandidateCheckDigit": false,
-      "ManualPublishResultsEnabled": true,
-      "EndResultFinalizeDisabled": false,
-      "PublishResultsBeforeAuditedTentatively": false
-    }
-  },
-  "Vote": {
-    "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-    "PoliticalBusinessNumber": "321",
-    "OfficialDescription": "Abstimmung Gossau de",
-    "ShortDescription": "Abst Gossau de",
-    "InternalDescription": "Abstimmung Gossau auf Urnengang St.Gallen",
-    "EnabledVoterTypes": [
-      1,
-      2
-    ],
-    "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
-    "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
-    "Active": true,
-    "Title": "321: Abst Gossau de",
-    "DomainOfInfluence": {
-      "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
-      "Name": "Gossau",
-      "ShortName": "Gossau",
-      "AuthorityName": "",
-      "SecureConnectId": "300300300300300300",
-      "Type": 5,
-      "ParentId": "",
-      "Children": [],
-      "Canton": 1,
-      "ContactPerson": {
-        "FirstName": "",
-        "FamilyName": "",
-        "Phone": "",
-        "MobilePhone": "",
-        "Email": ""
-      }
-    },
-    "ResultAlgorithm": 1,
+  "endResult": {
     "Contest": {
       "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
       "Date": {
@@ -112,209 +39,497 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
-    },
-    "BallotBundleSampleSizePercent": 30,
-    "AutomaticBallotBundleNumberGeneration": true,
-    "ResultEntry": 2,
-    "EnforceResultEntryForCountingCircles": false,
-    "ReviewProcedure": 1,
-    "EnforceReviewProcedureForCountingCircles": false,
-    "Type": 1
-  },
-  "CountOfVotersInformation": {
-    "TotalCountOfVoters": 15800,
-    "SubTotalInfo": [
-      {
-        "Sex": 1,
-        "VoterType": 1,
-        "CountOfVoters": 8000
       },
-      {
-        "Sex": 1,
-        "VoterType": 2,
-        "CountOfVoters": 500
+      "ECountingResultsImported": false
+    },
+    "Vote": {
+      "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+      "PoliticalBusinessNumber": "321",
+      "OfficialDescription": "Abstimmung Gossau de",
+      "ShortDescription": "Abst Gossau de",
+      "InternalDescription": "Abstimmung Gossau auf Urnengang St.Gallen",
+      "EnabledVoterTypes": [
+        1,
+        2
+      ],
+      "DomainOfInfluenceId": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+      "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+      "Active": true,
+      "Title": "321: Abst Gossau de",
+      "DomainOfInfluence": {
+        "Id": "a18b1c6a-6b66-43e4-a7d2-a440a7025dbd",
+        "Name": "Gossau",
+        "ShortName": "Gossau",
+        "AuthorityName": "",
+        "SecureConnectId": "300300300300300300",
+        "Type": 5,
+        "ParentId": "",
+        "Children": [],
+        "Canton": 1,
+        "ContactPerson": {
+          "FirstName": "",
+          "FamilyName": "",
+          "Phone": "",
+          "MobilePhone": "",
+          "Email": ""
+        }
       },
-      {
-        "Sex": 2,
-        "VoterType": 1,
-        "CountOfVoters": 7000
+      "ResultAlgorithm": 1,
+      "Contest": {
+        "Id": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
+        "Date": {
+          "Seconds": 1598832000,
+          "Nanos": 0
+        },
+        "Description": "Kantonsurnengang de",
+        "EndOfTestingPhase": {
+          "Seconds": 1545264000,
+          "Nanos": 0
+        },
+        "TestingPhaseEnded": false,
+        "DomainOfInfluenceId": "0e9ae002-dfa1-4eb6-920b-5d837a33ff79",
+        "EVoting": true,
+        "EVotingFrom": {
+          "Seconds": 1582156800,
+          "Nanos": 0
+        },
+        "EVotingTo": {
+          "Seconds": 1583020800,
+          "Nanos": 0
+        },
+        "State": 1,
+        "EVotingResultsImported": false,
+        "CantonDefaults": {
+          "CountingCircleResultStateDescriptions": [
+            {
+              "State": 4,
+              "Description": "Erfassung beendet"
+            }
+          ],
+          "StatePlausibilisedDisabled": false,
+          "MajorityElectionInvalidVotes": false,
+          "CountingMachineEnabled": false,
+          "MajorityElectionUseCandidateCheckDigit": true,
+          "ProportionalElectionUseCandidateCheckDigit": false,
+          "ManualPublishResultsEnabled": true,
+          "EndResultFinalizeDisabled": false,
+          "PublishResultsBeforeAuditedTentatively": false
+        },
+        "ECountingResultsImported": false
       },
-      {
-        "Sex": 2,
-        "VoterType": 2,
-        "CountOfVoters": 300
-      }
-    ]
-  },
-  "VotingCards": [
-    {
-      "CountOfReceivedVotingCards": 2000,
-      "Valid": true,
-      "Channel": 1,
-      "DomainOfInfluenceType": 1
+      "BallotBundleSampleSizePercent": 30,
+      "AutomaticBallotBundleNumberGeneration": true,
+      "ResultEntry": 2,
+      "EnforceResultEntryForCountingCircles": false,
+      "ReviewProcedure": 1,
+      "EnforceReviewProcedureForCountingCircles": false,
+      "Type": 1
     },
-    {
-      "CountOfReceivedVotingCards": 2000,
-      "Valid": true,
-      "Channel": 1,
-      "DomainOfInfluenceType": 2
-    },
-    {
-      "CountOfReceivedVotingCards": 2500,
-      "Valid": true,
-      "Channel": 1,
-      "DomainOfInfluenceType": 5
-    },
-    {
-      "CountOfReceivedVotingCards": 1000,
-      "Valid": true,
-      "Channel": 2,
-      "DomainOfInfluenceType": 1
-    },
-    {
-      "CountOfReceivedVotingCards": 1000,
-      "Valid": true,
-      "Channel": 2,
-      "DomainOfInfluenceType": 2
-    },
-    {
-      "CountOfReceivedVotingCards": 3500,
-      "Valid": true,
-      "Channel": 2,
-      "DomainOfInfluenceType": 5
-    },
-    {
-      "CountOfReceivedVotingCards": 3000,
-      "Valid": false,
-      "Channel": 2,
-      "DomainOfInfluenceType": 1
-    },
-    {
-      "CountOfReceivedVotingCards": 3000,
-      "Valid": false,
-      "Channel": 2,
-      "DomainOfInfluenceType": 2
-    },
-    {
-      "CountOfReceivedVotingCards": 500,
-      "Valid": false,
-      "Channel": 2,
-      "DomainOfInfluenceType": 5
-    }
-  ],
-  "BallotEndResults": [
-    {
-      "Ballot": {
-        "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
-        "Position": 1,
-        "BallotType": 2,
-        "BallotSubType": 0,
-        "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
-        "BallotQuestions": [],
-        "TieBreakQuestions": []
-      },
-      "CountOfVoters": {
-        "VoterParticipation": 1.265823,
-        "ConventionalReceivedBallots": 20000,
-        "ConventionalInvalidBallots": 3000,
-        "ConventionalBlankBallots": 2000,
-        "ConventionalAccountedBallots": 12000,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
-        "TotalReceivedBallots": 20000,
-        "TotalAccountedBallots": 12000,
-        "TotalUnaccountedBallots": 5000,
-        "TotalInvalidBallots": 3000,
-        "TotalBlankBallots": 2000
-      },
-      "QuestionEndResults": [
+    "CountOfVotersInformation": {
+      "TotalCountOfVoters": 15800,
+      "SubTotalInfo": [
         {
-          "Question": {
-            "Number": 1,
-            "Question": "Frage 1 Gossau de",
-            "Type": 1
-          },
-          "EVotingSubTotal": {
-            "TotalCountOfAnswerYes": 0,
-            "TotalCountOfAnswerNo": 0,
-            "TotalCountOfAnswerUnspecified": 0
-          },
-          "ConventionalSubTotal": {
-            "TotalCountOfAnswerYes": 5500,
-            "TotalCountOfAnswerNo": 4490,
-            "TotalCountOfAnswerUnspecified": 10
-          },
-          "TotalCountOfAnswerYes": 5500,
-          "TotalCountOfAnswerNo": 4490,
-          "TotalCountOfAnswerUnspecified": 10,
-          "CountOfCountingCircleYes": 1,
-          "CountOfCountingCircleNo": 0,
-          "HasCountingCircleMajority": true,
-          "HasCountingCircleUnanimity": true,
-          "Accepted": true
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 8000
         },
         {
-          "Question": {
-            "Number": 2,
-            "Question": "Frage 2 Gossau de",
-            "Type": 2
-          },
-          "EVotingSubTotal": {
-            "TotalCountOfAnswerYes": 0,
-            "TotalCountOfAnswerNo": 0,
-            "TotalCountOfAnswerUnspecified": 0
-          },
-          "ConventionalSubTotal": {
-            "TotalCountOfAnswerYes": 4500,
-            "TotalCountOfAnswerNo": 6500,
-            "TotalCountOfAnswerUnspecified": 0
-          },
-          "TotalCountOfAnswerYes": 4500,
-          "TotalCountOfAnswerNo": 6500,
-          "TotalCountOfAnswerUnspecified": 0,
-          "CountOfCountingCircleYes": 0,
-          "CountOfCountingCircleNo": 1,
-          "HasCountingCircleMajority": false,
-          "HasCountingCircleUnanimity": false,
-          "Accepted": false
-        }
-      ],
-      "TieBreakQuestionEndResults": [
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 500
+        },
         {
-          "Question": {
-            "Number": 1,
-            "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
-            "Question1Number": 1,
-            "Question2Number": 2
-          },
-          "EVotingSubTotal": {
-            "TotalCountOfAnswerQ1": 0,
-            "TotalCountOfAnswerQ2": 0,
-            "TotalCountOfAnswerUnspecified": 0
-          },
-          "ConventionalSubTotal": {
-            "TotalCountOfAnswerQ1": 4500,
-            "TotalCountOfAnswerQ2": 6400,
-            "TotalCountOfAnswerUnspecified": 100
-          },
-          "TotalCountOfAnswerQ1": 4500,
-          "TotalCountOfAnswerQ2": 6400,
-          "TotalCountOfAnswerUnspecified": 100,
-          "CountOfCountingCircleQ1": 0,
-          "CountOfCountingCircleQ2": 1,
-          "HasCountingCircleQ1Majority": false,
-          "HasCountingCircleQ2Majority": true,
-          "Q1Accepted": false
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 7000
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 300
         }
       ]
-    }
-  ],
-  "CountOfDoneCountingCircles": 1,
-  "TotalCountOfCountingCircles": 1,
-  "AllCountingCirclesDone": true,
-  "Finalized": false,
-  "PartialResult": false
+    },
+    "VotingCards": [
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 2500,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 1000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 3500,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "CountOfReceivedVotingCards": 3000,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "CountOfReceivedVotingCards": 500,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5
+      }
+    ],
+    "BallotEndResults": [
+      {
+        "Ballot": {
+          "Id": "154ee710-88b7-419a-ae5b-74a44c9c969e",
+          "Position": 1,
+          "BallotType": 2,
+          "BallotSubType": 0,
+          "VoteId": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
+          "BallotQuestions": [],
+          "TieBreakQuestions": []
+        },
+        "CountOfVoters": {
+          "VoterParticipation": 1.265823,
+          "ConventionalSubTotal": {
+            "ReceivedBallots": 20000,
+            "InvalidBallots": 3000,
+            "BlankBallots": 2000,
+            "AccountedBallots": 12000
+          },
+          "EVotingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "TotalReceivedBallots": 20000,
+          "TotalAccountedBallots": 12000,
+          "TotalUnaccountedBallots": 5000,
+          "TotalInvalidBallots": 3000,
+          "TotalBlankBallots": 2000
+        },
+        "QuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Frage 1 Gossau de",
+              "Type": 1
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 5500,
+              "TotalCountOfAnswerNo": 4490,
+              "TotalCountOfAnswerUnspecified": 10
+            },
+            "TotalCountOfAnswerYes": 5500,
+            "TotalCountOfAnswerNo": 4490,
+            "TotalCountOfAnswerUnspecified": 10,
+            "CountOfCountingCircleYes": 1,
+            "CountOfCountingCircleNo": 0,
+            "HasCountingCircleMajority": true,
+            "HasCountingCircleUnanimity": true,
+            "Accepted": true
+          },
+          {
+            "Question": {
+              "Number": 2,
+              "Question": "Frage 2 Gossau de",
+              "Type": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerYes": 0,
+              "TotalCountOfAnswerNo": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerYes": 4500,
+              "TotalCountOfAnswerNo": 6500,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "TotalCountOfAnswerYes": 4500,
+            "TotalCountOfAnswerNo": 6500,
+            "TotalCountOfAnswerUnspecified": 0,
+            "CountOfCountingCircleYes": 0,
+            "CountOfCountingCircleNo": 1,
+            "HasCountingCircleMajority": false,
+            "HasCountingCircleUnanimity": false,
+            "Accepted": false
+          }
+        ],
+        "TieBreakQuestionEndResults": [
+          {
+            "Question": {
+              "Number": 1,
+              "Question": "Stichfrage 1 Gossau (Frage 1 vs Frage 2) de",
+              "Question1Number": 1,
+              "Question2Number": 2
+            },
+            "EVotingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ECountingSubTotal": {
+              "TotalCountOfAnswerQ1": 0,
+              "TotalCountOfAnswerQ2": 0,
+              "TotalCountOfAnswerUnspecified": 0
+            },
+            "ConventionalSubTotal": {
+              "TotalCountOfAnswerQ1": 4500,
+              "TotalCountOfAnswerQ2": 6400,
+              "TotalCountOfAnswerUnspecified": 100
+            },
+            "TotalCountOfAnswerQ1": 4500,
+            "TotalCountOfAnswerQ2": 6400,
+            "TotalCountOfAnswerUnspecified": 100,
+            "CountOfCountingCircleQ1": 0,
+            "CountOfCountingCircleQ2": 1,
+            "HasCountingCircleQ1Majority": false,
+            "HasCountingCircleQ2Majority": true,
+            "Q1Accepted": false
+          }
+        ]
+      }
+    ],
+    "CountOfDoneCountingCircles": 1,
+    "TotalCountOfCountingCircles": 1,
+    "AllCountingCirclesDone": true,
+    "Finalized": false,
+    "PartialResult": false
+  },
+  "message": {
+    "AutoGenerated": [
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultSubmissionStarted",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultSubmissionFinished",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultFlaggedForCorrection",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultCorrectionFinished",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultAuditedTentatively",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultPlausibilised",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultSubmissionStarted",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultSubmissionFinished",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultFlaggedForCorrection",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultCorrectionFinished",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultAuditedTentatively",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultPlausibilised",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      },
+      {
+        "EventType": "abraxas.voting.ausmittlung.events.v1.VoteResultResettedToAuditedTentatively",
+        "Timestamp": "2020-01-10T13:12:10.2Z",
+        "AggregateId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "EntityId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "ContestId": "00000000-0000-0000-0000-000000000000",
+        "PoliticalBusinessResultBundleId": null,
+        "ProtocolExportId": null,
+        "Details": null,
+        "PoliticalBusinessId": null,
+        "BasisCountingCircleId": null,
+        "PoliticalBusinessResultId": "dee0ff6a-e1e5-5739-9db6-1151fa0ceb83",
+        "PoliticalBusinessEndResultId": null
+      }
+    ]
+  }
 }

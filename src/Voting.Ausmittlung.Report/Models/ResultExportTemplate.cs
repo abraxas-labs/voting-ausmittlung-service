@@ -22,7 +22,8 @@ public class ResultExportTemplate
         Guid? countingCircleId = null,
         IReadOnlyCollection<PoliticalBusiness>? politicalBusinesses = null,
         PoliticalBusinessUnion? politicalBusinessUnion = null,
-        Guid? politicalBusinessResultBundleId = null)
+        Guid? politicalBusinessResultBundleId = null,
+        Guid? domainOfInfluenceId = null)
     {
         Description = description ?? template.Description;
         EntityDescription = BuildEntityDescription(politicalBusinessUnion, politicalBusinesses) ?? string.Empty;
@@ -33,6 +34,7 @@ public class ResultExportTemplate
         CountingCircleId = countingCircleId;
         PoliticalBusinessIds = politicalBusinesses?.Select(pb => pb.Id).ToHashSet() ?? new HashSet<Guid>();
         PoliticalBusinessResultBundleId = politicalBusinessResultBundleId;
+        DomainOfInfluenceId = domainOfInfluenceId;
 
         ExportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
             Template.Key,
@@ -41,7 +43,8 @@ public class ResultExportTemplate
             PoliticalBusinessId,
             PoliticalBusinessUnionId,
             DomainOfInfluenceType ?? Data.Models.DomainOfInfluenceType.Unspecified,
-            PoliticalBusinessResultBundleId);
+            PoliticalBusinessResultBundleId,
+            DomainOfInfluenceId);
     }
 
     public TemplateModel Template { get; }
@@ -60,6 +63,8 @@ public class ResultExportTemplate
     public Guid? CountingCircleId { get; }
 
     public Guid? PoliticalBusinessResultBundleId { get; }
+
+    public Guid? DomainOfInfluenceId { get; }
 
     public DomainOfInfluenceType? DomainOfInfluenceType { get; }
 

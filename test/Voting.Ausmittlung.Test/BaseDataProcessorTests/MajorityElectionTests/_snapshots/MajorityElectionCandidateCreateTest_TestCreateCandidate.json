@@ -41,6 +41,9 @@
       "Position": 2,
       "Origin": "origin",
       "CheckDigit": 9,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "e1141bcd-8ce7-4717-9faf-5774d36ce7d8"
     },
     {
@@ -84,6 +87,9 @@
       "Position": 3,
       "Origin": "origin",
       "CheckDigit": 9,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "b55acdab-385b-49ef-99bc-e57d60863067"
     }
   ]

@@ -64,17 +64,21 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 SortNumber = x.VoteResult.CountingCircle.SortNumber,
                 VoterParticipation = x.CountOfVoters.VoterParticipation,
                 TotalReceivedBallots = x.CountOfVoters.TotalReceivedBallots,
-                ConventionalReceivedBallots = x.CountOfVoters.ConventionalReceivedBallots ?? 0,
-                EVotingReceivedBallots = x.CountOfVoters.EVotingReceivedBallots,
+                ConventionalAndECountingReceivedBallots = x.CountOfVoters.ConventionalSubTotal.ReceivedBallots ?? 0
+                    + x.CountOfVoters.ECountingSubTotal.ReceivedBallots,
+                EVotingReceivedBallots = x.CountOfVoters.EVotingSubTotal.ReceivedBallots,
                 TotalInvalidBallots = x.CountOfVoters.TotalInvalidBallots,
-                ConventionalInvalidBallots = x.CountOfVoters.ConventionalInvalidBallots ?? 0,
-                EVotingInvalidBallots = x.CountOfVoters.EVotingInvalidBallots,
+                ConventionalAndECountingInvalidBallots = x.CountOfVoters.ConventionalSubTotal.InvalidBallots ?? 0
+                    + x.CountOfVoters.ECountingSubTotal.InvalidBallots,
+                EVotingInvalidBallots = x.CountOfVoters.EVotingSubTotal.InvalidBallots,
                 TotalAccountedBallots = x.CountOfVoters.TotalAccountedBallots,
-                ConventionalAccountedBallots = x.CountOfVoters.ConventionalAccountedBallots ?? 0,
-                EVotingAccountedBallots = x.CountOfVoters.EVotingAccountedBallots,
+                ConventionalAndECountingAccountedBallots = x.CountOfVoters.ConventionalSubTotal.AccountedBallots ?? 0
+                    + x.CountOfVoters.ECountingSubTotal.AccountedBallots,
+                EVotingAccountedBallots = x.CountOfVoters.EVotingSubTotal.AccountedBallots,
                 TotalBlankBallots = x.CountOfVoters.TotalBlankBallots,
-                ConventionalBlankBallots = x.CountOfVoters.ConventionalBlankBallots ?? 0,
-                EVotingBlankBallots = x.CountOfVoters.EVotingBlankBallots,
+                ConventionalAndECountingBlankBallots = x.CountOfVoters.ConventionalSubTotal.BlankBallots ?? 0
+                    + x.CountOfVoters.ECountingSubTotal.BlankBallots,
+                EVotingBlankBallots = x.CountOfVoters.EVotingSubTotal.BlankBallots,
                 QuestionResults = x.QuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 TieBreakQuestionResults = x.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 PoliticalBusinessId = x.VoteResult.VoteId,
@@ -178,7 +182,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalReceivedBallots { get; set; }
 
         [Name("StmAbgegebenKonventionell")]
-        public int ConventionalReceivedBallots { get; set; }
+        public int ConventionalAndECountingReceivedBallots { get; set; }
 
         [Name("StmAbgegebenEVoting")]
         public int EVotingReceivedBallots { get; set; }
@@ -187,7 +191,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalInvalidBallots { get; set; }
 
         [Name("StmUngueltigKonventionell")]
-        public int ConventionalInvalidBallots { get; set; }
+        public int ConventionalAndECountingInvalidBallots { get; set; }
 
         [Name("StmUngueltigEVoting")]
         public int EVotingInvalidBallots { get; set; }
@@ -196,7 +200,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalBlankBallots { get; set; }
 
         [Name("StmLeerKonventionell")]
-        public int ConventionalBlankBallots { get; set; }
+        public int ConventionalAndECountingBlankBallots { get; set; }
 
         [Name("StmLeerEVoting")]
         public int EVotingBlankBallots { get; set; }
@@ -205,7 +209,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalAccountedBallots { get; set; }
 
         [Name("StmGueltigKonventionell")]
-        public int ConventionalAccountedBallots { get; set; }
+        public int ConventionalAndECountingAccountedBallots { get; set; }
 
         [Name("StmGueltigEVoting")]
         public int EVotingAccountedBallots { get; set; }
@@ -214,7 +218,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalCountOfAnswerYesQ1 { get; set; }
 
         [Name("StmHGJaKonventionell")]
-        public int ConventionalCountOfAnswerYesQ1 { get; set; }
+        public int ConventionalAndECountingCountOfAnswerYesQ1 { get; set; }
 
         [Name("StmHGJaEVoting")]
         public int EVotingCountOfAnswerYesQ1 { get; set; }
@@ -223,7 +227,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalCountOfAnswerNoQ1 { get; set; }
 
         [Name("StmHGNeinKonventionell")]
-        public int ConventionalCountOfAnswerNoQ1 { get; set; }
+        public int ConventionalAndECountingCountOfAnswerNoQ1 { get; set; }
 
         [Name("StmHGNeinEVoting")]
         public int EVotingCountOfAnswerNoQ1 { get; set; }
@@ -232,7 +236,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int TotalCountOfAnswerUnspecifiedQ1 { get; set; }
 
         [Name("StmHGohneAwKonventionell")]
-        public int ConventionalCountOfAnswerUnspecifiedQ1 { get; set; }
+        public int ConventionalAndECountingCountOfAnswerUnspecifiedQ1 { get; set; }
 
         [Name("StmHGohneAwEVoting")]
         public int EVotingCountOfAnswerUnspecifiedQ1 { get; set; }
@@ -241,7 +245,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerYesQ2 { get; set; }
 
         [Name("StmN1JaKonventionell")]
-        public int? ConventionalCountOfAnswerYesQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerYesQ2 { get; set; }
 
         [Name("StmN1JaEVoting")]
         public int? EVotingCountOfAnswerYesQ2 { get; set; }
@@ -250,7 +254,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerNoQ2 { get; set; }
 
         [Name("StmN1NeinKonventionell")]
-        public int? ConventionalCountOfAnswerNoQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerNoQ2 { get; set; }
 
         [Name("StmN1NeinEVoting")]
         public int? EVotingCountOfAnswerNoQ2 { get; set; }
@@ -259,7 +263,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerUnspecifiedQ2 { get; set; }
 
         [Name("StmN1ohneAwKonventionell")]
-        public int? ConventionalCountOfAnswerUnspecifiedQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerUnspecifiedQ2 { get; set; }
 
         [Name("StmN1ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedQ2 { get; set; }
@@ -268,7 +272,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerYesQ3 { get; set; }
 
         [Name("StmN11JaKonventionell")]
-        public int? ConventionalCountOfAnswerYesQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerYesQ3 { get; set; }
 
         [Name("StmN11JaEVoting")]
         public int? EVotingCountOfAnswerYesQ3 { get; set; }
@@ -277,7 +281,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerNoQ3 { get; set; }
 
         [Name("StmN11NeinKonventionell")]
-        public int? ConventionalCountOfAnswerNoQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerNoQ3 { get; set; }
 
         [Name("StmN11NeinEVoting")]
         public int? EVotingCountOfAnswerNoQ3 { get; set; }
@@ -286,7 +290,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerUnspecifiedQ3 { get; set; }
 
         [Name("StmN11ohneAwKonventionell")]
-        public int? ConventionalCountOfAnswerUnspecifiedQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerUnspecifiedQ3 { get; set; }
 
         [Name("StmN11ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedQ3 { get; set; }
@@ -295,7 +299,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerYesTBQ1 { get; set; }
 
         [Name("StmN2JaKonventionell")]
-        public int? ConventionalCountOfAnswerYesTBQ1 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerYesTBQ1 { get; set; }
 
         [Name("StmN2JaEVoting")]
         public int? EVotingCountOfAnswerYesTBQ1 { get; set; }
@@ -304,7 +308,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerNoTBQ1 { get; set; }
 
         [Name("StmN2NeinKonventionell")]
-        public int? ConventionalCountOfAnswerNoTBQ1 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerNoTBQ1 { get; set; }
 
         [Name("StmN2NeinEVoting")]
         public int? EVotingCountOfAnswerNoTBQ1 { get; set; }
@@ -313,7 +317,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerUnspecifiedTBQ1 { get; set; }
 
         [Name("StmN2ohneAwKonventionell")]
-        public int? ConventionalCountOfAnswerUnspecifiedTBQ1 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerUnspecifiedTBQ1 { get; set; }
 
         [Name("StmN2ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedTBQ1 { get; set; }
@@ -322,7 +326,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerYesTBQ2 { get; set; }
 
         [Name("StmN21JaKonventionell")]
-        public int? ConventionalCountOfAnswerYesTBQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerYesTBQ2 { get; set; }
 
         [Name("StmN21JaEVoting")]
         public int? EVotingCountOfAnswerYesTBQ2 { get; set; }
@@ -331,7 +335,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerNoTBQ2 { get; set; }
 
         [Name("StmN21NeinKonventionell")]
-        public int? ConventionalCountOfAnswerNoTBQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerNoTBQ2 { get; set; }
 
         [Name("StmN21NeinEVoting")]
         public int? EVotingCountOfAnswerNoTBQ2 { get; set; }
@@ -340,7 +344,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerUnspecifiedTBQ2 { get; set; }
 
         [Name("StmN21ohneAwKonventionell")]
-        public int? ConventionalCountOfAnswerUnspecifiedTBQ2 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerUnspecifiedTBQ2 { get; set; }
 
         [Name("StmN21ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedTBQ2 { get; set; }
@@ -349,7 +353,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerYesTBQ3 { get; set; }
 
         [Name("StmN22JaKonventionell")]
-        public int? ConventionalCountOfAnswerYesTBQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerYesTBQ3 { get; set; }
 
         [Name("StmN22JaEVoting")]
         public int? EVotingCountOfAnswerYesTBQ3 { get; set; }
@@ -358,7 +362,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerNoTBQ3 { get; set; }
 
         [Name("StmN22NeinKonventionell")]
-        public int? ConventionalCountOfAnswerNoTBQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerNoTBQ3 { get; set; }
 
         [Name("StmN22NeinEVoting")]
         public int? EVotingCountOfAnswerNoTBQ3 { get; set; }
@@ -367,7 +371,7 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
         public int? TotalCountOfAnswerUnspecifiedTBQ3 { get; set; }
 
         [Name("StmN22ohneAwKonventionell")]
-        public int? ConventionalCountOfAnswerUnspecifiedTBQ3 { get; set; }
+        public int? ConventionalAndECountingCountOfAnswerUnspecifiedTBQ3 { get; set; }
 
         [Name("StmN22ohneAwEVoting")]
         public int? EVotingCountOfAnswerUnspecifiedTBQ3 { get; set; }
@@ -393,13 +397,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesQ1 = enumerator.Current.TotalCountOfAnswerYes;
-                ConventionalCountOfAnswerYesQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerYes;
                 EVotingCountOfAnswerYesQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerYes;
                 TotalCountOfAnswerNoQ1 = enumerator.Current.TotalCountOfAnswerNo;
-                ConventionalCountOfAnswerNoQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerNo;
                 EVotingCountOfAnswerNoQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerNo;
                 TotalCountOfAnswerUnspecifiedQ1 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
 
                 if (!enumerator.MoveNext())
@@ -408,13 +415,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesQ2 = enumerator.Current.TotalCountOfAnswerYes;
-                ConventionalCountOfAnswerYesQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerYes;
                 EVotingCountOfAnswerYesQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerYes;
                 TotalCountOfAnswerNoQ2 = enumerator.Current.TotalCountOfAnswerNo;
-                ConventionalCountOfAnswerNoQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerNo;
                 EVotingCountOfAnswerNoQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerNo;
                 TotalCountOfAnswerUnspecifiedQ2 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
 
                 if (!enumerator.MoveNext())
@@ -423,13 +433,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesQ3 = enumerator.Current.TotalCountOfAnswerYes;
-                ConventionalCountOfAnswerYesQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerYes.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerYes;
                 EVotingCountOfAnswerYesQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerYes;
                 TotalCountOfAnswerNoQ3 = enumerator.Current.TotalCountOfAnswerNo;
-                ConventionalCountOfAnswerNoQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerNo.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerNo;
                 EVotingCountOfAnswerNoQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerNo;
                 TotalCountOfAnswerUnspecifiedQ3 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
             }
         }
@@ -445,13 +458,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesTBQ1 = enumerator.Current.TotalCountOfAnswerQ1;
-                ConventionalCountOfAnswerYesTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ1;
                 EVotingCountOfAnswerYesTBQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ1;
                 TotalCountOfAnswerNoTBQ1 = enumerator.Current.TotalCountOfAnswerQ2;
-                ConventionalCountOfAnswerNoTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ2;
                 EVotingCountOfAnswerNoTBQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ2;
                 TotalCountOfAnswerUnspecifiedTBQ1 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedTBQ1 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedTBQ1 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
 
                 if (!enumerator.MoveNext())
@@ -460,13 +476,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesTBQ2 = enumerator.Current.TotalCountOfAnswerQ1;
-                ConventionalCountOfAnswerYesTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ1;
                 EVotingCountOfAnswerYesTBQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ1;
                 TotalCountOfAnswerNoTBQ2 = enumerator.Current.TotalCountOfAnswerQ2;
-                ConventionalCountOfAnswerNoTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ2;
                 EVotingCountOfAnswerNoTBQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ2;
                 TotalCountOfAnswerUnspecifiedTBQ2 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedTBQ2 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedTBQ2 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
 
                 if (!enumerator.MoveNext())
@@ -475,13 +494,16 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 }
 
                 TotalCountOfAnswerYesTBQ3 = enumerator.Current.TotalCountOfAnswerQ1;
-                ConventionalCountOfAnswerYesTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerYesTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ1.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ1;
                 EVotingCountOfAnswerYesTBQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ1;
                 TotalCountOfAnswerNoTBQ3 = enumerator.Current.TotalCountOfAnswerQ2;
-                ConventionalCountOfAnswerNoTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerNoTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerQ2.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerQ2;
                 EVotingCountOfAnswerNoTBQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerQ2;
                 TotalCountOfAnswerUnspecifiedTBQ3 = enumerator.Current.TotalCountOfAnswerUnspecified;
-                ConventionalCountOfAnswerUnspecifiedTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault();
+                ConventionalAndECountingCountOfAnswerUnspecifiedTBQ3 = enumerator.Current.ConventionalSubTotal.TotalCountOfAnswerUnspecified.GetValueOrDefault()
+                    + enumerator.Current.ECountingSubTotal.TotalCountOfAnswerUnspecified;
                 EVotingCountOfAnswerUnspecifiedTBQ3 = enumerator.Current.EVotingSubTotal.TotalCountOfAnswerUnspecified;
             }
         }

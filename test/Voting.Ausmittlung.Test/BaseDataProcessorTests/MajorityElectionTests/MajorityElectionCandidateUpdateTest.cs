@@ -58,6 +58,9 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     ZipCode = "new zip code",
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -96,6 +99,9 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                 Title = "new title",
                 ZipCode = "new zip code",
                 Origin = "origin",
+                Street = "street",
+                HouseNumber = "1a",
+                Country = "CH",
             });
 
         var candidate = await RunOnDb(
@@ -137,6 +143,9 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     ZipCode = "new zip code",
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -179,6 +188,9 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     ZipCode = "new zip code",
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 

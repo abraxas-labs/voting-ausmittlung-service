@@ -121,10 +121,10 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
 
     public async Task AdjustCountOfSecondaryBusinesses(Guid primaryBusinessId, int delta)
     {
-        var business = await _politicalBusinessRepo.GetByKey(primaryBusinessId)
-            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), primaryBusinessId);
-        business.CountOfSecondaryBusinesses += delta;
-        await _politicalBusinessRepo.Update(business);
+        await _politicalBusinessRepo.Query()
+            .Where(x => x.Id == primaryBusinessId)
+            .ExecuteUpdateAsync(x =>
+                x.SetProperty(y => y.CountOfSecondaryBusinesses, y => y.CountOfSecondaryBusinesses + delta));
     }
 
     public async Task Delete(Guid politicalBusinessId)

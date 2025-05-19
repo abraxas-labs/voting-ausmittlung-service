@@ -112,6 +112,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -135,6 +138,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -158,6 +164,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -196,6 +205,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -219,6 +231,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -242,6 +257,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -280,6 +298,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -303,6 +324,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -341,6 +365,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -436,6 +463,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -459,6 +489,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -497,6 +530,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -520,6 +556,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "occupation title"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -556,6 +595,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "Netzwerkadministrator"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                             new ProportionalElectionCandidate
                             {
@@ -576,6 +618,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "Strassenbauer"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -610,6 +655,9 @@ public static class ProportionalElectionUnionEndResultMockedData
                                     "Coiffeuse"),
                                 PartyId = Guid.Parse(DomainOfInfluenceMockedData.PartyIdBundSvp),
                                 Origin = "origin",
+                                Street = "street",
+                                HouseNumber = "1a",
+                                Country = "CH",
                             },
                         },
                     },
@@ -713,10 +761,13 @@ public static class ProportionalElectionUnionEndResultMockedData
         result.TotalCountOfVoters = 2000;
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 500,
-            ConventionalInvalidBallots = 200,
-            ConventionalBlankBallots = 80,
-            ConventionalAccountedBallots = 220,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 500,
+                InvalidBallots = 200,
+                BlankBallots = 80,
+                AccountedBallots = 220,
+            },
             VoterParticipation = .5m,
         };
 
@@ -745,14 +796,20 @@ public static class ProportionalElectionUnionEndResultMockedData
         result.EVotingSubTotal.TotalCountOfUnmodifiedLists = 3;
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 190,
-            ConventionalInvalidBallots = 80,
-            ConventionalBlankBallots = 30,
-            ConventionalAccountedBallots = 80,
-            EVotingReceivedBallots = 60,
-            EVotingInvalidBallots = 20,
-            EVotingBlankBallots = 10,
-            EVotingAccountedBallots = 30,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 190,
+                InvalidBallots = 80,
+                BlankBallots = 30,
+                AccountedBallots = 80,
+            },
+            EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 60,
+                InvalidBallots = 20,
+                BlankBallots = 10,
+                AccountedBallots = 30,
+            },
             VoterParticipation = .5m,
         };
 

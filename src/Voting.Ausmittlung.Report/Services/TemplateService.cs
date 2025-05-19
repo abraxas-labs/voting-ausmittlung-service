@@ -4,11 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using CsvHelper;
 using Ech0222_1_0;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices;
+using Voting.Lib.Common;
 using Voting.Lib.Ech;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -105,14 +107,16 @@ public class TemplateService
         ReportRenderContext context,
         string messageId,
         T data,
+        XmlSchemaSet schemaSet,
         params string[] filenameArgs)
         where T : notnull
     {
         var fileName = FileNameBuilder.GenerateFileName(context.Template, filenameArgs);
-        return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, (w, _) =>
+        return new FileModel(context, fileName, ExportFileFormat.Xml, messageId, async (w, _) =>
         {
-            _echSerializer.WriteXml(w, data, BuildXmlAttributeOverrides());
-            return Task.CompletedTask;
+            await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), schemaSet);
+            _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), true);
+            await xmlValidationStream.WaitForValidation();
         });
     }
 

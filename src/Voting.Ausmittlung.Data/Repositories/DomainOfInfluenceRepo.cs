@@ -137,35 +137,82 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
         await Context.SaveChangesAsync();
     }
 
+    // This fetches all domain of influences with have the exact report level
+    // In addition, DOIs with a different report level but also have the HideLowerDoisInReports flag enabled,
+    // are also fetched.
+    // If a DOI has a lower report level, it means it is higher in the hierarchy and hides DOIs lower in the hierarchy.
+    // It takes the place of the hidden DOIs as a DOI result.
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
-    public async Task<List<DomainOfInfluence>> GetDomainOfInfluencesByReportingLevel(Guid domainOfInfluenceId, int reportingLevel)
+    public async Task<List<DomainOfInfluenceReportLevelEntry>> GetRelevantDomainOfInfluencesForReportingLevel(Guid domainOfInfluenceId, int reportingLevel)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);
         var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
+        var hideLowerDoisColumnName = GetDelimitedColumnName(x => x.HideLowerDomainOfInfluencesInReports);
 
-        var doiIds = await Context.DomainOfInfluences.FromSqlRaw(
+        // This fetches all domain of influences of the specified reporting level
+        // It also returns DOIs if they have the HideLowerDois flag set, since we need to handle those specially
+        var relevantDois = await Context.Database.SqlQueryRaw<DomainOfInfluenceReportLevelEntry>(
             $@"
                 WITH RECURSIVE d AS (
-	                SELECT {DelimitedSchemaAndTableName}.*, 0 AS depth
+	                SELECT {DelimitedSchemaAndTableName}.*, 0 AS depth, FALSE AS hidden
                     FROM {DelimitedSchemaAndTableName}
                     WHERE {idColumnName} = {{0}}
                     UNION
-                    SELECT x.*, d.depth + 1
+                    SELECT x.*, d.depth + 1, (d.hidden IS TRUE OR d.{hideLowerDoisColumnName} IS TRUE) AS hidden
+                    FROM d
+                    JOIN {DelimitedSchemaAndTableName} x ON x.{parentIdColumnName} = d.{idColumnName}
+                )
+                SELECT {idColumnName}, depth AS ""ReportLevel"" FROM d
+                WHERE (depth = {{1}} AND hidden IS FALSE)
+                OR {hideLowerDoisColumnName} IS TRUE
+                ",
+            domainOfInfluenceId,
+            reportingLevel)
+            .ToListAsync();
+
+        var ids = relevantDois.ConvertAll(x => x.Id);
+        var doisById = await Query()
+            .AsSplitQuery()
+            .Where(doi => ids.Contains(doi.Id))
+            .Include(doi => doi.CountingCircles)
+            .ToDictionaryAsync(x => x.Id, x => x);
+        foreach (var doi in relevantDois)
+        {
+            doi.DomainOfInfluence = doisById[doi.Id];
+        }
+
+        return relevantDois;
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
+    public async Task<List<DomainOfInfluence>> GetDoisWithHideLowerDoiInReportsFlag(Guid relevantParentDoiId)
+    {
+        var idColumnName = GetDelimitedColumnName(x => x.Id);
+        var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
+        var hideLowerDoiInReportsColumnName = GetDelimitedColumnName(x => x.HideLowerDomainOfInfluencesInReports);
+
+        var doiIdsWithFlagSet = await Context.DomainOfInfluences.FromSqlRaw(
+            $@"
+                WITH RECURSIVE d AS (
+	                SELECT {DelimitedSchemaAndTableName}.*
+                    FROM {DelimitedSchemaAndTableName}
+                    WHERE {idColumnName} = {{0}}
+                    UNION
+                    SELECT x.*
                     FROM d
                     JOIN {DelimitedSchemaAndTableName} x ON x.{parentIdColumnName} = d.{idColumnName}
                 )
                 SELECT * FROM d
-                WHERE depth = {{1}}
+                WHERE {hideLowerDoiInReportsColumnName} = TRUE
                 ",
-            domainOfInfluenceId,
-            reportingLevel)
+            relevantParentDoiId)
             .Select(doi => doi.Id)
             .ToListAsync();
 
         // ef core does not support include on complex sql queries
         return await Query()
             .AsSplitQuery()
-            .Where(doi => doiIds.Contains(doi.Id))
+            .Where(doi => doiIdsWithFlagSet.Contains(doi.Id))
             .Include(doi => doi.CountingCircles)
             .ToListAsync();
     }

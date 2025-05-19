@@ -32,6 +32,11 @@ public static class ProportionalElectionResultMockedData
         CountingCircleMockedData.GuidUzwil,
         false);
 
+    public static readonly Guid GuidUzwilElectionResultInContestStGallen = AusmittlungUuidV5.BuildPoliticalBusinessResult(
+        Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestStGallen),
+        CountingCircleMockedData.GuidUzwil,
+        false);
+
     public static readonly Guid GuidGossauElectionResultInContestGossau = AusmittlungUuidV5.BuildPoliticalBusinessResult(
         Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestGossau),
         CountingCircleMockedData.GuidGossau,
@@ -39,6 +44,7 @@ public static class ProportionalElectionResultMockedData
 
     public static readonly string IdGossauElectionResultInContestStGallen = GuidGossauElectionResultInContestStGallen.ToString();
     public static readonly string IdUzwilElectionResultInContestUzwil = GuidUzwilElectionResultInContestUzwil.ToString();
+    public static readonly string IdUzwilElectionResultInContestStGallen = GuidUzwilElectionResultInContestStGallen.ToString();
 
     public static ProportionalElectionResult GossauElectionResultInContestStGallen
         => new ProportionalElectionResult
@@ -118,10 +124,13 @@ public static class ProportionalElectionResultMockedData
             },
             CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
-                ConventionalReceivedBallots = 5000,
-                ConventionalBlankBallots = 20,
-                ConventionalInvalidBallots = 80,
-                ConventionalAccountedBallots = 4900,
+                ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+                {
+                    ReceivedBallots = 5000,
+                    BlankBallots = 20,
+                    InvalidBallots = 80,
+                    AccountedBallots = 4900,
+                },
                 VoterParticipation = 0.8m,
             },
         };

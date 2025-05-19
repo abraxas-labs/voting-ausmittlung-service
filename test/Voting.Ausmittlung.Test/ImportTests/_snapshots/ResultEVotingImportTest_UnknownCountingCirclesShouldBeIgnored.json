@@ -1,0 +1,79 @@
+{
+  "event": {
+    "EventInfo": {
+      "User": {
+        "Id": "fake",
+        "Username": "",
+        "FirstName": "",
+        "LastName": ""
+      },
+      "Tenant": {
+        "Id": "100100100100100100",
+        "Name": ""
+      },
+      "Timestamp": {
+        "Seconds": 1578661930,
+        "Nanos": 200000000
+      }
+    },
+    "ImportId": "",
+    "FileName": "test-eCH-0222.xml / test-eCH-0110.xml",
+    "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+    "CountingCircleId": "",
+    "EchMessageId": "my-mock-ech-message-id / mock-eCH-0110-message-id",
+    "IgnoredCountingCircles": [
+      {
+        "CountingCircleId": "10007",
+        "CountingCircleDescription": "KU_2_Reserve",
+        "IsTestCountingCircle": true
+      },
+      {
+        "CountingCircleId": "unknown-counting-circle-id",
+        "CountingCircleDescription": "",
+        "IsTestCountingCircle": false
+      }
+    ],
+    "ImportType": 1
+  },
+  "db": {
+    "Contest": null,
+    "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
+    "CountingCircleId": null,
+    "CountingCircle": null,
+    "Started": "2020-01-10T13:12:10.2Z",
+    "Completed": false,
+    "Deleted": false,
+    "StartedBy": {
+      "SecureConnectId": "fake",
+      "FirstName": "",
+      "LastName": "",
+      "FullName": " "
+    },
+    "FileName": "test-eCH-0222.xml / test-eCH-0110.xml",
+    "ImportType": 1,
+    "ImportedCountingCircles": [],
+    "IgnoredCountingCircles": [
+      {
+        "CountingCircleId": "10007",
+        "CountingCircleDescription": "KU_2_Reserve",
+        "IsTestCountingCircle": true,
+        "ResultImportId": "00000000-0000-0000-0000-000000000000",
+        "ResultImport": null,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "CountingCircleId": "unknown-counting-circle-id",
+        "CountingCircleDescription": "",
+        "IsTestCountingCircle": false,
+        "ResultImportId": "00000000-0000-0000-0000-000000000000",
+        "ResultImport": null,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "MajorityElectionWriteInMappings": [],
+    "SecondaryMajorityElectionWriteInMappings": [],
+    "MajorityElectionWriteInBallots": [],
+    "SecondaryMajorityElectionWriteInBallots": [],
+    "Id": "00000000-0000-0000-0000-000000000000"
+  }
+}

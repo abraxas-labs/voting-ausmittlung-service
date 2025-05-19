@@ -10,7 +10,7 @@
         "ShortDescription": "Liste 1 de",
         "BlankRowCount": 0,
         "Position": 1,
-        "Description": ""
+        "Description": "Liste 1 de"
       },
       "CandidateResults": [
         {
@@ -27,12 +27,19 @@
             "Accumulated": true,
             "AccumulatedPosition": 2,
             "NumberIncludingList": "1a.number1",
-            "ListDescription": "",
+            "ListDescription": "Liste 1 de",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
             "CheckDigit": 6
           },
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -66,12 +73,19 @@
             "Accumulated": false,
             "AccumulatedPosition": 0,
             "NumberIncludingList": "1a.number2",
-            "ListDescription": "",
+            "ListDescription": "Liste 1 de",
             "ListShortDescription": "Liste 1 de",
             "ListPosition": 1,
             "CheckDigit": 4
           },
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -93,6 +107,21 @@
         }
       ],
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
@@ -146,7 +175,7 @@
         "ShortDescription": "Liste 2 de",
         "BlankRowCount": 0,
         "Position": 2,
-        "Description": ""
+        "Description": "Liste 2 de"
       },
       "CandidateResults": [
         {
@@ -163,12 +192,19 @@
             "Accumulated": false,
             "AccumulatedPosition": 0,
             "NumberIncludingList": "2.number3",
-            "ListDescription": "",
+            "ListDescription": "Liste 2 de",
             "ListShortDescription": "Liste 2 de",
             "ListPosition": 2,
             "CheckDigit": 0
           },
           "EVotingSubTotal": {
+            "UnmodifiedListVotesCount": 0,
+            "ModifiedListVotesCount": 0,
+            "CountOfVotesOnOtherLists": 0,
+            "CountOfVotesFromAccumulations": 0,
+            "VoteCount": 0
+          },
+          "ECountingSubTotal": {
             "UnmodifiedListVotesCount": 0,
             "ModifiedListVotesCount": 0,
             "CountOfVotesOnOtherLists": 0,
@@ -190,6 +226,21 @@
         }
       ],
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,
@@ -243,10 +294,25 @@
         "ShortDescription": "Liste 3 de",
         "BlankRowCount": 3,
         "Position": 3,
-        "Description": ""
+        "Description": "Liste 3 de"
       },
       "CandidateResults": [],
       "EVotingSubTotal": {
+        "UnmodifiedListsCount": 0,
+        "UnmodifiedListVotesCount": 0,
+        "UnmodifiedListBlankRowsCount": 0,
+        "ModifiedListsCount": 0,
+        "ModifiedListVotesCount": 0,
+        "ModifiedListBlankRowsCount": 0,
+        "ListVotesCountOnOtherLists": 0,
+        "UnmodifiedListVotesCountInclBlankRows": 0,
+        "ModifiedListVotesCountInclBlankRows": 0,
+        "ListVotesCount": 0,
+        "ListCount": 0,
+        "BlankRowsCount": 0,
+        "TotalVoteCount": 0
+      },
+      "ECountingSubTotal": {
         "UnmodifiedListsCount": 0,
         "UnmodifiedListVotesCount": 0,
         "UnmodifiedListBlankRowsCount": 0,

@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -94,6 +95,8 @@ public class PdfVoteEVotingResultRenderService : IRendererService
         var pdfVotes = new List<PdfVote>();
         foreach (var vote in votes)
         {
+            vote.MoveECountingToConventional();
+
             var pdfVote = _mapper.Map<PdfVote>(vote);
             var doiResults = BuildResultsGroupedByBallot(vote);
 
@@ -107,6 +110,7 @@ public class PdfVoteEVotingResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(contest),
             Votes = pdfVotes,
         };

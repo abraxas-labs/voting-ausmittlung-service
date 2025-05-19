@@ -14,4 +14,6 @@ public abstract class MajorityElectionWriteInBallotBase : BaseEntity
     public int EmptyVoteCount { get; set; }
 
     public int InvalidVoteCount { get; set; }
+
+    public Guid ImportId { get; set; }
 }

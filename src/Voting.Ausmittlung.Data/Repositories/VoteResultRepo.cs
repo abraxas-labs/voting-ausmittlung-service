@@ -20,15 +20,15 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
 
     public Task<VoteResult?> GetVoteResultWithQuestionResultsAsTracked(Guid id)
     {
-        return Set
-            .AsTracking()
-            .AsSplitQuery()
-            .Include(b => b.Vote)
-            .Include(b => b.Results).ThenInclude(r => r.Ballot)
-            .Include(b => b.Results).ThenInclude(r => r.QuestionResults).ThenInclude(qr => qr.Question)
-            .Include(b => b.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(r => r.Question)
-            .Include(b => b.Results).ThenInclude(r => r.Bundles)
+        return GetVoteResultQueryWithQuestionResultsAsTracked()
             .FirstOrDefaultAsync(b => b.Id == id);
+    }
+
+    public Task<List<VoteResult>> GetVoteResultsWithQuestionResultsAsTracked(Guid contestId, Guid countingCircleId)
+    {
+        return GetVoteResultQueryWithQuestionResultsAsTracked()
+            .Where(x => x.CountingCircleId == countingCircleId && x.Vote.ContestId == contestId)
+            .ToListAsync();
     }
 
     public Task<VoteResult?> GetVoteResultWithRelations(Guid id)
@@ -71,5 +71,17 @@ public class VoteResultRepo : PoliticalBusinessResultRepo<VoteResult>
     protected override async Task<PoliticalBusiness> LoadPoliticalBusiness(Guid id)
     {
         return await Context.Set<Vote>().Include(x => x.DomainOfInfluence).Where(x => x.Id == id).SingleAsync();
+    }
+
+    private IQueryable<VoteResult> GetVoteResultQueryWithQuestionResultsAsTracked()
+    {
+        return Set
+            .AsTracking()
+            .AsSplitQuery()
+            .Include(b => b.Vote)
+            .Include(b => b.Results).ThenInclude(r => r.Ballot)
+            .Include(b => b.Results).ThenInclude(r => r.QuestionResults).ThenInclude(qr => qr.Question)
+            .Include(b => b.Results).ThenInclude(r => r.TieBreakQuestionResults).ThenInclude(r => r.Question)
+            .Include(b => b.Results).ThenInclude(r => r.Bundles);
     }
 }

@@ -129,6 +129,7 @@ public class CountingCircleProcessor :
             {
                 // eVoting can only be true, if it is enabled on the counting circle and the contest
                 details.EVoting = snapshotCountingCircle.EVoting && snapshot.SnapshotContest!.EVoting;
+                details.ECounting = snapshotCountingCircle.ECounting;
             }
 
             snapshotCountingCirclesToUpdate.Add(snapshotCountingCircle);

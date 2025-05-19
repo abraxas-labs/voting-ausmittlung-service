@@ -234,6 +234,11 @@ public class ResultWriter
             {
                 ccResultAggregate.AuditedTentatively(contestId);
             }
+
+            if (CanAutomaticallyPublishResults(politicalBusiness.DomainOfInfluence, politicalBusiness.Contest, ccResultAggregate))
+            {
+                ccResultAggregate.Publish(contestId);
+            }
         }
 
         foreach (var ccResultAggregate in ccResultAggregates)
@@ -377,8 +382,25 @@ public class ResultWriter
     {
         return await _simplePoliticalBusinessRepository
             .Query()
+            .AsSplitQuery()
             .Include(x => x.DomainOfInfluence)
+            .Include(x => x.Contest.CantonDefaults)
             .Where(x => pbIds.Contains(x.Id))
             .ToDictionaryAsync(x => x.Id, x => x);
+    }
+
+    private bool CanAutomaticallyPublishResults(DomainOfInfluence domainOfInfluence, Contest contest, CountingCircleResultAggregate aggregate)
+    {
+        if (aggregate.Published)
+        {
+            return false;
+        }
+
+        var validCcResultState = !contest.CantonDefaults.PublishResultsBeforeAuditedTentatively
+            ? aggregate.State == CountingCircleResultState.AuditedTentatively
+            : aggregate.State is CountingCircleResultState.SubmissionDone or CountingCircleResultState.CorrectionDone or CountingCircleResultState.AuditedTentatively;
+
+        // publish results if not enabled or for all results which have domain of influence type MU or lower
+        return validCcResultState && !domainOfInfluence.PublishResultsDisabled && (!contest.CantonDefaults.ManualPublishResultsEnabled || domainOfInfluence.Type >= DomainOfInfluenceType.Mu);
     }
 }

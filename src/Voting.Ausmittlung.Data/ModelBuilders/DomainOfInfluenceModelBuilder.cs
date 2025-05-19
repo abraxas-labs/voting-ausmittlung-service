@@ -44,6 +44,7 @@ public class DomainOfInfluenceModelBuilder :
         // If the performance problems reappear in the future, reevaluate this index.
         // It may need to be replaced with a better index.
         // Testing with >900 contests showed that this is currently the best index we can set to improve performance.
+        // Additionally a GIN index 'IX_GIN_Doip_Ccids' is used, unfortunately this cannot be modeled with ef core fluent apis.
         builder.HasIndex(di => di.ViewCountingCirclePartialResults);
     }
 

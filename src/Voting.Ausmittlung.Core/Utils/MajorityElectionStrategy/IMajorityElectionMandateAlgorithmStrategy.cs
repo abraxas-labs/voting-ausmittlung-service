@@ -15,5 +15,7 @@ public interface IMajorityElectionMandateAlgorithmStrategy
     /// </summary>
     CantonMajorityElectionAbsoluteMajorityAlgorithm? AbsoluteMajorityAlgorithm { get; }
 
-    void RecalculateCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
+    void RecalculatePrimaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
+
+    void RecalculateSecondaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult);
 }

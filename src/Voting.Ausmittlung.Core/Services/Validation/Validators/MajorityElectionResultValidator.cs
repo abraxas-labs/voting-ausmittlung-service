@@ -34,10 +34,10 @@ public class MajorityElectionResultValidator : CountingCircleResultValidator<Maj
             yield return result;
         }
 
-        if (context.CurrentContestCountingCircleDetails.EVoting)
+        if (context.CurrentContestCountingCircleDetails.EVoting || context.CurrentContestCountingCircleDetails.ECountingResultsImported)
         {
             yield return new ValidationResult(
-                SharedProto.Validation.EVotingWriteInsMapped,
+                SharedProto.Validation.WriteInsMapped,
                 !data.HasUnmappedWriteIns);
         }
 

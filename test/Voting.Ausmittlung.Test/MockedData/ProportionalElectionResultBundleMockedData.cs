@@ -16,6 +16,7 @@ using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Testing;
+using Voting.Lib.Testing.Mocks;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.MockedData;
@@ -42,6 +43,20 @@ public static class ProportionalElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static ProportionalElectionResultBundle GossauBundle2NoList
@@ -56,6 +71,20 @@ public static class ProportionalElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static ProportionalElectionResultBundle GossauBundle3
@@ -71,6 +100,20 @@ public static class ProportionalElectionResultBundleMockedData
                 SecureConnectId = "someones-user-id",
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Someone",
+                        LastName = "Else",
+                        SecureConnectId = "someones-user-id",
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static ProportionalElectionResultBundle UzwilBundle1NoList
@@ -85,6 +128,20 @@ public static class ProportionalElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static ProportionalElectionResultBundle UzwilBundle2
@@ -100,6 +157,20 @@ public static class ProportionalElectionResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static ProportionalElectionResultBundle UzwilBundle3
@@ -114,6 +185,20 @@ public static class ProportionalElectionResultBundleMockedData
                 SecureConnectId = "someones-user-id",
             },
             ElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil,
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Someone",
+                        LastName = "Else",
+                        SecureConnectId = "someones-user-id",
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static IEnumerable<ProportionalElectionResultBundle> All

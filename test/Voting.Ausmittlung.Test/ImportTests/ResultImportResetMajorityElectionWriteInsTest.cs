@@ -24,6 +24,7 @@ using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Xunit;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
+using ResultImportType = Abraxas.Voting.Ausmittlung.Shared.V1.ResultImportType;
 
 namespace Voting.Ausmittlung.Test.ImportTests;
 
@@ -41,33 +42,51 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         await VoteMockedData.Seed(RunScoped);
         await MajorityElectionMockedData.Seed(RunScoped);
         await ProportionalElectionMockedData.Seed(RunScoped);
-        await ResultImportMockedData.Seed(RunScoped);
+        await ResultImportEVotingMockedData.Seed(RunScoped);
         await PermissionMockedData.Seed(RunScoped);
 
         // activate e voting for all for easier testing
         await ModifyDbEntities((ContestCountingCircleDetails _) => true, details => details.EVoting = true);
+        await ModifyDbEntities((CountingCircle _) => true, cc => cc.EVoting = true);
         await ModifyDbEntities((Contest _) => true, contest => contest.EVoting = true);
 
-        await EVotingMockedData.Seed(RunScoped, CreateHttpClient);
+        await ResultImportMockedData.SeedEVoting(RunScoped, CreateHttpClient);
+
+        await ResultImportECountingMockedData.Seed(RunScoped);
+        await ResultImportECountingMockedData.SeedUzwilAggregates(RunScoped);
+
+        // start submission and set result states
+        await new ResultService.ResultServiceClient(CreateGrpcChannel(RolesMockedData.ErfassungElectionAdmin))
+            .GetListAsync(new GetResultListRequest
+            {
+                ContestId = ContestMockedData.IdStGallenEvoting,
+                CountingCircleId = CountingCircleMockedData.IdUzwil,
+            });
+
+        EventPublisherMock.Clear();
+        await ResultImportMockedData.SeedECounting(RunScoped, CreateHttpClient);
     }
 
     [Fact]
     public async Task ShouldWorkAsElectionAdmin()
     {
-        var (_, primaryMappings, secondaryMappings) = await FetchMappings();
-        var (primaryEvent, secondaryEvent) = await ResetMappings(primaryMappings, secondaryMappings);
+        var groups = await FetchMappings();
+        var (primaryEvents, secondaryEvents) = await ResetMappings(groups);
 
-        await TestEventPublisher.Publish(primaryEvent);
-        await TestEventPublisher.Publish(1, secondaryEvent);
+        await TestEventPublisher.Publish(primaryEvents.ToArray());
+        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
 
-        primaryEvent.ShouldMatchChildSnapshot("primary");
-        secondaryEvent.ShouldMatchChildSnapshot("secondary");
+        ResetIds(primaryEvents, secondaryEvents);
 
+        primaryEvents.ShouldMatchChildSnapshot("primary");
+        secondaryEvents.ShouldMatchChildSnapshot("secondary");
+
+        var primaryEVotingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var primaryResult = await RunOnDb(db => db.MajorityElectionResults
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.CandidateResult)
-            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
-        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(2);
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEVotingEvent.MajorityElectionId)));
+        primaryResult.CountOfElectionsWithUnmappedEVotingWriteIns.Should().Be(2);
         primaryResult.HasUnmappedWriteIns.Should().BeTrue();
         primaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         primaryResult.WriteInMappings
@@ -76,9 +95,23 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
             .Should()
             .BeTrue();
 
+        var primaryECountingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Ecounting);
+        var primaryECountingResult = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryECountingEvent.MajorityElectionId)));
+        primaryECountingResult.CountOfElectionsWithUnmappedECountingWriteIns.Should().Be(1);
+        primaryECountingResult.HasUnmappedWriteIns.Should().BeTrue();
+        primaryECountingResult.WriteInMappings
+            .Where(x => x.WriteInCandidateName == "Hans Mueller")
+            .All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified)
+            .Should()
+            .BeTrue();
+
+        var secondaryEVotingEvent = secondaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var secondaryResult = await RunOnDb(db => db.SecondaryMajorityElectionResults
             .Include(x => x.WriteInMappings)
-            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEvent.SecondaryMajorityElectionId)));
+            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEVotingEvent.SecondaryMajorityElectionId)));
         secondaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         secondaryResult.WriteInMappings.All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified).Should().BeTrue();
     }
@@ -86,22 +119,29 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     [Fact]
     public async Task ShouldWorkMultipleTimes()
     {
-        var (_, primaryMappings, secondaryMappings) = await FetchMappings();
-        var (primaryEvent, secondaryEvent) = await ResetMappings(primaryMappings, secondaryMappings);
+        var groups = await FetchMappings();
+        var (primaryEvents, secondaryEvents) = await ResetMappings(groups);
 
-        await TestEventPublisher.Publish(primaryEvent);
-        await TestEventPublisher.Publish(1, secondaryEvent);
+        var eventCounter = 0;
+        await TestEventPublisher.Publish(eventCounter, primaryEvents.ToArray());
+        eventCounter += primaryEvents.Count;
+        await TestEventPublisher.Publish(eventCounter, secondaryEvents.ToArray());
+        eventCounter += secondaryEvents.Count;
 
         EventPublisherMock.Clear();
-        var (primaryEvent2, secondaryEvent2) = await ResetMappings(primaryMappings, secondaryMappings);
-        await TestEventPublisher.Publish(2, primaryEvent2);
-        await TestEventPublisher.Publish(3, secondaryEvent2);
+        var (primaryEvents2, secondaryEvents2) = await ResetMappings(groups);
+        await TestEventPublisher.Publish(eventCounter, primaryEvents2.ToArray());
+        eventCounter += primaryEvents2.Count;
 
+        await TestEventPublisher.Publish(eventCounter, secondaryEvents2.ToArray());
+        eventCounter += secondaryEvents2.Count;
+
+        var primaryEVotingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var primaryResult = await RunOnDb(db => db.MajorityElectionResults
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.CandidateResult)
-            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
-        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(2);
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEVotingEvent.MajorityElectionId)));
+        primaryResult.CountOfElectionsWithUnmappedEVotingWriteIns.Should().Be(2);
         primaryResult.HasUnmappedWriteIns.Should().BeTrue();
         primaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         primaryResult.WriteInMappings
@@ -110,9 +150,23 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
             .Should()
             .BeTrue();
 
+        var primaryECountingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Ecounting);
+        var primaryECountingResult = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryECountingEvent.MajorityElectionId)));
+        primaryECountingResult.CountOfElectionsWithUnmappedECountingWriteIns.Should().Be(1);
+        primaryECountingResult.HasUnmappedWriteIns.Should().BeTrue();
+        primaryECountingResult.WriteInMappings
+            .Where(x => x.WriteInCandidateName == "Hans Mueller")
+            .All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified)
+            .Should()
+            .BeTrue();
+
+        var secondaryEVotingEvent = secondaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var secondaryResult = await RunOnDb(db => db.SecondaryMajorityElectionResults
             .Include(x => x.WriteInMappings)
-            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEvent.SecondaryMajorityElectionId)));
+            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEVotingEvent.SecondaryMajorityElectionId)));
         secondaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         secondaryResult.WriteInMappings.All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified).Should().BeTrue();
     }
@@ -122,38 +176,38 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     {
         await TestEventsWithSignature(ContestMockedData.IdStGallenEvoting, async () =>
         {
-            var (_, primaryMappings, secondaryMappings) = await FetchMappings();
+            var groups = await FetchMappings();
 
-            await ResetMappings(primaryMappings, secondaryMappings);
+            await ResetMappings(groups);
 
-            return new[]
-            {
-                    EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionWriteInsReset>(),
-                    EventPublisherMock.GetSinglePublishedEventWithMetadata<SecondaryMajorityElectionWriteInsReset>(),
-            };
+            return
+            [
+                .. EventPublisherMock.GetPublishedEventsWithMetadata<MajorityElectionWriteInsReset>(),
+                .. EventPublisherMock.GetPublishedEventsWithMetadata<SecondaryMajorityElectionWriteInsReset>()
+            ];
         });
     }
 
     [Fact]
     public async Task ShouldWorkAsContestManagerDuringTestingPhase()
     {
-        var (_, primaryMappings, secondaryMappings) = await FetchMappings();
-        var (primaryEvent, secondaryEvent) = await ResetMappings(
-            primaryMappings,
-            secondaryMappings,
-            StGallenErfassungElectionAdminClient);
+        var groups = await FetchMappings();
+        var (primaryEvents, secondaryEvents) = await ResetMappings(groups, StGallenErfassungElectionAdminClient);
 
-        await TestEventPublisher.Publish(primaryEvent);
-        await TestEventPublisher.Publish(1, secondaryEvent);
+        await TestEventPublisher.Publish(primaryEvents.ToArray());
+        await TestEventPublisher.Publish(primaryEvents.Count, secondaryEvents.ToArray());
 
-        primaryEvent.ShouldMatchChildSnapshot("primary");
-        secondaryEvent.ShouldMatchChildSnapshot("secondary");
+        ResetIds(primaryEvents, secondaryEvents);
 
+        primaryEvents.ShouldMatchChildSnapshot("primary");
+        secondaryEvents.ShouldMatchChildSnapshot("secondary");
+
+        var primaryEVotingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var primaryResult = await RunOnDb(db => db.MajorityElectionResults
             .Include(x => x.WriteInMappings)
             .ThenInclude(x => x.CandidateResult)
-            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEvent.MajorityElectionId)));
-        primaryResult.CountOfElectionsWithUnmappedWriteIns.Should().Be(2);
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryEVotingEvent.MajorityElectionId)));
+        primaryResult.CountOfElectionsWithUnmappedEVotingWriteIns.Should().Be(2);
         primaryResult.HasUnmappedWriteIns.Should().BeTrue();
         primaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         primaryResult.WriteInMappings
@@ -162,9 +216,23 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
             .Should()
             .BeTrue();
 
+        var primaryECountingEvent = primaryEvents.Single(x => x.ImportType == ResultImportType.Ecounting);
+        var primaryECountingResult = await RunOnDb(db => db.MajorityElectionResults
+            .Include(x => x.WriteInMappings)
+            .ThenInclude(x => x.CandidateResult)
+            .SingleAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.MajorityElectionId == Guid.Parse(primaryECountingEvent.MajorityElectionId)));
+        primaryECountingResult.CountOfElectionsWithUnmappedECountingWriteIns.Should().Be(1);
+        primaryECountingResult.HasUnmappedWriteIns.Should().BeTrue();
+        primaryECountingResult.WriteInMappings
+            .Where(x => x.WriteInCandidateName == "Hans Mueller")
+            .All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified)
+            .Should()
+            .BeTrue();
+
+        var secondaryEVotingEvent = secondaryEvents.Single(x => x.ImportType == ResultImportType.Evoting);
         var secondaryResult = await RunOnDb(db => db.SecondaryMajorityElectionResults
             .Include(x => x.WriteInMappings)
-            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEvent.SecondaryMajorityElectionId)));
+            .SingleAsync(x => x.PrimaryResult.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.SecondaryMajorityElectionId == Guid.Parse(secondaryEVotingEvent.SecondaryMajorityElectionId)));
         secondaryResult.EVotingSubTotal.IndividualVoteCount.Should().Be(0);
         secondaryResult.WriteInMappings.All(x => x.Target == MajorityElectionWriteInMappingTarget.Unspecified).Should().BeTrue();
     }
@@ -173,20 +241,20 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEnded()
     {
         await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
-        var (_, primaryMappings, _) = await FetchMappings();
+        var groups = await FetchMappings();
         await AssertStatus(
-            async () => await ResetMappings(primaryMappings, StGallenErfassungElectionAdminClient),
+            async () => await ResetMappings(groups.PrimaryEVotingMappings, StGallenErfassungElectionAdminClient),
             StatusCode.PermissionDenied);
     }
 
     [Fact]
     public async Task ShouldThrowWithNonMajorityPoliticalBusinessType()
     {
-        var (_, primaryMappings, _) = await FetchMappings();
-        primaryMappings.Election.BusinessType = ProtoModels.PoliticalBusinessType.Vote;
+        var groups = await FetchMappings();
+        groups.PrimaryEVotingMappings.Election.BusinessType = ProtoModels.PoliticalBusinessType.Vote;
 
         await AssertStatus(
-            async () => await ResetMappings(primaryMappings),
+            async () => await ResetMappings(groups.PrimaryEVotingMappings),
             StatusCode.InvalidArgument,
             "Write-Ins are only available for majority elections!");
     }
@@ -194,7 +262,7 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     [Fact]
     public async Task ShouldThrowWithResultInImmutableState()
     {
-        var (importId, primaryMappings, _) = await FetchMappings();
+        var groups = await FetchMappings();
         var result = await RunOnDb(db => db.MajorityElectionResults
             .Include(x => x.CountingCircle)
             .Include(x => x.MajorityElection)
@@ -206,7 +274,7 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
 
         // needed to create aggregates, since they access user/tenant information
         var authStore = GetService<IAuthStore>();
-        authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", Enumerable.Empty<string>());
+        authStore.SetValues("mock-token", SecureConnectTestDefaults.MockedUserDefault.Loginid, "test", []);
 
         var aggFactory = GetService<IAggregateFactory>();
         var aggRepo = GetService<IAggregateRepository>();
@@ -216,7 +284,7 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
         await aggRepo.Save(resultAggregate);
 
         await AssertStatus(
-            async () => await ResetMappings(primaryMappings),
+            async () => await ResetMappings(groups.PrimaryEVotingMappings),
             StatusCode.InvalidArgument,
             "WriteIns are only possible if the result is in a mutable state");
     }
@@ -231,20 +299,18 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
-        var (_, primaryMappings, _) = await FetchMappings();
+        var groups = await FetchMappings();
         await new ResultImportService.ResultImportServiceClient(channel)
             .ResetMajorityElectionWriteInsAsync(new ResetMajorityElectionWriteInMappingsRequest
             {
-                ElectionId = primaryMappings.Election.Id,
-                ContestId = ContestMockedData.IdStGallenEvoting,
+                ImportId = groups.PrimaryEVotingMappings.ImportId,
+                ElectionId = groups.PrimaryEVotingMappings.Election.Id,
                 CountingCircleId = CountingCircleMockedData.IdUzwil,
-                PoliticalBusinessType = primaryMappings.Election.BusinessType,
+                PoliticalBusinessType = groups.PrimaryEVotingMappings.Election.BusinessType,
             });
     }
 
-    private async Task<(string ImportId, ProtoModels.MajorityElectionWriteInMappings PrimaryMappings, ProtoModels.MajorityElectionWriteInMappings
-            SecondaryMappings)>
-        FetchMappings()
+    private async Task<WriteInGroups> FetchMappings()
     {
         var writeIns = await ErfassungElectionAdminClient.GetMajorityElectionWriteInMappingsAsync(
             new GetMajorityElectionWriteInMappingsRequest
@@ -253,29 +319,34 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
                 CountingCircleId = CountingCircleMockedData.IdUzwil,
             });
 
-        writeIns.ElectionWriteInMappings.Should().HaveCount(2);
-        var primaryMappings = writeIns.ElectionWriteInMappings[0];
-        var secondaryMappings = writeIns.ElectionWriteInMappings[1];
+        writeIns.WriteInMappings.Should().HaveCount(4);
+        var primaryEVoting = writeIns.WriteInMappings.Single(x =>
+            x.ImportType == ResultImportType.Evoting
+            && x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection);
+        var secondaryEVoting = writeIns.WriteInMappings.Single(x =>
+            x.ImportType == ResultImportType.Evoting
+            && x.Election.BusinessType == ProtoModels.PoliticalBusinessType.SecondaryMajorityElection);
+        var primaryECounting = writeIns.WriteInMappings.Single(x =>
+            x.ImportType == ResultImportType.Ecounting
+            && x.Election.BusinessType == ProtoModels.PoliticalBusinessType.MajorityElection
+            && x.Election.Id == MajorityElectionMockedData.IdStGallenMajorityElectionInContestStGallen);
 
-        primaryMappings.Election.BusinessType.Should().Be(ProtoModels.PoliticalBusinessType.MajorityElection);
-        primaryMappings.WriteInMappings.Should().HaveCount(4);
-
-        secondaryMappings.Election.BusinessType.Should().Be(ProtoModels.PoliticalBusinessType.SecondaryMajorityElection);
-        secondaryMappings.WriteInMappings.Should().HaveCount(1);
-
-        return (writeIns.ImportId, primaryMappings, secondaryMappings);
+        primaryEVoting.WriteInMappings.Should().HaveCount(4);
+        secondaryEVoting.WriteInMappings.Should().HaveCount(1);
+        primaryECounting.WriteInMappings.Should().HaveCount(1);
+        return new WriteInGroups(primaryEVoting, primaryECounting, secondaryEVoting);
     }
 
-    private async Task<(MajorityElectionWriteInsReset PrimaryEvent, SecondaryMajorityElectionWriteInsReset SecondaryEvent)> ResetMappings(
-        ProtoModels.MajorityElectionWriteInMappings primaryMappings,
-        ProtoModels.MajorityElectionWriteInMappings secondaryMappings,
+    private async Task<(List<MajorityElectionWriteInsReset> PrimaryEvent, List<SecondaryMajorityElectionWriteInsReset> SecondaryEvent)> ResetMappings(
+        WriteInGroups groups,
         ResultImportService.ResultImportServiceClient? service = null)
     {
-        await ResetMappings(primaryMappings, service);
-        await ResetMappings(secondaryMappings, service);
+        await ResetMappings(groups.PrimaryECountingMappings, service);
+        await ResetMappings(groups.PrimaryEVotingMappings, service);
+        await ResetMappings(groups.SecondaryEVotingMappings, service);
         return (
-            EventPublisherMock.GetSinglePublishedEvent<MajorityElectionWriteInsReset>(),
-            EventPublisherMock.GetSinglePublishedEvent<SecondaryMajorityElectionWriteInsReset>());
+            EventPublisherMock.GetPublishedEvents<MajorityElectionWriteInsReset>().ToList(),
+            EventPublisherMock.GetPublishedEvents<SecondaryMajorityElectionWriteInsReset>().ToList());
     }
 
     private async Task ResetMappings(
@@ -284,10 +355,30 @@ public class ResultImportResetMajorityElectionWriteInsTest : BaseTest<ResultImpo
     {
         await (service ?? ErfassungElectionAdminClient).ResetMajorityElectionWriteInsAsync(new ResetMajorityElectionWriteInMappingsRequest
         {
+            ImportId = mappings.ImportId,
             ElectionId = mappings.Election.Id,
-            ContestId = ContestMockedData.IdStGallenEvoting,
             CountingCircleId = CountingCircleMockedData.IdUzwil,
             PoliticalBusinessType = mappings.Election.BusinessType,
         });
     }
+
+    private void ResetIds(
+        List<MajorityElectionWriteInsReset> primaryEvents,
+        List<SecondaryMajorityElectionWriteInsReset> secondaryEvents)
+    {
+        foreach (var evnt in primaryEvents)
+        {
+            evnt.ImportId = string.Empty;
+        }
+
+        foreach (var evnt in secondaryEvents)
+        {
+            evnt.ImportId = string.Empty;
+        }
+    }
+
+    private record WriteInGroups(
+        ProtoModels.MajorityElectionWriteInMappings PrimaryEVotingMappings,
+        ProtoModels.MajorityElectionWriteInMappings PrimaryECountingMappings,
+        ProtoModels.MajorityElectionWriteInMappings SecondaryEVotingMappings);
 }

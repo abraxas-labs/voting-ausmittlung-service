@@ -8,13 +8,25 @@ using System.Linq;
 using Ech0155_5_1;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteInfoProportionalElectionInfoMapping
 {
     private const string FederalIdentifier = "idBund";
+    private const string EmptyListOrderNumber = "99";
+    private const string EmptyListPosition = "99";
+    private const string EmptyListShortDescription = "WoP";
+    private static readonly Dictionary<string, string> EmptyListDescriptions = new()
+    {
+        { Languages.German, "Wahlzettel ohne Parteibezeichnung (Leere Liste)" },
+        { Languages.French, "Bulletin de vote sans désignation de parti" },
+        { Languages.Italian, "Scheda elettorale senza indicazione del partito" },
+        { Languages.Romansh, "Cedel electoral senza indicaziun da la partida" },
+    };
 
     internal static IEnumerable<ElectionGroupInfoType> ToVoteInfoEchProportionalElectionGroups(
         this IEnumerable<ProportionalElection> elections,
@@ -27,7 +39,7 @@ internal static class VoteInfoProportionalElectionInfoMapping
                 ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx, positionBySuperiorAuthorityId),
                 CountingCircle = x.Results
                     .OrderBy(r => r.CountingCircle.Name)
-                    .Select(r => r.CountingCircle.ToEch0252CountingCircle(x.Contest.DomainOfInfluenceId))
+                    .Select(r => r.CountingCircle.ToEch0252CountingCircle())
                     .ToList(),
             });
     }
@@ -74,7 +86,9 @@ internal static class VoteInfoProportionalElectionInfoMapping
             ReferencedElectionAssociationId = election.ProportionalElectionUnionEntries.FirstOrDefault()?.ProportionalElectionUnionId.ToString(),
             List = election.ProportionalElectionLists
                             .OrderBy(l => l.OrderNumber)
-                            .Select(l => l.ToVoteInfoEchList(canton)).ToList(),
+                            .Select(l => l.ToVoteInfoEchList(canton))
+                            .Append(CreateEmptyListType(election))
+                            .ToList(),
             ListUnion = election.ProportionalElectionListUnions
                             .OrderBy(lu => lu.Position)
                             .Select(lu => lu.ToVoteInfoEchListUnion())
@@ -129,6 +143,32 @@ internal static class VoteInfoProportionalElectionInfoMapping
             TotalPositionsOnList = list.ProportionalElectionCandidates.Sum(c => c.Accumulated ? 2 : 1).ToString(),
             CandidatePosition = candidatePositions,
             EmptyListPositions = list.BlankRowCount.ToString(),
+            ListUnionBallotText = null,
+        };
+    }
+
+    private static ListType CreateEmptyListType(ProportionalElection proportionalElection)
+    {
+        var descriptionInfos = Languages.All
+            .Select(language => new ListDescriptionInformationTypeListDescriptionInfo
+            {
+                Language = language,
+                ListDescription = EmptyListDescriptions.TryGetValue(language, out var description)
+                    ? description
+                    : EmptyListDescriptions[Languages.German],
+                ListDescriptionShort = EmptyListShortDescription,
+            })
+            .ToList();
+
+        return new ListType
+        {
+            ListIdentification = AusmittlungUuidV5.BuildProportionalElectionEmptyList(proportionalElection.Id).ToString(),
+            ListIndentureNumber = EmptyListOrderNumber,
+            ListDescription = descriptionInfos,
+            IsEmptyList = true,
+            ListOrderOfPrecedence = EmptyListPosition,
+            TotalPositionsOnList = "0",
+            EmptyListPositions = proportionalElection.NumberOfMandates.ToString(),
             ListUnionBallotText = null,
         };
     }

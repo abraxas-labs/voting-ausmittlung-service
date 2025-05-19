@@ -329,6 +329,9 @@ public static class MajorityElectionEndResultMockedData
                 (t, s) => t.Party = s,
                 "Test"),
             CheckDigit = checkDigit,
+            Street = "street",
+            HouseNumber = "1a",
+            Country = "CH",
         };
     }
 
@@ -365,6 +368,9 @@ public static class MajorityElectionEndResultMockedData
                 (t, s) => t.Party = s,
                 $"Test{position}"),
             CheckDigit = checkDigit,
+            Street = "street",
+            HouseNumber = "1a",
+            Country = "CH",
         };
     }
 
@@ -393,18 +399,35 @@ public static class MajorityElectionEndResultMockedData
         result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 10;
         result.EVotingSubTotal.EmptyVoteCountWriteIns = 7;
         result.EVotingSubTotal.InvalidVoteCount = 20;
+        result.ECountingSubTotal.IndividualVoteCount = 141;
+        result.ECountingSubTotal.EmptyVoteCountExclWriteIns = 11;
+        result.ECountingSubTotal.EmptyVoteCountWriteIns = 8;
+        result.ECountingSubTotal.InvalidVoteCount = 21;
 
         result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
         {
-            ConventionalReceivedBallots = 500,
-            ConventionalInvalidBallots = 200,
-            ConventionalBlankBallots = 80,
-            ConventionalAccountedBallots = 220,
+            ConventionalSubTotal = new PoliticalBusinessCountOfVotersNullableSubTotal
+            {
+                ReceivedBallots = 500,
+                InvalidBallots = 200,
+                BlankBallots = 80,
+                AccountedBallots = 220,
+            },
+            EVotingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 1000,
+                InvalidBallots = 400,
+                BlankBallots = 160,
+                AccountedBallots = 440,
+            },
+            ECountingSubTotal = new PoliticalBusinessCountOfVotersSubTotal
+            {
+                ReceivedBallots = 1001,
+                InvalidBallots = 401,
+                BlankBallots = 161,
+                AccountedBallots = 441,
+            },
             VoterParticipation = .5m,
-            EVotingReceivedBallots = 1000,
-            EVotingInvalidBallots = 400,
-            EVotingBlankBallots = 160,
-            EVotingAccountedBallots = 440,
         };
 
         var voteCountByCandidateId = new Dictionary<string, int>
@@ -431,6 +454,8 @@ public static class MajorityElectionEndResultMockedData
             candidateResults[candidateId].ConventionalVoteCount = candidateVoteCount;
             candidateResults[candidateId].EVotingWriteInsVoteCount = candidateVoteCount + 6;
             candidateResults[candidateId].EVotingExclWriteInsVoteCount = candidateVoteCount + 4;
+            candidateResults[candidateId].ECountingWriteInsVoteCount = candidateVoteCount + 7;
+            candidateResults[candidateId].ECountingExclWriteInsVoteCount = candidateVoteCount + 5;
         }
 
         var i = 0;
@@ -452,7 +477,11 @@ public static class MajorityElectionEndResultMockedData
         result.EVotingSubTotal.IndividualVoteCount = 140 + modifier;
         result.EVotingSubTotal.EmptyVoteCountWriteIns = 12 + modifier;
         result.EVotingSubTotal.EmptyVoteCountExclWriteIns = 10 + modifier;
-        result.EVotingSubTotal.InvalidVoteCount = 20 + modifier;
+        result.ECountingSubTotal.InvalidVoteCount = 21 + modifier;
+        result.ECountingSubTotal.IndividualVoteCount = 141 + modifier;
+        result.ECountingSubTotal.EmptyVoteCountWriteIns = 13 + modifier;
+        result.ECountingSubTotal.EmptyVoteCountExclWriteIns = 11 + modifier;
+        result.ECountingSubTotal.InvalidVoteCount = 21 + modifier;
 
         var voteCountByCandidateId = new Dictionary<string, int>
             {
@@ -482,6 +511,8 @@ public static class MajorityElectionEndResultMockedData
                 candidateResult.ConventionalVoteCount = candidateVoteCount;
                 candidateResult.EVotingWriteInsVoteCount = candidateVoteCount + 6;
                 candidateResult.EVotingExclWriteInsVoteCount = candidateVoteCount + 4;
+                candidateResult.ECountingWriteInsVoteCount = candidateVoteCount + 7;
+                candidateResult.ECountingExclWriteInsVoteCount = candidateVoteCount + 5;
             }
         }
     }

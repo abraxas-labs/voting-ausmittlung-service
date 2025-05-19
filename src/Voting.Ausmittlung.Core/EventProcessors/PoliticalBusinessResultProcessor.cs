@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -20,16 +18,13 @@ public abstract class PoliticalBusinessResultProcessor<T>
     private readonly IDbRepository<DataContext, T> _repo;
     private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleResultRepo;
     private readonly IDbRepository<DataContext, CountingCircleResultComment> _commentRepo;
-    private readonly MessageProducerBuffer _resultStateChangeMessageProducerBuffer;
 
     protected PoliticalBusinessResultProcessor(
         IDbRepository<DataContext, T> repo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
-        IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
-        MessageProducerBuffer resultStateChangeMessageProducerBuffer)
+        IDbRepository<DataContext, CountingCircleResultComment> commentRepo)
     {
         _repo = repo;
-        _resultStateChangeMessageProducerBuffer = resultStateChangeMessageProducerBuffer;
         _simpleResultRepo = simpleResultRepo;
         _commentRepo = commentRepo;
     }
@@ -81,7 +76,6 @@ public abstract class PoliticalBusinessResultProcessor<T>
 
         await _repo.Update(result);
         await _simpleResultRepo.Update(simpleResult);
-        _resultStateChangeMessageProducerBuffer.Add(new ResultStateChanged(result.Id, result.CountingCircleId, result.PoliticalBusinessId, result.State));
     }
 
     protected async Task<bool> CreateCommentIfNeeded(

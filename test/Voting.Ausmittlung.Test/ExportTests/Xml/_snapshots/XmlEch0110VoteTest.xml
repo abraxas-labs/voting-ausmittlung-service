@@ -97,33 +97,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -149,40 +149,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -205,7 +205,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -239,19 +239,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -272,10 +272,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -296,7 +296,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -337,7 +337,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -347,7 +347,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
@@ -423,33 +423,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -475,40 +475,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -531,7 +531,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -565,19 +565,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -598,10 +598,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -622,7 +622,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -663,7 +663,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -673,7 +673,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
@@ -749,33 +749,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -801,40 +801,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -857,7 +857,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -891,19 +891,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -924,10 +924,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -948,7 +948,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -989,7 +989,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -999,7 +999,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
@@ -1075,33 +1075,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -1127,40 +1127,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -1183,7 +1183,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -1217,19 +1217,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -1250,10 +1250,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -1274,7 +1274,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -1315,7 +1315,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -1325,7 +1325,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
@@ -1401,33 +1401,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -1453,40 +1453,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -1509,7 +1509,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -1543,19 +1543,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -1576,10 +1576,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -1600,7 +1600,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -1641,7 +1641,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -1651,7 +1651,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
@@ -1727,33 +1727,33 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>500</total>
+            <total>1163</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>220</total>
+            <total>797</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>280</total>
+            <total>366</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>115</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>200</total>
+            <total>251</total>
           </countOfUnaccountedInvalidBallots>
           <standardBallot>
             <questionIdentification>970048ea-0eba-465e-ae29-049e388098f6_n_1</questionIdentification>
             <countOfAnswerYes>
-              <total>200</total>
+              <total>211</total>
             </countOfAnswerYes>
             <countOfAnswerNo>
-              <total>100</total>
+              <total>106</total>
             </countOfAnswerNo>
             <countOfAnswerInvalid>
               <total>0</total>
             </countOfAnswerInvalid>
             <countOfAnswerEmpty>
-              <total>20</total>
+              <total>22</total>
             </countOfAnswerEmpty>
           </standardBallot>
         </ballotResult>
@@ -1779,40 +1779,40 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>450</total>
+            <total>1083</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>200</total>
+            <total>767</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>260</total>
+            <total>326</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>80</total>
+            <total>105</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>180</total>
+            <total>221</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
               <countOfAnswerYes>
-                <total>40</total>
+                <total>43</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>100</total>
+                <total>111</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>23</total>
+                <total>27</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <questionInformation>
               <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>100</total>
+                <total>126</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
                 <total>50</total>
@@ -1835,7 +1835,7 @@
               <countInFavourOf>
                 <questionIdentification>490a26a4-bbb3-42e8-ba9c-82cbd3b4b87b_n_1</questionIdentification>
                 <countOfValidAnswers>
-                  <total>20</total>
+                  <total>23</total>
                 </countOfValidAnswers>
               </countInFavourOf>
               <countInFavourOf>
@@ -1869,19 +1869,19 @@
             </ballotDescriptionInfo>
           </ballotDescription>
           <countOfReceivedBallotsTotal>
-            <total>400</total>
+            <total>1003</total>
           </countOfReceivedBallotsTotal>
           <countOfAccountedBallotsTotal>
-            <total>370</total>
+            <total>927</total>
           </countOfAccountedBallotsTotal>
           <countOfUnaccountedBallotsTotal>
-            <total>30</total>
+            <total>76</total>
           </countOfUnaccountedBallotsTotal>
           <countOfUnaccountedBlankBallots>
-            <total>10</total>
+            <total>25</total>
           </countOfUnaccountedBlankBallots>
           <countOfUnaccountedInvalidBallots>
-            <total>20</total>
+            <total>51</total>
           </countOfUnaccountedInvalidBallots>
           <variantBallot>
             <questionInformation>
@@ -1902,10 +1902,10 @@
             <questionInformation>
               <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>
               <countOfAnswerYes>
-                <total>20</total>
+                <total>36</total>
               </countOfAnswerYes>
               <countOfAnswerNo>
-                <total>210</total>
+                <total>216</total>
               </countOfAnswerNo>
               <countOfAnswerInvalid>
                 <total>0</total>
@@ -1926,7 +1926,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>200</total>
+                <total>211</total>
               </countOfAnswerEmpty>
             </questionInformation>
             <tieBreak>
@@ -1967,7 +1967,7 @@
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_3</questionIdentification>
                 <countOfValidAnswers>
-                  <total>100</total>
+                  <total>105</total>
                 </countOfValidAnswers>
               </countInFavourOf>
             </tieBreak>
@@ -1977,7 +1977,7 @@
                 <total>0</total>
               </countOfAnswerInvalid>
               <countOfAnswerEmpty>
-                <total>90</total>
+                <total>104</total>
               </countOfAnswerEmpty>
               <countInFavourOf>
                 <questionIdentification>95ded86a-a31a-40bf-b32a-bbc80ad8ea11_n_2</questionIdentification>

@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.EventProcessors;
@@ -72,7 +71,7 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
     public async Task ShouldWorkWithPbIdsFilter()
     {
         var voteId1 = Guid.Parse(VoteMockedData.IdStGallenVoteInContestStGallen);
-        var voteId2 = Guid.Parse(VoteMockedData.IdBundVoteInContestStGallen);
+        var voteId2 = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
 
         var filter = new Ech0252FilterModel
         {
@@ -85,11 +84,14 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
             },
         };
 
-        var result = await LoadContests(filter);
-        result.Should().HaveCount(1);
-        result[0].Date.Should().Be(new DateTime(2020, 08, 31));
-        result[0].Results.Should().NotBeEmpty();
-        result[0].Results.All(r => r.PoliticalBusinessId == voteId1 || r.PoliticalBusinessId == voteId2);
+        var results = await LoadContests(filter);
+        var nonEmptyResults = results.Where(x => x.Results.Count > 0).ToList();
+        var emptyResults = results.Where(x => x.Results.Count == 0).ToList();
+        nonEmptyResults.Should().HaveCount(1);
+        emptyResults.Should().HaveCount(2);
+
+        nonEmptyResults[0].Date.Should().Be(new DateTime(2020, 08, 31));
+        nonEmptyResults[0].Results.All(r => r.PoliticalBusinessId == voteId1 || r.PoliticalBusinessId == voteId2).Should().BeTrue();
     }
 
     [Fact]
@@ -217,9 +219,9 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
             var contests = await (await service.LoadContests(filter)).ToListAsync();
 
             return contests
-                .Where(c => !service.PrepareContestDataAndCheckIsEmpty(c))
-                .Select(c =>
+                .ConvertAll(c =>
                 {
+                    service.PrepareContestData(c);
                     var simpleContest = new SimpleContest
                     {
                         Id = c.Id,
@@ -241,7 +243,7 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
                     });
                     return simpleContest;
                 })
-                .ToList();
+;
         });
     }
 

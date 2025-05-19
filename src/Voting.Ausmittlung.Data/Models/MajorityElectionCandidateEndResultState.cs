@@ -44,4 +44,14 @@ public enum MajorityElectionCandidateEndResultState
     /// Nicht wählbar (Vereinzelte).
     /// </summary>
     NotEligible,
+
+    /// <summary>
+    /// Hauptwahl verpasst / nicht wählbar.
+    /// </summary>
+    NotElectedInPrimaryElectionNotEligible,
+
+    /// <summary>
+    /// Hauptwahl überzählig / nicht wählbar.
+    /// </summary>
+    AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible,
 }

@@ -14,7 +14,7 @@
       "OnList": false,
       "RemovedFromList": false,
       "NumberIncludingList": "1a.number1",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 6
@@ -31,7 +31,7 @@
       "OnList": true,
       "RemovedFromList": true,
       "NumberIncludingList": "1a.number1",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 6
@@ -48,7 +48,7 @@
       "OnList": false,
       "RemovedFromList": false,
       "NumberIncludingList": "1a.number1",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 6
@@ -65,7 +65,7 @@
       "OnList": true,
       "RemovedFromList": true,
       "NumberIncludingList": "1a.number1",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 6
@@ -82,7 +82,7 @@
       "OnList": false,
       "RemovedFromList": false,
       "NumberIncludingList": "1a.number2",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 4
@@ -99,7 +99,7 @@
       "OnList": true,
       "RemovedFromList": true,
       "NumberIncludingList": "1a.number2",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 4

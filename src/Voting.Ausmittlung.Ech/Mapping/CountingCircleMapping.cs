@@ -1,7 +1,6 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ech0155_4_0;
@@ -21,9 +20,9 @@ internal static class CountingCircleMapping
         };
     }
 
-    internal static Ech0252_2_0.CountingCircleType ToEch0252CountingCircle(this CountingCircle countingCircle, Guid contestDomainOfInfluenceId)
+    internal static Ech0252_2_0.CountingCircleType ToEch0252CountingCircle(this CountingCircle countingCircle)
     {
-        var doiType = GetDomainOfInfluenceType(countingCircle, contestDomainOfInfluenceId);
+        var doiType = GetDomainOfInfluenceType(countingCircle);
 
         return new Ech0252_2_0.CountingCircleType
         {
@@ -33,7 +32,7 @@ internal static class CountingCircleMapping
         };
     }
 
-    private static DomainOfInfluenceType? GetDomainOfInfluenceType(CountingCircle countingCircle, Guid contestDomainOfInfluenceId)
+    private static DomainOfInfluenceType? GetDomainOfInfluenceType(CountingCircle countingCircle)
     {
         var domainOfInfluences = countingCircle.DomainOfInfluences
             .Select(doiCc => doiCc.DomainOfInfluence)

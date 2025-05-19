@@ -12,9 +12,9 @@
         <FileVersion>0.0.0.1</FileVersion>
         <Version>0.0.0.1</Version>
 
-        <VotingAusmittlungProtoVersion>1.138.0</VotingAusmittlungProtoVersion>
-        <VotingBasisProtoVersion>1.116.0</VotingBasisProtoVersion>
-        <VotingLibVersion>12.22.3</VotingLibVersion>
+        <VotingAusmittlungProtoVersion>1.144.0</VotingAusmittlungProtoVersion>
+        <VotingBasisProtoVersion>1.122.0</VotingBasisProtoVersion>
+        <VotingLibVersion>15.2.2</VotingLibVersion>
         <EfCoreVersion>8.0.2</EfCoreVersion>
         <GrpcAspNetCoreVersion>2.61.0</GrpcAspNetCoreVersion>
     </PropertyGroup>

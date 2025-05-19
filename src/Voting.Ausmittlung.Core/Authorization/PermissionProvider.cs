@@ -51,6 +51,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionList.Read,
 
             Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[erfassungCreatorWithoutBundleControl] = new HashSet<string>
@@ -79,6 +81,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionList.Read,
 
             Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[erfassungBundleController] = new HashSet<string>
@@ -104,6 +108,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ProportionalElectionList.Read,
 
             Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[erfassungElectionAdmin] = new HashSet<string>
@@ -151,9 +157,13 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ContestCountingCircleDetails.Update,
             Permissions.ContestCountingCircleElectorate.Update,
 
-            Permissions.Import.ListenToImportChanges,
+            Permissions.Import.ReadECounting,
+            Permissions.Import.DeleteECounting,
+            Permissions.Import.ImportECounting,
 
             Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[erfassungElectionSupporter] = new HashSet<string>
@@ -196,9 +206,11 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.ContestCountingCircleDetails.Update,
 
-            Permissions.Import.ListenToImportChanges,
+            Permissions.Import.ReadECounting,
 
             Permissions.Export.ExportData,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[monitoringElectionAdmin] = new HashSet<string>
@@ -241,9 +253,11 @@ public class PermissionProvider : IPermissionProvider
             Permissions.MajorityElectionCandidate.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
-            Permissions.Import.ImportData,
-            Permissions.Import.Read,
-            Permissions.Import.Delete,
+            Permissions.Import.ImportEVoting,
+            Permissions.Import.ReadEVoting,
+            Permissions.Import.DeleteEVoting,
+
+            Permissions.Import.ReadECounting,
 
             Permissions.Export.ExportData,
             Permissions.Export.ExportMonitoringData,
@@ -252,6 +266,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ExportConfiguration.Read,
             Permissions.ExportConfiguration.Update,
             Permissions.ExportConfiguration.Trigger,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[monitoringElectionSupporter] = new HashSet<string>
@@ -285,7 +301,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.MajorityElectionCandidate.Read,
             Permissions.MajorityElectionBallotGroupResult.Read,
 
-            Permissions.Import.Read,
+            Permissions.Import.ReadECounting,
+            Permissions.Import.ReadEVoting,
 
             Permissions.Export.ExportData,
             Permissions.Export.ExportMonitoringData,
@@ -294,6 +311,8 @@ public class PermissionProvider : IPermissionProvider
             Permissions.ExportConfiguration.Read,
             Permissions.ExportConfiguration.Update,
             Permissions.ExportConfiguration.Trigger,
+
+            Permissions.EventLog.Watch,
         };
 
         _permissionsPerRole[reportExporterApi] = new HashSet<string>

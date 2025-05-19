@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,6 +14,7 @@ using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -21,6 +23,7 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
 {
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
 
@@ -28,12 +31,14 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
         IDbRepository<DataContext, Vote> voteRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, Contest> contestRepo)
+        IDbRepository<DataContext, Contest> contestRepo,
+        IClock clock)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
         _templateService = templateService;
         _contestRepo = contestRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -97,6 +102,8 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
         var pdfVotes = new List<PdfVote>();
         foreach (var vote in votes)
         {
+            vote.MoveECountingToConventional();
+
             vote.Results = vote
                 .Results
                 .OrderByCountingCircle(x => x.CountingCircle, vote.Contest.CantonDefaults)
@@ -132,6 +139,7 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = pdfContest,
             Votes = pdfVotes,
         };

@@ -87,6 +87,7 @@ public static class CountingCircleMockedData
                 FamilyName = "Wichtig-sg",
                 FirstName = "Rudolph-sg",
             },
+            ECounting = true,
         };
 
     public static CountingCircle StGallenStFiden
@@ -224,6 +225,7 @@ public static class CountingCircleMockedData
                 },
             },
             EVoting = true,
+            ECounting = true,
         };
 
     public static CountingCircle Rorschach

@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>proportional_election_list_votes_counting_circle_protocol</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -37,7 +38,7 @@
       <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <CountOfVoters>
-        <VoterParticipation>0.464700</VoterParticipation>
+        <VoterParticipation>0.4647</VoterParticipation>
         <TotalReceivedBallots>147749</TotalReceivedBallots>
         <TotalUnaccountedBallots>2118</TotalUnaccountedBallots>
         <EVotingReceivedBallots>36937</EVotingReceivedBallots>

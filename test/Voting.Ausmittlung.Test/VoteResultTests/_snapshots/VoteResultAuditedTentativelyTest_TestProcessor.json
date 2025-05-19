@@ -38,7 +38,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "Vote": {
     "Id": "8076dee2-f19b-4af9-80b1-69b0c7b1402b",
@@ -112,7 +113,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "BallotBundleSampleSizePercent": 30,
     "AutomaticBallotBundleNumberGeneration": true,
@@ -216,14 +218,24 @@
       },
       "CountOfVoters": {
         "VoterParticipation": 1.265823,
-        "ConventionalReceivedBallots": 20000,
-        "ConventionalInvalidBallots": 3000,
-        "ConventionalBlankBallots": 2000,
-        "ConventionalAccountedBallots": 12000,
-        "EVotingReceivedBallots": 0,
-        "EVotingInvalidBallots": 0,
-        "EVotingBlankBallots": 0,
-        "EVotingAccountedBallots": 0,
+        "ConventionalSubTotal": {
+          "ReceivedBallots": 20000,
+          "InvalidBallots": 3000,
+          "BlankBallots": 2000,
+          "AccountedBallots": 12000
+        },
+        "EVotingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
+        "ECountingSubTotal": {
+          "ReceivedBallots": 0,
+          "InvalidBallots": 0,
+          "BlankBallots": 0,
+          "AccountedBallots": 0
+        },
         "TotalReceivedBallots": 20000,
         "TotalAccountedBallots": 12000,
         "TotalUnaccountedBallots": 5000,
@@ -241,6 +253,11 @@
             "TotalCountOfAnswerYes": 10,
             "TotalCountOfAnswerNo": 20,
             "TotalCountOfAnswerUnspecified": 5
+          },
+          "ECountingSubTotal": {
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0
           },
           "ConventionalSubTotal": {
             "TotalCountOfAnswerYes": 5500,
@@ -263,6 +280,11 @@
             "Type": 2
           },
           "EVotingSubTotal": {
+            "TotalCountOfAnswerYes": 0,
+            "TotalCountOfAnswerNo": 0,
+            "TotalCountOfAnswerUnspecified": 0
+          },
+          "ECountingSubTotal": {
             "TotalCountOfAnswerYes": 0,
             "TotalCountOfAnswerNo": 0,
             "TotalCountOfAnswerUnspecified": 0
@@ -294,6 +316,11 @@
             "TotalCountOfAnswerQ1": 11,
             "TotalCountOfAnswerQ2": 21,
             "TotalCountOfAnswerUnspecified": 6
+          },
+          "ECountingSubTotal": {
+            "TotalCountOfAnswerQ1": 0,
+            "TotalCountOfAnswerQ2": 0,
+            "TotalCountOfAnswerUnspecified": 0
           },
           "ConventionalSubTotal": {
             "TotalCountOfAnswerQ1": 4500,

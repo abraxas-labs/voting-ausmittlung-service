@@ -47,18 +47,6 @@ public class MajorityElectionResultBundleService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
-    public override Task GetBundleChanges(
-        GetMajorityElectionResultBundleChangesRequest request,
-        IServerStreamWriter<ProtoModels.MajorityElectionResultBundle> responseStream,
-        ServerCallContext context)
-    {
-        return _majorityElectionResultBundleReader.ListenToBundleChanges(
-            GuidParser.Parse(request.ElectionResultId),
-            b => responseStream.WriteAsync(_mapper.Map<ProtoModels.MajorityElectionResultBundle>(b)),
-            context.CancellationToken);
-    }
-
-    [AuthorizePermission(Permissions.PoliticalBusinessResultBundle.Read)]
     public override async Task<GetMajorityElectionResultBundleResponse> GetBundle(
         GetMajorityElectionResultBundleRequest request,
         ServerCallContext context)

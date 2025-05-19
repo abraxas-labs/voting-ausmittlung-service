@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class MajorityElectionResultSubTotal : IMajorityElectionResultSubTotal<int>
+public class MajorityElectionResultSubTotal : IMajorityElectionResultSubTotal<int>, ISummableSubTotal<MajorityElectionResultSubTotal>
 {
     /// <inheritdoc />
     public int IndividualVoteCount { get; set; }
@@ -28,4 +28,13 @@ public class MajorityElectionResultSubTotal : IMajorityElectionResultSubTotal<in
     public int EmptyVoteCountWriteIns { get; set; }
 
     public int EmptyVoteCountExclWriteIns { get; set; }
+
+    public void Add(MajorityElectionResultSubTotal other, int deltaFactor = 1)
+    {
+        IndividualVoteCount += other.IndividualVoteCount * deltaFactor;
+        InvalidVoteCount += other.InvalidVoteCount * deltaFactor;
+        TotalCandidateVoteCountExclIndividual += other.TotalCandidateVoteCountExclIndividual * deltaFactor;
+        EmptyVoteCountWriteIns += other.EmptyVoteCountWriteIns * deltaFactor;
+        EmptyVoteCountExclWriteIns += other.EmptyVoteCountExclWriteIns * deltaFactor;
+    }
 }

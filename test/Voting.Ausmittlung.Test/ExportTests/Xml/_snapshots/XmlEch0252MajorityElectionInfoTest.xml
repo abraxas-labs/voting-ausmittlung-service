@@ -50,88 +50,6 @@
             <id>333</id>
           </otherIdentification>
           <candidate>
-            <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-            <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
-            <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
-            <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
-            <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <candidateTextInfo>
-                <language>de</language>
-                <candidateText>1960, occupation title de, locality, Test de</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
-            </candidateText>
-            <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
-            <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
-            <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <occupationalTitleInfo>
-                <language>de</language>
-                <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
-              </occupationalTitleInfo>
-            </occupationalTitle>
-            <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
-              <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
-              <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
-                <countryId>8100</countryId>
-                <countryIdISO2>CH</countryIdISO2>
-                <countryNameShort>Schweiz</countryNameShort>
-              </country>
-            </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
-            <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
-            <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
-            <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
-            <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-              <partyAffiliationInfo>
-                <language>de</language>
-                <partyAffiliationShort>Test de</partyAffiliationShort>
-                <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
-              </partyAffiliationInfo>
-            </partyAffiliation>
-            <politicalFamilyName>1pol last name</politicalFamilyName>
-            <politicalFirstName>1pol firstName</politicalFirstName>
-          </candidate>
-          <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3726f09b-2c01-420e-8f17-4010d065cfcf</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">10lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">10firstName</firstName>
@@ -175,6 +93,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -185,6 +105,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number10</candidateReference>
@@ -257,6 +178,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -267,6 +190,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>
@@ -339,6 +263,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -349,6 +275,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number3</candidateReference>
@@ -421,6 +348,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -431,6 +360,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number4</candidateReference>
@@ -503,6 +433,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -513,6 +445,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number5</candidateReference>
@@ -585,6 +518,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -595,6 +530,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number6</candidateReference>
@@ -667,6 +603,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -677,6 +615,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number7</candidateReference>
@@ -749,6 +688,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -759,6 +700,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number8</candidateReference>
@@ -831,6 +773,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -841,6 +785,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number9</candidateReference>
@@ -931,6 +876,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality1</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -941,6 +888,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -1013,6 +961,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality2</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1023,6 +973,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>
@@ -1095,6 +1046,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality3</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1105,6 +1058,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number3</candidateReference>
@@ -1177,6 +1131,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality4</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1187,6 +1143,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number4</candidateReference>
@@ -1277,6 +1234,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality1</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1287,6 +1246,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -1359,6 +1319,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality2</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1369,6 +1331,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>
@@ -1441,6 +1404,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality3</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1451,6 +1416,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number3</candidateReference>
@@ -1523,6 +1489,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality4</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1533,6 +1501,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number4</candidateReference>
@@ -1671,6 +1640,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1681,6 +1652,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -1753,6 +1725,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1763,6 +1737,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number5</candidateReference>
@@ -1853,6 +1828,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1863,6 +1840,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -1935,6 +1913,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -1945,6 +1925,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>
@@ -2017,6 +1998,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2027,6 +2010,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number3</candidateReference>
@@ -2099,6 +2083,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2109,6 +2095,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number4</candidateReference>
@@ -2199,6 +2186,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2209,6 +2198,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -2281,6 +2271,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2291,6 +2283,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>
@@ -2381,6 +2374,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2391,6 +2386,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
@@ -2463,6 +2459,8 @@
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
+              <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
               <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
               <foreignZipCode xmlns="http://www.ech.ch/xmlns/eCH-0010/6">zip code</foreignZipCode>
               <country xmlns="http://www.ech.ch/xmlns/eCH-0010/6">
@@ -2473,6 +2471,7 @@
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
             <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
+            <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number2</candidateReference>

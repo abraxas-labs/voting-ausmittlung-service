@@ -58,6 +58,9 @@ public class ProportionalElectionCandidateUpdateTest : BaseDataProcessorTest
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 
@@ -103,6 +106,9 @@ public class ProportionalElectionCandidateUpdateTest : BaseDataProcessorTest
                 Title = "new title",
                 ZipCode = "new zip code",
                 Origin = "origin",
+                Street = "street",
+                HouseNumber = "1a",
+                Country = "CH",
             });
 
         var idGuid = Guid.Parse(ProportionalElectionMockedData.CandidateIdStGallenProportionalElectionInContestStGallen);
@@ -148,6 +154,9 @@ public class ProportionalElectionCandidateUpdateTest : BaseDataProcessorTest
                     PartyId = DomainOfInfluenceMockedData.PartyIdBundAndere,
                     Origin = "origin",
                     CheckDigit = 0,
+                    Street = "street",
+                    HouseNumber = "1a",
+                    Country = "CH",
                 },
             });
 

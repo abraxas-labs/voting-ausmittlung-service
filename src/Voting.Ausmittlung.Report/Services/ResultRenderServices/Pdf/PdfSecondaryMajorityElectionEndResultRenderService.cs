@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +14,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -23,17 +25,20 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionEndResult> _repo;
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _resultRepo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfSecondaryMajorityElectionEndResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, SecondaryMajorityElectionEndResult> repo,
         IDbRepository<DataContext, SecondaryMajorityElectionResult> resultRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _resultRepo = resultRepo;
         _mapper = mapper;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(
@@ -52,6 +57,8 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
             .FirstOrDefaultAsync(x => x.SecondaryMajorityElectionId == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
 
+        data.MoveECountingToConventional();
+
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.SecondaryMajorityElection);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);
 
@@ -65,14 +72,23 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         domainOfInfluence.Details.CountOfVotersInformationSubTotals = new List<PdfCountOfVotersInformationSubTotal>();
         majorityElection.DomainOfInfluence = null;
 
+        PdfCountingCircle? countingCircle = null;
         if (data.PrimaryMajorityElectionEndResult.TotalCountOfCountingCircles == 1)
         {
-            var countingMachine = await _resultRepo.Query()
+            var cc = await _resultRepo.Query()
+                .Include(x => x.PrimaryResult.CountingCircle)
+                    .ThenInclude(x => x.ResponsibleAuthority)
+                .Include(x => x.PrimaryResult.CountingCircle)
+                    .ThenInclude(x => x.ContactPersonDuringEvent)
+                .Include(x => x.PrimaryResult.CountingCircle)
+                    .ThenInclude(x => x.ContactPersonAfterEvent)
+                .Include(x => x.PrimaryResult.CountingCircle)
+                    .ThenInclude(x => x.ContestDetails)
                 .Where(x => x.SecondaryMajorityElectionId == ctx.PoliticalBusinessId)
-                .SelectMany(x => x.PrimaryResult.CountingCircle.ContestDetails)
-                .Select(x => x.CountingMachine)
+                .Select(x => x.PrimaryResult.CountingCircle)
                 .FirstAsync(ct);
-            domainOfInfluence.Details.CountingMachine = countingMachine;
+            domainOfInfluence.Details.CountingMachine = cc.ContestDetails.First().CountingMachine;
+            countingCircle = _mapper.Map<PdfCountingCircle>(cc);
         }
 
         var contest = _mapper.Map<PdfContest>(data.SecondaryMajorityElection.Contest);
@@ -80,12 +96,14 @@ public class PdfSecondaryMajorityElectionEndResultRenderService : IRendererServi
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = contest,
             DomainOfInfluence = domainOfInfluence,
             MajorityElections = new List<PdfMajorityElection>
             {
                 majorityElection,
             },
+            CountingCircle = countingCircle,
         };
 
         return await _templateService.RenderToPdf(

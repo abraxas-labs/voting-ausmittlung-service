@@ -39,6 +39,9 @@
       "Position": 1,
       "Origin": "origin",
       "CheckDigit": 7,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
     },
     {
@@ -80,6 +83,9 @@
       "Position": 2,
       "Origin": "origin",
       "CheckDigit": 9,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf"
     },
     {
@@ -121,6 +127,9 @@
       "Position": 3,
       "Origin": "origin",
       "CheckDigit": 5,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb"
     },
     {
@@ -162,6 +171,9 @@
       "Position": 4,
       "Origin": "origin",
       "CheckDigit": 3,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "340c482b-c064-427e-a906-2696fab2ab35"
     }
   ]

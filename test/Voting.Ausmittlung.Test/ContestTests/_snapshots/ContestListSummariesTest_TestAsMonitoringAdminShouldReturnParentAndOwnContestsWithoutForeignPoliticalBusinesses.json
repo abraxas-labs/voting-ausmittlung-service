@@ -63,7 +63,8 @@
           "MobilePhone": "079 123 12 12",
           "Email": "hans@sg.ch"
         }
-      }
+      },
+      "ECountingResultsImported": false
     },
     {
       "Id": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
@@ -122,7 +123,8 @@
           "MobilePhone": "",
           "Email": ""
         }
-      }
+      },
+      "ECountingResultsImported": false
     }
   ]
 }

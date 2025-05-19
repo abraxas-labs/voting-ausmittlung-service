@@ -4,13 +4,14 @@
 using System;
 using System.IO;
 using System.Net.Mime;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
+using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Models;
 using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Rest.Files;
 using Voting.Lib.Rest.Utils;
@@ -26,28 +27,50 @@ public class ResultImportController : ControllerBase
     private const string Ech0110FormName = "ech0110File";
     private const int BufferSize = 4096;
 
-    private readonly ResultImportWriter _resultImportWriter;
+    private readonly EVotingResultImportWriter _eVotingResultImportWriter;
+    private readonly ECountingResultImportWriter _eCountingResultImportWriter;
     private readonly MultipartRequestHelper _multipartRequestHelper;
 
-    public ResultImportController(ResultImportWriter resultImportWriter, MultipartRequestHelper multipartRequestHelper)
+    public ResultImportController(
+        EVotingResultImportWriter eVotingResultImportWriter,
+        ECountingResultImportWriter eCountingResultImportWriter,
+        MultipartRequestHelper multipartRequestHelper)
     {
-        _resultImportWriter = resultImportWriter;
+        _eVotingResultImportWriter = eVotingResultImportWriter;
+        _eCountingResultImportWriter = eCountingResultImportWriter;
         _multipartRequestHelper = multipartRequestHelper;
     }
+
+    /// <summary>
+    /// Imports the e-counting results.
+    /// </summary>
+    /// <param name="contestId">The contestId of the contest to which the results should be imported.</param>
+    /// <param name="countingCircleId">The id of the counting circle.</param>
+    /// <returns>A task representing the async operation.</returns>
+    [AuthorizePermission(Permissions.Import.ImportECounting)]
+    [HttpPost("e-counting/{contestId:Guid}/{countingCircleId:Guid}")]
+    [Consumes("multipart/form-data")]
+    [RequestSizeLimit(MaxImportRequestSize)]
+    [RequestFormLimits(MultipartBodyLengthLimit = MaxImportRequestSize)]
+    [DisableFormValueModelBinding]
+    public Task ImportECounting(Guid contestId, Guid countingCircleId)
+        => Import(ResultImportType.ECounting, contestId, countingCircleId);
 
     /// <summary>
     /// Imports the results.
     /// </summary>
     /// <param name="contestId">The contestId of the contest to which the results should be imported.</param>
-    /// <param name="ct">Cancellation Token.</param>
     /// <returns>A task representing the async operation.</returns>
-    [AuthorizePermission(Permissions.Import.ImportData)]
-    [HttpPost("{contestId:Guid}")]
+    [AuthorizePermission(Permissions.Import.ImportEVoting)]
+    [HttpPost("e-voting/{contestId:Guid}")]
     [Consumes("multipart/form-data")]
     [RequestSizeLimit(MaxImportRequestSize)]
     [RequestFormLimits(MultipartBodyLengthLimit = MaxImportRequestSize)]
     [DisableFormValueModelBinding]
-    public async Task Import(Guid contestId, CancellationToken ct)
+    public Task ImportEVoting(Guid contestId)
+        => Import(ResultImportType.EVoting, contestId, null);
+
+    private async Task Import(ResultImportType importType, Guid contestId, Guid? countingCircleId)
     {
         Stream? ech0222Stream = null;
         Stream? ech0110Stream = null;
@@ -74,19 +97,21 @@ public class ResultImportController : ControllerBase
                 },
                 [MediaTypeNames.Text.Xml]);
 
-            if (ech0222Stream == null || ech0222FileName == null || ech0110Stream == null || ech0110FileName == null)
+            if (ech0222Stream == null || ech0222FileName == null)
             {
-                throw new ValidationException("Did not receive a eCH-0222 and eCH-0110 file or their names.");
+                throw new ValidationException("Did not receive a eCH-0222 file or its name.");
             }
 
-            await _resultImportWriter.Import(
-                new ResultImportMeta(
-                    contestId,
-                    ech0222FileName,
-                    ech0222Stream,
-                    ech0110FileName,
-                    ech0110Stream),
-                ct);
+            var importMeta = new ResultImportMeta(
+                importType,
+                importType == ResultImportType.ECounting ? Ech0222Version.V3 : Ech0222Version.V1,
+                contestId,
+                countingCircleId,
+                ech0222FileName,
+                ech0222Stream,
+                ech0110FileName,
+                ech0110Stream);
+            await RunImport(importMeta);
         }
         finally
         {
@@ -99,6 +124,21 @@ public class ResultImportController : ControllerBase
             {
                 await ech0110Stream.DisposeAsync().ConfigureAwait(false);
             }
+        }
+    }
+
+    private async Task RunImport(ResultImportMeta importMeta)
+    {
+        switch (importMeta.ImportType)
+        {
+            case ResultImportType.EVoting:
+                await _eVotingResultImportWriter.Import(importMeta);
+                break;
+            case ResultImportType.ECounting:
+                await _eCountingResultImportWriter.Import(importMeta);
+                break;
+            default:
+                throw new InvalidOperationException("Unknown import type.");
         }
     }
 

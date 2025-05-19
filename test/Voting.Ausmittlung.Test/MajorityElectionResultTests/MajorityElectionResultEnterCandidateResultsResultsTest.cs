@@ -14,8 +14,10 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
@@ -244,14 +246,38 @@ public class MajorityElectionResultEnterCandidateResultsResultsTest : MajorityEl
     }
 
     [Fact]
-    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandate()
+    public async Task TestShouldThrowEmptyVoteCountProvideWithSingleMandateAndNoOtherElectionsOnSameBallot()
     {
+        await RunScoped<IDbRepository<DataContext, SecondaryMajorityElection>>(repo => repo.DeleteRangeByKey(new[]
+        {
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund),
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund2),
+            Guid.Parse(MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund3),
+        }));
+
         await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 1);
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.EnterCandidateResultsAsync(
-                NewValidRequest(r => r.InvalidVoteCount = null)),
+                NewValidRequest(r =>
+                {
+                    r.InvalidVoteCount = null;
+                    r.EmptyVoteCount = 0;
+                    r.SecondaryElectionCandidateResults.Clear();
+                })),
             StatusCode.InvalidArgument,
-            "empty vote count provided with single mandate");
+            "empty vote count provided with single mandate and no other elections on the same ballot");
+    }
+
+    [Fact]
+    public async Task TestShouldWorkEmptyVoteCountProvideWithSingleMandateAndOtherElectionsOnSameBallot()
+    {
+        await OverwriteMajorityElectionNumberOfMandates(Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund), 1);
+        await ErfassungElectionAdminClient.EnterCandidateResultsAsync(NewValidRequest(r =>
+        {
+            r.InvalidVoteCount = null;
+            r.EmptyVoteCount = 0;
+        }));
+        EventPublisherMock.GetSinglePublishedEvent<MajorityElectionCandidateResultsEntered>().Should().NotBeNull();
     }
 
     [Theory]

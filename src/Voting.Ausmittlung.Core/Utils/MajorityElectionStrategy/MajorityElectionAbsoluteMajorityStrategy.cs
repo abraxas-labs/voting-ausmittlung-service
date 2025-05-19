@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Core.Utils.MajorityElectionStrategy;
@@ -12,11 +13,12 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
     // no override of AbsoluteMajorityAlgorithm, since ValidBallotsDividedByTwo (which is implemented here), should be the default.
     public override MajorityElectionMandateAlgorithm MandateAlgorithm => MajorityElectionMandateAlgorithm.AbsoluteMajority;
 
-    public override void RecalculateCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult)
+    public override void RecalculatePrimaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult)
     {
+        SetCandidateEndResultStatesToPending(majorityElectionEndResult);
+
         if (!majorityElectionEndResult.AllCountingCirclesDone)
         {
-            SetCandidateEndResultStatesToPending(majorityElectionEndResult);
             return;
         }
 
@@ -26,12 +28,31 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
             CalculateAbsoluteMajority(majorityElectionEndResult, secondaryEndResult);
         }
 
-        var absoluteMajority = majorityElectionEndResult.Calculation.AbsoluteMajority!.Value;
-
         SetCandidateEndResultStatesAfterAllSubmissionsDone(
             majorityElectionEndResult.CandidateEndResults,
             majorityElectionEndResult.MajorityElection.NumberOfMandates,
-            absoluteMajority);
+            majorityElectionEndResult.Calculation.AbsoluteMajority!.Value);
+
+        if (majorityElectionEndResult.CandidateEndResults.Any(x => x.LotDecisionRequired && !x.LotDecision))
+        {
+            return;
+        }
+
+        RecalculateSecondaryCandidateEndResultStates(majorityElectionEndResult);
+    }
+
+    public override void RecalculateSecondaryCandidateEndResultStates(MajorityElectionEndResult majorityElectionEndResult)
+    {
+        SetSecondaryCandidateEndResultStatesToPending(majorityElectionEndResult);
+
+        if (!majorityElectionEndResult.AllCountingCirclesDone)
+        {
+            return;
+        }
+
+        SetSecondaryCandidateResultStatesDependentOfPrimaryElection(
+            majorityElectionEndResult.CandidateEndResults,
+            majorityElectionEndResult.SecondaryMajorityElectionEndResults.SelectMany(x => x.CandidateEndResults));
 
         foreach (var secondaryMajorityElectionEndResult in majorityElectionEndResult.SecondaryMajorityElectionEndResults)
         {
@@ -49,6 +70,34 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
         majorityElectionEndResult.Calculation.AbsoluteMajority = (int)Math.Floor(majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold.Value) + 1;
     }
 
+    public override void SetCandidateElected<TMajorityElectionCandidateEndResultBase>(
+        TMajorityElectionCandidateEndResultBase candidateEndResult,
+        MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
+    {
+        var hasAbsoluteMajority = candidateEndResult.VoteCount >= context.AbsoluteMajority;
+
+        candidateEndResult.State = hasAbsoluteMajority
+            ? MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected
+            : MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
+        context.IncreaseDistributedNumberOfMandates();
+    }
+
+    public override void SetCandidateNotElected<TMajorityElectionCandidateEndResultBase>(
+        TMajorityElectionCandidateEndResultBase candidateEndResult,
+        MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
+    {
+        if (candidateEndResult.State == MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElectedInPrimaryElectionNotEligible)
+        {
+            return;
+        }
+
+        var hasAbsoluteMajority = candidateEndResult.VoteCount >= context.AbsoluteMajority;
+
+        candidateEndResult.State = hasAbsoluteMajority
+            ? MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElected
+            : MajorityElectionCandidateEndResultState.NotElected;
+    }
+
     protected virtual void CalculateAbsoluteMajority(MajorityElectionEndResult primaryEndResult, SecondaryMajorityElectionEndResult secondaryEndResult)
     {
         secondaryEndResult.Calculation.DecisiveVoteCount = primaryEndResult.Calculation.DecisiveVoteCount;
@@ -62,32 +111,18 @@ public class MajorityElectionAbsoluteMajorityStrategy : MajorityElectionMandateA
         int absoluteMajority)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
     {
-        foreach (var candidateEndResult in candidateEndResults)
+        var sortedCandidateEndResults = candidateEndResults
+            .OrderByDescending(x => x.VoteCount)
+            .ThenBy(x => x.Rank)
+            .ToList();
+
+        var context = new MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase>(numberOfMandates, candidateEndResults, absoluteMajority);
+
+        foreach (var candidateEndResult in sortedCandidateEndResults)
         {
-            SetCandidateEndResultStateAfterAllSubmissionsDone(candidateEndResult, numberOfMandates, absoluteMajority);
+            SetCandidateEndResultStateAfterAllSubmissionsDone(candidateEndResult, context);
         }
 
-        RecalculateLotDecisionState(candidateEndResults, numberOfMandates);
-    }
-
-    private void SetCandidateEndResultStateAfterAllSubmissionsDone<TMajorityElectionCandidateEndResultBase>(
-        TMajorityElectionCandidateEndResultBase candidateEndResult,
-        int numberOfMandates,
-        int absoluteMajority)
-        where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
-    {
-        var hasAbsoluteMajority = candidateEndResult.VoteCount >= absoluteMajority;
-
-        if (candidateEndResult.Rank > numberOfMandates)
-        {
-            candidateEndResult.State = hasAbsoluteMajority
-                ? MajorityElectionCandidateEndResultState.AbsoluteMajorityAndNotElected
-                : MajorityElectionCandidateEndResultState.NotElected;
-            return;
-        }
-
-        candidateEndResult.State = hasAbsoluteMajority
-            ? MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected
-            : MajorityElectionCandidateEndResultState.NoAbsoluteMajorityAndNotElectedButRankOk;
+        RecalculateRankIfLotDecisionPending(candidateEndResults);
     }
 }

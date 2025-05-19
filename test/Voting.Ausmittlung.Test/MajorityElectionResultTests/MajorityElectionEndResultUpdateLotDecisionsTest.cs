@@ -39,7 +39,7 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
     }
 
     [Fact]
-    public async Task TestProcessor()
+    public async Task TestProcessorWithDeprecatedEventsWithSecondaryCandidates()
     {
         await SetResultsToAuditedTentatively();
         var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
@@ -88,6 +88,50 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
                 MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
             });
         availableLotDecisions.MatchSnapshot("availableLotDecisions");
+    }
+
+    [Fact]
+    public async Task TestProcessor()
+    {
+        await SetResultsToAuditedTentatively();
+        var endResultId = "e51853c0-e16c-4143-b629-5ab58ec14637";
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionEndResultLotDecisionsUpdated
+            {
+                MajorityElectionEndResultId = endResultId,
+                MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+                LotDecisions =
+                {
+                        new MajorityElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = MajorityElectionEndResultMockedData.CandidateId3,
+                            Rank = 4,
+                        },
+                        new MajorityElectionEndResultLotDecisionEventData
+                        {
+                            CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
+                            Rank = 3,
+                        },
+                },
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetMajorityElectionEndResultRequest
+        {
+            MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+        });
+        endResult.MatchSnapshot("response");
+
+        var availableLotDecisions = await MonitoringElectionAdminClient.GetEndResultAvailableLotDecisionsAsync(
+            new GetMajorityElectionEndResultAvailableLotDecisionsRequest
+            {
+                MajorityElectionId = MajorityElectionEndResultMockedData.ElectionId,
+            });
+        availableLotDecisions.MatchSnapshot("availableLotDecisions");
+
+        await AssertHasPublishedEventProcessedMessage(MajorityElectionEndResultLotDecisionsUpdated.Descriptor, Guid.Parse(endResultId));
     }
 
     [Fact]
@@ -300,20 +344,32 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
                             CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
                             Rank = 2,
                         },
-                        new UpdateMajorityElectionEndResultLotDecisionRequest
-                        {
-                            CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId2,
-                            Rank = 2,
-                        },
-                        new UpdateMajorityElectionEndResultLotDecisionRequest
-                        {
-                            CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId3,
-                            Rank = 3,
-                        },
                 },
             }),
             StatusCode.InvalidArgument,
             "bad rank or rank already taken in existing lot decisions");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowWithSecondaryCandidates()
+    {
+        await SetResultsToAuditedTentatively();
+        await AssertStatus(
+            async () => await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(NewValidRequest(x =>
+            {
+                x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
+                {
+                    CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId2,
+                    Rank = 2,
+                });
+                x.LotDecisions.Add(new UpdateMajorityElectionEndResultLotDecisionRequest
+                {
+                    CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId3,
+                    Rank = 3,
+                });
+            })),
+            StatusCode.InvalidArgument,
+            "candidate id found which not exists in available lot decisions");
     }
 
     [Fact]
@@ -432,16 +488,6 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
                     new UpdateMajorityElectionEndResultLotDecisionRequest
                     {
                         CandidateId = MajorityElectionEndResultMockedData.CandidateId4,
-                        Rank = 3,
-                    },
-                    new UpdateMajorityElectionEndResultLotDecisionRequest
-                    {
-                        CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId2,
-                        Rank = 2,
-                    },
-                    new UpdateMajorityElectionEndResultLotDecisionRequest
-                    {
-                        CandidateId = MajorityElectionEndResultMockedData.SecondaryCandidateId3,
                         Rank = 3,
                     },
                 },

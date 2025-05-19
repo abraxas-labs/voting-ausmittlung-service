@@ -50,6 +50,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -58,6 +59,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "eea024ee-7f93-4a58-9e7d-6e6b0c11b723"
     },
     {
@@ -110,6 +112,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": true,
+      "ECounting": false,
       "Electorates": [
         {
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
@@ -136,6 +139,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "0bb8d89c-d387-40d0-83cf-84e118a8d524"
     },
     {
@@ -188,6 +192,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -196,6 +201,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a4e"
     },
     {
@@ -237,6 +243,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -245,6 +252,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "eae2cfaf-c787-48b9-a108-c975b0a580dc"
     },
     {
@@ -297,6 +305,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -305,6 +314,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "1e2e062e-288d-4347-9f22-224e69b95bed"
     },
     {
@@ -357,6 +367,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -365,6 +376,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab"
     },
     {
@@ -417,6 +429,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -425,6 +438,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "46adab98-9114-4503-9000-b02842640650"
     },
     {
@@ -477,6 +491,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": true,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -485,6 +500,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "44a75721-f192-461c-816f-9f46a00d274a"
     },
     {
@@ -537,6 +553,7 @@
       "ContestCountingCircleContactPersonId": null,
       "MustUpdateContactPersons": false,
       "EVoting": false,
+      "ECounting": false,
       "Electorates": [],
       "ContestElectorates": [],
       "DomainOfInfluences": [],
@@ -545,6 +562,7 @@
       "MajorityElectionResults": [],
       "ContestDetails": [],
       "SimpleResults": [],
+      "ResultImports": [],
       "Id": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e"
     }
   ]

@@ -3,8 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -35,6 +37,13 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest
         await ModifyDbEntities<ContestCountingCircleDetails>(
             x => x.ContestId == ContestMockedData.GuidBundesurnengang,
             x => x.CountingMachine = CountingMachine.CalibratedScales);
+        await RunOnDb(async db =>
+        {
+            await db.MajorityElectionResults
+                .Where(x => x.MajorityElection.ContestId == ContestMockedData.GuidBundesurnengang
+                    && x.CountingCircle.BasisCountingCircleId != CountingCircleMockedData.GuidUzwil)
+                .ExecuteDeleteAsync();
+        });
 
         var request = NewRequest();
         await TestPdfReport("_with_single_counting_circle", TestClient, request);

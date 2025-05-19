@@ -28,7 +28,7 @@ public class WabstiCWPListenRenderService : WabstiCWPBaseRenderService
 
     public override async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
-        var results = Repo.Query()
+        var results = await Repo.Query()
             .AsSplitQuery()
             .Where(x => x.ContestId == ctx.ContestId && ctx.PoliticalBusinessIds.Contains(x.Id))
             .SelectMany(x => x.ProportionalElectionLists)
@@ -59,7 +59,13 @@ public class WabstiCWPListenRenderService : WabstiCWPBaseRenderService
                     ? (int?)x.EndResult!.NumberOfMandates
                     : null,
             })
-            .AsAsyncEnumerable();
+            .ToListAsync(ct);
+
+        var totalVoteCount = results.Sum(x => x.VoteCount);
+        foreach (var result in results)
+        {
+            result.VoteCountPercent = totalVoteCount != 0 ? result.VoteCount / (decimal)totalVoteCount : null;
+        }
 
         return await RenderToCsv(
             ctx,
@@ -112,6 +118,10 @@ public class WabstiCWPListenRenderService : WabstiCWPBaseRenderService
 
         [Name("GeVerbNr")]
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
+
+        [Name("StimmenProz")]
+        [TypeConverter(typeof(WabstiCPercentDecimalConverter))]
+        public decimal? VoteCountPercent { get; set; }
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
     }

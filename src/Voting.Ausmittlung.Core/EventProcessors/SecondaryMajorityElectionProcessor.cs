@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
@@ -96,6 +97,7 @@ public class SecondaryMajorityElectionProcessor :
                                   .AsTracking()
                                   .Where(me => me.Id == model.PrimaryMajorityElectionId)
                                   .Include(x => x.ElectionGroup)
+                                  .Include(x => x.Contest)
                                   .FirstOrDefaultAsync()
                               ?? throw new EntityNotFoundException(model.PrimaryMajorityElectionId);
         primaryElection.ElectionGroup!.CountOfSecondaryElections++;
@@ -104,7 +106,7 @@ public class SecondaryMajorityElectionProcessor :
 
         await _electionGroupRepo.Update(primaryElection.ElectionGroup);
         await _repo.Create(model);
-        await _resultBuilder.InitializeSecondaryElection(model.PrimaryMajorityElectionId, model.Id);
+        await _resultBuilder.InitializeSecondaryElection(model.PrimaryMajorityElectionId, model.Id, primaryElection.Contest.TestingPhaseEnded);
         await _endResultInitializer.InitializeForSecondaryElection(model.Id);
         await _simplePoliticalBusinessBuilder.Create(model);
         await _simplePoliticalBusinessBuilder.AdjustCountOfSecondaryBusinesses(model.PrimaryMajorityElectionId, 1);
@@ -224,6 +226,12 @@ public class SecondaryMajorityElectionProcessor :
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
         TruncateCandidateNumber(model);
 
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(model.Country))
+        {
+            model.Country = CountryUtils.SwissCountryIso;
+        }
+
         var majorityElection = await _repo.Query()
                 .Include(x => x.PrimaryMajorityElection.Contest)
                 .FirstOrDefaultAsync(x => x.Id == model.SecondaryMajorityElectionId)
@@ -246,6 +254,12 @@ public class SecondaryMajorityElectionProcessor :
 
         var model = _mapper.Map<SecondaryMajorityElectionCandidate>(eventData.SecondaryMajorityElectionCandidate);
         TruncateCandidateNumber(model);
+
+        // old events don't contain a country
+        if (string.IsNullOrEmpty(model.Country))
+        {
+            model.Country = CountryUtils.SwissCountryIso;
+        }
 
         if (!await _candidateRepo.ExistsByKey(model.Id))
         {

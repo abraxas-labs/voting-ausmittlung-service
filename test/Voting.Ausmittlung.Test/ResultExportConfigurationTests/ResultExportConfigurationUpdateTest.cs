@@ -90,7 +90,7 @@ public class ResultExportConfigurationUpdateTest : BaseTest<ExportService.Export
                 Description = "updated",
                 PoliticalBusinessIds =
                 {
-                    ProportionalElectionMockedData.IdBundProportionalElectionInContestStGallen,
+                    ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen,
                 },
                 PoliticalBusinessMetadata =
                 {

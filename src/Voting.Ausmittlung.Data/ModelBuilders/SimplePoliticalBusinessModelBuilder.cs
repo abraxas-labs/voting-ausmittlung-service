@@ -74,7 +74,6 @@ public class SimplePoliticalBusinessModelBuilder :
             .Property(x => x.PlausibilisedTimestamp)
             .HasUtcConversion();
 
-        builder.OwnsOne(x => x.CountOfVoters);
-        builder.Navigation(x => x.CountOfVoters).IsRequired();
+        builder.OwnsCountOfVoters(x => x.CountOfVoters);
     }
 }

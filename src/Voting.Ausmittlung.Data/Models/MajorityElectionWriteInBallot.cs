@@ -11,6 +11,8 @@ public class MajorityElectionWriteInBallot : MajorityElectionWriteInBallotBase
 {
     public Guid ResultId { get; set; }
 
+    public ResultImport? Import { get; set; }
+
     public MajorityElectionResult Result { get; set; } = null!;
 
     public ICollection<MajorityElectionWriteInBallotPosition> WriteInPositions { get; set; } =

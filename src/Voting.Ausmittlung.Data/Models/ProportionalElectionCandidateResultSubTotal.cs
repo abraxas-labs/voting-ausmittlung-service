@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class ProportionalElectionCandidateResultSubTotal : IProportionalElectionCandidateResultTotal
+public class ProportionalElectionCandidateResultSubTotal : IProportionalElectionCandidateResultTotal, ISummableSubTotal<ProportionalElectionCandidateResultSubTotal>
 {
     /// <inheritdoc />
     public int UnmodifiedListVotesCount { get; set; }
@@ -19,4 +19,12 @@ public class ProportionalElectionCandidateResultSubTotal : IProportionalElection
 
     /// <inheritdoc />
     public int VoteCount => UnmodifiedListVotesCount + ModifiedListVotesCount;
+
+    public void Add(ProportionalElectionCandidateResultSubTotal other, int deltaFactor = 1)
+    {
+        UnmodifiedListVotesCount += other.UnmodifiedListVotesCount;
+        ModifiedListVotesCount += other.ModifiedListVotesCount;
+        CountOfVotesOnOtherLists += other.CountOfVotesOnOtherLists;
+        CountOfVotesFromAccumulations += other.CountOfVotesFromAccumulations;
+    }
 }

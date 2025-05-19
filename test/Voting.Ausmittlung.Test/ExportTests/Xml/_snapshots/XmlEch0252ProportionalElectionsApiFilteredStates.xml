@@ -17,69 +17,6 @@
     <cantonId>17</cantonId>
     <pollingDay>2020-08-31</pollingDay>
     <electionGroupResult>
-      <electionGroupIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionGroupIdentification>
-      <electionResult>
-        <electionIdentification>30e170ba-ed97-4886-93c9-ee35b106a22e</electionIdentification>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>1</countingCircleId>
-            <countingCircleName>Bund</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>3443</countingCircleId>
-            <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>SK</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>5500</countingCircleId>
-            <countingCircleName>St. Gallen</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>5500-3</countingCircleId>
-            <countingCircleName>St. Gallen Auslandschweizer</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>5500-2</countingCircleId>
-            <countingCircleName>St. Gallen Haggen</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>5500-1</countingCircleId>
-            <countingCircleName>St. Gallen St. Fiden</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <countingCircleResult>
-          <countingCircle>
-            <countingCircleId>1234</countingCircleId>
-            <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>SK</domainOfInfluenceType>
-          </countingCircle>
-        </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>ead283f5-5b06-4d94-b23a-1ddf8fa9079f</listIdentification>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
-      </electionResult>
-    </electionGroupResult>
-    <electionGroupResult>
       <electionGroupIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionGroupIdentification>
       <electionResult>
         <electionIdentification>8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f</electionIdentification>
@@ -185,6 +122,6 @@
         </elected>
       </electionResult>
     </electionGroupResult>
-    <numberOfEntries>4</numberOfEntries>
+    <numberOfEntries>3</numberOfEntries>
   </electionResultDelivery>
 </delivery>

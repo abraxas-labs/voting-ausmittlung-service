@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,10 +10,12 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -21,6 +24,8 @@ public class PdfVoteResultRenderService : IRendererService
 {
     private readonly IDbRepository<DataContext, Vote> _voteRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
+    private readonly DomainOfInfluenceRepo _doiRepo;
+    private readonly IClock _clock;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
@@ -30,13 +35,17 @@ public class PdfVoteResultRenderService : IRendererService
         IMapper mapper,
         TemplateService templateService,
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
-        IDbRepository<DataContext, Contest> contestRepo)
+        IDbRepository<DataContext, Contest> contestRepo,
+        DomainOfInfluenceRepo doiRepo,
+        IClock clock)
     {
         _voteRepo = voteRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
         _contestRepo = contestRepo;
+        _doiRepo = doiRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -91,6 +100,11 @@ public class PdfVoteResultRenderService : IRendererService
 
         if (votes.Count > 0)
         {
+            foreach (var vote in votes)
+            {
+                vote.MoveECountingToConventional();
+            }
+
             PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(pdfCountingCircle.ContestCountingCircleDetails, votes[0].DomainOfInfluence);
         }
         else
@@ -101,9 +115,12 @@ public class PdfVoteResultRenderService : IRendererService
         var pdfVotes = _mapper.Map<List<PdfVote>>(votes);
         PdfVoteUtil.SetLabels(pdfVotes);
 
+        await SetReportLevelNames(pdfVotes, votes, countingCircle.Id);
+
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(contest),
             CountingCircle = pdfCountingCircle,
             Votes = pdfVotes,
@@ -115,5 +132,32 @@ public class PdfVoteResultRenderService : IRendererService
             templateBag,
             PdfDomainOfInfluenceUtil.MapDomainOfInfluenceType(ctx.DomainOfInfluenceType),
             PdfDateUtil.BuildDateForFilename(templateBag.Contest.Date));
+    }
+
+    // Set the name of the domain of influence that matches the reporting level and is in the same hierarchy as the counting circle
+    private async Task SetReportLevelNames(List<PdfVote> pdfVotes, List<Vote> votes, Guid countingCircleId)
+    {
+        // In practice there will almost always only be one combination of report level + doi id, even across multiple votes, so we do not optimize for multiple ones
+        var reportLevelAndDoiById = votes
+            .ToDictionary(x => x.Id, x => (x.DomainOfInfluenceId, x.ReportDomainOfInfluenceLevel));
+
+        var relevantDoisByReportLevelAndDoi = new Dictionary<(Guid DomainOfInfluenceId, int ReportingLevel), string>();
+        foreach (var group in reportLevelAndDoiById.Values.Distinct())
+        {
+            var relevantDois = await _doiRepo.GetRelevantDomainOfInfluencesForReportingLevel(
+                group.DomainOfInfluenceId,
+                group.ReportDomainOfInfluenceLevel);
+            var relevantDoiForCc = relevantDois
+                .Where(d => d.DomainOfInfluence!.CountingCircles.Any(doiCc => doiCc.CountingCircleId == countingCircleId))
+                .OrderByDescending(x => x.ReportLevel) // In theory, there could be multiple DOIs (ex. with HideLowerDoi flag). We prefer the lowest one that matches
+                .FirstOrDefault();
+            relevantDoisByReportLevelAndDoi[group] = relevantDoiForCc?.DomainOfInfluence?.NameForProtocol ?? string.Empty;
+        }
+
+        foreach (var pdfVote in pdfVotes)
+        {
+            var doiIdAndReportLevel = reportLevelAndDoiById[pdfVote.Id];
+            pdfVote.ReportingLevelName = relevantDoisByReportLevelAndDoi[doiIdAndReportLevel];
+        }
     }
 }

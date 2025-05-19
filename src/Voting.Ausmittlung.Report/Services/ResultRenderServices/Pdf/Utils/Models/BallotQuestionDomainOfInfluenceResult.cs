@@ -20,13 +20,15 @@ public class BallotQuestionDomainOfInfluenceResult :
 
     public BallotQuestionResultSubTotal EVotingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
 
+    public BallotQuestionResultSubTotal ECountingSubTotal { get; set; } = new BallotQuestionResultSubTotal();
+
     public BallotQuestionResultSubTotal ConventionalSubTotal { get; set; } = new BallotQuestionResultSubTotal();
 
-    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes;
+    public int TotalCountOfAnswerYes => EVotingSubTotal.TotalCountOfAnswerYes + ECountingSubTotal.TotalCountOfAnswerYes + ConventionalSubTotal.TotalCountOfAnswerYes;
 
-    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo;
+    public int TotalCountOfAnswerNo => EVotingSubTotal.TotalCountOfAnswerNo + ECountingSubTotal.TotalCountOfAnswerNo + ConventionalSubTotal.TotalCountOfAnswerNo;
 
-    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
+    public int TotalCountOfAnswerUnspecified => EVotingSubTotal.TotalCountOfAnswerUnspecified + ECountingSubTotal.TotalCountOfAnswerUnspecified + ConventionalSubTotal.TotalCountOfAnswerUnspecified;
 
     public bool HasMajority => TotalCountOfAnswerYes > TotalCountOfAnswerNo;
 

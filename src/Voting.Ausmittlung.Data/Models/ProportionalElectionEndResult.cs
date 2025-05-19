@@ -32,22 +32,24 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
 
     public ProportionalElectionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public ProportionalElectionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public ProportionalElectionResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <summary>
     /// Gets the total count of unmodified lists with a party.
     /// </summary>
-    public int TotalCountOfUnmodifiedLists => EVotingSubTotal.TotalCountOfUnmodifiedLists + ConventionalSubTotal.TotalCountOfUnmodifiedLists;
+    public int TotalCountOfUnmodifiedLists => EVotingSubTotal.TotalCountOfUnmodifiedLists + ECountingSubTotal.TotalCountOfUnmodifiedLists + ConventionalSubTotal.TotalCountOfUnmodifiedLists;
 
     /// <summary>
     /// Gets the total count of modified lists with a party.
     /// </summary>
-    public int TotalCountOfModifiedLists => EVotingSubTotal.TotalCountOfModifiedLists + ConventionalSubTotal.TotalCountOfModifiedLists;
+    public int TotalCountOfModifiedLists => EVotingSubTotal.TotalCountOfModifiedLists + ECountingSubTotal.TotalCountOfModifiedLists + ConventionalSubTotal.TotalCountOfModifiedLists;
 
     /// <summary>
     /// Gets the count of lists without a source list / party.
     /// </summary>
-    public int TotalCountOfListsWithoutParty => EVotingSubTotal.TotalCountOfListsWithoutParty + ConventionalSubTotal.TotalCountOfListsWithoutParty;
+    public int TotalCountOfListsWithoutParty => EVotingSubTotal.TotalCountOfListsWithoutParty + ECountingSubTotal.TotalCountOfListsWithoutParty + ConventionalSubTotal.TotalCountOfListsWithoutParty;
 
     /// <summary>
     /// Gets the count of ballots (= total count of modified lists with and without a party).
@@ -57,7 +59,7 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
     /// <summary>
     /// Gets the count of votes gained from blank rows from lists/ballots without a source list / party.
     /// </summary>
-    public int TotalCountOfBlankRowsOnListsWithoutParty => EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty;
+    public int TotalCountOfBlankRowsOnListsWithoutParty => EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ECountingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty;
 
     /// <summary>
     /// Gets the total count of lists with a party (modified + unmodified).
@@ -81,6 +83,16 @@ public class ProportionalElectionEndResult : PoliticalBusinessEndResultBase,
 
     public ICollection<ProportionalElectionEndResultListLotDecision> ListLotDecisions { get; set; }
         = new HashSet<ProportionalElectionEndResultListLotDecision>();
+
+    public void MoveECountingToConventional()
+    {
+        this.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in ListEndResults)
+        {
+            result.MoveECountingToConventional();
+        }
+    }
 
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters = false)
     {

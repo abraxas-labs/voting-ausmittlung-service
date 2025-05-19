@@ -5,6 +5,7 @@ using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Utils;
+using Voting.Ausmittlung.Report.EventLogs;
 using ProtoBasis = Abraxas.Voting.Basis.Events.V1.Data;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ public static class ServiceCollectionExtensions
         return services.AddVotingLibEventing(config.EventStore, typeof(EventInfo).Assembly, typeof(ProtoBasis.EventInfo).Assembly)
             .AddEventProcessors(config)
             .AddPublisher(config)
+            .AddMetadataDescriptorProvider<MetadataDescriptorProvider>()
             .Services;
     }
 

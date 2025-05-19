@@ -11,10 +11,12 @@ using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Write.Import;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Grpc;
 using Voting.Lib.Iam.Authorization;
 using ProtoModels = Abraxas.Voting.Ausmittlung.Services.V1.Models;
+using ResultImportType = Abraxas.Voting.Ausmittlung.Shared.V1.ResultImportType;
 using ServiceBase = Abraxas.Voting.Ausmittlung.Services.V1.ResultImportService.ResultImportServiceBase;
 
 namespace Voting.Ausmittlung.Services;
@@ -24,25 +26,47 @@ public class ResultImportService : ServiceBase
     private readonly IMapper _mapper;
     private readonly ResultImportReader _resultImportReader;
     private readonly ResultImportWriter _resultImportWriter;
+    private readonly ECountingResultImportWriter _eCountingResultImportWriter;
+    private readonly EVotingResultImportWriter _eVotingResultImportWriter;
 
-    public ResultImportService(IMapper mapper, ResultImportReader resultImportReader, ResultImportWriter resultImportWriter)
+    public ResultImportService(IMapper mapper, ResultImportReader resultImportReader, ResultImportWriter resultImportWriter, ECountingResultImportWriter eCountingResultImportWriter, EVotingResultImportWriter eVotingResultImportWriter)
     {
         _mapper = mapper;
         _resultImportReader = resultImportReader;
         _resultImportWriter = resultImportWriter;
+        _eCountingResultImportWriter = eCountingResultImportWriter;
+        _eVotingResultImportWriter = eVotingResultImportWriter;
     }
 
-    [AuthorizePermission(Permissions.Import.Read)]
-    public override async Task<ProtoModels.ResultImports> ListImports(ListResultImportsRequest request, ServerCallContext context)
+    [AuthorizePermission(Permissions.Import.ReadEVoting)]
+    public override async Task<ProtoModels.ResultImports> ListEVotingImports(ListEVotingResultImportsRequest request, ServerCallContext context)
     {
-        var imports = await _resultImportReader.GetResultImports(GuidParser.Parse(request.ContestId));
+        var imports = await _resultImportReader.ListEVotingImports(GuidParser.Parse(request.ContestId));
         return _mapper.Map<ProtoModels.ResultImports>(imports);
     }
 
-    [AuthorizePermission(Permissions.Import.Delete)]
-    public override async Task<Empty> DeleteImportData(DeleteResultImportDataRequest request, ServerCallContext context)
+    [AuthorizePermission(Permissions.Import.ReadECounting)]
+    public override async Task<ProtoModels.ResultImports> ListECountingImports(ListECountingResultImportsRequest request, ServerCallContext context)
     {
-        await _resultImportWriter.DeleteResults(GuidParser.Parse(request.ContestId));
+        var imports = await _resultImportReader.ListECountingImports(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId));
+        return _mapper.Map<ProtoModels.ResultImports>(imports);
+    }
+
+    [AuthorizePermission(Permissions.Import.DeleteEVoting)]
+    public override async Task<Empty> DeleteEVotingImportData(DeleteEVotingResultImportDataRequest request, ServerCallContext context)
+    {
+        await _eVotingResultImportWriter.Delete(GuidParser.Parse(request.ContestId));
+        return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.Import.DeleteECounting)]
+    public override async Task<Empty> DeleteECountingImportData(DeleteECountingResultImportDataRequest request, ServerCallContext context)
+    {
+        await _eCountingResultImportWriter.Delete(
+            GuidParser.Parse(request.ContestId),
+            GuidParser.Parse(request.CountingCircleId));
         return ProtobufEmpty.Instance;
     }
 
@@ -51,9 +75,12 @@ public class ResultImportService : ServiceBase
         GetMajorityElectionWriteInMappingsRequest request,
         ServerCallContext context)
     {
+        var importType = request.ImportType == ResultImportType.Unspecified ? null : (Data.Models.ResultImportType?)request.ImportType;
         var writeIns = await _resultImportReader.GetMajorityElectionWriteInMappings(
             GuidParser.Parse(request.ContestId),
-            GuidParser.Parse(request.CountingCircleId));
+            GuidParser.Parse(request.CountingCircleId),
+            GuidParser.ParseNullable(request.ElectionId),
+            importType);
         return _mapper.Map<ProtoModels.MajorityElectionContestWriteInMappings>(writeIns);
     }
 
@@ -65,7 +92,7 @@ public class ResultImportService : ServiceBase
             GuidParser.Parse(request.ImportId),
             GuidParser.Parse(request.ElectionId),
             GuidParser.Parse(request.CountingCircleId),
-            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType),
+            _mapper.Map<PoliticalBusinessType>(request.PoliticalBusinessType),
             mappings);
         return ProtobufEmpty.Instance;
     }
@@ -76,45 +103,10 @@ public class ResultImportService : ServiceBase
         ServerCallContext context)
     {
         await _resultImportWriter.ResetMajorityElectionWriteIns(
-            GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             GuidParser.Parse(request.ElectionId),
-            _mapper.Map<Data.Models.PoliticalBusinessType>(request.PoliticalBusinessType));
+            _mapper.Map<PoliticalBusinessType>(request.PoliticalBusinessType),
+            GuidParser.Parse(request.ImportId));
         return ProtobufEmpty.Instance;
-    }
-
-    [AuthorizePermission(Permissions.MajorityElectionWriteIn.Read)]
-    public override Task GetMajorityElectionWriteInMappingChanges(
-        GetMajorityElectionWriteInMappingChangesRequest request,
-        IServerStreamWriter<ProtoModels.MajorityElectionWriteInMappingsChange> responseStream,
-        ServerCallContext context)
-    {
-        return _resultImportReader.ListenToWriteInMappingChanges(
-            GuidParser.Parse(request.ContestId),
-            GuidParser.Parse(request.CountingCircleId),
-            c => responseStream.WriteAsync(new ProtoModels.MajorityElectionWriteInMappingsChange
-            {
-                ResultId = c.ElectionResultId.ToString(),
-                IsReset = c.IsReset,
-                DuplicatedCandidates = c.DuplicatedCandidates,
-                InvalidDueToEmptyBallot = c.InvalidDueToEmptyBallot,
-            }),
-            context.CancellationToken);
-    }
-
-    [AuthorizePermission(Permissions.Import.ListenToImportChanges)]
-    public override Task GetImportChanges(
-        GetResultImportChangesRequest request,
-        IServerStreamWriter<ProtoModels.ResultImportChange> responseStream,
-        ServerCallContext context)
-    {
-        return _resultImportReader.ListenToResultImportChanges(
-            GuidParser.Parse(request.ContestId),
-            GuidParser.Parse(request.CountingCircleId),
-            e => responseStream.WriteAsync(new ProtoModels.ResultImportChange
-            {
-                HasWriteIns = e.HasWriteIns,
-            }),
-            context.CancellationToken);
     }
 }

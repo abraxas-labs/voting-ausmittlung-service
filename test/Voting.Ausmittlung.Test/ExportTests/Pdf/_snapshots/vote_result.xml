@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>vote_result</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -43,7 +44,7 @@
           <OfficialDescription />
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.000000</VoterParticipation>
+          <VoterParticipation>0.0000</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
           <EVotingReceivedBallots>0</EVotingReceivedBallots>
@@ -95,6 +96,7 @@
     <InternalDescription>Abstimmung Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
     <Type>QuestionsOnSingleBallot</Type>
+    <ReportingLevelName>Kanton St. Gallen</ReportingLevelName>
   </Vote>
   <Vote>
     <PoliticalBusinessNumber>202</PoliticalBusinessNumber>
@@ -123,7 +125,7 @@
           <OfficialDescription>Frage 1 de</OfficialDescription>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.000000</VoterParticipation>
+          <VoterParticipation>0.0000</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
           <EVotingReceivedBallots>0</EVotingReceivedBallots>
@@ -332,7 +334,7 @@
           <OfficialDescription>Frage 2 de</OfficialDescription>
         </Ballot>
         <CountOfVoters>
-          <VoterParticipation>0.000000</VoterParticipation>
+          <VoterParticipation>0.0000</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
           <TotalUnaccountedBallots>0</TotalUnaccountedBallots>
           <EVotingReceivedBallots>0</EVotingReceivedBallots>
@@ -384,6 +386,7 @@
     <InternalDescription>Abstimmung2 Bund auf Urnengang Bund</InternalDescription>
     <ResultAlgorithm>PopularMajority</ResultAlgorithm>
     <Type>VariantQuestionsOnMultipleBallots</Type>
+    <ReportingLevelName>Bund</ReportingLevelName>
   </Vote>
   <CountingCircle>
     <Name>Uzwil</Name>

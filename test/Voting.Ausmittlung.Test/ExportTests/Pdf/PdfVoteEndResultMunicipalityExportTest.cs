@@ -1,13 +1,13 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -24,10 +24,10 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
     }
 
     protected override ExportService.ExportServiceClient TestClient => CreateService(
-        tenantId: SecureConnectTestDefaults.MockedTenantUzwil.Id,
+        tenantId: SecureConnectTestDefaults.MockedTenantGossau.Id,
         roles: RolesMockedData.MonitoringElectionAdmin);
 
-    protected override string NewRequestExpectedFileName => "Abst_Kommunal_Gesamtergebnisse_20290212.pdf";
+    protected override string NewRequestExpectedFileName => "Abst_Gossau_Gesamtergebnisse_20200831.pdf";
 
     protected override string TemplateKey => AusmittlungPdfVoteTemplates.EndResultProtocol.Key;
 
@@ -40,15 +40,10 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
 
         await RunOnDb(async db =>
         {
-            var vote = await db.SimplePoliticalBusinesses
-                .AsTracking()
-                .FirstAsync(x => x.Id == Guid.Parse(VoteMockedData.IdUzwilVoteInContestBundWithoutChilds));
-            vote.Active = true;
-
             var ccDetails = await db.ContestCountingCircleDetails
                 .AsTracking()
-                .FirstAsync(x => x.Id == AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestMockedData.GuidBundesurnengang, CountingCircleMockedData.GuidUzwil, false));
-            ccDetails.CountingMachine = Data.Models.CountingMachine.CalibratedScales;
+                .FirstAsync(x => x.Id == AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestMockedData.GuidStGallenEvoting, CountingCircleMockedData.GuidGossau, false));
+            ccDetails.CountingMachine = CountingMachine.CalibratedScales;
 
             await db.SaveChangesAsync();
         });
@@ -58,13 +53,13 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
     {
         return new StartProtocolExportsRequest
         {
-            ContestId = ContestMockedData.IdBundesurnengang,
+            ContestId = ContestMockedData.IdStGallenEvoting,
             ExportTemplateIds =
             {
                 AusmittlungUuidV5.BuildExportTemplate(
                     TemplateKey,
-                    SecureConnectTestDefaults.MockedTenantUzwil.Id,
-                    domainOfInfluenceType: Data.Models.DomainOfInfluenceType.Sk)
+                    SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    domainOfInfluenceId: DomainOfInfluenceMockedData.Gossau.Id)
                     .ToString(),
             },
         };

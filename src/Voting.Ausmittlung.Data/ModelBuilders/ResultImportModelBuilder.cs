@@ -17,6 +17,11 @@ public class ResultImportModelBuilder : IEntityTypeConfiguration<ResultImport>, 
             .HasForeignKey(x => x.ContestId)
             .IsRequired();
 
+        builder
+            .HasOne(x => x.CountingCircle!)
+            .WithMany(x => x.ResultImports)
+            .HasForeignKey(x => x.CountingCircleId);
+
         builder.OwnsOne(x => x.StartedBy);
         builder.Navigation(x => x.StartedBy).IsRequired();
 

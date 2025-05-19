@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -50,13 +51,43 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
         IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions)
     {
         var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(majorityElectionId);
-        var availableLotDecisions = await _endResultReader.GetEndResultAvailableLotDecisions(majorityElectionId);
+        var availablePrimaryLotDecisions = (await _endResultReader.GetEndResultAvailableLotDecisions(majorityElectionId)).LotDecisions;
 
-        ValidateLotDecisions(lotDecisions, availableLotDecisions);
+        ValidateLotDecisions(lotDecisions, availablePrimaryLotDecisions);
 
         var endResultId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(majorityElectionId, testingPhaseEnded);
         var endResultAggregate = await AggregateRepository.GetOrCreateById<MajorityElectionEndResultAggregate>(endResultId);
         endResultAggregate.UpdateLotDecisions(
+            majorityElectionId,
+            lotDecisions,
+            contestId,
+            testingPhaseEnded);
+        await AggregateRepository.Save(endResultAggregate);
+        Logger.LogInformation(
+            "Updated lot decisions for majority election end result {MajorityElectionEndResultId}",
+            endResultId);
+    }
+
+    public async Task UpdateEndResultSecondaryLotDecisions(Guid majorityElectionId, IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions)
+    {
+        var (contestId, testingPhaseEnded) = await ContestService.EnsureNotLockedByPoliticalBusiness(majorityElectionId);
+        var availableLotDecisions = await _endResultReader.GetEndResultAvailableLotDecisions(majorityElectionId);
+
+        if (availableLotDecisions.LotDecisions.Count > 0 &&
+            availableLotDecisions.LotDecisions.Any(x => x.LotDecisionRequired && !x.SelectedRank.HasValue))
+        {
+            throw new ValidationException("Cannot set secondary lot decisions if the primary required lot decisions are not set yet");
+        }
+
+        var availableSecondaryLotDecisions = availableLotDecisions.SecondaryLotDecisions
+            .SelectMany(x => x.LotDecisions)
+            .ToList();
+
+        ValidateLotDecisions(lotDecisions, availableSecondaryLotDecisions);
+
+        var endResultId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(majorityElectionId, testingPhaseEnded);
+        var endResultAggregate = await AggregateRepository.GetOrCreateById<MajorityElectionEndResultAggregate>(endResultId);
+        endResultAggregate.UpdateSecondaryLotDecisions(
             majorityElectionId,
             lotDecisions,
             contestId,
@@ -77,21 +108,14 @@ public class MajorityElectionEndResultWriter : ElectionEndResultWriter<
 
     private void ValidateLotDecisions(
         IReadOnlyCollection<ElectionEndResultLotDecision> lotDecisions,
-        MajorityElectionEndResultAvailableLotDecisions availableLotDecisions)
+        IReadOnlyCollection<MajorityElectionEndResultAvailableLotDecision> availableLotDecisions)
     {
         EnsureValidCandidates(
             lotDecisions,
-            availableLotDecisions.PrimaryAndSecondaryLotDecisions);
+            availableLotDecisions);
 
         EnsureValidRanksInLotDecisions(
             lotDecisions,
-            availableLotDecisions.LotDecisions);
-
-        foreach (var secondaryLotDecisions in availableLotDecisions.SecondaryLotDecisions)
-        {
-            EnsureValidRanksInLotDecisions(
-                lotDecisions,
-                secondaryLotDecisions.LotDecisions);
-        }
+            availableLotDecisions);
     }
 }

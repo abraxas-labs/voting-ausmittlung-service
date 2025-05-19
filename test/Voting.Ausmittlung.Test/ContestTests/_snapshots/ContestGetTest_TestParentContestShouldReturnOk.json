@@ -37,5 +37,6 @@
     "ManualPublishResultsEnabled": true,
     "EndResultFinalizeDisabled": false,
     "PublishResultsBeforeAuditedTentatively": false
-  }
+  },
+  "ECountingResultsImported": false
 }

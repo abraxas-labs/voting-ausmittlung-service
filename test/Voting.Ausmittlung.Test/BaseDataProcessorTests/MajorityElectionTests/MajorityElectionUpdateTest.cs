@@ -174,7 +174,7 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
             {
                 MajorityElection = new MajorityElectionEventData
                 {
-                    Id = MajorityElectionMockedData.IdBundMajorityElectionInContestStGallen,
+                    Id = MajorityElectionMockedData.IdUzwilMajorityElectionInContestBundWithoutChilds,
                     PoliticalBusinessNumber = "8001",
                     OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 2") },
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 2") },
@@ -322,9 +322,6 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
                 await db.SaveChangesAsync();
             });
 
-        var ccDetailsBefore = await RunOnDb(db => db.ContestCountingCircleDetails.Include(x => x.CountOfVotersInformationSubTotals)
-            .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
-
         var contestDetailsBefore = await RunOnDb(
             db => db.ContestDetails
                 .Include(x => x.CountOfVotersInformationSubTotals)
@@ -335,7 +332,7 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
             {
                 MajorityElection = new MajorityElectionEventData
                 {
-                    Id = MajorityElectionMockedData.IdBundMajorityElectionInContestStGallen,
+                    Id = MajorityElectionMockedData.IdBundMajorityElectionInContestBund,
                     PoliticalBusinessNumber = "8001",
                     OfficialDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 2") },
                     ShortDescription = { LanguageUtil.MockAllLanguages("Neue Majorzwahl 2") },
@@ -346,11 +343,6 @@ public class MajorityElectionUpdateTest : BaseDataProcessorTest
                     ResultEntry = SharedProto.MajorityElectionResultEntry.Detailed,
                 },
             });
-
-        var detailsAfter = await RunOnDb(
-            db => db.ContestCountingCircleDetails
-                .Include(x => x.CountOfVotersInformationSubTotals)
-                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
 
         var contestDetailsAfter = await RunOnDb(
             db => db.ContestDetails

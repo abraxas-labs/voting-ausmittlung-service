@@ -27,7 +27,8 @@
         "Phone": "071 123 12 22",
         "MobilePhone": "071 123 12 33",
         "Email": "uzwil-test2@abraxas.ch"
-      }
+      },
+      "ECounting": true
     }
   ]
 }

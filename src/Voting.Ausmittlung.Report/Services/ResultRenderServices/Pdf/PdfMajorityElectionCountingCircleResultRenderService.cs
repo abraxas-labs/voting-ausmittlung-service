@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,9 +11,11 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -22,18 +25,27 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
+    private readonly DomainOfInfluenceRepo _doiRepo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
+    private readonly PdfMajorityElectionUtil _pdfMajorityElectionUtil;
 
     public PdfMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, MajorityElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper)
+        DomainOfInfluenceRepo doiRepo,
+        IMapper mapper,
+        IClock clock,
+        PdfMajorityElectionUtil pdfMajorityElectionUtil)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
+        _clock = clock;
+        _pdfMajorityElectionUtil = pdfMajorityElectionUtil;
         _ccDetailsRepo = ccDetailsRepo;
+        _doiRepo = doiRepo;
     }
 
     public async Task<FileModel> Render(
@@ -53,6 +65,8 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
             .FirstOrDefaultAsync(x => x.MajorityElectionId == ctx.PoliticalBusinessId && x.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
 
+        data.MoveECountingToConventional();
+
         data.CandidateResults = data.CandidateResults.OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidatePosition)
             .ToList();
@@ -69,6 +83,7 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         var countingCircle = majorityElection.Results![0].CountingCircle!;
         countingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);
         PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(countingCircle.ContestCountingCircleDetails, data.MajorityElection.DomainOfInfluence);
+        await _pdfMajorityElectionUtil.FillEmptyVoteCountDisabled(majorityElection);
 
         // we don't need this data in the xml
         countingCircle.ContestCountingCircleDetails.VotingCards = new List<PdfVotingCardResultDetail>();
@@ -77,9 +92,21 @@ public class PdfMajorityElectionCountingCircleResultRenderService : IRendererSer
         // reset the counting circle on the result, since this is a single counting circle report
         majorityElection.Results![0].CountingCircle = null;
 
+        // Set the name of the domain of influence that matches the reporting level and is in the same hierarchy as the counting circle
+        var reportLevel = data.MajorityElection.ReportDomainOfInfluenceLevel;
+        var relevantDois = await _doiRepo.GetRelevantDomainOfInfluencesForReportingLevel(
+            data.MajorityElection.DomainOfInfluenceId,
+            reportLevel);
+        var relevantDoiForCc = relevantDois
+            .Where(d => d.DomainOfInfluence!.CountingCircles.Any(doiCc => doiCc.CountingCircleId == data.CountingCircleId))
+            .OrderByDescending(x => x.ReportLevel) // In theory, there could be multiple DOIs (ex. with HideLowerDoi flag). We prefer the lowest one that matches
+            .FirstOrDefault();
+        majorityElection.ReportingLevelName = relevantDoiForCc?.DomainOfInfluence?.NameForProtocol ?? string.Empty;
+
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(data.MajorityElection.Contest),
             CountingCircle = countingCircle,
             MajorityElections = new List<PdfMajorityElection>

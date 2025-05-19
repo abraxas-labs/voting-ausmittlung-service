@@ -1,7 +1,6 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Xml.Serialization;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -19,11 +18,13 @@ public class PdfHagenbachBischoffCalculationRoundGroupValues
 
     public int PreviousNumberOfMandates { get; set; }
 
-    // setter is needed due to xml serializer limitation
     public int PreviousNumberOfMandatesPlusOne
     {
         get => PreviousNumberOfMandates + 1;
-        set => throw new InvalidOperationException("readonly property");
+        set
+        {
+            // only needed due to xml serializer
+        }
     }
 
     public bool IsWinner { get; set; }

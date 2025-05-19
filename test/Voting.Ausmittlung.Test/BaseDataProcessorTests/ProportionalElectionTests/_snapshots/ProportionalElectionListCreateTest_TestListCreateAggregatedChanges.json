@@ -6,7 +6,7 @@
         {
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
           "ShortDescription": "Liste 1 rm",
-          "Description": "",
+          "Description": "Liste 1 rm",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -19,7 +19,7 @@
         {
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
           "ShortDescription": "Liste 2 rm",
-          "Description": "",
+          "Description": "Liste 2 rm",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -32,7 +32,7 @@
         {
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
           "ShortDescription": "Liste 3 rm",
-          "Description": "",
+          "Description": "Liste 3 rm",
           "ProportionalElectionUnionList": null,
           "Language": "rm",
           "Id": "00000000-0000-0000-0000-000000000000"

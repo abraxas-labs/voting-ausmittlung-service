@@ -6,7 +6,6 @@ using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Jobs;
-using Voting.Ausmittlung.Core.Messaging;
 using Voting.Ausmittlung.Core.Services;
 using Voting.Ausmittlung.Core.Services.Export;
 using Voting.Ausmittlung.Core.Services.Permission;
@@ -38,6 +37,7 @@ internal static class PublisherServiceCollectionExtensions
         }
 
         return services
+            .AddTransient<PermissionAccessor>()
             .AddScoped<PermissionService>()
             .AddSingleton<IPermissionProvider, PermissionProvider>()
             .AddScoped<LanguageService>()
@@ -85,6 +85,8 @@ internal static class PublisherServiceCollectionExtensions
             .AddScoped<MajorityElectionEndResultWriter>()
             .AddScoped<VoteResultBundleWriter>()
             .AddScoped<ResultImportWriter>()
+            .AddScoped<EVotingResultImportWriter>()
+            .AddScoped<ECountingResultImportWriter>()
             .AddScoped<MajorityElectionResultImportWriter>()
             .AddScoped<SecondaryMajorityElectionResultImportWriter>()
             .AddScoped<ProportionalElectionResultImportWriter>()
@@ -98,6 +100,7 @@ internal static class PublisherServiceCollectionExtensions
     private static IServiceCollection AddReaderServices(this IServiceCollection services)
     {
         return services
+            .AddScoped<EventLogReader>()
             .AddScoped<ContestService>()
             .AddScoped<ContestReader>()
             .AddScoped<ResultReader>()
@@ -126,8 +129,7 @@ internal static class PublisherServiceCollectionExtensions
             .AddScoped<ExportRateLimitService>()
             .AddScoped<IExportProviderUploader, StandardProviderUploader>()
             .AddScoped<IExportProviderUploader, SeantisProviderUploader>()
-            .AddScoped<PoliticalBusinessResultBundleBuilder>()
-            .AddSingleton(typeof(LanguageAwareMessageConsumerHub<,>));
+            .AddScoped<PoliticalBusinessResultBundleBuilder>();
     }
 
     private static IServiceCollection AddScheduledJobs(this IServiceCollection services, PublisherConfig config)

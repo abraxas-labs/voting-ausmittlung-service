@@ -39,6 +39,42 @@ public class MajorityElectionBallotGroupUpdateTest : BaseDataProcessorTest
                 ShortDescription = "short - long",
                 MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
                 Id = MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund,
+                BlankRowCountUnused = true,
+                Entries =
+                    {
+                        new MajorityElectionBallotGroupEntryEventData
+                        {
+                            ElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
+                            Id = MajorityElectionMockedData.BallotGroupEntryId1StGallenMajorityElectionInContestBund,
+                        },
+                        new MajorityElectionBallotGroupEntryEventData
+                        {
+                            ElectionId = MajorityElectionMockedData.SecondaryElectionIdStGallenMajorityElectionInContestBund,
+                            Id = MajorityElectionMockedData.BallotGroupEntryId2StGallenMajorityElectionInContestBund,
+                        },
+                    },
+            },
+        });
+
+        var ballotGroups = await RunOnDb(db => db.MajorityElectionBallotGroups
+            .Include(x => x.Entries.OrderBy(x => x.Id))
+            .FirstAsync(x =>
+                x.Id == Guid.Parse(MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund)));
+        ballotGroups.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestUpdateDeprecatedEventWithBlankRowCount()
+    {
+        await TestEventPublisher.Publish(new MajorityElectionBallotGroupUpdated
+        {
+            BallotGroup = new MajorityElectionBallotGroupEventData
+            {
+                Description = "test new",
+                Position = 1,
+                ShortDescription = "short - long",
+                MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
+                Id = MajorityElectionMockedData.BallotGroupIdStGallenMajorityElectionInContestBund,
                 Entries =
                     {
                         new MajorityElectionBallotGroupEntryEventData

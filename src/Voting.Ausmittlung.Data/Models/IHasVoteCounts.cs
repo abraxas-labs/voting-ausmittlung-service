@@ -7,5 +7,7 @@ public interface IHasVoteCounts
 {
     int ConventionalVoteCount { get; set; }
 
+    int ECountingVoteCount { get; set; }
+
     int EVotingVoteCount { get; set; }
 }

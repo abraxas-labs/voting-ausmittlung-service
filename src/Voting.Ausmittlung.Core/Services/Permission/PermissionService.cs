@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Queries;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
@@ -25,6 +26,8 @@ public class PermissionService
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
+    private readonly SimpleCountingCircleResultRepo _simpleCountingCircleResultRepo;
+    private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluencePermissionEntry> _permissionRepo;
     private readonly ILogger _logger;
     private readonly IAuth _auth;
@@ -35,6 +38,8 @@ public class PermissionService
         ILogger<PermissionService> logger,
         IAuth auth,
         IAuthStore authStore,
+        SimpleCountingCircleResultRepo simpleCountingCircleResultRepo,
+        SimplePoliticalBusinessRepo simplePoliticalBusinessRepo,
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, DomainOfInfluencePermissionEntry> permissionRepo,
         IDbRepository<DataContext, Contest> contestRepo,
@@ -49,6 +54,8 @@ public class PermissionService
         _domainOfInfluenceRepo = domainOfInfluenceRepo;
         _appConfig = appConfig;
         _authStore = authStore;
+        _simpleCountingCircleResultRepo = simpleCountingCircleResultRepo;
+        _simplePoliticalBusinessRepo = simplePoliticalBusinessRepo;
     }
 
     public string UserId => _auth.User.Loginid;
@@ -92,7 +99,8 @@ public class PermissionService
     {
         var tenantId = _auth.Tenant.Id;
         var isContestManagerAndInTestingPhase = await _contestRepo.Query()
-            .AnyAsync(x => x.Id == contestId && x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id && x.State == ContestState.TestingPhase);
+            .WhereIsContestManagerAndInTestingPhase(tenantId)
+            .AnyAsync(x => x.Id == contestId);
 
         if (!isContestManagerAndInTestingPhase && !await _countingCircleRepo.Query()
                 .AnyAsync(countingCircle => countingCircle.Id == countingCircleId && countingCircle.ResponsibleAuthority.SecureConnectId == tenantId))
@@ -118,6 +126,28 @@ public class PermissionService
         {
             throw new ForbiddenException("This tenant is not the contest manager or the testing phase has ended and the counting circle does not belong to this tenant");
         }
+    }
+
+    public async Task<IReadOnlySet<PoliticalBusinessResultIds>> GetReadableResultIds(Guid contestId)
+    {
+        var countingCircleIds = await GetReadableCountingCircleIds(contestId);
+        return await _simpleCountingCircleResultRepo.Query()
+            .Where(x =>
+                x.PoliticalBusiness!.Active
+                && x.PoliticalBusiness!.ContestId == contestId
+                && countingCircleIds.Contains(x.CountingCircleId))
+            .Select(x => new PoliticalBusinessResultIds(x.PoliticalBusinessId, x.Id, x.CountingCircleId, x.CountingCircle!.BasisCountingCircleId))
+            .ToHashSetAsync();
+    }
+
+    public async Task<IReadOnlySet<Guid>> GetOwnedPoliticalBusinessIds(Guid contestId)
+    {
+        var tenantId = _auth.Tenant.Id;
+
+        return await _simplePoliticalBusinessRepo.Query()
+            .Where(pb => pb.ContestId == contestId && pb.DomainOfInfluence.SecureConnectId == tenantId)
+            .Select(pb => pb.Id)
+            .ToHashSetAsync();
     }
 
     /// <summary>
@@ -254,7 +284,13 @@ public class PermissionService
         if (!_auth.IsAuthenticated)
         {
             _logger.LogDebug(SecurityLogging.SecurityEventId, "Using Abraxas authentication values, since no user is authenticated");
-            _authStore.SetValues(string.Empty, new() { Loginid = _appConfig.SecureConnect.ServiceUserId }, new() { Id = _appConfig.SecureConnect.AbraxasTenantId }, Enumerable.Empty<string>());
+            _authStore.SetValues(string.Empty, new() { Loginid = _appConfig.SecureConnect.ServiceUserId }, new() { Id = _appConfig.SecureConnect.AbraxasTenantId }, []);
         }
     }
+
+    public record PoliticalBusinessResultIds(
+        Guid PoliticalBusinessId,
+        Guid PoliticalBusinessResultId,
+        Guid CountingCircleId,
+        Guid BasisCountingCircleId);
 }

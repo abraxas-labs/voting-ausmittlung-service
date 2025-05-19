@@ -69,60 +69,69 @@ public class MajorityElectionEndResultBuilder
             foreach (var result in endResult.MajorityElection.Results)
             {
                 result.ResetAllSubTotals(dataSource, true);
-                if (dataSource == VotingDataSource.EVoting)
-                {
-                    await ResetSimpleResult(result);
-                }
+                await ResetSimpleResult(result, dataSource);
             }
         }
 
-        if (dataSource == VotingDataSource.EVoting)
+        if (dataSource is VotingDataSource.EVoting or VotingDataSource.ECounting)
         {
-            var primaryIdsToDelete = await _majorityElectionWriteInsRepo.Query()
-                .Where(x => x.Result.MajorityElection.ContestId == contestId)
-                .Select(x => x.Id)
-                .ToListAsync();
-            await _majorityElectionWriteInsRepo.DeleteRangeByKey(primaryIdsToDelete);
-
-            var secondaryIdsToDelete = await _secondaryMajorityElectionWriteInsRepo.Query()
-                .Where(x => x.Result.SecondaryMajorityElection.PrimaryMajorityElection.ContestId == contestId)
-                .Select(x => x.Id)
-                .ToListAsync();
-            await _secondaryMajorityElectionWriteInsRepo.DeleteRangeByKey(secondaryIdsToDelete);
-
-            var primaryBallotIdsToDelete = await _majorityElectionWriteInBallotsRepo.Query()
-                .Where(x => x.Result.MajorityElection.ContestId == contestId)
-                .Select(x => x.Id)
-                .ToListAsync();
-            await _majorityElectionWriteInBallotsRepo.DeleteRangeByKey(primaryBallotIdsToDelete);
-
-            var secondaryBallotIdsToDelete = await _secondaryMajorityElectionWriteInBallotsRepo.Query()
-                .Where(x => x.Result.SecondaryMajorityElection.PrimaryMajorityElection.ContestId == contestId)
-                .Select(x => x.Id)
-                .ToListAsync();
-            await _secondaryMajorityElectionWriteInBallotsRepo.DeleteRangeByKey(secondaryBallotIdsToDelete);
+            var importType = dataSource.GetImportType();
+            await _majorityElectionWriteInsRepo.Query()
+                .Where(x => x.Import!.ContestId == contestId && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _majorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.Import!.ContestId == contestId && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _secondaryMajorityElectionWriteInsRepo.Query()
+                .Where(x => x.Import!.ContestId == contestId && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
+            await _secondaryMajorityElectionWriteInBallotsRepo.Query()
+                .Where(x => x.Import!.ContestId == contestId && x.Import!.ImportType == importType)
+                .ExecuteDeleteAsync();
         }
 
         await _dbContext.SaveChangesAsync();
     }
 
-    internal async Task RecalculateForLotDecisions(
-        Guid majorityElectionId,
-        IEnumerable<ElectionEndResultLotDecision> lotDecisions)
+    internal async Task SetPrimaryLotDecisions(Guid majorityElectionId, IEnumerable<ElectionEndResultLotDecision> lotDecisions)
     {
         var majorityElectionEndResult = await _endResultRepo.GetByMajorityElectionIdAsTracked(majorityElectionId)
-                                        ?? throw new EntityNotFoundException(majorityElectionId);
+                                ?? throw new EntityNotFoundException(majorityElectionId);
 
-        var simpleEndResult = await _simplePoliticalBusinessRepo.Query()
-                .AsTracking()
-                .FirstOrDefaultAsync(x => x.Id == majorityElectionEndResult.MajorityElectionId)
-            ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), majorityElectionEndResult.MajorityElectionId);
+        var primaryCandidateIds = majorityElectionEndResult.MajorityElection.MajorityElectionCandidates.Select(c => c.Id).ToList();
+        var primaryLotDecisions = lotDecisions.Where(l => primaryCandidateIds.Contains(l.CandidateId));
+        _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, primaryLotDecisions);
 
-        _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, lotDecisions);
         var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
             majorityElectionEndResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             majorityElectionEndResult.MajorityElection.MandateAlgorithm);
-        strategy.RecalculateCandidateEndResultStates(majorityElectionEndResult);
+        strategy.RecalculatePrimaryCandidateEndResultStates(majorityElectionEndResult);
+
+        // Old events could contain secondary lot decisions.
+        var secondaryCandidateIds = majorityElectionEndResult.MajorityElection.SecondaryMajorityElections
+            .SelectMany(sme => sme.Candidates)
+            .Select(c => c.Id)
+            .ToList();
+        var secondaryLotDecisions = lotDecisions.Where(l => secondaryCandidateIds.Contains(l.CandidateId)).ToList();
+        if (secondaryLotDecisions.Count > 0)
+        {
+            _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, secondaryLotDecisions);
+            strategy.RecalculateSecondaryCandidateEndResultStates(majorityElectionEndResult);
+        }
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    internal async Task SetSecondaryLotDecisions(Guid majorityElectionId, IEnumerable<ElectionEndResultLotDecision> lotDecisions)
+    {
+        var majorityElectionEndResult = await _endResultRepo.GetByMajorityElectionIdAsTracked(majorityElectionId)
+            ?? throw new EntityNotFoundException(majorityElectionId);
+        _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(majorityElectionEndResult, lotDecisions);
+
+        var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
+            majorityElectionEndResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
+            majorityElectionEndResult.MajorityElection.MandateAlgorithm);
+        strategy.RecalculateSecondaryCandidateEndResultStates(majorityElectionEndResult);
 
         await _dbContext.SaveChangesAsync();
     }
@@ -192,7 +201,7 @@ public class MajorityElectionEndResultBuilder
         var strategy = _calculationStrategyFactory.GetMajorityElectionMandateAlgorithmStrategy(
             endResult.MajorityElection.Contest.CantonDefaults.MajorityElectionAbsoluteMajorityAlgorithm,
             endResult.MajorityElection.MandateAlgorithm);
-        strategy.RecalculateCandidateEndResultStates(endResult);
+        strategy.RecalculatePrimaryCandidateEndResultStates(endResult);
 
         await _dbContext.SaveChangesAsync();
     }
@@ -236,12 +245,24 @@ public class MajorityElectionEndResultBuilder
             allCountingCirclesDone);
     }
 
-    private async Task ResetSimpleResult(MajorityElectionResult result)
+    private async Task ResetSimpleResult(MajorityElectionResult result, VotingDataSource dataSource)
     {
-        var simpleResult = await _simpleResultRepo.GetByKey(result.Id)
-                           ?? throw new EntityNotFoundException(nameof(SimpleCountingCircleResult), result.Id);
-
-        simpleResult.CountOfElectionsWithUnmappedWriteIns = 0;
-        await _simpleResultRepo.Update(simpleResult);
+        switch (dataSource)
+        {
+            case VotingDataSource.EVoting:
+                await _simpleResultRepo.Query()
+                    .Where(x => x.Id == result.Id)
+                    .ExecuteUpdateAsync(x => x.SetProperty(
+                        y => y.CountOfElectionsWithUnmappedEVotingWriteIns,
+                        0));
+                break;
+            case VotingDataSource.ECounting:
+                await _simpleResultRepo.Query()
+                    .Where(x => x.Id == result.Id)
+                    .ExecuteUpdateAsync(x => x.SetProperty(
+                        y => y.CountOfElectionsWithUnmappedECountingWriteIns,
+                        0));
+                break;
+        }
     }
 }

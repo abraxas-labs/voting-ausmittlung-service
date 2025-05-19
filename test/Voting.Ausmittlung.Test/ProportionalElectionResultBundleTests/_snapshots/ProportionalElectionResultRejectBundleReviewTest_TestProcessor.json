@@ -2,6 +2,34 @@
   "List": null,
   "ListId": "9091a3b6-3785-4adc-a486-f486e686503e",
   "Ballots": [],
+  "Logs": [
+    {
+      "Bundle": null,
+      "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "Hans",
+        "LastName": "Muster",
+        "FullName": "Hans Muster"
+      },
+      "Timestamp": "2020-01-10T13:12:10.2Z",
+      "State": 1,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "Bundle": null,
+      "BundleId": "e0cf709d-f8eb-477a-b57d-ce058c3ce186",
+      "User": {
+        "SecureConnectId": "default-user-id",
+        "FirstName": "default user firstname",
+        "LastName": "default user lastname",
+        "FullName": "default user firstname default user lastname"
+      },
+      "Timestamp": "2020-07-17T10:07:56Z",
+      "State": 2,
+      "Id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
   "ElectionResult": {
     "ProportionalElectionId": "fa69e964-0a02-4d16-b417-247e8987021a",
     "ProportionalElection": null,
@@ -28,6 +56,15 @@
       "TotalCountOfListsWithParty": 0,
       "TotalCountOfLists": 0
     },
+    "ECountingSubTotal": {
+      "TotalCountOfUnmodifiedLists": 0,
+      "TotalCountOfModifiedLists": 0,
+      "TotalCountOfListsWithoutParty": 0,
+      "TotalCountOfBallots": 0,
+      "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+      "TotalCountOfListsWithParty": 0,
+      "TotalCountOfLists": 0
+    },
     "ConventionalSubTotal": {
       "TotalCountOfUnmodifiedLists": 0,
       "TotalCountOfModifiedLists": 0,
@@ -46,14 +83,24 @@
     "TotalCountOfLists": 0,
     "CountOfVoters": {
       "VoterParticipation": 0.0,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
-      "ConventionalReceivedBallots": null,
-      "ConventionalInvalidBallots": null,
-      "ConventionalBlankBallots": null,
-      "ConventionalAccountedBallots": null,
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ConventionalSubTotal": {
+        "ReceivedBallots": null,
+        "InvalidBallots": null,
+        "BlankBallots": null,
+        "AccountedBallots": null
+      },
       "TotalReceivedBallots": 0,
       "TotalAccountedBallots": 0,
       "TotalUnaccountedBallots": 0,

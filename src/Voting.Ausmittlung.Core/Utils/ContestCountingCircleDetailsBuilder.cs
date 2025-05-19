@@ -76,13 +76,21 @@ public class ContestCountingCircleDetailsBuilder
         return await Sync(contest, countingCircles);
     }
 
-    internal async Task ResetEVotingVotingCards(Guid contestId)
+    internal async Task ResetVotingCards(Guid contestId, Guid? countingCircleId, VotingChannel channel)
     {
-        var ccDetails = await _ccDetailsRepo
+        var query = _ccDetailsRepo
             .Query()
             .AsSplitQuery()
-            .Include(x => x.VotingCards.Where(vc => vc.Channel == VotingChannel.EVoting))
-            .Where(x => x.ContestId == contestId && x.VotingCards.Any(vc => vc.Channel == VotingChannel.EVoting))
+            .Where(x => x.ContestId == contestId && x.VotingCards.Any(vc => vc.Channel == channel));
+
+        if (countingCircleId.HasValue)
+        {
+            query = query.Where(x => x.CountingCircleId == countingCircleId.Value);
+        }
+
+        var ccDetails = await
+            query
+            .Include(x => x.VotingCards.Where(vc => vc.Channel == channel))
             .ToListAsync();
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedVotingCards(contestId, ccDetails, true);
@@ -125,12 +133,7 @@ public class ContestCountingCircleDetailsBuilder
 
     internal async Task SyncForDomainOfInfluence(Guid politicalBusinessId, Guid contestId, Guid domainOfInfluenceId)
     {
-        var detailsByCountingCircleId = await _ccDetailsRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.VotingCards)
-            .Include(x => x.CountOfVotersInformationSubTotals)
-            .Where(x => x.ContestId == contestId)
-            .ToDictionaryAsync(x => x.CountingCircleId);
+        var detailsByCountingCircleId = await LoadCountingCircleDetailsByCountingCircleId(contestId);
 
         var contestSimpleResults = await _simpleResultRepo.Query()
             .Include(x => x.PoliticalBusiness!.Contest.DomainOfInfluence)
@@ -140,8 +143,6 @@ public class ContestCountingCircleDetailsBuilder
             .ToListAsync();
 
         var simpleResults = contestSimpleResults.Where(x => x.PoliticalBusinessId == politicalBusinessId).ToList();
-        var ccIds = simpleResults.Select(x => x.CountingCircleId);
-
         var doisByCcId = contestSimpleResults
             .GroupBy(x => x.CountingCircleId)
             .ToDictionary(x => x.Key, x => x.Select(y => y.PoliticalBusiness!.DomainOfInfluence).ToList());
@@ -149,6 +150,9 @@ public class ContestCountingCircleDetailsBuilder
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(contestId, detailsByCountingCircleId.Values, true);
 
         await RemoveNotNeededVoterTypesInSubTotals(simpleResults, detailsByCountingCircleId, doisByCcId);
+
+        // We need to reload a fresh state of the cc details, because after removing the unneeded sub totals they are out of sync.
+        detailsByCountingCircleId = await LoadCountingCircleDetailsByCountingCircleId(contestId);
         await CreateMissingVotingCardsInElectorate(simpleResults, contestId, domainOfInfluenceId, detailsByCountingCircleId);
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(contestId, detailsByCountingCircleId.Values, false);
@@ -308,6 +312,7 @@ public class ContestCountingCircleDetailsBuilder
                 ContestId = contest.Id,
                 CountingCircleId = cc.Id,
                 EVoting = contest.EVoting && cc.EVoting,
+                ECounting = cc.ECounting,
             });
         }
 
@@ -318,5 +323,15 @@ public class ContestCountingCircleDetailsBuilder
         await _ccDetailsRepo.DeleteRangeByKey(toRemove.Select(x => x.Id));
         await _ccDetailsRepo.CreateRange(toAdd);
         return toRemove;
+    }
+
+    private async Task<Dictionary<Guid, ContestCountingCircleDetails>> LoadCountingCircleDetailsByCountingCircleId(Guid contestId)
+    {
+        return await _ccDetailsRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Where(x => x.ContestId == contestId)
+            .ToDictionaryAsync(x => x.CountingCircleId);
     }
 }

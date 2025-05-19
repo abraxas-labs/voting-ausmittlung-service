@@ -3,20 +3,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Extensions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
-using Voting.Lib.Messaging;
 
 namespace Voting.Ausmittlung.Core.EventProcessors;
 
@@ -37,7 +34,7 @@ public class VoteResultBundleProcessor :
     private readonly IDbRepository<DataContext, VoteResultBallotQuestionAnswer> _questionBallotAnswerRepo;
     private readonly IDbRepository<DataContext, VoteResultBallotTieBreakQuestionAnswer> _tieBreakQuestionBallotAnswerRepo;
     private readonly VoteResultBallotBuilder _ballotBuilder;
-    private readonly MessageProducerBuffer _bundleChangedMessageProducer;
+    private readonly EventLogger _eventLogger;
     private readonly DataContext _dataContext;
 
     public VoteResultBundleProcessor(
@@ -47,7 +44,7 @@ public class VoteResultBundleProcessor :
         IDbRepository<DataContext, VoteResultBallotQuestionAnswer> questionBallotAnswerRepo,
         IDbRepository<DataContext, VoteResultBallotTieBreakQuestionAnswer> tieBreakQuestionBallotAnswerRepo,
         VoteResultBallotBuilder ballotBuilder,
-        MessageProducerBuffer bundleChangedMessageProducer,
+        EventLogger eventLogger,
         DataContext dataContext)
     {
         _resultRepo = resultRepo;
@@ -56,23 +53,28 @@ public class VoteResultBundleProcessor :
         _questionBallotAnswerRepo = questionBallotAnswerRepo;
         _tieBreakQuestionBallotAnswerRepo = tieBreakQuestionBallotAnswerRepo;
         _ballotBuilder = ballotBuilder;
-        _bundleChangedMessageProducer = bundleChangedMessageProducer;
+        _eventLogger = eventLogger;
         _dataContext = dataContext;
     }
 
     public async Task Process(VoteResultBundleCreated eventData)
     {
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var state = BallotBundleState.InProcess;
+        var log = new VoteResultBundleLog { User = user, Timestamp = timestamp, State = state };
         var bundle = new VoteResultBundle
         {
             Id = GuidParser.Parse(eventData.BundleId),
             BallotResultId = GuidParser.Parse(eventData.BallotResultId),
             Number = eventData.BundleNumber,
-            CreatedBy = eventData.EventInfo.User.ToDataUser(),
-            State = BallotBundleState.InProcess,
+            CreatedBy = user,
+            State = state,
+            Logs = [log],
         };
         await _bundleRepo.Create(bundle);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.BallotResultId, 1);
-        PublishBundleChangeMessage(bundle);
+        _eventLogger.LogBundleEvent(eventData, bundle.Id, GuidParser.ParseNullable(eventData.VoteResultId), log);
     }
 
     public async Task Process(VoteResultBallotCreated eventData)
@@ -80,12 +82,14 @@ public class VoteResultBundleProcessor :
         var bundleId = GuidParser.Parse(eventData.BundleId);
         await _ballotBuilder.CreateBallot(bundleId, eventData);
         await UpdateCountOfBallots(bundleId, 1);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId));
     }
 
     public async Task Process(VoteResultBallotUpdated eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
         await _ballotBuilder.UpdateBallot(bundleId, eventData);
+        _eventLogger.LogEvent(eventData, bundleId, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.VoteResultId));
     }
 
     public async Task Process(VoteResultBallotDeleted eventData)
@@ -97,17 +101,32 @@ public class VoteResultBundleProcessor :
                      ?? throw new EntityNotFoundException(new { bundleId, eventData.BallotNumber });
         await _ballotRepo.DeleteByKey(ballot.Id);
         await UpdateCountOfBallots(bundleId, -1);
+        _eventLogger.LogEvent(eventData, bundleId, bundleId, politicalBusinessResultId: GuidParser.ParseNullable(eventData.VoteResultId));
     }
 
-    public Task Process(VoteResultBundleSubmissionFinished eventData)
-        => ProcessBundleToReadyForReview(eventData.BundleId, eventData.SampleBallotNumbers);
+    public async Task Process(VoteResultBundleSubmissionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
+    }
 
-    public Task Process(VoteResultBundleCorrectionFinished eventData)
-        => ProcessBundleToReadyForReview(eventData.BundleId, eventData.SampleBallotNumbers);
+    public async Task Process(VoteResultBundleCorrectionFinished eventData)
+    {
+        var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
+        var log = await ProcessBundleToReadyForReview(bundleId, eventData.SampleBallotNumbers, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
+    }
 
     public async Task Process(VoteResultBundleDeleted eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
+        var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
 
@@ -120,51 +139,64 @@ public class VoteResultBundleProcessor :
             await RemoveVotesFromResults(bundle);
         }
 
-        await UpdateBundleState(bundle, BallotBundleState.Deleted);
+        var log = await UpdateBundleState(bundle, BallotBundleState.Deleted, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
     }
 
     public async Task Process(VoteResultBundleReviewRejected eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
         var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
-        await UpdateBundleState(bundle, BallotBundleState.InCorrection, user);
+        var log = await UpdateBundleState(bundle, BallotBundleState.InCorrection, user, timestamp);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
     }
 
     public async Task Process(VoteResultBundleReviewSucceeded eventData)
     {
         var bundleId = GuidParser.Parse(eventData.BundleId);
         var user = eventData.EventInfo.User.ToDataUser();
+        var timestamp = eventData.EventInfo.Timestamp.ToDateTime();
         var bundle = await _bundleRepo.GetByKey(bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
         await AddVotesToResults(bundle);
-        await UpdateBundleState(bundle, BallotBundleState.Reviewed, user);
+        var log = await UpdateBundleState(bundle, BallotBundleState.Reviewed, user, timestamp);
         await UpdateCountOfBundlesNotReviewedOrDeleted(bundle.BallotResultId, -1);
+        _eventLogger.LogBundleEvent(eventData, bundleId, GuidParser.ParseNullable(eventData.VoteResultId), log);
     }
 
     private async Task UpdateCountOfBallots(Guid bundleId, int delta)
     {
-        var bundle = await _bundleRepo.GetByKey(bundleId)
-                     ?? throw new EntityNotFoundException(bundleId);
-        bundle.CountOfBallots += delta;
-        await _bundleRepo.Update(bundle);
-        PublishBundleChangeMessage(bundle);
+        await _bundleRepo.Query()
+            .Where(x => x.Id == bundleId)
+            .ExecuteUpdateAsync(x => x.SetProperty(y => y.CountOfBallots, y => y.CountOfBallots + delta));
     }
 
-    private async Task UpdateBundleState(
+    private async Task<VoteResultBundleLog> UpdateBundleState(
         VoteResultBundle bundle,
         BallotBundleState newState,
-        User? reviewer = null)
+        User user,
+        DateTime timestamp)
     {
         bundle.State = newState;
-        if (reviewer != null)
+        if (newState is BallotBundleState.Reviewed or BallotBundleState.InCorrection)
         {
-            bundle.ReviewedBy = reviewer;
+            // Create new user since owned entity instances cannot be used by multiple owners
+            bundle.ReviewedBy = new User
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecureConnectId = user.SecureConnectId,
+            };
         }
 
+        var log = new VoteResultBundleLog { User = user, Timestamp = timestamp, State = newState };
+        bundle.Logs.Add(log);
+
         await _bundleRepo.Update(bundle);
-        PublishBundleChangeMessage(bundle);
+        return log;
     }
 
     private async Task AddVotesToResults(VoteResultBundle bundle)
@@ -181,40 +213,36 @@ public class VoteResultBundleProcessor :
 
     private async Task UpdateCountOfBundlesNotReviewedOrDeleted(Guid ballotResultId, int delta)
     {
-        var result = await _resultRepo.GetByKey(ballotResultId)
-                     ?? throw new EntityNotFoundException(ballotResultId);
-        result.CountOfBundlesNotReviewedOrDeleted += delta;
-        if (result.CountOfBundlesNotReviewedOrDeleted < 0)
-        {
-            throw new ValidationException("Count of bundles not reviewed or deleted cannot be negative");
-        }
-
-        await _resultRepo.Update(result);
+        await _resultRepo.Query()
+            .Where(x => x.Id == ballotResultId)
+            .ExecuteUpdateAsync(x => x.SetProperty(
+                y => y.CountOfBundlesNotReviewedOrDeleted,
+                y => y.CountOfBundlesNotReviewedOrDeleted + delta));
     }
 
     private async Task UpdateTotalCountOfBallots(VoteResultBundle bundle, int factor)
     {
-        var result = await _resultRepo.GetByKey(bundle.BallotResultId)
-                     ?? throw new EntityNotFoundException(bundle.BallotResultId);
-        result.ConventionalCountOfDetailedEnteredBallots += bundle.CountOfBallots * factor;
-        await _resultRepo.Update(result);
+        await _resultRepo.Query()
+            .Where(x => x.Id == bundle.BallotResultId)
+            .ExecuteUpdateAsync(x => x.SetProperty(
+                y => y.ConventionalCountOfDetailedEnteredBallots,
+                y => y.ConventionalCountOfDetailedEnteredBallots + (bundle.CountOfBallots * factor)));
     }
 
-    private async Task ProcessBundleToReadyForReview(string bundleId, IList<int> sampleBallotNumbers)
+    private async Task<VoteResultBundleLog> ProcessBundleToReadyForReview(Guid bundleId, IList<int> sampleBallotNumbers, User user, DateTime timestamp)
     {
-        var bundleGuid = GuidParser.Parse(bundleId);
-        var bundle = await _bundleRepo.GetByKey(bundleGuid)
-                     ?? throw new EntityNotFoundException(bundleGuid);
-        await UpdateBundleState(bundle, BallotBundleState.ReadyForReview);
+        var bundle = await _bundleRepo.GetByKey(bundleId)
+                     ?? throw new EntityNotFoundException(bundleId);
+        var log = await UpdateBundleState(bundle, BallotBundleState.ReadyForReview, user, timestamp);
 
         if (sampleBallotNumbers.Count == 0)
         {
-            return;
+            return log;
         }
 
         var ballots = await _ballotRepo.Query()
             .Where(b =>
-                b.BundleId == bundleGuid
+                b.BundleId == bundleId
                 && (sampleBallotNumbers.Contains(b.Number) || b.MarkedForReview))
             .ToListAsync();
         foreach (var ballot in ballots)
@@ -223,13 +251,8 @@ public class VoteResultBundleProcessor :
         }
 
         await _ballotRepo.UpdateRange(ballots);
-        PublishBundleChangeMessage(bundle);
+        return log;
     }
-
-    private void PublishBundleChangeMessage(VoteResultBundle bundle)
-        => _bundleChangedMessageProducer.Add(new VoteBundleChanged(
-            bundle.Id,
-            bundle.BallotResultId));
 
     private async Task AddVotesFromBundle(Guid ballotResultId, Guid bundleId)
     {

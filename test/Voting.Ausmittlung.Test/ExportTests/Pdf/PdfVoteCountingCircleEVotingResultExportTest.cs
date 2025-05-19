@@ -68,10 +68,10 @@ public class PdfVoteCountingCircleEVotingResultExportTest : PdfExportBaseTest
 
             foreach (var result in results)
             {
-                result.CountOfVoters.EVotingReceivedBallots = 20;
-                result.CountOfVoters.EVotingInvalidBallots = 2;
-                result.CountOfVoters.EVotingBlankBallots = 3;
-                result.CountOfVoters.EVotingAccountedBallots = 15;
+                result.CountOfVoters.EVotingSubTotal.ReceivedBallots = 20;
+                result.CountOfVoters.EVotingSubTotal.InvalidBallots = 2;
+                result.CountOfVoters.EVotingSubTotal.BlankBallots = 3;
+                result.CountOfVoters.EVotingSubTotal.AccountedBallots = 15;
                 result.CountOfVoters.UpdateVoterParticipation(50);
 
                 foreach (var bqr in result.QuestionResults)

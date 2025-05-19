@@ -6,7 +6,7 @@
         {
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
           "ShortDescription": "Liste 1 de",
-          "Description": "",
+          "Description": "Liste 1 de",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"
@@ -19,7 +19,7 @@
         {
           "ProportionalElectionUnionListId": "00000000-0000-0000-0000-000000000000",
           "ShortDescription": "Liste 2 de",
-          "Description": "",
+          "Description": "Liste 2 de",
           "ProportionalElectionUnionList": null,
           "Language": "de",
           "Id": "00000000-0000-0000-0000-000000000000"

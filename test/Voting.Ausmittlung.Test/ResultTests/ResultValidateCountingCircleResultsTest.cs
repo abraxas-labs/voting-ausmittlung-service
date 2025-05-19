@@ -22,7 +22,7 @@ namespace Voting.Ausmittlung.Test.ResultTests;
 
 public class ResultValidateCountingCircleResultsTest : BaseTest<ResultService.ResultServiceClient>
 {
-    private static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEvoting);
+    private static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting);
     private static readonly Guid CountingCircleId = CountingCircleMockedData.GuidUzwil;
 
     public ResultValidateCountingCircleResultsTest(TestApplicationFactory factory)

@@ -33,7 +33,7 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
     internal async IAsyncEnumerable<VoteResultImport> BuildImports(
         Guid contestId,
-        IReadOnlyCollection<EVotingVoteResult> results)
+        IReadOnlyCollection<VotingImportVoteResult> results)
     {
         // The imported votes not correlate to the votes in our system, as the "VOTING votes" are not the same as the eCH votes
         // Use the ballots instead.
@@ -69,7 +69,7 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
             foreach (var group in ballotResultsByVote)
             {
-                var importResult = new VoteResultImport(group.Key, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
+                var importResult = new VoteResultImport(group.Key, Guid.Parse(result.BasisCountingCircleId), result.TotalCountOfVoters);
                 yield return ProcessResult(
                     importResult,
                     group,
@@ -86,7 +86,7 @@ public class VoteResultImportWriter : PoliticalBusinessResultImportWriter<VoteRe
 
     private VoteResultImport ProcessResult(
         VoteResultImport importResult,
-        IEnumerable<EVotingVoteBallotResult> ballotResults,
+        IEnumerable<VotingImportVoteBallotResult> ballotResults,
         IReadOnlyDictionary<Guid, Dictionary<int, BallotQuestion>> ballotQuestionsByNumberByBallotId,
         IReadOnlyDictionary<Guid, Dictionary<int, TieBreakQuestion>> tieBreakQuestionsByNumberByBallotId)
     {

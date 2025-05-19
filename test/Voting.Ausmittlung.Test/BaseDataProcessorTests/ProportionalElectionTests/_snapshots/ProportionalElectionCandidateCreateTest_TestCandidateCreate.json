@@ -14,7 +14,7 @@
           {
             "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
             "ShortDescription": "Liste 1 de",
-            "Description": "",
+            "Description": "Liste 1 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -35,7 +35,7 @@
         "ListLotDecisionEntries": [],
         "ProportionalElectionListUnion": null,
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 1 de",
         "ShortDescription": "Liste 1 de",
         "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
       },
@@ -91,6 +91,9 @@
       "Position": 2,
       "Origin": "origin",
       "CheckDigit": 6,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "413525c6-8da4-4c49-bbdc-d6bc43ceacff"
     },
     {
@@ -107,7 +110,7 @@
           {
             "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
             "ShortDescription": "Liste 1 de",
-            "Description": "",
+            "Description": "Liste 1 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -128,7 +131,7 @@
         "ListLotDecisionEntries": [],
         "ProportionalElectionListUnion": null,
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 1 de",
         "ShortDescription": "Liste 1 de",
         "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
       },
@@ -164,6 +167,9 @@
       "Position": 2,
       "Origin": "origin",
       "CheckDigit": 6,
+      "Street": "street",
+      "HouseNumber": "1a",
+      "Country": "CH",
       "Id": "498b4e2b-f1b4-4110-89b3-d9f5689eb1ec"
     }
   ]

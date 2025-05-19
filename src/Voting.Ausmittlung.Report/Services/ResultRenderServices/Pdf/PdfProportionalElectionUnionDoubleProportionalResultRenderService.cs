@@ -11,6 +11,7 @@ using AutoMapper;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
 
@@ -19,15 +20,18 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
     private readonly DoubleProportionalResultRepo _dpResultRepo;
     private readonly TemplateService _templateService;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfProportionalElectionUnionDoubleProportionalResultRenderService(
         DoubleProportionalResultRepo dpResultRepo,
         TemplateService templateService,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _dpResultRepo = dpResultRepo;
         _templateService = templateService;
         _mapper = mapper;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -41,6 +45,8 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
 
         var templateBag = new PdfTemplateBag
         {
+            TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             ProportionalElectionUnions = new List<PdfProportionalElectionUnion> { pdfProportionalElectionUnion },
             Contest = _mapper.Map<PdfContest>(dpResult.ProportionalElectionUnion!.Contest),
         };

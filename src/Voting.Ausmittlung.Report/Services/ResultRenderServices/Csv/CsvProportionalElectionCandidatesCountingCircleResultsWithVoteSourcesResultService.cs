@@ -25,7 +25,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv;
 public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourcesResultService : IRendererService
 {
     private const string FileNameParamReplacement = "_";
-    private static readonly Regex _validFileNameParam = new("[. ]+", RegexOptions.Compiled);
+    private static readonly Regex _validFileNameParam = new("[. ]+", RegexOptions.Compiled, TimeSpan.FromMicroseconds(100));
 
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, ProportionalElectionList> _listRepo;

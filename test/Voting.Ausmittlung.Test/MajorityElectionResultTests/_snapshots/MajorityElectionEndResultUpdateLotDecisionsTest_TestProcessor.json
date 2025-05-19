@@ -33,7 +33,8 @@
         "ManualPublishResultsEnabled": true,
         "EndResultFinalizeDisabled": false,
         "PublishResultsBeforeAuditedTentatively": false
-      }
+      },
+      "ECountingResultsImported": false
     },
     "MajorityElection": {
       "Id": "7a7f337e-78c8-44f4-83eb-507d383fc8bf",
@@ -111,7 +112,8 @@
           "ManualPublishResultsEnabled": true,
           "EndResultFinalizeDisabled": false,
           "PublishResultsBeforeAuditedTentatively": false
-        }
+        },
+        "ECountingResultsImported": false
       },
       "ReviewProcedure": 1,
       "EnforceReviewProcedureForCountingCircles": true,
@@ -240,14 +242,24 @@
     "AllCountingCirclesDone": true,
     "CountOfVoters": {
       "VoterParticipation": 0.051709,
-      "ConventionalReceivedBallots": 1800,
-      "ConventionalInvalidBallots": 300,
-      "ConventionalBlankBallots": 300,
-      "ConventionalAccountedBallots": 1200,
-      "EVotingReceivedBallots": 0,
-      "EVotingInvalidBallots": 0,
-      "EVotingBlankBallots": 0,
-      "EVotingAccountedBallots": 0,
+      "ConventionalSubTotal": {
+        "ReceivedBallots": 1800,
+        "InvalidBallots": 300,
+        "BlankBallots": 300,
+        "AccountedBallots": 1200
+      },
+      "EVotingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
+      "ECountingSubTotal": {
+        "ReceivedBallots": 0,
+        "InvalidBallots": 0,
+        "BlankBallots": 0,
+        "AccountedBallots": 0
+      },
       "TotalReceivedBallots": 1800,
       "TotalAccountedBallots": 1200,
       "TotalUnaccountedBallots": 600,
@@ -270,6 +282,7 @@
         },
         "VoteCount": 1200,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 1200,
         "Rank": 1,
         "LotDecision": false,
@@ -292,6 +305,7 @@
         },
         "VoteCount": 900,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 900,
         "Rank": 2,
         "LotDecision": false,
@@ -314,6 +328,7 @@
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 600,
         "Rank": 3,
         "LotDecision": true,
@@ -336,6 +351,7 @@
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 600,
         "Rank": 4,
         "LotDecision": true,
@@ -358,6 +374,7 @@
         },
         "VoteCount": 480,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 480,
         "Rank": 5,
         "LotDecision": false,
@@ -380,6 +397,7 @@
         },
         "VoteCount": 420,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 420,
         "Rank": 6,
         "LotDecision": false,
@@ -402,6 +420,7 @@
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 360,
         "Rank": 7,
         "LotDecision": false,
@@ -424,6 +443,7 @@
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 360,
         "Rank": 7,
         "LotDecision": false,
@@ -446,6 +466,7 @@
         },
         "VoteCount": 300,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 300,
         "Rank": 9,
         "LotDecision": false,
@@ -468,6 +489,7 @@
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
+        "ECountingVoteCount": 0,
         "ConventionalVoteCount": 0,
         "Rank": 10,
         "LotDecision": false,
@@ -504,33 +526,12 @@
             },
             "VoteCount": 1200,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 1200,
             "Rank": 1,
             "LotDecision": false,
             "LotDecisionEnabled": false,
             "LotDecisionRequired": false,
-            "State": 5
-          },
-          {
-            "Candidate": {
-              "Id": "bb79e109-3b25-41d2-af1d-c7e4468c24e8",
-              "Number": "number2",
-              "PoliticalFirstName": "2pol firstName",
-              "PoliticalLastName": "2pol last name",
-              "FirstName": "2firstName",
-              "LastName": "2lastName",
-              "Party": "Test2 de",
-              "Position": 2,
-              "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
-            },
-            "VoteCount": 600,
-            "EVotingVoteCount": 0,
-            "ConventionalVoteCount": 600,
-            "Rank": 2,
-            "LotDecision": true,
-            "LotDecisionEnabled": true,
-            "LotDecisionRequired": true,
             "State": 5
           },
           {
@@ -548,12 +549,36 @@
             },
             "VoteCount": 600,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 600,
-            "Rank": 3,
-            "LotDecision": true,
+            "Rank": 2,
+            "LotDecision": false,
             "LotDecisionEnabled": true,
             "LotDecisionRequired": true,
-            "State": 6
+            "State": 1
+          },
+          {
+            "Candidate": {
+              "Id": "bb79e109-3b25-41d2-af1d-c7e4468c24e8",
+              "Number": "number2",
+              "PoliticalFirstName": "2pol firstName",
+              "PoliticalLastName": "2pol last name",
+              "FirstName": "2firstName",
+              "LastName": "2lastName",
+              "Party": "Test2 de",
+              "Position": 2,
+              "Description": "number2 2pol last name 2pol firstName",
+              "CheckDigit": 7
+            },
+            "VoteCount": 600,
+            "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
+            "ConventionalVoteCount": 600,
+            "Rank": 2,
+            "LotDecision": false,
+            "LotDecisionEnabled": true,
+            "LotDecisionRequired": true,
+            "State": 1
           },
           {
             "Candidate": {
@@ -570,6 +595,7 @@
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 480,
             "Rank": 4,
             "LotDecision": false,
@@ -579,6 +605,15 @@
           }
         ],
         "EVotingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
+        "ECountingSubTotal": {
           "IndividualVoteCount": 0,
           "EmptyVoteCountInclWriteIns": 0,
           "EmptyVoteCountExclWriteIns": 0,
@@ -632,6 +667,7 @@
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 480,
             "Rank": 1,
             "LotDecision": false,
@@ -654,6 +690,7 @@
             },
             "VoteCount": 420,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 420,
             "Rank": 2,
             "LotDecision": false,
@@ -676,6 +713,7 @@
             },
             "VoteCount": 360,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 360,
             "Rank": 3,
             "LotDecision": false,
@@ -698,6 +736,7 @@
             },
             "VoteCount": 330,
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 330,
             "Rank": 4,
             "LotDecision": false,
@@ -707,6 +746,15 @@
           }
         ],
         "EVotingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0
+        },
+        "ECountingSubTotal": {
           "IndividualVoteCount": 0,
           "EmptyVoteCountInclWriteIns": 0,
           "EmptyVoteCountExclWriteIns": 0,
@@ -735,6 +783,15 @@
       }
     ],
     "EVotingSubTotal": {
+      "IndividualVoteCount": 0,
+      "EmptyVoteCountInclWriteIns": 0,
+      "EmptyVoteCountExclWriteIns": 0,
+      "EmptyVoteCountWriteIns": 0,
+      "InvalidVoteCount": 0,
+      "TotalCandidateVoteCountExclIndividual": 0,
+      "TotalCandidateVoteCountInclIndividual": 0
+    },
+    "ECountingSubTotal": {
       "IndividualVoteCount": 0,
       "EmptyVoteCountInclWriteIns": 0,
       "EmptyVoteCountExclWriteIns": 0,
@@ -929,7 +986,7 @@
               "Description": "number2 2pol last name 2pol firstName",
               "CheckDigit": 7
             },
-            "SelectedRank": 2,
+            "SelectedRank": null,
             "VoteCount": 600,
             "LotDecisionRequired": true,
             "SelectableRanks": [
@@ -951,14 +1008,14 @@
               "Description": "number3 3pol last name 3pol firstName",
               "CheckDigit": 5
             },
-            "SelectedRank": 3,
+            "SelectedRank": null,
             "VoteCount": 600,
             "LotDecisionRequired": true,
             "SelectableRanks": [
               2,
               3
             ],
-            "OriginalRank": 3
+            "OriginalRank": 2
           }
         ]
       },

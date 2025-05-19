@@ -15,6 +15,12 @@ public class PdfMajorityElection : PdfPoliticalBusiness
 
     public bool IndividualCandidatesDisabled { get; set; }
 
+    public bool? EmptyVoteCountDisabled { get; set; }
+
+    // The name of the domain of influence at the specified reporting level.
+    // Only makes sense if the report is specific to a counting circle.
+    public string? ReportingLevelName { get; set; }
+
     [XmlElement("MajorityElectionResult")]
     public List<PdfMajorityElectionResult>? Results { get; set; }
 

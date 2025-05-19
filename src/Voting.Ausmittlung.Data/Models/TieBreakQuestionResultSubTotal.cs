@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class TieBreakQuestionResultSubTotal : ITieBreakQuestionResultTotal<int>
+public class TieBreakQuestionResultSubTotal : ITieBreakQuestionResultTotal<int>, ISummableSubTotal<TieBreakQuestionResultSubTotal>
 {
     /// <summary>
     /// Gets or sets the total count of the answer q1.
@@ -19,4 +19,11 @@ public class TieBreakQuestionResultSubTotal : ITieBreakQuestionResultTotal<int>
     /// Gets or sets the total count of the answer unspecified.
     /// </summary>
     public int TotalCountOfAnswerUnspecified { get; set; }
+
+    public void Add(TieBreakQuestionResultSubTotal other, int deltaFactor = 1)
+    {
+        TotalCountOfAnswerQ1 += other.TotalCountOfAnswerQ1 * deltaFactor;
+        TotalCountOfAnswerQ2 += other.TotalCountOfAnswerQ2 * deltaFactor;
+        TotalCountOfAnswerUnspecified += other.TotalCountOfAnswerUnspecified * deltaFactor;
+    }
 }

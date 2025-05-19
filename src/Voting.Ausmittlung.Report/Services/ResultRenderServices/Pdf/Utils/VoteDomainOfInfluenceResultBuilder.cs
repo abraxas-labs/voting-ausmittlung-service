@@ -24,9 +24,10 @@ public class VoteDomainOfInfluenceResultBuilder
 
     public async Task<(IEnumerable<IGrouping<Ballot, VoteDomainOfInfluenceBallotResult>> Results, VoteDomainOfInfluenceResult NotAssignableResult, VoteDomainOfInfluenceResult AggregatedResult)> BuildResultsGroupedByBallot(
         Vote vote,
-        List<ContestCountingCircleDetails> ccDetails)
+        List<ContestCountingCircleDetails> ccDetails,
+        string tenantId)
     {
-        var (results, notAssignableResult, aggregatedResult) = await BuildResults(vote, ccDetails);
+        var (results, notAssignableResult, aggregatedResult) = await BuildResults(vote, ccDetails, tenantId);
         MapContestDetails(notAssignableResult);
         MapContestDetails(aggregatedResult);
         foreach (var result in results)
@@ -67,69 +68,151 @@ public class VoteDomainOfInfluenceResultBuilder
     {
         foreach (var result in ccResult.Results)
         {
-            if (!doiResult.ResultsByBallotId.TryGetValue(result.BallotId, out var doiBallotResult))
-            {
-                doiBallotResult = doiResult.ResultsByBallotId[result.BallotId] =
-                    new VoteDomainOfInfluenceBallotResult(result.Ballot, doiResult.DomainOfInfluence);
-            }
-
-            PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
-                doiBallotResult.CountOfVoters,
-                result.CountOfVoters,
-                doiResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters);
-
-            foreach (var questionResult in result.QuestionResults)
-            {
-                ApplyQuestionResult(
-                    doiBallotResult.QuestionResultsByQuestionId[questionResult.QuestionId],
-                    questionResult);
-            }
-
-            foreach (var tieBreakQuestionResult in result.TieBreakQuestionResults)
-            {
-                ApplyTieBreakQuestionResult(
-                    doiBallotResult.TieBreakQuestionResultsByQuestionId[tieBreakQuestionResult.QuestionId],
-                    tieBreakQuestionResult);
-            }
-
+            ApplyCountingCircleResult(doiResult, result, 1);
+            var doiBallotResult = doiResult.ResultsByBallotId[result.BallotId];
             doiBallotResult.AddResult(result);
         }
+
+        doiResult.VoteResults.Add(ccResult);
+    }
+
+    protected override void ApplyCountingCircleResultToVirtualResult(VoteResult target, VoteResult ccResult)
+    {
+        if (ccResult.State < target.State)
+        {
+            target.State = ccResult.State;
+        }
+
+        target.Published &= ccResult.Published;
+        target.TotalCountOfVoters += ccResult.TotalCountOfVoters;
+
+        if (target.TotalSentEVotingVotingCards == null && ccResult.TotalSentEVotingVotingCards != null)
+        {
+            target.TotalSentEVotingVotingCards = ccResult.TotalSentEVotingVotingCards;
+        }
+        else if (target.TotalSentEVotingVotingCards != null)
+        {
+            target.TotalSentEVotingVotingCards += ccResult.TotalSentEVotingVotingCards ?? 0;
+        }
+
+        var targetResultsByBallotId = target.Results.ToDictionary(x => x.BallotId);
+        foreach (var ccBallotResult in ccResult.Results)
+        {
+            if (!targetResultsByBallotId.TryGetValue(ccBallotResult.BallotId, out var targetBallotResult))
+            {
+                targetBallotResult = targetResultsByBallotId[ccBallotResult.BallotId] = new BallotResult
+                {
+                    BallotId = ccBallotResult.BallotId,
+                    Ballot = ccBallotResult.Ballot,
+                    QuestionResults = ccBallotResult.QuestionResults
+                        .Select(x => new BallotQuestionResult
+                        {
+                            Question = x.Question,
+                            QuestionId = x.QuestionId,
+                        })
+                        .ToList(),
+                    TieBreakQuestionResults = ccBallotResult.TieBreakQuestionResults
+                        .Select(x => new TieBreakQuestionResult
+                        {
+                            Question = x.Question,
+                            QuestionId = x.QuestionId,
+                        })
+                        .ToList(),
+                };
+
+                targetBallotResult.VoteResult = target;
+                target.Results.Add(targetBallotResult);
+            }
+
+            targetBallotResult.CountOfVoters.AddForAllSubTotals(ccBallotResult.CountOfVoters);
+
+            var targetQuestionResultById = targetBallotResult.QuestionResults.ToDictionary(x => x.QuestionId);
+            var targetTieBreakResultById = targetBallotResult.TieBreakQuestionResults.ToDictionary(x => x.QuestionId);
+
+            foreach (var ccQuestionResult in ccBallotResult.QuestionResults)
+            {
+                var targetQuestionResult = targetQuestionResultById[ccQuestionResult.QuestionId];
+                targetQuestionResult.AddForAllSubTotals(ccQuestionResult);
+            }
+
+            foreach (var ccTieBreakResult in ccBallotResult.TieBreakQuestionResults)
+            {
+                var targetTieBreakResult = targetTieBreakResultById[ccTieBreakResult.QuestionId];
+                targetTieBreakResult.AddForAllSubTotals(ccTieBreakResult);
+            }
+
+            targetBallotResult.CountOfBundlesNotReviewedOrDeleted += ccBallotResult.CountOfBundlesNotReviewedOrDeleted;
+            targetBallotResult.ConventionalCountOfDetailedEnteredBallots += ccBallotResult.ConventionalCountOfDetailedEnteredBallots;
+        }
+
+        target.UpdateVoterParticipation();
+    }
+
+    protected override IEnumerable<VoteResult> GetCountingCircleResults(VoteDomainOfInfluenceResult doiResult)
+        => doiResult.VoteResults;
+
+    protected override void RemoveCountingCircleResult(VoteDomainOfInfluenceResult doiResult, VoteResult result)
+    {
+        foreach (var ballotResult in result.Results)
+        {
+            ApplyCountingCircleResult(doiResult, ballotResult, -1);
+            var doiBallotResult = doiResult.ResultsByBallotId[ballotResult.BallotId];
+            doiBallotResult.RemoveResult(ballotResult);
+        }
+
+        doiResult.VoteResults.Remove(result);
     }
 
     protected override void ResetCountingCircleResult(VoteResult ccResult)
     {
         ccResult.TotalCountOfVoters = 0;
-
-        ccResult.ResetAllSubTotals(VotingDataSource.Conventional, true);
-        ccResult.ResetAllSubTotals(VotingDataSource.EVoting, true);
+        ccResult.ResetAllSubTotals(true);
     }
 
-    private void ApplyQuestionResult(BallotQuestionDomainOfInfluenceResult doiResult, BallotQuestionResult ccResult)
+    private void ApplyCountingCircleResult(
+        VoteDomainOfInfluenceResult doiResult,
+        BallotResult result,
+        int deltaFactor)
     {
-        doiResult.ForEachSubTotal(ccResult, (doiSubTotal, ccSubTotal) =>
+        if (!doiResult.ResultsByBallotId.TryGetValue(result.BallotId, out var doiBallotResult))
         {
-            doiSubTotal.TotalCountOfAnswerYes += ccSubTotal.TotalCountOfAnswerYes;
-            doiSubTotal.TotalCountOfAnswerNo += ccSubTotal.TotalCountOfAnswerNo;
-            doiSubTotal.TotalCountOfAnswerUnspecified += ccSubTotal.TotalCountOfAnswerUnspecified;
-        });
+            doiBallotResult = doiResult.ResultsByBallotId[result.BallotId] =
+                new VoteDomainOfInfluenceBallotResult(result.Ballot, doiResult.DomainOfInfluence);
+        }
 
+        PoliticalBusinessCountOfVotersUtils.AdjustCountOfVoters(
+            doiBallotResult.CountOfVoters,
+            result.CountOfVoters,
+            doiResult.ContestDomainOfInfluenceDetails.TotalCountOfVoters,
+            deltaFactor);
+
+        foreach (var questionResult in result.QuestionResults)
+        {
+            ApplyQuestionResult(
+                doiBallotResult.QuestionResultsByQuestionId[questionResult.QuestionId],
+                questionResult,
+                deltaFactor);
+        }
+
+        foreach (var tieBreakQuestionResult in result.TieBreakQuestionResults)
+        {
+            doiBallotResult.TieBreakQuestionResultsByQuestionId[tieBreakQuestionResult.QuestionId].AddForAllSubTotals(tieBreakQuestionResult, deltaFactor);
+        }
+    }
+
+    private void ApplyQuestionResult(
+        BallotQuestionDomainOfInfluenceResult doiResult,
+        BallotQuestionResult ccResult,
+        int deltaFactor)
+    {
+        doiResult.AddForAllSubTotals(ccResult, deltaFactor);
         if (ccResult.HasMajority)
         {
-            doiResult.CountOfCountingCircleYes++;
+            doiResult.CountOfCountingCircleYes += deltaFactor;
         }
         else
         {
-            doiResult.CountOfCountingCircleNo++;
+            doiResult.CountOfCountingCircleNo += deltaFactor;
         }
-    }
-
-    private void ApplyTieBreakQuestionResult(TieBreakQuestionDomainOfInfluenceResult doiResult, TieBreakQuestionResult ccResult)
-    {
-        doiResult.ForEachSubTotal(ccResult, (doiSubTotal, ccSubTotal) =>
-        {
-            doiSubTotal.TotalCountOfAnswerQ1 += ccSubTotal.TotalCountOfAnswerQ1;
-            doiSubTotal.TotalCountOfAnswerQ2 += ccSubTotal.TotalCountOfAnswerQ2;
-            doiSubTotal.TotalCountOfAnswerUnspecified += ccSubTotal.TotalCountOfAnswerUnspecified;
-        });
     }
 }

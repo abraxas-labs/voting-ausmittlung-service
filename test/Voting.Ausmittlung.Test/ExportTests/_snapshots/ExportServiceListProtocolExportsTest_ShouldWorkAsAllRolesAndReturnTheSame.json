@@ -1,27 +1,9 @@
 {
   "ProtocolExports_": [
     {
-      "ExportTemplateId": "869c8445-b899-5b58-b48c-3a27f7cee150",
-      "Description": "Abstimmung eidg: Protokoll",
-      "EntityDescription": "Abst Bund de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
       "ExportTemplateId": "6f8a182f-d5d8-54d6-81f3-cbbd01281d40",
       "Description": "Abstimmung kantonal: Protokoll",
       "EntityDescription": "Abst SG de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "5bb8f061-8006-55d1-a0ab-dfdd98e0b5ac",
-      "Description": "Majorz eidg: Gemeindeprotokoll",
-      "EntityDescription": "Mw Bund de",
       "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
       "State": 0,
       "FileName": "",
@@ -40,51 +22,6 @@
       "ExportTemplateId": "e611c0b4-16b8-54a5-87f2-4c318cb7831a",
       "Description": "Majorz kantonal: Gemeindeprotokoll",
       "EntityDescription": "NW SG de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "3afe9b75-78cb-5e6f-ac16-4cf68a686cf7",
-      "Description": "Proporz eidg: 1 - Wahlzettelrapport",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "aba605a2-d13e-54b9-863b-fee7a45441b2",
-      "Description": "Proporz eidg: 2 - Kandidierenden- und Parteistimmen",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "c2d53121-6e9e-5325-9336-279166e1c0bb",
-      "Description": "Proporz eidg: 2a - Kandidierendenstimmen",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "a6ed0e32-d86e-547f-9976-c95178d69557",
-      "Description": "Proporz eidg: 3b - Stimmenherkunft inkl. KumPan",
-      "EntityDescription": "Pw Bund de",
-      "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
-      "State": 0,
-      "FileName": "",
-      "Started": null
-    },
-    {
-      "ExportTemplateId": "b5451734-6829-50b0-887f-48f5fc755bac",
-      "Description": "Proporz eidg: 4 - Gemeindeprotokoll",
-      "EntityDescription": "Pw Bund de",
       "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
       "State": 0,
       "FileName": "",
@@ -175,7 +112,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "CountingCircle": {
     "Id": "1e2e062e-288d-4347-9f22-224e69b95bed",
@@ -198,6 +136,7 @@
       "Email": ""
     },
     "ContactPersonSameDuringEventAsAfter": false,
-    "ContactPersonAfterEvent": null
+    "ContactPersonAfterEvent": null,
+    "ECounting": true
   }
 }

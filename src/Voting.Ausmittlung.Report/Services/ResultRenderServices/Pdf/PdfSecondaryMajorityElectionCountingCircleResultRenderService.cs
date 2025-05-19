@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +14,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -23,16 +25,19 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
     private readonly IDbRepository<DataContext, SecondaryMajorityElectionResult> _repo;
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _ccDetailsRepo;
     private readonly IMapper _mapper;
+    private readonly IClock _clock;
 
     public PdfSecondaryMajorityElectionCountingCircleResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, SecondaryMajorityElectionResult> repo,
         IDbRepository<DataContext, ContestCountingCircleDetails> ccDetailsRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IClock clock)
     {
         _templateService = templateService;
         _repo = repo;
         _mapper = mapper;
+        _clock = clock;
         _ccDetailsRepo = ccDetailsRepo;
     }
 
@@ -52,6 +57,8 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
             .Include(x => x.PrimaryResult.CountingCircle.ContactPersonAfterEvent)
             .FirstOrDefaultAsync(x => x.SecondaryMajorityElectionId == ctx.PoliticalBusinessId && x.PrimaryResult.CountingCircle.BasisCountingCircleId == ctx.BasisCountingCircleId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
+
+        data.MoveECountingToConventional();
 
         data.CandidateResults = data.CandidateResults.OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidatePosition)
@@ -80,6 +87,7 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
         var templateBag = new PdfTemplateBag
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             Contest = _mapper.Map<PdfContest>(data.SecondaryMajorityElection.Contest),
             CountingCircle = countingCircle,
             MajorityElections = new List<PdfMajorityElection>

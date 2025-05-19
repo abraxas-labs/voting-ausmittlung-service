@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>proportional_election_result_bundle_review</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <CountingCircle>
     <Name>Uzwil</Name>
     <NameForProtocol>Stadt Uzwil</NameForProtocol>
@@ -69,6 +70,9 @@
           <Locality>locality</Locality>
           <Position>1</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>1a.1a.1</NumberIncludingList>
@@ -95,6 +99,9 @@
           <Locality>locality</Locality>
           <Position>3</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Accumulated>false</Accumulated>
           <AccumulatedPosition>0</AccumulatedPosition>
           <NumberIncludingList>1a.1a.2</NumberIncludingList>
@@ -121,6 +128,9 @@
           <Locality>locality</Locality>
           <Position>1</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>2a.2a.1</NumberIncludingList>
@@ -152,6 +162,9 @@
           <Locality>locality</Locality>
           <Position>1</Position>
           <Origin>origin</Origin>
+          <Street>street</Street>
+          <HouseNumber>1a</HouseNumber>
+          <Country>CH</Country>
           <Accumulated>true</Accumulated>
           <AccumulatedPosition>2</AccumulatedPosition>
           <NumberIncludingList>1a.1a.1</NumberIncludingList>

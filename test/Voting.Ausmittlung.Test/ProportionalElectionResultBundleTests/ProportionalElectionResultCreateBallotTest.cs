@@ -12,7 +12,6 @@ using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
@@ -378,8 +377,7 @@ public class ProportionalElectionResultCreateBallotTest : ProportionalElectionRe
         bundle.CountOfBallots.Should().Be(1);
         bundle.ElectionResult.TotalCountOfBallots.Should().Be(0);
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBallotCreated.Descriptor, bundle.Id);
     }
 
     [Fact]

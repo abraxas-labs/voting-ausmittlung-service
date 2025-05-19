@@ -7,6 +7,8 @@
         "State": 2,
         "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
         "DomainOfInfluence": null,
+        "NumberOfCountingCirclesWithECountingImported": 0,
+        "ECountingResultsImported": false,
         "EVotingResultsImported": false,
         "EVoting": false,
         "EVotingFrom": null,
@@ -33,6 +35,8 @@
             "CountOfVotersInformationSubTotals": [],
             "VotingCards": [],
             "EVoting": false,
+            "ECounting": false,
+            "ECountingResultsImported": false,
             "TotalCountOfVoters": 0,
             "CountingMachine": 0,
             "Id": "1b18dfae-5e60-5ab5-8267-bef13cd4b1a3"
@@ -114,14 +118,24 @@
             "VoteResultId": "00000000-0000-0000-0000-000000000000",
             "CountOfVoters": {
               "VoterParticipation": 0.0,
-              "EVotingReceivedBallots": 0,
-              "EVotingInvalidBallots": 0,
-              "EVotingBlankBallots": 0,
-              "EVotingAccountedBallots": 0,
-              "ConventionalReceivedBallots": null,
-              "ConventionalInvalidBallots": null,
-              "ConventionalBlankBallots": null,
-              "ConventionalAccountedBallots": null,
+              "EVotingSubTotal": {
+                "ReceivedBallots": 0,
+                "InvalidBallots": 0,
+                "BlankBallots": 0,
+                "AccountedBallots": 0
+              },
+              "ECountingSubTotal": {
+                "ReceivedBallots": 0,
+                "InvalidBallots": 0,
+                "BlankBallots": 0,
+                "AccountedBallots": 0
+              },
+              "ConventionalSubTotal": {
+                "ReceivedBallots": null,
+                "InvalidBallots": null,
+                "BlankBallots": null,
+                "AccountedBallots": null
+              },
               "TotalReceivedBallots": 0,
               "TotalAccountedBallots": 0,
               "TotalUnaccountedBallots": 0,
@@ -171,6 +185,7 @@
             "List": null,
             "ListId": "84a0c2dd-9c18-4a64-a08f-d2478c0d3a5b",
             "EVotingVoteCount": 0,
+            "ECountingVoteCount": 0,
             "ConventionalVoteCount": 0,
             "VoteCount": 0,
             "Id": "00000000-0000-0000-0000-000000000000"
@@ -181,6 +196,15 @@
         "PoliticalBusiness": null,
         "PoliticalBusinessId": "81880186-febc-4fd7-bb82-62c446430027",
         "EVotingSubTotal": {
+          "TotalCountOfUnmodifiedLists": 0,
+          "TotalCountOfModifiedLists": 0,
+          "TotalCountOfListsWithoutParty": 0,
+          "TotalCountOfBallots": 0,
+          "TotalCountOfBlankRowsOnListsWithoutParty": 0,
+          "TotalCountOfListsWithParty": 0,
+          "TotalCountOfLists": 0
+        },
+        "ECountingSubTotal": {
           "TotalCountOfUnmodifiedLists": 0,
           "TotalCountOfModifiedLists": 0,
           "TotalCountOfListsWithoutParty": 0,
@@ -207,14 +231,24 @@
         "TotalCountOfLists": 0,
         "CountOfVoters": {
           "VoterParticipation": 0.0,
-          "EVotingReceivedBallots": 0,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 0,
-          "EVotingAccountedBallots": 0,
-          "ConventionalReceivedBallots": null,
-          "ConventionalInvalidBallots": null,
-          "ConventionalBlankBallots": null,
-          "ConventionalAccountedBallots": null,
+          "EVotingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ConventionalSubTotal": {
+            "ReceivedBallots": null,
+            "InvalidBallots": null,
+            "BlankBallots": null,
+            "AccountedBallots": null
+          },
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
           "TotalUnaccountedBallots": 0,
@@ -252,6 +286,17 @@
           "EmptyVoteCountWriteIns": 0,
           "EmptyVoteCountExclWriteIns": 0
         },
+        "ECountingSubTotal": {
+          "IndividualVoteCount": 0,
+          "EmptyVoteCountInclWriteIns": 0,
+          "InvalidVoteCount": 0,
+          "TotalEmptyAndInvalidVoteCount": 0,
+          "TotalCandidateVoteCountExclIndividual": 0,
+          "TotalCandidateVoteCountInclIndividual": 0,
+          "TotalVoteCount": 0,
+          "EmptyVoteCountWriteIns": 0,
+          "EmptyVoteCountExclWriteIns": 0
+        },
         "ConventionalSubTotal": {
           "IndividualVoteCount": null,
           "EmptyVoteCountInclWriteIns": 0,
@@ -278,20 +323,33 @@
         "WriteInMappings": [],
         "WriteInBallots": [],
         "HasUnmappedWriteIns": false,
-        "CountOfElectionsWithUnmappedWriteIns": 0,
+        "HasUnmappedEVotingWriteIns": false,
+        "HasUnmappedECountingWriteIns": false,
+        "CountOfElectionsWithUnmappedEVotingWriteIns": 0,
+        "CountOfElectionsWithUnmappedECountingWriteIns": 0,
         "HasBallotGroups": false,
         "PoliticalBusiness": null,
         "PoliticalBusinessId": "e39a4d1c-6db4-44a7-a707-05cf2005dd4a",
         "CountOfVoters": {
           "VoterParticipation": 0.0,
-          "EVotingReceivedBallots": 0,
-          "EVotingInvalidBallots": 0,
-          "EVotingBlankBallots": 0,
-          "EVotingAccountedBallots": 0,
-          "ConventionalReceivedBallots": null,
-          "ConventionalInvalidBallots": null,
-          "ConventionalBlankBallots": null,
-          "ConventionalAccountedBallots": null,
+          "EVotingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ECountingSubTotal": {
+            "ReceivedBallots": 0,
+            "InvalidBallots": 0,
+            "BlankBallots": 0,
+            "AccountedBallots": 0
+          },
+          "ConventionalSubTotal": {
+            "ReceivedBallots": null,
+            "InvalidBallots": null,
+            "BlankBallots": null,
+            "AccountedBallots": null
+          },
           "TotalReceivedBallots": 0,
           "TotalAccountedBallots": 0,
           "TotalUnaccountedBallots": 0,

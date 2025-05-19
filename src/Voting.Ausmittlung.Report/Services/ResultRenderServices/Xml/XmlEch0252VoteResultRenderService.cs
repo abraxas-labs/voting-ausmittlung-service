@@ -13,6 +13,8 @@ using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Lib.Database.Repositories;
+using Voting.Lib.Ech.Ech0252_2_0.Schemas;
+using Voting.Lib.Iam.Store;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Xml;
 
@@ -21,29 +23,33 @@ public class XmlEch0252VoteResultRenderService : IRendererService
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluence> _doiRepo;
+    private readonly IAuth _auth;
     private readonly Ech0252Serializer _ech0252Serializer;
 
     public XmlEch0252VoteResultRenderService(
         TemplateService templateService,
         IDbRepository<DataContext, Contest> contestRepo,
         Ech0252Serializer ech0252Serializer,
-        IDbRepository<DataContext, DomainOfInfluence> doiRepo)
+        IDbRepository<DataContext, DomainOfInfluence> doiRepo,
+        IAuth auth)
     {
         _templateService = templateService;
         _contestRepo = contestRepo;
         _ech0252Serializer = ech0252Serializer;
         _doiRepo = doiRepo;
+        _auth = auth;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
     {
+        // Note: contest owners should see ALL votes of the contest
         var contest = await _contestRepo.Query()
             .AsSplitQuery()
             .AsNoTrackingWithIdentityResolution()
             .IgnoreQueryFilters() // eCH exports need all languages, do not filter them
             .Include(x => x.Translations.OrderBy(t => t.Language))
             .Include(x => x.DomainOfInfluence)
-            .Include(x => x.Votes.Where(v => ctx.PoliticalBusinessIds.Contains(v.Id)))
+            .Include(x => x.Votes.Where(v => ctx.PoliticalBusinessIds.Contains(v.Id) || v.Contest.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id))
                 .ThenInclude(x => x.Ballots)
                 .ThenInclude(x => x.BallotQuestions)
                 .ThenInclude(x => x.Translations)
@@ -84,6 +90,7 @@ public class XmlEch0252VoteResultRenderService : IRendererService
                 .ThenInclude(x => x.Results)
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
+        contest.MoveECountingToConventional();
 
         var domainOfInfluences = await _doiRepo.Query()
             .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
@@ -92,6 +99,11 @@ public class XmlEch0252VoteResultRenderService : IRendererService
 
         var mappingCtx = new Ech0252MappingContext(domainOfInfluences);
         var eventDelivery = _ech0252Serializer.ToVoteDelivery(contest, mappingCtx, null);
-        return _templateService.RenderToXml(ctx, eventDelivery.DeliveryHeader.MessageId, eventDelivery, contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture));
+        return _templateService.RenderToXml(
+            ctx,
+            eventDelivery.DeliveryHeader.MessageId,
+            eventDelivery,
+            Ech0252Schemas.LoadEch0252Schemas(),
+            contest.Date.ToString("yyyyMMdd", CultureInfo.InvariantCulture));
     }
 }

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <UserSecretsId>8553452f-8ed9-49ae-8ce7-b639814e7198</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Voting.Ausmittlung.Report\Voting.Ausmittlung.Report.csproj" />
+    <ProjectReference Include="..\..\src\Voting.Ausmittlung\Voting.Ausmittlung.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Voting.Ausmittlung.Test\ExportTests\Pdf\_snapshots\*.xml">
+      <Link>xmls\%(Filename).xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="pdfs\*.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="pdfs\" />
+  </ItemGroup>
+
+</Project>

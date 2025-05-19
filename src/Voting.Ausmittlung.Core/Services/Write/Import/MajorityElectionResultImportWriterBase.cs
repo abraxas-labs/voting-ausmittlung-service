@@ -80,7 +80,7 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
 
     internal async IAsyncEnumerable<MajorityElectionResultImport> BuildImports(
         ResultImportMeta importMeta,
-        IReadOnlyCollection<EVotingElectionResult> results)
+        IReadOnlyCollection<VotingImportElectionResult> results)
     {
         var electionIds = results.Select(x => x.PoliticalBusinessId).ToHashSet();
         var elections = await LoadElections(importMeta.ContestId, electionIds);
@@ -112,11 +112,11 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
     protected abstract bool GetIndividualVotesDisabled(TElection election);
 
     private MajorityElectionResultImport ProcessResult(
-        EVotingElectionResult result,
+        VotingImportElectionResult result,
         TElection election,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById)
     {
-        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), new(result.CountOfVotersInformation!.CountOfVotersTotal));
+        var importResult = new MajorityElectionResultImport(result.PoliticalBusinessId, Guid.Parse(result.BasisCountingCircleId), result.TotalCountOfVoters);
         importResult.CountOfVoters = result.Ballots.Count;
         var supportsInvalidVotes = election.Contest.CantonDefaults.MajorityElectionInvalidVotes;
 
@@ -144,13 +144,13 @@ public abstract class MajorityElectionResultImportWriterBase<TElection>
 
     private MajorityElectionBallot ProcessBallot(
         Guid politicalBussinessId,
-        EVotingElectionBallot eVotingBallot,
+        VotingElectionBallot votingBallot,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateBase> candidatesById,
         int emptyVoteCount)
     {
         var ballot = new MajorityElectionBallot(emptyVoteCount);
 
-        foreach (var position in eVotingBallot.Positions)
+        foreach (var position in votingBallot.Positions)
         {
             if (position.IsEmpty)
             {

@@ -23,4 +23,11 @@ public class MajorityElectionDomainOfInfluenceResult : DomainOfInfluenceResult
 
     internal Dictionary<Guid, MajorityElectionCandidateDomainOfInfluenceResult> CandidateResultsByCandidateId { get; } =
         new Dictionary<Guid, MajorityElectionCandidateDomainOfInfluenceResult>();
+
+    public override void OrderCountingCircleResults(ContestCantonDefaults cantonDefaults)
+    {
+        Results = Results
+            .OrderByCountingCircle(x => x.CountingCircle, cantonDefaults)
+            .ToList();
+    }
 }

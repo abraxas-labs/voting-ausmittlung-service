@@ -4,15 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
@@ -22,7 +19,6 @@ using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Resources;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.Messaging;
 using Voting.Lib.VotingExports.Models;
 using Voting.Lib.VotingExports.Repository;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
@@ -79,8 +75,6 @@ public class ResultExportTemplateReader
     private readonly PermissionService _permissionService;
     private readonly IMapper _mapper;
     private readonly PublisherConfig _config;
-    private readonly ILogger<ResultExportTemplateReader> _logger;
-    private readonly MessageConsumerHub<ProtocolExportStateChanged> _protocolExportStateChangedConsumer;
     private readonly IAuth _auth;
     private readonly ProportionalElectionReader _proportionalElectionReader;
 
@@ -93,8 +87,6 @@ public class ResultExportTemplateReader
         IDbRepository<DataContext, DomainOfInfluenceCountingCircle> domainOfInfluenceCountingCircleRepository,
         IMapper mapper,
         PublisherConfig config,
-        ILogger<ResultExportTemplateReader> logger,
-        MessageConsumerHub<ProtocolExportStateChanged> protocolExportStateChangedConsumer,
         IAuth auth,
         ProportionalElectionReader proportionalElectionReader)
     {
@@ -102,8 +94,6 @@ public class ResultExportTemplateReader
         _permissionService = permissionService;
         _mapper = mapper;
         _config = config;
-        _logger = logger;
-        _protocolExportStateChangedConsumer = protocolExportStateChangedConsumer;
         _countingCircleRepository = countingCircleRepository;
         _protocolExportRepository = protocolExportRepository;
         _domainOfInfluenceCountingCircleRepository = domainOfInfluenceCountingCircleRepository;
@@ -112,7 +102,7 @@ public class ResultExportTemplateReader
         _proportionalElectionReader = proportionalElectionReader;
     }
 
-    public async Task<ExportTemplateContainer<ResultExportTemplate>> ListDataExportTemplates(Guid contestId, Guid? basisCountingCircleId)
+    public async Task<ExportTemplateContainer<ResultExportTemplate>> ListDataExportTemplates(Guid contestId, Guid? basisCountingCircleId, bool accessiblePbs = false)
     {
         var contest = await _contestReader.Get(contestId);
         var countingCircle = await GetCountingCircle(contestId, basisCountingCircleId);
@@ -120,11 +110,12 @@ public class ResultExportTemplateReader
         var templates = await FetchExportTemplates(
             contestId,
             basisCountingCircleId,
-            new HashSet<ExportFileFormat> { ExportFileFormat.Csv, ExportFileFormat.Xml });
+            new HashSet<ExportFileFormat> { ExportFileFormat.Csv, ExportFileFormat.Xml },
+            accessiblePbs);
         return new ExportTemplateContainer<ResultExportTemplate>(contest, countingCircle, templates);
     }
 
-    public async Task<ExportTemplateContainer<ProtocolExportTemplate>> ListProtocolExports(Guid contestId, Guid? basisCountingCircleId)
+    public async Task<ExportTemplateContainer<ProtocolExportTemplate>> ListProtocolExports(Guid contestId, Guid? basisCountingCircleId, bool accessiblePbs = false)
     {
         var contest = await _contestReader.Get(contestId);
         var countingCircle = await GetCountingCircle(contestId, basisCountingCircleId);
@@ -132,49 +123,53 @@ public class ResultExportTemplateReader
         var templates = await FetchExportTemplates(
             contestId,
             basisCountingCircleId,
-            new HashSet<ExportFileFormat> { ExportFileFormat.Pdf });
+            new HashSet<ExportFileFormat> { ExportFileFormat.Pdf },
+            accessiblePbs);
 
         var protocolExportsTemplates = await AttachProtocolExportInfos(contestId, contest.TestingPhaseEnded, templates);
 
         return new ExportTemplateContainer<ProtocolExportTemplate>(contest, countingCircle, protocolExportsTemplates);
     }
 
-    public async Task ListenToProtocolExportStateChanges(
+    internal async Task<IReadOnlySet<Guid>> GetReadableProtocolExportIds(
         Guid contestId,
         Guid? basisCountingCircleId,
-        Func<ProtocolExportStateChanged, Task> listener,
-        CancellationToken cancellationToken)
+        HashSet<ExportFileFormat>? formatsToFilter = null)
     {
-        _logger.LogDebug("Listening to protocol export state changes for contest with id {ContestId}", contestId);
-
-        var contest = await _contestReader.Get(contestId);
-        if (basisCountingCircleId.HasValue)
-        {
-            await _permissionService.CanReadBasisCountingCircle(basisCountingCircleId.Value, contestId);
-        }
-
-        var templates = await FetchExportTemplates(
-            contestId,
-            basisCountingCircleId,
-            new HashSet<ExportFileFormat> { ExportFileFormat.Pdf });
-        var protocolExportIds = templates
+        var contest = await _contestRepository
+                          .Query()
+                          .Include(x => x.DomainOfInfluence)
+                          .FirstOrDefaultAsync(x => x.Id == contestId)
+                      ?? throw new EntityNotFoundException(contestId);
+        var resultExportTemplates = await FetchExportTemplates(contest, basisCountingCircleId, formatsToFilter);
+        return resultExportTemplates
             .Select(t => AusmittlungUuidV5.BuildProtocolExport(contestId, contest.TestingPhaseEnded, t.ExportTemplateId))
             .ToHashSet();
-
-        await _protocolExportStateChangedConsumer.Listen(
-            e => protocolExportIds.Contains(e.ProtocolExportId),
-            listener,
-            cancellationToken);
     }
 
     internal async Task<IReadOnlyCollection<ResultExportTemplate>> FetchExportTemplates(
         Guid contestId,
         Guid? basisCountingCircleId,
-        HashSet<ExportFileFormat>? formatsToFilter = null)
+        HashSet<ExportFileFormat>? formatsToFilter = null,
+        bool accessiblePbs = false)
+    {
+        var contest = await _contestRepository
+                          .Query()
+                          .Include(x => x.DomainOfInfluence)
+                          .FirstOrDefaultAsync(x => x.Id == contestId)
+                      ?? throw new EntityNotFoundException(contestId);
+        return await FetchExportTemplates(contest, basisCountingCircleId, formatsToFilter, accessiblePbs);
+    }
+
+    internal async Task<IReadOnlyCollection<ResultExportTemplate>> FetchExportTemplates(
+        Contest contest,
+        Guid? basisCountingCircleId,
+        HashSet<ExportFileFormat>? formatsToFilter = null,
+        bool accessiblePbs = false)
     {
         if (_config.DisableAllExports)
         {
-            return Array.Empty<ResultExportTemplate>();
+            return [];
         }
 
         IEnumerable<TemplateModel> templates = TemplateRepository.GetByGenerator(VotingApp.VotingAusmittlung);
@@ -185,12 +180,6 @@ public class ResultExportTemplateReader
             templates = templates.Where(t => formatsToFilter.Contains(t.Format));
         }
 
-        var contest = await _contestRepository
-            .Query()
-            .Include(x => x.DomainOfInfluence)
-            .FirstOrDefaultAsync(x => x.Id == contestId)
-            ?? throw new EntityNotFoundException(contestId);
-
         // activity protocol export should only be available if contest manager, testing phase ended and only for those with permission
         if (!_auth.HasPermission(Permissions.Export.ExportActivityProtocol) || !contest.TestingPhaseEnded || _auth.Tenant.Id != contest.DomainOfInfluence.SecureConnectId)
         {
@@ -200,7 +189,7 @@ public class ResultExportTemplateReader
         }
 
         // counting circle eVoting exports should only be available if eVoting is active for the counting circle
-        var countingCircle = await GetCountingCircle(contestId, basisCountingCircleId);
+        var countingCircle = await GetCountingCircle(contest.Id, basisCountingCircleId);
         var ccDetails = countingCircle?.ContestDetails.FirstOrDefault();
         if (ccDetails?.EVoting == false || countingCircle?.EVoting == false)
         {
@@ -208,7 +197,7 @@ public class ResultExportTemplateReader
         }
 
         // political business eVoting exports should only be available if eVoting is active for contest and in case of communal domain of influence when its counting circle has e-voting
-        var doiHasEVoting = await HasEVotingForDoiOnCountingCircle(contestId);
+        var doiHasEVoting = await HasEVotingForDoiOnCountingCircle(contest.Id);
         if (!contest.EVoting || !doiHasEVoting)
         {
             templates = templates.Where(t => !_templateKeysPoliticalBusinessEVoting.Contains(t.Key));
@@ -220,8 +209,8 @@ public class ResultExportTemplateReader
         }
 
         var data = await (basisCountingCircleId.HasValue
-            ? LoadExportDataForErfassung(contestId, basisCountingCircleId.Value)
-            : LoadExportDataForMonitoring(contestId));
+            ? LoadExportDataForErfassung(contest.Id, basisCountingCircleId.Value)
+            : LoadExportDataForMonitoring(contest.Id, accessiblePbs));
         var resultTemplates = templates.SelectMany(t => BuildResultExportTemplates(t, data));
 
         return resultTemplates
@@ -241,13 +230,6 @@ public class ResultExportTemplateReader
     /// </returns>
     private async Task<bool> HasEVotingForDoiOnCountingCircle(Guid contestId)
     {
-        var doiTypesHigherAuthorities = new List<DomainOfInfluenceType>
-        {
-            DomainOfInfluenceType.Ch,
-            DomainOfInfluenceType.Ct,
-            DomainOfInfluenceType.Bz,
-        };
-
         var countingCirles = await _domainOfInfluenceCountingCircleRepository
             .Query()
             .Include(x => x.DomainOfInfluence)
@@ -319,10 +301,10 @@ public class ResultExportTemplateReader
             new Dictionary<Guid, ProportionalElectionMandateAlgorithm>());
     }
 
-    private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId)
+    private async Task<ExportData> LoadExportDataForMonitoring(Guid contestId, bool accessiblePbs)
     {
         _auth.EnsurePermission(Permissions.Export.ExportMonitoringData);
-        var politicalBusinesses = await _contestReader.GetOwnedPoliticalBusinesses(contestId);
+        var politicalBusinesses = await (accessiblePbs ? _contestReader.GetAccessiblePoliticalBusinesses(contestId) : _contestReader.GetOwnedPoliticalBusinesses(contestId));
         var politicalBusinessesByType = politicalBusinesses
             .GroupBy(x => x.BusinessType)
             .ToDictionary(x => x.Key, x => (IReadOnlyCollection<SimplePoliticalBusiness>)x.ToList());
@@ -345,7 +327,7 @@ public class ResultExportTemplateReader
             case ResultType.PoliticalBusinessResult:
             case ResultType.MultiplePoliticalBusinessesResult:
                 return data.BasisCountingCircleId.HasValue
-                    ? Enumerable.Empty<ResultExportTemplate>()
+                    ? []
                     : ExpandPoliticalBusinesses(
                         template,
                         data.PoliticalBusinessesByType,
@@ -355,7 +337,7 @@ public class ResultExportTemplateReader
             case ResultType.CountingCircleResult:
             case ResultType.MultiplePoliticalBusinessesCountingCircleResult:
                 return !data.BasisCountingCircleId.HasValue
-                    ? Enumerable.Empty<ResultExportTemplate>()
+                    ? []
                     : ExpandPoliticalBusinesses(
                         template,
                         data.PoliticalBusinessesByType,
@@ -363,13 +345,13 @@ public class ResultExportTemplateReader
                         data.BasisCountingCircleId);
 
             case ResultType.Contest when !data.BasisCountingCircleId.HasValue:
-                return new[] { new ResultExportTemplate(template, _permissionService.TenantId) };
+                return [new ResultExportTemplate(template, _permissionService.TenantId)];
 
             case ResultType.PoliticalBusinessUnionResult when !data.BasisCountingCircleId.HasValue:
                 return ExpandPoliticalBusinessUnions(template, data.PoliticalBusinessUnions);
 
             default:
-                return Enumerable.Empty<ResultExportTemplate>();
+                return [];
         }
     }
 
@@ -392,21 +374,20 @@ public class ResultExportTemplateReader
         var pbType = MapEntityTypeToPoliticalBusinessType(template.EntityType);
         if (!politicalBusinessesByType.TryGetValue(pbType, out var politicalBusinesses))
         {
-            return Enumerable.Empty<ResultExportTemplate>();
+            return [];
         }
 
         var filteredPoliticalBusinesses = FilterPoliticalBusinessesForTemplate(template, politicalBusinesses, mandateAlgorithmByProportionalElectionId);
+        if (!filteredPoliticalBusinesses.Any())
+        {
+            return [];
+        }
 
         if (template.ResultType
             is ResultType.MultiplePoliticalBusinessesResult
             or ResultType.MultiplePoliticalBusinessesCountingCircleResult)
         {
             return ExpandMultiplePoliticalBusinesses(template, filteredPoliticalBusinesses, basisCountingCircleId);
-        }
-
-        if (!filteredPoliticalBusinesses.Any())
-        {
-            return Enumerable.Empty<ResultExportTemplate>();
         }
 
         // expand templates for each individual political business
@@ -425,32 +406,51 @@ public class ResultExportTemplateReader
         IEnumerable<PoliticalBusiness> politicalBusinesses,
         Guid? basisCountingCircleId)
     {
-        if (!politicalBusinesses.Any())
+        if (template.PerDomainOfInfluenceType)
         {
-            return Enumerable.Empty<ResultExportTemplate>();
-        }
-
-        if (!template.PerDomainOfInfluenceType)
-        {
-            return new[]
+            foreach (var group in politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.Type))
             {
-                new ResultExportTemplate(
+                if (!template.MatchesDomainOfInfluenceType(_mapper.Map<Voting.Lib.VotingExports.Models.DomainOfInfluenceType>(group.Key)))
+                {
+                    continue;
+                }
+
+                var pbs = group.ToList();
+                var pbType = pbs.All(x => x.BusinessType == pbs[0].BusinessType) ? pbs[0].BusinessType : PoliticalBusinessType.Unspecified;
+                yield return new ResultExportTemplate(
                     template,
                     _permissionService.TenantId,
-                    politicalBusinesses: politicalBusinesses.ToList(),
-                    countingCircleId: basisCountingCircleId),
-            };
+                    description: MapPoliticalBusinessToDescription(group.Key, pbType, template),
+                    doiType: group.Key,
+                    countingCircleId: basisCountingCircleId,
+                    politicalBusinesses: pbs);
+            }
+
+            yield break;
         }
 
-        return politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.Type)
-            .Where(x => template.MatchesDomainOfInfluenceType(_mapper.Map<Voting.Lib.VotingExports.Models.DomainOfInfluenceType>(x.Key)))
-            .Select(g => new ResultExportTemplate(
-                template,
-                _permissionService.TenantId,
-                description: MapMultiplePoliticalBusinessToDescription(g.ToList(), template),
-                doiType: g.Key,
-                countingCircleId: basisCountingCircleId,
-                politicalBusinesses: g.ToList()));
+        if (template.PerDomainOfInfluence)
+        {
+            foreach (var group in politicalBusinesses.GroupBy(pb => pb.DomainOfInfluence.BasisDomainOfInfluenceId))
+            {
+                var pbs = group.ToList();
+                yield return new ResultExportTemplate(
+                    template,
+                    _permissionService.TenantId,
+                    description: MapPoliticalBusinessToDescription(pbs[0].DomainOfInfluence, pbs[0].BusinessType, template),
+                    domainOfInfluenceId: group.Key,
+                    countingCircleId: basisCountingCircleId,
+                    politicalBusinesses: pbs);
+            }
+
+            yield break;
+        }
+
+        yield return new ResultExportTemplate(
+            template,
+            _permissionService.TenantId,
+            politicalBusinesses: politicalBusinesses.ToList(),
+            countingCircleId: basisCountingCircleId);
     }
 
     private PoliticalBusinessType MapEntityTypeToPoliticalBusinessType(EntityType entityType)
@@ -477,7 +477,7 @@ public class ResultExportTemplateReader
     }
 
     private IEnumerable<SimplePoliticalBusiness> FilterDomainOfInfluenceType(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
-        => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<Voting.Lib.VotingExports.Models.DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
+        => politicalBusinesses.Where(pb => template.MatchesDomainOfInfluenceType(_mapper.Map<Lib.VotingExports.Models.DomainOfInfluenceType>(pb.DomainOfInfluence.Type)));
 
     private IEnumerable<SimplePoliticalBusiness> FilterMultipleCountingCircleResults(TemplateModel template, IEnumerable<SimplePoliticalBusiness> politicalBusinesses)
     {
@@ -550,7 +550,7 @@ public class ResultExportTemplateReader
             .Where(pb => mandateAlgorithmByProportionalElectionId.GetValueOrDefault(pb.Id).IsNonUnionDoubleProportional());
     }
 
-    private string MapPoliticalBusinessToDescription(Data.Models.DomainOfInfluenceType doiType, PoliticalBusinessType pbType, TemplateModel template)
+    private string MapPoliticalBusinessToDescription(DomainOfInfluenceType doiType, PoliticalBusinessType pbType, TemplateModel template)
     {
         if (template.Format != ExportFileFormat.Pdf)
         {
@@ -559,11 +559,11 @@ public class ResultExportTemplateReader
 
         var doiTypeDescription = doiType switch
         {
-            Data.Models.DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
-            Data.Models.DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
-            Data.Models.DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
-            Data.Models.DomainOfInfluenceType.Mu => Strings.Exports_DomainOfInfluenceType_Mu,
-            Data.Models.DomainOfInfluenceType.Sk => Strings.Exports_DomainOfInfluenceType_Mu,
+            DomainOfInfluenceType.Ch => Strings.Exports_DomainOfInfluenceType_Ch,
+            DomainOfInfluenceType.Ct => Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Bz => Strings.Exports_DomainOfInfluenceType_Ct,
+            DomainOfInfluenceType.Mu => Strings.Exports_DomainOfInfluenceType_Mu,
+            DomainOfInfluenceType.Sk => Strings.Exports_DomainOfInfluenceType_Mu,
             _ => Strings.Exports_DomainOfInfluenceType_Other,
         };
 
@@ -579,15 +579,23 @@ public class ResultExportTemplateReader
         return $"{pbTypeDescription} {doiTypeDescription}: {template.Description}";
     }
 
-    private string MapMultiplePoliticalBusinessToDescription(IReadOnlyList<PoliticalBusiness> pbs, TemplateModel template)
+    private string MapPoliticalBusinessToDescription(DomainOfInfluence doi, PoliticalBusinessType pbType, TemplateModel template)
     {
-        if (pbs.Count == 0)
+        if (template.Format != ExportFileFormat.Pdf)
         {
-            return string.Empty;
+            return template.Description;
         }
 
-        var pbType = pbs.All(x => x.BusinessType == pbs[0].BusinessType) ? pbs[0].BusinessType : PoliticalBusinessType.Unspecified;
-        return MapPoliticalBusinessToDescription(pbs[0].DomainOfInfluence.Type, pbType, template);
+        var pbTypeDescription = pbType switch
+        {
+            PoliticalBusinessType.Vote => Strings.Exports_Vote,
+            PoliticalBusinessType.MajorityElection => Strings.Exports_MajorityElection,
+            PoliticalBusinessType.SecondaryMajorityElection => Strings.Exports_SecondaryMajorityElection,
+            PoliticalBusinessType.ProportionalElection => Strings.Exports_ProportionalElection,
+            _ => string.Empty,
+        };
+
+        return $"{pbTypeDescription} {doi.ShortName}: {template.Description}";
     }
 
     private record ExportData(

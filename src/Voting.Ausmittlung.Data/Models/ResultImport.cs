@@ -13,6 +13,10 @@ public class ResultImport : BaseEntity
 
     public Guid ContestId { get; set; }
 
+    public Guid? CountingCircleId { get; set; }
+
+    public CountingCircle? CountingCircle { get; set; }
+
     public DateTime Started { get; set; }
 
     public bool Completed { get; set; }
@@ -26,7 +30,26 @@ public class ResultImport : BaseEntity
 
     public string FileName { get; set; } = string.Empty;
 
+    public ResultImportType ImportType { get; set; }
+
     public ICollection<ResultImportCountingCircle> ImportedCountingCircles { get; set; } = new HashSet<ResultImportCountingCircle>();
 
     public ICollection<IgnoredImportCountingCircle> IgnoredCountingCircles { get; set; } = new HashSet<IgnoredImportCountingCircle>();
+
+    public ICollection<MajorityElectionWriteInMapping> MajorityElectionWriteInMappings { get; set; } = new HashSet<MajorityElectionWriteInMapping>();
+
+    public ICollection<SecondaryMajorityElectionWriteInMapping> SecondaryMajorityElectionWriteInMappings { get; set; } = new HashSet<SecondaryMajorityElectionWriteInMapping>();
+
+    public ICollection<MajorityElectionWriteInBallot> MajorityElectionWriteInBallots { get; set; } = new HashSet<MajorityElectionWriteInBallot>();
+
+    public ICollection<SecondaryMajorityElectionWriteInBallot> SecondaryMajorityElectionWriteInBallots { get; set; } = new HashSet<SecondaryMajorityElectionWriteInBallot>();
+
+    public void FixImportType()
+    {
+        // legacy events are always evoting events.
+        if (ImportType == ResultImportType.Unspecified || !CountingCircleId.HasValue)
+        {
+            ImportType = ResultImportType.EVoting;
+        }
+    }
 }

@@ -164,13 +164,15 @@ internal static class VoteInfoVoteMapping
         Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
     {
         var questionId = BuildQuestionId(question.BallotId, question.Number, true);
+        var voteTranslation = question.Ballot.Vote.Translations.Single(t => t.Language == Languages.German);
         var titleInfos = question.Translations
             .Where(t => t.Language == Languages.German)
             .OrderBy(t => t.Language)
             .Select(t => new VoteTitleInformationType
             {
                 Language = t.Language,
-                VoteTitle = t.Question,
+                VoteTitle = $"{voteTranslation.OfficialDescription} - {t.Question}",
+                VoteTitleShort = $"{voteTranslation.ShortDescription} - {t.Question}",
             });
 
         return new VoteInfoType
@@ -232,7 +234,7 @@ internal static class VoteInfoVoteMapping
 
         return new CountingCircleInfoType
         {
-            CountingCircle = ballotResult.VoteResult.CountingCircle.ToEch0252CountingCircle(ballotResult.Ballot.Vote.Contest.DomainOfInfluenceId),
+            CountingCircle = ballotResult.VoteResult.CountingCircle.ToEch0252CountingCircle(),
             ResultData = hasResultData
                 ? new ResultDataType
                 {

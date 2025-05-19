@@ -25,7 +25,7 @@ public class ExceptionMappingTest
     {
         var exposedExceptions = new HashSet<Exception>()
         {
-            new CountingCircleResultInInvalidStateForEVotingImportException(Guid.Empty),
+            new CountingCircleResultInInvalidStateForImportException(Guid.Empty),
             new EVotingNotActiveException(DefaultError, Guid.Empty),
             new SecondFactorTransactionDataChangedException(),
             new SecondFactorTransactionNotVerifiedException(),

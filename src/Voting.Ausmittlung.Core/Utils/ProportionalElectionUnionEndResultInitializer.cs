@@ -44,6 +44,7 @@ public class ProportionalElectionUnionEndResultInitializer
     {
         var endResultId = AusmittlungUuidV5.BuildPoliticalBusinessUnionEndResult(proportionalElectionUnionId, testingPhaseEnded);
         var countOfElections = await _unionRepo.CountOfElections(proportionalElectionUnionId);
+        var countOfDoneElections = await _unionRepo.CountOfElectionsWithAllCountingCirclesDone(proportionalElectionUnionId);
 
         var existingEndResult = await _endResultRepo
             .Query()
@@ -67,12 +68,14 @@ public class ProportionalElectionUnionEndResultInitializer
                 Id = endResultId,
                 ProportionalElectionUnionId = proportionalElectionUnionId,
                 TotalCountOfElections = countOfElections,
+                CountOfDoneElections = countOfDoneElections,
             };
             await _endResultRepo.Create(existingEndResult);
         }
         else
         {
             existingEndResult.TotalCountOfElections = countOfElections;
+            existingEndResult.CountOfDoneElections = countOfDoneElections;
             await _endResultRepo.Update(existingEndResult);
         }
     }

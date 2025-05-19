@@ -117,6 +117,8 @@
       }
     ],
     "EVoting": false,
+    "ECounting": false,
+    "ECountingResultsImported": false,
     "TotalCountOfVoters": 15800,
     "CountingMachine": 2,
     "Id": "00000000-0000-0000-0000-000000000000"
@@ -239,6 +241,8 @@
       }
     ],
     "EVoting": false,
+    "ECounting": false,
+    "ECountingResultsImported": false,
     "TotalCountOfVoters": 0,
     "CountingMachine": 0,
     "Id": "00000000-0000-0000-0000-000000000000"

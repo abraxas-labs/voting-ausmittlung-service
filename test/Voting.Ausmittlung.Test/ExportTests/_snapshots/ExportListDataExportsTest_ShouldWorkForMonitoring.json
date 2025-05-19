@@ -17,247 +17,824 @@
     {
       "ExportTemplateId": "fdef0658-d6d9-55cc-ac9d-5c1c6a054e78",
       "Description": "Abstimmungsresultate (eCH-0252 Result Delivery)",
-      "EntityDescription": ""
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "vote_result_ech_0252"
     },
     {
       "ExportTemplateId": "ab680084-fc13-5f2d-9a37-40d2d70a0a42",
       "Description": "Majorzwahlinformationen (eCH-0252 Information Delivery)",
-      "EntityDescription": ""
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "majority_election_info_ech_0252"
     },
     {
       "ExportTemplateId": "a4c8aafb-feee-5b23-a274-d77a5dbde820",
       "Description": "Majorzwahlresultate (eCH-0252 Result Delivery)",
-      "EntityDescription": ""
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "majority_election_result_ech_0252"
     },
     {
       "ExportTemplateId": "2cc552fa-0cfe-5e72-aed0-fcb20f7f424c",
       "Description": "Proporzwahlinformationen (eCH-0252 Information Delivery)",
-      "EntityDescription": ""
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "proportional_election_info_ech_0252"
     },
     {
       "ExportTemplateId": "d9f255a7-e9b8-5f6b-a4a7-64bc97273d3a",
       "Description": "Proporzwahlresultate (eCH-0252 Result Delivery)",
-      "EntityDescription": ""
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "proportional_election_result_ech_0252"
     },
     {
-      "ExportTemplateId": "6df9eff5-321b-5ff5-b134-90d8646f606f",
-      "Description": "Abstimmungsergebnis(se) inkl. Details E-Voting",
-      "EntityDescription": "Abst SG de"
+      "ExportTemplateId": "fbe15e5e-9dff-55f0-9ce5-465b24dd478c",
+      "Description": "Abstimmungsresultat (eCH-0110)",
+      "EntityDescription": "Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "vote_ech_0110"
+    },
+    {
+      "ExportTemplateId": "72eb4231-8d41-59f3-a9b5-c419b2e4cee0",
+      "Description": "Rohdaten Abstimmung (eCH-0222)",
+      "EntityDescription": "Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "vote_ech_0222"
     },
     {
       "ExportTemplateId": "fd06d291-fb37-559a-8b95-37beb9c87a80",
       "Description": "Abstimmungsresultat (eCH-0110)",
-      "EntityDescription": "Abst SG de"
-    },
-    {
-      "ExportTemplateId": "17c99136-3705-555b-8a78-254f266a29b3",
-      "Description": "CSV_Detailergebnisse",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_ech_0110"
     },
     {
       "ExportTemplateId": "559c3610-1a10-5b29-9b48-04c1495c7d44",
       "Description": "Rohdaten Abstimmung (eCH-0222)",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_ech_0222"
+    },
+    {
+      "ExportTemplateId": "6df9eff5-321b-5ff5-b134-90d8646f606f",
+      "Description": "Abstimmungsergebnis(se) inkl. Details E-Voting",
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "vote_e_voting_details"
+    },
+    {
+      "ExportTemplateId": "17c99136-3705-555b-8a78-254f266a29b3",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "SG_Abstimmungsergebnisse"
     },
     {
       "ExportTemplateId": "018acfc2-7348-514f-a03e-56b1d787971a",
       "Description": "SG_Gemeinden",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "SG_Gemeinden"
     },
     {
       "ExportTemplateId": "89d13931-d678-509a-82f3-9b4db3c5325b",
       "Description": "SG_Geschäfte",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "SG_Geschäfte"
     },
     {
       "ExportTemplateId": "60cedbd2-451b-5136-8345-acd9371f7b2f",
       "Description": "SGStatic_Gemeinden",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "SGStatic_Gemeinden"
     },
     {
       "ExportTemplateId": "0d8b0de6-4867-51b7-8580-e5bc9a5e6687",
       "Description": "SGStatic_Geschäfte",
-      "EntityDescription": "Abst SG de"
+      "EntityDescription": "Abst SG de | Abst Uzwil de | Abst Gossau de",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567",
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d",
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "SGStatic_Geschäfte"
+    },
+    {
+      "ExportTemplateId": "71822691-5a20-5877-b764-cf75a566f6b5",
+      "Description": "Abstimmungsresultat (eCH-0110)",
+      "EntityDescription": "Abst Uzwil de",
+      "PoliticalBusinessIds": [
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d"
+      ],
+      "TemplateKey": "vote_ech_0110"
+    },
+    {
+      "ExportTemplateId": "78d3c31b-b45f-596b-9c78-b2f1f5e7cb4a",
+      "Description": "Rohdaten Abstimmung (eCH-0222)",
+      "EntityDescription": "Abst Uzwil de",
+      "PoliticalBusinessIds": [
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d"
+      ],
+      "TemplateKey": "vote_ech_0222"
+    },
+    {
+      "ExportTemplateId": "53edefd2-4383-549b-a0cd-bb9d3c675f50",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WM_Wahlergebnisse"
+    },
+    {
+      "ExportTemplateId": "aa867eec-9fbe-582f-aa58-00a82da00aad",
+      "Description": "Majorzwahlresultat (eCH-0110)",
+      "EntityDescription": "Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "majority_election_ech_0110"
+    },
+    {
+      "ExportTemplateId": "cfe314df-399e-579e-8802-906cde7b61ed",
+      "Description": "Rohdaten Majorzwahl (eCH-0222)",
+      "EntityDescription": "Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "majority_election_ech_0222"
     },
     {
       "ExportTemplateId": "c040b633-78fe-5780-ba28-14af921f51d5",
       "Description": "CSV_Detailergebnisse",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "WM_Wahlergebnisse"
     },
     {
       "ExportTemplateId": "4bbae451-9abf-5e11-883b-cba9aaef6e2c",
       "Description": "Majorzwahlresultat (eCH-0110)",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_ech_0110"
     },
     {
       "ExportTemplateId": "ece95704-9231-517e-b4b5-62fab0669b7b",
       "Description": "Rohdaten Majorzwahl (eCH-0222)",
-      "EntityDescription": "Mw SG de"
+      "EntityDescription": "Mw SG de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_ech_0222"
     },
     {
       "ExportTemplateId": "5b120eda-86b5-5699-b733-cba31bf6a3ef",
       "Description": "WM_Gemeinden",
-      "EntityDescription": "Mw SG de | NW SG de"
+      "EntityDescription": "Mw SG de | NW SG de | Mw Uzwil de | Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WM_Gemeinden"
     },
     {
       "ExportTemplateId": "ccfdfd5f-f694-518b-bdae-685e464f6a96",
       "Description": "WM_Kandidaten",
-      "EntityDescription": "Mw SG de | NW SG de"
+      "EntityDescription": "Mw SG de | NW SG de | Mw Uzwil de | Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WM_Kandidaten"
     },
     {
       "ExportTemplateId": "9c102d41-1e93-5241-b478-64f1dc95dd12",
       "Description": "WM_KandidatenGde",
-      "EntityDescription": "Mw SG de | NW SG de"
+      "EntityDescription": "Mw SG de | NW SG de | Mw Uzwil de | Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WM_KandidatenGde"
     },
     {
       "ExportTemplateId": "88803e76-69d3-516b-b137-d0e80fe1a7ba",
       "Description": "WM_Wahl",
-      "EntityDescription": "Mw SG de | NW SG de"
+      "EntityDescription": "Mw SG de | NW SG de | Mw Uzwil de | Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WM_Wahl"
     },
     {
       "ExportTemplateId": "7c5468cc-e49a-5b88-8a32-23473321e509",
       "Description": "WMStatic_Gemeinden",
-      "EntityDescription": "Mw SG de | NW SG de"
+      "EntityDescription": "Mw SG de | NW SG de | Mw Uzwil de | Mw Gossau de",
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e",
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a",
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85",
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "WMStatic_Gemeinden"
+    },
+    {
+      "ExportTemplateId": "8aaae120-4856-5f9f-9a0e-06a109f3cee2",
+      "Description": "CSV_Detailergebnisse",
+      "EntityDescription": "Mw Uzwil de",
+      "PoliticalBusinessIds": [
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85"
+      ],
+      "TemplateKey": "WM_Wahlergebnisse"
+    },
+    {
+      "ExportTemplateId": "6824023e-2941-5ec7-bd56-c50d7545cb04",
+      "Description": "Majorzwahlresultat (eCH-0110)",
+      "EntityDescription": "Mw Uzwil de",
+      "PoliticalBusinessIds": [
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85"
+      ],
+      "TemplateKey": "majority_election_ech_0110"
+    },
+    {
+      "ExportTemplateId": "b61178da-9c79-5f02-ba4e-325a04da83e4",
+      "Description": "Rohdaten Majorzwahl (eCH-0222)",
+      "EntityDescription": "Mw Uzwil de",
+      "PoliticalBusinessIds": [
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85"
+      ],
+      "TemplateKey": "majority_election_ech_0222"
     },
     {
       "ExportTemplateId": "e34b9824-912b-5043-b84e-b8b0877bebea",
       "Description": "CSV_Detailergebnisse",
-      "EntityDescription": "NW SG de"
+      "EntityDescription": "NW SG de",
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "WM_Wahlergebnisse"
     },
     {
       "ExportTemplateId": "e506d386-9c05-512f-9322-a1061796cc94",
       "Description": "Majorzwahlresultat (eCH-0110)",
-      "EntityDescription": "NW SG de"
+      "EntityDescription": "NW SG de",
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_ech_0110"
     },
     {
       "ExportTemplateId": "098f7fb6-04ff-5771-978f-c2680d492cf9",
       "Description": "Rohdaten Majorzwahl (eCH-0222)",
-      "EntityDescription": "NW SG de"
+      "EntityDescription": "NW SG de",
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_ech_0222"
+    },
+    {
+      "ExportTemplateId": "19020c0c-075f-5fd7-bdca-3666758ce903",
+      "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_candidate_results_with_vote_sources"
+    },
+    {
+      "ExportTemplateId": "9df01328-ceab-553f-98c7-60dc4ab65c75",
+      "Description": "Proporzwahlresultat (eCH-0110)",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_ech_0110"
+    },
+    {
+      "ExportTemplateId": "3764e566-2b4c-5ba6-96e0-0f232195b034",
+      "Description": "Rohdaten Proporzwahl (eCH-0222)",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_ech_0222"
+    },
+    {
+      "ExportTemplateId": "6fec2739-88df-59fe-8a35-18016faceb5f",
+      "Description": "WP_Gemeinden_BFS_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden_BFS_Einzel"
+    },
+    {
+      "ExportTemplateId": "2770f554-c1f5-574e-87a9-0a547ad0eca6",
+      "Description": "WP_Gemeinden_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden_Einzel"
+    },
+    {
+      "ExportTemplateId": "059360de-f4c8-5ec4-add3-9e70e96e9f05",
+      "Description": "WP_Gemeinden_SK_STAT_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden_SK_STAT_Einzel"
+    },
+    {
+      "ExportTemplateId": "7c1c0d64-e34a-576e-9d53-b58c74420441",
+      "Description": "WP_Kandidaten_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Kandidaten_Einzel"
+    },
+    {
+      "ExportTemplateId": "71b1b594-5ee5-5452-90fb-cc06a558a968",
+      "Description": "WP_KandidatenGde_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_KandidatenGde_Einzel"
+    },
+    {
+      "ExportTemplateId": "b8222427-ac47-5e9d-a35d-6d9ac201a7d9",
+      "Description": "WP_Listen_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Listen_Einzel"
+    },
+    {
+      "ExportTemplateId": "faca6aee-1c3a-5db0-806d-f4b7720c1b3c",
+      "Description": "WP_ListenGde_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_ListenGde_Einzel"
+    },
+    {
+      "ExportTemplateId": "0e46ca17-e462-5a29-9068-cf998991bb1c",
+      "Description": "WP_ListenGde_SK_STAT_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_ListenGde_SK_STAT_Einzel"
+    },
+    {
+      "ExportTemplateId": "a48044b8-af70-5809-b87d-b7b301d57c62",
+      "Description": "WP_Wahl_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Wahl_Einzel"
+    },
+    {
+      "ExportTemplateId": "7237c4aa-8ae9-571d-b4ea-95fbc03c62fb",
+      "Description": "WPStatic_Gemeinden_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WPStatic_Gemeinden_Einzel"
+    },
+    {
+      "ExportTemplateId": "8be5b236-62c7-5e3d-891e-c60d60592641",
+      "Description": "WPStatic_Kandidaten_Einzel",
+      "EntityDescription": "Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WPStatic_Kandidaten_Einzel"
     },
     {
       "ExportTemplateId": "aa66d822-7126-5207-bdd6-c46b068917a9",
       "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_candidate_results_with_vote_sources"
     },
     {
       "ExportTemplateId": "b7f9b584-3ea5-517d-90a2-d0d46d6c2d3c",
       "Description": "Proporzwahlresultat (eCH-0110)",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_ech_0110"
     },
     {
       "ExportTemplateId": "3a6c10d2-e8c4-5ec7-8d56-0576ca8a7ffe",
       "Description": "Rohdaten Proporzwahl (eCH-0222)",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "548415f0-5793-5fe4-aa77-c0c780eedc7b",
-      "Description": "WP_Gemeinden",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "2d230d39-bda6-55a7-a003-de7362b23553",
-      "Description": "WP_Gemeinden_BFS",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_ech_0222"
     },
     {
       "ExportTemplateId": "bae30465-19cd-5156-a00f-d1d992673f9e",
       "Description": "WP_Gemeinden_BFS_Einzel",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Gemeinden_BFS_Einzel"
     },
     {
       "ExportTemplateId": "c9d8a5e6-9194-5bb5-966a-c904d766e781",
       "Description": "WP_Gemeinden_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "96ee0ca7-8fe3-58ef-b8ae-51272a71a81d",
-      "Description": "WP_Gemeinden_SK_STAT",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Gemeinden_Einzel"
     },
     {
       "ExportTemplateId": "efdff10c-50b0-5215-ae25-8af6f0c8230d",
       "Description": "WP_Gemeinden_SK_STAT_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
-      "Description": "WP_Kandidaten",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Gemeinden_SK_STAT_Einzel"
     },
     {
       "ExportTemplateId": "4c4226ad-20ae-5b54-9c0c-4670c97fcd3f",
       "Description": "WP_Kandidaten_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "beb90cc1-6f18-598f-8651-85e874451155",
-      "Description": "WP_KandidatenGde",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Kandidaten_Einzel"
     },
     {
       "ExportTemplateId": "432c8b48-f0b2-5463-a408-753afe4dbf82",
       "Description": "WP_KandidatenGde_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "376a8b91-401e-5c75-9de9-5d25972bbb6e",
-      "Description": "WP_Listen",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_KandidatenGde_Einzel"
     },
     {
       "ExportTemplateId": "4be7fee9-d304-56f1-b1f3-9c25b6d03afd",
       "Description": "WP_Listen_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "c1389898-ef80-582a-994c-d07974570566",
-      "Description": "WP_ListenGde",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Listen_Einzel"
     },
     {
       "ExportTemplateId": "4b9f83a4-baab-54f3-81d9-913942f52d76",
       "Description": "WP_ListenGde_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "e2fce3e3-b6ef-50fc-990b-e9157b7d846d",
-      "Description": "WP_ListenGde_SK_STAT",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_ListenGde_Einzel"
     },
     {
       "ExportTemplateId": "6885b850-1cb3-5ac7-8bbc-0fbcf8d3821e",
       "Description": "WP_ListenGde_SK_STAT_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "c17612c5-b8f6-5958-b18b-36703faed41c",
-      "Description": "WP_Wahl",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_ListenGde_SK_STAT_Einzel"
     },
     {
       "ExportTemplateId": "1f667487-22f9-5774-8d42-4305cab27223",
       "Description": "WP_Wahl_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "884c707f-6c8e-5383-9e80-e47e0a4fa18e",
-      "Description": "WPStatic_Gemeinden",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WP_Wahl_Einzel"
     },
     {
       "ExportTemplateId": "508d38cd-c1f6-56f2-adce-7480e24d472b",
       "Description": "WPStatic_Gemeinden_Einzel",
-      "EntityDescription": "Pw SG de"
-    },
-    {
-      "ExportTemplateId": "cc0fe9fc-ac08-5b8e-b8ea-870e3d8611ae",
-      "Description": "WPStatic_Kandidaten",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WPStatic_Gemeinden_Einzel"
     },
     {
       "ExportTemplateId": "bdf46055-3c72-520e-bb0f-34b34895eadf",
       "Description": "WPStatic_Kandidaten_Einzel",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "WPStatic_Kandidaten_Einzel"
+    },
+    {
+      "ExportTemplateId": "548415f0-5793-5fe4-aa77-c0c780eedc7b",
+      "Description": "WP_Gemeinden",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden"
+    },
+    {
+      "ExportTemplateId": "2d230d39-bda6-55a7-a003-de7362b23553",
+      "Description": "WP_Gemeinden_BFS",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden_BFS"
+    },
+    {
+      "ExportTemplateId": "96ee0ca7-8fe3-58ef-b8ae-51272a71a81d",
+      "Description": "WP_Gemeinden_SK_STAT",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Gemeinden_SK_STAT"
+    },
+    {
+      "ExportTemplateId": "c78acdd1-ad2b-58a3-aaa4-661cc816a8dd",
+      "Description": "WP_Kandidaten",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Kandidaten"
+    },
+    {
+      "ExportTemplateId": "beb90cc1-6f18-598f-8651-85e874451155",
+      "Description": "WP_KandidatenGde",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_KandidatenGde"
+    },
+    {
+      "ExportTemplateId": "376a8b91-401e-5c75-9de9-5d25972bbb6e",
+      "Description": "WP_Listen",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Listen"
+    },
+    {
+      "ExportTemplateId": "c1389898-ef80-582a-994c-d07974570566",
+      "Description": "WP_ListenGde",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_ListenGde"
+    },
+    {
+      "ExportTemplateId": "e2fce3e3-b6ef-50fc-990b-e9157b7d846d",
+      "Description": "WP_ListenGde_SK_STAT",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_ListenGde_SK_STAT"
+    },
+    {
+      "ExportTemplateId": "c17612c5-b8f6-5958-b18b-36703faed41c",
+      "Description": "WP_Wahl",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WP_Wahl"
+    },
+    {
+      "ExportTemplateId": "884c707f-6c8e-5383-9e80-e47e0a4fa18e",
+      "Description": "WPStatic_Gemeinden",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WPStatic_Gemeinden"
+    },
+    {
+      "ExportTemplateId": "cc0fe9fc-ac08-5b8e-b8ea-870e3d8611ae",
+      "Description": "WPStatic_Kandidaten",
+      "EntityDescription": "Pw SG de | Pw Uzwil de | Pw Gossau de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f",
+        "da091f50-9f11-4deb-9621-948fbfbdc322",
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "WPStatic_Kandidaten"
+    },
+    {
+      "ExportTemplateId": "e24155cc-ff75-593d-804d-80daea1f26fc",
+      "Description": "Kandidatenstimmen, Gesamttotal je Liste - unveränderte / veränderte Wahlzettel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_candidate_results_with_vote_sources"
+    },
+    {
+      "ExportTemplateId": "fc4978df-92ae-5021-bb55-fe725e28a856",
+      "Description": "Proporzwahlresultat (eCH-0110)",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_ech_0110"
+    },
+    {
+      "ExportTemplateId": "db26bd79-7d62-53e3-93ef-89dd76d55160",
+      "Description": "Rohdaten Proporzwahl (eCH-0222)",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_ech_0222"
+    },
+    {
+      "ExportTemplateId": "a0cd1c65-0a8a-51a3-9a2d-1e3107fef089",
+      "Description": "WP_Gemeinden_BFS_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Gemeinden_BFS_Einzel"
+    },
+    {
+      "ExportTemplateId": "87a0304e-59d7-5fcb-b4d0-b9dd919f328d",
+      "Description": "WP_Gemeinden_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Gemeinden_Einzel"
+    },
+    {
+      "ExportTemplateId": "2e1f3ee7-d8b9-51ed-9501-f25fed439b73",
+      "Description": "WP_Gemeinden_SK_STAT_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Gemeinden_SK_STAT_Einzel"
+    },
+    {
+      "ExportTemplateId": "0017a658-d416-5a71-8c3e-d2bf3933438c",
+      "Description": "WP_Kandidaten_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Kandidaten_Einzel"
+    },
+    {
+      "ExportTemplateId": "0d66d6b4-b9c6-5221-8fc8-0dc056019047",
+      "Description": "WP_KandidatenGde_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_KandidatenGde_Einzel"
+    },
+    {
+      "ExportTemplateId": "8660f651-0191-55be-913c-e4dcf64c03b0",
+      "Description": "WP_Listen_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Listen_Einzel"
+    },
+    {
+      "ExportTemplateId": "c5b0ef4d-43cd-5c37-b30f-c1315907e2e6",
+      "Description": "WP_ListenGde_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_ListenGde_Einzel"
+    },
+    {
+      "ExportTemplateId": "8e40eb71-ff6a-5149-8523-e62e7b4f96c6",
+      "Description": "WP_ListenGde_SK_STAT_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_ListenGde_SK_STAT_Einzel"
+    },
+    {
+      "ExportTemplateId": "751cd9e3-47b2-5f64-9e6e-7abd394709a7",
+      "Description": "WP_Wahl_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WP_Wahl_Einzel"
+    },
+    {
+      "ExportTemplateId": "bafa4aff-5a41-5380-9b30-02cde96b117e",
+      "Description": "WPStatic_Gemeinden_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WPStatic_Gemeinden_Einzel"
+    },
+    {
+      "ExportTemplateId": "56ac8d53-2934-5504-846c-8799f42ee6e6",
+      "Description": "WPStatic_Kandidaten_Einzel",
+      "EntityDescription": "Pw Uzwil de",
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "WPStatic_Kandidaten_Einzel"
     }
   ]
 }

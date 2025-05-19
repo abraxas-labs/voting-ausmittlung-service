@@ -19,24 +19,22 @@
   },
   "Templates": [
     {
-      "ExportTemplateId": "f23cee7c-d3fc-5b32-af5c-c765abceedb2",
-      "Description": "Kandidatinnen und Kandidaten",
-      "EntityDescription": "Pw Bund de"
-    },
-    {
-      "ExportTemplateId": "bc6a05bd-85e3-5e71-b761-1bf1be445c12",
-      "Description": "Numerisches Kandidierendenverzeichnis",
-      "EntityDescription": "Pw Bund de"
-    },
-    {
       "ExportTemplateId": "a766581d-a89b-5eaf-a271-20120272bc35",
       "Description": "Kandidatinnen und Kandidaten",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_candidates_alphabetical"
     },
     {
       "ExportTemplateId": "d6eee771-9883-50a1-b550-d4a701688d12",
       "Description": "Numerisches Kandidierendenverzeichnis",
-      "EntityDescription": "Pw SG de"
+      "EntityDescription": "Pw SG de",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_candidates_numerical"
     }
   ]
 }

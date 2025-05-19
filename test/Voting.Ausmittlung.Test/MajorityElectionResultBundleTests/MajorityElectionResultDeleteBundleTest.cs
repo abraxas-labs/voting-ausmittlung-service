@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -155,9 +154,6 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
-        var bundle1Id = Guid.Parse(MajorityElectionResultBundleMockedData.IdStGallenBundle1);
-
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new MajorityElectionResultBundleDeleted
@@ -170,8 +166,14 @@ public class MajorityElectionResultDeleteBundleTest : MajorityElectionResultBund
         bundle.ElectionResult.CountOfBundlesNotReviewedOrDeleted.Should().Be(2);
         bundle.ElectionResult.ConventionalCountOfDetailedEnteredBallots.Should().Be(0);
 
-        await AssertHasPublishedMessage<MajorityElectionBundleChanged>(
-            x => x.Id == bundle1Id && x.ElectionResultId == resultId);
+        foreach (var log in bundle.Logs)
+        {
+            log.Id = Guid.Empty;
+        }
+
+        bundle.MatchSnapshot(x => x.ElectionResult.CountingCircleId);
+
+        await AssertHasPublishedEventProcessedMessage(MajorityElectionResultBundleDeleted.Descriptor, bundle.Id);
     }
 
     [Fact]

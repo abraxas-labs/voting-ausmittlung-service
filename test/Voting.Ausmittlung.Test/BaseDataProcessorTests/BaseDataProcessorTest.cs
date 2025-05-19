@@ -4,10 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
@@ -69,6 +71,27 @@ public abstract class BaseDataProcessorTest : BaseTest<TestApplicationFactory, T
         var db = scope.ServiceProvider.GetRequiredService<DataContext>();
         var temporaryDb = scope.ServiceProvider.GetRequiredService<TemporaryDataContext>();
         DatabaseUtil.Truncate(db, temporaryDb);
+    }
+
+    protected Task ModifyDbEntities<T>(Expression<Func<T, bool>> predicate, Action<T> modifier, bool splitQuery = false)
+        where T : class
+    {
+        return RunOnDb(async db =>
+        {
+            var query = db.Set<T>().AsTracking();
+            if (splitQuery)
+            {
+                query = query.AsSplitQuery();
+            }
+
+            var entities = await query.Where(predicate).ToListAsync();
+            foreach (var entity in entities)
+            {
+                modifier(entity);
+            }
+
+            await db.SaveChangesAsync();
+        });
     }
 
     protected int GetNextEventNumber()

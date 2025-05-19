@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -168,9 +167,7 @@ public class MajorityElectionResultResetToSubmissionFinishedTest : MajorityElect
         endResult.MatchSnapshot();
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == id
-            && x.NewState == CountingCircleResultState.SubmissionDone);
+        await AssertHasPublishedEventProcessedMessage(MajorityElectionResultResettedToSubmissionFinished.Descriptor, id);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

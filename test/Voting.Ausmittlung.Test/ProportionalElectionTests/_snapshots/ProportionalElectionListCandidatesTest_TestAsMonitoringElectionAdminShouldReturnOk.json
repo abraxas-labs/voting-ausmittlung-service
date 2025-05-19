@@ -12,7 +12,7 @@
       "Accumulated": true,
       "AccumulatedPosition": 2,
       "NumberIncludingList": "1a.number1",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 6
@@ -29,7 +29,7 @@
       "Accumulated": false,
       "AccumulatedPosition": 0,
       "NumberIncludingList": "1a.number2",
-      "ListDescription": "",
+      "ListDescription": "Liste 1 de",
       "ListShortDescription": "Liste 1 de",
       "ListPosition": 1,
       "CheckDigit": 4
@@ -46,7 +46,7 @@
       "Accumulated": false,
       "AccumulatedPosition": 0,
       "NumberIncludingList": "2.number3",
-      "ListDescription": "",
+      "ListDescription": "Liste 2 de",
       "ListShortDescription": "Liste 2 de",
       "ListPosition": 2,
       "CheckDigit": 0

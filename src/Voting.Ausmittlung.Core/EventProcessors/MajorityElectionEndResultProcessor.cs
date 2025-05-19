@@ -21,23 +21,27 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class MajorityElectionEndResultProcessor :
     PoliticalBusinessEndResultProcessor,
     IEventProcessor<MajorityElectionEndResultLotDecisionsUpdated>,
+    IEventProcessor<MajorityElectionEndResultSecondaryLotDecisionsUpdated>,
     IEventProcessor<MajorityElectionEndResultFinalized>,
     IEventProcessor<MajorityElectionEndResultFinalizationReverted>
 {
     private readonly MajorityElectionEndResultBuilder _endResultBuilder;
     private readonly MajorityElectionEndResultRepo _endResultRepo;
     private readonly IMapper _mapper;
+    private readonly EventLogger _eventLogger;
 
     public MajorityElectionEndResultProcessor(
         MajorityElectionEndResultBuilder endResultBuilder,
         MajorityElectionEndResultRepo endResultRepo,
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
-        IMapper mapper)
+        IMapper mapper,
+        EventLogger eventLogger)
         : base(simplePoliticalBusinessRepo)
     {
         _endResultBuilder = endResultBuilder;
         _endResultRepo = endResultRepo;
         _mapper = mapper;
+        _eventLogger = eventLogger;
     }
 
     public Task Process(MajorityElectionEndResultFinalized eventData)
@@ -56,7 +60,22 @@ public class MajorityElectionEndResultProcessor :
             throw new EntityNotFoundException(majorityElectionId);
         }
 
-        await _endResultBuilder.RecalculateForLotDecisions(majorityElectionId, lotDecisions);
+        await _endResultBuilder.SetPrimaryLotDecisions(majorityElectionId, lotDecisions);
+        _eventLogger.LogEndResultEvent(eventData, Guid.Parse(eventData.MajorityElectionEndResultId), majorityElectionId);
+    }
+
+    public async Task Process(MajorityElectionEndResultSecondaryLotDecisionsUpdated eventData)
+    {
+        var majorityElectionId = Guid.Parse(eventData.MajorityElectionId);
+        var lotDecisions = _mapper.Map<IEnumerable<ElectionEndResultLotDecision>>(eventData.LotDecisions);
+
+        if (await _endResultRepo.GetByMajorityElectionId(majorityElectionId) == null)
+        {
+            throw new EntityNotFoundException(majorityElectionId);
+        }
+
+        await _endResultBuilder.SetSecondaryLotDecisions(majorityElectionId, lotDecisions);
+        _eventLogger.LogEndResultEvent(eventData, Guid.Parse(eventData.MajorityElectionEndResultId), majorityElectionId);
     }
 
     protected override async Task SetFinalized(Guid politicalBusinessId, bool finalized)

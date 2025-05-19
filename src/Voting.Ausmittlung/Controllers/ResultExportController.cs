@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,7 @@ using Voting.Lib.Iam.Authorization;
 
 namespace Voting.Ausmittlung.Controllers;
 
+// Controller for internal api calls from webapp
 [ApiController]
 [Route("api/result_export")]
 public class ResultExportController : ControllerBase
@@ -45,7 +47,7 @@ public class ResultExportController : ControllerBase
                 request.CountingCircleId,
                 request.ExportTemplateIds,
                 false,
-                ct)
+                ct: ct)
             .Select(f => new FileModelWrapper(f), ct);
 
         return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, _clock, ct);
@@ -60,7 +62,7 @@ public class ResultExportController : ControllerBase
                 request.CountingCircleId,
                 request.ProtocolExportIds,
                 true,
-                ct)
+                ct: ct)
             .Select(f => new FileModelWrapper(f), ct);
 
         return await FileResultUtil.CreateFileResult(fileModels, false, _clock, ct);
@@ -76,7 +78,7 @@ public class ResultExportController : ControllerBase
                 request.CountingCircleId,
                 request.ProtocolExportIds,
                 false,
-                ct)
+                ct: ct)
             .Select(f => new FileModelWrapper(f), ct);
 
         return await FileResultUtil.CreateFileResult(fileModels, isMultiExport, _clock, ct);

@@ -16,6 +16,7 @@ using Voting.Lib.Eventing.Exceptions;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Testing;
+using Voting.Lib.Testing.Mocks;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.MockedData;
@@ -39,6 +40,20 @@ public static class VoteResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             BallotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static VoteResultBundle GossauBundle2
@@ -53,6 +68,20 @@ public static class VoteResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             BallotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static VoteResultBundle GossauBundle3
@@ -67,6 +96,20 @@ public static class VoteResultBundleMockedData
                     SecureConnectId = "someones-user-id",
             },
             BallotResultId = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenBallotResult),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Someone",
+                        LastName = "Else",
+                        SecureConnectId = "someones-user-id",
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static VoteResultBundle UzwilBundle1
@@ -81,6 +124,20 @@ public static class VoteResultBundleMockedData
                     SecureConnectId = TestDefaults.UserId,
             },
             BallotResultId = Guid.Parse(VoteResultMockedData.IdUzwilVoteInContestStGallenBallotResult),
+            Logs = new()
+            {
+                new()
+                {
+                    User =
+                    {
+                        FirstName = "Hans",
+                        LastName = "Muster",
+                        SecureConnectId = TestDefaults.UserId,
+                    },
+                    Timestamp = MockedClock.UtcNowDate,
+                    State = BallotBundleState.InProcess,
+                },
+            },
         };
 
     public static IEnumerable<VoteResultBundle> All

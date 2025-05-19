@@ -10,8 +10,8 @@
       "Started": null
     },
     {
-      "ExportTemplateId": "29f862f7-a490-506c-b506-095fe9e59337",
-      "Description": "Abstimmung kantonal: Gesamtergebnisse",
+      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
+      "Description": "Abstimmung St. Gallen: Gesamtergebnisse",
       "EntityDescription": "Abst SG de",
       "ProtocolExportId": "00000000-0000-0000-0000-000000000000",
       "State": 0,
@@ -211,7 +211,8 @@
       "ManualPublishResultsEnabled": true,
       "EndResultFinalizeDisabled": false,
       "PublishResultsBeforeAuditedTentatively": false
-    }
+    },
+    "ECountingResultsImported": false
   },
   "CountingCircle": null
 }

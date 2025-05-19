@@ -14,6 +14,7 @@ using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
+using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf;
@@ -22,6 +23,7 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
 {
     private readonly IDbRepository<DataContext, VoteResultBundle> _voteResultBundleRepo;
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
+    private readonly IClock _clock;
     private readonly IMapper _mapper;
     private readonly TemplateService _templateService;
 
@@ -29,12 +31,14 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
         IDbRepository<DataContext, VoteResultBundle> voteResultBundleRepo,
         IMapper mapper,
         TemplateService templateService,
-        IDbRepository<DataContext, CountingCircle> countingCircleRepo)
+        IDbRepository<DataContext, CountingCircle> countingCircleRepo,
+        IClock clock)
     {
         _voteResultBundleRepo = voteResultBundleRepo;
         _mapper = mapper;
         _templateService = templateService;
         _countingCircleRepo = countingCircleRepo;
+        _clock = clock;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -94,6 +98,7 @@ public class PdfVoteResultBundleReviewRenderService : IRendererService
         var bundleReview = new PdfPoliticalBusinessResultBundleReview
         {
             TemplateKey = ctx.Template.Key,
+            GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             CountingCircle = pdfCountingCircle,
             VoteResultBundle = pdfBundle,
             PoliticalBusiness = _mapper.Map<PdfPoliticalBusiness>(bundle.BallotResult.VoteResult.Vote),

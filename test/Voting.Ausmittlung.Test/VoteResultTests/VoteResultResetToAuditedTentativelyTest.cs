@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -120,13 +119,10 @@ public class VoteResultResetToAuditedTentativelyTest : VoteResultBaseTest
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
         });
 
-        endResult.MatchSnapshot();
+        endResult.MatchSnapshot("endResult");
+        (await GetPublishedEventMessages()).MatchSnapshot("message");
 
         var id = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == id
-            && x.NewState == CountingCircleResultState.AuditedTentatively);
-
         var resultEntity = await RunOnDb(db => db.VoteResults.SingleAsync(x => x.Id == id));
         resultEntity.PlausibilisedTimestamp.Should().BeNull();
     }

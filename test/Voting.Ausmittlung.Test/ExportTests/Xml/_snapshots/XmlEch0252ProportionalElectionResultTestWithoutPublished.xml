@@ -24,7 +24,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -289,7 +289,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -372,7 +372,7 @@
           <countingCircle>
             <countingCircleId>3443</countingCircleId>
             <countingCircleName>Gossau</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
@@ -517,6 +517,13 @@
               <text>1</text>
             </namedElement>
           </resultData>
+        </countingCircleResult>
+        <countingCircleResult>
+          <countingCircle>
+            <countingCircleId>5500</countingCircleId>
+            <countingCircleName>St. Gallen</countingCircleName>
+            <domainOfInfluenceType>MU</domainOfInfluenceType>
+          </countingCircle>
         </countingCircleResult>
         <countingCircleResult>
           <countingCircle>
@@ -894,7 +901,7 @@
           <countingCircle>
             <countingCircleId>1234</countingCircleId>
             <countingCircleName>Uzwil</countingCircleName>
-            <domainOfInfluenceType>MU</domainOfInfluenceType>
+            <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
           <resultData>
             <countOfVotersInformation>

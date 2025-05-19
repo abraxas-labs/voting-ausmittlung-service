@@ -25,6 +25,17 @@ public class ProportionalElectionUnionRepo : DbRepository<DataContext, Proportio
             .CountAsync();
     }
 
+    public async Task<int> CountOfElectionsWithAllCountingCirclesDone(Guid unionId)
+    {
+        return await Set
+            .Where(x => x.Id == unionId)
+            .SelectMany(x => x.ProportionalElectionUnionEntries)
+            .Where(x => x.ProportionalElection.Active
+                && x.ProportionalElection.EndResult!.CountOfDoneCountingCircles == x.ProportionalElection.EndResult!.TotalCountOfCountingCircles
+                && x.ProportionalElection.EndResult.TotalCountOfCountingCircles != 0)
+            .CountAsync();
+    }
+
     public Task<ProportionalElectionUnion?> GetWithEndResultsAsTracked(Guid id)
     {
         return Set

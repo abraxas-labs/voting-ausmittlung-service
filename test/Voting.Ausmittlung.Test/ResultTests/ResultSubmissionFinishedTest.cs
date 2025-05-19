@@ -59,6 +59,10 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList().Should().BeEmpty();
         EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
         EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList().Should().BeEmpty();
+
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().BeEmpty();
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().BeEmpty();
     }
 
     [Fact]
@@ -90,6 +94,10 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         voteResultAuditedTentativelyEvents.MatchSnapshot(nameof(voteResultAuditedTentativelyEvents));
         proportionalElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(proportionalElectionResultAuditedTentativelyEvents));
         majorityElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(majorityElectionResultAuditedTentativelyEvents));
+
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]
@@ -102,6 +110,25 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
 
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
         await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+    }
+
+    [Fact]
+    public async Task TestShouldAutomaticallyPublishBeforeAuditedTentativelyWithRelatedCantonSettingsAndDoiLevel()
+    {
+        await SetResultState(CountingCircleResultState.SubmissionOngoing);
+
+        await ModifyDbEntities<ContestCantonDefaults>(
+            x => x.ContestId == ContestMockedData.GuidUzwilEvoting,
+            x =>
+            {
+                x.ManualPublishResultsEnabled = false;
+                x.PublishResultsBeforeAuditedTentatively = true;
+            },
+            splitQuery: true);
+        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest());
+        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().NotBeEmpty();
+        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]

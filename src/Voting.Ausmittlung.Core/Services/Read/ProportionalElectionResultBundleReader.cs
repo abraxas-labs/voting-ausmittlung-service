@@ -3,13 +3,10 @@
 
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Messaging;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
@@ -26,33 +23,24 @@ public class ProportionalElectionResultBundleReader
     private readonly IDbRepository<DataContext, ProportionalElectionResult> _resultRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionResultBallot> _ballotRepo;
-    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
-    private readonly LanguageAwareMessageConsumerHub<ProportionalElectionBundleChanged, ProportionalElectionResultBundle> _bundleChangeListener;
     private readonly PermissionService _permissionService;
     private readonly IAuth _auth;
-    private readonly LanguageService _languageService;
     private readonly PoliticalBusinessResultBundleBuilder _politicalBusinessResultBundleBuilder;
 
     public ProportionalElectionResultBundleReader(
         IDbRepository<DataContext, ProportionalElectionResult> resultRepo,
         IDbRepository<DataContext, ProportionalElectionResultBundle> bundleRepo,
         IDbRepository<DataContext, ProportionalElectionResultBallot> ballotRepo,
-        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
-        LanguageAwareMessageConsumerHub<ProportionalElectionBundleChanged, ProportionalElectionResultBundle> bundleChangeListener,
         PermissionService permissionService,
         IAuth auth,
-        LanguageService languageService,
         PoliticalBusinessResultBundleBuilder politicalBusinessResultBundleBuilder)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
-        _protocolExportRepo = protocolExportRepo;
         _permissionService = permissionService;
         _auth = auth;
-        _languageService = languageService;
         _politicalBusinessResultBundleBuilder = politicalBusinessResultBundleBuilder;
-        _bundleChangeListener = bundleChangeListener;
     }
 
     public async Task<ProportionalElectionResult> GetElectionResultWithBundles(Guid electionResultId)
@@ -65,6 +53,7 @@ public class ProportionalElectionResultBundleReader
                                  .Include(x => x.ProportionalElection.Contest.Translations)
                                  .Include(x => x.ProportionalElection.Contest.CantonDefaults)
                                  .Include(x => x.Bundles).ThenInclude(x => x.List!.Translations)
+                                 .Include(x => x.Bundles).ThenInclude(x => x.Logs.OrderBy(y => y.Timestamp))
                                  .FirstOrDefaultAsync(x => x.Id == electionResultId)
                              ?? throw new EntityNotFoundException(electionResultId);
 
@@ -95,6 +84,7 @@ public class ProportionalElectionResultBundleReader
                                  .Include(x => x.ElectionResult.ProportionalElection.Contest.Translations)
                                  .Include(x => x.ElectionResult.ProportionalElection.Contest.CantonDefaults)
                                  .Include(x => x.List!.Translations)
+                                 .Include(x => x.Logs.OrderBy(y => y.Timestamp))
                                  .FirstOrDefaultAsync(x => x.Id == bundleId)
                              ?? throw new EntityNotFoundException(bundleId);
 
@@ -107,26 +97,6 @@ public class ProportionalElectionResultBundleReader
             .ToListAsync();
 
         return bundle;
-    }
-
-    public async Task ListenToBundleChanges(
-        Guid electionResultId,
-        Func<ProportionalElectionResultBundle, Task> listener,
-        CancellationToken cancellationToken)
-    {
-        var data = await _resultRepo.Query()
-                       .Where(x => x.Id == electionResultId)
-                       .Select(x => new { x.CountingCircleId, x.ProportionalElection.ContestId })
-                       .FirstOrDefaultAsync(cancellationToken)
-                   ?? throw new EntityNotFoundException(electionResultId);
-
-        await _permissionService.EnsureCanReadCountingCircle(data.CountingCircleId, data.ContestId);
-
-        await _bundleChangeListener.Listen(
-            b => b.ElectionResultId == electionResultId,
-            listener,
-            _languageService.Language,
-            cancellationToken);
     }
 
     public async Task<ProportionalElectionResultBallot> GetBallot(Guid bundleId, int ballotNumber)

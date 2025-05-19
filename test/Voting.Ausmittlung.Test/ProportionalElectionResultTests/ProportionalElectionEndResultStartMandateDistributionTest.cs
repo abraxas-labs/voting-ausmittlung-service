@@ -18,6 +18,7 @@ using Voting.Ausmittlung.Core.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
+using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
@@ -197,6 +198,7 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
 
         var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
         result.Finalized.Should().BeFalse();
+        result.MandateDistributionTriggered.Should().BeFalse();
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -219,6 +221,41 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithNonUnionDpAlgorithmAndSuperApportionmentLotDecisions()
+    {
+        await ZhMockedData.Seed(RunScoped);
+
+        var electionGuid = ZhMockedData.ProportionalElectionGuidSingleDoiSuperLot;
+
+        var result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(r => r.ProportionalElectionId == electionGuid));
+        result.Finalized.Should().BeFalse();
+        result.MandateDistributionTriggered.Should().BeFalse();
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new ProportionalElectionEndResultMandateDistributionStarted
+            {
+                ProportionalElectionId = electionGuid.ToString(),
+                ProportionalElectionEndResultId = result.Id.ToString(),
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        var client = CreateService(SecureConnectTestDefaults.MockedTenantBund.Id, roles: new[] { RolesMockedData.MonitoringElectionAdmin });
+
+        var endResult = await client.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = electionGuid.ToString(),
+        });
+
+        endResult.Finalized.Should().BeFalse();
+        endResult.ManualEndResultRequired.Should().BeFalse();
+        endResult.MandateDistributionTriggered.Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeFalse();
+        endResult.ListEndResults.Any(l => l.CandidateEndResults.All(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Pending)).Should().BeTrue();
+        endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeFalse();
     }
 
     [Fact]

@@ -37,5 +37,8 @@
   "Position": 2,
   "Origin": "origin",
   "CheckDigit": 7,
+  "Street": "street",
+  "HouseNumber": "1a",
+  "Country": "CH",
   "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a"
 }

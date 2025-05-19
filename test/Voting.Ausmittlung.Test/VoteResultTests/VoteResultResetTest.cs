@@ -37,8 +37,8 @@ public class VoteResultResetTest : BaseIntegrationTest
             r => r.Id == BallotResultId,
             r =>
             {
-                r.CountOfVoters.EVotingReceivedBallots = 5;
-                r.CountOfVoters.EVotingAccountedBallots = 5;
+                r.CountOfVoters.EVotingSubTotal.ReceivedBallots = 5;
+                r.CountOfVoters.EVotingSubTotal.AccountedBallots = 5;
                 r.ConventionalCountOfDetailedEnteredBallots = 2;
                 r.CountOfBundlesNotReviewedOrDeleted = 1;
             });
@@ -68,7 +68,7 @@ public class VoteResultResetTest : BaseIntegrationTest
                 Id = Guid.Parse("1fe63a07-a6dd-4871-bc78-70e7829a07a3"),
                 BallotResultId = BallotResultId,
                 CountOfBallots = 2,
-                BallotNumbersToReview = new() { 1 },
+                BallotNumbersToReview = [1],
             });
             await db.SaveChangesAsync();
         });

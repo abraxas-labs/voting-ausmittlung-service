@@ -29,7 +29,7 @@ internal static class VoteInfoMajorityElectionInfoMapping
                 ElectionGroup = x.ToVoteInfoEchElectionGroup(ctx, positionBySuperiorAuthorityId),
                 CountingCircle = x.Results
                     .OrderBy(r => r.CountingCircle.Name)
-                    .Select(r => r.CountingCircle.ToEch0252CountingCircle(x.Contest.DomainOfInfluenceId))
+                    .Select(r => r.CountingCircle.ToEch0252CountingCircle())
                     .ToList(),
             });
     }
@@ -77,6 +77,7 @@ internal static class VoteInfoMajorityElectionInfoMapping
             Election = election.ToVoteInfoEchElection(election.Translations, PoliticalBusinessType.MajorityElection),
             ReferencedElectionAssociationId = election.MajorityElectionUnionEntries.FirstOrDefault()?.MajorityElectionUnionId.ToString(),
             Candidate = election.MajorityElectionCandidates
+                .Where(x => !x.CreatedDuringActiveContest)
                 .OrderBy(c => c.Number)
                 .Select(c => c.ToVoteInfoEchCandidate(canton))
                 .ToList(),
@@ -101,6 +102,7 @@ internal static class VoteInfoMajorityElectionInfoMapping
             Election = election.ToVoteInfoEchElection(election.Translations, PoliticalBusinessType.MajorityElection),
             ReferencedElectionAssociationId = election.PrimaryMajorityElection.MajorityElectionUnionEntries.FirstOrDefault()?.MajorityElectionUnionId.ToString(),
             Candidate = election.Candidates
+                .Where(x => !x.CreatedDuringActiveContest)
                 .OrderBy(c => c.Number)
                 .Select(c => c.ToVoteInfoEchCandidate(canton))
                 .ToList(),

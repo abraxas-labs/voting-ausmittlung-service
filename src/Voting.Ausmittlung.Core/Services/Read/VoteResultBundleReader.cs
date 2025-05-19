@@ -3,12 +3,10 @@
 
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Exceptions;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
@@ -16,7 +14,6 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Iam.Exceptions;
 using Voting.Lib.Iam.Store;
-using Voting.Lib.Messaging;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Core.Services.Read;
@@ -26,8 +23,6 @@ public class VoteResultBundleReader
     private readonly IDbRepository<DataContext, BallotResult> _resultRepo;
     private readonly IDbRepository<DataContext, VoteResultBundle> _bundleRepo;
     private readonly IDbRepository<DataContext, VoteResultBallot> _ballotRepo;
-    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
-    private readonly MessageConsumerHub<VoteBundleChanged, VoteResultBundle> _bundleChangeListener;
     private readonly PoliticalBusinessResultBundleBuilder _politicalBusinessResultBundleBuilder;
     private readonly PermissionService _permissionService;
     private readonly IAuth _auth;
@@ -36,19 +31,15 @@ public class VoteResultBundleReader
         IDbRepository<DataContext, BallotResult> resultRepo,
         IDbRepository<DataContext, VoteResultBundle> bundleRepo,
         IDbRepository<DataContext, VoteResultBallot> ballotRepo,
-        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         PermissionService permissionService,
         IAuth auth,
-        MessageConsumerHub<VoteBundleChanged, VoteResultBundle> bundleChangeListener,
         PoliticalBusinessResultBundleBuilder politicalBusinessResultBundleBuilder)
     {
         _resultRepo = resultRepo;
         _bundleRepo = bundleRepo;
         _ballotRepo = ballotRepo;
-        _protocolExportRepo = protocolExportRepo;
         _permissionService = permissionService;
         _auth = auth;
-        _bundleChangeListener = bundleChangeListener;
         _politicalBusinessResultBundleBuilder = politicalBusinessResultBundleBuilder;
     }
 
@@ -62,6 +53,7 @@ public class VoteResultBundleReader
                                .Include(x => x.VoteResult.Vote.Contest.Translations)
                                .Include(x => x.VoteResult.Vote.Contest.CantonDefaults)
                                .Include(x => x.Bundles.OrderBy(b => b.Number))
+                               .ThenInclude(x => x.Logs.OrderBy(y => y.Timestamp))
                                .FirstOrDefaultAsync(x => x.Id == ballotResultId)
                            ?? throw new EntityNotFoundException(ballotResultId);
 
@@ -78,25 +70,6 @@ public class VoteResultBundleReader
         return ballotResult;
     }
 
-    public async Task ListenToBundleChanges(
-        Guid ballotResultId,
-        Func<VoteResultBundle, Task> listener,
-        CancellationToken cancellationToken)
-    {
-        var data = await _resultRepo.Query()
-                       .Where(x => x.Id == ballotResultId)
-                       .Select(x => new { x.VoteResult.CountingCircleId, x.VoteResult.Vote.ContestId })
-                       .FirstOrDefaultAsync(cancellationToken)
-                   ?? throw new EntityNotFoundException(ballotResultId);
-
-        await _permissionService.EnsureCanReadCountingCircle(data.CountingCircleId, data.ContestId);
-
-        await _bundleChangeListener.Listen(
-            b => b.BallotResultId == ballotResultId,
-            listener,
-            cancellationToken);
-    }
-
     public async Task<VoteResultBundle> GetBundle(Guid bundleId)
     {
         var bundle = await _bundleRepo.Query()
@@ -109,6 +82,7 @@ public class VoteResultBundleReader
                          .Include(x => x.BallotResult.VoteResult.Vote.Contest.DomainOfInfluence)
                          .Include(x => x.BallotResult.Ballot).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations)
                          .Include(x => x.BallotResult.Ballot).ThenInclude(x => x.TieBreakQuestions).ThenInclude(x => x.Translations)
+                         .Include(x => x.Logs.OrderBy(y => y.Timestamp))
                          .FirstOrDefaultAsync(x => x.Id == bundleId)
                      ?? throw new EntityNotFoundException(bundleId);
 

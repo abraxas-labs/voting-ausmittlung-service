@@ -1,5 +1,6 @@
 <ActivityProtocol>
   <TemplateKey>contest_activity_protocol</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -368,6 +369,10 @@
   <Event>
     <Date>2020-07-17T10:10:28Z</Date>
     <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
+    <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>a3306f28-bf8d-400f-935f-c56c50fcdb96</AttributeValue>
     </EventAttribute>
@@ -432,6 +437,10 @@
   <Event>
     <Date>2020-07-17T10:10:40Z</Date>
     <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
+    <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>a3306f28-bf8d-400f-935f-c56c50fcdb96</AttributeValue>
     </EventAttribute>
@@ -457,6 +466,10 @@
   </Event>
   <Event>
     <Date>2020-07-17T10:10:41Z</Date>
+    <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
     <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>a3306f28-bf8d-400f-935f-c56c50fcdb96</AttributeValue>
@@ -985,6 +998,10 @@
   <Event>
     <Date>2020-07-17T10:27:08Z</Date>
     <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
+    <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>21845802-45b0-4b17-9b42-6c65610a2f97</AttributeValue>
     </EventAttribute>
@@ -1049,6 +1066,10 @@
   <Event>
     <Date>2020-07-17T10:27:20Z</Date>
     <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
+    <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>21845802-45b0-4b17-9b42-6c65610a2f97</AttributeValue>
     </EventAttribute>
@@ -1074,6 +1095,10 @@
   </Event>
   <Event>
     <Date>2020-07-17T10:27:24Z</Date>
+    <EventAttribute>
+      <AttributeName>election_result_id</AttributeName>
+      <AttributeValue />
+    </EventAttribute>
     <EventAttribute>
       <AttributeName>bundle_id</AttributeName>
       <AttributeValue>21845802-45b0-4b17-9b42-6c65610a2f97</AttributeValue>

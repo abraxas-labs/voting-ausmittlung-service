@@ -85,40 +85,66 @@ public class ResultRenderServiceAdapter
         Contest contest,
         IReadOnlyCollection<SimplePoliticalBusiness> politicalBusinesses)
     {
-        if (!template.PerDomainOfInfluenceType)
+        if (template.PerDomainOfInfluenceType)
         {
-            foreach (var ctx in BuildCountingCircleResultContexts(template, contest, politicalBusinesses))
+            var pbGroupedByTypeAndDoiType = politicalBusinesses
+                .GroupBy(pb => (pb.BusinessType, pb.DomainOfInfluence.Type))
+                .ToDictionary(x => x.Key, x => x.ToList());
+            foreach (var ((businessType, doiType), politicalBusiness) in pbGroupedByTypeAndDoiType)
             {
-                yield return ctx;
+                if (!template.CanExport(businessType, _mapper.Map<Lib.VotingExports.Models.DomainOfInfluenceType>(doiType)))
+                {
+                    continue;
+                }
+
+                var ccBasisIds = politicalBusiness
+                    .SelectMany(pb => pb.SimpleResults)
+                    .Select(r => r.CountingCircle!.BasisCountingCircleId)
+                    .Distinct();
+                var politicalBusinessIds = politicalBusiness.Select(x => x.Id).ToHashSet();
+                foreach (var ccBasisId in ccBasisIds)
+                {
+                    yield return new ReportRenderContext(contest.Id, template)
+                    {
+                        PoliticalBusinessIds = politicalBusinessIds,
+                        BasisCountingCircleId = ccBasisId,
+                        DomainOfInfluenceType = doiType,
+                    };
+                }
             }
 
             yield break;
         }
 
-        var pbGroupedByTypeAndDoiType = politicalBusinesses
-            .GroupBy(pb => (pb.BusinessType, pb.DomainOfInfluence.Type))
-            .ToDictionary(x => x.Key, x => x.ToList());
-        foreach (var ((businessType, doiType), politicalBusiness) in pbGroupedByTypeAndDoiType)
+        if (template.PerDomainOfInfluence)
         {
-            if (!template.CanExport(businessType, _mapper.Map<Lib.VotingExports.Models.DomainOfInfluenceType>(doiType)))
+            var pbGroupedByTypeAndDoi = politicalBusinesses
+                .GroupBy(pb => (pb.BusinessType, pb.DomainOfInfluence.BasisDomainOfInfluenceId))
+                .ToDictionary(x => x.Key, x => x.ToList());
+            foreach (var ((_, doiId), politicalBusiness) in pbGroupedByTypeAndDoi)
             {
-                continue;
+                var ccBasisIds = politicalBusiness
+                    .SelectMany(pb => pb.SimpleResults)
+                    .Select(r => r.CountingCircle!.BasisCountingCircleId)
+                    .Distinct();
+                var politicalBusinessIds = politicalBusiness.Select(x => x.Id).ToHashSet();
+                foreach (var ccBasisId in ccBasisIds)
+                {
+                    yield return new ReportRenderContext(contest.Id, template)
+                    {
+                        PoliticalBusinessIds = politicalBusinessIds,
+                        BasisCountingCircleId = ccBasisId,
+                        BasisDomainOfInfluenceId = doiId,
+                    };
+                }
             }
 
-            var ccBasisIds = politicalBusiness
-                .SelectMany(pb => pb.SimpleResults)
-                .Select(r => r.CountingCircle!.BasisCountingCircleId)
-                .Distinct();
-            var politicalBusinessIds = politicalBusiness.Select(x => x.Id).ToHashSet();
-            foreach (var ccBasisId in ccBasisIds)
-            {
-                yield return new ReportRenderContext(contest.Id, template)
-                {
-                    PoliticalBusinessIds = politicalBusinessIds,
-                    BasisCountingCircleId = ccBasisId,
-                    DomainOfInfluenceType = doiType,
-                };
-            }
+            yield break;
+        }
+
+        foreach (var ctx in BuildCountingCircleResultContexts(template, contest, politicalBusinesses))
+        {
+            yield return ctx;
         }
     }
 
@@ -127,23 +153,38 @@ public class ResultRenderServiceAdapter
         Contest contest,
         IReadOnlyCollection<SimplePoliticalBusiness> politicalBusinesses)
     {
-        if (!template.PerDomainOfInfluenceType)
+        if (template.PerDomainOfInfluenceType)
         {
-            yield return new ReportRenderContext(contest.Id, template)
+            foreach (var group in politicalBusinesses.GroupBy(x => x.DomainOfInfluence.Type))
             {
-                PoliticalBusinessIds = politicalBusinesses.Select(x => x.Id).ToList(),
-            };
+                yield return new ReportRenderContext(contest.Id, template)
+                {
+                    DomainOfInfluenceType = group.Key,
+                    PoliticalBusinessIds = group.Select(x => x.Id).ToList(),
+                };
+            }
+
             yield break;
         }
 
-        foreach (var group in politicalBusinesses.GroupBy(x => x.DomainOfInfluence.Type))
+        if (template.PerDomainOfInfluence)
         {
-            yield return new ReportRenderContext(contest.Id, template)
+            foreach (var group in politicalBusinesses.GroupBy(x => x.DomainOfInfluence.BasisDomainOfInfluenceId))
             {
-                DomainOfInfluenceType = group.Key,
-                PoliticalBusinessIds = group.Select(x => x.Id).ToList(),
-            };
+                yield return new ReportRenderContext(contest.Id, template)
+                {
+                    BasisDomainOfInfluenceId = group.Key,
+                    PoliticalBusinessIds = group.Select(x => x.Id).ToList(),
+                };
+            }
+
+            yield break;
         }
+
+        yield return new ReportRenderContext(contest.Id, template)
+        {
+            PoliticalBusinessIds = politicalBusinesses.Select(x => x.Id).ToList(),
+        };
     }
 
     private IEnumerable<ReportRenderContext> BuildPoliticalBusinessResultContexts(
@@ -230,6 +271,11 @@ public class ResultRenderServiceAdapter
         if (renderContext.Template.PerDomainOfInfluenceType && renderContext.DomainOfInfluenceType == DomainOfInfluenceType.Unspecified)
         {
             throw new ValidationException("Cannot render a domain of influence type report without specifying the domain of influence type");
+        }
+
+        if (renderContext.Template.PerDomainOfInfluence && !renderContext.BasisDomainOfInfluenceId.HasValue)
+        {
+            throw new ValidationException("Cannot render a domain of influence report without specifying the domain of influence");
         }
 
         if (!renderContext.PoliticalBusinessResultBundleId.HasValue

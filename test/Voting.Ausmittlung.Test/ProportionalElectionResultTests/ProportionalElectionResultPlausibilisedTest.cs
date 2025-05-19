@@ -12,7 +12,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -130,7 +129,6 @@ public class ProportionalElectionResultPlausibilisedTest : ProportionalElectionR
     public async Task TestProcessor()
     {
         await RunToState(CountingCircleResultState.AuditedTentatively);
-        var eventInfo = GetMockedEventInfo();
 
         await MonitoringElectionAdminClient.PlausibiliseAsync(NewValidRequest());
         await RunEvents<ProportionalElectionResultPlausibilised>();
@@ -138,9 +136,7 @@ public class ProportionalElectionResultPlausibilisedTest : ProportionalElectionR
         await AssertCurrentState(CountingCircleResultState.Plausibilised);
 
         var id = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
-        await AssertHasPublishedMessage<ResultStateChanged>(x =>
-            x.Id == id
-            && x.NewState == CountingCircleResultState.Plausibilised);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultPlausibilised.Descriptor, id);
 
         var resultEntity = await RunOnDb(db => db.ProportionalElectionResults.SingleAsync(x => x.Id == id));
         resultEntity.PlausibilisedTimestamp.Should().NotBeNull();

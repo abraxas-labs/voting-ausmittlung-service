@@ -175,17 +175,7 @@ public class ProportionalElectionEndResultReader
                     CountOfVoters = g.Sum(x => x.CountOfVoters),
                 })
                 .ToList(),
-            CountOfVoters = new PoliticalBusinessCountOfVoters
-            {
-                ConventionalAccountedBallots = results.Sum(r => r.CountOfVoters.ConventionalAccountedBallots ?? 0),
-                ConventionalBlankBallots = results.Sum(r => r.CountOfVoters.ConventionalBlankBallots ?? 0),
-                ConventionalInvalidBallots = results.Sum(r => r.CountOfVoters.ConventionalInvalidBallots ?? 0),
-                ConventionalReceivedBallots = results.Sum(r => r.CountOfVoters.ConventionalReceivedBallots ?? 0),
-                EVotingAccountedBallots = results.Sum(r => r.CountOfVoters.EVotingAccountedBallots),
-                EVotingBlankBallots = results.Sum(r => r.CountOfVoters.EVotingBlankBallots),
-                EVotingInvalidBallots = results.Sum(r => r.CountOfVoters.EVotingInvalidBallots),
-                EVotingReceivedBallots = results.Sum(r => r.CountOfVoters.EVotingReceivedBallots),
-            },
+            CountOfVoters = PoliticalBusinessCountOfVoters.CreateSum(results.Select(x => x.CountOfVoters.MapToNonNullableSubTotal())),
             ConventionalSubTotal = new ProportionalElectionResultSubTotal
             {
                 TotalCountOfModifiedLists = results.Sum(r => r.ConventionalSubTotal.TotalCountOfModifiedLists),

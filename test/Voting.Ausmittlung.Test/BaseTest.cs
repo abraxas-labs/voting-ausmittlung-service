@@ -7,8 +7,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
+using Abraxas.Voting.Ausmittlung.Events.V1.Metadata;
 using FluentAssertions;
 using Google.Protobuf;
+using Google.Protobuf.Reflection;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MassTransit;
@@ -17,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Core.Extensions;
+using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.EventSignature;
@@ -26,6 +29,7 @@ using Voting.Lib.Cryptography.Asymmetric;
 using Voting.Lib.Database.Models;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Eventing.Testing.Mocks;
+using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Iam.Store;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
@@ -118,7 +122,7 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         {
             try
             {
-                await AuthorizationTestCall(CreateGrpcChannel(role == NoRole ? Array.Empty<string>() : new[] { role }));
+                await AuthorizationTestCall(CreateGrpcChannel(role == NoRole ? [] : [role]));
             }
             catch (Exception ex)
             {
@@ -136,6 +140,18 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
             .Append(NoRole)
             .Except(AuthorizedRoles());
     }
+
+    protected async Task AssertHasPublishedEventProcessedMessage(MessageDescriptor eventDescriptor, Guid entityId)
+    {
+        await AssertHasPublishedMessage<EventProcessedMessage>(
+            x => eventDescriptor.FullName == x.EventType && x.EntityId == entityId);
+    }
+
+    protected async Task<IList<EventProcessedMessage>> GetPublishedEventMessages()
+        => await MessagingTestHarness.Published
+            .SelectAsync<EventProcessedMessage>()
+            .Select(x => x.Context.Message)
+            .ToListAsync();
 
     protected async Task AssertHasPublishedMessage<T>(Func<T, bool> predicate, bool hasMessage = true)
         where T : class
@@ -185,7 +201,7 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
         });
     }
 
-    protected Task SetContestState(string id, Data.Models.ContestState state)
+    protected Task SetContestState(string id, ContestState state)
         => ModifyDbEntities<Contest>(c => c.Id == Guid.Parse(id), c => c.State = state);
 
     protected async Task TestEventWithSignature(
@@ -304,7 +320,8 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
             "mock-token",
             "fake",
             tenantId,
-            roles);
+            roles,
+            GetService<IPermissionProvider>().GetPermissionsForRoles(roles));
     }
 
     protected TService CreateServiceWithTenant(string tenantId, params string[] roles)
@@ -330,7 +347,7 @@ public abstract class BaseTest<TService> : GrpcAuthorizationBaseTest<TestApplica
 
     private void EnsureEventSignatureMetadataCorrectlyCreated(EventWithMetadata ev, string contestId, string keyId)
     {
-        var eventSignatureMetadata = ev.Metadata as Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
+        var eventSignatureMetadata = ev.Metadata as EventSignatureBusinessMetadata;
         eventSignatureMetadata.Should().NotBeNull();
 
         eventSignatureMetadata!.ContestId.Should().Be(contestId);

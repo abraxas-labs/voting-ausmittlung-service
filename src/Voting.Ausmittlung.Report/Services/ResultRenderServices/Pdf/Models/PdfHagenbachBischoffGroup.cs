@@ -1,7 +1,6 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
@@ -20,11 +19,13 @@ public class PdfHagenbachBischoffGroup : PdfHagenbachBischoffSimpleGroup
     /// </summary>
     public int NumberOfMandates { get; set; }
 
-    // setter is needed due to xml serializer limitation
     public int NumberOfMandatesPlusOne
     {
         get => NumberOfMandates + 1;
-        set => throw new InvalidOperationException("readonly property");
+        set
+        {
+            // only needed due to xml serializer
+        }
     }
 
     /// <summary>
@@ -50,6 +51,9 @@ public class PdfHagenbachBischoffGroup : PdfHagenbachBischoffSimpleGroup
         get => InitialDistributionValues.Count > 0
             ? InitialDistributionValues.Sum(x => x.NumberOfMandates)
             : 0;
-        set => throw new InvalidOperationException("readonly property");
+        set
+        {
+            // only needed due to xml serializer
+        }
     }
 }

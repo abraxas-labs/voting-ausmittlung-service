@@ -12,7 +12,7 @@
       {
         "ProportionalElectionListId": "6eedf849-0ecc-4a02-a43b-99ef4b11d795",
         "ShortDescription": "Liste 1 it",
-        "Description": "",
+        "Description": "Liste 1 it",
         "Language": "it",
         "Id": "00000000-0000-0000-0000-000000000000"
       }
@@ -33,7 +33,7 @@
     "ListLotDecisionEntries": [],
     "ProportionalElectionListUnion": null,
     "ProportionalElectionSubListUnion": null,
-    "Description": "",
+    "Description": "Liste 1 it",
     "ShortDescription": "Liste 1 it",
     "Id": "6eedf849-0ecc-4a02-a43b-99ef4b11d795"
   },
@@ -69,5 +69,8 @@
   "Position": 1,
   "Origin": "origin",
   "CheckDigit": 6,
+  "Street": "street",
+  "HouseNumber": "1a",
+  "Country": "CH",
   "Id": "9e131f21-4483-4375-b014-484c272615ee"
 }

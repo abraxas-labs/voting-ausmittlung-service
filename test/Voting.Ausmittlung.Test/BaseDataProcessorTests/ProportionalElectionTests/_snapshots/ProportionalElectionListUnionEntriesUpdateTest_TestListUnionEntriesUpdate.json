@@ -28,7 +28,7 @@
           {
             "ProportionalElectionListId": "9091a3b6-3785-4adc-a486-f486e686503e",
             "ShortDescription": "Liste 1 de",
-            "Description": "",
+            "Description": "Liste 1 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -48,7 +48,7 @@
         "DoubleProportionalResultColumn": null,
         "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 1 de",
         "ShortDescription": "Liste 1 de",
         "Id": "9091a3b6-3785-4adc-a486-f486e686503e"
       },
@@ -67,7 +67,7 @@
           {
             "ProportionalElectionListId": "afebb285-599d-415f-89ac-04ebcbc4eaeb",
             "ShortDescription": "Liste 3 de",
-            "Description": "",
+            "Description": "Liste 3 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -87,7 +87,7 @@
         "DoubleProportionalResultColumn": null,
         "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 3 de",
         "ShortDescription": "Liste 3 de",
         "Id": "afebb285-599d-415f-89ac-04ebcbc4eaeb"
       },
@@ -106,7 +106,7 @@
           {
             "ProportionalElectionListId": "bfe54c2a-6bdf-41a3-bf11-321203c380d3",
             "ShortDescription": "Liste 2 de",
-            "Description": "",
+            "Description": "Liste 2 de",
             "Language": "de",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -126,7 +126,7 @@
         "DoubleProportionalResultColumn": null,
         "ListLotDecisionEntries": [],
         "ProportionalElectionSubListUnion": null,
-        "Description": "",
+        "Description": "Liste 2 de",
         "ShortDescription": "Liste 2 de",
         "Id": "bfe54c2a-6bdf-41a3-bf11-321203c380d3"
       },

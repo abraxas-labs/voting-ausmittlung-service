@@ -3,42 +3,74 @@
     {
       "ExportTemplateId": "e569d8de-1a42-57c3-bc91-bf2341249dd9",
       "Description": "Anzahl Sitze pro Liste und Wahlkreis",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_end_result_number_of_mandates_double_proportional"
     },
     {
       "ExportTemplateId": "9fd2c686-5e17-58be-a860-2ff09a553c54",
       "Description": "Gesamtergebnis der Sitzeverteilung",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_end_result_calculation_double_proportional"
     },
     {
       "ExportTemplateId": "da8f513a-dcd8-507b-8b07-76a4615b8722",
       "Description": "Oberzuteilung der Sitze an die Listengruppen",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_end_result_super_apportionment_double_proportional"
     },
     {
       "ExportTemplateId": "1935adf4-901c-581c-bfbd-4b88e61f7b75",
       "Description": "Parteistimmen",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_party_votes"
     },
     {
       "ExportTemplateId": "aded5fb6-9342-5ebe-b0b1-ce649f74d474",
       "Description": "Sitzverteilung",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_party_mandates"
     },
     {
       "ExportTemplateId": "01e3aa72-d571-5fbf-bc41-c239e64bfda8",
       "Description": "Stimmenquorum der Listengruppen",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_end_result_quorum_union_list_double_proportional"
     },
     {
       "ExportTemplateId": "20c8f145-8a1b-5c21-a24a-5dc3a67342de",
       "Description": "Unterzuteilung der Sitze an die Listen",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_end_result_sub_apportionment_double_proportional"
     },
     {
       "ExportTemplateId": "9ed263dc-d9ad-52ce-ac08-bc8795b39a45",
       "Description": "Wahlbeteiligung",
-      "EntityDescription": "Ktratswahl"
+      "EntityDescription": "Ktratswahl",
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_union_voter_participation"
     }
   ]
 }

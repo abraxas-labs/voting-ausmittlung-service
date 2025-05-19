@@ -12,7 +12,6 @@ using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Voting.Ausmittlung.Core.Auth;
-using Voting.Ausmittlung.Core.Messaging.Messages;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -162,8 +161,6 @@ public class ProportionalElectionResultBundleSubmissionFinishedTest : Proportion
     [Fact]
     public async Task TestProcessor()
     {
-        var resultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
-        var bundle2Id = Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle2);
         for (var i = 0; i < 5; i++)
         {
             await CreateBallot();
@@ -209,8 +206,8 @@ public class ProportionalElectionResultBundleSubmissionFinishedTest : Proportion
         await ShouldHaveCandidateResults(false);
         await ShouldHaveListResults(false);
 
-        await AssertHasPublishedMessage<ProportionalElectionBundleChanged>(
-            x => x.Id == bundle2Id && x.ElectionResultId == resultId);
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleSubmissionFinished.Descriptor, Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle1));
+        await AssertHasPublishedEventProcessedMessage(ProportionalElectionResultBundleSubmissionFinished.Descriptor, Guid.Parse(ProportionalElectionResultBundleMockedData.IdGossauBundle2));
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

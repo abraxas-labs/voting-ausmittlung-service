@@ -3,7 +3,7 @@
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class BallotQuestionResultNullableSubTotal : IBallotQuestionResultTotal<int?>, INullableSubTotal<BallotQuestionResultSubTotal>
+public class BallotQuestionResultNullableSubTotal : IBallotQuestionResultTotal<int?>, INullableSubTotal<BallotQuestionResultSubTotal>, ISummableSubTotal<BallotQuestionResultSubTotal>
 {
     /// <summary>
     /// Gets or sets the total count of the answer yes.
@@ -37,5 +37,13 @@ public class BallotQuestionResultNullableSubTotal : IBallotQuestionResultTotal<i
         TotalCountOfAnswerYes ??= 0;
         TotalCountOfAnswerNo ??= 0;
         TotalCountOfAnswerUnspecified ??= 0;
+    }
+
+    public void Add(BallotQuestionResultSubTotal other, int deltaFactor = 1)
+    {
+        ReplaceNullValuesWithZero();
+        TotalCountOfAnswerYes += other.TotalCountOfAnswerYes * deltaFactor;
+        TotalCountOfAnswerNo += other.TotalCountOfAnswerNo * deltaFactor;
+        TotalCountOfAnswerUnspecified += other.TotalCountOfAnswerUnspecified * deltaFactor;
     }
 }

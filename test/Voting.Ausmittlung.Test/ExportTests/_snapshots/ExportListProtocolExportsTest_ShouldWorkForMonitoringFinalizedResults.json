@@ -15,22 +15,43 @@
   "CountingCircle": null,
   "ProtocolExports": [
     {
+      "ExportTemplateId": "363e85c5-e899-5de8-9246-401b6fd39adf",
+      "Description": "Abstimmung Gossau: Gesamtergebnisse",
+      "EntityDescription": "Abst Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "vote_overall_result"
+    },
+    {
       "ExportTemplateId": "830acad7-e3d9-59fc-8ee3-17b24fc7f16e",
       "Description": "Abstimmung kantonal: Detailergebnisse",
       "EntityDescription": "Abst SG de",
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_domain_of_influence_overall_end_result"
     },
     {
-      "ExportTemplateId": "29f862f7-a490-506c-b506-095fe9e59337",
-      "Description": "Abstimmung kantonal: Gesamtergebnisse",
+      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
+      "Description": "Abstimmung St. Gallen: Gesamtergebnisse",
       "EntityDescription": "Abst SG de",
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_overall_result"
     },
     {
       "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
@@ -39,7 +60,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_result_e_voting_only"
     },
     {
       "ExportTemplateId": "a4718007-f178-5e2a-b19f-4955bfb57151",
@@ -48,7 +73,50 @@
       "ProtocolExportId": "e4d8ac4c-f52d-55ff-8d93-754e0d6cf096",
       "State": 2,
       "FileName": "monitoring-mock-file.pdf",
-      "Started": "2020-11-05T05:00:00Z"
+      "Started": "2020-11-05T05:00:00Z",
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
+      ],
+      "TemplateKey": "vote_result_details_e_voting"
+    },
+    {
+      "ExportTemplateId": "7910e214-8b3c-5a34-ae41-689fe342b320",
+      "Description": "Abstimmung Uzwil: Gesamtergebnisse",
+      "EntityDescription": "Abst Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da65e354-f668-4ae4-b3ef-c1a74764e99d"
+      ],
+      "TemplateKey": "vote_overall_result"
+    },
+    {
+      "ExportTemplateId": "985b0e72-e838-5de7-a21b-65fe79b2699a",
+      "Description": "Majorz kommunal: Wahlprotokoll",
+      "EntityDescription": "Mw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "majority_election_end_result_protocol"
+    },
+    {
+      "ExportTemplateId": "3d089f30-f1af-5d22-a63c-68cfd60effad",
+      "Description": "Majorz kommunal: Wahlprotokoll E-Voting",
+      "EntityDescription": "Mw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "50415df8-6ee9-4eb4-9e31-68c0d3021e76"
+      ],
+      "TemplateKey": "majority_election_end_result_e_voting_protocol"
     },
     {
       "ExportTemplateId": "847b6053-917c-53a9-9e3d-9806a94cb90d",
@@ -57,7 +125,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_end_result_detail_protocol"
     },
     {
       "ExportTemplateId": "a9c5d24c-86cf-59bb-85aa-b53f9289b9e8",
@@ -66,7 +138,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_end_result_protocol"
     },
     {
       "ExportTemplateId": "c57ccfa3-e5e8-555b-bca8-473ad9797c73",
@@ -75,7 +151,37 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "cd464c26-24d4-4cfc-95d9-e7c930b1784e"
+      ],
+      "TemplateKey": "majority_election_end_result_e_voting_protocol"
+    },
+    {
+      "ExportTemplateId": "beabf52d-e586-5353-aff8-1a5163fc6d8f",
+      "Description": "Majorz kommunal: Wahlprotokoll",
+      "EntityDescription": "Mw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85"
+      ],
+      "TemplateKey": "majority_election_end_result_protocol"
+    },
+    {
+      "ExportTemplateId": "b3a57a96-e03f-5b74-9ede-eaf31a0c8d46",
+      "Description": "Majorz kommunal: Wahlprotokoll E-Voting",
+      "EntityDescription": "Mw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "d66ced3e-a2e4-4178-932b-ac91ee6a9d85"
+      ],
+      "TemplateKey": "majority_election_end_result_e_voting_protocol"
     },
     {
       "ExportTemplateId": "8fa29e4c-cbf7-592a-9128-ac132ddf0081",
@@ -84,7 +190,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_end_result_detail_protocol"
     },
     {
       "ExportTemplateId": "51ee9f39-8507-5ebc-b566-545c8765fbfa",
@@ -93,7 +203,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_end_result_protocol"
     },
     {
       "ExportTemplateId": "c1160dda-c3ff-54a0-8161-2cb9871511d9",
@@ -102,7 +216,115 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "e966bec6-f1d4-4c07-8094-6f7df4cc515a"
+      ],
+      "TemplateKey": "majority_election_end_result_e_voting_protocol"
+    },
+    {
+      "ExportTemplateId": "28abb6a9-8e13-5c4e-9a48-d22513d2f985",
+      "Description": "Proporz kommunal: 5 - Wahlprotokoll",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions"
+    },
+    {
+      "ExportTemplateId": "5227473a-dfd4-5760-b530-f3875528ffa5",
+      "Description": "Proporz kommunal: 5 - Wahlprotokoll E-Voting",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions_e_voting"
+    },
+    {
+      "ExportTemplateId": "3637aca8-7b27-5c1d-8575-70bea784f23b",
+      "Description": "Proporz kommunal: 5a - Sitzverteilung",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_end_result_calculation"
+    },
+    {
+      "ExportTemplateId": "1b0b47b1-2a12-5f53-a908-0a57161f1cfa",
+      "Description": "Proporz kommunal: 5b - Kandidierenden- und Parteiergebnisse",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results"
+    },
+    {
+      "ExportTemplateId": "79a05451-99f8-5ef9-ab64-79dd44bb2fd4",
+      "Description": "Proporz kommunal: 5b - Kandidierenden- und Parteiergebnisse E-Voting",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results_e_voting"
+    },
+    {
+      "ExportTemplateId": "795c5dda-daa4-548b-af4c-3e23a865f12e",
+      "Description": "Proporz kommunal: B - Kandidierendenstimmen",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_votes_end_results"
+    },
+    {
+      "ExportTemplateId": "a3509fb8-da75-5c33-af95-a8cc35e88afa",
+      "Description": "Proporz kommunal: C - Listenergebnisse",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_list_votes_end_results"
+    },
+    {
+      "ExportTemplateId": "da18b385-ed3c-5b79-97b8-36ac15e5ded8",
+      "Description": "Proporz kommunal: D - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw Gossau de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "fa69e964-0a02-4d16-b417-247e8987021a"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_vote_sources_end_results"
     },
     {
       "ExportTemplateId": "1c1dab0f-60f6-5930-bb66-f423a25a602d",
@@ -111,7 +333,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions"
     },
     {
       "ExportTemplateId": "f96272d4-5bd4-5898-90eb-b1c9fe2b75fe",
@@ -120,7 +346,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions_e_voting"
     },
     {
       "ExportTemplateId": "174031a5-deea-5560-86d7-c6a3adc16199",
@@ -129,7 +359,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_end_result_calculation"
     },
     {
       "ExportTemplateId": "f06672c8-ba06-5531-8861-2452a9984552",
@@ -138,7 +372,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results"
     },
     {
       "ExportTemplateId": "5321c0f7-0774-5a25-8fb8-2c76f7a53950",
@@ -147,7 +385,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results_e_voting"
     },
     {
       "ExportTemplateId": "4f19c3b6-9584-54a8-9ff8-2096d202c5e7",
@@ -156,7 +398,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_votes_end_results"
     },
     {
       "ExportTemplateId": "c5c3987e-b5f1-5f23-b8e5-37b904e09715",
@@ -165,7 +411,11 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_votes_end_results"
     },
     {
       "ExportTemplateId": "47eda491-23aa-5246-be3c-207f587e66fa",
@@ -174,7 +424,154 @@
       "ProtocolExportId": null,
       "State": 0,
       "FileName": "",
-      "Started": null
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "8fd00ee5-cc68-4b33-86b0-cc9c58dc1b1f"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_vote_sources_end_results"
+    },
+    {
+      "ExportTemplateId": "c05e9920-c77c-5ff0-bf29-6e86f8fc4a86",
+      "Description": "Proporz kommunal: 5 - Wahlprotokoll",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions"
+    },
+    {
+      "ExportTemplateId": "e86534cb-f997-5a7f-b9e0-a973391491aa",
+      "Description": "Proporz kommunal: 5 - Wahlprotokoll E-Voting",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_end_result_list_unions_e_voting"
+    },
+    {
+      "ExportTemplateId": "f6d1e2b8-cccb-5098-b4f3-570e06c2de70",
+      "Description": "Proporz kommunal: 5a - Sitzverteilung",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_end_result_calculation"
+    },
+    {
+      "ExportTemplateId": "b8701c99-c5b1-5bd4-a6de-d2196c6f6079",
+      "Description": "Proporz kommunal: 5b - Kandidierenden- und Parteiergebnisse",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results"
+    },
+    {
+      "ExportTemplateId": "6260009d-bd2e-5968-87b5-b7e752ab1ca3",
+      "Description": "Proporz kommunal: 5b - Kandidierenden- und Parteiergebnisse E-Voting",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_end_results_e_voting"
+    },
+    {
+      "ExportTemplateId": "3c25a7fe-d70d-5a24-8a26-d8943c6699fc",
+      "Description": "Proporz kommunal: B - Kandidierendenstimmen",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_votes_end_results"
+    },
+    {
+      "ExportTemplateId": "2f3175a7-483a-5c12-b476-6aa3a767a872",
+      "Description": "Proporz kommunal: C - Listenergebnisse",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_list_votes_end_results"
+    },
+    {
+      "ExportTemplateId": "1b28bddf-3916-57a6-81c3-6729f4c6918c",
+      "Description": "Proporz kommunal: D - Stimmenherkunft inkl. KumPan",
+      "EntityDescription": "Pw Uzwil de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "da091f50-9f11-4deb-9621-948fbfbdc322"
+      ],
+      "TemplateKey": "proportional_election_list_candidate_vote_sources_end_results"
+    },
+    {
+      "ExportTemplateId": "cd787436-9b1f-55ae-bed5-5c0623acee73",
+      "Description": "Nebenwahl kommunal: Detailergebnisse",
+      "EntityDescription": "short de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "5ec8cf85-229a-4dc7-a601-1bb6980fee78"
+      ],
+      "TemplateKey": "secondary_majority_election_end_result_detail_protocol"
+    },
+    {
+      "ExportTemplateId": "006e57aa-2ddb-50ed-94bb-6d367e7276ef",
+      "Description": "Nebenwahl kommunal: Detailergebnisse_exkl",
+      "EntityDescription": "short de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "5ec8cf85-229a-4dc7-a601-1bb6980fee78"
+      ],
+      "TemplateKey": "secondary_majority_election_end_result_detail_without_empty_and_invalid_votes_protocol"
+    },
+    {
+      "ExportTemplateId": "7998f853-4374-5628-ab59-f1ece5417966",
+      "Description": "Nebenwahl kommunal: Wahlprotokoll",
+      "EntityDescription": "short de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "5ec8cf85-229a-4dc7-a601-1bb6980fee78"
+      ],
+      "TemplateKey": "secondary_majority_election_end_result_protocol"
     }
   ]
 }

@@ -5,29 +5,21 @@ using System;
 
 namespace Voting.Ausmittlung.Data.Models;
 
-public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<PoliticalBusinessCountOfVoters>
+public class PoliticalBusinessNullableCountOfVoters :
+    INullableSubTotal<PoliticalBusinessCountOfVoters>,
+    IHasSubTotals<PoliticalBusinessCountOfVotersSubTotal, PoliticalBusinessCountOfVotersNullableSubTotal>
 {
     public decimal VoterParticipation { get; set; }
 
-    public int EVotingReceivedBallots { get; set; }
+    public PoliticalBusinessCountOfVotersSubTotal EVotingSubTotal { get; set; } = new();
 
-    public int EVotingInvalidBallots { get; set; }
+    public PoliticalBusinessCountOfVotersSubTotal ECountingSubTotal { get; set; } = new();
 
-    public int EVotingBlankBallots { get; set; }
-
-    public int EVotingAccountedBallots { get; set; }
-
-    public int? ConventionalReceivedBallots { get; set; }
-
-    public int? ConventionalInvalidBallots { get; set; }
-
-    public int? ConventionalBlankBallots { get; set; }
-
-    public int? ConventionalAccountedBallots { get; set; }
+    public PoliticalBusinessCountOfVotersNullableSubTotal ConventionalSubTotal { get; set; } = new();
 
     public int TotalReceivedBallots
     {
-        get => ConventionalReceivedBallots.GetValueOrDefault() + EVotingReceivedBallots;
+        get => ConventionalSubTotal.ReceivedBallots.GetValueOrDefault() + EVotingSubTotal.ReceivedBallots + ECountingSubTotal.ReceivedBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -36,7 +28,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalAccountedBallots
     {
-        get => ConventionalAccountedBallots.GetValueOrDefault() + EVotingAccountedBallots;
+        get => ConventionalSubTotal.AccountedBallots.GetValueOrDefault() + EVotingSubTotal.AccountedBallots + ECountingSubTotal.AccountedBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -45,10 +37,12 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalUnaccountedBallots
     {
-        get => ConventionalBlankBallots.GetValueOrDefault()
-            + ConventionalInvalidBallots.GetValueOrDefault()
-            + EVotingBlankBallots
-            + EVotingInvalidBallots;
+        get => ConventionalSubTotal.BlankBallots.GetValueOrDefault()
+            + ConventionalSubTotal.InvalidBallots.GetValueOrDefault()
+            + EVotingSubTotal.BlankBallots
+            + EVotingSubTotal.InvalidBallots
+            + ECountingSubTotal.BlankBallots
+            + ECountingSubTotal.InvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -57,7 +51,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalInvalidBallots
     {
-        get => ConventionalInvalidBallots.GetValueOrDefault() + EVotingInvalidBallots;
+        get => ConventionalSubTotal.InvalidBallots.GetValueOrDefault() + EVotingSubTotal.InvalidBallots + ECountingSubTotal.InvalidBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -66,7 +60,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public int TotalBlankBallots
     {
-        get => ConventionalBlankBallots.GetValueOrDefault() + EVotingBlankBallots;
+        get => ConventionalSubTotal.BlankBallots.GetValueOrDefault() + EVotingSubTotal.BlankBallots + ECountingSubTotal.BlankBallots;
         private set
         {
             // empty setter to store the value in the database...
@@ -88,22 +82,7 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
 
     public void ResetSubTotal(VotingDataSource dataSource, int totalCountOfVoters)
     {
-        switch (dataSource)
-        {
-            case VotingDataSource.Conventional:
-                ConventionalAccountedBallots = 0;
-                ConventionalBlankBallots = 0;
-                ConventionalInvalidBallots = 0;
-                ConventionalReceivedBallots = 0;
-                break;
-            case VotingDataSource.EVoting:
-                EVotingReceivedBallots = 0;
-                EVotingInvalidBallots = 0;
-                EVotingBlankBallots = 0;
-                EVotingAccountedBallots = 0;
-                break;
-        }
-
+        this.ResetSubTotal(dataSource);
         UpdateVoterParticipation(totalCountOfVoters);
     }
 
@@ -112,22 +91,11 @@ public class PoliticalBusinessNullableCountOfVoters : INullableSubTotal<Politica
         return new PoliticalBusinessCountOfVoters
         {
             VoterParticipation = VoterParticipation,
-            ConventionalAccountedBallots = ConventionalAccountedBallots.GetValueOrDefault(),
-            ConventionalBlankBallots = ConventionalBlankBallots.GetValueOrDefault(),
-            ConventionalInvalidBallots = ConventionalInvalidBallots.GetValueOrDefault(),
-            ConventionalReceivedBallots = ConventionalReceivedBallots.GetValueOrDefault(),
-            EVotingReceivedBallots = EVotingReceivedBallots,
-            EVotingInvalidBallots = EVotingInvalidBallots,
-            EVotingBlankBallots = EVotingBlankBallots,
-            EVotingAccountedBallots = EVotingAccountedBallots,
+            ConventionalSubTotal = ConventionalSubTotal.MapToNonNullableSubTotal(),
+            ECountingSubTotal = ECountingSubTotal,
+            EVotingSubTotal = EVotingSubTotal,
         };
     }
 
-    public void ReplaceNullValuesWithZero()
-    {
-        ConventionalAccountedBallots ??= 0;
-        ConventionalBlankBallots ??= 0;
-        ConventionalInvalidBallots ??= 0;
-        ConventionalReceivedBallots ??= 0;
-    }
+    public void ReplaceNullValuesWithZero() => ConventionalSubTotal.ReplaceNullValuesWithZero();
 }

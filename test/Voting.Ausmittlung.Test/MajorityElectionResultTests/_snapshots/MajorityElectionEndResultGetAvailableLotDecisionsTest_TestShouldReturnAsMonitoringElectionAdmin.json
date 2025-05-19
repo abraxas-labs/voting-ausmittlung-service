@@ -166,7 +166,7 @@
           },
           "SelectedRank": null,
           "VoteCount": 600,
-          "LotDecisionRequired": true,
+          "LotDecisionRequired": false,
           "SelectableRanks": [
             2,
             3
@@ -188,7 +188,7 @@
           },
           "SelectedRank": null,
           "VoteCount": 600,
-          "LotDecisionRequired": true,
+          "LotDecisionRequired": false,
           "SelectableRanks": [
             2,
             3

@@ -1,5 +1,6 @@
 <Voting>
   <TemplateKey>vote_result_e_voting_only</TemplateKey>
+  <GeneratedAt>2020-01-10T14:12:10.2</GeneratedAt>
   <Contest>
     <Date>2029-02-12T00:00:00Z</Date>
     <Description>Nationalratswahlen in der Zukunft de</Description>
@@ -46,7 +47,7 @@
       </Ballot>
       <VoteDomainOfInfluenceResult>
         <CountOfVoters>
-          <VoterParticipation>0.006312</VoterParticipation>
+          <VoterParticipation>0.0063</VoterParticipation>
           <TotalReceivedBallots>120</TotalReceivedBallots>
           <TotalUnaccountedBallots>30</TotalUnaccountedBallots>
           <EVotingReceivedBallots>120</EVotingReceivedBallots>
@@ -99,7 +100,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>40</TotalReceivedBallots>
             <TotalUnaccountedBallots>10</TotalUnaccountedBallots>
             <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -176,7 +177,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>20</TotalReceivedBallots>
             <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
             <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -253,7 +254,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>60</TotalReceivedBallots>
             <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
             <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -403,7 +404,7 @@
       </Ballot>
       <VoteDomainOfInfluenceResult>
         <CountOfVoters>
-          <VoterParticipation>0.532351</VoterParticipation>
+          <VoterParticipation>0.5324</VoterParticipation>
           <TotalReceivedBallots>10120</TotalReceivedBallots>
           <TotalUnaccountedBallots>5030</TotalUnaccountedBallots>
           <EVotingReceivedBallots>120</EVotingReceivedBallots>
@@ -456,7 +457,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>100.400000</VoterParticipation>
+            <VoterParticipation>100.4000</VoterParticipation>
             <TotalReceivedBallots>10040</TotalReceivedBallots>
             <TotalUnaccountedBallots>5010</TotalUnaccountedBallots>
             <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -686,7 +687,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>20</TotalReceivedBallots>
             <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
             <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -916,7 +917,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>60</TotalReceivedBallots>
             <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
             <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -1326,7 +1327,7 @@
       </Ballot>
       <VoteDomainOfInfluenceResult>
         <CountOfVoters>
-          <VoterParticipation>0.174329</VoterParticipation>
+          <VoterParticipation>0.1743</VoterParticipation>
           <TotalReceivedBallots>3314</TotalReceivedBallots>
           <TotalUnaccountedBallots>1530</TotalUnaccountedBallots>
           <EVotingReceivedBallots>120</EVotingReceivedBallots>
@@ -1379,7 +1380,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>32.340000</VoterParticipation>
+            <VoterParticipation>32.3400</VoterParticipation>
             <TotalReceivedBallots>3234</TotalReceivedBallots>
             <TotalUnaccountedBallots>1510</TotalUnaccountedBallots>
             <EVotingReceivedBallots>40</EVotingReceivedBallots>
@@ -1456,7 +1457,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>20</TotalReceivedBallots>
             <TotalUnaccountedBallots>5</TotalUnaccountedBallots>
             <EVotingReceivedBallots>20</EVotingReceivedBallots>
@@ -1533,7 +1534,7 @@
           <State>Unspecified</State>
           <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
           <CountOfVoters>
-            <VoterParticipation>0.400000</VoterParticipation>
+            <VoterParticipation>0.4000</VoterParticipation>
             <TotalReceivedBallots>60</TotalReceivedBallots>
             <TotalUnaccountedBallots>15</TotalUnaccountedBallots>
             <EVotingReceivedBallots>60</EVotingReceivedBallots>

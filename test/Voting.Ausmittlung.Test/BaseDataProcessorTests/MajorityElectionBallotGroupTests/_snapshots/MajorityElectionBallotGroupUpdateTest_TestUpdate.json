@@ -2,7 +2,7 @@
   "ShortDescription": "short - long",
   "Description": "test new",
   "Position": 1,
-  "AllCandidateCountsOk": false,
+  "AllCandidateCountsOk": true,
   "MajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
   "MajorityElection": null,
   "Entries": [
@@ -19,7 +19,7 @@
       "Id": "09ecea4c-5483-483b-90e6-a86165277c99"
     },
     {
-      "BlankRowCount": 1,
+      "BlankRowCount": 0,
       "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
       "PrimaryMajorityElectionId": "b0da46f8-a721-4e1a-ac36-25284d68f34b",
       "PrimaryMajorityElection": null,
@@ -43,7 +43,7 @@
       "Id": "79c71f2e-7e8b-4b57-8e64-de65a90f454e"
     },
     {
-      "BlankRowCount": 1,
+      "BlankRowCount": 2,
       "BallotGroupId": "7a32239e-1cd1-4deb-9ecb-f5f2aa2f9949",
       "PrimaryMajorityElectionId": null,
       "PrimaryMajorityElection": null,

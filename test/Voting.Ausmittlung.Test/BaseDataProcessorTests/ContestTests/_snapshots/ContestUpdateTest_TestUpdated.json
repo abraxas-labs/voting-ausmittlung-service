@@ -6,6 +6,8 @@
       "State": 1,
       "DomainOfInfluenceId": "00000000-0000-0000-0000-000000000000",
       "DomainOfInfluence": null,
+      "NumberOfCountingCirclesWithECountingImported": 0,
+      "ECountingResultsImported": false,
       "EVotingResultsImported": true,
       "EVoting": false,
       "EVotingFrom": null,

@@ -38,22 +38,24 @@ public class ProportionalElectionResult : ElectionResult,
 
     public ProportionalElectionResultSubTotal EVotingSubTotal { get; set; } = new();
 
+    public ProportionalElectionResultSubTotal ECountingSubTotal { get; set; } = new();
+
     public ProportionalElectionResultSubTotal ConventionalSubTotal { get; set; } = new();
 
     /// <inheritdoc />
-    public int TotalCountOfUnmodifiedLists => EVotingSubTotal.TotalCountOfUnmodifiedLists + ConventionalSubTotal.TotalCountOfUnmodifiedLists;
+    public int TotalCountOfUnmodifiedLists => EVotingSubTotal.TotalCountOfUnmodifiedLists + ECountingSubTotal.TotalCountOfUnmodifiedLists + ConventionalSubTotal.TotalCountOfUnmodifiedLists;
 
     /// <inheritdoc />
-    public int TotalCountOfModifiedLists => EVotingSubTotal.TotalCountOfModifiedLists + ConventionalSubTotal.TotalCountOfModifiedLists;
+    public int TotalCountOfModifiedLists => EVotingSubTotal.TotalCountOfModifiedLists + ECountingSubTotal.TotalCountOfModifiedLists + ConventionalSubTotal.TotalCountOfModifiedLists;
 
     /// <inheritdoc />
-    public int TotalCountOfListsWithoutParty => EVotingSubTotal.TotalCountOfListsWithoutParty + ConventionalSubTotal.TotalCountOfListsWithoutParty;
+    public int TotalCountOfListsWithoutParty => EVotingSubTotal.TotalCountOfListsWithoutParty + ECountingSubTotal.TotalCountOfListsWithoutParty + ConventionalSubTotal.TotalCountOfListsWithoutParty;
 
     /// <inheritdoc />
     public int TotalCountOfBallots => TotalCountOfModifiedLists + TotalCountOfListsWithoutParty;
 
     /// <inheritdoc />
-    public int TotalCountOfBlankRowsOnListsWithoutParty => EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty;
+    public int TotalCountOfBlankRowsOnListsWithoutParty => EVotingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ECountingSubTotal.TotalCountOfBlankRowsOnListsWithoutParty + ConventionalSubTotal.TotalCountOfBlankRowsOnListsWithoutParty;
 
     /// <inheritdoc />
     public int TotalCountOfListsWithParty => TotalCountOfUnmodifiedLists + TotalCountOfModifiedLists;
@@ -78,6 +80,21 @@ public class ProportionalElectionResult : ElectionResult,
         if (includeCountOfVoters)
         {
             CountOfVoters.ResetSubTotal(dataSource, TotalCountOfVoters);
+        }
+    }
+
+    public void MoveECountingToConventional()
+    {
+        CountOfVoters.MoveECountingSubTotalsToConventional();
+
+        foreach (var result in ListResults)
+        {
+            result.MoveECountingToConventional();
+        }
+
+        foreach (var result in UnmodifiedListResults)
+        {
+            result.MoveECountingToConventional();
         }
     }
 }
