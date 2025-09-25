@@ -14,10 +14,14 @@ public class ValidationContext
 
     public ValidationContext(
         DomainOfInfluence responsibleForPlausibilisationDomainOfInfluence,
+        DomainOfInfluence politicalBusinessDomainOfInfluence,
+        PoliticalBusinessType politicalBusinessType,
         ContestCountingCircleDetails currentContestCountingCircleDetails,
         ContestCountingCircleDetails? previousContestCountingCircleDetails = null)
     {
         PlausibilisationConfiguration = responsibleForPlausibilisationDomainOfInfluence.PlausibilisationConfiguration;
+        PoliticalBusinessDomainOfInfluence = politicalBusinessDomainOfInfluence;
+        PoliticalBusinessType = politicalBusinessType;
         CurrentContestCountingCircleDetails = currentContestCountingCircleDetails;
         PreviousContestCountingCircleDetails = previousContestCountingCircleDetails;
 
@@ -43,15 +47,15 @@ public class ValidationContext
 
     public ContestCountingCircleDetails? PreviousContestCountingCircleDetails { get; }
 
+    public DomainOfInfluence PoliticalBusinessDomainOfInfluence { get; }
+
+    public PoliticalBusinessType PoliticalBusinessType { get; }
+
     public PoliticalBusinessNullableCountOfVoters CountOfVoters
     {
         get => _countOfVoters ?? throw new InvalidOperationException($"{nameof(CountOfVoters)} is not set");
         set => _countOfVoters = value;
     }
-
-    public PoliticalBusinessType? PoliticalBusinessType { get; set; }
-
-    public DomainOfInfluenceType PoliticalBusinessDomainOfInfluenceType { get; set; }
 
     public bool IsDetailedEntry { get; set; }
 

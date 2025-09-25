@@ -79,7 +79,7 @@ public class XmlEch0252MajorityElectionInfoRenderService : IRendererService
             .Include(doi => doi.SuperiorAuthorityDomainOfInfluence)
             .ToListAsync(ct);
 
-        var mappingCtx = new Ech0252MappingContext(domainOfInfluences);
+        var mappingCtx = new Ech0252MappingContext(contest.EVoting, contest.DomainOfInfluence.Canton, domainOfInfluences);
         var eventDelivery = _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, mappingCtx);
         return _templateService.RenderToXml(
             ctx,

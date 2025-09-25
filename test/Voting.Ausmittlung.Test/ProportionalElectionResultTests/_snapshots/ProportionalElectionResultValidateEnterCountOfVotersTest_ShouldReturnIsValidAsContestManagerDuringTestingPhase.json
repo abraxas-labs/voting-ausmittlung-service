@@ -149,7 +149,7 @@
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": {
         "ThresholdPercent": 5.0,
-        "DeviationPercent": 91.66666666666666,
+        "DeviationPercent": 28.57142857142857,
         "PoliticalBusinessType": 3
       },
       "ValidationGroup": 0,
@@ -164,10 +164,10 @@
       "VoteAccountedBallotsEqualQnData": null,
       "MajorityElectionNumberOfMandatesTimesAccountedBallotsEqualCandVotesPlusEmptyInvalidVotesData": null,
       "ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedListsData": {
-        "TotalAccountedBallots": 500,
-        "TotalCountOfBallots": 300,
-        "TotalCountOfUnmodifiedLists": 200,
-        "SumBallotsAndUnmodifiedLists": 500
+        "TotalAccountedBallots": 2000,
+        "TotalCountOfBallots": 800,
+        "TotalCountOfUnmodifiedLists": 1200,
+        "SumBallotsAndUnmodifiedLists": 2000
       },
       "ComparisonVoterParticipationsData": null,
       "ComparisonCountOfVotersData": null,

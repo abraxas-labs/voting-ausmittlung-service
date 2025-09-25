@@ -138,13 +138,13 @@
           "Name": "Uzwil",
           "Bfs": "1234",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
-            "Name": "",
-            "Street": "",
-            "Zip": "",
-            "City": "",
-            "Phone": "",
-            "Email": ""
+            "SecureConnectId": "100100100100100100",
+            "Name": "Uzwil",
+            "Street": "Werkstrasse",
+            "Zip": "9595",
+            "City": "MyCity",
+            "Phone": "071 123 12 20",
+            "Email": "uzwil-test@abraxas.ch"
           },
           "ContactPersonDuringEvent": {
             "FirstName": "",
@@ -160,10 +160,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": true,
           "ECounting": true,

@@ -103,6 +103,15 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
             throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
         }
 
+        var ccDetailsList = await _ccDetailsRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Where(x => x.ContestId == vote.ContestId)
+            .ToListAsync(ct);
+
+        PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, ccDetailsList);
+
         vote.Results = results;
         vote.MoveECountingToConventional();
 
@@ -114,17 +123,11 @@ public class PdfVoteDomainOfInfluenceResultRenderService : IRendererService
         vote.EndResult!.OrderVotingCardsAndSubTotals();
         vote.EndResult!.OrderBallotResults();
 
-        var ccDetailsList = await _ccDetailsRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.VotingCards)
-            .Include(x => x.CountOfVotersInformationSubTotals)
-            .Where(x => x.ContestId == vote.ContestId)
-            .ToListAsync(ct);
-
         var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResultsGroupedByBallot(
                 vote,
                 ccDetailsList,
-                ctx.TenantId ?? vote.DomainOfInfluence.SecureConnectId);
+                ctx.TenantId ?? vote.DomainOfInfluence.SecureConnectId,
+                isPartialResult ? ctx.ViewablePartialResultsCountingCircleIds : null);
 
         var ballots = vote.EndResult.BallotEndResults.Select(x => x.Ballot).ToList();
 

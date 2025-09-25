@@ -98,8 +98,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(VoteResultPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code, qrCode) = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
+        var secondFactorInfo = await _voteResultWriter.PrepareSubmissionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_SubmissionFinished);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo) ?? new ProtoModels.SecondFactorTransaction();
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -119,8 +119,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinished(VoteResultPrepareCorrectionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code, qrCode) = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
-        return secondFactorTransaction == null ? new ProtoModels.SecondFactorTransaction() : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
+        var secondFactorInfo = await _voteResultWriter.PrepareCorrectionFinished(GuidParser.Parse(request.VoteResultId), Strings.VoteResult_CorrectionFinished);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo) ?? new ProtoModels.SecondFactorTransaction();
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
@@ -177,8 +177,8 @@ public class VoteResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeVoteEndResultRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code, qrCode) = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
+        var secondFactorInfo = await _voteEndResultWriter.PrepareFinalize(GuidParser.Parse(request.VoteId), Strings.VoteResult_FinalizeEndResult);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo);
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessEndResult.Finalize)]
@@ -230,18 +230,36 @@ public class VoteResultService : ServiceBase
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinishedAndAuditedTentatively(VoteResultPrepareSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var voteResultId = GuidParser.Parse(request.VoteResultId);
+        var secondFactorInfo = await _voteResultWriter.PrepareSubmissionFinishedAndAuditedTentatively(voteResultId, Strings.VoteResult_SubmissionFinished);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo);
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
     public override async Task<Empty> SubmissionFinishedAndAuditedTentatively(VoteResultSubmissionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var voteResultId = GuidParser.Parse(request.VoteResultId);
-        await _voteResultWriter.SubmissionFinishedAndAuditedTentatively(voteResultId);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
+        await _voteResultWriter.SubmissionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, context.CancellationToken);
         return ProtobufEmpty.Instance;
+    }
+
+    [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
+    public override async Task<ProtoModels.SecondFactorTransaction> PrepareCorrectionFinishedAndAuditedTentatively(VoteResultPrepareCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
+    {
+        var voteResultId = GuidParser.Parse(request.VoteResultId);
+        var secondFactorInfo = await _voteResultWriter.PrepareCorrectionFinishedAndAuditedTentatively(voteResultId, Strings.VoteResult_CorrectionFinished);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo);
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmissionAndAudit)]
     public override async Task<Empty> CorrectionFinishedAndAuditedTentatively(VoteResultCorrectionFinishedAndAuditedTentativelyRequest request, ServerCallContext context)
     {
         var voteResultId = GuidParser.Parse(request.VoteResultId);
-        await _voteResultWriter.CorrectionFinishedAndAuditedTentatively(voteResultId);
+        var secondFactorTransactionId = GuidParser.Parse(request.SecondFactorTransactionId);
+        await _voteResultWriter.CorrectionFinishedAndAuditedTentatively(voteResultId, secondFactorTransactionId, context.CancellationToken);
         return ProtobufEmpty.Instance;
     }
 

@@ -24,6 +24,9 @@ public class CsvProportionalElectionUnionVoterParticipationExportTest : CsvExpor
     protected override Task SeedData()
         => ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // This uses only data from the end result
+
     protected override GenerateResultExportsRequest NewRequest()
         => new()
         {

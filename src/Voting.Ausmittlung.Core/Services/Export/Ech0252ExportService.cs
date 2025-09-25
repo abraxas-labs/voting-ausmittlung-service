@@ -78,30 +78,49 @@ public class Ech0252ExportService
             ct.ThrowIfCancellationRequested();
 
             PrepareContestData(contest);
-            var ctx = new Ech0252MappingContext(doisByContestId[contest.Id]);
+            var ctx = new Ech0252MappingContext(contest.EVoting, contest.DomainOfInfluence.Canton, doisByContestId[contest.Id]);
             var enabledCountingCircleStates = filter.CountingCircleResultStates.Count > 0 ? filter.CountingCircleResultStates : null;
 
-            var voteDelivery = _ech0252Serializer.ToVoteDelivery(
-                contest,
-                ctx,
-                enabledCountingCircleStates);
-            yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
+            var noPbTypesFilter = filter.PoliticalBusinessTypes.Count == 0;
+            if (noPbTypesFilter || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.Vote))
+            {
+                var voteDelivery = _ech0252Serializer.ToVoteDelivery(
+                    contest,
+                    ctx,
+                    enabledCountingCircleStates);
+                yield return RenderToXml(contest, voteDelivery, "vote-result-delivery");
+            }
 
-            var proportionalElectionDelivery = filter.InformationOnly
-                ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
-                : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates);
-            yield return RenderToXml(contest, proportionalElectionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
+            if (noPbTypesFilter || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.ProportionalElection))
+            {
+                var proportionalElectionDelivery = filter.InformationOnly
+                    ? _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, ctx)
+                    : _ech0252Serializer.ToProportionalElectionResultDelivery(contest, enabledCountingCircleStates, filter.IncludeCandidateListResultsInfo);
+                yield return RenderToXml(contest, proportionalElectionDelivery, filter.InformationOnly ? "proportional-election-info-delivery" : "proportional-election-result-delivery");
+            }
 
-            var majorityElectionDelivery = filter.InformationOnly
-                ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
-                : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, enabledCountingCircleStates);
-            yield return RenderToXml(contest, majorityElectionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
+            if (noPbTypesFilter
+                || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.MajorityElection)
+                || filter.PoliticalBusinessTypes.Contains(PoliticalBusinessType.SecondaryMajorityElection))
+            {
+                var majorityElectionDelivery = filter.InformationOnly
+                    ? _ech0252Serializer.ToMajorityElectionInformationDelivery(contest, ctx)
+                    : _ech0252Serializer.ToMajorityElectionResultDelivery(contest, ctx, enabledCountingCircleStates);
+                yield return RenderToXml(contest, majorityElectionDelivery, filter.InformationOnly ? "majority-election-info-delivery" : "majority-election-result-delivery");
+            }
         }
     }
 
     public Ech0252FilterModel BuildAndValidateFilter(Ech0252FilterRequest filterRequest)
     {
         var contestDateFilter = GetContestDateFilter(filterRequest);
+
+        if (filterRequest.InformationOnly && filterRequest.IncludeCandidateListResultsInfo)
+        {
+            throw new ValidationException(
+                $"Cannot set both {nameof(filterRequest.InformationOnly)} and {nameof(filterRequest.IncludeCandidateListResultsInfo)}");
+        }
+
         return new()
         {
             ContestDateFrom = contestDateFilter.From,
@@ -110,6 +129,7 @@ public class Ech0252ExportService
             PoliticalBusinessTypes = filterRequest.PoliticalBusinessTypes ?? new(),
             CountingCircleResultStates = filterRequest.CountingStates ?? new(),
             InformationOnly = filterRequest.InformationOnly,
+            IncludeCandidateListResultsInfo = filterRequest.IncludeCandidateListResultsInfo,
         };
     }
 
@@ -217,9 +237,9 @@ public class Ech0252ExportService
             : query.Where(c => c.Date >= from && c.Date <= to.Value);
 
         var noPbIdFilter = politicalBusinessIds.Count == 0;
-        var noPbTypesFiter = politicalBusinessTypes.Count == 0;
+        var noPbTypesFilter = politicalBusinessTypes.Count == 0;
 
-        if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.Vote))
+        if (noPbTypesFilter || politicalBusinessTypes.Contains(PoliticalBusinessType.Vote))
         {
             query = query
                 .Include(x => x.Votes.Where(v => noPbIdFilter || politicalBusinessIds.Contains(v.Id)))
@@ -263,7 +283,7 @@ public class Ech0252ExportService
                     .ThenInclude(x => x.Results);
         }
 
-        if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.ProportionalElection))
+        if (noPbTypesFilter || politicalBusinessTypes.Contains(PoliticalBusinessType.ProportionalElection))
         {
             if (!informationOnly)
             {
@@ -291,9 +311,18 @@ public class Ech0252ExportService
                         .ThenInclude(x => x.CandidateResults)
                         .ThenInclude(x => x.VoteSources.OrderBy(y => y.ListId))
                     .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.Results)
+                        .ThenInclude(x => x.ListResults)
+                        .ThenInclude(x => x.CandidateResults)
+                        .ThenInclude(x => x.Candidate.ProportionalElectionList)
+                    .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.EndResult!)
                         .ThenInclude(x => x.ListEndResults)
                         .ThenInclude(x => x.CandidateEndResults)
+                    .Include(x => x.ProportionalElections)
+                        .ThenInclude(x => x.EndResult!)
+                        .ThenInclude(x => x.ListEndResults)
+                        .ThenInclude(x => x.List)
                     .Include(x => x.ProportionalElections)
                         .ThenInclude(x => x.EndResult!)
                         .ThenInclude(x => x.ListLotDecisions)
@@ -344,7 +373,7 @@ public class Ech0252ExportService
             }
         }
 
-        if (noPbTypesFiter || politicalBusinessTypes.Contains(PoliticalBusinessType.MajorityElection))
+        if (noPbTypesFilter || politicalBusinessTypes.Contains(PoliticalBusinessType.MajorityElection))
         {
             if (!informationOnly)
             {

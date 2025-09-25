@@ -40,16 +40,20 @@ public class ResultPrepareSubmissionFinishedTest : MultiResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldReturnAsContestManagerDuringTestingPhase()
+    public async Task TestShouldReturnAsCantonAdminDuringTestingPhase()
     {
-        // ensure that the tenant is only the contest manager
-        await ModifyDbEntities<Authority>(
-            x => x.CountingCircle!.BasisCountingCircleId == CountingCircleId,
-            x => x.SecureConnectId = "random-id");
+        ContestId = ContestMockedData.GuidStGallenEvoting;
+        CountingCircleId = CountingCircleMockedData.GuidGossau;
+        VoteId = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
+        ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen);
+        MajorityElectionId = Guid.Parse(MajorityElectionMockedData.IdGossauMajorityElectionInContestStGallen);
+        VoteResultId = VoteResultMockedData.GuidGossauVoteInContestStGallenResult;
+        ProportionalElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
+        MajorityElectionResultId = MajorityElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
 
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
 
-        var response = await ErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
+        var response = await StGallenErfassungElectionAdminClient.PrepareSubmissionFinishedAsync(NewValidRequest());
         response.Id.Should().BeEmpty();
         response.Code.Should().BeEmpty();
     }

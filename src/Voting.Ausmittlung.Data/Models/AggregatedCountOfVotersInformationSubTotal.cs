@@ -12,4 +12,6 @@ public abstract class AggregatedCountOfVotersInformationSubTotal : BaseEntity
     public int CountOfVoters { get; set; }
 
     public VoterType VoterType { get; set; }
+
+    public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
 }

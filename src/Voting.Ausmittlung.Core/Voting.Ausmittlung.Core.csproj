@@ -11,6 +11,7 @@
     <PackageReference Include="Voting.Lib.MalwareScanner" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.Iam" Version="$(VotingLibVersion)" />
     <PackageReference Include="Voting.Lib.DokConnector" Version="$(VotingLibVersion)" />
+    <PackageReference Include="Voting.Lib.Cryptography.Pkcs11" Version="$(VotingLibVersion)" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
   </ItemGroup>
 

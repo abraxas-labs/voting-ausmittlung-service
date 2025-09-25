@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Exceptions;
@@ -94,6 +95,24 @@ public class PdfVoteResultRenderService : IRendererService
             ?? throw new EntityNotFoundException(nameof(CountingCircle), new { ctx.ContestId, ctx.BasisCountingCircleId });
         var ccDetails = countingCircle.ContestDetails.FirstOrDefault();
         ccDetails?.OrderVotingCardsAndSubTotals();
+
+        var submissionDone = false;
+        foreach (var result in votes.SelectMany(v => v.Results))
+        {
+            if (result.State.IsSubmissionDone())
+            {
+                submissionDone = true;
+            }
+            else
+            {
+                result.ResetAllResults();
+            }
+        }
+
+        if (!submissionDone)
+        {
+            ccDetails?.ResetVotingCardsAndSubTotals();
+        }
 
         var pdfCountingCircle = _mapper.Map<PdfCountingCircle>(countingCircle);
         pdfCountingCircle.ContestCountingCircleDetails = _mapper.Map<PdfContestCountingCircleDetails>(ccDetails);

@@ -87,7 +87,7 @@ public class XmlEch0252ProportionalElectionInfoRenderService : IRendererService
             .Where(doi => doi.SnapshotContestId == ctx.ContestId)
             .ToListAsync(ct);
 
-        var mappingCtx = new Ech0252MappingContext(domainOfInfluences);
+        var mappingCtx = new Ech0252MappingContext(contest.EVoting, contest.DomainOfInfluence.Canton, domainOfInfluences);
         var eventDelivery = _ech0252Serializer.ToProportionalElectionInformationDelivery(contest, mappingCtx);
         return _templateService.RenderToXml(
             ctx,

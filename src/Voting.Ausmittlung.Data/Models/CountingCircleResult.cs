@@ -46,8 +46,5 @@ public abstract class CountingCircleResult : BaseEntity
 
     public bool Published { get; set; }
 
-    public bool SubmissionDone()
-    {
-        return State >= CountingCircleResultState.SubmissionDone;
-    }
+    public abstract void ResetAllResults();
 }

@@ -130,6 +130,15 @@ public class DoubleProportionalAlgorithmTest
     }
 
     [Fact]
+    public void SuperApportionmentWithMultiLotDecisionElectionShouldWork()
+    {
+        var electionEndResult = DoubleProportionalAlgorithmTestData.GenerateSuperApportionmentMultiLotDecisionElectionExample();
+        _algorithm.BuildResultForElection(electionEndResult.ProportionalElection);
+        var testOutput = DoubleProportionalAlgorithmTestUtils.BuildTestOutput(electionEndResult.ProportionalElection.DoubleProportionalResult!);
+        testOutput.MatchSnapshot();
+    }
+
+    [Fact]
     public void SuperApportionmentWithLotDecisionElectionUnionShouldWork()
     {
         var unionEndResult = DoubleProportionalAlgorithmTestData.GenerateSuperApportionmentLotDecisionElectionUnionExample();

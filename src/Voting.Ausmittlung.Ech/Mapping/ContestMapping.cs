@@ -12,6 +12,7 @@ internal static class ContestMapping
     internal static ContestType ToEchContest(this Contest contest)
     {
         var contestDescriptionInfos = contest.Translations
+            .FilterAndSortEchExportLanguages(contest.EVoting)
             .Select(t => new ContestDescriptionInformationTypeContestDescriptionInfo
             {
                 Language = t.Language,

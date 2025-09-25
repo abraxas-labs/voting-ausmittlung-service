@@ -13,7 +13,7 @@ public class ContestCountingCircleDetails
 
     public Guid CountingCircleId { get; set; }
 
-    public CountOfVotersInformation CountOfVotersInformation { get; set; } = new();
+    public List<CountOfVotersInformationSubTotal> CountOfVotersInformationSubTotals { get; set; } = new();
 
     public List<VotingCardResultDetail> VotingCards { get; set; } = new();
 

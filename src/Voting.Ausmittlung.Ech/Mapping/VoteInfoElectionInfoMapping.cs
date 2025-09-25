@@ -7,7 +7,7 @@ using System.Linq;
 using Ech0155_5_1;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Common;
+using Voting.Ausmittlung.Ech.Models;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -15,13 +15,13 @@ internal static class VoteInfoElectionInfoMapping
 {
     internal static ElectionType ToVoteInfoEchElection<TPoliticalBusinessTranslation>(
         this Election election,
+        Ech0252MappingContext ctx,
         ICollection<TPoliticalBusinessTranslation> translations,
         PoliticalBusinessType politicalBusinessType)
         where TPoliticalBusinessTranslation : PoliticalBusinessTranslation
     {
         var descriptionInfos = translations
-            .Where(t => t.Language == Languages.German)
-            .OrderBy(t => t.Language)
+            .FilterAndSortEchExportLanguages(ctx.EVoting)
             .Select(t => new ElectionDescriptionInformationTypeElectionDescriptionInfo
             {
                 Language = t.Language,

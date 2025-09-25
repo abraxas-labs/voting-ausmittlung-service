@@ -133,6 +133,8 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
     [InlineData(CountingCircleResultState.SubmissionDone)]
     [InlineData(CountingCircleResultState.ReadyForCorrection)]
     [InlineData(CountingCircleResultState.CorrectionDone)]
+    [InlineData(CountingCircleResultState.AuditedTentatively)]
+    [InlineData(CountingCircleResultState.Plausibilised)]
     public async Task ShouldReturnWithCorrectState(CountingCircleResultState state)
     {
         await SetResultState(state);
@@ -148,19 +150,6 @@ public class ResultResetCountigCircleResultsTest : MultiResultBaseTest
         proportionalElectionResultResettedEvents.Should().HaveCount(1);
         majorityElectionResultResettedEvents.Should().HaveCount(1);
         ccDetailsResettedEvents.Should().HaveCount(1);
-    }
-
-    [Theory]
-    [InlineData(CountingCircleResultState.AuditedTentatively)]
-    [InlineData(CountingCircleResultState.Plausibilised)]
-    public async Task ShouldThrowWithMonitoringState(CountingCircleResultState state)
-    {
-        await SetResultState(state);
-
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.ResetCountingCircleResultsAsync(NewValidRequest()),
-            StatusCode.InvalidArgument,
-            "Cannot reset results when there are any audited or plausibilised results");
     }
 
     [Fact]

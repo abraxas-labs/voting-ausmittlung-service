@@ -25,9 +25,10 @@ public class VoteDomainOfInfluenceResultBuilder
     public async Task<(IEnumerable<IGrouping<Ballot, VoteDomainOfInfluenceBallotResult>> Results, VoteDomainOfInfluenceResult NotAssignableResult, VoteDomainOfInfluenceResult AggregatedResult)> BuildResultsGroupedByBallot(
         Vote vote,
         List<ContestCountingCircleDetails> ccDetails,
-        string tenantId)
+        string tenantId,
+        HashSet<Guid>? viewablePartialResultsCountingCircleIds)
     {
-        var (results, notAssignableResult, aggregatedResult) = await BuildResults(vote, ccDetails, tenantId);
+        var (results, notAssignableResult, aggregatedResult) = await BuildResults(vote, ccDetails, tenantId, viewablePartialResultsCountingCircleIds);
         MapContestDetails(notAssignableResult);
         MapContestDetails(aggregatedResult);
         foreach (var result in results)
@@ -60,7 +61,18 @@ public class VoteDomainOfInfluenceResultBuilder
 
     protected override IEnumerable<VoteResult> GetResults(Vote politicalBusiness) => politicalBusiness.Results;
 
-    protected override int GetReportLevel(Vote politicalBusiness) => politicalBusiness.ReportDomainOfInfluenceLevel;
+    protected override async Task<int> GetReportLevel(Vote politicalBusiness, HashSet<Guid>? viewablePartialResultsCountingCircleIds)
+    {
+        if (viewablePartialResultsCountingCircleIds == null)
+        {
+            return politicalBusiness.ReportDomainOfInfluenceLevel;
+        }
+
+        return await GetPartialResultReportLevel(
+            politicalBusiness.ReportDomainOfInfluenceLevel,
+            politicalBusiness.DomainOfInfluenceId,
+            viewablePartialResultsCountingCircleIds);
+    }
 
     protected override void ApplyCountingCircleResult(
         VoteDomainOfInfluenceResult doiResult,
@@ -165,8 +177,7 @@ public class VoteDomainOfInfluenceResultBuilder
 
     protected override void ResetCountingCircleResult(VoteResult ccResult)
     {
-        ccResult.TotalCountOfVoters = 0;
-        ccResult.ResetAllSubTotals(true);
+        ccResult.ResetAllResults();
     }
 
     private void ApplyCountingCircleResult(
@@ -206,13 +217,16 @@ public class VoteDomainOfInfluenceResultBuilder
         int deltaFactor)
     {
         doiResult.AddForAllSubTotals(ccResult, deltaFactor);
-        if (ccResult.HasMajority)
+        if (ccResult.TotalCountOfAnswerYes != 0 || ccResult.TotalCountOfAnswerYes != 0)
         {
-            doiResult.CountOfCountingCircleYes += deltaFactor;
-        }
-        else
-        {
-            doiResult.CountOfCountingCircleNo += deltaFactor;
+            if (ccResult.HasMajority)
+            {
+                doiResult.CountOfCountingCircleYes += deltaFactor;
+            }
+            else
+            {
+                doiResult.CountOfCountingCircleNo += deltaFactor;
+            }
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Ech0155_5_1;
 using Ech0252_2_0;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
-using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
+using DomainOfInfluence = Voting.Ausmittlung.Data.Models.DomainOfInfluence;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -16,10 +17,11 @@ internal static class VoteInfoCountOfVotersMapping
     private const string MinorElementName = "ExtendedType";
     private const string MinorText = "Minderjährige";
 
-    internal static CountOfVotersInformationType ToVoteInfoCountOfVotersInfo(this CountingCircle countingCircle, DomainOfInfluenceType doiType)
+    internal static CountOfVotersInformationType ToVoteInfoCountOfVotersInfo(this CountingCircle countingCircle, DomainOfInfluence doi)
     {
-        var totalCountOfVoters = countingCircle.ContestDetails.SingleOrDefault()?.TotalCountOfVoters ?? 0;
+        var totalCountOfVoters = countingCircle.ContestDetails.SingleOrDefault()?.GetTotalCountOfVotersForDomainOfInfluence(doi) ?? 0;
         var countOfVotersSubTotals = countingCircle.ContestDetails.SingleOrDefault()?.CountOfVotersInformationSubTotals
+            .Where(x => x.DomainOfInfluenceType == doi.Type)
             .OrderBy(x => x.VoterType)
             .ThenBy(x => x.Sex);
         return new CountOfVotersInformationType

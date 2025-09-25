@@ -12,10 +12,16 @@ public class Ech0252MappingContext
 {
     private readonly List<DomainOfInfluence> _domainOfInfluences;
 
-    public Ech0252MappingContext(List<DomainOfInfluence>? domainOfInfluences = null)
+    public Ech0252MappingContext(bool eVoting, DomainOfInfluenceCanton canton, List<DomainOfInfluence>? domainOfInfluences = null)
     {
+        EVoting = eVoting;
+        Canton = canton;
         _domainOfInfluences = domainOfInfluences ?? new();
     }
+
+    public bool EVoting { get; }
+
+    public DomainOfInfluenceCanton Canton { get; }
 
     public DomainOfInfluence? GetSuperiorAuthority(Guid doiId)
     {

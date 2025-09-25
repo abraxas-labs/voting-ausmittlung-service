@@ -44,6 +44,7 @@ public class XmlVoteEch0110RenderService : IRendererService
             .Include(v => v.Contest.Translations.OrderBy(t => t.Language))
             .Include(v => v.Contest.DomainOfInfluence)
             .Include(v => v.Contest.CountingCircleDetails).ThenInclude(ccd => ccd.VotingCards)
+            .Include(me => me.Contest.CountingCircleDetails).ThenInclude(ccd => ccd.CountOfVotersInformationSubTotals)
             .Include(x => x.Ballots)
             .Include(x => x.Ballots).ThenInclude(x => x.BallotQuestions).ThenInclude(x => x.Translations.OrderBy(t => t.Language))
             .Include(x => x.Ballots).ThenInclude(x => x.TieBreakQuestions).ThenInclude(x => x.Translations.OrderBy(t => t.Language))

@@ -215,26 +215,37 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         }
     }
 
-    protected async Task SetResultsToAuditedTentatively()
+    protected async Task FinishOneResultSubmission(
+        PoliticalBusinessCountOfVotersEventData? countOfVoters = null,
+        IEnumerable<(string CandidateId, int Count)>? countByCandidateIds = null,
+        IEnumerable<(string ElectionId, string CandidateId, int Count)>? countBySecondaryCandidateIds = null,
+        string? resultId = null)
     {
-        await SetOneResultToAuditedTentatively();
-        await SetOtherResultToAuditedTentatively();
+        await FinishResultSubmission(
+            resultId ?? _resultIds.First(),
+            countOfVoters,
+            countByCandidateIds,
+            countBySecondaryCandidateIds);
     }
 
-    protected async Task SetOneResultToAuditedTentatively(string? id = null)
-    {
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new MajorityElectionResultAuditedTentatively
-            {
-                ElectionResultId = id ?? _resultIds.First(),
-                EventInfo = GetMockedEventInfo(),
-            });
-    }
-
-    protected async Task SetOtherResultToAuditedTentatively()
+    protected async Task FinishOtherResultSubmission(
+        PoliticalBusinessCountOfVotersEventData? countOfVoters = null,
+        IEnumerable<(string CandidateId, int Count)>? countByCandidateIds = null,
+        IEnumerable<(string ElectionId, string CandidateId, int Count)>? countBySecondaryCandidateIds = null)
     {
         foreach (var resultId in _resultIds.Skip(1))
+        {
+            await FinishResultSubmission(
+                resultId,
+                countOfVoters,
+                countByCandidateIds,
+                countBySecondaryCandidateIds);
+        }
+    }
+
+    protected async Task SetResultsToAuditedTentatively()
+    {
+        foreach (var resultId in _resultIds)
         {
             await TestEventPublisher.Publish(
                 GetNextEventNumber(),
@@ -246,11 +257,22 @@ public abstract class MajorityElectionEndResultBaseTest : BaseTest<
         }
     }
 
-    protected async Task ResetOneResultToSubmissionFinished(string electionResultId)
+    protected async Task ResetOneResultToSubmissionOngoing(string countingCircleId, string electionResultId)
     {
+        // A result gets only resetted, if the details also get resetted (except in special basis hierarchy change cases).
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
-            new MajorityElectionResultResettedToSubmissionFinished
+            new ContestCountingCircleDetailsResetted
+            {
+                Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(ContestMockedData.GuidBundesurnengang, Guid.Parse(countingCircleId), false).ToString(),
+                CountingCircleId = countingCircleId,
+                ContestId = ContestMockedData.IdBundesurnengang,
+                EventInfo = GetMockedEventInfo(),
+            });
+
+        await TestEventPublisher.Publish(
+            GetNextEventNumber(),
+            new MajorityElectionResultResetted
             {
                 ElectionResultId = electionResultId,
                 EventInfo = GetMockedEventInfo(),

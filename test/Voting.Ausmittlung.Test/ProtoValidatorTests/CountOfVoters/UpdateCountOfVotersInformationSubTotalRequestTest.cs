@@ -27,6 +27,8 @@ public class UpdateCountOfVotersInformationSubTotalRequestTest : ProtoValidatorB
         yield return NewValidRequest(x => x.VoterType = (VoterType)(-1));
         yield return NewValidRequest(x => x.CountOfVoters = -1);
         yield return NewValidRequest(x => x.CountOfVoters = 1000001);
+        yield return NewValidRequest(x => x.DomainOfInfluenceType = DomainOfInfluenceType.Unspecified);
+        yield return NewValidRequest(x => x.DomainOfInfluenceType = (DomainOfInfluenceType)(-1));
     }
 
     private UpdateCountOfVotersInformationSubTotalRequest NewValidRequest(Action<UpdateCountOfVotersInformationSubTotalRequest>? action = null)
@@ -36,6 +38,7 @@ public class UpdateCountOfVotersInformationSubTotalRequestTest : ProtoValidatorB
             Sex = SexType.Male,
             VoterType = VoterType.SwissAbroad,
             CountOfVoters = 1,
+            DomainOfInfluenceType = DomainOfInfluenceType.Mu,
         };
 
         action?.Invoke(request);

@@ -79,6 +79,7 @@ public sealed class PermissionAccessor : IAsyncDisposable
         }
 
         if (msg.ProtocolExportId.HasValue
+            && !msg.PoliticalBusinessResultBundleId.HasValue // exclude bundle reviews from this check
             && !_accessibleProtocolIds.Contains(msg.ProtocolExportId.Value))
         {
             return false;

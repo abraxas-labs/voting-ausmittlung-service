@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
@@ -174,6 +175,40 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
             await db.SaveChangesAsync();
         });
 
+        // mock some cc detail data and set cc result states to ongoing excet the current one, to test whether aggregated details get updated.
+        await RunOnDb(async db =>
+        {
+            var vcs = await db.VotingCardResultDetails.AsTracking()
+                .Where(vc => vc.ContestCountingCircleDetails.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau)
+                .ToListAsync();
+
+            foreach (var vc in vcs)
+            {
+                vc.CountOfReceivedVotingCards = 100000;
+            }
+
+            var simpleResults = await db.SimpleCountingCircleResults.AsTracking()
+                .Where(ccr => ccr.CountingCircle!.BasisCountingCircleId == CountingCircleMockedData.GuidGossau
+                    && ccr.Id != VoteResultMockedData.GuidGossauVoteInContestStGallenResult)
+                .ToListAsync();
+
+            foreach (var simpleResult in simpleResults)
+            {
+                simpleResult.State = CountingCircleResultState.SubmissionOngoing;
+            }
+
+            await db.SaveChangesAsync();
+        });
+
+        var doiDetailsBefore = await RunOnDb(
+            db => db.DomainOfInfluences
+                .AsSplitQuery()
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
         await MonitoringElectionAdminClient.ResetToSubmissionFinishedAsync(NewValidRequest());
         await RunEvents<VoteResultResettedToSubmissionFinished>();
 
@@ -184,8 +219,24 @@ public class VoteResultResetToSubmissionFinishedTest : VoteResultBaseTest
             VoteId = VoteMockedData.IdGossauVoteInContestStGallen,
         });
 
-        endResult.Finalized.Should().BeFalse();
+        endResult.Finalized.Should().BeTrue();
         endResult.MatchSnapshot();
+
+        var doiDetailsAfter = await RunOnDb(
+            db => db.DomainOfInfluences
+                .AsSplitQuery()
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.VotingCards)
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidStGallenEvoting && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
+        // the count should remain unchanged on state change audited -> submisson done.
+        EnsureValidAggregatedVotingCards(
+            doiDetailsBefore.Details!.VotingCards,
+            doiDetailsAfter.Details!.VotingCards,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.BallotBox,
+            0);
 
         var id = Guid.Parse(VoteResultMockedData.IdGossauVoteInContestStGallenResult);
         await AssertHasPublishedEventProcessedMessage(VoteResultResettedToSubmissionFinished.Descriptor, id);

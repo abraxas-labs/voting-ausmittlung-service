@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -400,6 +401,7 @@
         <Bfs />
         <Type>Mu</Type>
         <Canton>Sg</Canton>
+        <ViewCountingCirclePartialResults>true</ViewCountingCirclePartialResults>
       </DomainOfInfluence>
       <CountOfVoters>
         <VoterParticipation>1.5583</VoterParticipation>
@@ -1772,5 +1774,6 @@
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>
 </Voting>

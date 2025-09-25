@@ -2,10 +2,8 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
@@ -15,7 +13,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest : PdfExportBaseTest
+public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest : PdfMajorityElectionEndResultExportBaseTest
 {
     public PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -71,12 +69,5 @@ public class PdfMajorityElectionEndResultDetailWithoutEmptyAndInvalidVotesExport
                     .ToString(),
             },
         };
-    }
-
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 }

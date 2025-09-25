@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using Voting.Lib.Database.Models;
 
 namespace Voting.Ausmittlung.Data.Models;
@@ -17,6 +18,8 @@ public class ProtocolExport : BaseEntity
     public CountingCircle? CountingCircle { get; set; }
 
     public Guid? PoliticalBusinessId { get; set; }
+
+    public IList<Guid> PoliticalBusinessIds { get; set; } = [];
 
     public Guid? PoliticalBusinessResultBundleId { get; set; }
 

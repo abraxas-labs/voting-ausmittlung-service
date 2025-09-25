@@ -44,6 +44,7 @@ public class XmlProportionalElectionEch0110RenderService : IRendererService
             .Include(me => me.Contest.Translations.OrderBy(x => x.Language))
             .Include(me => me.Contest.DomainOfInfluence)
             .Include(me => me.Contest.CountingCircleDetails).ThenInclude(ccd => ccd.VotingCards)
+            .Include(me => me.Contest.CountingCircleDetails).ThenInclude(ccd => ccd.CountOfVotersInformationSubTotals)
             .Include(me => me.Results).ThenInclude(r => r.CountingCircle)
             .Include(me => me.Results).ThenInclude(r => r.ListResults).ThenInclude(r => r.List.Translations.OrderBy(t => t.Language))
             .Include(me => me.Results).ThenInclude(r => r.ListResults).ThenInclude(r => r.CandidateResults).ThenInclude(c => c.Candidate.Translations.OrderBy(t => t.Language))

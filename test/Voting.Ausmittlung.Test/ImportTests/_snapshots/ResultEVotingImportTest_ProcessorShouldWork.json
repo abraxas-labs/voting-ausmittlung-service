@@ -862,7 +862,6 @@
         "EVoting": true,
         "ECounting": false,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 0,
         "CountingMachine": 0,
         "Id": "13ff27f7-9e80-5ce4-a066-d1409280e92c"
       },
@@ -885,7 +884,6 @@
         "EVoting": true,
         "ECounting": false,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 0,
         "CountingMachine": 0,
         "Id": "2b9d206a-ce27-5a10-a8f7-9ee9f7b3b929"
       },
@@ -899,6 +897,7 @@
             "Sex": 1,
             "CountOfVoters": 8000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
             "Id": "00000000-0000-0000-0000-000000000000"
           },
@@ -906,6 +905,7 @@
             "Sex": 1,
             "CountOfVoters": 500,
             "VoterType": 2,
+            "DomainOfInfluenceType": 1,
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
             "Id": "00000000-0000-0000-0000-000000000000"
           },
@@ -913,6 +913,7 @@
             "Sex": 2,
             "CountOfVoters": 7000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
             "Id": "00000000-0000-0000-0000-000000000000"
           },
@@ -920,6 +921,71 @@
             "Sex": 2,
             "CountOfVoters": 300,
             "VoterType": 2,
+            "DomainOfInfluenceType": 1,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 1,
+            "CountOfVoters": 8000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 1,
+            "CountOfVoters": 500,
+            "VoterType": 2,
+            "DomainOfInfluenceType": 2,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 2,
+            "CountOfVoters": 7000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 2,
+            "CountOfVoters": 300,
+            "VoterType": 2,
+            "DomainOfInfluenceType": 2,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 1,
+            "CountOfVoters": 7900,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 5,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 1,
+            "CountOfVoters": 500,
+            "VoterType": 2,
+            "DomainOfInfluenceType": 5,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 2,
+            "CountOfVoters": 6900,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 5,
+            "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "Sex": 2,
+            "CountOfVoters": 300,
+            "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
             "Id": "00000000-0000-0000-0000-000000000000"
           }
@@ -983,7 +1049,7 @@
           },
           {
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
-            "CountOfReceivedVotingCards": 500,
+            "CountOfReceivedVotingCards": 2900,
             "Valid": false,
             "Channel": 2,
             "DomainOfInfluenceType": 5,
@@ -991,7 +1057,7 @@
           },
           {
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
-            "CountOfReceivedVotingCards": 2500,
+            "CountOfReceivedVotingCards": 1900,
             "Valid": true,
             "Channel": 1,
             "DomainOfInfluenceType": 5,
@@ -999,7 +1065,7 @@
           },
           {
             "ContestCountingCircleDetailsId": "35d79372-fa1b-50a5-8503-e6dafc1355d0",
-            "CountOfReceivedVotingCards": 3500,
+            "CountOfReceivedVotingCards": 900,
             "Valid": true,
             "Channel": 2,
             "DomainOfInfluenceType": 5,
@@ -1017,7 +1083,6 @@
         "EVoting": true,
         "ECounting": false,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 15800,
         "CountingMachine": 0,
         "Id": "35d79372-fa1b-50a5-8503-e6dafc1355d0"
       },
@@ -1048,7 +1113,6 @@
         "EVoting": true,
         "ECounting": true,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 0,
         "CountingMachine": 0,
         "Id": "51765e9f-c966-5ac5-8ba3-70a10fa9ed39"
       },
@@ -1071,7 +1135,6 @@
         "EVoting": true,
         "ECounting": true,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 0,
         "CountingMachine": 0,
         "Id": "d9900194-0ea4-59bb-a236-300e04a071c1"
       },
@@ -1094,7 +1157,6 @@
         "EVoting": true,
         "ECounting": false,
         "ECountingResultsImported": false,
-        "TotalCountOfVoters": 0,
         "CountingMachine": 0,
         "Id": "fe2f1718-ee88-50f5-ac03-1b558b574126"
       }

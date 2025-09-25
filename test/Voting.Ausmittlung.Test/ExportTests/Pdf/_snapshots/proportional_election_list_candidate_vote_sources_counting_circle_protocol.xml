@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -31,8 +32,10 @@
       <Bfs>3443</Bfs>
       <Type>Sk</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <NumberOfMandates>2</NumberOfMandates>
+    <MandateAlgorithm>HagenbachBischoff</MandateAlgorithm>
     <ProportionalElectionResult>
       <TotalCountOfVoters>1000</TotalCountOfVoters>
       <State>AuditedTentatively</State>
@@ -891,30 +894,34 @@
       <Email>uzwil-test2@abraxas.ch</Email>
     </ContactPersonAfterEvent>
     <ContestCountingCircleDetails>
-      <TotalCountOfVoters>3210</TotalCountOfVoters>
+      <TotalCountOfVoters>3010</TotalCountOfVoters>
       <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
-        <CountOfVoters>1600</CountOfVoters>
+        <CountOfVoters>1500</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>100</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
-        <CountOfVoters>1400</CountOfVoters>
+        <CountOfVoters>1300</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>110</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Sk</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>

@@ -159,7 +159,7 @@ public class ProtocolExportService
                 WebhookUrl = _publisherConfig.Documatrix.GetProtocolExportCallbackUrl(protocolExportId, callbackToken),
             };
 
-            var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled
+            var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled || _publisherConfig.EnableCantonSuffixTemplateKeys.Contains(exportTemplate.Template.Key)
                 ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
                 : string.Empty;
 
@@ -184,6 +184,7 @@ public class ProtocolExportService
                 exportTemplate.Template.Key + exportTemplateKeyCantonSuffix,
                 exportTemplate.CountingCircleId,
                 exportTemplate.PoliticalBusinessId,
+                exportTemplate.PoliticalBusinessIds,
                 exportTemplate.PoliticalBusinessUnionId,
                 exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
                 exportTemplate.PoliticalBusinessResultBundleId);

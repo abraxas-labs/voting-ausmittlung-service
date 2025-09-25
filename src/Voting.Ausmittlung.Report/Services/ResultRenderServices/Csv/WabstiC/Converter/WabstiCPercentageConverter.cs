@@ -16,6 +16,10 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Co
 /// </summary>
 public class WabstiCPercentageConverter : DefaultTypeConverter
 {
-    public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
-        => ((int)Math.Round((decimal)value * 10_000)).ToString(CultureInfo.InvariantCulture);
+    public override string ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
+    {
+        return value == null
+            ? string.Empty
+            : ((int)Math.Round((decimal)value * 10_000)).ToString(CultureInfo.InvariantCulture);
+    }
 }

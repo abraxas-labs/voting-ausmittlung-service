@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -71,6 +72,12 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
             .FirstOrDefaultAsync(
                 x => x.ContestId == data.SecondaryMajorityElection.ContestId && x.CountingCircleId == data.PrimaryResult.CountingCircleId,
                 ct);
+
+        if (!data.PrimaryResult.State.IsSubmissionDone())
+        {
+            ccDetails?.ResetVotingCardsAndSubTotals();
+            data.ResetAllResults();
+        }
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.SecondaryMajorityElection);
         var countingCircle = majorityElection.Results![0].CountingCircle!;

@@ -126,6 +126,12 @@ public class MajorityElectionResult : ElectionResult, IHasSubTotals<MajorityElec
         }
     }
 
+    public override void ResetAllResults()
+    {
+        TotalCountOfVoters = 0;
+        ResetAllSubTotals(true);
+    }
+
     public void ResetAllSubTotals(bool includeCountOfVoters = false)
     {
         foreach (var dataSource in Enum.GetValues<VotingDataSource>())

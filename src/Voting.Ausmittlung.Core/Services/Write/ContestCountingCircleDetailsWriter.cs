@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,6 +65,7 @@ public class ContestCountingCircleDetailsWriter
 
         await EnsureValidVotingCards(details.ContestId, details.CountingCircleId, details);
         await EnsureValidCountingMachine(details.ContestId, details.CountingMachine);
+        await EnsureValidDetailsInElectorates(details);
 
         var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(details.ContestId, details.CountingCircleId, testingPhaseEnded);
         var aggregate = await _aggregateRepository.TryGetById<ContestCountingCircleDetailsAggregate>(id);
@@ -89,7 +91,7 @@ public class ContestCountingCircleDetailsWriter
         Guid basisCountingCircleId,
         ContestCountingCircleDetails details)
     {
-        var subTotalInfos = details.CountOfVotersInformation.SubTotalInfo;
+        var subTotalInfos = details.CountOfVotersInformationSubTotals;
 
         if (subTotalInfos.All(x => x.VoterType == DataModels.VoterType.Swiss))
         {
@@ -163,19 +165,8 @@ public class ContestCountingCircleDetailsWriter
             .Query()
             .AsSplitQuery()
             .Include(x => x.SnapshotContest!.CantonDefaults)
-            .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
-            .Include(x => x.Electorates)
-            .Include(x => x.ContestElectorates)
             .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
             ?? throw new EntityNotFoundException(new { basisCountingCircleId, contestId });
-
-        var domainOfInfluenceTypes = cc.SimpleResults.Select(spb => spb.PoliticalBusiness!).Select(pb => pb.DomainOfInfluence.Type).Distinct();
-
-        var hasInvalidDomainOfInfluenceType = providedDomainOfInfluenceTypes.Except(domainOfInfluenceTypes).Any();
-        if (hasInvalidDomainOfInfluenceType)
-        {
-            throw new ValidationException("Voting cards with domain of influence type which don't exist are provided.");
-        }
 
         var enabledChannels = cc.SnapshotContest!
             .CantonDefaults
@@ -187,31 +178,6 @@ public class ContestCountingCircleDetailsWriter
         if (invalidVotingCardChannel != null)
         {
             throw new ValidationException($"Voting card channel {invalidVotingCardChannel.Channel}/{invalidVotingCardChannel.Valid} is not enabled");
-        }
-
-        var electorates = cc.ContestElectorates.Count > 0
-            ? cc.ContestElectorates.OfType<DataModels.CountingCircleElectorateBase>().ToList()
-            : cc.Electorates.OfType<DataModels.CountingCircleElectorateBase>().ToList();
-        var electorateDoiTypes = electorates.SelectMany(e => e.DomainOfInfluenceTypes).ToHashSet();
-        var providedUnelectoratedDoiTypes = providedDomainOfInfluenceTypes.Where(doiType => !electorateDoiTypes.Contains(doiType)).ToList();
-        if (providedUnelectoratedDoiTypes.Count > 0)
-        {
-            electorates.Add(new DataModels.CountingCircleElectorate { DomainOfInfluenceTypes = providedUnelectoratedDoiTypes });
-        }
-
-        foreach (var electorate in electorates)
-        {
-            var uniqueVotingCardCountsByChannelAndValid = details.VotingCards
-                .Where(vc => electorate.DomainOfInfluenceTypes.Contains(vc.DomainOfInfluenceType))
-                .GroupBy(vc => new { vc.Channel, vc.Valid })
-                .ToDictionary(
-                    x => x.Key,
-                    x => x.Select(y => y.CountOfReceivedVotingCards).ToHashSet());
-
-            if (uniqueVotingCardCountsByChannelAndValid.Any(e => e.Value.Count > 1))
-            {
-                throw new ValidationException("Voting card counts per electorate, channel and valid state must be unique");
-            }
         }
     }
 
@@ -230,5 +196,75 @@ public class ContestCountingCircleDetailsWriter
         {
             throw new ValidationException("Counting machine is required");
         }
+    }
+
+    private async Task EnsureValidDetailsInElectorates(ContestCountingCircleDetails details)
+    {
+        var basisCountingCircleId = details.CountingCircleId;
+        var contestId = details.ContestId;
+
+        var cc = await _countingCircleRepo
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.SimpleResults).ThenInclude(x => x.PoliticalBusiness!).ThenInclude(x => x.DomainOfInfluence)
+            .Include(x => x.Electorates)
+            .Include(x => x.ContestElectorates)
+            .FirstOrDefaultAsync(cc => cc.BasisCountingCircleId == basisCountingCircleId && cc.SnapshotContestId == contestId)
+            ?? throw new EntityNotFoundException(new { basisCountingCircleId, contestId });
+
+        var providedDoiTypes = details.VotingCards.Select(vc => vc.DomainOfInfluenceType)
+            .Concat(details.CountOfVotersInformationSubTotals.Select(st => st.DomainOfInfluenceType))
+            .ToHashSet();
+
+        var validDoiTypes = cc.SimpleResults.Select(spb => spb.PoliticalBusiness!).Select(pb => pb.DomainOfInfluence.Type).Distinct();
+        if (providedDoiTypes.Except(validDoiTypes).Any())
+        {
+            throw new ValidationException("Voting cards or count of voters information sub totals with domain of influence type which don't exist are provided.");
+        }
+
+        var electorates = BuildElectorates(cc, providedDoiTypes);
+
+        foreach (var electorate in electorates)
+        {
+            var uniqueVotingCardCountsByChannelAndValid = details.VotingCards
+                .Where(vc => electorate.DomainOfInfluenceTypes.Contains(vc.DomainOfInfluenceType))
+                .GroupBy(vc => new { vc.Channel, vc.Valid })
+                .ToDictionary(
+                    x => x.Key,
+                    x => x.Select(y => y.CountOfReceivedVotingCards).ToHashSet());
+
+            if (uniqueVotingCardCountsByChannelAndValid.Any(e => e.Value.Count > 1))
+            {
+                throw new ValidationException("Voting card counts per electorate, channel and valid state must be unique");
+            }
+
+            var uniqueCountOfVotersInformationSubTotalCount = details.CountOfVotersInformationSubTotals
+                .Where(st => electorate.DomainOfInfluenceTypes.Contains(st.DomainOfInfluenceType))
+                .GroupBy(st => new { st.VoterType, st.Sex, st.DomainOfInfluenceType })
+                .ToDictionary(
+                    x => x.Key,
+                    x => x.Select(y => y.CountOfVoters).ToHashSet());
+
+            if (uniqueCountOfVotersInformationSubTotalCount.Any(e => e.Value.Count > 1))
+            {
+                throw new ValidationException("Count of voters information sub total per electorate, voter type and sex must be unique");
+            }
+        }
+    }
+
+    private List<DataModels.CountingCircleElectorateBase> BuildElectorates(DataModels.CountingCircle cc, HashSet<DataModels.DomainOfInfluenceType> providedDoiTypes)
+    {
+        var electorates = cc.ContestElectorates.Count > 0
+            ? cc.ContestElectorates.OfType<DataModels.CountingCircleElectorateBase>().ToList()
+            : cc.Electorates.OfType<DataModels.CountingCircleElectorateBase>().ToList();
+
+        var electorateDoiTypes = electorates.SelectMany(e => e.DomainOfInfluenceTypes).ToHashSet();
+        var providedUnelectoratedDoiTypes = providedDoiTypes.Where(doiType => !electorateDoiTypes.Contains(doiType)).ToList();
+        if (providedUnelectoratedDoiTypes.Count > 0)
+        {
+            electorates.Add(new DataModels.CountingCircleElectorate { DomainOfInfluenceTypes = providedUnelectoratedDoiTypes });
+        }
+
+        return electorates;
     }
 }

@@ -40,6 +40,9 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
             ?? throw new ValidationException($"invalid data requested: {nameof(ctx.PoliticalBusinessUnionId)}: {ctx.PoliticalBusinessUnionId}");
 
         var pdfProportionalElectionUnion = _mapper.Map<PdfProportionalElectionUnion>(dpResult.ProportionalElectionUnion);
+        pdfProportionalElectionUnion.MandateAlgorithm = dpResult.Rows.FirstOrDefault()?.ProportionalElection.MandateAlgorithm
+            ?? throw new InvalidOperationException("No mandate algorithm found for union " + dpResult.ProportionalElectionUnionId);
+
         FormatResult(pdfProportionalElectionUnion.DoubleProportionalResult!);
         PreparePdfData(pdfProportionalElectionUnion.DoubleProportionalResult!);
 

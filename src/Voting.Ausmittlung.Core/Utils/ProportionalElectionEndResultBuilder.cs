@@ -110,7 +110,6 @@ public class ProportionalElectionEndResultBuilder
         else if (endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional())
         {
             await _dpResultBuilder.BuildForElection(endResult.ProportionalElectionId);
-            return;
         }
         else
         {
@@ -144,7 +143,7 @@ public class ProportionalElectionEndResultBuilder
         await _dbContext.SaveChangesAsync();
     }
 
-    internal async Task AdjustEndResult(Guid resultId, bool removeResults, bool implicitMandateDistributionDisabled)
+    internal async Task AdjustEndResult(Guid resultId, bool removeResults)
     {
         var deltaFactor = removeResults ? -1 : 1;
 
@@ -210,9 +209,19 @@ public class ProportionalElectionEndResultBuilder
             // a change in an election which uses a dp algorithm, always resets all related dp results.
             await _dpResultBuilder.ResetForElection(endResult.ProportionalElectionId);
         }
+    }
 
-        if (!implicitMandateDistributionDisabled
-            && endResult.AllCountingCirclesDone
+    internal async Task DistributeNumberOfMandatesImplicitly(Guid resultId)
+    {
+        var result = await _resultRepo
+            .Query()
+            .Include(x => x.ProportionalElection.EndResult)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(nameof(ProportionalElectionResult), resultId);
+
+        var endResult = result.ProportionalElection.EndResult!;
+        if (endResult.AllCountingCirclesDone
+            && !endResult.MandateDistributionTriggered
             && (endResult.ProportionalElection.MandateAlgorithm == ProportionalElectionMandateAlgorithm.HagenbachBischoff
                 || endResult.ProportionalElection.MandateAlgorithm.IsNonUnionDoubleProportional()))
         {

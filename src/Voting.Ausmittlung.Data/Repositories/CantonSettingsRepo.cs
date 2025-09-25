@@ -23,4 +23,10 @@ public class CantonSettingsRepo : DbRepository<DataContext, CantonSettings>
             .Include(x => x.CountingCircleResultStateDescriptions)
             .SingleOrDefaultAsync(x => x.Canton == canton);
     }
+
+    public async Task<bool> IsOwnerOfCanton(DomainOfInfluenceCanton canton, string tenantId)
+    {
+        return await Query()
+            .AnyAsync(x => x.Canton == canton && x.SecureConnectId == tenantId);
+    }
 }

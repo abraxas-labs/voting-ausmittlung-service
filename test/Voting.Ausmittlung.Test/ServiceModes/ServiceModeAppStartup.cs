@@ -28,6 +28,7 @@ public class ServiceModeAppStartup : TestStartup
         services.TryAddScoped<DomainOfInfluenceCantonDefaultsBuilder>();
         services.TryAddScoped<ContestCantonDefaultsBuilder>();
         services.TryAddScoped<ContestCountingCircleDetailsBuilder>();
+        services.TryAddScoped<CountingCircleResultBuilder>();
         services.TryAddScoped<VoteEndResultInitializer>();
         services.TryAddScoped<SimplePoliticalBusinessBuilder<Vote>>();
         services.TryAddScoped<DomainOfInfluencePermissionBuilder>();

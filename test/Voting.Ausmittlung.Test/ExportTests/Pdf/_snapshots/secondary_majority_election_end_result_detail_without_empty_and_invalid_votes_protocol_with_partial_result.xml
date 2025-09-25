@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -205,15 +206,16 @@
     </MajorityElectionEndResult>
     <MajorityElectionDomainOfInfluenceResult>
       <DomainOfInfluence>
-        <Name>St. Gallen</Name>
-        <NameForProtocol>Kanton St. Gallen</NameForProtocol>
-        <ShortName>St. Gallen</ShortName>
+        <Name>St. Gallen (Stadt)</Name>
+        <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+        <ShortName>St. Gallen  (Stadt)</ShortName>
         <AuthorityName />
-        <Code>0002-SG</Code>
-        <SortNumber>2</SortNumber>
-        <Bfs>0002</Bfs>
-        <Type>Ct</Type>
+        <Code />
+        <SortNumber>0</SortNumber>
+        <Bfs />
+        <Type>Mu</Type>
         <Canton>Sg</Canton>
+        <ViewCountingCirclePartialResults>true</ViewCountingCirclePartialResults>
       </DomainOfInfluence>
       <CountOfVoters>
         <VoterParticipation>0</VoterParticipation>
@@ -890,5 +892,6 @@
       <TotalCountOfVotingCards>0</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>
 </Voting>

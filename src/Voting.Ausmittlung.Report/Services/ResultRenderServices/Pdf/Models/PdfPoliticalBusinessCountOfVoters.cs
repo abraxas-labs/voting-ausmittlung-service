@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Xml.Serialization;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -18,7 +19,7 @@ public class PdfPoliticalBusinessCountOfVoters
 
         set
         {
-            _voterParticipation = decimal.Round(value, 4);
+            _voterParticipation = decimal.Round(value, 4, MidpointRounding.AwayFromZero);
         }
     }
 

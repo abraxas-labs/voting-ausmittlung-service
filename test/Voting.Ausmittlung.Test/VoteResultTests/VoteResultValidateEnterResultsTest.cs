@@ -284,17 +284,17 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                             BallotId = VoteMockedData.BallotIdGossauVoteInContestStGallen,
                             CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
                             {
-                                ConventionalReceivedBallots = 6000,
-                                ConventionalAccountedBallots = 4000,
-                                ConventionalBlankBallots = 1500,
-                                ConventionalInvalidBallots = 500,
+                                ConventionalReceivedBallots = 2800,
+                                ConventionalAccountedBallots = 2000,
+                                ConventionalBlankBallots = 500,
+                                ConventionalInvalidBallots = 300,
                             },
                             QuestionResults =
                             {
                                 new EnterVoteBallotQuestionResultRequest
                                 {
                                     QuestionNumber = 1,
-                                    ReceivedCountYes = 3200,
+                                    ReceivedCountYes = 1200,
                                     ReceivedCountNo = 800,
                                     ReceivedCountUnspecified = 0,
                                 },
@@ -302,7 +302,7 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                                 {
                                     QuestionNumber = 2,
                                     ReceivedCountYes = 100,
-                                    ReceivedCountNo = 3800,
+                                    ReceivedCountNo = 1800,
                                     ReceivedCountUnspecified = 100,
                                 },
                             },
@@ -311,8 +311,8 @@ public class VoteResultValidateEnterResultsTest : VoteResultBaseTest
                                 new EnterVoteTieBreakQuestionResultRequest
                                 {
                                     QuestionNumber = 1,
-                                    ReceivedCountQ1 = 2000,
-                                    ReceivedCountQ2 = 2000,
+                                    ReceivedCountQ1 = 1000,
+                                    ReceivedCountQ2 = 1000,
                                     ReceivedCountUnspecified = 0,
                                 },
                             },

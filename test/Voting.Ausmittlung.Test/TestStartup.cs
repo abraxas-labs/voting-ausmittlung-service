@@ -43,7 +43,7 @@ public class TestStartup : Startup
             .AddVotingLibIamMocks()
             .AddDokConnectorMock()
             .AddVotingLibCryptographyMocks()
-            .AddVotingLibPkcs11Mock()
+            .AddVotingLibCryptoProviderMock()
             .RemoveHostedServices()
             .AddSingleton<TestMapper>()
             .AddMock<IMalwareScannerService, MockMalwareScannerService>();

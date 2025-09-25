@@ -278,11 +278,7 @@ public class MajorityElectionResultAggregate : ElectionResultAggregate
     {
         if (!skipStateCheck)
         {
-            EnsureInState(
-                CountingCircleResultState.SubmissionOngoing,
-                CountingCircleResultState.ReadyForCorrection,
-                CountingCircleResultState.SubmissionDone,
-                CountingCircleResultState.CorrectionDone);
+            EnsureSubmissionAlreadyOngoing();
         }
 
         EnsureInTestingPhase();

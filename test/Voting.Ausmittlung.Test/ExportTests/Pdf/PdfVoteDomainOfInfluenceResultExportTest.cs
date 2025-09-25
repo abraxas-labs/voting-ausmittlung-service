@@ -3,8 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -76,6 +79,34 @@ public class PdfVoteDomainOfInfluenceResultExportTest : PdfExportBaseTest
         await VoteEndResultMockedData.Seed(RunScoped);
 
         await ModifyDbEntities<VoteResult>(_ => true, x => x.State = CountingCircleResultState.AuditedTentatively);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        var voteId = Guid.Parse(VoteEndResultMockedData.VoteId);
+
+        var results = await RunOnDb<List<VoteResult>>(db => db.VoteResults
+            .Include(x => x.Vote)
+            .Include(x => x.CountingCircle)
+            .Where(x => x.VoteId == voteId)
+            .ToListAsync());
+
+        var ccDetailsEvents = results.Select(x => new ContestCountingCircleDetailsResetted
+        {
+            Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(x.Vote.ContestId, x.CountingCircle.BasisCountingCircleId, false).ToString(),
+            ContestId = x.Vote.ContestId.ToString(),
+            CountingCircleId = x.CountingCircle.BasisCountingCircleId.ToString(),
+            EventInfo = GetMockedEventInfo(),
+        }).ToArray();
+        await TestEventPublisher.Publish(ccDetailsEvents);
+
+        var voteEvents = results.Select(x => new VoteResultResetted
+        {
+            VoteResultId = x.Id.ToString(),
+            EventInfo = GetMockedEventInfo(),
+        }).ToArray();
+        await TestEventPublisher.Publish(ccDetailsEvents.Length, voteEvents);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

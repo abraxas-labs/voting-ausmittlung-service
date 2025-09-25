@@ -29,13 +29,6 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
     private const string ColKandStimmenPrefix = "Stimmen_";
     private const string ColKandResultArtPrefix = "KandResultArt_";
 
-    private static readonly HashSet<CountingCircleResultState> StatesToCleanResult = new()
-    {
-        CountingCircleResultState.Initial,
-        CountingCircleResultState.SubmissionOngoing,
-        CountingCircleResultState.ReadyForCorrection,
-    };
-
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, MajorityElection> _repo;
 
@@ -66,11 +59,13 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
                 CountingCircleId = x.Key,
                 VotingCards = x.Single().VotingCards
                     .Where(z => z.DomainOfInfluenceType == election.DomainOfInfluence.Type && z.Valid)
-                    .Sum(z => z.CountOfReceivedVotingCards ?? 0),
-                TotalCountOfVoters = x.Single().TotalCountOfVoters,
+                    .Sum(z => z.CountOfReceivedVotingCards),
+                TotalCountOfVoters = x.Single().CountOfVotersInformationSubTotals
+                    .Where(z => z.DomainOfInfluenceType == election.DomainOfInfluence.Type)
+                    .Sum(z => z.CountOfVoters),
                 SwissAbroadCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                    .Where(y => y.VoterType == VoterType.SwissAbroad)
-                    .Sum(y => y.CountOfVoters.GetValueOrDefault()),
+                    .Where(y => y.VoterType == VoterType.SwissAbroad && y.DomainOfInfluenceType == election.DomainOfInfluence.Type)
+                    .Sum(y => y.CountOfVoters),
             })
             .ToDictionaryAsync(x => x.CountingCircleId, x => x, ct);
 
@@ -78,12 +73,6 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             .Where(x => x.Id == ctx.PoliticalBusinessId)
             .SelectMany(x => x.EndResult!.CandidateEndResults)
             .ToDictionaryAsync(x => x.CandidateId, x => x.State, ct);
-
-        var resultStatesByCountingCircleId = await _repo.Query()
-            .Where(x => x.Id == ctx.PoliticalBusinessId)
-            .SelectMany(x => x.Results)
-            .Include(x => x.CountingCircle)
-            .ToDictionaryAsync(x => x.CountingCircle.BasisCountingCircleId, x => x.State, ct);
 
         var data = _repo.Query()
             .Where(x => x.Id == ctx.PoliticalBusinessId)
@@ -117,6 +106,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
                         FirstName = c.Candidate.PoliticalFirstName,
                         VoteCount = c.VoteCount,
                     }).ToList(),
+                ResultState = x.State,
             })
             .OrderBy(x => x.CountingCircleSortNumber)
             .AsAsyncEnumerable()
@@ -124,8 +114,8 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             {
                 AttachPoliticalBusinessData(election, x);
                 AttachContestDetails(countOfVotersByCountingCircleId, x);
-                AttachCandidateResults(election.EndResult!.Calculation, candidateStatesByCandidateId, resultStatesByCountingCircleId, x);
-                CleanResultValues(resultStatesByCountingCircleId, x);
+                AttachCandidateResults(election.EndResult!.Calculation, candidateStatesByCandidateId, x);
+                x.ResetDataIfSubmissionNotDone();
                 return x;
             });
 
@@ -136,34 +126,12 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             WabstiCDateUtil.BuildDateForFilename(election.Contest.Date));
     }
 
-    private void CleanResultValues(IReadOnlyDictionary<Guid, CountingCircleResultState> statesByCcId, Data data)
-    {
-        var state = statesByCcId.GetValueOrDefault(data.CountingCircleId);
-        if (!StatesToCleanResult.Contains(state))
-        {
-            return;
-        }
-
-        data.VoterParticipation = null;
-        data.AccountedBallots = null;
-        data.EmptyBallots = null;
-        data.InvalidBallots = null;
-        data.ReceivedBallots = null;
-        data.TotalVoteCount = null;
-        data.VoterParticipation = null;
-        data.InvalidBallotsDeprecated = null;
-        data.ValidBallotsDeprecated = null;
-        data.CountOfVoters = null;
-        data.CountOfVotersSwissAbroad = null;
-        data.VotingCards = null;
-    }
-
     private void AttachContestDetails(IReadOnlyDictionary<Guid, ContestDetails> detailsByCcId, Data data)
     {
         var details = detailsByCcId.GetValueOrDefault(data.CountingCircleId);
-        data.CountOfVoters = details?.TotalCountOfVoters ?? 0;
-        data.CountOfVotersSwissAbroad = details?.SwissAbroadCountOfVoters ?? 0;
-        data.VotingCards = details?.VotingCards ?? 0;
+        data.CountOfVoters = details?.TotalCountOfVoters;
+        data.CountOfVotersSwissAbroad = details?.SwissAbroadCountOfVoters;
+        data.VotingCards = details?.VotingCards;
     }
 
     private void AttachPoliticalBusinessData(MajorityElection election, Data row)
@@ -183,15 +151,14 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
     private void AttachCandidateResults(
         MajorityElectionEndResultCalculation calculation,
         IReadOnlyDictionary<Guid, MajorityElectionCandidateEndResultState> candidateStatesByCandidateId,
-        IReadOnlyDictionary<Guid, CountingCircleResultState> resultStatesByCcId,
         Data row)
     {
-        var resultState = resultStatesByCcId.GetValueOrDefault(row.CountingCircleId);
+        var submissionDone = row.ResultState.IsSubmissionDone();
         var data = new Dictionary<string, object?>();
         var i = 1;
         foreach (var candidateResult in row.CandidateResults)
         {
-            var voteCount = StatesToCleanResult.Contains(resultState) ? (int?)null : candidateResult.VoteCount;
+            var voteCount = !submissionDone ? (int?)null : candidateResult.VoteCount;
             var state = ConvertCandidateResultStateToWabstiC(calculation, candidateStatesByCandidateId.GetValueOrDefault(candidateResult.CandidateId));
             data.Add(ColKandIdPrefix + i, candidateResult.Number);
             data.Add(ColKandNamePrefix + i, candidateResult.LastName);
@@ -209,7 +176,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
                 WabstiCConstants.IndividualMajorityCandidateNumber,
                 WabstiCConstants.IndividualMajorityCandidateLastName,
                 row.IndividualVoteCount,
-                resultState);
+                submissionDone);
         }
 
         AddFakeCandidateResult(
@@ -218,7 +185,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             WabstiCConstants.EmptyMajorityCandidateNumber,
             WabstiCConstants.EmptyMajorityCandidateLastName,
             row.EmptyVoteCount,
-            resultState);
+            submissionDone);
 
         AddFakeCandidateResult(
             i,
@@ -226,17 +193,17 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
             WabstiCConstants.InvalidMajorityCandidateNumber,
             WabstiCConstants.InvalidMajorityCandidateLastName,
             row.InvalidVoteCount,
-            resultState);
+            submissionDone);
 
         row.CandidateResultsDict = data;
     }
 
-    private void AddFakeCandidateResult(int i, Dictionary<string, object?> data, string number, string lastName, int voteCount, CountingCircleResultState state)
+    private void AddFakeCandidateResult(int i, Dictionary<string, object?> data, string number, string lastName, int voteCount, bool submissionDone)
     {
         data.Add(ColKandIdPrefix + i, number);
         data.Add(ColKandNamePrefix + i, lastName);
         data.Add(ColKandVoranmePrefix + i, string.Empty);
-        data.Add(ColKandStimmenPrefix + i, StatesToCleanResult.Contains(state) ? null : voteCount);
+        data.Add(ColKandStimmenPrefix + i, !submissionDone ? null : voteCount);
         data.Add(ColKandResultArtPrefix + i, 0);
     }
 
@@ -268,11 +235,11 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
     {
         public Guid CountingCircleId { get; set; }
 
-        public int TotalCountOfVoters { get; set; }
+        public int? TotalCountOfVoters { get; set; }
 
-        public int SwissAbroadCountOfVoters { get; set; }
+        public int? SwissAbroadCountOfVoters { get; set; }
 
-        public int VotingCards { get; set; }
+        public int? VotingCards { get; set; }
     }
 
     private class CandidateResultData
@@ -288,7 +255,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
         public int VoteCount { get; set; }
     }
 
-    private class Data
+    private class Data : IWabstiCPoliticalResultData
     {
         [Name("GroupHGN1")]
         public int GroupHgn1 => 1;
@@ -442,5 +409,29 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
 
         [Ignore]
         public IReadOnlyCollection<CandidateResultData> CandidateResults { get; set; } = Array.Empty<CandidateResultData>();
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            VoterParticipation = null;
+            AccountedBallots = null;
+            EmptyBallots = null;
+            InvalidBallots = null;
+            ReceivedBallots = null;
+            TotalVoteCount = null;
+            VoterParticipation = null;
+            InvalidBallotsDeprecated = null;
+            ValidBallotsDeprecated = null;
+            CountOfVoters = null;
+            CountOfVotersSwissAbroad = null;
+            VotingCards = null;
+        }
     }
 }

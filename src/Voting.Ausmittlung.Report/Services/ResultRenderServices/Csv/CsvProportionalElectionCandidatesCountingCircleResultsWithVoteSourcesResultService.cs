@@ -92,11 +92,13 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
                 AuditedTentativelyTimestamp = c.ListResult.Result.AuditedTentativelyTimestamp,
                 ElectionId = c.ListResult.Result.ProportionalElectionId,
                 BasisCountingCircleId = c.ListResult.Result.CountingCircle.BasisCountingCircleId,
+                ResultState = c.ListResult.Result.State,
             })
             .AsAsyncEnumerable()
             .Select(row =>
             {
                 SetVoteSources(lists, row);
+                ResetDataIfSubmissionNotDone(row);
                 row.ReportGeneratedTimestamp = now;
                 return row;
             });
@@ -105,6 +107,26 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
             ctx,
             records,
             await LoadDomainOfInfluenceShortName(ctx));
+    }
+
+    private void ResetDataIfSubmissionNotDone(Data record)
+    {
+        if (record.ResultState.IsSubmissionDone())
+        {
+            return;
+        }
+
+        record.UnmodifiedListsCount = 0;
+        record.ModifiedListsCount = 0;
+        record.CandidateVotesOnOtherLists = 0;
+        record.CandidateUnmodifiedVoteCount = 0;
+        record.CandidateModifiedVoteCount = 0;
+        record.CandidateTotalVoteCount = 0;
+        record.ListBlankRowsCount = 0;
+        record.ListTotalVoteCount = 0;
+        record.TotalCountOfModifiedLists = 0;
+        record.TotalCountOfListsWithoutParty = 0;
+        record.AllVoteSources = null;
     }
 
     private void SetVoteSources(
@@ -244,5 +266,8 @@ public class CsvProportionalElectionCandidatesCountingCircleResultsWithVoteSourc
 
         [Name("LfNr_EinheitenPara")]
         public Guid BasisCountingCircleId { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
     }
 }

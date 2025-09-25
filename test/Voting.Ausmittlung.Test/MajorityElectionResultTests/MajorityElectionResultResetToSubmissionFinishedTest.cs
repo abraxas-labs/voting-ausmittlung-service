@@ -163,7 +163,7 @@ public class MajorityElectionResultResetToSubmissionFinishedTest : MajorityElect
             MajorityElectionId = MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund,
         });
 
-        endResult.Finalized.Should().BeFalse();
+        endResult.Finalized.Should().BeTrue();
         endResult.MatchSnapshot();
 
         var id = MajorityElectionResultMockedData.GuidStGallenElectionResultInContestBund;

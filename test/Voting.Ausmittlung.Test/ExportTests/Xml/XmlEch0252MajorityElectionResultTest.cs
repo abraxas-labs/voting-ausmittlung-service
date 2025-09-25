@@ -40,6 +40,13 @@ public class XmlEch0252MajorityElectionResultTest : XmlExportBaseTest<Delivery>
     }
 
     [Fact]
+    public async Task TestEVoting()
+    {
+        await ModifyDbEntities<Contest>(x => x.Id == ContestMockedData.GuidBundesurnengang, x => x.EVoting = true);
+        await TestXmlWithSnapshot("EVoting");
+    }
+
+    [Fact]
     public async Task TestOwnedContestForeignMajorityElectionShouldBeIncluded()
     {
         // The contest belongs to the DoI/tenant "Bund", but the majority elections

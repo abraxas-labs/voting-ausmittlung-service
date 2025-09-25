@@ -82,7 +82,7 @@ public class SaintLagueAlgorithm
         var countOfEqualMaxDivisors = divisors.Count(d => d == maxDivisor);
         if (countOfEqualMaxDivisors > 1 && countOfEqualMaxDivisors > context.DistributionError)
         {
-            context.CountOfMissingNumberOfMandates = countOfEqualMaxDivisors - context.DistributionError;
+            context.CountOfMissingNumberOfMandates = context.DistributionError;
             context.ElectionKey = maxDivisor;
 
             for (var l = 0; l < context.Columns.Length; l++)
@@ -115,7 +115,7 @@ public class SaintLagueAlgorithm
         var countOfEqualMinDivisors = divisors.Count(d => d == minDivisor);
         if (countOfEqualMinDivisors > 1 && countOfEqualMinDivisors > context.DistributionError)
         {
-            context.CountOfMissingNumberOfMandates = countOfEqualMinDivisors - context.DistributionError;
+            context.CountOfMissingNumberOfMandates = context.DistributionError;
             context.ElectionKey = minDivisor;
 
             for (var l = 0; l < context.Columns.Length; l++)

@@ -341,7 +341,7 @@
           "Name": "Gossau",
           "Bfs": "3443",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
+            "SecureConnectId": "300300300300300300",
             "Name": "",
             "Street": "",
             "Zip": "",
@@ -363,10 +363,80 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 15800,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [
+            {
+              "Sex": 1,
+              "VoterType": 1,
+              "CountOfVoters": 8000,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "Sex": 1,
+              "VoterType": 2,
+              "CountOfVoters": 500,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "Sex": 2,
+              "VoterType": 1,
+              "CountOfVoters": 7000,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "Sex": 2,
+              "VoterType": 2,
+              "CountOfVoters": 300,
+              "DomainOfInfluenceType": 1
+            },
+            {
+              "Sex": 1,
+              "VoterType": 1,
+              "CountOfVoters": 8000,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "Sex": 1,
+              "VoterType": 2,
+              "CountOfVoters": 500,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "Sex": 2,
+              "VoterType": 1,
+              "CountOfVoters": 7000,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "Sex": 2,
+              "VoterType": 2,
+              "CountOfVoters": 300,
+              "DomainOfInfluenceType": 2
+            },
+            {
+              "Sex": 1,
+              "VoterType": 1,
+              "CountOfVoters": 7900,
+              "DomainOfInfluenceType": 5
+            },
+            {
+              "Sex": 1,
+              "VoterType": 2,
+              "CountOfVoters": 500,
+              "DomainOfInfluenceType": 5
+            },
+            {
+              "Sex": 2,
+              "VoterType": 1,
+              "CountOfVoters": 6900,
+              "DomainOfInfluenceType": 5
+            },
+            {
+              "Sex": 2,
+              "VoterType": 2,
+              "CountOfVoters": 300,
+              "DomainOfInfluenceType": 5
+            }
+          ],
           "VotingCards": [
             {
               "CountOfReceivedVotingCards": 3000,
@@ -405,19 +475,19 @@
               "DomainOfInfluenceType": 2
             },
             {
-              "CountOfReceivedVotingCards": 500,
+              "CountOfReceivedVotingCards": 2900,
               "Valid": false,
               "Channel": 2,
               "DomainOfInfluenceType": 5
             },
             {
-              "CountOfReceivedVotingCards": 2500,
+              "CountOfReceivedVotingCards": 1900,
               "Valid": true,
               "Channel": 1,
               "DomainOfInfluenceType": 5
             },
             {
-              "CountOfReceivedVotingCards": 3500,
+              "CountOfReceivedVotingCards": 900,
               "Valid": true,
               "Channel": 2,
               "DomainOfInfluenceType": 5
@@ -899,13 +969,13 @@
           "Name": "St. Gallen",
           "Bfs": "5500",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
-            "Name": "",
-            "Street": "",
-            "Zip": "",
-            "City": "",
-            "Phone": "",
-            "Email": ""
+            "SecureConnectId": "200200200200200200",
+            "Name": "St. Gallen",
+            "Street": "WerkstrasseX",
+            "Zip": "9000",
+            "City": "MyCityX",
+            "Phone": "071 123 12 20",
+            "Email": "sg@abraxas.ch"
           },
           "ContactPersonDuringEvent": {
             "FirstName": "",
@@ -921,10 +991,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "1e2e062e-288d-4347-9f22-224e69b95bed",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": false,
           "ECounting": true,
@@ -1164,7 +1231,7 @@
           "Name": "St. Gallen Auslandschweizer",
           "Bfs": "5500-3",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
+            "SecureConnectId": "200200200200200200",
             "Name": "",
             "Street": "",
             "Zip": "",
@@ -1186,10 +1253,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "35c7f490-abf1-4d6e-a9b1-4ae4de5248ab",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": false,
           "ECounting": false,
@@ -1429,7 +1493,7 @@
           "Name": "St. Gallen Haggen",
           "Bfs": "5500-2",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
+            "SecureConnectId": "200200200200200200",
             "Name": "",
             "Street": "",
             "Zip": "",
@@ -1451,10 +1515,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "46adab98-9114-4503-9000-b02842640650",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": false,
           "ECounting": false,
@@ -1694,7 +1755,7 @@
           "Name": "St. Gallen St. Fiden",
           "Bfs": "5500-1",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
+            "SecureConnectId": "200200200200200200",
             "Name": "",
             "Street": "",
             "Zip": "",
@@ -1716,10 +1777,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "44a75721-f192-461c-816f-9f46a00d274a",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": true,
           "ECounting": false,
@@ -1959,13 +2017,13 @@
           "Name": "Uzwil",
           "Bfs": "1234",
           "ResponsibleAuthority": {
-            "SecureConnectId": "",
-            "Name": "",
-            "Street": "",
-            "Zip": "",
-            "City": "",
-            "Phone": "",
-            "Email": ""
+            "SecureConnectId": "100100100100100100",
+            "Name": "Uzwil",
+            "Street": "Werkstrasse",
+            "Zip": "9595",
+            "City": "MyCity",
+            "Phone": "071 123 12 20",
+            "Email": "uzwil-test@abraxas.ch"
           },
           "ContactPersonDuringEvent": {
             "FirstName": "",
@@ -1981,10 +2039,7 @@
         "Details": {
           "ContestId": "95825eb0-0f52-461a-a5f8-23fb35fa69e1",
           "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-          "CountOfVotersInformation": {
-            "TotalCountOfVoters": 0,
-            "SubTotalInfo": []
-          },
+          "CountOfVotersInformationSubTotals": [],
           "VotingCards": [],
           "EVoting": true,
           "ECounting": true,

@@ -149,7 +149,7 @@
       "ComparisonVotingChannelsData": null,
       "ComparisonValidVotingCardsWithAccountedBallotsData": {
         "ThresholdPercent": 5.0,
-        "DeviationPercent": 33.333333333333336,
+        "DeviationPercent": 28.57142857142857,
         "PoliticalBusinessType": 1
       },
       "ValidationGroup": 0,

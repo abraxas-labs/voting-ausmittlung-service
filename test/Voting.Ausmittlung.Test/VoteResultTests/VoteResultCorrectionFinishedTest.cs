@@ -44,7 +44,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
-        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultCorrectionFinished>().MatchSnapshot();
     }
 
@@ -102,11 +102,12 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    public async Task TestShouldThrowAsContestManagerAfterTestingPhaseEndedWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
+        await SetContestState(ContestMockedData.IdStGallenEvoting, ContestState.Active);
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
             StatusCode.InvalidArgument);
     }
 
@@ -217,7 +218,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -239,7 +240,7 @@ public class VoteResultCorrectionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
+            async () => await ErfassungElectionAdminClient.CorrectionFinishedAsync(new VoteResultCorrectionFinishedRequest
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,

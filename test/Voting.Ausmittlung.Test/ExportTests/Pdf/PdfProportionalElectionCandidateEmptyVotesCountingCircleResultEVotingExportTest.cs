@@ -28,11 +28,6 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultEVoti
 
     protected override string TemplateKey => AusmittlungPdfProportionalElectionTemplates.ListCandidateEmptyVotesCountingCircleEVotingProtocol.Key;
 
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-    }
-
     protected override async Task SeedData()
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
@@ -40,6 +35,17 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultEVoti
         await ModifyDbEntities<ContestCountingCircleDetails>(
             x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
             x => x.EVoting = true);
+        await ModifyDbEntities<ProportionalElectionResult>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.ProportionalElection.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(
+            x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil && x.ProportionalElection.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

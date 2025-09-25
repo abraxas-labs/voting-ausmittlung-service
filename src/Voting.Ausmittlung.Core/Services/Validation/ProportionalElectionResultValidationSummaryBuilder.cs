@@ -53,7 +53,7 @@ public class ProportionalElectionResultValidationSummaryBuilder : CountingCircle
             ccDetails,
             DataModels.PoliticalBusinessType.ProportionalElection,
             true,
-            electionResult.ProportionalElection.DomainOfInfluence.Type);
+            electionResult.ProportionalElection.DomainOfInfluence);
 
         context.CountOfVoters = electionResult.CountOfVoters;
         return _proportionalElectionResultValidator.Validate(electionResult, context).ToList();

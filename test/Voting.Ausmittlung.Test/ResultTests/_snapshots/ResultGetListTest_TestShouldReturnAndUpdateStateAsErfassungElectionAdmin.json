@@ -74,31 +74,56 @@
   "Details": {
     "ContestId": "cc70fe43-8f4e-4bc6-a461-b808907bc996",
     "CountingCircleId": "ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e",
-    "CountOfVotersInformation": {
-      "TotalCountOfVoters": 3210,
-      "SubTotalInfo": [
-        {
-          "Sex": 1,
-          "VoterType": 1,
-          "CountOfVoters": 1600
-        },
-        {
-          "Sex": 1,
-          "VoterType": 2,
-          "CountOfVoters": 100
-        },
-        {
-          "Sex": 2,
-          "VoterType": 1,
-          "CountOfVoters": 1400
-        },
-        {
-          "Sex": 2,
-          "VoterType": 2,
-          "CountOfVoters": 110
-        }
-      ]
-    },
+    "CountOfVotersInformationSubTotals": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 1600,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 100,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 1400,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 110,
+        "DomainOfInfluenceType": 4
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 1600,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 100,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 1400,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 110,
+        "DomainOfInfluenceType": 5
+      }
+    ],
     "VotingCards": [
       {
         "CountOfReceivedVotingCards": 150,
@@ -129,6 +154,36 @@
         "Valid": true,
         "Channel": 4,
         "DomainOfInfluenceType": 4
+      },
+      {
+        "CountOfReceivedVotingCards": 150,
+        "Valid": false,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 400,
+        "Valid": true,
+        "Channel": 1,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 2000,
+        "Valid": true,
+        "Channel": 2,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 150,
+        "Valid": true,
+        "Channel": 3,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "CountOfReceivedVotingCards": 200,
+        "Valid": true,
+        "Channel": 4,
+        "DomainOfInfluenceType": 5
       }
     ],
     "EVoting": true,

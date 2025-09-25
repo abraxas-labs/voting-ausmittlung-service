@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -30,6 +31,14 @@ public class PdfProportionalElectionCandidateEmptyVotesCountingCircleResultExpor
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

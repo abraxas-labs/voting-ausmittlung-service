@@ -7,18 +7,17 @@ using System.Linq;
 using Ech0110_4_0;
 using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class ProportionalElectionResultMapping
 {
-    internal static ElectionGroupResultsType ToEchElectionGroupResult(this ProportionalElectionResult electionResult)
+    internal static ElectionGroupResultsType ToEchElectionGroupResult(this ProportionalElectionResult electionResult, bool eVoting)
     {
         return new ElectionGroupResultsType
         {
             DomainOfInfluenceIdentification = electionResult.ProportionalElection.DomainOfInfluence.BasisDomainOfInfluenceId.ToString(),
-            ElectionResults = new List<ElectionResultType> { electionResult.ToEchElectionResult() },
+            ElectionResults = new List<ElectionResultType> { electionResult.ToEchElectionResult(eVoting) },
             CountOfAccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalAccountedBallots),
             CountOfReceivedBallotsTotal = ResultDetailFromTotal(electionResult.CountOfVoters.TotalReceivedBallots),
             CountOfUnaccountedBallots = ResultDetailFromTotal(electionResult.CountOfVoters.TotalUnaccountedBallots),
@@ -28,7 +27,7 @@ internal static class ProportionalElectionResultMapping
         };
     }
 
-    private static ElectionResultType ToEchElectionResult(this ProportionalElectionResult electionResult)
+    private static ElectionResultType ToEchElectionResult(this ProportionalElectionResult electionResult, bool eVoting)
     {
         var election = electionResult.ProportionalElection;
 
@@ -47,11 +46,11 @@ internal static class ProportionalElectionResultMapping
                     .SelectMany(l => l.CandidateResults)
                     .OrderBy(r => r.ListResult.List.Position)
                     .ThenBy(r => r.Candidate.Position)
-                    .Select(c => c.ToEchCandidateResult())
+                    .Select(c => c.ToEchCandidateResult(eVoting))
                     .ToList(),
                 List = electionResult.ListResults
                     .OrderBy(r => r.List.Position)
-                    .Select(l => l.ToEchListResult())
+                    .Select(l => l.ToEchListResult(eVoting))
                     .ToList(),
                 CountOfEmptyVotesOfChangedBallotsWithoutPartyAffiliation = ResultDetailFromTotal(electionResult.TotalCountOfBlankRowsOnListsWithoutParty),
                 CountOfChangedBallotsWithoutPartyAffiliation = ResultDetailFromTotal(electionResult.TotalCountOfListsWithoutParty),
@@ -60,10 +59,11 @@ internal static class ProportionalElectionResultMapping
         };
     }
 
-    private static ListResultsType ToEchListResult(this ProportionalElectionListResult listResult)
+    private static ListResultsType ToEchListResult(this ProportionalElectionListResult listResult, bool eVoting)
     {
         var list = listResult.List;
         var listDescriptions = list.Translations
+            .FilterAndSortEchExportLanguages(eVoting)
             .Select(t => new ListDescriptionInformationTypeListDescriptionInfo
             {
                 Language = t.Language,
@@ -89,11 +89,11 @@ internal static class ProportionalElectionResultMapping
         };
     }
 
-    private static CandidateResultType ToEchCandidateResult(this ProportionalElectionCandidateResult candidateResult)
+    private static CandidateResultType ToEchCandidateResult(this ProportionalElectionCandidateResult candidateResult, bool eVoting)
     {
         var candidate = candidateResult.Candidate;
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
-        var texts = Languages.All
+        var texts = LanguageMapping.GetEchExportLanguages(eVoting)
             .Select(l => new CandidateTextInformationTypeCandidateTextInfo
             {
                 Language = l,

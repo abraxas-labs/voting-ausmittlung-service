@@ -63,25 +63,31 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
     }
 
     [Fact]
-    public async Task TestAsonitoringAdminShouldReturnContestsWithoutPoliticalBusinesses()
+    public async Task TestAsMonitoringAdminWithContestsWithoutActivePoliticalBusinessesShouldThrow()
     {
         var contestId = ContestMockedData.GuidUzwilEvoting;
 
         await RunOnDb(async db =>
         {
             var pbs = await db.SimplePoliticalBusinesses
+                .AsTracking()
                 .Where(pb => pb.ContestId == contestId)
                 .ToListAsync();
 
-            db.SimplePoliticalBusinesses.RemoveRange(pbs);
+            foreach (var pb in pbs)
+            {
+                pb.Active = false;
+            }
+
             await db.SaveChangesAsync();
         });
 
-        var response = await MonitoringElectionAdminClient.GetAsync(new GetContestRequest
-        {
-            Id = contestId.ToString(),
-        });
-        response.Should().NotBeNull();
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.GetAsync(new GetContestRequest
+            {
+                Id = contestId.ToString(),
+            }),
+            StatusCode.NotFound);
     }
 
     [Fact]
@@ -109,9 +115,12 @@ public class ContestGetTest : BaseTest<ContestService.ContestServiceClient>
     {
         var contestId = ContestMockedData.GuidBundesurnengang;
 
+        await RunOnDb(db => db.SimpleCountingCircleResults
+            .Where(r => r.CountingCircle!.SnapshotContestId == contestId && r.CountingCircle.BasisCountingCircleId != CountingCircleMockedData.StGallen.Id)
+            .ExecuteDeleteAsync());
         await ModifyDbEntities<Data.Models.SimpleCountingCircleResult>(
-            x => x.CountingCircle!.SnapshotContestId == contestId,
-            x => x.CountingCircleId = CountingCircleMockedData.GuidRorschach);
+            x => x.CountingCircle!.SnapshotContestId == contestId && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.StGallen.Id,
+            x => x.CountingCircleId = CountingCircleMockedData.GuidUzwilKirche);
 
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.GetAsync(new GetContestRequest

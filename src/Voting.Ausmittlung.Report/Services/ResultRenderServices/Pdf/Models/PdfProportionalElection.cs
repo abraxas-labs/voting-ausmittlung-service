@@ -3,12 +3,15 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 
 public class PdfProportionalElection : PdfPoliticalBusiness
 {
     public int NumberOfMandates { get; set; }
+
+    public ProportionalElectionMandateAlgorithm MandateAlgorithm { get; set; }
 
     [XmlElement("ProportionalElectionResult")]
     public List<PdfProportionalElectionResult> Results { get; set; } = new List<PdfProportionalElectionResult>();

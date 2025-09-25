@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <ContestDetails>
       <TotalCountOfVoters>34810</TotalCountOfVoters>
@@ -68,6 +69,7 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteEndResult>
       <TotalCountOfVoters>34810</TotalCountOfVoters>
@@ -314,7 +316,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>60</CountOfAnswerTotalYes>
@@ -384,7 +386,7 @@
             <CountOfAnswerTotalUnspecified>60</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>60</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>480</CountOfAnswerTotalYes>
@@ -416,7 +418,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>600</CountOfAnswerTotalQ1>
@@ -448,7 +450,7 @@
             <CountOfAnswerTotalUnspecified>30</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>30</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>960</CountOfAnswerTotalQ1>
@@ -512,12 +514,13 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteEndResult>
-      <TotalCountOfVoters>0</TotalCountOfVoters>
-      <CountOfDoneCountingCircles>0</CountOfDoneCountingCircles>
+      <TotalCountOfVoters>34810</TotalCountOfVoters>
+      <CountOfDoneCountingCircles>6</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>6</TotalCountOfCountingCircles>
-      <AllCountingCirclesDone>false</AllCountingCirclesDone>
+      <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <VoteBallotEndResult>
         <Ballot>
           <Position>1</Position>
@@ -555,7 +558,7 @@
           <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
           <CountOfAnswerTotal>0</CountOfAnswerTotal>
           <PercentageYes>0</PercentageYes>
-          <PercentageNo>1</PercentageNo>
+          <PercentageNo>0</PercentageNo>
           <CountOfCountingCircleYes>0</CountOfCountingCircleYes>
           <CountOfCountingCircleNo>0</CountOfCountingCircleNo>
           <HasCountingCircleMajority>false</HasCountingCircleMajority>
@@ -567,7 +570,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>0</CountOfAnswerTotalYes>
@@ -575,7 +578,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </ConventionalSubTotal>
         </BallotQuestionEndResult>
         <QuestionEndResultLabel>QuestionCount1NotAccepted</QuestionEndResultLabel>

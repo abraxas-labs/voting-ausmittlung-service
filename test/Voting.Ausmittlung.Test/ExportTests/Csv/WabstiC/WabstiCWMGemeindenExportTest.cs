@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -41,6 +42,18 @@ public class WabstiCWMGemeindenExportTest : CsvExportBaseTest
             entity.SubmissionDoneTimestamp = entity.MajorityElection.Contest.Date.AddHours(12.25); // submission done 12:15
             await db.SaveChangesAsync();
         });
+
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override GenerateResultExportsRequest NewRequest()

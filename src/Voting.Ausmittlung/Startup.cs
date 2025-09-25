@@ -30,6 +30,7 @@ using Voting.Ausmittlung.Services;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Lib.Common;
 using Voting.Lib.Common.DependencyInjection;
+using Voting.Lib.Cryptography.Extensions;
 using Voting.Lib.Grpc.DependencyInjection;
 using Voting.Lib.Grpc.Interceptors;
 using Voting.Lib.MalwareScanner.DependencyInjection;
@@ -72,6 +73,7 @@ public class Startup
         if (_appConfig.PublisherModeEnabled)
         {
             AddPublisherServices(services);
+            services.AddSingleton(_appConfig.LargeObjectHeapCompaction);
         }
     }
 
@@ -84,6 +86,7 @@ public class Startup
         if (_appConfig.PublisherModeEnabled)
         {
             UsePublisher(app);
+            app.UseMiddleware<LargeObjectHeapCompactionMiddleware>();
         }
 
         app.UseEndpoints(endpoints =>
@@ -198,7 +201,7 @@ public class Startup
         checks
             .AddDbContextCheck<DataContext>()
             .AddEventStore()
-            .AddPkcs11HealthCheck()
+            .AddCryptoProviderHealthCheck("Pkcs11")
             .ForwardToPrometheus();
 
         // Temporary data (eg. information about multi factor authentication) is only used in the Publisher configuration

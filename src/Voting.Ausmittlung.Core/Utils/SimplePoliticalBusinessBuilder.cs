@@ -24,6 +24,8 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
     private readonly SimplePoliticalBusinessTranslationRepo _politicalBusinessTranslationRepo;
     private readonly SimpleCountingCircleResultRepo _countingCircleResultRepo;
     private readonly IDbRepository<DataContext, VotingCardResultDetail> _votingCardResultDetailRepo;
+    private readonly IDbRepository<DataContext, CountOfVotersInformationSubTotal> _countOfVotersInformationSubTotalRepo;
+    private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly IMapper _mapper;
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
 
@@ -34,6 +36,8 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
         SimplePoliticalBusinessTranslationRepo politicalBusinessTranslationRepo,
         SimpleCountingCircleResultRepo countingCircleResultRepo,
         IDbRepository<DataContext, VotingCardResultDetail> votingCardResultDetailRepo,
+        IDbRepository<DataContext, CountOfVotersInformationSubTotal> countOfVotersInformationSubTotalRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         IMapper mapper,
         AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder)
     {
@@ -43,6 +47,8 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
         _politicalBusinessTranslationRepo = politicalBusinessTranslationRepo;
         _countingCircleResultRepo = countingCircleResultRepo;
         _votingCardResultDetailRepo = votingCardResultDetailRepo;
+        _countOfVotersInformationSubTotalRepo = countOfVotersInformationSubTotalRepo;
+        _protocolExportRepo = protocolExportRepo;
         _mapper = mapper;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
     }
@@ -129,16 +135,18 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
 
     public async Task Delete(Guid politicalBusinessId)
     {
-        await DeleteRelatedVotingCards(politicalBusinessId);
+        await DeleteRelatedVotingCardsAndSubTotals(politicalBusinessId);
+        await DeleteRelatedProtocolExports(politicalBusinessId);
         await _politicalBusinessRepo.DeleteByKey(politicalBusinessId);
     }
 
-    private async Task DeleteRelatedVotingCards(Guid politicalBusinessId)
+    private async Task DeleteRelatedVotingCardsAndSubTotals(Guid politicalBusinessId)
     {
         var politicalBusiness = await _politicalBusinessRepo.Query()
                                     .AsSplitQuery()
                                     .Include(x => x.DomainOfInfluence)
                                     .Include(x => x.Contest).ThenInclude(x => x.CountingCircleDetails).ThenInclude(x => x.VotingCards)
+                                    .Include(x => x.Contest).ThenInclude(x => x.CountingCircleDetails).ThenInclude(x => x.CountOfVotersInformationSubTotals)
                                     .FirstOrDefaultAsync(x => x.Id == politicalBusinessId)
                                 ?? throw new EntityNotFoundException(politicalBusinessId);
 
@@ -152,10 +160,17 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
             return;
         }
 
-        await DeleteRelatedVotingCardsAndResetAggregatedDetails(
+        await DeleteRelatedVotingCardsAndSubTotalsAndResetAggregatedDetails(
             politicalBusiness.ContestId,
             politicalBusiness.Contest.CountingCircleDetails.ToList(),
             politicalBusiness.DomainOfInfluence.Type);
+    }
+
+    private async Task DeleteRelatedProtocolExports(Guid politicalBusinessId)
+    {
+        await _protocolExportRepo.Query()
+            .Where(x => x.PoliticalBusinessIds.Contains(politicalBusinessId))
+            .ExecuteDeleteAsync();
     }
 
     private Guid MapToNewId(IReadOnlyDictionary<Guid, Guid> basisIdToNewIdMapping, Guid basisId)
@@ -168,17 +183,18 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
         return newId;
     }
 
-    private async Task DeleteRelatedVotingCardsAndResetAggregatedDetails(Guid contestId, IReadOnlyCollection<ContestCountingCircleDetails> ccDetails, DomainOfInfluenceType doiType)
+    private async Task DeleteRelatedVotingCardsAndSubTotalsAndResetAggregatedDetails(Guid contestId, IReadOnlyCollection<ContestCountingCircleDetails> ccDetails, DomainOfInfluenceType doiType)
     {
-        // create a new empty cc details object to only subtract related voting card results from the aggregated details.
+        // create a new empty cc details object to only subtract related voting card results and sub totals from the aggregated details.
         var preparedCcDetails = ccDetails
-            .Where(ccDetail => ccDetail.VotingCards.Any(vc => vc.DomainOfInfluenceType == doiType))
+            .Where(ccDetail => ccDetail.VotingCards.Any(vc => vc.DomainOfInfluenceType == doiType) || ccDetail.CountOfVotersInformationSubTotals.Any(st => st.DomainOfInfluenceType == doiType))
             .Select(x =>
                 new ContestCountingCircleDetails
                 {
                     Id = x.Id,
                     CountingCircleId = x.CountingCircleId,
                     VotingCards = x.VotingCards.Where(vc => vc.DomainOfInfluenceType == doiType).ToList(),
+                    CountOfVotersInformationSubTotals = x.CountOfVotersInformationSubTotals.Where(st => st.DomainOfInfluenceType == doiType).ToList(),
                 })
             .ToList();
 
@@ -188,6 +204,11 @@ public class SimplePoliticalBusinessBuilder<TPoliticalBusiness>
             .SelectMany(ccDetails => ccDetails.VotingCards)
             .Select(vc => vc.Id);
 
+        var subTotalIds = preparedCcDetails
+            .SelectMany(ccDetails => ccDetails.CountOfVotersInformationSubTotals)
+            .Select(st => st.Id);
+
         await _votingCardResultDetailRepo.DeleteRangeByKey(votingCardIds);
+        await _countOfVotersInformationSubTotalRepo.DeleteRangeByKey(subTotalIds);
     }
 }

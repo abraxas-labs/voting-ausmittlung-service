@@ -56,7 +56,23 @@ public abstract class PdfExportBaseTest : BaseTest<ExportService.ExportServiceCl
         await TestPdfReport(string.Empty);
     }
 
+    [Fact]
+    public virtual async Task TestPdfSubmissionOngoing()
+    {
+        // Reports should not show any result values when submission is still ongoing
+        if (await SetToSubmissionOngoing())
+        {
+            await TestPdfReport("_submission-ongoing");
+        }
+    }
+
     protected abstract Task SeedData();
+
+    /// <summary>
+    /// Set the submission to ongoing to test whether reports handle that state correctly.
+    /// </summary>
+    /// <returns>True if the submission was set to ongoing. False if that doesn't make sense for the report --> skip test.</returns>
+    protected abstract Task<bool> SetToSubmissionOngoing();
 
     protected abstract StartProtocolExportsRequest NewRequest();
 
@@ -91,7 +107,7 @@ public abstract class PdfExportBaseTest : BaseTest<ExportService.ExportServiceCl
         var contest = await RunOnDb(db => db.Contests
             .Include(x => x.DomainOfInfluence)
             .FirstAsync(x => x.Id == Guid.Parse(request.ContestId)));
-        var exportTemplateKeyCantonSuffix = config.ExportTemplateKeyCantonSuffixEnabled
+        var exportTemplateKeyCantonSuffix = config.ExportTemplateKeyCantonSuffixEnabled || config.EnableCantonSuffixTemplateKeys.Contains(TemplateKey)
             ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
             : string.Empty;
 

@@ -28,24 +28,18 @@ public class ContestCountingCircleDetails : BaseEntity
 
     public bool ECountingResultsImported { get; set; }
 
-    public int TotalCountOfVoters { get; set; }
-
     public CountingMachine CountingMachine { get; set; }
-
-    public int GetMaxSumOfVotingCards(Func<(int Valid, int Invalid), int> validValueSelector)
-    {
-        // we append 0, since 0 is the min value in our context and Max()/Max(validValueSelector) would throw on an empty collection.
-        return VotingCards
-            .GroupBy(x => x.DomainOfInfluenceType)
-            .Select(SumValidInvalidVotingCards)
-            .Select(validValueSelector)
-            .Append(0)
-            .Max();
-    }
 
     public (int Valid, int Invalid) SumVotingCards(DomainOfInfluenceType doiType)
     {
         return SumValidInvalidVotingCards(VotingCards.Where(x => x.DomainOfInfluenceType == doiType));
+    }
+
+    public int SumTotalCountOfVoters(DomainOfInfluenceType doiType)
+    {
+        return CountOfVotersInformationSubTotals
+            .Where(st => st.DomainOfInfluenceType == doiType)
+            .Sum(st => st.CountOfVoters.GetValueOrDefault());
     }
 
     public void OrderVotingCardsAndSubTotals()
@@ -58,10 +52,24 @@ public class ContestCountingCircleDetails : BaseEntity
             .ToList();
 
         CountOfVotersInformationSubTotals = CountOfVotersInformationSubTotals
-            .OrderBy(x => x.Sex)
+            .OrderBy(x => x.DomainOfInfluenceType)
+            .ThenBy(x => x.Sex)
             .ThenBy(x => x.VoterType)
             .ThenBy(x => x.CountOfVoters)
             .ToList();
+    }
+
+    public void ResetVotingCardsAndSubTotals()
+    {
+        foreach (var votingCard in VotingCards)
+        {
+            votingCard.CountOfReceivedVotingCards = null;
+        }
+
+        foreach (var countOfVoters in CountOfVotersInformationSubTotals)
+        {
+            countOfVoters.CountOfVoters = null;
+        }
     }
 
     private (int Valid, int Invalid) SumValidInvalidVotingCards(IEnumerable<VotingCardResultDetail> details)

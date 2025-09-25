@@ -122,12 +122,11 @@ public class ResultExportService
             .FirstOrDefaultAsync(x => x.Id == contestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), contestId);
 
-        var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled
-            ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
-            : string.Empty;
-
         foreach (var exportTemplate in resolvedTemplates)
         {
+            var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled || _publisherConfig.EnableCantonSuffixTemplateKeys.Contains(exportTemplate.Template.Key)
+                ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
+                : string.Empty;
             var file = await _exportService.GenerateResultExport(contestId, exportTemplate, exportTemplateKeyCantonSuffix, ct: ct);
             aggregate.DataExportGenerated(
                 contestId,
@@ -224,7 +223,7 @@ public class ResultExportService
             WebhookUrl = _publisherConfig.Documatrix.GetProtocolExportCallbackUrl(protocolExportId, callbackToken),
         };
 
-        var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled
+        var exportTemplateKeyCantonSuffix = _publisherConfig.ExportTemplateKeyCantonSuffixEnabled || _publisherConfig.EnableCantonSuffixTemplateKeys.Contains(exportTemplate.Template.Key)
             ? $"_{contest.DomainOfInfluence.Canton.ToString().ToLower(CultureInfo.InvariantCulture)}"
             : string.Empty;
 
@@ -241,7 +240,8 @@ public class ResultExportService
             requestId,
             exportTemplate.Template.Key + exportTemplateKeyCantonSuffix,
             exportTemplate.CountingCircleId,
-            exportTemplate.PoliticalBusinessId,
+            politicalBusinessId,
+            [politicalBusinessId],
             exportTemplate.PoliticalBusinessUnionId,
             exportTemplate.DomainOfInfluenceType ?? DomainOfInfluenceType.Unspecified,
             exportTemplate.PoliticalBusinessResultBundleId);
@@ -349,13 +349,13 @@ public class ResultExportService
             ? await _contestReader.GetOwnedPoliticalBusinessIds(contestId)
             : await _contestReader.GetAccessiblePoliticalBusinessIds(contestId);
 
-        // Set the accessible political business ids when someone wants a report over the whole contest, because
-        // otherwise we would have to query & filter them again later
         foreach (var resolvedTemplate in resolvedTemplates)
         {
             if (resolvedTemplate.PoliticalBusinessIds.Count == 0)
             {
-                resolvedTemplate.PoliticalBusinessIds = accessiblePbIds.ToList();
+                resolvedTemplate.PoliticalBusinessIds = resolvedTemplate.PoliticalBusinessId.HasValue
+                    ? [resolvedTemplate.PoliticalBusinessId.Value]
+                    : accessiblePbIds.ToList();
             }
         }
 

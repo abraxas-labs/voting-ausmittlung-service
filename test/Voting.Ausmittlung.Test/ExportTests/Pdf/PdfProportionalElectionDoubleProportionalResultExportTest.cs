@@ -42,6 +42,9 @@ public class PdfProportionalElectionDoubleProportionalResultExportTest : PdfExpo
             await builder.BuildForElection(ProportionalElectionEndResultSgExampleMockedData.GuidStGallenNationalratElection));
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // This only makes sense when submission is done
+
     protected override StartProtocolExportsRequest NewRequest()
     {
         return new StartProtocolExportsRequest

@@ -4,9 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -22,15 +24,18 @@ public abstract class PoliticalBusinessResultWriter<T>
 {
     private readonly PermissionService _permissionService;
     private readonly ContestService _contestService;
+    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
     protected PoliticalBusinessResultWriter(
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
-        IAggregateRepository aggregateRepository)
+        IAggregateRepository aggregateRepository,
+        SecondFactorTransactionWriter secondFactorTransactionWriter)
     {
         _permissionService = permissionService;
         _contestService = contestService;
+        _secondFactorTransactionWriter = secondFactorTransactionWriter;
         Auth = auth;
         AggregateRepository = aggregateRepository;
     }
@@ -134,26 +139,54 @@ public abstract class PoliticalBusinessResultWriter<T>
         }
     }
 
-    /// <summary>
-    /// Gets an action id of the aggregate provided by the type argument and id concat by the ContestCountingCircleDetailsAggregate.
-    /// </summary>
-    /// <param name="action">The action.</param>
-    /// <param name="resultId">The id of the result.</param>
-    /// <param name="contestId">The id of the contest.</param>
-    /// <param name="countingCircleId">The id of the counting circle.</param>
-    /// <param name="testingPhaseEnded">Whether the contest is in testing phase or not.</param>
-    /// <typeparam name="TResultAggregate">The type of the result aggregate.</typeparam>
-    /// <returns>The action id.</returns>
-    protected async Task<ActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
-        where TResultAggregate : BaseEventSignatureAggregate
+    protected async Task<SecondFactorInfo?> PrepareSecondFactor<TA>(
+        string action,
+        Guid resultId,
+        string message)
+        where TA : CountingCircleResultAggregate
     {
-        var resultAggregateVersion = await AggregateRepository.GetVersion<TResultAggregate>(resultId);
+        var result = await LoadPoliticalBusinessResult(resultId);
+        await EnsurePoliticalBusinessPermissions(result);
 
-        var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, countingCircleId, testingPhaseEnded);
-        var detailsAggregate = await AggregateRepository.TryGetVersion<ContestCountingCircleDetailsAggregate>(id)
-                               ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
+        var secondFactorRequired = await IsSecondFactorRequired(result.PoliticalBusiness);
+        if (!secondFactorRequired)
+        {
+            return null;
+        }
 
-        return new ActionId(action, resultAggregateVersion, detailsAggregate);
+        var actionId = await PrepareActionId<TA>(
+            action,
+            resultId,
+            result.PoliticalBusiness.ContestId,
+            result.CountingCircle.BasisCountingCircleId,
+            result.PoliticalBusiness.Contest.TestingPhaseEnded);
+
+        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+    }
+
+    protected async Task VerifySecondFactor<TA>(T result, string action, Guid? secondFactorTransactionId, CancellationToken ct)
+        where TA : CountingCircleResultAggregate
+    {
+        var secondFactorRequired = await IsSecondFactorRequired(result.PoliticalBusiness);
+        if (!secondFactorRequired)
+        {
+            return;
+        }
+
+        if (secondFactorTransactionId == null)
+        {
+            throw new ValidationException("Second factor transaction id cannot be null.");
+        }
+
+        await _secondFactorTransactionWriter.EnsureVerified(
+            secondFactorTransactionId.Value,
+            () => PrepareActionId<TA>(
+                action,
+                result.Id,
+                result.PoliticalBusiness.ContestId,
+                result.CountingCircle.BasisCountingCircleId,
+                result.PoliticalBusiness.Contest.TestingPhaseEnded),
+            ct);
     }
 
     protected bool IsSelfOwnedPoliticalBusiness(PoliticalBusiness politicalBusiness)
@@ -226,4 +259,37 @@ public abstract class PoliticalBusinessResultWriter<T>
     }
 
     protected abstract Task<T> LoadPoliticalBusinessResult(Guid resultId);
+
+    private async Task<bool> IsSecondFactorRequired(PoliticalBusiness politicalBusiness)
+    {
+        if (politicalBusiness.Contest.TestingPhaseEnded)
+        {
+            return true;
+        }
+
+        var isOwnerOfCanton = await _permissionService.IsOwnerOfCanton(politicalBusiness.DomainOfInfluence.Canton);
+        return !isOwnerOfCanton;
+    }
+
+    /// <summary>
+    /// Gets an action id of the aggregate provided by the type argument and id concat by the ContestCountingCircleDetailsAggregate.
+    /// </summary>
+    /// <param name="action">The action.</param>
+    /// <param name="resultId">The id of the result.</param>
+    /// <param name="contestId">The id of the contest.</param>
+    /// <param name="countingCircleId">The id of the counting circle.</param>
+    /// <param name="testingPhaseEnded">Whether the contest is in testing phase or not.</param>
+    /// <typeparam name="TResultAggregate">The type of the result aggregate.</typeparam>
+    /// <returns>The action id.</returns>
+    private async Task<ActionId> PrepareActionId<TResultAggregate>(string action, Guid resultId, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
+        where TResultAggregate : BaseEventSignatureAggregate
+    {
+        var resultAggregateVersion = await AggregateRepository.GetVersion<TResultAggregate>(resultId);
+
+        var id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, countingCircleId, testingPhaseEnded);
+        var detailsAggregate = await AggregateRepository.TryGetVersion<ContestCountingCircleDetailsAggregate>(id)
+            ?? throw new ValidationException("Counting circle details aggregate is not initialized yet");
+
+        return new ActionId(action, resultAggregateVersion, detailsAggregate);
+    }
 }

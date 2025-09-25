@@ -41,6 +41,22 @@ public abstract class CsvExportBaseTest : BaseRestTest
     [Fact]
     public virtual Task TestCsv() => TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName);
 
+    [Fact]
+    public async Task TestCsvSubmissionOngoing()
+    {
+        // Exports should not show any result values when submission is still ongoing
+        if (await SetToSubmissionOngoing())
+        {
+            await TestCsvSnapshot(NewRequest(), NewRequestExpectedFileName, "submission-ongoing");
+        }
+    }
+
+    /// <summary>
+    /// Set the submission to ongoing to test whether exports handle that state correctly.
+    /// </summary>
+    /// <returns>True if the submission was set to ongoing. False if that doesn't make sense for the exoirt --> skip test.</returns>
+    protected abstract Task<bool> SetToSubmissionOngoing();
+
     protected override IEnumerable<string> AuthorizedRoles()
     {
         // Do not test the role access for each report. This is tested once for the endpoint in another test.

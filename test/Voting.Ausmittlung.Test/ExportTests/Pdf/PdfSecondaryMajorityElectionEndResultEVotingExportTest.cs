@@ -2,10 +2,8 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
@@ -14,7 +12,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfSecondaryMajorityElectionEndResultEVotingExportTest : PdfExportBaseTest
+public class PdfSecondaryMajorityElectionEndResultEVotingExportTest : PdfMajorityElectionEndResultExportBaseTest
 {
     public PdfSecondaryMajorityElectionEndResultEVotingExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -33,12 +31,6 @@ public class PdfSecondaryMajorityElectionEndResultEVotingExportTest : PdfExportB
             x => x.EVoting = true);
     }
 
-    protected override async Task SeedData()
-    {
-        await MajorityElectionMockedData.Seed(RunScoped);
-        await MajorityElectionEndResultMockedData.Seed(RunScoped);
-    }
-
     protected override StartProtocolExportsRequest NewRequest()
     {
         return new StartProtocolExportsRequest
@@ -53,12 +45,5 @@ public class PdfSecondaryMajorityElectionEndResultEVotingExportTest : PdfExportB
                     .ToString(),
             },
         };
-    }
-
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 }

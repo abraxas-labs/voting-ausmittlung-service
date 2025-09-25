@@ -63,31 +63,56 @@
   "Details": {
     "ContestId": "4b1513ce-89fd-4ce8-bf71-7b55a50b8943",
     "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
-    "CountOfVotersInformation": {
-      "TotalCountOfVoters": 12000,
-      "SubTotalInfo": [
-        {
-          "Sex": 1,
-          "VoterType": 1,
-          "CountOfVoters": 4000
-        },
-        {
-          "Sex": 1,
-          "VoterType": 2,
-          "CountOfVoters": 1000
-        },
-        {
-          "Sex": 2,
-          "VoterType": 1,
-          "CountOfVoters": 6000
-        },
-        {
-          "Sex": 2,
-          "VoterType": 2,
-          "CountOfVoters": 1000
-        }
-      ]
-    },
+    "CountOfVotersInformationSubTotals": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 4000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 1000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 6000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 1000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 4000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 1000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 6000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 1000,
+        "DomainOfInfluenceType": 2
+      }
+    ],
     "VotingCards": [
       {
         "CountOfReceivedVotingCards": 4000,

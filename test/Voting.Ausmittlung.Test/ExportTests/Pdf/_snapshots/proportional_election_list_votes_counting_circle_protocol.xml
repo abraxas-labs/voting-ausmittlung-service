@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -31,8 +32,10 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <NumberOfMandates>12</NumberOfMandates>
+    <MandateAlgorithm>HagenbachBischoff</MandateAlgorithm>
     <ProportionalElectionResult>
       <TotalCountOfVoters>317969</TotalCountOfVoters>
       <State>SubmissionDone</State>
@@ -1337,21 +1340,25 @@
         <Sex>Male</Sex>
         <CountOfVoters>8000</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>500</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>7000</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>300</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>

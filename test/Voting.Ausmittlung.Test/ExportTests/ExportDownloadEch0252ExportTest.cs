@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models.Export;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
@@ -61,6 +62,75 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
 
             var formattedXmlMajorityElections = ValidateAndFormat(archive, "eCH-0252_majority-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
             formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsApi.xml");
+        });
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithCandidateListResultsInfo()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(x => true, x =>
+        {
+            x.AuditedTentativelyTimestamp = new DateTime(2022, 4, 11, 12, 3, 0, DateTimeKind.Utc);
+            x.State = CountingCircleResultState.AuditedTentatively;
+        });
+
+        await RunOnDb(async db =>
+        {
+            var election = await db.ProportionalElections
+                .AsTracking()
+                .AsSplitQuery()
+                .Include(x => x.EndResult)
+                .Include(x => x.Results.OrderBy(r => r.CountingCircleId))
+                .ThenInclude(x => x.ListResults)
+                .ThenInclude(x => x.CandidateResults)
+                .ThenInclude(x => x.VoteSources)
+                .FirstAsync(x => x.Id == ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id);
+
+            election.EndResult!.MandateDistributionTriggered = true;
+
+            // Only do this on one result. That should be enough to show it in the XML
+            var listResults = election.Results.First().ListResults;
+            var listIds = listResults
+                .OrderBy(x => x.ListId)
+                .Select(x => x.ListId)
+                .ToList();
+            var candidates = listResults.SelectMany(x => x.CandidateResults);
+            foreach (var candidate in candidates)
+            {
+                candidate.VoteSources.Add(new ProportionalElectionCandidateVoteSourceResult
+                {
+                    ConventionalVoteCount = 3,
+                });
+
+                foreach (var (listId, index) in listIds.Select((x, i) => (x, i)))
+                {
+                    candidate.VoteSources.Add(new ProportionalElectionCandidateVoteSourceResult
+                    {
+                        ConventionalVoteCount = index + 1,
+                        EVotingVoteCount = index,
+                        ListId = listId,
+                    });
+                }
+            }
+
+            await db.SaveChangesAsync();
+        });
+
+        var request = NewValidRequest(x =>
+        {
+            x.IncludeCandidateListResultsInfo = true;
+            x.PoliticalBusinessTypes = [PoliticalBusinessType.ProportionalElection];
+        });
+        await TestExport(request, StGallenReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(3);
+
+            var formattedXmlProportionalElections = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
+            formattedXmlProportionalElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiWithCandidateResultsInfo.xml");
+
+            // This XML should NOT contain candidate list results infos, as the proportional election is not finished yet
+            var formattedXmlProportionalElectionsWithoutInfos = ValidateAndFormat(archive, "eCH-0252_proportional-election-result-delivery_20200302_cc70fe43-8f4e-4bc6-a461-b808907bc996.xml");
+            formattedXmlProportionalElectionsWithoutInfos.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252ProportionalElectionsApiWithoutCandidateResultsInfo.xml");
         });
     }
 
@@ -221,6 +291,24 @@ public class ExportDownloadEch0252ExportTest : ExportBaseRestTest
             var xmlMajorityElections = srMajorityElections.ReadToEnd();
             var formattedXmlMajorityElections = XmlUtil.FormatTestXml(xmlMajorityElections);
             formattedXmlMajorityElections.MatchRawTextSnapshot("ExportTests", "Xml", "_snapshots", "XmlEch0252MajorityElectionsInformationApi.xml");
+        });
+    }
+
+    [Fact]
+    public async Task ShouldWorkWithPoliticalBusinessFilter()
+    {
+        var request = new DownloadEch0252ExportRequest
+        {
+            PollingDate = new DateOnly(2020, 8, 31),
+            PoliticalBusinessTypes = [PoliticalBusinessType.MajorityElection],
+            InformationOnly = true,
+        };
+
+        await TestExport(request, StGallenReportExporterApiClient, archive =>
+        {
+            archive.Entries.Count.Should().Be(1);
+            var entry = archive.Entries.Single();
+            entry.FullName.Should().Be("eCH-0252_majority-election-info-delivery_20200831_95825eb0-0f52-461a-a5f8-23fb35fa69e1.xml");
         });
     }
 

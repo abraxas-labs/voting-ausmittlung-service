@@ -9,6 +9,7 @@ using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using FluentAssertions;
 using Grpc.Net.Client;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -72,8 +73,11 @@ public class ContestListSummariesTest : BaseTest<ContestService.ContestServiceCl
     {
         var contestId = ContestMockedData.GuidBundesurnengang;
 
+        await RunOnDb(db => db.SimpleCountingCircleResults
+            .Where(r => r.CountingCircle!.SnapshotContestId == contestId && r.CountingCircle.BasisCountingCircleId != CountingCircleMockedData.StGallen.Id)
+            .ExecuteDeleteAsync());
         await ModifyDbEntities<Data.Models.SimpleCountingCircleResult>(
-            x => x.CountingCircle!.SnapshotContestId == contestId,
+            x => x.CountingCircle!.SnapshotContestId == contestId && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.StGallen.Id,
             x => x.CountingCircleId = CountingCircleMockedData.GuidUzwilKirche);
 
         var response = await ErfassungElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
@@ -99,6 +103,29 @@ public class ContestListSummariesTest : BaseTest<ContestService.ContestServiceCl
         var contest = response.ContestSummaries_.FirstOrDefault(s => s.Id == contestId.ToString());
         contest.Should().NotBeNull();
         contest!.ContestEntriesDetails.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task TestAsMonitoringAdminShouldOnlyReturnContestsWithActivePoliticalBusinesses()
+    {
+        var contestId = ContestMockedData.GuidStGallenEvoting;
+
+        await ModifyDbEntities<Data.Models.SimplePoliticalBusiness>(
+            x => x.ContestId == contestId,
+            x =>
+            {
+                x.DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGenf);
+                x.Active = false;
+            });
+
+        // update the current user to the contest owner
+        await ModifyDbEntities<Data.Models.DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
+            x => x.SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id);
+
+        var response = await MonitoringElectionAdminClient.ListSummariesAsync(new ListContestSummariesRequest());
+        var hasContest = response.ContestSummaries_.Any(s => s.Id == contestId.ToString());
+        hasContest.Should().BeFalse();
     }
 
     [Fact]

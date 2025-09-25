@@ -2,6 +2,8 @@
 // For license information see LICENSE file
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
@@ -46,6 +48,7 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
         string exportKey,
         Guid? countingCircleId,
         Guid? politicalBusinessId,
+        IReadOnlyCollection<Guid> politicalBusinessIds,
         Guid? politicalBusinessUnionId,
         DomainOfInfluenceType domainOfInfluenceType,
         Guid? politicalBusinessResultBundleId)
@@ -67,6 +70,7 @@ public class ProtocolExportAggregate : BaseEventSignatureAggregate
                 RequestId = requestId.ToString(),
                 CountingCircleId = countingCircleId?.ToString() ?? string.Empty,
                 PoliticalBusinessId = politicalBusinessId?.ToString() ?? string.Empty,
+                PoliticalBusinessIds = { politicalBusinessIds.Select(x => x.ToString()) },
                 PoliticalBusinessUnionId = politicalBusinessUnionId?.ToString() ?? string.Empty,
                 DomainOfInfluenceType = (Proto.DomainOfInfluenceType)domainOfInfluenceType,
                 PoliticalBusinessResultBundleId = politicalBusinessResultBundleId?.ToString() ?? string.Empty,

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
 using DataModels = Voting.Ausmittlung.Data.Models;
@@ -86,7 +86,7 @@ public abstract class PoliticalBusinessEndResultWriter<TAggregate, TEndResult>
             typeof(TEndResult).Name);
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> PrepareFinalize(Guid politicalBusinessId, string message)
+    public async Task<SecondFactorInfo> PrepareFinalize(Guid politicalBusinessId, string message)
     {
         await ContestService.EnsureNotLockedByPoliticalBusiness(politicalBusinessId);
 

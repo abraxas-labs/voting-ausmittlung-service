@@ -133,7 +133,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    protected void SeedAusmittlungPublicKeySignatureEvents(long keyHost2SignedEventCount)
+    protected async Task SeedAusmittlungPublicKeySignatureEvents(long keyHost2SignedEventCount)
     {
         // Create public key for "Host1"
         var publicKeySignatureHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
@@ -145,7 +145,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc),
             new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc));
 
-        var publicKeyHost1Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+        var publicKeyHost1Create = await EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeySignatureHost1CreateAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeySignatureHost1CreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost1)));
 
@@ -163,7 +163,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc),
             new DateTime(2020, 7, 17, 10, 10, 0, DateTimeKind.Utc));
 
-        var publicKeyHost2Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+        var publicKeyHost2Create = await EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeySignatureHost2CreateAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeySignatureHost2CreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost2)));
 
@@ -179,7 +179,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 9, 0, DateTimeKind.Utc),
             keyHost2SignedEventCount);
 
-        var publicKeyHost2Delete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
+        var publicKeyHost2Delete = await EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
             publicKeyHost2DeleteAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost2DeleteAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost2)));
 
@@ -197,7 +197,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 20, 20, DateTimeKind.Utc),
             new DateTime(2020, 7, 17, 18, 0, 0, DateTimeKind.Utc));
 
-        var publicKeyHost1AfterRebootCreate = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+        var publicKeyHost1AfterRebootCreate = await EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeyHost1AfterRebootCreateAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterRebootCreateAuthTagPayload.ConvertToBytesToSign(), AusmittlungKeyHost1AfterReboot)));
 
@@ -207,7 +207,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
         PublishAusmittlungPublicKeyEvent(publicKeyHost1AfterRebootCreated, publicKeyHost1AfterRebootCreate.HsmSignature);
     }
 
-    protected void SeedBasisPublicKeySignatureEvents(long keyHost1AfterTestingPhaseEndedSignedEventCount)
+    protected async Task SeedBasisPublicKeySignatureEvents(long keyHost1AfterTestingPhaseEndedSignedEventCount)
     {
         // Create public key for "Host1".
         var publicKeyHost1CreateAuthTagPayload = new PublicKeySignatureCreateAuthenticationTagPayload(
@@ -219,7 +219,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 0, 0, DateTimeKind.Utc),
             new DateTime(2020, 7, 17, 10, 8, 20, DateTimeKind.Utc));
 
-        var publicKeyHost1Create = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+        var publicKeyHost1Create = await EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeyHost1CreateAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1CreateAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1)));
 
@@ -237,7 +237,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 8, 21, DateTimeKind.Utc),
             new DateTime(2020, 7, 17, 23, 0, 0, DateTimeKind.Utc));
 
-        var publicKeyHost1AfterTestingPhaseEndedCreate = EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
+        var publicKeyHost1AfterTestingPhaseEndedCreate = await EventSignatureService.BuildPublicKeyCreate(new PublicKeySignatureCreateHsmPayload(
             publicKeyHost1AfterTestingPhaseEndedCreateAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterTestingPhaseEndedCreateAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1AfterTestingPhaseEnded)));
 
@@ -253,7 +253,7 @@ public abstract class PdfContestActivityProtocolExportBaseTest : PdfExportBaseTe
             new DateTime(2020, 7, 17, 10, 45, 24, DateTimeKind.Utc),
             keyHost1AfterTestingPhaseEndedSignedEventCount);
 
-        var publicKeyHost1AfterTestingPhaseEndedDelete = EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
+        var publicKeyHost1AfterTestingPhaseEndedDelete = await EventSignatureService.BuildPublicKeyDelete(new PublicKeySignatureDeleteHsmPayload(
             publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload,
             AsymmetricAlgorithmAdapter.CreateSignature(publicKeyHost1AfterTestingPhaseEndedDeleteAuthTagPayload.ConvertToBytesToSign(), BasisKeyHost1AfterTestingPhaseEnded)));
 

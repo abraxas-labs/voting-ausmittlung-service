@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -266,7 +267,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>60</CountOfAnswerTotalYes>
@@ -336,7 +337,7 @@
             <CountOfAnswerTotalUnspecified>60</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>60</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>480</CountOfAnswerTotalYes>
@@ -368,7 +369,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>600</CountOfAnswerTotalQ1>
@@ -400,7 +401,7 @@
             <CountOfAnswerTotalUnspecified>30</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>30</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>960</CountOfAnswerTotalQ1>
@@ -470,6 +471,7 @@
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.0736</VoterParticipation>
@@ -609,6 +611,7 @@
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
@@ -816,6 +819,7 @@
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.3623</VoterParticipation>
@@ -1238,6 +1242,7 @@
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.0685</VoterParticipation>
@@ -1502,6 +1507,7 @@
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
@@ -1895,6 +1901,7 @@
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.3374</VoterParticipation>
@@ -2712,6 +2719,7 @@
           <Bfs />
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.0635</VoterParticipation>
@@ -2794,7 +2802,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -2854,7 +2862,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -2885,7 +2893,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -2916,7 +2924,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -2978,7 +2986,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -3044,7 +3052,7 @@
             <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>10</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -3078,7 +3086,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -3109,7 +3117,7 @@
             <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>5</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -3163,6 +3171,7 @@
           <Bfs />
           <Type>Mu</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
@@ -3245,7 +3254,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -3305,7 +3314,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -3336,7 +3345,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -3367,7 +3376,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -3466,7 +3475,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -3526,7 +3535,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -3557,7 +3566,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -3588,7 +3597,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -3650,7 +3659,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>20</CountOfAnswerTotalYes>
@@ -3716,7 +3725,7 @@
             <CountOfAnswerTotalUnspecified>20</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>20</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>160</CountOfAnswerTotalYes>
@@ -3750,7 +3759,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>200</CountOfAnswerTotalQ1>
@@ -3781,7 +3790,7 @@
             <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>10</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>320</CountOfAnswerTotalQ1>
@@ -3835,6 +3844,7 @@
           <Bfs>3443</Bfs>
           <Type>Sk</Type>
           <Canton>Sg</Canton>
+          <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
         </DomainOfInfluence>
         <CountOfVoters>
           <VoterParticipation>0.3125</VoterParticipation>
@@ -3917,7 +3927,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -3977,7 +3987,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -4008,7 +4018,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -4039,7 +4049,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -4101,7 +4111,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -4167,7 +4177,7 @@
             <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>10</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -4201,7 +4211,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -4232,7 +4242,7 @@
             <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>5</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -4357,7 +4367,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -4417,7 +4427,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -4448,7 +4458,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -4479,7 +4489,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -4578,7 +4588,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>10</CountOfAnswerTotalYes>
@@ -4638,7 +4648,7 @@
               <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>10</CountOfAnswerTotal>
               <PercentageYes>0</PercentageYes>
-              <PercentageNo>1</PercentageNo>
+              <PercentageNo>0</PercentageNo>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalYes>80</CountOfAnswerTotalYes>
@@ -4669,7 +4679,7 @@
               <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>0</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>100</CountOfAnswerTotalQ1>
@@ -4700,7 +4710,7 @@
               <CountOfAnswerTotalUnspecified>5</CountOfAnswerTotalUnspecified>
               <CountOfAnswerTotal>5</CountOfAnswerTotal>
               <PercentageQ1>0</PercentageQ1>
-              <PercentageQ2>1</PercentageQ2>
+              <PercentageQ2>0</PercentageQ2>
             </EVotingSubTotal>
             <ConventionalSubTotal>
               <CountOfAnswerTotalQ1>160</CountOfAnswerTotalQ1>
@@ -4762,7 +4772,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>20</CountOfAnswerTotalYes>
@@ -4828,7 +4838,7 @@
             <CountOfAnswerTotalUnspecified>20</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>20</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>160</CountOfAnswerTotalYes>
@@ -4862,7 +4872,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>200</CountOfAnswerTotalQ1>
@@ -4893,7 +4903,7 @@
             <CountOfAnswerTotalUnspecified>10</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>10</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>320</CountOfAnswerTotalQ1>
@@ -4981,7 +4991,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>60</CountOfAnswerTotalYes>
@@ -5047,7 +5057,7 @@
             <CountOfAnswerTotalUnspecified>60</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>60</CountOfAnswerTotal>
             <PercentageYes>0</PercentageYes>
-            <PercentageNo>1</PercentageNo>
+            <PercentageNo>0</PercentageNo>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalYes>480</CountOfAnswerTotalYes>
@@ -5081,7 +5091,7 @@
             <CountOfAnswerTotalUnspecified>0</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>0</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>600</CountOfAnswerTotalQ1>
@@ -5112,7 +5122,7 @@
             <CountOfAnswerTotalUnspecified>30</CountOfAnswerTotalUnspecified>
             <CountOfAnswerTotal>30</CountOfAnswerTotal>
             <PercentageQ1>0</PercentageQ1>
-            <PercentageQ2>1</PercentageQ2>
+            <PercentageQ2>0</PercentageQ2>
           </EVotingSubTotal>
           <ConventionalSubTotal>
             <CountOfAnswerTotalQ1>960</CountOfAnswerTotalQ1>
@@ -5177,5 +5187,6 @@
       <TotalCountOfVotingCards>12370</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>270</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>
 </Voting>

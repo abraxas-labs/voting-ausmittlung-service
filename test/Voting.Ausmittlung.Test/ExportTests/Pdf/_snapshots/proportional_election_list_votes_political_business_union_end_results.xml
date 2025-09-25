@@ -10,7 +10,7 @@
     <Description>Kantonratswahl</Description>
     <ProportionalElectionUnionEndResult>
       <CountOfVoters>
-        <VoterParticipation>0.0395</VoterParticipation>
+        <VoterParticipation>0.2492</VoterParticipation>
         <TotalReceivedBallots>750</TotalReceivedBallots>
         <TotalUnaccountedBallots>420</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -78,5 +78,6 @@
         <TotalVoteCount>0</TotalVoteCount>
       </ProportionalElectionUnionListEndResult>
     </ProportionalElectionUnionEndResult>
+    <MandateAlgorithm>HagenbachBischoff</MandateAlgorithm>
   </ProportionalElectionUnion>
 </Voting>

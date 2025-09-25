@@ -57,6 +57,14 @@ public class SecondaryMajorityElectionResult : BaseEntity,
 
     public int TotalVoteCount => EVotingSubTotal.TotalVoteCount + ECountingSubTotal.TotalVoteCount + ConventionalSubTotal.TotalVoteCount;
 
+    public void ResetAllResults()
+    {
+        PrimaryResult.ResetAllResults();
+        ResetAllSubTotals(VotingDataSource.Conventional, true);
+        ResetAllSubTotals(VotingDataSource.ECounting, true);
+        ResetAllSubTotals(VotingDataSource.EVoting, true);
+    }
+
     public void ResetAllSubTotals(VotingDataSource dataSource, bool setZeroInsteadNull)
     {
         this.ResetSubTotal(dataSource, setZeroInsteadNull);

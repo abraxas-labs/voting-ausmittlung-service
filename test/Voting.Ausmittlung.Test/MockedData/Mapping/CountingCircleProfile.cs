@@ -11,9 +11,7 @@ public class CountingCircleProfile : Profile
 {
     public CountingCircleProfile()
     {
-        CreateMap<ContestCountingCircleDetails, DomainModels.ContestCountingCircleDetails>()
-            .ForPath(dst => dst.CountOfVotersInformation.TotalCountOfVoters, opts => opts.MapFrom(src => src.TotalCountOfVoters))
-            .ForPath(dst => dst.CountOfVotersInformation.SubTotalInfo, opts => opts.MapFrom(src => src.CountOfVotersInformationSubTotals));
+        CreateMap<ContestCountingCircleDetails, DomainModels.ContestCountingCircleDetails>();
         CreateMap<ContestCountingCircleElectorate, DomainModels.ContestCountingCircleElectorate>();
         CreateMap<CountOfVotersInformationSubTotal, DomainModels.CountOfVotersInformationSubTotal>();
         CreateMap<VotingCardResultDetail, DomainModels.VotingCardResultDetail>();

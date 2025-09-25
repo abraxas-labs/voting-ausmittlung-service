@@ -14,7 +14,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionVotesCountingCircleResultEVotingExportTest : PdfExportBaseTest
+public class PdfProportionalElectionVotesCountingCircleResultEVotingExportTest : PdfProportionalElectionExportBaseTest
 {
     public PdfProportionalElectionVotesCountingCircleResultEVotingExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -39,6 +39,11 @@ public class PdfProportionalElectionVotesCountingCircleResultEVotingExportTest :
     }
 
     protected override Task SeedData() => ProportionalElectionEndResultSgExampleMockedData.Seed(RunScoped);
+
+    protected override Task<bool> SetToSubmissionOngoing()
+    {
+        return SetToSubmissionOngoing(ProportionalElectionEndResultSgExampleMockedData.GuidStGallenNationalratElection);
+    }
 
     protected override StartProtocolExportsRequest NewRequest()
     {

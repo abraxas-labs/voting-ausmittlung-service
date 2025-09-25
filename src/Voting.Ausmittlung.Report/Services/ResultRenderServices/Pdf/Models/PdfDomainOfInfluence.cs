@@ -34,4 +34,6 @@ public class PdfDomainOfInfluence
 
     [XmlElement("ContestDomainOfInfluenceDetails")]
     public PdfContestDomainOfInfluenceDetails? Details { get; set; }
+
+    public bool ViewCountingCirclePartialResults { get; set; }
 }

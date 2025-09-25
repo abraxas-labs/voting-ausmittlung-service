@@ -24,8 +24,9 @@ public abstract class PoliticalBusinessResultBundleWriter<TResult, TBundleAggreg
         PermissionService permissionService,
         ContestService contestService,
         IAuth auth,
-        IAggregateRepository aggregateRepository)
-        : base(permissionService, contestService, auth, aggregateRepository)
+        IAggregateRepository aggregateRepository,
+        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
     {
         _permissionService = permissionService;
     }

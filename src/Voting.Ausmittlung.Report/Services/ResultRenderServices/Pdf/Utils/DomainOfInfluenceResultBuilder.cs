@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
@@ -27,7 +28,8 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
     public virtual async Task<(List<TResult> Results, TResult NotAssignableResult, TResult AggregatedResult)> BuildResults(
         TPoliticalBusiness politicalBusiness,
         List<ContestCountingCircleDetails> ccDetails,
-        string tenantId)
+        string tenantId,
+        HashSet<Guid>? viewablePartialResultsCountingCircleIds)
     {
         // not assignable result group are results which are not matched by a report level (ex. report level 1 or Auslandschweizer)
         var notAssignableResult = new TResult();
@@ -35,7 +37,7 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
 
         // If a DOI has a higher report level, it is only fetched to hide counting circle results.
         // It won't be shown as a DOI result.
-        var reportLevel = GetReportLevel(politicalBusiness);
+        var reportLevel = await GetReportLevel(politicalBusiness, viewablePartialResultsCountingCircleIds);
         var relevantDois = await _doiRepo.GetRelevantDomainOfInfluencesForReportingLevel(
             politicalBusiness.DomainOfInfluenceId,
             reportLevel);
@@ -114,9 +116,55 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
         result.ContestDomainOfInfluenceDetails.TotalCountOfInvalidVotingCards += receivedVotingCards.Invalid;
     }
 
+    protected async Task<int> GetPartialResultReportLevel(
+        int baseReportLevel,
+        Guid politicalBusinessDomainOfInfluenceId,
+        HashSet<Guid> viewablePartialResultsCountingCircleIds)
+    {
+        if (viewablePartialResultsCountingCircleIds.Count == 0)
+        {
+            throw new InvalidOperationException($"{nameof(viewablePartialResultsCountingCircleIds)} must not be empty");
+        }
+
+        var domainOfInfluences = await _doiRepo.Query()
+            .Where(doi => doi.CountingCircles.Any(doiCc => viewablePartialResultsCountingCircleIds.Contains(doiCc.CountingCircleId)) && doi.ViewCountingCirclePartialResults)
+            .ToListAsync();
+
+        // Only domain of influences which are attendees of the political business are considered.
+        // Multiple domain of influences with partial results from the same tenant are not supported yet.
+        var validDomainOfInfluenceIds = await _doiRepo.GetHierarchicalLowerOrSelfDomainOfInfluenceIds(politicalBusinessDomainOfInfluenceId);
+        domainOfInfluences = domainOfInfluences.Where(doi => validDomainOfInfluenceIds.Contains(doi.Id)).ToList();
+
+        if (domainOfInfluences.Count != 1)
+        {
+            throw new InvalidOperationException($"Expected exactly one matching domain of influence with {nameof(DomainOfInfluence.ViewCountingCirclePartialResults)} expected, " +
+                $"but found {domainOfInfluences.Count} for political business domain of influence {politicalBusinessDomainOfInfluenceId}");
+        }
+
+        // Example:
+        // We have the hierarchy CH - CT - BZ - MU - SK.
+        // The political business is created on CT, the Doi which can view partial results is on MU.
+        // The base political business report level is 1 => BZ.
+        // If we generate the partial result protocol, we want the level of the Doi which can view partial results as report level.
+        // To achieve that, we get all parents of the partial result DOI.
+        // DoiGreaterOrSelfIds contains the Dois in the following order: MU - BZ - CT - CH.
+        // The partial result report level is the index of the political business Doi => 2.
+        var doiGreaterOrSelfIds = await _doiRepo.GetHierarchicalGreaterOrSelfDomainOfInfluenceIds(domainOfInfluences.Single().Id);
+
+        var politicalBusinessDoiLevel = doiGreaterOrSelfIds.IndexOf(politicalBusinessDomainOfInfluenceId);
+        return Math.Max(baseReportLevel, politicalBusinessDoiLevel);
+    }
+
     protected abstract IEnumerable<TCountingCircleResult> GetResults(TPoliticalBusiness politicalBusiness);
 
-    protected abstract int GetReportLevel(TPoliticalBusiness politicalBusiness);
+    /// <summary>
+    /// Get the report level of a political business. If <see cref="viewablePartialResultsCountingCircleIds" /> is provided,
+    /// it will try to get a lower report level, depending on where <see cref="DomainOfInfluence.ViewCountingCirclePartialResults" /> is set.
+    /// </summary>
+    /// <param name="politicalBusiness">The political business.</param>
+    /// <param name="viewablePartialResultsCountingCircleIds">Viewable partial results counting circle ids.</param>
+    /// <returns>The report level.</returns>
+    protected abstract Task<int> GetReportLevel(TPoliticalBusiness politicalBusiness, HashSet<Guid>? viewablePartialResultsCountingCircleIds);
 
     protected abstract void ResetCountingCircleResult(TCountingCircleResult ccResult);
 
@@ -216,7 +264,6 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
 
         ccDetailsToAdd.EVoting |= ccDetailsToRemove.EVoting;
         ccDetailsToAdd.ECounting |= ccDetailsToRemove.ECounting;
-        ccDetailsToAdd.TotalCountOfVoters += ccDetailsToRemove.TotalCountOfVoters;
         if (ccDetailsToAdd.CountingMachine < ccDetailsToRemove.CountingMachine)
         {
             ccDetailsToAdd.CountingMachine = ccDetailsToRemove.CountingMachine;
@@ -246,13 +293,14 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
         foreach (var countOfVoters in ccDetailsToRemove.CountOfVotersInformationSubTotals)
         {
             var existing = ccDetailsToAdd.CountOfVotersInformationSubTotals.FirstOrDefault(
-                x => x.VoterType == countOfVoters.VoterType && x.Sex == countOfVoters.Sex);
+                x => x.VoterType == countOfVoters.VoterType && x.Sex == countOfVoters.Sex && x.DomainOfInfluenceType == countOfVoters.DomainOfInfluenceType);
             if (existing == null)
             {
                 existing = new CountOfVotersInformationSubTotal
                 {
                     VoterType = countOfVoters.VoterType,
                     Sex = countOfVoters.Sex,
+                    DomainOfInfluenceType = countOfVoters.DomainOfInfluenceType,
                     CountOfVoters = 0,
                 };
                 ccDetailsToAdd.CountOfVotersInformationSubTotals.Add(existing);
@@ -264,8 +312,6 @@ public abstract class DomainOfInfluenceResultBuilder<TPoliticalBusiness, TResult
 
     private void ResetCountingCircleDetail(ContestCountingCircleDetails ccDetails)
     {
-        ccDetails.TotalCountOfVoters = 0;
-
         foreach (var subTotal in ccDetails.CountOfVotersInformationSubTotals)
         {
             subTotal.CountOfVoters = 0;

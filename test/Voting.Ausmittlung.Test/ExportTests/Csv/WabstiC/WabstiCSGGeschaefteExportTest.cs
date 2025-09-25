@@ -27,6 +27,9 @@ public class WabstiCSGGeschaefteExportTest : CsvExportBaseTest
 
     protected override Task SeedData() => VoteMockedData.Seed(RunScoped);
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // Only includes data from end result
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

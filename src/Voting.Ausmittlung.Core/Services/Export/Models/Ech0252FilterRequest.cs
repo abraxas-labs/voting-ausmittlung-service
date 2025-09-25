@@ -24,4 +24,6 @@ public class Ech0252FilterRequest
     public List<PoliticalBusinessType>? PoliticalBusinessTypes { get; set; } = new();
 
     public bool InformationOnly { get; set; }
+
+    public bool IncludeCandidateListResultsInfo { get; init; }
 }

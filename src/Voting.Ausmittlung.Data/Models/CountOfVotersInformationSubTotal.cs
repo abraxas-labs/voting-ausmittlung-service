@@ -14,6 +14,8 @@ public class CountOfVotersInformationSubTotal : BaseEntity
 
     public VoterType VoterType { get; set; }
 
+    public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
+
     public Guid ContestCountingCircleDetailsId { get; set; }
 
     public ContestCountingCircleDetails ContestCountingCircleDetails { get; set; } = null!;

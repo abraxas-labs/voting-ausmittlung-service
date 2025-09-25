@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -16,7 +17,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionUnionListVotesEndResultsExportTest : PdfExportBaseTest
+public class PdfProportionalElectionUnionListVotesEndResultsExportTest : PdfProportionalElectionExportBaseTest
 {
     public PdfProportionalElectionUnionListVotesEndResultsExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -50,6 +51,16 @@ public class PdfProportionalElectionUnionListVotesEndResultsExportTest : PdfExpo
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        var electionIds = await RunOnDb(db => db.ProportionalElections
+            .Where(x => x.ContestId == ContestMockedData.GuidBundesurnengang)
+            .Select(x => x.Id)
+            .ToArrayAsync());
+
+        return await SetToSubmissionOngoing(electionIds);
     }
 
     protected override StartProtocolExportsRequest NewRequest()

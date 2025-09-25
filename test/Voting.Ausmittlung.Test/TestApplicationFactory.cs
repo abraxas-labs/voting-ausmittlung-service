@@ -1,6 +1,7 @@
 // (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -37,9 +38,10 @@ public class TestApplicationFactory<TStartup> : BaseTestApplicationFactory<TStar
         bool authorize,
         string? tenant,
         string? userId,
-        string[]? roles)
+        string[]? roles,
+        IEnumerable<(string, string)>? additionalHeaders = null)
     {
-        var httpClient = base.CreateHttpClient(authorize, tenant, userId, roles);
+        var httpClient = base.CreateHttpClient(authorize, tenant, userId, roles, additionalHeaders);
         httpClient.DefaultRequestHeaders.Add("x-language", "de");
         return httpClient;
     }

@@ -70,7 +70,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidVergangenerBundesurnengangGossauContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdVergangenerBundesurnengang),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
-            TotalCountOfVoters = 12000,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -123,24 +122,56 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 6000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 4000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 1000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 1000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 6000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 4000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 1000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 1000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                     },
             },
         };
@@ -151,7 +182,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidGossauUrnengangGossauContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdGossau),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
-            TotalCountOfVoters = 15000,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -204,12 +234,28 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                     },
             },
         };
@@ -220,7 +266,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidGossauUrnengangStGallenContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
-            TotalCountOfVoters = 15800,
             EVoting = true,
             VotingCards =
             {
@@ -270,21 +315,21 @@ public static class ContestCountingCircleDetailsMockData
                     {
                         Channel = VotingChannel.ByMail,
                         Valid = true,
-                        CountOfReceivedVotingCards = 3500,
+                        CountOfReceivedVotingCards = 900,
                         DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
                     new VotingCardResultDetail
                     {
                         Channel = VotingChannel.BallotBox,
                         Valid = true,
-                        CountOfReceivedVotingCards = 2500,
+                        CountOfReceivedVotingCards = 1900,
                         DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
                     new VotingCardResultDetail
                     {
                         Channel = VotingChannel.ByMail,
                         Valid = false,
-                        CountOfReceivedVotingCards = 500,
+                        CountOfReceivedVotingCards = 2900,
                         DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
             },
@@ -295,24 +340,84 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 6900,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 7900,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
             },
         };
@@ -323,7 +428,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidGossauUrnengangBundContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             CountingCircleId = CountingCircleMockedData.GuidGossau,
-            TotalCountOfVoters = 15800,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -404,24 +508,56 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                     },
             },
         };
@@ -432,7 +568,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidStGallenUrnengangBundContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             CountingCircleId = CountingCircleMockedData.GuidStGallen,
-            TotalCountOfVoters = 7000 + 8000 + 300 + 500,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -485,24 +620,56 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 7000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 8000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                     },
             },
         };
@@ -513,7 +680,6 @@ public static class ContestCountingCircleDetailsMockData
             Id = GuidUzwilUrnengangBundContestCountingCircleDetails,
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             CountingCircleId = CountingCircleMockedData.GuidUzwil,
-            TotalCountOfVoters = 1400 + 1600 + 100 + 110,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -629,24 +795,84 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1600,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1600,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1300,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1500,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
             },
         };
@@ -660,7 +886,6 @@ public static class ContestCountingCircleDetailsMockData
             EVoting = true,
             ECounting = true,
             ECountingResultsImported = false,
-            TotalCountOfVoters = 1400 + 1600 + 100 + 110,
             VotingCards =
             {
                     new VotingCardResultDetail
@@ -698,6 +923,41 @@ public static class ContestCountingCircleDetailsMockData
                         CountOfReceivedVotingCards = 150,
                         DomainOfInfluenceType = DomainOfInfluenceType.Mu,
                     },
+                    new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.ByMail,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 2000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.BallotBox,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.Paper,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 200,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.EVoting,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 150,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetail
+                    {
+                        Channel = VotingChannel.ByMail,
+                        Valid = false,
+                        CountOfReceivedVotingCards = 150,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
             },
             CountOfVotersInformationSubTotals =
             {
@@ -706,24 +966,56 @@ public static class ContestCountingCircleDetailsMockData
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1600,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
                     },
                     new CountOfVotersInformationSubTotal
                     {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Mu,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 1600,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Male,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotal
+                    {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.SwissAbroad,
+                        CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Sk,
                     },
             },
         };

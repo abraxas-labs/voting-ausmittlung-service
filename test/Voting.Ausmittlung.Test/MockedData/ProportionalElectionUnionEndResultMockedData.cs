@@ -738,9 +738,15 @@ public static class ProportionalElectionUnionEndResultMockedData
                     SetUzwilResultMockData(result);
                 }
 
+                var simpleCcResult = await db.SimpleCountingCircleResults
+                    .AsTracking()
+                    .SingleAsync(r => r.Id == result.Id);
+
+                simpleCcResult.State = result.State;
+
                 await db.SaveChangesAsync();
 
-                await endResultBuilder.AdjustEndResult(result.Id, false, true);
+                await endResultBuilder.AdjustEndResult(result.Id, false);
                 await endResultBuilder.DistributeNumberOfMandates(result.ProportionalElectionId);
                 await db.SaveChangesAsync();
             }

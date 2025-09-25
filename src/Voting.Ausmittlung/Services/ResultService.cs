@@ -92,14 +92,12 @@ public class ResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareSubmissionFinished(CountingCircleResultsPrepareSubmissionFinishedRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code, qrCode) = await _resultWriter.PrepareSubmissionFinished(
+        var secondFactorInfo = await _resultWriter.PrepareSubmissionFinished(
             GuidParser.Parse(request.ContestId),
             GuidParser.Parse(request.CountingCircleId),
             request.CountingCircleResultIds.Select(GuidParser.Parse).ToList(),
             Strings.CountingCircleResults_SubmissionFinished);
-        return secondFactorTransaction == null
-            ? new ProtoModels.SecondFactorTransaction()
-            : new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo) ?? new ProtoModels.SecondFactorTransaction();
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessResult.FinishSubmission)]

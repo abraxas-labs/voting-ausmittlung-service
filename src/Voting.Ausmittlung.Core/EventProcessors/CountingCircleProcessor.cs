@@ -86,6 +86,7 @@ public class CountingCircleProcessor :
         SetExistingRelationIds(countingCircle, existing);
         await ReplaceElectorates(existing.Electorates, countingCircle.Electorates);
         countingCircle.Electorates = null!;
+
         await _repo.Update(countingCircle);
 
         var existingSnapshots = await _repo.Query()
@@ -109,6 +110,11 @@ public class CountingCircleProcessor :
             var snapshotCountingCircle = _mapper.Map<CountingCircle>(eventData.CountingCircle);
             snapshotCountingCircle.SnapshotContestId = snapshot.SnapshotContestId!.Value;
             snapshotCountingCircle.Id = snapshot.Id;
+
+            // For the testing phase, make sure to keep this ID around.
+            // This makes sure that concurrent updates to the contact person from Basis and Ausmittlung work.
+            // Without this, Ausmittlung would lose the reference to the existing contact person.
+            snapshotCountingCircle.ContestCountingCircleContactPersonId = snapshot.ContestCountingCircleContactPersonId;
 
             SetExistingRelationIds(snapshotCountingCircle, snapshot);
 

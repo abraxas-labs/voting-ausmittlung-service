@@ -86,7 +86,7 @@ public class MajorityElectionResultValidationSummaryBuilder : CountingCircleResu
             ccDetails,
             DataModels.PoliticalBusinessType.MajorityElection,
             electionResult.Entry == DataModels.MajorityElectionResultEntry.Detailed,
-            electionResult.MajorityElection.DomainOfInfluence.Type);
+            electionResult.MajorityElection.DomainOfInfluence);
 
         context.CountOfVoters = electionResult.CountOfVoters;
         return _majorityElectionResultValidator.Validate(electionResult, context).ToList();

@@ -24,4 +24,6 @@ public class DownloadEch0252ExportRequest
     public List<PoliticalBusinessType>? PoliticalBusinessTypes { get; set; }
 
     public bool InformationOnly { get; set; }
+
+    public bool IncludeCandidateListResultsInfo { get; set; }
 }

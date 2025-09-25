@@ -1,0 +1,7 @@
+Datum;Vorlage-Nr.;GeschäftsEbene;Gemeinde;SortPolitisch;BfS-Nr.;Stimmberechtigte;davon Auslandschweizer;eingelegte SZ;leere SZ;ungültige SZ;gültige SZ;Ja;Nein;InitOAntw;InitTotal;GegenvJa;GegenvNein;GegenvOAntw;GegenvTotal;StichfrJa;StichfrNein;StichfrOAntw;StichfrTotal;StimmBet;UmschlaegeOhneAusweis;StimmEingelegtUngueltig;StimmEingelegtGueltig;GeSubNr;GeEbene;StimmberInlandschweizerM;StimmberInlandschweizerW;StimmberAuslandschweizerM;StimmberAuslandschweizerW;StimmausweiseUrne;StimmausweiseVorzeitig;StimmausweiseBrieflich;StimmausweiseBrieflichUngueltig;StimmausweiseEVoting;CodeZEinheiten
+12.02.2029;201;CT;St. Gallen;2000;5500;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;
+12.02.2029;201;CT;St. Gallen St. Fiden;2001;5500-1;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;C5500-1
+12.02.2029;201;CT;St. Gallen Haggen;2002;5500-2;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;
+12.02.2029;201;CT;St. Gallen Auslandschweizer;2003;5500-3;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;
+12.02.2029;201;CT;Uzwil;2005;1234;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;1234-UZWIL
+12.02.2029;201;CT;Gossau;9800;3443;;;;;;;;;;;;;;;;;;;;;;;;2;;;;;;;;;;3443-GOSSAU

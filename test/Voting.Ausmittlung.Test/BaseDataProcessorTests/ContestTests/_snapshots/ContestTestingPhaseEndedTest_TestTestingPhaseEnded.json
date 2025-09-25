@@ -37,7 +37,6 @@
             "EVoting": false,
             "ECounting": false,
             "ECountingResultsImported": false,
-            "TotalCountOfVoters": 0,
             "CountingMachine": 0,
             "Id": "1b18dfae-5e60-5ab5-8267-bef13cd4b1a3"
           }

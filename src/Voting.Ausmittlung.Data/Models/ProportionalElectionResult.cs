@@ -63,6 +63,14 @@ public class ProportionalElectionResult : ElectionResult,
     /// <inheritdoc />
     public int TotalCountOfLists => TotalCountOfListsWithParty + TotalCountOfListsWithoutParty;
 
+    public override void ResetAllResults()
+    {
+        TotalCountOfVoters = 0;
+        ResetAllSubTotals(VotingDataSource.Conventional, true);
+        ResetAllSubTotals(VotingDataSource.ECounting, true);
+        ResetAllSubTotals(VotingDataSource.EVoting, true);
+    }
+
     public void ResetAllSubTotals(VotingDataSource dataSource, bool includeCountOfVoters)
     {
         this.ResetSubTotal(dataSource);

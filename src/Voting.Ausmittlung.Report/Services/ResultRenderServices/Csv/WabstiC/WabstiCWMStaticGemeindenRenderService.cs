@@ -64,17 +64,22 @@ public class WabstiCWMStaticGemeindenRenderService : IRendererService
                 DomainOfInfluenceName = y.MajorityElection.DomainOfInfluence.Name,
                 PoliticalBusinessTranslations = y.MajorityElection.Translations,
                 DomainOfInfluenceSortNumber = y.MajorityElection.DomainOfInfluence.SortNumber,
+                ResultState = y.State,
             })
             .ToListAsync(ct);
 
         await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, results, ct);
+        foreach (var result in results)
+        {
+            result.ResetDataIfSubmissionNotDone();
+        }
 
         return _templateService.RenderToCsv(
             ctx,
             results);
     }
 
-    private class Data : IWabstiCSwissAbroadCountOfVoters
+    private class Data : IWabstiCSwissAbroadCountOfVoters, IWabstiCPoliticalResultData
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -111,10 +116,10 @@ public class WabstiCWMStaticGemeindenRenderService : IRendererService
         public string PoliticalBusinessShortDescription => PoliticalBusinessTranslations.GetTranslated(x => x.ShortDescription);
 
         [Name("Stimmberechtigte")]
-        public int TotalCountOfVoters { get; set; }
+        public int? TotalCountOfVoters { get; set; }
 
         [Name("StimmberechtigteAusl")]
-        public int CountOfVotersTotalSwissAbroad { get; set; }
+        public int? CountOfVotersTotalSwissAbroad { get; set; }
 
         [Name("BfsNrGemeinde")]
         public string CountingCircleBfs { get; set; } = string.Empty;
@@ -123,5 +128,19 @@ public class WabstiCWMStaticGemeindenRenderService : IRendererService
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            TotalCountOfVoters = null;
+            CountOfVotersTotalSwissAbroad = null;
+        }
     }
 }

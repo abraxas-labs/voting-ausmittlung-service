@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
+using Voting.Ausmittlung.Report.Extensions;
 using Voting.Lib.Database.Repositories;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
@@ -37,7 +38,7 @@ public class WabstiCContestDetailsAttacher
 
         foreach (var entry in data)
         {
-            entry.CountOfVotersTotalSwissAbroad = swissAbroadCountOfVoters.GetValueOrDefault(entry.CountingCircleId);
+            entry.CountOfVotersTotalSwissAbroad = swissAbroadCountOfVoters.GetValueOrDefault((entry.CountingCircleId, entry.DomainOfInfluenceType));
         }
     }
 
@@ -61,13 +62,13 @@ public class WabstiCContestDetailsAttacher
             }
 
             entry.CountOfVotersTotalSwissAbroad = contestDetail.CountOfVotersInformationSubTotals
-                .Where(x => x.VoterType == VoterType.SwissAbroad)
-                .Sum(x => x.CountOfVoters.GetValueOrDefault());
+                .Where(x => x.VoterType == VoterType.SwissAbroad && x.DomainOfInfluenceType == entry.DomainOfInfluenceType)
+                .SumNullable(x => x.CountOfVoters);
 
             var vcByValidityAndChannel = contestDetail.VotingCards
                 .Where(x => x.DomainOfInfluenceType == entry.DomainOfInfluenceType)
                 .GroupBy(x => (x.Valid, x.Channel))
-                .ToDictionary(x => x.Key, x => x.Sum(y => y.CountOfReceivedVotingCards.GetValueOrDefault()));
+                .ToDictionary(x => x.Key, x => x.SumNullable(y => y.CountOfReceivedVotingCards));
             entry.VotingCardsPaper = vcByValidityAndChannel.GetValueOrDefault((true, VotingChannel.Paper));
             entry.VotingCardsBallotBox = vcByValidityAndChannel.GetValueOrDefault((true, VotingChannel.BallotBox));
             entry.VotingCardsByMail = vcByValidityAndChannel.GetValueOrDefault((true, VotingChannel.ByMail));

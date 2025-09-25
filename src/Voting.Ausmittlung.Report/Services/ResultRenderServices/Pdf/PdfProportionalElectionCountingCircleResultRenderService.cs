@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -65,6 +66,12 @@ public class PdfProportionalElectionCountingCircleResultRenderService : IRendere
                 ct);
 
         ccDetails?.OrderVotingCardsAndSubTotals();
+
+        if (!data.State.IsSubmissionDone())
+        {
+            ccDetails?.ResetVotingCardsAndSubTotals();
+            data.ResetAllResults();
+        }
 
         var proportionalElection = _mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         var result = proportionalElection.Results[0];

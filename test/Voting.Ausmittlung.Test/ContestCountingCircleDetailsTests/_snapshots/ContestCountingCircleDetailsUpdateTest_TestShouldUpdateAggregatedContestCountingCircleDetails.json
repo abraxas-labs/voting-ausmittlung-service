@@ -8,6 +8,7 @@
         "Sex": 1,
         "CountOfVoters": 8000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -15,6 +16,23 @@
         "Sex": 2,
         "CountOfVoters": 7000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 8000,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 7000,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -68,7 +86,6 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
-    "TotalCountOfVoters": 15800,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
   "doiDetailsBefore": {
@@ -84,6 +101,7 @@
             "Sex": 1,
             "CountOfVoters": 8000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -91,6 +109,23 @@
             "Sex": 2,
             "CountOfVoters": 7000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 8000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 7000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -144,7 +179,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 15000,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -158,6 +192,7 @@
             "Sex": 1,
             "CountOfVoters": 8000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -165,6 +200,23 @@
             "Sex": 2,
             "CountOfVoters": 7000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 8000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 7000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -218,7 +270,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 15000,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -232,6 +283,7 @@
             "Sex": 1,
             "CountOfVoters": 8000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -239,6 +291,23 @@
             "Sex": 2,
             "CountOfVoters": 7000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 8000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 7000,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -292,7 +361,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 15000,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ]
@@ -304,8 +372,41 @@
       {
         "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
         "Sex": 1,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 1,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 2,
+        "CountOfVoters": 0,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "ContestDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Sex": 1,
         "CountOfVoters": 4000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 5,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -313,6 +414,7 @@
         "Sex": 1,
         "CountOfVoters": 1000,
         "VoterType": 2,
+        "DomainOfInfluenceType": 5,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -320,6 +422,7 @@
         "Sex": 2,
         "CountOfVoters": 6000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 5,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -327,6 +430,7 @@
         "Sex": 2,
         "CountOfVoters": 1000,
         "VoterType": 2,
+        "DomainOfInfluenceType": 5,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -404,7 +508,6 @@
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ],
-    "TotalCountOfVoters": 12800,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
   "doiDetailsAfter": {
@@ -418,8 +521,41 @@
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
             "CountOfVoters": 4000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -427,6 +563,7 @@
             "Sex": 1,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -434,6 +571,7 @@
             "Sex": 2,
             "CountOfVoters": 6000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -441,6 +579,7 @@
             "Sex": 2,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -518,7 +657,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 12000,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -528,7 +666,6 @@
         "Contest": null,
         "CountOfVotersInformationSubTotals": [],
         "VotingCards": [],
-        "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -540,8 +677,41 @@
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
             "CountOfVoters": 4000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -549,6 +719,7 @@
             "Sex": 1,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -556,6 +727,7 @@
             "Sex": 2,
             "CountOfVoters": 6000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -563,6 +735,7 @@
             "Sex": 2,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -640,7 +813,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 12000,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -650,7 +822,6 @@
         "Contest": null,
         "CountOfVotersInformationSubTotals": [],
         "VotingCards": [],
-        "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -660,7 +831,6 @@
         "Contest": null,
         "CountOfVotersInformationSubTotals": [],
         "VotingCards": [],
-        "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -672,8 +842,41 @@
           {
             "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
             "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 1,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 2,
+            "CountOfVoters": 0,
+            "VoterType": 1,
+            "DomainOfInfluenceType": 2,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          {
+            "ContestDomainOfInfluenceDetailsId": "00000000-0000-0000-0000-000000000000",
+            "Sex": 1,
             "CountOfVoters": 4000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -681,6 +884,7 @@
             "Sex": 1,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -688,6 +892,7 @@
             "Sex": 2,
             "CountOfVoters": 6000,
             "VoterType": 1,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           },
           {
@@ -695,6 +900,7 @@
             "Sex": 2,
             "CountOfVoters": 1000,
             "VoterType": 2,
+            "DomainOfInfluenceType": 5,
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
@@ -772,7 +978,6 @@
             "Id": "00000000-0000-0000-0000-000000000000"
           }
         ],
-        "TotalCountOfVoters": 12000,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -782,7 +987,6 @@
         "Contest": null,
         "CountOfVotersInformationSubTotals": [],
         "VotingCards": [],
-        "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       },
       {
@@ -792,7 +996,6 @@
         "Contest": null,
         "CountOfVotersInformationSubTotals": [],
         "VotingCards": [],
-        "TotalCountOfVoters": 0,
         "Id": "00000000-0000-0000-0000-000000000000"
       }
     ]

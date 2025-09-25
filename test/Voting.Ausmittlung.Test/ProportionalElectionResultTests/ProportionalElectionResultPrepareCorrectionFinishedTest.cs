@@ -30,8 +30,8 @@ public class ProportionalElectionResultPrepareCorrectionFinishedTest : Proportio
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await ErfassungElectionAdminClient.PrepareCorrectionFinishedAsync(NewValidRequest());
-        response.Id.Should().BeEmpty();
-        response.Code.Should().BeEmpty();
+        response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class ProportionalElectionResultPrepareCorrectionFinishedTest : Proportio
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await StGallenErfassungElectionAdminClient.PrepareCorrectionFinishedAsync(NewValidRequest());
-        response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Id.Should().BeEmpty();
+        response.Code.Should().BeEmpty();
     }
 
     [Fact]

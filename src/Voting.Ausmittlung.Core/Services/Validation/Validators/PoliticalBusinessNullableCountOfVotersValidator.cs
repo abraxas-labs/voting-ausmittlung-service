@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Utils;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
@@ -14,12 +15,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
 {
     public IEnumerable<ValidationResult> Validate(PoliticalBusinessNullableCountOfVoters data, ValidationContext context)
     {
-        if (context.PoliticalBusinessType == null)
-        {
-            yield break;
-        }
-
-        var pbType = context.PoliticalBusinessType.Value;
+        var pbType = context.PoliticalBusinessType;
 
         yield return ValidateCountOfVotersNotNull(data, pbType);
 
@@ -27,13 +23,13 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
             data,
             context.CurrentContestCountingCircleDetails,
             pbType,
-            context.PoliticalBusinessDomainOfInfluenceType);
+            context.PoliticalBusinessDomainOfInfluence.Type);
 
         yield return ValidateAccountedBallotsLessOrEqualValidVotingCards(
             data,
             context.CurrentContestCountingCircleDetails,
             pbType,
-            context.PoliticalBusinessDomainOfInfluenceType);
+            context.PoliticalBusinessDomainOfInfluence.Type);
 
         yield return ValidateAccountedBallotsEqualReceivedMinusBlankMinusInvalidBallots(
             data,
@@ -117,7 +113,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
             yield break;
         }
 
-        var currentDoiType = context.PoliticalBusinessDomainOfInfluenceType;
+        var currentDoiType = context.PoliticalBusinessDomainOfInfluence.Type;
         var currentVoterParticipation = countOfVoters.VoterParticipation;
 
         var comparisonVoterParticipationConfigurations = context.PlausibilisationConfiguration.ComparisonVoterParticipationConfigurations
@@ -156,7 +152,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
         PoliticalBusinessNullableCountOfVoters countOfVoters,
         ValidationContext context)
     {
-        var (validVotingCards, _) = context.CurrentContestCountingCircleDetails.SumVotingCards(context.PoliticalBusinessDomainOfInfluenceType);
+        var (validVotingCards, _) = context.CurrentContestCountingCircleDetails.SumVotingCards(context.PoliticalBusinessDomainOfInfluence.Type);
         var accountedBallots = countOfVoters.TotalAccountedBallots;
 
         var deviationPercent = RelativeChange.CalculatePercent(validVotingCards, accountedBallots);
@@ -169,7 +165,7 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
             {
                 DeviationPercent = deviationPercent,
                 ThresholdPercent = thresholdPercent,
-                PoliticalBusinessType = context.PoliticalBusinessType!.Value,
+                PoliticalBusinessType = context.PoliticalBusinessType,
             },
             true);
     }
@@ -179,12 +175,12 @@ public class PoliticalBusinessNullableCountOfVotersValidator : IValidator<Politi
         var cc = context.CurrentContestCountingCircleDetails.CountingCircle;
 
         var ballotVoterParticipations = cc.VoteResults
-            .Where(x => x.SubmissionDone())
+            .Where(x => x.State.IsSubmissionDone())
             .SelectMany(x => x.Results.Select(y => (x.PoliticalBusiness.DomainOfInfluence.Type, y.CountOfVoters.VoterParticipation)));
 
         var electionResultVoterParticipations = cc.ProportionalElectionResults.OfType<ElectionResult>()
             .Concat(cc.MajorityElectionResults)
-            .Where(x => x.SubmissionDone())
+            .Where(x => x.State.IsSubmissionDone())
             .Select(x => (x.PoliticalBusiness.DomainOfInfluence.Type, x.CountOfVoters.VoterParticipation));
 
         return ballotVoterParticipations.Concat(electionResultVoterParticipations)

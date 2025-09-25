@@ -14,7 +14,8 @@ internal static class VoteInfoProportionalElectionResultMapping
 {
     internal static IEnumerable<EventElectionResultDeliveryTypeElectionGroupResult> ToVoteInfoEchProportionalElectionGroupResults(
         this ICollection<ProportionalElection> proportionalElections,
-        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        bool includeCandidateListResultsInfo)
     {
         return proportionalElections
             .OrderBy(x => x.DomainOfInfluence.Type)
@@ -24,15 +25,18 @@ internal static class VoteInfoProportionalElectionResultMapping
                 ElectionGroupIdentification = x.Id.ToString(),
                 ElectionResult =
                 [
-                    ToVoteInfoEchResult(x, enabledResultStates)
+                    ToVoteInfoEchResult(x, enabledResultStates, includeCandidateListResultsInfo)
                 ],
             });
     }
 
     private static EventElectionResultDeliveryTypeElectionGroupResultElectionResult ToVoteInfoEchResult(
         ProportionalElection proportionalElection,
-        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        bool includeCandidateListResultsInfo)
     {
+        includeCandidateListResultsInfo &= proportionalElection.EndResult!.MandateDistributionTriggered;
+
         var allCountingCircleResultsArePublished = proportionalElection.Results.All(x => x.Published);
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
@@ -45,6 +49,7 @@ internal static class VoteInfoProportionalElectionResultMapping
                     .Select(x => new ElectedTypeProportionalElectionList
                     {
                         ListIdentification = x.ListId.ToString(),
+                        ListIndentureNumber = x.List.OrderNumber,
                         CountOfSeatsGained = (uint)x.NumberOfMandates,
                         ElectedCandidate = x.CandidateEndResults
                             .Where(c => allCountingCircleResultsArePublished && c.State == ProportionalElectionCandidateEndResultState.Elected)
@@ -62,18 +67,21 @@ internal static class VoteInfoProportionalElectionResultMapping
             : null,
             CountingCircleResult = proportionalElection.Results
                 .OrderBy(r => r.CountingCircle.Name)
-                .Select(r => ToCountingCircleResult(r, enabledResultStates))
+                .Select(r => ToCountingCircleResult(r, enabledResultStates, includeCandidateListResultsInfo))
                 .ToList(),
             DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(proportionalElection) : null,
         };
     }
 
-    private static CountingCircleResultType ToCountingCircleResult(ProportionalElectionResult result, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    private static CountingCircleResultType ToCountingCircleResult(
+        ProportionalElectionResult result,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        bool includeCandidateListResultsInfo)
     {
         var resultData = result.Published && enabledResultStates?.Contains(result.State) != false
             ? new CountingCircleResultTypeResultData
             {
-                CountOfVotersInformation = result.CountingCircle.ToVoteInfoCountOfVotersInfo(result.ProportionalElection.DomainOfInfluence.Type),
+                CountOfVotersInformation = result.CountingCircle.ToVoteInfoCountOfVotersInfo(result.ProportionalElection.DomainOfInfluence),
                 IsFullyCounted = result.SubmissionDoneTimestamp.HasValue,
                 ReleasedTimestamp = result.SubmissionDoneTimestamp,
                 LockoutTimestamp = result.AuditedTentativelyTimestamp,
@@ -97,6 +105,7 @@ internal static class VoteInfoProportionalElectionResultMapping
                             .Select(x => new ListResultType
                             {
                                 ListIdentification = x.ListId.ToString(),
+                                ListIndentureNumber = x.List.OrderNumber,
                                 CountOfUnchangedBallots = (uint)x.UnmodifiedListsCount,
                                 CountOfChangedBallots = (uint)x.ModifiedListsCount,
                                 CountOfAdditionalVotes = (uint)x.BlankRowsCount,
@@ -107,13 +116,16 @@ internal static class VoteInfoProportionalElectionResultMapping
                                     .Select(c => new ListResultTypeCandidateResults
                                     {
                                         CandidateIdentification = c.CandidateId.ToString(),
+                                        CandidateReferenceOnPosition = [c.Candidate.GenerateCandidateReference()],
                                         CountOfVotesFromUnchangedBallots = (uint)c.UnmodifiedListVotesCount,
                                         CountOfVotesFromChangedBallots = (uint)c.ModifiedListVotesCount,
-                                        CandidateListResultsInfo = new ListResultTypeCandidateResultsCandidateListResultsInfo
-                                        {
-                                            CandidateListResults = c.ToCandidateListResults(),
-                                            CountOfVotesFromBallotsWithoutListDesignation = (uint?)c.VoteSources.FirstOrDefault(y => y.ListId == null)?.VoteCount,
-                                        },
+                                        CandidateListResultsInfo = !includeCandidateListResultsInfo
+                                            ? null
+                                            : new ListResultTypeCandidateResultsCandidateListResultsInfo
+                                            {
+                                                CandidateListResults = c.ToCandidateListResults(),
+                                                CountOfVotesFromBallotsWithoutListDesignation = (uint?)c.VoteSources.FirstOrDefault(y => y.ListId == null)?.VoteCount,
+                                            },
                                     })
                                     .ToList(),
                             })

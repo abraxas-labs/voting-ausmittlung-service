@@ -12,4 +12,6 @@ public class CountOfVotersInformationSubTotal
     public VoterType VoterType { get; set; }
 
     public int? CountOfVoters { get; set; }
+
+    public DomainOfInfluenceType DomainOfInfluenceType { get; set; }
 }

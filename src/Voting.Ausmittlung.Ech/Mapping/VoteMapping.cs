@@ -10,9 +10,10 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteMapping
 {
-    internal static VoteType ToEchVote(this Vote vote)
+    internal static VoteType ToEchVote(this Vote vote, bool eVoting)
     {
         var voteDescriptionInfos = vote.Translations
+            .FilterAndSortEchExportLanguages(eVoting)
             .Select(t => new VoteDescriptionInformationTypeVoteDescriptionInfo
             {
                 Language = t.Language,

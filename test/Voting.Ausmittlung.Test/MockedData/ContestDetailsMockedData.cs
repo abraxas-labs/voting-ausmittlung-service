@@ -22,7 +22,6 @@ public static class ContestDetailsMockedData
         {
             Id = Guid.Parse(IdUrnengangBundContestDetails),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
-            TotalCountOfVoters = 15800 + 15800 + 3210,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.StGallenUrnengangBund),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.StGallenUrnengangBund),
         };
@@ -32,7 +31,6 @@ public static class ContestDetailsMockedData
         {
             Id = Guid.Parse(IdUrnengangGossauContestDetails),
             ContestId = Guid.Parse(ContestMockedData.IdGossau),
-            TotalCountOfVoters = 15800,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangGossau),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangGossau),
         };
@@ -42,7 +40,6 @@ public static class ContestDetailsMockedData
         {
             Id = Guid.Parse(IdUrnengangStGallenContestDetails),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
-            TotalCountOfVoters = 15800,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
         };
@@ -96,27 +93,28 @@ public static class ContestDetailsMockedData
 
     private static HashSet<ContestCountOfVotersInformationSubTotal> BuildCountOfVotersInformationSubTotals(params ContestCountingCircleDetails[] details)
     {
-        var subTotalBySexAndVoterType = new Dictionary<(SexType, VoterType), ContestCountOfVotersInformationSubTotal>();
+        var subTotalBySexVoterTypeAndDoiType = new Dictionary<(SexType, VoterType, DomainOfInfluenceType), ContestCountOfVotersInformationSubTotal>();
 
         foreach (var detail in details)
         {
             foreach (var subTotal in detail.CountOfVotersInformationSubTotals)
             {
-                var subTotalKey = (subTotal.Sex, subTotal.VoterType);
-                if (!subTotalBySexAndVoterType.TryGetValue(subTotalKey, out var doiSubTotal))
+                var subTotalKey = (subTotal.Sex, subTotal.VoterType, subTotal.DomainOfInfluenceType);
+                if (!subTotalBySexVoterTypeAndDoiType.TryGetValue(subTotalKey, out var doiSubTotal))
                 {
                     doiSubTotal = new()
                     {
                         Sex = subTotal.Sex,
                         VoterType = subTotal.VoterType,
+                        DomainOfInfluenceType = subTotal.DomainOfInfluenceType,
                     };
-                    subTotalBySexAndVoterType.Add(subTotalKey, doiSubTotal);
+                    subTotalBySexVoterTypeAndDoiType.Add(subTotalKey, doiSubTotal);
                 }
 
                 doiSubTotal.CountOfVoters += subTotal.CountOfVoters.GetValueOrDefault();
             }
         }
 
-        return subTotalBySexAndVoterType.Values.ToHashSet();
+        return subTotalBySexVoterTypeAndDoiType.Values.ToHashSet();
     }
 }

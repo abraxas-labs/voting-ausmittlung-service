@@ -18,7 +18,8 @@ public static class EndResultDetailsExtensions
             .ToList();
 
         endResultDetail.CountOfVotersInformationSubTotals = endResultDetail.CountOfVotersInformationSubTotals
-            .OrderBy(x => x.Sex)
+            .OrderBy(x => x.DomainOfInfluenceType)
+            .ThenBy(x => x.Sex)
             .ThenBy(x => x.VoterType)
             .ThenBy(x => x.CountOfVoters)
             .ToList();

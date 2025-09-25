@@ -2,12 +2,10 @@
 // For license information see LICENSE file
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
@@ -17,7 +15,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest
+public class PdfMajorityElectionEndResultExportTest : PdfMajorityElectionEndResultExportBaseTest
 {
     public PdfMajorityElectionEndResultExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -49,10 +47,27 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest
         await TestPdfReport("_with_single_counting_circle", TestClient, request);
     }
 
-    protected override async Task SeedData()
+    [Fact]
+    public async Task TestPdfWithSingleCountingCircleSubmissionOngoing()
     {
-        await MajorityElectionMockedData.Seed(RunScoped);
-        await MajorityElectionEndResultMockedData.Seed(RunScoped);
+        await SetToSubmissionOngoing();
+
+        await ModifyDbEntities<MajorityElectionEndResult>(
+            x => x.MajorityElectionId == Guid.Parse(MajorityElectionEndResultMockedData.ElectionId),
+            x => x.TotalCountOfCountingCircles = 1);
+        await ModifyDbEntities<ContestCountingCircleDetails>(
+            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
+            x => x.CountingMachine = CountingMachine.CalibratedScales);
+        await RunOnDb(async db =>
+        {
+            await db.MajorityElectionResults
+                .Where(x => x.MajorityElection.ContestId == ContestMockedData.GuidBundesurnengang
+                    && x.CountingCircle.BasisCountingCircleId != CountingCircleMockedData.GuidUzwil)
+                .ExecuteDeleteAsync();
+        });
+
+        var request = NewRequest();
+        await TestPdfReport("_with_single_counting_circle_submission-ongoing", TestClient, request);
     }
 
     protected override StartProtocolExportsRequest NewRequest()
@@ -69,12 +84,5 @@ public class PdfMajorityElectionEndResultExportTest : PdfExportBaseTest
                     .ToString(),
             },
         };
-    }
-
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
     }
 }

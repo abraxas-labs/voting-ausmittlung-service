@@ -92,6 +92,13 @@ public class PdfVoteEVotingResultRenderService : IRendererService
             .ThenBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
 
+        var allResults = votes.SelectMany(v => v.Results).ToList();
+        var allCcDetails = allResults
+            .SelectMany(r => r.CountingCircle.ContestDetails)
+            .DistinctBy(c => c.CountingCircleId)
+            .ToList();
+        PdfCountingCircleResultUtil.ResetResultsIfNotDone(allResults, allCcDetails);
+
         var pdfVotes = new List<PdfVote>();
         foreach (var vote in votes)
         {

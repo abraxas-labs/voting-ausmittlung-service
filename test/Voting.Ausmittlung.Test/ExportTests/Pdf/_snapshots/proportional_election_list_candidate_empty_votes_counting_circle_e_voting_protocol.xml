@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -31,11 +32,13 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <NumberOfMandates>5</NumberOfMandates>
+    <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
     <ProportionalElectionResult>
       <TotalCountOfVoters>3210</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <CountOfVoters>
         <VoterParticipation>0.0000</VoterParticipation>
@@ -353,21 +356,25 @@
         <Sex>Male</Sex>
         <CountOfVoters>1600</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>100</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>1400</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>110</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ct</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>

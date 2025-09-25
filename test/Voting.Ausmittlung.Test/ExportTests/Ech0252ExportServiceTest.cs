@@ -212,6 +212,19 @@ public class Ech0252ExportServiceTest : BaseIntegrationTest
             "Only one date filter is allowed and required. Choose one between date, date range and since days.");
     }
 
+    [Fact]
+    public async Task InformationOnlyAndIncludeCandidateListResultsInfoShouldThrow()
+    {
+        var filterRequest = new Ech0252FilterRequest()
+        {
+            PollingDateFrom = new DateTime(2021, 1, 1),
+            PollingDateTo = new DateTime(2022, 1, 1),
+            InformationOnly = true,
+            IncludeCandidateListResultsInfo = true,
+        };
+        await AssertException<ValidationException>(() => BuildAndValidateFilter(filterRequest), "Cannot set both InformationOnly and IncludeCandidateListResultsInfo");
+    }
+
     private async Task<List<SimpleContest>> LoadContests(Ech0252FilterModel filter)
     {
         return await RunExportService(async service =>

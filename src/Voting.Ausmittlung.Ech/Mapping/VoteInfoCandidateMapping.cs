@@ -8,6 +8,7 @@ using Ech0010_6_0;
 using Ech0155_5_1;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
 using CandidateType = Ech0252_2_0.CandidateType;
@@ -17,14 +18,15 @@ namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class VoteInfoCandidateMapping
 {
+    private const int MaxCandidateReferenceLength = 10;
     private const string IncumbentText = "bisher";
 
     private static readonly DateTime DefaultDateOfBirth = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-    internal static CandidatePositionInformationType ToEchCandidatePosition(this ProportionalElectionCandidate candidate, bool accumulatedPosition, DomainOfInfluenceCanton canton)
+    internal static CandidatePositionInformationType ToEchCandidatePosition(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx, bool accumulatedPosition)
     {
         var text = candidate.ToEchCandidateText(
-            canton,
+            ctx,
             PoliticalBusinessType.ProportionalElection,
             candidate.Translations.ToDictionary(t => t.Language, t => t.OccupationTitle),
             candidate.Party?.Translations.ToDictionary(x => x.Language, x => x.Name));
@@ -41,16 +43,17 @@ internal static class VoteInfoCandidateMapping
 
     internal static CandidateType ToVoteInfoEchCandidate(
         this ElectionCandidate candidate,
-        DomainOfInfluenceCanton canton,
+        Ech0252MappingContext ctx,
         PoliticalBusinessType politicalBusinessType,
         Dictionary<string, string> occupationTitleTranslations,
         Dictionary<string, string> occupationTranslations,
         Dictionary<string, string>? partyShortTranslations,
         Dictionary<string, string>? partyLongTranslations)
     {
-        var candidateText = candidate.ToEchCandidateText(canton, politicalBusinessType, occupationTitleTranslations, partyShortTranslations);
+        var candidateText = candidate.ToEchCandidateText(ctx, politicalBusinessType, occupationTitleTranslations, partyShortTranslations);
 
         var occupationInfos = occupationTranslations?
+            .FilterEchExportLanguages(ctx.EVoting)
             .Where(x => !string.IsNullOrEmpty(x.Value))
             .OrderBy(t => t.Key)
             .Select(x => new OccupationalTitleInformationTypeOccupationalTitleInfo
@@ -60,6 +63,7 @@ internal static class VoteInfoCandidateMapping
             })
             .ToList();
 
+        var address = BuildDwellingAddress(candidate, out var isSwiss);
         return new CandidateType
         {
             CandidateIdentification = candidate.Id.ToString(),
@@ -74,27 +78,27 @@ internal static class VoteInfoCandidateMapping
             Sex = candidate.Sex.ToEchSexType(),
             OccupationalTitle = occupationInfos?.Count == 0 ? null : occupationInfos,
             Title = candidate.Title,
-            DwellingAddress = BuildDwellingAddress(candidate, out _),
-            MrMrs = candidate.Sex.ToEchMrMrsType(),
+            DwellingAddress = address,
             LanguageOfCorrespondence = Languages.German,
-            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations),
+            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations, ctx),
             IncumbentYesNo = candidate.Incumbent,
             Role = null,
+            Swiss = !isSwiss || string.IsNullOrEmpty(candidate.Origin) ? [] : [candidate.Origin],
         };
     }
 
     internal static CandidateTextInformationType ToEchCandidateText(
         this ElectionCandidate candidate,
-        DomainOfInfluenceCanton canton,
+        Ech0252MappingContext ctx,
         PoliticalBusinessType politicalBusinessType,
         Dictionary<string, string> occupationTitleTranslations,
         Dictionary<string, string>? partyTranslations = null)
     {
-        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(canton, candidate.DateOfBirth ?? DefaultDateOfBirth);
+        var dateOfBirthText = DomainOfInfluenceCantonDataTransformer.EchCandidateDateOfBirthText(ctx.Canton, candidate.DateOfBirth ?? DefaultDateOfBirth);
         var localityText = string.IsNullOrEmpty(candidate.Locality) ? string.Empty : $", {candidate.Locality}";
         var candidateTextBase = $"{dateOfBirthText}{{0}}{localityText}{{1}}{{2}}";
         var textInfos = new CandidateTextInformationType();
-        foreach (var language in Languages.All.OrderBy(l => l))
+        foreach (var language in LanguageMapping.GetEchExportLanguages(ctx.EVoting))
         {
             var occupationTitleText = string.Empty;
             if (occupationTitleTranslations.TryGetValue(language, out var occupationTitle))
@@ -105,7 +109,7 @@ internal static class VoteInfoCandidateMapping
             var partyText = string.Empty;
             if (partyTranslations?.TryGetValue(language, out string? partyTranslatedText) != null)
             {
-                partyTranslatedText = DomainOfInfluenceCantonDataTransformer.EchCandidatePartyText(canton, politicalBusinessType, partyTranslatedText);
+                partyTranslatedText = DomainOfInfluenceCantonDataTransformer.EchCandidatePartyText(ctx.Canton, politicalBusinessType, partyTranslatedText);
                 partyText = !string.IsNullOrEmpty(partyTranslatedText) ? $", {partyTranslatedText}" : null;
             }
 
@@ -144,9 +148,11 @@ internal static class VoteInfoCandidateMapping
         this MajorityElectionCandidateBase candidate,
         Dictionary<string, string> occupationTranslations,
         Dictionary<string, string>? partyShortTranslations,
-        Dictionary<string, string>? partyLongTranslations)
+        Dictionary<string, string>? partyLongTranslations,
+        Ech0252MappingContext ctx)
     {
         var occupationInfos = occupationTranslations
+            .FilterEchExportLanguages(ctx.EVoting)
             .Where(x => !string.IsNullOrEmpty(x.Value))
             .OrderBy(t => t.Key)
             .Select(x => new OccupationalTitleInformationTypeOccupationalTitleInfo
@@ -165,8 +171,8 @@ internal static class VoteInfoCandidateMapping
             CallName = candidate.PoliticalFirstName,
             Title = candidate.Title,
             OccupationalTitle = occupationInfos.Count == 0 ? null : occupationInfos,
-            Swiss = isSwiss && string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
-            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations),
+            Swiss = !isSwiss || string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
+            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations, ctx),
             IncumbentYesNo = candidate.Incumbent,
         };
 
@@ -183,17 +189,26 @@ internal static class VoteInfoCandidateMapping
         if (candidate.Sex != Data.Models.SexType.Unspecified)
         {
             writeInCandidate.Sex = candidate.Sex.ToEchSexType();
-            writeInCandidate.MrMrs = candidate.Sex.ToEchMrMrsType();
         }
 
         return writeInCandidate;
     }
 
+    internal static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)
+    {
+        var reference = $"{candidate.ProportionalElectionList.OrderNumber.PadLeft(2, '0')}.{candidate.Number.PadLeft(2, '0')}";
+        return reference.Length > MaxCandidateReferenceLength
+            ? reference[..MaxCandidateReferenceLength]
+            : reference;
+    }
+
     private static List<PartyAffiliationInformationTypePartyAffiliationInfo>? ToPartyInfos(
         Dictionary<string, string>? partyShortTranslations,
-        Dictionary<string, string>? partyLongTranslations)
+        Dictionary<string, string>? partyLongTranslations,
+        Ech0252MappingContext ctx)
     {
         var partyInfos = partyShortTranslations?
+            .FilterEchExportLanguages(ctx.EVoting)
             .Where(t => !string.IsNullOrEmpty(t.Value))
             .OrderBy(t => t.Key)
             .Select(x => new PartyAffiliationInformationTypePartyAffiliationInfo
@@ -225,8 +240,8 @@ internal static class VoteInfoCandidateMapping
         {
             SwissZipCode = isSwiss ? (uint?)zipCode : null,
             ForeignZipCode = isSwiss ? null : candidate.ZipCode,
-            Town = candidate.Locality,
-            Street = candidate.Street,
+            Town = candidate.Locality.Truncate(40),
+            Street = candidate.Street.Truncate(60),
             HouseNumber = candidate.HouseNumber,
             Country = new CountryType
             {
@@ -235,10 +250,5 @@ internal static class VoteInfoCandidateMapping
                 CountryNameShort = country?.Description ?? CountryUtils.SwissCountryNameShort,
             },
         };
-    }
-
-    private static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)
-    {
-        return $"{candidate.ProportionalElectionList.OrderNumber.PadLeft(2, '0')}.{candidate.Number.PadLeft(2, '0')}";
     }
 }

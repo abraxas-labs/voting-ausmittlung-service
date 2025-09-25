@@ -434,8 +434,9 @@ public class MajorityElectionEndResultUpdateLotDecisionsTest : MajorityElectionE
     }
 
     [Fact]
-    public async Task TestShouldThrowIfElectionCountingCircleNotAuditedTentatively()
+    public async Task TestShouldThrowIfElectionCountingCircleNotSubmissionDone()
     {
+        await ResetOneResultToSubmissionOngoing(CountingCircleMockedData.IdStGallen, MajorityElectionEndResultMockedData.StGallenResultId);
         await AssertStatus(
             async () => await MonitoringElectionAdminClient.UpdateEndResultLotDecisionsAsync(NewValidRequest()),
             StatusCode.InvalidArgument,

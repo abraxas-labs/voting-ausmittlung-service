@@ -11,10 +11,11 @@ public static class ContestCountingCircleDetailsExtensions
     public static int GetTotalCountOfVotersForDomainOfInfluence(this ContestCountingCircleDetails details, DomainOfInfluence domainOfInfluence)
     {
         return details.CountOfVotersInformationSubTotals
-            .Where(x => x.VoterType == VoterType.Swiss
+            .Where(x => x.DomainOfInfluenceType == domainOfInfluence.Type
+                && (x.VoterType == VoterType.Swiss
                 || (domainOfInfluence.SwissAbroadVotingRight == SwissAbroadVotingRight.OnEveryCountingCircle && x.VoterType == VoterType.SwissAbroad)
                 || (domainOfInfluence.HasForeignerVoters && x.VoterType == VoterType.Foreigner)
-                || (domainOfInfluence.HasMinorVoters && x.VoterType == VoterType.Minor))
+                || (domainOfInfluence.HasMinorVoters && x.VoterType == VoterType.Minor)))
             .Sum(x => x.CountOfVoters.GetValueOrDefault());
     }
 }

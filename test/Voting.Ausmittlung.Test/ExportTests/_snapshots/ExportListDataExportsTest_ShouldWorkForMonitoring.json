@@ -50,6 +50,13 @@
       "TemplateKey": "proportional_election_result_ech_0252"
     },
     {
+      "ExportTemplateId": "18651178-f7b7-5cfc-9e23-c8f56971318b",
+      "Description": "Proporzwahlresultate inkl. Panaschierstatistik (eCH-0252 Result Delivery)",
+      "EntityDescription": "",
+      "PoliticalBusinessIds": [],
+      "TemplateKey": "proportional_election_result_with_candidate_list_results_info_ech_0252"
+    },
+    {
       "ExportTemplateId": "fbe15e5e-9dff-55f0-9ce5-465b24dd478c",
       "Description": "Abstimmungsresultat (eCH-0110)",
       "EntityDescription": "Abst Gossau de",

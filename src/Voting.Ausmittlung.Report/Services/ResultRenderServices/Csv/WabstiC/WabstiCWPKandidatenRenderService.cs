@@ -40,7 +40,7 @@ public class WabstiCWPKandidatenRenderService : WabstiCWPBaseRenderService
                 ListNumber = x.ProportionalElectionList.OrderNumber,
                 VoteCount = x.EndResult!.VoteCount,
                 Elected = !x.EndResult!.ListEndResult.ElectionEndResult.Finalized
-                    ? (bool?)null
+                    ? null
                     : x.EndResult!.State == ProportionalElectionCandidateEndResultState.Elected,
                 PoliticalBusinessId = x.ProportionalElectionList.ProportionalElection.Id,
                 PoliticalBusinessNumber = x.ProportionalElectionList.ProportionalElection.PoliticalBusinessNumber,

@@ -45,8 +45,10 @@ public class MajorityElectionResultProcessor :
         MajorityElectionResultBuilder resultBuilder,
         MajorityElectionBallotGroupResultBuilder ballotGroupResultBuilder,
         IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
-        MajorityElectionEndResultBuilder endResultBuilder)
-        : base(electionResultRepo, simpleResultRepo, commentRepo)
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
+        MajorityElectionEndResultBuilder endResultBuilder,
+        AggregatedContestCountingCircleDetailsBuilder aggregatedCcDetailsBuilder)
+        : base(electionResultRepo, simpleResultRepo, commentRepo, protocolExportRepo, aggregatedCcDetailsBuilder)
     {
         _eventLogger = eventLogger;
         _electionResultRepo = electionResultRepo;
@@ -109,6 +111,7 @@ public class MajorityElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
+        await _endResultBuilder.AdjustEndResult(electionResultId, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -117,6 +120,7 @@ public class MajorityElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, false, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.CorrectionDone, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustEndResult(electionResultId, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -125,6 +129,7 @@ public class MajorityElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, true, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.ReadyForCorrection, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustEndResult(electionResultId, true);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -132,7 +137,6 @@ public class MajorityElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -147,7 +151,6 @@ public class MajorityElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, true);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -162,6 +165,9 @@ public class MajorityElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
+
+        // Only the counting circle result is updated here.
+        // The end result adjustments are handled by the "ContestCountingCircleDetailsResetted" event processing.
         await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }

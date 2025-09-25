@@ -97,9 +97,22 @@ public class PdfVoteCountingCircleEVotingResultExportTest : PdfExportBaseTest
 
             await db.SaveChangesAsync();
         });
+
+        await ModifyDbEntities<VoteResult>(
+            _ => true,
+            v => v.State = CountingCircleResultState.SubmissionDone);
+
         await ModifyDbEntities<CountingCircle>(
             x => x.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen,
             x => x.EVoting = true);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<VoteResult>(
+            r => r.VoteId == VoteMockedData.BundVoteInContestBund.Id || r.VoteId == VoteMockedData.BundVote2InContestBund.Id,
+            v => v.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

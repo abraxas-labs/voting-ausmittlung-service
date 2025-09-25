@@ -12,10 +12,10 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
-using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
@@ -28,7 +28,6 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
     private readonly ILogger<ProportionalElectionResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionResult> _resultRepo;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
     public ProportionalElectionResultWriter(
         ILogger<ProportionalElectionResultWriter> logger,
@@ -39,12 +38,11 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         ValidationResultsEnsurer validationResultsEnsurer,
         SecondFactorTransactionWriter secondFactorTransactionWriter,
         IAuth auth)
-        : base(permissionService, contestService, auth, aggregateRepository)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
     {
         _logger = logger;
         _resultRepo = resultRepo;
         _validationResultsEnsurer = validationResultsEnsurer;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
 
     public async Task DefineEntry(Guid resultId, ProportionalElectionResultEntryParams resultEntryParams)
@@ -92,47 +90,17 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         _logger.LogInformation("Entered unmodified list results for proportional election result {ProportionalElectionResultId}", resultId);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid resultId, string message)
+    public async Task<SecondFactorInfo?> PrepareSubmissionFinished(Guid resultId, string message)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
-        await EnsurePoliticalBusinessPermissions(result);
-        if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
-        {
-            return default;
-        }
-
-        var actionId = await PrepareActionId<ProportionalElectionResultAggregate>(
-            nameof(SubmissionFinished),
-            resultId,
-            result.ProportionalElection.ContestId,
-            result.CountingCircle.BasisCountingCircleId,
-            result.ProportionalElection.Contest.TestingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await PrepareSecondFactor<ProportionalElectionResultAggregate>(nameof(SubmissionFinished), resultId, message);
     }
 
     public async Task SubmissionFinished(Guid resultId, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
-
         var contestId = await EnsurePoliticalBusinessPermissions(result);
-        if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
-        {
-            if (secondFactorTransactionId == null)
-            {
-                throw new ValidationException("Second factor transaction id cannot be null.");
-            }
 
-            await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionId.Value,
-                () => PrepareActionId<ProportionalElectionResultAggregate>(
-                    nameof(SubmissionFinished),
-                    resultId,
-                    result.ProportionalElection.ContestId,
-                    result.CountingCircle.BasisCountingCircleId,
-                    result.ProportionalElection.Contest.TestingPhaseEnded),
-                ct);
-        }
-
+        await VerifySecondFactor<ProportionalElectionResultAggregate>(result, nameof(SubmissionFinished), secondFactorTransactionId, ct);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
@@ -147,47 +115,17 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         _logger.LogInformation("Submission finished for proportional election result {ProportionalElectionResultId}", result.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid resultId, string message)
+    public async Task<SecondFactorInfo?> PrepareCorrectionFinished(Guid resultId, string message)
     {
-        var result = await LoadPoliticalBusinessResult(resultId);
-        await EnsurePoliticalBusinessPermissions(result);
-        if (IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
-        {
-            return default;
-        }
-
-        var actionId = await PrepareActionId<ProportionalElectionResultAggregate>(
-            nameof(CorrectionFinished),
-            resultId,
-            result.ProportionalElection.ContestId,
-            result.CountingCircle.BasisCountingCircleId,
-            result.ProportionalElection.Contest.TestingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await PrepareSecondFactor<ProportionalElectionResultAggregate>(nameof(CorrectionFinished), resultId, message);
     }
 
     public async Task CorrectionFinished(Guid resultId, string comment, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
-
         var contestId = await EnsurePoliticalBusinessPermissions(result);
-        if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
-        {
-            if (secondFactorTransactionId == null)
-            {
-                throw new ValidationException("Second factor transaction id cannot be null.");
-            }
 
-            await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionId.Value,
-                () => PrepareActionId<ProportionalElectionResultAggregate>(
-                    nameof(CorrectionFinished),
-                    resultId,
-                    result.ProportionalElection.ContestId,
-                    result.CountingCircle.BasisCountingCircleId,
-                    result.ProportionalElection.Contest.TestingPhaseEnded),
-                ct);
-        }
-
+        await VerifySecondFactor<ProportionalElectionResultAggregate>(result, nameof(CorrectionFinished), secondFactorTransactionId, ct);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
 
         var aggregate = await AggregateRepository.GetById<ProportionalElectionResultAggregate>(result.Id);
@@ -274,7 +212,13 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         });
     }
 
-    public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId)
+    public async Task<SecondFactorInfo> PrepareSubmissionFinishedAndAuditedTentatively(Guid resultId, string message)
+    {
+        return await PrepareSecondFactor<ProportionalElectionResultAggregate>(nameof(SubmissionFinishedAndAuditedTentatively), resultId, message)
+            ?? throw new InvalidOperationException("2FA is required in " + nameof(SubmissionFinishedAndAuditedTentatively));
+    }
+
+    public async Task SubmissionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
         if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
@@ -286,6 +230,12 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         {
             throw new ValidationException("finish submission and audit tentatively is not allowed for non communal political business");
         }
+
+        await VerifySecondFactor<ProportionalElectionResultAggregate>(
+            result,
+            nameof(SubmissionFinishedAndAuditedTentatively),
+            secondFactorTransactionId,
+            ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);
@@ -304,7 +254,13 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId)
+    public async Task<SecondFactorInfo> PrepareCorrectionFinishedAndAuditedTentatively(Guid resultId, string message)
+    {
+        return await PrepareSecondFactor<ProportionalElectionResultAggregate>(nameof(CorrectionFinishedAndAuditedTentatively), resultId, message)
+            ?? throw new InvalidOperationException("2FA is required in " + nameof(CorrectionFinishedAndAuditedTentatively));
+    }
+
+    public async Task CorrectionFinishedAndAuditedTentatively(Guid resultId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var result = await LoadPoliticalBusinessResult(resultId);
         if (!IsSelfOwnedPoliticalBusiness(result.ProportionalElection))
@@ -316,6 +272,12 @@ public class ProportionalElectionResultWriter : PoliticalBusinessResultWriter<Da
         {
             throw new ValidationException("finish correction and audit tentatively is not allowed for non communal political business");
         }
+
+        await VerifySecondFactor<ProportionalElectionResultAggregate>(
+            result,
+            nameof(CorrectionFinishedAndAuditedTentatively),
+            secondFactorTransactionId,
+            ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(resultId);
         await _validationResultsEnsurer.EnsureProportionalElectionResultIsValid(result);

@@ -2,7 +2,10 @@
 // For license information see LICENSE file
 
 using System;
+using System.Threading.Tasks;
+using Voting.Ausmittlung.EventSignature.Configuration;
 using Voting.Ausmittlung.EventSignature.Models;
+using Voting.Lib.Cryptography;
 using Voting.Lib.Cryptography.Asymmetric;
 
 namespace Voting.Ausmittlung.EventSignature;
@@ -13,12 +16,17 @@ namespace Voting.Ausmittlung.EventSignature;
 public class PublicKeySignatureVerifier
 {
     private readonly IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> _asymmetricAlgorithmAdapter;
-    private readonly IPkcs11DeviceAdapter _pkcs11DeviceAdapter;
+    private readonly ICryptoProvider _cryptoProvider;
+    private readonly Pkcs11AppConfig _pkcs11AppConfig;
 
-    public PublicKeySignatureVerifier(IPkcs11DeviceAdapter pkcs11DeviceAdapter, IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> asymmetricAlgorithmAdapter)
+    public PublicKeySignatureVerifier(
+        ICryptoProvider cryptoProvider,
+        IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> asymmetricAlgorithmAdapter,
+        Pkcs11AppConfig pkcs11AppConfig)
     {
-        _pkcs11DeviceAdapter = pkcs11DeviceAdapter;
+        _cryptoProvider = cryptoProvider;
         _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
+        _pkcs11AppConfig = pkcs11AppConfig;
     }
 
     /// <summary>
@@ -28,13 +36,13 @@ public class PublicKeySignatureVerifier
     /// <param name="signatureDeleteData">Public key signature delete data.</param>
     /// <param name="keyData">Public Key data.</param>
     /// <returns>The public key signature validation result.</returns>
-    public PublicKeySignatureValidationResult VerifySignature(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
+    public async Task<PublicKeySignatureValidationResult> VerifySignature(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
     {
         return new PublicKeySignatureValidationResult(
             BuildSignatureData(signatureCreateData, signatureDeleteData),
             keyData,
-            GetResultType(signatureCreateData, keyData),
-            GetResultType(signatureDeleteData, keyData));
+            await GetResultType(signatureCreateData, keyData),
+            await GetResultType(signatureDeleteData, keyData));
     }
 
     private PublicKeySignatureData? BuildSignatureData(PublicKeySignatureCreateData signatureCreateData, PublicKeySignatureDeleteData? signatureDeleteData)
@@ -72,17 +80,17 @@ public class PublicKeySignatureVerifier
             key);
     }
 
-    private bool HsmSignatureCreateIsValid(PublicKeySignatureCreateHsmPayload hsmCreatePayload, byte[] hsmSignature)
+    private Task<bool> HsmSignatureCreateIsValid(PublicKeySignatureCreateHsmPayload hsmCreatePayload, byte[] hsmSignature)
     {
-        return _pkcs11DeviceAdapter.VerifySignature(hsmCreatePayload.ConvertToBytesToSign(), hsmSignature);
+        return _cryptoProvider.VerifySignature(hsmCreatePayload.ConvertToBytesToSign(), hsmSignature, _pkcs11AppConfig.PublicKeyCkaLabel);
     }
 
-    private bool HsmSignatureDeleteIsValid(PublicKeySignatureDeleteHsmPayload hsmCreatePayload, byte[] hsmSignature)
+    private Task<bool> HsmSignatureDeleteIsValid(PublicKeySignatureDeleteHsmPayload hsmCreatePayload, byte[] hsmSignature)
     {
-        return _pkcs11DeviceAdapter.VerifySignature(hsmCreatePayload.ConvertToBytesToSign(), hsmSignature);
+        return _cryptoProvider.VerifySignature(hsmCreatePayload.ConvertToBytesToSign(), hsmSignature, _pkcs11AppConfig.PublicKeyCkaLabel);
     }
 
-    private PublicKeySignatureValidationResultType GetResultType(PublicKeySignatureCreateData signatureCreateData, PublicKeyData keyData)
+    private async Task<PublicKeySignatureValidationResultType> GetResultType(PublicKeySignatureCreateData signatureCreateData, PublicKeyData keyData)
     {
         var authTagCreatePayload = new PublicKeySignatureCreateAuthenticationTagPayload(
             signatureCreateData.SignatureVersion,
@@ -102,7 +110,7 @@ public class PublicKeySignatureVerifier
             authTagCreatePayload,
             signatureCreateData.AuthenticationTag);
 
-        if (!HsmSignatureCreateIsValid(hsmCreatePayload, signatureCreateData.HsmSignature))
+        if (!await HsmSignatureCreateIsValid(hsmCreatePayload, signatureCreateData.HsmSignature))
         {
             return PublicKeySignatureValidationResultType.HsmSignatureInvalid;
         }
@@ -110,7 +118,7 @@ public class PublicKeySignatureVerifier
         return PublicKeySignatureValidationResultType.Valid;
     }
 
-    private PublicKeySignatureValidationResultType? GetResultType(PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
+    private async Task<PublicKeySignatureValidationResultType?> GetResultType(PublicKeySignatureDeleteData? signatureDeleteData, PublicKeyData keyData)
     {
         if (signatureDeleteData == null)
         {
@@ -134,7 +142,7 @@ public class PublicKeySignatureVerifier
             authTagDeletePayload,
             signatureDeleteData.AuthenticationTag);
 
-        if (!HsmSignatureDeleteIsValid(hsmDeletePayload, signatureDeleteData.HsmSignature))
+        if (!await HsmSignatureDeleteIsValid(hsmDeletePayload, signatureDeleteData.HsmSignature))
         {
             return PublicKeySignatureValidationResultType.HsmSignatureInvalid;
         }

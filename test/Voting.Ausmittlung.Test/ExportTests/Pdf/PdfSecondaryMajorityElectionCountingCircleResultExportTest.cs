@@ -40,6 +40,17 @@ public class PdfSecondaryMajorityElectionCountingCircleResultExportTest : PdfExp
                 .Where(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && x.ContestId == ContestMockedData.GuidBundesurnengang)
                 .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.CountingMachine, CountingMachine.BanknoteCountingMachine));
         });
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

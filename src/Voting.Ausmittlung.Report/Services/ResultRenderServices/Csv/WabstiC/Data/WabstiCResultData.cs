@@ -3,12 +3,13 @@
 
 using System;
 using CsvHelper.Configuration.Attributes;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
 
-internal abstract class WabstiCResultData : WabstiCPoliticalBusinessData, IWabstiCSwissAbroadCountOfVoters
+internal abstract class WabstiCResultData : WabstiCPoliticalBusinessData, IWabstiCSwissAbroadCountOfVoters, IWabstiCPoliticalResultData
 {
     internal new const int StartIndex = WabstiCPoliticalBusinessData.StartIndex * 100;
     internal new const int EndIndex = WabstiCPoliticalBusinessData.EndIndex / 100;
@@ -30,32 +31,32 @@ internal abstract class WabstiCResultData : WabstiCPoliticalBusinessData, IWabst
 
     [Name("Stimmberechtigte")]
     [Index(StartIndex + 3)]
-    public int CountOfVotersTotal { get; set; }
+    public int? CountOfVotersTotal { get; set; }
 
     [Name("StimmberechtigteAusl")]
     [Index(StartIndex + 4)]
-    public int CountOfVotersTotalSwissAbroad { get; set; }
+    public int? CountOfVotersTotalSwissAbroad { get; set; }
 
     [Name("Stimmbeteiligung")]
     [TypeConverter(typeof(WabstiCPercentageConverter))]
     [Index(StartIndex + 5)]
-    public decimal VoterParticipation { get; set; }
+    public decimal? VoterParticipation { get; set; }
 
     [Name("StmAbgegeben")]
     [Index(StartIndex + 6)]
-    public int TotalReceivedBallots { get; set; }
+    public int? TotalReceivedBallots { get; set; }
 
     [Name("StmUngueltig")]
     [Index(StartIndex + 7)]
-    public int CountOfInvalidBallots { get; set; }
+    public int? CountOfInvalidBallots { get; set; }
 
     [Name("StmLeer")]
     [Index(StartIndex + 8)]
-    public int CountOfBlankBallots { get; set; }
+    public int? CountOfBlankBallots { get; set; }
 
     [Name("StmGueltig")]
     [Index(StartIndex + 9)]
-    public int CountOfAccountedBallots { get; set; }
+    public int? CountOfAccountedBallots { get; set; }
 
     [Name("FreigabeGde")]
     [TypeConverter(typeof(WabstiCTimeConverter))]
@@ -66,4 +67,18 @@ internal abstract class WabstiCResultData : WabstiCPoliticalBusinessData, IWabst
     [TypeConverter(typeof(WabstiCTimeConverter))]
     [Index(EndIndex)]
     public DateTime? AuditedTentativelyTimestamp { get; set; }
+
+    [Ignore]
+    public CountingCircleResultState ResultState { get; set; }
+
+    public virtual void ResetDataIfSubmissionNotDone()
+    {
+        CountOfVotersTotal = null;
+        CountOfVotersTotalSwissAbroad = null;
+        VoterParticipation = null;
+        TotalReceivedBallots = null;
+        CountOfInvalidBallots = null;
+        CountOfBlankBallots = null;
+        CountOfAccountedBallots = null;
+    }
 }

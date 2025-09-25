@@ -51,6 +51,11 @@ public static class DoubleProportionalAlgorithmTestData
         return DoubleProportionalAlgorithmTestUtils.GenerateElectionEndResult(GetDoubleProportionalAlgorithmInput("super-apportionment-lot-decision-election.json"));
     }
 
+    public static ProportionalElectionEndResult GenerateSuperApportionmentMultiLotDecisionElectionExample()
+    {
+        return DoubleProportionalAlgorithmTestUtils.GenerateElectionEndResult(GetDoubleProportionalAlgorithmInput("super-apportionment-multi-lot-decision-election.json"));
+    }
+
     public static ProportionalElectionUnionEndResult GenerateSuperApportionmentLotDecisionElectionUnionExample()
     {
         return DoubleProportionalAlgorithmTestUtils.GenerateUnionEndResult(GetDoubleProportionalAlgorithmInput("super-apportionment-lot-decision-election-union.json"));

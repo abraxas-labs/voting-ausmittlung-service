@@ -47,6 +47,7 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
             .AsSplitQuery()
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
 
@@ -97,7 +98,15 @@ public class PdfVoteEVotingDetailsResultRenderService : IRendererService
 
         contest.DomainOfInfluence.Details!.OrderVotingCardsAndSubTotals();
         var pdfContest = _mapper.Map<PdfContest>(contest);
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.DomainOfInfluence!.Details!, contest.DomainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(pdfContest.DomainOfInfluence!.Details!, contest.DomainOfInfluence);
+        pdfContest.DomainOfInfluence!.Details!.CountOfVotersInformationSubTotals = null!;
+
+        var allResults = votes.SelectMany(v => v.Results).ToList();
+        var allCcDetails = allResults
+            .SelectMany(r => r.CountingCircle.ContestDetails)
+            .DistinctBy(c => c.CountingCircleId)
+            .ToList();
+        PdfCountingCircleResultUtil.ResetResultsIfNotDone(allResults, allCcDetails);
 
         var pdfVotes = new List<PdfVote>();
         foreach (var vote in votes)

@@ -37,6 +37,14 @@ public class WabstiCWPGemeindenSkStatExportTest : CsvExportBaseTest
             x => x.Canton = DomainOfInfluenceCanton.Tg);
     }
 
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
+    }
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

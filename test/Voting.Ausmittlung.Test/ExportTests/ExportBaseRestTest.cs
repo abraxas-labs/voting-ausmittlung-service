@@ -93,6 +93,7 @@ public abstract class ExportBaseRestTest : BaseRestTest
                 State = Data.Models.ProtocolExportState.Completed,
                 ContestId = ContestMockedData.GuidStGallenEvoting,
                 ExportTemplateId = ExportTemplateMonitoringId,
+                PoliticalBusinessIds = [VoteMockedData.StGallenVoteInContestStGallen.Id],
             });
             db.ProtocolExports.Add(new()
             {
@@ -102,6 +103,7 @@ public abstract class ExportBaseRestTest : BaseRestTest
                 State = Data.Models.ProtocolExportState.Completed,
                 ContestId = ContestMockedData.GuidStGallenEvoting,
                 ExportTemplateId = ExportTemplateErfassungId,
+                PoliticalBusinessIds = [ProportionalElectionMockedData.StGallenProportionalElectionInContestStGallen.Id],
             });
             await db.SaveChangesAsync();
         });

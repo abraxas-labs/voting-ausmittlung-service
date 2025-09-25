@@ -15,8 +15,6 @@ public abstract class AggregatedContestCountingCircleDetails<TCountOfVotersInfor
 
     public ICollection<TVotingCardResultDetail> VotingCards { get; set; } = new HashSet<TVotingCardResultDetail>();
 
-    public int TotalCountOfVoters { get; set; }
-
     public void OrderVotingCardsAndSubTotals()
     {
         VotingCards = VotingCards
@@ -25,7 +23,8 @@ public abstract class AggregatedContestCountingCircleDetails<TCountOfVotersInfor
             .ToList();
 
         CountOfVotersInformationSubTotals = CountOfVotersInformationSubTotals
-            .OrderBy(x => x.Sex)
+            .OrderBy(x => x.DomainOfInfluenceType)
+            .ThenBy(x => x.Sex)
             .ThenBy(x => x.VoterType)
             .ThenBy(x => x.CountOfVoters)
             .ToList();

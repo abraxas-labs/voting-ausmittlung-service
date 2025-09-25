@@ -23,7 +23,7 @@ public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseV
     public void Test()
     {
         var electionResult = BuildProportionalElectionResult(540);
-        var context = BuildValidationContext(x => x.PoliticalBusinessDomainOfInfluenceType = electionResult.ProportionalElection.DomainOfInfluence.Type);
+        var context = BuildValidationContext(electionResult.ProportionalElection.DomainOfInfluence);
         var validationResults = Validate(electionResult.CountOfVoters, context);
 
         EnsureHasCount(validationResults, 1);
@@ -36,9 +36,8 @@ public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseV
     public void ShouldReturnEmptyWhenThresholdIsNull()
     {
         var electionResult = BuildProportionalElectionResult(540);
-        var context = BuildValidationContext(x =>
+        var context = BuildValidationContext(electionResult.ProportionalElection.DomainOfInfluence, x =>
         {
-            x.PoliticalBusinessDomainOfInfluenceType = electionResult.ProportionalElection.DomainOfInfluence.Type;
             x.PlausibilisationConfiguration!.ComparisonValidVotingCardsWithAccountedBallotsThresholdPercent = null;
         });
         var validationResults = Validate(electionResult.CountOfVoters, context);
@@ -50,19 +49,16 @@ public class ComparisonValidVotingCardsAndAccountedBallotsValidationTest : BaseV
     public void ShouldReturnIsNotValidWhenDeviationGreaterThanThreshold()
     {
         var electionResult = BuildProportionalElectionResult(300);
-        var context = BuildValidationContext(x =>
-        {
-            x.PoliticalBusinessDomainOfInfluenceType = electionResult.ProportionalElection.DomainOfInfluence.Type;
-        });
+        var context = BuildValidationContext(electionResult.ProportionalElection.DomainOfInfluence);
         var validationResults = Validate(electionResult.CountOfVoters, context);
 
         EnsureHasCount(validationResults, 1);
         EnsureIsValid(validationResults, false);
     }
 
-    private ValidationContext BuildValidationContext(Action<ValidationContext>? customizer = null)
+    private ValidationContext BuildValidationContext(DomainOfInfluence domainOfInfluence, Action<ValidationContext>? customizer = null)
     {
-        return BuildValidationContext(customizer, null, PoliticalBusinessType.ProportionalElection);
+        return BuildValidationContext(domainOfInfluence, PoliticalBusinessType.ProportionalElection, customizer, null);
     }
 
     private ProportionalElectionResult BuildProportionalElectionResult(int accountedBallots)

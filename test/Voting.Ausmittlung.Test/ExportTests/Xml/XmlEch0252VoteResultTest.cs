@@ -32,6 +32,13 @@ public class XmlEch0252VoteResultTest : XmlExportBaseTest<Delivery>
     protected override string NewRequestExpectedFileName => "eCH-0252_vote-result-delivery_20290212.xml";
 
     [Fact]
+    public async Task TestEVoting()
+    {
+        await ModifyDbEntities<Contest>(x => x.Id == ContestMockedData.GuidBundesurnengang, x => x.EVoting = true);
+        await TestXmlWithSnapshot("EVoting");
+    }
+
+    [Fact]
     public async Task TestWithoutPublished()
     {
         await ModifyDbEntities<VoteResult>(x => x.Id == VoteEndResultMockedData.StGallenResultGuid, x => x.Published = false);

@@ -17,6 +17,7 @@ public class MajorityElectionRelativeMajorityStrategy : MajorityElectionMandateA
 
         if (!majorityElectionEndResult.AllCountingCirclesDone)
         {
+            ResetCalculation(majorityElectionEndResult);
             return;
         }
 
@@ -37,6 +38,7 @@ public class MajorityElectionRelativeMajorityStrategy : MajorityElectionMandateA
 
         if (!majorityElectionEndResult.AllCountingCirclesDone)
         {
+            ResetCalculation(majorityElectionEndResult);
             return;
         }
 

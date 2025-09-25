@@ -42,7 +42,7 @@ public class CsvContestActivityProtocolExportTest : CsvContestActivityProtocolEx
     [Fact]
     public override async Task TestCsv()
     {
-        SeedEvents();
+        await SeedEvents();
         await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
         await base.TestCsv();
@@ -51,7 +51,7 @@ public class CsvContestActivityProtocolExportTest : CsvContestActivityProtocolEx
     [Fact]
     public async Task TestPdfAsContestManagerImmediatelyAfterTestingPhaseEnded()
     {
-        SeedEvents(false);
+        await SeedEvents(false);
 
         // When the testing phase ends, most of the data that was created during the testing phase gets deleted.
         // We need to test this case, as it lead to bugs (ex. VOTING-2403).
@@ -70,6 +70,9 @@ public class CsvContestActivityProtocolExportTest : CsvContestActivityProtocolEx
         await VoteMockedData.Seed(RunScoped);
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // Does not make a lot of sense for this export
+
     protected override IEnumerable<string> UnauthorizedRoles()
     {
         yield return NoRole;
@@ -77,13 +80,13 @@ public class CsvContestActivityProtocolExportTest : CsvContestActivityProtocolEx
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private void SeedEvents(bool eventsAfterTestingPhaseEnded = true)
+    private async Task SeedEvents(bool eventsAfterTestingPhaseEnded = true)
     {
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
 
-        SeedBasisPublicKeySignatureEvents(5);
-        SeedAusmittlungPublicKeySignatureEvents(12);
+        await SeedBasisPublicKeySignatureEvents(5);
+        await SeedAusmittlungPublicKeySignatureEvents(12);
 
         SeedVoteInitEvents();
         SeedProportionalElectionInitEvents();

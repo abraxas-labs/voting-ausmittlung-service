@@ -27,6 +27,9 @@ public abstract class PdfProportionalElectionUnionDoubleProportionalResultExport
         await ZhMockedData.Seed(RunScoped, true);
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // These reports only make sense when the submission is finished.
+
     protected override GrpcChannel CreateGrpcChannel(params string[] roles)
         => CreateGrpcChannel(true, SecureConnectTestDefaults.MockedTenantBund.Id, TestDefaults.UserId, roles);
 

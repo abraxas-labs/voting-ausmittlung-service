@@ -21,18 +21,16 @@ public class ContestCountingCircleElectorateProcessor : IEventProcessor<ContestC
     IEventProcessor<ContestCountingCircleElectoratesUpdated>
 {
     private readonly IDbRepository<DataContext, ContestCountingCircleElectorate> _repo;
-    private readonly IDbRepository<DataContext, VotingCardResultDetail> _vcRepo;
     private readonly IMapper _mapper;
     private readonly ContestCountingCircleDetailsBuilder _contestCountingCircleDetailsBuilder;
 
     public ContestCountingCircleElectorateProcessor(
         IDbRepository<DataContext, ContestCountingCircleElectorate> repo,
-        IDbRepository<DataContext, VotingCardResultDetail> vcRepo,
+        CountingCircleResultBuilder ccResultBuilder,
         IMapper mapper,
         ContestCountingCircleDetailsBuilder contestCountingCircleDetailsBuilder)
     {
         _repo = repo;
-        _vcRepo = vcRepo;
         _mapper = mapper;
         _contestCountingCircleDetailsBuilder = contestCountingCircleDetailsBuilder;
     }
@@ -69,6 +67,6 @@ public class ContestCountingCircleElectorateProcessor : IEventProcessor<ContestC
         }
 
         await _repo.CreateRange(electorates);
-        await _contestCountingCircleDetailsBuilder.ResetConventionalVotingCards(contestId, basisCountingCircleId);
+        await _contestCountingCircleDetailsBuilder.ResetConventionalVotingCardsAndSubTotals(contestId, basisCountingCircleId);
     }
 }

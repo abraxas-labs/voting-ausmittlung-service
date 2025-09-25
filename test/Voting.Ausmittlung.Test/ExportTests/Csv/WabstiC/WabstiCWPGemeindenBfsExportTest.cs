@@ -44,6 +44,14 @@ public class WabstiCWPGemeindenBfsExportTest : CsvExportBaseTest
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
     }
 
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<ProportionalElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
+    }
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

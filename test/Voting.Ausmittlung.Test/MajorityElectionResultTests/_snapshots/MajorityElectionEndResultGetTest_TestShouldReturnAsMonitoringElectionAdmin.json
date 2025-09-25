@@ -120,20 +120,106 @@
     "IndividualCandidatesDisabled": false
   },
   "CountOfVotersInformation": {
-    "TotalCountOfVoters": 0,
-    "SubTotalInfo": []
+    "TotalCountOfVoters": 15800,
+    "SubTotalInfo": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 2
+      }
+    ]
   },
-  "VotingCards": [],
-  "CountOfDoneCountingCircles": 0,
+  "VotingCards": [
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 2000,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 1000,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 3000,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    }
+  ],
+  "CountOfDoneCountingCircles": 1,
   "TotalCountOfCountingCircles": 6,
   "AllCountingCirclesDone": false,
   "CountOfVoters": {
-    "VoterParticipation": 0.0,
+    "VoterParticipation": 0.006329,
     "ConventionalSubTotal": {
-      "ReceivedBallots": 0,
-      "InvalidBallots": 0,
-      "BlankBallots": 0,
-      "AccountedBallots": 0
+      "ReceivedBallots": 100,
+      "InvalidBallots": 10,
+      "BlankBallots": 10,
+      "AccountedBallots": 80
     },
     "EVotingSubTotal": {
       "ReceivedBallots": 0,
@@ -147,11 +233,11 @@
       "BlankBallots": 0,
       "AccountedBallots": 0
     },
-    "TotalReceivedBallots": 0,
-    "TotalAccountedBallots": 0,
-    "TotalUnaccountedBallots": 0,
-    "TotalInvalidBallots": 0,
-    "TotalBlankBallots": 0
+    "TotalReceivedBallots": 100,
+    "TotalAccountedBallots": 80,
+    "TotalUnaccountedBallots": 20,
+    "TotalInvalidBallots": 10,
+    "TotalBlankBallots": 10
   },
   "CandidateEndResults": [
     {
@@ -167,10 +253,10 @@
         "Description": "number1 pol last name pol first name",
         "CheckDigit": 9
       },
-      "VoteCount": 0,
-      "EVotingVoteCount": 0,
+      "VoteCount": 63,
+      "EVotingVoteCount": 13,
       "ECountingVoteCount": 0,
-      "ConventionalVoteCount": 0,
+      "ConventionalVoteCount": 50,
       "Rank": 1,
       "LotDecision": false,
       "LotDecisionEnabled": false,
@@ -194,7 +280,7 @@
       "EVotingVoteCount": 0,
       "ECountingVoteCount": 0,
       "ConventionalVoteCount": 0,
-      "Rank": 1,
+      "Rank": 2,
       "LotDecision": false,
       "LotDecisionEnabled": false,
       "LotDecisionRequired": false,
@@ -216,6 +302,29 @@
       "CandidateEndResults": [
         {
           "Candidate": {
+            "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
+            "Number": "number1",
+            "PoliticalFirstName": "pol first name",
+            "PoliticalLastName": "pol last name",
+            "FirstName": "firstName",
+            "LastName": "lastName",
+            "Party": "Test de",
+            "Position": 1,
+            "Description": "number1 pol last name pol first name",
+            "CheckDigit": 9
+          },
+          "VoteCount": 38,
+          "EVotingVoteCount": 8,
+          "ECountingVoteCount": 0,
+          "ConventionalVoteCount": 30,
+          "Rank": 1,
+          "LotDecision": false,
+          "LotDecisionEnabled": false,
+          "LotDecisionRequired": false,
+          "State": 1
+        },
+        {
+          "Candidate": {
             "Id": "340c482b-c064-427e-a906-2696fab2ab35",
             "Number": "number4",
             "PoliticalFirstName": "Susi",
@@ -231,30 +340,7 @@
           "EVotingVoteCount": 0,
           "ECountingVoteCount": 0,
           "ConventionalVoteCount": 0,
-          "Rank": 1,
-          "LotDecision": false,
-          "LotDecisionEnabled": false,
-          "LotDecisionRequired": false,
-          "State": 1
-        },
-        {
-          "Candidate": {
-            "Id": "9d1e4ef4-81c0-4905-a2c6-e1b937b80ddf",
-            "Number": "number1",
-            "PoliticalFirstName": "pol first name",
-            "PoliticalLastName": "pol last name",
-            "FirstName": "firstName",
-            "LastName": "lastName",
-            "Party": "Test de",
-            "Position": 1,
-            "Description": "number1 pol last name pol first name",
-            "CheckDigit": 9
-          },
-          "VoteCount": 0,
-          "EVotingVoteCount": 0,
-          "ECountingVoteCount": 0,
-          "ConventionalVoteCount": 0,
-          "Rank": 1,
+          "Rank": 2,
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
@@ -277,7 +363,7 @@
           "EVotingVoteCount": 0,
           "ECountingVoteCount": 0,
           "ConventionalVoteCount": 0,
-          "Rank": 1,
+          "Rank": 2,
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
@@ -300,7 +386,7 @@
           "EVotingVoteCount": 0,
           "ECountingVoteCount": 0,
           "ConventionalVoteCount": 0,
-          "Rank": 1,
+          "Rank": 2,
           "LotDecision": false,
           "LotDecisionEnabled": false,
           "LotDecisionRequired": false,
@@ -309,12 +395,12 @@
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
-        "EmptyVoteCountWriteIns": 0,
+        "EmptyVoteCountInclWriteIns": 3,
+        "EmptyVoteCountExclWriteIns": 1,
+        "EmptyVoteCountWriteIns": 2,
         "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "TotalCandidateVoteCountExclIndividual": 7,
+        "TotalCandidateVoteCountInclIndividual": 7
       },
       "ECountingSubTotal": {
         "IndividualVoteCount": 0,
@@ -326,19 +412,19 @@
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
-        "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
+        "IndividualVoteCount": 7,
+        "EmptyVoteCountInclWriteIns": 5,
+        "EmptyVoteCountExclWriteIns": 5,
         "EmptyVoteCountWriteIns": 0,
-        "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "InvalidVoteCount": 2,
+        "TotalCandidateVoteCountExclIndividual": 30,
+        "TotalCandidateVoteCountInclIndividual": 37
       },
-      "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
-      "InvalidVoteCount": 0,
-      "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0,
+      "IndividualVoteCount": 7,
+      "EmptyVoteCount": 8,
+      "InvalidVoteCount": 2,
+      "TotalCandidateVoteCountExclIndividual": 37,
+      "TotalCandidateVoteCountInclIndividual": 44,
       "Calculation": {
         "AbsoluteMajority": null
       }
@@ -404,12 +490,12 @@
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
-        "EmptyVoteCountWriteIns": 0,
+        "EmptyVoteCountInclWriteIns": 3,
+        "EmptyVoteCountExclWriteIns": 1,
+        "EmptyVoteCountWriteIns": 2,
         "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "TotalCandidateVoteCountExclIndividual": 7,
+        "TotalCandidateVoteCountInclIndividual": 7
       },
       "ECountingSubTotal": {
         "IndividualVoteCount": 0,
@@ -421,19 +507,19 @@
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
-        "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
+        "IndividualVoteCount": 2,
+        "EmptyVoteCountInclWriteIns": 1,
+        "EmptyVoteCountExclWriteIns": 1,
         "EmptyVoteCountWriteIns": 0,
-        "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "InvalidVoteCount": 3,
+        "TotalCandidateVoteCountExclIndividual": 30,
+        "TotalCandidateVoteCountInclIndividual": 32
       },
-      "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
-      "InvalidVoteCount": 0,
-      "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0,
+      "IndividualVoteCount": 2,
+      "EmptyVoteCount": 4,
+      "InvalidVoteCount": 3,
+      "TotalCandidateVoteCountExclIndividual": 37,
+      "TotalCandidateVoteCountInclIndividual": 39,
       "Calculation": {
         "AbsoluteMajority": null
       }
@@ -499,12 +585,12 @@
       ],
       "EVotingSubTotal": {
         "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
-        "EmptyVoteCountWriteIns": 0,
+        "EmptyVoteCountInclWriteIns": 3,
+        "EmptyVoteCountExclWriteIns": 1,
+        "EmptyVoteCountWriteIns": 2,
         "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "TotalCandidateVoteCountExclIndividual": 7,
+        "TotalCandidateVoteCountInclIndividual": 7
       },
       "ECountingSubTotal": {
         "IndividualVoteCount": 0,
@@ -516,32 +602,32 @@
         "TotalCandidateVoteCountInclIndividual": 0
       },
       "ConventionalSubTotal": {
-        "IndividualVoteCount": 0,
-        "EmptyVoteCountInclWriteIns": 0,
-        "EmptyVoteCountExclWriteIns": 0,
+        "IndividualVoteCount": 100,
+        "EmptyVoteCountInclWriteIns": 99,
+        "EmptyVoteCountExclWriteIns": 99,
         "EmptyVoteCountWriteIns": 0,
-        "InvalidVoteCount": 0,
-        "TotalCandidateVoteCountExclIndividual": 0,
-        "TotalCandidateVoteCountInclIndividual": 0
+        "InvalidVoteCount": 101,
+        "TotalCandidateVoteCountExclIndividual": 30,
+        "TotalCandidateVoteCountInclIndividual": 130
       },
-      "IndividualVoteCount": 0,
-      "EmptyVoteCount": 0,
-      "InvalidVoteCount": 0,
-      "TotalCandidateVoteCountExclIndividual": 0,
-      "TotalCandidateVoteCountInclIndividual": 0,
+      "IndividualVoteCount": 100,
+      "EmptyVoteCount": 102,
+      "InvalidVoteCount": 101,
+      "TotalCandidateVoteCountExclIndividual": 37,
+      "TotalCandidateVoteCountInclIndividual": 137,
       "Calculation": {
         "AbsoluteMajority": null
       }
     }
   ],
   "EVotingSubTotal": {
-    "IndividualVoteCount": 0,
-    "EmptyVoteCountInclWriteIns": 0,
-    "EmptyVoteCountExclWriteIns": 0,
-    "EmptyVoteCountWriteIns": 0,
-    "InvalidVoteCount": 0,
+    "IndividualVoteCount": 5,
+    "EmptyVoteCountInclWriteIns": 5,
+    "EmptyVoteCountExclWriteIns": 3,
+    "EmptyVoteCountWriteIns": 2,
+    "InvalidVoteCount": 7,
     "TotalCandidateVoteCountExclIndividual": 0,
-    "TotalCandidateVoteCountInclIndividual": 0
+    "TotalCandidateVoteCountInclIndividual": 5
   },
   "ECountingSubTotal": {
     "IndividualVoteCount": 0,
@@ -553,19 +639,19 @@
     "TotalCandidateVoteCountInclIndividual": 0
   },
   "ConventionalSubTotal": {
-    "IndividualVoteCount": 0,
-    "EmptyVoteCountInclWriteIns": 0,
-    "EmptyVoteCountExclWriteIns": 0,
+    "IndividualVoteCount": 5,
+    "EmptyVoteCountInclWriteIns": 6,
+    "EmptyVoteCountExclWriteIns": 6,
     "EmptyVoteCountWriteIns": 0,
-    "InvalidVoteCount": 0,
-    "TotalCandidateVoteCountExclIndividual": 0,
-    "TotalCandidateVoteCountInclIndividual": 0
+    "InvalidVoteCount": 7,
+    "TotalCandidateVoteCountExclIndividual": 63,
+    "TotalCandidateVoteCountInclIndividual": 68
   },
-  "IndividualVoteCount": 0,
-  "EmptyVoteCount": 0,
-  "InvalidVoteCount": 0,
-  "TotalCandidateVoteCountExclIndividual": 0,
-  "TotalCandidateVoteCountInclIndividual": 0,
+  "IndividualVoteCount": 10,
+  "EmptyVoteCount": 11,
+  "InvalidVoteCount": 14,
+  "TotalCandidateVoteCountExclIndividual": 63,
+  "TotalCandidateVoteCountInclIndividual": 73,
   "Finalized": false,
   "Calculation": {
     "AbsoluteMajority": null

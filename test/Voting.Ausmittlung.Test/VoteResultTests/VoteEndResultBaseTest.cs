@@ -2,7 +2,6 @@
 // For license information see LICENSE file
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
@@ -102,25 +101,6 @@ public abstract class VoteEndResultBaseTest : BaseTest<
         }
     }
 
-    protected async Task SetAllAuditedTentatively()
-    {
-        await SetOneAuditedTentatively();
-        await SetOtherAuditedTentatively();
-    }
-
-    protected Task SetOneAuditedTentatively()
-    {
-        return SetAuditedTentatively(_resultIds.First().ResultId);
-    }
-
-    protected async Task SetOtherAuditedTentatively()
-    {
-        foreach (var (endResultId, _) in _resultIds.Skip(1))
-        {
-            await SetAuditedTentatively(endResultId);
-        }
-    }
-
     protected override IEnumerable<string> UnauthorizedRoles()
     {
         yield return NoRole;
@@ -215,17 +195,6 @@ public abstract class VoteEndResultBaseTest : BaseTest<
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
             new VoteResultSubmissionFinished
-            {
-                VoteResultId = resultId,
-                EventInfo = GetMockedEventInfo(),
-            });
-    }
-
-    private async Task SetAuditedTentatively(string resultId)
-    {
-        await TestEventPublisher.Publish(
-            GetNextEventNumber(),
-            new VoteResultAuditedTentatively
             {
                 VoteResultId = resultId,
                 EventInfo = GetMockedEventInfo(),

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
@@ -58,17 +59,22 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
                 CountOfVotersTotal = x.VoteResult.TotalCountOfVoters,
                 VoteType = x.VoteResult.Vote.Type,
                 Position = x.Ballot.Position,
+                ResultState = x.VoteResult.State,
             })
             .ToListAsync(ct);
 
         await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, results, ct);
+        foreach (var result in results)
+        {
+            result.ResetDataIfSubmissionNotDone();
+        }
 
         return _templateService.RenderToCsv(
             ctx,
             results);
     }
 
-    private class Data : IWabstiCSwissAbroadCountOfVoters
+    private class Data : IWabstiCSwissAbroadCountOfVoters, IWabstiCPoliticalResultData
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -96,10 +102,10 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
         public string CountingCircleName { get; set; } = string.Empty;
 
         [Name("Stimmberechtigte")]
-        public int CountOfVotersTotal { get; set; }
+        public int? CountOfVotersTotal { get; set; }
 
         [Name("StimmberechtigteAusl")]
-        public int CountOfVotersTotalSwissAbroad { get; set; }
+        public int? CountOfVotersTotalSwissAbroad { get; set; }
 
         [Name("GeLfNr")]
         public Guid VoteId { get; set; }
@@ -112,5 +118,19 @@ public class WabstiCSGStaticGemeindenRenderService : IRendererService
 
         [Ignore]
         public int Position { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            CountOfVotersTotal = null;
+            CountOfVotersTotalSwissAbroad = null;
+        }
     }
 }

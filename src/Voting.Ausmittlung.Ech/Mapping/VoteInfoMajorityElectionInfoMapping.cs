@@ -62,24 +62,24 @@ internal static class VoteInfoMajorityElectionInfoMapping
             DomainOfInfluence = election.DomainOfInfluence.ToEchDomainOfInfluence(),
             ElectionInformation = election.SecondaryMajorityElections
                 .OrderBy(y => y.PoliticalBusinessNumber)
-                .Select(y => y.ToVoteInfoEchElectionInfo(canton))
-                .Prepend(election.ToVoteInfoEchElectionInfo(canton))
+                .Select(y => y.ToVoteInfoEchElectionInfo(ctx))
+                .Prepend(election.ToVoteInfoEchElectionInfo(ctx))
                 .ToList(),
         };
     }
 
     private static ElectionGroupInfoTypeElectionGroupElectionInformation ToVoteInfoEchElectionInfo(
         this MajorityElection election,
-        DomainOfInfluenceCanton canton)
+        Ech0252MappingContext ctx)
     {
         return new ElectionGroupInfoTypeElectionGroupElectionInformation
         {
-            Election = election.ToVoteInfoEchElection(election.Translations, PoliticalBusinessType.MajorityElection),
+            Election = election.ToVoteInfoEchElection(ctx, election.Translations, PoliticalBusinessType.MajorityElection),
             ReferencedElectionAssociationId = election.MajorityElectionUnionEntries.FirstOrDefault()?.MajorityElectionUnionId.ToString(),
             Candidate = election.MajorityElectionCandidates
                 .Where(x => !x.CreatedDuringActiveContest)
                 .OrderBy(c => c.Number)
-                .Select(c => c.ToVoteInfoEchCandidate(canton))
+                .Select(c => c.ToVoteInfoEchCandidate(ctx))
                 .ToList(),
             OtherIdentification = election.ToOtherIdentification(),
             NamedElement = new List<NamedElementType>
@@ -95,16 +95,16 @@ internal static class VoteInfoMajorityElectionInfoMapping
 
     private static ElectionGroupInfoTypeElectionGroupElectionInformation ToVoteInfoEchElectionInfo(
         this SecondaryMajorityElection election,
-        DomainOfInfluenceCanton canton)
+        Ech0252MappingContext ctx)
     {
         return new ElectionGroupInfoTypeElectionGroupElectionInformation
         {
-            Election = election.ToVoteInfoEchElection(election.Translations, PoliticalBusinessType.MajorityElection),
+            Election = election.ToVoteInfoEchElection(ctx, election.Translations, PoliticalBusinessType.MajorityElection),
             ReferencedElectionAssociationId = election.PrimaryMajorityElection.MajorityElectionUnionEntries.FirstOrDefault()?.MajorityElectionUnionId.ToString(),
             Candidate = election.Candidates
                 .Where(x => !x.CreatedDuringActiveContest)
                 .OrderBy(c => c.Number)
-                .Select(c => c.ToVoteInfoEchCandidate(canton))
+                .Select(c => c.ToVoteInfoEchCandidate(ctx))
                 .ToList(),
             NamedElement = new List<NamedElementType>
             {
@@ -119,10 +119,10 @@ internal static class VoteInfoMajorityElectionInfoMapping
         };
     }
 
-    private static CandidateType ToVoteInfoEchCandidate(this MajorityElectionCandidate candidate, DomainOfInfluenceCanton canton)
+    private static CandidateType ToVoteInfoEchCandidate(this MajorityElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         return candidate.ToVoteInfoEchCandidate(
-            canton,
+            ctx,
             PoliticalBusinessType.MajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
@@ -130,10 +130,10 @@ internal static class VoteInfoMajorityElectionInfoMapping
             candidate.Translations.ToDictionary(x => x.Language, x => x.Party));
     }
 
-    private static CandidateType ToVoteInfoEchCandidate(this SecondaryMajorityElectionCandidate candidate, DomainOfInfluenceCanton canton)
+    private static CandidateType ToVoteInfoEchCandidate(this SecondaryMajorityElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         return candidate.ToVoteInfoEchCandidate(
-            canton,
+            ctx,
             PoliticalBusinessType.SecondaryMajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),

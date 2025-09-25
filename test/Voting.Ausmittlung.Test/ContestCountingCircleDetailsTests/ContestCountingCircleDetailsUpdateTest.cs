@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -23,6 +22,9 @@ using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ContestCountingCircleDetailsUpdated = Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsUpdated;
+using CountOfVotersInformationSubTotalEventData = Abraxas.Voting.Ausmittlung.Events.V2.Data.CountOfVotersInformationSubTotalEventData;
+using EventsV1 = Abraxas.Voting.Ausmittlung.Events.V1;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleDetailsTests;
@@ -47,6 +49,43 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     public async Task TestProcessor()
     {
         await TestEventPublisher.Publish(NewValidUpdatedEvent());
+
+        var details = await RunOnDb(db => db
+            .ContestCountingCircleDetails
+            .AsSplitQuery()
+            .Where(cd => cd.ContestId == Guid.Parse(ContestMockedData.IdGossau)
+                         && cd.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards)
+            .ToListAsync());
+
+        // ensure consistent json snapshot
+        foreach (var detail in details)
+        {
+            foreach (var votingCardResultDetail in detail.VotingCards)
+            {
+                votingCardResultDetail.ContestCountingCircleDetails = null!;
+                votingCardResultDetail.Id = Guid.Empty;
+            }
+
+            foreach (var subtotal in detail.CountOfVotersInformationSubTotals)
+            {
+                subtotal.ContestCountingCircleDetails = null!;
+                subtotal.Id = Guid.Empty;
+            }
+
+            detail.OrderVotingCardsAndSubTotals();
+
+            detail.Id = Guid.Empty;
+        }
+
+        details.MatchSnapshot(x => x.CountingCircleId);
+    }
+
+    [Fact]
+    public async Task TestProcessorV1()
+    {
+        await TestEventPublisher.Publish(NewValidUpdatedEventV1());
 
         var details = await RunOnDb(db => db
             .ContestCountingCircleDetails
@@ -121,19 +160,21 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
             },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
             {
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Female,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 6000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Male,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 4000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
             },
         });
@@ -180,19 +221,21 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
             },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
             {
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Female,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 6000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Male,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 4000,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 },
             },
         });
@@ -323,7 +366,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 .ThenInclude(r => r.CountOfVoters)
                 .FirstAsync(vr => vr.Id == Guid.Parse(VoteResultMockedData.IdGossauVoteInContestGossauResult));
 
-            var totalCountOfVoters = request.CountOfVoters.Sum(c => c.CountOfVoters.GetValueOrDefault());
+            var totalCountOfVoters = request.CountOfVotersInformationSubTotals.Sum(c => c.CountOfVoters.GetValueOrDefault());
             foreach (var ballotResult in voteResult.Results)
             {
                 ballotResult.CountOfVoters.VoterParticipation.Should()
@@ -360,7 +403,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 .Include(mr => mr.CountOfVoters)
                 .FirstAsync(vr => vr.Id == MajorityElectionResultMockedData.GuidGossauElectionResultInContestGossau);
 
-            var totalCountOfVoters = request.CountOfVoters.Sum(c => c.CountOfVoters.GetValueOrDefault());
+            var totalCountOfVoters = request.CountOfVotersInformationSubTotals.Sum(c => c.CountOfVoters.GetValueOrDefault());
             electionResult.CountOfVoters.VoterParticipation.Should()
                 .Be(electionResult.CountOfVoters.TotalReceivedBallots / (decimal)totalCountOfVoters);
         });
@@ -394,7 +437,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 .Include(pr => pr.CountOfVoters)
                 .FirstAsync(vr => vr.Id == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestGossau);
 
-            var totalCountOfVoters = request.CountOfVoters.Sum(c => c.CountOfVoters.GetValueOrDefault());
+            var totalCountOfVoters = request.CountOfVotersInformationSubTotals.Sum(c => c.CountOfVoters.GetValueOrDefault());
             electionResult.CountOfVoters.VoterParticipation.Should()
                 .Be(electionResult.CountOfVoters.TotalReceivedBallots / (decimal)totalCountOfVoters);
         });
@@ -426,11 +469,12 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
 
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+                x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Female,
                     VoterType = SharedProto.VoterType.SwissAbroad,
                     CountOfVoters = 1,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                 }))),
             StatusCode.InvalidArgument,
             "swiss abroads not allowed");
@@ -473,14 +517,15 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     {
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+                x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Female,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 1,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                 }))),
             StatusCode.InvalidArgument,
-            "duplicated count of voters subtotal found");
+            "Count of voters information sub total per electorate, voter type and sex must be unique");
     }
 
     [Fact]
@@ -506,7 +551,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ch,
                 }))),
             StatusCode.InvalidArgument,
-            "Voting cards with domain of influence type which don't exist are provided.");
+            "Voting cards or count of voters information sub totals with domain of influence type which don't exist are provided.");
     }
 
     [Fact]
@@ -549,21 +594,21 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task TestShouldUpdateAggregatedContestCountingCircleDetails()
+    public async Task TestShouldNotUpdateAggregatedContestCountingCircleDetails()
     {
         var contestId = Guid.Parse(ContestMockedData.IdGossau);
         await SeedContestDomainOfInfluenceDetails();
 
         var contestDetailsBefore = await LoadContestDetails(contestId);
-        contestDetailsBefore.MatchSnapshot("contestDetailsBefore");
+        contestDetailsBefore.MatchSnapshot("contestDetails");
         var doiDetailsBefore = await LoadContestDomainOfInfluenceDetails(contestId);
-        doiDetailsBefore.MatchSnapshot("doiDetailsBefore");
+        doiDetailsBefore.MatchSnapshot("doiDetails");
 
         await TestEventPublisher.Publish(NewValidUpdatedEvent());
         var contestDetailsAfter = await LoadContestDetails(contestId);
-        contestDetailsAfter.MatchSnapshot("contestDetailsAfter");
+        contestDetailsAfter.MatchSnapshot("contestDetails");
         var doiDetailsAfter = await LoadContestDomainOfInfluenceDetails(contestId);
-        doiDetailsAfter.MatchSnapshot("doiDetailsAfter");
+        doiDetailsAfter.MatchSnapshot("doiDetails");
     }
 
     [Fact]
@@ -575,6 +620,7 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                 x.ContestId = ContestMockedData.IdStGallenStadt;
                 x.CountingCircleId = CountingCircleMockedData.IdStGallenHaggen;
                 x.VotingCards.Clear();
+                x.CountOfVotersInformationSubTotals.Clear();
             })),
             StatusCode.InvalidArgument,
             "Counting circle has no results, cannot update the contest counting circle details.");
@@ -625,25 +671,94 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                         DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                     },
                 },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
                 {
                     new UpdateCountOfVotersInformationSubTotalRequest
                     {
                         Sex = SharedProto.SexType.Female,
                         VoterType = SharedProto.VoterType.Swiss,
                         CountOfVoters = 6000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                     },
                     new UpdateCountOfVotersInformationSubTotalRequest
                     {
                         Sex = SharedProto.SexType.Male,
                         VoterType = SharedProto.VoterType.Swiss,
                         CountOfVoters = 4000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                     },
                 },
         };
 
         customizer?.Invoke(request);
         return request;
+    }
+
+    private EventsV1.ContestCountingCircleDetailsUpdated NewValidUpdatedEventV1()
+    {
+        return new EventsV1.ContestCountingCircleDetailsUpdated
+        {
+            Id = ContestCountingCircleDetailsMockData.GuidGossauUrnengangGossauContestCountingCircleDetails.ToString(),
+            ContestId = ContestMockedData.IdGossau,
+            CountingCircleId = CountingCircleMockedData.IdGossau,
+            VotingCards =
+                {
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.ByMail,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 10000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.BallotBox,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 3000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
+                    },
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.BallotBox,
+                        Valid = false,
+                        CountOfReceivedVotingCards = 4000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
+                    },
+                },
+            CountOfVotersInformation = new CountOfVotersInformationEventData
+            {
+                SubTotalInfo =
+                    {
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Swiss,
+                            CountOfVoters = 6000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Swiss,
+                            CountOfVoters = 4000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                            CountOfVoters = 1000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                            CountOfVoters = 1000,
+                        },
+                    },
+                TotalCountOfVoters = 12000,
+            },
+            CountingMachine = SharedProto.CountingMachine.None,
+            EventInfo = GetMockedEventInfo(),
+        };
     }
 
     private ContestCountingCircleDetailsUpdated NewValidUpdatedEvent()
@@ -677,37 +792,37 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                         DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                     },
                 },
-            CountOfVotersInformation = new CountOfVotersInformationEventData
-            {
-                SubTotalInfo =
+            CountOfVotersInformationSubTotals =
+                {
+                    new CountOfVotersInformationSubTotalEventData
                     {
-                        new CountOfVotersInformationSubTotalEventData
-                        {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.Swiss,
                             CountOfVoters = 6000,
-                        },
-                        new CountOfVotersInformationSubTotalEventData
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
+                    },
+                    new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.Swiss,
                             CountOfVoters = 4000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                         },
-                        new CountOfVotersInformationSubTotalEventData
+                    new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.SwissAbroad,
                             CountOfVoters = 1000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                         },
-                        new CountOfVotersInformationSubTotalEventData
+                    new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.SwissAbroad,
                             CountOfVoters = 1000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                         },
-                    },
-                TotalCountOfVoters = 12000,
-            },
+                },
             CountingMachine = SharedProto.CountingMachine.None,
             EventInfo = GetMockedEventInfo(),
         };
@@ -727,7 +842,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, Guid.Parse(DomainOfInfluenceMockedData.IdBund)),
                     VotingCards = ContestDomainOfInfluenceDetailsMockedData.BuildVotingCards(gossauCcDetails),
                     CountOfVotersInformationSubTotals = ContestDomainOfInfluenceDetailsMockedData.BuildCountOfVotersInformationSubTotals(gossauCcDetails),
-                    TotalCountOfVoters = 15000,
                 },
                 new()
                 {
@@ -735,7 +849,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, Guid.Parse(DomainOfInfluenceMockedData.IdStGallen)),
                     VotingCards = ContestDomainOfInfluenceDetailsMockedData.BuildVotingCards(gossauCcDetails),
                     CountOfVotersInformationSubTotals = ContestDomainOfInfluenceDetailsMockedData.BuildCountOfVotersInformationSubTotals(gossauCcDetails),
-                    TotalCountOfVoters = 15000,
                 },
                 new()
                 {
@@ -743,7 +856,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
                     DomainOfInfluenceId = AusmittlungUuidV5.BuildDomainOfInfluenceSnapshot(contestId, Guid.Parse(DomainOfInfluenceMockedData.IdGossau)),
                     VotingCards = ContestDomainOfInfluenceDetailsMockedData.BuildVotingCards(gossauCcDetails),
                     CountOfVotersInformationSubTotals = ContestDomainOfInfluenceDetailsMockedData.BuildCountOfVotersInformationSubTotals(gossauCcDetails),
-                    TotalCountOfVoters = 15000,
                 });
             await db.SaveChangesAsync();
         });

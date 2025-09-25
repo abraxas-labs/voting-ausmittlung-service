@@ -56,7 +56,7 @@ public class ComparisonCountOfVotersValidationTest : BaseValidationTest<ContestC
     [Fact]
     public void ShouldReturnEmptyWhenNoPreviousContestOrCountingCircleDidNotExist()
     {
-        var context = BuildValidationContext(null, null, null, false);
+        var context = BuildValidationContext(null, null, false);
         var validationResults = Validate(context.CurrentContestCountingCircleDetails, context);
 
         EnsureHasCount(validationResults, 0);

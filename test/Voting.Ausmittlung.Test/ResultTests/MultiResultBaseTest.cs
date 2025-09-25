@@ -26,21 +26,26 @@ namespace Voting.Ausmittlung.Test.ResultTests;
 
 public abstract class MultiResultBaseTest : BaseTest<ResultService.ResultServiceClient>
 {
-    protected static readonly Guid ContestId = Guid.Parse(ContestMockedData.IdUzwilEVoting);
-    protected static readonly Guid CountingCircleId = CountingCircleMockedData.GuidUzwil;
-
-    protected static readonly Guid VoteId = Guid.Parse(VoteMockedData.IdUzwilVoteInContestUzwilWithoutChilds);
-    protected static readonly Guid ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestUzwilWithoutChilds);
-    protected static readonly Guid MajorityElectionId = Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestUzwilWithoutChilds);
-
-    protected static readonly Guid VoteResultId = VoteResultMockedData.GuidUzwilVoteInContestUzwilResult;
-    protected static readonly Guid ProportionalElectionResultId = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil;
-    protected static readonly Guid MajorityElectionResultId = MajorityElectionResultMockedData.GuidUzwilElectionResultInContestUzwil;
-
     protected MultiResultBaseTest(TestApplicationFactory factory)
         : base(factory)
     {
     }
+
+    protected Guid ContestId { get; set; } = Guid.Parse(ContestMockedData.IdUzwilEVoting);
+
+    protected Guid CountingCircleId { get; set; } = CountingCircleMockedData.GuidUzwil;
+
+    protected Guid VoteId { get; set; } = Guid.Parse(VoteMockedData.IdUzwilVoteInContestUzwilWithoutChilds);
+
+    protected Guid ProportionalElectionId { get; set; } = Guid.Parse(ProportionalElectionMockedData.IdUzwilProportionalElectionInContestUzwilWithoutChilds);
+
+    protected Guid MajorityElectionId { get; set; } = Guid.Parse(MajorityElectionMockedData.IdUzwilMajorityElectionInContestUzwilWithoutChilds);
+
+    protected Guid VoteResultId { get; set; } = VoteResultMockedData.GuidUzwilVoteInContestUzwilResult;
+
+    protected Guid ProportionalElectionResultId { get; set; } = ProportionalElectionResultMockedData.GuidUzwilElectionResultInContestUzwil;
+
+    protected Guid MajorityElectionResultId { get; set; } = MajorityElectionResultMockedData.GuidUzwilElectionResultInContestUzwil;
 
     public override async Task InitializeAsync()
     {

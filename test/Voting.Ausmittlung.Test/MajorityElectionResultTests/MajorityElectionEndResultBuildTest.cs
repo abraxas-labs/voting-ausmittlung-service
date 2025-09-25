@@ -69,16 +69,14 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
             ConventionalInvalidBallots = 50,
         };
 
-        await FinishResultSubmissions(countOfVoters, countByCandidateIds, countBySecondaryCandidateIds);
-        await SetOneResultToAuditedTentatively();
+        await FinishOneResultSubmission(countOfVoters, countByCandidateIds, countBySecondaryCandidateIds);
+        var afterOneSubmissionFinished = await GetEndResult();
+        afterOneSubmissionFinished.MatchSnapshot("afterOneSubmissionFinished");
 
-        var afterOneAuditedTentatively = await GetEndResult();
-        afterOneAuditedTentatively.MatchSnapshot("afterOneAuditedTentatively");
-
-        await SetOtherResultToAuditedTentatively();
+        await FinishOtherResultSubmission(countOfVoters, countByCandidateIds, countBySecondaryCandidateIds);
 
         var afterAllAuditedTentatively = await GetEndResult();
-        afterAllAuditedTentatively.MatchSnapshot("afterAllAuditedTentatively");
+        afterAllAuditedTentatively.MatchSnapshot("afterAllSubmissionFinished");
     }
 
     [Fact]
@@ -126,20 +124,21 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
             ConventionalInvalidBallots = 50,
         };
 
-        await FinishResultSubmissions(
+        await FinishOneResultSubmission(
             countOfVoters,
             countByCandidateIds,
             countBySecondaryCandidateIds);
 
-        await SetOneResultToAuditedTentatively();
-
         var afterOneAuditedEndResult = await GetEndResult();
-        afterOneAuditedEndResult.MatchSnapshot("afterOneAuditedEndResult");
+        afterOneAuditedEndResult.MatchSnapshot("afterOneFinishedEndResult");
 
-        await SetOtherResultToAuditedTentatively();
+        await FinishOtherResultSubmission(
+            countOfVoters,
+            countByCandidateIds,
+            countBySecondaryCandidateIds);
 
         var afterOtherAuditedEndResults = await GetEndResult();
-        afterOtherAuditedEndResults.MatchSnapshot("afterOtherAuditedEndResults");
+        afterOtherAuditedEndResults.MatchSnapshot("afterOtherFinishedEndResults");
     }
 
     [Fact]
@@ -152,11 +151,11 @@ public class MajorityElectionEndResultBuildTest : MajorityElectionEndResultBaseT
         var endResultAfterLotDecisions = await GetEndResult();
         endResultAfterLotDecisions.CandidateEndResults.Where(x => x.Rank >= 2 && x.Rank <= 5).MatchSnapshot("after-lot-decisions-candidates");
 
-        await ResetOneResultToSubmissionFinished(MajorityElectionEndResultMockedData.StGallenResultId);
+        await ResetOneResultToSubmissionOngoing(CountingCircleMockedData.IdStGallen, MajorityElectionEndResultMockedData.StGallenResultId);
         var endResultAfterFlaggedForCorrection = await GetEndResult();
         endResultAfterFlaggedForCorrection.CandidateEndResults.Where(x => x.Rank >= 2 && x.Rank <= 5).MatchSnapshot("after-reset");
 
-        await SetOneResultToAuditedTentatively(MajorityElectionEndResultMockedData.StGallenResultId);
+        await FinishOneResultSubmission(resultId: MajorityElectionEndResultMockedData.StGallenResultId);
         var endResultAfterCorrectionFinished = await GetEndResult();
         endResultAfterCorrectionFinished.CandidateEndResults.Where(x => x.Rank >= 2 && x.Rank <= 5).MatchSnapshot("after-audited");
 

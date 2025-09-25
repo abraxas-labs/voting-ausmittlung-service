@@ -16,7 +16,7 @@
   "ProtocolExports": [
     {
       "ExportTemplateId": "363e85c5-e899-5de8-9246-401b6fd39adf",
-      "Description": "Abstimmung Gossau: Gesamtergebnisse",
+      "Description": "Abstimmung kommunal Gossau: Gesamtergebnisse",
       "EntityDescription": "Abst Gossau de",
       "ProtocolExportId": null,
       "State": 0,
@@ -24,6 +24,19 @@
       "Started": null,
       "PoliticalBusinessIds": [
         "8076dee2-f19b-4af9-80b1-69b0c7b1402b"
+      ],
+      "TemplateKey": "vote_overall_result"
+    },
+    {
+      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
+      "Description": "Abstimmung kantonal St. Gallen: Gesamtergebnisse",
+      "EntityDescription": "Abst SG de",
+      "ProtocolExportId": null,
+      "State": 0,
+      "FileName": "",
+      "Started": null,
+      "PoliticalBusinessIds": [
+        "96d8275f-f1f8-4933-a097-5c0c19f54567"
       ],
       "TemplateKey": "vote_overall_result"
     },
@@ -39,19 +52,6 @@
         "96d8275f-f1f8-4933-a097-5c0c19f54567"
       ],
       "TemplateKey": "vote_domain_of_influence_overall_end_result"
-    },
-    {
-      "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
-      "Description": "Abstimmung St. Gallen: Gesamtergebnisse",
-      "EntityDescription": "Abst SG de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null,
-      "PoliticalBusinessIds": [
-        "96d8275f-f1f8-4933-a097-5c0c19f54567"
-      ],
-      "TemplateKey": "vote_overall_result"
     },
     {
       "ExportTemplateId": "d29a4769-893c-57c2-8492-c0ecb976bb8e",
@@ -81,7 +81,7 @@
     },
     {
       "ExportTemplateId": "7910e214-8b3c-5a34-ae41-689fe342b320",
-      "Description": "Abstimmung Uzwil: Gesamtergebnisse",
+      "Description": "Abstimmung kommunal Uzwil: Gesamtergebnisse",
       "EntityDescription": "Abst Uzwil de",
       "ProtocolExportId": null,
       "State": 0,
@@ -533,32 +533,6 @@
         "da091f50-9f11-4deb-9621-948fbfbdc322"
       ],
       "TemplateKey": "proportional_election_list_candidate_vote_sources_end_results"
-    },
-    {
-      "ExportTemplateId": "cd787436-9b1f-55ae-bed5-5c0623acee73",
-      "Description": "Nebenwahl kommunal: Detailergebnisse",
-      "EntityDescription": "short de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null,
-      "PoliticalBusinessIds": [
-        "5ec8cf85-229a-4dc7-a601-1bb6980fee78"
-      ],
-      "TemplateKey": "secondary_majority_election_end_result_detail_protocol"
-    },
-    {
-      "ExportTemplateId": "006e57aa-2ddb-50ed-94bb-6d367e7276ef",
-      "Description": "Nebenwahl kommunal: Detailergebnisse_exkl",
-      "EntityDescription": "short de",
-      "ProtocolExportId": null,
-      "State": 0,
-      "FileName": "",
-      "Started": null,
-      "PoliticalBusinessIds": [
-        "5ec8cf85-229a-4dc7-a601-1bb6980fee78"
-      ],
-      "TemplateKey": "secondary_majority_election_end_result_detail_without_empty_and_invalid_votes_protocol"
     },
     {
       "ExportTemplateId": "7998f853-4374-5628-ab59-f1ece5417966",

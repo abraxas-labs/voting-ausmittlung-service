@@ -66,7 +66,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -379,7 +379,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -453,18 +453,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -477,31 +465,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -641,18 +610,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -665,31 +622,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -805,18 +743,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -829,31 +755,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -969,18 +876,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -993,31 +888,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -1133,18 +1009,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -1157,31 +1021,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -1323,18 +1168,6 @@
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <occupationalTitle>occupation fr</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <occupationalTitle>occupation it</occupationalTitle>
-                        </occupationalTitleInfo>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <occupationalTitle>occupation rm</occupationalTitle>
-                        </occupationalTitleInfo>
                       </occupationalTitle>
                       <dwellingAddress>
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
@@ -1347,31 +1180,12 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <swiss>
-                        <origin>origin</origin>
-                      </swiss>
-                      <mrMrs>1</mrMrs>
                       <title>title</title>
                       <partyAffiliation>
                         <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
                           <partyAffiliationLong>Test de</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>fr</language>
-                          <partyAffiliationShort>Test fr</partyAffiliationShort>
-                          <partyAffiliationLong>Test fr</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>it</language>
-                          <partyAffiliationShort>Test it</partyAffiliationShort>
-                          <partyAffiliationLong>Test it</partyAffiliationLong>
-                        </partyAffiliationInfo>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
-                          <language>rm</language>
-                          <partyAffiliationShort>Test rm</partyAffiliationShort>
-                          <partyAffiliationLong>Test rm</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -1461,7 +1275,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -1912,7 +1726,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -2353,7 +2167,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -2705,7 +2519,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -3141,7 +2955,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>
@@ -3493,7 +3307,7 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>5000</countOfVotersTotal>
+              <countOfVotersTotal>15800</countOfVotersTotal>
               <subtotalInfo>
                 <countOfVoters>8000</countOfVoters>
                 <voterType>1</voterType>

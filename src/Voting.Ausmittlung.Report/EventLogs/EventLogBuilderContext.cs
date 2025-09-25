@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EventStore.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Voting.Ausmittlung.EventSignature;
@@ -114,7 +115,7 @@ public class EventLogBuilderContext : IDisposable
         _signedEventCountByKeyId.Add(keyId, 1);
     }
 
-    public PublicKeySignatureValidationResult? GetPublicKeySignatureValidationResult(string keyId)
+    public async Task<PublicKeySignatureValidationResult?> GetPublicKeySignatureValidationResult(string keyId)
     {
         if (_publicKeySignatureValidationResultsByKeyId.TryGetValue(keyId, out var publicKeyValidationResult))
         {
@@ -152,7 +153,7 @@ public class EventLogBuilderContext : IDisposable
             publicKeyAggregateData.DeleteData.AuthenticationTag,
             publicKeyAggregateData.DeleteData.HsmSignature);
 
-        var validationResult = _publicKeySignatureVerifier.VerifySignature(signatureCreateData, signatureDeleteData, publicKeyData);
+        var validationResult = await _publicKeySignatureVerifier.VerifySignature(signatureCreateData, signatureDeleteData, publicKeyData);
 
         _publicKeySignatureValidationResultsByKeyId.Add(publicKey.Id, validationResult);
         return validationResult;

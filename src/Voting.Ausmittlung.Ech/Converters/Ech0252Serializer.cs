@@ -25,7 +25,10 @@ public class Ech0252Serializer
         _deliveryHeaderProvider = deliveryHeaderProvider;
     }
 
-    public Delivery ToVoteDelivery(Contest contest, Ech0252MappingContext ctx, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    public Delivery ToVoteDelivery(
+        Contest contest,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var sequenceBySuperiorAuthorityId = new Dictionary<Guid, ushort>();
         var voteInfos = contest.Votes
@@ -52,7 +55,10 @@ public class Ech0252Serializer
         };
     }
 
-    public Delivery ToProportionalElectionResultDelivery(Contest contest, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    public Delivery ToProportionalElectionResultDelivery(
+        Contest contest,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
+        bool includeCandidateListResultsInfo)
     {
         var elections = contest.ProportionalElections
             .Where(IsInEchDelivery)
@@ -62,7 +68,9 @@ public class Ech0252Serializer
         {
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
-            ElectionGroupResult = elections.ToVoteInfoEchProportionalElectionGroupResults(enabledResultStates).ToList(),
+            ElectionGroupResult = elections
+                .ToVoteInfoEchProportionalElectionGroupResults(enabledResultStates, includeCandidateListResultsInfo)
+                .ToList(),
         };
 
         electionDelivery.NumberOfEntries = (ushort)electionDelivery.ElectionGroupResult.Count;
@@ -74,7 +82,10 @@ public class Ech0252Serializer
         };
     }
 
-    public Delivery ToMajorityElectionResultDelivery(Contest contest, IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
+    public Delivery ToMajorityElectionResultDelivery(
+        Contest contest,
+        Ech0252MappingContext ctx,
+        IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var elections = contest.MajorityElections
             .Where(IsInEchDelivery)
@@ -85,7 +96,7 @@ public class Ech0252Serializer
             CantonId = ToCantonId(contest.DomainOfInfluence.Canton),
             PollingDay = contest.Date,
             ElectionGroupResult = elections
-                .ToVoteInfoEchMajorityElectionGroupResults(enabledResultStates)
+                .ToVoteInfoEchMajorityElectionGroupResults(ctx, enabledResultStates)
                 .ToList(),
         };
 

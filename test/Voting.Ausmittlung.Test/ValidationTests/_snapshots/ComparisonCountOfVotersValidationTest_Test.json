@@ -6,7 +6,7 @@
       "IsOptional": true,
       "Data": {
         "ThresholdPercent": 5.0,
-        "DeviationPercent": 4.00,
+        "DeviationPercent": 4.0,
         "Deviation": 40,
         "PreviousDate": "2017-05-10T00:00:00Z",
         "PreviousCount": 1000,

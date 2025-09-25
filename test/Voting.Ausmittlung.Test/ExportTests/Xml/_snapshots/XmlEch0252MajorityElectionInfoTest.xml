@@ -59,18 +59,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -78,18 +66,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -104,7 +80,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -114,21 +89,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>10pol last name</politicalFamilyName>
@@ -144,18 +104,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -163,18 +111,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -189,7 +125,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -199,21 +134,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>2pol last name</politicalFamilyName>
@@ -229,18 +149,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -248,18 +156,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -274,7 +170,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -284,21 +179,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>3pol last name</politicalFamilyName>
@@ -314,18 +194,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -333,18 +201,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -359,7 +215,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -369,21 +224,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>4pol last name</politicalFamilyName>
@@ -399,18 +239,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -418,18 +246,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -444,7 +260,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -454,21 +269,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>5pol last name</politicalFamilyName>
@@ -484,18 +284,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -503,18 +291,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -529,7 +305,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -539,21 +314,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>6pol last name</politicalFamilyName>
@@ -569,18 +329,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -588,18 +336,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -614,7 +350,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -624,21 +359,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>7pol last name</politicalFamilyName>
@@ -654,18 +374,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -673,18 +381,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -699,7 +395,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -709,21 +404,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>8pol last name</politicalFamilyName>
@@ -739,18 +419,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -758,18 +426,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -784,7 +440,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -794,21 +449,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>9pol last name</politicalFamilyName>
@@ -842,18 +482,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality1, Test1 de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality1, Test1 fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality1, Test1 it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality1, Test1 rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -861,18 +489,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -887,7 +503,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -897,21 +512,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test1 de</partyAffiliationShort>
                 <partyAffiliationLong>Test1 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test1 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test1 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test1 it</partyAffiliationShort>
-                <partyAffiliationLong>Test1 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test1 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test1 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>1pol last name</politicalFamilyName>
@@ -927,18 +527,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality2, Test2 de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality2, Test2 fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality2, Test2 it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality2, Test2 rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -946,18 +534,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -972,7 +548,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -982,21 +557,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test2 de</partyAffiliationShort>
                 <partyAffiliationLong>Test2 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test2 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test2 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test2 it</partyAffiliationShort>
-                <partyAffiliationLong>Test2 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test2 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test2 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>2pol last name</politicalFamilyName>
@@ -1012,18 +572,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality3, Test3 de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality3, Test3 fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality3, Test3 it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality3, Test3 rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -1031,18 +579,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1057,7 +593,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -1067,21 +602,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test3 de</partyAffiliationShort>
                 <partyAffiliationLong>Test3 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test3 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test3 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test3 it</partyAffiliationShort>
-                <partyAffiliationLong>Test3 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test3 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test3 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>3pol last name</politicalFamilyName>
@@ -1097,18 +617,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality4, Test4 de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality4, Test4 fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality4, Test4 it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality4, Test4 rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -1116,18 +624,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1142,7 +638,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -1152,21 +647,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test4 de</partyAffiliationShort>
                 <partyAffiliationLong>Test4 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test4 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test4 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test4 it</partyAffiliationShort>
-                <partyAffiliationLong>Test4 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test4 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test4 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>4pol last name</politicalFamilyName>
@@ -1200,18 +680,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality1, Test1 de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality1, Test1 fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality1, Test1 it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality1, Test1 rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -1219,18 +687,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1245,7 +701,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -1255,21 +710,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test1 de</partyAffiliationShort>
                 <partyAffiliationLong>Test1 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test1 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test1 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test1 it</partyAffiliationShort>
-                <partyAffiliationLong>Test1 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test1 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test1 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>1pol last name</politicalFamilyName>
@@ -1285,18 +725,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality2, Test2 de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality2, Test2 fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality2, Test2 it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality2, Test2 rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -1304,18 +732,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1330,7 +746,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -1340,21 +755,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test2 de</partyAffiliationShort>
                 <partyAffiliationLong>Test2 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test2 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test2 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test2 it</partyAffiliationShort>
-                <partyAffiliationLong>Test2 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test2 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test2 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>2pol last name</politicalFamilyName>
@@ -1370,18 +770,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality3, Test3 de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality3, Test3 fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality3, Test3 it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality3, Test3 rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -1389,18 +777,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1415,7 +791,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -1425,21 +800,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test3 de</partyAffiliationShort>
                 <partyAffiliationLong>Test3 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test3 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test3 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test3 it</partyAffiliationShort>
-                <partyAffiliationLong>Test3 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test3 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test3 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>3pol last name</politicalFamilyName>
@@ -1455,18 +815,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality4, Test4 de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality4, Test4 fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality4, Test4 it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality4, Test4 rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -1474,18 +822,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1500,7 +836,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -1510,21 +845,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test4 de</partyAffiliationShort>
                 <partyAffiliationLong>Test4 de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test4 fr</partyAffiliationShort>
-                <partyAffiliationLong>Test4 fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test4 it</partyAffiliationShort>
-                <partyAffiliationLong>Test4 it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test4 rm</partyAffiliationShort>
-                <partyAffiliationLong>Test4 rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>4pol last name</politicalFamilyName>
@@ -1606,18 +926,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -1625,18 +933,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1651,7 +947,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -1661,21 +956,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -1691,18 +971,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title2 de, locality, Test de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title2 fr, locality, Test fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title2 it, locality, Test it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title2 rm, locality, Test rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -1710,18 +978,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation2 de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation2 fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation2 it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation2 rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1736,7 +992,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -1746,21 +1001,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -1794,18 +1034,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</sex>
@@ -1813,18 +1041,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1839,7 +1055,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -1849,21 +1064,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -1879,18 +1079,6 @@
                 <language>de</language>
                 <candidateText>1982, occupation title de, locality, CVP de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1982, occupation title fr, locality, CVP fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1982, occupation title it, locality, CVP it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1982, occupation title rm, locality, CVP rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1982-12-31</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -1898,18 +1086,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>Beruf de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>Beruf fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>Beruf it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>Beruf rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -1924,7 +1100,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -1934,21 +1109,6 @@
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
                 <partyAffiliationLong>CVP de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>L</politicalFamilyName>
@@ -1964,18 +1124,6 @@
                 <language>de</language>
                 <candidateText>1972, occupation title 3 de, locality, SVP de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1972, occupation title 3 fr, locality, SVP fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1972, occupation title 3 it, locality, SVP it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1972, occupation title 3 rm, locality, SVP rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1972-12-31</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -1983,18 +1131,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>Beruf3 de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>Beruf3 fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>Beruf3 it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>Beruf3 rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2009,7 +1145,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -2019,21 +1154,6 @@
                 <language>de</language>
                 <partyAffiliationShort>SVP de</partyAffiliationShort>
                 <partyAffiliationLong>SVP de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>SVP fr</partyAffiliationShort>
-                <partyAffiliationLong>SVP fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>SVP it</partyAffiliationShort>
-                <partyAffiliationLong>SVP it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>SVP rm</partyAffiliationShort>
-                <partyAffiliationLong>SVP rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>Proll</politicalFamilyName>
@@ -2049,18 +1169,6 @@
                 <language>de</language>
                 <candidateText>1992, occupation title de, locality, CVP de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1992, occupation title fr, locality, CVP fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1992, occupation title it, locality, CVP it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1992, occupation title rm, locality, CVP rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1992-12-31</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -2068,18 +1176,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>Beruf de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>Beruf fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>Beruf it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>Beruf rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2094,7 +1190,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -2104,21 +1199,6 @@
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
                 <partyAffiliationLong>CVP de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>Meierhans</politicalFamilyName>
@@ -2152,18 +1232,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -2171,18 +1239,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2197,7 +1253,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -2207,21 +1262,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -2237,18 +1277,6 @@
                 <language>de</language>
                 <candidateText>1982, occupation title de, locality, CVP de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1982, occupation title fr, locality, CVP fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1982, occupation title it, locality, CVP it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1982, occupation title rm, locality, CVP rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1982-12-31</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -2256,18 +1284,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>Beruf de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>Beruf fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>Beruf it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>Beruf rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2282,7 +1298,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -2292,21 +1307,6 @@
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
                 <partyAffiliationLong>CVP de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>L</politicalFamilyName>
@@ -2340,18 +1340,6 @@
                 <language>de</language>
                 <candidateText>1960, occupation title de, locality, Test de, bisher</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1960, occupation title fr, locality, Test fr, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1960, occupation title it, locality, Test it, bisher</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1960, occupation title rm, locality, Test rm, bisher</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
@@ -2359,18 +1347,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>occupation de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>occupation fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>occupation it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>occupation rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2385,7 +1361,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -2395,21 +1370,6 @@
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
                 <partyAffiliationLong>Test de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>pol last name</politicalFamilyName>
@@ -2425,18 +1385,6 @@
                 <language>de</language>
                 <candidateText>1982, occupation title de, locality, CVP de</candidateText>
               </candidateTextInfo>
-              <candidateTextInfo>
-                <language>fr</language>
-                <candidateText>1982, occupation title fr, locality, CVP fr</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>it</language>
-                <candidateText>1982, occupation title it, locality, CVP it</candidateText>
-              </candidateTextInfo>
-              <candidateTextInfo>
-                <language>rm</language>
-                <candidateText>1982, occupation title rm, locality, CVP rm</candidateText>
-              </candidateTextInfo>
             </candidateText>
             <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1982-12-31</dateOfBirth>
             <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</sex>
@@ -2444,18 +1392,6 @@
               <occupationalTitleInfo>
                 <language>de</language>
                 <occupationalTitle>Beruf de</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>fr</language>
-                <occupationalTitle>Beruf fr</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>it</language>
-                <occupationalTitle>Beruf it</occupationalTitle>
-              </occupationalTitleInfo>
-              <occupationalTitleInfo>
-                <language>rm</language>
-                <occupationalTitle>Beruf rm</occupationalTitle>
               </occupationalTitleInfo>
             </occupationalTitle>
             <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
@@ -2470,7 +1406,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -2480,21 +1415,6 @@
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
                 <partyAffiliationLong>CVP de</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>fr</language>
-                <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>it</language>
-                <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
-              </partyAffiliationInfo>
-              <partyAffiliationInfo>
-                <language>rm</language>
-                <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
             <politicalFamilyName>L</politicalFamilyName>

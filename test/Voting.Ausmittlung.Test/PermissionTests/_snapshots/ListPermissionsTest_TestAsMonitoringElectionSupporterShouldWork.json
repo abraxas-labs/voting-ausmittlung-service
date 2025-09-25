@@ -23,6 +23,7 @@
     "Export:export",
     "Export:export-monitoring",
     "Export:export-activity-protocol",
+    "Export:export-ech0252-proportional-election-with-candidate-info",
     "ExportConfiguration:read",
     "ExportConfiguration:update",
     "ExportConfiguration:trigger",

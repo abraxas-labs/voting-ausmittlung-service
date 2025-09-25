@@ -8,7 +8,6 @@ using System.Linq;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
-using Voting.Lib.Common;
 using VoteType = Ech0252_2_0.VoteType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
@@ -47,7 +46,7 @@ internal static class VoteInfoVoteMapping
 
             mainQuestionId = BuildQuestionId(ballot.Vote.Ballots.Single(x => x.Position == 1).Id);
             titleInfos = ballot.Translations
-                .Where(t => t.Language == Languages.German)
+                .FilterAndSortEchExportLanguages(ctx.EVoting)
                 .Select(t => new VoteTitleInformationType
                 {
                     Language = t.Language,
@@ -65,7 +64,7 @@ internal static class VoteInfoVoteMapping
         {
             // This is a standard vote
             titleInfos = ballot.Vote.Translations
-                .Where(t => t.Language == Languages.German)
+                .FilterAndSortEchExportLanguages(ctx.EVoting)
                 .Select(t => new VoteTitleInformationType
                 {
                     Language = t.Language,
@@ -126,17 +125,23 @@ internal static class VoteInfoVoteMapping
     {
         if (question.Ballot.BallotType == BallotType.VariantsBallot)
         {
-            var voteTranslation = question.Ballot.Vote.Translations.Single(t => t.Language == Languages.German);
+            titleInfos = new List<VoteTitleInformationType>();
 
-            titleInfos = question.Translations
-                .Where(t => t.Language == Languages.German)
-                .Select(t => new VoteTitleInformationType
+            foreach (var voteTranslation in question.Ballot.Vote.Translations.FilterAndSortEchExportLanguages(ctx.EVoting))
+            {
+                var questionTranslation = question.Translations.FirstOrDefault(t => t.Language == voteTranslation.Language);
+                if (questionTranslation == null)
                 {
-                    Language = t.Language,
-                    VoteTitle = $"{voteTranslation.OfficialDescription} - {t.Question}",
-                    VoteTitleShort = $"{voteTranslation.ShortDescription} - {t.Question}",
-                })
-                .ToList();
+                    continue;
+                }
+
+                titleInfos.Add(new VoteTitleInformationType
+                {
+                    Language = voteTranslation.Language,
+                    VoteTitle = $"{voteTranslation.OfficialDescription} - {questionTranslation.Question}",
+                    VoteTitleShort = $"{voteTranslation.ShortDescription} - {questionTranslation.Question}",
+                });
+            }
         }
 
         var questionId = BuildQuestionId(question.BallotId, question.Number);
@@ -164,16 +169,23 @@ internal static class VoteInfoVoteMapping
         Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
     {
         var questionId = BuildQuestionId(question.BallotId, question.Number, true);
-        var voteTranslation = question.Ballot.Vote.Translations.Single(t => t.Language == Languages.German);
-        var titleInfos = question.Translations
-            .Where(t => t.Language == Languages.German)
-            .OrderBy(t => t.Language)
-            .Select(t => new VoteTitleInformationType
+        var titleInfos = new List<VoteTitleInformationType>();
+
+        foreach (var voteTranslation in question.Ballot.Vote.Translations.FilterAndSortEchExportLanguages(ctx.EVoting))
+        {
+            var questionTranslation = question.Translations.FirstOrDefault(t => t.Language == voteTranslation.Language);
+            if (questionTranslation == null)
             {
-                Language = t.Language,
-                VoteTitle = $"{voteTranslation.OfficialDescription} - {t.Question}",
-                VoteTitleShort = $"{voteTranslation.ShortDescription} - {t.Question}",
+                continue;
+            }
+
+            titleInfos.Add(new VoteTitleInformationType
+            {
+                Language = voteTranslation.Language,
+                VoteTitle = $"{voteTranslation.OfficialDescription} - {questionTranslation.Question}",
+                VoteTitleShort = $"{voteTranslation.ShortDescription} - {questionTranslation.Question}",
             });
+        }
 
         return new VoteInfoType
         {

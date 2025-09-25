@@ -45,9 +45,11 @@ public class ProportionalElectionResultProcessor :
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         IDbRepository<DataContext, ProportionalElectionUnmodifiedListResult> unmodifiedListResultRepo,
         IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         ProportionalElectionResultBuilder resultBuilder,
-        ProportionalElectionEndResultBuilder endResultBuilder)
-        : base(electionResultRepo, simpleResultRepo, commentRepo)
+        ProportionalElectionEndResultBuilder endResultBuilder,
+        AggregatedContestCountingCircleDetailsBuilder aggregatedCcDetailsBuilder)
+        : base(electionResultRepo, simpleResultRepo, commentRepo, protocolExportRepo, aggregatedCcDetailsBuilder)
     {
         _eventLogger = eventLogger;
         _electionResultRepo = electionResultRepo;
@@ -135,6 +137,7 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
+        await _endResultBuilder.AdjustEndResult(electionResultId, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -143,6 +146,7 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, false, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.CorrectionDone, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustEndResult(electionResultId, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -151,6 +155,7 @@ public class ProportionalElectionResultProcessor :
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         var createdComment = await CreateCommentIfNeeded(electionResultId, eventData.Comment, true, eventData.EventInfo);
         await UpdateState(electionResultId, CountingCircleResultState.ReadyForCorrection, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustEndResult(electionResultId, true);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -158,7 +163,15 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, false, eventData.ImplicitMandateDistributionDisabled);
+
+        // During older contests, the number of mandates were distributed implicitly when all results were audited tentatively.
+        // We need to keep this behavior for backward compatibility.
+        // All newer events/contests have ImplicitMandateDistributionDisabled set to true.
+        if (!eventData.ImplicitMandateDistributionDisabled)
+        {
+            await _endResultBuilder.DistributeNumberOfMandatesImplicitly(electionResultId);
+        }
+
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -173,7 +186,6 @@ public class ProportionalElectionResultProcessor :
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
-        await _endResultBuilder.AdjustEndResult(electionResultId, true, false);
         _eventLogger.LogResultEvent(eventData, electionResultId);
     }
 
@@ -187,6 +199,9 @@ public class ProportionalElectionResultProcessor :
     public async Task Process(ProportionalElectionResultResetted eventData)
     {
         var electionResultId = GuidParser.Parse(eventData.ElectionResultId);
+
+        // Only the counting circle result is updated here.
+        // The end result adjustments are handled by the "ContestCountingCircleDetailsResetted" event processing.
         await UpdateState(electionResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(electionResultId);
         _eventLogger.LogResultEvent(eventData, electionResultId);

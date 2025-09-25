@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -18,7 +17,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
+public class PdfMajorityElectionEndResultDetailExportTest : PdfMajorityElectionEndResultExportBaseTest
 {
     public PdfMajorityElectionEndResultDetailExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -78,8 +77,6 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
     [Fact]
     public async Task TestPdfWithEmptyVoteCountDisabled()
     {
-        var primaryElectionId = MajorityElectionEndResultMockedData.ElectionGuid;
-
         await ModifyDbEntities<MajorityElection>(
             x => x.Id == MajorityElectionEndResultMockedData.ElectionGuid,
             x => x.NumberOfMandates = 1);
@@ -115,13 +112,6 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
         };
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
-    }
-
     private async Task SeedCountingCircleDetails()
     {
         await RunOnDb(async db =>
@@ -132,7 +122,6 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
                 .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang
                     && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenHaggen);
 
-            haggenDetails.TotalCountOfVoters = 3210;
             haggenDetails.VotingCards = new List<VotingCardResultDetail>
             {
                 new VotingCardResultDetail
@@ -186,24 +175,35 @@ public class PdfMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
                         Sex = SexType.Female,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1400,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                 },
                 new CountOfVotersInformationSubTotal
                 {
                         Sex = SexType.Male,
                         VoterType = VoterType.Swiss,
                         CountOfVoters = 1600,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                 },
                 new CountOfVotersInformationSubTotal
                 {
                         Sex = SexType.Male,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 100,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
                 },
                 new CountOfVotersInformationSubTotal
                 {
                         Sex = SexType.Female,
                         VoterType = VoterType.SwissAbroad,
                         CountOfVoters = 110,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ct,
+                },
+                new CountOfVotersInformationSubTotal
+                {
+                        Sex = SexType.Female,
+                        VoterType = VoterType.Swiss,
+                        CountOfVoters = 2000,
+                        DomainOfInfluenceType = DomainOfInfluenceType.Ch,
                 },
             };
 

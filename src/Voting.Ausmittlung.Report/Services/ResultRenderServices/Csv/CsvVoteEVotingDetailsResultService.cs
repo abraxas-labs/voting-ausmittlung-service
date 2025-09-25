@@ -84,17 +84,105 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
                 PoliticalBusinessId = x.VoteResult.VoteId,
                 SubmissionDoneTimestamp = x.VoteResult.SubmissionDoneTimestamp,
                 TotalSentEVotingVotingCards = x.VoteResult.TotalSentEVotingVotingCards,
+                ResultState = x.VoteResult.State,
             })
             .ToListAsync(ct);
 
         foreach (var result in results)
         {
-            AttachContestDetails(result, ccDetailsByCountingCircleId);
+            if (result.ResultState.IsSubmissionDone())
+            {
+                AttachContestDetails(result, ccDetailsByCountingCircleId);
+            }
+            else
+            {
+                ResetData(result);
+            }
         }
 
         return _templateService.RenderToCsv(
             ctx,
             results);
+    }
+
+    private void ResetData(Data record)
+    {
+        record.CountOfVotersMen = 0;
+        record.CountOfVotersWomen = 0;
+        record.TotalCountOfVoters = 0;
+        record.VotingCardsBallotBox = 0;
+        record.VotingCardsPaper = 0;
+        record.VotingCardsByMail = 0;
+        record.VotingCardsByMailNotValid = 0;
+        record.VotingCardsEVoting = 0;
+        record.VoterParticipation = 0;
+        record.TotalReceivedBallots = 0;
+        record.ConventionalAndECountingReceivedBallots = 0;
+        record.EVotingReceivedBallots = 0;
+        record.TotalInvalidBallots = 0;
+        record.ConventionalAndECountingInvalidBallots = 0;
+        record.EVotingInvalidBallots = 0;
+        record.TotalBlankBallots = 0;
+        record.ConventionalAndECountingBlankBallots = 0;
+        record.EVotingBlankBallots = 0;
+        record.TotalAccountedBallots = 0;
+        record.ConventionalAndECountingAccountedBallots = 0;
+        record.EVotingAccountedBallots = 0;
+        record.TotalCountOfAnswerYesQ1 = 0;
+        record.ConventionalAndECountingCountOfAnswerYesQ1 = 0;
+        record.EVotingCountOfAnswerYesQ1 = 0;
+        record.TotalCountOfAnswerNoQ1 = 0;
+        record.ConventionalAndECountingCountOfAnswerNoQ1 = 0;
+        record.EVotingCountOfAnswerNoQ1 = 0;
+        record.TotalCountOfAnswerUnspecifiedQ1 = 0;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedQ1 = 0;
+        record.EVotingCountOfAnswerUnspecifiedQ1 = 0;
+        record.TotalCountOfAnswerYesQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerYesQ2 = null;
+        record.EVotingCountOfAnswerYesQ2 = null;
+        record.TotalCountOfAnswerNoQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerNoQ2 = null;
+        record.EVotingCountOfAnswerNoQ2 = null;
+        record.TotalCountOfAnswerUnspecifiedQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedQ2 = null;
+        record.EVotingCountOfAnswerUnspecifiedQ2 = null;
+        record.TotalCountOfAnswerYesQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerYesQ3 = null;
+        record.EVotingCountOfAnswerYesQ3 = null;
+        record.TotalCountOfAnswerNoQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerNoQ3 = null;
+        record.EVotingCountOfAnswerNoQ3 = null;
+        record.TotalCountOfAnswerUnspecifiedQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedQ3 = null;
+        record.EVotingCountOfAnswerUnspecifiedQ3 = null;
+        record.TotalCountOfAnswerYesTBQ1 = null;
+        record.ConventionalAndECountingCountOfAnswerYesTBQ1 = null;
+        record.EVotingCountOfAnswerYesTBQ1 = null;
+        record.TotalCountOfAnswerNoTBQ1 = null;
+        record.ConventionalAndECountingCountOfAnswerNoTBQ1 = null;
+        record.EVotingCountOfAnswerNoTBQ1 = null;
+        record.TotalCountOfAnswerUnspecifiedTBQ1 = null;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedTBQ1 = null;
+        record.EVotingCountOfAnswerUnspecifiedTBQ1 = null;
+        record.TotalCountOfAnswerYesTBQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerYesTBQ2 = null;
+        record.EVotingCountOfAnswerYesTBQ2 = null;
+        record.TotalCountOfAnswerNoTBQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerNoTBQ2 = null;
+        record.EVotingCountOfAnswerNoTBQ2 = null;
+        record.TotalCountOfAnswerUnspecifiedTBQ2 = null;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedTBQ2 = null;
+        record.EVotingCountOfAnswerUnspecifiedTBQ2 = null;
+        record.TotalCountOfAnswerYesTBQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerYesTBQ3 = null;
+        record.EVotingCountOfAnswerYesTBQ3 = null;
+        record.TotalCountOfAnswerNoTBQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerNoTBQ3 = null;
+        record.EVotingCountOfAnswerNoTBQ3 = null;
+        record.TotalCountOfAnswerUnspecifiedTBQ3 = null;
+        record.ConventionalAndECountingCountOfAnswerUnspecifiedTBQ3 = null;
+        record.EVotingCountOfAnswerUnspecifiedTBQ3 = null;
+        record.TotalSentEVotingVotingCards = null;
     }
 
     private void AttachContestDetails(Data data, Dictionary<Guid, ContestCountingCircleDetails> ccDetailsByCountingCircleId)
@@ -104,12 +192,14 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
             return;
         }
 
-        data.TotalCountOfVoters = contestDetail.TotalCountOfVoters;
+        data.TotalCountOfVoters = contestDetail.CountOfVotersInformationSubTotals
+            .Where(x => x.DomainOfInfluenceType == data.DomainOfInfluenceType)
+            .Sum(x => x.CountOfVoters.GetValueOrDefault());
         data.CountOfVotersMen = contestDetail.CountOfVotersInformationSubTotals
-            .Where(x => x.Sex == SexType.Male)
+            .Where(x => x.DomainOfInfluenceType == data.DomainOfInfluenceType && x.Sex == SexType.Male)
             .Sum(x => x.CountOfVoters.GetValueOrDefault());
         data.CountOfVotersWomen = contestDetail.CountOfVotersInformationSubTotals
-            .Where(x => x.Sex == SexType.Female)
+            .Where(x => x.DomainOfInfluenceType == data.DomainOfInfluenceType && x.Sex == SexType.Female)
             .Sum(x => x.CountOfVoters.GetValueOrDefault());
 
         var vcByValidityAndChannel = contestDetail.VotingCards
@@ -385,6 +475,9 @@ public class CsvVoteEVotingDetailsResultService : IRendererService
 
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
 
         public IEnumerable<BallotQuestionResult> QuestionResults
         {

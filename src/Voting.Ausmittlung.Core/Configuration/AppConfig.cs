@@ -4,10 +4,9 @@
 using System;
 using System.Collections.Generic;
 using Voting.Ausmittlung.Data.Configuration;
+using Voting.Ausmittlung.EventSignature.Configuration;
 using Voting.Ausmittlung.TemporaryData;
 using Voting.Lib.Common.Net;
-using Voting.Lib.Cryptography.Configuration;
-using Voting.Lib.Cryptography.HealthChecks;
 using Voting.Lib.Eventing.Configuration;
 using Voting.Lib.Iam.Configuration;
 using Voting.Lib.Iam.Services;
@@ -55,7 +54,7 @@ public class AppConfig
     public bool EventProcessorModeEnabled
         => (ServiceMode & ServiceMode.EventProcessor) != 0;
 
-    public Pkcs11Config Pkcs11 { get; set; } = new();
+    public Pkcs11AppConfig Pkcs11 { get; set; } = new();
 
     public EventSignatureConfig EventSignature { get; set; } = new();
 
@@ -73,7 +72,7 @@ public class AppConfig
     public HashSet<string> LowPriorityHealthCheckNames { get; set; } = new()
     {
         "masstransit-bus", // live updates are not mission critical
-        Pkcs11DeviceHealthCheck.Name, // if the pkcs11 does not work, the system may still work 99% of the time, except if a public key needs to be signed / verified.
+        "Pkcs11", // if the pkcs11 does not work, the system may still work 99% of the time, except if a public key needs to be signed / verified.
         nameof(TemporaryDataContext), // the temporary db only contains the mfa references which only affect a small number of actions.
     };
 
@@ -83,4 +82,9 @@ public class AppConfig
     /// Gets or sets the auth store configuration.
     /// </summary>
     public AuthStoreConfig AuthStore { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the large object heap compaction configuration.
+    /// </summary>
+    public LargeObjectHeapCompactionConfig LargeObjectHeapCompaction { get; set; } = new();
 }

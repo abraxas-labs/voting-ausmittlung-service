@@ -26,18 +26,6 @@
           <language>de</language>
           <contestDescription>Nationalratswahlen in der Zukunft de</contestDescription>
         </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>fr</language>
-          <contestDescription>Nationalratswahlen in der Zukunft fr</contestDescription>
-        </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>it</language>
-          <contestDescription>Nationalratswahlen in der Zukunft it</contestDescription>
-        </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>rm</language>
-          <contestDescription>Nationalratswahlen in der Zukunft rm</contestDescription>
-        </contestDescriptionInfo>
       </contestDescription>
     </contestInformation>
     <countingCircleResults>
@@ -47,7 +35,7 @@
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>3220</countOfReceivedValidVotingCardsTotal>
-        <countOfReceivedInvalidVotingCardsTotal>1780</countOfReceivedInvalidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>9580</countOfReceivedInvalidVotingCardsTotal>
       </votingCardsInformation>
       <voteResults>
         <vote>
@@ -57,18 +45,6 @@
             <voteDescriptionInfo>
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
             </voteDescriptionInfo>
           </voteDescription>
         </vote>
@@ -81,18 +57,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -133,18 +97,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -223,18 +175,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -384,18 +324,6 @@
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
             </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
-            </voteDescriptionInfo>
           </voteDescription>
         </vote>
         <countOfVotersInformation>
@@ -407,18 +335,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -459,18 +375,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -549,18 +453,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -710,18 +602,6 @@
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
             </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
-            </voteDescriptionInfo>
           </voteDescription>
         </vote>
         <countOfVotersInformation>
@@ -733,18 +613,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -785,18 +653,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -875,18 +731,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1036,18 +880,6 @@
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
             </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
-            </voteDescriptionInfo>
           </voteDescription>
         </vote>
         <countOfVotersInformation>
@@ -1059,18 +891,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1111,18 +931,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1201,18 +1009,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1362,18 +1158,6 @@
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
             </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
-            </voteDescriptionInfo>
           </voteDescription>
         </vote>
         <countOfVotersInformation>
@@ -1385,18 +1169,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1437,18 +1209,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1527,18 +1287,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1688,18 +1436,6 @@
               <language>de</language>
               <voteDescription>Abst SG de</voteDescription>
             </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>fr</language>
-              <voteDescription>Abst SG fr</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>it</language>
-              <voteDescription>Abst SG it</voteDescription>
-            </voteDescriptionInfo>
-            <voteDescriptionInfo>
-              <language>rm</language>
-              <voteDescription>Abst SG rm</voteDescription>
-            </voteDescriptionInfo>
           </voteDescription>
         </vote>
         <countOfVotersInformation>
@@ -1711,18 +1447,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1763,18 +1487,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>
@@ -1853,18 +1565,6 @@
           <ballotDescription>
             <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
               <language>de</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>fr</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>it</language>
-              <ballotDescriptionLong>?</ballotDescriptionLong>
-            </ballotDescriptionInfo>
-            <ballotDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-              <language>rm</language>
               <ballotDescriptionLong>?</ballotDescriptionLong>
             </ballotDescriptionInfo>
           </ballotDescription>

@@ -7,6 +7,7 @@ using AutoMapper;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using DataModels = Voting.Ausmittlung.Data.Models;
+using EventsV2 = Abraxas.Voting.Ausmittlung.Events.V2;
 
 namespace Voting.Ausmittlung.Core.Mapping.WriterMappings;
 
@@ -16,13 +17,14 @@ public class ContestCountingCircleDetailsProfile : Profile
     {
         CreateMap<ContestCountingCircleDetailsCreated, ContestCountingCircleDetailsAggregate>();
         CreateMap<ContestCountingCircleDetailsUpdated, ContestCountingCircleDetailsAggregate>();
+        CreateMap<EventsV2.ContestCountingCircleDetailsCreated, ContestCountingCircleDetailsAggregate>();
+        CreateMap<EventsV2.ContestCountingCircleDetailsUpdated, ContestCountingCircleDetailsAggregate>();
 
         CreateMap<CountOfVotersInformation, CountOfVotersInformationEventData>().ReverseMap();
         CreateMap<CountOfVotersInformationSubTotal, CountOfVotersInformationSubTotalEventData>().ReverseMap();
+        CreateMap<CountOfVotersInformationSubTotal, EventsV2.Data.CountOfVotersInformationSubTotalEventData>().ReverseMap();
         CreateMap<VotingCardResultDetail, VotingCardResultDetailEventData>().ReverseMap();
-        CreateMap<ContestCountingCircleDetails, DataModels.ContestCountingCircleDetails>()
-            .ForMember(dst => dst.TotalCountOfVoters, opts => opts.MapFrom(src => src.CountOfVotersInformation.TotalCountOfVoters))
-            .ForMember(dst => dst.CountOfVotersInformationSubTotals, opts => opts.MapFrom(src => src.CountOfVotersInformation.SubTotalInfo));
+        CreateMap<ContestCountingCircleDetails, DataModels.ContestCountingCircleDetails>();
         CreateMap<CountOfVotersInformationSubTotal, DataModels.CountOfVotersInformationSubTotal>();
     }
 }

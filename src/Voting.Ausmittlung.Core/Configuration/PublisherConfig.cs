@@ -7,7 +7,7 @@ using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.TemporaryData.Configuration;
 using Voting.Lib.DokConnector.Configuration;
 using Voting.Lib.Ech.Configuration;
-using Voting.Lib.Iam.ServiceTokenHandling;
+using Voting.Lib.Iam.TokenHandling.ServiceToken;
 using Voting.Lib.Scheduler;
 
 namespace Voting.Ausmittlung.Core.Configuration;
@@ -53,12 +53,17 @@ public class PublisherConfig
     public HashSet<string> DisabledExportTemplateKeys { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets a list of template key, for which the canton suffix will be enabled. After splitting this variable can be decomposed.
+    /// </summary>
+    public HashSet<string> EnableCantonSuffixTemplateKeys { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets a value indicating whether gets or sets whether all exports should be disabled.
     /// </summary>
     public bool DisableAllExports { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the export template key canton suffix is enabled or not. Default is 'false'.
+    /// Gets or sets a value indicating whether the export template key canton suffix is enabled or not. Default is 'false'. After splitting this variable can be decomposed.
     /// </summary>
     public bool ExportTemplateKeyCantonSuffixEnabled { get; set; }
 

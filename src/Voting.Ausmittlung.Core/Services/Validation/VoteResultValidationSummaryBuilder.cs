@@ -72,7 +72,7 @@ public class VoteResultValidationSummaryBuilder : CountingCircleResultValidation
             ccDetails,
             PoliticalBusinessType.Vote,
             voteResult.Entry == VoteResultEntry.Detailed,
-            voteResult.Vote.DomainOfInfluence.Type);
+            voteResult.Vote.DomainOfInfluence);
 
         voteResult.CountingCircle = ccDetails.CountingCircle;
         return _voteResultValidator.Validate(voteResult, context).ToList();

@@ -106,7 +106,7 @@ public class ContestModelBuilder :
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
-            .HasIndex(x => new { x.ContestCountingCircleDetailsId, x.Sex, x.VoterType })
+            .HasIndex(x => new { x.ContestCountingCircleDetailsId, x.Sex, x.VoterType, x.DomainOfInfluenceType })
             .IsUnique();
     }
 
@@ -141,7 +141,7 @@ public class ContestModelBuilder :
             .IsRequired();
 
         builder
-            .HasIndex(x => new { x.ContestDetailsId, x.Sex, x.VoterType })
+            .HasIndex(x => new { x.ContestDetailsId, x.Sex, x.VoterType, x.DomainOfInfluenceType })
             .IsUnique();
     }
 
@@ -181,7 +181,7 @@ public class ContestModelBuilder :
             .IsRequired();
 
         builder
-            .HasIndex(x => new { x.ContestDomainOfInfluenceDetailsId, x.Sex, x.VoterType })
+            .HasIndex(x => new { x.ContestDomainOfInfluenceDetailsId, x.Sex, x.VoterType, x.DomainOfInfluenceType })
             .IsUnique();
     }
 

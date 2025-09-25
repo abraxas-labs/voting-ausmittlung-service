@@ -6,17 +6,16 @@ using System.Linq;
 using Ech0110_4_0;
 using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
 internal static class MajorityElectionResultMapping
 {
-    internal static ElectionGroupResultsType ToEchElectionGroupResult(this MajorityElectionResult electionResult)
+    internal static ElectionGroupResultsType ToEchElectionGroupResult(this MajorityElectionResult electionResult, bool eVoting)
     {
         var electionResults = electionResult.SecondaryMajorityElectionResults
-            .Select(secondaryResult => secondaryResult.ToEchElectionResult())
-            .Append(electionResult.ToEchElectionResult())
+            .Select(secondaryResult => secondaryResult.ToEchElectionResult(eVoting))
+            .Append(electionResult.ToEchElectionResult(eVoting))
             .OrderBy(r => r.Election.ElectionPosition)
             .ToList();
 
@@ -34,12 +33,12 @@ internal static class MajorityElectionResultMapping
         };
     }
 
-    private static ElectionResultType ToEchElectionResult(this MajorityElectionResult electionResult)
+    private static ElectionResultType ToEchElectionResult(this MajorityElectionResult electionResult, bool eVoting)
     {
         var election = electionResult.MajorityElection;
         var candidates = electionResult.CandidateResults
             .OrderBy(r => r.Candidate.Position)
-            .Select(c => c.ToEchCandidateResult(c.Candidate))
+            .Select(c => c.ToEchCandidateResult(c.Candidate, eVoting))
             .ToList();
 
         return new ElectionResultType
@@ -63,12 +62,12 @@ internal static class MajorityElectionResultMapping
         };
     }
 
-    private static ElectionResultType ToEchElectionResult(this SecondaryMajorityElectionResult electionResult)
+    private static ElectionResultType ToEchElectionResult(this SecondaryMajorityElectionResult electionResult, bool eVoting)
     {
         var election = electionResult.SecondaryMajorityElection;
         var candidates = electionResult.CandidateResults
             .OrderBy(x => x.Candidate.Position)
-            .Select(c => c.ToEchCandidateResult(c.Candidate))
+            .Select(c => c.ToEchCandidateResult(c.Candidate, eVoting))
             .ToList();
 
         return new ElectionResultType
@@ -92,10 +91,10 @@ internal static class MajorityElectionResultMapping
         };
     }
 
-    private static CandidateResultType ToEchCandidateResult(this MajorityElectionCandidateResultBase candidateResult, MajorityElectionCandidateBase candidate)
+    private static CandidateResultType ToEchCandidateResult(this MajorityElectionCandidateResultBase candidateResult, MajorityElectionCandidateBase candidate, bool eVoting)
     {
         var candidateText = $"{candidate.PoliticalLastName} {candidate.PoliticalFirstName}";
-        var texts = Languages.All
+        var texts = LanguageMapping.GetEchExportLanguages(eVoting)
             .Select(l => new CandidateTextInformationTypeCandidateTextInfo
             {
                 Language = l,

@@ -75,5 +75,11 @@ public class SimplePoliticalBusinessModelBuilder :
             .HasUtcConversion();
 
         builder.OwnsCountOfVoters(x => x.CountOfVoters);
+
+        // This index is used by the SimplePoliticalBusinessRepo.BuildOwnedPoliticalBusinessesQuery query.
+        // In tests the performance went from 32s to 800ms.
+        builder
+            .HasIndex(vo => new { vo.PoliticalBusinessId, vo.CountingCircleId })
+            .IsUnique();
     }
 }

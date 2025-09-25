@@ -33,8 +33,6 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
         MajorityElectionMandateDistributionContext<TMajorityElectionCandidateEndResultBase> context)
         where TMajorityElectionCandidateEndResultBase : MajorityElectionCandidateEndResultBase
     {
-        var hasAbsoluteMajority = candidateEndResult.VoteCount >= context.AbsoluteMajority;
-
         if (context.AllNumberOfMandatesDistributed)
         {
             if (context.VoteCountWithRestMandatesInUncompletedLotDecision.HasValue &&
@@ -147,5 +145,12 @@ public abstract class MajorityElectionMandateAlgorithmStrategy : IMajorityElecti
                 _ => secondaryCandidateEndResult.State,
             };
         }
+    }
+
+    protected void ResetCalculation(MajorityElectionEndResult majorityElectionEndResult)
+    {
+        majorityElectionEndResult.Calculation.DecisiveVoteCount = null;
+        majorityElectionEndResult.Calculation.AbsoluteMajority = null;
+        majorityElectionEndResult.Calculation.AbsoluteMajorityThreshold = null;
     }
 }

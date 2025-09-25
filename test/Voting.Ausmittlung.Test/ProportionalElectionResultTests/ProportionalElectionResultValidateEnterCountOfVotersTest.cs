@@ -40,8 +40,8 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
 
         await UpdateResult(x =>
         {
-            x.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 200;
-            x.ConventionalSubTotal.TotalCountOfModifiedLists = 300;
+            x.ConventionalSubTotal.TotalCountOfUnmodifiedLists = 1200;
+            x.ConventionalSubTotal.TotalCountOfModifiedLists = 800;
         });
 
         await ModifyDbEntities(
@@ -88,7 +88,7 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
     public async Task ShouldReturnIsNotValidWhenNotAccountedBallotsEqualModifiedPlusUnmodifiedLists()
     {
         var result = await ErfassungElectionAdminClient.ValidateEnterCountOfVotersAsync(NewValidRequest(x =>
-            x.Request.CountOfVoters.ConventionalAccountedBallots = 2000));
+            x.Request.CountOfVoters.ConventionalAccountedBallots = 2100));
         result.ValidationResults.Single(r => r.Validation == SharedProto.Validation.ProportionalElectionAccountedBallotsEqualModifiedPlusUnmodifiedLists)
             .IsValid.Should().BeFalse();
     }
@@ -273,10 +273,10 @@ public class ProportionalElectionResultValidateEnterCountOfVotersTest : Proporti
                 ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
                 CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
                 {
-                    ConventionalReceivedBallots = 2000,
-                    ConventionalAccountedBallots = 500,
-                    ConventionalBlankBallots = 1000,
-                    ConventionalInvalidBallots = 500,
+                    ConventionalReceivedBallots = 2700,
+                    ConventionalAccountedBallots = 2000,
+                    ConventionalBlankBallots = 350,
+                    ConventionalInvalidBallots = 350,
                 },
             },
         };

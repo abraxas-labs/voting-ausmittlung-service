@@ -176,21 +176,58 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
     }
 
     [Fact]
-    public async Task TestProcessorWithUnionDpAlgorithmAndEnabledImplcitMandateDistribution()
+    public async Task TestProcessorWithEnabledImplcitMandateDistributionAndMultipleAuditedTentatively()
+    {
+        await RunToState(CountingCircleResultState.SubmissionDone);
+
+        await RunOnDb(async db =>
+        {
+            var endResult = await db.ProportionalElectionEndResult
+                .AsTracking()
+                .AsSplitQuery()
+                .Include(x => x.ListEndResults.OrderBy(y => y.List.OrderNumber))
+                .ThenInclude(x => x.CandidateEndResults)
+                .SingleAsync(x => x.ProportionalElectionId == Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen));
+
+            var listEndResults = endResult.ListEndResults.ToList();
+            listEndResults[0].ConventionalSubTotal.UnmodifiedListVotesCount = 500;
+
+            await db.SaveChangesAsync();
+        });
+
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionResultAuditedTentatively
+        {
+            ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+            EventInfo = GetMockedEventInfo(),
+        });
+
+        // A end result can have multiple counting circles. It counts as a "DoneCountingCircle" after the submission is finished.
+        // In previous event versions we have the behavior of "implicite mandate distribution" which gets
+        // triggered on "AuditedTentatively after "AllCountingCirclesDone".
+        // An end result should only trigger the mandate distribution on the 1st "AuditedTentatively"
+        // (and the 2nd one should not throw an exception).
+        await TestEventPublisher.Publish(GetNextEventNumber(), new ProportionalElectionResultAuditedTentatively
+        {
+            ElectionResultId = ProportionalElectionResultMockedData.IdGossauElectionResultInContestStGallen,
+            EventInfo = GetMockedEventInfo(),
+        });
+
+        var endResult = await MonitoringElectionAdminClient.GetEndResultAsync(new GetProportionalElectionEndResultRequest
+        {
+            ProportionalElectionId = ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen,
+        });
+
+        endResult.MandateDistributionTriggered.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestProcessorWithUnionDpAlgorithmAndEnabledImplicitMandateDistribution()
     {
         ResetDb();
         await ZhMockedData.Seed(RunScoped);
 
         var electionGuid = ZhMockedData.ProportionalElectionGuidKtratWinterthur;
         var ccResultGuid = AusmittlungUuidV5.BuildPoliticalBusinessResult(electionGuid, ZhMockedData.CountingCircleGuidWinterthur, false);
-
-        await ModifyDbEntities<ProportionalElectionUnionEndResult>(
-            x => x.ProportionalElectionUnionId == ZhMockedData.ProportionalElectionUnionGuidKtrat,
-            x => x.CountOfDoneElections = 2);
-
-        await ModifyDbEntities<ProportionalElectionEndResult>(
-            x => x.ProportionalElectionId == electionGuid,
-            x => x.CountOfDoneCountingCircles = 0);
 
         await TestEventPublisher.Publish(
             new ProportionalElectionResultAuditedTentatively
@@ -214,7 +251,7 @@ public class ProportionalElectionResultAuditedTentativelyTest : ProportionalElec
         endResult.ListEndResults.All(l => l.NumberOfMandates == 0).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.Any()).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.State == ProportionalElectionCandidateEndResultState.Pending)).Should().BeTrue();
-        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.Rank == 0)).Should().BeTrue();
+        endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => x.Rank == 1)).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionEnabled)).Should().BeTrue();
         endResult.ListEndResults.All(l => l.CandidateEndResults.All(x => !x.LotDecisionRequired)).Should().BeTrue();
         endResult.ListEndResults.All(l => !l.HasOpenRequiredLotDecisions).Should().BeTrue();

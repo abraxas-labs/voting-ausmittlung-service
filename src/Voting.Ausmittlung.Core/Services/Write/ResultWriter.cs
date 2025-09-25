@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Read;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -26,7 +26,6 @@ namespace Voting.Ausmittlung.Core.Services.Write;
 
 public class ResultWriter
 {
-    private readonly IAggregateFactory _aggregateFactory;
     private readonly IAggregateRepository _aggregateRepository;
     private readonly IDbRepository<DataContext, Vote> _voteRepository;
     private readonly IDbRepository<DataContext, MajorityElection> _majorityElectionRepository;
@@ -40,7 +39,6 @@ public class ResultWriter
     private readonly IAuth _auth;
 
     public ResultWriter(
-        IAggregateFactory aggregateFactory,
         IAggregateRepository aggregateRepository,
         PermissionService permissionService,
         IDbRepository<DataContext, Vote> voteRepository,
@@ -53,7 +51,6 @@ public class ResultWriter
         CountingCircleResultsValidationSummariesBuilder countingCircleResultsValidationSummariesBuilder,
         IAuth auth)
     {
-        _aggregateFactory = aggregateFactory;
         _aggregateRepository = aggregateRepository;
         _permissionService = permissionService;
         _voteRepository = voteRepository;
@@ -119,11 +116,6 @@ public class ResultWriter
             throw new ValidationException("Cannot reset results when there are any initial results");
         }
 
-        if (data.Results.Any(r => r.State > CountingCircleResultState.CorrectionDone))
-        {
-            throw new ValidationException("Cannot reset results when there are any audited or plausibilised results");
-        }
-
         var resultAggregates = await GetResultAggregates(data.Results);
 
         // Apply the action on the aggregates first to ensure that the aggregate state is valid.
@@ -142,7 +134,7 @@ public class ResultWriter
         }
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(
+    public async Task<SecondFactorInfo?> PrepareSubmissionFinished(
         Guid contestId,
         Guid countingCircleId,
         IReadOnlyCollection<Guid> resultIds,
@@ -164,13 +156,9 @@ public class ResultWriter
         var actionAggregates = new List<BaseEventSourcingAggregate> { ccDetailsAggregate };
         actionAggregates.AddRange(ccResultAggregates);
 
-        var pbIds = ccResultAggregates.Select(x => x.PoliticalBusinessId).ToList();
-        var politicalBusinessesById = await GetSimplePoliticalBusinessByIdDictionary(pbIds);
-        var hasOnlySelfOwnedPoliticalBusinesses = politicalBusinessesById.Values.All(x => x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id);
-
-        if (hasOnlySelfOwnedPoliticalBusinesses)
+        if (!await IsSecondFactorRequired(data.Contest))
         {
-            return default;
+            return null;
         }
 
         var actionId = new ActionId(nameof(SubmissionFinished), actionAggregates.ToArray());
@@ -210,9 +198,8 @@ public class ResultWriter
 
         var pbIds = ccResultAggregates.Select(x => x.PoliticalBusinessId).ToList();
         var politicalBusinessesById = await GetSimplePoliticalBusinessByIdDictionary(pbIds);
-        var hasOnlySelfOwnedPoliticalBusinesses = politicalBusinessesById.Values.All(x => x.DomainOfInfluence.SecureConnectId == _auth.Tenant.Id);
 
-        if (!hasOnlySelfOwnedPoliticalBusinesses)
+        if (await IsSecondFactorRequired(data.Contest))
         {
             if (secondFactorTransactionId == null)
             {
@@ -245,6 +232,17 @@ public class ResultWriter
         {
             await _aggregateRepository.Save(ccResultAggregate);
         }
+    }
+
+    private async Task<bool> IsSecondFactorRequired(Contest contest)
+    {
+        if (contest.TestingPhaseEnded)
+        {
+            return true;
+        }
+
+        var isOwnerOfCanton = await _permissionService.IsOwnerOfCanton(contest.DomainOfInfluence.Canton);
+        return !isOwnerOfCanton;
     }
 
     private async Task StartVoteSubmission(CountingCircle countingCircle, IReadOnlyCollection<SimpleCountingCircleResult> results, bool testingPhaseEnded)

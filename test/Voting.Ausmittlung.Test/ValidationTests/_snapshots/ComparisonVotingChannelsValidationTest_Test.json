@@ -6,11 +6,11 @@
       "IsOptional": true,
       "Data": {
         "ThresholdPercent": 4.0,
-        "DeviationPercent": 9.523809523809523809523809520,
+        "DeviationPercent": 18.181818181818183,
         "Deviation": 20,
         "PreviousDate": "2017-05-10T00:00:00Z",
-        "PreviousCount": 210,
-        "CurrentCount": 190,
+        "PreviousCount": 110,
+        "CurrentCount": 90,
         "VotingChannel": 1
       },
       "ValidationGroup": 0,
@@ -22,11 +22,11 @@
       "IsOptional": true,
       "Data": {
         "ThresholdPercent": 4.0,
-        "DeviationPercent": 1.913875598086124401913875600,
+        "DeviationPercent": 3.669724770642202,
         "Deviation": 16,
         "PreviousDate": "2017-05-10T00:00:00Z",
-        "PreviousCount": 836,
-        "CurrentCount": 820,
+        "PreviousCount": 436,
+        "CurrentCount": 420,
         "VotingChannel": 2
       },
       "ValidationGroup": 0,
@@ -34,15 +34,15 @@
     },
     {
       "Validation": 1152,
-      "IsValid": true,
+      "IsValid": false,
       "IsOptional": true,
       "Data": {
         "ThresholdPercent": 10.0,
-        "DeviationPercent": 7.1428571428571428571428571400,
+        "DeviationPercent": 11.11111111111111,
         "Deviation": 10,
         "PreviousDate": "2017-05-10T00:00:00Z",
-        "PreviousCount": 140,
-        "CurrentCount": 150,
+        "PreviousCount": 90,
+        "CurrentCount": 100,
         "VotingChannel": 3
       },
       "ValidationGroup": 0,
@@ -57,8 +57,8 @@
         "DeviationPercent": 0.0,
         "Deviation": 0,
         "PreviousDate": "2017-05-10T00:00:00Z",
-        "PreviousCount": 60,
-        "CurrentCount": 60,
+        "PreviousCount": 10,
+        "CurrentCount": 10,
         "VotingChannel": 4
       },
       "ValidationGroup": 0,

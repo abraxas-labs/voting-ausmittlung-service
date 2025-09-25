@@ -20,8 +20,10 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <NumberOfMandates>12</NumberOfMandates>
+    <MandateAlgorithm>DoubleProportional1Doi0DoiQuorum</MandateAlgorithm>
     <ProportionalElectionDoubleProportionalResult>
       <NumberOfMandates>12</NumberOfMandates>
       <VoteCount>1732456</VoteCount>

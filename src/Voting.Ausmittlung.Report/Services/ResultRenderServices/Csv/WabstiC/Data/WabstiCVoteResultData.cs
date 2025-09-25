@@ -13,15 +13,15 @@ internal class WabstiCVoteResultData : WabstiCResultData
 
     [Name("StmHGJa")]
     [Index(StartIndex)]
-    public int CountOfAnswerYesQ1 { get; set; }
+    public int? CountOfAnswerYesQ1 { get; set; }
 
     [Name("StmHGNein")]
     [Index(StartIndex + 1)]
-    public int CountOfAnswerNoQ1 { get; set; }
+    public int? CountOfAnswerNoQ1 { get; set; }
 
     [Name("StmHGohneAw")]
     [Index(StartIndex + 2)]
-    public int CountOfAnswerUnspecifiedQ1 { get; set; }
+    public int? CountOfAnswerUnspecifiedQ1 { get; set; }
 
     [Name("StmN1Ja")]
     [Index(StartIndex + 3)]
@@ -87,15 +87,15 @@ internal class WabstiCVoteResultData : WabstiCResultData
     {
         set
         {
-            CountOfAnswerYesQ1 = 0;
-            CountOfAnswerYesQ2 = 0;
-            CountOfAnswerYesQ3 = 0;
-            CountOfAnswerNoQ1 = 0;
-            CountOfAnswerNoQ2 = 0;
-            CountOfAnswerNoQ3 = 0;
-            CountOfAnswerUnspecifiedQ1 = 0;
-            CountOfAnswerUnspecifiedQ2 = 0;
-            CountOfAnswerUnspecifiedQ3 = 0;
+            CountOfAnswerYesQ1 = null;
+            CountOfAnswerYesQ2 = null;
+            CountOfAnswerYesQ3 = null;
+            CountOfAnswerNoQ1 = null;
+            CountOfAnswerNoQ2 = null;
+            CountOfAnswerNoQ3 = null;
+            CountOfAnswerUnspecifiedQ1 = null;
+            CountOfAnswerUnspecifiedQ2 = null;
+            CountOfAnswerUnspecifiedQ3 = null;
 
             using var enumerator = value.GetEnumerator();
             if (!enumerator.MoveNext())
@@ -131,15 +131,15 @@ internal class WabstiCVoteResultData : WabstiCResultData
     {
         set
         {
-            CountOfAnswerYesTBQ1 = 0;
-            CountOfAnswerYesTBQ2 = 0;
-            CountOfAnswerYesTBQ3 = 0;
-            CountOfAnswerNoTBQ1 = 0;
-            CountOfAnswerNoTBQ2 = 0;
-            CountOfAnswerNoTBQ3 = 0;
-            CountOfAnswerUnspecifiedTBQ1 = 0;
-            CountOfAnswerUnspecifiedTBQ2 = 0;
-            CountOfAnswerUnspecifiedTBQ3 = 0;
+            CountOfAnswerYesTBQ1 = null;
+            CountOfAnswerYesTBQ2 = null;
+            CountOfAnswerYesTBQ3 = null;
+            CountOfAnswerNoTBQ1 = null;
+            CountOfAnswerNoTBQ2 = null;
+            CountOfAnswerNoTBQ3 = null;
+            CountOfAnswerUnspecifiedTBQ1 = null;
+            CountOfAnswerUnspecifiedTBQ2 = null;
+            CountOfAnswerUnspecifiedTBQ3 = null;
 
             using var enumerator = value.GetEnumerator();
             if (!enumerator.MoveNext())
@@ -169,5 +169,28 @@ internal class WabstiCVoteResultData : WabstiCResultData
             CountOfAnswerNoTBQ3 = enumerator.Current.TotalCountOfAnswerQ2;
             CountOfAnswerUnspecifiedTBQ3 = enumerator.Current.TotalCountOfAnswerUnspecified;
         }
+    }
+
+    public override void ResetDataIfSubmissionNotDone()
+    {
+        base.ResetDataIfSubmissionNotDone();
+        CountOfAnswerYesQ1 = null;
+        CountOfAnswerNoQ1 = null;
+        CountOfAnswerUnspecifiedQ1 = null;
+        CountOfAnswerYesQ2 = null;
+        CountOfAnswerNoQ2 = null;
+        CountOfAnswerUnspecifiedQ2 = null;
+        CountOfAnswerYesQ3 = null;
+        CountOfAnswerNoQ3 = null;
+        CountOfAnswerUnspecifiedQ3 = null;
+        CountOfAnswerYesTBQ1 = null;
+        CountOfAnswerNoTBQ1 = null;
+        CountOfAnswerUnspecifiedTBQ1 = null;
+        CountOfAnswerYesTBQ2 = null;
+        CountOfAnswerNoTBQ2 = null;
+        CountOfAnswerUnspecifiedTBQ2 = null;
+        CountOfAnswerYesTBQ3 = null;
+        CountOfAnswerNoTBQ3 = null;
+        CountOfAnswerUnspecifiedTBQ3 = null;
     }
 }

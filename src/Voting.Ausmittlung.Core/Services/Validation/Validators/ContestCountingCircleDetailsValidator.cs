@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Utils;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
@@ -15,11 +16,11 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
 {
     public IEnumerable<ValidationResult> Validate(ContestCountingCircleDetails data, ValidationContext context)
     {
-        yield return ValidateCountOfVotersNotNull(data);
-        yield return ValidateVotingCardsReceivedNotNull(data);
-        yield return ValidateVotingCardsLessOrEqualThanCountOfVoters(data);
+        yield return ValidateCountOfVotersNotNull(data, context.PoliticalBusinessDomainOfInfluence.Type);
+        yield return ValidateVotingCardsReceivedNotNull(data, context.PoliticalBusinessDomainOfInfluence.Type);
+        yield return ValidateVotingCardsLessOrEqualThanCountOfVoters(data, context.PoliticalBusinessDomainOfInfluence);
 
-        if (context.PoliticalBusinessType.HasValue || context.PreviousContestCountingCircleDetails == null || context.PlausibilisationConfiguration == null)
+        if (context.PreviousContestCountingCircleDetails == null || context.PlausibilisationConfiguration == null)
         {
             yield break;
         }
@@ -29,55 +30,66 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
             yield return ValidateComparisonCountOfVoters(
                 context.CurrentContestCountingCircleDetails,
                 context.PreviousContestCountingCircleDetails,
-                context.ComparisonCountOfVotersConfiguration);
+                context.ComparisonCountOfVotersConfiguration,
+                context.PoliticalBusinessDomainOfInfluence);
         }
 
         foreach (var result in ValidateComparisonVotingChannels(
             context.CurrentContestCountingCircleDetails,
             context.PreviousContestCountingCircleDetails,
-            context.PlausibilisationConfiguration.ComparisonVotingChannelConfigurations))
+            context.PlausibilisationConfiguration.ComparisonVotingChannelConfigurations,
+            context.PoliticalBusinessDomainOfInfluence.Type))
         {
             yield return result;
         }
     }
 
-    private ValidationResult ValidateCountOfVotersNotNull(ContestCountingCircleDetails details)
+    private ValidationResult ValidateCountOfVotersNotNull(ContestCountingCircleDetails details, DomainOfInfluenceType domainOfInfluenceType)
     {
+        var subTotals = details.CountOfVotersInformationSubTotals.Where(st => st.DomainOfInfluenceType == domainOfInfluenceType).ToList();
+
         return new ValidationResult(
             SharedProto.Validation.ContestCountingCircleDetailsCountOfVotersNotNull,
-            details.CountOfVotersInformationSubTotals.Count > 0 && details.CountOfVotersInformationSubTotals.All(x => x.CountOfVoters.HasValue));
+            subTotals.Count > 0 && subTotals.All(x => x.CountOfVoters.HasValue));
     }
 
-    private ValidationResult ValidateVotingCardsReceivedNotNull(ContestCountingCircleDetails details)
+    private ValidationResult ValidateVotingCardsReceivedNotNull(ContestCountingCircleDetails details, DomainOfInfluenceType domainOfInfluenceType)
     {
+        var votingCards = details.VotingCards.Where(vc => vc.DomainOfInfluenceType == domainOfInfluenceType).ToList();
+
         return new ValidationResult(
             SharedProto.Validation.ContestCountingCircleDetailsVotingCardsReceivedNotNull,
-            details.VotingCards.Count > 0 && details.VotingCards.All(x => x.CountOfReceivedVotingCards.HasValue));
+            votingCards.Count > 0 && votingCards.All(x => x.CountOfReceivedVotingCards.HasValue));
     }
 
-    private ValidationResult ValidateVotingCardsLessOrEqualThanCountOfVoters(ContestCountingCircleDetails details)
+    private ValidationResult ValidateVotingCardsLessOrEqualThanCountOfVoters(ContestCountingCircleDetails details, DomainOfInfluence domainOfInfluence)
     {
         return new ValidationResult(
             SharedProto.Validation.ContestCountingCircleDetailsVotingCardsLessOrEqualCountOfVoters,
-            details.GetMaxSumOfVotingCards(x => x.Valid + x.Invalid) <= details.TotalCountOfVoters);
+            GetTotalSumVotingCards(details, domainOfInfluence.Type) <= details.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence));
     }
 
     private ValidationResult ValidateComparisonCountOfVoters(
         ContestCountingCircleDetails currentDetails,
         ContestCountingCircleDetails previousDetails,
-        ComparisonCountOfVotersConfiguration comparisonCountOfVotersConfig)
+        ComparisonCountOfVotersConfiguration comparisonCountOfVotersConfig,
+        DomainOfInfluence domainOfInfluence)
     {
         var thresholdPercent = comparisonCountOfVotersConfig.ThresholdPercent!.Value;
-        var deviation = Math.Abs(currentDetails.TotalCountOfVoters - previousDetails.TotalCountOfVoters);
-        var deviationPercent = RelativeChange.CalculatePercent(previousDetails.TotalCountOfVoters, currentDetails.TotalCountOfVoters);
+
+        var currentDetailsTotalCountOfVoters = currentDetails.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence);
+        var previousDetailsTotalCountOfVoters = previousDetails.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence);
+
+        var deviation = Math.Abs(currentDetailsTotalCountOfVoters - previousDetailsTotalCountOfVoters);
+        var deviationPercent = RelativeChange.CalculatePercent(previousDetailsTotalCountOfVoters, currentDetailsTotalCountOfVoters);
 
         return new ValidationResult(
             SharedProto.Validation.ComparisonCountOfVoters,
             deviationPercent <= thresholdPercent,
             new ValidationComparisonCountOfVotersData
             {
-                CurrentCount = currentDetails.TotalCountOfVoters,
-                PreviousCount = previousDetails.TotalCountOfVoters,
+                CurrentCount = currentDetailsTotalCountOfVoters,
+                PreviousCount = previousDetailsTotalCountOfVoters,
                 PreviousDate = previousDetails.Contest.Date,
                 ThresholdPercent = thresholdPercent,
                 Deviation = deviation,
@@ -89,10 +101,11 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
     private IEnumerable<ValidationResult> ValidateComparisonVotingChannels(
         ContestCountingCircleDetails currentDetails,
         ContestCountingCircleDetails previousDetails,
-        IEnumerable<ComparisonVotingChannelConfiguration> comparisonVotingChannelConfigs)
+        IEnumerable<ComparisonVotingChannelConfiguration> comparisonVotingChannelConfigs,
+        DomainOfInfluenceType domainOfInfluenceType)
     {
-        var currentCountByVotingChannel = GetCountOfReceivedVotingCardsByVotingChannel(currentDetails);
-        var previousCountByVotingChannel = GetCountOfReceivedVotingCardsByVotingChannel(previousDetails);
+        var currentCountByVotingChannel = GetCountOfReceivedVotingCardsByVotingChannel(currentDetails, domainOfInfluenceType);
+        var previousCountByVotingChannel = GetCountOfReceivedVotingCardsByVotingChannel(previousDetails, domainOfInfluenceType);
 
         foreach (var comparisonVotingChannelConfig in comparisonVotingChannelConfigs)
         {
@@ -132,10 +145,17 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
         }
     }
 
-    private IDictionary<VotingChannel, int> GetCountOfReceivedVotingCardsByVotingChannel(ContestCountingCircleDetails ccDetails)
+    private IDictionary<VotingChannel, int> GetCountOfReceivedVotingCardsByVotingChannel(ContestCountingCircleDetails ccDetails, DomainOfInfluenceType domainOfInfluenceType)
     {
         return ccDetails.VotingCards
+            .Where(vc => vc.DomainOfInfluenceType == domainOfInfluenceType)
             .GroupBy(x => x.Channel, x => x.CountOfReceivedVotingCards)
             .ToDictionary(x => x.Key, x => x.Sum() ?? 0);
+    }
+
+    private int GetTotalSumVotingCards(ContestCountingCircleDetails ccDetails, DomainOfInfluenceType doiType)
+    {
+        var (valid, invalid) = ccDetails.SumVotingCards(doiType);
+        return valid + invalid;
     }
 }

@@ -1,8 +1,11 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +50,33 @@ public class PdfVoteEndResultMunicipalityExportTest : PdfExportBaseTest
 
             await db.SaveChangesAsync();
         });
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        var voteId = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
+        var results = await RunOnDb<List<VoteResult>>(db => db.VoteResults
+            .Where(x => x.VoteId == voteId)
+            .Include(x => x.Vote)
+            .Include(x => x.CountingCircle)
+            .ToListAsync());
+
+        var ccDetailsEvents = results.Select(x => new ContestCountingCircleDetailsResetted
+        {
+            Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(x.Vote.ContestId, x.CountingCircle.BasisCountingCircleId, false).ToString(),
+            ContestId = x.Vote.ContestId.ToString(),
+            CountingCircleId = x.CountingCircle.BasisCountingCircleId.ToString(),
+            EventInfo = GetMockedEventInfo(),
+        }).ToArray();
+        await TestEventPublisher.Publish(ccDetailsEvents);
+
+        var voteEvents = results.Select(x => new VoteResultResetted
+        {
+            VoteResultId = x.Id.ToString(),
+            EventInfo = GetMockedEventInfo(),
+        }).ToArray();
+        await TestEventPublisher.Publish(ccDetailsEvents.Length, voteEvents);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

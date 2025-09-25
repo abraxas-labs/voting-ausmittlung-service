@@ -25,6 +25,7 @@ public class PermissionService
 {
     private readonly IDbRepository<DataContext, CountingCircle> _countingCircleRepo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
+    private readonly CantonSettingsRepo _cantonSettingsRepo;
     private readonly DomainOfInfluenceRepo _domainOfInfluenceRepo;
     private readonly SimpleCountingCircleResultRepo _simpleCountingCircleResultRepo;
     private readonly SimplePoliticalBusinessRepo _simplePoliticalBusinessRepo;
@@ -43,6 +44,7 @@ public class PermissionService
         IDbRepository<DataContext, CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, DomainOfInfluencePermissionEntry> permissionRepo,
         IDbRepository<DataContext, Contest> contestRepo,
+        CantonSettingsRepo cantonSettingsRepo,
         DomainOfInfluenceRepo domainOfInfluenceRepo,
         AppConfig appConfig)
     {
@@ -51,6 +53,7 @@ public class PermissionService
         _countingCircleRepo = countingCircleRepo;
         _permissionRepo = permissionRepo;
         _contestRepo = contestRepo;
+        _cantonSettingsRepo = cantonSettingsRepo;
         _domainOfInfluenceRepo = domainOfInfluenceRepo;
         _appConfig = appConfig;
         _authStore = authStore;
@@ -273,6 +276,16 @@ public class PermissionService
         {
             throw new ForbiddenException("no access to this contest");
         }
+    }
+
+    /// <summary>
+    /// Checks whether the current tenant is the owner of the specified canton.
+    /// </summary>
+    /// <param name="canton">The canton.</param>
+    /// <returns>Whether the current tenant is the owner of the canton.</returns>
+    internal async Task<bool> IsOwnerOfCanton(DomainOfInfluenceCanton canton)
+    {
+        return await _cantonSettingsRepo.IsOwnerOfCanton(canton, _auth.Tenant.Id);
     }
 
     /// <summary>

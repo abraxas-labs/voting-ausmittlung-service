@@ -560,6 +560,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("CountOfVoters")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DomainOfInfluenceType")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Sex")
                         .HasColumnType("integer");
 
@@ -568,7 +571,7 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContestDetailsId", "Sex", "VoterType")
+                    b.HasIndex("ContestDetailsId", "Sex", "VoterType", "DomainOfInfluenceType")
                         .IsUnique();
 
                     b.ToTable("ContestCountOfVotersInformationSubTotals");
@@ -597,9 +600,6 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<bool>("EVoting")
                         .HasColumnType("boolean");
-
-                    b.Property<int>("TotalCountOfVoters")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -645,9 +645,6 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<Guid>("ContestId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("TotalCountOfVoters")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId")
@@ -667,9 +664,6 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid>("DomainOfInfluenceId")
                         .HasColumnType("uuid");
-
-                    b.Property<int>("TotalCountOfVoters")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -747,6 +741,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("CountOfVoters")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DomainOfInfluenceType")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Sex")
                         .HasColumnType("integer");
 
@@ -755,7 +752,7 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContestCountingCircleDetailsId", "Sex", "VoterType")
+                    b.HasIndex("ContestCountingCircleDetailsId", "Sex", "VoterType", "DomainOfInfluenceType")
                         .IsUnique();
 
                     b.ToTable("CountOfVotersInformationSubTotals");
@@ -1025,6 +1022,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("CountOfVoters")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DomainOfInfluenceType")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Sex")
                         .HasColumnType("integer");
 
@@ -1033,7 +1033,7 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContestDomainOfInfluenceDetailsId", "Sex", "VoterType")
+                    b.HasIndex("ContestDomainOfInfluenceDetailsId", "Sex", "VoterType", "DomainOfInfluenceType")
                         .IsUnique();
 
                     b.ToTable("DomainOfInfluenceCountOfVotersInformationSubTotals");
@@ -2070,6 +2070,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("CountOfVoters")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DomainOfInfluenceType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("MajorityElectionEndResultId")
                         .HasColumnType("uuid");
 
@@ -2830,6 +2833,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int?>("CountOfVoters")
                         .HasColumnType("integer");
 
+                    b.Property<int>("DomainOfInfluenceType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("ProportionalElectionEndResultId")
                         .HasColumnType("uuid");
 
@@ -3486,6 +3492,10 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.Property<Guid?>("PoliticalBusinessId")
                         .HasColumnType("uuid");
+
+                    b.Property<Guid[]>("PoliticalBusinessIds")
+                        .IsRequired()
+                        .HasColumnType("uuid[]");
 
                     b.Property<Guid?>("PoliticalBusinessResultBundleId")
                         .HasColumnType("uuid");
@@ -4180,7 +4190,8 @@ namespace Voting.Ausmittlung.Data.Migrations
 
                     b.HasIndex("CountingCircleId");
 
-                    b.HasIndex("PoliticalBusinessId");
+                    b.HasIndex("PoliticalBusinessId", "CountingCircleId")
+                        .IsUnique();
 
                     b.ToTable("SimpleCountingCircleResults");
                 });
@@ -4464,6 +4475,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int?>("CountOfVoters")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DomainOfInfluenceType")
                         .HasColumnType("integer");
 
                     b.Property<int>("Sex")

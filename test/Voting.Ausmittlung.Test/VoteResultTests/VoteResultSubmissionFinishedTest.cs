@@ -43,7 +43,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
     public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
-        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
         EventPublisherMock.GetSinglePublishedEvent<VoteResultSubmissionFinished>().MatchSnapshot();
     }
 
@@ -93,11 +93,11 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
     }
 
     [Fact]
-    public async Task TestShouldThrowAsContestManagerWithEmptySecondFactorId()
+    public async Task TestShouldThrowWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
             StatusCode.InvalidArgument);
     }
 
@@ -187,7 +187,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
             "Data changed during the second factor transaction");
     }
@@ -209,7 +209,7 @@ public class VoteResultSubmissionFinishedTest : VoteResultBaseTest
         });
 
         await AssertStatus(
-            async () => await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAsync(new VoteResultSubmissionFinishedRequest
             {
                 VoteResultId = VoteResultMockedData.IdGossauVoteInContestStGallenResult,
                 SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,

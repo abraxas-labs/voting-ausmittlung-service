@@ -109,19 +109,20 @@ public static class ProportionalElectionEndResultSgExampleMockedData
                 .Include(x => x.CountOfVotersInformationSubTotals)
                 .FirstAsync();
 
-            contestDetail.TotalCountOfVoters = TotalCountOfVoters;
             contestDetail.CountOfVotersInformationSubTotals.Clear();
             contestDetail.CountOfVotersInformationSubTotals.Add(new ContestCountOfVotersInformationSubTotal
             {
                 Sex = SexType.Female,
                 VoterType = VoterType.Swiss,
                 CountOfVoters = CountOfVotersFemale,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             });
             contestDetail.CountOfVotersInformationSubTotals.Add(new ContestCountOfVotersInformationSubTotal
             {
                 Sex = SexType.Male,
                 VoterType = VoterType.Swiss,
                 CountOfVoters = CountOfVotersMale,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             });
             await db.SaveChangesAsync();
 
@@ -133,7 +134,11 @@ public static class ProportionalElectionEndResultSgExampleMockedData
                 .ThenInclude(x => x.CandidateResults)
                 .FirstAsync(x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen);
 
-            result.State = CountingCircleResultState.SubmissionDone;
+            var simpleCcResult = await db.SimpleCountingCircleResults
+                .AsTracking()
+                .FirstAsync(r => r.Id == result.Id);
+
+            result.State = simpleCcResult.State = CountingCircleResultState.SubmissionDone;
             result.TotalCountOfVoters = TotalCountOfVoters;
             result.CountOfVoters = new PoliticalBusinessNullableCountOfVoters
             {
@@ -170,7 +175,7 @@ public static class ProportionalElectionEndResultSgExampleMockedData
 
             await db.SaveChangesAsync();
 
-            await endResultBuilder.AdjustEndResult(result.Id, false, true);
+            await endResultBuilder.AdjustEndResult(result.Id, false);
             await endResultBuilder.DistributeNumberOfMandates(result.ProportionalElectionId);
             await db.SaveChangesAsync();
         });

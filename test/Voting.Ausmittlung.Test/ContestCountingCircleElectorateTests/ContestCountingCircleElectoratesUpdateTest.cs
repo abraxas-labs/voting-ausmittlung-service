@@ -129,6 +129,10 @@ public class
                 .ThenInclude(x => x!.VotingCards)
                 .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id));
 
+        await ModifyDbEntities<SimpleCountingCircleResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+
         await TestEventPublisher.Publish(new ContestCountingCircleElectoratesCreated
         {
             ContestId = ContestMockedData.IdBundesurnengang,
@@ -171,25 +175,25 @@ public class
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
-            -1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
-            -250);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
-            -2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.Paper,
-            -100);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
@@ -207,25 +211,25 @@ public class
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
-            -1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
-            -250);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
-            -2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Channel == VotingChannel.Paper,
-            -100);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
@@ -313,25 +317,25 @@ public class
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
-            -2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
-            -1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
-            -3000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.Paper,
-            -5);
+            0);
 
         var doiDetailsAfter = await RunOnDb(
             db => db.DomainOfInfluences
@@ -343,25 +347,25 @@ public class
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.BallotBox,
-            -2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.ByMail,
-            -1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && !x.Valid && x.Channel == VotingChannel.ByMail,
-            -3000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ch && x.Valid && x.Channel == VotingChannel.Paper,
-            -5);
+            0);
     }
 
     [Fact]

@@ -40,6 +40,9 @@ public class CsvProportionalElectionCandidatesNumericalExportTest : CsvExportBas
         await ProportionalElectionMockedData.Seed(RunScoped);
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // Does not include any result data, submission ongoing does not make a difference
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

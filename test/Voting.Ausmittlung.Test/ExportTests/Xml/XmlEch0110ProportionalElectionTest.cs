@@ -3,13 +3,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using Ech0110_4_0;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Controllers.Models;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Ech.Ech0110_4_0.Schemas;
@@ -35,6 +38,21 @@ public class XmlEch0110ProportionalElectionTest : XmlExportBaseTest<Delivery>
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
+
+        await RunOnDb(async db =>
+        {
+            var details = await db.ContestCountingCircleDetails
+                .AsTracking()
+                .Include(x => x.CountOfVotersInformationSubTotals)
+                .SingleAsync(x => x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang) && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidUzwil);
+
+            foreach (var subTotal in details.CountOfVotersInformationSubTotals.Where(st => st.VoterType == VoterType.Swiss && st.Sex == SexType.Male))
+            {
+                subTotal.CountOfVoters = 4000;
+            }
+
+            await db.SaveChangesAsync();
+        });
     }
 
     protected override GenerateResultExportsRequest NewRequest()

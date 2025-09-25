@@ -51,6 +51,7 @@
           <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
         </ContestVotingCardDetail>
       </ContestDomainOfInfluenceDetails>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -68,6 +69,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteEndResult>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -201,7 +203,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>15800</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -306,7 +308,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -435,7 +437,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>3210</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -518,6 +520,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteEndResult>
       <TotalCountOfVoters>0</TotalCountOfVoters>
@@ -879,7 +882,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>40000</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -1232,7 +1235,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>0</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -1609,7 +1612,7 @@
         </ContestCountingCircleDetails>
       </CountingCircle>
       <TotalCountOfVoters>3210</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>

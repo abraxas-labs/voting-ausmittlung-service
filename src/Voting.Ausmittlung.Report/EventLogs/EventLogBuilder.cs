@@ -74,7 +74,7 @@ public class EventLogBuilder
             return null;
         }
 
-        eventLog.EventSignatureVerification = _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
+        eventLog.EventSignatureVerification = await _eventLogEventSignatureVerifier.VerifyEventSignature(ev, context);
 
         MapEventDataToEventLog(eventLog, ev.Data);
 

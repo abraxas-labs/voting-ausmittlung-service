@@ -23,6 +23,7 @@ using Voting.Lib.Testing.Mocks;
 using Voting.Lib.Testing.Utils;
 using Xunit;
 using BasisEvents = Abraxas.Voting.Basis.Events.V1;
+using ContestCountingCircleDetailsCreated = Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsCreated;
 using DomainOfInfluenceType = Abraxas.Voting.Basis.Shared.V1.DomainOfInfluenceType;
 using SexType = Abraxas.Voting.Ausmittlung.Shared.V1.SexType;
 using VoteResultEntry = Abraxas.Voting.Basis.Shared.V1.VoteResultEntry;
@@ -130,6 +131,7 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
     public async Task VoteShouldWorkEndToEnd()
     {
         await SetupContestAndVotes();
+        await SecondFactorTransactionMockedData.Seed(RunScoped);
         await EnterContestDetails();
         await ImportEVotingResults();
         await EnterResults();
@@ -551,19 +553,21 @@ public class VoteE2ETest : BaseTest<VoteResultService.VoteResultServiceClient>
                     CountOfReceivedVotingCards = 5,
                 },
             },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
             {
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     CountOfVoters = 6171,
                     Sex = SexType.Male,
                     VoterType = VoterType.Swiss,
+                    DomainOfInfluenceType = Abraxas.Voting.Ausmittlung.Shared.V1.DomainOfInfluenceType.Ch,
                 },
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     CountOfVoters = 6180,
                     Sex = SexType.Female,
                     VoterType = VoterType.Swiss,
+                    DomainOfInfluenceType = Abraxas.Voting.Ausmittlung.Shared.V1.DomainOfInfluenceType.Ch,
                 },
             },
         });

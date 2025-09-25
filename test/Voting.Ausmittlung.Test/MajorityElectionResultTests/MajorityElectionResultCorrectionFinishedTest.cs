@@ -44,7 +44,7 @@ public class MajorityElectionResultCorrectionFinishedTest : MajorityElectionResu
     public async Task TestShouldReturnAsErfassungElectionAdminWithEmptySecondFactorId()
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
-        await ErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.CorrectionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
         EventPublisherMock.GetSinglePublishedEvent<MajorityElectionResultCorrectionFinished>().MatchSnapshot();
     }
 

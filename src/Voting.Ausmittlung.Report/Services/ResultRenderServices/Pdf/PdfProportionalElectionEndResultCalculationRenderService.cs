@@ -80,7 +80,7 @@ public class PdfProportionalElectionEndResultCalculationRenderService : IRendere
         var contest = Mapper.Map<PdfContest>(data.ProportionalElection.Contest);
         if (contest.Details != null)
         {
-            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(contest.Details!, domainOfInfluence!.Type);
+            PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(contest.Details!, data.ProportionalElection.DomainOfInfluence);
             contest.Details!.VotingCards = new();
         }
 

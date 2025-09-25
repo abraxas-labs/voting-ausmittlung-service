@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Voting.Ausmittlung.Core.Configuration;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
@@ -34,6 +35,18 @@ public class PdfExportCantonSuffixTest : PdfExportBaseTest
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
         var config = GetService<PublisherConfig>();
         config.ExportTemplateKeyCantonSuffixEnabled = true;
+
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

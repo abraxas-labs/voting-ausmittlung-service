@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using AutoMapper;
 using FluentValidation;
 using Google.Protobuf;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Utils;
+using EventsV2 = Abraxas.Voting.Ausmittlung.Events.V2;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Core.Domain.Aggregate;
@@ -36,7 +36,7 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
 
     public Guid CountingCircleId { get; private set; }
 
-    public CountOfVotersInformation CountOfVotersInformation { get; private set; } = new CountOfVotersInformation();
+    public List<CountOfVotersInformationSubTotal> CountOfVotersInformationSubTotals { get; private set; } = new();
 
     public List<VotingCardResultDetail> VotingCards { get; private set; } = new List<VotingCardResultDetail>();
 
@@ -45,23 +45,22 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
     public void CreateFrom(ContestCountingCircleDetails details, Guid contestId, Guid countingCircleId, bool testingPhaseEnded)
     {
         EnsureUniqueDetails(details);
-        CalculateTotals(details);
 
         _validator.ValidateAndThrow(details);
 
         Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(contestId, countingCircleId, testingPhaseEnded);
 
-        var createEv = new ContestCountingCircleDetailsCreated
+        var createEv = new EventsV2.ContestCountingCircleDetailsCreated
         {
             Id = Id.ToString(),
             ContestId = contestId.ToString(),
             CountingCircleId = countingCircleId.ToString(),
-            CountOfVotersInformation = _mapper.Map<CountOfVotersInformationEventData>(details.CountOfVotersInformation),
             CountingMachine = _mapper.Map<SharedProto.CountingMachine>(details.CountingMachine),
             EventInfo = _eventInfoProvider.NewEventInfo(),
         };
 
         _mapper.Map(details.VotingCards, createEv.VotingCards);
+        _mapper.Map(details.CountOfVotersInformationSubTotals, createEv.CountOfVotersInformationSubTotals);
 
         RaiseEvent(createEv, new EventSignatureBusinessDomainData(contestId));
     }
@@ -69,7 +68,6 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
     public void UpdateFrom(ContestCountingCircleDetails details, Guid contestId, Guid ccId)
     {
         EnsureUniqueDetails(details);
-        CalculateTotals(details);
 
         _validator.ValidateAndThrow(details);
 
@@ -83,17 +81,17 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             throw new ValidationException(nameof(CountingCircleId) + " is immutable");
         }
 
-        var ev = new ContestCountingCircleDetailsUpdated
+        var ev = new EventsV2.ContestCountingCircleDetailsUpdated
         {
             Id = Id.ToString(),
             ContestId = ContestId.ToString(),
             CountingCircleId = CountingCircleId.ToString(),
-            CountOfVotersInformation = _mapper.Map<CountOfVotersInformationEventData>(details.CountOfVotersInformation),
             CountingMachine = _mapper.Map<SharedProto.CountingMachine>(details.CountingMachine),
             EventInfo = _eventInfoProvider.NewEventInfo(),
         };
 
         _mapper.Map(details.VotingCards, ev.VotingCards);
+        _mapper.Map(details.CountOfVotersInformationSubTotals, ev.CountOfVotersInformationSubTotals);
 
         RaiseEvent(ev, new EventSignatureBusinessDomainData(contestId));
     }
@@ -126,14 +124,14 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             case ContestCountingCircleDetailsResetted _:
                 ApplyReset();
                 break;
+            case EventsV2.ContestCountingCircleDetailsCreated e:
+                Apply(e);
+                break;
+            case EventsV2.ContestCountingCircleDetailsUpdated e:
+                Apply(e);
+                break;
             default: throw new EventNotAppliedException(eventData?.GetType());
         }
-    }
-
-    private void CalculateTotals(ContestCountingCircleDetails details)
-    {
-        details.CountOfVotersInformation.TotalCountOfVoters = details.CountOfVotersInformation.SubTotalInfo
-            .Sum(x => x.CountOfVoters.GetValueOrDefault());
     }
 
     private void Apply(ContestCountingCircleDetailsCreated ev)
@@ -146,6 +144,16 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
         _mapper.Map(ev, this);
     }
 
+    private void Apply(EventsV2.ContestCountingCircleDetailsCreated ev)
+    {
+        _mapper.Map(ev, this);
+    }
+
+    private void Apply(EventsV2.ContestCountingCircleDetailsUpdated ev)
+    {
+        _mapper.Map(ev, this);
+    }
+
     private void ApplyReset()
     {
         foreach (var votingCard in VotingCards.Where(vc => vc.Channel != Data.Models.VotingChannel.EVoting))
@@ -153,18 +161,16 @@ public class ContestCountingCircleDetailsAggregate : BaseEventSignatureAggregate
             votingCard.CountOfReceivedVotingCards = 0;
         }
 
-        foreach (var subTotal in CountOfVotersInformation.SubTotalInfo)
+        foreach (var subTotal in CountOfVotersInformationSubTotals)
         {
             subTotal.CountOfVoters = 0;
         }
-
-        CountOfVotersInformation.TotalCountOfVoters = 0;
     }
 
     private void EnsureUniqueDetails(ContestCountingCircleDetails details)
     {
-        if (details.CountOfVotersInformation.SubTotalInfo
-            .GroupBy(x => new { x.Sex, x.VoterType })
+        if (details.CountOfVotersInformationSubTotals
+            .GroupBy(x => new { x.Sex, x.VoterType, x.DomainOfInfluenceType })
             .Any(x => x.Count() > 1))
         {
             throw new ValidationException("duplicated count of voters subtotal found");

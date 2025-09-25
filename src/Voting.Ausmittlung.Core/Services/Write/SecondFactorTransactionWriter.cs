@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Configuration;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.TemporaryData.Models;
@@ -47,7 +48,7 @@ public class SecondFactorTransactionWriter
         _actionIdComparer = actionIdComparer;
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> CreateSecondFactorTransaction(ActionId actionId, string message)
+    public async Task<SecondFactorInfo> CreateSecondFactorTransaction(ActionId actionId, string message)
     {
         var actionIdHash = actionId.ComputeHash();
         var userId = _permissionService.UserId;
@@ -75,7 +76,7 @@ public class SecondFactorTransactionWriter
             "Created second factor transaction with ExternalTokenJwtIds <{SecondFactorExternalTokenJwtIds}> for action {ActionId}",
             string.Join(',', secondFactorTransaction.ExternalTokenJwtIds ?? []),
             actionId);
-        return (secondFactorTransaction, code, secondFactor.Qr);
+        return new SecondFactorInfo(secondFactorTransaction, code, secondFactor.Qr);
     }
 
     public async Task EnsureVerified(Guid transactionId, Func<Task<ActionId>> action, CancellationToken ct)

@@ -12,10 +12,10 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
-using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Iam.Store;
@@ -28,7 +28,6 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
     private readonly ILogger<VoteResultWriter> _logger;
     private readonly IDbRepository<DataContext, DataModels.VoteResult> _voteResultRepo;
     private readonly ValidationResultsEnsurer _validationResultsEnsurer;
-    private readonly SecondFactorTransactionWriter _secondFactorTransactionWriter;
 
     public VoteResultWriter(
         ILogger<VoteResultWriter> logger,
@@ -39,12 +38,11 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         ValidationResultsEnsurer validationResultsEnsurer,
         SecondFactorTransactionWriter secondFactorTransactionWriter,
         IAuth auth)
-        : base(permissionService, contestService, auth, aggregateRepository)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
     {
         _logger = logger;
         _voteResultRepo = voteResultRepo;
         _validationResultsEnsurer = validationResultsEnsurer;
-        _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
 
     public async Task DefineEntry(Guid voteResultId, DataModels.VoteResultEntry resultEntry, VoteResultEntryParams? resultEntryParams)
@@ -126,47 +124,17 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         _logger.LogInformation("Entered correction results for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareSubmissionFinished(Guid voteResultId, string message)
+    public async Task<SecondFactorInfo?> PrepareSubmissionFinished(Guid voteResultId, string message)
     {
-        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
-        await EnsurePoliticalBusinessPermissions(voteResult);
-        if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
-        {
-            return default;
-        }
-
-        var actionId = await PrepareActionId<VoteResultAggregate>(
-            nameof(SubmissionFinished),
-            voteResultId,
-            voteResult.Vote.ContestId,
-            voteResult.CountingCircle.BasisCountingCircleId,
-            voteResult.Vote.Contest.TestingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await PrepareSecondFactor<VoteResultAggregate>(nameof(SubmissionFinished), voteResultId, message);
     }
 
     public async Task SubmissionFinished(Guid voteResultId, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
-
         var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
-        if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
-        {
-            if (secondFactorTransactionId == null)
-            {
-                throw new ValidationException("Second factor transaction id cannot be null.");
-            }
 
-            await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionId.Value,
-                () => PrepareActionId<VoteResultAggregate>(
-                    nameof(SubmissionFinished),
-                    voteResultId,
-                    voteResult.Vote.ContestId,
-                    voteResult.CountingCircle.BasisCountingCircleId,
-                    voteResult.Vote.Contest.TestingPhaseEnded),
-                ct);
-        }
-
+        await VerifySecondFactor<VoteResultAggregate>(voteResult, nameof(SubmissionFinished), secondFactorTransactionId, ct);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -181,47 +149,17 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         _logger.LogInformation("Submission finished for vote result {VoteResultId}", voteResult.Id);
     }
 
-    public async Task<(SecondFactorTransaction? SecondFactorTransaction, string? Code, string QrCode)> PrepareCorrectionFinished(Guid voteResultId, string message)
+    public async Task<SecondFactorInfo?> PrepareCorrectionFinished(Guid voteResultId, string message)
     {
-        var voteResult = await LoadPoliticalBusinessResult(voteResultId);
-        await EnsurePoliticalBusinessPermissions(voteResult);
-        if (IsSelfOwnedPoliticalBusiness(voteResult.Vote))
-        {
-            return default;
-        }
-
-        var actionId = await PrepareActionId<VoteResultAggregate>(
-            nameof(CorrectionFinished),
-            voteResultId,
-            voteResult.Vote.ContestId,
-            voteResult.CountingCircle.BasisCountingCircleId,
-            voteResult.Vote.Contest.TestingPhaseEnded);
-        return await _secondFactorTransactionWriter.CreateSecondFactorTransaction(actionId, message);
+        return await PrepareSecondFactor<VoteResultAggregate>(nameof(CorrectionFinished), voteResultId, message);
     }
 
     public async Task CorrectionFinished(Guid voteResultId, string comment, Guid? secondFactorTransactionId, CancellationToken ct)
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
-
         var contestId = await EnsurePoliticalBusinessPermissions(voteResult);
-        if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
-        {
-            if (secondFactorTransactionId == null)
-            {
-                throw new ValidationException("Second factor transaction id cannot be null.");
-            }
 
-            await _secondFactorTransactionWriter.EnsureVerified(
-                secondFactorTransactionId.Value,
-                () => PrepareActionId<VoteResultAggregate>(
-                    nameof(CorrectionFinished),
-                    voteResultId,
-                    voteResult.Vote.ContestId,
-                    voteResult.CountingCircle.BasisCountingCircleId,
-                    voteResult.Vote.Contest.TestingPhaseEnded),
-                ct);
-        }
-
+        await VerifySecondFactor<VoteResultAggregate>(voteResult, nameof(CorrectionFinished), secondFactorTransactionId, ct);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
 
         var aggregate = await AggregateRepository.GetById<VoteResultAggregate>(voteResult.Id);
@@ -308,7 +246,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
        });
     }
 
-    public async Task SubmissionFinishedAndAuditedTentatively(Guid voteResultId)
+    public async Task<SecondFactorInfo> PrepareSubmissionFinishedAndAuditedTentatively(Guid voteResultId, string message)
+    {
+        return await PrepareSecondFactor<VoteResultAggregate>(nameof(SubmissionFinishedAndAuditedTentatively), voteResultId, message)
+            ?? throw new InvalidOperationException("2FA is required in " + nameof(SubmissionFinishedAndAuditedTentatively));
+    }
+
+    public async Task SubmissionFinishedAndAuditedTentatively(Guid voteResultId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
         if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
@@ -320,6 +264,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         {
             throw new ValidationException("finish submission and audit tentatively is not allowed for non communal political business");
         }
+
+        await VerifySecondFactor<VoteResultAggregate>(
+            voteResult,
+            nameof(SubmissionFinishedAndAuditedTentatively),
+            secondFactorTransactionId,
+            ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);
@@ -338,7 +288,13 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         await AggregateRepository.Save(aggregate);
     }
 
-    public async Task CorrectionFinishedAndAuditedTentatively(Guid voteResultId)
+    public async Task<SecondFactorInfo> PrepareCorrectionFinishedAndAuditedTentatively(Guid voteResultId, string message)
+    {
+        return await PrepareSecondFactor<VoteResultAggregate>(nameof(CorrectionFinishedAndAuditedTentatively), voteResultId, message)
+            ?? throw new InvalidOperationException("2FA is required in " + nameof(CorrectionFinishedAndAuditedTentatively));
+    }
+
+    public async Task CorrectionFinishedAndAuditedTentatively(Guid voteResultId, Guid secondFactorTransactionId, CancellationToken ct)
     {
         var voteResult = await LoadPoliticalBusinessResult(voteResultId);
         if (!IsSelfOwnedPoliticalBusiness(voteResult.Vote))
@@ -350,6 +306,12 @@ public class VoteResultWriter : PoliticalBusinessResultWriter<DataModels.VoteRes
         {
             throw new ValidationException("finish correction and audit tentatively is not allowed for non communal political business");
         }
+
+        await VerifySecondFactor<VoteResultAggregate>(
+            voteResult,
+            nameof(CorrectionFinishedAndAuditedTentatively),
+            secondFactorTransactionId,
+            ct);
 
         var contestId = await EnsurePoliticalBusinessPermissionsForMonitor(voteResultId);
         await _validationResultsEnsurer.EnsureVoteResultIsValid(voteResult);

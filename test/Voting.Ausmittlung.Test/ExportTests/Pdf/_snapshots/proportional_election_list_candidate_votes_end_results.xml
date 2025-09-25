@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -22,13 +23,14 @@
     <OfficialDescription>Kantonratswahl de</OfficialDescription>
     <ShortDescription>Kantonratswahl de</ShortDescription>
     <NumberOfMandates>2</NumberOfMandates>
+    <MandateAlgorithm>HagenbachBischoff</MandateAlgorithm>
     <ProportionalElectionEndResult>
-      <TotalCountOfVoters>3210</TotalCountOfVoters>
+      <TotalCountOfVoters>3010</TotalCountOfVoters>
       <CountOfDoneCountingCircles>1</CountOfDoneCountingCircles>
       <TotalCountOfCountingCircles>1</TotalCountOfCountingCircles>
       <AllCountingCirclesDone>true</AllCountingCirclesDone>
       <CountOfVoters>
-        <VoterParticipation>0.0779</VoterParticipation>
+        <VoterParticipation>0.0831</VoterParticipation>
         <TotalReceivedBallots>250</TotalReceivedBallots>
         <TotalUnaccountedBallots>140</TotalUnaccountedBallots>
         <EVotingReceivedBallots>60</EVotingReceivedBallots>
@@ -715,5 +717,6 @@
     <Bfs>3443</Bfs>
     <Type>Sk</Type>
     <Canton>Sg</Canton>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>
 </Voting>

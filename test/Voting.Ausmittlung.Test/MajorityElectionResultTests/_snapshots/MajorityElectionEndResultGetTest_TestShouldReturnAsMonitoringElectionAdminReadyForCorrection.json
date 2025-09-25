@@ -121,9 +121,95 @@
   },
   "CountOfVotersInformation": {
     "TotalCountOfVoters": 0,
-    "SubTotalInfo": []
+    "SubTotalInfo": [
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 0,
+        "DomainOfInfluenceType": 2
+      }
+    ]
   },
-  "VotingCards": [],
+  "VotingCards": [
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": true,
+      "Channel": 1,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": true,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    },
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 1
+    },
+    {
+      "CountOfReceivedVotingCards": 0,
+      "Valid": false,
+      "Channel": 2,
+      "DomainOfInfluenceType": 2
+    }
+  ],
   "CountOfDoneCountingCircles": 0,
   "TotalCountOfCountingCircles": 6,
   "AllCountingCirclesDone": false,

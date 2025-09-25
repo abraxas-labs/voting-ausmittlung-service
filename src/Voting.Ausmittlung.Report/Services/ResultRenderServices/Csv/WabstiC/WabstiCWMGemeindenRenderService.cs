@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
@@ -71,6 +72,7 @@ public class WabstiCWMGemeindenRenderService : IRendererService
                             .Select(z => z.MajorityElectionUnionId)
                             .OrderBy(z => z)
                             .ToList(),
+                        ResultState = y.State,
                     })
                     .ToList(),
                 SecondaryResults = x.SecondaryMajorityElections
@@ -100,6 +102,10 @@ public class WabstiCWMGemeindenRenderService : IRendererService
 
         await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, majorityElectionResults, ct);
         AttachSecondaryResults(majorityElectionResults, groupedSecondaryResults);
+        foreach (var result in majorityElectionResults)
+        {
+            result.ResetDataIfSubmissionNotDone();
+        }
 
         return _templateService.RenderToCsv(
             ctx,
@@ -127,7 +133,7 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         }
     }
 
-    private class Data : IWabstiCContestDetails
+    private class Data : IWabstiCContestDetails, IWabstiCPoliticalResultData
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -149,59 +155,59 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         public int SortNumber { get; set; }
 
         [Name("Stimmberechtigte")]
-        public int CountOfVotersTotal { get; set; }
+        public int? CountOfVotersTotal { get; set; }
 
         [Name("StimmberechtigteAusl")]
-        public int CountOfVotersTotalSwissAbroad { get; set; }
+        public int? CountOfVotersTotalSwissAbroad { get; set; }
 
         [Name("StiAusweiseUrne")]
-        public int VotingCardsBallotBox { get; set; }
+        public int? VotingCardsBallotBox { get; set; }
 
         [Name("StiAusweiseVorzeitig")]
-        public int VotingCardsPaper { get; set; }
+        public int? VotingCardsPaper { get; set; }
 
         [Name("StiAusweiseBriefGueltig")]
-        public int VotingCardsByMail { get; set; }
+        public int? VotingCardsByMail { get; set; }
 
         [Name("StiAusweiseBriefNiUz")]
-        public int VotingCardsByMailNotValid { get; set; }
+        public int? VotingCardsByMailNotValid { get; set; }
 
         [Name("StiAusweiseEVoting")]
-        public int VotingCardsEVoting { get; set; }
+        public int? VotingCardsEVoting { get; set; }
 
         [Name("Stimmbeteiligung")]
         [TypeConverter(typeof(WabstiCPercentageConverter))]
-        public decimal VoterParticipation { get; set; }
+        public decimal? VoterParticipation { get; set; }
 
         [Name("StmAbgegeben")]
-        public int TotalReceivedBallots { get; set; }
+        public int? TotalReceivedBallots { get; set; }
 
         [Name("StmUngueltig")]
-        public int CountOfInvalidBallots { get; set; }
+        public int? CountOfInvalidBallots { get; set; }
 
         [Name("StmLeer")]
-        public int CountOfBlankBallots { get; set; }
+        public int? CountOfBlankBallots { get; set; }
 
         [Name("StmGueltig")]
-        public int CountOfAccountedBallots { get; set; }
+        public int? CountOfAccountedBallots { get; set; }
 
         [Name("StimmenUngueltig")]
-        public int InvalidVoteCount { get; set; }
+        public int? InvalidVoteCount { get; set; }
 
         [Name("StimmenUngueltigNW")]
-        public int InvalidVoteCountSecondary { get; set; }
+        public int? InvalidVoteCountSecondary { get; set; }
 
         [Name("StimmenLeerNW")]
-        public int EmptyVoteCountSecondary { get; set; }
+        public int? EmptyVoteCountSecondary { get; set; }
 
         [Name("StimmenUngueltigNW2")]
-        public int InvalidVoteCountSecondary2 { get; set; }
+        public int? InvalidVoteCountSecondary2 { get; set; }
 
         [Name("StimmenLeerNW2")]
-        public int EmptyVoteCountSecondary2 { get; set; }
+        public int? EmptyVoteCountSecondary2 { get; set; }
 
         [Name("StimmenLeer")]
-        public int EmptyVoteCount { get; set; }
+        public int? EmptyVoteCount { get; set; }
 
         [Name("FreigabeGde")]
         [TypeConverter(typeof(WabstiCTimeConverter))]
@@ -218,5 +224,35 @@ public class WabstiCWMGemeindenRenderService : IRendererService
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            CountOfVotersTotal = null;
+            CountOfVotersTotalSwissAbroad = null;
+            VotingCardsBallotBox = null;
+            VotingCardsPaper = null;
+            VotingCardsByMail = null;
+            VotingCardsByMailNotValid = null;
+            VotingCardsEVoting = null;
+            VoterParticipation = null;
+            TotalReceivedBallots = null;
+            CountOfInvalidBallots = null;
+            CountOfBlankBallots = null;
+            CountOfAccountedBallots = null;
+            InvalidVoteCount = null;
+            InvalidVoteCountSecondary = null;
+            EmptyVoteCountSecondary = null;
+            InvalidVoteCountSecondary2 = null;
+            EmptyVoteCountSecondary2 = null;
+            EmptyVoteCount = null;
+        }
     }
 }

@@ -40,6 +40,13 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
         await TestXmlWithSnapshot("WithoutPublished");
     }
 
+    [Fact]
+    public async Task TestEVoting()
+    {
+        await ModifyDbEntities<Contest>(x => x.Id == ContestMockedData.GuidBundesurnengang, x => x.EVoting = true);
+        await TestXmlWithSnapshot("EVoting");
+    }
+
     protected override async Task SeedData()
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
@@ -77,6 +84,8 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
             var candidates = result.ListResults.SelectMany(x => x.CandidateResults);
             foreach (var candidate in candidates)
             {
+                // These should not be included in the XML for this report
+                // Add them anyway to verify that they do not show up
                 candidate.VoteSources.Add(new ProportionalElectionCandidateVoteSourceResult
                 {
                     ConventionalVoteCount = 3,

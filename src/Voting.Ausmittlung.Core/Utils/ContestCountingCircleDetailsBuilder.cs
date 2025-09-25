@@ -27,6 +27,7 @@ public class ContestCountingCircleDetailsBuilder
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
     private readonly IDbRepository<DataContext, CountOfVotersInformationSubTotal> _countOfVotersInformationSubTotalRepo;
     private readonly DataContext _dataContext;
+    private readonly CountingCircleResultBuilder _ccResultBuilder;
 
     public ContestCountingCircleDetailsBuilder(
         DomainOfInfluenceCountingCircleRepo doiCountingCirclesRepo,
@@ -37,7 +38,8 @@ public class ContestCountingCircleDetailsBuilder
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder,
         DataContext dataContext,
-        IDbRepository<DataContext, CountOfVotersInformationSubTotal> countOfVotersInformationSubTotalRepo)
+        IDbRepository<DataContext, CountOfVotersInformationSubTotal> countOfVotersInformationSubTotalRepo,
+        CountingCircleResultBuilder ccResultBuilder)
     {
         _doiCountingCirclesRepo = doiCountingCirclesRepo;
         _contestRepo = contestRepo;
@@ -48,6 +50,7 @@ public class ContestCountingCircleDetailsBuilder
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
         _dataContext = dataContext;
         _countOfVotersInformationSubTotalRepo = countOfVotersInformationSubTotalRepo;
+        _ccResultBuilder = ccResultBuilder;
     }
 
     internal async Task SyncForDomainOfInfluences(IEnumerable<Guid> doiIds)
@@ -103,12 +106,13 @@ public class ContestCountingCircleDetailsBuilder
         await _ccDetailsRepo.UpdateRange(ccDetails);
     }
 
-    internal async Task ResetConventionalVotingCards(Guid contestId, Guid basisCountingCircleId)
+    internal async Task ResetConventionalVotingCardsAndSubTotals(Guid contestId, Guid basisCountingCircleId)
     {
         var ccDetails = await _ccDetailsRepo
             .Query()
             .AsSplitQuery()
             .Include(x => x.VotingCards.Where(vc => vc.Channel != VotingChannel.EVoting))
+            .Include(x => x.CountOfVotersInformationSubTotals)
             .Include(x => x.CountingCircle)
             .Where(x => x.ContestId == contestId && x.CountingCircle.BasisCountingCircleId == basisCountingCircleId && x.VotingCards.Any(vc => vc.Channel != VotingChannel.EVoting))
             .SingleOrDefaultAsync();
@@ -118,17 +122,15 @@ public class ContestCountingCircleDetailsBuilder
             return;
         }
 
-        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedVotingCards(contestId, new[] { ccDetails }, true);
+        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(ccDetails, true);
 
-        foreach (var votingCard in ccDetails.VotingCards)
-        {
-            votingCard.CountOfReceivedVotingCards = null;
-        }
+        ccDetails.ResetVotingCardsAndSubTotals();
 
         // don't want to save counting circle again
         ccDetails.CountingCircle = null!;
 
         await _ccDetailsRepo.Update(ccDetails);
+        await _ccResultBuilder.UpdateCountOfVotersForCountingCircleResults(ccDetails, true);
     }
 
     internal async Task SyncForDomainOfInfluence(Guid politicalBusinessId, Guid contestId, Guid domainOfInfluenceId)
@@ -153,9 +155,13 @@ public class ContestCountingCircleDetailsBuilder
 
         // We need to reload a fresh state of the cc details, because after removing the unneeded sub totals they are out of sync.
         detailsByCountingCircleId = await LoadCountingCircleDetailsByCountingCircleId(contestId);
-        await CreateMissingVotingCardsInElectorate(simpleResults, contestId, domainOfInfluenceId, detailsByCountingCircleId);
+        await CreateMissingVotingCardsAndSubTotalsInElectorate(simpleResults, contestId, domainOfInfluenceId, detailsByCountingCircleId);
 
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(contestId, detailsByCountingCircleId.Values, false);
+
+        // Changes can only be made during the testing phase, some corresponding CcResults could are already audited
+        // The CcResult state check has to be skipped.
+        await _ccResultBuilder.UpdateCountOfVotersForCountingCircleResults(detailsByCountingCircleId.Values, true);
     }
 
     private async Task RemoveNotNeededVoterTypesInSubTotals(
@@ -183,7 +189,6 @@ public class ContestCountingCircleDetailsBuilder
                 var foreignerSubTotalIds = foreignerSubTotals.ConvertAll(s => s.Id);
                 subTotalIdsToDelete.AddRange(foreignerSubTotalIds);
                 details.CountOfVotersInformationSubTotals = details.CountOfVotersInformationSubTotals.Where(s => !foreignerSubTotalIds.Contains(s.Id)).ToList();
-                details.TotalCountOfVoters -= foreignerSubTotals.Sum(s => s.CountOfVoters.GetValueOrDefault());
                 detailsToUpdate.Add(details);
             }
 
@@ -192,7 +197,6 @@ public class ContestCountingCircleDetailsBuilder
                 var minorSubTotalIds = minorSubTotals.ConvertAll(s => s.Id);
                 subTotalIdsToDelete.AddRange(minorSubTotalIds);
                 details.CountOfVotersInformationSubTotals = details.CountOfVotersInformationSubTotals.Where(s => !minorSubTotalIds.Contains(s.Id)).ToList();
-                details.TotalCountOfVoters -= minorSubTotals.Sum(s => s.CountOfVoters.GetValueOrDefault());
                 detailsToUpdate.Add(details);
             }
         }
@@ -204,7 +208,7 @@ public class ContestCountingCircleDetailsBuilder
         }
     }
 
-    private async Task CreateMissingVotingCardsInElectorate(List<SimpleCountingCircleResult> simpleResults, Guid contestId, Guid domainOfInfluenceId, Dictionary<Guid, ContestCountingCircleDetails> detailsByCountingCircleId)
+    private async Task CreateMissingVotingCardsAndSubTotalsInElectorate(List<SimpleCountingCircleResult> simpleResults, Guid contestId, Guid domainOfInfluenceId, Dictionary<Guid, ContestCountingCircleDetails> detailsByCountingCircleId)
     {
         var domainOfInfluence = await _domainOfInfluenceRepo.GetByKey(domainOfInfluenceId)
             ?? throw new EntityNotFoundException(nameof(DomainOfInfluence), domainOfInfluenceId);
@@ -232,10 +236,16 @@ public class ContestCountingCircleDetailsBuilder
         {
             // details contain already the desired voting cards for this domain of influence type or voting cards are empty
             if (!detailsByCountingCircleId.TryGetValue(result.CountingCircleId, out var details) ||
-                details.VotingCards.Count == 0 ||
-                details.VotingCards.Any(x => x.DomainOfInfluenceType == result.PoliticalBusiness!.DomainOfInfluence.Type) ||
                 !countingCirclesByBasisCountingCircleId.TryGetValue(result.CountingCircle!.BasisCountingCircleId, out var countingCircle) ||
                 !resultsByCountingCircleId.TryGetValue(result.CountingCircleId, out var results))
+            {
+                continue;
+            }
+
+            var hasMissingVotingCards = details.VotingCards.Count > 0 && details.VotingCards.All(x => x.DomainOfInfluenceType != result.PoliticalBusiness!.DomainOfInfluence.Type);
+            var hasMissingSubTotals = details.CountOfVotersInformationSubTotals.Count > 0 && details.CountOfVotersInformationSubTotals.All(x => x.DomainOfInfluenceType != result.PoliticalBusiness!.DomainOfInfluence.Type);
+
+            if (!hasMissingVotingCards && !hasMissingSubTotals)
             {
                 continue;
             }
@@ -261,7 +271,8 @@ public class ContestCountingCircleDetailsBuilder
                 continue;
             }
 
-            var votingCardsToCopy = details.VotingCards.Where(x => x.DomainOfInfluenceType == domainOfInfluenceTypeToCopy).ToList();
+            var votingCardsToCopy = details.VotingCards.Where(x => hasMissingVotingCards && x.DomainOfInfluenceType == domainOfInfluenceTypeToCopy).ToList();
+            var subTotalsToCopy = details.CountOfVotersInformationSubTotals.Where(x => hasMissingSubTotals && x.DomainOfInfluenceType == domainOfInfluenceTypeToCopy).ToList();
 
             foreach (var votingCard in votingCardsToCopy)
             {
@@ -271,6 +282,17 @@ public class ContestCountingCircleDetailsBuilder
                     Valid = votingCard.Valid,
                     DomainOfInfluenceType = result.PoliticalBusiness.DomainOfInfluence.Type,
                     CountOfReceivedVotingCards = votingCard.CountOfReceivedVotingCards,
+                });
+            }
+
+            foreach (var subTotal in subTotalsToCopy)
+            {
+                details.CountOfVotersInformationSubTotals.Add(new CountOfVotersInformationSubTotal
+                {
+                    CountOfVoters = subTotal.CountOfVoters,
+                    Sex = subTotal.Sex,
+                    VoterType = subTotal.VoterType,
+                    DomainOfInfluenceType = result.PoliticalBusiness.DomainOfInfluence.Type,
                 });
             }
 

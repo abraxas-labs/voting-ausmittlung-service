@@ -61,8 +61,8 @@
               "TotalCountOfAnswerNo": 450,
               "TotalCountOfAnswerUnspecified": 40,
               "HasMajority": true,
-              "PercentageYes": 0.6896551724137931034482758621,
-              "PercentageNo": 0.3103448275862068965517241379,
+              "PercentageYes": 0.6896551724137931,
+              "PercentageNo": 0.3103448275862069,
               "CountOfAnswerTotal": 1490,
               "Id": "e319000d-0143-40b8-9db9-220a321268db"
             }
@@ -157,7 +157,7 @@
               "TotalCountOfAnswerUnspecified": 0,
               "HasMajority": false,
               "PercentageYes": 0.0,
-              "PercentageNo": 1.0,
+              "PercentageNo": 0.0,
               "CountOfAnswerTotal": 0,
               "Id": "092033c1-d3b3-4c12-9c0b-35b1d35f555e"
             },
@@ -187,7 +187,7 @@
               "TotalCountOfAnswerUnspecified": 0,
               "HasMajority": false,
               "PercentageYes": 0.0,
-              "PercentageNo": 1.0,
+              "PercentageNo": 0.0,
               "CountOfAnswerTotal": 0,
               "Id": "2058ba46-58de-4dab-ab04-b6a203e7d621"
             }
@@ -220,7 +220,7 @@
               "HasQ1Majority": false,
               "HasQ2Majority": false,
               "PercentageQ1": 0.0,
-              "PercentageQ2": 1.0,
+              "PercentageQ2": 0.0,
               "CountOfAnswerTotal": 0,
               "Id": "0ee2274e-3a63-4e08-9fe1-2c68146d2e80"
             }

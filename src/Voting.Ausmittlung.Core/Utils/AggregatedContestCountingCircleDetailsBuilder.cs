@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -18,30 +19,84 @@ public class AggregatedContestCountingCircleDetailsBuilder
     private readonly DataContext _dataContext;
     private readonly IDbRepository<DataContext, ContestDetails> _contestDetailsRepo;
     private readonly IDbRepository<DataContext, DomainOfInfluence> _doiRepo;
+    private readonly IDbRepository<DataContext, SimpleCountingCircleResult> _simpleCcResultsRepo;
 
     public AggregatedContestCountingCircleDetailsBuilder(
         IDbRepository<DataContext, ContestDetails> contestDetailsRepo,
         IDbRepository<DataContext, DomainOfInfluence> doiRepo,
+        IDbRepository<DataContext, SimpleCountingCircleResult> simpleCcResultsRepo,
         DataContext dataContext)
     {
         _contestDetailsRepo = contestDetailsRepo;
         _doiRepo = doiRepo;
+        _simpleCcResultsRepo = simpleCcResultsRepo;
         _dataContext = dataContext;
+    }
+
+    internal async Task AdjustAggregatedDetails(Guid resultId, bool removeResults)
+    {
+        var result = await _simpleCcResultsRepo.Query()
+            .AsSplitQuery()
+            .Include(x => x.CountingCircle!.ContestDetails)
+            .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.CountingCircle!.ContestDetails)
+            .ThenInclude(x => x.VotingCards)
+            .FirstOrDefaultAsync(x => x.Id == resultId)
+            ?? throw new EntityNotFoundException(resultId);
+
+        // If any other result of the counting circle is already done,
+        // then modifying this result has no effect.
+        var hasNoEffect = await _simpleCcResultsRepo.Query()
+            .AnyAsync(r =>
+                r.Id != resultId
+                && r.CountingCircleId == result.CountingCircleId
+                && r.State >= CountingCircleResultState.SubmissionDone);
+        if (hasNoEffect)
+        {
+            return;
+        }
+
+        var details = result.CountingCircle!.ContestDetails.Single();
+        await AdjustAggregatedDetails(
+            details,
+            removeResults,
+            needAffectedDetailsCheck: false);
     }
 
     internal Task AdjustAggregatedDetails(
         ContestCountingCircleDetails countingCircleDetails,
-        bool removeResults)
+        bool removeResults,
+        bool needAffectedDetailsCheck = true)
     {
-        return AdjustAggregatedDetails(countingCircleDetails.ContestId, new[] { countingCircleDetails }, removeResults);
+        return AdjustAggregatedDetails(
+            countingCircleDetails.ContestId,
+            [countingCircleDetails],
+            removeResults,
+            needAffectedDetailsCheck);
     }
 
+    /// <summary>
+    /// Adjusts the aggregated counting circle details.
+    /// By default, skips results that are in a state that should have already been adjusted.
+    /// </summary>
+    /// <param name="contestId">The contest id.</param>
+    /// <param name="countingCircleDetails">The counting circle details.</param>
+    /// <param name="removeResults">True to remove the results, false to add them to the aggregated details.</param>
+    /// <param name="needAffectedDetailsCheck">
+    /// If true (the default), check whether the counting circle results are in a state that "matters".
+    /// If false, add/remove the counting circle details regardless of their result's states.
+    /// </param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     internal async Task AdjustAggregatedDetails(
         Guid contestId,
         IReadOnlyCollection<ContestCountingCircleDetails> countingCircleDetails,
-        bool removeResults)
+        bool removeResults,
+        bool needAffectedDetailsCheck = true)
     {
         var deltaFactor = removeResults ? -1 : 1;
+        countingCircleDetails = needAffectedDetailsCheck
+            ? await RemoveNotAffectedDetails(contestId, countingCircleDetails)
+            : countingCircleDetails;
 
         var contestDetails = await GetContestDetails(contestId);
         var doiDetailsByCcId = await GetDomainOfInfluenceDetailsByCountingCircleId(contestId, countingCircleDetails);
@@ -76,6 +131,7 @@ public class AggregatedContestCountingCircleDetailsBuilder
         bool removeResults)
     {
         var deltaFactor = removeResults ? -1 : 1;
+        countingCircleDetails = await RemoveNotAffectedDetails(contestId, countingCircleDetails);
 
         var contestDetails = await GetContestDetails(contestId);
         var doiDetailsByCcId = await GetDomainOfInfluenceDetailsByCountingCircleId(contestId, countingCircleDetails);
@@ -102,6 +158,25 @@ public class AggregatedContestCountingCircleDetailsBuilder
         }
 
         await _dataContext.SaveChangesAsync();
+    }
+
+    private async Task<IReadOnlyCollection<ContestCountingCircleDetails>> RemoveNotAffectedDetails(
+        Guid contestId,
+        IReadOnlyCollection<ContestCountingCircleDetails> countingCircleDetails)
+    {
+        // The counting circle details are only affected if the result submission is "done"
+        var countingCircleIds = countingCircleDetails
+            .Select(d => d.CountingCircleId)
+            .ToHashSet();
+        var affectedCcIds = await _simpleCcResultsRepo.Query()
+            .Where(r => countingCircleIds.Contains(r.CountingCircleId)
+                && r.PoliticalBusiness!.ContestId == contestId
+                && r.State >= CountingCircleResultState.SubmissionDone)
+            .Select(x => x.CountingCircleId)
+            .ToHashSetAsync();
+        return countingCircleDetails
+            .Where(d => affectedCcIds.Contains(d.CountingCircleId))
+            .ToList();
     }
 
     private async Task<ContestDetails> GetContestDetails(Guid contestId)
@@ -139,7 +214,7 @@ public class AggregatedContestCountingCircleDetailsBuilder
                 continue;
             }
 
-            doi.Details = new()
+            doi.Details = new ContestDomainOfInfluenceDetails
             {
                 ContestId = contestId,
                 DomainOfInfluenceId = doi.Id,

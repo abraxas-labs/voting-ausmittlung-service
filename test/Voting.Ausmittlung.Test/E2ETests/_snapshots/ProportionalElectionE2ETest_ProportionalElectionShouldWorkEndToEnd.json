@@ -122,12 +122,14 @@
       {
         "Sex": 1,
         "VoterType": 1,
-        "CountOfVoters": 6171
+        "CountOfVoters": 6171,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 2,
         "VoterType": 1,
-        "CountOfVoters": 6180
+        "CountOfVoters": 6180,
+        "DomainOfInfluenceType": 1
       }
     ]
   },

@@ -35,7 +35,26 @@ public abstract class BaseValidationTest<TValidator, TEntity>
     protected ValidationContext BuildValidationContext(
         Action<ValidationContext>? contextCustomizer = null,
         Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
-        PoliticalBusinessType? pbType = null,
+        bool hasPreviousContest = true)
+    {
+        var pbDoi = new DomainOfInfluence
+        {
+            Type = DomainOfInfluenceType.Ch,
+        };
+
+        return BuildValidationContext(
+            pbDoi,
+            PoliticalBusinessType.ProportionalElection,
+            contextCustomizer,
+            responsibleForPlausibilisationDoiCustomizer,
+            hasPreviousContest);
+    }
+
+    protected ValidationContext BuildValidationContext(
+        DomainOfInfluence pbDoi,
+        PoliticalBusinessType pbType,
+        Action<ValidationContext>? contextCustomizer = null,
+        Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
         bool hasPreviousContest = true)
     {
         var ccId = Guid.Parse("bf2c4c85-e05e-4242-a324-667f3d2dbcbb");
@@ -90,7 +109,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
                 PreviousContestId = hasPreviousContest ? Guid.Parse("e86a8cff-b3d4-415f-9850-34e5325a73c7") : (Guid?)null,
             },
             VotingCards = new List<VotingCardResultDetail>
-                {
+            {
                     new VotingCardResultDetail { Channel = VotingChannel.ByMail, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfReceivedVotingCards = 400 },
                     new VotingCardResultDetail { Channel = VotingChannel.ByMail, Valid = false, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfReceivedVotingCards = 20 },
                     new VotingCardResultDetail { Channel = VotingChannel.EVoting, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfReceivedVotingCards = 100 },
@@ -101,8 +120,23 @@ public abstract class BaseValidationTest<TValidator, TEntity>
                     new VotingCardResultDetail { Channel = VotingChannel.EVoting, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfReceivedVotingCards = 50 },
                     new VotingCardResultDetail { Channel = VotingChannel.Paper, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfReceivedVotingCards = 50 },
                     new VotingCardResultDetail { Channel = VotingChannel.BallotBox, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfReceivedVotingCards = 100 },
-                },
-            TotalCountOfVoters = 960,
+                    new VotingCardResultDetail { Channel = VotingChannel.ByMail, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfReceivedVotingCards = 400 },
+                    new VotingCardResultDetail { Channel = VotingChannel.ByMail, Valid = false, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfReceivedVotingCards = 20 },
+                    new VotingCardResultDetail { Channel = VotingChannel.EVoting, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfReceivedVotingCards = 50 },
+                    new VotingCardResultDetail { Channel = VotingChannel.Paper, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfReceivedVotingCards = 50 },
+                    new VotingCardResultDetail { Channel = VotingChannel.BallotBox, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfReceivedVotingCards = 100 },
+            },
+            CountOfVotersInformationSubTotals = new List<CountOfVotersInformationSubTotal>
+            {
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfVoters = 500 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfVoters = 460 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfVoters = 450 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfVoters = 400 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfVoters = 450 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfVoters = 400 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Foreigner, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfVoters = 10 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Foreigner, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.An, CountOfVoters = 10 },
+            },
         };
 
         var previousCcDetails = new ContestCountingCircleDetails
@@ -128,18 +162,21 @@ public abstract class BaseValidationTest<TValidator, TEntity>
                     new VotingCardResultDetail { Channel = VotingChannel.Paper, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfReceivedVotingCards = 50 },
                     new VotingCardResultDetail { Channel = VotingChannel.BallotBox, Valid = true, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfReceivedVotingCards = 100 },
                 },
-            TotalCountOfVoters = 1000,
+            CountOfVotersInformationSubTotals = new List<CountOfVotersInformationSubTotal>
+            {
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfVoters = 600 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.Ch, CountOfVoters = 400 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Male, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfVoters = 500 },
+                new CountOfVotersInformationSubTotal { VoterType = VoterType.Swiss, Sex = SexType.Female, DomainOfInfluenceType = DomainOfInfluenceType.Ct, CountOfVoters = 400 },
+            },
         };
 
         var context = new ValidationContext(
             responsibleForPlausibilisationDoi,
+            pbDoi,
+            pbType,
             currentCcDetails,
             hasPreviousContest ? previousCcDetails : null);
-
-        if (pbType != null)
-        {
-            context.PoliticalBusinessType = pbType.Value;
-        }
 
         contextCustomizer?.Invoke(context);
         return context;

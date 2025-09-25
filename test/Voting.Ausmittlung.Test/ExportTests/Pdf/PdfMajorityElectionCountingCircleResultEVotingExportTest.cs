@@ -37,6 +37,17 @@ public class PdfMajorityElectionCountingCircleResultEVotingExportTest : PdfExpor
         await ModifyDbEntities<ContestCountingCircleDetails>(
             x => x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallen && x.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang),
             x => x.EVoting = true);
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

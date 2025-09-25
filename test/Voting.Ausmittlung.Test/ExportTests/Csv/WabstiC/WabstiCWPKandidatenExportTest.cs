@@ -44,6 +44,9 @@ public class WabstiCWPKandidatenExportTest : CsvExportBaseTest
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false); // Only includes data from end result
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

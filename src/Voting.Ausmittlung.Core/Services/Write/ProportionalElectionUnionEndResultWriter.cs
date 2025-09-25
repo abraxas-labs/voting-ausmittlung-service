@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Core.Exceptions;
+using Voting.Ausmittlung.Core.Models;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Utils;
-using Voting.Ausmittlung.TemporaryData.Models;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
 using Voting.Lib.Eventing.Persistence;
@@ -25,7 +25,6 @@ namespace Voting.Ausmittlung.Core.Services.Write;
 public class ProportionalElectionUnionEndResultWriter
 {
     private readonly IAggregateRepository _aggregateRepository;
-    private readonly IAggregateFactory _aggregateFactoriy;
     private readonly ContestService _contestService;
     private readonly IDbRepository<DataContext, DataModels.ProportionalElectionUnionEndResult> _endResultRepo;
     private readonly PermissionService _permissionService;
@@ -34,7 +33,6 @@ public class ProportionalElectionUnionEndResultWriter
 
     public ProportionalElectionUnionEndResultWriter(
         IAggregateRepository aggregateRepository,
-        IAggregateFactory aggregateFactoriy,
         ContestService contestService,
         IDbRepository<DataContext, DataModels.ProportionalElectionUnionEndResult> endResultRepo,
         PermissionService permissionService,
@@ -42,7 +40,6 @@ public class ProportionalElectionUnionEndResultWriter
         SecondFactorTransactionWriter secondFactorTransactionWriter)
     {
         _aggregateRepository = aggregateRepository;
-        _aggregateFactoriy = aggregateFactoriy;
         _contestService = contestService;
         _endResultRepo = endResultRepo;
         _permissionService = permissionService;
@@ -50,7 +47,7 @@ public class ProportionalElectionUnionEndResultWriter
         _secondFactorTransactionWriter = secondFactorTransactionWriter;
     }
 
-    public async Task<(SecondFactorTransaction SecondFactorTransaction, string Code, string QrCode)> PrepareFinalize(Guid unionId, string message)
+    public async Task<SecondFactorInfo> PrepareFinalize(Guid unionId, string message)
     {
         await _contestService.EnsureNotLockedByProportionalElectionUnion(unionId);
 

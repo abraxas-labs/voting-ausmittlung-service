@@ -1,11 +1,9 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Services.Validation.Validators;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Lib.Testing.Utils;
@@ -53,12 +51,16 @@ public class ComparisonVoterParticipationValidationTest : BaseValidationTest<Pol
         };
 
         var countOfVotersList = voteResults.SelectMany(x => x.Results).Select(x => x.CountOfVoters).ToList();
-        var context = BuildValidationContext(x => x.CurrentContestCountingCircleDetails.CountingCircle.VoteResults = voteResults);
 
         for (var i = 0; i < voteResults.Count; i++)
         {
             var voteResult = voteResults[i];
-            context.PoliticalBusinessDomainOfInfluenceType = voteResult.Vote.DomainOfInfluence.Type;
+
+            var context = BuildValidationContext(
+                    voteResult.Vote.DomainOfInfluence,
+                    PoliticalBusinessType.Vote,
+                    x => x.CurrentContestCountingCircleDetails.CountingCircle.VoteResults = voteResults);
+
             var validationResults = Validate(voteResult.Results.Single().CountOfVoters, context);
 
             EnsureHasCount(validationResults, expectedCounts[i]);
@@ -75,10 +77,9 @@ public class ComparisonVoterParticipationValidationTest : BaseValidationTest<Pol
     {
         var voteResults = MockVoteResults;
         var voteResult = voteResults[1];
-        var context = BuildValidationContext(x =>
+        var context = BuildValidationContext(voteResult.Vote.DomainOfInfluence, PoliticalBusinessType.Vote, x =>
         {
             x.CurrentContestCountingCircleDetails.CountingCircle.VoteResults = voteResults;
-            x.PoliticalBusinessDomainOfInfluenceType = voteResult.Vote.DomainOfInfluence.Type;
             x.PlausibilisationConfiguration!.ComparisonVoterParticipationConfigurations
                 .Single(y => y.MainLevel == DomainOfInfluenceType.Ch && y.ComparisonLevel == DomainOfInfluenceType.Ch)
                 .ThresholdPercent = null;
@@ -115,10 +116,5 @@ public class ComparisonVoterParticipationValidationTest : BaseValidationTest<Pol
                 },
             },
         };
-    }
-
-    private ValidationContext BuildValidationContext(Action<ValidationContext>? customizer = null)
-    {
-        return BuildValidationContext(customizer, null, PoliticalBusinessType.ProportionalElection);
     }
 }

@@ -200,6 +200,7 @@ public static class Permissions
         public const string ExportData = Prefix + ":export";
         public const string ExportMonitoringData = Prefix + ":export-monitoring";
         public const string ExportActivityProtocol = Prefix + ":export-activity-protocol";
+        public const string ExportEch0252ProportionalElectionWithCandidateListResultsInfo = Prefix + ":export-ech0252-proportional-election-with-candidate-info";
 
         private const string Prefix = "Export";
     }

@@ -67,8 +67,8 @@ public class ProportionalElectionUnionResultService : ServiceBase
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]
     public override async Task<ProtoModels.SecondFactorTransaction> PrepareFinalizeEndResult(PrepareFinalizeProportionalElectionUnionEndResultRequest request, ServerCallContext context)
     {
-        var (secondFactorTransaction, code, qrCode) = await _endResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionUnionId), Strings.ProportionalElectionUnionResult_FinalizeEndResult);
-        return new ProtoModels.SecondFactorTransaction { Id = secondFactorTransaction.Id.ToString(), Code = code, QrCode = qrCode };
+        var secondFactorInfo = await _endResultWriter.PrepareFinalize(GuidParser.Parse(request.ProportionalElectionUnionId), Strings.ProportionalElectionUnionResult_FinalizeEndResult);
+        return _mapper.Map<ProtoModels.SecondFactorTransaction>(secondFactorInfo);
     }
 
     [AuthorizePermission(Permissions.PoliticalBusinessUnionEndResult.Finalize)]

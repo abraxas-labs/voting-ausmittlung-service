@@ -135,6 +135,15 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
     [Fact]
     public async Task TestShouldUpdateTotalCountOfVoters()
     {
+        await ModifyDbEntities<CountOfVotersInformationSubTotal>(
+            st => st.ContestCountingCircleDetailsId == ContestCountingCircleDetailsMockData.GuidGossauUrnengangGossauContestCountingCircleDetails && st.DomainOfInfluenceType == DomainOfInfluenceType.Ch,
+            st => st.DomainOfInfluenceType = DomainOfInfluenceType.Sk);
+
+        // to test that ContestCountingCircleDetailsNotUpdatableException is not throwed.
+        await ModifyDbEntities<ProportionalElectionResult>(
+            r => r.Id == ProportionalElectionResultMockedData.GuidGossauElectionResultInContestGossau,
+            r => r.State = CountingCircleResultState.SubmissionDone);
+
         await TestEventPublisher.Publish(
             new ProportionalElectionUpdated
             {
@@ -164,29 +173,41 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
     }
 
     [Fact]
-    public async Task TestShouldCreateMissingVotingCards()
+    public async Task TestShouldCreateMissingVotingCardsAndSubTotals()
     {
         await RunOnDb(
             async db =>
             {
                 var details = await db.ContestCountingCircleDetails
+                    .AsSplitQuery()
                     .AsTracking()
                     .Include(x => x.VotingCards)
+                    .Include(x => x.CountOfVotersInformationSubTotals)
                     .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails);
                 details.VotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType != DomainOfInfluenceType.Ct).ToList();
+                details.CountOfVotersInformationSubTotals = details.CountOfVotersInformationSubTotals.Where(x => x.DomainOfInfluenceType != DomainOfInfluenceType.Ct).ToList();
                 await db.SaveChangesAsync();
             });
 
         var contestDetailsBefore = await RunOnDb(
             db => db.ContestDetails
+                .AsSplitQuery()
                 .Include(x => x.VotingCards)
+                .Include(x => x.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
 
         var doiDetailsBefore = await RunOnDb(
             db => db.DomainOfInfluences
+                .AsSplitQuery()
                 .Include(x => x.Details)
                 .ThenInclude(x => x!.VotingCards)
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
+
+        await ModifyDbEntities<SimpleCountingCircleResult>(
+            x => x.PoliticalBusinessId == ProportionalElectionMockedData.UzwilProportionalElectionInContestBundWithoutChilds.Id,
+            x => x.State = CountingCircleResultState.SubmissionDone);
 
         await TestEventPublisher.Publish(
             new ProportionalElectionUpdated
@@ -205,61 +226,85 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             });
 
         var details = await RunOnDb(
-            db => db.ContestCountingCircleDetails
-                .Include(x => x.VotingCards)
-                .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
+                    db => db.ContestCountingCircleDetails
+                        .AsSplitQuery()
+                        .Include(x => x.VotingCards)
+                        .Include(x => x.CountOfVotersInformationSubTotals)
+                        .SingleAsync(x => x.Id == ContestCountingCircleDetailsMockData.GuidStGallenUrnengangBundContestCountingCircleDetails));
 
         var newCreatedVotingCards = details.VotingCards.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).ToList();
         newCreatedVotingCards.Single(x => x.Valid && x.Channel == VotingChannel.BallotBox).CountOfReceivedVotingCards.Should().Be(2000);
         newCreatedVotingCards.Single(x => x.Valid && x.Channel == VotingChannel.ByMail).CountOfReceivedVotingCards.Should().Be(1000);
         newCreatedVotingCards.Single(x => !x.Valid && x.Channel == VotingChannel.ByMail).CountOfReceivedVotingCards.Should().Be(3000);
 
+        var newCreatedSubTotals = details.CountOfVotersInformationSubTotals.Where(x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct).ToList();
+        newCreatedSubTotals.Single(x => x.VoterType == VoterType.Swiss && x.Sex == SexType.Male).CountOfVoters.Should().Be(8000);
+        newCreatedSubTotals.Single(x => x.VoterType == VoterType.Swiss && x.Sex == SexType.Female).CountOfVoters.Should().Be(7000);
+        newCreatedSubTotals.Count.Should().Be(4);
+
         var contestDetailsAfter = await RunOnDb(
             db => db.ContestDetails
+                .AsSplitQuery()
                 .Include(x => x.VotingCards)
+                .Include(x => x.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.BallotBox,
-            2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.ByMail,
-            1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             contestDetailsBefore.VotingCards,
             contestDetailsAfter.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && !x.Valid && x.Channel == VotingChannel.ByMail,
-            3000);
+            0);
+
+        EnsureValidAggregatedSubTotals(
+            contestDetailsBefore.CountOfVotersInformationSubTotals,
+            contestDetailsAfter.CountOfVotersInformationSubTotals,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.VoterType == VoterType.Swiss && x.Sex == SexType.Male,
+            0);
 
         var doiDetailsAfter = await RunOnDb(
             db => db.DomainOfInfluences
+                .AsSplitQuery()
                 .Include(x => x.Details)
                 .ThenInclude(x => x!.VotingCards)
+                .Include(x => x.Details)
+                .ThenInclude(x => x!.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.SnapshotContestId == ContestMockedData.GuidBundesurnengang && x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id));
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.BallotBox,
-            2000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.Valid && x.Channel == VotingChannel.ByMail,
-            1000);
+            0);
 
         EnsureValidAggregatedVotingCards(
             doiDetailsBefore.Details!.VotingCards,
             doiDetailsAfter.Details!.VotingCards,
             x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && !x.Valid && x.Channel == VotingChannel.ByMail,
-            3000);
+            0);
+
+        EnsureValidAggregatedSubTotals(
+            doiDetailsBefore.Details!.CountOfVotersInformationSubTotals,
+            doiDetailsAfter.Details!.CountOfVotersInformationSubTotals,
+            x => x.DomainOfInfluenceType == DomainOfInfluenceType.Ct && x.VoterType == VoterType.Swiss && x.Sex == SexType.Male,
+            0);
     }
 
     [Fact]
@@ -272,36 +317,42 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                 VoterType = VoterType.Swiss,
                 Sex = SexType.Male,
                 CountOfVoters = 1050,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
             new()
             {
                 VoterType = VoterType.Swiss,
                 Sex = SexType.Female,
                 CountOfVoters = 950,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
             new()
             {
                 VoterType = VoterType.Foreigner,
                 Sex = SexType.Male,
                 CountOfVoters = 90,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
             new()
             {
                 VoterType = VoterType.Foreigner,
                 Sex = SexType.Female,
                 CountOfVoters = 110,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
             new()
             {
                 VoterType = VoterType.Minor,
                 Sex = SexType.Male,
                 CountOfVoters = 11,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
             new()
             {
                 VoterType = VoterType.Minor,
                 Sex = SexType.Female,
                 CountOfVoters = 9,
+                DomainOfInfluenceType = DomainOfInfluenceType.Ct,
             },
         };
 
@@ -319,8 +370,6 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                     details.CountOfVotersInformationSubTotals.Add(subTotal);
                 }
 
-                details.TotalCountOfVoters = subTotals.Sum(s => s.CountOfVoters.GetValueOrDefault());
-
                 var contestDetails = await db.ContestDetails
                     .AsTracking()
                     .Include(x => x.CountOfVotersInformationSubTotals)
@@ -334,6 +383,7 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
                         Sex = subTotal.Sex,
                         CountOfVoters = subTotal.CountOfVoters.GetValueOrDefault(),
                         VoterType = subTotal.VoterType,
+                        DomainOfInfluenceType = subTotal.DomainOfInfluenceType,
                     });
                 }
 
@@ -344,6 +394,9 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
             db => db.ContestDetails
                 .Include(x => x.CountOfVotersInformationSubTotals)
                 .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang));
+        await ModifyDbEntities<SimpleCountingCircleResult>(
+            x => x.PoliticalBusinessId == ProportionalElectionMockedData.BundProportionalElectionInContestBund.Id,
+            x => x.State = CountingCircleResultState.SubmissionDone);
 
         await TestEventPublisher.Publish(
             new ProportionalElectionUpdated
@@ -369,19 +422,19 @@ public class ProportionalElectionUpdateTest : BaseDataProcessorTest
         EnsureValidAggregatedSubTotals(
             contestDetailsBefore.CountOfVotersInformationSubTotals,
             contestDetailsAfter.CountOfVotersInformationSubTotals,
-            x => x.Sex == SexType.Female && x.VoterType == VoterType.Swiss,
+            x => x.Sex == SexType.Female && x.VoterType == VoterType.Swiss && x.DomainOfInfluenceType == DomainOfInfluenceType.Ct,
             0);
 
         EnsureValidAggregatedSubTotals(
             contestDetailsBefore.CountOfVotersInformationSubTotals,
             contestDetailsAfter.CountOfVotersInformationSubTotals,
-            x => x.Sex == SexType.Male && x.VoterType == VoterType.Foreigner,
+            x => x.Sex == SexType.Male && x.VoterType == VoterType.Foreigner && x.DomainOfInfluenceType == DomainOfInfluenceType.Ct,
             -90);
 
         EnsureValidAggregatedSubTotals(
             contestDetailsBefore.CountOfVotersInformationSubTotals,
             contestDetailsAfter.CountOfVotersInformationSubTotals,
-            x => x.Sex == SexType.Female && x.VoterType == VoterType.Minor,
+            x => x.Sex == SexType.Female && x.VoterType == VoterType.Minor && x.DomainOfInfluenceType == DomainOfInfluenceType.Ct,
             -9);
     }
 }

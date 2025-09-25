@@ -39,9 +39,11 @@ public class VoteResultProcessor :
         VoteResultRepo voteResultRepo,
         IDbRepository<DataContext, SimpleCountingCircleResult> simpleResultRepo,
         IDbRepository<DataContext, CountingCircleResultComment> commentRepo,
+        IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
         VoteEndResultBuilder endResultBuilder,
-        VoteResultBuilder resultBuilder)
-        : base(voteResultRepo, simpleResultRepo, commentRepo)
+        VoteResultBuilder resultBuilder,
+        AggregatedContestCountingCircleDetailsBuilder aggregatedCcDetailsBuilder)
+        : base(voteResultRepo, simpleResultRepo, commentRepo, protocolExportRepo, aggregatedCcDetailsBuilder)
     {
         _eventLogger = eventLogger;
         _resultBuilder = resultBuilder;
@@ -87,6 +89,7 @@ public class VoteResultProcessor :
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         await UpdateState(voteResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
+        await _endResultBuilder.AdjustVoteEndResult(voteResultId, false);
         _eventLogger.LogResultEvent(eventData, voteResultId);
     }
 
@@ -95,6 +98,7 @@ public class VoteResultProcessor :
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         var createdComment = await CreateCommentIfNeeded(voteResultId, eventData.Comment, false, eventData.EventInfo);
         await UpdateState(voteResultId, CountingCircleResultState.CorrectionDone, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustVoteEndResult(voteResultId, false);
         _eventLogger.LogResultEvent(eventData, voteResultId);
     }
 
@@ -103,6 +107,7 @@ public class VoteResultProcessor :
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         var createdComment = await CreateCommentIfNeeded(voteResultId, eventData.Comment, true, eventData.EventInfo);
         await UpdateState(voteResultId, CountingCircleResultState.ReadyForCorrection, eventData.EventInfo, createdComment);
+        await _endResultBuilder.AdjustVoteEndResult(voteResultId, true);
         _eventLogger.LogResultEvent(eventData, voteResultId);
     }
 
@@ -110,7 +115,6 @@ public class VoteResultProcessor :
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         await UpdateState(voteResultId, CountingCircleResultState.AuditedTentatively, eventData.EventInfo);
-        await _endResultBuilder.AdjustVoteEndResult(voteResultId, false);
         _eventLogger.LogResultEvent(eventData, voteResultId);
     }
 
@@ -125,7 +129,6 @@ public class VoteResultProcessor :
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
         await UpdateState(voteResultId, CountingCircleResultState.SubmissionDone, eventData.EventInfo);
-        await _endResultBuilder.AdjustVoteEndResult(voteResultId, true);
         _eventLogger.LogResultEvent(eventData, voteResultId);
     }
 
@@ -139,6 +142,9 @@ public class VoteResultProcessor :
     public async Task Process(VoteResultResetted eventData)
     {
         var voteResultId = GuidParser.Parse(eventData.VoteResultId);
+
+        // Only the counting circle result is updated here.
+        // The end result adjustments are handled by the "ContestCountingCircleDetailsResetted" event processing.
         await UpdateState(voteResultId, CountingCircleResultState.SubmissionOngoing, eventData.EventInfo);
         await _resultBuilder.ResetConventionalResultInTestingPhase(voteResultId);
         _eventLogger.LogResultEvent(eventData, voteResultId);

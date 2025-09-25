@@ -50,6 +50,14 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
         }
     }
 
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<VoteResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.Initial);
+        return true;
+    }
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest
@@ -116,6 +124,7 @@ public class CsvVoteEVotingDetailsExportTest : CsvExportBaseTest
             foreach (var voteResult in voteResults)
             {
                 voteResult.TotalSentEVotingVotingCards = 5 * modifier;
+                voteResult.State = CountingCircleResultState.SubmissionDone;
             }
 
             foreach (var ballotResult in ballotResults)

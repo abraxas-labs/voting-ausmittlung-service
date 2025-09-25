@@ -68,8 +68,17 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
     [Fact]
     public async Task TestShouldReturnWithEmptySecondFactorId()
     {
+        ContestId = ContestMockedData.GuidStGallenEvoting;
+        CountingCircleId = CountingCircleMockedData.GuidGossau;
+        VoteId = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
+        ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdGossauProportionalElectionInContestStGallen);
+        MajorityElectionId = Guid.Parse(MajorityElectionMockedData.IdGossauMajorityElectionInContestStGallen);
+        VoteResultId = VoteResultMockedData.GuidGossauVoteInContestStGallenResult;
+        ProportionalElectionResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
+        MajorityElectionResultId = MajorityElectionResultMockedData.GuidGossauElectionResultInContestStGallen;
+
         await SetResultState(CountingCircleResultState.SubmissionOngoing);
-        await ErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
+        await StGallenErfassungElectionAdminClient.SubmissionFinishedAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty));
 
         var voteResultEvents = EventPublisherMock.GetPublishedEvents<VoteResultSubmissionFinished>().ToList();
         var proportionalElectionResultEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultSubmissionFinished>().ToList();
@@ -82,22 +91,6 @@ public class ResultSubmissionFinishedTest : MultiResultBaseTest
         voteResultEvents.MatchSnapshot(nameof(voteResultEvents));
         proportionalElectionResultEvents.MatchSnapshot(nameof(proportionalElectionResultEvents));
         majorityElectionResultEvents.MatchSnapshot(nameof(majorityElectionResultEvents));
-
-        var voteResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<VoteResultAuditedTentatively>().ToList();
-        var proportionalElectionResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<ProportionalElectionResultAuditedTentatively>().ToList();
-        var majorityElectionResultAuditedTentativelyEvents = EventPublisherMock.GetPublishedEvents<MajorityElectionResultAuditedTentatively>().ToList();
-
-        voteResultAuditedTentativelyEvents.Should().HaveCount(1);
-        proportionalElectionResultAuditedTentativelyEvents.Should().HaveCount(1);
-        majorityElectionResultAuditedTentativelyEvents.Should().HaveCount(1);
-
-        voteResultAuditedTentativelyEvents.MatchSnapshot(nameof(voteResultAuditedTentativelyEvents));
-        proportionalElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(proportionalElectionResultAuditedTentativelyEvents));
-        majorityElectionResultAuditedTentativelyEvents.MatchSnapshot(nameof(majorityElectionResultAuditedTentativelyEvents));
-
-        EventPublisherMock.GetPublishedEvents<MajorityElectionResultPublished>().Should().NotBeEmpty();
-        EventPublisherMock.GetPublishedEvents<ProportionalElectionResultPublished>().Should().NotBeEmpty();
-        EventPublisherMock.GetPublishedEvents<VoteResultPublished>().Should().NotBeEmpty();
     }
 
     [Fact]

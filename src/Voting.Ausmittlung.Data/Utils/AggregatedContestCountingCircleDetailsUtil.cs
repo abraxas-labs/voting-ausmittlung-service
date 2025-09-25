@@ -17,8 +17,6 @@ public static class AggregatedContestCountingCircleDetailsUtil
         where TCountOfVotersInformationSubTotal : AggregatedCountOfVotersInformationSubTotal, new()
         where TVotingCardResultDetail : AggregatedVotingCardResultDetail, new()
     {
-        aggregatedDetails.TotalCountOfVoters += countingCircleDetails.TotalCountOfVoters * deltaFactor;
-
         AdjustCountOfVotersInfo(
             aggregatedDetails.CountOfVotersInformationSubTotals,
             countingCircleDetails.CountOfVotersInformationSubTotals,
@@ -61,16 +59,17 @@ public static class AggregatedContestCountingCircleDetailsUtil
         int deltaFactor)
         where TAggregatedCountOfVotersInformationSubTotal : AggregatedCountOfVotersInformationSubTotal, new()
     {
-        var subTotalsBySexAndVoterType = aggregatedCountOfVotersInformationSubTotals.ToDictionary(x => (x.Sex, x.VoterType));
+        var subTotalsBySexAndVoterTypeAndDoiType = aggregatedCountOfVotersInformationSubTotals.ToDictionary(x => (x.Sex, x.VoterType, x.DomainOfInfluenceType));
         foreach (var countOfVotersInfoSubTotal in countOfVotersInformationSubTotals)
         {
-            subTotalsBySexAndVoterType.TryGetValue((countOfVotersInfoSubTotal.Sex, countOfVotersInfoSubTotal.VoterType), out var matchingSubTotal);
+            subTotalsBySexAndVoterTypeAndDoiType.TryGetValue((countOfVotersInfoSubTotal.Sex, countOfVotersInfoSubTotal.VoterType, countOfVotersInfoSubTotal.DomainOfInfluenceType), out var matchingSubTotal);
             if (matchingSubTotal == null)
             {
                 matchingSubTotal = new()
                 {
                     VoterType = countOfVotersInfoSubTotal.VoterType,
                     Sex = countOfVotersInfoSubTotal.Sex,
+                    DomainOfInfluenceType = countOfVotersInfoSubTotal.DomainOfInfluenceType,
                 };
 
                 aggregatedCountOfVotersInformationSubTotals.Add(matchingSubTotal);

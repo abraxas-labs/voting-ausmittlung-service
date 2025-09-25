@@ -60,17 +60,22 @@ public class WabstiCWPStaticGemeindenRenderService : WabstiCWPBaseRenderService
                     .Select(y => y.ProportionalElectionUnionId)
                     .OrderBy(y => y)
                     .ToList(),
+                ResultState = x.State,
             })
             .ToListAsync(ct);
 
         await _contestDetailsAttacher.AttachSwissAbroadCountOfVoters(ctx.ContestId, results, ct);
+        foreach (var result in results)
+        {
+            result.ResetDataIfSubmissionNotDone();
+        }
 
         return await RenderToCsv(
             ctx,
             results);
     }
 
-    private class Data : IWabstiCSwissAbroadCountOfVoters
+    private class Data : IWabstiCSwissAbroadCountOfVoters, IWabstiCPoliticalResultData
     {
         [Ignore]
         public Guid CountingCircleId { get; set; }
@@ -107,10 +112,10 @@ public class WabstiCWPStaticGemeindenRenderService : WabstiCWPBaseRenderService
         public string PoliticalBusinessShortDescription => PoliticalBusinessTranslations.GetTranslated(x => x.ShortDescription);
 
         [Name("Stimmberechtigte")]
-        public int TotalCountOfVoters { get; set; }
+        public int? TotalCountOfVoters { get; set; }
 
         [Name("StimmberechtigteAusl")]
-        public int CountOfVotersTotalSwissAbroad { get; set; }
+        public int? CountOfVotersTotalSwissAbroad { get; set; }
 
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }
@@ -119,5 +124,19 @@ public class WabstiCWPStaticGemeindenRenderService : WabstiCWPBaseRenderService
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            TotalCountOfVoters = null;
+            CountOfVotersTotalSwissAbroad = null;
+        }
     }
 }

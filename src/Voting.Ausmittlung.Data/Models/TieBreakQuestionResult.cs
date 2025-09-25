@@ -50,7 +50,10 @@ public class TieBreakQuestionResult : BaseEntity,
             ? 0
             : (decimal)TotalCountOfAnswerQ1 / (TotalCountOfAnswerQ1 + TotalCountOfAnswerQ2);
 
-    public decimal PercentageQ2 => 1 - PercentageQ1;
+    public decimal PercentageQ2 =>
+        TotalCountOfAnswerQ1 == 0 && TotalCountOfAnswerQ2 == 0
+            ? 0
+            : 1 - PercentageQ1;
 
     public int CountOfAnswerTotal => TotalCountOfAnswerQ1 + TotalCountOfAnswerQ2 + TotalCountOfAnswerUnspecified;
 }

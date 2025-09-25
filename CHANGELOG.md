@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.63.12`)
+# ✨ Changelog (`v2.71.9`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,312 +8,454 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.63.12
-Previous version ---- v2.51.0
+This version -------- v2.71.9
+Previous version ---- v2.63.12
 Initial version ----- v1.29.14
-Total commits ------- 895
+Total commits ------- 950
 ```
 
-## [v2.63.12] - 2025-05-17
+## [v2.71.9] - 2025-09-25
 
 ### 🔄 Changed
 
-- fix subtotals mapping in secondary election detail protocols
+- filter hagenbach bischoff protocols
 
-## [v2.63.11] - 2025-05-15
-
-### 🔄 Changed
-
-- fix mandate algorithm mapping in secondary election detail protocols
-
-## [v2.63.10] - 2025-05-15
+## [v2.71.8] - 2025-09-24
 
 ### 🔄 Changed
 
-- include invalid votes and order secondary majority election ballots in bundle review
+- handle concurrent updates to contact person from Basis and Ausmittlung
 
-## [v2.63.9] - 2025-05-14
+## [v2.71.7] - 2025-09-23
+
+### 🔄 Changed
+
+- correctly sum counting circle details and adjust end results after state update
+
+## [v2.71.6] - 2025-09-18
+
+### 🆕 Added
+
+- add proportional mandate algorithms to protocol xml
+
+## [v2.71.5] - 2025-09-17
+
+### 🔄 Changed
+
+- use two phase compaction
+
+## [v2.71.4] - 2025-09-16
+
+### 🔄 Changed
+
+- for Models TieBreakQuestionEndResult, TieBreakQuestionResult, TieBreakQuestionDomainOfInfluenceResult  and Mapping VoteResultProfile: set PercentageQ2 only if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0 otherwise set to default = 0
+- in Class VoteDomainOfInfluenceRsultBuilder for function ApplyQuestionResult: only count if if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0
+
+## [v2.71.3] - 2025-09-15
+
+### 🔄 Changed
+
+- add gc compaction for specific requests as band-aid until memory issues with ech data exports are fixed
+
+## [v2.71.2] - 2025-09-12
+
+### 🔄 Changed
+
+- for Models BallotQuestionEndResult, BallotQuestionResult, BallotQuestionDomainOfInfluenceResult and Mapping VoteResultProfile: set PercentageNo only if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0 otherwise set to default = 0
+- in Class VoteDomainOfInfluenceRsultBuilder for function ApplyQuestionResult: only count if if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0
+
+## [v2.71.1] - 2025-09-04
+
+### 🔄 Changed
+
+- ensure correct mandate distribution with previous audited tentatively versions
+
+## [v2.71.0] - 2025-09-03
+
+### 🆕 Added
+
+- add 2FA to submission finished and audited tentatively methods
+
+## [v2.70.9] - 2025-08-29
+
+### 🔄 Changed
+
+- do not require second factor in testing phase in specific cases
+
+## [v2.70.8] - 2025-08-28
+
+### 🔄 Changed
+
+- consider correct domain of influence for partial results reporting level
+
+## [v2.70.7] - 2025-08-28
+
+### 🔄 Changed
+
+- only show contests with active political businesses in monitoring
+
+## [v2.70.6] - 2025-08-27
+
+### 🔄 Changed
+
+- improve query performance of ListSummaries for owned political businesses
+
+## [v2.70.5] - 2025-08-26
+
+### 🔄 Changed
+
+- filter all majority detail protocols with single counting circle result
+
+## [v2.70.4] - 2025-08-26
+
+### 🔄 Changed
+
+- filter partial result protocols in export templates
+
+## [v2.70.3] - 2025-08-22
+
+### 🔄 Changed
+
+- sum nullable ints as null if all values are null in WabstiC
+
+## [v2.70.2] - 2025-08-20
+
+### 🔄 Changed
+
+- adjust reporting level on domain of influence protocols with partial results
+
+## [v2.70.1] - 2025-08-20
+
+### 🔄 Changed
+
+- improve ListSummaries performance by adding an index
+
+## [v2.70.0] - 2025-08-19
+
+### 🔄 Changed
+
+- always require second factor
+
+## [v2.69.2] - 2025-08-14
+
+### 🔄 Changed
+
+- add pdf domain of influence partial results flag
+
+## [v2.69.1] - 2025-08-14
+
+### 🔄 Changed
+
+- change malware scanner config
+
+## [v2.69.0] - 2025-08-08
+
+### 🆕 Added
+
+- PublisherConfig: added new configuration EnableCantonSuffixTemplateKeys to set canton suffix to single reports. Needed for report splitting project.
+
+### 🔄 Changed
+
+- ProtocolExportService and ResultExportService: implement canton suffix for single protocol with new confiuration
+
+### 🔄 Changed
+
+- fix absolute majority threshold and other roundings in exports
+
+### 🔄 Changed
+
+- add listIndentureNumber to eCH-0252 export
+
+### 🔄 Changed
+
+- add candidateReferenceOnPosition to eCH-0252
+
+## [v2.68.3] - 2025-07-25
+
+### 🔄 Changed
+
+- validate counting circle details on all levels
+
+## [v2.68.2] - 2025-07-08
+
+### 🔄 Changed
+
+- PoliticalBusinessResultProcessor: delete protocol export entries when state changes to CountingCircleResultState.AuditedTentatively
+
+## [v2.68.1] - 2025-07-03
+
+### 🔄 Changed
+
+- correctly export candidates in eCH-0252
+
+## [v2.68.0] - 2025-07-03
+
+### 🆕 Added
+
+- add eCH-0252 proportional election export with candidate list results info
+
+## [v2.67.7] - 2025-07-02
+
+### 🔄 Changed
+
+- bump pkcs11 driver from 4.45 to 4.51.0.1
+
+## [v2.67.6] - 2025-06-30
+
+### 🔄 Changed
+
+- support counting circle result reset with monitoring states
+
+## [v2.67.5] - 2025-06-30
+
+### 🔄 Changed
+
+- fix super apportionment count of mandates for lotdecision
+
+## [v2.67.4] - 2025-06-30
+
+### 🔄 Changed
+
+- filter eCH-0252 political business types correctly
+
+## [v2.67.3] - 2025-06-20
+
+### 🔄 Changed
+
+- ResultExportTemplateReader: set protocol name regarding number of doi if TemplateModel is "PerDomainOfInfluence"
+
+## [v2.67.2] - 2025-06-20
+
+### 🔄 Changed
+
+- do not export eCH-0252 swiss information for non-swiss candidates
+
+## [v2.67.1] - 2025-06-19
+
+### 🔄 Changed
+
+- fix count of voters sub total sync on political business deletion
+
+## [v2.67.0] - 2025-06-18
+
+### 🔄 Changed
+
+- eCH export languages dependent of contest e-voting
+
+## [v2.66.2] - 2025-06-17
+
+### 🔄 Changed
+
+- export null instead of 0 for missing values in WabstiC
+
+## [v2.66.1] - 2025-06-17
+
+### 🔄 Changed
+
+- fix permission check for bundle review protocol live updates
+
+## [v2.66.0] - 2025-06-16
+
+### 🔄 Changed
+
+- show results when submission is done
+
+## [v2.65.1] - 2025-06-11
+
+### 🔄 Changed
+
+- fix count of voters update on political business modifications
+
+## [v2.65.0] - 2025-06-02
+
+### 🆕 Added
+
+- count of voters sub total with domain of influence type
+
+## [v2.64.1] - 2025-05-27
 
 ### 🔄 Changed
 
 - fix voter participation rounding in protocols
 
-## [v2.63.8] - 2025-05-14
+## [v2.64.0] - 2025-05-27
 
 ### 🔄 Changed
 
-- fix voter participation rounding in protocols
+- refactor dockerfile and reduce cache layers
 
-## [v2.63.7] - 2025-05-14
+### 🔒 Security
+
+- introduce user id and group id to avoid random assignment
+- use exec form to avoid shell interpretation
+
+## [v2.63.13] - 2025-05-26
+
+### 🔄 Changed
+
+- filter hagenbach bischoff protocols
+
+### 🔄 Changed
+
+- handle concurrent updates to contact person from Basis and Ausmittlung
+
+### 🔄 Changed
+
+- correctly sum counting circle details and adjust end results after state update
 
 ### 🆕 Added
 
-- add secondary election detail protocols
-
-## [v2.63.6] - 2025-05-14
+- add proportional mandate algorithms to protocol xml
 
 ### 🔄 Changed
 
-- ignore hide lower domain of influence in report when same tenant in detail protocols
-
-## [v2.63.5] - 2025-05-06
-
-### 🔄 Changed
-
-- support partial end results in vote end result protocol
-
-## [v2.63.4] - 2025-05-01
+- for Models TieBreakQuestionEndResult, TieBreakQuestionResult, TieBreakQuestionDomainOfInfluenceResult  and Mapping VoteResultProfile: set PercentageQ2 only if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0 otherwise set to default = 0
+- in Class VoteDomainOfInfluenceRsultBuilder for function ApplyQuestionResult: only count if if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0
 
 ### 🔄 Changed
 
-- improve eCH-0252 write in candidate values
-
-## [v2.63.3] - 2025-04-16
+- add gc compaction for specific requests as band-aid until memory issues with ech data exports are fixed
 
 ### 🔄 Changed
 
-- correctly report eCH-0252 counting circle types
-
-## [v2.63.2] - 2025-04-16
+- for Models BallotQuestionEndResult, BallotQuestionResult, BallotQuestionDomainOfInfluenceResult and Mapping VoteResultProfile: set PercentageNo only if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0 otherwise set to default = 0
+- in Class VoteDomainOfInfluenceRsultBuilder for function ApplyQuestionResult: only count if if TotalCountOfAnswerYes != 0 || TotalCountOfAnswerNo != 0
 
 ### 🔄 Changed
 
-- correct calculation of voter participation with hide lower dois flag enabled in protocols
-
-## [v2.63.1] - 2025-04-15
+- ensure correct mandate distribution with previous audited tentatively versions
 
 ### 🆕 Added
 
-- add counting circle to end result protocols where needed
-
-## [v2.63.0] - 2025-04-15
+- add 2FA to submission finished and audited tentatively methods
 
 ### 🔄 Changed
 
-- secondary election candidate end result state dependent of primary election result
-
-## [v2.62.8] - 2025-04-15
+- do not require second factor in testing phase in specific cases
 
 ### 🔄 Changed
 
-- change column order for wabstic proportional election exports
+- consider correct domain of influence for partial results reporting level
 
-## [v2.62.7] - 2025-04-10
+### 🔄 Changed
+
+- only show contests with active political businesses in monitoring
+
+### 🔄 Changed
+
+- filter all majority detail protocols with single counting circle result
+
+### 🔄 Changed
+
+- filter partial result protocols in export templates
+
+### 🔄 Changed
+
+- sum nullable ints as null if all values are null in WabstiC
+
+### 🔄 Changed
+
+- adjust reporting level on domain of influence protocols with partial results
+
+### 🔄 Changed
+
+- always require second factor
+
+### 🔄 Changed
+
+- add pdf domain of influence partial results flag
+
+### 🔄 Changed
+
+- change malware scanner config
 
 ### 🆕 Added
 
-- add candidate title to eCH-0252 exports
-
-## [v2.62.6] - 2025-04-09
+- PublisherConfig: added new configuration EnableCantonSuffixTemplateKeys to set canton suffix to single reports. Needed for report splitting project.
 
 ### 🔄 Changed
 
-- improve list contests api endpoint performance
-
-## [v2.62.5] - 2025-04-07
+- ProtocolExportService and ResultExportService: implement canton suffix for single protocol with new confiuration
 
 ### 🔄 Changed
 
-- update pdf diff verified pdfs
-
-## [v2.62.4] - 2025-04-01
+- fix absolute majority threshold and other roundings in exports
 
 ### 🔄 Changed
 
-- adjust proportional election wabstic exports
-
-## [v2.62.3] - 2025-03-31
+- add listIndentureNumber to eCH-0252 export
 
 ### 🔄 Changed
 
-- correct counting circle validation in e-voting import
-
-## [v2.62.2] - 2025-03-27
+- add candidateReferenceOnPosition to eCH-0252
 
 ### 🔄 Changed
 
-- don't export majority election write in candidates in eCH-0252 information export
+- validate counting circle details on all levels
 
-## [v2.62.1] - 2025-03-27
+### 🔄 Changed
+
+- PoliticalBusinessResultProcessor: delete protocol export entries when state changes to CountingCircleResultState.AuditedTentatively
+
+### 🔄 Changed
+
+- correctly export candidates in eCH-0252
 
 ### 🆕 Added
 
-- add empty proportional list in eCH-0252 information export
+- add eCH-0252 proportional election export with candidate list results info
 
-## [v2.62.0] - 2025-03-26
+### 🔄 Changed
+
+- bump pkcs11 driver from 4.45 to 4.51.0.1
+
+### 🔄 Changed
+
+- support counting circle result reset with monitoring states
+
+### 🔄 Changed
+
+- fix super apportionment count of mandates for lotdecision
+
+### 🔄 Changed
+
+- filter eCH-0252 political business types correctly
+
+### 🔄 Changed
+
+- ResultExportTemplateReader: set protocol name regarding number of doi if TemplateModel is "PerDomainOfInfluence"
+
+### 🔄 Changed
+
+- do not export eCH-0252 swiss information for non-swiss candidates
+
+### 🔄 Changed
+
+- fix count of voters sub total sync on political business deletion
+
+### 🔄 Changed
+
+- eCH export languages dependent of contest e-voting
+
+### 🔄 Changed
+
+- export null instead of 0 for missing values in WabstiC
+
+### 🔄 Changed
+
+- fix permission check for bundle review protocol live updates
+
+### 🔄 Changed
+
+- show results when submission is done
+
+### 🔄 Changed
+
+- fix count of voters update on political business modifications
 
 ### 🆕 Added
 
-- add counting circle details and ballot results to result overview
-
-## [v2.61.6] - 2025-03-25
-
-### 🔄 Changed
-
-- publish results for multiple submission finished
-
-## [v2.61.5] - 2025-03-21
-
-### 🆕 Added
-
-- add empty vote count disabled flag to majority election protocols
-
-## [v2.61.4] - 2025-03-19
-
-### 🔄 Changed
-
-- esult overview should contain both partial results and owned political businesses
-
-## [v2.61.3] - 2025-03-19
-
-### 🔄 Changed
-
-- eCH-0252 always create XML even when no results are present
-
-## [v2.61.2] - 2025-03-18
-
-### 🔄 Changed
-
-- export api list protocol for accessible political businesses
-
-### 🆕 Added
-
-- add pdf diff project
-
-## [v2.61.1] - 2025-03-17
-
-### 🔄 Changed
-
-- fix(VOTING-5562): fix import processor for legacy events
-
-## [v2.61.0] - 2025-03-17
-
-### 🆕 Added
-
-- add country, street and house number to election candidate
-
-## [v2.60.4] - 2025-03-17
-
-### 🔄 Changed
-
-- fix protocol export event processing
-
-## [v2.60.3] - 2025-03-14
-
-### 🔄 Changed
-
-- remove incorrect contests in contest list summary
-
-## [v2.60.2] - 2025-03-13
-
-### 🔄 Changed
-
-- show contest in monitoring overview as manager without any political business to manage
-
-## [v2.60.1] - 2025-03-13
-
-### 🆕 Added
-
-- add incumbent to proportional election candidates csv exports
-
-## [v2.60.0] - 2025-03-12
-
-### 🆕 Added
-
-- added report level name
-
-## [v2.59.0] - 2025-03-11
-
-### 🆕 Added
-
-- generic event watching
-
-## [v2.58.0] - 2025-03-07
-
-### 🔄 Changed
-
-- generate vote end result report per domain of influence
-
-## [v2.57.2] - 2025-03-06
-
-### 🔄 Changed
-
-- fix processing when missing voting cards get added and sub totals get removed
-
-## [v2.57.1] - 2025-03-05
-
-### 🆕 Added
-
-- eCH-0252 proportional election list union added
-
-## [v2.57.0] - 2025-03-05
-
-### 🆕 Added
-
-- e-counting write-in handling
-
-## [v2.56.1] - 2025-03-04
-
-### 🔄 Changed
-
-- ensure valid majority election ballot
-
-## [v2.56.0] - 2025-02-28
-
-### 🔄 Changed
-
-- e-counting import
-
-## [v2.55.3] - 2025-02-26
-
-### 🔄 Changed
-
-- contest owners see all political businesses in eCH-0252 exports
-
-## [v2.55.2] - 2025-02-26
-
-### 🔄 Changed
-
-- added additional vote infos to eCH-0252 tie break questions
-
-## [v2.55.1] - 2025-02-26
-
-### 🔄 Changed
-
-- reverted routing changes in ExportController and ResultExportController
-
-## [v2.55.0] - 2025-02-24
-
-### 🔄 Changed
-
-- routing of ExportController and ResultExportController. Rename of ResultExportController to ProtocolExportControler
-
-## [v2.54.2] - 2025-02-21
-
-### 🔄 Changed
-
-- update basis majority election ballot groups event processing
-
-## [v2.54.1] - 2025-02-14
-
-### 🔄 Changed
-
-- fix proportional election union end result election count sync
-- fix election end result update with super apportionment lot decisions
-
-## [v2.54.0] - 2025-02-13
-
-### 🔄 Changed
-
-- fix subtotals mapping in secondary election detail protocols
-
-### 🔄 Changed
-
-- fix mandate algorithm mapping in secondary election detail protocols
-
-### 🔄 Changed
-
-- include invalid votes and order secondary majority election ballots in bundle review
+- count of voters sub total with domain of influence type
 
 ### 🔄 Changed
 
@@ -321,173 +463,9 @@ Total commits ------- 895
 
 ### 🔄 Changed
 
-- fix voter participation rounding in protocols
+- refactor dockerfile and reduce cache layers
 
-### 🆕 Added
+### 🔒 Security
 
-- add secondary election detail protocols
-
-### 🔄 Changed
-
-- ignore hide lower domain of influence in report when same tenant in detail protocols
-
-### 🔄 Changed
-
-- support partial end results in vote end result protocol
-
-### 🔄 Changed
-
-- improve eCH-0252 write in candidate values
-
-### 🔄 Changed
-
-- correctly report eCH-0252 counting circle types
-
-### 🔄 Changed
-
-- correct calculation of voter participation with hide lower dois flag enabled in protocols
-
-### 🆕 Added
-
-- add counting circle to end result protocols where needed
-
-### 🔄 Changed
-
-- secondary election candidate end result state dependent of primary election result
-
-### 🔄 Changed
-
-- change column order for wabstic proportional election exports
-
-### 🆕 Added
-
-- add candidate title to eCH-0252 exports
-
-### 🔄 Changed
-
-- update pdf diff verified pdfs
-
-### 🔄 Changed
-
-- adjust proportional election wabstic exports
-
-### 🔄 Changed
-
-- correct counting circle validation in e-voting import
-
-### 🔄 Changed
-
-- don't export majority election write in candidates in eCH-0252 information export
-
-### 🆕 Added
-
-- add empty proportional list in eCH-0252 information export
-
-### 🆕 Added
-
-- add counting circle details and ballot results to result overview
-
-### 🔄 Changed
-
-- publish results for multiple submission finished
-
-### 🆕 Added
-
-- add empty vote count disabled flag to majority election protocols
-
-### 🔄 Changed
-
-- esult overview should contain both partial results and owned political businesses
-
-### 🔄 Changed
-
-- eCH-0252 always create XML even when no results are present
-
-### 🔄 Changed
-
-- export api list protocol for accessible political businesses
-
-### 🆕 Added
-
-- add pdf diff project
-
-### 🔄 Changed
-
-- fix(VOTING-5562): fix import processor for legacy events
-
-### 🆕 Added
-
-- add country, street and house number to election candidate
-
-### 🔄 Changed
-
-- fix protocol export event processing
-
-### 🔄 Changed
-
-- remove incorrect contests in contest list summary
-
-### 🔄 Changed
-
-- show contest in monitoring overview as manager without any political business to manage
-
-### 🆕 Added
-
-- add incumbent to proportional election candidates csv exports
-
-### 🆕 Added
-
-- added report level name
-
-### 🆕 Added
-
-- generic event watching
-
-### 🔄 Changed
-
-- generate vote end result report per domain of influence
-
-### 🔄 Changed
-
-- fix processing when missing voting cards get added and sub totals get removed
-
-### 🆕 Added
-
-- eCH-0252 proportional election list union added
-
-### 🆕 Added
-
-- e-counting write-in handling
-
-### 🔄 Changed
-
-- ensure valid majority election ballot
-
-### 🔄 Changed
-
-- e-counting import
-
-### 🔄 Changed
-
-- contest owners see all political businesses in eCH-0252 exports
-
-### 🔄 Changed
-
-- added additional vote infos to eCH-0252 tie break questions
-
-### 🔄 Changed
-
-- reverted routing changes in ExportController and ResultExportController
-
-### 🔄 Changed
-
-- routing of ExportController and ResultExportController. Rename of ResultExportController to ProtocolExportControler
-
-### 🔄 Changed
-
-- update basis majority election ballot groups event processing
-
-### 🔄 Changed
-
-- fix proportional election union end result election count sync
-- fix election end result update with super apportionment lot decisions
+- introduce user id and group id to avoid random assignment
+- use exec form to avoid shell interpretation

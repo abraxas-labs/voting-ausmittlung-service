@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
     public override async Task<(List<MajorityElectionDomainOfInfluenceResult> Results, MajorityElectionDomainOfInfluenceResult NotAssignableResult, MajorityElectionDomainOfInfluenceResult AggregatedResult)> BuildResults(
         MajorityElection politicalBusiness,
         List<ContestCountingCircleDetails> ccDetails,
-        string tenantId)
+        string tenantId,
+        HashSet<Guid>? viewablePartialResultsCountingCircleIds)
     {
-        var (doiResults, notAssignableResult, aggregatedResult) = await base.BuildResults(politicalBusiness, ccDetails, tenantId);
+        var (doiResults, notAssignableResult, aggregatedResult) = await base.BuildResults(politicalBusiness, ccDetails, tenantId, viewablePartialResultsCountingCircleIds);
         OrderCountingCircleAndCandidateResults(doiResults);
         OrderCountingCircleAndCandidateResult(notAssignableResult);
         OrderCountingCircleAndCandidateResult(aggregatedResult);
@@ -33,7 +35,18 @@ public class MajorityElectionDomainOfInfluenceResultBuilder
 
     protected override IEnumerable<MajorityElectionResult> GetResults(MajorityElection politicalBusiness) => politicalBusiness.Results;
 
-    protected override int GetReportLevel(MajorityElection politicalBusiness) => politicalBusiness.ReportDomainOfInfluenceLevel;
+    protected override async Task<int> GetReportLevel(MajorityElection politicalBusiness, HashSet<Guid>? viewablePartialResultsCountingCircleIds)
+    {
+        if (viewablePartialResultsCountingCircleIds == null)
+        {
+            return politicalBusiness.ReportDomainOfInfluenceLevel;
+        }
+
+        return await GetPartialResultReportLevel(
+            politicalBusiness.ReportDomainOfInfluenceLevel,
+            politicalBusiness.DomainOfInfluenceId,
+            viewablePartialResultsCountingCircleIds);
+    }
 
     protected override void ApplyCountingCircleResult(MajorityElectionDomainOfInfluenceResult doiResult, MajorityElectionResult ccResult)
     {

@@ -163,16 +163,16 @@ public class MajorityElectionResultAuditedTentativelyTest : MajorityElectionResu
     public async Task TestProcessorWithDisabledCantonSettingsEndResultFinalize()
     {
         var electionGuid = Guid.Parse(MajorityElectionMockedData.IdStGallenMajorityElectionInContestBund);
-        await RunToState(CountingCircleResultState.SubmissionDone);
 
         await ModifyDbEntities<ContestCantonDefaults>(
             _ => true,
             x => x.EndResultFinalizeDisabled = true,
             splitQuery: true);
-
         await ModifyDbEntities<MajorityElectionEndResult>(
             x => x.MajorityElectionId == electionGuid,
             x => x.CountOfDoneCountingCircles = x.TotalCountOfCountingCircles - 1);
+
+        await RunToState(CountingCircleResultState.SubmissionDone);
 
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         await RunEvents<MajorityElectionResultAuditedTentatively>();

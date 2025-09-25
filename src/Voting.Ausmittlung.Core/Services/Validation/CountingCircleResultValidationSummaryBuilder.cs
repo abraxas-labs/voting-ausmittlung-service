@@ -38,15 +38,15 @@ public abstract class CountingCircleResultValidationSummaryBuilder<T>
         ContestCountingCircleDetails ccDetails,
         PoliticalBusinessType politicalBusinessType,
         bool isDetailedEntry,
-        DomainOfInfluenceType politicalBusinessDomainOfInfluenceType)
+        DomainOfInfluence politicalBusinessDomainOfInfluence)
     {
         return new ValidationContext(
             ccDetails.Contest.DomainOfInfluence,
+            politicalBusinessDomainOfInfluence,
+            politicalBusinessType,
             ccDetails)
         {
-            PoliticalBusinessType = politicalBusinessType,
             IsDetailedEntry = isDetailedEntry,
-            PoliticalBusinessDomainOfInfluenceType = politicalBusinessDomainOfInfluenceType,
         };
     }
 

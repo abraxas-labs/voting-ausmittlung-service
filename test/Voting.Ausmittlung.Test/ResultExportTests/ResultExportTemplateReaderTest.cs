@@ -374,12 +374,57 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
             p => p.Id == electionGuid,
             p => p.MandateAlgorithm = ProportionalElectionMandateAlgorithm.DoubleProportional1Doi0DoiQuorum);
 
-        await ModifyDbEntities<SimplePoliticalBusiness>(
-            p => p.Id == electionGuid,
-            p => p.EndResultFinalized = true);
-
         var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
                 AusmittlungPdfProportionalElectionTemplates.EndResultDoubleProportional.Key,
+                SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                politicalBusinessId: electionGuid)
+            .ToString();
+
+        (await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null))
+            .Any(x => x.ExportTemplateId == exportTemplateId)
+            .Should()
+            .BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldWorkAsMonitoringElectionAdminForUnionHagenbachBischoffProtocols()
+    {
+        await RunOnDb(async db =>
+        {
+            db.ProportionalElectionUnions.Add(new()
+            {
+                Id = Guid.Parse("ac4955b7-fc32-4688-8035-c448b33a4c01"),
+                ContestId = ContestMockedData.GuidStGallenEvoting,
+                Description = "Ktratswahl",
+                SecureConnectId = SecureConnectTestDefaults.MockedTenantStGallen.Id,
+                ProportionalElectionUnionEntries = new List<ProportionalElectionUnionEntry>
+                {
+                    new() { ProportionalElectionId = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen) },
+                },
+            });
+            await db.SaveChangesAsync();
+        });
+
+        await ModifyDbEntities<ProportionalElection>(
+            p => p.Id == Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen),
+            p => p.MandateAlgorithm = ProportionalElectionMandateAlgorithm.HagenbachBischoff);
+
+        var result = (await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null))
+            .Where(x => x.EntityDescription == "Ktratswahl");
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ShouldWorkAsMonitoringElectionAdminForElectionHagenbachBischoffProtocols()
+    {
+        var electionGuid = Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestStGallen);
+
+        await ModifyDbEntities<ProportionalElection>(
+            p => p.Id == electionGuid,
+            p => p.MandateAlgorithm = ProportionalElectionMandateAlgorithm.HagenbachBischoff);
+
+        var exportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+                AusmittlungPdfProportionalElectionTemplates.EndResultCalculation.Key,
                 SecureConnectTestDefaults.MockedTenantStGallen.Id,
                 politicalBusinessId: electionGuid)
             .ToString();
@@ -497,6 +542,40 @@ public class ResultExportTemplateReaderTest : BaseIntegrationTest
 
         var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantUzwil.Id);
         resultAfter.Where(x => exportTemplateIds.Contains(x.ExportTemplateId)).Should().HaveCount(exportTemplateIds.Count);
+    }
+
+    [Fact]
+    public async Task PartialResultsAsMonitoringElectionAdminShouldFilter()
+    {
+        var voteEndResultGossauTenantExportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungPdfVoteTemplates.EndResultProtocol.Key,
+            SecureConnectTestDefaults.MockedTenantGossau.Id,
+            domainOfInfluenceId: DomainOfInfluenceMockedData.StGallen.Id)
+            .ToString();
+
+        var majorityElectionEndResultGossauTenantExportTemplateId = AusmittlungUuidV5.BuildExportTemplate(
+            AusmittlungPdfMajorityElectionTemplates.EndResultProtocol.Key,
+            SecureConnectTestDefaults.MockedTenantGossau.Id,
+            politicalBusinessId: MajorityElectionMockedData.StGallenMajorityElectionInContestStGallen.Id)
+            .ToString();
+
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id,
+            x => x.ViewCountingCirclePartialResults = false);
+
+        var resultBefore = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantGossau.Id);
+        resultBefore.Any(x => x.ExportTemplateId == voteEndResultGossauTenantExportTemplateId).Should().BeFalse();
+        resultBefore.Any(x => x.ExportTemplateId == majorityElectionEndResultGossauTenantExportTemplateId).Should().BeFalse();
+
+        await ModifyDbEntities<DomainOfInfluence>(
+            x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.Gossau.Id,
+            x => x.ViewCountingCirclePartialResults = true);
+
+        var resultAfter = await FetchExportTemplates(ContestMockedData.GuidStGallenEvoting, null, new[] { ExportFileFormat.Pdf }, SecureConnectTestDefaults.MockedTenantGossau.Id);
+
+        // Vote end result protocol should never be displayed as a partial result protocol.
+        resultAfter.Any(x => x.ExportTemplateId == voteEndResultGossauTenantExportTemplateId).Should().BeFalse();
+        resultAfter.Any(x => x.ExportTemplateId == majorityElectionEndResultGossauTenantExportTemplateId).Should().BeTrue();
     }
 
     private async Task<List<DataExportTemplate>> FetchExportTemplates(Guid contestId, Guid? countingCircleId = null, ExportFileFormat[]? formats = null, string? tenantId = null)

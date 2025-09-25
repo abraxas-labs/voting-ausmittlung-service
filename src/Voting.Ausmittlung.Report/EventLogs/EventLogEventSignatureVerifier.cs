@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
@@ -30,22 +31,22 @@ public class EventLogEventSignatureVerifier
         _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
     }
 
-    public EventLogEventSignatureVerification VerifyEventSignature(EventReadResult ev, EventLogBuilderContext context)
+    public async Task<EventLogEventSignatureVerification> VerifyEventSignature(EventReadResult ev, EventLogBuilderContext context)
     {
         if (ev.Metadata is AusmittlungEventSignatureBusinessMetadata ausmittlungEventSignatureBusiessMetadata)
         {
-            return VerifyAusmittlungEventSignature(ev, context, ausmittlungEventSignatureBusiessMetadata);
+            return await VerifyAusmittlungEventSignature(ev, context, ausmittlungEventSignatureBusiessMetadata);
         }
 
         if (ev.Metadata is BasisEventSignatureBusinessMetadata basisEventSignatureBusiessMetadata)
         {
-            return VerifyBasisEventSignature(ev, context, basisEventSignatureBusiessMetadata);
+            return await VerifyBasisEventSignature(ev, context, basisEventSignatureBusiessMetadata);
         }
 
         throw new ArgumentException($"{nameof(ev.Metadata)} may not be null");
     }
 
-    private EventLogEventSignatureVerification VerifyBasisEventSignature(
+    private async Task<EventLogEventSignatureVerification> VerifyBasisEventSignature(
         EventReadResult ev,
         EventLogBuilderContext context,
         BasisEventSignatureBusinessMetadata eventSignatureBusinessMetadata)
@@ -58,7 +59,7 @@ public class EventLogEventSignatureVerifier
             return EventLogEventSignatureVerification.NoSignature;
         }
 
-        var publicKeySignatureValidationResult = context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
+        var publicKeySignatureValidationResult = await context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
         if (publicKeySignatureValidationResult == null)
         {
             _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);
@@ -114,7 +115,7 @@ public class EventLogEventSignatureVerifier
         return EventLogEventSignatureVerification.VerificationSuccess;
     }
 
-    private EventLogEventSignatureVerification VerifyAusmittlungEventSignature(
+    private async Task<EventLogEventSignatureVerification> VerifyAusmittlungEventSignature(
         EventReadResult ev,
         EventLogBuilderContext context,
         AusmittlungEventSignatureBusinessMetadata eventSignatureBusinessMetadata)
@@ -127,7 +128,7 @@ public class EventLogEventSignatureVerifier
             return EventLogEventSignatureVerification.NoSignature;
         }
 
-        var publicKeySignatureValidationResult = context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
+        var publicKeySignatureValidationResult = await context.GetPublicKeySignatureValidationResult(eventSignatureBusinessMetadata.KeyId);
         if (publicKeySignatureValidationResult == null)
         {
             _logger.LogCritical(SecurityLogging.SecurityEventId, "Event signature verification for {EventId} in stream {StreamName} failed. No matching public key signature found", ev.Id, ev.StreamId);

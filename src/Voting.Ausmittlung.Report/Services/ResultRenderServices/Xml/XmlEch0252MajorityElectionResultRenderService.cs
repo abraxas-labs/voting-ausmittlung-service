@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Converters;
+using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Lib.Database.Repositories;
@@ -99,7 +100,8 @@ public class XmlEch0252MajorityElectionResultRenderService : IRendererService
 
         contest.MoveECountingToConventional();
 
-        var eventDelivery = _ech0252Serializer.ToMajorityElectionResultDelivery(contest, null);
+        var mappingCtx = new Ech0252MappingContext(contest.EVoting, contest.DomainOfInfluence.Canton, null);
+        var eventDelivery = _ech0252Serializer.ToMajorityElectionResultDelivery(contest, mappingCtx, null);
         return _templateService.RenderToXml(
             ctx,
             eventDelivery.DeliveryHeader.MessageId,

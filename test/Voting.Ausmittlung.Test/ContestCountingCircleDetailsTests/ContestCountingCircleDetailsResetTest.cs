@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
@@ -66,7 +67,6 @@ public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
         });
 
         var ccDetails = await LoadCountingCircleDetails();
-        ccDetails.TotalCountOfVoters.Should().Be(15800);
         ccDetails.MatchSnapshot("ccDetailsBefore");
 
         var results = await RunOnDb(db => db.ProportionalElectionResults
@@ -84,7 +84,6 @@ public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
         });
 
         ccDetails = await LoadCountingCircleDetails();
-        ccDetails.TotalCountOfVoters.Should().Be(0);
         ccDetails.CountingMachine.Should().Be(CountingMachine.Unspecified);
         ccDetails.MatchSnapshot("ccDetailsAfter");
 
@@ -104,11 +103,14 @@ public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
     public async Task TestResetShouldResetAggregatedDetails()
     {
         var doiDetails = await LoadContestDomainOfInfluenceDetails();
-        doiDetails.TotalCountOfVoters.Should().Be(15800);
         doiDetails.MatchSnapshot("doiDetailsBefore");
         var contestDetails = await LoadContestDetails();
-        contestDetails.TotalCountOfVoters.Should().Be(34810);
         contestDetails.MatchSnapshot("contestDetailsBefore");
+
+        // Only aggregated details with a result in submission done will be reset
+        await ModifyDbEntities<ProportionalElectionResult>(
+            r => r.Id == CountingCircleId,
+            r => r.State = CountingCircleResultState.SubmissionDone);
 
         await TestEventPublisher.Publish(new ContestCountingCircleDetailsResetted
         {
@@ -119,11 +121,47 @@ public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
         });
 
         doiDetails = await LoadContestDomainOfInfluenceDetails();
-        doiDetails.TotalCountOfVoters.Should().Be(0);
         doiDetails.MatchSnapshot("doiDetailsAfter");
         contestDetails = await LoadContestDetails();
-        contestDetails.TotalCountOfVoters.Should().Be(19010);
         contestDetails.MatchSnapshot("contestDetailsAfter");
+    }
+
+    [Fact]
+    public async Task TestResetShouldResetEndResultsWithSubmissionDone()
+    {
+        var ccResultId = ProportionalElectionResultMockedData.GuidGossauElectionResultInContestBund;
+
+        // End result will only be resetted, when an related counting circle result is in submission done.
+        await ModifyDbEntities<ProportionalElectionResult>(
+            r => r.Id == ccResultId,
+            r => r.State = CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<SimpleCountingCircleResult>(
+            r => r.Id == ccResultId,
+            r => r.State = CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<ProportionalElectionListResult>(
+            r => r.ResultId == ccResultId,
+            r => r.ConventionalSubTotal.UnmodifiedListsCount = 10);
+
+        await ModifyDbEntities<ProportionalElectionCandidateResult>(
+            r => r.ListResult.ResultId == ccResultId,
+            r => r.ConventionalSubTotal.UnmodifiedListVotesCount = 10);
+
+        await RunScoped<ProportionalElectionEndResultBuilder>(async b => await b.AdjustEndResult(ccResultId, false));
+        var endResultBefore = await LoadProportionalElectionEndResult();
+
+        await TestEventPublisher.Publish(new ContestCountingCircleDetailsResetted
+        {
+            EventInfo = GetMockedEventInfo(),
+            Id = ContestCountingCircleDetailsId.ToString(),
+            ContestId = ContestId.ToString(),
+            CountingCircleId = CountingCircleId.ToString(),
+        });
+
+        var endResultAfter = await LoadProportionalElectionEndResult();
+        endResultBefore.MatchSnapshot("endResultBefore");
+        endResultAfter.MatchSnapshot("endResultAfter");
     }
 
     private async Task<ContestCountingCircleDetails> LoadCountingCircleDetails()
@@ -208,5 +246,32 @@ public class ContestCountingCircleDetailsResetTest : BaseIntegrationTest
         doiDetail.Id = Guid.Empty;
 
         return doiDetail;
+    }
+
+    private async Task<ProportionalElectionEndResult> LoadProportionalElectionEndResult()
+    {
+        var endResult = await RunOnDb(
+            db => db
+                .ProportionalElectionEndResult
+                .AsSplitQuery()
+                .Include(r => r.VotingCards)
+                .Include(r => r.CountOfVotersInformationSubTotals)
+                .Include(r => r.ListEndResults.OrderBy(x => x.List.Position))
+                    .ThenInclude(x => x.CandidateEndResults.OrderBy(x => x.Candidate.Position))
+                .SingleAsync(r => r.ProportionalElectionId == Guid.Parse(ProportionalElectionMockedData.IdStGallenProportionalElectionInContestBund)));
+
+        SetDynamicIdToDefaultValue(endResult.VotingCards);
+        SetDynamicIdToDefaultValue(endResult.CountOfVotersInformationSubTotals);
+        SetDynamicIdToDefaultValue(endResult.ListEndResults);
+
+        endResult.OrderVotingCardsAndSubTotals();
+
+        foreach (var candidateEndResult in endResult.ListEndResults.SelectMany(x => x.CandidateEndResults))
+        {
+            candidateEndResult.Id = Guid.Empty;
+            candidateEndResult.ListEndResultId = Guid.Empty;
+        }
+
+        return endResult;
     }
 }

@@ -1,7 +1,7 @@
 Art;Wahlkreis;SortWahlkreis;SortGeschaeft;Gemeinde;Einheitcode;GeLfNr;Wahlkreis-Code;Geschaeft;Stimmberechtigte;StimmberechtigteAusl;BfsNrGemeinde;GeVerbNr
 CT;St. Gallen;2;201;St. Gallen;;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;15000;800;5500;
-CT;St. Gallen;2;201;St. Gallen Auslandschweizer;;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;0;5500-3;
-CT;St. Gallen;2;201;St. Gallen Haggen;;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;0;5500-2;
+CT;St. Gallen;2;201;St. Gallen Auslandschweizer;;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;;5500-3;
+CT;St. Gallen;2;201;St. Gallen Haggen;;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;;5500-2;
 CT;St. Gallen;2;201;Uzwil;1234-UZWIL;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;3210;210;1234;
 CT;St. Gallen;2;201;Gossau;3443-GOSSAU;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;15800;800;3443;
-CT;St. Gallen;2;201;St. Gallen St. Fiden;C5500-1;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;0;5500-1;
+CT;St. Gallen;2;201;St. Gallen St. Fiden;C5500-1;b0da46f8-a721-4e1a-ac36-25284d68f34b;0002-SG;Mw SG de;0;;5500-1;

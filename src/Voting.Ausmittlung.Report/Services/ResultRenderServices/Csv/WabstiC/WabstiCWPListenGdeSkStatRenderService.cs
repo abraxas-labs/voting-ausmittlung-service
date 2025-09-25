@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
+using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 using Voting.Lib.Database.Repositories;
 using DomainOfInfluenceType = Voting.Ausmittlung.Data.Models.DomainOfInfluenceType;
 
@@ -53,15 +55,21 @@ public class WabstiCWPListenGdeSkStatRenderService : WabstiCWPBaseRenderService
                     .Select(y => y.ProportionalElectionUnionId)
                     .OrderBy(y => y)
                     .ToList(),
+                ResultState = x.Result.State,
             })
-            .AsAsyncEnumerable();
+            .AsAsyncEnumerable()
+            .Select(x =>
+            {
+                x.ResetDataIfSubmissionNotDone();
+                return x;
+            });
 
         return await RenderToCsv(
             ctx,
             results);
     }
 
-    private class Data
+    private class Data : IWabstiCPoliticalResultData
     {
         [Name("Art")]
         [TypeConverter(typeof(WabstiCUpperSnakeCaseConverter))]
@@ -80,16 +88,16 @@ public class WabstiCWPListenGdeSkStatRenderService : WabstiCWPBaseRenderService
         public string ListNr { get; set; } = string.Empty;
 
         [Name("StimmenTotal")]
-        public int VoteCount { get; set; }
+        public int? VoteCount { get; set; }
 
         [Name("StimmenWzUnveraendert")]
-        public int VoteCountFromUnmodifiedLists { get; set; }
+        public int? VoteCountFromUnmodifiedLists { get; set; }
 
         [Name("StimmenWzVeraendert")]
-        public int VoteCountFromModifiedLists { get; set; }
+        public int? VoteCountFromModifiedLists { get; set; }
 
         [Name("StimmenZusatz")]
-        public int BlankRowsCount { get; set; }
+        public int? BlankRowsCount { get; set; }
 
         [Name("GeLfNr")]
         public Guid PoliticalBusinessId { get; set; }
@@ -98,11 +106,29 @@ public class WabstiCWPListenGdeSkStatRenderService : WabstiCWPBaseRenderService
         public string ElectionUnionIdStrs => string.Join(", ", ElectionUnionIds ?? Array.Empty<Guid>());
 
         [Name("AnzahlWzUnveraendert")]
-        public int UnmodifiedListsCount { get; set; }
+        public int? UnmodifiedListsCount { get; set; }
 
         [Name("AnzahlWzVeraendert")]
-        public int ModifiedListsCount { get; set; }
+        public int? ModifiedListsCount { get; set; }
 
         public IEnumerable<Guid>? ElectionUnionIds { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            VoteCount = null;
+            VoteCountFromUnmodifiedLists = null;
+            VoteCountFromModifiedLists = null;
+            BlankRowsCount = null;
+            UnmodifiedListsCount = null;
+            ModifiedListsCount = null;
+        }
     }
 }

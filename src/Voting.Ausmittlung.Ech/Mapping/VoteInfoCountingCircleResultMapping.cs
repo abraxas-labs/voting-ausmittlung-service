@@ -1,6 +1,7 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Ech0252_2_0;
@@ -38,5 +39,5 @@ internal static class VoteInfoCountingCircleResultMapping
         return namedElements;
     }
 
-    internal static decimal DecimalToPercentage(decimal value) => decimal.Round(value * 100, 2);
+    internal static decimal DecimalToPercentage(decimal value) => decimal.Round(value * 100, 2, MidpointRounding.AwayFromZero);
 }

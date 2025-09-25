@@ -53,10 +53,22 @@ public class PdfVoteEVotingResultExportTest : PdfExportBaseTest
             x => x.ContestId == contestId && testCountingCircleIds.Contains(x.CountingCircle.BasisCountingCircleId),
             x => x.EVoting = true);
 
+        await ModifyDbEntities<VoteResult>(
+            v => v.VoteId == VoteMockedData.BundVoteInContestBund.Id || v.VoteId == VoteMockedData.BundVote2InContestBund.Id,
+            v => v.State = CountingCircleResultState.SubmissionDone);
+
         for (var i = 0; i < testCountingCircleIds.Count; i++)
         {
             await ModifiyEVotingResults(contestId, testCountingCircleIds[i], i + 1);
         }
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<VoteResult>(
+            r => r.VoteId == VoteMockedData.BundVoteInContestBund.Id || r.VoteId == VoteMockedData.BundVote2InContestBund.Id,
+            v => v.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

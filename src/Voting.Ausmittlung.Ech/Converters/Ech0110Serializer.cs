@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ech0110_4_0;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Mapping;
 using Voting.Ausmittlung.Ech.Utils;
@@ -72,8 +73,8 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = electionResult.CountingCircle.ToEchCountingCircle(),
-            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult() },
-            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.MajorityElection.DomainOfInfluence.Type),
+            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult(contest.EVoting) },
+            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.MajorityElection.DomainOfInfluence),
         };
     }
 
@@ -82,8 +83,8 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = electionResult.CountingCircle.ToEchCountingCircle(),
-            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult() },
-            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.ProportionalElection.DomainOfInfluence.Type),
+            ElectionGroupResults = new List<ElectionGroupResultsType> { electionResult.ToEchElectionGroupResult(contest.EVoting) },
+            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, electionResult.CountingCircleId), electionResult.ProportionalElection.DomainOfInfluence),
         };
     }
 
@@ -92,16 +93,15 @@ public class Ech0110Serializer
         return new CountingCircleResultsType
         {
             CountingCircle = voteResult.CountingCircle.ToEchCountingCircle(),
-            VoteResults = new List<VoteResultType> { voteResult.ToEchVoteResult() },
-            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, voteResult.CountingCircleId), voteResult.Vote.DomainOfInfluence.Type),
+            VoteResults = new List<VoteResultType> { voteResult.ToEchVoteResult(contest.EVoting) },
+            VotingCardsInformation = ToEchVotingCardsInformation(GetCountingCircleDetails(contest, voteResult.CountingCircleId), voteResult.Vote.DomainOfInfluence),
         };
     }
 
-    private VotingCardsInformationType ToEchVotingCardsInformation(ContestCountingCircleDetails? ccDetails, DomainOfInfluenceType domainOfInfluenceType)
+    private VotingCardsInformationType ToEchVotingCardsInformation(ContestCountingCircleDetails? ccDetails, DomainOfInfluence domainOfInfluence)
     {
-        var countOfValidCards = ccDetails?.SumVotingCards(domainOfInfluenceType).Valid ?? 0;
-
-        var totalCountOfVoters = ccDetails?.TotalCountOfVoters ?? 0;
+        var countOfValidCards = ccDetails?.SumVotingCards(domainOfInfluence.Type).Valid ?? 0;
+        var totalCountOfVoters = ccDetails?.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence) ?? 0;
 
         return new VotingCardsInformationType
         {

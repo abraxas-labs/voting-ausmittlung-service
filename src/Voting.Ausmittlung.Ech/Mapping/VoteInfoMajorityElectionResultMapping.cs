@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Ech.Models;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -12,6 +13,7 @@ internal static class VoteInfoMajorityElectionResultMapping
 {
     internal static IEnumerable<EventElectionResultDeliveryTypeElectionGroupResult> ToVoteInfoEchMajorityElectionGroupResults(
         this ICollection<MajorityElection> majorityElections,
+        Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         return majorityElections
@@ -22,14 +24,15 @@ internal static class VoteInfoMajorityElectionResultMapping
                 ElectionGroupIdentification = x.Id.ToString(),
                 ElectionResult = x.SecondaryMajorityElections
                     .OrderBy(y => y.PoliticalBusinessNumber)
-                    .Select(y => ToVoteInfoEchResult(y, enabledResultStates))
-                    .Prepend(ToVoteInfoEchResult(x, enabledResultStates))
+                    .Select(y => ToVoteInfoEchResult(y, ctx, enabledResultStates))
+                    .Prepend(ToVoteInfoEchResult(x, ctx, enabledResultStates))
                     .ToList(),
             });
     }
 
     private static EventElectionResultDeliveryTypeElectionGroupResultElectionResult ToVoteInfoEchResult(
         MajorityElection majorityElection,
+        Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCircleResultsArePublished = majorityElection.Results.All(x => x.Published);
@@ -48,7 +51,7 @@ internal static class VoteInfoMajorityElectionResultMapping
                             .ThenBy(x => x.CandidateId)
                             .Select(x => new ElectedTypeMajorityElectionElectedCandidate
                             {
-                                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(),
+                                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
                                 ElectedByDraw = x.LotDecision,
                             })
                             .ToList(),
@@ -58,14 +61,15 @@ internal static class VoteInfoMajorityElectionResultMapping
             : null,
             CountingCircleResult = majorityElection.Results
                 .OrderBy(r => r.CountingCircle.Name)
-                .Select(x => ToCountingCircleResult(x.MajorityElectionId.ToString(), x, x, ToCandidateResults(x.CandidateResults), enabledResultStates))
+                .Select(x => ToCountingCircleResult(x.MajorityElectionId.ToString(), x, x, ToCandidateResults(x.CandidateResults, ctx), enabledResultStates))
                 .ToList(),
-            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(majorityElection.EndResult!) : null,
+            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(majorityElection.EndResult!, ctx) : null,
         };
     }
 
     private static EventElectionResultDeliveryTypeElectionGroupResultElectionResult ToVoteInfoEchResult(
         SecondaryMajorityElection secondaryMajorityElection,
+        Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCircleResultsArePublished = secondaryMajorityElection.Results.All(x => x.PrimaryResult.Published);
@@ -84,7 +88,7 @@ internal static class VoteInfoMajorityElectionResultMapping
                             .ThenBy(x => x.CandidateId)
                             .Select(x => new ElectedTypeMajorityElectionElectedCandidate
                             {
-                                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(),
+                                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
                                 ElectedByDraw = x.LotDecision,
                             })
                             .ToList(),
@@ -94,9 +98,9 @@ internal static class VoteInfoMajorityElectionResultMapping
             : null,
             CountingCircleResult = secondaryMajorityElection.Results
                 .OrderBy(r => r.PrimaryResult.CountingCircle.Name)
-                .Select(x => ToCountingCircleResult(x.SecondaryMajorityElectionId.ToString(), x, x.PrimaryResult, ToCandidateResults(x.CandidateResults), enabledResultStates))
+                .Select(x => ToCountingCircleResult(x.SecondaryMajorityElectionId.ToString(), x, x.PrimaryResult, ToCandidateResults(x.CandidateResults, ctx), enabledResultStates))
                 .ToList(),
-            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(secondaryMajorityElection.EndResult!) : null,
+            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(secondaryMajorityElection.EndResult!, ctx) : null,
         };
     }
 
@@ -110,7 +114,7 @@ internal static class VoteInfoMajorityElectionResultMapping
         var resultData = electionResult.Published && enabledResultStates?.Contains(electionResult.State) != false
             ? new CountingCircleResultTypeResultData
             {
-                CountOfVotersInformation = electionResult.CountingCircle.ToVoteInfoCountOfVotersInfo(electionResult.PoliticalBusiness.DomainOfInfluence.Type),
+                CountOfVotersInformation = electionResult.CountingCircle.ToVoteInfoCountOfVotersInfo(electionResult.PoliticalBusiness.DomainOfInfluence),
                 IsFullyCounted = electionResult.SubmissionDoneTimestamp.HasValue,
                 ReleasedTimestamp = electionResult.SubmissionDoneTimestamp,
                 LockoutTimestamp = electionResult.AuditedTentativelyTimestamp,
@@ -141,7 +145,7 @@ internal static class VoteInfoMajorityElectionResultMapping
         };
     }
 
-    private static DrawElectionType? ToDrawElection(MajorityElectionEndResult endResult)
+    private static DrawElectionType? ToDrawElection(MajorityElectionEndResult endResult, Ech0252MappingContext ctx)
     {
         var requiredLotDecisions = endResult.CandidateEndResults.Where(x => x.LotDecisionRequired).ToList();
         if (requiredLotDecisions.Count == 0)
@@ -156,16 +160,16 @@ internal static class VoteInfoMajorityElectionResultMapping
             MajorityElection = new DrawElectionTypeMajorityElection
             {
                 IsDrawPending = !isLotDecisionApplied,
-                CandidateDrawElection = requiredLotDecisions.ConvertAll(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate()),
+                CandidateDrawElection = requiredLotDecisions.ConvertAll(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx)),
                 WinningCandidate = isLotDecisionApplied ? requiredLotDecisions
                     .Where(x => x.Rank <= endResult.MajorityElection.NumberOfMandates)
-                    .Select(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate())
+                    .Select(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx))
                     .ToList() : new List<CandidateOrWriteInCandidateType>(),
             },
         };
     }
 
-    private static DrawElectionType? ToDrawElection(SecondaryMajorityElectionEndResult endResult)
+    private static DrawElectionType? ToDrawElection(SecondaryMajorityElectionEndResult endResult, Ech0252MappingContext ctx)
     {
         var requiredLotDecisions = endResult.CandidateEndResults.Where(x => x.LotDecisionRequired).ToList();
         if (requiredLotDecisions.Count == 0)
@@ -180,16 +184,16 @@ internal static class VoteInfoMajorityElectionResultMapping
             MajorityElection = new DrawElectionTypeMajorityElection
             {
                 IsDrawPending = !isLotDecisionApplied,
-                CandidateDrawElection = requiredLotDecisions.ConvertAll(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate()),
+                CandidateDrawElection = requiredLotDecisions.ConvertAll(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx)),
                 WinningCandidate = isLotDecisionApplied ? requiredLotDecisions
                     .Where(x => x.Rank <= endResult.SecondaryMajorityElection.NumberOfMandates)
-                    .Select(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate())
+                    .Select(x => x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx))
                     .ToList() : new List<CandidateOrWriteInCandidateType>(),
             },
         };
     }
 
-    private static CandidateOrWriteInCandidateType ToVoteInfoEchCandidateOrWriteInCandidate(this MajorityElectionCandidate candidate)
+    private static CandidateOrWriteInCandidateType ToVoteInfoEchCandidateOrWriteInCandidate(this MajorityElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         if (candidate.CreatedDuringActiveContest)
         {
@@ -198,7 +202,8 @@ internal static class VoteInfoMajorityElectionResultMapping
                 WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party)),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
+                    ctx),
             };
         }
 
@@ -209,7 +214,7 @@ internal static class VoteInfoMajorityElectionResultMapping
         };
     }
 
-    private static CandidateOrWriteInCandidateType ToVoteInfoEchCandidateOrWriteInCandidate(this SecondaryMajorityElectionCandidate candidate)
+    private static CandidateOrWriteInCandidateType ToVoteInfoEchCandidateOrWriteInCandidate(this SecondaryMajorityElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         if (candidate.CreatedDuringActiveContest)
         {
@@ -218,7 +223,8 @@ internal static class VoteInfoMajorityElectionResultMapping
                 WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party)),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
+                    ctx),
             };
         }
 
@@ -229,26 +235,26 @@ internal static class VoteInfoMajorityElectionResultMapping
         };
     }
 
-    private static List<CandidateResultType> ToCandidateResults(ICollection<MajorityElectionCandidateResult> candidateResults)
+    private static List<CandidateResultType> ToCandidateResults(ICollection<MajorityElectionCandidateResult> candidateResults, Ech0252MappingContext ctx)
     {
         return candidateResults
             .OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidateId)
             .Select(x => new CandidateResultType
             {
-                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(),
+                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
                 CountOfVotesTotal = (uint)x.VoteCount,
             }).ToList();
     }
 
-    private static List<CandidateResultType> ToCandidateResults(ICollection<SecondaryMajorityElectionCandidateResult> candidateResults)
+    private static List<CandidateResultType> ToCandidateResults(ICollection<SecondaryMajorityElectionCandidateResult> candidateResults, Ech0252MappingContext ctx)
     {
         return candidateResults
             .OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidateId)
             .Select(x => new CandidateResultType
             {
-                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(),
+                CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
                 CountOfVotesTotal = (uint)x.VoteCount,
             }).ToList();
     }

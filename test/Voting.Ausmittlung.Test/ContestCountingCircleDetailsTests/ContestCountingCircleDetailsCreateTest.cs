@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Abraxas.Voting.Ausmittlung.Events.V1;
 using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
@@ -24,6 +23,10 @@ using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ContestCountingCircleDetailsCreated = Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsCreated;
+using ContestCountingCircleDetailsUpdated = Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsUpdated;
+using CountOfVotersInformationSubTotalEventData = Abraxas.Voting.Ausmittlung.Events.V2.Data.CountOfVotersInformationSubTotalEventData;
+using EventsV1 = Abraxas.Voting.Ausmittlung.Events.V1;
 using SharedProto = Abraxas.Voting.Ausmittlung.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleDetailsTests;
@@ -83,6 +86,41 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
+    public async Task TestProcessorV1()
+    {
+        await TestEventPublisher.Publish(NewValidEventV1());
+
+        var details = await RunOnDb(db => db
+            .ContestCountingCircleDetails
+            .AsSplitQuery()
+            .Where(cd => cd.ContestId == Guid.Parse(ContestMockedData.IdBundesurnengang)
+                         && cd.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidGossau)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Include(x => x.VotingCards)
+            .ToListAsync());
+
+        // ensure consistent json snapshot
+        foreach (var detail in details)
+        {
+            foreach (var votingCardResultDetail in detail.VotingCards)
+            {
+                votingCardResultDetail.ContestCountingCircleDetails = null!;
+                votingCardResultDetail.Id = Guid.Empty;
+            }
+
+            foreach (var subtotal in detail.CountOfVotersInformationSubTotals)
+            {
+                subtotal.ContestCountingCircleDetails = null!;
+                subtotal.Id = Guid.Empty;
+            }
+
+            detail.OrderVotingCardsAndSubTotals();
+        }
+
+        details.MatchSnapshot(x => x.CountingCircleId);
+    }
+
+    [Fact]
     public async Task CreateDetailsShouldBeOk()
     {
         await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest());
@@ -108,41 +146,47 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
 
         await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
         {
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.SwissAbroad,
                 Sex = SharedProto.SexType.Male,
                 CountOfVoters = 40,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.SwissAbroad,
                 Sex = SharedProto.SexType.Female,
                 CountOfVoters = 60,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.Foreigner,
                 Sex = SharedProto.SexType.Male,
                 CountOfVoters = 20,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.Foreigner,
                 Sex = SharedProto.SexType.Female,
                 CountOfVoters = 80,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.Minor,
                 Sex = SharedProto.SexType.Male,
                 CountOfVoters = 80,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 VoterType = SharedProto.VoterType.Minor,
                 Sex = SharedProto.SexType.Female,
                 CountOfVoters = 20,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
         }));
         var eventData = EventPublisherMock.GetSinglePublishedEvent<ContestCountingCircleDetailsCreated>();
@@ -263,11 +307,12 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
         async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
         {
             x.ContestId = ContestMockedData.IdGossau;
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 Sex = SharedProto.SexType.Female,
                 VoterType = SharedProto.VoterType.SwissAbroad,
                 CountOfVoters = 1,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
         })),
         StatusCode.InvalidArgument,
@@ -281,11 +326,12 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
         async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
         {
             x.ContestId = ContestMockedData.IdGossau;
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 Sex = SharedProto.SexType.Female,
                 VoterType = SharedProto.VoterType.Foreigner,
                 CountOfVoters = 1,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
         })),
         StatusCode.InvalidArgument,
@@ -299,11 +345,12 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
         async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
         {
             x.ContestId = ContestMockedData.IdGossau;
-            x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+            x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
             {
                 Sex = SharedProto.SexType.Female,
                 VoterType = SharedProto.VoterType.Minor,
                 CountOfVoters = 1,
+                DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
             });
         })),
         StatusCode.InvalidArgument,
@@ -331,14 +378,15 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     {
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(NewValidRequest(x =>
-                x.CountOfVoters.Add(new UpdateCountOfVotersInformationSubTotalRequest
+                x.CountOfVotersInformationSubTotals.Add(new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     Sex = SharedProto.SexType.Female,
                     VoterType = SharedProto.VoterType.Swiss,
                     CountOfVoters = 1,
+                    DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                 }))),
             StatusCode.InvalidArgument,
-            "duplicated count of voters subtotal found");
+            "Count of voters information sub total per electorate, voter type and sex must be unique");
     }
 
     [Fact]
@@ -364,7 +412,7 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                     DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Sk,
                 }))),
             StatusCode.InvalidArgument,
-            "Voting cards with domain of influence type which don't exist are provided.");
+            "Voting cards or count of voters information sub totals with domain of influence type which don't exist are provided.");
     }
 
     [Fact]
@@ -403,43 +451,21 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task TestShouldUpdateAggregatedContestCountingCircleDetails()
+    public async Task TestShouldNotUpdateAggregatedContestCountingCircleDetails()
     {
         var contestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
 
-        await RunOnDb(async db =>
-        {
-            db.ContestDetails.RemoveRange(await db.ContestDetails.Where(x => x.ContestId == contestId).ToListAsync());
-            db.ContestDomainOfInfluenceDetails.RemoveRange(await db.ContestDomainOfInfluenceDetails.Where(x => x.ContestId == contestId).ToListAsync());
-
-            var contestCcDetails = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .AsSplitQuery()
-                .Include(x => x.VotingCards)
-                .Include(x => x.CountOfVotersInformationSubTotals)
-                .Where(x => x.ContestId == contestId)
-                .ToListAsync();
-
-            foreach (var detail in contestCcDetails)
-            {
-                detail.VotingCards.Clear();
-                detail.CountOfVotersInformationSubTotals.Clear();
-                detail.TotalCountOfVoters = 0;
-            }
-
-            await db.SaveChangesAsync();
-        });
-
+        // Aggregated details should not be updated, since this happens when a result submission is done
         var contestDetailsBefore = await LoadContestDetails(contestId);
-        contestDetailsBefore.MatchSnapshot("contestDetailsBefore");
+        contestDetailsBefore.MatchSnapshot("contestDetails");
         var doiDetailsBefore = await LoadContestDomainOfInfluenceDetails(contestId);
-        doiDetailsBefore.MatchSnapshot("doiDetailsBefore");
+        doiDetailsBefore.MatchSnapshot("doiDetails");
 
         await TestEventPublisher.Publish(NewValidEvent());
         var contestDetailsAfter = await LoadContestDetails(contestId);
-        contestDetailsAfter.MatchSnapshot("contestDetailsAfter");
+        contestDetailsAfter.MatchSnapshot("contestDetails");
         var doiDetailsAfter = await LoadContestDomainOfInfluenceDetails(contestId);
-        doiDetailsAfter.MatchSnapshot("doiDetailsAfter");
+        doiDetailsAfter.MatchSnapshot("doiDetails");
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
@@ -487,25 +513,121 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                         DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                     },
                 },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
                 {
                     new UpdateCountOfVotersInformationSubTotalRequest
                     {
                         Sex = SharedProto.SexType.Female,
                         VoterType = SharedProto.VoterType.Swiss,
                         CountOfVoters = 6000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                     },
                     new UpdateCountOfVotersInformationSubTotalRequest
                     {
                         Sex = SharedProto.SexType.Male,
                         VoterType = SharedProto.VoterType.Swiss,
                         CountOfVoters = 4000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                     },
                 },
         };
 
         customizer?.Invoke(request);
         return request;
+    }
+
+    private EventsV1.ContestCountingCircleDetailsCreated NewValidEventV1()
+    {
+        return new EventsV1.ContestCountingCircleDetailsCreated
+        {
+            Id = AusmittlungUuidV5.BuildContestCountingCircleDetails(
+                Guid.Parse(ContestMockedData.IdBundesurnengang),
+                CountingCircleMockedData.GuidGossau,
+                false).ToString(),
+            ContestId = ContestMockedData.IdBundesurnengang,
+            CountingCircleId = CountingCircleMockedData.IdGossau,
+            VotingCards =
+                {
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.ByMail,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 10000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                    },
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.BallotBox,
+                        Valid = true,
+                        CountOfReceivedVotingCards = 3000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                    },
+                    new VotingCardResultDetailEventData
+                    {
+                        Channel = SharedProto.VotingChannel.BallotBox,
+                        Valid = false,
+                        CountOfReceivedVotingCards = 4000,
+                        DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
+                    },
+                },
+            CountOfVotersInformation = new CountOfVotersInformationEventData
+            {
+                SubTotalInfo =
+                    {
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Swiss,
+                            CountOfVoters = 6000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Swiss,
+                            CountOfVoters = 4000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                            CountOfVoters = 1000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.SwissAbroad,
+                            CountOfVoters = 1000,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Foreigner,
+                            CountOfVoters = 30,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Foreigner,
+                            CountOfVoters = 70,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Male,
+                            VoterType = SharedProto.VoterType.Minor,
+                            CountOfVoters = 70,
+                        },
+                        new EventsV1.Data.CountOfVotersInformationSubTotalEventData
+                        {
+                            Sex = SharedProto.SexType.Female,
+                            VoterType = SharedProto.VoterType.Minor,
+                            CountOfVoters = 30,
+                        },
+                    },
+                TotalCountOfVoters = 12200,
+            },
+            CountingMachine = SharedProto.CountingMachine.CalibratedScales,
+            EventInfo = GetMockedEventInfo(),
+        };
     }
 
     private ContestCountingCircleDetailsCreated NewValidEvent()
@@ -542,60 +664,64 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
                         DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                     },
                 },
-            CountOfVotersInformation = new CountOfVotersInformationEventData
+            CountOfVotersInformationSubTotals =
             {
-                SubTotalInfo =
-                    {
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.Swiss,
                             CountOfVoters = 6000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.Swiss,
                             CountOfVoters = 4000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.SwissAbroad,
                             CountOfVoters = 1000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.SwissAbroad,
                             CountOfVoters = 1000,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.Foreigner,
                             CountOfVoters = 30,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.Foreigner,
                             CountOfVoters = 70,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Male,
                             VoterType = SharedProto.VoterType.Minor,
                             CountOfVoters = 70,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
                         new CountOfVotersInformationSubTotalEventData
                         {
                             Sex = SharedProto.SexType.Female,
                             VoterType = SharedProto.VoterType.Minor,
                             CountOfVoters = 30,
+                            DomainOfInfluenceType = SharedProto.DomainOfInfluenceType.Ct,
                         },
-                    },
-                TotalCountOfVoters = 12200,
             },
             CountingMachine = SharedProto.CountingMachine.CalibratedScales,
             EventInfo = GetMockedEventInfo(),

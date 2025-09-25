@@ -28,7 +28,7 @@ public static class EndResultContestDetailsUtils
                     && x.DomainOfInfluenceType == votingCard.DomainOfInfluenceType);
             if (matchingVotingCard != null)
             {
-                matchingVotingCard.CountOfReceivedVotingCards += votingCard.CountOfReceivedVotingCards * deltaFactor;
+                matchingVotingCard.CountOfReceivedVotingCards += votingCard.CountOfReceivedVotingCards.GetValueOrDefault() * deltaFactor;
             }
             else if (deltaFactor > 0)
             {
@@ -37,7 +37,7 @@ public static class EndResultContestDetailsUtils
                     Channel = votingCard.Channel,
                     DomainOfInfluenceType = votingCard.DomainOfInfluenceType,
                     Valid = votingCard.Valid,
-                    CountOfReceivedVotingCards = votingCard.CountOfReceivedVotingCards,
+                    CountOfReceivedVotingCards = votingCard.CountOfReceivedVotingCards.GetValueOrDefault(),
                 });
             }
         }
@@ -46,10 +46,11 @@ public static class EndResultContestDetailsUtils
         {
             var matchingInfo = trackedEndResult.CountOfVotersInformationSubTotals
                 .FirstOrDefault(x => x.Sex == countOfVoterInfo.Sex
-                    && x.VoterType == countOfVoterInfo.VoterType);
+                    && x.VoterType == countOfVoterInfo.VoterType
+                    && x.DomainOfInfluenceType == countOfVoterInfo.DomainOfInfluenceType);
             if (matchingInfo != null)
             {
-                matchingInfo.CountOfVoters += countOfVoterInfo.CountOfVoters * deltaFactor;
+                matchingInfo.CountOfVoters += countOfVoterInfo.CountOfVoters.GetValueOrDefault() * deltaFactor;
             }
             else if (deltaFactor > 0 && HasVoterTypeSupport(domainOfInfluence, countOfVoterInfo.VoterType))
             {
@@ -57,7 +58,8 @@ public static class EndResultContestDetailsUtils
                 {
                     Sex = countOfVoterInfo.Sex,
                     VoterType = countOfVoterInfo.VoterType,
-                    CountOfVoters = countOfVoterInfo.CountOfVoters,
+                    CountOfVoters = countOfVoterInfo.CountOfVoters.GetValueOrDefault(),
+                    DomainOfInfluenceType = countOfVoterInfo.DomainOfInfluenceType,
                 });
             }
         }

@@ -42,6 +42,21 @@
                 <electionDescriptionShort>Mw SG de</electionDescriptionShort>
                 <electionDescription>Majorzwahl St. Gallen de</electionDescription>
               </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>fr</language>
+                <electionDescriptionShort>Mw SG fr</electionDescriptionShort>
+                <electionDescription>Majorzwahl St. Gallen fr</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>it</language>
+                <electionDescriptionShort>Mw SG it</electionDescriptionShort>
+                <electionDescription>Majorzwahl St. Gallen it</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>rm</language>
+                <electionDescriptionShort>Mw SG rm</electionDescriptionShort>
+                <electionDescription>Majorzwahl St. Gallen rm</electionDescription>
+              </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
           </election>
@@ -100,7 +115,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -193,6 +207,21 @@
                 <electionDescriptionShort>Mw Uzwil de</electionDescriptionShort>
                 <electionDescription>Majorzwahl Uzwil de</electionDescription>
               </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>fr</language>
+                <electionDescriptionShort>Mw Uzwil fr</electionDescriptionShort>
+                <electionDescription>Majorzwahl Uzwil fr</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>it</language>
+                <electionDescriptionShort>Mw Uzwil it</electionDescriptionShort>
+                <electionDescription>Majorzwahl Uzwil it</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>rm</language>
+                <electionDescriptionShort>Mw Uzwil rm</electionDescriptionShort>
+                <electionDescription>Majorzwahl Uzwil rm</electionDescription>
+              </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">5</numberOfMandates>
           </election>
@@ -251,7 +280,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -295,6 +323,21 @@
                 <language>de</language>
                 <electionDescriptionShort>short de</electionDescriptionShort>
                 <electionDescription>official de</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>fr</language>
+                <electionDescriptionShort>short fr</electionDescriptionShort>
+                <electionDescription>official fr</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>it</language>
+                <electionDescriptionShort>short it</electionDescriptionShort>
+                <electionDescription>official it</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>rm</language>
+                <electionDescriptionShort>short rm</electionDescriptionShort>
+                <electionDescription>official rm</electionDescription>
               </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</numberOfMandates>
@@ -354,7 +397,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -422,6 +464,21 @@
                 <electionDescriptionShort>Mw Gossau de</electionDescriptionShort>
                 <electionDescription>Majorzwahl Gossau de</electionDescription>
               </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>fr</language>
+                <electionDescriptionShort>Mw Gossau fr</electionDescriptionShort>
+                <electionDescription>Majorzwahl Gossau fr</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>it</language>
+                <electionDescriptionShort>Mw Gossau it</electionDescriptionShort>
+                <electionDescription>Majorzwahl Gossau it</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>rm</language>
+                <electionDescriptionShort>Mw Gossau rm</electionDescriptionShort>
+                <electionDescription>Majorzwahl Gossau rm</electionDescription>
+              </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">3</numberOfMandates>
           </election>
@@ -480,7 +537,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -565,7 +621,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title 2</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -633,6 +688,21 @@
                 <electionDescriptionShort>NW SG de</electionDescriptionShort>
                 <electionDescription>Nebenwahl St. Gallen de</electionDescription>
               </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>fr</language>
+                <electionDescriptionShort>NW SG fr</electionDescriptionShort>
+                <electionDescription>Nebenwahl St. Gallen fr</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>it</language>
+                <electionDescriptionShort>NW SG it</electionDescriptionShort>
+                <electionDescription>Nebenwahl St. Gallen it</electionDescription>
+              </electionDescriptionInfo>
+              <electionDescriptionInfo>
+                <language>rm</language>
+                <electionDescriptionShort>NW SG rm</electionDescriptionShort>
+                <electionDescription>Nebenwahl St. Gallen rm</electionDescription>
+              </electionDescriptionInfo>
             </electionDescription>
             <numberOfMandates xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</numberOfMandates>
           </election>
@@ -691,7 +761,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -776,7 +845,6 @@
               </country>
             </dwellingAddress>
             <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
-            <mrMrs xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1</mrMrs>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>

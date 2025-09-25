@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
@@ -78,6 +79,7 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
 
         foreach (var result in sortedResults)
         {
+            var submissionDone = result.State.IsSubmissionDone();
             var groupedSecondaryResults = result.SecondaryMajorityElectionResults
                 .ToDictionary(x => x.SecondaryMajorityElectionId);
             groupedSecondaryResults.TryGetValue(secondaryElectionId1, out var result1);
@@ -103,14 +105,14 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
                     Code = result.CountingCircle.Code,
                     CandidateNumber = candidateResult.Candidate.Number,
                     ElectionId = result.MajorityElectionId,
-                    VoteCount = candidateResult.VoteCount,
+                    VoteCount = submissionDone ? candidateResult.VoteCount : null,
                     ElectionUnionIds = result.MajorityElection.MajorityElectionUnionEntries
                         .Select(z => z.MajorityElectionUnionId)
                         .OrderBy(z => z)
                         .ToList(),
                     PoliticalBusinessNumber = result.MajorityElection.PoliticalBusinessNumber,
-                    VoteCountSecondary = candidateResult1?.VoteCount,
-                    VoteCountSecondary2 = candidateResult2?.VoteCount,
+                    VoteCountSecondary = submissionDone ? candidateResult1?.VoteCount : null,
+                    VoteCountSecondary2 = submissionDone ? candidateResult2?.VoteCount : null,
                 };
             }
 
@@ -129,7 +131,7 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
                         .OrderBy(z => z)
                         .ToList(),
                     PoliticalBusinessNumber = result.MajorityElection.PoliticalBusinessNumber,
-                    VoteCountSecondary = candidateResult.VoteCount,
+                    VoteCountSecondary = submissionDone ? candidateResult.VoteCount : null,
                 };
             }
 
@@ -147,7 +149,7 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
                         .OrderBy(z => z)
                         .ToList(),
                     PoliticalBusinessNumber = result.MajorityElection.PoliticalBusinessNumber,
-                    VoteCountSecondary2 = candidateResult.VoteCount,
+                    VoteCountSecondary2 = submissionDone ? candidateResult.VoteCount : null,
                 };
             }
 
@@ -159,14 +161,14 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
                 Code = result.CountingCircle.Code,
                 CandidateNumber = WabstiCConstants.IndividualMajorityCandidateNumber,
                 ElectionId = result.MajorityElectionId,
-                VoteCount = result.IndividualVoteCount,
+                VoteCount = submissionDone ? result.IndividualVoteCount : null,
                 ElectionUnionIds = result.MajorityElection.MajorityElectionUnionEntries
                     .Select(z => z.MajorityElectionUnionId)
                     .OrderBy(z => z)
                     .ToList(),
                 PoliticalBusinessNumber = result.MajorityElection.PoliticalBusinessNumber,
-                VoteCountSecondary = result1?.IndividualVoteCount,
-                VoteCountSecondary2 = result2?.IndividualVoteCount,
+                VoteCountSecondary = submissionDone ? result1?.IndividualVoteCount : null,
+                VoteCountSecondary2 = submissionDone ? result2?.IndividualVoteCount : null,
             };
         }
     }

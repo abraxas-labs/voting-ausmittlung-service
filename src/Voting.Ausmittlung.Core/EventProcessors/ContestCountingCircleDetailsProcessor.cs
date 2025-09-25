@@ -15,9 +15,7 @@ using Microsoft.Extensions.Logging;
 using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
-using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Database.Repositories;
@@ -27,6 +25,8 @@ namespace Voting.Ausmittlung.Core.EventProcessors;
 public class ContestCountingCircleDetailsProcessor :
     IEventProcessor<ContestCountingCircleDetailsCreated>,
     IEventProcessor<ContestCountingCircleDetailsUpdated>,
+    IEventProcessor<Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsCreated>,
+    IEventProcessor<Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsUpdated>,
 #pragma warning disable CS0612 // contest counting circle options are deprecated
     IEventProcessor<ContestCountingCircleOptionsUpdated>,
 #pragma warning restore CS0612
@@ -36,12 +36,11 @@ public class ContestCountingCircleDetailsProcessor :
     private readonly IDbRepository<DataContext, ContestCountingCircleDetails> _repo;
     private readonly IDbRepository<DataContext, CountOfVotersInformationSubTotal> _countOfVotersInformationSubTotalRepo;
     private readonly IDbRepository<DataContext, VotingCardResultDetail> _votingCardResultDetailRepo;
-    private readonly VoteResultRepo _voteResultRepo;
-    private readonly ProportionalElectionResultRepo _proportionalElectionResultRepo;
-    private readonly MajorityElectionResultRepo _majorityElectionResultRepo;
     private readonly IDbRepository<DataContext, ProtocolExport> _protocolExportRepo;
     private readonly AggregatedContestCountingCircleDetailsBuilder _aggregatedContestCountingCircleDetailsBuilder;
     private readonly IMapper _mapper;
+    private readonly CountingCircleResultBuilder _ccResultBuilder;
+    private readonly EndResultBuilder _endResultBuilder;
 
     public ContestCountingCircleDetailsProcessor(
         ILogger<ContestCountingCircleDetailsProcessor> logger,
@@ -49,29 +48,27 @@ public class ContestCountingCircleDetailsProcessor :
         IDbRepository<DataContext, ContestCountingCircleDetails> repo,
         IDbRepository<DataContext, VotingCardResultDetail> votingCardResultDetailRepo,
         IDbRepository<DataContext, CountOfVotersInformationSubTotal> countOfVotersInformationSubTotalRepo,
-        VoteResultRepo voteResultRepo,
-        ProportionalElectionResultRepo proportionalElectionResultRepo,
-        MajorityElectionResultRepo majorityElectionResultRepo,
         IDbRepository<DataContext, ProtocolExport> protocolExportRepo,
-        AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder)
+        AggregatedContestCountingCircleDetailsBuilder aggregatedContestCountingCircleDetailsBuilder,
+        CountingCircleResultBuilder ccResultBuilder,
+        EndResultBuilder endResultBuilder)
     {
         _logger = logger;
         _repo = repo;
         _mapper = mapper;
         _votingCardResultDetailRepo = votingCardResultDetailRepo;
         _countOfVotersInformationSubTotalRepo = countOfVotersInformationSubTotalRepo;
-        _voteResultRepo = voteResultRepo;
-        _proportionalElectionResultRepo = proportionalElectionResultRepo;
-        _majorityElectionResultRepo = majorityElectionResultRepo;
         _protocolExportRepo = protocolExportRepo;
         _aggregatedContestCountingCircleDetailsBuilder = aggregatedContestCountingCircleDetailsBuilder;
+        _ccResultBuilder = ccResultBuilder;
+        _endResultBuilder = endResultBuilder;
     }
 
     public Task Process(ContestCountingCircleDetailsCreated eventData)
-        => ProcessCreateUpdate(eventData, eventData.Id);
+        => ProcessCreateUpdate(eventData, eventData.Id, true);
 
     public Task Process(ContestCountingCircleDetailsUpdated eventData)
-        => ProcessCreateUpdate(eventData, eventData.Id);
+        => ProcessCreateUpdate(eventData, eventData.Id, true);
 
     [Obsolete("contest counting circle options are deprecated")]
     public async Task Process(ContestCountingCircleOptionsUpdated eventData)
@@ -107,14 +104,29 @@ public class ContestCountingCircleDetailsProcessor :
             .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(id);
 
+        // End results need to be adjusted during "ContestCountingCircleDetailsResetted"
+        // and not during political business resets ex: "VoteResultResetted",
+        // because the related details info does not exist anymore, after this event is processed.
+        await _endResultBuilder.AdjustEndResultsForCountingCircleDetailsReset(details);
         await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
+
         await DeleteProtocolExports(GuidParser.Parse(eventData.ContestId), GuidParser.Parse(eventData.CountingCircleId));
         ResetDetails(details);
         await _repo.Update(details);
-        await UpdateCountOfVotersForCountingCircleResults(details, true);
+        await _ccResultBuilder.UpdateCountOfVotersForCountingCircleResults(details, true);
     }
 
-    private async Task ProcessCreateUpdate<T>(T eventData, string idStr)
+    public Task Process(Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsCreated eventData)
+    {
+        return ProcessCreateUpdate(eventData, eventData.Id);
+    }
+
+    public Task Process(Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsUpdated eventData)
+    {
+        return ProcessCreateUpdate(eventData, eventData.Id);
+    }
+
+    private async Task ProcessCreateUpdate<T>(T eventData, string idStr, bool isV1Event = false)
         where T : IMessage<T>
     {
         var id = GuidParser.Parse(idStr);
@@ -134,124 +146,25 @@ public class ContestCountingCircleDetailsProcessor :
             .FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new EntityNotFoundException(id);
 
-        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, true);
-
-        await _countOfVotersInformationSubTotalRepo.DeleteRangeByKey(
-            details.CountOfVotersInformationSubTotals.Select(x => x.Id));
-
+        await _countOfVotersInformationSubTotalRepo.DeleteRangeByKey(details.CountOfVotersInformationSubTotals.Select(x => x.Id));
         await _votingCardResultDetailRepo.DeleteRangeByKey(details.VotingCards.Select(x => x.Id));
 
         _mapper.Map(eventData, details);
         details.CountingCircleId = AusmittlungUuidV5.BuildCountingCircleSnapshot(details.ContestId, details.CountingCircleId);
 
+        if (isV1Event)
+        {
+            MigrateV1Details(details);
+        }
+
         await _repo.Update(details);
-        await UpdateCountOfVotersForCountingCircleResults(details, false);
-        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(details, false);
+        await _ccResultBuilder.UpdateCountOfVotersForCountingCircleResults(details, false);
     }
-
-    private async Task UpdateCountOfVotersForCountingCircleResults(ContestCountingCircleDetails details, bool isReset)
-    {
-        await UpdateCountOfVotersForVoteResults(details, isReset);
-        await UpdateCountOfVotersForProportionalElectionResults(details, isReset);
-        await UpdateCountOfVotersForMajorityElectionResults(details, isReset);
-    }
-
-    private async Task UpdateCountOfVotersForVoteResults(ContestCountingCircleDetails details, bool isReset)
-    {
-        var voteResults = await _voteResultRepo.Query()
-            .AsSplitQuery()
-            .Include(x => x.Vote.DomainOfInfluence)
-            .Include(x => x.Results).ThenInclude(br => br.CountOfVoters)
-            .Where(vr => vr.CountingCircleId == details.CountingCircleId)
-            .ToListAsync();
-
-        foreach (var voteResult in voteResults)
-        {
-            UpdateCountOfVoters(voteResult, details, isReset);
-            foreach (var ballotResult in voteResult.Results)
-            {
-                UpdateVoterParticipation(ballotResult.CountOfVoters, details);
-            }
-
-            // ensures that the doi is not tracked multiple times.
-            voteResult.Vote.DomainOfInfluence = null!;
-        }
-
-        await _voteResultRepo.UpdateRange(voteResults);
-    }
-
-    private async Task UpdateCountOfVotersForProportionalElectionResults(ContestCountingCircleDetails details, bool isReset)
-    {
-        var results = await _proportionalElectionResultRepo.Query()
-            .Include(x => x.ProportionalElection.DomainOfInfluence)
-            .Include(x => x.CountOfVoters)
-            .Where(vr => vr.CountingCircleId == details.CountingCircleId)
-            .ToListAsync();
-
-        foreach (var result in results)
-        {
-            UpdateCountOfVoters(result, details, isReset);
-            UpdateVoterParticipation(result.CountOfVoters, details);
-
-            // ensures that the doi is not tracked multiple times.
-            result.ProportionalElection.DomainOfInfluence = null!;
-        }
-
-        await _proportionalElectionResultRepo.UpdateRange(results);
-    }
-
-    private async Task UpdateCountOfVotersForMajorityElectionResults(ContestCountingCircleDetails details, bool isReset)
-    {
-        var results = await _majorityElectionResultRepo.Query()
-            .Include(x => x.MajorityElection.DomainOfInfluence)
-            .Include(x => x.CountOfVoters)
-            .Where(vr => vr.CountingCircleId == details.CountingCircleId)
-            .ToListAsync();
-
-        foreach (var result in results)
-        {
-            UpdateCountOfVoters(result, details, isReset);
-            UpdateVoterParticipation(result.CountOfVoters, details);
-
-            // ensures that the doi is not tracked multiple times.
-            result.MajorityElection.DomainOfInfluence = null!;
-        }
-
-        await _majorityElectionResultRepo.UpdateRange(results);
-    }
-
-    private void UpdateCountOfVoters(CountingCircleResult result, ContestCountingCircleDetails details, bool isReset)
-    {
-        if (result.State != CountingCircleResultState.Initial
-            && result.State != CountingCircleResultState.SubmissionOngoing
-            && result.State != CountingCircleResultState.ReadyForCorrection
-            && !isReset)
-        {
-            // There may be rare race conditions, where an election admin updates the count of voters
-            // while another finishes the submission of a political business.
-            throw new ContestCountingCircleDetailsNotUpdatableException();
-        }
-
-        result.TotalCountOfVoters = details.GetTotalCountOfVotersForDomainOfInfluence(result.PoliticalBusiness.DomainOfInfluence);
-    }
-
-    private void UpdateVoterParticipation(PoliticalBusinessNullableCountOfVoters countOfVoters, ContestCountingCircleDetails details)
-        => countOfVoters.UpdateVoterParticipation(details.TotalCountOfVoters);
 
     private void ResetDetails(ContestCountingCircleDetails details)
     {
-        details.TotalCountOfVoters = 0;
         details.CountingMachine = CountingMachine.Unspecified;
-
-        foreach (var votingCard in details.VotingCards)
-        {
-            votingCard.CountOfReceivedVotingCards = null;
-        }
-
-        foreach (var subTotal in details.CountOfVotersInformationSubTotals)
-        {
-            subTotal.CountOfVoters = null;
-        }
+        details.ResetVotingCardsAndSubTotals();
     }
 
     private async Task DeleteProtocolExports(Guid contestId, Guid basisCcId)
@@ -262,5 +175,31 @@ public class ContestCountingCircleDetailsProcessor :
             .ToListAsync();
 
         await _protocolExportRepo.DeleteRangeByKey(protocolExportIds);
+    }
+
+    private void MigrateV1Details(ContestCountingCircleDetails details)
+    {
+        var doiTypes = details.VotingCards.Select(vc => vc.DomainOfInfluenceType).ToHashSet();
+        var countOfVotersBySexAndVoterType = details.CountOfVotersInformationSubTotals.ToDictionary(
+            x => (x.Sex, x.VoterType),
+            x => x.CountOfVoters);
+
+        // V1 Details have CountOfVotersInformationSubTotals with a Unspecified doi type.
+        // In this migration we map each V1 sub total to several V2 sub total since V2 contains a doi type.
+        details.CountOfVotersInformationSubTotals = new List<CountOfVotersInformationSubTotal>();
+
+        foreach (var countOfVoters in countOfVotersBySexAndVoterType)
+        {
+            foreach (var doiType in doiTypes)
+            {
+                details.CountOfVotersInformationSubTotals.Add(new CountOfVotersInformationSubTotal
+                {
+                    DomainOfInfluenceType = doiType,
+                    Sex = countOfVoters.Key.Sex,
+                    VoterType = countOfVoters.Key.VoterType,
+                    CountOfVoters = countOfVoters.Value,
+                });
+            }
+        }
     }
 }

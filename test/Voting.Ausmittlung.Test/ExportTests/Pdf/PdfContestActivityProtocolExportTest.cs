@@ -42,7 +42,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
     [Fact]
     public override async Task TestPdf()
     {
-        SeedEvents();
+        await SeedEvents();
         await TestEventPublisher.Publish(new ContestTestingPhaseEnded { ContestId = ContestId.ToString() });
         await RunEvents<ContestTestingPhaseEnded>();
         await base.TestPdf();
@@ -51,7 +51,7 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
     [Fact]
     public async Task TestPdfAsContestManagerImmediatelyAfterTestingPhaseEnded()
     {
-        SeedEvents(false);
+        await SeedEvents(false);
 
         // When the testing phase ends, most of the data that was created during the testing phase gets deleted.
         // We need to test this case, as it lead to bugs (ex. VOTING-2403).
@@ -70,6 +70,9 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         await VoteMockedData.Seed(RunScoped);
     }
 
+    protected override Task<bool> SetToSubmissionOngoing()
+        => Task.FromResult(false);
+
     protected override IEnumerable<string> UnauthorizedRoles()
     {
         yield return NoRole;
@@ -77,13 +80,13 @@ public class PdfContestActivityProtocolExportTest : PdfContestActivityProtocolEx
         yield return RolesMockedData.ErfassungElectionAdmin;
     }
 
-    private void SeedEvents(bool eventsAfterTestingPhaseEnded = true)
+    private async Task SeedEvents(bool eventsAfterTestingPhaseEnded = true)
     {
         SeedCountingCircleInitEvents();
         SeedContestInitEvents();
 
-        SeedBasisPublicKeySignatureEvents(5);
-        SeedAusmittlungPublicKeySignatureEvents(12);
+        await SeedBasisPublicKeySignatureEvents(5);
+        await SeedAusmittlungPublicKeySignatureEvents(12);
 
         SeedVoteInitEvents();
         SeedProportionalElectionInitEvents();

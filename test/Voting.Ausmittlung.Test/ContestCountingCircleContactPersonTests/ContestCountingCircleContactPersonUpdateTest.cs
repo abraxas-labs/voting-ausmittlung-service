@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
-using Abraxas.Voting.Ausmittlung.Events.V1.Data;
 using Abraxas.Voting.Ausmittlung.Services.V1;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
+using Abraxas.Voting.Basis.Events.V1;
+using Abraxas.Voting.Basis.Events.V1.Data;
+using FluentAssertions;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,7 @@ using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.Testing;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ContactPersonEventData = Abraxas.Voting.Ausmittlung.Events.V1.Data.ContactPersonEventData;
 using DomainModels = Voting.Ausmittlung.Core.Domain;
 
 namespace Voting.Ausmittlung.Test.ContestCountingCircleContactPersonTests;
@@ -96,6 +99,63 @@ public class ContestCountingCircleContactPersonUpdateTest : ContestCountingCircl
             .SingleOrDefaultAsync());
 
         countingCircle!.MatchSnapshot(
+            x => x.Id,
+            x => x.ContestCountingCircleContactPersonId!,
+            x => x.ResponsibleAuthority.Id,
+            x => x.ResponsibleAuthority.CountingCircleId,
+            x => x.ContactPersonDuringEvent.Id,
+            x => x.ContactPersonDuringEvent.CountingCircleDuringEventId!,
+            x => x.ContactPersonAfterEvent!.Id,
+            x => x.ContactPersonAfterEvent!.CountingCircleAfterEventId!);
+    }
+
+    [Fact]
+    public async Task TestShouldWorkWithBasisEventInBetween()
+    {
+        // Contact person has been created in Ausmittlung
+        // Now, the counting circle is updated in Basis
+        await TestEventPublisher.Publish(
+            new CountingCircleUpdated
+            {
+                CountingCircle = new CountingCircleEventData
+                {
+                    Id = CountingCircleMockedData.IdGossau,
+                    NameForProtocol = "Stadt Gossau",
+                    Name = "Gossau",
+                    Bfs = "3443",
+                    Code = "3443-GOSSAU",
+                    SortNumber = 9800,
+                    ResponsibleAuthority = new AuthorityEventData
+                    {
+                        SecureConnectId = SecureConnectTestDefaults.MockedTenantGossau.Id,
+                    },
+                    ContactPersonDuringEvent = new Abraxas.Voting.Basis.Events.V1.Data.ContactPersonEventData
+                    {
+                        FirstName = "updated first name",
+                        FamilyName = "updated family name",
+                        Email = "update@test.invalid",
+                        Phone = "test phone",
+                    },
+                    ContactPersonSameDuringEventAsAfter = true,
+                    EVoting = true,
+                },
+            });
+
+        // Updating the contact person again should work
+        await TestEventPublisher.Publish(1, NewValidEvent());
+
+        var countingCircle = await RunOnDb(db => db
+            .CountingCircles
+            .Where(cc => cc.SnapshotContestId == Guid.Parse(ContestMockedData.IdBundesurnengang)
+                         && cc.BasisCountingCircleId == CountingCircleMockedData.GuidGossau)
+            .Include(x => x.ContactPersonAfterEvent)
+            .Include(x => x.ContactPersonDuringEvent)
+            .Include(x => x.ResponsibleAuthority)
+            .SingleAsync());
+        countingCircle.ContestCountingCircleContactPersonId.Should().NotBeNull();
+        countingCircle.MustUpdateContactPersons.Should().BeFalse();
+
+        countingCircle.MatchSnapshot(
             x => x.Id,
             x => x.ContestCountingCircleContactPersonId!,
             x => x.ResponsibleAuthority.Id,

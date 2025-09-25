@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Services.V1.Requests;
 using Microsoft.EntityFrameworkCore;
-using Voting.Ausmittlung.Core.Auth;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Test.MockedData;
@@ -16,7 +15,7 @@ using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfSecondaryMajorityElectionEndResultDetailExportTest : PdfExportBaseTest
+public class PdfSecondaryMajorityElectionEndResultDetailExportTest : PdfMajorityElectionEndResultExportBaseTest
 {
     public PdfSecondaryMajorityElectionEndResultDetailExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -97,13 +96,6 @@ public class PdfSecondaryMajorityElectionEndResultDetailExportTest : PdfExportBa
         };
     }
 
-    protected override IEnumerable<string> UnauthorizedRoles()
-    {
-        yield return NoRole;
-        yield return RolesMockedData.ErfassungCreator;
-        yield return RolesMockedData.ErfassungElectionAdmin;
-    }
-
     private async Task SeedCountingCircleDetails()
     {
         await RunOnDb(async db =>
@@ -114,7 +106,6 @@ public class PdfSecondaryMajorityElectionEndResultDetailExportTest : PdfExportBa
                 .SingleAsync(x => x.ContestId == ContestMockedData.GuidBundesurnengang
                     && x.CountingCircle.BasisCountingCircleId == CountingCircleMockedData.GuidStGallenHaggen);
 
-            haggenDetails.TotalCountOfVoters = 3210;
             haggenDetails.VotingCards = new List<VotingCardResultDetail>
             {
                 new VotingCardResultDetail

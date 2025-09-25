@@ -20,4 +20,6 @@ public class Ech0252FilterModel
     public List<PoliticalBusinessType> PoliticalBusinessTypes { get; init; } = new();
 
     public bool InformationOnly { get; init; }
+
+    public bool IncludeCandidateListResultsInfo { get; init; }
 }

@@ -49,6 +49,14 @@ public abstract class CountingCircleResultAggregate : BaseEventSignatureAggregat
         }
     }
 
+    protected void EnsureSubmissionAlreadyOngoing()
+    {
+        if (State < CountingCircleResultState.SubmissionOngoing)
+        {
+            throw new ValidationException($"This operation is only possible if submission is already ongoing");
+        }
+    }
+
     protected void EnsureInTestingPhase()
     {
         if (Id != AusmittlungUuidV5.BuildPoliticalBusinessResult(PoliticalBusinessId, CountingCircleId, false))

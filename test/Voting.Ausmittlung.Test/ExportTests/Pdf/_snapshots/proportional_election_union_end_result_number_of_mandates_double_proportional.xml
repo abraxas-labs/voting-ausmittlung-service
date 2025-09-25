@@ -31,8 +31,10 @@
             <Bfs>101</Bfs>
             <Type>Bz</Type>
             <Canton>Zh</Canton>
+            <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
           </DomainOfInfluence>
           <NumberOfMandates>11</NumberOfMandates>
+          <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
         </ProportionalElection>
         <VoteCount>98971</VoteCount>
         <VoterNumber>8997</VoterNumber>
@@ -56,8 +58,10 @@
             <Bfs>102</Bfs>
             <Type>Bz</Type>
             <Canton>Zh</Canton>
+            <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
           </DomainOfInfluence>
           <NumberOfMandates>12</NumberOfMandates>
+          <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
         </ProportionalElection>
         <VoteCount>215661</VoteCount>
         <VoterNumber>17828</VoterNumber>
@@ -81,8 +85,10 @@
             <Bfs>103</Bfs>
             <Type>Bz</Type>
             <Canton>Zh</Canton>
+            <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
           </DomainOfInfluence>
           <NumberOfMandates>13</NumberOfMandates>
+          <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
         </ProportionalElection>
         <VoteCount>176740</VoteCount>
         <VoterNumber>13595</VoterNumber>
@@ -296,5 +302,6 @@
         </Cell>
       </Column>
     </ProportionalElectionUnionDoubleProportionalResult>
+    <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
   </ProportionalElectionUnion>
 </Voting>

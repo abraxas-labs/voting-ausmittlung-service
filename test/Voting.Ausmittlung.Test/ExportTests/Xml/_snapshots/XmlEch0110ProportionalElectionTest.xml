@@ -26,18 +26,6 @@
           <language>de</language>
           <contestDescription>Nationalratswahlen in der Zukunft de</contestDescription>
         </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>fr</language>
-          <contestDescription>Nationalratswahlen in der Zukunft fr</contestDescription>
-        </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>it</language>
-          <contestDescription>Nationalratswahlen in der Zukunft it</contestDescription>
-        </contestDescriptionInfo>
-        <contestDescriptionInfo>
-          <language>rm</language>
-          <contestDescription>Nationalratswahlen in der Zukunft rm</contestDescription>
-        </contestDescriptionInfo>
       </contestDescription>
     </contestInformation>
     <countingCircleResults>
@@ -47,7 +35,7 @@
       </countingCircle>
       <votingCardsInformation>
         <countOfReceivedValidVotingCardsTotal>2750</countOfReceivedValidVotingCardsTotal>
-        <countOfReceivedInvalidVotingCardsTotal>460</countOfReceivedInvalidVotingCardsTotal>
+        <countOfReceivedInvalidVotingCardsTotal>2760</countOfReceivedInvalidVotingCardsTotal>
       </votingCardsInformation>
       <electionGroupResults>
         <domainOfInfluenceIdentification>d9f5e161-37f8-4c76-921d-c0237c54dc5b</domainOfInfluenceIdentification>
@@ -95,21 +83,6 @@
                     <listDescriptionShort>Liste 1a de</listDescriptionShort>
                     <listDescription>Liste 1a SP/JUSO Frauen de</listDescription>
                   </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <listDescriptionShort>Liste 1a fr</listDescriptionShort>
-                    <listDescription>Liste 1a SP/JUSO Frauen fr</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <listDescriptionShort>Liste 1a it</listDescriptionShort>
-                    <listDescription>Liste 1a SP/JUSO Frauen it</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <listDescriptionShort>Liste 1a rm</listDescriptionShort>
-                    <listDescription>Liste 1a SP/JUSO Frauen rm</listDescription>
-                  </listDescriptionInfo>
                 </listDescription>
               </listInformation>
               <countOfChangedBallots>
@@ -137,21 +110,6 @@
                     <language>de</language>
                     <listDescriptionShort>Liste 1b de</listDescriptionShort>
                     <listDescription>Liste 1b SP/JUSO Männer de</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <listDescriptionShort>Liste 1b fr</listDescriptionShort>
-                    <listDescription>Liste 1b SP/JUSO Männer fr</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <listDescriptionShort>Liste 1b it</listDescriptionShort>
-                    <listDescription>Liste 1b SP/JUSO Männer it</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <listDescriptionShort>Liste 1b rm</listDescriptionShort>
-                    <listDescription>Liste 1b SP/JUSO Männer rm</listDescription>
                   </listDescriptionInfo>
                 </listDescription>
               </listInformation>
@@ -181,21 +139,6 @@
                     <listDescriptionShort>Liste 2 de</listDescriptionShort>
                     <listDescription>Liste 2, GLP de</listDescription>
                   </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <listDescriptionShort>Liste 2 fr</listDescriptionShort>
-                    <listDescription>Liste 2, GLP fr</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <listDescriptionShort>Liste 2 it</listDescriptionShort>
-                    <listDescription>Liste 2, GLP it</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <listDescriptionShort>Liste 2 rm</listDescriptionShort>
-                    <listDescription>Liste 2, GLP rm</listDescription>
-                  </listDescriptionInfo>
                 </listDescription>
               </listInformation>
               <countOfChangedBallots>
@@ -223,21 +166,6 @@
                     <language>de</language>
                     <listDescriptionShort>Liste 3 de</listDescriptionShort>
                     <listDescription>Liste 3, die Internetpartei de</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <listDescriptionShort>Liste 3 fr</listDescriptionShort>
-                    <listDescription>Liste 3, die Internetpartei fr</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <listDescriptionShort>Liste 3 it</listDescriptionShort>
-                    <listDescription>Liste 3, die Internetpartei it</listDescription>
-                  </listDescriptionInfo>
-                  <listDescriptionInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <listDescriptionShort>Liste 3 rm</listDescriptionShort>
-                    <listDescription>Liste 3, die Internetpartei rm</listDescription>
                   </listDescriptionInfo>
                 </listDescription>
               </listInformation>
@@ -269,18 +197,6 @@
                     <language>de</language>
                     <candidateText>Weibel Lara</candidateText>
                   </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Weibel Lara</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Weibel Lara</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <candidateText>Weibel Lara</candidateText>
-                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -305,18 +221,6 @@
                 <candidateText>
                   <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
                     <language>de</language>
-                    <candidateText>Königer Doris</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Königer Doris</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Königer Doris</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
                     <candidateText>Königer Doris</candidateText>
                   </candidateTextInfo>
                 </candidateText>
@@ -345,18 +249,6 @@
                     <language>de</language>
                     <candidateText>Kobler Florian</candidateText>
                   </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Kobler Florian</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Kobler Florian</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <candidateText>Kobler Florian</candidateText>
-                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -381,18 +273,6 @@
                 <candidateText>
                   <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
                     <language>de</language>
-                    <candidateText>Kindler Tobias</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Kindler Tobias</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Kindler Tobias</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
                     <candidateText>Kindler Tobias</candidateText>
                   </candidateTextInfo>
                 </candidateText>
@@ -421,18 +301,6 @@
                     <language>de</language>
                     <candidateText>Herz Martin</candidateText>
                   </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Herz Martin</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Herz Martin</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <candidateText>Herz Martin</candidateText>
-                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -459,18 +327,6 @@
                     <language>de</language>
                     <candidateText>Ritter Luca</candidateText>
                   </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Ritter Luca</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Ritter Luca</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
-                    <candidateText>Ritter Luca</candidateText>
-                  </candidateTextInfo>
                 </candidateText>
                 <officialCandidateYesNo>true</officialCandidateYesNo>
               </candidateInformation>
@@ -495,18 +351,6 @@
                 <candidateText>
                   <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
                     <language>de</language>
-                    <candidateText>Gaertner Stephanie</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>fr</language>
-                    <candidateText>Gaertner Stephanie</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>it</language>
-                    <candidateText>Gaertner Stephanie</candidateText>
-                  </candidateTextInfo>
-                  <candidateTextInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/4">
-                    <language>rm</language>
                     <candidateText>Gaertner Stephanie</candidateText>
                   </candidateTextInfo>
                 </candidateText>

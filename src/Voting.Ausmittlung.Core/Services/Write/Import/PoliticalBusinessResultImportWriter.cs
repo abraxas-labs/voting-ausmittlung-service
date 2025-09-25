@@ -46,10 +46,7 @@ public abstract class PoliticalBusinessResultImportWriter<TAggregate, TResult>
         IReadOnlyCollection<Guid> countingCircleIds)
     {
         var resultIds = await BuildResultsQuery(contestId)
-            .Where(x => countingCircleIds.Contains(x.CountingCircleId)
-                        && x.State != CountingCircleResultState.Initial
-                        && x.State != CountingCircleResultState.SubmissionOngoing
-                        && x.State != CountingCircleResultState.ReadyForCorrection)
+            .Where(x => countingCircleIds.Contains(x.CountingCircleId) && x.State >= CountingCircleResultState.SubmissionDone)
             .Select(x => x.Id)
             .ToListAsync();
 

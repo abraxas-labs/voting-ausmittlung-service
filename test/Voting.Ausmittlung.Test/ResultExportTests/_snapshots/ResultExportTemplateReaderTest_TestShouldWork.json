@@ -12,7 +12,7 @@
       },
       {
         "ExportTemplateId": "e0e5227a-2fd3-5a69-b384-297475f127a0",
-        "Description": "Abstimmung St. Gallen: Gesamtergebnisse",
+        "Description": "Abstimmung kantonal: Gesamtergebnisse",
         "EntityDescription": "Abst SG de",
         "PoliticalBusinessIds": [
           "96d8275f-f1f8-4933-a097-5c0c19f54567"
@@ -534,6 +534,13 @@
         "EntityDescription": "",
         "PoliticalBusinessIds": [],
         "TemplateKey": "proportional_election_result_ech_0252"
+      },
+      {
+        "ExportTemplateId": "18651178-f7b7-5cfc-9e23-c8f56971318b",
+        "Description": "Proporzwahlresultate inkl. Panaschierstatistik (eCH-0252 Result Delivery)",
+        "EntityDescription": "",
+        "PoliticalBusinessIds": [],
+        "TemplateKey": "proportional_election_result_with_candidate_list_results_info_ech_0252"
       },
       {
         "ExportTemplateId": "fd06d291-fb37-559a-8b95-37beb9c87a80",

@@ -48,7 +48,10 @@ public class BallotQuestionResult : BaseEntity,
             ? 0
             : (decimal)TotalCountOfAnswerYes / (TotalCountOfAnswerYes + TotalCountOfAnswerNo);
 
-    public decimal PercentageNo => 1 - PercentageYes;
+    public decimal PercentageNo =>
+        TotalCountOfAnswerYes == 0 && TotalCountOfAnswerNo == 0
+            ? 0
+            : 1 - PercentageYes;
 
     public int CountOfAnswerTotal => TotalCountOfAnswerYes + TotalCountOfAnswerNo + TotalCountOfAnswerUnspecified;
 }

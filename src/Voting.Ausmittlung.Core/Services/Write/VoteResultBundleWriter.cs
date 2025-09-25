@@ -36,8 +36,9 @@ public class VoteResultBundleWriter
         IDbRepository<DataContext, DataModels.VoteResultBundle> bundleRepo,
         PermissionService permissionService,
         ContestService contestService,
-        IAuth auth)
-        : base(permissionService, contestService, auth, aggregateRepository)
+        IAuth auth,
+        SecondFactorTransactionWriter secondFactorTransactionWriter)
+        : base(permissionService, contestService, auth, aggregateRepository, secondFactorTransactionWriter)
     {
         _aggregateFactory = aggregateFactory;
         _resultRepo = resultRepo;

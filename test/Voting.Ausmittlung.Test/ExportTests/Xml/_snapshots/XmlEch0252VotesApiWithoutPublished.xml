@@ -37,6 +37,21 @@
           <voteTitle>Abstimmung St. Gallen de</voteTitle>
           <voteTitleShort>Abst SG de</voteTitleShort>
         </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung St. Gallen fr</voteTitle>
+          <voteTitleShort>Abst SG fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung St. Gallen it</voteTitle>
+          <voteTitleShort>Abst SG it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung St. Gallen rm</voteTitle>
+          <voteTitleShort>Abst SG rm</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
         <sequence>1</sequence>
@@ -204,6 +219,21 @@
           <voteTitle>Abstimmung Uzwil de</voteTitle>
           <voteTitleShort>Abst Uzwil de</voteTitleShort>
         </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Uzwil fr</voteTitle>
+          <voteTitleShort>Abst Uzwil fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Uzwil it</voteTitle>
+          <voteTitleShort>Abst Uzwil it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Uzwil rm</voteTitle>
+          <voteTitleShort>Abst Uzwil rm</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
         <sequence>1</sequence>
@@ -257,6 +287,21 @@
           <voteTitle>Abstimmung Gossau de - Frage 1 Gossau de</voteTitle>
           <voteTitleShort>Abst Gossau de - Frage 1 Gossau de</voteTitleShort>
         </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Frage 1 Gossau fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Frage 1 Gossau fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Frage 1 Gossau it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Frage 1 Gossau it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Frage 1 Gossau rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Frage 1 Gossau rm</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>1</voteSubType>
         <sequence>1</sequence>
@@ -272,9 +317,9 @@
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation>
-            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
-            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
-            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
           </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
@@ -314,6 +359,21 @@
           <voteTitle>Abstimmung Gossau de - Frage 2 Gossau de</voteTitle>
           <voteTitleShort>Abst Gossau de - Frage 2 Gossau de</voteTitleShort>
         </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Frage 2 Gossau fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Frage 2 Gossau fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Frage 2 Gossau it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Frage 2 Gossau it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Frage 2 Gossau rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Frage 2 Gossau rm</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>2</voteSubType>
         <sequence>2</sequence>
@@ -329,9 +389,9 @@
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation>
-            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
-            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
-            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
           </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>
@@ -371,6 +431,21 @@
           <voteTitle>Abstimmung Gossau de - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitle>
           <voteTitleShort>Abst Gossau de - Stichfrage 1 Gossau (Frage 1 vs Frage 2) de</voteTitleShort>
         </voteTitleInformation>
+        <voteTitleInformation>
+          <language>fr</language>
+          <voteTitle>Abstimmung Gossau fr - Stichfrage 1 Gossau (Frage 1 vs Frage 2) fr</voteTitle>
+          <voteTitleShort>Abst Gossau fr - Stichfrage 1 Gossau (Frage 1 vs Frage 2) fr</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>it</language>
+          <voteTitle>Abstimmung Gossau it - Stichfrage 1 Gossau (Frage 1 vs Frage 2) it</voteTitle>
+          <voteTitleShort>Abst Gossau it - Stichfrage 1 Gossau (Frage 1 vs Frage 2) it</voteTitleShort>
+        </voteTitleInformation>
+        <voteTitleInformation>
+          <language>rm</language>
+          <voteTitle>Abstimmung Gossau rm - Stichfrage 1 Gossau (Frage 1 vs Frage 2) rm</voteTitle>
+          <voteTitleShort>Abst Gossau rm - Stichfrage 1 Gossau (Frage 1 vs Frage 2) rm</voteTitleShort>
+        </voteTitleInformation>
         <decisiveMajority>1</decisiveMajority>
         <voteSubType>3</voteSubType>
         <sequence>3</sequence>
@@ -386,9 +461,9 @@
             <countOfVotersTotal>15000</countOfVotersTotal>
           </countOfVotersInformation>
           <votingCardInformation>
-            <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
-            <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
-            <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+            <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+            <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+            <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
           </votingCardInformation>
           <isFullyCounted>false</isFullyCounted>
           <voterTurnout>75.00</voterTurnout>

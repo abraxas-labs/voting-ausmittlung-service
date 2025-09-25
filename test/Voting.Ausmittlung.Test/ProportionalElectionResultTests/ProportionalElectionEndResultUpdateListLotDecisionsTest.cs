@@ -314,6 +314,8 @@ public class ProportionalElectionEndResultUpdateListLotDecisionsTest : Proportio
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        ResetDb();
+        await InitializeAsync();
         await SetAllAuditedTentatively();
         await TriggerMandateDistribution();
         await SetManualEndResultRequired();

@@ -61,7 +61,10 @@ public class ContestReader
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence)
             .Include(x => x.CantonDefaults)
-            .Where(x => (readAllOwnedContests && x.DomainOfInfluence.SecureConnectId == tenantId)
+            .Where(x =>
+                (readAllOwnedContests
+                    && x.DomainOfInfluence.SecureConnectId == tenantId
+                    && x.SimplePoliticalBusinesses.Any(pb => pb.Active && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection))
                 || x.SimplePoliticalBusinesses.Any(pb =>
                     pb.Active
                     && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection
@@ -162,7 +165,11 @@ public class ContestReader
             .Include(c => c.DomainOfInfluence)
             .Include(c => c.Translations)
             .Include(c => c.CantonDefaults)
-            .Where(c => countsByContestId.Keys.Contains(c.Id) || (readAllOwnedContests && c.DomainOfInfluence.SecureConnectId == tenantId && (states.Count == 0 || states.Contains(c.State))))
+            .Where(c => countsByContestId.Keys.Contains(c.Id)
+                || (readAllOwnedContests
+                    && c.DomainOfInfluence.SecureConnectId == tenantId
+                    && c.SimplePoliticalBusinesses.Any(pb => pb.Active && pb.PoliticalBusinessType != PoliticalBusinessType.SecondaryMajorityElection)
+                    && (states.Count == 0 || states.Contains(c.State))))
             .Order(states)
             .Select(c => new ContestSummary { Contest = c })
             .ToListAsync();

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -61,6 +62,8 @@ public class PdfProportionalElectionUnionRenderService : IRendererService
         var union = _mapper.Map<PdfProportionalElectionUnion>(data);
         var endResult = _unionEndResultBuilder.BuildEndResult(data);
         union.EndResult = _mapper.Map<PdfProportionalElectionUnionEndResult>(endResult);
+        union.MandateAlgorithm = data.ProportionalElectionUnionEntries.FirstOrDefault()?.ProportionalElection.MandateAlgorithm
+            ?? throw new InvalidOperationException("No mandate algorithm found for union " + data.Id);
 
         var templateBag = new PdfTemplateBag
         {

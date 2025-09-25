@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -205,18 +206,19 @@
     </MajorityElectionEndResult>
     <MajorityElectionDomainOfInfluenceResult>
       <DomainOfInfluence>
-        <Name>St. Gallen</Name>
-        <NameForProtocol>Kanton St. Gallen</NameForProtocol>
-        <ShortName>St. Gallen</ShortName>
+        <Name>St. Gallen (Stadt)</Name>
+        <NameForProtocol>Stadt St. Gallen</NameForProtocol>
+        <ShortName>St. Gallen  (Stadt)</ShortName>
         <AuthorityName />
-        <Code>0002-SG</Code>
-        <SortNumber>2</SortNumber>
-        <Bfs>0002</Bfs>
-        <Type>Ct</Type>
+        <Code />
+        <SortNumber>0</SortNumber>
+        <Bfs />
+        <Type>Mu</Type>
         <Canton>Sg</Canton>
+        <ViewCountingCirclePartialResults>true</ViewCountingCirclePartialResults>
       </DomainOfInfluence>
       <CountOfVoters>
-        <VoterParticipation>1.5583</VoterParticipation>
+        <VoterParticipation>0</VoterParticipation>
         <TotalReceivedBallots>5002</TotalReceivedBallots>
         <TotalUnaccountedBallots>2804</TotalUnaccountedBallots>
         <EVotingReceivedBallots>2000</EVotingReceivedBallots>
@@ -234,7 +236,7 @@
         <CountOfBlankBallots>802</CountOfBlankBallots>
       </CountOfVoters>
       <ContestDomainOfInfluenceDetails>
-        <TotalCountOfVoters>3210</TotalCountOfVoters>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
         <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
         <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
         <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
@@ -367,7 +369,7 @@
           <Code />
           <SortNumber>2002</SortNumber>
           <ContestCountingCircleDetails>
-            <TotalCountOfVoters>3210</TotalCountOfVoters>
+            <TotalCountOfVoters>0</TotalCountOfVoters>
             <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
             <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
             <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
@@ -728,7 +730,7 @@
     </MajorityElectionDomainOfInfluenceResult>
     <MajorityElectionAggregatedResult>
       <CountOfVoters>
-        <VoterParticipation>1.5583</VoterParticipation>
+        <VoterParticipation>0</VoterParticipation>
         <TotalReceivedBallots>5002</TotalReceivedBallots>
         <TotalUnaccountedBallots>2804</TotalUnaccountedBallots>
         <EVotingReceivedBallots>2000</EVotingReceivedBallots>
@@ -746,7 +748,7 @@
         <CountOfBlankBallots>802</CountOfBlankBallots>
       </CountOfVoters>
       <ContestDomainOfInfluenceDetails>
-        <TotalCountOfVoters>3210</TotalCountOfVoters>
+        <TotalCountOfVoters>0</TotalCountOfVoters>
         <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
         <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
         <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
@@ -884,11 +886,12 @@
     <Type>Ct</Type>
     <Canton>Sg</Canton>
     <ContestDomainOfInfluenceDetails>
-      <TotalCountOfVoters>3210</TotalCountOfVoters>
+      <TotalCountOfVoters>0</TotalCountOfVoters>
       <TotalCountOfValidVotingCards>2750</TotalCountOfValidVotingCards>
       <TotalCountOfInvalidVotingCards>150</TotalCountOfInvalidVotingCards>
       <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
       <TotalCountOfEVotingVotingCards>150</TotalCountOfEVotingVotingCards>
     </ContestDomainOfInfluenceDetails>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
   </DomainOfInfluence>
 </Voting>

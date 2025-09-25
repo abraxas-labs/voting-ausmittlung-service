@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
@@ -66,10 +67,15 @@ public class WabstiCSGGemeindenRenderService : IRendererService
                 TieBreakQuestionResults = x.TieBreakQuestionResults.OrderBy(qr => qr.Question.Number).ToList(),
                 VoteType = x.VoteResult.Vote.Type,
                 Position = x.Ballot.Position,
+                ResultState = x.VoteResult.State,
             })
             .ToListAsync(ct);
 
         await _contestDetailsAttacher.AttachContestDetails(ctx.ContestId, results, ct);
+        foreach (var result in results)
+        {
+            result.ResetDataIfSubmissionNotDone();
+        }
 
         return _templateService.RenderToCsv(
             ctx,
@@ -82,23 +88,23 @@ public class WabstiCSGGemeindenRenderService : IRendererService
 
         [Name("StiAusweiseUrne")]
         [Index(StartIndex)]
-        public int VotingCardsBallotBox { get; set; }
+        public int? VotingCardsBallotBox { get; set; }
 
         [Name("StiAusweiseVorzeitig")]
         [Index(StartIndex + 2)]
-        public int VotingCardsPaper { get; set; }
+        public int? VotingCardsPaper { get; set; }
 
         [Name("StiAusweiseBriefGueltig")]
         [Index(StartIndex + 3)]
-        public int VotingCardsByMail { get; set; }
+        public int? VotingCardsByMail { get; set; }
 
         [Name("StiAusweiseBriefNiUz")]
         [Index(StartIndex + 4)]
-        public int VotingCardsByMailNotValid { get; set; }
+        public int? VotingCardsByMailNotValid { get; set; }
 
         [Name("StiAusweiseEVoting")]
         [Index(StartIndex + 5)]
-        public int VotingCardsEVoting { get; set; }
+        public int? VotingCardsEVoting { get; set; }
 
         [Name("GeSubNr")]
         [Index(WabstiCPoliticalBusinessData.EndIndex + 1)]
@@ -109,5 +115,20 @@ public class WabstiCSGGemeindenRenderService : IRendererService
 
         [Ignore]
         public int Position { get; set; }
+
+        public override void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            base.ResetDataIfSubmissionNotDone();
+            VotingCardsBallotBox = null;
+            VotingCardsPaper = null;
+            VotingCardsByMail = null;
+            VotingCardsByMailNotValid = null;
+            VotingCardsEVoting = null;
+        }
     }
 }

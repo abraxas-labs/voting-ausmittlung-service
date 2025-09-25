@@ -451,6 +451,8 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        ResetDb();
+        await InitializeAsync();
         await SetAllAuditedTentatively();
         await TriggerMandateDistribution();
         await new ProportionalElectionResultService.ProportionalElectionResultServiceClient(channel)

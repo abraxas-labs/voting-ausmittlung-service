@@ -16,6 +16,7 @@ using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Ech.Ech0252_2_0.Schemas;
 using Voting.Lib.Iam.Testing.AuthenticationScheme;
 using Voting.Lib.VotingExports.Repository.Ausmittlung;
+using Xunit;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Xml;
 
@@ -29,6 +30,13 @@ public class XmlEch0252MajorityElectionInfoTest : XmlExportBaseTest<Delivery>
     public override HttpClient TestClient => MonitoringElectionAdminClient;
 
     protected override string NewRequestExpectedFileName => "eCH-0252_majority-election-info-delivery_20290212.xml";
+
+    [Fact]
+    public async Task TestEVoting()
+    {
+        await ModifyDbEntities<Contest>(x => x.Id == ContestMockedData.GuidBundesurnengang, x => x.EVoting = true);
+        await TestXmlWithSnapshot("EVoting");
+    }
 
     protected override async Task SeedData()
     {

@@ -1,8 +1,8 @@
 ﻿// (c) Copyright by Abraxas Informatik AG
 // For license information see LICENSE file
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -37,20 +37,8 @@ public abstract class XmlExportBaseTest<T> : BaseRestTest
 
     public override async Task InitializeAsync()
     {
-        var contestId = Guid.Parse(ContestMockedData.IdBundesurnengang);
-        var countingCircleId = CountingCircleMockedData.GuidGossau;
-
         await base.InitializeAsync();
         await ContestMockedData.Seed(RunScoped);
-
-        await RunOnDb(async db =>
-        {
-            var details = await db.ContestCountingCircleDetails
-                .AsTracking()
-                .SingleAsync(x => x.ContestId == contestId && x.CountingCircle.BasisCountingCircleId == countingCircleId);
-            details.TotalCountOfVoters = 5000;
-            await db.SaveChangesAsync();
-        });
 
         await SeedData();
         await RunScoped((DomainOfInfluencePermissionBuilder permissionBuilder) =>

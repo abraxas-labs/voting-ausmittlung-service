@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -31,10 +32,11 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteResult>
       <TotalCountOfVoters>15800</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -117,10 +119,11 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteResult>
       <TotalCountOfVoters>15800</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -451,6 +454,7 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteResult>
       <TotalCountOfVoters>1000</TotalCountOfVoters>
@@ -921,10 +925,11 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <VoteResult>
       <TotalCountOfVoters>15800</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <BallotResult>
         <Ballot>
@@ -1050,21 +1055,25 @@
         <Sex>Male</Sex>
         <CountOfVoters>8000</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Male</Sex>
         <CountOfVoters>500</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>7000</CountOfVoters>
         <VoterType>Swiss</VoterType>
+        <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountOfVotersDetail>
         <Sex>Female</Sex>
         <CountOfVoters>300</CountOfVoters>
         <VoterType>SwissAbroad</VoterType>
+        <DomainOfInfluenceType>Ch</DomainOfInfluenceType>
       </CountOfVotersDetail>
       <CountingMachine>Unspecified</CountingMachine>
     </ContestCountingCircleDetails>

@@ -125,22 +125,50 @@
       {
         "Sex": 1,
         "VoterType": 1,
-        "CountOfVoters": 8000
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 1,
         "VoterType": 2,
-        "CountOfVoters": 500
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 2,
         "VoterType": 1,
-        "CountOfVoters": 7000
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 2,
         "VoterType": 2,
-        "CountOfVoters": 300
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 2
       }
     ]
   },

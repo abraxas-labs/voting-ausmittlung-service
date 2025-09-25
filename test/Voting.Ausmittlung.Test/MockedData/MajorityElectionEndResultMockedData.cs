@@ -548,6 +548,20 @@ public static class MajorityElectionEndResultMockedData
             .ThenInclude(x => x.CandidateResults)
             .ToListAsync();
         SetResultsMockData(results);
+
+        var resultIds = results.ConvertAll(r => r.Id);
+        var resultStateById = results.ToDictionary(r => r.Id, r => r.State);
+
+        var simpleCcResults = await db.SimpleCountingCircleResults
+            .AsTracking()
+            .Where(r => resultIds.Contains(r.Id))
+            .ToListAsync();
+
+        foreach (var simpleCcResult in simpleCcResults)
+        {
+            simpleCcResult.State = resultStateById[simpleCcResult.Id];
+        }
+
         await db.SaveChangesAsync();
 
         var endResultBuilder = sp.GetRequiredService<MajorityElectionEndResultBuilder>();

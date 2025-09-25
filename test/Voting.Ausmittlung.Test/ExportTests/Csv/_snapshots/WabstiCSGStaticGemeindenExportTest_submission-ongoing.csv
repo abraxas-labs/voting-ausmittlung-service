@@ -1,0 +1,22 @@
+Art;Wahlkreis;SortWahlkreis;BfsNrGemeinde;EinheitCode;SortGeschaeft;Gemeinde;Stimmberechtigte;StimmberechtigteAusl;GeLfNr;GeSubNr
+CH;Bund;99999;1;;200;Bund;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;5500;;200;St. Gallen;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;5500-3;;200;St. Gallen Auslandschweizer;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;5500-2;;200;St. Gallen Haggen;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;1234;1234-UZWIL;200;Uzwil;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;3443;3443-GOSSAU;200;Gossau;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;5500-1;C5500-1;200;St. Gallen St. Fiden;;;7550e7c2-27e3-4602-a928-6f9c2afd2289;
+CH;Bund;99999;1;;202;Bund;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;1;;202;Bund;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;5500;;202;St. Gallen;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;5500;;202;St. Gallen;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;5500-3;;202;St. Gallen Auslandschweizer;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;5500-3;;202;St. Gallen Auslandschweizer;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;5500-2;;202;St. Gallen Haggen;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;5500-2;;202;St. Gallen Haggen;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;1234;1234-UZWIL;202;Uzwil;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;1234;1234-UZWIL;202;Uzwil;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;3443;3443-GOSSAU;202;Gossau;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;3443;3443-GOSSAU;202;Gossau;;;f27ceb14-c255-44be-84ce-0b82047f230d;b
+CH;Bund;99999;5500-1;C5500-1;202;St. Gallen St. Fiden;;;be5c19a2-f51c-42e4-bda9-1e3cdeb3d5d2;a
+CH;Bund;99999;5500-1;C5500-1;202;St. Gallen St. Fiden;;;f27ceb14-c255-44be-84ce-0b82047f230d;b

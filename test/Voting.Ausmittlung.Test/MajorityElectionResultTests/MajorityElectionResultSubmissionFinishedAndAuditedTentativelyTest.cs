@@ -13,10 +13,14 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Core.Auth;
+using Voting.Ausmittlung.Core.Domain.Aggregate;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
+using Voting.Ausmittlung.TemporaryData;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using ContestCountingCircleDetails = Voting.Ausmittlung.Core.Domain.ContestCountingCircleDetails;
 
 namespace Voting.Ausmittlung.Test.MajorityElectionResultTests;
 
@@ -36,6 +40,12 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
         await ModifyDbEntities<DomainOfInfluence>(
             x => x.BasisDomainOfInfluenceId == DomainOfInfluenceMockedData.StGallen.Id && x.SnapshotContestId == ContestMockedData.GuidBundesurnengang,
             x => x.Type = DomainOfInfluenceType.Mu);
+
+        // Make sure that St. Gallen is not the owner of the canton, as that would make the endpoints not require 2FA
+        // This never happens from a business point of view
+        await ModifyDbEntities<CantonSettings>(
+            x => x.Canton == DomainOfInfluenceCanton.Sg,
+            x => x.SecureConnectId = "someone-else");
     }
 
     [Fact]
@@ -93,6 +103,25 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
         await SetContestState(ContestMockedData.IdBundesurnengang, ContestState.PastLocked);
+
+        var permissionService = GetService<Core.Services.Permission.PermissionService>();
+        permissionService.SetAbraxasAuthIfNotAuthenticated();
+        var ccDetailsId = AusmittlungUuidV5.BuildContestCountingCircleDetails(
+            ContestMockedData.GuidBundesurnengang,
+            CountingCircleMockedData.GuidStGallen,
+            true);
+        var ccDetails = await AggregateRepositoryMock.GetOrCreateById<ContestCountingCircleDetailsAggregate>(ccDetailsId);
+        ccDetails.CreateFrom(
+            new ContestCountingCircleDetails
+            {
+                ContestId = ContestMockedData.GuidBundesurnengang,
+                CountingCircleId = CountingCircleMockedData.GuidStGallen,
+            },
+            ContestMockedData.GuidBundesurnengang,
+            CountingCircleMockedData.GuidStGallen,
+            true);
+        await AggregateRepositoryMock.Save(ccDetails);
+
         await AssertStatus(
             async () => await ErfassungElectionAdminClient.SubmissionFinishedAndAuditedTentativelyAsync(NewValidRequest()),
             StatusCode.FailedPrecondition,
@@ -127,6 +156,7 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
                 new MajorityElectionResultSubmissionFinishedAndAuditedTentativelyRequest
                 {
                     ElectionResultId = IdNotFound,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.NotFound);
     }
@@ -140,6 +170,7 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
                 new MajorityElectionResultSubmissionFinishedAndAuditedTentativelyRequest
                 {
                     ElectionResultId = IdBadFormat,
+                    SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
                 }),
             StatusCode.InvalidArgument);
     }
@@ -174,6 +205,58 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
             "finish submission and audit tentatively is not allowed for non communal political business");
     }
 
+    [Fact]
+    public async Task TestShouldThrowWithEmptySecondFactorId()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAndAuditedTentativelyAsync(NewValidRequest(x => x.SecondFactorTransactionId = string.Empty)),
+            StatusCode.InvalidArgument);
+    }
+
+    [Fact]
+    public async Task TestShouldThrowDataChanged()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+
+        await RunScoped<TemporaryDataContext>(async db =>
+        {
+            var item = await db.SecondFactorTransactions
+                .AsTracking()
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
+
+            item.ActionId = "updated-action-id";
+            await db.SaveChangesAsync();
+        });
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAndAuditedTentativelyAsync(NewValidRequest()),
+            StatusCode.FailedPrecondition,
+            "Data changed during the second factor transaction");
+    }
+
+    [Fact]
+    public async Task TestShouldThrowNotVerified()
+    {
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
+
+        const string invalidExternalId = "a11c61aa-af52-431b-9c0e-f86d24d8a72b";
+        await RunScoped<TemporaryDataContext>(async db =>
+        {
+            var item = await db.SecondFactorTransactions
+                .AsTracking()
+                .FirstAsync(x => x.ExternalTokenJwtIds!.Contains(SecondFactorTransactionMockedData.ExternalIdSecondFactorTransaction));
+
+            item.ExternalTokenJwtIds = [invalidExternalId];
+            await db.SaveChangesAsync();
+        });
+
+        await AssertStatus(
+            async () => await ErfassungElectionAdminClient.SubmissionFinishedAndAuditedTentativelyAsync(NewValidRequest()),
+            StatusCode.FailedPrecondition,
+            "Second factor transaction is not verified");
+    }
+
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
         await RunToState(CountingCircleResultState.SubmissionOngoing);
@@ -191,6 +274,7 @@ public class MajorityElectionResultSubmissionFinishedAndAuditedTentativelyTest :
         var req = new MajorityElectionResultSubmissionFinishedAndAuditedTentativelyRequest
         {
             ElectionResultId = MajorityElectionResultMockedData.IdStGallenElectionResultInContestBund,
+            SecondFactorTransactionId = SecondFactorTransactionMockedData.SecondFactorTransactionIdString,
         };
         customizer?.Invoke(req);
         return req;

@@ -30,8 +30,8 @@ public class VoteResultPrepareCorrectionFinishedTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await ErfassungElectionAdminClient.PrepareCorrectionFinishedAsync(NewValidRequest());
-        response.Id.Should().BeEmpty();
-        response.Code.Should().BeEmpty();
+        response.Id.Should().NotBeEmpty();
+        response.Code.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class VoteResultPrepareCorrectionFinishedTest : VoteResultBaseTest
     {
         await RunToState(CountingCircleResultState.ReadyForCorrection);
         var response = await StGallenErfassungElectionAdminClient.PrepareCorrectionFinishedAsync(NewValidRequest());
-        response.Id.Should().NotBeEmpty();
-        response.Code.Should().NotBeEmpty();
+        response.Id.Should().BeEmpty();
+        response.Code.Should().BeEmpty();
     }
 
     [Fact]
@@ -81,6 +81,7 @@ public class VoteResultPrepareCorrectionFinishedTest : VoteResultBaseTest
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)
     {
+        await RunToState(CountingCircleResultState.ReadyForCorrection);
         await new VoteResultService.VoteResultServiceClient(channel)
             .PrepareCorrectionFinishedAsync(NewValidRequest());
     }

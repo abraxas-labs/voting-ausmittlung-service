@@ -23,16 +23,19 @@ public class ProportionalElectionEndResultBuildTest : ProportionalElectionEndRes
     [Fact]
     public async Task TestBuildHagenbach()
     {
-        await SeedElectionAndFinishSubmissions();
+        await SeedElection();
+        await StartResultSubmissions();
 
         var initEndResult = await GetEndResult();
         initEndResult.MatchSnapshot("init");
 
+        await FinishOneResultSubmission();
         await SetOneAuditedTentatively();
 
         var afterOneAuditedEndResult = await GetEndResult();
         afterOneAuditedEndResult.MatchSnapshot("afterOneAuditedEndResult");
 
+        await FinishOtherResultSubmission();
         await SetOtherAuditedTentatively();
         await TriggerMandateDistribution();
 

@@ -552,7 +552,7 @@
     "Finalized": false,
     "PartialResult": false
   },
-  "afterAudited": {
+  "afterFinished": {
     "Contest": {
       "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Date": {
@@ -672,22 +672,74 @@
         {
           "Sex": 1,
           "VoterType": 1,
-          "CountOfVoters": 17600
+          "CountOfVoters": 17600,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 1,
           "VoterType": 2,
-          "CountOfVoters": 1100
+          "CountOfVoters": 1100,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 1,
-          "CountOfVoters": 15400
+          "CountOfVoters": 15400,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 2,
-          "CountOfVoters": 710
+          "CountOfVoters": 710,
+          "DomainOfInfluenceType": 1
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 17600,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 1100,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 15400,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 710,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 1500,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 100,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 1300,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 110,
+          "DomainOfInfluenceType": 5
         }
       ]
     },
@@ -1048,7 +1100,7 @@
             "TotalCountOfAnswerNo": 0,
             "TotalCountOfAnswerUnspecified": 0,
             "CountOfCountingCircleYes": 0,
-            "CountOfCountingCircleNo": 6,
+            "CountOfCountingCircleNo": 0,
             "HasCountingCircleMajority": false,
             "HasCountingCircleUnanimity": false,
             "Accepted": false
@@ -1078,7 +1130,7 @@
             "TotalCountOfAnswerNo": 0,
             "TotalCountOfAnswerUnspecified": 0,
             "CountOfCountingCircleYes": 0,
-            "CountOfCountingCircleNo": 6,
+            "CountOfCountingCircleNo": 0,
             "HasCountingCircleMajority": false,
             "HasCountingCircleUnanimity": false,
             "Accepted": false
@@ -1108,7 +1160,7 @@
             "TotalCountOfAnswerNo": 0,
             "TotalCountOfAnswerUnspecified": 0,
             "CountOfCountingCircleYes": 0,
-            "CountOfCountingCircleNo": 6,
+            "CountOfCountingCircleNo": 0,
             "HasCountingCircleMajority": false,
             "HasCountingCircleUnanimity": false,
             "Accepted": false

@@ -82,7 +82,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
 
         // The simplest approach to handle partial results and domain of influence result building is to
         // handle secondary candidates like they are primary candidates.
-        var data = MapSecondaryElectionToPrimaryElection(secondaryData, secondaryResults, ctx.PoliticalBusinessId);
+        var data = MapSecondaryElectionToPrimaryElection(secondaryData, secondaryResults);
         var results = data.Results.ToList();
 
         if (data.Results.Count == 0)
@@ -90,7 +90,16 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
             throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {ctx.PoliticalBusinessId}");
         }
 
+        var ccDetailsList = await _ccDetailsRepo
+            .Query()
+            .AsSplitQuery()
+            .Include(x => x.VotingCards)
+            .Include(x => x.CountOfVotersInformationSubTotals)
+            .Where(x => x.ContestId == data.ContestId)
+            .ToListAsync(ct);
+
         data.MoveECountingToConventional();
+        PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, ccDetailsList);
 
         if (isPartialResult)
         {
@@ -102,23 +111,16 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
             }
 
             data.DomainOfInfluence.Details = AggregatedContestCountingCircleDetailsBuilder.BuildDomainOfInfluenceDetails(results
-                .SelectMany(x => x.CountingCircle!.ContestDetails)
+                .SelectMany(x => x.CountingCircle.ContestDetails)
                 .DistinctBy(x => x.CountingCircleId)
                 .ToList());
         }
 
-        var ccDetailsList = await _ccDetailsRepo
-            .Query()
-            .AsSplitQuery()
-            .Include(x => x.VotingCards)
-            .Include(x => x.CountOfVotersInformationSubTotals)
-            .Where(x => x.ContestId == data.ContestId)
-            .ToListAsync(ct);
-
         var (doiResults, notAssignableResult, aggregatedResult) = await _doiResultBuilder.BuildResults(
                 data,
                 ccDetailsList,
-                ctx.TenantId ?? data.DomainOfInfluence.SecureConnectId);
+                ctx.TenantId ?? data.DomainOfInfluence.SecureConnectId,
+                isPartialResult ? ctx.ViewablePartialResultsCountingCircleIds : null);
 
         // don't map results
         data.Results = new List<MajorityElectionResult>();
@@ -201,13 +203,12 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
 
     private MajorityElection MapSecondaryElectionToPrimaryElection(
         SecondaryMajorityElection secondaryElection,
-        List<SecondaryMajorityElectionResult> secondaryResults,
-        Guid secondaryMajorityElectionId)
+        List<SecondaryMajorityElectionResult> secondaryResults)
     {
         var primaryElection = _mapper.Map<MajorityElection>(secondaryElection);
 
         // We need certain data from the primary end result, like total count of voters.
-        primaryElection.EndResult = secondaryElection.EndResult!.PrimaryMajorityElectionEndResult!;
+        primaryElection.EndResult = secondaryElection.EndResult!.PrimaryMajorityElectionEndResult;
         primaryElection.EndResult.CandidateEndResults = _mapper.Map<List<MajorityElectionCandidateEndResult>>(
             secondaryElection.EndResult.CandidateEndResults);
 

@@ -12,6 +12,7 @@ using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Core.Services.Validation.Models;
 using Voting.Ausmittlung.Core.Utils;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
@@ -73,6 +74,13 @@ public class ResultReader
                        .OrderBy(x => x.CountingCircle!.Name))
                    .ThenInclude(r => r.CountingCircle!.ContestDetails)
                    .ThenInclude(x => x.VotingCards)
+                   .Include(x => x.SimplePoliticalBusinesses)
+                   .ThenInclude(x => x.SimpleResults)
+                   .ThenInclude(x => x.CountingCircle!.ContestDetails)
+                   .ThenInclude(x => x.CountOfVotersInformationSubTotals)
+                   .Include(x => x.SimplePoliticalBusinesses)
+                   .ThenInclude(pb => pb.SimpleResults)
+                   .ThenInclude(r => r.CountingCircle!.ResponsibleAuthority)
                    .Include(x => x.SimplePoliticalBusinesses)
                    .ThenInclude(x => x.DomainOfInfluence)
                    .Include(x => x.ProportionalElectionUnions)
@@ -191,6 +199,11 @@ public class ResultReader
             details,
             results.Select(r => r.PoliticalBusiness!.DomainOfInfluence.Type).ToHashSet());
 
+        if (!currentTenantIsResponsible && results.All(r => !r.State.IsSubmissionDone()))
+        {
+            ResetCountingCircleDetails(details);
+        }
+
         return new ResultList(
             contest,
             countingCircle,
@@ -221,5 +234,11 @@ public class ResultReader
         IReadOnlyCollection<Guid> resultIds)
     {
         return await _countingCircleResultsValidationResultsBuilder.BuildValidationSummaries(contestId, basisCountingCircleId, resultIds);
+    }
+
+    private void ResetCountingCircleDetails(ContestCountingCircleDetails details)
+    {
+        details.CountingMachine = CountingMachine.Unspecified;
+        details.ResetVotingCardsAndSubTotals();
     }
 }

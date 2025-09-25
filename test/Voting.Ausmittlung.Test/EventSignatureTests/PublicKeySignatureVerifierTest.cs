@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using System.Threading.Tasks;
 using Abraxas.Voting.Ausmittlung.Events.V1;
 using FluentAssertions;
 using Google.Protobuf;
@@ -27,9 +28,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestValidSignature()
+    public async Task TestValidSignature()
     {
-        var result = _verifier.VerifySignature(NewCreateData(), NewDeleteData(), NewKeyData());
+        var result = await _verifier.VerifySignature(NewCreateData(), NewDeleteData(), NewKeyData());
         result.SignatureData.Should().NotBeNull();
         result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
         result.DeletePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
@@ -37,9 +38,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestValidSignatureWithoutDeleteData()
+    public async Task TestValidSignatureWithoutDeleteData()
     {
-        var result = _verifier.VerifySignature(NewCreateData(), null, NewKeyData());
+        var result = await _verifier.VerifySignature(NewCreateData(), null, NewKeyData());
         result.SignatureData.Should().NotBeNull();
         result.CreatePublicKeySignatureValidationResultType.Should().Be(PublicKeySignatureValidationResultType.Valid);
         result.DeletePublicKeySignatureValidationResultType.Should().BeNull();
@@ -47,9 +48,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestNotMatchingContestId()
+    public async Task TestNotMatchingContestId()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(x => x.ContestId = Guid.Empty.ToString()),
             NewDeleteData(),
             NewKeyData());
@@ -58,9 +59,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestNotMatchingKeyId()
+    public async Task TestNotMatchingKeyId()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(x => x.KeyId = "Random"),
             NewDeleteData(),
             NewKeyData());
@@ -69,9 +70,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestNotMatchingSignatureVersion()
+    public async Task TestNotMatchingSignatureVersion()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(),
             NewDeleteData(x => x.SignatureVersion = 3),
             NewKeyData());
@@ -80,9 +81,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestInvalidAuthTagOnCreate()
+    public async Task TestInvalidAuthTagOnCreate()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(x => x.AuthenticationTag = ConvertBase64StringToByteString("AFCXTVrm9CSvOhSOIT3fRXUaKWv0hpMKnfB4UjBYBHMY0f1/tnQJeSedWQtTeREbosUbJPQs8xLpE1nVTJaQ+FxIAY7EcyVoKJNmXkwqy9ObyZKPJzrYCD4gUD+u3AUbsOBwfPnakVX80QkWxl1HJe+C8IfjkfXOCXdqyqHtaksLFstx")),
             NewDeleteData(),
             NewKeyData());
@@ -92,9 +93,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestInvalidHsmSignatureOnCreate()
+    public async Task TestInvalidHsmSignatureOnCreate()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(null, Convert.FromBase64String("AZChPYnXpkawnQWBpuChPUK826lecevTZmvM7CtN0rMXyhjRoJwbXGjJKky2Y7HRVVx7ii+PJpo5893nK3YpQHtaAUGZkttjJ5dOdzMbHyuU75eiddbUW2vQn/eRDgoHXv38T0fSyC7FD6iEkR53XEg0JlDvnDvYxZEkQGNbG9VrzYZV")),
             NewDeleteData(),
             NewKeyData());
@@ -104,9 +105,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestInvalidAuthTagOnDelete()
+    public async Task TestInvalidAuthTagOnDelete()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(),
             NewDeleteData(x => x.AuthenticationTag = ConvertBase64StringToByteString("AHEFnWNJv1dvQD3GpRNfHgacAiW7bjfS6XCl0j+6PhkwHh2hpobbgj0Hv/dx2qvW953Qr4SMEwEfKiJAGFhPXjA1AcMfHynNsD+T1CgUNipc8PZ8mZMgol0Eq4NBAXMuUnIoIe7cjni8FdRFIPU+NzBVKapr3vpz4iTjz4x9lY/oAyGZ")),
             NewKeyData());
@@ -116,9 +117,9 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
     }
 
     [Fact]
-    public void TestInvalidHsmSignatureOnDelete()
+    public async Task TestInvalidHsmSignatureOnDelete()
     {
-        var result = _verifier.VerifySignature(
+        var result = await _verifier.VerifySignature(
             NewCreateData(),
             NewDeleteData(null, Convert.FromBase64String("AHmdWmclPaF597VdtJRMYFY+KtseA4VljNPkg0IXsMM1B6bF48y1s2xT/RqwqMo9DkphC3v5+meUbcIK9RT4K0MWAEMXs4xshA35mTVf61b2IbHSRzeq4vsAD7VvPnI6j3I4iIusLNzScZUD/VLwroUx9CG+ONflusxcl1rRxWZxrHWn")),
             NewKeyData());
@@ -143,7 +144,7 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             AuthenticationTag = ConvertBase64StringToByteString("AHEFnWNJv1dvQD3GpRNfHgacAiW7bjfS6XCl0j+6PhkwHh2hpobbgj0Hv/dx2qvW953Qr4SMEwEfKiJAGFhPXjA1AcMfHynNsD+T1CgUNipc8PZ8mZMgol0Eq4NBAXMuUnIoIe7cjni8FdRFIPU+NzBVKapr3vpz4iTjz4x9lY/oAyGZ"),
         };
 
-        hsmSignature ??= Convert.FromBase64String("AHmdWmclPaF597VdtJRMYFY+KtseA4VljNPkg0IXsMM1B6bF48y1s2xT/RqwqMo9DkphC3v5+meUbcIK9RT4K0MWAEMXs4xshA35mTVf61b2IbHSRzeq4vsAD7VvPnI6j3I4iIusLNzScZUD/VLwroUx9CG+ONflusxcl1rRxWZxrHWn");
+        hsmSignature ??= Convert.FromBase64String("YMybkW/U5ifWX3El7VVLAf3o32X4tWCopoFSM+1AHop5a7Jc1RIPCcKl45fyJbh6c2eKffjN07uUJkepY0uxPg==");
 
         customizer?.Invoke(ev);
         return new PublicKeySignatureCreateData(ev.KeyId, ev.SignatureVersion, Guid.Parse(ev.ContestId), ev.HostId, ev.AuthenticationTag.ToByteArray(), hsmSignature);
@@ -164,7 +165,7 @@ public class PublicKeySignatureVerifierTest : BaseTest<TestApplicationFactory, T
             AuthenticationTag = ConvertBase64StringToByteString("AFCXTVrm9CSvOhSOIT3fRXUaKWv0hpMKnfB4UjBYBHMY0f1/tnQJeSedWQtTeREbosUbJPQs8xLpE1nVTJaQ+FxIAY7EcyVoKJNmXkwqy9ObyZKPJzrYCD4gUD+u3AUbsOBwfPnakVX80QkWxl1HJe+C8IfjkfXOCXdqyqHtaksLFstx"),
         };
 
-        hsmSignature ??= Convert.FromBase64String("AZChPYnXpkawnQWBpuChPUK826lecevTZmvM7CtN0rMXyhjRoJwbXGjJKky2Y7HRVVx7ii+PJpo5893nK3YpQHtaAUGZkttjJ5dOdzMbHyuU75eiddbUW2vQn/eRDgoHXv38T0fSyC7FD6iEkR53XEg0JlDvnDvYxZEkQGNbG9VrzYZV");
+        hsmSignature ??= Convert.FromBase64String("o31gltBO/i/GHGu0NwsOtUYchTwK0MjznTmLPg/2zsEiSycn87g0gtfJ/zoeFi+0zfeUGJGlLAAfwoR1b063xw==");
 
         customizer?.Invoke(ev);
         return new PublicKeySignatureDeleteData(ev.KeyId, ev.SignatureVersion, Guid.Parse(ev.ContestId), ev.HostId, ev.SignedEventCount, ev.AuthenticationTag.ToByteArray(), hsmSignature);

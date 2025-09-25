@@ -64,6 +64,7 @@ public class PdfVoteEndResultRenderService : IRendererService
             .Include(x => x.EndResult!.BallotEndResults).ThenInclude(x => x.TieBreakQuestionEndResults.OrderBy(q => q.Question.Number)).ThenInclude(x => x.Question.Translations)
             .Include(x => x.Translations)
             .Include(x => x.DomainOfInfluence.Details!.VotingCards)
+            .Include(x => x.DomainOfInfluence.Details!.CountOfVotersInformationSubTotals)
             .Where(x => ctx.PoliticalBusinessIds.Contains(x.Id) && x.DomainOfInfluence.BasisDomainOfInfluenceId == ctx.BasisDomainOfInfluenceId)
             .OrderBy(x => x.PoliticalBusinessNumber)
             .ToListAsync(ct);
@@ -99,7 +100,13 @@ public class PdfVoteEndResultRenderService : IRendererService
                     .ThenInclude(x => x.TieBreakQuestionResults.OrderBy(q => q.Question.Number))
                     .ThenInclude(x => x.Question.Translations)
                 .Where(x => voteIds.Contains(x.VoteId) && ctx.ViewablePartialResultsCountingCircleIds!.Contains(x.CountingCircleId))
-                .ToListAsync();
+                .ToListAsync(ct);
+
+            var allCcDetails = results
+                .SelectMany(r => r.CountingCircle.ContestDetails)
+                .DistinctBy(c => c.CountingCircleId)
+                .ToList();
+            PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, allCcDetails);
 
             var resultsByVoteId = results
                 .GroupBy(x => x.VoteId)
@@ -107,7 +114,7 @@ public class PdfVoteEndResultRenderService : IRendererService
 
             foreach (var vote in votes)
             {
-                var voteResults = resultsByVoteId.GetValueOrDefault(vote.Id)
+                _ = resultsByVoteId.GetValueOrDefault(vote.Id)
                     ?? throw new ValidationException($"no results found for: {nameof(ctx.PoliticalBusinessId)}: {vote.Id}");
 
                 vote.EndResult = PartialEndResultUtils.MergeIntoPartialEndResult(
@@ -129,7 +136,8 @@ public class PdfVoteEndResultRenderService : IRendererService
         contest.Details?.OrderVotingCardsAndSubTotals();
         var pdfContest = _mapper.Map<PdfContest>(contest);
         pdfContest.Details ??= new PdfContestDetails();
-        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotals(pdfContest.Details, domainOfInfluence.Type);
+        PdfBaseDetailsUtil.FilterAndBuildVotingCardTotalsAndCountOfVoters(pdfContest.Details, domainOfInfluence);
+        pdfContest.Details.CountOfVotersInformationSubTotals = null!;
 
         PdfCountingCircle? countingCircle = null;
         if (votes[0].EndResult!.TotalCountOfCountingCircles == 1)
@@ -182,7 +190,6 @@ public class PdfVoteEndResultRenderService : IRendererService
             ? null
             : new ContestDetails
             {
-                TotalCountOfVoters = domainOfInfluence.Details.TotalCountOfVoters,
                 VotingCards = domainOfInfluence.Details.VotingCards.Select(x =>
                     new ContestVotingCardResultDetail
                     {
@@ -194,6 +201,7 @@ public class PdfVoteEndResultRenderService : IRendererService
                 CountOfVotersInformationSubTotals = domainOfInfluence.Details.CountOfVotersInformationSubTotals.Select(x =>
                     new ContestCountOfVotersInformationSubTotal
                     {
+                        DomainOfInfluenceType = x.DomainOfInfluenceType,
                         Sex = x.Sex,
                         VoterType = x.VoterType,
                         CountOfVoters = x.CountOfVoters,

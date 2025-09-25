@@ -126,7 +126,7 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
     [Fact]
     public async Task TestProcessor()
     {
-        await RunToState(CountingCircleResultState.SubmissionDone);
+        await RunToState(CountingCircleResultState.SubmissionOngoing);
 
         // mock some eVoting data to test it is attached correctly to the end result
         await ModifyDbEntities(
@@ -145,6 +145,8 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
                 r.EVotingSubTotal.TotalCountOfAnswerQ2 = 21;
                 r.EVotingSubTotal.TotalCountOfAnswerUnspecified = 6;
             });
+
+        await RunToState(CountingCircleResultState.SubmissionDone);
 
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         await RunEvents<VoteResultAuditedTentatively>();
@@ -168,8 +170,6 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
     {
         var voteGuid = Guid.Parse(VoteMockedData.IdGossauVoteInContestStGallen);
 
-        await RunToState(CountingCircleResultState.SubmissionDone);
-
         await ModifyDbEntities<ContestCantonDefaults>(
             _ => true,
             x => x.EndResultFinalizeDisabled = true,
@@ -179,6 +179,7 @@ public class VoteResultAuditedTentativelyTest : VoteResultBaseTest
             x => x.VoteId == voteGuid,
             x => x.CountOfDoneCountingCircles = x.TotalCountOfCountingCircles - 1);
 
+        await RunToState(CountingCircleResultState.SubmissionDone);
         await MonitoringElectionAdminClient.AuditedTentativelyAsync(NewValidRequest());
         await RunEvents<VoteResultAuditedTentatively>();
 

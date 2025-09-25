@@ -25,6 +25,7 @@ using Voting.Lib.Testing.Utils;
 using Xunit;
 using BallotNumberGeneration = Abraxas.Voting.Basis.Shared.V1.BallotNumberGeneration;
 using BasisEvents = Abraxas.Voting.Basis.Events.V1;
+using ContestCountingCircleDetailsCreated = Abraxas.Voting.Ausmittlung.Events.V2.ContestCountingCircleDetailsCreated;
 using ContestState = Abraxas.Voting.Basis.Shared.V1.ContestState;
 using DomainOfInfluenceCanton = Abraxas.Voting.Basis.Shared.V1.DomainOfInfluenceCanton;
 using DomainOfInfluenceType = Abraxas.Voting.Basis.Shared.V1.DomainOfInfluenceType;
@@ -316,6 +317,7 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
     private async Task<MajorityElectionEndResult> RunMajorityElectionEndToEnd(DomainOfInfluenceCanton canton, int numberOfMandates, ElectionTestData testData)
     {
         await SetupContestAndMajorityElection(canton, numberOfMandates, testData);
+        await SecondFactorTransactionMockedData.Seed(RunScoped);
         await EnterContestDetails(testData);
         await ImportEVotingResults(testData);
         await EnterResults(testData);
@@ -599,19 +601,21 @@ public class MajorityElectionE2ETest : BaseTest<MajorityElectionResultService.Ma
                     CountOfReceivedVotingCards = testData.VotingCardsByMailInvalid,
                 },
             },
-            CountOfVoters =
+            CountOfVotersInformationSubTotals =
             {
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     CountOfVoters = testData.CountOfVotersMale,
                     Sex = SexType.Male,
                     VoterType = VoterType.Swiss,
+                    DomainOfInfluenceType = Abraxas.Voting.Ausmittlung.Shared.V1.DomainOfInfluenceType.Ch,
                 },
                 new UpdateCountOfVotersInformationSubTotalRequest
                 {
                     CountOfVoters = testData.CountOfVotersFemale,
                     Sex = SexType.Female,
                     VoterType = VoterType.Swiss,
+                    DomainOfInfluenceType = Abraxas.Voting.Ausmittlung.Shared.V1.DomainOfInfluenceType.Ch,
                 },
             },
         });

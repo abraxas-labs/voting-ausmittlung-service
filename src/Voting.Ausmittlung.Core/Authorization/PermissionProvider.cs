@@ -262,6 +262,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.Export.ExportData,
             Permissions.Export.ExportMonitoringData,
             Permissions.Export.ExportActivityProtocol,
+            Permissions.Export.ExportEch0252ProportionalElectionWithCandidateListResultsInfo,
 
             Permissions.ExportConfiguration.Read,
             Permissions.ExportConfiguration.Update,
@@ -307,6 +308,7 @@ public class PermissionProvider : IPermissionProvider
             Permissions.Export.ExportData,
             Permissions.Export.ExportMonitoringData,
             Permissions.Export.ExportActivityProtocol,
+            Permissions.Export.ExportEch0252ProportionalElectionWithCandidateListResultsInfo,
 
             Permissions.ExportConfiguration.Read,
             Permissions.ExportConfiguration.Update,
@@ -323,6 +325,7 @@ public class PermissionProvider : IPermissionProvider
 
             Permissions.Export.ExportMonitoringData,
             Permissions.Export.ExportActivityProtocol,
+            Permissions.Export.ExportEch0252ProportionalElectionWithCandidateListResultsInfo,
 
             Permissions.PoliticalBusiness.ReadAccessible,
         };

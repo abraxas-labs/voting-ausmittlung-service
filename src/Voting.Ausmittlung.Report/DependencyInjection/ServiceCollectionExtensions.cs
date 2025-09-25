@@ -214,6 +214,7 @@ public static class ServiceCollectionExtensions
             .AddRendererService<XmlProportionalElectionEch0222RenderService>(AusmittlungXmlProportionalElectionTemplates.Ech0222)
             .AddRendererService<XmlVoteEch0222RenderService>(AusmittlungXmlVoteTemplates.Ech0222)
             .AddRendererService<XmlEch0252ProportionalElectionResultRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionResultsEch0252)
+            .AddRendererService<XmlEch0252ProportionalElectionResultWithCandidateResultsInfoRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionResultsWithCandidateListResultsInfoEch0252)
             .AddRendererService<XmlEch0252MajorityElectionResultRenderService>(AusmittlungXmlContestTemplates.MajorityElectionResultsEch0252)
             .AddRendererService<XmlEch0252VoteResultRenderService>(AusmittlungXmlContestTemplates.VoteResultsEch0252)
             .AddRendererService<XmlEch0252ProportionalElectionInfoRenderService>(AusmittlungXmlContestTemplates.ProportionalElectionInfosEch0252)

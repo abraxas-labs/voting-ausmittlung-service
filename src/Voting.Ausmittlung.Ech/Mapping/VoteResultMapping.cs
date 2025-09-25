@@ -7,7 +7,6 @@ using System.Linq;
 using Ech0110_4_0;
 using Ech0155_4_0;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Lib.Common;
 using Voting.Lib.Ech.Utils;
 using Ballot = Voting.Ausmittlung.Data.Models.Ballot;
 using BallotType = Voting.Ausmittlung.Data.Models.BallotType;
@@ -18,22 +17,22 @@ internal static class VoteResultMapping
 {
     private const string UnknownDescriptionFallback = "?";
 
-    internal static VoteResultType ToEchVoteResult(this VoteResult voteResult)
+    internal static VoteResultType ToEchVoteResult(this VoteResult voteResult, bool eVoting)
     {
         return new VoteResultType
         {
-            Vote = voteResult.Vote.ToEchVote(),
-            BallotResult = voteResult.Results.OrderBy(r => r.Ballot.Position).Select(r => r.ToEchBallotResult()).ToList(),
+            Vote = voteResult.Vote.ToEchVote(eVoting),
+            BallotResult = voteResult.Results.OrderBy(r => r.Ballot.Position).Select(r => r.ToEchBallotResult(eVoting)).ToList(),
             CountOfVotersInformation = new CountOfVotersInformationType { CountOfVotersTotal = voteResult.TotalCountOfVoters.ToString(CultureInfo.InvariantCulture) },
         };
     }
 
-    private static BallotResultType ToEchBallotResult(this BallotResult ballotResult)
+    private static BallotResultType ToEchBallotResult(this BallotResult ballotResult, bool eVoting)
     {
         var ballot = ballotResult.Ballot;
 
         // The ballot description does not exist in VOTING, but is needed in eCH
-        var ballotDescriptionInfos = Languages.All
+        var ballotDescriptionInfos = LanguageMapping.GetEchExportLanguages(eVoting)
             .Select(l => new BallotDescriptionInformationTypeBallotDescriptionInfo
             {
                 Language = l,

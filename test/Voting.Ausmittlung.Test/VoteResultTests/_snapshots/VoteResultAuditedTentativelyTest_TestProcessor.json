@@ -125,27 +125,79 @@
     "Type": 1
   },
   "CountOfVotersInformation": {
-    "TotalCountOfVoters": 15800,
+    "TotalCountOfVoters": 15600,
     "SubTotalInfo": [
       {
         "Sex": 1,
         "VoterType": 1,
-        "CountOfVoters": 8000
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 1,
         "VoterType": 2,
-        "CountOfVoters": 500
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 2,
         "VoterType": 1,
-        "CountOfVoters": 7000
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 1
       },
       {
         "Sex": 2,
         "VoterType": 2,
-        "CountOfVoters": 300
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 1
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 8000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 7000,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 2
+      },
+      {
+        "Sex": 1,
+        "VoterType": 1,
+        "CountOfVoters": 7900,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 1,
+        "VoterType": 2,
+        "CountOfVoters": 500,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 2,
+        "VoterType": 1,
+        "CountOfVoters": 6900,
+        "DomainOfInfluenceType": 5
+      },
+      {
+        "Sex": 2,
+        "VoterType": 2,
+        "CountOfVoters": 300,
+        "DomainOfInfluenceType": 5
       }
     ]
   },
@@ -163,7 +215,7 @@
       "DomainOfInfluenceType": 2
     },
     {
-      "CountOfReceivedVotingCards": 2500,
+      "CountOfReceivedVotingCards": 1900,
       "Valid": true,
       "Channel": 1,
       "DomainOfInfluenceType": 5
@@ -181,7 +233,7 @@
       "DomainOfInfluenceType": 2
     },
     {
-      "CountOfReceivedVotingCards": 3500,
+      "CountOfReceivedVotingCards": 900,
       "Valid": true,
       "Channel": 2,
       "DomainOfInfluenceType": 5
@@ -199,7 +251,7 @@
       "DomainOfInfluenceType": 2
     },
     {
-      "CountOfReceivedVotingCards": 500,
+      "CountOfReceivedVotingCards": 2900,
       "Valid": false,
       "Channel": 2,
       "DomainOfInfluenceType": 5
@@ -217,7 +269,7 @@
         "TieBreakQuestions": []
       },
       "CountOfVoters": {
-        "VoterParticipation": 1.265823,
+        "VoterParticipation": 1.282051,
         "ConventionalSubTotal": {
           "ReceivedBallots": 20000,
           "InvalidBallots": 3000,

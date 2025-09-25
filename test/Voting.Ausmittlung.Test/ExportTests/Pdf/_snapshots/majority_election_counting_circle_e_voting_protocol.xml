@@ -14,6 +14,7 @@
       <Bfs>0001</Bfs>
       <Type>Ch</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <State>TestingPhase</State>
   </Contest>
@@ -31,6 +32,7 @@
       <Bfs>0002</Bfs>
       <Type>Ct</Type>
       <Canton>Sg</Canton>
+      <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
     </DomainOfInfluence>
     <NumberOfMandates>1</NumberOfMandates>
     <MandateAlgorithm>RelativeMajority</MandateAlgorithm>
@@ -39,7 +41,7 @@
     <ReportingLevelName>Kanton St. Gallen</ReportingLevelName>
     <MajorityElectionResult>
       <TotalCountOfVoters>15000</TotalCountOfVoters>
-      <State>Initial</State>
+      <State>SubmissionDone</State>
       <IsAuditedTentativelyOrPlausibilised>false</IsAuditedTentativelyOrPlausibilised>
       <IndividualVoteCount>10</IndividualVoteCount>
       <EmptyVoteCount>11</EmptyVoteCount>

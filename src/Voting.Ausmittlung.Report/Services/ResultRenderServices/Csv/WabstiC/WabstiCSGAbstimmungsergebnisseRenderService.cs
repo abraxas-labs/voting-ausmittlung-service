@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
+using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
@@ -20,13 +21,6 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 
 public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
 {
-    private static readonly HashSet<CountingCircleResultState> StatesToCleanResult = new()
-    {
-        CountingCircleResultState.Initial,
-        CountingCircleResultState.SubmissionOngoing,
-        CountingCircleResultState.ReadyForCorrection,
-    };
-
     private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, Vote> _repo;
     private readonly IDbRepository<DataContext, Contest> _contestRepo;
@@ -79,30 +73,26 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
                     VotingCardsEVoting = x.Single().VotingCards
                         .Where(z => z.DomainOfInfluenceType == vote.DomainOfInfluence.Type && z.Valid && z.Channel == VotingChannel.EVoting)
                         .Sum(z => z.CountOfReceivedVotingCards ?? 0),
-                    TotalCountOfVoters = x.Single().TotalCountOfVoters,
+                    TotalCountOfVoters = x.Single().CountOfVotersInformationSubTotals
+                        .Where(z => z.DomainOfInfluenceType == vote.DomainOfInfluence.Type)
+                        .Sum(z => z.CountOfVoters.GetValueOrDefault()),
                     SwissAbroadCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                        .Where(y => y.VoterType == VoterType.SwissAbroad)
+                        .Where(y => y.DomainOfInfluenceType == vote.DomainOfInfluence.Type && y.VoterType == VoterType.SwissAbroad)
                         .Sum(y => y.CountOfVoters.GetValueOrDefault()),
                     SwissMalesCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                        .Where(y => y.VoterType == VoterType.Swiss && y.Sex == SexType.Male)
+                        .Where(y => y.DomainOfInfluenceType == vote.DomainOfInfluence.Type && y.VoterType == VoterType.Swiss && y.Sex == SexType.Male)
                         .Sum(y => y.CountOfVoters.GetValueOrDefault()),
                     SwissFemalesCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                        .Where(y => y.VoterType == VoterType.Swiss && y.Sex == SexType.Female)
+                        .Where(y => y.DomainOfInfluenceType == vote.DomainOfInfluence.Type && y.VoterType == VoterType.Swiss && y.Sex == SexType.Female)
                         .Sum(y => y.CountOfVoters.GetValueOrDefault()),
                     SwissAbroadMalesCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                        .Where(y => y.VoterType == VoterType.SwissAbroad && y.Sex == SexType.Male)
+                        .Where(y => y.DomainOfInfluenceType == vote.DomainOfInfluence.Type && y.VoterType == VoterType.SwissAbroad && y.Sex == SexType.Male)
                         .Sum(y => y.CountOfVoters.GetValueOrDefault()),
                     SwissAbroadFemalesCountOfVoters = x.Single().CountOfVotersInformationSubTotals
-                        .Where(y => y.VoterType == VoterType.SwissAbroad && y.Sex == SexType.Female)
+                        .Where(y => y.DomainOfInfluenceType == vote.DomainOfInfluence.Type && y.VoterType == VoterType.SwissAbroad && y.Sex == SexType.Female)
                         .Sum(y => y.CountOfVoters.GetValueOrDefault()),
                 })
                 .ToDictionaryAsync(x => x.CountingCircleId, x => x, ct);
-
-            var resultStatesByCountingCircleId = await _repo.Query()
-                .Where(x => x.Id == vote.Id)
-                .SelectMany(x => x.Results)
-                .Include(x => x.CountingCircle)
-                .ToDictionaryAsync(x => x.CountingCircle.BasisCountingCircleId, x => x.State, ct);
 
             // Currently the export is only used for vote results with one ballot result.
             var ballotResultByCountingCircleId = await _repo.Query()
@@ -124,6 +114,7 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
                     CountingCircleBfs = x.CountingCircle.Bfs,
                     CountingCircleName = x.CountingCircle.Name,
                     CountingCircleId = x.CountingCircle.BasisCountingCircleId,
+                    ResultState = x.State,
                 })
                 .OrderBy(x => x.CountingCircleSortNumber)
                 .AsAsyncEnumerable()
@@ -132,7 +123,7 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
                     AttachPoliticalBusinessData(vote, x);
                     AttachContestDetails(countOfVotersByCountingCircleId, x);
                     AttachBallotResultData(ballotResultByCountingCircleId, x);
-                    CleanResultValues(resultStatesByCountingCircleId, x);
+                    x.ResetDataIfSubmissionNotDone();
                     return x;
                 })
                 .ToListAsync(ct);
@@ -156,33 +147,6 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
     {
         tieBreakQuestionResultByNumber.TryGetValue(number, out var tieBreakQuestionResult);
         return tieBreakQuestionResult == null ? 0 : propertySelector(tieBreakQuestionResult);
-    }
-
-    private void CleanResultValues(IReadOnlyDictionary<Guid, CountingCircleResultState> statesByCcId, Data data)
-    {
-        var state = statesByCcId.GetValueOrDefault(data.CountingCircleId);
-        if (!StatesToCleanResult.Contains(state))
-        {
-            return;
-        }
-
-        data.VoterParticipation = null;
-        data.AccountedBallots = null;
-        data.EmptyBallots = null;
-        data.InvalidBallots = null;
-        data.ReceivedBallots = null;
-        data.Question1CountYes = null;
-        data.Question1CountNo = null;
-        data.Question1CountUnspecified = null;
-        data.Question1CountTotal = null;
-        data.Question2CountYes = null;
-        data.Question2CountNo = null;
-        data.Question2CountUnspecified = null;
-        data.Question2CountTotal = null;
-        data.TieBreakCountQ1 = null;
-        data.TieBreakCountQ2 = null;
-        data.TieBreakCountUnspecified = null;
-        data.TieBreakCountTotal = null;
     }
 
     private void AttachContestDetails(IReadOnlyDictionary<Guid, ContestDetails> detailsByCcId, Data data)
@@ -274,7 +238,7 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
         public int VotingCardsEVoting { get; set; }
     }
 
-    private class Data
+    private class Data : IWabstiCPoliticalResultData
     {
         [Name("Datum")]
         [TypeConverter(typeof(WabstiCDateConverter))]
@@ -354,13 +318,13 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
         public decimal? VoterParticipation { get; set; }
 
         [Name("UmschlaegeOhneAusweis")]
-        public int UmschlaegeOhneAusweis => 0;
+        public int? UmschlaegeOhneAusweis => null;
 
         [Name("StimmEingelegtUngueltig")]
-        public int StimmEingelegtUngueltig => 0;
+        public int? StimmEingelegtUngueltig => null;
 
         [Name("StimmEingelegtGueltig")]
-        public int StimmEingelegtGueltig => 0;
+        public int? StimmEingelegtGueltig => null;
 
         [Name("GeSubNr")]
         public int? GeSubNr => null;
@@ -384,21 +348,61 @@ public class WabstiCSGAbstimmungsergebnisseRenderService : IRendererService
         public int? VotingCardsBallotBox { get; set; }
 
         [Name("StimmausweiseVorzeitig")]
-        public int VotingCardsPaper { get; set; }
+        public int? VotingCardsPaper { get; set; }
 
         [Name("StimmausweiseBrieflich")]
-        public int VotingCardsByMail { get; set; }
+        public int? VotingCardsByMail { get; set; }
 
         [Name("StimmausweiseBrieflichUngueltig")]
-        public int VotingCardsByMailNotValid { get; set; }
+        public int? VotingCardsByMailNotValid { get; set; }
 
         [Name("StimmausweiseEVoting")]
-        public int VotingCardsEVoting { get; set; }
+        public int? VotingCardsEVoting { get; set; }
 
         [Name("CodeZEinheiten")]
         public string? CountingCircleCode { get; set; }
 
         [Ignore]
         public Guid CountingCircleId { get; set; }
+
+        [Ignore]
+        public CountingCircleResultState ResultState { get; set; }
+
+        public void ResetDataIfSubmissionNotDone()
+        {
+            if (ResultState.IsSubmissionDone())
+            {
+                return;
+            }
+
+            VoterParticipation = null;
+            AccountedBallots = null;
+            EmptyBallots = null;
+            InvalidBallots = null;
+            ReceivedBallots = null;
+            Question1CountYes = null;
+            Question1CountNo = null;
+            Question1CountUnspecified = null;
+            Question1CountTotal = null;
+            Question2CountYes = null;
+            Question2CountNo = null;
+            Question2CountUnspecified = null;
+            Question2CountTotal = null;
+            TieBreakCountQ1 = null;
+            TieBreakCountQ2 = null;
+            TieBreakCountUnspecified = null;
+            TieBreakCountTotal = null;
+            CountOfVoters = null;
+            CountOfVotersSwissAbroad = null;
+            CountOfVotersSwissMales = null;
+            CountOfVotersSwissFemales = null;
+            CountOfVotersSwissAbroadMales = null;
+            CountOfVotersSwissAbroadFemales = null;
+            VotingCardsBallotBox = null;
+            VotingCardsPaper = null;
+            VotingCardsByMail = null;
+            VotingCardsByMailNotValid = null;
+            VotingCardsEVoting = null;
+        }
     }
 }

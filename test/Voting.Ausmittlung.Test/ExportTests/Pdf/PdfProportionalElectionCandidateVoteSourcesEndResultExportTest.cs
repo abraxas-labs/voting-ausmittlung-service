@@ -14,7 +14,7 @@ using Voting.Lib.VotingExports.Repository.Ausmittlung;
 
 namespace Voting.Ausmittlung.Test.ExportTests.Pdf;
 
-public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : PdfExportBaseTest
+public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : PdfProportionalElectionExportBaseTest
 {
     public PdfProportionalElectionCandidateVoteSourcesEndResultExportTest(TestApplicationFactory factory)
         : base(factory)
@@ -33,6 +33,11 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultExportTest : Pd
     {
         await ProportionalElectionMockedData.Seed(RunScoped);
         await ProportionalElectionUnionEndResultMockedData.Seed(RunScoped);
+    }
+
+    protected override Task<bool> SetToSubmissionOngoing()
+    {
+        return SetToSubmissionOngoing(Guid.Parse(ProportionalElectionUnionEndResultMockedData.UzwilElectionId));
     }
 
     protected override StartProtocolExportsRequest NewRequest()

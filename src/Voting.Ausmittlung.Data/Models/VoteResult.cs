@@ -29,6 +29,12 @@ public class VoteResult : CountingCircleResult
 
     public VoteResultEntryParams? EntryParams { get; set; }
 
+    public override void ResetAllResults()
+    {
+        TotalCountOfVoters = 0;
+        ResetAllSubTotals(true);
+    }
+
     public void UpdateVoterParticipation()
     {
         foreach (var result in Results)

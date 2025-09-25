@@ -84,7 +84,7 @@ public class ContestPastLockedTest : ContestProcessorBaseTest
                 publicKeyCreateAuthTagPayload,
                 publicKeyCreateAuthTag);
 
-            aggregate.CreatePublicKey(eventSignatureService.BuildPublicKeyCreate(publicKeyCreateHsmPayload));
+            aggregate.CreatePublicKey(await eventSignatureService.BuildPublicKeyCreate(publicKeyCreateHsmPayload));
             await aggregateRepository.Save(aggregate);
         });
     }

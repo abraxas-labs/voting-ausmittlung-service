@@ -649,14 +649,14 @@
           </countingCircle>
           <resultData>
             <countOfVotersInformation>
-              <countOfVotersTotal>15800</countOfVotersTotal>
+              <countOfVotersTotal>15600</countOfVotersTotal>
               <subtotalInfo>
-                <countOfVoters>8000</countOfVoters>
+                <countOfVoters>7900</countOfVoters>
                 <voterType>1</voterType>
                 <sex>1</sex>
               </subtotalInfo>
               <subtotalInfo>
-                <countOfVoters>7000</countOfVoters>
+                <countOfVoters>6900</countOfVoters>
                 <voterType>1</voterType>
                 <sex>2</sex>
               </subtotalInfo>
@@ -672,9 +672,9 @@
               </subtotalInfo>
             </countOfVotersInformation>
             <votingCardInformation>
-              <countOfVotingCardsReceivedInBallotBox>2500</countOfVotingCardsReceivedInBallotBox>
-              <countOfVotingCardsReceivedByMail>3500</countOfVotingCardsReceivedByMail>
-              <countOfInvalidVotingCardsReceivedByMail>500</countOfInvalidVotingCardsReceivedByMail>
+              <countOfVotingCardsReceivedInBallotBox>1900</countOfVotingCardsReceivedInBallotBox>
+              <countOfVotingCardsReceivedByMail>900</countOfVotingCardsReceivedByMail>
+              <countOfInvalidVotingCardsReceivedByMail>2900</countOfInvalidVotingCardsReceivedByMail>
             </votingCardInformation>
             <isFullyCounted>false</isFullyCounted>
             <voterTurnout>70.00</voterTurnout>

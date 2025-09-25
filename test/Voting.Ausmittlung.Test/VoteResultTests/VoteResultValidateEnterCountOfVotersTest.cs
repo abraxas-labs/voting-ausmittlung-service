@@ -44,16 +44,16 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
             var questionResults = ballotResult.QuestionResults.ToList();
             var tieBreakQuestionResults = ballotResult.TieBreakQuestionResults.ToList();
 
-            questionResults[0].ConventionalSubTotal.TotalCountOfAnswerYes = 2500;
+            questionResults[0].ConventionalSubTotal.TotalCountOfAnswerYes = 500;
             questionResults[0].ConventionalSubTotal.TotalCountOfAnswerNo = 1450;
             questionResults[0].ConventionalSubTotal.TotalCountOfAnswerUnspecified = 50;
 
-            questionResults[1].ConventionalSubTotal.TotalCountOfAnswerYes = 3500;
+            questionResults[1].ConventionalSubTotal.TotalCountOfAnswerYes = 1500;
             questionResults[1].ConventionalSubTotal.TotalCountOfAnswerNo = 500;
             questionResults[1].ConventionalSubTotal.TotalCountOfAnswerUnspecified = 0;
 
-            tieBreakQuestionResults[0].ConventionalSubTotal.TotalCountOfAnswerQ1 = 2000;
-            tieBreakQuestionResults[0].ConventionalSubTotal.TotalCountOfAnswerQ2 = 1900;
+            tieBreakQuestionResults[0].ConventionalSubTotal.TotalCountOfAnswerQ1 = 1000;
+            tieBreakQuestionResults[0].ConventionalSubTotal.TotalCountOfAnswerQ2 = 900;
             tieBreakQuestionResults[0].ConventionalSubTotal.TotalCountOfAnswerUnspecified = 100;
         });
 
@@ -281,10 +281,10 @@ public class VoteResultValidateEnterCountOfVotersTest : VoteResultBaseTest
                             BallotId = VoteMockedData.BallotIdGossauVoteInContestStGallen,
                             CountOfVoters = new EnterPoliticalBusinessCountOfVotersRequest
                             {
-                                ConventionalReceivedBallots = 6000,
-                                ConventionalAccountedBallots = 4000,
-                                ConventionalBlankBallots = 1500,
-                                ConventionalInvalidBallots = 500,
+                                ConventionalReceivedBallots = 2800,
+                                ConventionalAccountedBallots = 2000,
+                                ConventionalBlankBallots = 500,
+                                ConventionalInvalidBallots = 300,
                             },
                         },
                     },

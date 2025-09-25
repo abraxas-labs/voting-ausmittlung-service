@@ -48,37 +48,29 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         var pbIdColumn = GetDelimitedColumnName(x => x.Id);
         var pbDoiIdColumn = GetDelimitedColumnName(x => x.DomainOfInfluenceId);
 
-        // Access to a political business is decided by the participating counting circles.
-        // The tenant must either be the responsible authority of a participating counting circle
-        // or the responsible authority of a domain of influence which has an assigned participating counting circle.
-        // if adjusted, ensure testing and analyzing query (plans)
+        // If adjusted, ensure testing and analyzing query (plans)
+        // Use a big dataset for testing and test the ViewCountingCirclePartialResults performance
         return Set.FromSqlRaw(
             $$"""
-              WITH EligiblePoliticalBusinessIds AS (
-                SELECT pb.{{pbIdColumn}}
-                FROM {{DelimitedSchemaAndTableName}} AS pb
-                INNER JOIN {{_simpleCcResultRepo.DelimetedTableName}} AS ccr
-                    ON ccr.{{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
-                INNER JOIN {{_doiRepo.DelimetedTableName}} AS doi
-                    ON doi.{{doiIdColumn}} = pb.{{pbDoiIdColumn}}
-                WHERE doi.{{doiTenantIdColumn}} = {0}
-
-                UNION
-
-                SELECT pb.{{pbIdColumn}}
-                FROM {{DelimitedSchemaAndTableName}} AS pb
-                INNER JOIN {{_simpleCcResultRepo.DelimetedTableName}} AS ccr
-                    ON ccr.{{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
-                INNER JOIN {{_permissionRepo.DelimetedTableName}} AS doip
-                    ON doip.{{permissionTenantIdColumn}} = {0}
-                    AND ARRAY[ccr.{{ccResultCcIdColumn}}] <@ (doip.{{permissionCcIdsColumn}})
-                INNER JOIN {{_doiRepo.DelimetedTableName}} AS doi
-                    ON doi.{{doiPartialCcResultsColumn}} = TRUE
-                    AND doi.{{doiBasisIdColumn}} = doip.{{permissionBasisDoiIdColumn}}
-              )
-              SELECT pb.*
+              SELECT *
               FROM {{DelimitedSchemaAndTableName}} AS pb
-              INNER JOIN EligiblePoliticalBusinessIds AS eligible ON pb.{{pbIdColumn}} = eligible.{{pbIdColumn}}
+              WHERE EXISTS
+                  (SELECT 1
+                   FROM {{_simpleCcResultRepo.DelimetedTableName}} AS ccr
+                   INNER JOIN {{_doiRepo.DelimetedTableName}} AS doi
+                     ON doi.{{doiIdColumn}} = pb.{{pbDoiIdColumn}}
+                   WHERE ccr.{{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
+                     AND doi.{{doiTenantIdColumn}} = {0})
+                OR EXISTS
+                  (SELECT 1
+                   FROM {{_simpleCcResultRepo.DelimetedTableName}} AS ccr
+                   INNER JOIN {{_permissionRepo.DelimetedTableName}} AS doip
+                     ON ccr.{{ccResultCcIdColumn}} = ANY(doip.{{permissionCcIdsColumn}})
+                   INNER JOIN {{_doiRepo.DelimetedTableName}} AS doi
+                     ON doi.{{doiBasisIdColumn}} = doip.{{permissionBasisDoiIdColumn}}
+                   WHERE {{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
+                     AND doip.{{permissionTenantIdColumn}} = {0}
+                     AND doi.{{doiPartialCcResultsColumn}} = TRUE)
               """,
             tenantId);
     }

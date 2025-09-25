@@ -9,6 +9,7 @@
         "Sex": 1,
         "CountOfVoters": 8000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -16,6 +17,7 @@
         "Sex": 1,
         "CountOfVoters": 500,
         "VoterType": 2,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -23,6 +25,7 @@
         "Sex": 2,
         "CountOfVoters": 7000,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -30,6 +33,39 @@
         "Sex": 2,
         "CountOfVoters": 300,
         "VoterType": 2,
+        "DomainOfInfluenceType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": 8000,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": 500,
+        "VoterType": 2,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": 7000,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": 300,
+        "VoterType": 2,
+        "DomainOfInfluenceType": 2,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       }
@@ -119,7 +155,6 @@
     "EVoting": false,
     "ECounting": false,
     "ECountingResultsImported": false,
-    "TotalCountOfVoters": 15800,
     "CountingMachine": 2,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
@@ -133,6 +168,7 @@
         "Sex": 1,
         "CountOfVoters": null,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -140,6 +176,7 @@
         "Sex": 1,
         "CountOfVoters": null,
         "VoterType": 2,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -147,6 +184,7 @@
         "Sex": 2,
         "CountOfVoters": null,
         "VoterType": 1,
+        "DomainOfInfluenceType": 1,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       },
@@ -154,6 +192,39 @@
         "Sex": 2,
         "CountOfVoters": null,
         "VoterType": 2,
+        "DomainOfInfluenceType": 1,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": null,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 1,
+        "CountOfVoters": null,
+        "VoterType": 2,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": null,
+        "VoterType": 1,
+        "DomainOfInfluenceType": 2,
+        "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
+        "Id": "00000000-0000-0000-0000-000000000000"
+      },
+      {
+        "Sex": 2,
+        "CountOfVoters": null,
+        "VoterType": 2,
+        "DomainOfInfluenceType": 2,
         "ContestCountingCircleDetailsId": "00000000-0000-0000-0000-000000000000",
         "Id": "00000000-0000-0000-0000-000000000000"
       }
@@ -243,7 +314,6 @@
     "EVoting": false,
     "ECounting": false,
     "ECountingResultsImported": false,
-    "TotalCountOfVoters": 0,
     "CountingMachine": 0,
     "Id": "00000000-0000-0000-0000-000000000000"
   }

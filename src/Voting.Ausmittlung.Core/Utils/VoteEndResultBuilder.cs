@@ -129,13 +129,16 @@ public class VoteEndResultBuilder
         VoteResultAlgorithm algorithm,
         int deltaFactor)
     {
-        if (result.HasMajority)
+        if (result.TotalCountOfAnswerNo != 0 || result.TotalCountOfAnswerYes != 0)
         {
-            endResult.CountOfCountingCircleYes += deltaFactor;
-        }
-        else
-        {
-            endResult.CountOfCountingCircleNo += deltaFactor;
+            if (result.HasMajority)
+            {
+                endResult.CountOfCountingCircleYes += deltaFactor;
+            }
+            else
+            {
+                endResult.CountOfCountingCircleNo += deltaFactor;
+            }
         }
 
         endResult.ForEachSubTotal(result, (endResultSubTotal, resultSubTotal) =>

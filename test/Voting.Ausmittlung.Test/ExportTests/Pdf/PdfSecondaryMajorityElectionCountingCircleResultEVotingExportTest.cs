@@ -42,6 +42,17 @@ public class PdfSecondaryMajorityElectionCountingCircleResultEVotingExportTest :
     {
         await MajorityElectionMockedData.Seed(RunScoped);
         await MajorityElectionResultMockedData.InjectCandidateResults(RunScoped);
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionDone);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

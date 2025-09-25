@@ -65,7 +65,21 @@ public class PdfVoteResultExportTest : PdfExportBaseTest
             await db.SaveChangesAsync();
         });
 
-        await ModifyDbEntities<Vote>(v => v.Id == VoteMockedData.BundVoteInContestBund.Id, v => v.ReportDomainOfInfluenceLevel = 1);
+        await ModifyDbEntities<VoteResult>(
+            v => v.VoteId == VoteMockedData.BundVoteInContestBund.Id || v.VoteId == VoteMockedData.BundVote2InContestBund.Id,
+            v => v.State = CountingCircleResultState.SubmissionDone);
+
+        await ModifyDbEntities<Vote>(
+            v => v.Id == VoteMockedData.BundVoteInContestBund.Id,
+            v => v.ReportDomainOfInfluenceLevel = 1);
+    }
+
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<VoteResult>(
+            r => r.VoteId == VoteMockedData.BundVoteInContestBund.Id || r.VoteId == VoteMockedData.BundVote2InContestBund.Id,
+            v => v.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
     }
 
     protected override StartProtocolExportsRequest NewRequest()

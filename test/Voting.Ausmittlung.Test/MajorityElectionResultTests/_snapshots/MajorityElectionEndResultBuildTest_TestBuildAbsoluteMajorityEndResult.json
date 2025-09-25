@@ -708,7 +708,7 @@
     },
     "PartialResult": false
   },
-  "afterOneAuditedTentatively": {
+  "afterOneSubmissionFinished": {
     "Contest": {
       "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Date": {
@@ -835,22 +835,50 @@
         {
           "Sex": 1,
           "VoterType": 1,
-          "CountOfVoters": 8000
+          "CountOfVoters": 8000,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 1,
           "VoterType": 2,
-          "CountOfVoters": 500
+          "CountOfVoters": 500,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 1,
-          "CountOfVoters": 7000
+          "CountOfVoters": 7000,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 2,
-          "CountOfVoters": 300
+          "CountOfVoters": 300,
+          "DomainOfInfluenceType": 1
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 8000,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 500,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 7000,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 300,
+          "DomainOfInfluenceType": 2
         }
       ]
     },
@@ -1499,7 +1527,7 @@
     },
     "PartialResult": false
   },
-  "afterAllAuditedTentatively": {
+  "afterAllSubmissionFinished": {
     "Contest": {
       "Id": "20361fdf-7d18-47b9-bdef-fd82efe8a6a7",
       "Date": {
@@ -1626,22 +1654,74 @@
         {
           "Sex": 1,
           "VoterType": 1,
-          "CountOfVoters": 17600
+          "CountOfVoters": 17600,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 1,
           "VoterType": 2,
-          "CountOfVoters": 1100
+          "CountOfVoters": 1100,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 1,
-          "CountOfVoters": 15400
+          "CountOfVoters": 15400,
+          "DomainOfInfluenceType": 1
         },
         {
           "Sex": 2,
           "VoterType": 2,
-          "CountOfVoters": 710
+          "CountOfVoters": 710,
+          "DomainOfInfluenceType": 1
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 17600,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 1100,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 15400,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 710,
+          "DomainOfInfluenceType": 2
+        },
+        {
+          "Sex": 1,
+          "VoterType": 1,
+          "CountOfVoters": 1500,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 1,
+          "VoterType": 2,
+          "CountOfVoters": 100,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 2,
+          "VoterType": 1,
+          "CountOfVoters": 1300,
+          "DomainOfInfluenceType": 5
+        },
+        {
+          "Sex": 2,
+          "VoterType": 2,
+          "CountOfVoters": 110,
+          "DomainOfInfluenceType": 5
         }
       ]
     },

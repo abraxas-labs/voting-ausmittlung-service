@@ -56,7 +56,6 @@ internal static class VoteInfoProportionalElectionInfoMapping
         Ech0252MappingContext ctx,
         Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
-        var canton = election.DomainOfInfluence.Canton;
         var superiorAuthority = ctx.GetSuperiorAuthority(election.DomainOfInfluence.Id);
         var superiorAuthorityId = superiorAuthority?.Id ?? Guid.Empty;
 
@@ -71,33 +70,33 @@ internal static class VoteInfoProportionalElectionInfoMapping
             DomainOfInfluence = election.DomainOfInfluence.ToEchDomainOfInfluence(),
             ElectionInformation = new List<ElectionGroupInfoTypeElectionGroupElectionInformation>
             {
-                election.ToVoteInfoEchElectionInfo(canton),
+                election.ToVoteInfoEchElectionInfo(ctx),
             },
             ElectionGroupPosition = position.ToString(),
         };
     }
 
-    private static ElectionGroupInfoTypeElectionGroupElectionInformation ToVoteInfoEchElectionInfo(this ProportionalElection election, DomainOfInfluenceCanton canton)
+    private static ElectionGroupInfoTypeElectionGroupElectionInformation ToVoteInfoEchElectionInfo(this ProportionalElection election, Ech0252MappingContext ctx)
     {
         return new ElectionGroupInfoTypeElectionGroupElectionInformation
         {
-            Election = election.ToVoteInfoEchElection(election.Translations, PoliticalBusinessType.ProportionalElection),
+            Election = election.ToVoteInfoEchElection(ctx, election.Translations, PoliticalBusinessType.ProportionalElection),
             Quorum = GetQuorum(election.MandateAlgorithm),
             ReferencedElectionAssociationId = election.ProportionalElectionUnionEntries.FirstOrDefault()?.ProportionalElectionUnionId.ToString(),
             List = election.ProportionalElectionLists
                             .OrderBy(l => l.OrderNumber)
-                            .Select(l => l.ToVoteInfoEchList(canton))
-                            .Append(CreateEmptyListType(election))
+                            .Select(l => l.ToVoteInfoEchList(ctx))
+                            .Append(CreateEmptyListType(election, ctx))
                             .ToList(),
             ListUnion = election.ProportionalElectionListUnions
                             .OrderBy(lu => lu.Position)
-                            .Select(lu => lu.ToVoteInfoEchListUnion())
+                            .Select(lu => lu.ToVoteInfoEchListUnion(ctx))
                             .ToList(),
             Candidate = election.ProportionalElectionLists
                             .SelectMany(l => l.ProportionalElectionCandidates)
                             .OrderBy(c => c.ProportionalElectionList.OrderNumber)
                             .ThenBy(c => c.Position)
-                            .Select(c => c.ToEchCandidate(canton))
+                            .Select(c => c.ToEchCandidate(ctx))
                             .ToList(),
             OtherIdentification = election.ToOtherIdentification(),
         };
@@ -111,10 +110,10 @@ internal static class VoteInfoProportionalElectionInfoMapping
         return union.ToVoteInfoEchElectionAssociation(GetQuorum(mandateAlgorithm));
     }
 
-    private static ListType ToVoteInfoEchList(this ProportionalElectionList list, DomainOfInfluenceCanton canton)
+    private static ListType ToVoteInfoEchList(this ProportionalElectionList list, Ech0252MappingContext ctx)
     {
         var descriptionInfos = list.Translations
-            .OrderBy(t => t.Language)
+            .FilterAndSortEchExportLanguages(ctx.EVoting)
             .Select(t => new ListDescriptionInformationTypeListDescriptionInfo
             {
                 Language = t.Language,
@@ -126,10 +125,10 @@ internal static class VoteInfoProportionalElectionInfoMapping
         var candidatePositions = new List<CandidatePositionInformationType>();
         foreach (var candidate in list.ProportionalElectionCandidates.OrderBy(c => c.Position))
         {
-            candidatePositions.Add(candidate.ToEchCandidatePosition(false, canton));
+            candidatePositions.Add(candidate.ToEchCandidatePosition(ctx, false));
             if (candidate.Accumulated)
             {
-                candidatePositions.Add(candidate.ToEchCandidatePosition(true, canton));
+                candidatePositions.Add(candidate.ToEchCandidatePosition(ctx, true));
             }
         }
 
@@ -147,9 +146,9 @@ internal static class VoteInfoProportionalElectionInfoMapping
         };
     }
 
-    private static ListType CreateEmptyListType(ProportionalElection proportionalElection)
+    private static ListType CreateEmptyListType(ProportionalElection proportionalElection, Ech0252MappingContext ctx)
     {
-        var descriptionInfos = Languages.All
+        var descriptionInfos = LanguageMapping.GetEchExportLanguages(ctx.EVoting)
             .Select(language => new ListDescriptionInformationTypeListDescriptionInfo
             {
                 Language = language,
@@ -173,10 +172,10 @@ internal static class VoteInfoProportionalElectionInfoMapping
         };
     }
 
-    private static Ech0252_2_0.CandidateType ToEchCandidate(this ProportionalElectionCandidate candidate, DomainOfInfluenceCanton canton)
+    private static Ech0252_2_0.CandidateType ToEchCandidate(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         var candidateType = candidate.ToVoteInfoEchCandidate(
-            canton,
+            ctx,
             PoliticalBusinessType.ProportionalElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
@@ -187,10 +186,10 @@ internal static class VoteInfoProportionalElectionInfoMapping
         return candidateType;
     }
 
-    private static ListUnionType ToVoteInfoEchListUnion(this ProportionalElectionListUnion listUnion)
+    private static ListUnionType ToVoteInfoEchListUnion(this ProportionalElectionListUnion listUnion, Ech0252MappingContext ctx)
     {
         var descriptionInfos = listUnion.Translations
-            .OrderBy(t => t.Language)
+            .FilterAndSortEchExportLanguages(ctx.EVoting)
             .Select(t => new ListUnionDescriptionTypeListUnionDescriptionInfo
             {
                 Language = t.Language,

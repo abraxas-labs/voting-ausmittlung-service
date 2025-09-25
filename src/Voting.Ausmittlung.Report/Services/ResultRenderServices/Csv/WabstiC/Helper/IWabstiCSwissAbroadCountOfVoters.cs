@@ -2,6 +2,7 @@
 // For license information see LICENSE file
 
 using System;
+using Voting.Ausmittlung.Data.Models;
 
 namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Helper;
 
@@ -9,5 +10,7 @@ internal interface IWabstiCSwissAbroadCountOfVoters
 {
     Guid CountingCircleId { get; }
 
-    int CountOfVotersTotalSwissAbroad { set; }
+    DomainOfInfluenceType DomainOfInfluenceType { get; }
+
+    int? CountOfVotersTotalSwissAbroad { set; }
 }

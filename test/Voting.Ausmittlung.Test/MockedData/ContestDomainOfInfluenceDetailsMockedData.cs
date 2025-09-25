@@ -27,7 +27,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdBundUrnengangBundContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdBund),
-            TotalCountOfVoters = 15800 + 15800 + 3210,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
         };
@@ -38,7 +37,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdBundUrnengangStGallenContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
-            TotalCountOfVoters = 15800 + 15800 + 3210,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.StGallenUrnengangBund, ContestCountingCircleDetailsMockData.UzwilUrnengangBund, ContestCountingCircleDetailsMockData.GossauUrnengangBund),
         };
@@ -49,7 +47,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdBundUrnengangGossauContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
-            TotalCountOfVoters = 15800,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangBund),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangBund),
         };
@@ -60,7 +57,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdBundUrnengangUzwilContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdBundesurnengang),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdUzwil),
-            TotalCountOfVoters = 3210,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.UzwilUrnengangBund),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.UzwilUrnengangBund),
         };
@@ -71,7 +67,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdStGallenUrnengangStGallenContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdStGallen),
-            TotalCountOfVoters = 15800,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
         };
@@ -82,7 +77,6 @@ public static class ContestDomainOfInfluenceDetailsMockedData
             Id = Guid.Parse(IdGossauUrnengangStGallenContestDomainOfInfluenceDetails),
             ContestId = Guid.Parse(ContestMockedData.IdStGallenEvoting),
             DomainOfInfluenceId = Guid.Parse(DomainOfInfluenceMockedData.IdGossau),
-            TotalCountOfVoters = 15800,
             VotingCards = BuildVotingCards(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
             CountOfVotersInformationSubTotals = BuildCountOfVotersInformationSubTotals(ContestCountingCircleDetailsMockData.GossauUrnengangStGallen),
         };
@@ -146,27 +140,28 @@ public static class ContestDomainOfInfluenceDetailsMockedData
 
     internal static HashSet<DomainOfInfluenceCountOfVotersInformationSubTotal> BuildCountOfVotersInformationSubTotals(params ContestCountingCircleDetails[] details)
     {
-        var subTotalBySexAndVoterType = new Dictionary<(SexType, VoterType), DomainOfInfluenceCountOfVotersInformationSubTotal>();
+        var subTotalBySexVoterTypeAndDoiType = new Dictionary<(SexType, VoterType, DomainOfInfluenceType), DomainOfInfluenceCountOfVotersInformationSubTotal>();
 
         foreach (var detail in details)
         {
             foreach (var subTotal in detail.CountOfVotersInformationSubTotals)
             {
-                var subTotalKey = (subTotal.Sex, subTotal.VoterType);
-                if (!subTotalBySexAndVoterType.TryGetValue(subTotalKey, out var doiSubTotal))
+                var subTotalKey = (subTotal.Sex, subTotal.VoterType, subTotal.DomainOfInfluenceType);
+                if (!subTotalBySexVoterTypeAndDoiType.TryGetValue(subTotalKey, out var doiSubTotal))
                 {
                     doiSubTotal = new()
                     {
                         Sex = subTotal.Sex,
                         VoterType = subTotal.VoterType,
+                        DomainOfInfluenceType = subTotal.DomainOfInfluenceType,
                     };
-                    subTotalBySexAndVoterType.Add(subTotalKey, doiSubTotal);
+                    subTotalBySexVoterTypeAndDoiType.Add(subTotalKey, doiSubTotal);
                 }
 
                 doiSubTotal.CountOfVoters += subTotal.CountOfVoters.GetValueOrDefault();
             }
         }
 
-        return subTotalBySexAndVoterType.Values.ToHashSet();
+        return subTotalBySexVoterTypeAndDoiType.Values.ToHashSet();
     }
 }

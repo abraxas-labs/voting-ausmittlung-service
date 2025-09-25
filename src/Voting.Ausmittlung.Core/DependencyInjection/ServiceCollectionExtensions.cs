@@ -53,11 +53,12 @@ public static class ServiceCollectionExtensions
         }
         else
         {
-            services.AddVotingLibPkcs11Mock();
+            services.AddVotingLibCryptoProviderMock();
         }
 
         return services
             .AddVotingLibCryptography()
+            .AddSingleton(config.Pkcs11)
             .AddEventSignature()
             .AddSingleton(config.EventSignature)
             .AddSingleton(config.Machine)

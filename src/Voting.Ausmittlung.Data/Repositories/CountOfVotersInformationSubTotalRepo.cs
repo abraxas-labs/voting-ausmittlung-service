@@ -19,16 +19,17 @@ public class CountOfVotersInformationSubTotalRepo : DbRepository<DataContext, Co
     {
     }
 
-    public Task<Dictionary<Guid, int>> GetCountOfVotersByCountCircleId(Guid contestId, VoterType voterType, CancellationToken ct = default)
+    public Task<Dictionary<(Guid CountingCircleId, DomainOfInfluenceType DomainOfInfluenceType), int?>> GetCountOfVotersByCountCircleId(Guid contestId, VoterType voterType, CancellationToken ct = default)
     {
         return Query()
             .Where(x => x.VoterType == voterType && x.ContestCountingCircleDetails.ContestId == contestId)
-            .GroupBy(x => x.ContestCountingCircleDetails.CountingCircleId)
+            .GroupBy(x => new { x.ContestCountingCircleDetails.CountingCircleId, x.DomainOfInfluenceType })
             .Select(x => new
             {
-                x.Key,
-                Sum = x.Sum(z => z.CountOfVoters.GetValueOrDefault()),
+                x.Key.CountingCircleId,
+                x.Key.DomainOfInfluenceType,
+                Sum = x.Sum(z => z.CountOfVoters),
             })
-            .ToDictionaryAsync(x => x.Key, x => x.Sum, ct);
+            .ToDictionaryAsync(x => (x.CountingCircleId, x.DomainOfInfluenceType), x => x.Sum, ct);
     }
 }

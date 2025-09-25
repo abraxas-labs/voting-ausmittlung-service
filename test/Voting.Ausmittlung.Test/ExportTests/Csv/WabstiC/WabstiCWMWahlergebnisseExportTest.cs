@@ -36,6 +36,14 @@ public class WabstiCWMWahlergebnisseExportTest : CsvExportBaseTest
 
     protected override Task SeedData() => MajorityElectionEndResultMockedData.Seed(RunScoped);
 
+    protected override async Task<bool> SetToSubmissionOngoing()
+    {
+        await ModifyDbEntities<MajorityElectionResult>(
+            _ => true,
+            x => x.State = CountingCircleResultState.SubmissionOngoing);
+        return true;
+    }
+
     protected override GenerateResultExportsRequest NewRequest()
     {
         return new GenerateResultExportsRequest

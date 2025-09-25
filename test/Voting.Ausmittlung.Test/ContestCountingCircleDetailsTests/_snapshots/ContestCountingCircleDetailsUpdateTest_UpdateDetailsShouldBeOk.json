@@ -18,21 +18,20 @@
   "Id": "cdd220f4-31bf-5ef6-b3f5-a16469d58232",
   "ContestId": "bfd88d88-77f2-4172-a73d-56b1ca5442b3",
   "CountingCircleId": "0bb8d89c-d387-40d0-83cf-84e118a8d524",
-  "CountOfVotersInformation": {
-    "TotalCountOfVoters": 10000,
-    "SubTotalInfo": [
-      {
-        "Sex": 2,
-        "VoterType": 1,
-        "CountOfVoters": 6000
-      },
-      {
-        "Sex": 1,
-        "VoterType": 1,
-        "CountOfVoters": 4000
-      }
-    ]
-  },
+  "CountOfVotersInformationSubTotals": [
+    {
+      "Sex": 2,
+      "VoterType": 1,
+      "CountOfVoters": 6000,
+      "DomainOfInfluenceType": 5
+    },
+    {
+      "Sex": 1,
+      "VoterType": 1,
+      "CountOfVoters": 4000,
+      "DomainOfInfluenceType": 5
+    }
+  ],
   "VotingCards": [
     {
       "CountOfReceivedVotingCards": 10000,

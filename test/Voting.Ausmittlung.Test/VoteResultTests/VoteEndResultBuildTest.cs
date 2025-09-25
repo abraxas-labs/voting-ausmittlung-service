@@ -30,14 +30,13 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
     {
         await SeedVote(VoteResultAlgorithm.PopularMajority);
         await StartResultSubmissions();
-        await FinishAllResultSubmission();
 
         var initEndResult = await GetEndResult();
         initEndResult.MatchSnapshot("init");
 
-        await SetAllAuditedTentatively();
-        var afterAllAudited = await GetEndResult();
-        afterAllAudited.MatchSnapshot("afterAllAudited");
+        await FinishAllResultSubmission();
+        var afterAllFinished = await GetEndResult();
+        afterAllFinished.MatchSnapshot("afterAllFinished");
     }
 
     [Fact]
@@ -45,6 +44,9 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
     {
         await SeedVote(VoteResultAlgorithm.CountingCircleUnanimity);
         await StartResultSubmissions();
+
+        var initEndResult = await GetEndResult();
+        initEndResult.MatchSnapshot("init");
 
         await FinishResultSubmission(VoteEndResultMockedData.StGallenHaggenResultId);
         await FinishResultSubmission(VoteEndResultMockedData.StGallenStFidenResultId);
@@ -61,13 +63,8 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
             (15, 10),
             (15, 10));
 
-        var initEndResult = await GetEndResult();
-        initEndResult.MatchSnapshot("init");
-
-        await SetAllAuditedTentatively();
-
-        var afterAudited = await GetEndResult();
-        afterAudited.MatchSnapshot("afterAudited");
+        var afterFinished = await GetEndResult();
+        afterFinished.MatchSnapshot("afterFinished");
 
         var ballot2Questions = await RunOnDb(db => db.BallotQuestionEndResults
             .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId2))
@@ -95,6 +92,9 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
         await SeedVote(VoteResultAlgorithm.CountingCircleMajority);
         await StartResultSubmissions();
 
+        var initEndResult = await GetEndResult();
+        initEndResult.MatchSnapshot("init");
+
         await FinishResultSubmission(VoteEndResultMockedData.GossauResultId);
         await FinishResultSubmission(VoteEndResultMockedData.StGallenStFidenResultId);
         await FinishResultSubmission(VoteEndResultMockedData.StGallenHaggenResultId);
@@ -114,13 +114,8 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
             (10, 15),
             (15, 10));
 
-        var initEndResult = await GetEndResult();
-        initEndResult.MatchSnapshot("init");
-
-        await SetAllAuditedTentatively();
-
-        var afterAudited = await GetEndResult();
-        afterAudited.MatchSnapshot("afterAudited");
+        var afterFinished = await GetEndResult();
+        afterFinished.MatchSnapshot("afterFinished");
 
         var ballot2Questions = await RunOnDb(db => db.BallotQuestionEndResults
             .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId2))
@@ -148,6 +143,9 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
         await SeedVote(VoteResultAlgorithm.PopularAndCountingCircleMajority);
         await StartResultSubmissions();
 
+        var initEndResult = await GetEndResult();
+        initEndResult.MatchSnapshot("init");
+
         await FinishResultSubmission(VoteEndResultMockedData.GossauResultId);
         await FinishResultSubmission(VoteEndResultMockedData.StGallenStFidenResultId);
         await FinishResultSubmission(VoteEndResultMockedData.StGallenHaggenResultId);
@@ -167,13 +165,8 @@ public class VoteEndResultBuildTest : VoteEndResultBaseTest
             (11, 15),
             (15, 10));
 
-        var initEndResult = await GetEndResult();
-        initEndResult.MatchSnapshot("init");
-
-        await SetAllAuditedTentatively();
-
-        var afterAudited = await GetEndResult();
-        afterAudited.MatchSnapshot("afterAudited");
+        var afterFinished = await GetEndResult();
+        afterFinished.MatchSnapshot("afterFinished");
 
         var ballot1Questions = await RunOnDb(db => db.BallotQuestionEndResults
             .Where(x => x.BallotEndResult.BallotId == Guid.Parse(VoteEndResultMockedData.BallotId1))

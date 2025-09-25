@@ -103,10 +103,19 @@ public abstract class ProportionalElectionEndResultBaseTest : BaseTest<
 
     protected async Task FinishAllResultSubmission()
     {
+        await FinishOneResultSubmission();
+        await FinishOtherResultSubmission();
+    }
+
+    protected async Task FinishOneResultSubmission()
+    {
         await FinishResultSubmission(
             _countingCircleElectionResultIdPairs[0].ElectionEndResultId,
             DefaultBundleId);
+    }
 
+    protected async Task FinishOtherResultSubmission()
+    {
         foreach (var (_, endResultId) in _countingCircleElectionResultIdPairs.Skip(1))
         {
             await FinishResultSubmission(endResultId);
