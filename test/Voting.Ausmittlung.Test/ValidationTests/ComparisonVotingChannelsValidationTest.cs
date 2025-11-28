@@ -59,7 +59,7 @@ public class ComparisonVotingChannelsValidationTest : BaseValidationTest<Contest
     [Fact]
     public void ShouldReturnEmptyWhenNoPreviousContestOrCountingCircleDidNotExist()
     {
-        var context = BuildValidationContext(null, null, false);
+        var context = BuildValidationContext(hasPreviousContest: false);
         var validationResults = Validate(context.CurrentContestCountingCircleDetails, context);
 
         EnsureHasCount(validationResults, 0);

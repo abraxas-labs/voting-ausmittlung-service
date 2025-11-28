@@ -257,35 +257,6 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
           <Description>number9 9pol last name 9pol firstName</Description>
           <Number>number9</Number>
           <FirstName>9firstName</FirstName>
@@ -600,35 +571,6 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
           <Origin>origin</Origin>
           <Street>street</Street>
           <HouseNumber>1a</HouseNumber>
@@ -1015,37 +957,6 @@
         <LotDecision>false</LotDecision>
         <LotDecisionRequired>false</LotDecisionRequired>
         <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <State>Pending</State>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingVoteCount>0</EVotingVoteCount>
-      </MajorityElectionCandidateEndResult>
-      <MajorityElectionCandidateEndResult>
-        <Rank>1</Rank>
-        <VoteCount>0</VoteCount>
-        <LotDecision>false</LotDecision>
-        <LotDecisionRequired>false</LotDecisionRequired>
-        <Candidate>
           <Description>number9 9pol last name 9pol firstName</Description>
           <Number>number9</Number>
           <FirstName>9firstName</FirstName>
@@ -1350,35 +1261,6 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
           <Description>number9 9pol last name 9pol firstName</Description>
           <Number>number9</Number>
           <FirstName>9firstName</FirstName>
@@ -1652,35 +1534,6 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number8 8pol last name 8pol firstName</Description>
-            <Number>number8</Number>
-            <FirstName>8firstName</FirstName>
-            <LastName>8lastName</LastName>
-            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-            <PoliticalLastName>8pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Undefined</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality</Locality>
-            <Position>8</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
@@ -2039,35 +1892,6 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
           <Description>number9 9pol last name 9pol firstName</Description>
           <Number>number9</Number>
           <FirstName>9firstName</FirstName>
@@ -2341,35 +2165,6 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number8 8pol last name 8pol firstName</Description>
-            <Number>number8</Number>
-            <FirstName>8firstName</FirstName>
-            <LastName>8lastName</LastName>
-            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-            <PoliticalLastName>8pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Undefined</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality</Locality>
-            <Position>8</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
@@ -2698,35 +2493,6 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number8 8pol last name 8pol firstName</Description>
-            <Number>number8</Number>
-            <FirstName>8firstName</FirstName>
-            <LastName>8lastName</LastName>
-            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-            <PoliticalLastName>8pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Undefined</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality</Locality>
-            <Position>8</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
@@ -3085,35 +2851,6 @@
       </MajorityElectionCandidateResult>
       <MajorityElectionCandidateResult>
         <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
           <Description>number9 9pol last name 9pol firstName</Description>
           <Number>number9</Number>
           <FirstName>9firstName</FirstName>
@@ -3387,35 +3124,6 @@
             <ZipCode>zip code</ZipCode>
             <Locality>locality</Locality>
             <Position>7</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number8 8pol last name 8pol firstName</Description>
-            <Number>number8</Number>
-            <FirstName>8firstName</FirstName>
-            <LastName>8lastName</LastName>
-            <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-            <PoliticalLastName>8pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Undefined</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality</Locality>
-            <Position>8</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
@@ -3748,35 +3456,6 @@
           <ZipCode>zip code</ZipCode>
           <Locality>locality</Locality>
           <Position>7</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number8 8pol last name 8pol firstName</Description>
-          <Number>number8</Number>
-          <FirstName>8firstName</FirstName>
-          <LastName>8lastName</LastName>
-          <PoliticalFirstName>8pol firstName</PoliticalFirstName>
-          <PoliticalLastName>8pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Undefined</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality</Locality>
-          <Position>8</Position>
           <Origin>origin</Origin>
           <Street>street</Street>
           <HouseNumber>1a</HouseNumber>

@@ -45,8 +45,10 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
         var doiTenantIdColumn = _doiRepo.GetColumnName(x => x.SecureConnectId);
         var doiBasisIdColumn = _doiRepo.GetColumnName(x => x.BasisDomainOfInfluenceId);
         var doiPartialCcResultsColumn = _doiRepo.GetColumnName(x => x.ViewCountingCirclePartialResults);
+        var doiSnapshotContestIdColumn = _doiRepo.GetColumnName(x => x.SnapshotContestId);
         var pbIdColumn = GetDelimitedColumnName(x => x.Id);
         var pbDoiIdColumn = GetDelimitedColumnName(x => x.DomainOfInfluenceId);
+        var pbContestIdColumn = GetDelimitedColumnName(x => x.ContestId);
 
         // If adjusted, ensure testing and analyzing query (plans)
         // Use a big dataset for testing and test the ViewCountingCirclePartialResults performance
@@ -67,7 +69,7 @@ public class SimplePoliticalBusinessRepo : DbRepository<DataContext, SimplePolit
                    INNER JOIN {{_permissionRepo.DelimetedTableName}} AS doip
                      ON ccr.{{ccResultCcIdColumn}} = ANY(doip.{{permissionCcIdsColumn}})
                    INNER JOIN {{_doiRepo.DelimetedTableName}} AS doi
-                     ON doi.{{doiBasisIdColumn}} = doip.{{permissionBasisDoiIdColumn}}
+                     ON doi.{{doiBasisIdColumn}} = doip.{{permissionBasisDoiIdColumn}} AND doi.{{doiSnapshotContestIdColumn}} = pb.{{pbContestIdColumn}}
                    WHERE {{ccResultPbIdColumn}} = pb.{{pbIdColumn}}
                      AND doip.{{permissionTenantIdColumn}} = {0}
                      AND doi.{{doiPartialCcResultsColumn}} = TRUE)

@@ -22,13 +22,11 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC;
 // we use german names here since the entire wabstiC domain is in german and there are no eCH definitions.
 public class WabstiCWPWahlRenderService : WabstiCWPBaseRenderService
 {
-    private readonly TemplateService _templateService;
     private readonly IDbRepository<DataContext, ProportionalElection> _repo;
 
     public WabstiCWPWahlRenderService(TemplateService templateService, IDbRepository<DataContext, ProportionalElection> repo)
         : base(templateService, repo)
     {
-        _templateService = templateService;
         _repo = repo;
     }
 

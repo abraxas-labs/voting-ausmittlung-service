@@ -54,6 +54,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -124,6 +125,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -192,6 +194,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -236,6 +239,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -280,6 +284,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -324,6 +329,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -394,6 +400,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -406,6 +413,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>5af18d6d-83b7-40c6-997f-248359817a0d</listIdentification>
               <listIndentureNumber>1a</listIndentureNumber>
@@ -479,6 +487,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -547,6 +556,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -591,6 +601,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -635,6 +646,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -679,6 +691,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -749,6 +762,7 @@
                     <candidateReferenceOnPosition>1a.number1</candidateReferenceOnPosition>
                     <countOfVotesFromChangedBallots>0</countOfVotesFromChangedBallots>
                     <countOfVotesFromUnchangedBallots>0</countOfVotesFromUnchangedBallots>
+                    <candidateListResultsInfo />
                   </candidateResults>
                 </listResults>
               </proportionalElection>
@@ -761,6 +775,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>6fa5262f-bf27-4eb9-81d4-23bb1a49d031</listIdentification>
               <listIndentureNumber>1a</listIndentureNumber>
@@ -1889,6 +1904,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>29ac4e1b-e629-4841-942b-5500ec3d7f57</listIdentification>
               <listIndentureNumber>L3</listIndentureNumber>

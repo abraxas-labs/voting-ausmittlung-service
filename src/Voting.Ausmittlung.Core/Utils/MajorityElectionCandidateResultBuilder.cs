@@ -56,6 +56,7 @@ public class MajorityElectionCandidateResultBuilder
             result.CandidateResults.Add(new MajorityElectionCandidateResult
             {
                 CandidateId = candidateId,
+                ConventionalVoteCount = result.Entry is MajorityElectionResultEntry.Detailed ? 0 : null,
             });
         }
 
@@ -70,6 +71,7 @@ public class MajorityElectionCandidateResultBuilder
             .Where(x => x.SecondaryMajorityElectionId == secondaryElectionId
                         && x.CandidateResults.All(c => c.CandidateId != candidateId))
             .Include(x => x.CandidateResults)
+            .Include(x => x.PrimaryResult)
             .ToListAsync();
 
         foreach (var result in resultsToUpdate)
@@ -77,13 +79,16 @@ public class MajorityElectionCandidateResultBuilder
             result.CandidateResults.Add(new SecondaryMajorityElectionCandidateResult
             {
                 CandidateId = candidateId,
+                ConventionalVoteCount = result.PrimaryResult.Entry is MajorityElectionResultEntry.Detailed ? 0 : null,
             });
         }
 
         await _dataContext.SaveChangesAsync();
     }
 
-    internal async Task<List<MajorityElectionCandidateResult>> BuildMissing(Guid electionId, Dictionary<Guid, IEnumerable<Guid>> candidateIdsByResultId)
+    internal async Task<List<MajorityElectionCandidateResult>> BuildMissing(
+        Guid electionId,
+        Dictionary<Guid, (MajorityElectionResultEntry Entry, IEnumerable<Guid> CandidateIds)> detailsByResultId)
     {
         var candidateIds = await _candidateRepo.Query()
             .Where(c => c.MajorityElectionId == electionId)
@@ -96,10 +101,15 @@ public class MajorityElectionCandidateResultBuilder
             return missingResults;
         }
 
-        foreach (var (resultId, resultCandidateIds) in candidateIdsByResultId)
+        foreach (var (resultId, details) in detailsByResultId)
         {
-            var toAdd = candidateIds.Except(resultCandidateIds)
-                .Select(x => new MajorityElectionCandidateResult { CandidateId = x, ElectionResultId = resultId });
+            var toAdd = candidateIds.Except(details.CandidateIds)
+                .Select(x => new MajorityElectionCandidateResult
+                {
+                    CandidateId = x,
+                    ElectionResultId = resultId,
+                    ConventionalVoteCount = details.Entry is MajorityElectionResultEntry.Detailed ? 0 : null,
+                });
             missingResults.AddRange(toAdd);
         }
 

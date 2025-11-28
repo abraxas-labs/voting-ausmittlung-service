@@ -9,6 +9,7 @@ using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
@@ -63,6 +64,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Street = "street",
                     HouseNumber = "1a",
                     Country = "CH",
+                    ReportingType = SharedProto.MajorityElectionCandidateReportingType.CountToIndividual,
                 },
             },
             new MajorityElectionCandidateCreated
@@ -83,6 +85,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Locality = "locality",
                     Number = "number1",
                     Party = { LanguageUtil.MockAllLanguages("BDP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("BDP long description") },
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
@@ -110,6 +113,12 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
     public async Task TestCreateCandidateAfterSubmissionStarted()
     {
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
+
+        var detailedResultId = MajorityElectionEndResultMockedData.StGallenResultGuid;
+
+        await ModifyDbEntities<MajorityElectionResult>(
+            r => r.Id == detailedResultId,
+            r => r.Entry = MajorityElectionResultEntry.Detailed);
 
         var id = Guid.Parse("8e492d58-4cc3-4aff-928e-b813f26ddc12");
         await TestEventPublisher.Publish(
@@ -144,11 +153,17 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
 
         var candidate = await RunOnDb(
             db => db.MajorityElectionCandidates
+                .AsSplitQuery()
                 .Where(x => x.Id == id)
+                .Include(x => x.CandidateResults)
                 .Include(x => x.EndResult)
                 .Include(c => c.Translations)
                 .FirstAsync(),
             Languages.German);
+
+        candidate.CandidateResults.Where(c => c.ElectionResultId == detailedResultId).All(c => c.ConventionalVoteCount == 0).Should().BeTrue();
+        candidate.CandidateResults.Where(c => c.ElectionResultId != detailedResultId).All(c => c.ConventionalVoteCount == null).Should().BeTrue();
+        candidate.CandidateResults = null!;
 
         SetDynamicIdToDefaultValue(candidate.Translations);
         candidate.MatchSnapshot(c => c.EndResult!.Id, c => c.EndResult!.MajorityElectionEndResultId);
@@ -176,6 +191,7 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     Incumbent = true,
                     Locality = "locality",
                     Party = { LanguageUtil.MockAllLanguages("Grüne") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("Grüne Partei Schweiz") },
                     Number = "number1toolong",
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
@@ -224,7 +240,6 @@ public class MajorityElectionCandidateCreateTest : BaseDataProcessorTest
                     DateOfBirth = new DateTime(1960, 1, 13, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                     Incumbent = true,
                     Locality = "locality",
-                    Party = { LanguageUtil.MockAllLanguages("Grüne") },
                     Number = "number1",
                     Sex = SharedProto.SexType.Female,
                     Title = "title",

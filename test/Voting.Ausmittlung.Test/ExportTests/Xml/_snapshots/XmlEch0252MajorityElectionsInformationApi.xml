@@ -64,6 +64,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1228f95d-8b39-44b1-8cc3-84a93f5e3bbc</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -114,7 +116,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -123,26 +127,24 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>GLP de</partyAffiliationShort>
-                <partyAffiliationLong>GLP de</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>GLP fr</partyAffiliationShort>
-                <partyAffiliationLong>GLP fr</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>GLP it</partyAffiliationShort>
-                <partyAffiliationLong>GLP it</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>GLP rm</partyAffiliationShort>
-                <partyAffiliationLong>GLP rm</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -229,6 +231,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">be81a3f3-5a9e-4a69-8f19-4f0598a32955</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -279,7 +283,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -288,26 +294,24 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>FDP de</partyAffiliationShort>
-                <partyAffiliationLong>FDP de</partyAffiliationLong>
+                <partyAffiliationLong>FDP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>FDP fr</partyAffiliationShort>
-                <partyAffiliationLong>FDP fr</partyAffiliationLong>
+                <partyAffiliationLong>FDP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>FDP it</partyAffiliationShort>
-                <partyAffiliationLong>FDP it</partyAffiliationLong>
+                <partyAffiliationLong>FDP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>FDP rm</partyAffiliationShort>
-                <partyAffiliationLong>FDP rm</partyAffiliationLong>
+                <partyAffiliationLong>FDP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -346,6 +350,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6bf76024-ed15-4b7e-b68e-583b7bb5d2d5</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">last</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">first</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -396,7 +402,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -405,26 +413,24 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>Test de</partyAffiliationShort>
-                <partyAffiliationLong>Test de</partyAffiliationLong>
+                <partyAffiliationLong>Test long desc de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>Test fr</partyAffiliationShort>
-                <partyAffiliationLong>Test fr</partyAffiliationLong>
+                <partyAffiliationLong>Test long desc fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>Test it</partyAffiliationShort>
-                <partyAffiliationLong>Test it</partyAffiliationLong>
+                <partyAffiliationLong>Test long desc it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>Test rm</partyAffiliationShort>
-                <partyAffiliationLong>Test rm</partyAffiliationLong>
+                <partyAffiliationLong>Test long desc rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -486,6 +492,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">77ce6bf0-b27c-4d9d-926f-ced7863aff2f</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -536,7 +544,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -545,31 +555,31 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
-                <partyAffiliationLong>CVP de</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4a44cb35-05a7-41f9-aa1e-034bedd320ec</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number 2</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">candidate</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name 2</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name 2</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name 2</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -620,7 +630,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin 2</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title 2</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
@@ -629,26 +641,24 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>CVP de</partyAffiliationShort>
-                <partyAffiliationLong>CVP de</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>CVP fr</partyAffiliationShort>
-                <partyAffiliationLong>CVP fr</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>CVP it</partyAffiliationShort>
-                <partyAffiliationLong>CVP it</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>CVP rm</partyAffiliationShort>
-                <partyAffiliationLong>CVP rm</partyAffiliationLong>
+                <partyAffiliationLong>CVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name 2</politicalFamilyName>
-            <politicalFirstName>pol first name 2</politicalFirstName>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>
@@ -710,6 +720,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">a41d3778-f9e6-4447-ae59-46ea77419efd</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName2</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName2</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name2</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name2</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name2</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -760,7 +772,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -769,31 +783,31 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>SVP de</partyAffiliationShort>
-                <partyAffiliationLong>SVP de</partyAffiliationLong>
+                <partyAffiliationLong>SVP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>SVP fr</partyAffiliationShort>
-                <partyAffiliationLong>SVP fr</partyAffiliationLong>
+                <partyAffiliationLong>SVP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>SVP it</partyAffiliationShort>
-                <partyAffiliationLong>SVP it</partyAffiliationLong>
+                <partyAffiliationLong>SVP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>SVP rm</partyAffiliationShort>
-                <partyAffiliationLong>SVP rm</partyAffiliationLong>
+                <partyAffiliationLong>SVP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name2</politicalFamilyName>
-            <politicalFirstName>pol first name2</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d849b362-9ae0-4a2e-a10a-033a25ed4075</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -844,7 +858,9 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
@@ -853,26 +869,24 @@
               <partyAffiliationInfo>
                 <language>de</language>
                 <partyAffiliationShort>GLP de</partyAffiliationShort>
-                <partyAffiliationLong>GLP de</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description de</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>fr</language>
                 <partyAffiliationShort>GLP fr</partyAffiliationShort>
-                <partyAffiliationLong>GLP fr</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description fr</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>it</language>
                 <partyAffiliationShort>GLP it</partyAffiliationShort>
-                <partyAffiliationLong>GLP it</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description it</partyAffiliationLong>
               </partyAffiliationInfo>
               <partyAffiliationInfo>
                 <language>rm</language>
                 <partyAffiliationShort>GLP rm</partyAffiliationShort>
-                <partyAffiliationLong>GLP rm</partyAffiliationLong>
+                <partyAffiliationLong>GLP long party description rm</partyAffiliationLong>
               </partyAffiliationInfo>
             </partyAffiliation>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <namedElement>
             <elementName>decisiveMajority</elementName>

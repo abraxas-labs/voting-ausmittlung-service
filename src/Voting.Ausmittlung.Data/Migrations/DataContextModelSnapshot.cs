@@ -1883,6 +1883,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ReportingType")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Sex")
                         .HasColumnType("integer");
 
@@ -2020,7 +2023,11 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Party")
+                    b.Property<string>("PartyLongDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PartyShortDescription")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -3766,6 +3773,9 @@ namespace Voting.Ausmittlung.Data.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ReportingType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("SecondaryMajorityElectionId")
                         .HasColumnType("uuid");
 
@@ -3903,7 +3913,11 @@ namespace Voting.Ausmittlung.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Party")
+                    b.Property<string>("PartyLongDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PartyShortDescription")
                         .IsRequired()
                         .HasColumnType("text");
 

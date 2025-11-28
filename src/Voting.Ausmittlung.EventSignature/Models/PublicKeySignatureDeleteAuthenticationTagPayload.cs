@@ -47,7 +47,7 @@ public class PublicKeySignatureDeleteAuthenticationTagPayload
         using var byteConverter = new ByteConverter();
         return byteConverter
             .Append(SignatureVersion)
-            .Append(ContestId.ToString())
+            .Append(ContestId.ToString().ToLower())
             .Append(HostId)
             .Append(KeyId)
             .Append(DeletedAt)

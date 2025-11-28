@@ -360,15 +360,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>6fa5262f-bf27-4eb9-81d4-23bb1a49d031</listIdentification>
-              <listIndentureNumber>1a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>

@@ -10,6 +10,7 @@ using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
 using Xunit;
+using SharedProto = Abraxas.Voting.Basis.Shared.V1;
 
 namespace Voting.Ausmittlung.Test.BaseDataProcessorTests.SecondaryMajorityElectionTests;
 
@@ -42,6 +43,7 @@ public class SecondaryMajorityElectionCandidateReferenceUpdateTest : BaseDataPro
                     Number = "1.2",
                     CheckDigit = 4,
                     Position = 1,
+                    ReportingType = SharedProto.MajorityElectionCandidateReportingType.CountToIndividual,
                 },
             });
         var candidate = await RunOnDb(

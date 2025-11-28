@@ -117,6 +117,7 @@ public class TemplateService
             await using var xmlValidationStream = new XmlValidationOnWriteStream(w.AsStream(), schemaSet);
             _echSerializer.WriteXml(xmlValidationStream, data, BuildXmlAttributeOverrides(), true);
             await xmlValidationStream.WaitForValidation();
+            await w.CompleteAsync();
         });
     }
 

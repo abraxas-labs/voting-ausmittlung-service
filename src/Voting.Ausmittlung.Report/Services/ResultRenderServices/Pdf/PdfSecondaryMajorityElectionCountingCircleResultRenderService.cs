@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -60,6 +61,7 @@ public class PdfSecondaryMajorityElectionCountingCircleResultRenderService : IRe
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}, countingCircleId: {ctx.BasisCountingCircleId}");
 
         data.MoveECountingToConventional();
+        MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
 
         data.CandidateResults = data.CandidateResults.OrderByDescending(c => c.VoteCount)
             .ThenBy(c => c.CandidatePosition)

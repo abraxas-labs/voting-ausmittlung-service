@@ -26,6 +26,14 @@
     <rawData>
       <contestIdentification>95825eb0-0f52-461a-a5f8-23fb35fa69e1</contestIdentification>
       <countingCircleRawData>
+      <!-- A "test counting circle" (Testurne) -->
+        <countingCircleId>10001</countingCircleId>
+        <votingCardsInformation>
+          <countOfReceivedValidVotingCardsTotal>0</countOfReceivedValidVotingCardsTotal>
+          <countOfReceivedInvalidVotingCardsTotal>0</countOfReceivedInvalidVotingCardsTotal>
+        </votingCardsInformation>
+      </countingCircleRawData>
+      <countingCircleRawData>
         <countingCircleId>ca7be031-d4ce-4bb6-9538-b5e5d19e5a3e</countingCircleId>
         <!-- This test data contains each ballot ("Stimmzettel") in a separate election group.
              This is how the evoting election data is being received. -->

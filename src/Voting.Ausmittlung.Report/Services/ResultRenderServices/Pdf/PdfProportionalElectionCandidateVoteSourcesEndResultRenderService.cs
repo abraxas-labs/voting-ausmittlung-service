@@ -27,9 +27,9 @@ public class PdfProportionalElectionCandidateVoteSourcesEndResultRenderService
     {
     }
 
-    protected override void PrepareAndSortData(ProportionalElectionEndResult data)
+    protected override void PrepareAndSortData(ReportRenderContext ctx, ProportionalElectionEndResult data)
     {
-        base.PrepareAndSortData(data);
+        base.PrepareAndSortData(ctx, data);
         foreach (var listEndResult in data.ListEndResults)
         {
             foreach (var candidateEndResult in listEndResult.CandidateEndResults)

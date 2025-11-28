@@ -31,6 +31,7 @@ public class ContestRepo : DbRepository<DataContext, Contest>
     {
         return Query()
             .AsSplitQuery()
+            .Include(x => x.CantonDefaults)
             .Include(x => x.DomainOfInfluence.CountingCircles)
                 .ThenInclude(x => x.CountingCircle)
             .Include(x => x.DomainOfInfluence.PlausibilisationConfiguration)

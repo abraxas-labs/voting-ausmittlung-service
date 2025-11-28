@@ -51,6 +51,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     Incumbent = false,
                     Position = 1,
                     Party = { LanguageUtil.MockAllLanguages("SVP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("Schweizerische Volkspartei") },
                     Locality = "locality",
                     Number = "numberNew",
                     Sex = SharedProto.SexType.Male,
@@ -61,6 +62,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                     Street = "street",
                     HouseNumber = "1a",
                     Country = "CH",
+                    ReportingType = SharedProto.MajorityElectionCandidateReportingType.Candidate,
                 },
             });
 
@@ -94,6 +96,7 @@ public class MajorityElectionCandidateUpdateTest : BaseDataProcessorTest
                 DateOfBirth = new DateTime(1961, 2, 26, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 Incumbent = false,
                 Party = { LanguageUtil.MockAllLanguages("SVP") },
+                PartyLongDescription = { LanguageUtil.MockAllLanguages("SVP long description") },
                 Locality = "locality",
                 Sex = SharedProto.SexType.Male,
                 Title = "new title",

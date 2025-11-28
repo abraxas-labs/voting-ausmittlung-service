@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
@@ -16,6 +17,11 @@ internal static class VoteInfoMajorityElectionResultMapping
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
+        foreach (var majorityElection in majorityElections)
+        {
+            MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(majorityElection);
+        }
+
         return majorityElections
             .OrderBy(x => x.DomainOfInfluence.Type)
             .ThenBy(x => x.PoliticalBusinessNumber)
@@ -36,34 +42,40 @@ internal static class VoteInfoMajorityElectionResultMapping
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates)
     {
         var allCountingCircleResultsArePublished = majorityElection.Results.All(x => x.Published);
+        var drawElection = allCountingCircleResultsArePublished
+            ? ToDrawElection(majorityElection.EndResult!, ctx)
+            : null;
+        var isComplete = allCountingCircleResultsArePublished
+            && drawElection?.MajorityElection is not { IsDrawPending: true };
+
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = majorityElection.Id.ToString(),
             Elected = allCountingCircleResultsArePublished ? new ElectedType
             {
-                MajorityElection = new ElectedTypeMajorityElection()
+                MajorityElection = new ElectedTypeMajorityElection
                 {
+                    IsElectionResultComplete = isComplete,
                     AbsoluteMajority = (uint?)majorityElection.EndResult!.Calculation.AbsoluteMajority,
                     ElectedCandidate =
                         majorityElection.EndResult.CandidateEndResults
-                            .Where(x => allCountingCircleResultsArePublished && x.State is MajorityElectionCandidateEndResultState.Elected or MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected)
+                            .Where(x => x.State is MajorityElectionCandidateEndResultState.Elected or MajorityElectionCandidateEndResultState.AbsoluteMajorityAndElected)
                             .OrderBy(x => x.Rank)
                             .ThenBy(x => x.CandidateId)
                             .Select(x => new ElectedTypeMajorityElectionElectedCandidate
                             {
                                 CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
-                                ElectedByDraw = x.LotDecision,
+                                IsElectedByDraw = x.LotDecision,
                             })
                             .ToList(),
                 },
-                ProportionalElection = null,
             }
             : null,
             CountingCircleResult = majorityElection.Results
                 .OrderBy(r => r.CountingCircle.Name)
                 .Select(x => ToCountingCircleResult(x.MajorityElectionId.ToString(), x, x, ToCandidateResults(x.CandidateResults, ctx), enabledResultStates))
                 .ToList(),
-            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(majorityElection.EndResult!, ctx) : null,
+            DrawElection = drawElection,
         };
     }
 
@@ -89,7 +101,7 @@ internal static class VoteInfoMajorityElectionResultMapping
                             .Select(x => new ElectedTypeMajorityElectionElectedCandidate
                             {
                                 CandidateOrWriteInCandidate = x.Candidate.ToVoteInfoEchCandidateOrWriteInCandidate(ctx),
-                                ElectedByDraw = x.LotDecision,
+                                IsElectedByDraw = x.LotDecision,
                             })
                             .ToList(),
                 },
@@ -199,11 +211,13 @@ internal static class VoteInfoMajorityElectionResultMapping
         {
             return new CandidateOrWriteInCandidateType
             {
-                WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
+                WriteInCandidate = candidate.ToVoteInfoEchCandidate(
+                    ctx,
+                    PoliticalBusinessType.MajorityElection,
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    ctx),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.PartyShortDescription),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.PartyLongDescription)),
             };
         }
 
@@ -220,11 +234,13 @@ internal static class VoteInfoMajorityElectionResultMapping
         {
             return new CandidateOrWriteInCandidateType
             {
-                WriteInCandidate = candidate.ToVoteInfoEchWriteInCandidate(
+                WriteInCandidate = candidate.ToVoteInfoEchCandidate(
+                    ctx,
+                    PoliticalBusinessType.SecondaryMajorityElection,
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
                     candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-                    ctx),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.PartyShortDescription),
+                    candidate.Translations.ToDictionary(x => x.Language, x => x.PartyLongDescription)),
             };
         }
 

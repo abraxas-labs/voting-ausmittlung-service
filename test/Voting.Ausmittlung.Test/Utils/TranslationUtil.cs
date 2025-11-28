@@ -16,7 +16,9 @@ public static class TranslationUtil
         Action<T, string>? field2Setter = null,
         string? field2Value = null,
         Action<T, string>? field3Setter = null,
-        string? field3Value = null)
+        string? field3Value = null,
+        Action<T, string>? field4Setter = null,
+        string? field4Value = null)
         where T : TranslationEntity, new()
     {
         var translations = new List<T>();
@@ -36,6 +38,12 @@ public static class TranslationUtil
             {
                 var field3Content = $"{field3Value} {lang}";
                 field3Setter(translation, field3Content);
+            }
+
+            if (field4Setter != null)
+            {
+                var field4Content = $"{field4Value} {lang}";
+                field4Setter(translation, field4Content);
             }
 
             translations.Add(translation);

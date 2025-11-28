@@ -35,41 +35,51 @@ internal static class VoteInfoProportionalElectionResultMapping
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
         bool includeCandidateListResultsInfo)
     {
-        includeCandidateListResultsInfo &= proportionalElection.EndResult!.MandateDistributionTriggered;
+        var mandateDistributionTriggered = proportionalElection.EndResult!.MandateDistributionTriggered;
+        includeCandidateListResultsInfo &= mandateDistributionTriggered;
 
-        var allCountingCircleResultsArePublished = proportionalElection.Results.All(x => x.Published);
+        var drawElection = mandateDistributionTriggered ? ToDrawElection(proportionalElection) : null;
+        var isComplete = mandateDistributionTriggered
+            && drawElection?.ProportionalElection.ListOrListUnionDrawElection?.All(x => !x.IsDrawPending) != false
+            && drawElection?.ProportionalElection.CandidateDrawElectionOnList?.All(x => !x.IsDrawPending) != false;
+
         return new EventElectionResultDeliveryTypeElectionGroupResultElectionResult
         {
             ElectionIdentification = proportionalElection.Id.ToString(),
-            Elected = allCountingCircleResultsArePublished ? new ElectedType
-            {
-                ProportionalElection = proportionalElection.EndResult!.ListEndResults
-                    .OrderByDescending(x => x.TotalVoteCount)
-                    .ThenBy(x => x.ListId)
-                    .Select(x => new ElectedTypeProportionalElectionList
+            Elected = mandateDistributionTriggered
+                ? new ElectedType
+                {
+                    ProportionalElection = new ElectedTypeProportionalElection
                     {
-                        ListIdentification = x.ListId.ToString(),
-                        ListIndentureNumber = x.List.OrderNumber,
-                        CountOfSeatsGained = (uint)x.NumberOfMandates,
-                        ElectedCandidate = x.CandidateEndResults
-                            .Where(c => allCountingCircleResultsArePublished && c.State == ProportionalElectionCandidateEndResultState.Elected)
-                            .OrderBy(c => c.Rank)
-                            .ThenBy(c => c.CandidateId)
-                            .Select(c => new ElectedTypeProportionalElectionListElectedCandidate
+                        IsElectionResultComplete = isComplete,
+                        List = proportionalElection.EndResult!.ListEndResults
+                            .OrderByDescending(x => x.TotalVoteCount)
+                            .ThenBy(x => x.ListId)
+                            .Select(x => new ElectedTypeProportionalElectionList
                             {
-                                CandidateIdentification = c.CandidateId.ToString(),
-                                ElectedByDraw = c.LotDecision,
+                                ListIdentification = x.ListId.ToString(),
+                                ListIndentureNumber = x.List.OrderNumber,
+                                CountOfSeatsGained = (uint)x.NumberOfMandates,
+                                ElectedCandidate = x.CandidateEndResults
+                                    .Where(c => c.State == ProportionalElectionCandidateEndResultState.Elected)
+                                    .OrderBy(c => c.Rank)
+                                    .ThenBy(c => c.CandidateId)
+                                    .Select(c => new ElectedTypeProportionalElectionListElectedCandidate
+                                    {
+                                        CandidateIdentification = c.CandidateId.ToString(),
+                                        IsElectedByDraw = c.LotDecision,
+                                    })
+                                    .ToList(),
                             })
                             .ToList(),
-                    })
-                    .ToList(),
-            }
-            : null,
+                    },
+                }
+                : null,
             CountingCircleResult = proportionalElection.Results
                 .OrderBy(r => r.CountingCircle.Name)
                 .Select(r => ToCountingCircleResult(r, enabledResultStates, includeCandidateListResultsInfo))
                 .ToList(),
-            DrawElection = allCountingCircleResultsArePublished ? ToDrawElection(proportionalElection) : null,
+            DrawElection = drawElection,
         };
     }
 

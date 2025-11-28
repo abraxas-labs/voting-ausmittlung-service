@@ -79,6 +79,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
             {
                 x.Id,
                 x.CountingCircle.BasisCountingCircleId,
+                x.Entry,
                 BallotGroupIds = x.BallotGroupResults.Select(r => r.BallotGroupId),
                 CandidateIds = x.CandidateResults.Select(r => r.CandidateId),
                 SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
@@ -94,12 +95,12 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         var missingBallotGroupResults = await _ballotGroupResultBuilder.BuildMissing(electionId, results.ToDictionary(x => x.Id, x => x.BallotGroupIds));
         _dataContext.MajorityElectionBallotGroupResults.AddRange(missingBallotGroupResults);
 
-        var missingCandidateResults = await _candidateResultBuilder.BuildMissing(electionId, results.ToDictionary(x => x.Id, x => x.CandidateIds));
+        var missingCandidateResults = await _candidateResultBuilder.BuildMissing(electionId, results.ToDictionary(x => x.Id, x => (x.Entry, x.CandidateIds)));
         _dataContext.MajorityElectionCandidateResults.AddRange(missingCandidateResults);
 
         var existingSecondaryResultByResultId = results.ToDictionary(
             x => x.Id,
-            x => new SecondaryDetails(x.BasisCountingCircleId, x.SecondaryResults.ConvertAll(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds))));
+            x => new SecondaryDetails(x.BasisCountingCircleId, x.Entry, x.SecondaryResults.ConvertAll(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds))));
         var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, testingPhaseEnded, existingSecondaryResultByResultId);
         _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
         _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
@@ -133,6 +134,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
             {
                 x.Id,
                 x.CountingCircle.BasisCountingCircleId,
+                x.Entry,
                 SecondaryResults = x.SecondaryMajorityElectionResults.Select(r => new
                 {
                     r.Id,
@@ -144,7 +146,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
 
         var existingSecondaryResultByResultId = resultsToUpdate.ToDictionary(
             x => x.Id,
-            x => new SecondaryDetails(x.BasisCountingCircleId, x.SecondaryResults.Select(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)).ToList()));
+            x => new SecondaryDetails(x.BasisCountingCircleId, x.Entry, x.SecondaryResults.Select(r => new SecondaryResultIds(r.SecondaryMajorityElectionId, r.Id, r.CandidateIds)).ToList()));
         var (missingSecondaryResults, missingSecondaryCandidateResults) = await BuildMissingSecondaryMajorityElectionResults(electionId, testingPhaseEnded, existingSecondaryResultByResultId);
         _dataContext.SecondaryMajorityElectionResults.AddRange(missingSecondaryResults);
         _dataContext.SecondaryMajorityElectionCandidateResults.AddRange(missingSecondaryCandidateResults);
@@ -524,7 +526,12 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
             foreach (var secondaryResultIds in secondaryResultIdList)
             {
                 var toAdd = secondaryCandidateIdsByElectionId[secondaryResultIds.SecondaryElectionId].Except(secondaryResultIds.CandidateIds)
-                    .Select(x => new SecondaryMajorityElectionCandidateResult { CandidateId = x, ElectionResultId = secondaryResultIds.SecondaryResultId });
+                    .Select(x => new SecondaryMajorityElectionCandidateResult
+                    {
+                        CandidateId = x,
+                        ElectionResultId = secondaryResultIds.SecondaryResultId,
+                        ConventionalVoteCount = details.Entry is MajorityElectionResultEntry.Detailed ? 0 : null,
+                    });
                 missingSecondaryCandidateResults.AddRange(toAdd);
             }
         }
@@ -532,7 +539,7 @@ public class MajorityElectionResultBuilder : PoliticalBusinessResultBuilder<Majo
         return new MissingSecondaryResults(missingSecondaryResults, missingSecondaryCandidateResults);
     }
 
-    private record SecondaryDetails(Guid BasisCountingCircleId, List<SecondaryResultIds> SecondaryIds);
+    private record SecondaryDetails(Guid BasisCountingCircleId, MajorityElectionResultEntry Entry, List<SecondaryResultIds> SecondaryIds);
 
     private record SecondaryResultIds(
         Guid SecondaryElectionId,

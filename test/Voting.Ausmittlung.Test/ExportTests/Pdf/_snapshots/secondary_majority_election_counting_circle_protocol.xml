@@ -99,7 +99,7 @@
           <Street>street</Street>
           <HouseNumber>1a</HouseNumber>
           <Country>CH</Country>
-          <Party>CVP de</Party>
+          <Party>Test de</Party>
         </Candidate>
         <ConventionalVoteCount>0</ConventionalVoteCount>
         <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>

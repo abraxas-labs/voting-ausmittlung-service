@@ -14,7 +14,6 @@ using Voting.Ausmittlung.Core.Exceptions;
 using Voting.Ausmittlung.Core.Services.Permission;
 using Voting.Ausmittlung.Core.Services.Validation;
 using Voting.Ausmittlung.Data;
-using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Data.Utils;
 using Voting.Lib.Database.Repositories;
 using Voting.Lib.Eventing.Domain;
@@ -31,9 +30,7 @@ public class ContestCountingCircleDetailsWriter
     private readonly PermissionService _permissionService;
     private readonly IDbRepository<DataContext, DataModels.CountingCircle> _countingCircleRepo;
     private readonly IDbRepository<DataContext, DataModels.Contest> _contestRepo;
-    private readonly ContestCountingCircleDetailsRepo _ccDetailsRepo;
     private readonly ContestService _contestService;
-    private readonly ValidationResultsEnsurer _validationResultsEnsurer;
 
     public ContestCountingCircleDetailsWriter(
         ILogger<ContestCountingCircleDetailsWriter> logger,
@@ -42,7 +39,6 @@ public class ContestCountingCircleDetailsWriter
         PermissionService permissionService,
         IDbRepository<DataContext, DataModels.CountingCircle> countingCircleRepo,
         IDbRepository<DataContext, DataModels.Contest> contestRepo,
-        ContestCountingCircleDetailsRepo ccDetailsRepo,
         ContestService contestService,
         ValidationResultsEnsurer validationResultsEnsurer)
     {
@@ -52,9 +48,7 @@ public class ContestCountingCircleDetailsWriter
         _permissionService = permissionService;
         _countingCircleRepo = countingCircleRepo;
         _contestRepo = contestRepo;
-        _ccDetailsRepo = ccDetailsRepo;
         _contestService = contestService;
-        _validationResultsEnsurer = validationResultsEnsurer;
     }
 
     public async Task CreateOrUpdate(ContestCountingCircleDetails details)
@@ -190,11 +184,6 @@ public class ContestCountingCircleDetailsWriter
         if (!countingMachineEnabled && countingMachine != DataModels.CountingMachine.Unspecified)
         {
             throw new ValidationException("Cannot set counting machine if it is not enabled on canton settings");
-        }
-
-        if (countingMachineEnabled && countingMachine == DataModels.CountingMachine.Unspecified)
-        {
-            throw new ValidationException("Counting machine is required");
         }
     }
 

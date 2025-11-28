@@ -155,6 +155,10 @@ public class ProportionalElectionEndResultStartMandateDistributionTest : Proport
         endResult.ListEndResults.Any(l => l.NumberOfMandates != 0).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.CandidateEndResults.Any(x => x.State == SharedProto.ProportionalElectionCandidateEndResultState.Elected)).Should().BeTrue();
         endResult.ListEndResults.Any(l => l.HasOpenRequiredLotDecisions).Should().BeTrue();
+
+        await AssertHasPublishedEventProcessedMessage(
+            ProportionalElectionEndResultMandateDistributionStarted.Descriptor,
+            result.Id);
     }
 
     [Fact]

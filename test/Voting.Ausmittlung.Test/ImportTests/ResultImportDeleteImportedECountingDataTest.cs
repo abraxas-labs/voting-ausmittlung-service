@@ -72,7 +72,10 @@ public class ResultImportDeleteImportedECountingDataTest : ResultImportDeleteImp
             ContestMockedData.GuidStGallenEvoting,
             VoteResultMockedData.GuidUzwilVoteInContestStGallenResult,
             CountingCircleResultState.ReadyForCorrection);
+
         await ErfassungElectionAdminClient.DeleteECountingImportDataAsync(NewValidRequest());
+
+        await AssertVoteResultZero(Guid.Parse(VoteMockedData.IdUzwilVoteInContestStGallen));
     }
 
     [Fact]

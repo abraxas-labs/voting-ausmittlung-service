@@ -135,6 +135,7 @@ public abstract class ProportionalElectionEndResultBaseTest : BaseTest<
             new ProportionalElectionEndResultMandateDistributionStarted
             {
                 ProportionalElectionId = ProportionalElectionEndResultMockedData.ElectionId,
+                ProportionalElectionEndResultId = ProportionalElectionEndResultMockedData.ElectionEndResultGuid.ToString(),
                 EventInfo = GetMockedEventInfo(),
             });
     }

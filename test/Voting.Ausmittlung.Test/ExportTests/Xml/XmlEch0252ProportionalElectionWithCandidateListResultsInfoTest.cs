@@ -98,6 +98,7 @@ public class XmlEch0252ProportionalElectionWithCandidateListResultsInfoTest : Xm
             .ExecuteDeleteAsync());
 
         await ModifyDbEntities<ProportionalElectionResult>(_ => true, x => x.Published = true);
+        await ModifyDbEntities<ProportionalElectionEndResult>(_ => true, x => x.MandateDistributionTriggered = true);
     }
 
     protected override GenerateResultExportsRequest NewRequest()

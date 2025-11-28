@@ -129,6 +129,37 @@ public static class SubTotalExtensions
         }
     }
 
+    public static void ForEachSubTotal<TSubTotal>(
+        this IHasSubTotals<TSubTotal> target,
+        Action<TSubTotal, VotingDataSource> subTotalAction)
+        where TSubTotal : class, ISummableSubTotal<TSubTotal>
+    {
+        foreach (var dataSource in _dataSources)
+        {
+            subTotalAction.Invoke(target.GetSubTotal(dataSource), dataSource);
+        }
+    }
+
+    public static void ForEachSubTotal<TSubTotal, TNullableSubTotal>(
+        this IHasSubTotals<TSubTotal, TNullableSubTotal> target,
+        Action<TSubTotal, VotingDataSource> subTotalAction,
+        Action<TNullableSubTotal, VotingDataSource> nullableSubTotalAction)
+        where TSubTotal : class, ISummableSubTotal<TSubTotal>
+        where TNullableSubTotal : INullableSubTotal<TSubTotal>, ISummableSubTotal<TSubTotal>
+    {
+        foreach (var dataSource in _dataSources)
+        {
+            // conventional is the only nullable subTotal.
+            if (dataSource == VotingDataSource.Conventional)
+            {
+                nullableSubTotalAction.Invoke(target.ConventionalSubTotal, dataSource);
+                continue;
+            }
+
+            subTotalAction.Invoke(target.GetNonNullableSubTotal(dataSource), dataSource);
+        }
+    }
+
     public static void MoveECountingSubTotalsToConventional<TSubTotal>(
         this IHasSubTotals<TSubTotal> target)
         where TSubTotal : class, ISummableSubTotal<TSubTotal>, new()

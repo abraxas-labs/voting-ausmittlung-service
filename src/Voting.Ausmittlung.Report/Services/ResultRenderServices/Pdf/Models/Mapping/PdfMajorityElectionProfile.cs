@@ -12,7 +12,8 @@ public class PdfMajorityElectionProfile : Profile
     {
         CreateMap<MajorityElection, PdfMajorityElection>();
         CreateMap<MajorityElection, PdfPoliticalBusiness>();
-        CreateMap<MajorityElectionCandidateBase, PdfMajorityElectionCandidate>();
+        CreateMap<MajorityElectionCandidateBase, PdfMajorityElectionCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
 
         CreateMap<SecondaryMajorityElection, PdfMajorityElection>()
             .ForMember(dst => dst.MandateAlgorithm, opt => opt.MapFrom(src => src.PrimaryMajorityElection.MandateAlgorithm))

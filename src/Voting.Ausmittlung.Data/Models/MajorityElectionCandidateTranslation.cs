@@ -15,5 +15,7 @@ public class MajorityElectionCandidateTranslation : TranslationEntity
 
     public string OccupationTitle { get; set; } = string.Empty;
 
-    public string Party { get; set; } = string.Empty;
+    public string PartyShortDescription { get; set; } = string.Empty;
+
+    public string PartyLongDescription { get; set; } = string.Empty;
 }

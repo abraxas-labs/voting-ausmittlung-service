@@ -64,11 +64,6 @@ public class ResultImportMeta
                     throw new ValidationException("eCH 0110 file and file name are required for eVoting imports.");
                 }
 
-                if (ImportVersion != Ech0222Version.V1)
-                {
-                    throw new ValidationException("eVoting imports only support eCH 0220 v1.0 (semantic 1.0)");
-                }
-
                 if (BasisCountingCircleId.HasValue)
                 {
                     throw new ValidationException("eVoting imports need to happen on the contest");

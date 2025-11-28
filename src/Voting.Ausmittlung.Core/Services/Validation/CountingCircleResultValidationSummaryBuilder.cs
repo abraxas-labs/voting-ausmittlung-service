@@ -44,7 +44,8 @@ public abstract class CountingCircleResultValidationSummaryBuilder<T>
             ccDetails.Contest.DomainOfInfluence,
             politicalBusinessDomainOfInfluence,
             politicalBusinessType,
-            ccDetails)
+            ccDetails,
+            ccDetails.Contest.CantonDefaults)
         {
             IsDetailedEntry = isDetailedEntry,
         };

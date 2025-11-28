@@ -89,6 +89,7 @@ public class PdfMajorityElectionEndResultDetailRenderService : IRendererService
 
         data.Results = results;
         data.MoveECountingToConventional();
+        MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
 
         var ccDetailsList = await _ccDetailsRepo
             .Query()

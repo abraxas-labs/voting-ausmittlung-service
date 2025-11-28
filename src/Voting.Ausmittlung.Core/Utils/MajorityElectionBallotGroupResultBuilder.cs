@@ -95,7 +95,7 @@ public class MajorityElectionBallotGroupResultBuilder
     }
 
     internal async Task UpdateCandidates(
-        Guid ballotGroupId,
+        IReadOnlyCollection<Guid> entryIds,
         IReadOnlyDictionary<Guid, int> individualVoteCountByEntryId,
         IReadOnlyDictionary<Guid, int?> blankRowCountByEntryId,
         IReadOnlyDictionary<Guid, List<Guid>> candidatesByEntryId)
@@ -104,7 +104,7 @@ public class MajorityElectionBallotGroupResultBuilder
             .MajorityElectionBallotGroupEntries
             .AsTracking()
             .Include(e => e.Candidates)
-            .Where(e => e.BallotGroupId == ballotGroupId)
+            .Where(e => entryIds.Contains(e.Id))
             .ToListAsync();
 
         foreach (var ballotGroupEntry in ballotGroupEntries)

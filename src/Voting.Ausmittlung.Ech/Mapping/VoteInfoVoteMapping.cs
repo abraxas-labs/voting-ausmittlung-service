@@ -20,7 +20,8 @@ internal static class VoteInfoVoteMapping
         this Ballot ballot,
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
-        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
+        bool allResultsPublished)
     {
         ballot.OrderQuestions();
 
@@ -93,7 +94,8 @@ internal static class VoteInfoVoteMapping
                 titleInfos,
                 ctx,
                 enabledResultStates,
-                sequenceBySuperiorAuthorityId);
+                sequenceBySuperiorAuthorityId,
+                allResultsPublished);
         }
 
         foreach (var (question, i) in ballot.TieBreakQuestions.Select((question, i) => (question, i)))
@@ -110,7 +112,8 @@ internal static class VoteInfoVoteMapping
                 mainQuestionId,
                 ctx,
                 enabledResultStates,
-                sequenceBySuperiorAuthorityId);
+                sequenceBySuperiorAuthorityId,
+                allResultsPublished);
         }
     }
 
@@ -121,7 +124,8 @@ internal static class VoteInfoVoteMapping
         List<VoteTitleInformationType> titleInfos,
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
-        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
+        bool allResultsPublished)
     {
         if (question.Ballot.BallotType == BallotType.VariantsBallot)
         {
@@ -157,6 +161,13 @@ internal static class VoteInfoVoteMapping
                     r.TotalCountOfAnswerUnspecified,
                     enabledResultStates))
                 .ToList(),
+            VoteResultData = question.EndResult == null || !allResultsPublished
+                ? null
+                : new VoteResultDataType
+                {
+                    PercentOfYesVotes = RoundPercentage(question.EndResult!.PercentageYes),
+                    PercentOfNoVotes = RoundPercentage(question.EndResult.PercentageNo),
+                },
         };
     }
 
@@ -166,7 +177,8 @@ internal static class VoteInfoVoteMapping
         string? mainQuestionId,
         Ech0252MappingContext ctx,
         IReadOnlyCollection<CountingCircleResultState>? enabledResultStates,
-        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId)
+        Dictionary<Guid, ushort> sequenceBySuperiorAuthorityId,
+        bool allResultsPublished)
     {
         var questionId = BuildQuestionId(question.BallotId, question.Number, true);
         var titleInfos = new List<VoteTitleInformationType>();
@@ -199,6 +211,13 @@ internal static class VoteInfoVoteMapping
                     r.TotalCountOfAnswerUnspecified,
                     enabledResultStates))
                 .ToList(),
+            VoteResultData = question.EndResult == null || !allResultsPublished
+                ? null
+                : new VoteResultDataType
+                {
+                    PercentOfYesVotes = RoundPercentage(question.EndResult!.PercentageQ1),
+                    PercentOfNoVotes = RoundPercentage(question.EndResult.PercentageQ2),
+                },
         };
     }
 
@@ -303,5 +322,12 @@ internal static class VoteInfoVoteMapping
                 },
             }
             : new List<NamedIdType>();
+    }
+
+    private static decimal RoundPercentage(decimal percentage)
+    {
+        // 55.6246% should be written as 55.62
+        // in our data model, we have that stored as 0.556246
+        return Math.Round(percentage * 100, 2);
     }
 }

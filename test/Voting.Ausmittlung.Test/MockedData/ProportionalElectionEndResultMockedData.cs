@@ -39,6 +39,7 @@ public static class ProportionalElectionEndResultMockedData
     public const string SubListUnionId1 = "504931b4-4ca3-491e-ad09-61719bf48590";
 
     public static readonly Guid ElectionGuid = Guid.Parse(ElectionId);
+    public static readonly Guid ElectionEndResultGuid = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(ElectionGuid, false);
 
     public static readonly Guid StGallenResultGuid = AusmittlungUuidV5.BuildPoliticalBusinessResult(ElectionGuid, CountingCircleMockedData.GuidStGallen, false);
     public static readonly Guid StGallenStFidenResultGuid = AusmittlungUuidV5.BuildPoliticalBusinessResult(ElectionGuid, CountingCircleMockedData.GuidStGallenStFiden, false);

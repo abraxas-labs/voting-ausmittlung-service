@@ -96,7 +96,7 @@ public class VoteProcessor :
         await _simplePoliticalBusinessBuilder.Create(vote);
         await _voteResultsRepo.Rebuild(vote.Id, vote.DomainOfInfluenceId, false, vote.ContestId);
         await _voteEndResultInitializer.RebuildForVote(vote.Id, false);
-        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
+        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsAndAggregatedDetails(vote.Id, vote.ContestId, vote.DomainOfInfluenceId);
     }
 
     public async Task Process(VoteUpdated eventData)

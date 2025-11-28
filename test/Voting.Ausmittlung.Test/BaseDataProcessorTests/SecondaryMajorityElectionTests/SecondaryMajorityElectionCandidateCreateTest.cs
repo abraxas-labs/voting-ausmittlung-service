@@ -9,6 +9,7 @@ using Abraxas.Voting.Basis.Events.V1.Data;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Test.MockedData;
 using Voting.Lib.Common;
 using Voting.Lib.Testing.Utils;
@@ -59,11 +60,13 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("SP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
                     HouseNumber = "1a",
                     Country = "CH",
+                    ReportingType = SharedProto.MajorityElectionCandidateReportingType.CountToIndividual,
                 },
             },
             new SecondaryMajorityElectionCandidateCreated
@@ -87,6 +90,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("CVP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -116,6 +120,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("CVP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("CVP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -150,6 +155,12 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
     {
         await MajorityElectionEndResultMockedData.Seed(RunScoped);
 
+        var detailedResultId = MajorityElectionEndResultMockedData.StGallenResultGuid;
+
+        await ModifyDbEntities<MajorityElectionResult>(
+            r => r.Id == detailedResultId,
+            r => r.Entry = MajorityElectionResultEntry.Detailed);
+
         var id = Guid.Parse("94f728b7-a0f1-4df3-8300-cd0f18155a1c");
         await TestEventPublisher.Publish(
             new SecondaryMajorityElectionCandidateCreated
@@ -172,7 +183,6 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
-                    Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -183,11 +193,18 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
 
         var candidate = await RunOnDb(
             db => db.SecondaryMajorityElectionCandidates
+                .AsSplitQuery()
                 .Include(x => x.Translations)
                 .Where(x => x.Id == id)
+                .Include(x => x.CandidateResults).ThenInclude(x => x.ElectionResult)
                 .Include(x => x.EndResult)
                 .FirstAsync(),
             Languages.German);
+
+        candidate.CandidateResults.Where(c => c.ElectionResult.PrimaryResultId == detailedResultId).All(c => c.ConventionalVoteCount == 0).Should().BeTrue();
+        candidate.CandidateResults.Where(c => c.ElectionResult.PrimaryResultId != detailedResultId).All(c => c.ConventionalVoteCount == null).Should().BeTrue();
+        candidate.CandidateResults = null!;
+
         SetDynamicIdToDefaultValue(candidate.Translations);
         candidate.MatchSnapshot(c => c.EndResult!.Id, c => c.EndResult!.SecondaryMajorityElectionEndResultId);
     }
@@ -221,6 +238,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("SP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -266,6 +284,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("SP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -313,7 +332,6 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Sex = SharedProto.SexType.Female,
                     Title = "title",
                     ZipCode = "zip code",
-                    Party = { LanguageUtil.MockAllLanguages("SP") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",
@@ -366,6 +384,7 @@ public class SecondaryMajorityElectionCandidateCreateTest : BaseDataProcessorTes
                     Title = "title",
                     ZipCode = "zip code",
                     Party = { LanguageUtil.MockAllLanguages("SP") },
+                    PartyLongDescription = { LanguageUtil.MockAllLanguages("SP long description") },
                     Origin = "origin",
                     CheckDigit = 9,
                     Street = "street",

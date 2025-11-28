@@ -207,7 +207,7 @@ public class EVotingResultImportWriter
         }
 
         var importBasisCountingCircleIds = data.PoliticalBusinessResults.Select(x => x.BasisCountingCircleId).ToHashSet();
-        var firstNotImportedVotingCardBasisCountingCircleId = data.VotingCards.Find(vc => !importBasisCountingCircleIds.Contains(vc.BasisCountingCircleId));
+        var firstNotImportedVotingCardBasisCountingCircleId = data.VotingCards.Find(vc => !importBasisCountingCircleIds.Contains(vc.BasisCountingCircleId))?.BasisCountingCircleId;
         if (firstNotImportedVotingCardBasisCountingCircleId != null)
         {
             throw new ValidationException("Voting cards for imported counting circle not found: " + firstNotImportedVotingCardBasisCountingCircleId);

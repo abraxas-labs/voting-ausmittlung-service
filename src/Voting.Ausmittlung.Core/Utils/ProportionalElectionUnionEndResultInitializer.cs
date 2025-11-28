@@ -16,17 +16,14 @@ namespace Voting.Ausmittlung.Core.Utils;
 public class ProportionalElectionUnionEndResultInitializer
 {
     private readonly IDbRepository<DataContext, ProportionalElectionUnionEndResult> _endResultRepo;
-    private readonly IDbRepository<DataContext, DoubleProportionalResultRow> _electionDpResultRepo;
     private readonly ProportionalElectionUnionRepo _unionRepo;
 
     public ProportionalElectionUnionEndResultInitializer(
         IDbRepository<DataContext, ProportionalElectionUnionEndResult> endResultRepo,
-        ProportionalElectionUnionRepo unionRepo,
-        IDbRepository<DataContext, DoubleProportionalResultRow> electionDpResultRepo)
+        ProportionalElectionUnionRepo unionRepo)
     {
         _endResultRepo = endResultRepo;
         _unionRepo = unionRepo;
-        _electionDpResultRepo = electionDpResultRepo;
     }
 
     internal async Task ResetForUnion(Guid proportionalElectionUnionId)

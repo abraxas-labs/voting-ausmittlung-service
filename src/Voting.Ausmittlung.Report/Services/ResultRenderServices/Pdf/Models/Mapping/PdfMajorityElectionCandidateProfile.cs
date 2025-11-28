@@ -10,6 +10,7 @@ public class PdfMajorityElectionCandidateProfile : Profile
 {
     public PdfMajorityElectionCandidateProfile()
     {
-        CreateMap<MajorityElectionCandidate, PdfMajorityElectionCandidate>();
+        CreateMap<MajorityElectionCandidate, PdfMajorityElectionCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
     }
 }

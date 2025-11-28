@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Converters;
 using Voting.Ausmittlung.Report.Exceptions;
 using Voting.Ausmittlung.Report.Models;
@@ -51,6 +52,7 @@ public class XmlMajorityElectionEch0110RenderService : IRendererService
             .FirstOrDefaultAsync(me => me.Id == ctx.PoliticalBusinessId, ct)
             ?? throw new EntityNotFoundException(nameof(MajorityElection), ctx.PoliticalBusinessId);
         election.MoveECountingToConventional();
+        MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(election);
 
         var eventDelivery = _ech0110Serializer.ToDelivery(election);
         var electionShortDescription = _multiLanguageTranslationUtil.GetShortDescription(election);

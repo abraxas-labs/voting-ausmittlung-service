@@ -35,6 +35,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
     protected ValidationContext BuildValidationContext(
         Action<ValidationContext>? contextCustomizer = null,
         Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
+        Action<ContestCantonDefaults>? cantonDefaultsCustomizer = null,
         bool hasPreviousContest = true)
     {
         var pbDoi = new DomainOfInfluence
@@ -47,6 +48,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
             PoliticalBusinessType.ProportionalElection,
             contextCustomizer,
             responsibleForPlausibilisationDoiCustomizer,
+            cantonDefaultsCustomizer,
             hasPreviousContest);
     }
 
@@ -55,10 +57,14 @@ public abstract class BaseValidationTest<TValidator, TEntity>
         PoliticalBusinessType pbType,
         Action<ValidationContext>? contextCustomizer = null,
         Action<DomainOfInfluence>? responsibleForPlausibilisationDoiCustomizer = null,
+        Action<ContestCantonDefaults>? cantonDefaultsCustomizer = null,
         bool hasPreviousContest = true)
     {
         var ccId = Guid.Parse("bf2c4c85-e05e-4242-a324-667f3d2dbcbb");
         var basisCcId = Guid.Parse("1bc5e5d0-3e45-46f6-97d9-c16372fceace");
+
+        var cantonDefaults = new ContestCantonDefaults();
+        cantonDefaultsCustomizer?.Invoke(cantonDefaults);
 
         var responsibleForPlausibilisationDoi = new DomainOfInfluence
         {
@@ -176,6 +182,7 @@ public abstract class BaseValidationTest<TValidator, TEntity>
             pbDoi,
             pbType,
             currentCcDetails,
+            cantonDefaults,
             hasPreviousContest ? previousCcDetails : null);
 
         contextCustomizer?.Invoke(context);

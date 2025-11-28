@@ -147,7 +147,7 @@ public static class MajorityElectionEndResultMockedData
                     BuildCandidate(CandidateId5, 5, 1),
                     BuildCandidate(CandidateId6, 6, 0),
                     BuildCandidate(CandidateId7, 7, 8),
-                    BuildCandidate(CandidateId8, 8, 6),
+                    BuildCandidate(CandidateId8, 8, 6, reportingType: MajorityElectionCandidateReportingType.CountToIndividual),
                     BuildCandidate(CandidateId9InBallotGroup, 9, 4),
                     BuildCandidate(CandidateId10InBallotGroup, 10, 8),
                 },
@@ -175,7 +175,7 @@ public static class MajorityElectionEndResultMockedData
                         BuildCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
                         BuildCandidate(SecondaryCandidateId2, 2, 7),
                         BuildCandidate(SecondaryCandidateId3, 3, 5),
-                        BuildCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
+                        BuildCandidate(SecondaryCandidateId4InBallotGroup, 4, 3, reportingType: MajorityElectionCandidateReportingType.CountToIndividual),
                     },
                 });
             election.SecondaryMajorityElectionsOnSeparateBallots.Add(
@@ -198,7 +198,7 @@ public static class MajorityElectionEndResultMockedData
                         BuildCandidate(Secondary2CandidateId1, 1, 9),
                         BuildCandidate(Secondary2CandidateId2, 2, 7),
                         BuildCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
-                        BuildCandidate(Secondary2CandidateId4, 4, 3),
+                        BuildCandidate(Secondary2CandidateId4, 4, 3, reportingType: MajorityElectionCandidateReportingType.CountToIndividual),
                     },
                 });
         }
@@ -222,7 +222,7 @@ public static class MajorityElectionEndResultMockedData
                         BuildSecondaryCandidate(SecondaryCandidateId1, 1, 9, CandidateId1),
                         BuildSecondaryCandidate(SecondaryCandidateId2, 2, 7),
                         BuildSecondaryCandidate(SecondaryCandidateId3, 3, 5),
-                        BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4, 3),
+                        BuildSecondaryCandidate(SecondaryCandidateId4InBallotGroup, 4, 3, reportingType: MajorityElectionCandidateReportingType.CountToIndividual),
                     },
                 });
             election.SecondaryMajorityElections.Add(
@@ -243,7 +243,7 @@ public static class MajorityElectionEndResultMockedData
                         BuildSecondaryCandidate(Secondary2CandidateId1, 1, 9),
                         BuildSecondaryCandidate(Secondary2CandidateId2, 2, 7),
                         BuildSecondaryCandidate(Secondary2CandidateId3, 3, 5, CandidateId1),
-                        BuildSecondaryCandidate(Secondary2CandidateId4, 4, 3),
+                        BuildSecondaryCandidate(Secondary2CandidateId4, 4, 3, reportingType: MajorityElectionCandidateReportingType.CountToIndividual),
                     },
                 });
             election.ElectionGroup = new ElectionGroup
@@ -302,7 +302,12 @@ public static class MajorityElectionEndResultMockedData
         return election;
     }
 
-    public static MajorityElectionCandidate BuildCandidate(string candidateId, int position, int checkDigit, string? referencedCandidateId = null)
+    public static MajorityElectionCandidate BuildCandidate(
+        string candidateId,
+        int position,
+        int checkDigit,
+        string? referencedCandidateId = null,
+        MajorityElectionCandidateReportingType reportingType = MajorityElectionCandidateReportingType.Unspecified)
     {
         return new MajorityElectionCandidate
         {
@@ -326,12 +331,15 @@ public static class MajorityElectionEndResultMockedData
                 "occupation",
                 (t, o) => t.OccupationTitle = o,
                 "occupation title",
-                (t, s) => t.Party = s,
-                "Test"),
+                (t, s) => t.PartyShortDescription = s,
+                "Test",
+                (t, s) => t.PartyLongDescription = s,
+                "Test long party description"),
             CheckDigit = checkDigit,
             Street = "street",
             HouseNumber = "1a",
             Country = "CH",
+            ReportingType = reportingType,
         };
     }
 
@@ -339,7 +347,8 @@ public static class MajorityElectionEndResultMockedData
         string secondaryCandidateId,
         int position,
         int checkDigit,
-        string? candidateReferenceId = null)
+        string? candidateReferenceId = null,
+        MajorityElectionCandidateReportingType reportingType = MajorityElectionCandidateReportingType.Unspecified)
     {
         return new SecondaryMajorityElectionCandidate
         {
@@ -365,12 +374,15 @@ public static class MajorityElectionEndResultMockedData
                 "occupation",
                 (t, o) => t.OccupationTitle = o,
                 "occupation title",
-                (t, s) => t.Party = s,
-                $"Test{position}"),
+                (t, s) => t.PartyShortDescription = s,
+                $"Test{position}",
+                (t, s) => t.PartyLongDescription = s,
+                $"Test party {position}"),
             CheckDigit = checkDigit,
             Street = "street",
             HouseNumber = "1a",
             Country = "CH",
+            ReportingType = reportingType,
         };
     }
 
@@ -444,8 +456,10 @@ public static class MajorityElectionEndResultMockedData
                 { CandidateId10InBallotGroup, 0 },
             };
 
+        result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => x.Value);
+
         // x + 6 for write-ins, x + 4 for non-write-ins
-        result.ConventionalSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => (x.Value * 2) + 10);
+        result.EVotingSubTotal.TotalCandidateVoteCountExclIndividual = voteCountByCandidateId.Sum(x => (x.Value * 2) + 10);
 
         var candidateResults = result.CandidateResults.ToDictionary(x => x.CandidateId);
         foreach (var (candidateKey, candidateVoteCount) in voteCountByCandidateId)

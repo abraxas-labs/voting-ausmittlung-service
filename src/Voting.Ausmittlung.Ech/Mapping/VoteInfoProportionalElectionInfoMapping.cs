@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Ech0155_5_1;
+using Ech0155_5_2;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Utils;
@@ -172,7 +172,7 @@ internal static class VoteInfoProportionalElectionInfoMapping
         };
     }
 
-    private static Ech0252_2_0.CandidateType ToEchCandidate(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx)
+    private static CandidateType ToEchCandidate(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx)
     {
         var candidateType = candidate.ToVoteInfoEchCandidate(
             ctx,

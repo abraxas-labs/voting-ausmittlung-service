@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Ech0155_5_2;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Ech.Models;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
@@ -23,6 +25,11 @@ internal static class VoteInfoMajorityElectionInfoMapping
         Ech0252MappingContext ctx,
         Dictionary<Guid, int> positionBySuperiorAuthorityId)
     {
+        foreach (var majorityElection in elections)
+        {
+            MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(majorityElection);
+        }
+
         return elections
             .Select(x => new ElectionGroupInfoType
             {
@@ -126,8 +133,8 @@ internal static class VoteInfoMajorityElectionInfoMapping
             PoliticalBusinessType.MajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
-            candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-            candidate.Translations.ToDictionary(x => x.Language, x => x.Party));
+            candidate.Translations.ToDictionary(x => x.Language, x => x.PartyShortDescription),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.PartyLongDescription));
     }
 
     private static CandidateType ToVoteInfoEchCandidate(this SecondaryMajorityElectionCandidate candidate, Ech0252MappingContext ctx)
@@ -137,8 +144,8 @@ internal static class VoteInfoMajorityElectionInfoMapping
             PoliticalBusinessType.SecondaryMajorityElection,
             candidate.Translations.ToDictionary(x => x.Language, x => x.OccupationTitle),
             candidate.Translations.ToDictionary(x => x.Language, x => x.Occupation),
-            candidate.Translations.ToDictionary(x => x.Language, x => x.Party),
-            candidate.Translations.ToDictionary(x => x.Language, x => x.Party));
+            candidate.Translations.ToDictionary(x => x.Language, x => x.PartyShortDescription),
+            candidate.Translations.ToDictionary(x => x.Language, x => x.PartyLongDescription));
     }
 
     private static List<NamedIdType> ToOtherIdentification(this MajorityElection majorityElection)

@@ -232,7 +232,12 @@ public class MajorityElectionEndResultUpdateSecondaryLotDecisionsTest : Majority
             await SetResultsToAuditedTentatively();
             await SetPrimaryRequiredLotDecisions();
             await MonitoringElectionAdminClient.UpdateEndResultSecondaryLotDecisionsAsync(NewValidRequest());
-            return EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionEndResultSecondaryLotDecisionsUpdated>();
+
+            var eventWithMetadata = EventPublisherMock.GetSinglePublishedEventWithMetadata<MajorityElectionEndResultSecondaryLotDecisionsUpdated>();
+            eventWithMetadata.Should().NotBeNull();
+            eventWithMetadata.Data.Should().BeOfType<MajorityElectionEndResultSecondaryLotDecisionsUpdated>();
+            eventWithMetadata.Metadata.Should().NotBeNull();
+            return eventWithMetadata;
         });
     }
 

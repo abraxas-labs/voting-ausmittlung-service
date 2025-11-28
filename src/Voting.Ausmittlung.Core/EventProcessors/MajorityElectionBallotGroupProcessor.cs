@@ -112,6 +112,7 @@ public class MajorityElectionBallotGroupProcessor :
     public async Task Process(MajorityElectionBallotGroupCandidatesUpdated eventData)
     {
         var ballotGroupId = GuidParser.Parse(eventData.BallotGroupCandidates.BallotGroupId);
+        var entryIds = eventData.BallotGroupCandidates.EntryCandidates.Select(e => GuidParser.Parse(e.BallotGroupEntryId)).ToList();
         var entryCandidates = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
             e => GuidParser.Parse(e.BallotGroupEntryId),
             e => e.CandidateIds.Select(GuidParser.Parse).ToList());
@@ -121,7 +122,7 @@ public class MajorityElectionBallotGroupProcessor :
         var blankRowCountByEntryId = eventData.BallotGroupCandidates.EntryCandidates.ToDictionary(
             e => GuidParser.Parse(e.BallotGroupEntryId),
             e => e.BlankRowCount);
-        await _ballotGroupResultBuilder.UpdateCandidates(ballotGroupId, individualCandidatesVoteCountByEntryId, blankRowCountByEntryId, entryCandidates);
+        await _ballotGroupResultBuilder.UpdateCandidates(entryIds, individualCandidatesVoteCountByEntryId, blankRowCountByEntryId, entryCandidates);
         await UpdateAllCandidateCountsOk(ballotGroupId);
     }
 

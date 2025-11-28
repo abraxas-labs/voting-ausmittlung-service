@@ -19,14 +19,8 @@ public static class DomainOfInfluenceCantonDataTransformer
 
     internal static string? EchCandidatePartyText(DomainOfInfluenceCanton canton, PoliticalBusinessType politicalBusinessType, string? party)
     {
-        if (politicalBusinessType == PoliticalBusinessType.MajorityElection ||
-            politicalBusinessType == PoliticalBusinessType.SecondaryMajorityElection)
-        {
-            return party;
-        }
-        else
-        {
-            return null;
-        }
+        return politicalBusinessType is PoliticalBusinessType.MajorityElection or PoliticalBusinessType.SecondaryMajorityElection
+            ? party
+            : null;
     }
 }

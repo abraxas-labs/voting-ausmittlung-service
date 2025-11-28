@@ -49,30 +49,30 @@
         <CountOfInvalidBallots>2002</CountOfInvalidBallots>
         <CountOfBlankBallots>802</CountOfBlankBallots>
       </CountOfVoters>
-      <IndividualVoteCount>1132</IndividualVoteCount>
+      <IndividualVoteCount>2320</IndividualVoteCount>
       <EmptyVoteCount>174</EmptyVoteCount>
       <InvalidVoteCount>130</InvalidVoteCount>
       <TotalEmptyAndInvalidVoteCount>304</TotalEmptyAndInvalidVoteCount>
-      <TotalCandidateVoteCountExclIndividual>4990</TotalCandidateVoteCountExclIndividual>
+      <TotalCandidateVoteCountExclIndividual>3802</TotalCandidateVoteCountExclIndividual>
       <TotalCandidateVoteCountInclIndividual>6122</TotalCandidateVoteCountInclIndividual>
       <TotalVoteCount>6426</TotalVoteCount>
       <EVotingSubTotal>
-        <IndividualVoteCount>282</IndividualVoteCount>
+        <IndividualVoteCount>762</IndividualVoteCount>
         <EmptyVoteCountInclWriteIns>48</EmptyVoteCountInclWriteIns>
         <InvalidVoteCount>0</InvalidVoteCount>
         <TotalEmptyAndInvalidVoteCount>48</TotalEmptyAndInvalidVoteCount>
-        <TotalCandidateVoteCountExclIndividual>3380</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountExclIndividual>2900</TotalCandidateVoteCountExclIndividual>
         <TotalCandidateVoteCountInclIndividual>3662</TotalCandidateVoteCountInclIndividual>
         <TotalVoteCount>3710</TotalVoteCount>
         <EmptyVoteCountWriteIns>26</EmptyVoteCountWriteIns>
         <EmptyVoteCountExclWriteIns>22</EmptyVoteCountExclWriteIns>
       </EVotingSubTotal>
       <ConventionalSubTotal>
-        <IndividualVoteCount>850</IndividualVoteCount>
+        <IndividualVoteCount>1558</IndividualVoteCount>
         <EmptyVoteCountInclWriteIns>126</EmptyVoteCountInclWriteIns>
         <InvalidVoteCount>130</InvalidVoteCount>
         <TotalEmptyAndInvalidVoteCount>256</TotalEmptyAndInvalidVoteCount>
-        <TotalCandidateVoteCountExclIndividual>1610</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountExclIndividual>902</TotalCandidateVoteCountExclIndividual>
         <TotalCandidateVoteCountInclIndividual>2460</TotalCandidateVoteCountInclIndividual>
         <TotalVoteCount>2716</TotalVoteCount>
         <EmptyVoteCountWriteIns>56</EmptyVoteCountWriteIns>
@@ -171,37 +171,6 @@
         <ConventionalVoteCount>1224</ConventionalVoteCount>
         <EVotingVoteCount>820</EVotingVoteCount>
       </MajorityElectionCandidateEndResult>
-      <MajorityElectionCandidateEndResult>
-        <Rank>0</Rank>
-        <VoteCount>594</VoteCount>
-        <LotDecision>false</LotDecision>
-        <LotDecisionRequired>false</LotDecisionRequired>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
-        </Candidate>
-        <State>Pending</State>
-        <ConventionalVoteCount>354</ConventionalVoteCount>
-        <EVotingVoteCount>240</EVotingVoteCount>
-      </MajorityElectionCandidateEndResult>
       <Calculation />
     </MajorityElectionEndResult>
     <MajorityElectionDomainOfInfluenceResult>
@@ -242,7 +211,7 @@
         <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
         <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
       </ContestDomainOfInfluenceDetails>
-      <IndividualVoteCount>1132</IndividualVoteCount>
+      <IndividualVoteCount>2320</IndividualVoteCount>
       <EmptyVoteCount>174</EmptyVoteCount>
       <InvalidVoteCount>130</InvalidVoteCount>
       <MajorityElectionCandidateResult>
@@ -332,35 +301,6 @@
         <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
         <VoteCount>2044</VoteCount>
       </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>594</VoteCount>
-      </MajorityElectionCandidateResult>
       <MajorityElectionResult>
         <CountingCircle>
           <Name>St. Gallen Haggen</Name>
@@ -380,11 +320,11 @@
         <TotalCountOfVoters>1000</TotalCountOfVoters>
         <State>AuditedTentatively</State>
         <IsAuditedTentativelyOrPlausibilised>true</IsAuditedTentativelyOrPlausibilised>
-        <IndividualVoteCount>566</IndividualVoteCount>
+        <IndividualVoteCount>1160</IndividualVoteCount>
         <EmptyVoteCount>87</EmptyVoteCount>
         <InvalidVoteCount>65</InvalidVoteCount>
         <TotalEmptyAndInvalidVoteCount>152</TotalEmptyAndInvalidVoteCount>
-        <TotalCandidateVoteCountExclIndividual>2495</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountExclIndividual>1901</TotalCandidateVoteCountExclIndividual>
         <TotalCandidateVoteCountInclIndividual>3061</TotalCandidateVoteCountInclIndividual>
         <TotalVoteCount>3213</TotalVoteCount>
         <MajorityElectionCandidateResult>
@@ -474,35 +414,6 @@
           <EVotingInclWriteInsVoteCount>410</EVotingInclWriteInsVoteCount>
           <VoteCount>1022</VoteCount>
         </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>177</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>59</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>61</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>120</EVotingInclWriteInsVoteCount>
-          <VoteCount>297</VoteCount>
-        </MajorityElectionCandidateResult>
         <CountOfVoters>
           <VoterParticipation>0.5000</VoterParticipation>
           <TotalReceivedBallots>2501</TotalReceivedBallots>
@@ -522,22 +433,22 @@
           <CountOfBlankBallots>401</CountOfBlankBallots>
         </CountOfVoters>
         <EVotingSubTotal>
-          <IndividualVoteCount>141</IndividualVoteCount>
+          <IndividualVoteCount>381</IndividualVoteCount>
           <EmptyVoteCountInclWriteIns>24</EmptyVoteCountInclWriteIns>
           <InvalidVoteCount>0</InvalidVoteCount>
           <TotalEmptyAndInvalidVoteCount>24</TotalEmptyAndInvalidVoteCount>
-          <TotalCandidateVoteCountExclIndividual>1690</TotalCandidateVoteCountExclIndividual>
+          <TotalCandidateVoteCountExclIndividual>1450</TotalCandidateVoteCountExclIndividual>
           <TotalCandidateVoteCountInclIndividual>1831</TotalCandidateVoteCountInclIndividual>
           <TotalVoteCount>1855</TotalVoteCount>
           <EmptyVoteCountWriteIns>13</EmptyVoteCountWriteIns>
           <EmptyVoteCountExclWriteIns>11</EmptyVoteCountExclWriteIns>
         </EVotingSubTotal>
         <ConventionalSubTotal>
-          <IndividualVoteCount>425</IndividualVoteCount>
+          <IndividualVoteCount>779</IndividualVoteCount>
           <EmptyVoteCountInclWriteIns>63</EmptyVoteCountInclWriteIns>
           <InvalidVoteCount>65</InvalidVoteCount>
           <TotalEmptyAndInvalidVoteCount>128</TotalEmptyAndInvalidVoteCount>
-          <TotalCandidateVoteCountExclIndividual>805</TotalCandidateVoteCountExclIndividual>
+          <TotalCandidateVoteCountExclIndividual>451</TotalCandidateVoteCountExclIndividual>
           <TotalCandidateVoteCountInclIndividual>1230</TotalCandidateVoteCountInclIndividual>
           <TotalVoteCount>1358</TotalVoteCount>
           <EmptyVoteCountWriteIns>28</EmptyVoteCountWriteIns>
@@ -563,11 +474,11 @@
         <TotalCountOfVoters>1000</TotalCountOfVoters>
         <State>AuditedTentatively</State>
         <IsAuditedTentativelyOrPlausibilised>true</IsAuditedTentativelyOrPlausibilised>
-        <IndividualVoteCount>566</IndividualVoteCount>
+        <IndividualVoteCount>1160</IndividualVoteCount>
         <EmptyVoteCount>87</EmptyVoteCount>
         <InvalidVoteCount>65</InvalidVoteCount>
         <TotalEmptyAndInvalidVoteCount>152</TotalEmptyAndInvalidVoteCount>
-        <TotalCandidateVoteCountExclIndividual>2495</TotalCandidateVoteCountExclIndividual>
+        <TotalCandidateVoteCountExclIndividual>1901</TotalCandidateVoteCountExclIndividual>
         <TotalCandidateVoteCountInclIndividual>3061</TotalCandidateVoteCountInclIndividual>
         <TotalVoteCount>3213</TotalVoteCount>
         <MajorityElectionCandidateResult>
@@ -657,35 +568,6 @@
           <EVotingInclWriteInsVoteCount>410</EVotingInclWriteInsVoteCount>
           <VoteCount>1022</VoteCount>
         </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>177</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>59</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>61</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>120</EVotingInclWriteInsVoteCount>
-          <VoteCount>297</VoteCount>
-        </MajorityElectionCandidateResult>
         <CountOfVoters>
           <VoterParticipation>0.5000</VoterParticipation>
           <TotalReceivedBallots>2501</TotalReceivedBallots>
@@ -705,22 +587,22 @@
           <CountOfBlankBallots>401</CountOfBlankBallots>
         </CountOfVoters>
         <EVotingSubTotal>
-          <IndividualVoteCount>141</IndividualVoteCount>
+          <IndividualVoteCount>381</IndividualVoteCount>
           <EmptyVoteCountInclWriteIns>24</EmptyVoteCountInclWriteIns>
           <InvalidVoteCount>0</InvalidVoteCount>
           <TotalEmptyAndInvalidVoteCount>24</TotalEmptyAndInvalidVoteCount>
-          <TotalCandidateVoteCountExclIndividual>1690</TotalCandidateVoteCountExclIndividual>
+          <TotalCandidateVoteCountExclIndividual>1450</TotalCandidateVoteCountExclIndividual>
           <TotalCandidateVoteCountInclIndividual>1831</TotalCandidateVoteCountInclIndividual>
           <TotalVoteCount>1855</TotalVoteCount>
           <EmptyVoteCountWriteIns>13</EmptyVoteCountWriteIns>
           <EmptyVoteCountExclWriteIns>11</EmptyVoteCountExclWriteIns>
         </EVotingSubTotal>
         <ConventionalSubTotal>
-          <IndividualVoteCount>425</IndividualVoteCount>
+          <IndividualVoteCount>779</IndividualVoteCount>
           <EmptyVoteCountInclWriteIns>63</EmptyVoteCountInclWriteIns>
           <InvalidVoteCount>65</InvalidVoteCount>
           <TotalEmptyAndInvalidVoteCount>128</TotalEmptyAndInvalidVoteCount>
-          <TotalCandidateVoteCountExclIndividual>805</TotalCandidateVoteCountExclIndividual>
+          <TotalCandidateVoteCountExclIndividual>451</TotalCandidateVoteCountExclIndividual>
           <TotalCandidateVoteCountInclIndividual>1230</TotalCandidateVoteCountInclIndividual>
           <TotalVoteCount>1358</TotalVoteCount>
           <EmptyVoteCountWriteIns>28</EmptyVoteCountWriteIns>
@@ -754,7 +636,7 @@
         <TotalCountOfVotingCards>2900</TotalCountOfVotingCards>
         <TotalCountOfEVotingVotingCards>0</TotalCountOfEVotingVotingCards>
       </ContestDomainOfInfluenceDetails>
-      <IndividualVoteCount>1132</IndividualVoteCount>
+      <IndividualVoteCount>2320</IndividualVoteCount>
       <EmptyVoteCount>174</EmptyVoteCount>
       <InvalidVoteCount>130</InvalidVoteCount>
       <MajorityElectionCandidateResult>
@@ -843,35 +725,6 @@
         <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
         <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
         <VoteCount>2044</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>594</VoteCount>
       </MajorityElectionCandidateResult>
     </MajorityElectionAggregatedResult>
   </MajorityElection>

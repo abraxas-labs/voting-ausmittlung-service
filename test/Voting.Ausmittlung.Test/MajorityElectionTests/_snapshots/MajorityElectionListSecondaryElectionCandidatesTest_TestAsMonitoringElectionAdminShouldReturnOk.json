@@ -11,7 +11,8 @@
       "Party": "Test de",
       "Position": 1,
       "Description": "number1 pol last name pol first name",
-      "CheckDigit": 9
+      "CheckDigit": 9,
+      "CountToIndividual": false
     },
     {
       "Id": "f70ffba1-1cfd-402b-b6ea-f2c9f802886a",
@@ -23,7 +24,8 @@
       "Party": "CVP de",
       "Position": 2,
       "Description": "number2 L Pete",
-      "CheckDigit": 7
+      "CheckDigit": 7,
+      "CountToIndividual": false
     },
     {
       "Id": "fdb57357-095d-469e-8f40-fd3d0b8817cb",
@@ -35,7 +37,8 @@
       "Party": "SVP de",
       "Position": 3,
       "Description": "number3 Proll Hansi",
-      "CheckDigit": 5
+      "CheckDigit": 5,
+      "CountToIndividual": false
     },
     {
       "Id": "340c482b-c064-427e-a906-2696fab2ab35",
@@ -47,7 +50,8 @@
       "Party": "CVP de",
       "Position": 4,
       "Description": "number4 Meierhans Susi",
-      "CheckDigit": 3
+      "CheckDigit": 3,
+      "CountToIndividual": false
     }
   ]
 }

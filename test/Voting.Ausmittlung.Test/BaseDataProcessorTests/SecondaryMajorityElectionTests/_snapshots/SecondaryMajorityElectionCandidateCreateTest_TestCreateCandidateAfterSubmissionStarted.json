@@ -8,7 +8,8 @@
       "SecondaryMajorityElectionCandidate": null,
       "Occupation": "occupation de",
       "OccupationTitle": "occupation title de",
-      "Party": "SP de",
+      "PartyShortDescription": "",
+      "PartyLongDescription": "",
       "Language": "de",
       "Id": "00000000-0000-0000-0000-000000000000"
     }
@@ -17,7 +18,7 @@
   "CandidateReference": null,
   "BallotGroupEntries": [],
   "BallotCandidatures": [],
-  "CandidateResults": [],
+  "CandidateResults": null,
   "EndResult": {
     "Candidate": null,
     "SecondaryMajorityElectionEndResultId": "00000000-0000-0000-0000-000000000000",
@@ -34,11 +35,14 @@
     "LotDecisionRequired": false,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
-  "Party": "SP de",
+  "PartyShortDescription": "",
+  "PartyLongDescription": "",
   "Occupation": "occupation de",
   "OccupationTitle": "occupation title de",
   "Description": "number1 pol last name pol first name",
+  "CountToIndividual": false,
   "CreatedDuringActiveContest": false,
+  "ReportingType": 0,
   "Number": "number1",
   "FirstName": "late firstName",
   "LastName": "late lastName",

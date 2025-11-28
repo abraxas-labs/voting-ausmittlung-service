@@ -542,7 +542,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
     </electionGroupResult>
@@ -589,7 +591,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
       <electionResult>
@@ -633,7 +637,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
     </electionGroupResult>
@@ -711,7 +717,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
     </electionGroupResult>

@@ -10,7 +10,8 @@
       "Party": "GLP de",
       "Position": 1,
       "Description": "number1 pol last name pol first name",
-      "CheckDigit": 9
+      "CheckDigit": 9,
+      "CountToIndividual": false
     }
   ],
   "SecondaryElectionCandidates": []

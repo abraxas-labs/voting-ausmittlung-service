@@ -171,37 +171,6 @@
         <ConventionalVoteCount>0</ConventionalVoteCount>
         <EVotingVoteCount>0</EVotingVoteCount>
       </MajorityElectionCandidateEndResult>
-      <MajorityElectionCandidateEndResult>
-        <Rank>1</Rank>
-        <VoteCount>0</VoteCount>
-        <LotDecision>false</LotDecision>
-        <LotDecisionRequired>false</LotDecisionRequired>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
-        </Candidate>
-        <State>Pending</State>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingVoteCount>0</EVotingVoteCount>
-      </MajorityElectionCandidateEndResult>
       <Calculation />
     </MajorityElectionEndResult>
     <MajorityElectionDomainOfInfluenceResult>
@@ -332,35 +301,6 @@
         <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
         <VoteCount>0</VoteCount>
       </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
       <MajorityElectionResult>
         <CountingCircle>
           <Name>Gossau</Name>
@@ -467,35 +407,6 @@
             <HouseNumber>1a</HouseNumber>
             <Country>CH</Country>
             <Party>Test3 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
           </Candidate>
           <ConventionalVoteCount>0</ConventionalVoteCount>
           <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
@@ -657,35 +568,6 @@
           <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
           <VoteCount>0</VoteCount>
         </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
@@ -833,35 +715,6 @@
             <HouseNumber>1a</HouseNumber>
             <Country>CH</Country>
             <Party>Test3 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
           </Candidate>
           <ConventionalVoteCount>0</ConventionalVoteCount>
           <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
@@ -1023,35 +876,6 @@
           <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
           <VoteCount>0</VoteCount>
         </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
@@ -1199,35 +1023,6 @@
             <HouseNumber>1a</HouseNumber>
             <Country>CH</Country>
             <Party>Test3 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
           </Candidate>
           <ConventionalVoteCount>0</ConventionalVoteCount>
           <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
@@ -1389,35 +1184,6 @@
           <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
           <VoteCount>0</VoteCount>
         </MajorityElectionCandidateResult>
-        <MajorityElectionCandidateResult>
-          <Candidate>
-            <Description>number4 4pol last name 4pol firstName</Description>
-            <Number>number4</Number>
-            <FirstName>4firstName</FirstName>
-            <LastName>4lastName</LastName>
-            <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-            <PoliticalLastName>4pol last name</PoliticalLastName>
-            <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-            <Sex>Female</Sex>
-            <Title>title</Title>
-            <OccupationTitle>occupation title de</OccupationTitle>
-            <Occupation>occupation de</Occupation>
-            <Incumbent>true</Incumbent>
-            <ZipCode>zip code</ZipCode>
-            <Locality>locality4</Locality>
-            <Position>4</Position>
-            <Origin>origin</Origin>
-            <Street>street</Street>
-            <HouseNumber>1a</HouseNumber>
-            <Country>CH</Country>
-            <Party>Test4 de</Party>
-          </Candidate>
-          <ConventionalVoteCount>0</ConventionalVoteCount>
-          <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-          <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-          <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-          <VoteCount>0</VoteCount>
-        </MajorityElectionCandidateResult>
         <CountOfVoters>
           <VoterParticipation>0</VoterParticipation>
           <TotalReceivedBallots>0</TotalReceivedBallots>
@@ -1569,35 +1335,6 @@
           <HouseNumber>1a</HouseNumber>
           <Country>CH</Country>
           <Party>Test3 de</Party>
-        </Candidate>
-        <ConventionalVoteCount>0</ConventionalVoteCount>
-        <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>
-        <EVotingWriteInsVoteCount>0</EVotingWriteInsVoteCount>
-        <EVotingInclWriteInsVoteCount>0</EVotingInclWriteInsVoteCount>
-        <VoteCount>0</VoteCount>
-      </MajorityElectionCandidateResult>
-      <MajorityElectionCandidateResult>
-        <Candidate>
-          <Description>number4 4pol last name 4pol firstName</Description>
-          <Number>number4</Number>
-          <FirstName>4firstName</FirstName>
-          <LastName>4lastName</LastName>
-          <PoliticalFirstName>4pol firstName</PoliticalFirstName>
-          <PoliticalLastName>4pol last name</PoliticalLastName>
-          <DateOfBirth>1960-01-13T00:00:00Z</DateOfBirth>
-          <Sex>Female</Sex>
-          <Title>title</Title>
-          <OccupationTitle>occupation title de</OccupationTitle>
-          <Occupation>occupation de</Occupation>
-          <Incumbent>true</Incumbent>
-          <ZipCode>zip code</ZipCode>
-          <Locality>locality4</Locality>
-          <Position>4</Position>
-          <Origin>origin</Origin>
-          <Street>street</Street>
-          <HouseNumber>1a</HouseNumber>
-          <Country>CH</Country>
-          <Party>Test4 de</Party>
         </Candidate>
         <ConventionalVoteCount>0</ConventionalVoteCount>
         <EVotingExclWriteInsVoteCount>0</EVotingExclWriteInsVoteCount>

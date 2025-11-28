@@ -355,8 +355,8 @@
           <LotDecision>false</LotDecision>
           <LotDecisionRequired>false</LotDecisionRequired>
           <Candidate>
-            <Description>2.01 Herz Martin</Description>
-            <Number>01</Number>
+            <Description>2.02 Herz Martin</Description>
+            <Number>02</Number>
             <FirstName>Martin</FirstName>
             <LastName>Herz</LastName>
             <PoliticalFirstName>Martin</PoliticalFirstName>
@@ -369,14 +369,14 @@
             <Incumbent>true</Incumbent>
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
-            <Position>1</Position>
+            <Position>2</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
             <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
-            <NumberIncludingList>2.01</NumberIncludingList>
+            <NumberIncludingList>2.02</NumberIncludingList>
           </Candidate>
           <State>NotElected</State>
           <ConventionalSubTotal>
@@ -404,8 +404,8 @@
           <LotDecision>false</LotDecision>
           <LotDecisionRequired>false</LotDecisionRequired>
           <Candidate>
-            <Description>2.02 Ritter Luca</Description>
-            <Number>02</Number>
+            <Description>2.01 Ritter Luca</Description>
+            <Number>01</Number>
             <FirstName>Luca</FirstName>
             <LastName>Ritter</LastName>
             <PoliticalFirstName>Luca</PoliticalFirstName>
@@ -418,14 +418,14 @@
             <Incumbent>true</Incumbent>
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
-            <Position>2</Position>
+            <Position>1</Position>
             <Origin>origin</Origin>
             <Street>street</Street>
             <HouseNumber>1a</HouseNumber>
             <Country>CH</Country>
             <Accumulated>false</Accumulated>
             <AccumulatedPosition>0</AccumulatedPosition>
-            <NumberIncludingList>2.02</NumberIncludingList>
+            <NumberIncludingList>2.01</NumberIncludingList>
           </Candidate>
           <State>NotElected</State>
           <ConventionalSubTotal>

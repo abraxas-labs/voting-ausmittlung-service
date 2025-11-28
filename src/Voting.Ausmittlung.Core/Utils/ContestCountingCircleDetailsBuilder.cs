@@ -164,6 +164,21 @@ public class ContestCountingCircleDetailsBuilder
         await _ccResultBuilder.UpdateCountOfVotersForCountingCircleResults(detailsByCountingCircleId.Values, true);
     }
 
+    internal async Task CreateMissingVotingCardsAndAggregatedDetails(Guid politicalBusinessId, Guid contestId, Guid domainOfInfluenceId)
+    {
+        var simpleResults = await _simpleResultRepo.Query()
+            .Include(x => x.PoliticalBusiness!.Contest.DomainOfInfluence)
+            .Include(x => x.PoliticalBusiness!.DomainOfInfluence)
+            .Include(x => x.CountingCircle)
+            .Where(x => x.PoliticalBusinessId == politicalBusinessId)
+            .ToListAsync();
+
+        var detailsByCountingCircleId = await LoadCountingCircleDetailsByCountingCircleId(contestId);
+        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(contestId, detailsByCountingCircleId.Values, true);
+        await CreateMissingVotingCardsAndSubTotalsInElectorate(simpleResults, contestId, domainOfInfluenceId, detailsByCountingCircleId);
+        await _aggregatedContestCountingCircleDetailsBuilder.AdjustAggregatedDetails(contestId, detailsByCountingCircleId.Values, false);
+    }
+
     private async Task RemoveNotNeededVoterTypesInSubTotals(
         List<SimpleCountingCircleResult> simpleResults,
         Dictionary<Guid, ContestCountingCircleDetails> detailsByCountingCircleId,
@@ -265,7 +280,7 @@ public class ContestCountingCircleDetailsBuilder
             }
 
             // it does not matter which type is chosen, as they all have the same values in an electorate
-            var domainOfInfluenceTypeToCopy = electorate.DomainOfInfluenceTypes.FirstOrDefault(x => x != domainOfInfluenceType);
+            var domainOfInfluenceTypeToCopy = electorate.DomainOfInfluenceTypes.Find(x => x != domainOfInfluenceType);
             if (domainOfInfluenceTypeToCopy == DomainOfInfluenceType.Unspecified)
             {
                 continue;

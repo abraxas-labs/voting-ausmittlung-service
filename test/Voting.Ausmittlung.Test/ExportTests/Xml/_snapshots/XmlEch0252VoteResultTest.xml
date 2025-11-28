@@ -217,6 +217,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>66.56</percentOfYesVotes>
+        <percentOfNoVotes>33.44</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -420,6 +424,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>27.92</percentOfYesVotes>
+        <percentOfNoVotes>72.08</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -623,6 +631,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>71.59</percentOfYesVotes>
+        <percentOfNoVotes>28.41</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -826,6 +838,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>43.40</percentOfYesVotes>
+        <percentOfNoVotes>56.60</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -1025,6 +1041,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>4.76</percentOfYesVotes>
+        <percentOfNoVotes>95.24</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -1224,6 +1244,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>14.29</percentOfYesVotes>
+        <percentOfNoVotes>85.71</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -1423,6 +1447,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>47.06</percentOfYesVotes>
+        <percentOfNoVotes>52.94</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -1622,6 +1650,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>40.0</percentOfYesVotes>
+        <percentOfNoVotes>60.0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -1821,6 +1853,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>60.38</percentOfYesVotes>
+        <percentOfNoVotes>39.62</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -2020,6 +2056,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>27.59</percentOfYesVotes>
+        <percentOfNoVotes>72.41</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -2218,6 +2258,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <numberOfEntries>11</numberOfEntries>
   </voteBaseDelivery>

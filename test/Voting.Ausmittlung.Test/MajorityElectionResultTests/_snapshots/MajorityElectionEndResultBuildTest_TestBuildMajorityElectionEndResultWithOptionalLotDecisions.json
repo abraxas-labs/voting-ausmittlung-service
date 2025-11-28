@@ -12,7 +12,8 @@
           "Party": "Test de",
           "Position": 2,
           "Description": "number2 2pol last name 2pol firstName",
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "CountToIndividual": false
         },
         "VoteCount": 900,
         "EVotingVoteCount": 0,
@@ -35,7 +36,8 @@
           "Party": "Test de",
           "Position": 3,
           "Description": "number3 3pol last name 3pol firstName",
-          "CheckDigit": 5
+          "CheckDigit": 5,
+          "CountToIndividual": false
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -58,7 +60,8 @@
           "Party": "Test de",
           "Position": 4,
           "Description": "number4 4pol last name 4pol firstName",
-          "CheckDigit": 3
+          "CheckDigit": 3,
+          "CountToIndividual": false
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -81,7 +84,8 @@
           "Party": "Test de",
           "Position": 5,
           "Description": "number5 5pol last name 5pol firstName",
-          "CheckDigit": 1
+          "CheckDigit": 1,
+          "CountToIndividual": false
         },
         "VoteCount": 480,
         "EVotingVoteCount": 0,

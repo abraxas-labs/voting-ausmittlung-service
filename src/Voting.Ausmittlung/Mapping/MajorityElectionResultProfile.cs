@@ -32,13 +32,16 @@ public class MajorityElectionResultProfile : Profile
         CreateMap<DataModels.MajorityElectionResultBundle, GetMajorityElectionResultBundleResponse>()
             .ForMember(dst => dst.Bundle, opts => opts.MapFrom(src => src));
 
-        CreateMap<DataModels.MajorityElectionCandidate, ProtoModels.MajorityElectionBallotCandidate>();
-        CreateMap<DataModels.SecondaryMajorityElectionCandidate, ProtoModels.MajorityElectionBallotCandidate>();
+        CreateMap<DataModels.MajorityElectionCandidate, ProtoModels.MajorityElectionBallotCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
+        CreateMap<DataModels.SecondaryMajorityElectionCandidate, ProtoModels.MajorityElectionBallotCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
         CreateMap<DataModels.MajorityElectionResultBallotCandidate, ProtoModels.MajorityElectionBallotCandidate>()
             .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.CandidateId))
             .IncludeMembers(x => x.Candidate);
         CreateMap<DataModels.SecondaryMajorityElectionResultBallotCandidate, ProtoModels.MajorityElectionBallotCandidate>()
             .ForMember(dst => dst.Id, opts => opts.MapFrom(src => src.CandidateId))
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.Candidate.PartyShortDescription))
             .IncludeMembers(x => x.Candidate);
 
         CreateMap<DataModels.MajorityElectionResultBallot, ProtoModels.MajorityElectionResultBallot>()

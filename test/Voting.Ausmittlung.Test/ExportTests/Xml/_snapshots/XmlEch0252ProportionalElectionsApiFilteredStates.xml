@@ -62,15 +62,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>6eedf849-0ecc-4a02-a43b-99ef4b11d795</listIdentification>
-              <listIndentureNumber>1a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -84,15 +75,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>66dbbea3-0c99-469f-94c5-4314c32e8eab</listIdentification>
-              <listIndentureNumber>1a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <electionGroupResult>
@@ -106,25 +88,6 @@
             <domainOfInfluenceType>SK</domainOfInfluenceType>
           </countingCircle>
         </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>9091a3b6-3785-4adc-a486-f486e686503e</listIdentification>
-              <listIndentureNumber>1a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-            <list>
-              <listIdentification>afebb285-599d-415f-89ac-04ebcbc4eaeb</listIdentification>
-              <listIndentureNumber>3a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-            <list>
-              <listIdentification>bfe54c2a-6bdf-41a3-bf11-321203c380d3</listIdentification>
-              <listIndentureNumber>2</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <numberOfEntries>3</numberOfEntries>

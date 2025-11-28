@@ -51,6 +51,7 @@ public class XmlEch0252ProportionalElectionWithDoubleProportionalResultTest : Xm
             await dpResultBuilder.BuildForUnion(ZhMockedData.ProportionalElectionUnionGuidSubLot);
         });
         await ModifyDbEntities<ProportionalElectionResult>(_ => true, x => x.Published = true);
+        await ModifyDbEntities<ProportionalElectionEndResult>(_ => true, x => x.MandateDistributionTriggered = true);
     }
 
     protected override GenerateResultExportsRequest NewRequest()

@@ -338,7 +338,8 @@ public class SecondaryMajorityElectionProcessor :
                 Language = t.Language,
                 Occupation = t.Occupation,
                 OccupationTitle = t.OccupationTitle,
-                Party = t.Party,
+                PartyShortDescription = t.PartyShortDescription,
+                PartyLongDescription = t.PartyLongDescription,
             }).ToList();
             _mapper.Map(eventData.MajorityElectionCandidateReference, referencedCandidateCopy);
             await _primaryMajorityElectionProcessor.CreateCandidate(referencedCandidateCopy);
@@ -372,7 +373,8 @@ public class SecondaryMajorityElectionProcessor :
             .ExecuteUpdateAsync(x => x
                 .SetProperty(c => c.Incumbent, eventData.MajorityElectionCandidateReference.Incumbent)
                 .SetProperty(c => c.Number, eventData.MajorityElectionCandidateReference.Number)
-                .SetProperty(c => c.CheckDigit, eventData.MajorityElectionCandidateReference.CheckDigit));
+                .SetProperty(c => c.CheckDigit, eventData.MajorityElectionCandidateReference.CheckDigit)
+                .SetProperty(c => c.ReportingType, _mapper.Map<MajorityElectionCandidateReportingType>(eventData.MajorityElectionCandidateReference.ReportingType)));
     }
 
     public async Task Process(SecondaryMajorityElectionCandidateReferenceDeleted eventData)

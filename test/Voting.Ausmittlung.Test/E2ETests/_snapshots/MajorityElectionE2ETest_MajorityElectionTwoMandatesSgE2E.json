@@ -210,7 +210,8 @@
         "Party": "party de",
         "Position": 1,
         "Description": "01 last1 first1",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 34,
       "EVotingVoteCount": 15,
@@ -233,7 +234,8 @@
         "Party": "party de",
         "Position": 2,
         "Description": "02 last2 first2",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 16,
       "EVotingVoteCount": 9,
@@ -256,7 +258,8 @@
         "Party": "party de",
         "Position": 3,
         "Description": "03 last3 first3",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 5,
       "EVotingVoteCount": 3,
@@ -279,7 +282,8 @@
         "Party": "party de",
         "Position": 5,
         "Description": "05 last5 first5",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 0,
       "EVotingVoteCount": 0,
@@ -302,7 +306,8 @@
         "Party": "party de",
         "Position": 4,
         "Description": "04 last4 first4",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 0,
       "EVotingVoteCount": 0,
@@ -325,7 +330,8 @@
         "Party": "party de",
         "Position": 8,
         "Description": "08 last8 first8",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 0,
       "EVotingVoteCount": 0,
@@ -348,7 +354,8 @@
         "Party": "party de",
         "Position": 7,
         "Description": "07 last7 first7",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 0,
       "EVotingVoteCount": 0,
@@ -371,7 +378,8 @@
         "Party": "party de",
         "Position": 6,
         "Description": "06 last6 first6",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 0,
       "EVotingVoteCount": 0,

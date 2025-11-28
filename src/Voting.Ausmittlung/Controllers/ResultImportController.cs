@@ -11,7 +11,7 @@ using Voting.Ausmittlung.Core.Authorization;
 using Voting.Ausmittlung.Core.Models.Import;
 using Voting.Ausmittlung.Core.Services.Write.Import;
 using Voting.Ausmittlung.Data.Models;
-using Voting.Ausmittlung.Ech.Models;
+using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Iam.Authorization;
 using Voting.Lib.Rest.Files;
 using Voting.Lib.Rest.Utils;
@@ -104,7 +104,7 @@ public class ResultImportController : ControllerBase
 
             var importMeta = new ResultImportMeta(
                 importType,
-                importType == ResultImportType.ECounting ? Ech0222Version.V3 : Ech0222Version.V1,
+                Ech0222VersionFinder.GetEch0222Version(ech0222Stream),
                 contestId,
                 countingCircleId,
                 ech0222FileName,

@@ -199,7 +199,7 @@ public class MajorityElectionProcessor :
         await _simplePoliticalBusinessBuilder.Create(majorityElection);
         await _resultBuilder.RebuildForElection(majorityElection.Id, majorityElection.DomainOfInfluenceId, false, majorityElection.ContestId);
         await _endResultInitializer.RebuildForElection(majorityElection.Id, false);
-        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
+        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsAndAggregatedDetails(majorityElection.Id, majorityElection.ContestId, majorityElection.DomainOfInfluenceId);
     }
 
     internal async Task UpdateElection(MajorityElection majorityElection)
@@ -391,7 +391,8 @@ public class MajorityElectionProcessor :
                 Language = t.Language,
                 Occupation = t.Occupation,
                 OccupationTitle = t.OccupationTitle,
-                Party = t.Party,
+                PartyShortDescription = t.PartyShortDescription,
+                PartyLongDescription = t.PartyLongDescription,
             }).ToList();
         }
 
@@ -420,7 +421,8 @@ public class MajorityElectionProcessor :
                 Language = t.Language,
                 Occupation = t.Occupation,
                 OccupationTitle = t.OccupationTitle,
-                Party = t.Party,
+                PartyShortDescription = t.PartyShortDescription,
+                PartyLongDescription = t.PartyLongDescription,
             }).ToList();
         }
 
@@ -434,7 +436,7 @@ public class MajorityElectionProcessor :
         MajorityElectionCandidate candidate,
         MajorityElectionCandidateBase candidateReference)
     {
-        // cannot use the mapper here, since that would overwrite some fields that should be untouched (id, position, incumbent)
+        // cannot use the mapper here, since that would overwrite some fields that should be untouched (id, position, incumbent, reporting type)
         candidateReference.FirstName = candidate.FirstName;
         candidateReference.LastName = candidate.LastName;
         candidateReference.PoliticalFirstName = candidate.PoliticalFirstName;

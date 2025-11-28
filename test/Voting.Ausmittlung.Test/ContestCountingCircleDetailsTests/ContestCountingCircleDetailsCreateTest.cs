@@ -251,21 +251,6 @@ public class ContestCountingCircleDetailsCreateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task CreateDetailsWithCountingMachineUnspecifiedWithEnabledOnCantonSettingsShouldThrow()
-    {
-        await ModifyDbEntities<ContestCantonDefaults>(
-            x => x.ContestId == ContestMockedData.GuidBundesurnengang,
-            x => x.CountingMachineEnabled = true,
-            true);
-
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
-            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.Unspecified)),
-            StatusCode.InvalidArgument,
-            "Counting machine is required");
-    }
-
-    [Fact]
     public async Task CreateDetailsWithCountingMachineWithDisabledOnCantonSettingsShouldThrow()
     {
         await AssertStatus(

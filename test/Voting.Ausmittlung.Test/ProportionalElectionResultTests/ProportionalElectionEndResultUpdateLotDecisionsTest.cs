@@ -100,19 +100,24 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
             x => x.Candidate.ProportionalElectionListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1),
             x =>
             {
-                x.State = ProportionalElectionCandidateEndResultState.NotElected;
                 if (x.CandidateId == Guid.Parse(ProportionalElectionEndResultMockedData.List1CandidateId2))
                 {
                     x.Rank = 3;
                     x.LotDecision = true;
+                    x.State = ProportionalElectionCandidateEndResultState.NotElected;
                 }
 
                 if (x.CandidateId == Guid.Parse(ProportionalElectionEndResultMockedData.List1CandidateId3))
                 {
                     x.Rank = 2;
                     x.LotDecision = true;
+                    x.State = ProportionalElectionCandidateEndResultState.Elected;
                 }
             });
+
+        await ModifyDbEntities<ProportionalElectionListEndResult>(
+            x => x.ListId == Guid.Parse(ProportionalElectionEndResultMockedData.ListId1),
+            x => x.NumberOfMandates = 2);
 
         await TestEventPublisher.Publish(
             GetNextEventNumber(),
@@ -146,12 +151,12 @@ public class ProportionalElectionEndResultUpdateLotDecisionsTest : ProportionalE
         var candidate2 = listEndResult.CandidateEndResults.Single(x => x.Candidate.Id == ProportionalElectionEndResultMockedData.List1CandidateId2);
         candidate2.LotDecision.Should().BeFalse();
         candidate2.Rank.Should().Be(2);
-        candidate2.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.NotElected);
+        candidate2.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.Pending);
 
         var candidate3 = listEndResult.CandidateEndResults.Single(x => x.Candidate.Id == ProportionalElectionEndResultMockedData.List1CandidateId3);
         candidate3.LotDecision.Should().BeFalse();
         candidate3.Rank.Should().Be(2);
-        candidate3.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.NotElected);
+        candidate3.State.Should().Be(SharedProto.ProportionalElectionCandidateEndResultState.Pending);
     }
 
     [Fact]

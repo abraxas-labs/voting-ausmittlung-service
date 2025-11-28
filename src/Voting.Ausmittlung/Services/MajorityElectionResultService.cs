@@ -55,7 +55,8 @@ public class MajorityElectionResultService : ServiceBase
         var result = string.IsNullOrEmpty(request.ElectionResultId)
             ? await _majorityElectionResultReader.Get(GuidParser.Parse(request.ElectionId), GuidParser.Parse(request.CountingCircleId))
             : await _majorityElectionResultReader.Get(GuidParser.Parse(request.ElectionResultId));
-        return _mapper.Map<ProtoModels.MajorityElectionResult>(result);
+        var sett = _mapper.Map<ProtoModels.MajorityElectionResult>(result);
+        return sett;
     }
 
     [AuthorizePermission(Permissions.MajorityElectionBallotGroupResult.Read)]

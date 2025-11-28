@@ -8,7 +8,8 @@
       "SecondaryMajorityElectionCandidate": null,
       "Occupation": "occupation de",
       "OccupationTitle": "occupation title de",
-      "Party": "Test de",
+      "PartyShortDescription": "Test de",
+      "PartyLongDescription": "Test long party description de",
       "Language": "de",
       "Id": "00000000-0000-0000-0000-000000000000"
     }
@@ -17,7 +18,7 @@
   "CandidateReference": null,
   "BallotGroupEntries": [],
   "BallotCandidatures": [],
-  "CandidateResults": [],
+  "CandidateResults": null,
   "EndResult": {
     "Candidate": null,
     "SecondaryMajorityElectionEndResultId": "00000000-0000-0000-0000-000000000000",
@@ -34,11 +35,14 @@
     "LotDecisionRequired": false,
     "Id": "00000000-0000-0000-0000-000000000000"
   },
-  "Party": "Test de",
+  "PartyShortDescription": "Test de",
+  "PartyLongDescription": "Test long party description de",
   "Occupation": "occupation de",
   "OccupationTitle": "occupation title de",
   "Description": "1.2 3pol last name 3pol firstName",
+  "CountToIndividual": false,
   "CreatedDuringActiveContest": false,
+  "ReportingType": 0,
   "Number": "1.2",
   "FirstName": "3firstName",
   "LastName": "3lastName",

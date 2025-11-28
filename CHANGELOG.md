@@ -1,4 +1,4 @@
-# ✨ Changelog (`v2.71.9`)
+# ✨ Changelog (`v2.77.2`)
 
 All notable changes to this project will be documented in this file.
 
@@ -8,11 +8,158 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version Info
 
 ```text
-This version -------- v2.71.9
-Previous version ---- v2.63.12
+This version -------- v2.77.2
+Previous version ---- v2.71.9
 Initial version ----- v1.29.14
-Total commits ------- 950
+Total commits ------- 26
 ```
+
+## [v2.77.2] - 2025-11-11
+
+### 🔄 Changed
+
+- speed up reading the list summary by only considering relevant contest permissions
+
+## [v2.77.1] - 2025-11-06
+
+### 🔄 Changed
+
+- fix majority election end result detail protocol with individual candidates
+
+## [v2.77.0] - 2025-11-04
+
+### 🆕 Added
+
+- add voteResultData to eCH-0252 export
+
+## [v2.76.5] - 2025-10-23
+
+### 🔄 Changed
+
+- fix(VOTING-6460): do not sync entire DOI when political business is created, instead only create missing information
+
+## [v2.76.4] - 2025-10-23
+
+### 🔄 Changed
+
+- static code analysis review
+
+## [v2.76.3] - 2025-10-22
+
+### 🆕 Added
+
+- add proportional election union domain of influence in reports
+
+## [v2.76.2] - 2025-10-22
+
+### 🔄 Changed
+
+- fix majority election candidate and ballot group basis event processing
+
+## [v2.76.1] - 2025-10-20
+
+### 🆕 Added
+
+- add double proportional number of mandates excl lot decision
+
+## [v2.76.0] - 2025-10-17
+
+### 🆕 Added
+
+- add configurable timeout for dok connector calls
+
+### 🔄 Changed
+
+- complete pipe writer so signal that no more data will be written to the underlying stream
+
+## [v2.75.2] - 2025-10-16
+
+### 🔄 Changed
+
+- only export eCH-0252 party long description if it is present
+
+## [v2.75.1] - 2025-10-14
+
+### 🔄 Changed
+
+- normalize attributes of type `GUID` according to event signature concept before generating binary payload
+
+## [v2.75.0] - 2025-10-13
+
+### 🆕 Added
+
+- add majority election candidate reporting type
+
+## [v2.74.0] - 2025-10-09
+
+### 🆕 Added
+
+- add party long description to majority election candidate
+
+## [v2.73.1] - 2025-10-07
+
+### 🔄 Changed
+
+- optimize proportional election lot decisions
+
+## [v2.73.0] - 2025-10-07
+
+### 🔄 Changed
+
+- update eCH-0252 version
+
+## [v2.72.1] - 2025-10-03
+
+### 🔄 Changed
+
+- sort candidates per number instead of rank in list candidate votes end result protocol for zurich
+
+## [v2.72.0] - 2025-09-30
+
+### 🔄 Changed
+
+- update proto
+- update lib and and fix file wrapper interface change
+
+### 🔄 Changed
+
+- only export eCH-0252 proportional election elected when mandates are distributed
+
+### 🔄 Changed
+
+- support e-voting import per eCH-0222 v3
+
+### 🔄 Changed
+
+- enable optional fields in update counting circle details
+
+### 🔄 Changed
+
+- return 503 service unavailable when readiness endpoint returns degraded
+
+### 🔄 Changed
+
+- export candidate origin correctly
+
+### 🔒 Security
+
+- use raw event byte data instead of deserialized event data in signature verification
+
+### 🔄 Changed
+
+- mandate distribution auto-refresh and finalize fixes
+
+## [v2.71.11] - 2025-09-30
+
+### 🔄 Changed
+
+- filter hagenbach bischoff protocols
+
+## [v2.71.10] - 2025-09-26
+
+### 🔄 Changed
+
+- revert filter hagenbach bischoff protocols
 
 ## [v2.71.9] - 2025-09-25
 
@@ -150,146 +297,114 @@ Total commits ------- 950
 
 ## [v2.69.0] - 2025-08-08
 
-### 🆕 Added
+### 🔄 Changed
 
-- PublisherConfig: added new configuration EnableCantonSuffixTemplateKeys to set canton suffix to single reports. Needed for report splitting project.
+- speed up reading the list summary by only considering relevant contest permissions
 
 ### 🔄 Changed
 
-- ProtocolExportService and ResultExportService: implement canton suffix for single protocol with new confiuration
-
-### 🔄 Changed
-
-- fix absolute majority threshold and other roundings in exports
-
-### 🔄 Changed
-
-- add listIndentureNumber to eCH-0252 export
-
-### 🔄 Changed
-
-- add candidateReferenceOnPosition to eCH-0252
-
-## [v2.68.3] - 2025-07-25
-
-### 🔄 Changed
-
-- validate counting circle details on all levels
-
-## [v2.68.2] - 2025-07-08
-
-### 🔄 Changed
-
-- PoliticalBusinessResultProcessor: delete protocol export entries when state changes to CountingCircleResultState.AuditedTentatively
-
-## [v2.68.1] - 2025-07-03
-
-### 🔄 Changed
-
-- correctly export candidates in eCH-0252
-
-## [v2.68.0] - 2025-07-03
+- fix majority election end result detail protocol with individual candidates
 
 ### 🆕 Added
 
-- add eCH-0252 proportional election export with candidate list results info
-
-## [v2.67.7] - 2025-07-02
+- add voteResultData to eCH-0252 export
 
 ### 🔄 Changed
 
-- bump pkcs11 driver from 4.45 to 4.51.0.1
-
-## [v2.67.6] - 2025-06-30
+- fix(VOTING-6460): do not sync entire DOI when political business is created, instead only create missing information
 
 ### 🔄 Changed
 
-- support counting circle result reset with monitoring states
-
-## [v2.67.5] - 2025-06-30
-
-### 🔄 Changed
-
-- fix super apportionment count of mandates for lotdecision
-
-## [v2.67.4] - 2025-06-30
-
-### 🔄 Changed
-
-- filter eCH-0252 political business types correctly
-
-## [v2.67.3] - 2025-06-20
-
-### 🔄 Changed
-
-- ResultExportTemplateReader: set protocol name regarding number of doi if TemplateModel is "PerDomainOfInfluence"
-
-## [v2.67.2] - 2025-06-20
-
-### 🔄 Changed
-
-- do not export eCH-0252 swiss information for non-swiss candidates
-
-## [v2.67.1] - 2025-06-19
-
-### 🔄 Changed
-
-- fix count of voters sub total sync on political business deletion
-
-## [v2.67.0] - 2025-06-18
-
-### 🔄 Changed
-
-- eCH export languages dependent of contest e-voting
-
-## [v2.66.2] - 2025-06-17
-
-### 🔄 Changed
-
-- export null instead of 0 for missing values in WabstiC
-
-## [v2.66.1] - 2025-06-17
-
-### 🔄 Changed
-
-- fix permission check for bundle review protocol live updates
-
-## [v2.66.0] - 2025-06-16
-
-### 🔄 Changed
-
-- show results when submission is done
-
-## [v2.65.1] - 2025-06-11
-
-### 🔄 Changed
-
-- fix count of voters update on political business modifications
-
-## [v2.65.0] - 2025-06-02
+- static code analysis review
 
 ### 🆕 Added
 
-- count of voters sub total with domain of influence type
-
-## [v2.64.1] - 2025-05-27
+- add proportional election union domain of influence in reports
 
 ### 🔄 Changed
 
-- fix voter participation rounding in protocols
+- fix majority election candidate and ballot group basis event processing
 
-## [v2.64.0] - 2025-05-27
+### 🆕 Added
+
+- add double proportional number of mandates excl lot decision
+
+### 🆕 Added
+
+- add configurable timeout for dok connector calls
 
 ### 🔄 Changed
 
-- refactor dockerfile and reduce cache layers
+- complete pipe writer so signal that no more data will be written to the underlying stream
+
+### 🔄 Changed
+
+- only export eCH-0252 party long description if it is present
+
+### 🔄 Changed
+
+- normalize attributes of type `GUID` according to event signature concept before generating binary payload
+
+### 🆕 Added
+
+- add majority election candidate reporting type
+
+### 🆕 Added
+
+- add party long description to majority election candidate
+
+### 🔄 Changed
+
+- optimize proportional election lot decisions
+
+### 🔄 Changed
+
+- update eCH-0252 version
+
+### 🔄 Changed
+
+- sort candidates per number instead of rank in list candidate votes end result protocol for zurich
+
+### 🔄 Changed
+
+- update proto
+- update lib and and fix file wrapper interface change
+
+### 🔄 Changed
+
+- only export eCH-0252 proportional election elected when mandates are distributed
+
+### 🔄 Changed
+
+- support e-voting import per eCH-0222 v3
+
+### 🔄 Changed
+
+- enable optional fields in update counting circle details
+
+### 🔄 Changed
+
+- return 503 service unavailable when readiness endpoint returns degraded
+
+### 🔄 Changed
+
+- export candidate origin correctly
 
 ### 🔒 Security
 
-- introduce user id and group id to avoid random assignment
-- use exec form to avoid shell interpretation
+- use raw event byte data instead of deserialized event data in signature verification
 
-## [v2.63.13] - 2025-05-26
+### 🔄 Changed
+
+- mandate distribution auto-refresh and finalize fixes
+
+### 🔄 Changed
+
+- filter hagenbach bischoff protocols
+
+### 🔄 Changed
+
+- revert filter hagenbach bischoff protocols
 
 ### 🔄 Changed
 
@@ -368,104 +483,3 @@ Total commits ------- 950
 ### 🔄 Changed
 
 - change malware scanner config
-
-### 🆕 Added
-
-- PublisherConfig: added new configuration EnableCantonSuffixTemplateKeys to set canton suffix to single reports. Needed for report splitting project.
-
-### 🔄 Changed
-
-- ProtocolExportService and ResultExportService: implement canton suffix for single protocol with new confiuration
-
-### 🔄 Changed
-
-- fix absolute majority threshold and other roundings in exports
-
-### 🔄 Changed
-
-- add listIndentureNumber to eCH-0252 export
-
-### 🔄 Changed
-
-- add candidateReferenceOnPosition to eCH-0252
-
-### 🔄 Changed
-
-- validate counting circle details on all levels
-
-### 🔄 Changed
-
-- PoliticalBusinessResultProcessor: delete protocol export entries when state changes to CountingCircleResultState.AuditedTentatively
-
-### 🔄 Changed
-
-- correctly export candidates in eCH-0252
-
-### 🆕 Added
-
-- add eCH-0252 proportional election export with candidate list results info
-
-### 🔄 Changed
-
-- bump pkcs11 driver from 4.45 to 4.51.0.1
-
-### 🔄 Changed
-
-- support counting circle result reset with monitoring states
-
-### 🔄 Changed
-
-- fix super apportionment count of mandates for lotdecision
-
-### 🔄 Changed
-
-- filter eCH-0252 political business types correctly
-
-### 🔄 Changed
-
-- ResultExportTemplateReader: set protocol name regarding number of doi if TemplateModel is "PerDomainOfInfluence"
-
-### 🔄 Changed
-
-- do not export eCH-0252 swiss information for non-swiss candidates
-
-### 🔄 Changed
-
-- fix count of voters sub total sync on political business deletion
-
-### 🔄 Changed
-
-- eCH export languages dependent of contest e-voting
-
-### 🔄 Changed
-
-- export null instead of 0 for missing values in WabstiC
-
-### 🔄 Changed
-
-- fix permission check for bundle review protocol live updates
-
-### 🔄 Changed
-
-- show results when submission is done
-
-### 🔄 Changed
-
-- fix count of voters update on political business modifications
-
-### 🆕 Added
-
-- count of voters sub total with domain of influence type
-
-### 🔄 Changed
-
-- fix voter participation rounding in protocols
-
-### 🔄 Changed
-
-- refactor dockerfile and reduce cache layers
-
-### 🔒 Security
-
-- introduce user id and group id to avoid random assignment
-- use exec form to avoid shell interpretation

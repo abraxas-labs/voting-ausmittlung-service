@@ -105,6 +105,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
                         LastName = c.Candidate.PoliticalLastName,
                         FirstName = c.Candidate.PoliticalFirstName,
                         VoteCount = c.VoteCount,
+                        ReportingType = c.Candidate.ReportingType,
                     }).ToList(),
                 ResultState = x.State,
             })
@@ -155,6 +156,7 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
     {
         var submissionDone = row.ResultState.IsSubmissionDone();
         var data = new Dictionary<string, object?>();
+        RemoveCountToIndividualCandidatesAndAdjustTotals(row);
         var i = 1;
         foreach (var candidateResult in row.CandidateResults)
         {
@@ -231,6 +233,22 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
         };
     }
 
+    private void RemoveCountToIndividualCandidatesAndAdjustTotals(Data row)
+    {
+        var countToIndividualCandidateResults = row.CandidateResults
+            .Where(c => c.ReportingType is MajorityElectionCandidateReportingType.CountToIndividual)
+            .ToList();
+
+        row.CandidateResults = row.CandidateResults
+            .Where(c => c.ReportingType is not MajorityElectionCandidateReportingType.CountToIndividual)
+            .ToList();
+
+        foreach (var candidateResult in countToIndividualCandidateResults)
+        {
+            row.IndividualVoteCount += candidateResult.VoteCount;
+        }
+    }
+
     private class ContestDetails
     {
         public Guid CountingCircleId { get; set; }
@@ -253,6 +271,8 @@ public class WabstiCWMWahlergebnisseRenderService : IRendererService
         public string FirstName { get; set; } = string.Empty;
 
         public int VoteCount { get; set; }
+
+        public MajorityElectionCandidateReportingType ReportingType { get; set; }
     }
 
     private class Data : IWabstiCPoliticalResultData

@@ -17,6 +17,7 @@ public class ValidationContext
         DomainOfInfluence politicalBusinessDomainOfInfluence,
         PoliticalBusinessType politicalBusinessType,
         ContestCountingCircleDetails currentContestCountingCircleDetails,
+        ContestCantonDefaults cantonDefaults,
         ContestCountingCircleDetails? previousContestCountingCircleDetails = null)
     {
         PlausibilisationConfiguration = responsibleForPlausibilisationDomainOfInfluence.PlausibilisationConfiguration;
@@ -24,6 +25,7 @@ public class ValidationContext
         PoliticalBusinessType = politicalBusinessType;
         CurrentContestCountingCircleDetails = currentContestCountingCircleDetails;
         PreviousContestCountingCircleDetails = previousContestCountingCircleDetails;
+        CantonDefaults = cantonDefaults;
 
         if (PlausibilisationConfiguration == null)
         {
@@ -50,6 +52,8 @@ public class ValidationContext
     public DomainOfInfluence PoliticalBusinessDomainOfInfluence { get; }
 
     public PoliticalBusinessType PoliticalBusinessType { get; }
+
+    public ContestCantonDefaults CantonDefaults { get; }
 
     public PoliticalBusinessNullableCountOfVoters CountOfVoters
     {

@@ -5,13 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ech0010_6_0;
-using Ech0155_5_1;
-using Ech0252_2_0;
+using Ech0155_5_2;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
 using Voting.Ausmittlung.Ech.Utils;
 using Voting.Lib.Common;
-using CandidateType = Ech0252_2_0.CandidateType;
 using SexType = Ech0044_4_1.SexType;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
@@ -21,7 +19,7 @@ internal static class VoteInfoCandidateMapping
     private const int MaxCandidateReferenceLength = 10;
     private const string IncumbentText = "bisher";
 
-    private static readonly DateTime DefaultDateOfBirth = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    private static readonly DateTime DefaultDateOfBirth = new(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     internal static CandidatePositionInformationType ToEchCandidatePosition(this ProportionalElectionCandidate candidate, Ech0252MappingContext ctx, bool accumulatedPosition)
     {
@@ -63,7 +61,7 @@ internal static class VoteInfoCandidateMapping
             })
             .ToList();
 
-        var address = BuildDwellingAddress(candidate, out var isSwiss);
+        var address = BuildDwellingAddress(candidate, out _);
         return new CandidateType
         {
             CandidateIdentification = candidate.Id.ToString(),
@@ -83,7 +81,7 @@ internal static class VoteInfoCandidateMapping
             PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations, ctx),
             IncumbentYesNo = candidate.Incumbent,
             Role = null,
-            Swiss = !isSwiss || string.IsNullOrEmpty(candidate.Origin) ? [] : [candidate.Origin],
+            Swiss = string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
         };
     }
 
@@ -144,56 +142,6 @@ internal static class VoteInfoCandidateMapping
             : MrMrsType.Item1;
     }
 
-    internal static WriteInCandidateType ToVoteInfoEchWriteInCandidate(
-        this MajorityElectionCandidateBase candidate,
-        Dictionary<string, string> occupationTranslations,
-        Dictionary<string, string>? partyShortTranslations,
-        Dictionary<string, string>? partyLongTranslations,
-        Ech0252MappingContext ctx)
-    {
-        var occupationInfos = occupationTranslations
-            .FilterEchExportLanguages(ctx.EVoting)
-            .Where(x => !string.IsNullOrEmpty(x.Value))
-            .OrderBy(t => t.Key)
-            .Select(x => new OccupationalTitleInformationTypeOccupationalTitleInfo
-            {
-                Language = x.Key,
-                OccupationalTitle = x.Value,
-            })
-            .ToList();
-
-        var dwellingAddress = BuildDwellingAddress(candidate, out var isSwiss);
-        var writeInCandidate = new WriteInCandidateType
-        {
-            CandidateIdentification = candidate.Id.ToString(),
-            FamilyName = candidate.LastName,
-            FirstName = candidate.FirstName,
-            CallName = candidate.PoliticalFirstName,
-            Title = candidate.Title,
-            OccupationalTitle = occupationInfos.Count == 0 ? null : occupationInfos,
-            Swiss = !isSwiss || string.IsNullOrEmpty(candidate.Origin) ? null : [candidate.Origin],
-            PartyAffiliation = ToPartyInfos(partyShortTranslations, partyLongTranslations, ctx),
-            IncumbentYesNo = candidate.Incumbent,
-        };
-
-        if (candidate.DateOfBirth.HasValue)
-        {
-            writeInCandidate.DateOfBirth = candidate.DateOfBirth.Value;
-        }
-
-        if (isSwiss || !string.IsNullOrEmpty(candidate.Locality))
-        {
-            writeInCandidate.DwellingAddress = dwellingAddress;
-        }
-
-        if (candidate.Sex != Data.Models.SexType.Unspecified)
-        {
-            writeInCandidate.Sex = candidate.Sex.ToEchSexType();
-        }
-
-        return writeInCandidate;
-    }
-
     internal static string GenerateCandidateReference(this ProportionalElectionCandidate candidate)
     {
         var reference = $"{candidate.ProportionalElectionList.OrderNumber.PadLeft(2, '0')}.{candidate.Number.PadLeft(2, '0')}";
@@ -221,7 +169,9 @@ internal static class VoteInfoCandidateMapping
 
         foreach (var partyInfo in partyInfos)
         {
-            if (partyLongTranslations != null && partyLongTranslations.TryGetValue(partyInfo.Language, out var partyLong))
+            if (partyLongTranslations != null
+                && partyLongTranslations.TryGetValue(partyInfo.Language, out var partyLong)
+                && !string.IsNullOrEmpty(partyLong))
             {
                 partyInfo.PartyAffiliationLong = partyLong;
             }

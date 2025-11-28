@@ -20,7 +20,7 @@ namespace Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 [Flags]
 public enum PdfBallotEndResultLabel
 {
-    Undefined = 0,
+    None = 0,
 
     QuestionCount1NotAccepted = 1 << 0,
     QuestionCount2NoneAccepted = 1 << 1,

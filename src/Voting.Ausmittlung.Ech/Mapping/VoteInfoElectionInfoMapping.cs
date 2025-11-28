@@ -4,10 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ech0155_5_1;
+using Ech0155_5_2;
 using Ech0252_2_0;
 using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Ech.Models;
+using Voting.Lib.Common;
 
 namespace Voting.Ausmittlung.Ech.Mapping;
 
@@ -44,10 +45,17 @@ internal static class VoteInfoElectionInfoMapping
     internal static ElectionAssociationType ToVoteInfoEchElectionAssociation<TPoliticalBusinessUnion>(this TPoliticalBusinessUnion union, decimal? quorum)
         where TPoliticalBusinessUnion : PoliticalBusinessUnion
     {
-        return new()
+        return new ElectionAssociationType
         {
             ElectionAssociationId = union.Id.ToString(),
-            ElectionAssociationName = union.Description,
+            ElectionAssociationDescription =
+            [
+                new ElectionAssociationDescriptionInformationType
+                {
+                    Language = Languages.German,
+                    ElectionAssociationDescription = union.Description,
+                },
+            ],
             Quorum = quorum,
         };
     }

@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Extensions;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Converter;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Csv.WabstiC.Data;
@@ -64,6 +65,11 @@ public class WabstiCWMKandidatenGdeRenderService : IRendererService
     /// <returns>The candidate results.</returns>
     private IEnumerable<CandidateData> Build(MajorityElection election)
     {
+        foreach (var result in election.Results)
+        {
+            MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(result);
+        }
+
         var sortedResults = election.Results
             .OrderBy(x => x.CountingCircle.Code)
             .ThenBy(x => x.CountingCircle.Name);

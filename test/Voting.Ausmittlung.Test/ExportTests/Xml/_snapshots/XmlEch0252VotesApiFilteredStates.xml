@@ -98,6 +98,10 @@
           <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -146,6 +150,10 @@
           <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -195,6 +203,10 @@
           <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -244,6 +256,10 @@
           <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <voteInfo>
       <vote>
@@ -293,6 +309,10 @@
           <domainOfInfluenceType>SK</domainOfInfluenceType>
         </countingCircle>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <numberOfEntries>5</numberOfEntries>
   </voteBaseDelivery>

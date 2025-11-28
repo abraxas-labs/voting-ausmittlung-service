@@ -99,6 +99,7 @@ public class PdfSecondaryMajorityElectionEndResultDetailRenderService : IRendere
             .ToListAsync(ct);
 
         data.MoveECountingToConventional();
+        MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
         PdfCountingCircleResultUtil.ResetResultsIfNotDone(results, ccDetailsList);
 
         if (isPartialResult)

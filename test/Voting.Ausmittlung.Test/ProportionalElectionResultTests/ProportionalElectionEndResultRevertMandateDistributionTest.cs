@@ -142,6 +142,10 @@ public class ProportionalElectionEndResultRevertMandateDistributionTest : Propor
         result = await RunOnDb(x => x.ProportionalElectionEndResult.FirstAsync(vr => vr.ProportionalElectionId == electionGuid));
         result.MandateDistributionTriggered.Should().BeFalse();
         result.Finalized.Should().BeFalse();
+
+        await AssertHasPublishedEventProcessedMessage(
+            ProportionalElectionEndResultMandateDistributionReverted.Descriptor,
+            result.Id);
     }
 
     protected override async Task AuthorizationTestCall(GrpcChannel channel)

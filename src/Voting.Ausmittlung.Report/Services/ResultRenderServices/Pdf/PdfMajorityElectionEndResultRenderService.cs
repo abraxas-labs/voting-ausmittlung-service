@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Voting.Ausmittlung.Data;
 using Voting.Ausmittlung.Data.Models;
+using Voting.Ausmittlung.Data.Utils;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Utils;
@@ -59,6 +60,7 @@ public class PdfMajorityElectionEndResultRenderService : IRendererService
             .FirstOrDefaultAsync(x => x.MajorityElectionId == ctx.PoliticalBusinessId, ct)
             ?? throw new ValidationException($"invalid data requested: politicalBusinessId: {ctx.PoliticalBusinessId}");
         data.MoveECountingToConventional();
+        MajorityElectionResultUtils.RemoveCountToIndividualCandidatesAndAdjustTotals(data);
 
         var majorityElection = _mapper.Map<PdfMajorityElection>(data.MajorityElection);
         PdfMajorityElectionEndResultUtil.MapCandidateEndResultsToStateLists(majorityElection.EndResult!);

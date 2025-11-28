@@ -90,20 +90,27 @@
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <writeInCandidate>
-                      <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-                      <familyName>1lastName</familyName>
-                      <firstName>1firstName</firstName>
-                      <callName>1pol firstName</callName>
-                      <dateOfBirth>1960-01-13</dateOfBirth>
-                      <sex>2</sex>
-                      <incumbentYesNo>false</incumbentYesNo>
-                      <occupationalTitle>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                      <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
+                      <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
+                      <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol last name</politicalFamilyName>
+                      <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</politicalFirstName>
+                      <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
+                      <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <candidateTextInfo>
+                          <language>de</language>
+                          <candidateText>1960, occupation title de, locality, Test de</candidateText>
+                        </candidateTextInfo>
+                      </candidateText>
+                      <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
+                      <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
+                      <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <occupationalTitleInfo>
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
                       </occupationalTitle>
-                      <dwellingAddress>
+                      <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
                         <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
@@ -114,12 +121,18 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <title>title</title>
-                      <partyAffiliation>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <origin>origin</origin>
+                      </swiss>
+                      <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
+                      <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
+                      <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
+                      <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <partyAffiliationInfo>
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
-                          <partyAffiliationLong>Test de</partyAffiliationLong>
+                          <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -149,13 +162,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
-                    <candidateReference>number8</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -170,7 +176,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>718</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -230,20 +236,27 @@
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <writeInCandidate>
-                      <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-                      <familyName>1lastName</familyName>
-                      <firstName>1firstName</firstName>
-                      <callName>1pol firstName</callName>
-                      <dateOfBirth>1960-01-13</dateOfBirth>
-                      <sex>2</sex>
-                      <incumbentYesNo>false</incumbentYesNo>
-                      <occupationalTitle>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                      <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
+                      <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
+                      <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol last name</politicalFamilyName>
+                      <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</politicalFirstName>
+                      <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
+                      <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <candidateTextInfo>
+                          <language>de</language>
+                          <candidateText>1960, occupation title de, locality, Test de</candidateText>
+                        </candidateTextInfo>
+                      </candidateText>
+                      <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
+                      <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
+                      <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <occupationalTitleInfo>
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
                       </occupationalTitle>
-                      <dwellingAddress>
+                      <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
                         <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
@@ -254,12 +267,18 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <title>title</title>
-                      <partyAffiliation>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <origin>origin</origin>
+                      </swiss>
+                      <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
+                      <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
+                      <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
+                      <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <partyAffiliationInfo>
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
-                          <partyAffiliationLong>Test de</partyAffiliationLong>
+                          <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -289,13 +308,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
-                    <candidateReference>number8</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -310,7 +322,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>718</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -363,20 +375,27 @@
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <writeInCandidate>
-                      <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-                      <familyName>1lastName</familyName>
-                      <firstName>1firstName</firstName>
-                      <callName>1pol firstName</callName>
-                      <dateOfBirth>1960-01-13</dateOfBirth>
-                      <sex>2</sex>
-                      <incumbentYesNo>false</incumbentYesNo>
-                      <occupationalTitle>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                      <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
+                      <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
+                      <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol last name</politicalFamilyName>
+                      <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</politicalFirstName>
+                      <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
+                      <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <candidateTextInfo>
+                          <language>de</language>
+                          <candidateText>1960, occupation title de, locality, Test de</candidateText>
+                        </candidateTextInfo>
+                      </candidateText>
+                      <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
+                      <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
+                      <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <occupationalTitleInfo>
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
                       </occupationalTitle>
-                      <dwellingAddress>
+                      <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
                         <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
@@ -387,12 +406,18 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <title>title</title>
-                      <partyAffiliation>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <origin>origin</origin>
+                      </swiss>
+                      <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
+                      <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
+                      <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
+                      <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <partyAffiliationInfo>
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
-                          <partyAffiliationLong>Test de</partyAffiliationLong>
+                          <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -422,13 +447,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
-                    <candidateReference>number8</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -443,7 +461,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>718</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -496,20 +514,27 @@
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <writeInCandidate>
-                      <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-                      <familyName>1lastName</familyName>
-                      <firstName>1firstName</firstName>
-                      <callName>1pol firstName</callName>
-                      <dateOfBirth>1960-01-13</dateOfBirth>
-                      <sex>2</sex>
-                      <incumbentYesNo>false</incumbentYesNo>
-                      <occupationalTitle>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                      <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
+                      <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
+                      <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol last name</politicalFamilyName>
+                      <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</politicalFirstName>
+                      <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
+                      <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <candidateTextInfo>
+                          <language>de</language>
+                          <candidateText>1960, occupation title de, locality, Test de</candidateText>
+                        </candidateTextInfo>
+                      </candidateText>
+                      <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
+                      <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
+                      <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <occupationalTitleInfo>
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
                       </occupationalTitle>
-                      <dwellingAddress>
+                      <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
                         <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
@@ -520,12 +545,18 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <title>title</title>
-                      <partyAffiliation>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <origin>origin</origin>
+                      </swiss>
+                      <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
+                      <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
+                      <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
+                      <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <partyAffiliationInfo>
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
-                          <partyAffiliationLong>Test de</partyAffiliationLong>
+                          <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -555,13 +586,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
-                    <candidateReference>number8</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -576,7 +600,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>718</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -655,20 +679,27 @@
                 <candidateResult>
                   <candidateOrWriteInCandidate>
                     <writeInCandidate>
-                      <candidateIdentification>6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
-                      <familyName>1lastName</familyName>
-                      <firstName>1firstName</firstName>
-                      <callName>1pol firstName</callName>
-                      <dateOfBirth>1960-01-13</dateOfBirth>
-                      <sex>2</sex>
-                      <incumbentYesNo>false</incumbentYesNo>
-                      <occupationalTitle>
-                        <occupationalTitleInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6818fc94-2eb7-43aa-9406-778e81eee013</candidateIdentification>
+                      <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1lastName</familyName>
+                      <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1firstName</firstName>
+                      <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol last name</politicalFamilyName>
+                      <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</politicalFirstName>
+                      <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1pol firstName</callName>
+                      <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <candidateTextInfo>
+                          <language>de</language>
+                          <candidateText>1960, occupation title de, locality, Test de</candidateText>
+                        </candidateTextInfo>
+                      </candidateText>
+                      <dateOfBirth xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1960-01-13</dateOfBirth>
+                      <sex xmlns="http://www.ech.ch/xmlns/eCH-0155/5">2</sex>
+                      <occupationalTitle xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <occupationalTitleInfo>
                           <language>de</language>
                           <occupationalTitle>occupation de</occupationalTitle>
                         </occupationalTitleInfo>
                       </occupationalTitle>
-                      <dwellingAddress>
+                      <dwellingAddress xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
                         <street xmlns="http://www.ech.ch/xmlns/eCH-0010/6">street</street>
                         <houseNumber xmlns="http://www.ech.ch/xmlns/eCH-0010/6">1a</houseNumber>
                         <town xmlns="http://www.ech.ch/xmlns/eCH-0010/6">locality</town>
@@ -679,12 +710,18 @@
                           <countryNameShort>Schweiz</countryNameShort>
                         </country>
                       </dwellingAddress>
-                      <title>title</title>
-                      <partyAffiliation>
-                        <partyAffiliationInfo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                      <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <origin>origin</origin>
+                      </swiss>
+                      <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
+                      <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
+                      <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">false</incumbentYesNo>
+                      <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">number1</candidateReference>
+                      <partyAffiliation xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+                        <partyAffiliationInfo>
                           <language>de</language>
                           <partyAffiliationShort>Test de</partyAffiliationShort>
-                          <partyAffiliationLong>Test de</partyAffiliationLong>
+                          <partyAffiliationLong>Test long party description de</partyAffiliationLong>
                         </partyAffiliationInfo>
                       </partyAffiliation>
                     </writeInCandidate>
@@ -714,13 +751,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>cd354462-45fe-44b5-b0e5-c68ba98d4b97</candidateIdentification>
-                    <candidateReference>number8</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>db3f7951-aefb-4b91-9d4c-1b6fc43b28e4</candidateIdentification>
                     <candidateReference>number9</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -735,7 +765,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>61</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>46</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>718</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -809,13 +839,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>472</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -823,7 +846,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>893</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -875,13 +898,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>472</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -889,7 +905,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>893</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -934,13 +950,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>472</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -948,7 +957,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>893</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -993,13 +1002,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>472</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -1007,7 +1009,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>893</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1078,13 +1080,6 @@
                 </candidateResult>
                 <candidateResult>
                   <candidateOrWriteInCandidate>
-                    <candidateIdentification>e9d3565b-ebac-4ad2-9297-33cd38f074bb</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>472</countOfVotesTotal>
-                </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
                     <candidateIdentification>65f99dab-eb37-461f-9717-9d425d10732c</candidateIdentification>
                     <candidateReference>number1</candidateReference>
                   </candidateOrWriteInCandidate>
@@ -1092,7 +1087,7 @@
                 </candidateResult>
                 <countOfInvalidVotesTotal>41</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>56</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>421</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>893</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1171,16 +1166,9 @@
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
-                    <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
                 <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>721</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1237,16 +1225,9 @@
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
-                    <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
                 <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>721</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1296,16 +1277,9 @@
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
-                    <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
                 <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>721</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1355,16 +1329,9 @@
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
-                    <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
                 <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>721</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1440,16 +1407,9 @@
                   </candidateOrWriteInCandidate>
                   <countOfVotesTotal>372</countOfVotesTotal>
                 </candidateResult>
-                <candidateResult>
-                  <candidateOrWriteInCandidate>
-                    <candidateIdentification>6e85bf5a-6df2-48c4-84a6-bb3fa7a7401f</candidateIdentification>
-                    <candidateReference>number4</candidateReference>
-                  </candidateOrWriteInCandidate>
-                  <countOfVotesTotal>297</countOfVotesTotal>
-                </candidateResult>
                 <countOfInvalidVotesTotal>43</countOfInvalidVotesTotal>
                 <countOfBlankVotesTotal>61</countOfBlankVotesTotal>
-                <countOfIndividualVotesTotal>424</countOfIndividualVotesTotal>
+                <countOfIndividualVotesTotal>721</countOfIndividualVotesTotal>
               </majorityElection>
             </electionResult>
             <namedElement>
@@ -1811,7 +1771,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
       <electionResult>
@@ -2247,7 +2209,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
       <electionResult>
@@ -2599,7 +2563,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
       <electionResult>
@@ -2951,7 +2917,9 @@
           </resultData>
         </countingCircleResult>
         <elected>
-          <majorityElection />
+          <majorityElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
+          </majorityElection>
         </elected>
       </electionResult>
     </electionGroupResult>

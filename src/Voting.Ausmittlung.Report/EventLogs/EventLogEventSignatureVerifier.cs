@@ -8,7 +8,6 @@ using Voting.Ausmittlung.EventSignature.Models;
 using Voting.Ausmittlung.EventSignature.Utils;
 using Voting.Lib.Common;
 using Voting.Lib.Cryptography.Asymmetric;
-using Voting.Lib.Eventing.Persistence;
 using Voting.Lib.Eventing.Read;
 using AusmittlungEventSignatureBusinessMetadata = Abraxas.Voting.Ausmittlung.Events.V1.Metadata.EventSignatureBusinessMetadata;
 using BasisEventSignatureBusinessMetadata = Abraxas.Voting.Basis.Events.V1.Metadata.EventSignatureBusinessMetadata;
@@ -17,16 +16,13 @@ namespace Voting.Ausmittlung.Report.EventLogs;
 
 public class EventLogEventSignatureVerifier
 {
-    private readonly IEventSerializer _eventSerializer;
     private readonly ILogger<EventLogEventSignatureVerifier> _logger;
     private readonly IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> _asymmetricAlgorithmAdapter;
 
     public EventLogEventSignatureVerifier(
-        IEventSerializer eventSerializer,
         ILogger<EventLogEventSignatureVerifier> logger,
         IAsymmetricAlgorithmAdapter<EcdsaPublicKey, EcdsaPrivateKey> asymmetricAlgorithmAdapter)
     {
-        _eventSerializer = eventSerializer;
         _logger = logger;
         _asymmetricAlgorithmAdapter = asymmetricAlgorithmAdapter;
     }
@@ -96,7 +92,7 @@ public class EventLogEventSignatureVerifier
             eventSignatureBusinessMetadata.SignatureVersion,
             ev.Id,
             ev.StreamId,
-            _eventSerializer.Serialize(ev.Data).ToArray(),
+            ev.RawByteData.ToArray(),
             GuidParser.Parse(eventSignatureBusinessMetadata.ContestId),
             eventSignatureBusinessMetadata.HostId,
             eventSignatureBusinessMetadata.KeyId,
@@ -165,7 +161,7 @@ public class EventLogEventSignatureVerifier
             eventSignatureBusinessMetadata.SignatureVersion,
             ev.Id,
             ev.StreamId,
-            _eventSerializer.Serialize(ev.Data).ToArray(),
+            ev.RawByteData.ToArray(),
             GuidParser.Parse(eventSignatureBusinessMetadata.ContestId),
             eventSignatureBusinessMetadata.HostId,
             eventSignatureBusinessMetadata.KeyId,

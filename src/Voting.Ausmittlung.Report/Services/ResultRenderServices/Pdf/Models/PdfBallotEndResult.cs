@@ -21,5 +21,5 @@ public class PdfBallotEndResult
     public PdfBallotEndResultLabel QuestionEndResultLabel { get; set; }
 
     public bool ShouldSerializeQuestionEndResultLabel()
-        => QuestionEndResultLabel != PdfBallotEndResultLabel.Undefined;
+        => QuestionEndResultLabel != PdfBallotEndResultLabel.None;
 }

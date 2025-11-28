@@ -35,6 +35,7 @@ public class ProportionalElectionEndResultProcessor :
     private readonly ProportionalElectionCandidateEndResultBuilder _candidateEndResultBuilder;
     private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
+    private readonly EventLogger _eventLogger;
 
     public ProportionalElectionEndResultProcessor(
         ProportionalElectionEndResultBuilder endResultBuilder,
@@ -43,7 +44,8 @@ public class ProportionalElectionEndResultProcessor :
         IDbRepository<DataContext, SimplePoliticalBusiness> simplePoliticalBusinessRepo,
         IMapper mapper,
         ProportionalElectionCandidateEndResultBuilder candidateEndResultBuilder,
-        DataContext dataContext)
+        DataContext dataContext,
+        EventLogger eventLogger)
         : base(simplePoliticalBusinessRepo)
     {
         _endResultBuilder = endResultBuilder;
@@ -52,18 +54,21 @@ public class ProportionalElectionEndResultProcessor :
         _endResultLotDecisionBuilder = endResultLotDecisionBuilder;
         _candidateEndResultBuilder = candidateEndResultBuilder;
         _dataContext = dataContext;
+        _eventLogger = eventLogger;
     }
 
     public async Task Process(ProportionalElectionEndResultMandateDistributionStarted eventData)
     {
         var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
         await _endResultBuilder.DistributeNumberOfMandates(electionId);
+        _eventLogger.LogEndResultEvent(eventData, Guid.Parse(eventData.ProportionalElectionEndResultId), electionId);
     }
 
     public async Task Process(ProportionalElectionEndResultMandateDistributionReverted eventData)
     {
         var electionId = GuidParser.Parse(eventData.ProportionalElectionId);
         await _endResultBuilder.ResetDistributedNumberOfMandatesForElection(electionId);
+        _eventLogger.LogEndResultEvent(eventData, Guid.Parse(eventData.ProportionalElectionEndResultId), electionId);
     }
 
     public Task Process(ProportionalElectionEndResultFinalized eventData)

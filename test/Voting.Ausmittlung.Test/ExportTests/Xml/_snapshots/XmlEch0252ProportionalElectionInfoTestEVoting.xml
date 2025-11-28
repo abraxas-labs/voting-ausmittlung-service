@@ -65,6 +65,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">bba39596-a5f6-4729-a56f-e63871b30acc</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">pol first name</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -115,13 +117,13 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">1a.01</candidateReference>
-            <politicalFamilyName>pol last name</politicalFamilyName>
-            <politicalFirstName>pol first name</politicalFirstName>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">6fa5262f-bf27-4eb9-81d4-23bb1a49d031</listIdentification>
@@ -337,6 +339,8 @@
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">72680f65-d150-4ff4-90bd-66bb289c400a</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C1lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C1firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C1pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C1pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C1pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -387,18 +391,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.01</candidateReference>
-            <politicalFamilyName>L1.C1pol last name</politicalFamilyName>
-            <politicalFirstName>L1.C1pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">7792ecfc-51ee-47e2-bc83-1eef92b6925a</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C2lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C2firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C2pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C2pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C2pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -449,18 +455,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.02</candidateReference>
-            <politicalFamilyName>L1.C2pol last name</politicalFamilyName>
-            <politicalFirstName>L1.C2pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">170c718a-4433-4aa7-9583-2b79a5c3a550</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C3lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C3firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C3pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C3pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.C3pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -511,18 +519,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L1.03</candidateReference>
-            <politicalFamilyName>L1.C3pol last name</politicalFamilyName>
-            <politicalFirstName>L1.C3pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">e64e110d-2b36-4623-a5c0-b5a55c588c7a</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C1lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C1firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C1pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C1pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C1pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -573,18 +583,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.01</candidateReference>
-            <politicalFamilyName>L2.C1pol last name</politicalFamilyName>
-            <politicalFirstName>L2.C1pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">f2dc5df8-fe5f-47fb-9d32-aae3acf64e6f</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C2lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C2firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C2pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C2pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C2pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -635,18 +647,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.02</candidateReference>
-            <politicalFamilyName>L2.C2pol last name</politicalFamilyName>
-            <politicalFirstName>L2.C2pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">ef343dc0-b6bd-4dd2-bdd0-cc86f1dd30b9</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C3lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C3firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C3pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C3pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.C3pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -697,18 +711,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L2.03</candidateReference>
-            <politicalFamilyName>L2.C3pol last name</politicalFamilyName>
-            <politicalFirstName>L2.C3pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">759a921c-f434-4bf8-b444-2beb01c8166e</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C1lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C1firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C1pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C1pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C1pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -759,18 +775,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.01</candidateReference>
-            <politicalFamilyName>L3.C1pol last name</politicalFamilyName>
-            <politicalFirstName>L3.C1pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">4d34f9c2-0627-4659-aca5-e4596e80bd16</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C2lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C2firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C2pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C2pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C2pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -821,18 +839,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.02</candidateReference>
-            <politicalFamilyName>L3.C2pol last name</politicalFamilyName>
-            <politicalFirstName>L3.C2pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">88dc769e-f5a5-4909-955d-b432d64c6f99</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C3lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C3firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C3pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C3pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.C3pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -883,18 +903,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L3.03</candidateReference>
-            <politicalFamilyName>L3.C3pol last name</politicalFamilyName>
-            <politicalFirstName>L3.C3pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">bbaafd49-a554-4944-b8b9-d664bf1364db</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C1lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C1firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C1pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C1pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C1pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -945,18 +967,20 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.01</candidateReference>
-            <politicalFamilyName>L4.C1pol last name</politicalFamilyName>
-            <politicalFirstName>L4.C1pol firstName</politicalFirstName>
           </candidate>
           <candidate>
             <candidateIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">cba76cb4-7b66-49ee-988d-e2e05d426b5a</candidateIdentification>
             <familyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C2lastName</familyName>
             <firstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C2firstName</firstName>
+            <politicalFamilyName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C2pol last name</politicalFamilyName>
+            <politicalFirstName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C2pol firstName</politicalFirstName>
             <callName xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.C2pol firstName</callName>
             <candidateText xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
               <candidateTextInfo>
@@ -1007,13 +1031,13 @@
                 <countryNameShort>Schweiz</countryNameShort>
               </country>
             </dwellingAddress>
-            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5" />
+            <swiss xmlns="http://www.ech.ch/xmlns/eCH-0155/5">
+              <origin>origin</origin>
+            </swiss>
             <title xmlns="http://www.ech.ch/xmlns/eCH-0155/5">title</title>
             <languageOfCorrespondence xmlns="http://www.ech.ch/xmlns/eCH-0155/5">de</languageOfCorrespondence>
             <incumbentYesNo xmlns="http://www.ech.ch/xmlns/eCH-0155/5">true</incumbentYesNo>
             <candidateReference xmlns="http://www.ech.ch/xmlns/eCH-0155/5">L4.02</candidateReference>
-            <politicalFamilyName>L4.C2pol last name</politicalFamilyName>
-            <politicalFirstName>L4.C2pol firstName</politicalFirstName>
           </candidate>
           <list>
             <listIdentification xmlns="http://www.ech.ch/xmlns/eCH-0155/5">d961fdd7-7910-4722-ac3e-8ae3d906741d</listIdentification>

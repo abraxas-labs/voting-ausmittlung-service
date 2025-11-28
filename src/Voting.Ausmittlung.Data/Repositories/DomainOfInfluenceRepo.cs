@@ -82,6 +82,72 @@ public class DomainOfInfluenceRepo : DbRepository<DataContext, DomainOfInfluence
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
+    public async Task<DomainOfInfluence> GetLowestCommonAncestorOrSelf(IReadOnlyCollection<Guid> domainOfInfluenceIds)
+    {
+        if (domainOfInfluenceIds.Count == 0)
+        {
+            throw new ArgumentException("At least one domain of influence needs to be provided");
+        }
+
+        var idColumnName = GetDelimitedColumnName(x => x.Id);
+        var parentIdColumnName = GetDelimitedColumnName(x => x.ParentId);
+        var count = domainOfInfluenceIds.Count;
+
+        // Algorithm:
+        // 1. Build the ancestor paths
+        // (Ex: Get the path for "Zürich SK4" => Ancestor "Kanton ZH" has Path ["Zürich SK4", "Gemeinde Zürich", "Kanton Zürich"]).
+        // 2. Get all distinct ancestors (Note: A provided DOI could also be the ancestor)
+        // 3. Get all common ancestors
+        // (Ex: Provided DOIs "Kanton ZH" und "Zürich SK4" => "Kanton ZH" is a common ancestor)
+        // 4. Get the lowest common ancestor
+        var id = await Context.DomainOfInfluences.FromSqlRaw(
+            $@"WITH RECURSIVE
+                ancestor_path AS (
+                    SELECT
+                        t1.{idColumnName},
+                        t1.{parentIdColumnName},
+                        t1.{idColumnName} AS ""NodeId"",
+                        ARRAY[t1.{idColumnName}] AS ""Path""
+                    FROM {DelimitedSchemaAndTableName} t1
+                    WHERE t1.{idColumnName} IN ({string.Join(",", domainOfInfluenceIds.Select(x => $"'{x}'"))})
+                    UNION ALL
+                    SELECT
+                        t2.{idColumnName},
+                        t2.{parentIdColumnName},
+                        ap.""NodeId"",
+                        ap.""Path"" || t2.{idColumnName}
+                    FROM {DelimitedSchemaAndTableName} t2
+                    INNER JOIN ancestor_path ap ON t2.{idColumnName} = ap.{parentIdColumnName}
+                    WHERE ap.{parentIdColumnName} IS NOT NULL
+                ),
+                ancestors AS (
+                    SELECT DISTINCT unnest(""Path"") AS ""AncestorId""
+                    FROM ancestor_path
+                ),
+                common_ancestors AS (
+                    SELECT a.""AncestorId"", COUNT(DISTINCT ap.""NodeId"") AS ""Count""
+                    FROM ancestors a
+                    INNER JOIN ancestor_path ap ON a.""AncestorId"" = ANY(ap.""Path"")
+                    GROUP BY a.""AncestorId""     
+                    HAVING COUNT(DISTINCT ap.""NodeId"") = {{0}}
+                )
+                SELECT ca.""AncestorId"" AS {idColumnName}
+                FROM common_ancestors ca
+                WHERE
+                ca.""AncestorId"" NOT IN (
+                    SELECT t1.{parentIdColumnName}
+                    FROM {DelimitedSchemaAndTableName} t1
+                    INNER JOIN common_ancestors ca2 ON t1.{idColumnName} = ca2.""AncestorId""
+                    WHERE t1.{parentIdColumnName} IS NOT NULL)
+            ",
+            count)
+            .Select(doi => doi.Id)
+            .FirstOrDefaultAsync();
+
+        return await Set.SingleAsync(doi => doi.Id == id);
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1002:Risk of vulnerability to SQL injection.", Justification = "Referencing hardened inerpolated string parameters.")]
     public async Task<DomainOfInfluenceCanton> GetRootCanton(Guid domainOfInfluenceId)
     {
         var idColumnName = GetDelimitedColumnName(x => x.Id);

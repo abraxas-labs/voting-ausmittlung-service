@@ -32,7 +32,9 @@ public class SecondaryMajorityElectionCandidate : MajorityElectionCandidateBase
 
     public SecondaryMajorityElectionCandidateEndResult? EndResult { get; set; }
 
-    public override string Party => Translations.GetTranslated(x => x.Party, true);
+    public override string PartyShortDescription => Translations.GetTranslated(x => x.PartyShortDescription, true);
+
+    public override string PartyLongDescription => Translations.GetTranslated(x => x.PartyLongDescription, true);
 
     public override string Occupation => Translations.GetTranslated(x => x.Occupation, true);
 

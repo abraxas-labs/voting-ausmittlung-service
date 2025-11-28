@@ -159,6 +159,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.6,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         },
         {
@@ -175,6 +176,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.0,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         },
         {
@@ -191,6 +193,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.2,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         },
         {
@@ -207,6 +210,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.0,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         }
       ],
@@ -244,6 +248,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.6,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         }
       ],
@@ -253,6 +258,7 @@
       "VoterNumber": 6000.6,
       "SuperApportionmentQuotient": 1.500037497187711,
       "SuperApportionmentNumberOfMandates": 2,
+      "SuperApportionmentNumberOfMandatesExclLotDecision": 2,
       "SubApportionmentNumberOfMandates": 0,
       "Divisor": 0.0,
       "SuperApportionmentLotDecisionRequired": false
@@ -283,6 +289,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.0,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         }
       ],
@@ -292,6 +299,7 @@
       "VoterNumber": 6000.0,
       "SuperApportionmentQuotient": 1.4998875084368672,
       "SuperApportionmentNumberOfMandates": 1,
+      "SuperApportionmentNumberOfMandatesExclLotDecision": 1,
       "SubApportionmentNumberOfMandates": 0,
       "Divisor": 0.0,
       "SuperApportionmentLotDecisionRequired": false
@@ -322,6 +330,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.2,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         }
       ],
@@ -331,6 +340,7 @@
       "VoterNumber": 6000.2,
       "SuperApportionmentQuotient": 1.4999375046871484,
       "SuperApportionmentNumberOfMandates": 1,
+      "SuperApportionmentNumberOfMandatesExclLotDecision": 1,
       "SubApportionmentNumberOfMandates": 0,
       "Divisor": 0.0,
       "SuperApportionmentLotDecisionRequired": false
@@ -361,6 +371,7 @@
           "ProportionalElectionQuorumReached": true,
           "VoterNumber": 6000.0,
           "SubApportionmentNumberOfMandates": 0,
+          "SubApportionmentNumberOfMandatesExclLotDecision": 0,
           "SubApportionmentLotDecisionRequired": false
         }
       ],
@@ -370,6 +381,7 @@
       "VoterNumber": 6000.0,
       "SuperApportionmentQuotient": 1.4998875084368672,
       "SuperApportionmentNumberOfMandates": 1,
+      "SuperApportionmentNumberOfMandatesExclLotDecision": 1,
       "SubApportionmentNumberOfMandates": 0,
       "Divisor": 0.0,
       "SuperApportionmentLotDecisionRequired": false

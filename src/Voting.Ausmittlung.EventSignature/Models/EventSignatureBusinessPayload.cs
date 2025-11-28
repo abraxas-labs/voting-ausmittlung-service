@@ -50,10 +50,10 @@ public class EventSignatureBusinessPayload
         using var byteConverter = new ByteConverter();
         return byteConverter
             .Append(SignatureVersion)
-            .Append(EventId.ToString())
+            .Append(EventId.ToString().ToLower())
             .Append(StreamName)
             .Append(EventData)
-            .Append(ContestId.ToString())
+            .Append(ContestId.ToString().ToLower())
             .Append(HostId)
             .Append(KeyId)
             .Append(Timestamp)

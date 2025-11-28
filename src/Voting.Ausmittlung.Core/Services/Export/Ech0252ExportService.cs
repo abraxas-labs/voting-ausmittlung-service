@@ -73,7 +73,7 @@ public class Ech0252ExportService
         var contestsEnumerable = await LoadContests(filter, ct);
         var doisByContestId = await LoadDomainOfInfluences(filter);
 
-        await foreach (var contest in contestsEnumerable)
+        await foreach (var contest in contestsEnumerable.WithCancellation(ct))
         {
             ct.ThrowIfCancellationRequested();
 
@@ -277,6 +277,14 @@ public class Ech0252ExportService
                     .ThenInclude(x => x.Ballots)
                     .ThenInclude(x => x.BallotQuestions)
                     .ThenInclude(x => x.Results)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Ballots)
+                    .ThenInclude(x => x.BallotQuestions)
+                    .ThenInclude(x => x.EndResult)
+                .Include(x => x.Votes)
+                    .ThenInclude(x => x.Ballots)
+                    .ThenInclude(x => x.TieBreakQuestions)
+                    .ThenInclude(x => x.EndResult)
                 .Include(x => x.Votes)
                     .ThenInclude(x => x.Ballots)
                     .ThenInclude(x => x.TieBreakQuestions)

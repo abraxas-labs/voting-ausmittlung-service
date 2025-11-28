@@ -37,6 +37,7 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
     public async Task TestWithoutPublished()
     {
         await ModifyDbEntities<ProportionalElectionResult>(x => x.Id == ProportionalElectionEndResultMockedData.StGallenResultGuid, x => x.Published = false);
+        await ModifyDbEntities<ProportionalElectionEndResult>(_ => true, x => x.MandateDistributionTriggered = false);
         await TestXmlWithSnapshot("WithoutPublished");
     }
 
@@ -111,6 +112,7 @@ public class XmlEch0252ProportionalElectionResultTest : XmlExportBaseTest<Delive
             .ExecuteDeleteAsync());
 
         await ModifyDbEntities<ProportionalElectionResult>(_ => true, x => x.Published = true);
+        await ModifyDbEntities<ProportionalElectionEndResult>(_ => true, x => x.MandateDistributionTriggered = true);
     }
 
     protected override GenerateResultExportsRequest NewRequest()

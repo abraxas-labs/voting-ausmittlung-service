@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Voting.Ausmittlung.Data.Models;
 using Voting.Ausmittlung.Data.Repositories;
 using Voting.Ausmittlung.Report.Models;
 using Voting.Ausmittlung.Report.Services.ResultRenderServices.Pdf.Models;
@@ -21,17 +22,20 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
     private readonly TemplateService _templateService;
     private readonly IMapper _mapper;
     private readonly IClock _clock;
+    private readonly DomainOfInfluenceRepo _doiRepo;
 
     public PdfProportionalElectionUnionDoubleProportionalResultRenderService(
         DoubleProportionalResultRepo dpResultRepo,
         TemplateService templateService,
         IMapper mapper,
-        IClock clock)
+        IClock clock,
+        DomainOfInfluenceRepo doiRepo)
     {
         _dpResultRepo = dpResultRepo;
         _templateService = templateService;
         _mapper = mapper;
         _clock = clock;
+        _doiRepo = doiRepo;
     }
 
     public async Task<FileModel> Render(ReportRenderContext ctx, CancellationToken ct = default)
@@ -43,6 +47,8 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
         pdfProportionalElectionUnion.MandateAlgorithm = dpResult.Rows.FirstOrDefault()?.ProportionalElection.MandateAlgorithm
             ?? throw new InvalidOperationException("No mandate algorithm found for union " + dpResult.ProportionalElectionUnionId);
 
+        var domainOfInfluence = await GetDomainOfInfluence(dpResult);
+
         FormatResult(pdfProportionalElectionUnion.DoubleProportionalResult!);
         PreparePdfData(pdfProportionalElectionUnion.DoubleProportionalResult!);
 
@@ -52,8 +58,21 @@ public class PdfProportionalElectionUnionDoubleProportionalResultRenderService :
             GeneratedAt = _clock.UtcNow.ConvertUtcTimeToSwissTime(),
             ProportionalElectionUnions = new List<PdfProportionalElectionUnion> { pdfProportionalElectionUnion },
             Contest = _mapper.Map<PdfContest>(dpResult.ProportionalElectionUnion!.Contest),
+            DomainOfInfluence = _mapper.Map<PdfDomainOfInfluence>(domainOfInfluence),
         };
         return await _templateService.RenderToPdf(ctx, templateBag);
+    }
+
+    private async Task<DomainOfInfluence?> GetDomainOfInfluence(DoubleProportionalResult result)
+    {
+        var doiIds = result.Rows.Select(r => r.ProportionalElection.DomainOfInfluenceId).ToList();
+
+        if (doiIds.Count == 0)
+        {
+            return null;
+        }
+
+        return await _doiRepo.GetLowestCommonAncestorOrSelf(doiIds);
     }
 
     private void FormatResult(PdfDoubleProportionalResult dpResult)

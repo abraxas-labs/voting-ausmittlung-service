@@ -134,7 +134,7 @@ public class ProportionalElectionProcessor :
 
         await _resultBuilder.RebuildForElection(proportionalElection.Id, proportionalElection.DomainOfInfluenceId, false, proportionalElection.ContestId);
         await _endResultInitializer.RebuildForElection(proportionalElection.Id, false);
-        await _contestCountingCircleDetailsBuilder.SyncForDomainOfInfluence(proportionalElection.Id, proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
+        await _contestCountingCircleDetailsBuilder.CreateMissingVotingCardsAndAggregatedDetails(proportionalElection.Id, proportionalElection.ContestId, proportionalElection.DomainOfInfluenceId);
     }
 
     public async Task Process(ProportionalElectionUpdated eventData)

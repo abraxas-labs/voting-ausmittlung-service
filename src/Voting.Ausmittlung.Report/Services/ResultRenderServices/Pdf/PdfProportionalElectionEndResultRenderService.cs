@@ -47,7 +47,7 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
         data.MoveECountingToConventional();
 
         // with ef core 5 this could be inlined
-        PrepareAndSortData(data);
+        PrepareAndSortData(ctx, data);
 
         var proportionalElection = _mapper.Map<PdfProportionalElection>(data.ProportionalElection);
         if (proportionalElection.EndResult != null)
@@ -84,7 +84,7 @@ public class PdfProportionalElectionEndResultRenderService : IRendererService
     {
     }
 
-    protected virtual void PrepareAndSortData(ProportionalElectionEndResult data)
+    protected virtual void PrepareAndSortData(ReportRenderContext ctx, ProportionalElectionEndResult data)
     {
         data.ListEndResults = data.ListEndResults.OrderBy(lr => lr.List.Position).ToList();
     }

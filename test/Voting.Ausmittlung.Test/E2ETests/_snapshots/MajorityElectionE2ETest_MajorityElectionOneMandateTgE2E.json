@@ -210,7 +210,8 @@
         "Party": "party de",
         "Position": 1,
         "Description": "01 last1 first1",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 11,
       "EVotingVoteCount": 3,
@@ -233,7 +234,8 @@
         "Party": "party de",
         "Position": 2,
         "Description": "02 last2 first2",
-        "CheckDigit": 0
+        "CheckDigit": 0,
+        "CountToIndividual": false
       },
       "VoteCount": 6,
       "EVotingVoteCount": 2,

@@ -46,13 +46,12 @@ public class ProportionalElectionEndResultLotDecisionBuilder
             ?? throw new EntityNotFoundException(nameof(SimplePoliticalBusiness), listEndResult.ElectionEndResult.ProportionalElectionId);
 
         _candidateEndResultBuilder.UpdateCandidateEndResultRanksByLotDecisions(listEndResult, lotDecisions);
+        _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult, listEndResult.ElectionEndResult.ManualEndResultRequired);
 
         if (!listEndResult.ElectionEndResult.ManualEndResultRequired)
         {
             _candidateEndResultBuilder.RecalculateCandidateEndResultStates(listEndResult);
         }
-
-        _candidateEndResultBuilder.RecalculateLotDecisionState(listEndResult, listEndResult.ElectionEndResult.ManualEndResultRequired);
 
         await _dataContext.SaveChangesAsync();
     }

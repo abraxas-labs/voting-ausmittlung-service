@@ -20,6 +20,11 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
         yield return ValidateVotingCardsReceivedNotNull(data, context.PoliticalBusinessDomainOfInfluence.Type);
         yield return ValidateVotingCardsLessOrEqualThanCountOfVoters(data, context.PoliticalBusinessDomainOfInfluence);
 
+        if (context.CantonDefaults.CountingMachineEnabled)
+        {
+            yield return ValidateCountingMachineNotUnspecified(data);
+        }
+
         if (context.PreviousContestCountingCircleDetails == null || context.PlausibilisationConfiguration == null)
         {
             yield break;
@@ -67,6 +72,13 @@ public class ContestCountingCircleDetailsValidator : IValidator<ContestCountingC
         return new ValidationResult(
             SharedProto.Validation.ContestCountingCircleDetailsVotingCardsLessOrEqualCountOfVoters,
             GetTotalSumVotingCards(details, domainOfInfluence.Type) <= details.GetTotalCountOfVotersForDomainOfInfluence(domainOfInfluence));
+    }
+
+    private ValidationResult ValidateCountingMachineNotUnspecified(ContestCountingCircleDetails details)
+    {
+        return new ValidationResult(
+            SharedProto.Validation.ContestCountingCircleDetailsCountingMachineNotUnspecified,
+            details.CountingMachine != CountingMachine.Unspecified);
     }
 
     private ValidationResult ValidateComparisonCountOfVoters(

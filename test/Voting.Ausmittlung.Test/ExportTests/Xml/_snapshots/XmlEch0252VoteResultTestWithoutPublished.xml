@@ -1988,6 +1988,10 @@
           </namedElement>
         </resultData>
       </countingCircleInfo>
+      <voteResultData>
+        <percentOfYesVotes>0</percentOfYesVotes>
+        <percentOfNoVotes>0</percentOfNoVotes>
+      </voteResultData>
     </voteInfo>
     <numberOfEntries>11</numberOfEntries>
   </voteBaseDelivery>

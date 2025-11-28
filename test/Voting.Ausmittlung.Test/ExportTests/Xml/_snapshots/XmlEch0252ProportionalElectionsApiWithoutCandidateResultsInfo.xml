@@ -128,20 +128,6 @@
             </namedElement>
           </resultData>
         </countingCircleResult>
-        <elected>
-          <proportionalElection>
-            <list>
-              <listIdentification>1f144608-dcf7-40d5-b3fd-895560c4a91d</listIdentification>
-              <listIndentureNumber>2a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-            <list>
-              <listIdentification>3808a9cc-c523-40d8-b341-230d801be63b</listIdentification>
-              <listIndentureNumber>1a</listIndentureNumber>
-              <countOfSeatsGained>0</countOfSeatsGained>
-            </list>
-          </proportionalElection>
-        </elected>
       </electionResult>
     </electionGroupResult>
     <numberOfEntries>1</numberOfEntries>

@@ -22,7 +22,8 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.SecondaryElectionCandidates, opts => opts.MapFrom(src => src.SecondaryMajorityElections));
         CreateMap<DataModels.SecondaryMajorityElection, ProtoModels.SecondaryMajorityElectionCandidates>()
             .ForMember(dst => dst.SecondaryMajorityElectionId, opts => opts.MapFrom(src => src.Id));
-        CreateMap<DataModels.MajorityElectionCandidateBase, ProtoModels.MajorityElectionCandidate>();
+        CreateMap<DataModels.MajorityElectionCandidateBase, ProtoModels.MajorityElectionCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.PartyShortDescription));
         CreateMap<DataModels.MajorityElectionBallotGroup, ProtoModels.MajorityElectionBallotGroup>();
         CreateMap<DataModels.MajorityElectionBallotGroupEntry, ProtoModels.MajorityElectionBallotGroupEntry>()
             .ForMember(dst => dst.Election, opts =>
@@ -36,6 +37,7 @@ public class MajorityElectionProfile : Profile
                 opts.MapFrom(src => src.SecondaryMajorityElection);
             });
         CreateMap<DataModels.MajorityElectionBallotGroupEntryCandidate, ProtoModels.MajorityElectionCandidate>()
+            .ForMember(dst => dst.Party, opts => opts.MapFrom(src => src.Candidate.PartyShortDescription))
             .IncludeMembers(src => src.Candidate);
     }
 }

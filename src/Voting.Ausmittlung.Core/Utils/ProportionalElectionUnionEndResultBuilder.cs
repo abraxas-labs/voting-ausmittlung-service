@@ -16,18 +16,15 @@ namespace Voting.Ausmittlung.Core.Utils;
 
 public class ProportionalElectionUnionEndResultBuilder
 {
-    private readonly IDbRepository<DataContext, ProportionalElection> _electionRepo;
     private readonly IDbRepository<DataContext, ProportionalElectionUnionEndResult> _unionEndResultRepo;
     private readonly ProportionalElectionEndResultRepo _electionEndResultRepo;
 
     public ProportionalElectionUnionEndResultBuilder(
         IDbRepository<DataContext, ProportionalElectionUnionEndResult> unionEndResultRepo,
-        ProportionalElectionEndResultRepo electionEndResultRepo,
-        IDbRepository<DataContext, ProportionalElection> electionRepo)
+        ProportionalElectionEndResultRepo electionEndResultRepo)
     {
         _unionEndResultRepo = unionEndResultRepo;
         _electionEndResultRepo = electionEndResultRepo;
-        _electionRepo = electionRepo;
     }
 
     public async Task AdjustCountOfDoneElections(Guid electionId, int delta)

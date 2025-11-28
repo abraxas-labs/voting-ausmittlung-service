@@ -166,7 +166,8 @@
           "Party": "Test de",
           "Position": 10,
           "Description": "number10 10pol last name 10pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -189,7 +190,8 @@
           "Party": "Test de",
           "Position": 6,
           "Description": "number6 6pol last name 6pol firstName",
-          "CheckDigit": 0
+          "CheckDigit": 0,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -212,7 +214,8 @@
           "Party": "Test de",
           "Position": 5,
           "Description": "number5 5pol last name 5pol firstName",
-          "CheckDigit": 1
+          "CheckDigit": 1,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -235,7 +238,8 @@
           "Party": "Test de",
           "Position": 1,
           "Description": "number1 1pol last name 1pol firstName",
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -258,7 +262,8 @@
           "Party": "Test de",
           "Position": 7,
           "Description": "number7 7pol last name 7pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -281,7 +286,8 @@
           "Party": "Test de",
           "Position": 2,
           "Description": "number2 2pol last name 2pol firstName",
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -304,7 +310,8 @@
           "Party": "Test de",
           "Position": 3,
           "Description": "number3 3pol last name 3pol firstName",
-          "CheckDigit": 5
+          "CheckDigit": 5,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -327,7 +334,8 @@
           "Party": "Test de",
           "Position": 4,
           "Description": "number4 4pol last name 4pol firstName",
-          "CheckDigit": 3
+          "CheckDigit": 3,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -350,7 +358,8 @@
           "Party": "Test de",
           "Position": 8,
           "Description": "number8 8pol last name 8pol firstName",
-          "CheckDigit": 6
+          "CheckDigit": 6,
+          "CountToIndividual": true
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -373,7 +382,8 @@
           "Party": "Test de",
           "Position": 9,
           "Description": "number9 9pol last name 9pol firstName",
-          "CheckDigit": 4
+          "CheckDigit": 4,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -410,7 +420,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -433,7 +444,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -456,7 +468,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -479,7 +492,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -551,7 +565,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -574,7 +589,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -597,7 +613,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -620,7 +637,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 0,
             "EVotingVoteCount": 0,
@@ -985,7 +1003,8 @@
           "Party": "Test de",
           "Position": 1,
           "Description": "number1 1pol last name 1pol firstName",
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "CountToIndividual": false
         },
         "VoteCount": 200,
         "EVotingVoteCount": 0,
@@ -1008,7 +1027,8 @@
           "Party": "Test de",
           "Position": 2,
           "Description": "number2 2pol last name 2pol firstName",
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "CountToIndividual": false
         },
         "VoteCount": 150,
         "EVotingVoteCount": 0,
@@ -1031,7 +1051,8 @@
           "Party": "Test de",
           "Position": 3,
           "Description": "number3 3pol last name 3pol firstName",
-          "CheckDigit": 5
+          "CheckDigit": 5,
+          "CountToIndividual": false
         },
         "VoteCount": 100,
         "EVotingVoteCount": 0,
@@ -1054,7 +1075,8 @@
           "Party": "Test de",
           "Position": 4,
           "Description": "number4 4pol last name 4pol firstName",
-          "CheckDigit": 3
+          "CheckDigit": 3,
+          "CountToIndividual": false
         },
         "VoteCount": 100,
         "EVotingVoteCount": 0,
@@ -1077,7 +1099,8 @@
           "Party": "Test de",
           "Position": 5,
           "Description": "number5 5pol last name 5pol firstName",
-          "CheckDigit": 1
+          "CheckDigit": 1,
+          "CountToIndividual": false
         },
         "VoteCount": 80,
         "EVotingVoteCount": 0,
@@ -1100,7 +1123,8 @@
           "Party": "Test de",
           "Position": 6,
           "Description": "number6 6pol last name 6pol firstName",
-          "CheckDigit": 0
+          "CheckDigit": 0,
+          "CountToIndividual": false
         },
         "VoteCount": 70,
         "EVotingVoteCount": 0,
@@ -1123,7 +1147,8 @@
           "Party": "Test de",
           "Position": 7,
           "Description": "number7 7pol last name 7pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 60,
         "EVotingVoteCount": 0,
@@ -1146,7 +1171,8 @@
           "Party": "Test de",
           "Position": 8,
           "Description": "number8 8pol last name 8pol firstName",
-          "CheckDigit": 6
+          "CheckDigit": 6,
+          "CountToIndividual": true
         },
         "VoteCount": 60,
         "EVotingVoteCount": 0,
@@ -1169,7 +1195,8 @@
           "Party": "Test de",
           "Position": 9,
           "Description": "number9 9pol last name 9pol firstName",
-          "CheckDigit": 4
+          "CheckDigit": 4,
+          "CountToIndividual": false
         },
         "VoteCount": 50,
         "EVotingVoteCount": 0,
@@ -1192,7 +1219,8 @@
           "Party": "Test de",
           "Position": 10,
           "Description": "number10 10pol last name 10pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -1229,7 +1257,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 200,
             "EVotingVoteCount": 0,
@@ -1252,7 +1281,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 100,
             "EVotingVoteCount": 0,
@@ -1275,7 +1305,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 100,
             "EVotingVoteCount": 0,
@@ -1298,7 +1329,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 80,
             "EVotingVoteCount": 0,
@@ -1370,7 +1402,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 80,
             "EVotingVoteCount": 0,
@@ -1393,7 +1426,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 70,
             "EVotingVoteCount": 0,
@@ -1416,7 +1450,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 60,
             "EVotingVoteCount": 0,
@@ -1439,7 +1474,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 55,
             "EVotingVoteCount": 0,
@@ -1858,7 +1894,8 @@
           "Party": "Test de",
           "Position": 1,
           "Description": "number1 1pol last name 1pol firstName",
-          "CheckDigit": 9
+          "CheckDigit": 9,
+          "CountToIndividual": false
         },
         "VoteCount": 1200,
         "EVotingVoteCount": 0,
@@ -1881,7 +1918,8 @@
           "Party": "Test de",
           "Position": 2,
           "Description": "number2 2pol last name 2pol firstName",
-          "CheckDigit": 7
+          "CheckDigit": 7,
+          "CountToIndividual": false
         },
         "VoteCount": 900,
         "EVotingVoteCount": 0,
@@ -1904,7 +1942,8 @@
           "Party": "Test de",
           "Position": 3,
           "Description": "number3 3pol last name 3pol firstName",
-          "CheckDigit": 5
+          "CheckDigit": 5,
+          "CountToIndividual": false
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -1927,7 +1966,8 @@
           "Party": "Test de",
           "Position": 4,
           "Description": "number4 4pol last name 4pol firstName",
-          "CheckDigit": 3
+          "CheckDigit": 3,
+          "CountToIndividual": false
         },
         "VoteCount": 600,
         "EVotingVoteCount": 0,
@@ -1950,7 +1990,8 @@
           "Party": "Test de",
           "Position": 5,
           "Description": "number5 5pol last name 5pol firstName",
-          "CheckDigit": 1
+          "CheckDigit": 1,
+          "CountToIndividual": false
         },
         "VoteCount": 480,
         "EVotingVoteCount": 0,
@@ -1973,7 +2014,8 @@
           "Party": "Test de",
           "Position": 6,
           "Description": "number6 6pol last name 6pol firstName",
-          "CheckDigit": 0
+          "CheckDigit": 0,
+          "CountToIndividual": false
         },
         "VoteCount": 420,
         "EVotingVoteCount": 0,
@@ -1996,7 +2038,8 @@
           "Party": "Test de",
           "Position": 7,
           "Description": "number7 7pol last name 7pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
@@ -2019,7 +2062,8 @@
           "Party": "Test de",
           "Position": 8,
           "Description": "number8 8pol last name 8pol firstName",
-          "CheckDigit": 6
+          "CheckDigit": 6,
+          "CountToIndividual": true
         },
         "VoteCount": 360,
         "EVotingVoteCount": 0,
@@ -2042,7 +2086,8 @@
           "Party": "Test de",
           "Position": 9,
           "Description": "number9 9pol last name 9pol firstName",
-          "CheckDigit": 4
+          "CheckDigit": 4,
+          "CountToIndividual": false
         },
         "VoteCount": 300,
         "EVotingVoteCount": 0,
@@ -2065,7 +2110,8 @@
           "Party": "Test de",
           "Position": 10,
           "Description": "number10 10pol last name 10pol firstName",
-          "CheckDigit": 8
+          "CheckDigit": 8,
+          "CountToIndividual": false
         },
         "VoteCount": 0,
         "EVotingVoteCount": 0,
@@ -2102,7 +2148,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 1200,
             "EVotingVoteCount": 0,
@@ -2125,7 +2172,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 600,
             "EVotingVoteCount": 0,
@@ -2148,7 +2196,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 600,
             "EVotingVoteCount": 0,
@@ -2171,7 +2220,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
@@ -2243,7 +2293,8 @@
               "Party": "Test1 de",
               "Position": 1,
               "Description": "number1 1pol last name 1pol firstName",
-              "CheckDigit": 9
+              "CheckDigit": 9,
+              "CountToIndividual": false
             },
             "VoteCount": 480,
             "EVotingVoteCount": 0,
@@ -2266,7 +2317,8 @@
               "Party": "Test2 de",
               "Position": 2,
               "Description": "number2 2pol last name 2pol firstName",
-              "CheckDigit": 7
+              "CheckDigit": 7,
+              "CountToIndividual": false
             },
             "VoteCount": 420,
             "EVotingVoteCount": 0,
@@ -2289,7 +2341,8 @@
               "Party": "Test3 de",
               "Position": 3,
               "Description": "number3 3pol last name 3pol firstName",
-              "CheckDigit": 5
+              "CheckDigit": 5,
+              "CountToIndividual": false
             },
             "VoteCount": 360,
             "EVotingVoteCount": 0,
@@ -2312,7 +2365,8 @@
               "Party": "Test4 de",
               "Position": 4,
               "Description": "number4 4pol last name 4pol firstName",
-              "CheckDigit": 3
+              "CheckDigit": 3,
+              "CountToIndividual": true
             },
             "VoteCount": 330,
             "EVotingVoteCount": 0,

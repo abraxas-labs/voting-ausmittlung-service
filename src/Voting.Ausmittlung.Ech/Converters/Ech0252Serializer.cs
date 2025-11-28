@@ -39,7 +39,7 @@ public class Ech0252Serializer
             .ThenBy(x => x.Vote.Id)
             .SelectMany(x => x.Vote.Ballots
                 .OrderBy(b => b.Position)
-                .SelectMany(b => b.ToVoteInfoEchVote(ctx, enabledResultStates, sequenceBySuperiorAuthorityId)))
+                .SelectMany(b => b.ToVoteInfoEchVote(ctx, enabledResultStates, sequenceBySuperiorAuthorityId, x.Vote.Results.All(r => r.Published))))
             .ToList();
 
         return new Delivery

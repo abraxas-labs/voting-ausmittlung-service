@@ -355,17 +355,17 @@
           <LotDecision>false</LotDecision>
           <LotDecisionRequired>false</LotDecisionRequired>
           <Candidate>
-            <Description>2.01 Herz Martin</Description>
+            <Description>2.01 Ritter Luca</Description>
             <Number>01</Number>
-            <FirstName>Martin</FirstName>
-            <LastName>Herz</LastName>
-            <PoliticalFirstName>Martin</PoliticalFirstName>
-            <PoliticalLastName>Herz</PoliticalLastName>
-            <DateOfBirth>1954-07-14T00:00:00Z</DateOfBirth>
+            <FirstName>Luca</FirstName>
+            <LastName>Ritter</LastName>
+            <PoliticalFirstName>Luca</PoliticalFirstName>
+            <PoliticalLastName>Ritter</PoliticalLastName>
+            <DateOfBirth>1958-07-14T00:00:00Z</DateOfBirth>
             <Sex>Male</Sex>
-            <Title>Dr.</Title>
+            <Title />
             <OccupationTitle />
-            <Occupation>Netzwerkadministrator de</Occupation>
+            <Occupation>Strassenbauer de</Occupation>
             <Incumbent>true</Incumbent>
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>
@@ -404,17 +404,17 @@
           <LotDecision>false</LotDecision>
           <LotDecisionRequired>false</LotDecisionRequired>
           <Candidate>
-            <Description>2.02 Ritter Luca</Description>
+            <Description>2.02 Herz Martin</Description>
             <Number>02</Number>
-            <FirstName>Luca</FirstName>
-            <LastName>Ritter</LastName>
-            <PoliticalFirstName>Luca</PoliticalFirstName>
-            <PoliticalLastName>Ritter</PoliticalLastName>
-            <DateOfBirth>1958-07-14T00:00:00Z</DateOfBirth>
+            <FirstName>Martin</FirstName>
+            <LastName>Herz</LastName>
+            <PoliticalFirstName>Martin</PoliticalFirstName>
+            <PoliticalLastName>Herz</PoliticalLastName>
+            <DateOfBirth>1954-07-14T00:00:00Z</DateOfBirth>
             <Sex>Male</Sex>
-            <Title />
+            <Title>Dr.</Title>
             <OccupationTitle />
-            <Occupation>Strassenbauer de</Occupation>
+            <Occupation>Netzwerkadministrator de</Occupation>
             <Incumbent>true</Incumbent>
             <ZipCode>9100</ZipCode>
             <Locality>Uzwil</Locality>

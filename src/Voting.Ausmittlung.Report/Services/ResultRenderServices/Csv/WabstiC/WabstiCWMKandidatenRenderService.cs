@@ -60,7 +60,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         CandidateId = y.CandidateId,
                         LastName = y.Candidate.PoliticalLastName,
                         FirstName = y.Candidate.PoliticalFirstName,
-                        Party = y.Candidate.Translations.First().Party,
+                        Party = y.Candidate.Translations.First().PartyShortDescription,
                         Occupation = y.Candidate.Translations.First().Occupation,
                         OccupationTitle = y.Candidate.Translations.First().OccupationTitle,
                         Title = y.Candidate.Title,
@@ -68,6 +68,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         YearOfBirth = y.Candidate.DateOfBirth.HasValue ? y.Candidate.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                         Incumbent = y.Candidate.Incumbent,
                         Sex = y.Candidate.Sex,
+                        ReportingType = y.Candidate.ReportingType,
                         ParticipationState = CandidateParticipationState.PrimaryElection,
                         Elected = !x.EndResult.Finalized || y.State == MajorityElectionCandidateEndResultState.Pending
                             ? (bool?)null
@@ -105,7 +106,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         CandidateNumber = y.Candidate.Number,
                         LastName = y.Candidate.PoliticalLastName,
                         FirstName = y.Candidate.PoliticalFirstName,
-                        Party = y.Candidate.Translations.First().Party,
+                        Party = y.Candidate.Translations.First().PartyShortDescription,
                         Occupation = y.Candidate.Translations.First().Occupation,
                         OccupationTitle = y.Candidate.Translations.First().OccupationTitle,
                         Title = y.Candidate.Title,
@@ -113,6 +114,7 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                         YearOfBirth = y.Candidate.DateOfBirth.HasValue ? y.Candidate.DateOfBirth.Value.Year : WabstiCConstants.CandidateDefaultBirthYear,
                         Incumbent = y.Candidate.Incumbent,
                         Sex = y.Candidate.Sex,
+                        ReportingType = y.Candidate.ReportingType,
                         Elected = !x.EndResult.Finalized || y.State == MajorityElectionCandidateEndResultState.Pending
                             ? (bool?)null
                             : y.State == MajorityElectionCandidateEndResultState.Elected
@@ -134,7 +136,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
             .ToListAsync(ct);
 
         var candidateResults = result
-            .SelectMany(x => Merge(x.PrimaryResults, x.SecondaryElectionIds, x.SecondaryCandidateResults));
+            .Select(x => RemoveCountToIndividualCandidatesAndAdjustTotals(x.PrimaryResults, x.SecondaryElectionIds, x.SecondaryCandidateResults))
+            .SelectMany(x => Merge(x.FilteredPrimaryResults, x.SecondaryElectionIds, x.FilteredSecondaryResults));
 
         return _templateService.RenderToCsv(
             ctx,
@@ -236,9 +239,9 @@ public class WabstiCWMKandidatenRenderService : IRendererService
                 CandidateNumber = result1?.CandidateNumber ?? result2!.CandidateNumber,
                 LastName = result1?.LastName ?? result2!.LastName,
                 FirstName = result1?.FirstName ?? result2!.FirstName,
-                Party = result1?.Party ?? result2!.Party,
-                Occupation = result1?.Occupation ?? result2!.Occupation,
-                OccupationTitle = result1?.OccupationTitle ?? result2!.OccupationTitle,
+                Party = result1?.Party ?? result2?.Party ?? string.Empty,
+                Occupation = result1?.Occupation ?? result2?.Occupation ?? string.Empty,
+                OccupationTitle = result1?.OccupationTitle ?? result2?.OccupationTitle ?? string.Empty,
                 Title = result1?.Title ?? result2!.Title,
                 Locality = result1?.Locality ?? result2!.CandidateNumber,
                 YearOfBirth = result1?.YearOfBirth ?? result2!.YearOfBirth,
@@ -347,6 +350,59 @@ public class WabstiCWMKandidatenRenderService : IRendererService
         }
 
         return data;
+    }
+
+    private (IReadOnlyCollection<Data> FilteredPrimaryResults, IReadOnlyCollection<Guid> SecondaryElectionIds, IReadOnlyCollection<Data> FilteredSecondaryResults) RemoveCountToIndividualCandidatesAndAdjustTotals(
+        IReadOnlyCollection<Data> primaryResults,
+        IReadOnlyCollection<Guid> secondaryElectionIds,
+        IReadOnlyCollection<Data> secondaryResults)
+    {
+        var rows = primaryResults.Concat(secondaryResults).ToList();
+
+        var filteredPrimaryResults = new List<Data>();
+        var filteredSecondaryResults = new List<Data>();
+
+        var rowsGroupedByElectionId = rows
+            .GroupBy(x => x.ElectionId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+
+        var additionalIndividualVoteCountByElectionId = rowsGroupedByElectionId
+            .Select(x => x.Key)
+            .ToDictionary(x => x, _ => 0);
+
+        foreach (var (_, electionRows) in rowsGroupedByElectionId)
+        {
+            foreach (var row in electionRows)
+            {
+                if (row.ReportingType is not MajorityElectionCandidateReportingType.CountToIndividual)
+                {
+                    if (!secondaryElectionIds.Contains(row.ElectionId))
+                    {
+                        filteredPrimaryResults.Add(row);
+                    }
+                    else
+                    {
+                        filteredSecondaryResults.Add(row);
+                    }
+
+                    continue;
+                }
+
+                additionalIndividualVoteCountByElectionId[row.ElectionId] += row.VoteCount.GetValueOrDefault();
+            }
+        }
+
+        foreach (var electionId in rowsGroupedByElectionId.Keys)
+        {
+            var additionalIndividualVoteCount = additionalIndividualVoteCountByElectionId[electionId];
+
+            foreach (var row in rowsGroupedByElectionId[electionId])
+            {
+                row.IndividualVoteCount += additionalIndividualVoteCount;
+            }
+        }
+
+        return (filteredPrimaryResults, secondaryElectionIds, filteredSecondaryResults);
     }
 
     private class Data
@@ -472,5 +528,8 @@ public class WabstiCWMKandidatenRenderService : IRendererService
 
         [Ignore]
         public int? TotalCandidateVoteCountInclIndividual { get; set; }
+
+        [Ignore]
+        public MajorityElectionCandidateReportingType ReportingType { get; set; }
     }
 }

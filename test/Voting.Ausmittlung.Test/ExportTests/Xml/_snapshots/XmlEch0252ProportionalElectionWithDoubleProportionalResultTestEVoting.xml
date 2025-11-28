@@ -274,6 +274,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>595b7588-2af3-4686-b4d4-f97a64679103</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -698,6 +699,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>7f7808f7-79b5-4b3e-a434-eb7344131ce2</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -1084,6 +1086,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>c9a3491c-0774-4952-a487-e3087a1bd955</listIdentification>
               <listIndentureNumber>02</listIndentureNumber>
@@ -1346,6 +1349,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>45653f1a-ec71-48f7-8fde-f8c2772f0fa6</listIdentification>
               <listIndentureNumber>04</listIndentureNumber>
@@ -1803,6 +1807,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>true</isElectionResultComplete>
             <list>
               <listIdentification>221db64d-3749-4067-aa74-a57bd09db711</listIdentification>
               <listIndentureNumber>03</listIndentureNumber>
@@ -2242,6 +2247,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>c84f1d13-24e0-4d3b-94cd-d6322353a59f</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -2694,6 +2700,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>ba90a7ac-bb78-49a3-a99b-21be502c4894</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -2822,6 +2829,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>007b391d-166b-44c7-a4c2-76ef1c587099</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -2950,6 +2958,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>8f06f2ea-c545-4f25-b255-245a92238be0</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>
@@ -3060,6 +3069,7 @@
         </countingCircleResult>
         <elected>
           <proportionalElection>
+            <isElectionResultComplete>false</isElectionResultComplete>
             <list>
               <listIdentification>59e9278a-76bc-4c4c-912e-f8f0f59704a3</listIdentification>
               <listIndentureNumber>01</listIndentureNumber>

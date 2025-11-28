@@ -86,8 +86,16 @@ public class XmlEch0252VoteResultRenderService : IRendererService
                 .ThenInclude(x => x.Results)
             .Include(x => x.Votes)
                 .ThenInclude(x => x.Ballots)
+                .ThenInclude(x => x.BallotQuestions)
+                .ThenInclude(x => x.EndResult)
+            .Include(x => x.Votes)
+                .ThenInclude(x => x.Ballots)
                 .ThenInclude(x => x.TieBreakQuestions)
                 .ThenInclude(x => x.Results)
+            .Include(x => x.Votes)
+                .ThenInclude(x => x.Ballots)
+                .ThenInclude(x => x.TieBreakQuestions)
+                .ThenInclude(x => x.EndResult)
             .FirstOrDefaultAsync(x => x.Id == ctx.ContestId, ct)
             ?? throw new EntityNotFoundException(nameof(Contest), ctx.ContestId);
         contest.MoveECountingToConventional();

@@ -37,12 +37,14 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<MajorityElectionCandidateTranslation>(
                 ((t, x) => t.Occupation = x, src.Occupation),
                 ((t, x) => t.OccupationTitle = x, src.OccupationTitle),
-                ((t, x) => t.Party = x, src.Party))));
+                ((t, x) => t.PartyShortDescription = x, src.Party),
+                ((t, x) => t.PartyLongDescription = x, src.PartyLongDescription))));
         CreateMap<MajorityElectionCandidateAfterTestingPhaseUpdated, MajorityElectionCandidate>(MemberList.Source)
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<MajorityElectionCandidateTranslation>(
                 ((t, x) => t.Occupation = x, src.Occupation),
                 ((t, x) => t.OccupationTitle = x, src.OccupationTitle),
-                ((t, x) => t.Party = x, src.Party))))
+                ((t, x) => t.PartyShortDescription = x, src.Party),
+                ((t, x) => t.PartyLongDescription = x, src.PartyLongDescription))))
             .ForSourceMember(src => src.EventInfo, opts => opts.DoNotValidate());
 
         CreateMap<SecondaryMajorityElectionEventData, MajorityElection>()
@@ -78,7 +80,8 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                 ((t, x) => t.Occupation = x, src.Occupation),
                 ((t, x) => t.OccupationTitle = x, src.OccupationTitle),
-                ((t, x) => t.Party = x, src.Party))))
+                ((t, x) => t.PartyShortDescription = x, src.Party),
+                ((t, x) => t.PartyLongDescription = x, src.PartyLongDescription))))
             .ForMember(dst => dst.SecondaryMajorityElectionId, opts => opts.MapFrom(src => src.MajorityElectionId));
 
         CreateMap<MajorityElectionCandidateReferenceEventData, SecondaryMajorityElectionCandidate>()
@@ -95,13 +98,15 @@ public class MajorityElectionProfile : Profile
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<SecondaryMajorityElectionCandidateTranslation>(
                 ((t, x) => t.Occupation = x, src.Occupation),
                 ((t, x) => t.OccupationTitle = x, src.OccupationTitle),
-                ((t, x) => t.Party = x, src.Party))))
+                ((t, x) => t.PartyShortDescription = x, src.Party),
+                ((t, x) => t.PartyLongDescription = x, src.PartyLongDescription))))
             .ForSourceMember(src => src.EventInfo, opts => opts.DoNotValidate());
         CreateMap<SecondaryMajorityElectionCandidateAfterTestingPhaseUpdated, MajorityElectionCandidate>(MemberList.Source)
             .ForMember(dst => dst.Translations, opts => opts.MapFrom((src, _) => TranslationBuilder.CreateTranslations<MajorityElectionCandidateTranslation>(
                 ((t, x) => t.Occupation = x, src.Occupation),
                 ((t, x) => t.OccupationTitle = x, src.OccupationTitle),
-                ((t, x) => t.Party = x, src.Party))))
+                ((t, x) => t.PartyShortDescription = x, src.Party),
+                ((t, x) => t.PartyLongDescription = x, src.PartyLongDescription))))
             .ForSourceMember(src => src.EventInfo, opts => opts.DoNotValidate());
 
         CreateMap<MajorityElectionBallotGroupEntryEventData, MajorityElectionBallotGroupEntry>()

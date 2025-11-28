@@ -256,6 +256,7 @@ public class ProportionalElectionResultFlagForCorrectionTest : ProportionalElect
         {
             EventInfo = GetMockedEventInfo(),
             ProportionalElectionId = electionGuid.ToString(),
+            ProportionalElectionEndResultId = AusmittlungUuidV5.BuildPoliticalBusinessEndResult(electionGuid, false).ToString(),
         });
 
         await RunOnDb(async db =>

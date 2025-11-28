@@ -555,21 +555,6 @@ public class ContestCountingCircleDetailsUpdateTest : ContestCountingCircleDetai
     }
 
     [Fact]
-    public async Task UpdateDetailsWithCountingMachineUnspecifiedWithEnabledOnCantonSettingsShouldThrow()
-    {
-        await ModifyDbEntities<ContestCantonDefaults>(
-            x => x.ContestId == ContestMockedData.GuidGossau,
-            x => x.CountingMachineEnabled = true,
-            true);
-
-        await AssertStatus(
-            async () => await ErfassungElectionAdminClient.UpdateDetailsAsync(
-            NewValidRequest(x => x.CountingMachine = SharedProto.CountingMachine.Unspecified)),
-            StatusCode.InvalidArgument,
-            "Counting machine is required");
-    }
-
-    [Fact]
     public async Task UpdateDetailsWithCountingMachineWithDisabledOnCantonSettingsShouldThrow()
     {
         await AssertStatus(

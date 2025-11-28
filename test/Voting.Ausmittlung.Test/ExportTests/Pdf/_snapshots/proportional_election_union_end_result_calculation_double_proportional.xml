@@ -304,4 +304,16 @@
     </ProportionalElectionUnionDoubleProportionalResult>
     <MandateAlgorithm>DoubleProportionalNDois5DoiOr3TotQuorum</MandateAlgorithm>
   </ProportionalElectionUnion>
+  <DomainOfInfluence>
+    <Name>Kanton Zürich</Name>
+    <NameForProtocol>Kanton Zürich</NameForProtocol>
+    <ShortName>Kanton Zürich</ShortName>
+    <AuthorityName />
+    <Code />
+    <SortNumber>0</SortNumber>
+    <Bfs>0010</Bfs>
+    <Type>Ct</Type>
+    <Canton>Zh</Canton>
+    <ViewCountingCirclePartialResults>false</ViewCountingCirclePartialResults>
+  </DomainOfInfluence>
 </Voting>
